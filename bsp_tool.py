@@ -238,7 +238,7 @@ class bsp():
                     })
             del self.RAW_CUBEMAPS, cubemap_sample
 
-        if hasttr(self, 'RAW_DISP_INFO'):
+        if hasattr(self, 'RAW_DISP_INFO'):
             self.DISP_INFO = []
             for dispinfo in struct.iter_unpack('3f4ifiH2i88c10I', self.RAW_DISP_INFO):
                 self.DISP_INFO.append({
@@ -380,19 +380,19 @@ class bsp():
         del self.RAW_LEAF_FACES
 
         self.LEAVES = [] #Map Version < 20 is different
-        for leaf in struct.iter_unpack('i8h4Hh', self.RAW_LEAVES):
+        for leaf in struct.iter_unpack('i9h4Hh', self.RAW_LEAVES):
             self.LEAVES.append({
                     'contents': leaf[0],
                     'cluster': leaf[1],
                     'area': leaf[2] & 0xFF80 >> 7, #9 bits
-                    'flags': leaf[2] & 0x007F, #7 bits
-                    'mins': leaf[3:6],
-                    'maxs': leaf[6:9],
-                    'firstleafface': leaf[9],
-                    'numleaffaces': leaf[10],
-                    'firstleafbrush': leaf[11],
-                    'numleafbrushes': leaf[12],
-                    'leafWaterDataID': leaf[13] #-1 for not in water
+                    'flags': leaf[3] & 0x007F, #7 bits
+                    'mins': leaf[4:7],
+                    'maxs': leaf[7:10],
+                    'firstleafface': leaf[10],
+                    'numleaffaces': leaf[11],
+                    'firstleafbrush': leaf[12],
+                    'numleafbrushes': leaf[13],
+                    'leafWaterDataID': leaf[14] #-1 for not in water
                     })
         del self.RAW_LEAVES, leaf
 
@@ -812,10 +812,10 @@ class bsp():
             outfile.write(getattr(self, ID.name, 'RAW_' + ID.name))
         outfile.write(b'0001') #map revision
 
-    def export_obj(self, outfile): #TODO: group by material and write .mtl for each TEXINFO
+    def export_obj(self, outfile): #TODO: write .mtl for each vmt
         start_time = time.time()
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
-        print('exporting', self.filename, 'to {}...'.format(out_filename), end='')
+        print(f'exporting {self.filename} to {out_filename}...')
         outfile.write('# bsp_tool.py generated model\n')
         outfile.write('# source file: {}\n'.format(self.filename))
         vertices = []
@@ -825,69 +825,44 @@ class bsp():
         normals = []
         len_normals = 0
         current_mtl = ''
-        #skip unlightmapped faces (sky and triggers)
-        filtered_faces = list(filter(lambda x: x['lightofs'] != -1, self.FACES))
+        faces_by_material = {} # {material: [face, ...], ...}
+        disps_by_material = {}
+        for face in self.FACES:
+            material = self.TEXDATA_STRING_TABLE[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
+            if face['dispinfo'] == -1:
+                if material not in disps_by_material:
+                    disps_by_material[material] = []
+                disps_by_material[material].append(face)
+            else:
+                if material not in faces_by_material:
+                    faces_by_material[material] = []
+                faces_by_material[material].append(face)
 
-        #group by material
-
+        #face vertices
         faces = []
         face_indices = []
-        for face in filter(lambda x: x['dispinfo'] == -1, filtered_faces):
-            faces.append([])
-            face_indices.append(self.FACES.index(face))
-            normal = self.PLANES[face['planenum']]['normal']
-            if normal not in normals:
-                normals.append(normal)
-                normal = len_normals
-                len_normals += 1
-            else:
-                normal = normals.index(normal)
-            f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
-            f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
-            f_texvecs = f_texinfo['textureVecs']
-            for vertex in self.verts_of(face):
-                if vertex not in vertices:
-                    vertices.append(vertex)
-                    vertex = len_vertices
-                    len_vertices += 1
+        for material in faces_by_material:
+            for face in faces_by_material[material]:
+                faces.append([])
+                normal = self.PLANES[face['planenum']]['normal']
+                if normal not in normals:
+                    normals.append(normal)
+                    normal = len_normals
+                    len_normals += 1
                 else:
-                    vertex = vertices.index(vertex)
-                uv = [vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                      vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
-                uv[0] /= f_texdata['view_width']
-                uv[1] /= f_texdata['view_height']
-                if uv not in uvs:
-                    uvs.append(uv)
-                    uv = len_uvs
-                    len_uvs += 1
-                else:
-                    uv = uvs.index(uv)
-                faces[-1].append([vertex, uv, normal])
-
-        dispfaces = []
-        dispface_indices = []
-        #displacement uvs need to be totally redone
-        #uvs are not rotated, but dispvecs are
-        #raw barymetric and look at disp lightmap lump
-        for displacement in filter(lambda x: x['dispinfo'] != -1, filtered_faces):
-            dispverts = self.dispverts_of(displacement)
-            normal = self.PLANES[displacement['planenum']]['normal']
-            f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
-            f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
-            f_texvecs = f_texinfo['textureVecs']
-            for v1, v2, v3 in zip(dispverts[0::3], dispverts[1::3], dispverts[2::3]):
-                dispfaces.append([])
-                #ONE PER TRI, WISH IT WAS LESS
-                dispface_indices.append(self.FACES.index(displacement))
-                for v in v1, v2, v3:
-                    if v not in vertices:
-                        vertices.append(v)
-                        v = len_vertices
+                    normal = normals.index(normal)
+                f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
+                f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
+                f_texvecs = f_texinfo['textureVecs']
+                for vertex in self.verts_of(face):
+                    if vertex not in vertices:
+                        vertices.append(vertex)
+                        vertex = len_vertices
                         len_vertices += 1
                     else:
-                        v = vertices.index(v)
-                    uv = [vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                          vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
+                        vertex = vertices.index(vertex)
+                    uv = [vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
+                          vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
                     uv[0] /= f_texdata['view_width']
                     uv[1] /= f_texdata['view_height']
                     if uv not in uvs:
@@ -896,7 +871,43 @@ class bsp():
                         len_uvs += 1
                     else:
                         uv = uvs.index(uv)
-                    dispfaces[-1].append([v, uv])
+                    faces[-1].append([vertex, uv, normal])
+
+        # displacement faces
+        # ONCE VERTS ARE CALCULATED, SORT THE INDICES MY MATERIAL
+        dispfaces = []
+        dispface_indices = []
+        # self.dispverts of should interpolate uvs
+        # are displacement uvs rotated?
+        for material in disps_by_material:
+            for displacement in disps_by_material[material]:
+                dispverts = self.dispverts_of(displacement)
+                normal = self.PLANES[displacement['planenum']]['normal']
+                f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
+                f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
+                f_texvecs = f_texinfo['textureVecs']
+                for v1, v2, v3 in zip(dispverts[0::3], dispverts[1::3], dispverts[2::3]):
+                    dispfaces.append([])
+                    #ONE PER TRI, WISH IT WAS LESS
+                    dispface_indices.append(self.FACES.index(displacement))
+                    for v in v1, v2, v3:
+                        if v not in vertices:
+                            vertices.append(v)
+                            v = len_vertices
+                            len_vertices += 1
+                        else:
+                            v = vertices.index(v)
+                        uv = [vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
+                              vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
+                        uv[0] /= f_texdata['view_width']
+                        uv[1] /= f_texdata['view_height']
+                        if uv not in uvs:
+                            uvs.append(uv)
+                            uv = len_uvs
+                            len_uvs += 1
+                        else:
+                            uv = uvs.index(uv)
+                        dispfaces[-1].append([v, uv])
 
         for v in vertices:
             outfile.write('v {0} {1} {2}\n'.format(*v))
@@ -905,34 +916,23 @@ class bsp():
         for vn in normals:
             outfile.write('vn {0} {1} {2}\n'.format(*vn))
         outfile.write('s off\n')
-        for i, f in zip(face_indices, faces):
-            texinfo = self.TEXINFO[self.FACES[i]['texinfo']]
-            texdata = self.TEXDATA[texinfo['texdata']]
-            mtl_name = self.TEXDATA_STRING_DATA[texdata['texdata_st']]
-            if current_mtl != mtl_name:
-                current_mtl = mtl_name
-                outfile.write('usemtl {}\n'.format(current_mtl))
-            face_verts = ['f']
-            for vert in reversed(f): #proper backfacing in blender
-                vert = [x + 1 for x in vert]
-                face_verts.append('{0}/{1}/{2}'.format(*vert))
-            face_string = ' '.join(face_verts) + '\n'
-            outfile.write(face_string)
+        for material in faces_by_material:
+            for face in faces_by_material[material]:
+                face_verts = ['f']
+                for vert in reversed(face): #proper backfacing in blender
+                    vert = [x + 1 for x in vert]
+                    face_verts.append('{0}/{1}/{2}'.format(*vert))
+                face_string = ' '.join(face_verts) + '\n'
+                outfile.write(face_string)
 
         outfile.write('o displacements\n')
-        #reduce from per tri to per displacement
-        #optionaly split per face (obj groups)
-        for i, f in zip(dispface_indices, dispfaces):
-            texinfo = self.TEXINFO[self.FACES[i]['texinfo']]
-            texdata = self.TEXDATA[texinfo['texdata']]
-            mtl_name = self.TEXDATA_STRING_DATA[texdata['texdata_st']]
-            if current_mtl != mtl_name:
-                current_mtl = mtl_name
-                outfile.write('usemtl {}\n'.format(current_mtl))
-            for i in range(3):
-                f[i] = [x + 1 for x in f[i]]
-            f = reversed(f)
-            outfile.write('f {0[0]}/{0[1]} {1[0]}/{1[1]} {2[0]}/{2[1]}\n'.format(*f))
+        for material in disps_by_material:
+            outfile.write(f'usemtl {material}\n')
+            for face in disps_by_material[material]:
+                for i in range(3):
+                    face[i] = [x + 1 for x in face[i]]
+                face = reversed(face)
+                outfile.write('f {0[0]}/{0[1]} {1[0]}/{1[1]} {2[0]}/{2[1]}\n'.format(*face))
 
         total_time = time.time() - start_time
         total_minutes = total_time // 60
@@ -981,43 +981,17 @@ class bsp():
         return passes
 
 
-def fuse(infile1, infile2, outfile):
-    #REWRITE INTO ONE FILE WITH THE SECOND OFFSET AFTER THE FIRST
-    #try to minimise doubling to reduce memory use & filesize
-    """Combines two .bsp files into one
-    Recommend not fusing two maps with space that overlaps
-    (May reuslt in numerous Source Engine crashes)"""
-    infile1 = bsp(infile1)
-    infile2 = bsp
-    print(dir(infile1))
-
-    GREATEST_PLANENUM = len(infile1.PLANES)
-    GREATEST_EDGE_INDEX = len(infile1.EDGES)
-    GREATEST_SURFEDGE_INDEX = len(infile1.SURFEDGES)
-    GREATEST_NODE = len(infile1.NODES)
-
-    #vertex lump
-    #edge lump [vertex indices]
-    #surfedge lump [edge w/ direction flip]
-    #face reference (start, len)
-
-    #LIGHTING FUSION
-    #ENTITIY LUMP WORLDSPAWN:
-    #  COMBINE WORLD MINS & MAXS
-    #LIGHT_ENVIRONMENT IS DEFAULT (WILL HDR WORK?)
-    #SHADOW_CONTROL POINTS STRAIGHT DOWN (OR NONE)
-    #ENV_SUN? MULTIPLE?
-    #ASSUME VIS DOES NOT OVERLAP
-    infile1.export_bsp(open(outfile, 'wb'))
-
-
 if __name__=='__main__':
     import sys
     if len(sys.argv) > 1: # drag drop obj converter
-        bsp_file = bsp(sys.argv[1])
-        obj_file = open(sys.argv[1] + '.obj', 'w')
-        bsp_file.export_obj(obj_file)
-        obj_file.close()
+        for map_path in sys.argv[1:]:
+            bsp_file = bsp(map_path)
+            start = time.time()
+            obj_file = open(map_path + '.obj', 'w')
+            bsp_file.export_obj(obj_file)
+            obj_file.close()
+            conversion_time = time.time() - start
+            print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
     else:
         bsp_file = bsp('pl_upward')
         print(len(bsp_file.lump_map), 'LUMPS')
