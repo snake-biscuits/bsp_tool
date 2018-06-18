@@ -590,6 +590,7 @@ class bsp():
         print('Imported', self.filename, 'in {:.2f} seconds'.format(unpack_time))
 
     def verts_of(self, face):
+        """vertex format [[X, Y, Z], [U1, V1], [U2, V2], [Xn, Yn, Zn]]"""
         verts = []
         first_edge = face['firstedge']
         surfedges = self.SURFEDGES[first_edge:first_edge + face['numedges']]
@@ -602,37 +603,41 @@ class bsp():
         verts = [list(v) for v in verts]
         return verts
 
-    def verts_check(self, face, verts):
-        plane = self.PLANES[face['planenum']]
-        normal = vector.vec3(*plane['normal'])
-        distance = plane['dist']
-        on_plane = lambda v: -1 < vector.dot(normal, vector.vec3(*v)) -distance < 1
-        return list(filter(on_plane, verts))
-
-    def dispverts_of(self, face):
+    def dispverts_of(self, face): # add format argument (lightmap uv, 2 uvs, etc)
+        """vertex format [[X, Y, Z], [U, V], [Xn, Yn, Zn]]
+        normal is inherited from face"""
         verts = self.verts_of(face)
-        verts = self.verts_check(face, verts)
-        if len(verts) < 4:
-            return []
+        if len(verts) != 4:
+            return [] # corrupt bsp / t-junctions
         if face['dispinfo'] == -1:
-            return verts
+            return verts # face has no dispinfo
         dispinfo = self.DISP_INFO[face['dispinfo']]
         start = list(dispinfo['startPosition'])
-        #rounding errors throw compares
-        start = [round(x, 1) for x in start]
+        start = [round(x, 1) for x in start] # approximate match
         round_verts = []
         for vert in verts:
             round_verts.append([round(x, 1) for x in vert])
-        if start in round_verts:
+        if start in round_verts: # "rotate"
             index = round_verts.index(start)
             verts = verts[index:] + verts[:index]
+        texinfo = self.TEXINFO[face['texinfo']]
+        texdata = self.TEXDATA[texinfo['texdata']]
+        texvecs = texinfo['textureVecs']
         A = vector.vec3(*verts[0])
         B = vector.vec3(*verts[1])
         C = vector.vec3(*verts[2])
         D = vector.vec3(*verts[3])
+        ABCDuv = []
+        for corner in [A, B, C, D]:
+            uv = [vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
+                  vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
+            uv[0] /= f_texdata['view_width']
+            uv[1] /= f_texdata['view_height']
+            ABCDuv.append(uv)
         AD = D - A
         BC = C - B
         verts = []
+        uvs = []
         power = dispinfo['power']
         power2 = 2 ** power
         start = dispinfo['DispVertStart']
@@ -641,7 +646,9 @@ class bsp():
             t1 = index % (power2 + 1) / power2
             t2 = index // (power2 + 1) / power2
             baryvert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
+            # baryuv = ... # lerp ABCDuv
             dispvert = [x * dispvert['dist'] for x in dispvert['vec']]
+            # zip in uv list(zip(xyz, uv))
             verts.append([a + b for a, b in zip(baryvert, dispvert)])
         #assemble tris
         power2A = power2 + 1
@@ -818,15 +825,14 @@ class bsp():
         print(f'exporting {self.filename} to {out_filename}...')
         outfile.write('# bsp_tool.py generated model\n')
         outfile.write('# source file: {}\n'.format(self.filename))
-        vertices = []
-        len_vertices = 0
-        uvs = []
-        len_uvs = 0
-        normals = []
-        len_normals = 0
-        current_mtl = ''
+        v = []
+        len_v = 0
+        vt = []
+        len_vt = 0
+        vn = []
+        len_vn = 0
         faces_by_material = {} # {material: [face, ...], ...}
-        disps_by_material = {}
+        disps_by_material = {} # {material: [face, ...], ...}
         for face in self.FACES:
             material = self.TEXDATA_STRING_TABLE[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
             if face['dispinfo'] == -1:
@@ -839,8 +845,7 @@ class bsp():
                 faces_by_material[material].append(face)
 
         #face vertices
-        faces = []
-        face_indices = []
+        f = []
         for material in faces_by_material:
             for face in faces_by_material[material]:
                 faces.append([])
@@ -873,23 +878,16 @@ class bsp():
                         uv = uvs.index(uv)
                     faces[-1].append([vertex, uv, normal])
 
-        # displacement faces
-        # ONCE VERTS ARE CALCULATED, SORT THE INDICES MY MATERIAL
-        dispfaces = []
-        dispface_indices = []
         # self.dispverts of should interpolate uvs
         # are displacement uvs rotated?
         for material in disps_by_material:
             for displacement in disps_by_material[material]:
-                dispverts = self.dispverts_of(displacement)
                 normal = self.PLANES[displacement['planenum']]['normal']
                 f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
                 f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
                 f_texvecs = f_texinfo['textureVecs']
+                dispverts = self.dispverts_of(displacement)
                 for v1, v2, v3 in zip(dispverts[0::3], dispverts[1::3], dispverts[2::3]):
-                    dispfaces.append([])
-                    #ONE PER TRI, WISH IT WAS LESS
-                    dispface_indices.append(self.FACES.index(displacement))
                     for v in v1, v2, v3:
                         if v not in vertices:
                             vertices.append(v)
@@ -993,8 +991,10 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
     else:
-        bsp_file = bsp('pl_upward')
-        print(len(bsp_file.lump_map), 'LUMPS')
-        for lump in bsp_file.lump_map:
-            print(lump.name[5:], bsp_file.lump_map[lump])
-            pass
+        bsp_file = bsp('bsp_import_props')
+        start = time.time()
+        obj_file = open('mat_test' + '.obj', 'w')
+        bsp_file.export_obj(obj_file)
+        obj_file.close()
+        conversion_time = time.time() - start
+        print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
