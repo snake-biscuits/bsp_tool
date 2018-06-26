@@ -3,14 +3,14 @@ import ctypes
 import itertools
 import json
 import math
-import numpy as np
 from OpenGL.GL import *
-from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
 from time import time
-from vector import *
 import camera
+import sys
+sys.path.insert(0, '../')
+from vector import *
 
 def main(width, height, json_file):
     SDL_Init(SDL_INIT_VIDEO)

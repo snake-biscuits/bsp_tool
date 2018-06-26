@@ -1,46 +1,30 @@
-#www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
-#to create vbsp.py or just plain csg fixup
-#could this reduce in-game loading times?
-#best approach to t-juncs at present is recalculating csg
-#however precalculating should speedup map loading
+# www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
+# what impact would rewriting a bsp with fixed t-juncts have?
 #
-#mp/src/utils/vbsp/writebsp.cpp
-#mp/src/utils/vbsp/map.cpp
+# source_sdk_2013/mp/src/utils/vbsp/writebsp.cpp
+# source_sdk_2013/mp/src/utils/vbsp/map.cpp
 #
-#COMPRESSED LUMPS
-#struct lzma_header_t
-#{
+# TODO: read a compressed .bsp
+# struct lzma_header_t {
 #	unsigned int	id;
-#	unsigned int	actualSize;		// always little endian
-#	unsigned int	lzmaSize;		// always little endian
-#	unsigned char	properties[5];
-#};
-
-#lzmaSize should match lump's fourCC int
-#define LZMA_ID	(('A'<<24)|('M'<<16)|('Z'<<8)|('L'))
-
-#LUMP_PAKFILE is never compressed. ?#LUMP_GAME_LUMP is compressed in individual segments.
-#The compressed size of a game lump can be determined by subtracting the
-#current game lump's offset with that of the next entry. For this reason,
-#the last game lump is always an empty dummy which only contains the offset.
-#TODO:
-#  position to node / leaf
-#  get a pvs range and translate to glDrawRangeElements inputs
-#  ibsp to vbsp and vice versa
-#  class for every struct (or at least named tuple)
-#  make bsp class more generator-like (conserve RAM)
-#  skip lumps not in file
-#  replace raw lumps with direct imports
-#  non-essential lumps can be loaded later
+#	unsigned int	actualSize;	// always little endian
+#	unsigned int	lzmaSize;	// always little endian
+#	unsigned char	properties[5]);
+# lzmaSize should match lump's fourCC int
+# define LZMA_ID	(('A'<<24)|('M'<<16)|('Z'<<8)|('L')) b'LZMA'
+# see also:
+# https://github.com/ata4/bspsrc/blob/master/src/main/java/info/ata4/bsplib/io/LzmaBuffer.java
+#
+# LUMP_PAKFILE is never compressed. ?#LUMP_GAME_LUMP is compressed in individual segments.
+# The compressed size of a game lump can be determined by subtracting the
+# current game lump's offset with that of the next entry. For this reason,
+# the last game lump is always an empty dummy which only contains the offset.
 import collections
 import enum
 import itertools
 import lzma
 import struct
 import time
-
-import sys
-sys.path.insert(0, 'vmf_tool/examples/')
 import vector
 
 class DISPTRI(enum.Enum):
@@ -991,10 +975,12 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
     else:
-        bsp_file = bsp('bsp_import_props')
-        start = time.time()
-        obj_file = open('mat_test' + '.obj', 'w')
-        bsp_file.export_obj(obj_file)
-        obj_file.close()
-        conversion_time = time.time() - start
-        print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
+##        bsp_file = bsp('mapsrc/bsp_import_props')
+##        start = time.time()
+##        obj_file = open('mat_test' + '.obj', 'w')
+##        bsp_file.export_obj(obj_file)
+##        obj_file.close()
+##        conversion_time = time.time() - start
+##        print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
+        pass
+    bsp('mapsrc/koth_sky_lock_b1')

@@ -17,6 +17,9 @@
 # --exec(input())
 #skybox.vmt / .exr
 #fix scrambled disp face bug
+#TODO:
+#  position to node / leaf
+#  get a pvs range and translate to glDrawRangeElements inputs
 import bsp_tool
 import compress_sequence
 import ctypes

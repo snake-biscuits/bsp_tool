@@ -44,12 +44,13 @@ from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
 from time import time
-from vector import *
+import urllib
 import camera
-import sys
 import struct
+import sys
 sys.path.insert(0, '../')
 import bsp_tool
+from vector import *
 
 def clamp(x, minimum=0, maximum=1):
     return maximum if x > maximum else minimum if x < minimum else x
@@ -164,10 +165,21 @@ def main(width, height, bsp):
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
 
-    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
+    vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
+    fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
     bsp_shader = compileProgram(vertShader, fragShader)
     glLinkProgram(bsp_shader)
+    ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
+    fov = 90
+    near, far = 0.1, 4096 * 4
+    a = -far / (far - near)
+    b = -(far * near) / (far - near)
+    c = 1 / math.tan(math.radians(fov / 2))
+    ProjectionMatrix = [c, 0, 0,  0,
+                        0, c, 0,  0,
+                        0, 0, a, -1,
+                        0, 0, b,  1]
+    glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
 
     glEnable(GL_TEXTURE_2D)
 
@@ -207,8 +219,10 @@ def main(width, height, bsp):
     cam_spawn = vec3(0, 0, 32)
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
-    
-    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
+
+    heatmap_args = '?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team'
+    heatmap = json.load(urllib.request.urlopen('pl_upward.json' + heatmap_args))
+##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
     k_class = heatmap['fields'].index('killer_class')
     k_wep = heatmap['fields'].index('killer_weapon')
     MINI_SENTRY = -2
@@ -264,6 +278,8 @@ def main(width, height, bsp):
         dt = time() - oldtime
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
+            #update projection matrix
+            #glUniformMatrix4fv(ProjectionMatrixLoc, ProjectionMatrix)
             if SDLK_BACKQUOTE in keys:
 ##                print(VIEW_CAMERA)
                 #FACES
@@ -354,7 +370,7 @@ if __name__ == '__main__':
     import sys, os
     options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
     width, height = 1280, 720
-    bsp = '../mapsrc/pl_upward.bsp'
+    bsp = '../mapsrc/bsp_import_props.bsp'
     for option in options:
         for key, value in option:
             if key == '-w':
