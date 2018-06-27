@@ -181,7 +181,9 @@ class bsp():
     def __init__(self, file):
         if not file.endswith('.bsp'):
             file += '.bsp'
+        file.replace('\\', '/')
         self.filename = file.split('/')[-1]
+        self.filepath = '/'.join(file.split('/')[:-1])
         file = open(file, 'rb')
         self.bytesize = len(file.read())
 
@@ -571,25 +573,49 @@ class bsp():
 
         file.close()
         unpack_time = time.time() - start_time
-        print('Imported', self.filename, 'in {:.2f} seconds'.format(unpack_time))
+        print(f'Imported {self.filename} in {unpack_time:.2f} seconds')
 
     def verts_of(self, face):
-        """vertex format [[X, Y, Z], [U1, V1], [U2, V2], [Xn, Yn, Zn]]"""
-        verts = []
+        """vertex format [Position, Normal, TexCoord, LightCoord, Colour]"""
+        texinfo = self.TEXINFO[face['texinfo']]
+        texdata = self.TEXDATA[texinfo['texdata']]
+        texvecs = texinfo['textureVecs']
+        lightvecs = texinfo['lightmapVecs']
+        verts, uvs, uv2s = [], [], []
         first_edge = face['firstedge']
-        surfedges = self.SURFEDGES[first_edge:first_edge + face['numedges']]
-        for surfedge in surfedges:
+        for surfedge in self.SURFEDGES[first_edge:first_edge + face['numedges']]:
             edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1]
             verts.append(self.VERTICES[edge[0]])
             verts.append(self.VERTICES[edge[1]])
+        #verts[::2] is faster. why is this approach used?
         verts = [tuple(v) for v in verts]
         verts = collections.OrderedDict.fromkeys(verts)
         verts = [list(v) for v in verts]
+        # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
+        # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+        for vert in verts:
+            uv = [vector.dot(vert, texvecs[0][:-1]) + texvecs[0][3],
+                  vector.dot(vert, texvecs[1][:-1]) + texvecs[1][3]]
+            uv[0] /= texdata['view_width']
+            uv[1] /= texdata['view_height']
+            uvs.append(vector.vec2(*uv))
+            uv2 = [vector.dot(vert, lightvecs[0][:-1]) + lightvecs[0][3],
+                   vector.dot(vert, lightvecs[1][:-1]) + lightvecs[1][3]]
+            uv2[0] -= face['LightmapTextureMinsinLuxels'][0]
+            uv2[1] -= face['LightmapTextureMinsinLuxels'][1]
+            uv2[0] /= face['LightmapTextureSizeinLuxels'][0]
+            uv2[1] /= face['LightmapTextureSizeinLuxels'][1]
+            uv2s.append(uv2)
+        vert_count = len(verts)
+        normal = [self.PLANES[face['planenum']]['normal']] * vert_count
+        colour = [texdata['reflectivity']] * vert_count
+        verts = list(zip(verts, normal, uvs, uv2s, colour))
         return verts
 
     def dispverts_of(self, face): # add format argument (lightmap uv, 2 uvs, etc)
-        """vertex format [[X, Y, Z], [U, V], [Xn, Yn, Zn]]
-        normal is inherited from face"""
+        """vertex format [Position, Normal, TexCoord, LightCoord, Colour]
+        normal is inherited from face
+        returns rows, not tris"""
         verts = self.verts_of(face)
         if len(verts) != 4:
             return [] # corrupt bsp / t-junctions
@@ -599,83 +625,38 @@ class bsp():
         start = list(dispinfo['startPosition'])
         start = [round(x, 1) for x in start] # approximate match
         round_verts = []
-        for vert in verts:
+        for vert in [v[0] for v in verts]:
             round_verts.append([round(x, 1) for x in vert])
         if start in round_verts: # "rotate"
             index = round_verts.index(start)
             verts = verts[index:] + verts[:index]
-        texinfo = self.TEXINFO[face['texinfo']]
-        texdata = self.TEXDATA[texinfo['texdata']]
-        texvecs = texinfo['textureVecs']
-        A = vector.vec3(*verts[0])
-        B = vector.vec3(*verts[1])
-        C = vector.vec3(*verts[2])
-        D = vector.vec3(*verts[3])
-        ABCDuv = []
-        for corner in [A, B, C, D]:
-            uv = [vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                  vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
-            uv[0] /= f_texdata['view_width']
-            uv[1] /= f_texdata['view_height']
-            ABCDuv.append(uv)
+        A, B, C, D = [vector.vec3(*v[0]) for v in verts]
+        Auv, Buv, Cuv, Duv = [vector.vec2(*v[2]) for v in verts]
+        Auv2, Buv2, Cuv2, Duv2 = [vector.vec2(*v[3]) for v in verts]
         AD = D - A
+        ADuv = Duv - Auv
+        ADuv2 = Duv2 - Auv2
         BC = C - B
-        verts = []
-        uvs = []
+        BCuv = Cuv - Buv
+        BCuv2 = Cuv2 - Buv2
         power = dispinfo['power']
         power2 = 2 ** power
+        full_power = (power2 + 1) ** 2
+        normal = [verts[0][1]] * full_power
+        colour = [verts[0][4]] * full_power
         start = dispinfo['DispVertStart']
-        stop = dispinfo['DispVertStart'] + (power2 + 1) ** 2
+        stop = dispinfo['DispVertStart'] + full_power
+        verts, uvs, uv2s = [], [], []
         for index, dispvert in enumerate(self.DISP_VERTS[start:stop]):
             t1 = index % (power2 + 1) / power2
             t2 = index // (power2 + 1) / power2
             baryvert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
-            # baryuv = ... # lerp ABCDuv
             dispvert = [x * dispvert['dist'] for x in dispvert['vec']]
-            # zip in uv list(zip(xyz, uv))
             verts.append([a + b for a, b in zip(baryvert, dispvert)])
-        #assemble tris
-        power2A = power2 + 1
-        power2B = power2 + 2
-        power2C = power2 + 3
-        tri_verts = []
-        for line in range(power2):
-            line_offset = power2A * line
-            for block in range(2 ** (power - 1)):
-                offset = line_offset + 2 * block
-                if line % 2 == 0:
-                    tri_verts.append(verts[offset + 0])
-                    tri_verts.append(verts[offset + power2A])
-                    tri_verts.append(verts[offset + 1])
-
-                    tri_verts.append(verts[offset + power2A])
-                    tri_verts.append(verts[offset + power2B])
-                    tri_verts.append(verts[offset + 1])
-
-                    tri_verts.append(verts[offset + power2B])
-                    tri_verts.append(verts[offset + power2C])
-                    tri_verts.append(verts[offset + 1])
-
-                    tri_verts.append(verts[offset + power2C])
-                    tri_verts.append(verts[offset + 2])
-                    tri_verts.append(verts[offset + 1])
-                else:
-                    tri_verts.append(verts[offset + 0])
-                    tri_verts.append(verts[offset + power2A])
-                    tri_verts.append(verts[offset + power2B])
-
-                    tri_verts.append(verts[offset + 1])
-                    tri_verts.append(verts[offset + 0])
-                    tri_verts.append(verts[offset + power2B])
-
-                    tri_verts.append(verts[offset + 2])
-                    tri_verts.append(verts[offset + 1])
-                    tri_verts.append(verts[offset + power2B])
-
-                    tri_verts.append(verts[offset + power2C])
-                    tri_verts.append(verts[offset + 2])
-                    tri_verts.append(verts[offset + power2B])
-        return tri_verts
+            uvs.append(vector.lerp(Auv + (ADuv * t1), Buv + (BCuv * t1), t2))
+            uv2s.append(vector.lerp(Auv2 + (ADuv2 * t1), Buv2 + (BCuv2 * t1), t2))
+        verts = list(zip(verts, normal, uvs, uv2s, colour))
+        return verts
 
     def export_lightmap(self):
         out_filename = self.filename + '.rgbe'
@@ -864,13 +845,37 @@ class bsp():
 
         # self.dispverts of should interpolate uvs
         # are displacement uvs rotated?
+        disp = self.dispverts_of(face)
+        obj_file = open('new_dispverts.obj', 'w')
+        obj_file.write('# dispverts\n')
+        obj_file.write(f'vn {vector.vec3(*disp[0][1]):}\n')
+        for vertex, normal, uv, uv2, colour in disp:
+            obj_file.write(f'v {vector.vec3(*vertex):}\nvn {vector.vec3(*normal):}\nvt {vector.vec2(*uv):}\n')
+        power = bsp_file.DISP_INFO[face['dispinfo']]['power']
+        tris = disp_tris(range(81), power)
+        for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
+            a += 1
+            b += 1
+            c += 1
+            # offset to fit
+            # a, b, c = [(i + v_count, i + vt_count, i + vn_count) for i in (a, b, c)]
+            a, b, c = c, b, a # obj face order is flipped
+            # f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}"
+            obj_file.write(f'f {a}/{a}/{a} {b}/{b}/{b} {c}/{c}/{c}\n')
+        # disp_len = 25 if power == 2 else 100 # power == 3
+        # v_count += disp_len
+        # vt_vount += disp_len
+        # vn_count += disp_len
         for material in disps_by_material:
             for displacement in disps_by_material[material]:
-                normal = self.PLANES[displacement['planenum']]['normal']
-                f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
-                f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
-                f_texvecs = f_texinfo['textureVecs']
                 dispverts = self.dispverts_of(displacement)
+                normal = dispverts[0][2]
+                if normal not in normals:
+                    normals.append(normal)
+                    normal = len_normals
+                    len_normals += 1
+                else:
+                    normal = vertices.index(normal)
                 for v1, v2, v3 in zip(dispverts[0::3], dispverts[1::3], dispverts[2::3]):
                     for v in v1, v2, v3:
                         if v not in vertices:
@@ -879,10 +884,6 @@ class bsp():
                             len_vertices += 1
                         else:
                             v = vertices.index(v)
-                        uv = [vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                              vector.dot(vector.vec3(*vertices[v]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
-                        uv[0] /= f_texdata['view_width']
-                        uv[1] /= f_texdata['view_height']
                         if uv not in uvs:
                             uvs.append(uv)
                             uv = len_uvs
@@ -938,7 +939,7 @@ class bsp():
             #maps/mapname/texdir/texture_X_Y_Z.vmt
         if self.RAW_PAKFILE == b'PK\x05\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00XZP1 0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
             if cubemaps:
-                print("{}'s cubemaps are not compiled".format(self.filename[:-4]))
+                print(f"{self.filename[:-4]}'s cubemaps are not compiled")
             else:
                 print(self.filename[:-4], 'has no packed assets')
         else:
@@ -950,7 +951,7 @@ class bsp():
             short_name = material_name
             material_name = 'materials/' + material_name.lower() + '.vmt'
             if material_name not in vmts:
-                print('{} references {}'.format(self.filename, short_name), end=' ')
+                print('{self.filename} references {short_name} and is', end=' ')
                 if bytes(material_name, 'utf-8') in self.RAW_PAKFILE:
                     print('PACKED!')
                 else:
@@ -962,8 +963,54 @@ class bsp():
         print(referenced_mdls)
         return passes
 
+def disp_tris(verts, power):
+    """expects verts to be an array of length ((2 ** power) + 1) ** 2"""
+    power2 = 2 ** power
+    power2A = power2 + 1
+    power2B = power2 + 2
+    power2C = power2 + 3
+    tris = []
+    for line in range(power2):
+        line_offset = power2A * line
+        for block in range(2 ** (power - 1)):
+            offset = line_offset + 2 * block
+            if line % 2 == 0: # |\|/|
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + 1])
+
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + 1])
+
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 1])
+
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + 1])
+            else: #|/|\|
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + power2B])
+
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2B])
+
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + power2B])
+
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + power2B])
+    return tris
+
 
 if __name__=='__main__':
+    # USE ARGPARSE! for --help and options like -obj -stats etc.
     import sys
     if len(sys.argv) > 1: # drag drop obj converter
         for map_path in sys.argv[1:]:
@@ -975,12 +1022,35 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
     else:
-##        bsp_file = bsp('mapsrc/bsp_import_props')
+        bsp_file = bsp('mapsrc/bsp_import_props')
+        face = [*filter(lambda f: f['dispinfo'] != -1, bsp_file.FACES)][0]
+        disp = bsp_file.dispverts_of(face)
+        obj_file = open('new_dispverts.obj', 'w')
+        obj_file.write('# dispverts\n')
+        obj_file.write(f'vn {vector.vec3(*disp[0][1]):}\n')
+        for vertex, normal, uv, uv2, colour in disp:
+            obj_file.write(f'v {vector.vec3(*vertex):}\nvn {vector.vec3(*normal):}\nvt {vector.vec2(*uv):}\n')
+        power = bsp_file.DISP_INFO[face['dispinfo']]['power']
+        tris = disp_tris(range(81), power)
+        for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
+            a += 1
+            b += 1
+            c += 1
+            # offset to fit
+            # a, b, c = [(i + v_count, i + vt_count, i + vn_count) for i in (a, b, c)]
+            a, b, c = c, b, a # obj face order is flipped
+            # f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}"
+            obj_file.write(f'f {a}/{a}/{a} {b}/{b}/{b} {c}/{c}/{c}\n')
+        # disp_len = 25 if power == 2 else 100 # power == 3
+        # v_count += disp_len
+        # vt_vount += disp_len
+        # vn_count += disp_len
+        obj_file.close()
 ##        start = time.time()
 ##        obj_file = open('mat_test' + '.obj', 'w')
 ##        bsp_file.export_obj(obj_file)
 ##        obj_file.close()
 ##        conversion_time = time.time() - start
 ##        print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
-        pass
-    bsp('mapsrc/koth_sky_lock_b1')
+    # compressed .bsp
+    # bsp('mapsrc/koth_sky_lock_b1')

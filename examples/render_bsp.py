@@ -77,72 +77,46 @@ def main(width, height, bsp):
     face_count = len(filtered_faces)
     current_face_index = 0
     current_face = filtered_faces[current_face_index]
-    current_face_verts = bsp.verts_of(current_face)
+    current_face_verts = [v[0] for v in bsp.verts_of(current_face)]
 
     all_faces = []
     all_faces_map = []
     start = 0
     t1 = time()
     for face in filtered_faces:
-        f_normal = bsp.PLANES[face['planenum']]['normal']
-        f_texinfo = bsp.TEXINFO[min(face['texinfo'], len(bsp.TEXINFO)-1)]
-        f_texdata = bsp.TEXDATA[min(f_texinfo['texdata'], len(bsp.TEXDATA)-1)]
-        f_texvecs = f_texinfo['textureVecs']
-        f_lightvecs = f_texinfo['lightmapVecs']
-##        if face['dispinfo'] == -1:
-        f_verts = bsp.verts_of(face)
-        out = f_verts[:3]
-        f_verts = f_verts[3:]
-        for vert in f_verts:
-            out += [out[0], out[-1], vert]
-        f_verts = out
-        f_verts_len = len(f_verts)
-        all_faces_map.append((start, f_verts_len))
-        start += f_verts_len
-##        else:
-##            f_verts = bsp.dispverts_of(face)
-##            f_verts_len = len(f_verts)
-##            all_faces_map.append((start, f_verts_len))
-##            start += f_verts_len
-        for vert in f_verts:
-            #github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
-            #SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
-            uv = [dot(vec3(*vert), vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                  dot(vec3(*vert), vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
-            uv[0] /= f_texdata['view_width']
-            uv[1] /= f_texdata['view_height']
-            uv2 = [dot(vec3(*vert), vec3(*f_lightvecs[0][:-1])) + f_lightvecs[0][3],
-                   dot(vec3(*vert), vec3(*f_lightvecs[1][:-1])) + f_lightvecs[1][3]]
-            uv2[0] -= face['LightmapTextureMinsinLuxels'][0]
-            uv2[1] -= face['LightmapTextureMinsinLuxels'][1]
-            uv2[0] /= face['LightmapTextureSizeinLuxels'][0]
-            uv2[1] /= face['LightmapTextureSizeinLuxels'][1]
-            #displacement lightmaps must be rotated 90 * .index(firstvert) degrees
-            all_faces.append(vert)
-            all_faces.append(f_normal)
-            all_faces.append(uv)
-            all_faces.append(uv2)
-            all_faces.append(f_texdata['reflectivity'])
-    all_faces = list(itertools.chain(*all_faces))
+        if face['dispinfo'] == -1:
+            f_verts = bsp.verts_of(face)
+            out = f_verts[:3]
+            f_verts = f_verts[3:]
+            for vert in f_verts:
+                out += [out[0], out[-1], vert]
+            f_verts = out
+            f_verts_len = len(f_verts)
+            all_faces_map.append((start, f_verts_len))
+            start += f_verts_len
+        else:
+            f_verts = bsp.dispverts_of(face)
+        all_faces.append(vert)
+    all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
     
-    RGB_LIGHTING = []
-    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
-        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
-        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
-        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
-    RGB_LIGHTING = b''.join(RGB_LIGHTING)
-
-    lightmap = []
-    for face in filtered_faces:
-        lmap_start = face['lightofs']
-        if lmap_start != -1:
-            bounds = face['LightmapTextureSizeinLuxels']
-            bounds = [x + 1 for x in bounds]
-            num_styles = sum([1 if x is not -1 else 0 for x in face['styles']])
-            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
-            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
-            lightmap.append([lmap_bytes, bounds])
+##    RGB_LIGHTING = []
+##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
+##        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
+##        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
+##        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
+##    RGB_LIGHTING = b''.join(RGB_LIGHTING)
+##
+##    lightmap = [] # try pixel buffers
+##    for face in filtered_faces:
+##        lmap_start = face['lightofs']
+##        if lmap_start != -1:
+##            bounds = face['LightmapTextureSizeinLuxels']
+##            bounds = [x + 1 for x in bounds]
+##            num_styles = sum([1 if x is not -1 else 0 for x in face['styles']])
+##            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
+##            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
+##            lightmap.append([lmap_bytes, bounds])
     
     t2 = time()
     print(bsp.filename.upper(), end=' ')
@@ -163,10 +137,11 @@ def main(width, height, bsp):
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(32))
     glEnableVertexAttribArray(4) #reflectivityColour
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
+    # displacement alpha (seperate format and shader would be cheaper)
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
 
-    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
+    vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
+    fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
     bsp_shader = compileProgram(vertShader, fragShader)
     glLinkProgram(bsp_shader)
 ##    ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
@@ -220,9 +195,9 @@ def main(width, height, bsp):
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
 
-    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team'
-    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail))
-##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
+##    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team'
+##    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail))
+    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
     k_class = heatmap['fields'].index('killer_class')
     k_wep = heatmap['fields'].index('killer_weapon')
     MINI_SENTRY = -2
@@ -300,7 +275,7 @@ def main(width, height, bsp):
             if SDLK_LEFT in keys or SDL_BUTTON_LEFT in keys:
                 current_face_index -= 1
                 current_face = filtered_faces[current_face_index]
-                current_face_verts = bsp.verts_of(current_face)
+                current_face_verts = [v[0] for v in bsp.verts_of(current_face)]
                 while SDLK_LEFT in keys:
                     keys.remove(SDLK_LEFT)
                 while SDL_BUTTON_LEFT in keys:
@@ -308,7 +283,7 @@ def main(width, height, bsp):
             if SDLK_RIGHT in keys or SDL_BUTTON_RIGHT in keys:
                 current_face_index += 1
                 current_face = filtered_faces[current_face_index]
-                current_face_verts = bsp.verts_of(current_face)
+                current_face_verts = [v[0] for v in bsp.verts_of(current_face)]
                 while SDLK_RIGHT in keys:
                     keys.remove(SDLK_RIGHT)
                 while SDL_BUTTON_RIGHT in keys:
@@ -326,7 +301,7 @@ def main(width, height, bsp):
 ##            texture = lightmap[i]
 ##            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
 ##            glDrawArrays(GL_TRIANGLES, face[0], face[1])
-        glDrawArrays(GL_TRIANGLES, 0, all_faces_size)
+        glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
 
 ##        glUseProgram(0)
 ##        glBegin(GL_LINES)
