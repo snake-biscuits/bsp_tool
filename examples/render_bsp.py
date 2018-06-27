@@ -32,6 +32,7 @@
 # --faster vertex assembly
 # --assemble vertex bytes (uvs need this) THEN sort into index buffer
 #do t-juncts affect origfaces?
+#TODO: change commented out code to launch options
 import colorsys
 import compress_sequence
 import ctypes
@@ -96,7 +97,8 @@ def main(width, height, bsp):
             start += f_verts_len
         else:
             f_verts = bsp.dispverts_of(face)
-        all_faces.append(vert)
+            f_verts = bsp_tool.disp_tris(f_verts, bsp.DISP_INFO[face['dispinfo']]['power'])
+        all_faces += f_verts
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
     
@@ -140,20 +142,12 @@ def main(width, height, bsp):
     # displacement alpha (seperate format and shader would be cheaper)
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
 
-    vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
-    fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
+    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
+    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
     bsp_shader = compileProgram(vertShader, fragShader)
     glLinkProgram(bsp_shader)
 ##    ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
-##    fov = 90
-##    near, far = 0.1, 4096 * 4
-##    a = -far / (far - near)
-##    b = -(far * near) / (far - near)
-##    c = 1 / math.tan(math.radians(fov / 2))
-##    ProjectionMatrix = [c, 0, 0,  0,
-##                        0, c, 0,  0,
-##                        0, 0, a, -1,
-##                        0, 0, b,  1]
+    # https://www.khronos.org/opengl/wiki/GluPerspective_code
 ##    glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
 
     glEnable(GL_TEXTURE_2D)
@@ -195,9 +189,10 @@ def main(width, height, bsp):
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
 
-##    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team'
-##    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail))
-    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
+    # http://heatmaps.tf/api.html
+    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team&limit=1024'
+    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
+##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
     k_class = heatmap['fields'].index('killer_class')
     k_wep = heatmap['fields'].index('killer_weapon')
     MINI_SENTRY = -2
@@ -269,9 +264,9 @@ def main(width, height, bsp):
             if SDLK_r in keys:
                 VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
             if SDLK_LSHIFT in keys:
-                VIEW_CAMERA.speed += VIEW_CAMERA.speed * .125
+                VIEW_CAMERA.speed += 5
             if SDLK_LCTRL in keys:
-                VIEW_CAMERA.speed -= VIEW_CAMERA.speed * .125
+                VIEW_CAMERA.speed -= 5
             if SDLK_LEFT in keys or SDL_BUTTON_LEFT in keys:
                 current_face_index -= 1
                 current_face = filtered_faces[current_face_index]
@@ -343,6 +338,7 @@ if __name__ == '__main__':
     import getopt
     import sys, os
     options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
+    # try argpase
     width, height = 1280, 720
     bsp = '../mapsrc/pl_upward.bsp'
     for option in options:
