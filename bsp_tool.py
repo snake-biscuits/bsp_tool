@@ -11,7 +11,7 @@
 #	unsigned int	lzmaSize;	// always little endian
 #	unsigned char	properties[5]);
 # lzmaSize should match lump's fourCC int
-# define LZMA_ID	(('A'<<24)|('M'<<16)|('Z'<<8)|('L')) b'LZMA'
+# define LZMA_ID  (('A'<<24)|('M'<<16)|('Z'<<8)|('L')) b'LZMA'
 # see also:
 # https://github.com/ata4/bspsrc/blob/master/src/main/java/info/ata4/bsplib/io/LzmaBuffer.java
 #
@@ -787,19 +787,19 @@ class bsp():
     def export_obj(self, outfile): #TODO: write .mtl for each vmt
         start_time = time.time()
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
-        print(f'exporting {self.filename} to {out_filename}...')
+        print(f'Exporting {self.filename} to {out_filename}... ', end='')
         outfile.write('# bsp_tool.py generated model\n')
         outfile.write('# source file: {}\n'.format(self.filename))
-        v = []
-        len_v = 0
-        vt = []
-        len_vt = 0
-        vn = []
-        len_vn = 0
+        vs = []
+        v_count = 1
+        vts = []
+        vt_count = 1
+        vns = []
+        vn_count = 1
         faces_by_material = {} # {material: [face, ...], ...}
         disps_by_material = {} # {material: [face, ...], ...}
         for face in self.FACES:
-            material = self.TEXDATA_STRING_TABLE[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
+            material = self.TEXDATA_STRING_DATA[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
             if face['dispinfo'] == -1:
                 if material not in disps_by_material:
                     disps_by_material[material] = []
@@ -809,119 +809,74 @@ class bsp():
                     faces_by_material[material] = []
                 faces_by_material[material].append(face)
 
-        #face vertices
-        f = []
         for material in faces_by_material:
             for face in faces_by_material[material]:
-                faces.append([])
-                normal = self.PLANES[face['planenum']]['normal']
-                if normal not in normals:
-                    normals.append(normal)
-                    normal = len_normals
-                    len_normals += 1
+                face_vs = self.verts_of(face)
+                vn = face_vs[0][1]
+                if vn not in vns:
+                    vns.append(vn)
+                    outfile.write(f'vn {vector.vec3(*vn):}\n')
+                    vn = vn_count
+                    vn_count += 1
                 else:
-                    normal = normals.index(normal)
-                f_texinfo = self.TEXINFO[min(face['texinfo'], len(self.TEXINFO)-1)]
-                f_texdata = self.TEXDATA[min(f_texinfo['texdata'], len(self.TEXDATA)-1)]
-                f_texvecs = f_texinfo['textureVecs']
-                for vertex in self.verts_of(face):
-                    if vertex not in vertices:
-                        vertices.append(vertex)
-                        vertex = len_vertices
-                        len_vertices += 1
+                    vn = vns.index(vn)
+                f = []
+                for vertex in face_vs:
+                    v = vertex[0]
+                    if v not in vs:
+                        vs.append(v)
+                        outfile.write(f'v {vector.vec3(*v):}\n')
+                        v = v_count
+                        v_count += 1
                     else:
-                        vertex = vertices.index(vertex)
-                    uv = [vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[0][:-1])) + f_texvecs[0][3],
-                          vector.dot(vector.vec3(*vertices[vertex]), vector.vec3(*f_texvecs[1][:-1])) + f_texvecs[1][3]]
-                    uv[0] /= f_texdata['view_width']
-                    uv[1] /= f_texdata['view_height']
-                    if uv not in uvs:
-                        uvs.append(uv)
-                        uv = len_uvs
-                        len_uvs += 1
+                        v = vs.index(v)
+                    vt = vertex[2]
+                    if vt not in vts:
+                        vts.append(vt)
+                        outfile.write(f'vt {vector.vec2(*vt):}\n')
+                        vt = vt_count
+                        vt_count += 1
                     else:
-                        uv = uvs.index(uv)
-                    faces[-1].append([vertex, uv, normal])
+                        vt = vts.index(vt)
+                    f.append((v, vt, vn))
+                outfile.write('f ' + ' '.join([f'{v}/{vt}/{vn}' for v, vt, vn in reversed(f)]) + '\n')
 
-        # self.dispverts of should interpolate uvs
-        # are displacement uvs rotated?
-        disp = self.dispverts_of(face)
-        obj_file = open('new_dispverts.obj', 'w')
-        obj_file.write('# dispverts\n')
-        obj_file.write(f'vn {vector.vec3(*disp[0][1]):}\n')
-        for vertex, normal, uv, uv2, colour in disp:
-            obj_file.write(f'v {vector.vec3(*vertex):}\nvn {vector.vec3(*normal):}\nvt {vector.vec2(*uv):}\n')
-        power = bsp_file.DISP_INFO[face['dispinfo']]['power']
-        tris = disp_tris(range(81), power)
-        for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
-            a += 1
-            b += 1
-            c += 1
-            # offset to fit
-            # a, b, c = [(i + v_count, i + vt_count, i + vn_count) for i in (a, b, c)]
-            a, b, c = c, b, a # obj face order is flipped
-            # f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}"
-            obj_file.write(f'f {a}/{a}/{a} {b}/{b}/{b} {c}/{c}/{c}\n')
-        # disp_len = 25 if power == 2 else 100 # power == 3
-        # v_count += disp_len
-        # vt_vount += disp_len
-        # vn_count += disp_len
-        for material in disps_by_material:
-            for displacement in disps_by_material[material]:
-                dispverts = self.dispverts_of(displacement)
-                normal = dispverts[0][2]
-                if normal not in normals:
-                    normals.append(normal)
-                    normal = len_normals
-                    len_normals += 1
-                else:
-                    normal = vertices.index(normal)
-                for v1, v2, v3 in zip(dispverts[0::3], dispverts[1::3], dispverts[2::3]):
-                    for v in v1, v2, v3:
-                        if v not in vertices:
-                            vertices.append(v)
-                            v = len_vertices
-                            len_vertices += 1
-                        else:
-                            v = vertices.index(v)
-                        if uv not in uvs:
-                            uvs.append(uv)
-                            uv = len_uvs
-                            len_uvs += 1
-                        else:
-                            uv = uvs.index(uv)
-                        dispfaces[-1].append([v, uv])
-
-        for v in vertices:
-            outfile.write('v {0} {1} {2}\n'.format(*v))
-        for vt in uvs:
-            outfile.write('vt {0} {1}\n'.format(*vt))
-        for vn in normals:
-            outfile.write('vn {0} {1} {2}\n'.format(*vn))
-        outfile.write('s off\n')
-        for material in faces_by_material:
-            for face in faces_by_material[material]:
-                face_verts = ['f']
-                for vert in reversed(face): #proper backfacing in blender
-                    vert = [x + 1 for x in vert]
-                    face_verts.append('{0}/{1}/{2}'.format(*vert))
-                face_string = ' '.join(face_verts) + '\n'
-                outfile.write(face_string)
-
-        outfile.write('o displacements\n')
+        disp_no = 0
+        outfile.write('g displacements\n')
         for material in disps_by_material:
             outfile.write(f'usemtl {material}\n')
-            for face in disps_by_material[material]:
-                for i in range(3):
-                    face[i] = [x + 1 for x in face[i]]
-                face = reversed(face)
-                outfile.write('f {0[0]}/{0[1]} {1[0]}/{1[1]} {2[0]}/{2[1]}\n'.format(*face))
+            for displacement in disps_by_material[material]:
+                outfile.write(f'o displacement_{disp_no}\n')
+                disp_no +=1
+                disp_vs = self.dispverts_of(face)
+                normal = disp_vs[0][1]
+                if normal not in vns:
+                    vns.append(normal)
+                    outfile.write(f'vn {vector.vec3(*normal):}\n')
+                    normal = vn_count
+                    vn_count += 1
+                else:
+                    normal = vns.index(normal)
+                f = []
+                for v, vn, vt, vt2, colour in disp_vs:
+                    obj_file.write(f'v {vector.vec3(*v):}\nvt {vector.vec2(*vt):}\n')
+                power = bsp_file.DISP_INFO[face['dispinfo']]['power']
+                disp_size = 25 if power == 2 else 81
+                tris = disp_tris(range(disp_size), power) #power 2 & 3 only
+                for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
+                    a = (a + v_count, a + vt_count, normal + 1)
+                    b = (b + v_count, b + vt_count, normal + 1)
+                    c = (c + v_count, c + vt_count, normal + 1)
+                    a, b, c = [map(str, i) for i in (a, b, c)]
+                    obj_file.write(f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n")
+                v_count += disp_size - 1
+                vt_count += disp_size - 1
 
         total_time = time.time() - start_time
-        total_minutes = total_time // 60
-        total_seconds = total_time - total_minutes * 60
-        outfile.write('# file generated in {0} minutes {1:0.2f} seconds\n'.format(total_minutes, total_seconds))
-        print(' Done!')
+        minutes = total_time // 60
+        seconds = total_time - minutes * 60
+        outfile.write(f'# file generated in {minutes:.0f} minutes {seconds:2.3f} seconds')
+        print('Done!')
 
     def tf2m_compliance_test(self, mdls, vmts):
         passes = True
@@ -1020,37 +975,14 @@ if __name__=='__main__':
             bsp_file.export_obj(obj_file)
             obj_file.close()
             conversion_time = time.time() - start
-            print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
+            print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
         bsp_file = bsp('mapsrc/bsp_import_props')
-        face = [*filter(lambda f: f['dispinfo'] != -1, bsp_file.FACES)][0]
-        disp = bsp_file.dispverts_of(face)
-        obj_file = open('new_dispverts.obj', 'w')
-        obj_file.write('# dispverts\n')
-        obj_file.write(f'vn {vector.vec3(*disp[0][1]):}\n')
-        for vertex, normal, uv, uv2, colour in disp:
-            obj_file.write(f'v {vector.vec3(*vertex):}\nvn {vector.vec3(*normal):}\nvt {vector.vec2(*uv):}\n')
-        power = bsp_file.DISP_INFO[face['dispinfo']]['power']
-        tris = disp_tris(range(81), power)
-        for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
-            a += 1
-            b += 1
-            c += 1
-            # offset to fit
-            # a, b, c = [(i + v_count, i + vt_count, i + vn_count) for i in (a, b, c)]
-            a, b, c = c, b, a # obj face order is flipped
-            # f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}"
-            obj_file.write(f'f {a}/{a}/{a} {b}/{b}/{b} {c}/{c}/{c}\n')
-        # disp_len = 25 if power == 2 else 100 # power == 3
-        # v_count += disp_len
-        # vt_vount += disp_len
-        # vn_count += disp_len
+        start = time.time()
+        obj_file = open('mat_test' + '.obj', 'w')
+        bsp_file.export_obj(obj_file)
         obj_file.close()
-##        start = time.time()
-##        obj_file = open('mat_test' + '.obj', 'w')
-##        bsp_file.export_obj(obj_file)
-##        obj_file.close()
-##        conversion_time = time.time() - start
-##        print(f'converting {bsp_file.filename} took {conversion_time // 60:.2f}:{conversion_time % 60:.2f}')
+        conversion_time = time.time() - start
+        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     # compressed .bsp
     # bsp('mapsrc/koth_sky_lock_b1')
