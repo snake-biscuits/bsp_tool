@@ -789,7 +789,7 @@ class bsp():
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
         print(f'Exporting {self.filename} to {out_filename}... ', end='')
         outfile.write('# bsp_tool.py generated model\n')
-        outfile.write('# source file: {}\n'.format(self.filename))
+        outfile.write(f'# source file: {self.filename}\n')
         vs = []
         v_count = 1
         vts = []
@@ -810,6 +810,7 @@ class bsp():
                 faces_by_material[material].append(face)
 
         for material in faces_by_material:
+            outfile.write(f'usemtl {material}\n')
             for face in faces_by_material[material]:
                 face_vs = self.verts_of(face)
                 vn = face_vs[0][1]
@@ -899,7 +900,7 @@ class bsp():
                 print(self.filename[:-4], 'has no packed assets')
         else:
             if b'.vhv'in self.RAW_PAKFILE:
-                print("{}'s cubemaps are compiled and packed!".format(self.filename[:-4]))
+                print(f"{self.filename[:-4]}'s cubemaps are compiled and packed!")
         #if hasattr(self, 'LIGHTING_HDR'):
         #    check for HDR lightmaps
         for material_name in self.TEXDATA_STRING_DATA:
