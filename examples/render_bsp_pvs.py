@@ -20,7 +20,7 @@
 #TODO:
 #  position to node / leaf
 #  get a pvs range and translate to glDrawRangeElements inputs
-import bsp_tool
+import camera
 import compress_sequence
 import ctypes
 import itertools
@@ -31,39 +31,34 @@ from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
 from time import time
-from vector import *
-import camera
 import sys
+sys.path.insert(0, '../')
+import bsp_tool
+import vector
+
 
 class aabb:
     def __init__(self, mins, maxs):
-        self.mins = vec3(mins)
-        self.maxs = vec3(maxs)
-        self.center = (self.mins + self.maxs) / 2
+        self.mins = vector.vec3(mins)
+        self.maxs = vector.vec3(maxs)
 
     def __repr__(self):
-        return str(self.mins) + str(self.maxs)
-
+        return f'({self.mins:.3f}), ({self.maxs:.3f})'
+    
     def draw(self):
-        glVertex(self.mins.x, self.maxs.y, self.maxs.z)
-        glVertex(*self.maxs)
-        glVertex(self.maxs.x, self.mins.y, self.maxs.z)
-        glVertex(self.mins.x, self.mins.y, self.maxs.z)
+        """use glBegin(GL_LINES)"""
+        for axis in range(3):
+            min_axis = [*self.mins]
+            max_axis = min_axis
+            max_axis[axis] = self.maxs[axis]
+            glVertex(*min_axis)
+            glVertex(*max_axis)
 
-        glVertex(self.mins.x, self.maxs.y, self.maxs.z)
-        glVertex(*self.maxs)
-        glVertex(self.maxs.x, self.maxs.y, self.mins.z)
-        glVertex(self.mins.x, self.maxs.y, self.mins.z)
-
-        glVertex(self.mins.x, self.mins.y, self.maxs.z)
-        glVertex(self.maxs.x, self.mins.y, self.maxs.z)
-        glVertex(self.maxs.x, self.mins.y, self.mins.z)
-        glVertex(*self.mins)
-
-        glVertex(self.mins.x, self.maxs.y, self.mins.z)
-        glVertex(self.maxs.x, self.maxs.y, self.mins.z)
-        glVertex(self.maxs.x, self.mins.y, self.mins.z)
-        glVertex(*self.mins)
+    def contains(self, point):
+        for i, a in point:
+            if not self.min[i] < a < self.max[i]:
+                return False
+        return True
 
 def node_aabbs(node, bsp):
     aabbs = []
@@ -111,10 +106,6 @@ def main(width, height, bsp):
     all_faces_map = []
     start = 0
     for face in filtered_faces:
-        f_normal = bsp.PLANES[face['planenum']]['normal']
-        f_texinfo = bsp.TEXINFO[min(face['texinfo'], len(bsp.TEXINFO)-1)]
-        f_texdata = bsp.TEXDATA[min(f_texinfo['texdata'], len(bsp.TEXDATA)-1)]
-        f_colour = f_texdata['reflectivity']
         if face['dispinfo'] == -1:
             f_verts = bsp.verts_of(face)
             out = f_verts[:3]
@@ -126,12 +117,10 @@ def main(width, height, bsp):
             all_faces_map.append((start, f_verts_len))
             start += f_verts_len
         else:
-            f_verts = bsp.dispverts_of(face)
-        for vert in f_verts:
-            all_faces.append(vert)
-            all_faces.append(f_colour)
-            all_faces.append(f_normal)
-    all_faces = list(itertools.chain(*all_faces))
+            power = bsp.DISP_INFO[face['dispinfo']]['power']
+            f_verts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
+        all_faces += f_verts
+##    all_faces = list(itertools.chain(*all_faces))
 
     NODE = iter(filter(lambda x: x['children'][1] < 0, bsp.NODES))
     NODE = sorted(bsp.NODES, key=lambda node: sum([x[1] for x in node_faces(node, bsp, all_faces_map)]))
@@ -157,20 +146,7 @@ def main(width, height, bsp):
     print('{:,}KB VRAM'.format((len(all_faces) * 4) // 1024))
     print('{:,} NODES'.format(len(bsp.NODES)))
     
-    STATIC_BUFFER = glGenBuffers(1)
-    glBindBuffer(GL_ARRAY_BUFFER, STATIC_BUFFER)
-    glEnableVertexAttribArray(0)
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 36, GLvoidp(0))
-    glEnableVertexAttribArray(1)
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 36, GLvoidp(12))
-    glEnableVertexAttribArray(2)
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 36, GLvoidp(24))
-    glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
-
-    vertShader = compileShader(open('bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-    fragShader = compileShader(open('bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
-    bsp_shader = compileProgram(vertShader, fragShader)
-    glLinkProgram(bsp_shader)
+    # shader & vertex buffer would go here
 
     SDL_GL_SetSwapInterval(0)
     SDL_CaptureMouse(SDL_TRUE)
@@ -178,14 +154,14 @@ def main(width, height, bsp):
     SDL_SetRelativeMouseMode(SDL_TRUE)
     SDL_SetWindowGrab(window, SDL_TRUE)
 
-    cam_spawn = vec3(0, 0, 0)
+    cam_spawn = vector.vec3(0, 0, 0)
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
-    tickrate = 120
 
-    mousepos = vec2()
+    mousepos = vector.vec2()
     keys = []
 
+    tickrate = 120
     event = SDL_Event()
     oldtime = time()
     while True:
@@ -202,7 +178,7 @@ def main(width, height, bsp):
                 while event.key.keysym.sym in keys:
                     keys.remove(event.key.keysym.sym)
             if event.type == SDL_MOUSEMOTION:
-                mousepos += vec2(event.motion.xrel, event.motion.yrel)
+                mousepos += vector.vec2(event.motion.xrel, event.motion.yrel)
                 SDL_WarpMouseInWindow(window, width // 2, height // 2)
             if event.type == SDL_MOUSEWHEEL:
                 VIEW_CAMERA.speed += event.wheel.y * 32
@@ -216,12 +192,11 @@ def main(width, height, bsp):
         dt = time() - oldtime
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
-            if SDLK_TAB in keys: #skip from game to game
-                raise TabError('Fake Error')
             if SDLK_BACKQUOTE in keys:
                 #NODES
                 print(current_node, draw_calls, sep='\n\n')
-                VIEW_CAMERA.position = current_node_aabb.center
+                cn_center = (current_node_aabb.mins + current_node_aabb.maxs) / 2
+                VIEW_CAMERA.position = cn_center
                 while SDLK_BACKQUOTE in keys:
                     keys.remove(SDLK_BACKQUOTE)
             if SDLK_r in keys:
@@ -276,7 +251,7 @@ def main(width, height, bsp):
         glPolygonMode(GL_FRONT, GL_LINE)
 ##        glUseProgram(0)
         glColor(1, 0, 1)
-        glBegin(GL_QUADS)
+        glBegin(GL_LINES)
         current_node_aabb.draw()
         glEnd()
         
@@ -315,42 +290,7 @@ if __name__ == '__main__':
     import sys, os
     options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
     width, height = 1280, 720
-##    width, height = 1920, 1080
-##    width, height = 3840, 2160
-    steam = 'E:/Steam/SteamApps/common/'
-    sourcemod = 'E:/Steam/SteamApps/sourcemods/'
-    AS = steam + 'Alien Swarm/swarm/maps/'
-    ASRD = steam + 'Alien Swarm Reactive Drop/reactivedrop/maps/'
-    BMDS = steam + 'Black Mesa Dedicated Server/bms/maps/'
-    CSS = steam + 'Counter-Strike Source/cstrike/maps/'
-    CSGO = steam + 'Counter-Strike Global Offensive/csgo/maps/'
-    DOD = steam + 'day of defeat source/dod/maps/'
-    FF = steam + 'Fortress Forever/FortressForever/maps/'
-    FOF = steam + 'Fistful of Frags/fof/maps/'
-    GM = steam + 'GarrysMod/garrysmod/maps/'
-    HL2 = steam + 'Half-Life 2/hl2/maps/'
-    HL2_EP1 = steam + 'Half-Life 2/episodic/maps/'
-    HL2_EP2 = steam + 'Half-Life 2/ep2/maps/'
-    HL2_DM = steam + 'half-life 2 deathmatch/hl2mp/maps/'
-    LW = steam + 'Lambda Wars/lambdawars/maps/'
-    L4D = steam + 'left 4 dead/left4dead/maps/'
-    L4D_DLC3 = steam + 'left 4 dead/left4dead_dlc3/maps/'
-    L4D2 = steam + 'Left 4 Dead 2/left4dead2/maps/' #+dlc1, 2 & 3
-    NEOTOKYO = steam + 'NEOTOKYO/NeotokyoSource/maps/'
-    PORTAL = steam + 'Portal/portal/maps'
-    PORTAL2 = steam + 'Portal 2/portal2/maps/' #dlc1 & 2
-    PSM = steam + 'Portal Stories Mel/portal_stories/maps/'
-    TF2 = steam + 'Team Fortress 2/tf/maps/'
-    TF2C = sourcemod + 'tf2classic/maps/'
-    DOWNLOAD = '../download/maps/'
-    ...
-##    bsp = TF2 + 'cp_coldfront' #horribly messy
-##    bsp = 'import_bsp/bsp_import_props'
-##    bsp = TF2 + 'pl_upward'
-##    bsp = TF2 + 'ctf_2fort_unpacked'
-##    bsp = TF2 + 'tc_hydro_unpacked'
-##    bsp = TF2 + DOWNLOAD + 'jump_4starters' #triangles
-    bsp = 'bsp_import_props'
+    bsp = '../maps/test1.bsp'
     for option in options:
         for key, value in option:
             if key == '-w':
@@ -359,48 +299,9 @@ if __name__ == '__main__':
                 height = int(value)
             elif key == '-bsp':
                 bsp = value
-    main(width, height, bsp)
-    raise RuntimeError
-
-    import traceback
-    def load_folder(folder, filterfunc=None):
-        maplist = list(filter(lambda x: x.endswith('.bsp'), os.listdir(folder)))
-        if filterfunc is not None:
-            maplist = list(filter(filterfunc, maplist))
-        print(folder.split('/')[4], '{} maps'.format(len(maplist)))
-        for bsp in maplist:
-            try:
-                main(width, height, folder + bsp)
-            except TabError:
-                break
-            except Exception as exc:
-                print(bsp, 'crashed:', exc)
-                traceback.print_tb(exc.__traceback__)
-
-    load_folder(TF2)
-    load_folder(TF2 + DOWNLOAD)
-    raise RuntimeError()
-
-    load_folder(AS) #Alien Swarn
-    load_folder(ASRD) #Alien Swarm: Rewactive Drop
-    load_folder(BMDS) #Black Mesa Dedicated Server (SP is vpk)
-    load_folder(CSGO) #Counter-Strike: Global Offensive (mostly vpk)
-    load_folder(CSS) #Counter-Strike: Source
-    load_folder(DOD) #Day of Defeat: Source
-    load_folder(FF) #Fortress Forever
-    load_folder(FOF) #Fistful of Frags
-    load_folder(GM) #Garry's Mod
-    load_folder(HL2) #Half-Life 2
-    load_folder(HL2_EP1) #Half-Life 2: Episode 1
-    load_folder(HL2_EP2) #Half-Life 2: Episode 2
-    load_folder(HL2_DM) #Half-Life 2: Deathmatch
-    load_folder(LW) #Lambda Wars
-    load_folder(L4D) #Left 4 Dead
-    load_folder(L4D_DLC3) #Left 4 Dead: The Passing
-    load_folder(L4D2) #Left 4 Dead 2
-    load_folder(NEOTOKYO) #Neotokyo
-    load_folder(PORTAL) #Portal
-    load_folder(PORTAL2) #Portal 2
-    load_folder(PSM) #Portal Stories Mel
-    load_folder(TF2) #Team Fortress 2
-    load_folder(TF2C) #Team Fortress 2 Classic
+    try:
+        main(width, height, bsp)
+    except Exception as exc:
+        SDL_Quit()
+        raise exc
+    

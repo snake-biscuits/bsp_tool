@@ -4,18 +4,8 @@
 # source_sdk_2013/mp/src/utils/vbsp/writebsp.cpp
 # source_sdk_2013/mp/src/utils/vbsp/map.cpp
 #
-# TODO: read a compressed .bsp
-# struct lzma_header_t {
-#	unsigned int	id;
-#	unsigned int	actualSize;	// always little endian
-#	unsigned int	lzmaSize;	// always little endian
-#	unsigned char	properties[5]);
-# lzmaSize should match lump's fourCC int
-# define LZMA_ID  (('A'<<24)|('M'<<16)|('Z'<<8)|('L')) b'LZMA'
-# see also:
-# https://github.com/ata4/bspsrc/blob/master/src/main/java/info/ata4/bsplib/io/LzmaBuffer.java
-#
-# LUMP_PAKFILE is never compressed. ?#LUMP_GAME_LUMP is compressed in individual segments.
+# LUMP_PAKFILE is never compressed. ? really ?
+# LUMP_GAME_LUMP is compressed in individual segments.
 # The compressed size of a game lump can be determined by subtracting the
 # current game lump's offset with that of the next entry. For this reason,
 # the last game lump is always an empty dummy which only contains the offset.
@@ -143,35 +133,31 @@ def read_lump(file, lumpid):
         else:
             file.seek(offset)
             lump = file.read(length)
-            #lzma header
-##            print('PROCESSING:', lumpid)
-##            print('LUMP HEADER:', offset, length, version, fourCC)
-            #Source Engine LZMA Header
-            #id b'LZMA'     uint    (magic id)      lump[:4]
-            #actualSize     uint    (uncompressed)  lump[4:8]
-            #lzmaSize       uint    (dict size)     lump[8:12]
-            #properties     uchr[5]                 lump[12:17]
-            #what are source properties?
+            # https://github.com/ata4/bspsrc/blob/master/src/main/java/info/ata4/bsplib/io/LzmaBuffer.java
+            # Source Engine LZMA Header
+            # id b'LZMA'     uint    (magic id)      lump[:4]
+            # actualSize     uint    (uncompressed)  lump[4:8]  # little endian # fourCC?
+            # lzmaSize       uint    (dict size)     lump[8:12] # little endian # fourCC?
+            # properties     uchr[5]                 lump[12:17]
             source_lzma_header = struct.unpack('4s2I5B', lump[:17])
-##            print('SOURCE LZMA HEADER:', source_lzma_header)
+            print('SOURCE LZMA HEADER:', source_lzma_header)
             #.lzma header
-            #properties
+            # properties
             # - lc [0, 8]
             # - lp [0, 4]
             # - pb [0, 4]
-            #properties = (pb * 5 + lp) * 9 + lc (1 byte)
-            #dictionary size
-            #uncompressed size
+            # properties = (pb * 5 + lp) * 9 + lc (1 byte)
+            # dictionary size
+            # uncompressed size
             lzma_header = lump[12:17] + lump[8:12] + lump[4:8]
             lump = lzma_header + lump[:17]
             try:
                 decompressed_lump = lzma.decompress(lump, format=lzma.FORMAT_ALONE)
-            except:
-                raise RuntimeError("Couldn't decompress")
-            if len(decompressed_lump) != fourCC:    #while > ?
-                raise RuntimeError(lumpid, 'bad decompression\n',
-                                   'expected', fourCC, 'bytes, got',
-                                   len(decompressed_lump))
+            except Exception as exc:
+                print(f'Encountered an error unpacking {lumpid.name} lump')
+                raise exc
+            if len(decompressed_lump) != fourCC:
+                raise RuntimeError(f'{lumpid.name} decompressed to {len(decompressed_lump)}, not {fourCC} as expected')
             else:
                 return decompressed_lump
 
@@ -182,8 +168,9 @@ class bsp():
         if not file.endswith('.bsp'):
             file += '.bsp'
         file.replace('\\', '/')
-        self.filename = file.split('/')[-1]
-        self.filepath = '/'.join(file.split('/')[:-1])
+        split_file = file.rpartition('/')
+        self.filename = split_file[-1]
+        self.filepath = f'{split_file[0]}/'
         file = open(file, 'rb')
         self.bytesize = len(file.read())
 
@@ -603,8 +590,11 @@ class bsp():
                    vector.dot(vert, lightvecs[1][:-1]) + lightvecs[1][3]]
             uv2[0] -= face['LightmapTextureMinsinLuxels'][0]
             uv2[1] -= face['LightmapTextureMinsinLuxels'][1]
-            uv2[0] /= face['LightmapTextureSizeinLuxels'][0]
-            uv2[1] /= face['LightmapTextureSizeinLuxels'][1]
+            try:
+                uv2[0] /= face['LightmapTextureSizeinLuxels'][0]
+                uv2[1] /= face['LightmapTextureSizeinLuxels'][1]
+            except ZeroDivisionError:
+                uv2 = [0, 0]
             uv2s.append(uv2)
         vert_count = len(verts)
         normal = [self.PLANES[face['planenum']]['normal']] * vert_count
@@ -618,9 +608,9 @@ class bsp():
         returns rows, not tris"""
         verts = self.verts_of(face)
         if len(verts) != 4:
-            return [] # corrupt bsp / t-junctions
+            raise RuntimeError('face does not have 4 corners (probably t-junctions)')
         if face['dispinfo'] == -1:
-            return verts # face has no dispinfo
+            raise RuntimeError('face is not a displacement!')
         dispinfo = self.DISP_INFO[face['dispinfo']]
         start = list(dispinfo['startPosition'])
         start = [round(x, 1) for x in start] # approximate match
@@ -669,7 +659,7 @@ class bsp():
     def export_sprp_list(self):
         raise NotImplemented('not yet')
         out_filename = self.filename + '.props'
-        print('Writing to ', out_filename, '...', sep='', end='')
+        print(f'Writing to {out_filename}...', end='')
         file = open(out_filename, 'wb')
         #TWO PARTS
         #LIST ALL PROPS ONCE, IN A SPECIFIC CODED ORDER
@@ -978,12 +968,13 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
-        bsp_file = bsp('mapsrc/bsp_import_props')
-        start = time.time()
-        obj_file = open('mat_test' + '.obj', 'w')
-        bsp_file.export_obj(obj_file)
-        obj_file.close()
-        conversion_time = time.time() - start
-        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
+##        bsp_file = bsp('maps/bsp_import_props')
+##        start = time.time()
+##        obj_file = open('mat_test' + '.obj', 'w')
+##        bsp_file.export_obj(obj_file)
+##        obj_file.close()
+##        conversion_time = time.time() - start
+##        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
+        ...
     # compressed .bsp
-    # bsp('mapsrc/koth_sky_lock_b1')
+    bsp('maps/koth_sky_lock_b1')

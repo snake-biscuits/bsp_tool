@@ -1,8 +1,7 @@
 ﻿#TODO:
 #mouse select faces
-# --raycast each tri in all_faces
-# --get all_faces_map index
-# --return bsp.FACES[index]
+# --raycast drawn planes
+# --return index in bsp.FACES
 # --Tkinter face edit window (realtime?)
 #lightmap textures (mapping?)
 #vis simulation
@@ -66,8 +65,8 @@ def main(width, height, bsp):
     glPointSize(2)
     glPolygonMode(GL_BACK, GL_LINE)
     glEnable(GL_DEPTH_TEST)
-    glFrontFace(GL_CW)
-    glEnable(GL_CULL_FACE)
+##    glFrontFace(GL_CW)
+##    glEnable(GL_CULL_FACE)
     glColor(1, 1, 1)
 
     filtered_faces = list(filter(lambda x: x['lightofs'] != -1, bsp.FACES)) #no sky or trigger
@@ -96,9 +95,11 @@ def main(width, height, bsp):
             all_faces_map.append((start, f_verts_len))
             start += f_verts_len
         else:
+            power = bsp.DISP_INFO[face['dispinfo']]['power']
             f_verts = bsp.dispverts_of(face)
-            f_verts = bsp_tool.disp_tris(f_verts, bsp.DISP_INFO[face['dispinfo']]['power'])
+            f_verts = bsp_tool.disp_tris(f_verts, power)
         all_faces += f_verts
+    slow_faces = all_faces.copy()
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
     
@@ -142,10 +143,10 @@ def main(width, height, bsp):
     # displacement alpha (seperate format and shader would be cheaper)
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
 
-    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
-    bsp_shader = compileProgram(vertShader, fragShader)
-    glLinkProgram(bsp_shader)
+##    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
+##    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
+##    bsp_shader = compileProgram(vertShader, fragShader)
+##    glLinkProgram(bsp_shader)
 ##    ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
     # https://www.khronos.org/opengl/wiki/GluPerspective_code
 ##    glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
@@ -191,8 +192,8 @@ def main(width, height, bsp):
 
     # http://heatmaps.tf/api.html
     url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team&limit=1024'
-    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
-##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
+##    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
+    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
     k_class = heatmap['fields'].index('killer_class')
     k_wep = heatmap['fields'].index('killer_weapon')
     MINI_SENTRY = -2
@@ -291,12 +292,20 @@ def main(width, height, bsp):
         VIEW_CAMERA.set()
 
         glPolygonMode(GL_FRONT, GL_FILL)
-        glUseProgram(bsp_shader)
+##        glUseProgram(bsp_shader)
 ##        for i, face in enumerate(all_faces_map):
 ##            texture = lightmap[i]
 ##            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
 ##            glDrawArrays(GL_TRIANGLES, face[0], face[1])
         glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
+
+        # for when shaders are too much work
+        glBegin(GL_TRIANGLES)
+        for pos, normal, uv, uv2, colour in slow_faces[:2048]:
+            glColor(*colour)
+            glTexCoord(*uv)
+            glVertex(*pos)
+        glEnd()
 
 ##        glUseProgram(0)
 ##        glBegin(GL_LINES)
@@ -311,7 +320,7 @@ def main(width, height, bsp):
 ##        glVertex(0, 0, 128)
 ##        glEnd()
 
-        glUseProgram(0)
+##        glUseProgram(0)
         glDisable(GL_TEXTURE_2D)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
         glColor(1, 1, 1)
@@ -340,7 +349,7 @@ if __name__ == '__main__':
     options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
     # try argpase
     width, height = 1280, 720
-    bsp = '../mapsrc/pl_upward.bsp'
+    bsp = '../maps/pl_upward.bsp'
     for option in options:
         for key, value in option:
             if key == '-w':
@@ -349,4 +358,8 @@ if __name__ == '__main__':
                 height = int(value)
             elif key == '-bsp':
                 bsp = value
-    main(width, height, bsp)
+    try:
+        main(width, height, bsp)
+    except Exception as exc:
+        SDL_Quit()
+        raise exc
