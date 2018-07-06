@@ -811,7 +811,7 @@ class bsp():
                     vn = vn_count
                     vn_count += 1
                 else:
-                    vn = vns.index(vn)
+                    vn = vns.index(vn) + 1
                 f = []
                 for vertex in face_vs:
                     v = vertex[0]
@@ -821,7 +821,7 @@ class bsp():
                         v = v_count
                         v_count += 1
                     else:
-                        v = vs.index(v)
+                        v = vs.index(v) + 1
                     vt = vertex[2]
                     if vt not in vts:
                         vts.append(vt)
@@ -829,7 +829,7 @@ class bsp():
                         vt = vt_count
                         vt_count += 1
                     else:
-                        vt = vts.index(vt)
+                        vt = vts.index(vt) + 1
                     f.append((v, vt, vn))
                 outfile.write('f ' + ' '.join([f'{v}/{vt}/{vn}' for v, vt, vn in reversed(f)]) + '\n')
 
@@ -839,7 +839,9 @@ class bsp():
             outfile.write(f'usemtl {material}\n')
             for displacement in disps_by_material[material]:
                 outfile.write(f'o displacement_{disp_no}\n')
-                disp_no +=1
+                disp_no += 1
+                v_count += 1
+                vt_count += 1
                 disp_vs = self.dispverts_of(displacement)
                 normal = disp_vs[0][1]
                 if normal not in vns:
@@ -848,21 +850,22 @@ class bsp():
                     normal = vn_count
                     vn_count += 1
                 else:
-                    normal = vns.index(normal)
+                    normal = vns.index(normal) + 1
                 f = []
                 for v, vn, vt, vt2, colour in disp_vs:
                     obj_file.write(f'v {vector.vec3(*v):}\nvt {vector.vec2(*vt):}\n')
                 power = bsp_file.DISP_INFO[face['dispinfo']]['power']
-                disp_size = 25 if power == 2 else 81
-                tris = disp_tris(range(disp_size), power) #power 2 & 3 only
+                disp_size = (2 ** power + 1) ** 2
+                tris = disp_tris(range(disp_size), power)
+                # BUG HERE
                 for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
                     a = (a + v_count, a + vt_count, normal + 1)
                     b = (b + v_count, b + vt_count, normal + 1)
                     c = (c + v_count, c + vt_count, normal + 1)
                     a, b, c = [map(str, i) for i in (a, b, c)]
                     obj_file.write(f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n")
-                v_count += disp_size - 1
-                vt_count += disp_size - 1
+                v_count += disp_size
+                vt_count += disp_size
 
         total_time = time.time() - start_time
         minutes = total_time // 60
