@@ -775,6 +775,7 @@ class bsp():
         outfile.write(b'0001') #map revision
 
     def export_obj(self, outfile): #TODO: write .mtl for each vmt
+        # faces come out poorly indexed
         start_time = time.time()
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
         print(f'Exporting {self.filename} to {out_filename}... ', end='')
@@ -790,7 +791,7 @@ class bsp():
         disps_by_material = {} # {material: [face, ...], ...}
         for face in self.FACES:
             material = self.TEXDATA_STRING_DATA[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
-            if face['dispinfo'] == -1:
+            if face['dispinfo'] != -1:
                 if material not in disps_by_material:
                     disps_by_material[material] = []
                 disps_by_material[material].append(face)
@@ -839,7 +840,7 @@ class bsp():
             for displacement in disps_by_material[material]:
                 outfile.write(f'o displacement_{disp_no}\n')
                 disp_no +=1
-                disp_vs = self.dispverts_of(face)
+                disp_vs = self.dispverts_of(displacement)
                 normal = disp_vs[0][1]
                 if normal not in vns:
                     vns.append(normal)
@@ -968,13 +969,13 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
-##        bsp_file = bsp('maps/bsp_import_props')
-##        start = time.time()
-##        obj_file = open('mat_test' + '.obj', 'w')
-##        bsp_file.export_obj(obj_file)
-##        obj_file.close()
-##        conversion_time = time.time() - start
-##        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
+        bsp_file = bsp('maps/test1.bsp')
+        start = time.time()
+        obj_file = open('mat_test' + '.obj', 'w')
+        bsp_file.export_obj(obj_file)
+        obj_file.close()
+        conversion_time = time.time() - start
+        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
         ...
     # compressed .bsp
-    bsp('maps/koth_sky_lock_b1')
+##    bsp('maps/koth_sky_lock_b1')
