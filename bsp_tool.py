@@ -172,8 +172,9 @@ class bsp():
         self.filename = split_file[-1]
         self.filepath = f'{split_file[0]}/'
         file = open(file, 'rb')
-        self.bytesize = len(file.read())
-
+        if file.read(4) != b'VBSP':
+            raise RuntimeError(f"{''.join(split_file)} is not a .bsp!")
+        self.bytesize = len(file.read()) + 4
         self.lump_map = {}
         start_time = time.time()
         for ID in LUMP:
@@ -775,7 +776,6 @@ class bsp():
         outfile.write(b'0001') #map revision
 
     def export_obj(self, outfile): #TODO: write .mtl for each vmt
-        # faces come out poorly indexed
         start_time = time.time()
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
         print(f'Exporting {self.filename} to {out_filename}... ', end='')
@@ -840,8 +840,6 @@ class bsp():
             for displacement in disps_by_material[material]:
                 outfile.write(f'o displacement_{disp_no}\n')
                 disp_no += 1
-                v_count += 1
-                vt_count += 1
                 disp_vs = self.dispverts_of(displacement)
                 normal = disp_vs[0][1]
                 if normal not in vns:
@@ -854,15 +852,14 @@ class bsp():
                 f = []
                 for v, vn, vt, vt2, colour in disp_vs:
                     obj_file.write(f'v {vector.vec3(*v):}\nvt {vector.vec2(*vt):}\n')
-                power = bsp_file.DISP_INFO[face['dispinfo']]['power']
+                power = bsp_file.DISP_INFO[displacement['dispinfo']]['power']
                 disp_size = (2 ** power + 1) ** 2
                 tris = disp_tris(range(disp_size), power)
-                # BUG HERE
                 for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
-                    a = (a + v_count, a + vt_count, normal + 1)
-                    b = (b + v_count, b + vt_count, normal + 1)
-                    c = (c + v_count, c + vt_count, normal + 1)
-                    a, b, c = [map(str, i) for i in (a, b, c)]
+                    a = (a + v_count, a + vt_count, normal)
+                    b = (b + v_count, b + vt_count, normal)
+                    c = (c + v_count, c + vt_count, normal)
+                    a, b, c = [map(str, i) for i in (c, b, a)]
                     obj_file.write(f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n")
                 v_count += disp_size
                 vt_count += disp_size
@@ -972,7 +969,7 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
-        bsp_file = bsp('maps/test1.bsp')
+        bsp_file = bsp('maps/pl_upward.bsp')
         start = time.time()
         obj_file = open('mat_test' + '.obj', 'w')
         bsp_file.export_obj(obj_file)
