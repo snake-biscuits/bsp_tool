@@ -778,7 +778,8 @@ class bsp():
     def export_obj(self, outfile): #TODO: write .mtl for each vmt
         start_time = time.time()
         out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
-        print(f'Exporting {self.filename} to {out_filename}... ', end='')
+        total_faces = len(self.FACES)
+        print(f'Exporting {self.filename} to {out_filename} ({total_faces} faces)')
         outfile.write('# bsp_tool.py generated model\n')
         outfile.write(f'# source file: {self.filename}\n')
         vs = []
@@ -799,6 +800,9 @@ class bsp():
                 if material not in faces_by_material:
                     faces_by_material[material] = []
                 faces_by_material[material].append(face)
+        face_count = 0
+        current_progress = 0.1
+        print('0...', end='')
 
         for material in faces_by_material:
             outfile.write(f'usemtl {material}\n')
@@ -832,6 +836,10 @@ class bsp():
                         vt = vts.index(vt) + 1
                     f.append((v, vt, vn))
                 outfile.write('f ' + ' '.join([f'{v}/{vt}/{vn}' for v, vt, vn in reversed(f)]) + '\n')
+                face_count += 1
+                if face_count >= total_faces * current_progress:
+                    print(f'{current_progress * 10:.0f}...', end='')
+                    current_progress += 0.1
 
         disp_no = 0
         outfile.write('g displacements\n')
@@ -863,6 +871,10 @@ class bsp():
                     obj_file.write(f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n")
                 v_count += disp_size
                 vt_count += disp_size
+                face_count += 1
+                if face_count >= total_faces * current_progress:
+                    print(f'{current_progress * 10:.0f}...', end='')
+                    current_progress += 0.1
 
         total_time = time.time() - start_time
         minutes = total_time // 60
