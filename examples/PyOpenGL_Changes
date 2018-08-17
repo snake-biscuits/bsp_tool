@@ -1,0 +1,25 @@
+Much of PyOpenGl is auto-generated from the Offical khronos.org documentation XMLs
+However no documentation is translated to Docstrings and many typed variables / pointers remain
+This file contains modifications made to the PyOpenGl for ease of use & debugging purposes
+
+If this project isn't ported to C++ in future I'll build my own OpenGL ctypes binding (likely generated)
+Such a binding would have preservation of documentation and elimination of pointers & typed inputs as main goals
+Dependency on Numpy would also be phased out / replaced with struct
+Though it would be suggested for clientside vertex transformation
+(moving to C++ is more likely, Python is just very convenient for prototyping, and the language I know the best)
+
+find your path with:
+>>> import OpenGL
+>>> OpenGL.__path__
+FOR CLEARER SHADER DEBUGGING:
+| change OpenGL\GL\shaders.py line 326:
+raise RuntimeError(
+            """Shader compile failure (%s): %s"""%(
+                result,
+                glGetShaderInfoLog( shader ),
+            ),
+            source,
+            shaderType,
+        )
+>>>to:
+raise RuntimeError(f'{shaderType!r} COMPILE FAILURE:\n{glGetShaderInfoLog(shader).decode()}')
