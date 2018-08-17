@@ -65,8 +65,8 @@ def main(width, height, bsp):
     glPointSize(2)
     glPolygonMode(GL_BACK, GL_LINE)
     glEnable(GL_DEPTH_TEST)
-##    glFrontFace(GL_CW)
-##    glEnable(GL_CULL_FACE)
+    glFrontFace(GL_CW)
+    glEnable(GL_CULL_FACE)
     glColor(1, 1, 1)
 
     filtered_faces = list(filter(lambda x: x['lightofs'] != -1, bsp.FACES)) #no sky or trigger
@@ -99,7 +99,7 @@ def main(width, height, bsp):
             f_verts = bsp.dispverts_of(face)
             f_verts = bsp_tool.disp_tris(f_verts, power)
         all_faces += f_verts
-    slow_faces = all_faces.copy()
+##    slow_faces = all_faces.copy()
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
     
@@ -123,10 +123,31 @@ def main(width, height, bsp):
     
     t2 = time()
     print(bsp.filename.upper(), end=' ')
-    print('{:,}KB BSP'.format(bsp.bytesize // 1024), '>>>', end=' ')
-    print('{:,} TRIS'.format(len(all_faces) // 9), end=' & ')
-    print('{:,}KB VRAM'.format((len(all_faces) * 4) // 1024))
-    print('ASSEMBLED IN {:,.3f}ms'.format((t2 - t1) * 1000))
+    print(f'{bsp.bytesize // 1024:,}KB BSP', end=' >>> ')
+    print(f'{len(all_faces) // 9:,} TRIS', end=' & ')
+    print(f'{(len(all_faces) * 4) // 1024:,}KB VRAM')
+    print(f'ASSEMBLED IN {(t2 - t1) * 1000:,.3f}ms')
+
+    USING_ES = False
+    try:
+        vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
+        fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
+    except RuntimeError: # requires PyOpenGL changes described elsewhere
+        vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
+        fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
+        USING_ES = True # if OpenGL 4.5 is not supported, switch to GLES 3.0
+    bsp_shader = compileProgram(vertShader, fragShader)
+    glLinkProgram(bsp_shader)
+    if USING_ES:
+        # GLES vertex attribs
+        attrib_position = glGetAttribLocation(bsp_shader, 'vertexPosition')
+        attrib_normal = glGetAttribLocation(bsp_shader, 'vertexNormal')
+        attrib_texture_uv = glGetAttribLocation(bsp_shader, 'vertexTexCoord')
+        attrib_lightmap_uv = glGetAttribLocation(bsp_shader, 'vertexLightCoord')
+        attrib_colour_uv = glGetAttribLocation(bsp_shader, 'vertexColour')
+##        ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
+##        # https://www.khronos.org/opengl/wiki/GluPerspective_code
+##        glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
 
     STATIC_BUFFER = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, STATIC_BUFFER)
@@ -140,16 +161,8 @@ def main(width, height, bsp):
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(32))
     glEnableVertexAttribArray(4) #reflectivityColour
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
-    # displacement alpha (seperate format and shader would be cheaper)
+    # displacement alpha (seperate format or shared?)
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
-
-##    vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-##    fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
-##    bsp_shader = compileProgram(vertShader, fragShader)
-##    glLinkProgram(bsp_shader)
-##    ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
-    # https://www.khronos.org/opengl/wiki/GluPerspective_code
-##    glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
 
     glEnable(GL_TEXTURE_2D)
 
@@ -300,12 +313,12 @@ def main(width, height, bsp):
         glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
 
         # for when shaders are too much work
-        glBegin(GL_TRIANGLES)
-        for pos, normal, uv, uv2, colour in slow_faces[:2048]:
-            glColor(*colour)
-            glTexCoord(*uv)
-            glVertex(*pos)
-        glEnd()
+##        glBegin(GL_TRIANGLES)
+##        for pos, normal, uv, uv2, colour in slow_faces[:2048]:
+##            glColor(*colour)
+##            glTexCoord(*uv)
+##            glVertex(*pos)
+##        glEnd()
 
 ##        glUseProgram(0)
 ##        glBegin(GL_LINES)

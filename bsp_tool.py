@@ -9,6 +9,7 @@
 # The compressed size of a game lump can be determined by subtracting the
 # current game lump's offset with that of the next entry. For this reason,
 # the last game lump is always an empty dummy which only contains the offset.
+# IMPLEMENT vmf_tool namespace class (visually cleaner attribute access)
 import collections
 import enum
 import itertools
