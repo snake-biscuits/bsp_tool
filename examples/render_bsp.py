@@ -1,37 +1,37 @@
 ﻿#TODO:
-#mouse select faces
-# --raycast drawn planes
-# --return index in bsp.FACES
-# --Tkinter face edit window (realtime?)
-#lightmap textures (mapping?)
-#vis simulation
-#  --traverse vis tree
-#  --use nodes to faces?
-#physics simulation
-#  --planes booleaned with nodes
-#better camera speed control
-# --camera speed inconsistent
-# --fullscreen overclocks
-#console
-# --exec(input())
-#skybox.vmt / .exr
-#fix t-juncs
-#https://www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
-#lightmap atlas
-# --bleeding / stitching
-# --bleed for edges that do not touch
-# --stitch for edges that do touch
-#texture atlas
-# --uvs are already scaled
-# --lightmaps are 2048x2048 pixels (may not fit due to shapes)
-# --lightmap RGBExp32 to RGB8 on GPU (render whole atlas and discard shader)
-#displacements
-# --blending
-# --triangle_strip
-# --faster vertex assembly
-# --assemble vertex bytes (uvs need this) THEN sort into index buffer
-#do t-juncts affect origfaces?
-#TODO: change commented out code to launch options
+# mouse select faces
+# -- raycast drawn planes
+# -- return index in bsp.FACES
+# -- Tkinter face edit window (realtime?)
+# lightmap textures (mapping?)
+# vis simulation
+#  -- traverse vis tree
+#  -- use nodes to faces?
+# physics simulation
+#  -- planes booleaned with nodes
+# better camera speed control
+# -- camera speed inconsistent
+# -- fullscreen overclocks
+# console
+# -- exec(input())
+# skybox.vmt / .exr
+# FIX SCRAMBLED FACES
+# fix t-juncs
+# https://www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
+# lightmap atlas
+# -- bleeding / stitching
+# -- bleed for edges that do not touch
+# -- stitch for edges that do touch
+# texture atlas
+# -- uvs are already scaled
+# -- lightmap pack
+# -- lightmap lump size limit is 2048x2048 pixels (may not fit in that area)
+# -- RGBExp32 conversion to RGB8 or similar (adjust with HDR?)
+# displacements
+# -- texture blending
+# -- triangle_strip stitching (performance increase?)
+# do t-juncts affect origfaces?
+#TODO: change commented out code to modes
 import colorsys
 import compress_sequence
 import ctypes
@@ -60,7 +60,14 @@ def main(width, height, bsp):
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
-    glClearColor(0, 0, 0, 0)
+    glClearColor(0, .5, 1, 0)
+    
+    ent_dicts = []
+    for e in bsp.ENTITIES[1:-1].split('}\n{'):
+        ent_dicts.append(eval('{' + e.replace('" "', '": "').replace('"\n', '", ') + '}'))
+    light_environment = [e for e in ent_dicts if e['classname'] == 'light_environment'][0]
+    glClearColor(*[int(i) / 255 for i in light_environment['_ambient'].split()[:3]], 0)
+    
     gluPerspective(90, width / height, 0.1, 4096 * 4)
     glPointSize(2)
     glPolygonMode(GL_BACK, GL_LINE)
@@ -102,7 +109,7 @@ def main(width, height, bsp):
 ##    slow_faces = all_faces.copy()
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
-    
+
 ##    RGB_LIGHTING = []
 ##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
 ##        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
@@ -110,7 +117,7 @@ def main(width, height, bsp):
 ##        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
 ##    RGB_LIGHTING = b''.join(RGB_LIGHTING)
 ##
-##    lightmap = [] # try pixel buffers
+##    lightmap = [] # store on GPU
 ##    for face in filtered_faces:
 ##        lmap_start = face['lightofs']
 ##        if lmap_start != -1:
@@ -120,7 +127,7 @@ def main(width, height, bsp):
 ##            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
 ##            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
 ##            lightmap.append([lmap_bytes, bounds])
-    
+
     t2 = time()
     print(bsp.filename.upper(), end=' ')
     print(f'{bsp.bytesize // 1024:,}KB BSP', end=' >>> ')
@@ -165,33 +172,16 @@ def main(width, height, bsp):
     glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
 
     glEnable(GL_TEXTURE_2D)
-
-##    activeTexture = 0
-##    glGenTextures(1, activeTexture)
-##    glBindTexture(GL_TEXTURE_2D, activeTexture)
-    
     glActiveTexture(GL_TEXTURE0)
-##    texture = open('obsolete.bmp', 'rb')
-    texture = open('materials/dev/reflectivity_40.bmp', 'rb')
+    # texture = open('materials/obsolete.bmp', 'rb')
+    texture = open('materials/dev/reflectivity_100.bmp', 'rb')
     texture.seek(54)
-##    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB4, 256, 256, 0, GL_BGR, GL_UNSIGNED_BYTE, texture.read())
+    # glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB4, 256, 256, 0, GL_BGR, GL_UNSIGNED_BYTE, texture.read())
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB4, 512, 512, 0, GL_BGR, GL_UNSIGNED_BYTE, texture.read())
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
     texture.close()
     del texture
-
-##    Texture0Loc = glGetUniformLocation(bsp_shder, "activeTexture")
-##    glUniform1i(Texture0Loc, activeTexture)
-
-##    texture = lightmap[0]
-##    glActiveTexture(GL_TEXTURE1)
-##    glEnable(GL_TEXTURE_2D)
-##    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
-##    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-##    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-##
-##    glActiveTexture(GL_TEXTURE0)
 
     SDL_GL_SetSwapInterval(0)
     SDL_CaptureMouse(SDL_TRUE)
@@ -203,30 +193,30 @@ def main(width, height, bsp):
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
 
-    # http://heatmaps.tf/api.html
-    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team&limit=1024'
-##    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
-    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
-    k_class = heatmap['fields'].index('killer_class')
-    k_wep = heatmap['fields'].index('killer_weapon')
-    MINI_SENTRY = -2
-    SENTRY = -1
-    WORLD = 0
-    SCOUT = 1
-    SNIPER = 2
-    SOLDIER = 3
-    DEMOMAN = 4
-    MEDIC = 5
-    HEAVY = 6
-    PYRO = 7
-    SPY = 8
-    ENGINEER = 9
-    k_x = heatmap['fields'].index('killer_x')
-    v_class = heatmap['fields'].index('victim_class')
-    v_x = heatmap['fields'].index('victim_x')
-    kill_range = lambda kill: (vec3(*kill[v_x:v_x + 3]) - vec3(*kill[k_x:k_x + 3])).magnitude()
-    
-    filtered_kills = [*filter(lambda k: k[k_wep] == MINI_SENTRY, heatmap['kills'])][:1024]
+##    # http://heatmaps.tf/api.html
+##    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team&limit=1024'
+####    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
+##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
+##    k_class = heatmap['fields'].index('killer_class')
+##    k_wep = heatmap['fields'].index('killer_weapon')
+##    MINI_SENTRY = -2
+##    SENTRY = -1
+##    WORLD = 0
+##    SCOUT = 1
+##    SNIPER = 2
+##    SOLDIER = 3
+##    DEMOMAN = 4
+##    MEDIC = 5
+##    HEAVY = 6
+##    PYRO = 7
+##    SPY = 8
+##    ENGINEER = 9
+##    k_x = heatmap['fields'].index('killer_x')
+##    v_class = heatmap['fields'].index('victim_class')
+##    v_x = heatmap['fields'].index('victim_x')
+##    kill_range = lambda kill: (vec3(*kill[v_x:v_x + 3]) - vec3(*kill[k_x:k_x + 3])).magnitude()
+##
+##    filtered_kills = [*filter(lambda k: k[k_wep] == MINI_SENTRY, heatmap['kills'])][:1024]
 
     mousepos = vec2()
     keys = []
@@ -305,7 +295,7 @@ def main(width, height, bsp):
         VIEW_CAMERA.set()
 
         glPolygonMode(GL_FRONT, GL_FILL)
-##        glUseProgram(bsp_shader)
+        glUseProgram(bsp_shader)
 ##        for i, face in enumerate(all_faces_map):
 ##            texture = lightmap[i]
 ##            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
@@ -333,7 +323,7 @@ def main(width, height, bsp):
 ##        glVertex(0, 0, 128)
 ##        glEnd()
 
-##        glUseProgram(0)
+        glUseProgram(0)
         glDisable(GL_TEXTURE_2D)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
         glColor(1, 1, 1)
@@ -343,15 +333,16 @@ def main(width, height, bsp):
             glVertex(*vertex)
         glEnd()
         glEnable(GL_DEPTH_TEST)
+        glEnable(GL_TEXTURE_2D)
 
-        glTranslate(0, 0, 64)
-        glBegin(GL_LINES)
-        for kill in filtered_kills:
-            glColor(*colorsys.hsv_to_rgb(kill[k_class] / 9, 1, .75))
-            glVertex(*kill[k_x:k_x + 3])
-            glColor(*colorsys.hsv_to_rgb(kill[v_class] / 9, 1, 1))
-            glVertex(*kill[v_x:v_x + 3])
-        glEnd()
+##        glTranslate(0, 0, 64)
+##        glBegin(GL_LINES)
+##        for kill in filtered_kills:
+##            glColor(*colorsys.hsv_to_rgb(kill[k_class] / 9, 1, .75))
+##            glVertex(*kill[k_x:k_x + 3])
+##            glColor(*colorsys.hsv_to_rgb(kill[v_class] / 9, 1, 1))
+##            glVertex(*kill[v_x:v_x + 3])
+##        glEnd()
 
         glPopMatrix()
         SDL_GL_SwapWindow(window)
@@ -362,7 +353,11 @@ if __name__ == '__main__':
     options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
     # try argpase
     width, height = 1280, 720
+    TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
     bsp = '../maps/pl_upward.bsp'
+##    bsp = TF + 'maps/cp_manor_event.bsp'
+##    bsp = TF + 'maps/cp_coldfront.bsp'
+##    bsp = TF + 'maps/koth_harvest_final.bsp'
     for option in options:
         for key, value in option:
             if key == '-w':

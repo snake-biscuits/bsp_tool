@@ -17,7 +17,7 @@ void main()
 	vec4 albedo = texture2D(activeTexture, texUV);
 	vec4 lightmap = texture2D(activeLightmap, lightUV);
 
-	//outColour = (Ka + Kd) * albedo;
-	//outColour = vec4(texUV.x, texUV.y, 1, 1);
+	// outColour = (Ka + Kd) * albedo;
+	// outColour = vec4(texUV.x, texUV.y, 1, 1);
 	outColour = vec4(reflectivityColour, 1) * albedo;
 }
