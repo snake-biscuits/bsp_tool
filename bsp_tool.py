@@ -132,31 +132,11 @@ def read_lump(file, lumpid):
             file.seek(offset)
             return file.read(length)
         else:
-            file.seek(offset)
-            lump = file.read(length)
-            # https://github.com/ata4/bspsrc/blob/master/src/main/java/info/ata4/bsplib/io/LzmaBuffer.java
-            # Source Engine LZMA Header
-            # id b'LZMA'     uint    (magic id)      lump[:4]
-            # actualSize     uint    (uncompressed)  lump[4:8]  # little endian # fourCC?
-            # lzmaSize       uint    (dict size)     lump[8:12] # little endian # fourCC?
-            # properties     uchr[5]                 lump[12:17]
-            source_lzma_header = struct.unpack('4s2I5B', lump[:17])
-            print('SOURCE LZMA HEADER:', source_lzma_header)
-            #.lzma header
-            # properties
-            # - lc [0, 8]
-            # - lp [0, 4]
-            # - pb [0, 4]
-            # properties = (pb * 5 + lp) * 9 + lc (1 byte)
-            # dictionary size
-            # uncompressed size
-            lzma_header = lump[12:17] + lump[8:12] + lump[4:8]
-            lump = lzma_header + lump[:17]
+            file.seek(offset + 17) # SKIP lzma_header_t
             try:
-                decompressed_lump = lzma.decompress(lump, format=lzma.FORMAT_ALONE)
-            except Exception as exc:
-                print(f'Encountered an error unpacking {lumpid.name} lump')
-                raise exc
+                decompressed_lump = lzma.decompress(file.read(fourCC))
+            except:
+                raise RuntimeError(f'Error decompressing {lumpid.name}!')
             if len(decompressed_lump) != fourCC:
                 raise RuntimeError(f'{lumpid.name} decompressed to {len(decompressed_lump)}, not {fourCC} as expected')
             else:
@@ -564,7 +544,7 @@ class bsp():
         unpack_time = time.time() - start_time
         print(f'Imported {self.filename} in {unpack_time:.2f} seconds')
 
-    def verts_of(self, face):
+    def verts_of(self, face): # why so many crazy faces?
         """vertex format [Position, Normal, TexCoord, LightCoord, Colour]"""
         texinfo = self.TEXINFO[face['texinfo']]
         texdata = self.TEXDATA[texinfo['texdata']]
@@ -577,9 +557,10 @@ class bsp():
             verts.append(self.VERTICES[edge[0]])
             verts.append(self.VERTICES[edge[1]])
         #verts[::2] is faster. why is this approach used?
-        verts = [tuple(v) for v in verts]
-        verts = collections.OrderedDict.fromkeys(verts)
-        verts = [list(v) for v in verts]
+        # verts = [tuple(v) for v in verts]
+        # verts = {v: None for v in verts}
+        # verts = [list(v) for v in verts]
+        verts = verts[::2]
         # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
         # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
         for vert in verts:
@@ -924,7 +905,8 @@ class bsp():
         return passes
 
 def disp_tris(verts, power):
-    """expects verts to be an array of length ((2 ** power) + 1) ** 2"""
+    """takes flat array of verts and arranges them in a patterned triangle grid
+    expects verts to be an array of length ((2 ** power) + 1) ** 2"""
     power2 = 2 ** power
     power2A = power2 + 1
     power2B = power2 + 2
@@ -982,13 +964,15 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
-        bsp_file = bsp('maps/pl_upward.bsp')
-        start = time.time()
-        obj_file = open('mat_test' + '.obj', 'w')
-        bsp_file.export_obj(obj_file)
-        obj_file.close()
-        conversion_time = time.time() - start
-        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
+##        bsp_file = bsp('maps/pl_upward.bsp')
+##        start = time.time()
+##        obj_file = open('mat_test' + '.obj', 'w')
+##        bsp_file.export_obj(obj_file)
+##        obj_file.close()
+##        conversion_time = time.time() - start
+##        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
         ...
     # compressed .bsp
 ##    bsp('maps/koth_sky_lock_b1')
+    bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/cp_dustbowl')
+    

@@ -55,6 +55,13 @@ from vector import *
 def clamp(x, minimum=0, maximum=1):
     return maximum if x > maximum else minimum if x < minimum else x
 
+def calcTriFanIndices(vertices, startIndex):
+    "polygon to triangle fan (indices only) by Exactol"
+    indices = []
+    for i in range(1, len(vertices) - 1):
+        indices += [startIndex, startIndex + i, startIndex + i + 1]
+    return indices
+
 def main(width, height, bsp):
     bsp = bsp_tool.bsp(bsp)
     SDL_Init(SDL_INIT_VIDEO)
@@ -69,7 +76,7 @@ def main(width, height, bsp):
     glClearColor(*[int(i) / 255 for i in light_environment['_ambient'].split()[:3]], 0)
     
     gluPerspective(90, width / height, 0.1, 4096 * 4)
-    glPointSize(2)
+    glPointSize(4)
     glPolygonMode(GL_BACK, GL_LINE)
     glEnable(GL_DEPTH_TEST)
     glFrontFace(GL_CW)
@@ -77,6 +84,7 @@ def main(width, height, bsp):
     glColor(1, 1, 1)
 
     filtered_faces = list(filter(lambda x: x['lightofs'] != -1, bsp.FACES)) #no sky or trigger
+    filtered_faces = list(filter(lambda x: x['dispinfo'] != -1, bsp.FACES)) #disp only
 ##    filtered_faces = list(filter(lambda x: x['lightofs'] != -1 and x['dispinfo'] == -1, bsp.FACES)) #no sky, trigger or disp
 ##    filtered_faces = list(filter(lambda x: x['styles'] == (-1, -1, -1, -1), bsp.FACES))
 ##    filtered_faces = bsp.FACES
@@ -92,7 +100,7 @@ def main(width, height, bsp):
     t1 = time()
     for face in filtered_faces:
         if face['dispinfo'] == -1:
-            f_verts = bsp.verts_of(face)
+            f_verts = bsp.verts_of(face) # add to vertex buffer here and fan the indices
             out = f_verts[:3]
             f_verts = f_verts[3:]
             for vert in f_verts:
@@ -106,9 +114,26 @@ def main(width, height, bsp):
             f_verts = bsp.dispverts_of(face)
             f_verts = bsp_tool.disp_tris(f_verts, power)
         all_faces += f_verts
-##    slow_faces = all_faces.copy()
+    slow_faces = all_faces.copy()
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
+
+    print('compressing vertex buffer...')
+    vertices = []
+    indices = []
+    currentIndex = 0
+    for face in filtered_faces:
+        if face["dispinfo"] == -1:
+            faceVerts = bsp.verts_of(face)
+            faceIndices = calcTriFanIndices(faceVerts, currentIndex)
+        else:
+            power = bsp.DISP_INFO[face['dispinfo']]['power']
+            faceVerts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
+            faceIndices = bsp_tool.disp_tris(range((2 ** power + 1) ** 2), power)
+        vertices += faceVerts
+        indices += faceIndices
+        currentIndex = faceIndices[len(faceIndices) - 1] + 1
+    vertices = list(itertools.chain(*itertools.chain(*vertices)))
 
 ##    RGB_LIGHTING = []
 ##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
@@ -134,6 +159,7 @@ def main(width, height, bsp):
     print(f'{len(all_faces) // 9:,} TRIS', end=' & ')
     print(f'{(len(all_faces) * 4) // 1024:,}KB VRAM')
     print(f'ASSEMBLED IN {(t2 - t1) * 1000:,.3f}ms')
+    print()
 
     USING_ES = False
     try:
@@ -156,8 +182,14 @@ def main(width, height, bsp):
 ##        # https://www.khronos.org/opengl/wiki/GluPerspective_code
 ##        glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
 
-    STATIC_BUFFER = glGenBuffers(1)
-    glBindBuffer(GL_ARRAY_BUFFER, STATIC_BUFFER)
+##    STATIC_BUFFER = glGenBuffers(1)
+##    glBindBuffer(GL_ARRAY_BUFFER, STATIC_BUFFER)
+##    glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
+    VERTEX_BUFFER, INDEX_BUFFER = glGenBuffers(2)
+    glBindBuffer(GL_ARRAY_BUFFER, VERTEX_BUFFER)
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER)
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint32), GL_STATIC_DRAW)
+    glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, np.array(vertices, dtype=np.float32), GL_STATIC_DRAW)
     glEnableVertexAttribArray(0)  #vertexPosition
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(0))
     glEnableVertexAttribArray(1)  #vertexNormal
@@ -169,7 +201,7 @@ def main(width, height, bsp):
     glEnableVertexAttribArray(4) #reflectivityColour
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
     # displacement alpha (seperate format or shared?)
-    glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
+
 
     glEnable(GL_TEXTURE_2D)
     glActiveTexture(GL_TEXTURE0)
@@ -256,13 +288,15 @@ def main(width, height, bsp):
             if SDLK_BACKQUOTE in keys:
 ##                print(VIEW_CAMERA)
                 #FACES
-                print()
-                print(current_face)
-                if current_face['texinfo'] != -1:
-                    print(bsp.TEXINFO[current_face['texinfo']])
-##                face_center = sum(map(vec3, current_face_verts), vec3()) / len(current_face_verts)
-##                face_normal = bsp.PLANES[current_face['planenum']]['normal']
-##                VIEW_CAMERA.position = face_center + vec3(face_normal) * 32
+                fe, ne = current_face['firstedge'], current_face['numedges']
+                se_loop = bsp.SURFEDGES[fe:fe + ne]
+                e_loop = [bsp.EDGES[e] for e in se_loop]
+                print(f'{bsp.filename}.FACES[{bsp.FACES.index(current_face)}]', '\n'.join([f'{k} = {v}' for k,v in current_face.items()]), sep='\n')
+                print('\n\t', '\n\t'.join([f'{bsp.VERTICES[v]}' for v in itertools.chain(*e_loop)][::2]), sep='', end='\n\n')
+                
+                face_center = sum(map(vec3, current_face_verts), vec3()) / len(current_face_verts)
+                face_normal = bsp.PLANES[current_face['planenum']]['normal']
+                VIEW_CAMERA.position = face_center + vec3(face_normal) * 32
                 while SDLK_BACKQUOTE in keys:
                     keys.remove(SDLK_BACKQUOTE)
             if SDLK_r in keys:
@@ -300,7 +334,8 @@ def main(width, height, bsp):
 ##            texture = lightmap[i]
 ##            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
 ##            glDrawArrays(GL_TRIANGLES, face[0], face[1])
-        glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
+##        glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
+        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
 
         # for when shaders are too much work
 ##        glBegin(GL_TRIANGLES)
@@ -310,6 +345,7 @@ def main(width, height, bsp):
 ##            glVertex(*pos)
 ##        glEnd()
 
+        # CENTER MARKER
 ##        glUseProgram(0)
 ##        glBegin(GL_LINES)
 ##        glColor(1, 0, 0)
@@ -329,6 +365,10 @@ def main(width, height, bsp):
         glColor(1, 1, 1)
         glDisable(GL_DEPTH_TEST)
         glBegin(GL_LINE_LOOP)
+        for vertex in current_face_verts:
+            glVertex(*vertex)
+        glEnd()
+        glBegin(GL_POINTS)
         for vertex in current_face_verts:
             glVertex(*vertex)
         glEnd()
@@ -355,7 +395,7 @@ if __name__ == '__main__':
     width, height = 1280, 720
     TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
     bsp = '../maps/pl_upward.bsp'
-##    bsp = TF + 'maps/cp_manor_event.bsp'
+    bsp = TF + 'maps/cp_manor_event.bsp'
 ##    bsp = TF + 'maps/cp_coldfront.bsp'
 ##    bsp = TF + 'maps/koth_harvest_final.bsp'
     for option in options:
