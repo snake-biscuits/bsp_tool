@@ -30,8 +30,6 @@ for MAP in release_maps:
             'fileofs': game_lump[3],
             'filelen': game_lump[4]})
 
-
-    print(game_lump_headers)
     for header in game_lump_headers:
         if header['id'] == b'sprp': # static prop game lump
             sprp_version = header['version']
@@ -40,22 +38,21 @@ for MAP in release_maps:
             sprp_flags = header['flags']
             break
         
-    if sprp_flags == 1: # packed
-        raise RuntimeError(f'{MAP} SPRP_LUMP is compressed')
-        bsp.seek(sprp_offset + 8) 
-        fourCC = int.from_bytes(bsp.read(4), 'little') # lzma_header_t lzmaSize
-        bsp.seek(sprp_offset + 17)
-        lzma_header = fourCC.to_bytes(4, 'little') + sprp_length.to_bytes(4, 'little')
-        # KEEP TRYING
-        lump = lzma.decompress(lzma_header + bsp.read(fourCC))
-    else:
-        bsp.seek(offset)
-        lump = bsp.read(length)
+##    if sprp_flags == 1: # packed KEEP TRYING
+##        raise RuntimeError(f'{MAP} SPRP_LUMP is compressed')
+##        bsp.seek(sprp_offset + 8) 
+##        fourCC = int.from_bytes(bsp.read(4), 'little') # lzma_header_t lzmaSize
+##        bsp.seek(sprp_offset + 17)
+##        lzma_header = fourCC.to_bytes(4, 'little') + sprp_length.to_bytes(4, 'little')
+##        lump = lzma.decompress(lzma_header + bsp.read(fourCC))
+##    else:
+##        bsp.seek(offset)
+##        lump = bsp.read(length)
         
     bsp.seek(sprp_offset)
     sprp_lump = bsp.read(sprp_length)
     sprp_dict_len = int.from_bytes(sprp_lump[:4], 'little') * 128
-    for name in struct.iter_unpack('128s', bsp.read(sprp_dict_len)):
+    for name in struct.iter_unpack('128s', sprp_lump[4:sprp_dict_len + 4]):
         props.add(name[0].decode('utf-8', 'ignore').strip('\x00'))
 
     bsp.seek(8) # LUMP_ENTITIES
@@ -74,7 +71,14 @@ for MAP in release_maps:
         entity = entity.split('\n')
         entity_dict = dict()
         for line in entity:
-            key, value = line.strip('"').split('" "')
+            try:
+                key, value = line.strip('"').split('" "')
+            except ValueError:
+                key = line.strip('"').rstrip('" ""')
+                value = None
+            except Exception as exc:
+                print(line)
+                raise exc
             entity_dict[key] = value
         entities.append(entity_dict)
     prop_entities = [e for e in entities if e['classname'].startswith('prop_')]

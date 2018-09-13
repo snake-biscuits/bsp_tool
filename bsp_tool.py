@@ -335,19 +335,20 @@ class bsp():
         del self.RAW_LEAF_FACES
 
         self.LEAVES = [] #Map Version < 20 is different
-        for leaf in struct.iter_unpack('i9h4Hh', self.RAW_LEAVES):
+        for leaf in struct.iter_unpack('i8h4H2h', self.RAW_LEAVES):
             self.LEAVES.append({
                     'contents': leaf[0],
                     'cluster': leaf[1],
                     'area': leaf[2] & 0xFF80 >> 7, #9 bits
-                    'flags': leaf[3] & 0x007F, #7 bits
-                    'mins': leaf[4:7],
-                    'maxs': leaf[7:10],
-                    'firstleafface': leaf[10],
-                    'numleaffaces': leaf[11],
-                    'firstleafbrush': leaf[12],
-                    'numleafbrushes': leaf[13],
-                    'leafWaterDataID': leaf[14] #-1 for not in water
+                    'flags': leaf[2] & 0x007F, #7 bits
+                    'mins': leaf[3:6],
+                    'maxs': leaf[6:9],
+                    'firstleafface': leaf[9],
+                    'numleaffaces': leaf[10],
+                    'firstleafbrush': leaf[11],
+                    'numleafbrushes': leaf[12],
+                    'leafWaterDataID': leaf[13], #-1 for not in water
+                    'padding': leaf[14]
                     })
         del self.RAW_LEAVES, leaf
 
@@ -709,10 +710,10 @@ class bsp():
         self.RAW_FACES = b''.join(map(pack_faces, self.FACES))
         pack_leaf_faces = lambda x: struct.pack('H', x)
         self.RAW_LEAF_FACES = b''.join(map(pack_leaf_faces, self.LEAF_FACES))
-        pack_leaves = lambda x: struct.pack('i9h4Hh', x['contents'],
+        pack_leaves = lambda x: struct.pack('i8h4H2h', x['contents'],
               x['area'] << 7 + x['flags'], #'area' is 9 bits, and 'flags' is 7
               *x['mins'], *x['maxs'], x['firstleafface'], x['firstleafbrush'],
-              x['numleafbrushes'], x['leafWaterDataID'])
+              x['numleafbrushes'], x['leafWaterDataID'], x['padding'])
         self.RAW_LEAVES = b''.join(map(pack_leaves, self.LEAVES))
         self.RAW_LIGHTING = self.LIGHTING
         if hasattr(self, 'LIGHTING_HDR'):
@@ -974,5 +975,9 @@ if __name__=='__main__':
         ...
     # compressed .bsp
 ##    bsp('maps/koth_sky_lock_b1')
-    bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/cp_dustbowl')
-    
+    harvest = bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/koth_harvest_final')
+    import json
+    leaf_file = open('koth_harvest_leaf_lump.json', 'w')
+    leaf_file.write('[' + ',\n'.join([json.dumps(leaf) for leaf in harvest.LEAVES]) + ']')
+    leaf_file.close()
+    print('Leaves written to file!')

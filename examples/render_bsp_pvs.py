@@ -96,16 +96,14 @@ def main(width, height, bsp):
     glColor(1, 1, 1)
     glFrontFace(GL_CW)
 
-    filtered_faces = list(bsp.FACES) #unfiltered for draw by node
-
-    FACE = iter(filtered_faces)
+    FACE = iter(bsp.FACES)
     current_face = next(FACE)
     current_face_verts = bsp.verts_of(current_face)
 
     all_faces = []
     all_faces_map = []
     start = 0
-    for face in filtered_faces:
+    for face in bsp.FACES:
         if face['dispinfo'] == -1:
             f_verts = bsp.verts_of(face)
             out = f_verts[:3]
