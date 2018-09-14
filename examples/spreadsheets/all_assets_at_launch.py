@@ -101,7 +101,7 @@ for MAP in release_maps:
 outfile = open('2007_props.csv', 'w')
 buffer = ''
 for prop in props:
-    buffer += f'{prop},'
+    buffer += f'{prop.upper()},' # slam to uppercase for compares
     if len(buffer) > 8096:
         outfile.write(buffer)
         buffer = ''
@@ -111,7 +111,7 @@ outfile.close()
 outfile = open('2007_materials.csv', 'w')
 buffer = ''
 for material in materials:
-    buffer += f'{material},'
+    buffer += f'{material.upper()},' # slam to uppercase for compares
     if len(buffer) > 8096:
         outfile.write(buffer)
         buffer = ''
