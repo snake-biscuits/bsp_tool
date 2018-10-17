@@ -975,6 +975,7 @@ if __name__=='__main__':
         ...
     # compressed .bsp
 ##    bsp('maps/koth_sky_lock_b1')
+    
     harvest = bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/koth_harvest_final')
     import json
     leaf_file = open('koth_harvest_leaf_lump.json', 'w')

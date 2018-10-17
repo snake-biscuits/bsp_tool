@@ -30,8 +30,9 @@
 # displacements
 # -- texture blending
 # -- triangle_strip stitching (performance increase?)
+# -- smooth normals (calculate normal per tri & blend)
 # do t-juncts affect origfaces?
-#TODO: change commented out code to modes
+#TODO: change commented out code to modes / options
 import colorsys
 import compress_sequence
 import ctypes
@@ -72,8 +73,21 @@ def main(width, height, bsp):
     ent_dicts = []
     for e in bsp.ENTITIES[1:-1].split('}\n{'):
         ent_dicts.append(eval('{' + e.replace('" "', '": "').replace('"\n', '", ') + '}'))
-    light_environment = [e for e in ent_dicts if e['classname'] == 'light_environment'][0]
-    glClearColor(*[int(i) / 255 for i in light_environment['_ambient'].split()[:3]], 0)
+    try:
+        light_environment = [e for e in ent_dicts if e['classname'] == 'light_environment'][0]
+        light_environment['angles'] = tuple(map(float, light_environment['angles'].split(' ')))
+        light_environment['pitch'] = float(light_environment['pitch'])
+        light_environment['_light'] = tuple(map(int, light_environment['_light'].split(' ')))
+        light_environment['_ambient'] = tuple(map(int, light_environment['_ambient'].split(' ')))
+        sun_vector = vec3(1, 0, 0).rotate(light_environment['angles'][2], -light_environment['pitch'], light_environment['angles'][1])
+        sun_colour = (*[x / 255 for x in light_environment['_light'][:3]], light_environment['_light'][-1]) # vec4 (R, G, B) + Strength
+        sun_ambient = (*[x / 255 for x in light_environment['_ambient'][:3]], light_environment['_ambient'][-1]) # vec4 (R, G, B) + Strength
+        glClearColor(*sun_ambient[:3], 0)
+    except: # no light_environment in .bsp (defaults to goldrush)
+        sun_vector = vec3(1, 0, 0).rotate(0, 35, 108)
+        sun_colour = (1.00, 0.89, 0.73, 600)
+        sun_ambient = (0.46, 0.45, 0.55, 350)
+        glClearColor(0, 0, 0, 0)
     
     gluPerspective(90, width / height, 0.1, 4096 * 4)
     glPointSize(4)
@@ -84,7 +98,7 @@ def main(width, height, bsp):
     glColor(1, 1, 1)
 
     filtered_faces = list(filter(lambda x: x['lightofs'] != -1, bsp.FACES)) #no sky or trigger
-    filtered_faces = list(filter(lambda x: x['dispinfo'] != -1, bsp.FACES)) #disp only
+##    filtered_faces = list(filter(lambda x: x['dispinfo'] != -1, bsp.FACES)) #disp only
 ##    filtered_faces = list(filter(lambda x: x['lightofs'] != -1 and x['dispinfo'] == -1, bsp.FACES)) #no sky, trigger or disp
 ##    filtered_faces = list(filter(lambda x: x['styles'] == (-1, -1, -1, -1), bsp.FACES))
 ##    filtered_faces = bsp.FACES
@@ -118,22 +132,25 @@ def main(width, height, bsp):
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
     all_faces_size = len(all_faces)
 
-    print('compressing vertex buffer...')
-    vertices = []
-    indices = []
-    currentIndex = 0
-    for face in filtered_faces:
-        if face["dispinfo"] == -1:
-            faceVerts = bsp.verts_of(face)
-            faceIndices = calcTriFanIndices(faceVerts, currentIndex)
-        else:
-            power = bsp.DISP_INFO[face['dispinfo']]['power']
-            faceVerts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
-            faceIndices = bsp_tool.disp_tris(range((2 ** power + 1) ** 2), power)
-        vertices += faceVerts
-        indices += faceIndices
-        currentIndex = faceIndices[len(faceIndices) - 1] + 1
-    vertices = list(itertools.chain(*itertools.chain(*vertices)))
+    vertices = all_faces
+    indices = range(all_faces_size)
+
+##    print('compressing vertex buffer...')
+##    vertices = []
+##    indices = []
+##    currentIndex = 0
+##    for face in filtered_faces:
+##        if face["dispinfo"] == -1:
+##            faceVerts = bsp.verts_of(face)
+##            faceIndices = calcTriFanIndices(faceVerts, currentIndex)
+##        else:
+##            power = bsp.DISP_INFO[face['dispinfo']]['power']
+##            faceVerts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
+##            faceIndices = bsp_tool.disp_tris(range((2 ** power + 1) ** 2), power)
+##        vertices += faceVerts
+##        indices += faceIndices
+##        currentIndex = faceIndices[-1] + 1 # ?
+##    vertices = list(itertools.chain(*itertools.chain(*vertices)))
 
 ##    RGB_LIGHTING = []
 ##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
@@ -161,16 +178,21 @@ def main(width, height, bsp):
     print(f'ASSEMBLED IN {(t2 - t1) * 1000:,.3f}ms')
     print()
 
+    # SHADERS (check GLSL version)
     USING_ES = False
     try:
         vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
         fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
-    except RuntimeError: # requires PyOpenGL changes described elsewhere
+    except Exception as exc: # requires PyOpenGL changes described elsewhere
+        USING_ES = True # if OpenGL 4.5 is not supported, switch to GLES 3.0
         vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
         fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
-        USING_ES = True # if OpenGL 4.5 is not supported, switch to GLES 3.0
+        raise exc # need error log if issue is not GLSL version
     bsp_shader = compileProgram(vertShader, fragShader)
     glLinkProgram(bsp_shader)
+    glUseProgram(bsp_shader) # must UseProgram to set uniforms
+
+    # UNIFORMS
     if USING_ES:
         # GLES vertex attribs
         attrib_position = glGetAttribLocation(bsp_shader, 'vertexPosition')
@@ -181,15 +203,16 @@ def main(width, height, bsp):
 ##        ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
 ##        # https://www.khronos.org/opengl/wiki/GluPerspective_code
 ##        glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
+    else: # glsl 450 core uniforms
+        glUniform3f(glGetUniformLocation(bsp_shader, 'sun_vector'), *sun_vector)
+        glUniform4f(glGetUniformLocation(bsp_shader, 'sun_colour'), *sun_colour)
+        glUniform4f(glGetUniformLocation(bsp_shader, 'sun_ambient'), *sun_ambient)
 
-##    STATIC_BUFFER = glGenBuffers(1)
-##    glBindBuffer(GL_ARRAY_BUFFER, STATIC_BUFFER)
-##    glBufferData(GL_ARRAY_BUFFER, len(all_faces) * 4, np.array(all_faces, dtype=np.float32), GL_STATIC_DRAW)
     VERTEX_BUFFER, INDEX_BUFFER = glGenBuffers(2)
     glBindBuffer(GL_ARRAY_BUFFER, VERTEX_BUFFER)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER)
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint32), GL_STATIC_DRAW)
-    glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, np.array(vertices, dtype=np.float32), GL_STATIC_DRAW)
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint32), GL_STATIC_DRAW) # INDICES
+    glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, np.array(vertices, dtype=np.float32), GL_STATIC_DRAW) # VERTICES
     glEnableVertexAttribArray(0)  #vertexPosition
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(0))
     glEnableVertexAttribArray(1)  #vertexNormal
@@ -284,6 +307,10 @@ def main(width, height, bsp):
         dt = time() - oldtime
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
+            # turning sun
+            sun_vector = sun_vector.rotate(1, 0, 0)
+            glUseProgram(bsp_shader)
+            glUniform3f(glGetUniformLocation(bsp_shader, 'sun_vector'), *sun_vector)
             #update projection matrix
             if SDLK_BACKQUOTE in keys:
 ##                print(VIEW_CAMERA)
@@ -359,21 +386,26 @@ def main(width, height, bsp):
 ##        glVertex(0, 0, 128)
 ##        glEnd()
 
-        glUseProgram(0)
-        glDisable(GL_TEXTURE_2D)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-        glColor(1, 1, 1)
-        glDisable(GL_DEPTH_TEST)
-        glBegin(GL_LINE_LOOP)
-        for vertex in current_face_verts:
-            glVertex(*vertex)
-        glEnd()
-        glBegin(GL_POINTS)
-        for vertex in current_face_verts:
-            glVertex(*vertex)
-        glEnd()
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_TEXTURE_2D)
+##        glUseProgram(0)
+##        glDisable(GL_TEXTURE_2D)
+##        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+##        glColor(1, 1, 1)
+##        glDisable(GL_DEPTH_TEST)
+##        glBegin(GL_LINE_LOOP)
+##        for vertex in current_face_verts:
+##            glVertex(*vertex)
+##        glEnd()
+##        glBegin(GL_POINTS)
+##        for vertex in current_face_verts:
+##            glVertex(*vertex)
+##        glEnd()
+##        glPointSize(24)
+##        glBegin(GL_POINTS)
+##        glVertex(*(sun_vector * 4096))
+##        glEnd()
+##        glPointSize(4)
+##        glEnable(GL_DEPTH_TEST)
+##        glEnable(GL_TEXTURE_2D)
 
 ##        glTranslate(0, 0, 64)
 ##        glBegin(GL_LINES)
@@ -395,7 +427,7 @@ if __name__ == '__main__':
     width, height = 1280, 720
     TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
     bsp = '../maps/pl_upward.bsp'
-    bsp = TF + 'maps/cp_manor_event.bsp'
+##    bsp = TF + 'maps/cp_manor_event.bsp'
 ##    bsp = TF + 'maps/cp_coldfront.bsp'
 ##    bsp = TF + 'maps/koth_harvest_final.bsp'
     for option in options:
