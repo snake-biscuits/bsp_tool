@@ -31,25 +31,40 @@ def main(width, height):
     pixel_formats = {SDL_PIXELFORMAT_BGR24: GL_BGR} # 24bpp .bmp
 
     bsp_skyname = 'sky_upward' # worldspawn (first entity in LUMP_ENTITIES)
-    exts = ['rt', 'lf', 'ft', 'bk', 'up', 'dn'] # Z-up
+    tails = ['rt', 'lf', 'ft', 'bk', 'up', 'dn'] # Z-up
     cubemap_faces = ['POSITIVE_X', 'NEGATIVE_X', 'POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z']
 
     texture_SKYBOX = glGenTextures(1)
     glActiveTexture(GL_TEXTURE0)
     glBindTexture(GL_TEXTURE_CUBE_MAP, texture_SKYBOX)
-    for ext, face in zip(exts, cubemap_faces):
-        # get names of textures from .vmt
-        vmt = vmf_tool.namespace_from(open(f'materials/skybox/{bsp_skyname}{ext}.vmt'))
-        texture = SDL_LoadBMP(f"materials/{vmt.sky['$basetexture']}.bmp".encode('utf-8'))
-        return texture
+    for tail, face in zip(tails, cubemap_faces):
+        # need to create a loadTexture module
+        # .bmp (various bpps)
+        # .vtf (many compression types)
         target = eval(f'GL_TEXTURE_CUBE_MAP_{face}')
-        pixel_format = pixel_formats[texture.format]
-        glTexImage2D(target, 0, pixel_format, texture.w, texture.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture.pixels)
+        vmt = vmf_tool.namespace_from(open(f'materials/skybox/{bsp_skyname}{tail}.vmt'))
+        texture_filename = f"materials/{vmt.sky['$basetexture']}.bmp"
+        texture_file = open(texture_filename, 'rb')
+        texture_file.seek(54)
+        texture_bytes = texture_file.read()
+        texture_file.close()
+        texture_header = SDL_LoadBMP(texture_filename.encode('utf-8')).contents
+        pixel_format = pixel_formats[texture_header.format.contents.format]
+        texture_width = texture_header.w
+        texture_height = texture_header.h
+        SDL_FreeSurface(texture_header)
+        # texture must be square
+        if texture_width != texture_height:
+            if texture_width * 2 == texture_height:
+                texture_bytes = texture_bytes[::2]
+        glTexImage2D(target, 0, GL_RGBA, texture_width, texture_height, 0, pixel_format, GL_UNSIGNED_BYTE, texture_bytes) 
     glTexParamateri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParamateri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE)
+    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS)
+    print('cubemap assebled!')
     
     skybox_cube_vertices = []
     for i in range(8):
@@ -103,6 +118,9 @@ def main(width, height):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         gluPerspective(90, width / height, 0.1, 128)
+        # rotate camera
+        # draw skybox
+        # move camera
         VIEW_CAMERA.set()
 
         glColor(1, 1, 1)
