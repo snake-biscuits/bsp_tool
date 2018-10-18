@@ -30,6 +30,9 @@ def main(width, height):
 
     pixel_formats = {SDL_PIXELFORMAT_BGR24: GL_BGR} # 24bpp .bmp
 
+    # {name: {width, height, pixel_format, ...}}
+    loaded_textures = dict()
+    
     bsp_skyname = 'sky_upward' # worldspawn (first entity in LUMP_ENTITIES)
     tails = ['rt', 'lf', 'ft', 'bk', 'up', 'dn'] # Z-up
     cubemap_faces = ['POSITIVE_X', 'NEGATIVE_X', 'POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z']
@@ -41,6 +44,8 @@ def main(width, height):
         # need to create a loadTexture module
         # .bmp (various bpps)
         # .vtf (many compression types)
+        # load & read headers purely in python
+        # texture file to texture buffer
         target = eval(f'GL_TEXTURE_CUBE_MAP_{face}')
         vmt = vmf_tool.namespace_from(open(f'materials/skybox/{bsp_skyname}{tail}.vmt'))
         texture_filename = f"materials/{vmt.sky['$basetexture']}.bmp"
