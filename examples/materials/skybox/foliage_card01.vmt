@@ -1,0 +1,7 @@
+"LightMappedGeneric"
+{
+	"$basetexture"	"Skybox/foliage_card01"
+	"$surfaceprop"	"default"
+	"$translucent"	1
+	"%keywords" "tf"
+}

@@ -1,0 +1,354 @@
+replacements
+{
+	templates
+	{
+		sky_pyroland_01rt
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_01rt"
+					$basetexture 		"rj/sky_pyroland_01rt"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_01ft
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_01ft"
+					$basetexture 		"rj/sky_pyroland_01ft"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_01lf
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_01lf"
+					$basetexture 		"rj/sky_pyroland_01lf"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_01bk
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_01bk"
+					$basetexture 		"rj/sky_pyroland_01bk"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_01up
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_01up"
+					$basetexture 		"rj/sky_pyroland_01up"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_02rt
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_02bk"
+					$basetexture 		"rj/sky_pyroland_02bk"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_02ft
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_02rt"
+					$basetexture 		"rj/sky_pyroland_02rt"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_02lf
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_02ft"
+					$basetexture 		"rj/sky_pyroland_02ft"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_02bk
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_02lf"
+					$basetexture 		"rj/sky_pyroland_02lf"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_pyroland_02up
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_02up"
+					$basetexture 		"rj/sky_pyroland_02up"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01rt
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_03rt"
+					$basetexture 		"rj/sky_pyroland_03rt"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01ft
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture		"rj/sky_pyroland_03ft"
+					$basetexture 		"rj/sky_pyroland_03ft"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01lf
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_03lf"
+					$basetexture 		"rj/sky_pyroland_03lf"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01bk
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_03bk"
+					$basetexture 		"rj/sky_pyroland_03bk"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01up
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_pyroland_03up"
+					$basetexture 		"rj/sky_pyroland_03up"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		sky_badlands_01up_rot90
+		{
+			"sky"
+			{
+				"sky"
+				{
+					$hdrbasetexture 	"rj/sky_badlands_pyroland_up_rot90"
+					$basetexture 		"rj/sky_badlands_pyroland_up_rot90"
+					$nofog				"$nofog"
+       				$ignorez			"$ignorez"
+       				$basetexturetransform	"$basetexturetransform"
+				}
+			}
+		}
+		farm
+		{
+			"LightmappedGeneric"
+			{
+				pyro_vision
+				{
+					$basetexture			$basetexture
+					$vertexcolor			$vertexcolor
+
+					$STRIPETEXTURE			"rj/stripe4"
+					$STRIPE_SCALE			"[ 0.001 0.001 0.001 ]"
+					$STRIPE_COLOR                   "[0.6 0.25 0.20]"
+					$STRIPE_LM_SCALE     		1.0
+					$EFFECT					1
+					$COLORBAR				"rj/colorbar_green01"
+
+					$DIFFUSE_WHITE			0.5
+					$GRAY_POWER				0.4
+					$GRAY_STEP				"[ 0.0 1.0 ]"
+					$LIGHTMAP_GRADIENTS		255
+				}
+			}
+		}
+	}
+
+	patterns
+	{
+		sky_goldrush_01rt
+		{
+			template	"sky_pyroland_01rt"
+		}
+		sky_goldrush_01ft
+		{
+			template	"sky_pyroland_01ft"
+		}
+		sky_goldrush_01lf
+		{
+			template	"sky_pyroland_01lf"
+		}
+		sky_goldrush_01bk
+		{
+			template	"sky_pyroland_01bk"
+		}
+		sky_goldrush_01up
+		{
+			template	"sky_pyroland_01up"
+		}
+		sky_goldrush_01rt
+		{
+			template	"sky_pyroland_01rt"
+		}
+		sky_badlands_01rt
+		{
+			template	"sky_badlands_01rt"
+		}
+		sky_badlands_01ft
+		{
+			template	"sky_badlands_01ft"
+		}
+		sky_badlands_01lf
+		{
+			template	"sky_badlands_01lf"
+		}
+		sky_badlands_01bk
+		{
+			template	"sky_badlands_01bk"
+		}
+		sky_badlands_01up
+		{
+			template	"sky_badlands_01up"
+		}
+		sky_morningsnow_01rt
+		{
+			template	"sky_badlands_01bk"
+		}
+		sky_morningsnow_01ft
+		{
+			template	"sky_badlands_01rt"
+		}
+		sky_morningsnow_01lf
+		{
+			template	"sky_badlands_01ft"
+		}
+		sky_morningsnow_01bk
+		{
+			template	"sky_badlands_01lf"
+		}
+		sky_morningsnow_01up
+		{
+			template	"sky_badlands_01up_rot90"
+		}
+
+		sky_tf2_04rt
+		{
+			template	"sky_pyroland_02rt"
+		}
+		sky_tf2_04ft
+		{
+			template	"sky_pyroland_02ft"
+		}
+		sky_tf2_04bk
+		{
+			template	"sky_pyroland_02bk"
+		}
+		sky_tf2_04lf
+		{
+			template	"sky_pyroland_02lf"
+		}
+		sky_tf2_04up
+		{
+			template	"sky_pyroland_02up"
+		}
+//		sky_tf2_04dn
+//		{
+//			template	"sky_badlands_01dn"
+//		}
+
+		farm_fields001
+		{	
+			template	"farm"
+		}
+	}
+}
+
+
+

@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$baseTexture" "skybox/watertower001a"
+	"$translucent" 1
+	"$nofog" "1"
+	"%keywords" "tf"
+}
