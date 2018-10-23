@@ -1,21 +1,19 @@
 import enum
 import itertools
 from OpenGL.GL import *
-import struct
 
-bpp_of = {GL_BGR: 24}
 
 class texture:
     """Holds the pixels of a texture + some metadata"""
     __slots__ = ('filename', 'width', 'height', 'pixel_format', 'bpp',
                  'pixels', '_pixel_size', '_row_size')
     
-    def __init__(self, filename: str, width: int, height: int, pixel_format: OpenGL.constant.IntConstant, pixels: bytes):
+    def __init__(self, filename: str, width: int, height: int, pixel_format: OpenGL.constant.IntConstant, bpp: int, pixels: bytes):
         self.filename = filename
         self.width = width
         self.height = height
-        self.pixel_format = pixel_format
-        self.bpp = bpp_of[pixel_format]
+        self.pixel_format = pixel_format # order of colour channels (plugged directly into glTexImage2D)
+        self.bpp = bpp
         self.pixels = pixels
         self._pixel_size = self.bpp // 8
         self._row_size = self._pixel_size * width
@@ -40,36 +38,33 @@ class texture:
             stop = start + self._pixel_size
             step = 1
         mutable_pixels[start:stop:step] = value
-        self.pixels = mutable_pixels
+        self.pixels = bytes(mutable_pixels)
 
     def __repr__(self):
         return f'Texture({self.filename}, {self.width} x {self.height}, {self.pixel_format.name}, {self.bpp} Bits-per-pixel)'
 
-    def rotate(self, times): # Incomplete, yet to be needed
-        """rotate 90 * times degrees"""
-        # can glRotate be used for cubemaps?
-        times = times % 4
-        if times == 2:
-            ...
-        # map indices in self.pixels to a x, y coord
-        # modify pixels
-        # new_pixels = self.pixels[]
-        return texture(self.filename, self.width, self.height, self.pixel_format,
-                       new_pixels)
-
-    def scale(self, x, y): # untested
-        """linear interpolation ONLY"""
-        # not sticking to powers of 2 is a bad idea
-        pixel_count - self.width * self.height
+    def scale(self, x, y): # untested (scale down only)
+        """Linear interpolation ONLY\nPlease keep your dimensions to powers of 2"""
+        new_width = int(self.width * x)
+        new_height = int(self.height * y)
+        print(f'{self.width} x {self.height} to {new_width} x {new_height}')
+        pixel_count = self.width * self.height
         ps = self._pixel_size
-        new_pixels = [self.pixels[i:i + ps] for i in range(0, pixel_count, ps * int(1 / x))]
+##        new_pixels = [self.pixels[i:i + ps] for i in range(0, pixel_count, ps * int(1 / x))]
+##        new_pixels = bytes(itertools.chain(*new_pixels))
+        
+        new_pixels = []
+        for i in range(0, len(self.pixels), ps * int(1 / x)):
+            new_pixels.append(self.pixels[i:i + ps])
+        print(len(new_pixels))
+        
         rs = self._row_size
         new_pixels = [self.pixels[i:i + rs] for i in range(0, pixel_count, rs * int(1 / y))]
         new_pixels = bytes(itertools.chain(*new_pixels))
-        new_width = int(width * x)
-        new_height = int(height * y)
-        return texture(self.filename, new_width, new_height, self.pixel_format,
-                       new_pixels)
+        
+        print(f'expected length: {new_width * new_height * self._pixel_size}',
+              f'actual length: {len(new_pixels)}', sep='\n')
+        return texture(self.filename, new_width, new_height, self.pixel_format, self.bpp, new_pixels)
     
 
 def load_BMP(filename):
@@ -99,9 +94,10 @@ def load_BMP(filename):
         raise RuntimeError(f'Cannot decompress {filename}')
     file.seek(pixel_array_start)
     # rows are padded to nearest 4 BYTES
+    # stick to powers of two and it shouldn't matter
     pixels = file.read()
     file.close()    
-    return texture(filename, width, height, pixel_format, pixels)
+    return texture(filename, width, height, pixel_format, bpp, pixels)
 
 ################################################################################
 ##           MUCH OF THE CODE AFTER THIS POINT IS COPIED FROM:                ##
@@ -112,7 +108,7 @@ def load_BMP(filename):
 class VTF_FORMAT(enum.Enum): # Map RAW (uncompressed) formats to GL_ equivalents
     NONE = -1
     RGBA8888 = 0
-    ABGR8888 = 2
+    ABGR8888 = 2 # GL_BGRA not equivalent
     RGB888 = 3
     BGR888 = 4
     RGB565 = 5
@@ -124,7 +120,7 @@ class VTF_FORMAT(enum.Enum): # Map RAW (uncompressed) formats to GL_ equivalents
     BGR888_BLUESCREEN = 11
     ARGB8888 = 12
     BGRA8888 = 13
-    DXT1 = 14 # Default
+    DXT1 = 14
     DXT3 = 15
     DXT5 = 16
     BGRX8888 = 17
@@ -139,6 +135,9 @@ class VTF_FORMAT(enum.Enum): # Map RAW (uncompressed) formats to GL_ equivalents
     RGBA16161616 = 26
     UVLX8888 = 27
 
+
+VTF_GL_FORMAT = {VTF_FORMAT.RGBA8888: GL_RGBA, VTF_FORMAT.RGB888: GL_RGB,
+                 VTF_FORMAT.BGR888: GL_BGR}
 
 class VTF_FLAGS(enum.Enum):
     # From *.txt config file
@@ -171,7 +170,7 @@ class VTF_FLAGS(enum.Enum):
     BORDER = 0x20000000
 
 
-def load_VTF(filename):
+def load_VTF(filename, level_of_detail, frame=1):
     filename = filename + '.vtf' if not filename.lower().endswith('.vtf') else filename
     file = open(filename, 'rb')
     magic = file.read(4)
@@ -187,6 +186,7 @@ def load_VTF(filename):
     first_frame = int.from_bytes(file.read(2), 'little')
     file.seek(52)
     high_format = int.from_bytes(file.read(4), 'little')
+    
     mipmap_count = ...
     low_format = ...
     low_width = ...
@@ -213,8 +213,9 @@ def load_VTF(filename):
         #               store the image data for the face
         depth = ...
         resources_count = ...
+    pixel_format = VTF_GL_FORMAT[VTF_FORMAT(high_format)]
 
 
 if __name__ == "__main__":
-    obsolete = load_BMP('materials/obsolete.bmp')
-    sky = load_VTF('materials/skybox/sky_upwardside.vtf')
+    obsolete = load_BMP('materials/obsolete.bmp').scale(.5, .5)
+    sky = load_VTF('materials/skybox/sky_upwardside.vtf', 0)

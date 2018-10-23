@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
+import texture
 from time import time
 
 import sys
@@ -42,6 +43,7 @@ def main(width, height):
 
     #.vmt "$basetexturetrasnsform" "center 0 0 scale 1 2 rotate 0 translate 0 0"
     # load all textures for skybox & scale to 1024 x 1024
+    tex = texture.load_BMP("materials/obsolete.bmp").scale(.5, .5)
 
     texture_SKYBOX = glGenTextures(1)
     glActiveTexture(GL_TEXTURE0)
@@ -73,7 +75,9 @@ def main(width, height):
             texture_width = texture_height
         elif texture_width != texture_height:
             raise RuntimeError(f'{texture_filename} is not square!')
-        glTexImage2D(target, 0, GL_RGBA, texture_width, texture_height, 0, pixel_format, GL_UNSIGNED_BYTE, texture_bytes) 
+##        glTexImage2D(target, 0, GL_RGBA, texture_width, texture_height, 0, pixel_format, GL_UNSIGNED_BYTE, texture_bytes)
+        # TYPE (2nd Last Input) is based on texture._pixel_size
+        glTexImage2D(target, 0, GL_RGBA, tex.width, tex.height, 0, tex.pixel_format, GL_UNSIGNED_BYTE, tex.pixels)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
