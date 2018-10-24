@@ -34,48 +34,40 @@ def main(width, height):
     pixel_formats = {SDL_PIXELFORMAT_BGR24: GL_BGR} # 24bpp .bmp
 
     # {name: {width, height, pixel_format, ...}}
-    loaded_textures = dict()
-    # store the bytes to avoid loading a texture twice
+    loaded_textures = dict() # load each texture once
+    # {vmt_filename: vtf_filename}
+    vmt_map = dict()
     
     bsp_skyname = 'sky_upward' # worldspawn (first entity in LUMP_ENTITIES)
     tails = ['rt', 'lf', 'ft', 'bk', 'up', 'dn'] # Z-up
     cubemap_faces = ['POSITIVE_X', 'NEGATIVE_X', 'POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z']
 
-    #.vmt "$basetexturetrasnsform" "center 0 0 scale 1 2 rotate 0 translate 0 0"
-    # load all textures for skybox & scale to 1024 x 1024
-    tex = texture.load_BMP("materials/obsolete.bmp").scale(.5, .5)
+    sky_scale = 256
+    sky_textures = dict()
+    for t in tails:
+        vmt_filename = f'materials/skybox/{bsp_skyname}{t}.vmt'
+        vmt = vmf_tool.namespace_from(open(vmt_filename))
+        filename = f"materials/{vmt.sky['$basetexture']}.bmp"
+        vmt_map[vmt_filename] = filename
+        if filename not in loaded_textures:
+            bmp = texture.load_BMP(filename)
+            x_scale = sky_scale / bmp.width
+            y_scale = sky_scale / bmp.height
+            scaled_texture = bmp.scale(x_scale, y_scale)
+            loaded_textures[filename] = scaled_texture
 
+    print(vmt_map)
+    
+    # use already loaded textures
     texture_SKYBOX = glGenTextures(1)
     glActiveTexture(GL_TEXTURE0)
     glBindTexture(GL_TEXTURE_CUBE_MAP, texture_SKYBOX)
-    # each texture must be a square, and the same size as the others
-    # load textures & scale
-    # then load each into the appropriate face
     for tail, face in zip(tails, cubemap_faces):
-        # need to create a loadTexture module
-        # .bmp (various bpps)
-        # .vtf (many compression types)
-        # load & read headers purely in python
-        # texture file to texture buffer
         target = eval(f'GL_TEXTURE_CUBE_MAP_{face}')
         vmt = vmf_tool.namespace_from(open(f'materials/skybox/{bsp_skyname}{tail}.vmt'))
-        texture_filename = f"materials/{vmt.sky['$basetexture']}.bmp"
-        texture_filename = "materials/skybox/sky_upwardside.bmp"
-        texture_file = open(texture_filename, 'rb')
-        texture_file.seek(54)
-        texture_bytes = texture_file.read()
-        texture_file.close()
-        texture_header = SDL_LoadBMP(texture_filename.encode('utf-8')).contents
-        pixel_format = pixel_formats[texture_header.format.contents.format]
-        texture_width = texture_header.w
-        texture_height = texture_header.h
-        SDL_FreeSurface(texture_header)
-        if texture_width // 2 == texture_height: # square hack
-            texture_bytes = bytes(itertools.chain(*[texture_bytes[i*6:(i*6) + 3] for i in range(len(texture_bytes) // 6)]))
-            texture_width = texture_height
-        elif texture_width != texture_height:
-            raise RuntimeError(f'{texture_filename} is not square!')
-##        glTexImage2D(target, 0, GL_RGBA, texture_width, texture_height, 0, pixel_format, GL_UNSIGNED_BYTE, texture_bytes)
+        filename = f"materials/{vmt.sky['$basetexture']}.bmp"
+        filename = "materials/skybox/sky_upwardside.bmp"
+        tex = texture.load_BMP(filename).scale(.5, 1)
         # TYPE (2nd Last Input) is based on texture._pixel_size
         glTexImage2D(target, 0, GL_RGBA, tex.width, tex.height, 0, tex.pixel_format, GL_UNSIGNED_BYTE, tex.pixels)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
@@ -95,11 +87,15 @@ def main(width, height):
     indices = [6, 4, 0, 2,  3, 1, 5, 7,  7, 5, 4, 6,
                2, 0, 1, 3,  0, 4, 5, 1,  6, 2, 3, 7]
 
-    sky_vert = compileShader(open('shaders/skybox.v', 'rb'), GL_VERTEX_SHADER)
-    sky_frag = compileShader(open('shaders/skybox.f', 'rb'), GL_FRAGMENT_SHADER)
+    sky_vert = compileShader(open('shaders/skybox_300_es.v', 'rb'), GL_VERTEX_SHADER)
+    sky_frag = compileShader(open('shaders/skybox_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
     sky_shader = compileProgram(sky_vert, sky_frag)
     glLinkProgram(sky_shader)
     glUseProgram(sky_shader)
+
+    MVP_MATRIX = glGetFloatv(GL_MODELVIEW_MATRIX)
+    MVP_LOCATION = glGetUniformLocation(sky_shader, 'mvpMatrix')
+    glUniformMatrix4fv(MVP_LOCATION, 1, GL_FALSE, *MVP_MATRIX)
 
     SDL_SetRelativeMouseMode(SDL_TRUE)
     SDL_SetWindowGrab(window, SDL_TRUE)
@@ -152,6 +148,9 @@ def main(width, height):
         glDisable(GL_DEPTH_TEST)
         # draw skybox
         glUseProgram(sky_shader)
+        # GLES attribs
+        MVP_MATRIX = glGetFloatv(GL_MODELVIEW_MATRIX)
+        glUniformMatrix4fv(MVP_LOCATION, 1, GL_FALSE, *MVP_MATRIX)
         glBegin(GL_QUADS)
         for i in indices:
             glVertex(*vertices[i])
@@ -186,7 +185,7 @@ def main(width, height):
 
 if __name__ == '__main__':
     try:
-        main(1280, 720)
+        main(640, 360)
     except Exception as exc:
         SDL_Quit()
         raise exc

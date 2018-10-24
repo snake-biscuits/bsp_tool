@@ -15,18 +15,23 @@ class texture:
         self.pixel_format = pixel_format # order of colour channels (plugged directly into glTexImage2D)
         self.bpp = bpp
         self.pixels = pixels
+        
         self._pixel_size = self.bpp // 8
         self._row_size = self._pixel_size * width
+
+    def __iter__(self):
+        return iter([bytes(self.pixels[i:i + self._pixel_size]) for i in range(0, len(self.pixels), self._pixel_size)])
 
     def __getitem__(self, index):
         """expects index in form (x, y) from top left"""
         x, y = index
-        pixel_start = pixel_size * x + row_size * y
+        pixel_start = self._pixel_size * x + self._row_size * y
         return self.pixels[pixel_start:pixel_start + self._pixel_size]
 
     def __setitem__(self, index, value):
         """expects value to be list of ints or bytestring of size self._pixel_size"""
         mutable_pixels = list(self.pixels)
+        
         if isinstance(index, slice):
             start, stop, step = index.indices(self.width * self.height)
             pixels = stop - start
@@ -37,33 +42,52 @@ class texture:
             start = pixel_size * x + row_size * y
             stop = start + self._pixel_size
             step = 1
+            
         mutable_pixels[start:stop:step] = value
         self.pixels = bytes(mutable_pixels)
 
     def __repr__(self):
         return f'Texture({self.filename}, {self.width} x {self.height}, {self.pixel_format.name}, {self.bpp} Bits-per-pixel)'
 
-    def scale(self, x, y): # untested (scale down only)
+    def scale(self, x, y): # don't allow negatives!
         """Linear interpolation ONLY\nPlease keep your dimensions to powers of 2"""
+        if self.width % 1 / x != 0.0 or (x > 1 and x % 1 != 0):
+            raise RuntimeError('Cannot Smoothly Scale X-Axis')
+        if self.height % 1 / y != 0.0 or (y > 1 and y % 1 != 0):
+            raise RuntimeError('Cannot Smoothly Scale Y-Axis')
+        x = int(x) if x >= 1 else x
+        y = int(y) if y >= 1 else y
+        
         new_width = int(self.width * x)
         new_height = int(self.height * y)
-        print(f'{self.width} x {self.height} to {new_width} x {new_height}')
-        pixel_count = self.width * self.height
-        ps = self._pixel_size
-##        new_pixels = [self.pixels[i:i + ps] for i in range(0, pixel_count, ps * int(1 / x))]
-##        new_pixels = bytes(itertools.chain(*new_pixels))
+        
+        pixel_skip_step = self._pixel_size * int(1 / x)
+        new_row_size = new_width * self._pixel_size
+        row_skip_step = new_row_size * int(1 / y)
+
+        
+        new_rows = []
+        if x < 1:
+            for i in range(0, len(self.pixels), pixel_skip_step):
+                new_rows.append(self.pixels[i:i + self._pixel_size])
+        elif x > 1 and isinstance(x, int):
+            for i in range(0, len(self.pixels), self._pixel_size):
+                new_rows.append(self.pixels[i:i + self._pixel_size] * x)
+        else: # x == 1
+            new_rows = [self.pixels]
+        new_rows = b''.join(new_rows)
         
         new_pixels = []
-        for i in range(0, len(self.pixels), ps * int(1 / x)):
-            new_pixels.append(self.pixels[i:i + ps])
-        print(len(new_pixels))
+        if y < 1:
+            for j in range(0, len(new_rows), row_skip_step):
+                new_pixels.append(new_rows[j:j + new_row_size])
+        elif y > 1 and isinstance(y, int):
+            for j in range(0, len(new_rows), new_row_size):
+                new_pixels.append(new_rows[j:j + new_row_size] * y)
+        else:
+            new_pixels = [new_rows]
+        new_pixels = b''.join(map(bytes, new_pixels))
         
-        rs = self._row_size
-        new_pixels = [self.pixels[i:i + rs] for i in range(0, pixel_count, rs * int(1 / y))]
-        new_pixels = bytes(itertools.chain(*new_pixels))
-        
-        print(f'expected length: {new_width * new_height * self._pixel_size}',
-              f'actual length: {len(new_pixels)}', sep='\n')
         return texture(self.filename, new_width, new_height, self.pixel_format, self.bpp, new_pixels)
     
 
@@ -217,5 +241,24 @@ def load_VTF(filename, level_of_detail, frame=1):
 
 
 if __name__ == "__main__":
-    obsolete = load_BMP('materials/obsolete.bmp').scale(.5, .5)
+    obsolete = load_BMP('materials/obsolete.bmp')
+    grid = bytes(range(16))
+    ascii_texture = texture('ascii', 4, 4, GL_BGR, 8, grid)
+    
+    def ascii_repr(tex):
+        out = ''
+        for y in range(tex.height):
+            y = tex.height - y
+            for x in range(tex.width):
+                out += chr(97 + (sum(tex[(x, y)]) // tex._pixel_size))
+            out += '\n'
+        print(out)
+    
+    ascii_repr(ascii_texture)
+    ascii_repr(ascii_texture.scale(2, .5))
+
+    ascii_repr(obsolete.scale(.25, .125))
+
     sky = load_VTF('materials/skybox/sky_upwardside.vtf', 0)
+    # HAVE FUN :3
+    ascii_repr(sky.scale(.125, .25))

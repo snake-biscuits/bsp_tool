@@ -1,0 +1,28 @@
+newmtl ...
+    Ka 0.0000 0.0000 0.0000
+    map_Kd texture.format
+    Kd 0.0000 0.0000 0.0000 # Diffuse (reflectivityColour)
+    Ks 0.0000 0.0000 0.0000 # Specular (mat_phong?)
+    Ns 10.0000 # 0 - 1000 # Specular Exponent
+
+    Tr 0.0000 # Transparency
+
+    illum 0 # Illumination Model
+        # 0 == Color on and Ambient off
+        # 1 == Color on and Ambient on
+        # 2 == Highlight on
+        # 3 == Reflection on and Ray trace on
+        # 4 == Transparency: Glass on, Reflection: Ray trace on
+        # 5 == Reflection: Fresnel on and Ray trace on
+        # 6 == Transparency: Refraction on, Reflection: Fresnel off and Ray trace on
+        # 7 == Transparency: Refraction on, Reflection: Fresnel on and Ray trace on
+        # 8 == Reflection on and Ray trace off
+        # 9 == Transparency: Glass on, Reflection: Ray trace off
+        # 10 == Casts shadows onto invisible surfaces
+
+    bump texture.format
+    disp texture.format # normal map?
+    refl -type cube_top cubemap_x_y_z.tga
+    # -type sphere
+    ## each side of a cubemap must be a single texture
+    # -type cube_top | cube_bottom | cube_front | cube_back | cube_left | cube_right
