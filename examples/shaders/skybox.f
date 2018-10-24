@@ -7,5 +7,7 @@ uniform samplerCube skybox;
 
 void main()
 {
-	outColour = texture(skybox, position);
+    /* Convert to Y-UP because Pixar's Renderman did cubemaps first*/
+    vec3 cubeVector = vec3(position.x, -position.z, position.y);
+	outColour = texture(skybox, cubeVector);
 }
