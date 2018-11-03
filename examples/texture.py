@@ -13,6 +13,11 @@ class texture:
         self.width = width
         self.height = height
         self.pixel_format = pixel_format # order of colour channels (plugged directly into glTexImage2D)
+        # glTexImage2D also requires a type field (2nd last argument)
+        # this is related to _pixel_size
+        # self._pixel_size = 8, GL_UNSIGNED_BYTE
+        # self._pixel_size = 16, GL_UNSIGNED_SHORT
+        # may as well add a method that give all glTexImage2D args after target
         self.bpp = bpp
         self.pixels = pixels
         
@@ -89,6 +94,17 @@ class texture:
         new_pixels = b''.join(map(bytes, new_pixels))
         
         return texture(self.filename, new_width, new_height, self.pixel_format, self.bpp, new_pixels)
+
+
+    def flip(self, axis):
+        new_pixels = []
+        if axis.upper() == 'X':
+            for i in range(0, len(self.pixels), self._row_size):
+                # flip a pixel at a time to preserve pixel_format
+                new_pixels.append(bytes(reversed(self.pixels[i:i + self._row_size])))
+
+            return texture(self.filename, self.width, self.height, self.pixel_format, self.bpp, b''.join(new_pixels))
+
     
 
 def load_BMP(filename):

@@ -35,19 +35,21 @@ def main(width, height):
 
     # {name: {width, height, pixel_format, ...}}
     loaded_textures = dict() # load each texture once
-    # {vmt_filename: vtf_filename}
-    vmt_map = dict()
+    vmt_map = dict() # {vmt_filename: vtf_filename}
     
-    bsp_skyname = 'sky_upward' # worldspawn (first entity in LUMP_ENTITIES)
-    tails = ['rt', 'lf', 'ft', 'bk', 'up', 'dn'] # Z-up
-    cubemap_faces = ['POSITIVE_X', 'NEGATIVE_X', 'POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z']
+    bsp_skyname = 'sky_hydro_01' # worldspawn (first entity in LUMP_ENTITIES)
+    tails = ['dn', 'up', 'rt', 'lf', 'ft', 'bk'] # Z-up
+    cubemap_faces = ['POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z', 'POSITIVE_X', 'NEGATIVE_X']
+    {'dn': 'POSITIVE_Y', 'up': 'NEGATIVE_Y'}
+    # reorient textures
 
-    sky_scale = 256
+    sky_scale = 512
     sky_textures = dict()
     for t in tails:
         vmt_filename = f'materials/skybox/{bsp_skyname}{t}.vmt'
         vmt = vmf_tool.namespace_from(open(vmt_filename))
-        filename = f"materials/{vmt.sky['$basetexture']}.bmp"
+##        filename = f"materials/{vmt.sky['$basetexture']}.bmp"
+        filename = f"materials/skybox/{bsp_skyname}{t}.bmp"
         vmt_map[vmt_filename] = filename
         if filename not in loaded_textures:
             bmp = texture.load_BMP(filename)
@@ -55,20 +57,18 @@ def main(width, height):
             y_scale = sky_scale / bmp.height
             scaled_texture = bmp.scale(x_scale, y_scale)
             loaded_textures[filename] = scaled_texture
-
-    print(vmt_map)
+        else:
+            print(f'{t} already loaded: {filename}')
+        sky_textures[vmt_filename] = filename
     
     # use already loaded textures
     texture_SKYBOX = glGenTextures(1)
     glActiveTexture(GL_TEXTURE0)
     glBindTexture(GL_TEXTURE_CUBE_MAP, texture_SKYBOX)
-    for tail, face in zip(tails, cubemap_faces):
+    for tex, face in zip(sky_textures, cubemap_faces):
+        tex = loaded_textures[vmt_map[tex]]
+##        tex = loaded_textures['materials/skybox/sky_upwardside.bmp']
         target = eval(f'GL_TEXTURE_CUBE_MAP_{face}')
-        vmt = vmf_tool.namespace_from(open(f'materials/skybox/{bsp_skyname}{tail}.vmt'))
-        filename = f"materials/{vmt.sky['$basetexture']}.bmp"
-        filename = "materials/skybox/sky_upwardside.bmp"
-        tex = texture.load_BMP(filename).scale(.5, 1)
-        # TYPE (2nd Last Input) is based on texture._pixel_size
         glTexImage2D(target, 0, GL_RGBA, tex.width, tex.height, 0, tex.pixel_format, GL_UNSIGNED_BYTE, tex.pixels)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
@@ -174,9 +174,15 @@ def main(width, height):
         glVertex(1, -1)
         glEnd()
 
-        # which way is up?
-        glColor(0, 0, 1)
+        # positive axes
         glBegin(GL_LINES)
+        glColor(1, 0, 0)
+        glVertex(0, 0, 0)
+        glVertex(1, 0, 0)
+        glColor(0, 1, 0)
+        glVertex(0, 0, 0)
+        glVertex(0, 1, 0)
+        glColor(0, 0, 1)
         glVertex(0, 0, 0)
         glVertex(0, 0, 1)
         glEnd()

@@ -7,6 +7,7 @@ out mediump vec3 position;
 
 void main()
 {
-    position = vertexPosition;
-    gl_Position = mvpMatrix * vec4(position, 1);
+    /* Convert to Y-UP because Pixar's Renderman did cubemaps first*/
+    position = vec3(vertexPosition.y, -vertexPosition.z, vertexPosition.x);
+    gl_Position = mvpMatrix * vec4(vertexPosition, 1);
 }
