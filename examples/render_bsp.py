@@ -285,7 +285,7 @@ def main(width, height, bsp):
                 SDL_GL_DeleteContext(glContext)
                 SDL_DestroyWindow(window)
                 SDL_Quit()
-                return False
+                return bsp
             if event.type == SDL_KEYDOWN:
                 if event.key.keysym.sym not in keys:
                     keys.append(event.key.keysym.sym)
@@ -308,7 +308,7 @@ def main(width, height, bsp):
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
             # turning sun
-            sun_vector = sun_vector.rotate(1, 0, 0)
+            sun_vector = sun_vector.rotate(.05, 0, 0)
             glUseProgram(bsp_shader)
             glUniform3f(glGetUniformLocation(bsp_shader, 'sun_vector'), *sun_vector)
             #update projection matrix
@@ -386,11 +386,11 @@ def main(width, height, bsp):
 ##        glVertex(0, 0, 128)
 ##        glEnd()
 
-##        glUseProgram(0)
-##        glDisable(GL_TEXTURE_2D)
-##        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-##        glColor(1, 1, 1)
-##        glDisable(GL_DEPTH_TEST)
+        glUseProgram(0)
+        glDisable(GL_TEXTURE_2D)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+        glColor(1, 1, 1)
+        glDisable(GL_DEPTH_TEST)
 ##        glBegin(GL_LINE_LOOP)
 ##        for vertex in current_face_verts:
 ##            glVertex(*vertex)
@@ -399,13 +399,13 @@ def main(width, height, bsp):
 ##        for vertex in current_face_verts:
 ##            glVertex(*vertex)
 ##        glEnd()
-##        glPointSize(24)
-##        glBegin(GL_POINTS)
-##        glVertex(*(sun_vector * 4096))
-##        glEnd()
-##        glPointSize(4)
-##        glEnable(GL_DEPTH_TEST)
-##        glEnable(GL_TEXTURE_2D)
+        glPointSize(24)
+        glBegin(GL_POINTS)
+        glVertex(*(sun_vector * 4096))
+        glEnd()
+        glPointSize(4)
+        glEnable(GL_DEPTH_TEST)
+        glEnable(GL_TEXTURE_2D)
 
 ##        glTranslate(0, 0, 64)
 ##        glBegin(GL_LINES)
@@ -426,9 +426,10 @@ if __name__ == '__main__':
     # try argpase
     width, height = 1280, 720
     TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
-    bsp = '../maps/pl_upward.bsp'
+##    bsp = '../maps/pl_upward.bsp'
+##    bsp = TF + 'maps/cp_cloak.bsp'
 ##    bsp = TF + 'maps/cp_manor_event.bsp'
-##    bsp = TF + 'maps/cp_coldfront.bsp'
+    bsp = TF + 'maps/cp_coldfront.bsp'
 ##    bsp = TF + 'maps/koth_harvest_final.bsp'
     for option in options:
         for key, value in option:
@@ -439,7 +440,7 @@ if __name__ == '__main__':
             elif key == '-bsp':
                 bsp = value
     try:
-        main(width, height, bsp)
+        bsp_file = main(width, height, bsp)
     except Exception as exc:
         SDL_Quit()
         raise exc
