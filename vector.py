@@ -37,7 +37,7 @@ class vec2:
         elif isinstance(other, vec3):
             if [*self, 0] == [*other]:
                 return True
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             if self.magnitude() == other:
                 return True
         return False
@@ -46,7 +46,7 @@ class vec2:
         return ' '.join([format(i, format_spec) for i in self])
 
     def __floordiv__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec2(self.x // other, self.y // other)
         raise TypeError(f"unsupported operand type(s) for //: 'vec2' and '{other.__class__.__name__}'")
 
@@ -60,7 +60,7 @@ class vec2:
         return 2
 
     def __mul__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec2(self.x * other, self.y * other)
         elif hasattr(other, '__iter__'):
             raise NotImplementedError('vec2 cross product not implemented.')
@@ -84,7 +84,7 @@ class vec2:
         return vec2(*map(math.fsum, zip(self, -other)))
 
     def __truediv__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec2(self.x / other, self.y / other)
         elif hasattr(other, '__iter__'):
             raise ArithmeticError('Cannot divide vector by another vector.')
@@ -142,7 +142,7 @@ class vec3:
         elif isinstance(other, vec3):
             if [*self] == [*other]:
                 return True
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             if self.magnitude() == other:
                 return True
         return False
@@ -151,7 +151,7 @@ class vec3:
         return ' '.join([format(i, format_spec) for i in self])
 
     def __floordiv__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec3(self.x // other, self.y // other, self.z // other)
         elif hasattr(other, '__iter__'):
             raise ArithmeticError('Cannot divide vector by another vector.')
@@ -167,7 +167,7 @@ class vec3:
         return 3
 
     def __mul__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec3(*[i * other for i in self])
         elif hasattr(other, '__iter__'):
             return vec3(math.fsum([self[1] * other[2], -self[2] * other[1]]),
@@ -192,7 +192,7 @@ class vec3:
         return vec3(*map(math.fsum, zip(self, -other)))
 
     def __truediv__(self, other):
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return vec3(self.x / other, self.y / other, self.z / other)
         elif hasattr(other, '__iter__'):
             raise ArithmeticError('Cannot divide vector by another vector.')
