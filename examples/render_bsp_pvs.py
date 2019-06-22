@@ -55,7 +55,7 @@ class aabb:
             glVertex(*max_axis)
 
     def contains(self, point):
-        for i, a in point:
+        for i, a in enumerate(point):
             if not self.min[i] < a < self.max[i]:
                 return False
         return True
@@ -84,7 +84,6 @@ def node_faces(node, bsp, all_faces_map):
     return draw_calls
 
 def main(width, height, bsp):
-    bsp = bsp_tool.bsp(bsp)
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
@@ -298,6 +297,7 @@ if __name__ == '__main__':
             elif key == '-bsp':
                 bsp = value
     try:
+        bsp = bsp_tool.bsp(bsp) # load bsp file for debug
         main(width, height, bsp)
     except Exception as exc:
         SDL_Quit()
