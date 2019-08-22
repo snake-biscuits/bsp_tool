@@ -965,20 +965,10 @@ if __name__=='__main__':
             conversion_time = time.time() - start
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
-##        bsp_file = bsp('maps/pl_upward.bsp')
-##        start = time.time()
-##        obj_file = open('mat_test' + '.obj', 'w')
-##        bsp_file.export_obj(obj_file)
-##        obj_file.close()
-##        conversion_time = time.time() - start
-##        print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
-        ...
-    # compressed .bsp
-##    bsp('maps/koth_sky_lock_b1')
-    
-    harvest = bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/koth_harvest_final')
-    import json
-    leaf_file = open('koth_harvest_leaf_lump.json', 'w')
-    leaf_file.write('[' + ',\n'.join([json.dumps(leaf) for leaf in harvest.LEAVES]) + ']')
-    leaf_file.close()
-    print('Leaves written to file!')
+        ... # do nothing (or uncomment tests)
+##        harvest = bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/koth_harvest_final')
+##        import json
+##        leaf_file = open('koth_harvest_leaf_lump.json', 'w')
+##        leaf_file.write('[' + ',\n'.join([json.dumps(leaf) for leaf in harvest.LEAVES]) + ']')
+##        leaf_file.close()
+##        print('Leaves written to file!')
