@@ -954,8 +954,9 @@ def disp_tris(verts, power):
 
 if __name__=='__main__':
     import argparse
-    # --obj [outfiledir/outfile] // defaults to sourcedir
-    ## 3 error levels
+    # --game -G [tf2/hl2/vindictus]
+    # --obj -o [outfiledir/outfile] // defaults to sourcedir
+    ## 3 error levels -W -Warn
     # -W strict // stop if cannot load ANY chunk
     # -W X // stop after X failed chunk loads
     # -W lazy // ignore any and all chunks that cannot be loaded
