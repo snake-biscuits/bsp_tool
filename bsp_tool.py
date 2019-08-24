@@ -953,7 +953,15 @@ def disp_tris(verts, power):
 
 
 if __name__=='__main__':
-    # USE ARGPARSE! for --help and options like -obj -stats etc.
+    import argparse
+    # --obj [outfiledir/outfile] // defaults to sourcedir
+    ## 3 error levels
+    # -W strict // stop if cannot load ANY chunk
+    # -W X // stop after X failed chunk loads
+    # -W lazy // ignore any and all chunks that cannot be loaded
+    # --stats [options] // list various stats into a .csv file
+    #                   // take an example .csv?
+    # can you think of any other options?
     import sys
     if len(sys.argv) > 1: # drag drop obj converter
         for map_path in sys.argv[1:]:
