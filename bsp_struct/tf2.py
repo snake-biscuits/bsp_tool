@@ -1,9 +1,71 @@
 # structs for BSP version 20 (TF2)
-# note that Vindictus also uses version 20 but is quite different
+import common
+import enum
 
-class bsp_struct:
-    def __init__(self, _bytes):
-        for item in self.parts
+class LUMP(enum.Enum):
+    ENTITIES = 0
+    PLANES = 1
+    TEXDATA = 2
+    VERTICES = 3
+    VISIBILITY = 4
+    NODES = 5
+    TEXINFO = 6
+    FACES = 7
+    LIGHTING = 8
+    OCCLUSION = 9
+    LEAVES = 10
+    FACEIDS = 11
+    EDGES = 12
+    SURFEDGES = 13
+    MODELS = 14
+    WORLD_LIGHTS = 15
+    LEAF_FACES = 16
+    LEAF_BRUSHES = 17
+    BRUSHES = 18
+    BRUSH_SIDES = 19
+    AREAS = 20
+    AREA_PORTALS = 21
+    UNUSED0 = 22
+    UNUSED1 = 23
+    UNUSED2 = 24
+    UNUSED3 = 25
+    DISP_INFO = 26
+    ORIGINAL_FACES = 27
+    PHYS_DISP = 28
+    PHYS_COLLIDE = 29
+    VERT_NORMALS = 30
+    VERT_NORMAL_INDICES = 31
+    DISP_LIGHTMAP_ALPHAS = 32
+    DISP_VERTS = 33
+    DISP_LIGHTMAP_SAMPLE_POSITIONS = 34
+    GAME_LUMP = 35
+    LEAF_WATER_DATA = 36
+    PRIMITIVES = 37
+    PRIM_VERTS = 38
+    PRIM_INDICES = 39
+    PAKFILE = 40
+    CLIP_PORTAL_VERTS = 41
+    CUBEMAPS = 42
+    TEXDATA_STRING_DATA = 43
+    TEXDATA_STRING_TABLE = 44
+    OVERLAYS = 45
+    LEAF_MIN_DIST_TO_WATER = 46
+    FACE_MARCO_TEXTURE_INFO = 47
+    DISP_TRIS = 48
+    PHYS_COLLIDE_SURFACE = 49
+    WATER_OVERLAYS = 50
+    LEAF_AMBIENT_INDEX_HDR = 51
+    LEAF_AMBIENT_INDEX = 52
+    LIGHTING_HDR = 53
+    WORLD_LIGHTS_HDR = 54
+    LEAF_AMBIENT_LIGHTING_HDR = 55
+    LEAF_AMBIENT_LIGHTING = 56
+    XZIP_PAKFILE = 57
+    FACES_HDR = 58
+    MAP_FLAGS = 59
+    OVERLAY_FADES = 60
+    UNUSED4 = 61
+    UNUSED5 = 62 
+    UNUSED6 = 63
 
-class face:
-    ...
+lump_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}

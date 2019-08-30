@@ -121,8 +121,8 @@ class VERSION(enum.Enum):
 
 lump_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-def read_lump(file, lumpid):
-    file.seek(lump_address[lumpid])
+def read_lump(file, header_address):
+    file.seek(header_address)
     offset = int.from_bytes(file.read(4), 'little')
     length = int.from_bytes(file.read(4), 'little')
     version = int.from_bytes(file.read(4), 'little')
@@ -159,7 +159,7 @@ class bsp():
         self.lump_map = {}
         start_time = time.time()
         for ID in LUMP:
-            data = read_lump(file, ID)
+            data = read_lump(file, lump_address[ID])
             if data is not None:
                 file.seek(lump_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
