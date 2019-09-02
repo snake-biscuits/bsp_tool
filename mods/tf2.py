@@ -1,5 +1,5 @@
 # structs for BSP version 20 (TF2)
-import common
+import mods.common as common
 import enum
 
 class LUMP(enum.Enum):
@@ -72,7 +72,6 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-vec3 = {"x": 0, "y": 1, "z": 2}
 # class for each lump in alphabetical order
 class brush(common.base): # LUMP 18
     __slots__ = ["first_side", "num_sides", "contents"]
@@ -85,7 +84,7 @@ class brush_side(common.base): # LUMP 19
 class cubemap(common.base): # LUMP 42
     __slots__ = ["origin", "size"]
     _format = "4i"
-    _arrays = {"origin": vec3}
+    _arrays = {"origin": [*"xyz"]}
 
 class disp_info(common.base): # LUMP 26
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start", "power",
@@ -93,7 +92,7 @@ class disp_info(common.base): # LUMP 26
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
     _format = "3f4ifiH2i88c10I"
-    _arrays = {"start_position": vec3, "edge_neighbours": 44,
+    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                 "corner_neighbours": 44, "allowed_verts": 10}
 
 class disp_tri(common.base): # LUMP 48
@@ -103,7 +102,7 @@ class disp_tri(common.base): # LUMP 48
 class disp_vert(common.base): # LUMP 33
     __slots__ = ["vector", "distance", "alpha"]
     _format = "5f"
-    _arrays = {"vector": vec3}
+    _arrays = {"vector": [*"xyz"]}
 
 class edge(common.base): # LUMP 12
     __slots__ = ["value"]
@@ -121,8 +120,8 @@ class face(common.base): # LUMP 7
                  "lightmap_texture_size_in_luxels", "original_face",
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
     _fomat = "Hb?i4h4bif5i2HI"
-    _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": 2,
-               "lightmap_texture_size_in_luxels": 2}
+    _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
+               "lightmap_texture_size_in_luxels": [*"st"]}
 
 # class game_lump: # LUMP 35
 #     ... # another unique class
@@ -132,7 +131,7 @@ class leaf(common.base): # LUMP 10
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data_id", "padding"]
     _format = "i8h4H2h"
-    _arrays = {"mins": vec3, "maxs": vec3}
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     # area and flags are bitmasked from the same value
     # area = leaf[2] & 0xFF80 >> 7 # 9 bits
     # flags = leaf[2] & 0x007F # 7 bits
@@ -153,7 +152,7 @@ class node(common.base): # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
     _format = "3i6h2H2h"
-    _arrays = {"children": 2, "mins": vec3, "maxs": vec3}
+    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 class original_face(face): # LUMP 27
     pass
@@ -165,7 +164,7 @@ class original_face(face): # LUMP 27
 class plane(common.base): # LUMP 1
     __slots__ = ["normal", "distance", "type"]
     _format = "4fi"
-    _arrays = {"normal": vec3}
+    _arrays = {"normal": [*"xyz"]}
 
 class surf_edge(common.base): # LUMP 13
     __slots__ = ["value"]
@@ -175,7 +174,7 @@ class tex_data(common.base): # LUMP 2
     __slots__ = ["reflectivity", "tex_data_string_index", "width", "height",
                  "view_width", "view_height"]
     _format = "3f5i"
-    _arrays = {"reflectivity": {"r": 0, "g": 1, "b": 2}}
+    _arrays = {"reflectivity": [*"rgb"]}
 
 # class tex_data_string_data: # LUMP 43
 #     ... # strings separated by null bytes
@@ -203,7 +202,7 @@ class world_light(common.base): # LUMP 15
                  "constant", "linear", "quadratic", # attenuation
                  "flags", "tex_info", "owner"]
     _format = "9f3i7f3i"
-    _arrays = {"origin": vec3, "intensity": vec3, "normal": vec3}
+    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 class world_light_hdr(world_light): # LUMP 54
     pass

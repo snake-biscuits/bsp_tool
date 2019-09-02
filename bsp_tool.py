@@ -25,9 +25,8 @@ import struct
 import time
 import vector
 
-import mods.tf2 as mod
-#import invictus as mod
-# which set to import is decided during import?
+from mods import tf2
+from mods import vindictus
 
 def read_lump(file, header_address):
     file.seek(header_address)
@@ -50,7 +49,9 @@ def read_lump(file, header_address):
             else:
                 return decompressed_lump
 
+
 lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
+
 
 class bsp():
     def __init__(self, file):
@@ -73,16 +74,22 @@ class bsp():
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
 
-        for LUMP, lump_class in mod.lump_classes:
+        self.mod = tf2
+        for LUMP, lump_class in self.mod.lump_classes:
             setattr(self, LUMP, [])
             RAW_LUMP = getattr(self, f"RAW_{LUMP}")
             for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                 getattr(self, LUMP).append(lump_class(data))
             exec(f"del self.RAW_{LUMP}")
 
+        # SPECIALS
+        # - GAME LUMP
+        # - SINGLE TYPE LUMPS
+
         file.close()
         unpack_time = time.time() - start_time
         print(f'Imported {self.filename} in {unpack_time:.2f} seconds')
+
 
     def verts_of(self, face): # why so many crazy faces?
         """vertex format [Position, Normal, TexCoord, LightCoord, Colour]"""
@@ -96,11 +103,7 @@ class bsp():
             edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1]
             verts.append(self.VERTICES[edge[0]])
             verts.append(self.VERTICES[edge[1]])
-        #verts[::2] is faster. why is this approach used?
-        # verts = [tuple(v) for v in verts]
-        # verts = {v: None for v in verts}
-        # verts = [list(v) for v in verts]
-        verts = verts[::2]
+        verts = verts[::2] # may be breaking some faces?
         # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
         # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
         for vert in verts:
@@ -124,6 +127,7 @@ class bsp():
         colour = [texdata['reflectivity']] * vert_count
         verts = list(zip(verts, normal, uvs, uv2s, colour))
         return verts
+
 
     def dispverts_of(self, face): # add format argument (lightmap uv, 2 uvs, etc)
         """vertex format [Position, Normal, TexCoord, LightCoord, Colour]
@@ -171,131 +175,37 @@ class bsp():
         verts = list(zip(verts, normal, uvs, uv2s, colour))
         return verts
 
-    def export_lightmap(self):
-        out_filename = self.filename + '.rgbe'
-        print(f'Writing to {out_filename} ... ', end='')
-        file = open(out_filename, 'wb')
-        file.write(self.LIGHTING)
-        file.close()
-        print('Done!')
-
-    def export_sprp_list(self):
-        raise NotImplemented('not yet')
-        out_filename = self.filename + '.props'
-        print(f'Writing to {out_filename}...', end='')
-        file = open(out_filename, 'wb')
-        #TWO PARTS
-        #LIST ALL PROPS ONCE, IN A SPECIFIC CODED ORDER
-        #LIST ALL POSITIONS & ROTATIONS (MATCHED TO PREVIOUS CODES)
-        #WRITE
-        file.close()
-        print(' Done!')
-
-    def inject(self, bspfile, lump):
-        """bspfile must be opened with 'rb+'"""
-        try:
-            lump = getattr(self, lump)
-        except:
-            raise RuntimeError("couldn't find lump")
-        #find lump position in bspfile
-        #write new lump
-        #  sort dicts with map()?
-        #  struct.iter_pack
-        #save all data after to memory
-        #truncate
-        #put the end of the file back
-        #change lump lengths and startpositions
-
 
     def export(self, outfile):
         """expects outfile to be a file with write bytes capability"""
-        #converts all current lumps to raw counterparts
         outfile.write(b'VBSP')
         outfile.write((20).to_bytes(4, 'little'))
         offset = 0
         length = 0
-        #USE THE LUMP MAP!
-        #PRESERVE SOURCE FILE LUMP ORDER
-        #dicts to raw lumps
+        # USE THE LUMP MAP!
+        # PRESERVE SOURCE FILE LUMP ORDER
         split_bytes = lambda y: map(lambda x: x.to_bytes(1, 'big'), y)
-
-        pack_brushes = lambda x: struct.pack('3i', x['firstside'], x['numsides'], x['contents'])
-        self.RAW_BRUSHES = b''.join(map(pack_brushes, self.BRUSHES))
-        pack_brush_sides = lambda x: struct.pack('H3h', x['planenum'], x['texinfo'],
-                                                        x['dispinfo'], x['bevel'])
-        self.RAW_BRUSH_SIDES = b''.join(map(pack_brush_sides, self.BRUSHSIDES))
-        if hasattr(self, 'CUBEMAPS'):
-            pack_cubemaps = lambda x: struct.pack('4i', *x['origin'], x['size'])
-            self.RAW_CUBEMAPS = b''.join(map(pack_brush_sides, self.BRUSHSIDES))
-        if hasattr(self, 'DISP_INFO'):
-            pack_disp_info = lambda x: struct.pack('3f4ifiH2i88c10I', *x['startPosition'],
-                  x['DispVertStart'], x['DispTriStart'], x['power'], x['minTess'],
-                  x['smoothingAngle'], x['contents'], x['MapFace'], x['LightmapAlphaStart'],
-                  x['LightmapSamplePositionStart'], *map(split_bytes, x['EdgeNeighbours']),
-                  *map(split_bytes, x['CornerNeighbours']), *x['AllowedVerts'])
-            self.RAW_DISP_INFO = b''.join(map(pack_brush_sides, self.DISP_INFO))
-            pack_disp_tris = lambda x: struct.pack('H', x)
-            self.RAW_DISP_TRIS = b''.join(map(pack_disp_tris, self.DISP_TRIS))
-            pack_disp_verts = lambda x: struct.pack('5f', *x['vec'], x['dist'], x['alpha'])
-            self.RAW_DISP_VERTS = b''.join(map(pack_disp_verts, self.DISP_VERTS))
-        pack_edges = lambda x: struct.pack('2h', *x)
-        self.RAW_EDGES = b''.join(pack_edges, self.EDGES)
-        self.RAW_ENTITIES = self.ENTITIES.encode('ascii')
-        pack_faces = lambda x: struct.pack('H2bi4h4bif5i2HI', x['planenum'], x['side'],
-              x['onNode'], x['firstedge'], x['numedges'], x['texinfo'], x['dispinfo'],
-              x['surfaceFogVolumeID'], *x['styles'], x['lightofs'], x['area'],
-              *x['LightmapTextureMinsinLuxels'], *['LightmapTextureSizeinLuxels'],
-              x['origFace'], x['numPrims'], x['firstPrimID'], x['smoothingGroups'])
-        self.RAW_FACES = b''.join(map(pack_faces, self.FACES))
-        pack_leaf_faces = lambda x: struct.pack('H', x)
-        self.RAW_LEAF_FACES = b''.join(map(pack_leaf_faces, self.LEAF_FACES))
-        pack_leaves = lambda x: struct.pack('i8h4H2h', x['contents'],
-              x['area'] << 7 + x['flags'], #'area' is 9 bits, and 'flags' is 7
-              *x['mins'], *x['maxs'], x['firstleafface'], x['firstleafbrush'],
-              x['numleafbrushes'], x['leafWaterDataID'], x['padding'])
-        self.RAW_LEAVES = b''.join(map(pack_leaves, self.LEAVES))
-        self.RAW_LIGHTING = self.LIGHTING
-        if hasattr(self, 'LIGHTING_HDR'):
-            self.RAW_LIGHTING_HDR = self.LIGHTING_HDR
-        pack_nodes = lambda x: struct.pack('3i6h2H2h', x['planenum'], *x['children'],
-              *x['mins'], *x['maxs'], x['firstface'], x['numfaces'], x['area'], x['padding'])
-        self.RAW_NODES = b''.join(map(pack_nodes, self.NODES))
-        self.RAW_ORIGINAL_FACES = b''.join(map(pack_faces, self.ORIGINAL_FACES))
-        pack_planes = lambda x: struct.pack('4fi', x['normal'], x['dist'], x['type'])
-        self.RAW_PLANES = b''.join(map(pack_planes, self.PLANES))
-        pack_surfedges = lambda x: struct.pack('i', x)
-        self.RAW_SURFEDES = b''.join(map(pack_surfedges, self.SURFEDGES))
-        pack_texdata = lambda x: struct.pack('3f5i', *x['reflectivity'], x['texdata_st'],
-              x['width'], x['height'], x['view_width'], x['view_height'])
-        self.RAW_TEXDATA = b''.join(map(pack_texdata, self.TEXDATA))
-        pack_texdata_st = lambda x: struct.pack('i', x)
-        self.RAW_TEXDATA_STRING_TABLE = b''.join(map(pack_texdata_st, self.TEXDATA_STRING_TABLE))
-        pack_texdata_sd = lambda x: struct.pack('128s', x.encode('ascii'))
-        self.RAW_TEXDATA_STRING_DATA = b''.join(map(pack_texdata_sd, self.TEXDATA_STRING_DATA))
-        pack_texinfo = lambda x: struct.pack('16f2i', *x['textureVecs'][0], *x['textureVecs'][1],
-              *x['lightmapVecs'][0], *x['lightmapVecs'][1], x['flags'], x['texdata'])
-        self.RAW_TEXINFO = b''.join(map(pack_texinfo, self.TEXINFO))
-        pack_vertices = lambda x: struct.pack('3f', *x)
-        self.RAW_VERTICES = b''.join(map(pack_vertices, self.VERTICES))
-        pack_world_lights = lambda x: struct.pack('9f3i7f3i', *x['origin'], *x['intensity'],
-              *x['normal'], x['cluster'], x['type'], x['style'], x['stopdot'], x['stopdot2'],
-              x['exponent'], x['radius'], x['constant_attn'], x['quadratic_attn'],
-              x['flags'], x['texinfo'], x['owner'])
-        self.RAW_WORLD_LIGHTS = b''.join(map(pack_world_lights, self.WORLD_LIGHTS))
-        if hasattr(self, 'WORLD_LIGHTS_HDR'):
-            self.RAW_WORLD_LIGHTS_HDR = b''.join(map(pack_world_lights, self.WORLD_LIGHTS_HDR))
-        #headers
-        for ID in LUMP: #entities should be written last
+        # convert all non_raw lumps back to raw
+        for LUMP in self.mod.LUMP:
+            if hasattr(self, f"RAW_{LUMP}"):
+                continue
+            #elif LUMP is on special list
+            elif hasattr(self, LUMP):
+                lump_format = self.mod.lump_classes[LUMP]._format
+                packer = lambda x: struct.pack(lump_format, *x.flat())
+                setattr(self, f"RAW_{LUMP}", map(packer, getattr(self, LUMP)))
+        # headers
+        # get offsets from headers
+        for ID in LUMP: # entities should be written last
             outfile.write(offset.to_bytes(4, 'little'))
             length = len(getattr(self, ID.name, 'RAW_' + ID.name)) #only lumps we have
             offset += length
-            outfile.write(b'0000') #lump version (actually important)
-            outfile.write(b'0000') #lump fourCC
-        #lump orders and spacing are very important
+            outfile.write(b'0000') # lump version (actually important)
+            outfile.write(b'0000') # lump fourCC (only for compressed)
         for ID in LUMP:
-            #these cursor locations and datasize need to go into headers
             outfile.write(getattr(self, ID.name, 'RAW_' + ID.name))
-        outfile.write(b'0001') #map revision
+        outfile.write(b'0001') # map revision
+
 
     def export_obj(self, outfile): #TODO: write .mtl for each vmt
         start_time = time.time()
@@ -415,9 +325,9 @@ class bsp():
             cubemaps = True
         except AttributeError:
             print(self.filename, 'has no cubemaps')
-            #check all samples are in pakfile
-            #warn if no HDR cubemaps are present
-            #maps/mapname/texdir/texture_X_Y_Z.vmt
+            # check all samples are in pakfile
+            # warn if no HDR cubemaps are present
+            # maps/mapname/texdir/texture_X_Y_Z.vmt (cubemap)
         if self.RAW_PAKFILE == b'PK\x05\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00XZP1 0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
             if cubemaps:
                 print(f"{self.filename[:-4]}'s cubemaps are not compiled")
@@ -503,7 +413,7 @@ if __name__=='__main__':
     #                   // take an example .csv?
     # can you think of any other options?
     import sys
-    if len(sys.argv) > 1: # drag drop obj converter
+    if len(sys.argv) > 1: # drag & drop obj converter
         for map_path in sys.argv[1:]:
             bsp_file = bsp(map_path)
             start = time.time()
@@ -514,9 +424,3 @@ if __name__=='__main__':
             print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
     else:
         ... # do nothing (or uncomment tests)
-##        harvest = bsp('E:/Steam/SteamApps/common/Team Fortress 2/tf/maps/koth_harvest_final')
-##        import json
-##        leaf_file = open('koth_harvest_leaf_lump.json', 'w')
-##        leaf_file.write('[' + ',\n'.join([json.dumps(leaf) for leaf in harvest.LEAVES]) + ']')
-##        leaf_file.close()
-##        print('Leaves written to file!')

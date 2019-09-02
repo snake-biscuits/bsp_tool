@@ -11,12 +11,12 @@ class base:
         for attr in self.__slots__:
             if attr in self._arrays:
                 array = self._arrays[attr]
-                if isinstance(array, dict):
+                if isinstance(array, (dict, list)):
                     length = len(array)
                     vec = mapped_array(_tuple[i:i + length], mapping=array)
                     setattr(self, attr, vec)
                     i += length
-                else:
+                else: # integer denoting array length
                     setattr(self, attr, _tuple[i:i + array])
                     i += array
             else:
@@ -24,7 +24,7 @@ class base:
                 i += 1
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.flat()})>"
+        return f"{self.__class__.__name__}({self.flat()})"
 
     def flat(self):
         """recreate the iterable this instance was initialised from"""
@@ -33,9 +33,6 @@ class base:
             value = getattr(self, slot)
             if not isinstance(value, (list, tuple, mapped_array)):
                 _tuple.append(value)
-            elif isinstance(value, mapped_array):
-                for x in value.array:
-                    _tuple.append(x)
             else:
                 for x in value:
                     _tuple.append(x)
@@ -82,40 +79,32 @@ class base:
 ##    return out
 
 
-def special_getattr(attr, indexable, default=None, mapping={}):
-    for character in attr.lower():
-        try:
-            index = mapping[character]
-            yield indexable[index]
-        except KeyError:
-            yield default
-
-
 class mapped_array: # generate a new mapping from list of string
-    _mapping = {"x": 0, "y": 1, "z": 2}
-    def __init__(self, array, mapping=_mapping): # if array is dict generate mapping
-        self.array = array
-        self._mapping = mapping
-
-    def __getattr__(self, attr, default=None):
-        # does unexpected things to __setattr__
-        result = tuple(special_getattr(attr, self.array, default, self._mapping))
-        if len(attr) == 1:
-            return result[0]
-        else:
-            return result
+    _mapping = [*"xyz"]
+    def __init__(self, array, mapping=_mapping):
+        if isinstance(mapping, dict):
+            self._mapping = list(mapping.keys())
+            i = 0
+            for segment_key, segment_map in mapping.items():
+                segment = array[i:i + len(segment_map)]
+                segment_array = mapped_array(segment, mapping=segment_map)
+                setattr(self, segment_key, segment_array)
+                i += len(segment_map)
+        else: # list of strings
+            for attr, value in zip(mapping, array):
+                setattr(self, attr, value)
+            self._mapping = mapping
 
     def __getitem__(self, index):
-        return self.array[index]
+        return getattr(self, self._mapping[index])
+
+    def __iter__(self):
+        return iter([getattr(self, a) for a in self._mapping])
 
     def __repr__(self):
         out = []
-        reverse_mapping = dict(zip(self._mapping.values(), self._mapping.keys()))
-        for i, v in enumerate(self.array):
-            if i in reverse_mapping:
-                out.append(f"{reverse_mapping[i]}: {v}")
-            else:
-                out.append(str(v))
+        for attr, value in zip(self._mapping, self):
+            out.append(f"{attr}: {value}")
         return f"<mapped_array ({', '.join(out)})>"
 
 ##class angle:
@@ -130,7 +119,7 @@ if __name__ == "__main__":
     class example(base):
         __slots__ = ["id", "position", "data"]
         _format = "i3f4i"
-        _arrays = {"position": {"x": 0, "y": 1, "z": 2}, "data": 4}
+        _arrays = {"position": [*"xyz"], "data": 4}
     
     e = example((0, .1, .2, .3, 4, 5, 6, 7))
     

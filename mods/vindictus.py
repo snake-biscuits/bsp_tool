@@ -1,4 +1,4 @@
-import common
+import mods.common as common
 import enum
 
 class LUMP(enum.Enum):
@@ -72,39 +72,22 @@ lump_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 class game_lump(common.base):
     __slots__ = ["id", "flags", "version", "offset", "length"]
-    _definition = """int id;
-    int flags;
-    int version;
-    int fileofs;
-    int filelen;"""
+    _format = "5i"
 
 
 class node(common.base):
     __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
                  "numfaces", "area", "padding"]
-    _definition = """int planenum;
-    int children[2];
-    int mins[3];
-    int maxs[3];
-    int firstface;
-    int numfaces;
-    int unknown;"""
+    _format = "12i"
+    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class leaf(common.base):
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
                  "firstleafface", "numleaffaces", "firstleafbrush",
                  "numleafbrushes", "leafWaterDataID"]
-    _definition = """int contents;
-    int cluster;
-    int	flags;
-    int	mins[3];
-    int	maxs[3];
-    unsigned int firstleafface;
-    unsigned int numleaffaces;
-    unsigned int firstleafbrush;
-    unsigned int numleafbrushes;
-    int leafWaterDataID;"""
+    _format = "9i4Ii"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class face(common.base):
@@ -132,23 +115,9 @@ class face(common.base):
     unsigned int numPrims;
     unsigned int firstPrimID;
     unsigned int smoothingGroups;"""
+    _format = ""
+    _arrays = {"lightmap_texture_size_in_luxels": [*"st"]}
 
 
 class brushside(common.base):
-
-
-
-if __name__ == "__main__":
-    print(common.get_format(node))
-
-    import textwrap
-    def def_to_slots(definition):
-        result = []
-        for line in definition.split(";")[:-1]:
-            line = textwrap.shorten(line, 128)
-            name = line.rpartition(" ")[2]
-            if name.endswith("]"):
-                name = name.rpartition("[")[0]
-            result.append(name)
-        return result
-    print(def_to_slots(face._definition))
+    pass
