@@ -74,13 +74,17 @@ class bsp():
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
 
+        self.log = []
         self.mod = tf2
         for LUMP, lump_class in self.mod.lump_classes:
-            setattr(self, LUMP, [])
-            RAW_LUMP = getattr(self, f"RAW_{LUMP}")
-            for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
-                getattr(self, LUMP).append(lump_class(data))
-            exec(f"del self.RAW_{LUMP}")
+            try: # implement -Warn system here
+                setattr(self, LUMP, [])
+                RAW_LUMP = getattr(self, f"RAW_{LUMP}")
+                for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
+                    getattr(self, LUMP).append(lump_class(data))
+                exec(f"del self.RAW_{LUMP}")
+            except Exception as exc:
+                self.log.append(exc)
 
         # SPECIALS
         # - GAME LUMP

@@ -69,55 +69,73 @@ class LUMP(enum.Enum):
 
 lump_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
+# class for each lump in alphabetical order
+class area_portal(common.base): # LUMP 21
+    __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
+                 "clip_portal_verts", "plane_num"]
+    _format = "4Ii"
 
-class game_lump(common.base):
-    __slots__ = ["id", "flags", "version", "offset", "length"]
-    _format = "5i"
+class brush_side(common.base): # LUMP 19
+    __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
+    _format = "I3i"
 
+class disp_info(common.base): # LUMP 26
+    __slots__ = ["start_position", "disp_vert_start", "disp_tri_start",
+                 "power", "smoothing_angle", "unknown1", "contents", "face",
+                 "lightmap_alpha_start", "lightmap_sample_position_start",
+                 "edge_neighbours", "corner_neighbours", "allowed_verts"]
+    _format = "3f3if2iI2i88c10I"
+    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
+               "corner_neighbours": 44, "allowed_verts": 10}
 
-class node(common.base):
-    __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
-                 "numfaces", "area", "padding"]
-    _format = "12i"
-    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
+class edge(common.base): # LUMP 12
+    __slots__ = ["value"]
+    _format = "2I"
+    _arrays = {"value": 2}
 
+class face(common.base): # LUMP 7
+    __slots__ = ["planen_um", "side", "on_node", "unknown1", "first_edge",
+                 "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
+                 "unknown2", "styles", "light_offset", "area",
+                 "lightmap_texture_mins_in_luxels",
+                 "lightmap_texture_size_in_luxels",
+                 "original_face", "num_primitives", "first_primitive_id",
+                 "smoothing_groups"]
+    _format = "I2bh6i4bif4i4I"
+    _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
+               "lightmap_texture_size_in_luxels": [*"st"]}
 
-class leaf(common.base):
+#class game_lump(common.base): # LUMP 35
+#    __slots__ = ["id", "flags", "version", "offset", "length"]
+#    _format = "5i"
+
+class leaf(common.base): # LUMP 10
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
                  "firstleafface", "numleaffaces", "firstleafbrush",
                  "numleafbrushes", "leafWaterDataID"]
     _format = "9i4Ii"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
+class leaf_face(common.base): # LUMP 16
+    __slots__ = ["value"]
+    _format = "I"
+    
+class node(common.base): # LUMP 5
+    __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
+                 "numfaces", "area", "padding"]
+    _format = "12i"
+    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
-class face(common.base):
-    __slots__ = ["planenum", "side", "onNode", "unknown0", "firstedge",
-                 "numedges", "texinfo", "dispinfo", "surfaceFogVolumeID",
-                 "unknown1", "styles", "lightofs", "area",
-                 "LightmapTextureMinsInLuxels", "LightmapTextureSizeInLuxels",
-                 "origFace", "numPrims", "firstPrimID", "smoothingGroups"]
-    _definition = """unsigned int planenum;
-    byte side;
-    byte onNode;
-    short unknown0;
-    int firstedge;
-    int numedges;
-    int texinfo;
-    int	dispinfo;
-    int	surfaceFogVolumeID;
-    int	unknown1;
-    byte styles[4];
-    int	lightofs;
-    float area;
-    int	LightmapTextureMinsInLuxels[2];
-    int	LightmapTextureSizeInLuxels[2];
-    unsigned int origFace;
-    unsigned int numPrims;
-    unsigned int firstPrimID;
-    unsigned int smoothingGroups;"""
-    _format = ""
-    _arrays = {"lightmap_texture_size_in_luxels": [*"st"]}
+##class overlay(common.base): # LUMP 45
+##    __slots__ = ["id", "tex_info", "face_count_and_render_order",
+##                 "faces", "u", "v", "uv_points", "origin", "normal"]
+##    _format = "2iIi4f18f"
+##    _arrays = {"faces": OVERLAY_BSP_FACE_COUNT, "u": 2, "v": 2,
+##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
 
 
-class brushside(common.base):
-    pass
+import mods.tf2 as tf2
+lump_classes = tf2.lump_classes
+lump_classes["BRUSHSIDES"] = brush_side
+lump_classes["EDGES"] = edge
+lump_classes["FACES"] = face

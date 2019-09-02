@@ -71,7 +71,6 @@ class LUMP(enum.Enum):
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-
 # class for each lump in alphabetical order
 class brush(common.base): # LUMP 18
     __slots__ = ["first_side", "num_sides", "contents"]
@@ -206,6 +205,7 @@ class world_light(common.base): # LUMP 15
 
 class world_light_hdr(world_light): # LUMP 54
     pass
+
 
 lump_classes = {"BRUSHES": brush, "BRUSHSIDES": brush_side, "CUBEMAPS": cubemap,
                 "DISP_INFO": disp_info, "DISP_TRIS": disp_tri,

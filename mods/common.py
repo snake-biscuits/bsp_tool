@@ -79,7 +79,7 @@ class base:
 ##    return out
 
 
-class mapped_array: # generate a new mapping from list of string
+class mapped_array: # generate a new mapping from a list of strings
     _mapping = [*"xyz"]
     def __init__(self, array, mapping=_mapping):
         if isinstance(mapping, dict):
