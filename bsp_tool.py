@@ -24,6 +24,7 @@ import lzma
 import struct
 import time
 import vector
+import vmf_tool
 
 from mods import tf2
 from mods import vindictus
@@ -54,7 +55,8 @@ lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'versio
 
 
 class bsp():
-    def __init__(self, file):
+    def __init__(self, file, mod=tf2):
+        self.mod = mod # should autodetect from errors and bsp version
         if not file.endswith('.bsp'):
             file += '.bsp'
         file.replace('\\', '/')
@@ -67,28 +69,57 @@ class bsp():
         self.bytesize = len(file.read()) + 4
         self.lump_map = {}
         start_time = time.time()
-        for ID in LUMP:
-            data = read_lump(file, lump_address[ID])
+        for ID in self.mod.LUMP:
+            data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None:
-                file.seek(lump_address[ID])
+                file.seek(self.mod.lump_header_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
 
         self.log = []
-        self.mod = tf2
-        for LUMP, lump_class in self.mod.lump_classes:
+        lump_classes = {L: c for L, c in self.mod.lump_classes.items() if hasattr(self, f"RAW_{L}")}
+        for LUMP, lump_class in lump_classes.items():
             try: # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                     getattr(self, LUMP).append(lump_class(data))
                 exec(f"del self.RAW_{LUMP}")
+            except struct.error as exc: # lump is not the expected size, try another format
+                self.log.append(f"{self.filename}.{LUMP} is not from {self.mod}, trying tf2.{LUMP} ... ")
+                if self.mod == vindictus:
+                    try:
+                        lump_class = tf2.lump_classes[LUMP]
+                        for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
+                            getattr(self, LUMP).append(lump_class(data))
+                        exec(f"del self.RAW_{LUMP}")
+                        self.log[-1] += "successful!"
+                    except:
+                        self.log[-1] += "failed."
+                        raise exc
             except Exception as exc:
-                self.log.append(exc)
+                self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
+##                raise exc
+
+        if self.log != []:
+            print(*self.log, sep='\n')
 
         # SPECIALS
+        # - ENTIITES
+        # don't forget some files have no entities
+        self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
+        self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
+        self.ENTITIES = vmf_tool.namespace_from(self.ENTITIES)["ents"]
+        # use fgdtools to fully unstringify entities
+        # type: plane | re | (x y z) (x y z) (x y z)
+        del self.RAW_ENTITIES
         # - GAME LUMP
-        # - SINGLE TYPE LUMPS
+        try:
+            _format = self.mod.surf_edge._format
+        except:
+            _format = tf2.surf_edge._format
+        self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
+        del self.RAW_SURFEDGES, _format
 
         file.close()
         unpack_time = time.time() - start_time
@@ -97,40 +128,40 @@ class bsp():
 
     def verts_of(self, face): # why so many crazy faces?
         """vertex format [Position, Normal, TexCoord, LightCoord, Colour]"""
-        texinfo = self.TEXINFO[face['texinfo']]
-        texdata = self.TEXDATA[texinfo['texdata']]
-        texvecs = texinfo['textureVecs']
-        lightvecs = texinfo['lightmapVecs']
         verts, uvs, uv2s = [], [], []
-        first_edge = face['firstedge']
-        for surfedge in self.SURFEDGES[first_edge:first_edge + face['numedges']]:
-            edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1]
+        first_edge = face.first_edge
+        for surfedge in self.SURFEDGES[first_edge:first_edge + face.num_edges]:
+            edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1] # ?
             verts.append(self.VERTICES[edge[0]])
-            verts.append(self.VERTICES[edge[1]])
-        verts = verts[::2] # may be breaking some faces?
+            #verts.append(self.VERTICES[edge[1]])
+        #verts = verts[::2] # why skip in this way?
         # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
         # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+        tex_info = self.TEXINFO[face.tex_info] # index error?
+        tex_data = self.TEXDATA[tex_info.tex_data]
+        texture = tex_info.texture
+        lightmap = tex_info.lightmap
+        normal = lambda P: (P.x, P.y, P.z) # return the normal of plane (P)
         for vert in verts:
-            uv = [vector.dot(vert, texvecs[0][:-1]) + texvecs[0][3],
-                  vector.dot(vert, texvecs[1][:-1]) + texvecs[1][3]]
-            uv[0] /= texdata['view_width']
-            uv[1] /= texdata['view_height']
+            uv = [vector.dot(vert, normal(texture.s)) + texture.s.offset,
+                  vector.dot(vert, normal(texture.t)) + texture.t.offset]
+            uv[0] /= tex_data.view_width
+            uv[1] /= tex_data.view_height
             uvs.append(vector.vec2(*uv))
-            uv2 = [vector.dot(vert, lightvecs[0][:-1]) + lightvecs[0][3],
-                   vector.dot(vert, lightvecs[1][:-1]) + lightvecs[1][3]]
-            uv2[0] -= face['LightmapTextureMinsinLuxels'][0]
-            uv2[1] -= face['LightmapTextureMinsinLuxels'][1]
+            uv2 = [vector.dot(vert, normal(lightmap.s)) + lightmap.s.offset,
+                   vector.dot(vert, normal(lightmap.t)) + lightmap.t.offset]
+            uv2[0] -= face.lightmap_texture_mins_in_luxels.s
+            uv2[1] -= face.lightmap_texture_mins_in_luxels.t
             try:
-                uv2[0] /= face['LightmapTextureSizeinLuxels'][0]
-                uv2[1] /= face['LightmapTextureSizeinLuxels'][1]
+                uv2[0] /= face.lightmap_texture_size_in_luxels.s
+                uv2[1] /= face.lightmap_texture_size_in_luxels.t
             except ZeroDivisionError:
                 uv2 = [0, 0]
             uv2s.append(uv2)
         vert_count = len(verts)
-        normal = [self.PLANES[face['planenum']]['normal']] * vert_count
-        colour = [texdata['reflectivity']] * vert_count
-        verts = list(zip(verts, normal, uvs, uv2s, colour))
-        return verts
+        normal = [self.PLANES[face.plane_num].normal] * vert_count
+        colour = [tex_data.reflectivity] * vert_count
+        return list(zip(verts, normal, uvs, uv2s, colour))
 
 
     def dispverts_of(self, face): # add format argument (lightmap uv, 2 uvs, etc)
@@ -138,12 +169,12 @@ class bsp():
         normal is inherited from face
         returns rows, not tris"""
         verts = self.verts_of(face)
+        if face.disp_info == -1:
+            raise RuntimeError('face is not a displacement!')
         if len(verts) != 4:
             raise RuntimeError('face does not have 4 corners (probably t-junctions)')
-        if face['dispinfo'] == -1:
-            raise RuntimeError('face is not a displacement!')
-        dispinfo = self.DISP_INFO[face['dispinfo']]
-        start = list(dispinfo['startPosition'])
+        disp_info = self.DISP_INFO[face.disp_info]
+        start = list(disp_info.start_position)
         start = [round(x, 1) for x in start] # approximate match
         round_verts = []
         for vert in [v[0] for v in verts]:
@@ -160,30 +191,29 @@ class bsp():
         BC = C - B
         BCuv = Cuv - Buv
         BCuv2 = Cuv2 - Buv2
-        power = dispinfo['power']
-        power2 = 2 ** power
+        power2 = 2 ** disp_info.power
         full_power = (power2 + 1) ** 2
-        normal = [verts[0][1]] * full_power
-        colour = [verts[0][4]] * full_power
-        start = dispinfo['DispVertStart']
-        stop = dispinfo['DispVertStart'] + full_power
-        verts, uvs, uv2s = [], [], []
-        for index, dispvert in enumerate(self.DISP_VERTS[start:stop]):
+        start = disp_info.disp_vert_start
+        stop = disp_info.disp_vert_start + full_power
+        new_verts, uvs, uv2s = [], [], []
+        for index, disp_vert in enumerate(self.DISP_VERTS[start:stop]):
             t1 = index % (power2 + 1) / power2
             t2 = index // (power2 + 1) / power2
-            baryvert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
-            dispvert = [x * dispvert['dist'] for x in dispvert['vec']]
-            verts.append([a + b for a, b in zip(baryvert, dispvert)])
+            bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
+            disp_vert = [x * disp_vert.distance for x in disp_vert.vector]
+            new_verts.append([a + b for a, b in zip(bary_vert, disp_vert)])
             uvs.append(vector.lerp(Auv + (ADuv * t1), Buv + (BCuv * t1), t2))
             uv2s.append(vector.lerp(Auv2 + (ADuv2 * t1), Buv2 + (BCuv2 * t1), t2))
-        verts = list(zip(verts, normal, uvs, uv2s, colour))
+        normal = [verts[0][1]] * full_power
+        colour = [verts[0][4]] * full_power
+        verts = list(zip(new_verts, normal, uvs, uv2s, colour))
         return verts
 
 
     def export(self, outfile):
         """expects outfile to be a file with write bytes capability"""
         outfile.write(b'VBSP')
-        outfile.write((20).to_bytes(4, 'little'))
+        outfile.write((20).to_bytes(4, 'little')) # engine version
         offset = 0
         length = 0
         # USE THE LUMP MAP!
@@ -211,152 +241,6 @@ class bsp():
         outfile.write(b'0001') # map revision
 
 
-    def export_obj(self, outfile): #TODO: write .mtl for each vmt
-        start_time = time.time()
-        out_filename = outfile.name.split('/')[-1] if '/' in outfile.name else outfile.name.split('\\')[-1]
-        total_faces = len(self.FACES)
-        print(f'Exporting {self.filename} to {out_filename} ({total_faces} faces)')
-        outfile.write('# bsp_tool.py generated model\n')
-        outfile.write(f'# source file: {self.filename}\n')
-        vs = []
-        v_count = 1
-        vts = []
-        vt_count = 1
-        vns = []
-        vn_count = 1
-        faces_by_material = {} # {material: [face, ...], ...}
-        disps_by_material = {} # {material: [face, ...], ...}
-        for face in self.FACES:
-            material = self.TEXDATA_STRING_DATA[self.TEXDATA[self.TEXINFO[face['texinfo']]['texdata']]['texdata_st']]
-            if face['dispinfo'] != -1:
-                if material not in disps_by_material:
-                    disps_by_material[material] = []
-                disps_by_material[material].append(face)
-            else:
-                if material not in faces_by_material:
-                    faces_by_material[material] = []
-                faces_by_material[material].append(face)
-        face_count = 0
-        current_progress = 0.1
-        print('0...', end='')
-
-        for material in faces_by_material:
-            outfile.write(f'usemtl {material}\n')
-            for face in faces_by_material[material]:
-                face_vs = self.verts_of(face)
-                vn = face_vs[0][1]
-                if vn not in vns:
-                    vns.append(vn)
-                    outfile.write(f'vn {vector.vec3(*vn):}\n')
-                    vn = vn_count
-                    vn_count += 1
-                else:
-                    vn = vns.index(vn) + 1
-                f = []
-                for vertex in face_vs:
-                    v = vertex[0]
-                    if v not in vs:
-                        vs.append(v)
-                        outfile.write(f'v {vector.vec3(*v):}\n')
-                        v = v_count
-                        v_count += 1
-                    else:
-                        v = vs.index(v) + 1
-                    vt = vertex[2]
-                    if vt not in vts:
-                        vts.append(vt)
-                        outfile.write(f'vt {vector.vec2(*vt):}\n')
-                        vt = vt_count
-                        vt_count += 1
-                    else:
-                        vt = vts.index(vt) + 1
-                    f.append((v, vt, vn))
-                outfile.write('f ' + ' '.join([f'{v}/{vt}/{vn}' for v, vt, vn in reversed(f)]) + '\n')
-                face_count += 1
-                if face_count >= total_faces * current_progress:
-                    print(f'{current_progress * 10:.0f}...', end='')
-                    current_progress += 0.1
-
-        disp_no = 0
-        outfile.write('g displacements\n')
-        for material in disps_by_material:
-            outfile.write(f'usemtl {material}\n')
-            for displacement in disps_by_material[material]:
-                outfile.write(f'o displacement_{disp_no}\n')
-                disp_no += 1
-                disp_vs = self.dispverts_of(displacement)
-                normal = disp_vs[0][1]
-                if normal not in vns:
-                    vns.append(normal)
-                    outfile.write(f'vn {vector.vec3(*normal):}\n')
-                    normal = vn_count
-                    vn_count += 1
-                else:
-                    normal = vns.index(normal) + 1
-                f = []
-                for v, vn, vt, vt2, colour in disp_vs:
-                    obj_file.write(f'v {vector.vec3(*v):}\nvt {vector.vec2(*vt):}\n')
-                power = bsp_file.DISP_INFO[displacement['dispinfo']]['power']
-                disp_size = (2 ** power + 1) ** 2
-                tris = disp_tris(range(disp_size), power)
-                for a, b, c in zip(tris[::3], tris[1::3], tris[2::3]):
-                    a = (a + v_count, a + vt_count, normal)
-                    b = (b + v_count, b + vt_count, normal)
-                    c = (c + v_count, c + vt_count, normal)
-                    a, b, c = [map(str, i) for i in (c, b, a)]
-                    obj_file.write(f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n")
-                v_count += disp_size
-                vt_count += disp_size
-                face_count += 1
-                if face_count >= total_faces * current_progress:
-                    print(f'{current_progress * 10:.0f}...', end='')
-                    current_progress += 0.1
-
-        total_time = time.time() - start_time
-        minutes = total_time // 60
-        seconds = total_time - minutes * 60
-        outfile.write(f'# file generated in {minutes:.0f} minutes {seconds:2.3f} seconds')
-        print('Done!')
-
-    def tf2m_compliance_test(self, mdls, vmts):
-        passes = True
-        cubemaps = False
-        if self.LIGHTING.replace(b'\x00', b'') == b'':
-            print(self.filename[:-4], 'is fullbright')
-            passes = False
-        try:
-            getattr(self, 'CUBEMAPS')
-            cubemaps = True
-        except AttributeError:
-            print(self.filename, 'has no cubemaps')
-            # check all samples are in pakfile
-            # warn if no HDR cubemaps are present
-            # maps/mapname/texdir/texture_X_Y_Z.vmt (cubemap)
-        if self.RAW_PAKFILE == b'PK\x05\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00XZP1 0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00':
-            if cubemaps:
-                print(f"{self.filename[:-4]}'s cubemaps are not compiled")
-            else:
-                print(self.filename[:-4], 'has no packed assets')
-        else:
-            if b'.vhv'in self.RAW_PAKFILE:
-                print(f"{self.filename[:-4]}'s cubemaps are compiled and packed!")
-        #if hasattr(self, 'LIGHTING_HDR'):
-        #    check for HDR lightmaps
-        for material_name in self.TEXDATA_STRING_DATA:
-            short_name = material_name
-            material_name = 'materials/' + material_name.lower() + '.vmt'
-            if material_name not in vmts:
-                print('{self.filename} references {short_name} and is', end=' ')
-                if bytes(material_name, 'utf-8') in self.RAW_PAKFILE:
-                    print('PACKED!')
-                else:
-                    print('NOT_PACKED!')
-                    passes = False
-        for entity in self.ENTITIES:
-            if 'prop' in entity['classname']:
-                referenced_mdls.append(entity['model'])
-        print(referenced_mdls)
-        return passes
 
 def disp_tris(verts, power):
     """takes flat array of verts and arranges them in a patterned triangle grid
@@ -408,14 +292,11 @@ def disp_tris(verts, power):
 if __name__=='__main__':
     import argparse
     # --game -G [tf2/hl2/vindictus]
-    # --obj -o [outfiledir/outfile] // defaults to sourcedir
-    ## 3 error levels -W -Warn
     # -W strict // stop if cannot load ANY chunk
-    # -W X // stop after X failed chunk loads
     # -W lazy // ignore any and all chunks that cannot be loaded
     # --stats [options] // list various stats into a .csv file
     #                   // take an example .csv?
-    # can you think of any other options?
+    # more options?
     import sys
     if len(sys.argv) > 1: # drag & drop obj converter
         for map_path in sys.argv[1:]:

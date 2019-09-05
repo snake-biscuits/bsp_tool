@@ -103,10 +103,8 @@ class disp_vert(common.base): # LUMP 33
     _format = "5f"
     _arrays = {"vector": [*"xyz"]}
 
-class edge(common.base): # LUMP 12
-    __slots__ = ["value"]
+class edge(list): # LUMP 12
     _format = "2h"
-    _arrays = {"value": 2}
 
 class face(common.base): # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
@@ -114,7 +112,7 @@ class face(common.base): # LUMP 7
                  "light_offset", "area", "lightmap_texture_mins_in_luxels",
                  "lightmap_texture_size_in_luxels", "original_face",
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
-    _fomat = "Hb?i4h4bif5i2HI"
+    _format = "Hb?i4h4bif5i2HI"
     _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
                "lightmap_texture_size_in_luxels": [*"st"]}
 
@@ -143,9 +141,6 @@ class node(common.base): # LUMP 5
     _format = "3i6h2H2h"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
-class original_face(face): # LUMP 27
-    pass
-
 # class pakfile: # LUMP 40
 #     ... # it's a raw binary zip file
 #     # keep the raw data and provide an extraction / editing API?
@@ -155,8 +150,7 @@ class plane(common.base): # LUMP 1
     _format = "4fi"
     _arrays = {"normal": [*"xyz"]}
 
-class surf_edge(common.base): # LUMP 13
-    __slots__ = ["value"]
+class surf_edge: # LUMP 13
     _format = "i"
 
 class tex_data(common.base): # LUMP 2
@@ -166,10 +160,10 @@ class tex_data(common.base): # LUMP 2
     _arrays = {"reflectivity": [*"rgb"]}
 
 class tex_info(common.base): # LUMP 6
-    __slots__ = ["texture", "lightmap", "flags", "tex_data"]
+    __slots__ = ["texture", "lightmap", "mip_flags", "tex_data"]
     _format = "16f2i"
-    _arrays = {"texture": {"u": ["aspect", *"xyz"], "v": ["aspect", *"xyz"]},
-               "lightmap": {"u": ["aspect", *"xyz"], "v": ["aspect", *"xyz"]}}
+    _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
+               "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
 
 class vertex(common.mapped_array): # LUMP 3
     _mapping = ["x", "y", "z"]
@@ -186,15 +180,11 @@ class world_light(common.base): # LUMP 15
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
-class world_light_hdr(world_light): # LUMP 54
-    pass
-
-
-lump_classes = {"BRUSHES": brush, "BRUSHSIDES": brush_side, "CUBEMAPS": cubemap,
+lump_classes = {"BRUSHES": brush, "BRUSH_SIDES": brush_side, "CUBEMAPS": cubemap,
                 "DISP_INFO": disp_info, "DISP_TRIS": disp_tri,
                 "DISP_VERTS": disp_vert, "EDGES": edge, "FACES": face,
                 "LEAVES": leaf, "LEAF_FACES": leaf_face, "NODES": node,
-                "ORIGINAL_FACES": original_face, "PLANES": plane,
-                "SURFEDGES": surf_edge, "TEXDATA": tex_data, "TEXINFO": tex_info,
+                "ORIGINAL_FACES": face, "PLANES": plane,
+                "TEXDATA": tex_data, "TEXINFO": tex_info,
                 "VERTICES": vertex, "WORLD_LIGHTS": world_light,
-                "WORLD_LIGHTS_HDR": world_light_hdr}
+                "WORLD_LIGHTS_HDR": world_light}

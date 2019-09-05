@@ -1,7 +1,3 @@
-# generate a container class, struct.iter_pack & struct.format from C code
-import copy
-import textwrap
-
 class base:
     __slots__ = []
     _format = ""
@@ -10,18 +6,28 @@ class base:
         i = 0
         for attr in self.__slots__:
             if attr in self._arrays:
-                array = self._arrays[attr]
-                if isinstance(array, (dict, list)):
-                    length = len(array)
-                    vec = mapped_array(_tuple[i:i + length], mapping=array)
-                    setattr(self, attr, vec)
-                    i += length
+                array_map = self._arrays[attr]
+                if isinstance(array_map, dict):
+                    length = 0 # total size of all parts of the dict
+                    for part in array_map.values():
+                        if isinstance(part, list):
+                            length += len(part)
+                        elif isinstance(part, int):
+                            length += part
+                    array = _tuple[i:i + length]
+                    value = mapped_array(array, mapping=array_map)
+                elif isinstance(array_map, list):
+                    length = len(array_map)
+                    array = _tuple[i:i + length]
+                    value = mapped_array(array, mapping=array_map)
                 else: # integer denoting array length
-                    setattr(self, attr, _tuple[i:i + array])
-                    i += array
-            else:
-                setattr(self, attr, _tuple[i])
-                i += 1
+                    length = array_map
+                    value = _tuple[i:i + length]
+            else: # this attribute is of length 1
+                value = _tuple[i]
+                length = 1
+            setattr(self, attr, value)
+            i += length
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.flat()})"
@@ -39,47 +45,8 @@ class base:
         return _tuple
 
 
-##def get_format(definition):
-##    format_string = []
-##    qualifiers = {"char": [1, "b"],
-##                  "_Bool": [1, "?"], "bool": [1, "?"],
-##                  "short": [1, "h"],
-##                  "int": [1, "i"],
-##                  "float": [1, "f"],
-##                  "long": [1, "l"],
-##                  "long long": [1, "q"],
-##                  "Vector": [3, "f"]}
-##    last_qualifier = [0, "0"]
-##    for line in definition.split(";")[:-1]:
-##        line = textwrap.shorten(line, 128)
-##        qualifier, name = line.rpartition(" ")[::2]
-##        signed, qualifier = qualifier.rpartition(" ")[::2]
-##        # ^ perhaps use regex to handle this and comments
-##        current = copy.deepcopy(qualifiers[qualifier])
-##        if signed == "unsigned":
-##            current[1] = current[1].upper()
-##        if name.endswith(']'):
-##            current[0] *= int(name.rstrip(']').rpartition('[')[2])
-##        if last_qualifier[1] == current[1]:
-##            format_string.pop(-1)
-##            current[0] += last_qualifier[0]
-##        format_string.append(current)
-##        last_qualifier = current
-##    format_string = ''.join([f'{s}{q}' for s, q in format_string])
-##    return format_string
-
-
-##def class_from(definition):
-##    """Takes a struct definition in C, and returns a python class
-##The returned class contains a format string for struct.unpack"""
-##    class out(base):
-##        __slots__ = [...]
-##        _format = ...
-##        ...
-##    return out
-
-
-class mapped_array: # generate a new mapping from a list of strings
+class mapped_array:
+    """quick & dirty namespace (object exploited for it's dictionary)"""
     _mapping = [*"xyz"]
     def __init__(self, array, mapping=_mapping):
         if isinstance(mapping, dict):
@@ -107,12 +74,6 @@ class mapped_array: # generate a new mapping from a list of strings
             out.append(f"{attr}: {value}")
         return f"<mapped_array ({', '.join(out)})>"
 
-##class angle:
-##    _mapping = {'y': 1, 'p': 0, 'r': 2, # yaw, pitch, roll
-##                'x': 0, 'y': 1, 'z': 2}
-##    #@property
-##    #yaw()
-
 
 if __name__ == "__main__":
     # class 'base' tests
@@ -122,7 +83,9 @@ if __name__ == "__main__":
         _arrays = {"position": [*"xyz"], "data": 4}
     
     e = example((0, .1, .2, .3, 4, 5, 6, 7))
-    
-    # NEW BSP LUMP LOADING STRUCTURE:
-##    for lump in struct.iter_unpack(LUMP_FORMAT, RAW_LUMP):
-##        master.lump.append(lump_class(lump))
+    # asserts etc.
+
+    # class mapped_array tests
+    ma_1 = mapped_array([0, 1, 2])
+    ma_2 = mapped_array([3, 4, 5], ['a', 'b', 'c'])
+    ma_3 = mapped_array([6, 7, 8, 9], {"D": ['i', 'ii'], "E": ['iii' ,' iv']})

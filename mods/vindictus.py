@@ -67,7 +67,7 @@ class LUMP(enum.Enum):
     UNUSED5 = 62 
     UNUSED6 = 63
 
-lump_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # class for each lump in alphabetical order
 class area_portal(common.base): # LUMP 21
@@ -101,7 +101,7 @@ class face(common.base): # LUMP 7
                  "lightmap_texture_size_in_luxels",
                  "original_face", "num_primitives", "first_primitive_id",
                  "smoothing_groups"]
-    _format = "I2bh6i4bif4i4I"
+    _format = "I2bh6i4bif4i4I" # wrong?
     _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
                "lightmap_texture_size_in_luxels": [*"st"]}
 
@@ -134,8 +134,4 @@ class node(common.base): # LUMP 5
 ##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
 
 
-import mods.tf2 as tf2
-lump_classes = tf2.lump_classes
-lump_classes["BRUSHSIDES"] = brush_side
-lump_classes["EDGES"] = edge
-lump_classes["FACES"] = face
+lump_classes = {"BRUSH_SIDES": brush_side, "EDGES": edge, "FACES": face}

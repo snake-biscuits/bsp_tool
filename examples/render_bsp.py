@@ -2,16 +2,13 @@
 # mouse select faces
 # -- raycast drawn planes
 # -- return index in bsp.FACES
-# -- Tkinter face edit window (realtime?)
+# -- face edit window
 # lightmap textures (mapping?)
-# vis simulation
+#  -- clusters
 #  -- traverse vis tree
 #  -- use nodes to faces?
 # physics simulation
 #  -- planes booleaned with nodes
-# better camera speed control
-# -- camera speed inconsistent
-# -- fullscreen overclocks
 # console
 # -- exec(input())
 # skybox.vmt / .exr
@@ -64,30 +61,27 @@ def calcTriFanIndices(vertices, startIndex):
     return indices
 
 def main(width, height, bsp):
-    bsp = bsp_tool.bsp(bsp)
+    bsp = bsp_tool.bsp("../maps/02a.bsp", mod=bsp_tool.vindictus)
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
     glClearColor(0, .5, 1, 0)
     
-    ent_dicts = []
-    for e in bsp.ENTITIES[1:-1].split('}\n{'):
-        ent_dicts.append(eval('{' + e.replace('" "', '": "').replace('"\n', '", ') + '}'))
     try:
-        light_environment = [e for e in ent_dicts if e['classname'] == 'light_environment'][0]
-        light_environment['angles'] = tuple(map(float, light_environment['angles'].split(' ')))
-        light_environment['pitch'] = float(light_environment['pitch'])
-        light_environment['_light'] = tuple(map(int, light_environment['_light'].split(' ')))
-        light_environment['_ambient'] = tuple(map(int, light_environment['_ambient'].split(' ')))
-        sun_vector = vec3(1, 0, 0).rotate(light_environment['angles'][2], -light_environment['pitch'], light_environment['angles'][1])
-        sun_colour = (*[x / 255 for x in light_environment['_light'][:3]], light_environment['_light'][-1]) # vec4 (R, G, B) + Strength
-        sun_ambient = (*[x / 255 for x in light_environment['_ambient'][:3]], light_environment['_ambient'][-1]) # vec4 (R, G, B) + Strength
+        light_environment = [e for e in bsp.ENTITIES if e.classname == 'light_environment'][0]
+        light_environment.angles = tuple(map(float, light_environment.angles.split(' ')))
+        light_environment.pitch = float(light_environment.pitch)
+        light_environment._light = tuple(map(int, light_environment._light.split(' ')))
+        light_environment._ambient = tuple(map(int, light_environment._ambient.split(' ')))
+        sun_vector = vec3(1, 0, 0).rotate(light_environment.angles[2], -light_environment.pitch, light_environment.angles[1])
+        sun_colour = (*[x / 255 for x in light_environment._light[:3]], light_environment._light[-1]) # vec4 (R, G, B) + Strength
+        sun_ambient = (*[x / 255 for x in light_environment._ambient[:3]], light_environment._ambient[-1]) # vec4 (R, G, B) + Strength
         glClearColor(*sun_ambient[:3], 0)
-    except: # no light_environment in .bsp (defaults to goldrush)
-        sun_vector = vec3(1, 0, 0).rotate(0, 35, 108)
+    except: # no light_environment in .bsp
+        sun_vector = vec3(1, 0, 0).rotate(0, 35, 108) # GOLDRUSH
         sun_colour = (1.00, 0.89, 0.73, 600)
         sun_ambient = (0.46, 0.45, 0.55, 350)
-        glClearColor(0, 0, 0, 0)
+        glClearColor(*sun_ambient[:3], 0)
     
     gluPerspective(90, width / height, 0.1, 4096 * 4)
     glPointSize(4)
@@ -97,11 +91,11 @@ def main(width, height, bsp):
     glEnable(GL_CULL_FACE)
     glColor(1, 1, 1)
 
-    filtered_faces = list(filter(lambda x: x['lightofs'] != -1, bsp.FACES)) #no sky or trigger
-##    filtered_faces = list(filter(lambda x: x['dispinfo'] != -1, bsp.FACES)) #disp only
-##    filtered_faces = list(filter(lambda x: x['lightofs'] != -1 and x['dispinfo'] == -1, bsp.FACES)) #no sky, trigger or disp
-##    filtered_faces = list(filter(lambda x: x['styles'] == (-1, -1, -1, -1), bsp.FACES))
-##    filtered_faces = bsp.FACES
+    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1] # no sky or trigger
+##    filtered_faces = [f for f in bsp.FACES if f.dispinfo != -1]) # disp only
+##    filtered_faces = [f for f in bsp.FACES if f.lightofs != -1 and x.disp_info == -1] # no sky, trigger or disp
+##    filtered_faces = [f for f in bsp.FACES if f.styles == (-1, -1, -1, -1)] # unlit? faces
+##    filtered_faces = bsp.FACES # no filter
 
     face_count = len(filtered_faces)
     current_face_index = 0
@@ -113,7 +107,7 @@ def main(width, height, bsp):
     start = 0
     t1 = time()
     for face in filtered_faces:
-        if face['dispinfo'] == -1:
+        if face.disp_info == -1:
             f_verts = bsp.verts_of(face) # add to vertex buffer here and fan the indices
             out = f_verts[:3]
             f_verts = f_verts[3:]
@@ -123,8 +117,8 @@ def main(width, height, bsp):
             f_verts_len = len(f_verts)
             all_faces_map.append((start, f_verts_len))
             start += f_verts_len
-        else:
-            power = bsp.DISP_INFO[face['dispinfo']]['power']
+        else: # face is a displacement
+            power = bsp.DISP_INFO[face.disp_info].power
             f_verts = bsp.dispverts_of(face)
             f_verts = bsp_tool.disp_tris(f_verts, power)
         all_faces += f_verts
@@ -183,14 +177,14 @@ def main(width, height, bsp):
     try:
         vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
         fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
-    except Exception as exc: # requires PyOpenGL changes described elsewhere
+    except Exception as exc: # requires PyOpenGL changes described in older version of this repo
         USING_ES = True # if OpenGL 4.5 is not supported, switch to GLES 3.0
         vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
         fragShader = compileShader(open('shaders/bsp_faces_300_es.f', 'rb'), GL_FRAGMENT_SHADER)
-        raise exc # need error log if issue is not GLSL version
+        raise exc # need to log error if issue is not GLSL version
     bsp_shader = compileProgram(vertShader, fragShader)
     glLinkProgram(bsp_shader)
-    glUseProgram(bsp_shader) # must UseProgram to set uniforms
+    glUseProgram(bsp_shader) # must call UseProgram before setting uniforms
 
     # UNIFORMS
     if USING_ES:
@@ -202,7 +196,7 @@ def main(width, height, bsp):
         attrib_colour_uv = glGetAttribLocation(bsp_shader, 'vertexColour')
 ##        ProjectionMatrixLoc = glGetUniformLocation(bsp_shader, 'ProjectionMatrix')
 ##        # https://www.khronos.org/opengl/wiki/GluPerspective_code
-##        glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, ProjectionMatrix) # bad input?
+##        glUniformMatrix4f?(ProjectionMatrixLoc, ?, GL_FALSE, ...) # bad input?
     else: # glsl 450 core uniforms
         glUniform3f(glGetUniformLocation(bsp_shader, 'sun_vector'), *sun_vector)
         glUniform4f(glGetUniformLocation(bsp_shader, 'sun_colour'), *sun_colour)
@@ -248,31 +242,6 @@ def main(width, height, bsp):
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
 
-##    # http://heatmaps.tf/api.html
-##    url_tail = '.json?fields=id,timestamp,killer_class,killer_weapon,killer_x,killer_y,killer_z,victim_class,victim_x,victim_y,victim_z,customkill,damagebits,death_flags,team&limit=1024'
-####    heatmap = json.load(urllib.request.urlopen('http://heatmaps.tf/data/kills/' + bsp.filename[:-4] + url_tail)) # including the limit in the url is great for load times
-##    heatmap = json.load(open('heatmaps.tf/pl_upward_complete.json'))
-##    k_class = heatmap['fields'].index('killer_class')
-##    k_wep = heatmap['fields'].index('killer_weapon')
-##    MINI_SENTRY = -2
-##    SENTRY = -1
-##    WORLD = 0
-##    SCOUT = 1
-##    SNIPER = 2
-##    SOLDIER = 3
-##    DEMOMAN = 4
-##    MEDIC = 5
-##    HEAVY = 6
-##    PYRO = 7
-##    SPY = 8
-##    ENGINEER = 9
-##    k_x = heatmap['fields'].index('killer_x')
-##    v_class = heatmap['fields'].index('victim_class')
-##    v_x = heatmap['fields'].index('victim_x')
-##    kill_range = lambda kill: (vec3(*kill[v_x:v_x + 3]) - vec3(*kill[k_x:k_x + 3])).magnitude()
-##
-##    filtered_kills = [*filter(lambda k: k[k_wep] == MINI_SENTRY, heatmap['kills'])][:1024]
-
     mousepos = vec2()
     keys = []
 
@@ -307,25 +276,24 @@ def main(width, height, bsp):
         dt = time() - oldtime
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
-            # turning sun
             sun_vector = sun_vector.rotate(.05, 0, 0)
             glUseProgram(bsp_shader)
             glUniform3f(glGetUniformLocation(bsp_shader, 'sun_vector'), *sun_vector)
-            #update projection matrix
+            # update projection matrix (GLES only)
             if SDLK_BACKQUOTE in keys:
-##                print(VIEW_CAMERA)
-                #FACES
-                fe, ne = current_face['firstedge'], current_face['numedges']
+                face_values = [f"{s}: {getattr(face, s)}" for s in face.__slots__]
+                print(f'{bsp.filename}.FACES[{bsp.FACES.index(current_face)}]', *face_values, sep='\n')
+                fe, ne = current_face.first_edge, current_face.num_edges
                 se_loop = bsp.SURFEDGES[fe:fe + ne]
                 e_loop = [bsp.EDGES[e] for e in se_loop]
-                print(f'{bsp.filename}.FACES[{bsp.FACES.index(current_face)}]', '\n'.join([f'{k} = {v}' for k,v in current_face.items()]), sep='\n')
-                print('\n\t', '\n\t'.join([f'{bsp.VERTICES[v]}' for v in itertools.chain(*e_loop)][::2]), sep='', end='\n\n')
-                
+                face_verts = [bsp.VERTICES[v] for v in itertools.chain(*e_loop)][::2]
+                print(*[f"{v.x:.3f}, {v.y:.3f}, {v.z:.3f}" for v in face_verts], sep="\n")
                 face_center = sum(map(vec3, current_face_verts), vec3()) / len(current_face_verts)
-                face_normal = bsp.PLANES[current_face['planenum']]['normal']
+                face_normal = bsp.PLANES[current_face.plane_num].normal
                 VIEW_CAMERA.position = face_center + vec3(face_normal) * 32
                 while SDLK_BACKQUOTE in keys:
                     keys.remove(SDLK_BACKQUOTE)
+                    
             if SDLK_r in keys:
                 VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
             if SDLK_LSHIFT in keys:
@@ -341,6 +309,7 @@ def main(width, height, bsp):
                 while SDL_BUTTON_LEFT in keys:
                     keys.remove(SDL_BUTTON_LEFT)
             if SDLK_RIGHT in keys or SDL_BUTTON_RIGHT in keys:
+                # filter to only displacements so I can debug this mess
                 current_face_index += 1
                 current_face = filtered_faces[current_face_index]
                 current_face_verts = [v[0] for v in bsp.verts_of(current_face)]
@@ -391,14 +360,16 @@ def main(width, height, bsp):
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
         glColor(1, 1, 1)
         glDisable(GL_DEPTH_TEST)
-##        glBegin(GL_LINE_LOOP)
-##        for vertex in current_face_verts:
-##            glVertex(*vertex)
-##        glEnd()
-##        glBegin(GL_POINTS)
-##        for vertex in current_face_verts:
-##            glVertex(*vertex)
-##        glEnd()
+        
+        glBegin(GL_LINE_LOOP)
+        for vertex in current_face_verts:
+            glVertex(*vertex)
+        glEnd()
+        glBegin(GL_POINTS)
+        for vertex in current_face_verts:
+            glVertex(*vertex)
+        glEnd()
+        
         glPointSize(24)
         glBegin(GL_POINTS)
         glVertex(*(sun_vector * 4096))
@@ -406,15 +377,6 @@ def main(width, height, bsp):
         glPointSize(4)
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_TEXTURE_2D)
-
-##        glTranslate(0, 0, 64)
-##        glBegin(GL_LINES)
-##        for kill in filtered_kills:
-##            glColor(*colorsys.hsv_to_rgb(kill[k_class] / 9, 1, .75))
-##            glVertex(*kill[k_x:k_x + 3])
-##            glColor(*colorsys.hsv_to_rgb(kill[v_class] / 9, 1, 1))
-##            glVertex(*kill[v_x:v_x + 3])
-##        glEnd()
 
         glPopMatrix()
         SDL_GL_SwapWindow(window)
