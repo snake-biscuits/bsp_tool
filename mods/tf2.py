@@ -108,10 +108,6 @@ class edge(common.base): # LUMP 12
     _format = "2h"
     _arrays = {"value": 2}
 
-class entities: # LUMP 0
-    ... # just a string, but sometimes more than just a string?
-    # use some special vmf_tool magic here maybe
-
 class face(common.base): # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
                  "tex_info", "disp_info", "surface_fog_volume_id", "styles",
@@ -141,12 +137,6 @@ class leaf_face(common.base): # LUMP 16
     __slots__ = ["value"]
     _format = "H"
 
-# class lighting: # LUMP 8
-#     ... # keep raw data to feed direct to shaders
-
-# class lighting_hdr: # LUMP 53
-#     ... # keep raw data to feed direct to shaders
-
 class node(common.base): # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
@@ -175,25 +165,18 @@ class tex_data(common.base): # LUMP 2
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"]}
 
-# class tex_data_string_data: # LUMP 43
-#     ... # strings separated by null bytes
-
-# class tex_data_string_table: # LUMP 44
-#     ... # integers telling the start bytes of each string within tex_data_string_data
-
 class tex_info(common.base): # LUMP 6
     __slots__ = ["texture", "lightmap", "flags", "tex_data"]
     _format = "16f2i"
     _arrays = {"texture": {"u": ["aspect", *"xyz"], "v": ["aspect", *"xyz"]},
                "lightmap": {"u": ["aspect", *"xyz"], "v": ["aspect", *"xyz"]}}
-    # proposing a new systems for base._arrays here ^
-    # nesting and plainer mapping
 
 class vertex(common.mapped_array): # LUMP 3
+    _mapping = ["x", "y", "z"]
     _format = "3f"
     
     def flat(self):
-        return self.array
+        return [self.x, self.y, self.z]
 
 class world_light(common.base): # LUMP 15
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
