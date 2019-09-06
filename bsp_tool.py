@@ -82,6 +82,8 @@ class bsp():
             try: # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
+                print(self.lump_map[self.mod.LUMP.FACES])
+                print(lump_class)
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                     getattr(self, LUMP).append(lump_class(data))
                 exec(f"del self.RAW_{LUMP}")
@@ -114,12 +116,21 @@ class bsp():
         # type: plane | re | (x y z) (x y z) (x y z)
         del self.RAW_ENTITIES
         # - GAME LUMP
+        # - SURFEDGES
         try:
             _format = self.mod.surf_edge._format
         except:
             _format = tf2.surf_edge._format
         self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
         del self.RAW_SURFEDGES, _format
+        # - VISIBILITY
+##        self.VISIBILITY = [v[0] for v in struct.iter_unpack("i", self.RAW_VISIBLITY)]
+##        num_clusters = self.VISIBILITY[0]
+##        for i in range(num_clusters):
+##            i = (2 * i) + 1
+##            pvs_offset = self.RAW_VISIBILITY[i]
+##            pas_offset = self.RAW_VISIBILITY[i + 1]
+##            # pointers into RLE encoded bits mapping the PVS tree
 
         file.close()
         unpack_time = time.time() - start_time

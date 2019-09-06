@@ -72,6 +72,15 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # class for each lump in alphabetical order
+class area(common.base):
+    __slots__ = ["num_area_portals", "first_area_portal"]
+    _format = "2i"
+
+class area_portal(common.base): # LUMP 21
+    __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
+                 "clip_portal_verts", "plane_num"]
+    _format = "4Hi"
+    
 class brush(common.base): # LUMP 18
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
@@ -138,6 +147,8 @@ class leaf_face(common.base): # LUMP 16
 class node(common.base): # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
+    # area is appears to always be 0
+    # however leaves correctly connect to all areas
     _format = "3i6h2H2h"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
@@ -180,7 +191,8 @@ class world_light(common.base): # LUMP 15
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
-lump_classes = {"BRUSHES": brush, "BRUSH_SIDES": brush_side, "CUBEMAPS": cubemap,
+lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal, "BRUSHES": brush,
+                "BRUSH_SIDES": brush_side, "CUBEMAPS": cubemap,
                 "DISP_INFO": disp_info, "DISP_TRIS": disp_tri,
                 "DISP_VERTS": disp_vert, "EDGES": edge, "FACES": face,
                 "LEAVES": leaf, "LEAF_FACES": leaf_face, "NODES": node,

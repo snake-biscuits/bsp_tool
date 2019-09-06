@@ -70,6 +70,10 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # class for each lump in alphabetical order
+class area(common.base):
+    __slots__ = ["num_area_portals", "first_area_portal"]
+    _format = "2i"
+
 class area_portal(common.base): # LUMP 21
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
                  "clip_portal_verts", "plane_num"]
@@ -88,20 +92,18 @@ class disp_info(common.base): # LUMP 26
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
 
-class edge(common.base): # LUMP 12
-    __slots__ = ["value"]
+class edge(list): # LUMP 12
     _format = "2I"
-    _arrays = {"value": 2}
 
 class face(common.base): # LUMP 7
-    __slots__ = ["planen_um", "side", "on_node", "unknown1", "first_edge",
+    __slots__ = ["planen_um", "side", "on_node", "first_edge",
                  "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
                  "unknown2", "styles", "light_offset", "area",
                  "lightmap_texture_mins_in_luxels",
                  "lightmap_texture_size_in_luxels",
                  "original_face", "num_primitives", "first_primitive_id",
                  "smoothing_groups"]
-    _format = "I2bh6i4bif4i4I" # wrong?
+    _format = "I2bh5i4bif4i4I" # 2 versions, aaaa
     _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
                "lightmap_texture_size_in_luxels": [*"st"]}
 
@@ -130,8 +132,12 @@ class node(common.base): # LUMP 5
 ##    __slots__ = ["id", "tex_info", "face_count_and_render_order",
 ##                 "faces", "u", "v", "uv_points", "origin", "normal"]
 ##    _format = "2iIi4f18f"
-##    _arrays = {"faces": OVERLAY_BSP_FACE_COUNT, "u": 2, "v": 2,
+##    _arrays = {"faces": 64, # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)
+##               "u": 2, "v": 2,
 ##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
 
 
-lump_classes = {"BRUSH_SIDES": brush_side, "EDGES": edge, "FACES": face}
+lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal,
+                "BRUSH_SIDES": brush_side, "DISP_INFO": disp_info,
+                "EDGES": edge, "FACES": face, "LEAVES": leaf,
+                "LEAF_FACES": leaf_face, "NODES": node}

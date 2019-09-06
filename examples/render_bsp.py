@@ -34,7 +34,6 @@ import colorsys
 import compress_sequence
 import ctypes
 import itertools
-import json
 import math
 import numpy as np
 from OpenGL.GL import *
@@ -62,6 +61,7 @@ def calcTriFanIndices(vertices, startIndex):
 
 def main(width, height, bsp):
     bsp = bsp_tool.bsp("../maps/02a.bsp", mod=bsp_tool.vindictus)
+##    bsp = bsp_tool.bsp(bsp)
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
@@ -91,11 +91,11 @@ def main(width, height, bsp):
     glEnable(GL_CULL_FACE)
     glColor(1, 1, 1)
 
-    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1] # no sky or trigger
-##    filtered_faces = [f for f in bsp.FACES if f.dispinfo != -1]) # disp only
-##    filtered_faces = [f for f in bsp.FACES if f.lightofs != -1 and x.disp_info == -1] # no sky, trigger or disp
+##    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1] # no sky or trigger
+##    filtered_faces = [f for f in bsp.FACES if f.disp_info == -1] # disp only
+##    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1 and x.disp_info == -1] # no sky, trigger or disp
 ##    filtered_faces = [f for f in bsp.FACES if f.styles == (-1, -1, -1, -1)] # unlit? faces
-##    filtered_faces = bsp.FACES # no filter
+    filtered_faces = bsp.FACES # no filter
 
     face_count = len(filtered_faces)
     current_face_index = 0
@@ -134,11 +134,11 @@ def main(width, height, bsp):
 ##    indices = []
 ##    currentIndex = 0
 ##    for face in filtered_faces:
-##        if face["dispinfo"] == -1:
+##        if face.disp_info == -1:
 ##            faceVerts = bsp.verts_of(face)
 ##            faceIndices = calcTriFanIndices(faceVerts, currentIndex)
 ##        else:
-##            power = bsp.DISP_INFO[face['dispinfo']]['power']
+##            power = bsp.DISP_INFO[face.disp_info].power
 ##            faceVerts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
 ##            faceIndices = bsp_tool.disp_tris(range((2 ** power + 1) ** 2), power)
 ##        vertices += faceVerts
@@ -147,7 +147,7 @@ def main(width, height, bsp):
 ##    vertices = list(itertools.chain(*itertools.chain(*vertices)))
 
 ##    RGB_LIGHTING = []
-##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.LIGHTING):
+##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.RAW_LIGHTING):
 ##        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
 ##        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
 ##        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
@@ -155,11 +155,11 @@ def main(width, height, bsp):
 ##
 ##    lightmap = [] # store on GPU
 ##    for face in filtered_faces:
-##        lmap_start = face['lightofs']
+##        lmap_start = face.light_offset
 ##        if lmap_start != -1:
-##            bounds = face['LightmapTextureSizeinLuxels']
+##            bounds = face.lightmap_texture_size_in_luxels
 ##            bounds = [x + 1 for x in bounds]
-##            num_styles = sum([1 if x is not -1 else 0 for x in face['styles']])
+##            num_styles = sum([1 if x is not -1 else 0 for x in face.styles])
 ##            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
 ##            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
 ##            lightmap.append([lmap_bytes, bounds])
@@ -175,8 +175,8 @@ def main(width, height, bsp):
     # SHADERS (check GLSL version)
     USING_ES = False
     try:
-        vertShader = compileShader(open('shaders/bsp_faces.v', 'rb'), GL_VERTEX_SHADER)
-        fragShader = compileShader(open('shaders/bsp_faces.f', 'rb'), GL_FRAGMENT_SHADER)
+        vertShader = compileShader(open('shaders/bsp_lightmap.v', 'rb'), GL_VERTEX_SHADER)
+        fragShader = compileShader(open('shaders/bsp_lightmap.f', 'rb'), GL_FRAGMENT_SHADER)
     except Exception as exc: # requires PyOpenGL changes described in older version of this repo
         USING_ES = True # if OpenGL 4.5 is not supported, switch to GLES 3.0
         vertShader = compileShader(open('shaders/bsp_faces_300_es.v', 'rb'), GL_VERTEX_SHADER)
@@ -205,7 +205,7 @@ def main(width, height, bsp):
     VERTEX_BUFFER, INDEX_BUFFER = glGenBuffers(2)
     glBindBuffer(GL_ARRAY_BUFFER, VERTEX_BUFFER)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER)
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint32), GL_STATIC_DRAW) # INDICES
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint64), GL_STATIC_DRAW) # INDICES
     glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, np.array(vertices, dtype=np.float32), GL_STATIC_DRAW) # VERTICES
     glEnableVertexAttribArray(0)  #vertexPosition
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(0))
@@ -335,7 +335,7 @@ def main(width, height, bsp):
 
         # for when shaders are too much work
 ##        glBegin(GL_TRIANGLES)
-##        for pos, normal, uv, uv2, colour in slow_faces[:2048]:
+##        for pos, normal, uv, uv2, colour in slow_faces:
 ##            glColor(*colour)
 ##            glTexCoord(*uv)
 ##            glVertex(*pos)
@@ -356,11 +356,11 @@ def main(width, height, bsp):
 ##        glEnd()
 
         glUseProgram(0)
+        # SELECTED FACE
         glDisable(GL_TEXTURE_2D)
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
         glColor(1, 1, 1)
         glDisable(GL_DEPTH_TEST)
-        
         glBegin(GL_LINE_LOOP)
         for vertex in current_face_verts:
             glVertex(*vertex)
@@ -369,7 +369,8 @@ def main(width, height, bsp):
         for vertex in current_face_verts:
             glVertex(*vertex)
         glEnd()
-        
+
+        # THE SUN
         glPointSize(24)
         glBegin(GL_POINTS)
         glVertex(*(sun_vector * 4096))
@@ -389,9 +390,9 @@ if __name__ == '__main__':
     width, height = 1280, 720
     TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
 ##    bsp = '../maps/pl_upward.bsp'
-##    bsp = TF + 'maps/cp_cloak.bsp'
+    bsp = TF + 'maps/cp_cloak.bsp'
 ##    bsp = TF + 'maps/cp_manor_event.bsp'
-    bsp = TF + 'maps/cp_coldfront.bsp'
+##    bsp = TF + 'maps/cp_coldfront.bsp'
 ##    bsp = TF + 'maps/koth_harvest_final.bsp'
     for option in options:
         for key, value in option:

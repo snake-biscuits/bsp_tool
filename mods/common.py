@@ -30,7 +30,8 @@ class base:
             i += length
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.flat()})"
+        components = {s: getattr(self, s) for s in self.__slots__}
+        return f"<{self.__class__.__name__} {components}>"
 
     def flat(self):
         """recreate the iterable this instance was initialised from"""
