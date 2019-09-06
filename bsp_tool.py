@@ -18,6 +18,7 @@
 # Most of this information is also used by the VRAD program to calculate static lighting, and then is removed from the bsp file
 # CLUSTER LUMP VERY IMPORTANT
 import collections
+import copy
 import enum
 import itertools
 import lzma
@@ -77,28 +78,21 @@ class bsp():
                 setattr(self, 'RAW_' + ID.name, data)
 
         self.log = []
-        lump_classes = {L: c for L, c in self.mod.lump_classes.items() if hasattr(self, f"RAW_{L}")}
+        lump_classes = self.mod.lump_classes
+        if self.mod == vindictus:
+            lump_classes = copy.deepcopy(tf2.lump_classes)
+            lump_classes.update(self.mod.lump_classes) # vindictus classes should override tf2 classes
+        lump_classes = {L: c for L, c in lump_classes.items() if hasattr(self, f"RAW_{L}")}
         for LUMP, lump_class in lump_classes.items():
             try: # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
-                print(self.lump_map[self.mod.LUMP.FACES])
-                print(lump_class)
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                     getattr(self, LUMP).append(lump_class(data))
                 exec(f"del self.RAW_{LUMP}")
             except struct.error as exc: # lump is not the expected size, try another format
-                self.log.append(f"{self.filename}.{LUMP} is not from {self.mod}, trying tf2.{LUMP} ... ")
-                if self.mod == vindictus:
-                    try:
-                        lump_class = tf2.lump_classes[LUMP]
-                        for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
-                            getattr(self, LUMP).append(lump_class(data))
-                        exec(f"del self.RAW_{LUMP}")
-                        self.log[-1] += "successful!"
-                    except:
-                        self.log[-1] += "failed."
-                        raise exc
+                # retry with a struct from another engine branch
+                raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
 ##                raise exc
@@ -106,18 +100,18 @@ class bsp():
         if self.log != []:
             print(*self.log, sep='\n')
 
-        # SPECIALS
+        # SPECIAL LUMPS
         # - ENTIITES
-        # don't forget some files have no entities
+        # don't forget some .bsps have no entities
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
         self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
         self.ENTITIES = vmf_tool.namespace_from(self.ENTITIES)["ents"]
+        # top level namespace grouping classnames?
         # use fgdtools to fully unstringify entities
-        # type: plane | re | (x y z) (x y z) (x y z)
+        # >>> type: plane | re | (x y z) (x y z) (x y z)
         del self.RAW_ENTITIES
         # - GAME LUMP
-        # - SURFEDGES
-        try:
+        try: # - SURF_EDGES
             _format = self.mod.surf_edge._format
         except:
             _format = tf2.surf_edge._format
@@ -144,8 +138,8 @@ class bsp():
         for surfedge in self.SURFEDGES[first_edge:first_edge + face.num_edges]:
             edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1] # ?
             verts.append(self.VERTICES[edge[0]])
-            #verts.append(self.VERTICES[edge[1]])
-        #verts = verts[::2] # why skip in this way?
+            verts.append(self.VERTICES[edge[1]])
+        verts = verts[::2] # why skip in this way?
         # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
         # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
         tex_info = self.TEXINFO[face.tex_info] # index error?
@@ -195,7 +189,7 @@ class bsp():
             verts = verts[index:] + verts[:index]
         A, B, C, D = [vector.vec3(*v[0]) for v in verts]
         Auv, Buv, Cuv, Duv = [vector.vec2(*v[2]) for v in verts]
-        Auv2, Buv2, Cuv2, Duv2 = [vector.vec2(*v[3]) for v in verts]
+        Auv2, Buv2, Cuv2, Duv2 = [vector.vec2(*v[3]) for v in verts] # scale is wrong
         AD = D - A
         ADuv = Duv - Auv
         ADuv2 = Duv2 - Auv2
@@ -235,8 +229,12 @@ class bsp():
             if hasattr(self, f"RAW_{LUMP}"):
                 continue
             #elif LUMP is on special list
+            #  - ENTITIES
+            #  - GAME_LUMP
+            #  - SURF_EDGES
+            #  - VISIBILITY
             elif hasattr(self, LUMP):
-                lump_format = self.mod.lump_classes[LUMP]._format
+                lump_format = self.mod.lump_classes[LUMP]._format # use the actual lump class of LUMP[0] instead
                 packer = lambda x: struct.pack(lump_format, *x.flat())
                 setattr(self, f"RAW_{LUMP}", map(packer, getattr(self, LUMP)))
         # headers

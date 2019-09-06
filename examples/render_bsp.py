@@ -60,8 +60,6 @@ def calcTriFanIndices(vertices, startIndex):
     return indices
 
 def main(width, height, bsp):
-    bsp = bsp_tool.bsp("../maps/02a.bsp", mod=bsp_tool.vindictus)
-##    bsp = bsp_tool.bsp(bsp)
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
@@ -91,11 +89,11 @@ def main(width, height, bsp):
     glEnable(GL_CULL_FACE)
     glColor(1, 1, 1)
 
-##    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1] # no sky or trigger
+    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1] # no sky or trigger
 ##    filtered_faces = [f for f in bsp.FACES if f.disp_info == -1] # disp only
 ##    filtered_faces = [f for f in bsp.FACES if f.light_offset != -1 and x.disp_info == -1] # no sky, trigger or disp
 ##    filtered_faces = [f for f in bsp.FACES if f.styles == (-1, -1, -1, -1)] # unlit? faces
-    filtered_faces = bsp.FACES # no filter
+##    filtered_faces = bsp.FACES # no filter
 
     face_count = len(filtered_faces)
     current_face_index = 0
@@ -103,7 +101,7 @@ def main(width, height, bsp):
     current_face_verts = [v[0] for v in bsp.verts_of(current_face)]
 
     all_faces = []
-    all_faces_map = []
+    all_faces_map = [] # [(start, length), ...]
     start = 0
     t1 = time()
     for face in filtered_faces:
@@ -121,6 +119,9 @@ def main(width, height, bsp):
             power = bsp.DISP_INFO[face.disp_info].power
             f_verts = bsp.dispverts_of(face)
             f_verts = bsp_tool.disp_tris(f_verts, power)
+            f_verts_len = len(f_verts)
+            all_faces_map.append((start, f_verts_len))
+            start += f_verts_len
         all_faces += f_verts
     slow_faces = all_faces.copy()
     all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
@@ -146,23 +147,23 @@ def main(width, height, bsp):
 ##        currentIndex = faceIndices[-1] + 1 # ?
 ##    vertices = list(itertools.chain(*itertools.chain(*vertices)))
 
-##    RGB_LIGHTING = []
-##    for RGBE_texel in struct.iter_unpack('3Bb', bsp.RAW_LIGHTING):
-##        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
-##        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
-##        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
-##    RGB_LIGHTING = b''.join(RGB_LIGHTING)
-##
-##    lightmap = [] # store on GPU
-##    for face in filtered_faces:
-##        lmap_start = face.light_offset
-##        if lmap_start != -1:
-##            bounds = face.lightmap_texture_size_in_luxels
-##            bounds = [x + 1 for x in bounds]
-##            num_styles = sum([1 if x is not -1 else 0 for x in face.styles])
-##            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
-##            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
-##            lightmap.append([lmap_bytes, bounds])
+    RGB_LIGHTING = []
+    for RGBE_texel in struct.iter_unpack('3Bb', bsp.RAW_LIGHTING):
+        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
+        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
+        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
+    RGB_LIGHTING = b''.join(RGB_LIGHTING)
+
+    lightmap = [] # store on GPU (TextureArray?)
+    for face in filtered_faces:
+        lmap_start = face.light_offset
+        if lmap_start != -1:
+            bounds = face.lightmap_texture_size_in_luxels
+            bounds = [x + 1 for x in bounds]
+            num_styles = sum([1 if x is not -1 else 0 for x in face.styles])
+            lmap_end = lmap_start + bounds[0] * bounds[1] * 4 * num_styles
+            lmap_bytes = RGB_LIGHTING[lmap_start:lmap_end]
+            lightmap.append([lmap_bytes, bounds])
 
     t2 = time()
     print(bsp.filename.upper(), end=' ')
@@ -219,7 +220,6 @@ def main(width, height, bsp):
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
     # displacement alpha (seperate format or shared?)
 
-
     glEnable(GL_TEXTURE_2D)
     glActiveTexture(GL_TEXTURE0)
     # texture = open('materials/obsolete.bmp', 'rb')
@@ -241,6 +241,8 @@ def main(width, height, bsp):
     cam_spawn = vec3(0, 0, 32)
     init_speed = 128
     VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+
+    props = [e for e in bsp.ENTITIES if 'prop' in e.classname]
 
     mousepos = vec2()
     keys = []
@@ -326,20 +328,26 @@ def main(width, height, bsp):
 
         glPolygonMode(GL_FRONT, GL_FILL)
         glUseProgram(bsp_shader)
-##        for i, face in enumerate(all_faces_map):
-##            texture = lightmap[i]
-##            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
-##            glDrawArrays(GL_TRIANGLES, face[0], face[1])
-##        glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
-        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
+        for i, face in enumerate(all_faces_map):
+            texture = lightmap[i]
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
+            glDrawArrays(GL_TRIANGLES, face[0], face[1])
+        glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
+##        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
 
         # for when shaders are too much work
-##        glBegin(GL_TRIANGLES)
-##        for pos, normal, uv, uv2, colour in slow_faces:
-##            glColor(*colour)
-##            glTexCoord(*uv)
-##            glVertex(*pos)
-##        glEnd()
+##        glUseProgram(0)
+##        for i, f_map in enumerate(all_faces_map):
+####            texture = lightmap[i]
+####            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
+##            face = slow_faces[f_map[0]: f_map[0] + f_map[1]]
+##            glBegin(GL_TRIANGLES)
+##            for vertex in face:
+##                pos, normal, uv, uv2, colour = vertex
+##                glColor(*colour)
+##                glTexCoord(*uv)
+##                glVertex(*pos)
+##            glEnd()
 
         # CENTER MARKER
 ##        glUseProgram(0)
@@ -375,6 +383,14 @@ def main(width, height, bsp):
         glBegin(GL_POINTS)
         glVertex(*(sun_vector * 4096))
         glEnd()
+
+        glPointSize(18)
+        glColor(1, 0, 1)
+        glBegin(GL_POINTS)
+        for p in props:
+            position = [float(s) for s in p.origin.split()]
+            glVertex(*position)
+        glEnd()
         glPointSize(4)
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_TEXTURE_2D)
@@ -383,27 +399,19 @@ def main(width, height, bsp):
         SDL_GL_SwapWindow(window)
 
 if __name__ == '__main__':
-    import getopt
-    import sys, os
-    options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
-    # try argpase
     width, height = 1280, 720
     TF = 'E:/Steam/SteamApps/common/Team Fortress 2/tf/'
+    mod = bsp_tool.tf2
 ##    bsp = '../maps/pl_upward.bsp'
     bsp = TF + 'maps/cp_cloak.bsp'
 ##    bsp = TF + 'maps/cp_manor_event.bsp'
 ##    bsp = TF + 'maps/cp_coldfront.bsp'
 ##    bsp = TF + 'maps/koth_harvest_final.bsp'
-    for option in options:
-        for key, value in option:
-            if key == '-w':
-                width = int(value)
-            elif key == '-h':
-                height = int(value)
-            elif key == '-bsp':
-                bsp = value
+##    bsp, mod = "../maps/02a.bsp", bsp_tool.vindictus
+
+    bsp_object = bsp_tool.bsp(bsp, mod)
     try:
-        bsp_file = main(width, height, bsp)
+        bsp_file = main(1280, 720, bsp_object)
     except Exception as exc:
         SDL_Quit()
         raise exc
