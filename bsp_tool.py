@@ -1,6 +1,7 @@
 # www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
 # what impact would rewriting a bsp with fixed t-juncts have?
 #
+# source_sdk_2013/mp/src/public/bspfile.h
 # source_sdk_2013/mp/src/utils/vbsp/writebsp.cpp
 # source_sdk_2013/mp/src/utils/vbsp/map.cpp
 #
@@ -9,14 +10,6 @@
 # The compressed size of a game lump can be determined by subtracting the
 # current game lump's offset with that of the next entry. For this reason,
 # the last game lump is always an empty dummy which only contains the offset.
-# IMPLEMENT vmf_tool namespace class (visually cleaner attribute access)
-#
-# VIS: https://developer.valvesoftware.com/wiki/Source_BSP_File_Format#Visibility
-# Areas lump (Lump 20) references the Areaportals lump (Lump 21) & is used with func_areaportal / func_areaportalwindow entities to define sections of the map that can be switched to render or not render.
-# Portals (Lump 22), Clusters (Lump 23), PortalVerts (Lump 24), ClusterPortals (Lump 25), and ClipPortalVerts (Lump 41) lumps are used by the VVIS phase of the compile to ascertain which clusters can see which other clusters.
-# A cluster is a player-enterable leaf volume in the map (see above). A "portal" is a polygon boundary between a cluster or leaf and an adjacent cluster or leaf.
-# Most of this information is also used by the VRAD program to calculate static lighting, and then is removed from the bsp file
-# CLUSTER LUMP VERY IMPORTANT
 import collections
 import copy
 import enum

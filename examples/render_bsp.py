@@ -7,13 +7,13 @@
 #  -- clusters
 #  -- traverse vis tree
 #  -- use nodes to faces?
+#  -- only within a given proximity?
 # physics simulation
 #  -- planes booleaned with nodes
 # console
 # -- exec(input())
 # skybox.vmt / .exr
-# FIX SCRAMBLED FACES
-# fix t-juncs
+# sometime faces get extremely scrambled (t-junctions may be the cause)
 # https://www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
 # lightmap atlas
 # -- bleeding / stitching
@@ -42,7 +42,7 @@ from OpenGL.GLU import *
 from sdl2 import *
 from time import time
 import urllib.request
-import camera
+import utils.camera
 import struct
 import sys
 sys.path.insert(0, '../')
@@ -149,9 +149,9 @@ def main(width, height, bsp):
 
     RGB_LIGHTING = []
     for RGBE_texel in struct.iter_unpack('3Bb', bsp.RAW_LIGHTING):
-        RGBA_texel = vec3(RGBE_texel[:-1]) * 2 ** RGBE_texel[-1]
-        RGBA_texel = [clamp(int(x) // 2, 0, 255) for x in RGBA_texel]
-        RGB_LIGHTING.append(struct.pack('3Bb', *RGBA_texel, RGBE_texel[3]))
+##        RGB_texel = vec3(RGBE_texel[:3]) * (2 ** RGBE_texel[3])
+##        RGB_texel = [clamp(int(x), 0, 255) for x in RGB_texel]
+        RGB_LIGHTING.append(struct.pack('3Bb', *RGBE_texel))#, RGBE_texel[3]))
     RGB_LIGHTING = b''.join(RGB_LIGHTING)
 
     lightmap = [] # store on GPU (TextureArray?)
@@ -228,7 +228,9 @@ def main(width, height, bsp):
     # glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB4, 256, 256, 0, GL_BGR, GL_UNSIGNED_BYTE, texture.read())
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB4, 512, 512, 0, GL_BGR, GL_UNSIGNED_BYTE, texture.read())
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
     texture.close()
     del texture
 
@@ -240,7 +242,7 @@ def main(width, height, bsp):
 
     cam_spawn = vec3(0, 0, 32)
     init_speed = 128
-    VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+    VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
 
     props = [e for e in bsp.ENTITIES if 'prop' in e.classname]
 
@@ -297,7 +299,7 @@ def main(width, height, bsp):
                     keys.remove(SDLK_BACKQUOTE)
                     
             if SDLK_r in keys:
-                VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+                VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
             if SDLK_LSHIFT in keys:
                 VIEW_CAMERA.speed += 5
             if SDLK_LCTRL in keys:
@@ -330,7 +332,7 @@ def main(width, height, bsp):
         glUseProgram(bsp_shader)
         for i, face in enumerate(all_faces_map):
             texture = lightmap[i]
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture[1][0], texture[1][1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texture[0])
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8UI, texture[1][0], texture[1][1], 0, GL_RGBA_INTEGER, GL_UNSIGNED_BYTE, texture[0])
             glDrawArrays(GL_TRIANGLES, face[0], face[1])
         glDrawArrays(GL_TRIANGLES, 0, all_faces_size) # supported in gl3.0 Mesa?
 ##        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))

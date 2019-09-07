@@ -1,30 +1,30 @@
-#version a1 (5th December 2017)
-#made by B!scuit (Jared Ketterer)
-#based on Valve's .bsp file format version 20 (for TF2)
-#https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
-#https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/bspfile.h
+# version a1 (5th December 2017)
+# made by B!scuit (Jared Ketterer)
+# based on Valve's .bsp file format version 20 (for TF2)
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/bspfile.h
 
 ### REQUIRED ADDONS ###:
-#Import-Export Blender Source Tools
-#https://steamcommunity.com/groups/BlenderSourceTools/
-#Crowbar Decompiler Tool (CROWBAR_EXE = Crowbar.exe's location on your PC)
-#http://steamcommunity.com/groups/CrowbarTool/
+# Import-Export Blender Source Tools
+# https://steamcommunity.com/groups/BlenderSourceTools/
+# Crowbar Decompiler Tool (CROWBAR_EXE = Crowbar.exe's location on your PC)
+# http://steamcommunity.com/groups/CrowbarTool/
 
 ### === ALWAYS CREDIT THE MAP CREATOR AND VALVE === ###
-#(plus it'd be nice if you could mention us developers,
-#Crowbar, BlenderSourceTools & me)
-#If you make your own additions to this code be sure to let me know!
+# (plus it'd be nice if you could mention us developers,
+#  Crowbar, BlenderSourceTools & me)
+# If you make your own additions to this code be sure to let me know!
 
-#SHOULD HAVE SHIPPED WITH bsp_import_props.vmf & .bsp
+# SHOULD HAVE SHIPPED WITH bsp_import_props.vmf & .bsp
 
-#All loads onto active layer (so you can keep it in it's own layer easily)
-#Though all imports also occupy layer 1
+# All loads onto active layer (so you can keep it in it's own layer easily)
+# Though all imports also occupy layer 1
 
-#Known Bugs:
+# Known Bugs:
 #  comp_win_banner smd import takes 5 mins to fail
 #  mdls in tf/ (not tf/custom/) folder do not copy
 
-#Not implemented but planned:
+# Not implemented but planned:
 #  proper .mdl locating and unpacking
 #  direct .mdl to mesh data with LoDs as alternative meshdata
 #  loading from pakfile
@@ -49,7 +49,7 @@
 #  remove armature modfiers from props that don't have skeletons
 #  fix odd rotation bugs
 
-#Planned but very far away:
+# Planned but very far away:
 #  proper blender addon UI (similar to BlenderSourceTools)
 #  options (checkboxes in import UI)
 #  general bsp tools (lump to dict, import lightmap, lightmap to texture)
@@ -65,15 +65,15 @@
 #  automatically log errors to a file
 #  e-mail log file to developer
 
-#Never gonna happen: (unless you want to make it)
+# Never gonna happen: (unless you want to make it)
 #  generate a curve, stick a camera on it, render the map in 360 degrees (4K) then upload to Youtube
 #  with soundscapes and ambient animation (waterfalls, spinning pickups)
-#if you're generating a curve, utilise visleaves and move from objective to objective
-#or spawn to spawn, passing through the center of each visleaf
-#ALWAYS UTILISE PRE-COMPILED DATA
+# if you're generating a curve, utilise visleaves and move from objective to objective
+# or spawn to spawn, passing through the center of each visleaf
+# ALWAYS UTILISE PRE-COMPILED DATA
 
-#Use Shift + L > Object Data to select identical models
-#And Shift + L > Materials for props with shared materials (e.g. railings)
+# Use Shift + L > Object Data to select identical models
+# And Shift + L > Materials for props with shared materials (e.g. railings)
 
 import bpy
 import math
@@ -82,11 +82,11 @@ import shutil
 import struct
 from subprocess import run, PIPE, STDOUT
 
-def filename_of(filepath): #handles folders with '.' in name but not double extensions e.g. '.bsp.old'
+def filename_of(filepath): # handles folders with '.' in name but not double extensions e.g. '.bsp.old'
     if '.' not in filepath:
         return filepath
     else:    
-        return '.'.join(filepath.split('.')[:-1]) #includes path
+        return '.'.join(filepath.split('.')[:-1]) # includes path
 
 def path_above(filepath):
     filepath = filepath.split('/')
@@ -97,10 +97,10 @@ def path_above(filepath):
 def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
 
-#ALL FOLDERS MUST END WITH A '/' SLASH
+# ALL FOLDERS MUST END WITH A '/' SLASH
 TF_FOLDER = 'E:/Steam/Steamapps/common/Team Fortress 2/tf/'
 CROWBAR_EXE = 'F:\Modding\crowbar\Crowbar.exe'
-MAP_TO_IMPORT = TF_FOLDER + 'maps/pl_upward.bsp'    #bspzip -repack first
+MAP_TO_IMPORT = TF_FOLDER + 'maps/pl_upward.bsp'    # bspzip -repack first
 
 WORK_FOLDER = filename_of(MAP_TO_IMPORT) + '/'
 ensure_dir(WORK_FOLDER)
