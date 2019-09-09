@@ -63,6 +63,9 @@ class mapped_array:
                 setattr(self, attr, value)
             self._mapping = mapping
 
+    def __eq__(self, other):
+        return all([a == b for a, b in zip(self, other)])
+
     def __getitem__(self, index):
         return getattr(self, self._mapping[index])
 

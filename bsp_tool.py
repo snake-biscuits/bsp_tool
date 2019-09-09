@@ -100,6 +100,7 @@ class bsp():
         self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
         self.ENTITIES = vmf_tool.namespace_from(self.ENTITIES)["ents"]
         # top level namespace grouping classnames?
+        # still index entities?
         # use fgdtools to fully unstringify entities
         # >>> type: plane | re | (x y z) (x y z) (x y z)
         del self.RAW_ENTITIES

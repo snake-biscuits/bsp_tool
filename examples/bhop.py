@@ -1,21 +1,21 @@
-﻿#TODO:
-#fix plane collision fp error jerkiness
-#.chf Convex Heirarcy File
-#ABCD Plane and AABB defines a surface
-#SWEPT LAST-POS COLLISION DETECTION
+﻿# TODO:
+# fix plane collision fp error jerkiness
+# .chf Convex Heirarcy File (limit checks to PVS)
+# ABCD Plane and AABB defines a surface
+# SWEPT LAST-POS COLLISION DETECTION
 
-#PROPER GRAVITY AND PLANE COLISIONS:
-#if aabb is intersecting plane, move out of plane along velociy vector
-#gravity for given time falling:
-#distance = 0.5 * 9.81 * time**2
-#Quake 3 Gravity is 800 inches/second
-#approx. 20.32 m/s
+# PROPER GRAVITY AND PLANE COLISIONS:
+# if aabb is intersecting plane, move out of plane along velociy vector
+# gravity for given time falling:
+# distance = 0.5 * 9.81 * time**2
+# Quake 3 Gravity is 800 inches/second
+# approx. 20.32 m/s
 
-#ENSURE JUMP IS DETERMINISTIC
-#RECORD PEAK HEIGHTS AND TEST AT DIFFERENT TICKRATES
+# ENSURE JUMP IS DETERMINISTIC
+# RECORD PEAK HEIGHTS AND TEST AT DIFFERENT TICKRATES
 
-#FLOOR COLLISION IS ROUGH
-#VELOCITY ESPECIALLY
+# FLOOR COLLISION IS ROUGH
+# VELOCITY ESPECIALLY
 import ctypes
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -23,13 +23,14 @@ import math
 from sdl2 import *
 from time import time
 
+import utils.camera
+from utils.physics import aabb
+
 import sys
 sys.path.insert(0, '../')
-import camera
 import vector
-from physics import aabb
 
-camera.sensitivity = .25
+utils.camera.sensitivity = 4
 
 class plane_struct:
     def __init__(self, normal, distance, BBmin, BBmax):
@@ -46,7 +47,7 @@ class client:
     def __init__(self, name):
         self.aabb = aabb((-.5, -.5, 0), (.5, .5, 2))
         self.swept_aabb = aabb((0, 0, 0), (0, 0, 0)) #can be local to update?
-        self.camera = camera.firstperson()
+        self.camera = utils.camera.firstperson()
         self.position = vector.vec3(0, 0, 0)
         self.old_position = vector.vec3(0, 0, 0)
         self.rotation = vector.vec3(0, 0, 0)
@@ -193,7 +194,7 @@ def main(width, height):
               plane_struct((0, 0, 1), -16, (-32, -32, -15.9), (32, 32, -16.1))]
 
     client0 = client('b!scuit') #TODO: draw client name at client position
-    spectator_camera = camera.fixed ((-24, -24, 4), (0, -30, 45))
+    spectator_camera = utils.camera.fixed ((-24, -24, 4), (0, -30, 45))
 
     #CAMERA SWITCHING SYSTEM IS UGLY
     cameras = [client0.set_view, spectator_camera.set]

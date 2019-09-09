@@ -1,5 +1,4 @@
-﻿import camera
-import ctypes
+﻿import ctypes
 import itertools
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileShader, compileProgram
@@ -7,6 +6,7 @@ from OpenGL.GLU import *
 from sdl2 import *
 import texture
 from time import time
+import utils.camera
 
 import sys
 sys.path.insert(0, '../')
@@ -15,7 +15,7 @@ import vector
 sys.path.insert(0, '../../vmf_tool')
 import vmf_tool
 
-camera.sensitivity = .25
+utils.camera.sensitivity = .25
 
 def main(width, height):
     SDL_Init(SDL_INIT_VIDEO)
@@ -29,7 +29,7 @@ def main(width, height):
     mousepos = vector.vec2(0, 0)
     keys = set()
     
-    VIEW_CAMERA = camera.freecam(None, None, 32)
+    VIEW_CAMERA = utils.camera.freecam(None, None, 32)
 
     pixel_formats = {SDL_PIXELFORMAT_BGR24: GL_BGR} # 24bpp .bmp
 
@@ -40,7 +40,7 @@ def main(width, height):
     bsp_skyname = 'sky_hydro_01' # worldspawn (first entity in LUMP_ENTITIES)
     tails = ['dn', 'up', 'rt', 'lf', 'ft', 'bk'] # Z-up
     cubemap_faces = ['POSITIVE_Y', 'NEGATIVE_Y', 'POSITIVE_Z', 'NEGATIVE_Z', 'POSITIVE_X', 'NEGATIVE_X']
-    {'dn': 'POSITIVE_Y', 'up': 'NEGATIVE_Y'}
+    # {'dn': 'POSITIVE_Y', 'up': 'NEGATIVE_Y'}
     # reorient textures
 
     sky_scale = 512
@@ -123,7 +123,7 @@ def main(width, height):
                 if event.button.button == SDL_BUTTON_RIGHT:
                     active = 0 if active == 1 else 1
             if SDLK_r in keys:
-                VIEW_CAMERA = camera.freecam(None, None, 256)
+                VIEW_CAMERA = utils.camera.freecam(None, None, 256)
             if SDLK_BACKQUOTE in keys:
                 print(f'{VIEW_CAMERA.position:.3f}')
                 
