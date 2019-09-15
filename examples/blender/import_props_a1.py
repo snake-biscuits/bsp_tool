@@ -1,6 +1,6 @@
-# version a1 (5th December 2017)
+# version a2 (12th September 2019)
 # made by B!scuit (Jared Ketterer)
-# based on Valve's .bsp file format version 20 (for TF2)
+# based on Valve's .bsp file format version 20 (Team Fortess 2 & Vindictus)
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/bspfile.h
 
@@ -15,49 +15,41 @@
 #  Crowbar, BlenderSourceTools & me)
 # If you make your own additions to this code be sure to let me know!
 
-# SHOULD HAVE SHIPPED WITH bsp_import_props.vmf & .bsp
-
-# All loads onto active layer (so you can keep it in it's own layer easily)
-# Though all imports also occupy layer 1
+# OTHER SCRIPTS: ...
 
 # Known Bugs:
-#  comp_win_banner smd import takes 5 mins to fail
-#  mdls in tf/ (not tf/custom/) folder do not copy
+#  comp_win_banner smd import takes 5 mins to fail (Crowbar)
+#  mdls in tf/ (not tf/custom/) folder do not copy (probably a good thing)
 
 # Not implemented but planned:
 #  proper .mdl locating and unpacking
 #  direct .mdl to mesh data with LoDs as alternative meshdata
-#  loading from pakfile
+#  loading from pakfile / .vpk
 #  support for compressed maps (.bz2 and compressed lumps / pakfiles) (lump-by-lump unpacking)
-#  material assignment (viewport colour too!)
+#  loading textures from .vpk
 #  import cameras
-#  import map geometry (also materials and lightmap to texture)
-#  export to three.js (with instances)
 #  import speakers (soundscapes and ambient generics), also, place according to SourceEntityName(s)
 #  import point entities that use props (e.g. team_capture_point, item_ammopack_small)
 #  import lights (sun included)
-#  delete files once decompiled & then again once imported
+#  handle all temporary files internally and clean up
 #  option to ignore props not compiled for their prop_type (e.g. prop_static playermodels)
 #    prop_static only, all others are removed automatically
-#  seperate layers for different prop_types (defaults / presets)
-#  check to see if object data is loaded BEFORE importing
-#  import some logic point entities as empties with their logic stored in text files
-#  automatically call: bspzip -extractfiles MAP_TO_IMPORT WORK_FOLDER
-#  automatically call: bspzip -repack after copying the original .bsp
+#  check to see if object data is loaded BEFORE importing (clean & fast reloads)
+#  entity importing / simulation
+#  utilising bspzip.exe
 #  progress bar
 #  error logging to file
-#  remove armature modfiers from props that don't have skeletons
-#  fix odd rotation bugs
+#  remove ref bones for static props
+#  fix incorrect rotation order bugs
 
 # Planned but very far away:
 #  proper blender addon UI (similar to BlenderSourceTools)
-#  options (checkboxes in import UI)
 #  general bsp tools (lump to dict, import lightmap, lightmap to texture)
 #  import geometry
 #  import textures
 #  threaded subprocesses (and various other performance improvements)
 #  automatic decompile (waiting on Crowbar command-line update)
-#  skybox
+#  skybox (as world texture)
 #  export to .vmf (brushes from geometry)
 #  animated models (set by logic entities)
 #  payload track animation(s)
@@ -82,34 +74,37 @@ import shutil
 import struct
 from subprocess import run, PIPE, STDOUT
 
-def filename_of(filepath): # handles folders with '.' in name but not double extensions e.g. '.bsp.old'
-    if '.' not in filepath:
-        return filepath
-    else:    
-        return '.'.join(filepath.split('.')[:-1]) # includes path
+# external file texting
+import os, sys
+## sys.path.append(os.path.dirname(bpy.data.filepath + "../"))
+sys.path.append(os.path.dirname(bpy.data.filepath + "../../"))
+import bsp_tool
 
-def path_above(filepath):
-    filepath = filepath.split('/')
-    if '' in filepath:
-        filepath.remove('')
-    return '/'.join(filepath[:-1]) + '/'
+import importlib
+importlib.reload(bsp_tool) # for external bugfixes
+
 
 def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
 
 # ALL FOLDERS MUST END WITH A '/' SLASH
 TF_FOLDER = 'E:/Steam/Steamapps/common/Team Fortress 2/tf/'
-CROWBAR_EXE = 'F:\Modding\crowbar\Crowbar.exe'
+CROWBAR_EXE = 'F:/Modding/crowbar/Crowbar.exe'
 MAP_TO_IMPORT = TF_FOLDER + 'maps/pl_upward.bsp'    # bspzip -repack first
 
-WORK_FOLDER = filename_of(MAP_TO_IMPORT) + '/'
+WORK_FOLDER = os.path.basename(MAP_TO_IMPORT) + '/'
 ensure_dir(WORK_FOLDER)
 
-VPK_EXE = path_above(TF_FOLDER) + 'bin/vpk.exe'
+VPK_EXE = os.path.dirname(TF_FOLDER) + 'bin/vpk.exe'
+
 file = open(MAP_TO_IMPORT, 'rb')
-bsp_id = file.read(4) #assumes b'VBSP', no support case for X360 maps
-bsp_version = int.from_bytes(file.read(4), 'little') #assuming 20, for TF2
-file.seek(568) #LUMP_GAME_LUMP
+bsp_id = file.read(4)
+if bsp_id != b'VBSP':
+    raise RuntimeError(f"{MAP_TO_IMPORT} is not a valid .bsp file!")
+bsp_version = int.from_bytes(file.read(4), 'little')
+if bsp_version != 20:
+    raise NotImplementedError(f".bsp version {bsp_version} is not supported!")
+file.seek(568) # LUMP_GAME_LUMP
 offset = int.from_bytes(file.read(4), 'little')
 length = int.from_bytes(file.read(4), 'little')
 lump_version = int.from_bytes(file.read(4), 'little')
@@ -235,7 +230,7 @@ for name in all_prop_names:
     #all models relocated to work folder for decompile
     #creating folders here prevents errors when copying
     #hopefully this can be replaced with a list passed to Crowbar.exe
-    ensure_dir(WORK_FOLDER + path_above(name))
+    ensure_dir(WORK_FOLDER + os.path.dirname(name))
 
 #TODO: Log props that could not be located to file
 
@@ -255,9 +250,9 @@ TF_CUSTOM_MODS = filter(lambda x: os.path.isdir(os.path.join(TF_CUSTOM_FOLDER, x
 for prop in all_prop_names:
     work_prop = WORK_FOLDER + prop
     tf_prop_path = TF_FOLDER + prop #variable names could be better here
-    prop_name = filename_of(prop.split('/')[-1])
+    prop_name = os.path.basename(prop.split('/')[-1])
     if os.path.exists(tf_prop_path):
-        prop_folder = path_above(tf_prop_path)
+        prop_folder = os.path.dirname(tf_prop_path)
         sub_path = prop_folder[len(TF_FOLDER):]
         for filename in os.listdir(prop_folder): #could reuse listed directories for lots of props
             if filename.startswith(prop_name): #MAY BE BROKEN
@@ -267,10 +262,10 @@ for prop in all_prop_names:
         mod += '/'
         mod_prop_path = TF_CUSTOM_FOLDER + mod + prop
         if os.path.exists(mod_prop_path):
-            mod_prop_folder = os.listdir(path_above(mod_prop_path))
+            mod_prop_folder = os.listdir(os.path.dirname(mod_prop_path))
             for filename in mod_prop_folder:
-                ensure_dir(path_above(work_prop))
-                sub_path = path_above(prop)
+                ensure_dir(os.path.dirname(work_prop))
+                sub_path = os.path.dirname(prop)
                 if filename.startswith(prop_name):
                     filename = sub_path + filename
                     shutil.copy(TF_CUSTOM_FOLDER + mod + filename, WORK_FOLDER + filename)
@@ -288,7 +283,7 @@ located_files = []
 prop_files = []
 for filename in misc_dir_files:
     for prop in all_prop_names:
-        if filename.startswith(filename_of(prop)) and not os.path.exists(WORK_FOLDER + filename):
+        if filename.startswith(os.path.basename(prop)) and not os.path.exists(WORK_FOLDER + filename):
             #skip previously extracted files? optional
             #no way to check for updates /;
             #for sprp really only need .mdl, .vtx & .vvd
@@ -356,10 +351,10 @@ import_start_time = time.time()
 for mdl in all_prop_names:
     #if mdl in bpy.data.objects:
     #    don't import, use pre-imported
-    mdl_filename = filename_of(mdl)
+    mdl_filename = os.path.basename(mdl)
     filename = mdl_filename.split('/')[-1]
     try:
-        smd_folder = decompile_folder + path_above(mdl) + filename + '/'
+        smd_folder = decompile_folder + os.path.dirname(mdl) + filename + '/'
         smd_files = os.listdir(smd_folder)
         smd_path = ''
         decompiled_smds = list(filter(lambda x: x.lower().startswith(filename) and '.smd' in x, smd_files))

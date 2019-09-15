@@ -14,10 +14,10 @@ class plane:
 
 
 class aabb:
-    #use origin for octrees / bounding volume heirarchy?
     def __init__(self, mins, maxs):
         self.min = vector.vec3(mins)
         self.max = vector.vec3(maxs)
+        self.center = (self.min + self.max) / 2
 
     def __add__(self, other):
         if isinstance(other, vector.vec3):
@@ -38,15 +38,14 @@ class aabb:
             return False
         return False
 
-    def __getitem(self, index):
+    def __getitem__(self, index):
         return [self.min, self.max][index]
 
     def __iter__(self):
         return iter([self.min, self.max])
 
     def __repr__(self):
-        extents = map(repr, [self.min, self.max])
-        return ' '.join(extents)
+        return f"{self.__class__.__name__}({self.min}, {self.max})"
 
     def intersects(self, other):
         if isinstance(other, aabb):
@@ -55,7 +54,7 @@ class aabb:
                     if self.min.z < other.max.z and self.max.z > other.min.z:
                         return True
             return False
-        raise RuntimeError( other.__name__ + ' is not an AABB')
+        raise RuntimeError(f"{other.__name__} is not an AABB")
 
     def contains(self, other):
         if isinstance(other, aabb):
@@ -70,7 +69,7 @@ class aabb:
                     if self.min.z < other.z < self.max.z:
                         return True
             return False
-        raise RuntimeError( other.__name__ + ' is not an AABB')
+        raise RuntimeError(f"{other.__name__} is not an AABB")
 
     def depth_along_axis(self, axis):
         depth = list(self.max - self.min)

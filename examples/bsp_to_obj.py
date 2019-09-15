@@ -102,7 +102,7 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
     total_time = time.time() - start_time
     minutes = total_time // 60
     seconds = total_time - minutes * 60
-    yield f"# file generated in {minutes:.0f} minutes {seconds:2.3f} seconds")
+    yield f"# file generated in {minutes:.0f} minutes {seconds:2.3f} seconds"
     print('Done!')
 
 
@@ -115,6 +115,7 @@ if __name__ == "__main__":
     # -W strict // stop if cannot load ANY chunk
     # -W lazy // ignore any and all chunks that cannot be loaded
     import sys
+    sys.path.insert(0, "../")
     import bsp_tool
     if len(sys.argv) > 1: # drag & drop obj converter
         for map_path in sys.argv[1:]:

@@ -90,9 +90,12 @@ class client:
             if self.swept_aabb.intersects(plane.aabb):
                 p = vector.dot(self.position, plane.normal)
                 max_p = self.swept_aabb.depth_along_axis(plane.normal)
-                if p <= max_p and p <= abs(plane.distance): #simplify
+                if p <= max_p and p <= abs(plane.distance): # simplify
+                    # push out of the plane, without changing velocity
                     self.position += math.fsum([plane.distance, -p]) * plane.normal
-                    self.onGround = True
+                    # reset jump? (45 degree check)
+                    if vector.dot(plane.normal, vector.vec3(z=1)) <= math.sqrt(2):
+                        self.onGround = True
                     self.velocity = vector.vec3()
                     #friction, surf & bounce
     ##                    self.velocity -= self.velocity * plane.normal
@@ -127,9 +130,19 @@ class client:
         glTranslate(self.position.x, self.position.y, self.position.z)
         glColor(1, 0, 1)
         glBegin(GL_LINES)
+        # FRONT
         glVertex(0, 0, (self.aabb.min.z + self.aabb.max.z) / 2)
         glVertex(self.front.x, self.front.y, (self.aabb.min.z + self.aabb.max.z) / 2)
+        # VELOCITY
+        glColor(0, 1, 0.1)
+        glVertex(0, 0, (self.aabb.min.z + self.aabb.max.z) / 2)
+        glVertex(self.velocity.x, self.velocity.y, (self.velocity.z + (self.aabb.min.z + self.aabb.max.z)) / 2)
+        # WISH
+        glColor(0, 0.1, 1)
+        glVertex(0, 0, (self.aabb.min.z + self.aabb.max.z) / 2)
+        glVertex(self.velocity.x, self.velocity.y, (self.aabb.min.z + self.aabb.max.z) / 2)
         glEnd()
+        glColor(1, 0, 1)
         glBegin(GL_POINTS)
         glVertex(0, 0, 0)
         glEnd()
@@ -170,33 +183,26 @@ def main(width, height):
     SDL_GL_SetSwapInterval(0)
     glClearColor(0.1, 0.1, 0.1, 0.0)
     gluPerspective(90, width / height, 0.1, 4096)
-    glRotate(90, -1, 0, 0)
-    glTranslate(0, 8, 0)
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
     glPointSize(8)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
     mouse = vector.vec2(0, 0)
     keys = []
-
-    #import bsp_tool
-    #bsp = bsp_tool.bsp("../f1.bsp")
-
-    #tris to render bsp
-    #import and setup bsp face shader
     
     global planes
-    #planes = []
-    #for face in bsp.FACES:
-    #    plane = bsp.PLANES[face.planenum]
-    #    aabb = (-1024, -1024, -1024), (1024, 1024, 1024),
-    #    planes.append(plane['normal'], plane['distance'], *aabb)
-    planes = [plane_struct((0, 0, 1), 0, (-8, -8, -0.1), (8, 8, 0.1)),
-              plane_struct((0, 0, 1), -16, (-32, -32, -15.9), (32, 32, -16.1))]
+    planes = [plane_struct((0, 0, 1), 0, (-8, -16, -0.1), (8, 16, 0.1)),
+              plane_struct((0, 0, 1), -16, (-32, -32, -15.9), (32, 32, -16.1)),
+              plane_struct((1, 0, 1), 0, (-16, -16, 0), (16, 16, 4))]
 
-    client0 = client('b!scuit') #TODO: draw client name at client position
-    spectator_camera = utils.camera.fixed ((-24, -24, 4), (0, -30, 45))
+    # convert planes within aabbs to drawable geo
+    # slice planes with other planes to create ngons
 
-    #CAMERA SWITCHING SYSTEM IS UGLY
+    client0 = client('b!scuit') # TODO: draw client name at client position
+    spectator_camera = utils.camera.fixed((0, 0, 16), (90, 0, 0))
+
+    # CAMERA SWITCHING SYSTEM IS UGLY
     cameras = [client0.set_view, spectator_camera.set]
     active = 1
 
@@ -237,20 +243,22 @@ def main(width, height):
             dt -= 1 / tickrate
             oldtime = time()
 
-        #DISPLAY
+        # DISPLAY
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         gluPerspective(90, width / height, 0.1, 128)
-        cameras[active].__call__() #ew
+        cameras[active]() # ew
 
-        #floor
-        glColor(1, 0.5, 0)
+        # floor
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+        glColor(1, 0.5, 0, 0.25)
         glBegin(GL_QUADS)
-        glVertex(-8, 8)
-        glVertex(8, 8)
-        glVertex(8, -8)
-        glVertex(-8, -8)
+        glVertex(-8, 16)
+        glVertex(8, 16)
+        glVertex(8, -16)
+        glVertex(-8, -16)
         glEnd()
+        
         glBegin(GL_TRIANGLE_FAN)
         glVertex(-32, 32, -16)
         glVertex(32, 32, -16)
@@ -258,21 +266,29 @@ def main(width, height):
         glVertex(-32, -32, -16)
         glEnd()
 
-        #client
+        glBegin(GL_QUADS)
+        glVertex(-8, 16, 4)
+        glVertex(8, 16, -4)
+        glVertex(8, -16, -4)
+        glVertex(-8, -16, 4)
+        glEnd()
+
+        glColor(0, 0.5, 1)
+        glBegin(GL_LINES)
+        for plane in planes:
+            glVertex(*(plane.normal * plane.distance))
+            glVertex(*(plane.normal * (plane.distance + 1)))
+        glEnd()
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+        # client
         client0.draw()
 
         SDL_GL_SwapWindow(window)
 
 if __name__ == '__main__':
-    import getopt
-    import sys
-    options = getopt.getopt(sys.argv[1:], 'w:h:')
-    width = 1280
-    height = 720
-    for option in options:
-        for key, value in option:
-            if key == '-w':
-                width = int(value)
-            elif key == '-h':
-                height = int(value)
-    main(width, height)
+    try:
+        main(1280, 720)
+    except Exception as exc:
+        SDL_Quit()
+        raise exc
