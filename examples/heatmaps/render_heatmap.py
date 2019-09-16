@@ -7,10 +7,12 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from sdl2 import *
 from time import time
-import camera
 import sys
-sys.path.insert(0, '../')
-from vector import *
+sys.path.insert(0, "../")
+import utils.camera
+from utils.vector import *
+
+utils.camera.sensitivity = 2
 
 def main(width, height, json_file):
     SDL_Init(SDL_INIT_VIDEO)
@@ -51,7 +53,7 @@ def main(width, height, json_file):
 
     cam_spawn = vec3(0, 0, 32)
     init_speed = 128
-    VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+    VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
     mousepos = vec2()
     keys = []
     
@@ -87,9 +89,9 @@ def main(width, height, json_file):
         while dt >= 1 / tickrate:
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
             if SDLK_BACKQUOTE in keys:
-                ...
+                ... # print some statistics
             if SDLK_r in keys:
-                VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+                VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
             if SDLK_LSHIFT in keys:
                 VIEW_CAMERA.speed += VIEW_CAMERA.speed * .125
             if SDLK_LCTRL in keys:
@@ -124,20 +126,4 @@ def main(width, height, json_file):
         SDL_GL_SwapWindow(window)
 
 if __name__ == '__main__':
-    import getopt
-    import sys, os
-    options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
-##    width, height = 640, 480
-    width, height = 1280, 720
-##    width, height = 1920, 1080
-##    width, height = 3840, 2160
-    json_file = 'heatmaps.tf/pl_upward.json'
-    for option in options:
-        for key, value in option:
-            if key == '-w':
-                width = int(value)
-            elif key == '-h':
-                height = int(value)
-            elif key == '-json':
-                json_file = value
-    main(width, height, json_file)
+    main(1280, 720, 'pl_upward.json')

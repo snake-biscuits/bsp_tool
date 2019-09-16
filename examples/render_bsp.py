@@ -29,7 +29,7 @@
 # -- triangle_strip stitching (performance increase?)
 # -- smooth normals (calculate normal per tri & blend)
 # do t-juncts affect origfaces?
-#TODO: change commented out code to modes / options
+# TODO: change commented out code to modes / options
 import colorsys
 import compress_sequence
 import ctypes
@@ -48,6 +48,8 @@ import sys
 sys.path.insert(0, '../')
 import bsp_tool
 from vector import *
+
+utils.camera.sensitivity = 2
 
 def clamp(x, minimum=0, maximum=1):
     return maximum if x > maximum else minimum if x < minimum else x

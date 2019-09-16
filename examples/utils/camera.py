@@ -1,27 +1,25 @@
-#TODO:
-#First-person and Third-person camera need update
-#to receive information based on character motion
-#An AI that interprets inputs into realistic camera motion would be cool
-#Inputs should be typed (Cython)
+# TODO:
+# First-person and Third-person camera need update
+# to receive information based on character motion
+# An AI that interprets inputs into realistic camera motion would be cool
+# Inputs should be typed (Cython)
 #
-#FIXED CAMERA with either:
-#no rotation
-#scripted rotation (i.e. security camera)
-#player controlled rotation (i.e. PSX Era Square Enix Games)
+# FIXED CAMERA with either:
+# no rotation
+# scripted rotation (i.e. security camera)
+# player controlled rotation (i.e. PSX Era Square Enix Games)
 #
-#Sensitivity is changed by setting camera.sensitivity in main()
+# Sensitivity is changed by setting camera.sensitivity in main()
 #
-#Scripted Camera Motion?
+# Scripted Camera Motion?
 #
-#Per Camera FoV?
+# Per Camera FoV?
 
 import math
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from sdl2 import *
-import sys
-sys.path.insert(0, '../')
-from vector import vec2, vec3
+from utils.vector import vec2, vec3
 
 sensitivity = 0.25
 

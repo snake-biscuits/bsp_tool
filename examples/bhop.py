@@ -30,7 +30,7 @@ import sys
 sys.path.insert(0, '../')
 import vector
 
-utils.camera.sensitivity = 4
+utils.camera.sensitivity = 2
 
 class plane_struct:
     def __init__(self, normal, distance, BBmin, BBmax):
