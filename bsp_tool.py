@@ -94,7 +94,7 @@ class bsp():
             print(*self.log, sep='\n')
 
         # SPECIAL LUMPS
-        # - ENTIITES
+        # - ENTITIES
         # don't forget some .bsps have no entities
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
         self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
