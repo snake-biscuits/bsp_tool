@@ -20,7 +20,7 @@ import time
 import vector
 import vmf_tool
 
-from mods import tf2
+from mods import team_fortress2
 from mods import vindictus
 
 def read_lump(file, header_address):
@@ -44,12 +44,11 @@ def read_lump(file, header_address):
             else:
                 return decompressed_lump
 
-
-lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
-
+lump_header = collections.namedtuple('lump_header',
+                                     ['offset', 'length' ,'version', 'fourCC'])
 
 class bsp():
-    def __init__(self, file, mod=tf2):
+    def __init__(self, file, mod=team_fortress2):
         self.mod = mod # should autodetect from errors and bsp version
         if not file.endswith('.bsp'):
             file += '.bsp'
@@ -58,7 +57,7 @@ class bsp():
         self.filename = split_file[-1]
         self.filepath = f'{split_file[0]}/'
         file = open(file, 'rb')
-        if file.read(4) != b'VBSP':
+        if file.read(4) != b'VBSP' or b'rBSP': # rBSP = Respawn BSP (Titanfall)
             raise RuntimeError(f"{''.join(split_file)} is not a .bsp!")
         self.bytesize = len(file.read()) + 4
         self.lump_map = {}
@@ -73,7 +72,7 @@ class bsp():
         self.log = []
         lump_classes = self.mod.lump_classes
         if self.mod == vindictus:
-            lump_classes = copy.deepcopy(tf2.lump_classes)
+            lump_classes = copy.deepcopy(team_fortress2.lump_classes)
             lump_classes.update(self.mod.lump_classes) # vindictus classes should override tf2 classes
         lump_classes = {L: c for L, c in lump_classes.items() if hasattr(self, f"RAW_{L}")}
         for LUMP, lump_class in lump_classes.items():
@@ -108,7 +107,7 @@ class bsp():
         try: # - SURF_EDGES
             _format = self.mod.surf_edge._format
         except:
-            _format = tf2.surf_edge._format
+            _format = team_fortess2.surf_edge._format
         self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
         del self.RAW_SURFEDGES, _format
         # - VISIBILITY
@@ -294,11 +293,12 @@ def disp_tris(verts, power):
 
 if __name__=='__main__':
     import argparse
-    # --game -G [tf2/hl2/vindictus]
-    # -W strict // stop if cannot load ANY chunk
-    # -W lazy // ignore any and all chunks that cannot be loaded
-    # --stats [options] // list various stats into a .csv file
-    #                   // take an example .csv?
+    # --game -G [teamfortress2/hl2/vindictus/titanfall2]
+    # -W strict # stop if cannot load ANY chunk
+    # -W lazy # ignore any and all chunks that cannot be loaded
+    # --stats [options] # list various stats into a .csv file
+    #                   # take an example .csv?
+    # -E / --external-lumps # look for .bsp_lump files in the same folder
     # more options?
     import sys
     if len(sys.argv) > 1: # drag & drop obj converter
