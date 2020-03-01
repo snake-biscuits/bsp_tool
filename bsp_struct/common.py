@@ -86,7 +86,7 @@ class vector:
         return self.array[index]
 
 class angle:
-    _mapping = {'y': 1, 'p': 0, 'r': 2, # yar, pitch, roll
+    _mapping = {'y': 1, 'p': 0, 'r': 2, # yaw, pitch, roll
                 'x': 0, 'y': 1, 'z': 2}
 
 
