@@ -49,23 +49,25 @@ def read_lump(file, header_address):
 lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
 
 class bsp():
-    def __init__(self, file, mod=team_fortress2, lump_files=True):
+    def __init__(self, filename, mod=team_fortress2, lump_files=True):
         self.mod = mod # should autodetect from errors and bsp version
-        if not file.endswith('.bsp'):
-            file += '.bsp'
-        file.replace('\\', '/')
-        split_file = file.rpartition('/')
-        self.filename = split_file[-1] # with .bsp extension
-        self.filepath = f'{split_file[0]}/'
+        if not filename.endswith('.bsp'):
+            filename += '.bsp'
+        filename.replace('\\', '/')
+        split_filename = filename.rpartition('/')
+        self.filename = split_filename[-1] # with .bsp extension
+        self.filepath = f'{split_filename[0]}/'
         local_files = os.listdir(self.filepath)
-        self.associated_files = list(filter(
-                lambda s: s.startswith(self.filename[:-3]), local_files))
+        self.associated_files = [f for f in local_files if f.startswith(self.filename[:-3])]
         file = open(file, 'rb')
         file_magic = file.read(4)
         if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
             # ^ ignores the reversed file_magic (big endian)
             raise RuntimeError(f"{file} is not a .bsp!")
-        self.bytesize = len(file.read()) + 4
+        self.bsp_version = int.from_bytes(file.read(4), "little")
+        #rBSP map revision is before headers, VBSP is after
+        self.bytesize = len(file.read()) + 8
+            
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
