@@ -1,6 +1,10 @@
-import mods.common as common
 import enum
 
+from . import common
+from . import team_fortress2
+
+
+# BSP Version 20
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
@@ -66,6 +70,7 @@ class LUMP(enum.Enum):
     UNUSED4 = 61
     UNUSED5 = 62 
     UNUSED6 = 63
+
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
@@ -136,8 +141,8 @@ class node(common.base): # LUMP 5
 ##               "u": 2, "v": 2,
 ##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
 
-
-lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal,
+lump_classes = team_fortress2.lump_classes.copy()
+lump_classes.update({"AREAS": area, "AREA_PORTALS": area_portal,
                 "BRUSH_SIDES": brush_side, "DISP_INFO": disp_info,
                 "EDGES": edge, "FACES": face, "LEAVES": leaf,
-                "LEAF_FACES": leaf_face, "NODES": node, "ORIGINAL_FACES": face}
+                "LEAF_FACES": leaf_face, "NODES": node, "ORIGINAL_FACES": face})
