@@ -71,7 +71,8 @@ class bsp():
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
-            lump_filename = f"{self.filepath}{self.filename}.{ID:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
+            print(ID, ID.value, type(ID.value))
+            lump_filename = f"{self.filepath}{self.filename}.{ID.value:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
             if lump_files == True and lump_filename in self.associated_files:
                 # vBSP lumpfiles have headers, rBSP lumpfiles do not
                 # mp_drydock only has 72 bsp_lump files
@@ -122,7 +123,7 @@ class bsp():
         try:
             _format = self.mod.surf_edge._format
         except:
-            _format = team_fortess2.surf_edge._format
+            _format = team_fortress2.surf_edge._format
         self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
         del self.RAW_SURFEDGES, _format
         # - VISIBILITY
