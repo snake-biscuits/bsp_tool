@@ -59,7 +59,7 @@ class bsp():
         self.filepath = f'{split_filename[0]}/'
         local_files = os.listdir(self.filepath)
         self.associated_files = [f for f in local_files if f.startswith(self.filename[:-3])]
-        file = open(file, 'rb')
+        file = open(filename, 'rb')
         file_magic = file.read(4)
         if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
             # ^ ignores the reversed file_magic (big endian)
