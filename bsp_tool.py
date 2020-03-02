@@ -15,8 +15,10 @@ import copy
 import enum
 import itertools
 import lzma
+import os
 import struct
 import time
+
 import vector
 import vmf_tool
 
@@ -48,14 +50,17 @@ lump_header = collections.namedtuple('lump_header',
                                      ['offset', 'length' ,'version', 'fourCC'])
 
 class bsp():
-    def __init__(self, file, mod=team_fortress2):
+    def __init__(self, file, mod=team_fortress2, lump_files=True):
         self.mod = mod # should autodetect from errors and bsp version
         if not file.endswith('.bsp'):
             file += '.bsp'
         file.replace('\\', '/')
         split_file = file.rpartition('/')
-        self.filename = split_file[-1]
+        self.filename = split_file[-1] # with .bsp extension
         self.filepath = f'{split_file[0]}/'
+        local_files = os.listdir(self.filepath)
+        self.associated_files = list(filter(
+                lambda s: s.startswith(self.filename[:-3]), local_files))
         file = open(file, 'rb')
         if file.read(4) != b'VBSP' or b'rBSP': # rBSP = Respawn BSP (Titanfall)
             raise RuntimeError(f"{''.join(split_file)} is not a .bsp!")
@@ -63,11 +68,16 @@ class bsp():
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
-            data = read_lump(file, self.mod.lump_header_address[ID])
+            lump_filename = "{}{}.{:04x}.bsp_lump".format(self.filepath, self.filename, ID)
+            if lump_files == True and lump_filename in self.associated_files:
+                data = open(lump_filename, "rb").read()
+            else:
+                data = read_lump(file, self.mod.lump_header_address[ID])          
             if data is not None:
                 file.seek(self.mod.lump_header_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
+            # else lump is empty
 
         self.log = []
         lump_classes = self.mod.lump_classes

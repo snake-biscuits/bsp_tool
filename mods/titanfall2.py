@@ -38,7 +38,7 @@ class LUMP(enum.Enum):
     GAME_LUMP = 35
     LEAFWATERDATA = 36
     # 37-39 unkown
-    PAKFILE = 40
+    PAKFILE = 40 # zip file, contains cubemaps
     UNUSED_41 = 41
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
