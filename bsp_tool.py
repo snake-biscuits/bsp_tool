@@ -22,8 +22,8 @@ import time
 import vector
 import vmf_tool
 
-from mods import team_fortress2
-from mods import vindictus
+from mods import team_fortress2, titanfall2, vindictus
+
 
 def read_lump(file, header_address):
     file.seek(header_address)
@@ -46,8 +46,7 @@ def read_lump(file, header_address):
             else:
                 return decompressed_lump
 
-lump_header = collections.namedtuple('lump_header',
-                                     ['offset', 'length' ,'version', 'fourCC'])
+lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
 
 class bsp():
     def __init__(self, file, mod=team_fortress2, lump_files=True):
@@ -62,48 +61,50 @@ class bsp():
         self.associated_files = list(filter(
                 lambda s: s.startswith(self.filename[:-3]), local_files))
         file = open(file, 'rb')
-        if file.read(4) != b'VBSP' or b'rBSP': # rBSP = Respawn BSP (Titanfall)
-            raise RuntimeError(f"{''.join(split_file)} is not a .bsp!")
+        file_magic = file.read(4)
+        if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
+            # ^ ignores the reversed file_magic (big endian)
+            raise RuntimeError(f"{file} is not a .bsp!")
         self.bytesize = len(file.read()) + 4
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
-            lump_filename = "{}{}.{:04x}.bsp_lump".format(self.filepath, self.filename, ID)
+            lump_filename = f"{self.filepath}{self.filename}.{ID:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
             if lump_files == True and lump_filename in self.associated_files:
+                # vBSP lumpfiles have headers, rBSP lumpfiles do not
+                # mp_drydock only has 72 bsp_lump files
                 data = open(lump_filename, "rb").read()
             else:
                 data = read_lump(file, self.mod.lump_header_address[ID])          
-            if data is not None:
+            if data is not None: # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
             # else lump is empty
 
-        self.log = []
-        lump_classes = self.mod.lump_classes
-        if self.mod == vindictus:
-            lump_classes = copy.deepcopy(team_fortress2.lump_classes)
-            lump_classes.update(self.mod.lump_classes) # vindictus classes should override tf2 classes
-        lump_classes = {L: c for L, c in lump_classes.items() if hasattr(self, f"RAW_{L}")}
+        self.log = [] # begin processing lumps
+        lump_classes = self.mod.lump_classes # self.mod is a module
         for LUMP, lump_class in lump_classes.items():
+            if not hasattr(self, f"RAW_{LUMP}"):
+                continue # skip unused lumps
             try: # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                     getattr(self, LUMP).append(lump_class(data))
                 exec(f"del self.RAW_{LUMP}")
-            except struct.error as exc: # lump is not the expected size, try another format
-                # retry with a struct from another engine branch
-                raise exc
+            except struct.error as exc:
+                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size. Wrong mod?"
+##                raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
 ##                raise exc
 
-        if self.log != []:
+        if self.log != []: # if errors occured, print to console
             print(*self.log, sep='\n')
 
-        # SPECIAL LUMPS
-        # - ENTITIES
+        ### SPECIAL LUMPS ###
+        #-- ENTITIES --#
         # don't forget some .bsps have no entities
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
         self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
@@ -113,8 +114,10 @@ class bsp():
         # use fgdtools to fully unstringify entities
         # >>> type: plane | re | (x y z) (x y z) (x y z)
         del self.RAW_ENTITIES
-        # - GAME LUMP
-        try: # - SURF_EDGES
+        #-- GAME LUMP --#
+        ...
+        #-- SURF_EDGES --#
+        try:
             _format = self.mod.surf_edge._format
         except:
             _format = team_fortess2.surf_edge._format
