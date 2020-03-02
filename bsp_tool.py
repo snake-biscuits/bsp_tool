@@ -96,7 +96,7 @@ class bsp():
                     getattr(self, LUMP).append(lump_class(data))
                 exec(f"del self.RAW_{LUMP}")
             except struct.error as exc:
-                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size. Wrong mod?"
+                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size. Wrong mod?")
 ##                raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
