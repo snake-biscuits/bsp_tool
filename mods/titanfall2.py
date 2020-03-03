@@ -57,11 +57,11 @@ class LUMP(enum.Enum):
     UNKNOWN_38 = 38
     UNKNOWN_39 = 39
     PAKFILE = 40 # zip file, contains cubemaps
-    UNUSED_41 = 41
+    UNKNOWN_41 = 41
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
     TEXDATA_STRING_TABLE = 44
-    UNUSED_45 = 45
+    UNKNOWN_45 = 45
     UNKNOWN_46 = 46
     UNKNOWN_47 = 47
     UNKNOWN_48 = 48
@@ -107,7 +107,7 @@ class LUMP(enum.Enum):
     CM_BRUSH_SIDE_PROPS = 94
     CM_BRUSH_TEX_VECS = 95
     TRICOLL_BEVEL_STARTS = 96
-    TRICOLL_BEVEL_INDEXE = 97
+    TRICOLL_BEVEL_INDICES = 97
     LIGHTMAP_DATA_SKY = 98
     CSM_AABB_NODES = 99
     CSM_OBJ_REFS = 100
@@ -132,7 +132,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 119
     OBJ_REFS = 120
     OBJ_REF_BOUNDS = 121
-    UNUSED_122 = 122
+    UNKNOWN_122 = 122
     LEVEL_INFO = 123
     SHADOW_MESH_OPAQUE_VERTS = 124
     SHADOW_MESH_ALPHA_VERTS = 125
@@ -233,19 +233,29 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # 007D SHADOW_MESH_ALPHA_VERTS         125
 # 007E SHADOW_MESH_INDICES             126
 # 007F SHADOW_MESH_MESHES              127
+# some of the other lumps appear within the .bsp itself
 
 
 # class for each lump in alphabetical order
+# all guesses from staring at code and .bsps for far too long
 class model(common.base): # LUMP 14 (000E)
     # presumed 32 byte pattern
-    __slots__["big_negative", "big_positive", "small_int", "tiny int"]
+    __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
+
+class unlit_vertex(common.base): # LUMP 71 (0047)
+    __slots__ = ["sixkay", "eleven", "big", "neg_one"]
+    _format = "5i"
+    _arrays = {"big": [*"ab"]}
 
 class vertex(common.mapped_array): # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
-    
 
-lump_classes = {"MODELS": model, "VERTICES": vertex}
+class vertex_normal(vertex): # LUMP 30 (001E)
+    _format = "3d"
+    
+lump_classes = {"MODELS": model, "VERTEX_NORMALS": vertex_normal,
+                "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex}
