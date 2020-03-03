@@ -71,7 +71,7 @@ class LUMP(enum.Enum):
     UNKNOWN_52 = 52
     UNUSED_53 = 53
     WORLDLIGHTS_HDR = 54
-    UNUSED_59 = 59
+    UNKNOWN_59 = 59
     PHYS_LEVEL = 62
     UNKNOWN_63 = 63
     UNKNOWN_64 = 64
@@ -233,5 +233,13 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # 007D SHADOW_MESH_ALPHA_VERTS         125
 # 007E SHADOW_MESH_INDICES             126
 # 007F SHADOW_MESH_MESHES              127
+
+# class for each lump in alphabetical order
+class model(base.common):
+    __slots__["big_negative_0", "big_negative_1", "big_negative_2",
+              "big_positive_1", "big_positive_1", "big_positive_2",
+              "small_int", "tiny int"]
+    _format = "8i" # there appears to be a pattern of length 32 bytes
+    
 
 lump_classes = team_fortress2.lump_classes # just assume tf2 lump structs for now
