@@ -179,7 +179,7 @@ class tex_info(common.base): # LUMP 6
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
 
 class vertex(common.mapped_array): # LUMP 3
-    _mapping = ["x", "y", "z"]
+    _mapping = [*"xyz"]
     _format = "3f"
     
     def flat(self):
