@@ -27,10 +27,10 @@ from mods import team_fortress2, titanfall2, vindictus
 
 def read_lump(file, header_address):
     file.seek(header_address)
-    offset = int.from_bytes(file.read(4), 'little')
-    length = int.from_bytes(file.read(4), 'little')
-    version = int.from_bytes(file.read(4), 'little')
-    fourCC = int.from_bytes(file.read(4), 'little')
+    offset = int.from_bytes(file.read(4), "little")
+    length = int.from_bytes(file.read(4), "little")
+    version = int.from_bytes(file.read(4), "little")
+    fourCC = int.from_bytes(file.read(4), "little")
     if length != 0:
         if fourCC == 0:
             file.seek(offset)
@@ -94,7 +94,7 @@ class bsp():
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
                     getattr(self, LUMP).append(lump_class(data))
-                exec(f"del self.RAW_{LUMP}")
+                delattr(self, f"RAW_{LUMP}")
             except struct.error as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size. Wrong mod?")
 ##                raise exc

@@ -113,8 +113,8 @@ class LUMP(enum.Enum):
     CSM_OBJ_REFS = 100
     LIGHTPROBES = 101
     STATIC_PROP_LIGHTPROBE_INDEX = 102
-    LIGHTPROBETREE = 103
-    LIGHTPROBEREFS = 104
+    LIGHTPROBE_TREE = 103
+    LIGHTPROBE_REFS = 104
     LIGHTMAP_DATA_REAL_TIME_LIGHTS = 105
     CELL_BSP_NODES = 106
     CELLS = 107
@@ -127,8 +127,8 @@ class LUMP(enum.Enum):
     PORTAL_EDGE_ISECT_EDGE = 114
     PORTAL_EDGE_ISECT_AT_VERT = 115
     PORTAL_EDGE_ISECT_HEADER = 116
-    OCCLUSIONMESH_VERTS = 117
-    OCCLUSIONMESH_INDICES = 118
+    OCCLUSION_MESH_VERTS = 117
+    OCCLUSION_MESH_INDICES = 118
     CELL_AABB_NODES = 119
     OBJ_REFS = 120
     OBJ_REF_BOUNDS = 121
@@ -208,8 +208,8 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # 0064 CSM_OBJ_REFS                    100
 # 0065 LIGHTPROBES                     101
 # 0066 STATIC_PROP_LIGHTPROBE_INDEX    102
-# 0067 LIGHT_PROBE_TREE                103
-# 0068 LIGHT_PROBE_REFS                104
+# 0067 LIGHTPROBE_TREE                 103
+# 0068 LIGHTPROBE_REFS                 104
 # 0069 LIGHTMAP_DATA_REAL_TIME_LIGHTS  105
 # 006A CELL_BSP_NODES                  106
 # 006B CELLS                           107
@@ -234,12 +234,18 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # 007E SHADOW_MESH_INDICES             126
 # 007F SHADOW_MESH_MESHES              127
 
+
 # class for each lump in alphabetical order
-class model(base.common):
-    __slots__["big_negative_0", "big_negative_1", "big_negative_2",
-              "big_positive_1", "big_positive_1", "big_positive_2",
-              "small_int", "tiny int"]
-    _format = "8i" # there appears to be a pattern of length 32 bytes
+class model(common.base): # LUMP 14 (000E)
+    # presumed 32 byte pattern
+    __slots__["big_negative", "big_positive", "small_int", "tiny int"]
+    _format = "8i"
+    _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
+
+class vertex(common.mapped_array): # LUMP 3 (0003)
+    _mapping = [*"xyz"]
+    _format = "3f"
+    flat = lambda self: [self.x, self.y, self.z]
     
 
-lump_classes = team_fortress2.lump_classes # just assume tf2 lump structs for now
+lump_classes = {"MODELS": model, "VERTICES": vertex}

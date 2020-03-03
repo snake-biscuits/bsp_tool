@@ -181,9 +181,7 @@ class tex_info(common.base): # LUMP 6
 class vertex(common.mapped_array): # LUMP 3
     _mapping = [*"xyz"]
     _format = "3f"
-    
-    def flat(self):
-        return [self.x, self.y, self.z]
+    flat = lambda self: [self.x, self.y, self.z]
 
 class world_light(common.base): # LUMP 15
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
