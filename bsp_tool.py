@@ -49,7 +49,7 @@ def read_lump(file, header_address):
 lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
 
 class bsp():
-    def __init__(self, filename, mod=team_fortress2, lump_files=True):
+    def __init__(self, filename, mod=team_fortress2, lump_files=False):
         self.mod = mod # should autodetect from errors and bsp version
         if not filename.endswith('.bsp'):
             filename += '.bsp'
@@ -67,24 +67,30 @@ class bsp():
         self.bsp_version = int.from_bytes(file.read(4), "little")
         #rBSP map revision is before headers, VBSP is after
         self.bytesize = len(file.read()) + 8
-            
+
+        self.log = []
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
-            lump_filename = f"{self.filepath}{self.filename}.{ID.value:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
+            lump_filename = f"{self.filename}.{ID.value:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
             if lump_files == True and lump_filename in self.associated_files:
-                # vBSP lumpfiles have headers, rBSP lumpfiles do not
+                # vBSP lumpfiles have headers, rBSP lumpfiles are headerless
                 # mp_drydock only has 72 bsp_lump files
-                data = open(lump_filename, "rb").read()
+                data = open(f"{self.filepath}{lump_filename}", "rb").read()
+                self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
             else:
-                data = read_lump(file, self.mod.lump_header_address[ID])          
+            # change to store .bsp lumps anyway but as INTERNAL_
+            # when lump_files == False don't bother looking for them
+                if lump_files == True: # lump_file not found
+                    self.log.append(f"external {ID.name} lump not found")
+                data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None: # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
                 setattr(self, 'RAW_' + ID.name, data)
             # else lump is empty
 
-        self.log = [] # begin processing lumps
+        # begin processing lumps
         lump_classes = self.mod.lump_classes # self.mod is a module
         for LUMP, lump_class in lump_classes.items():
             if not hasattr(self, f"RAW_{LUMP}"):
