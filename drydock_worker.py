@@ -123,15 +123,15 @@ def split_lump(lump, split_length):
 def analyse(array, *indices):
     """Take a split lump and anylyse multiple instances side-by-side"""
     for index in indices:
+        ints = array[index]
+        raw = [i.to_bytes(4, "little", signed=True) for i in ints]
         print(f"::: INDEX = {index} :::")
-        cls = array[index]
-        raw = [i.to_bytes(4, "little", signed=True) for i in cls]
-        print("--== BYTES ==--")
-        print(*raw)
-        print("--==  HEX  ==--")
-        print(*[f"{i:04x}" for i in cls])
-        print("--== INT32 ==--")
-        print(*cls)
-        print("--== FLOAT ==--")
-        print(*struct.iter_unpack("f", b"".join(raw)))
+        print(*[f"{i:08x}" for i in ints]) # hex
+        print(*ints) # int
+        print(*[f[0] for f in struct.iter_unpack("f", b"".join(raw))]) # float
         print("=" * 80)
+
+
+def hex_breakdown(stream):
+    int_stream = struct.unpack(f"{len(stream)}B", stream)
+    print(" ".join(f"{i:02x}" for i in int_stream))
