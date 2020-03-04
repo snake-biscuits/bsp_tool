@@ -16,7 +16,9 @@ def denominators_of(x, start=8, step=4): # multiples of 4 only
     else:
         return sorted(out)
 
-drydock = bsp_tool.bsp("/media/jared/Sandisk/mp_drydock/maps/mp_drydock.bsp",
+# titanfall_dir = "/media/jared/Sandisk/mp_drydock" # LINUX
+titanfall_dir = "E:/Mod/Titanfall2/mp_drydock" # WINDOWS
+drydock = bsp_tool.bsp(f"{titanfall_dir}/maps/mp_drydock.bsp",
                        mod=bsp_tool.titanfall2, lump_files=True)
 
 ### export vertices to .obj file
