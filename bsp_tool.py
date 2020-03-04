@@ -50,9 +50,9 @@ lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'versio
 
 class bsp():
     def __init__(self, filename, mod=team_fortress2, lump_files=False):
-        self.mod = mod # should autodetect from errors and bsp version
+        # LOOKING AT FILES
         if not filename.endswith('.bsp'):
-            filename += '.bsp'
+            filename += '.bsp' # for lazy terminal scripts
         filename.replace('\\', '/')
         split_filename = filename.rpartition('/')
         self.filename = split_filename[-1] # with .bsp extension
@@ -60,11 +60,18 @@ class bsp():
         local_files = os.listdir(self.filepath)
         self.associated_files = [f for f in local_files if f.startswith(self.filename[:-3])]
         file = open(filename, 'rb')
+        # BEGIN READING .BSP FILE
         file_magic = file.read(4)
         if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
-            # ^ ignores the reversed file_magic (big endian)
+            # ^ reversed file_magic for consoles (big endian)
             raise RuntimeError(f"{file} is not a .bsp!")
         self.bsp_version = int.from_bytes(file.read(4), "little")
+        # mod should be calculated from bsp version
+        # 20 = Team Fortress 2, Orange Box & Vindictus
+        # 29 = Titanfall
+        # 37 = Titanfall2
+        self.mod = mod
+        print(f"BSP file format version {self.bsp_version}")
         #rBSP map revision is before headers, VBSP is after
         self.bytesize = len(file.read()) + 8
 
@@ -76,6 +83,7 @@ class bsp():
             if lump_files == True and lump_filename in self.associated_files:
                 # vBSP lumpfiles have headers, rBSP lumpfiles are headerless
                 # mp_drydock only has 72 bsp_lump files
+                # however other lumps within mp_drydock.bsp itself contain data
                 data = open(f"{self.filepath}{lump_filename}", "rb").read()
                 self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
             else:
