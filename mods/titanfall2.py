@@ -1,25 +1,18 @@
-# structs for BSP version 29? (Titanfall 2)
+# based on notes by Cra0kalo; developer of titanfall VPK tool and CSGO hacks
+# http://dev.cra0kalo.com/?p=202 (bsp) & https://dev.cra0kalo.com/?p=137 (vpk)
+
 import enum
 
 from . import common
 from . import team_fortress2
 
-# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
-# Titanfall 2 has rBSP file-magic, 127 lumps & uses bsp_lump files
-# <bsp filename>.<ID>.bsp_lump
-# where <ID> is a four digit hexadecimal string (lowercase)
-# entities are stored in 5 different .ent files per bsp
 
-# retro-fitting the bsp loader to read bsp_lump files will be handy
-# but processing the alternate structure will need more
+bsp_version = 37
 
-# based on notes by Cra0kalo; developer of titanfall VPK tool and CSGO hacks
-# http://dev.cra0kalo.com/?p=202  (bsp)
-# https://dev.cra0kalo.com/?p=137 (vpk)
 class LUMP(enum.Enum):
     ENTITIES = 0 # entities are stored across multiple text files
-    PLANES = 1
-    TEXDATA = 2
+    PLANES = 1 # version 1
+    TEXDATA = 2 # version 1
     VERTICES = 3
     UNKNOWN_4 = 4 # source VISIBILITY
     UNKNOWN_5 = 5 # source NODES
@@ -71,7 +64,7 @@ class LUMP(enum.Enum):
     UNKNOWN_52 = 52
     UNUSED_53 = 53
     WORLDLIGHTS_HDR = 54
-    UNKNOWN_59 = 59
+    UNKNOWN_59 = 59 # version 3
     PHYS_LEVEL = 62
     UNKNOWN_63 = 63
     UNKNOWN_64 = 64
@@ -81,16 +74,16 @@ class LUMP(enum.Enum):
     TRICOLL_NODES = 68
     TRICOLL_HEADERS = 69
     PHYSTRIS = 70
-    VERTS_UNLIT = 71
+    VERTS_UNLIT = 71 # VERTS_RESERVED_0 - 7
     VERTS_LIT_FLAT = 72
-    VERTS_LIT_BUMP = 73
+    VERTS_LIT_BUMP = 73 # version 2
     VERTS_UNLIT_TS = 74
-    VERTS_BLINN_PHONG = 75
-    VERTS_RESERVED_5 = 76
+    VERTS_BLINN_PHONG = 75 # version 1
+    VERTS_RESERVED_5 = 76 # version 1
     VERTS_RESERVED_6 = 77
     VERTS_RESERVED_7 = 78
-    MESH_INDICES = 79
-    MESHES = 80
+    MESH_INDICES = 79 # version 1
+    MESHES = 80 # version 1
     MESH_BOUNDS = 81
     MATERIAL_SORT = 82
     LIGHTMAP_HEADERS = 83
@@ -100,7 +93,7 @@ class LUMP(enum.Enum):
     CM_GEO_SETS = 87
     CM_GEO_SET_BOUNDS = 88
     CM_PRIMS = 89
-    CM_PRIM_BOUNDS = 90
+    CM_PRIM_BOUNDS = 90 # version 1
     CM_UNIQUE_CONTENTS = 91
     CM_BRUSHES = 92
     CM_BRUSH_SIDE_PLANE_OFFSETS = 93
@@ -147,7 +140,12 @@ class LUMP(enum.Enum):
 # 128 lump headers
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-# mp_drydock.bsp has .bsp_lump files for the following:
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
+# Titanfall 2 has rBSP file-magic, 127 lumps & uses bsp_lump files:
+# <bsp filename>.<ID>.bsp_lump
+# where <ID> is a four digit hexadecimal string (lowercase)
+# entities are stored in 5 different .ent files per bsp
+## mp_drydock.bsp has .bsp_lump files for the following:
 # 0000 ENTITIES               0  (SPECIAL)
 # 0001 PLANES                 1
 # 0002 TEXDATA                2
@@ -236,10 +234,16 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # some of the other lumps appear within the .bsp itself
 
 
-# class for each lump in alphabetical order
+# classes for lumps (alphabetical order)
 # all guesses from staring at code and .bsps for far too long
+# indentifying patterns with drydock_worker.py
+# labelling presumed structures
+class brush(common.base): # LUMP 92 (005C)
+    __slots__ = ["normal", "unsure"] # origin, id?
+    _format = "3fi"
+    _arrays = {"normal": [*"xyz"]}
+
 class model(common.base): # LUMP 14 (000E)
-    # presumed 32 byte pattern
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
@@ -257,5 +261,5 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
 class vertex_normal(vertex): # LUMP 30 (001E)
     _format = "3d"
     
-lump_classes = {"MODELS": model, "VERTEX_NORMALS": vertex_normal,
+lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex_normal,
                 "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex}

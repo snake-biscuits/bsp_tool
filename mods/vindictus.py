@@ -4,7 +4,8 @@ from . import common
 from . import team_fortress2
 
 
-# BSP Version 20
+bsp_version = 20
+
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
@@ -141,7 +142,7 @@ class node(common.base): # LUMP 5
 ##               "u": 2, "v": 2,
 ##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
 
-lump_classes = team_fortress2.lump_classes.copy()
+lump_classes = team_fortress2.lump_classes.copy() # copy tf2 for other classes
 lump_classes.update({"AREAS": area, "AREA_PORTALS": area_portal,
                 "BRUSH_SIDES": brush_side, "DISP_INFO": disp_info,
                 "EDGES": edge, "FACES": face, "LEAVES": leaf,

@@ -3,7 +3,8 @@ import enum
 from . import common
 
 
-# BSP Version 20
+bsp_version = 20
+
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
