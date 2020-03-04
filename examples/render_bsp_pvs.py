@@ -1,26 +1,14 @@
-﻿#TODO:
-#mouse select faces
-# --raycast each tri in all_faces
-# --get all_faces_map index
-# --return bsp.FACES[index]
-# --Tkinter face edit window (realtime?)
-#lightmap textures (mapping?)
-#vis simulation
+﻿# TODO:
+# vis simulation
 #  --traverse vis tree
 #  --use nodes to faces?
-#physics simulation
-#  --planes booleaned with nodes
-#better camera speed control
-# --camera speed inconsistent
-# --fullscreen overclocks
-#console
+# visiblity lump and the RLE compressed bsp tree
+# console
 # --exec(input())
-#skybox.vmt / .exr
-#fix scrambled disp face bug
-#TODO:
+# fix scrambled disp face bug
+# TODO:
 #  position to node / leaf
 #  get a pvs range and translate to glDrawRangeElements inputs
-import camera
 import compress_sequence
 import ctypes
 import itertools
@@ -31,11 +19,13 @@ from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
 from time import time
+import utils.camera
 import sys
 sys.path.insert(0, '../')
 import bsp_tool
 import vector
 
+utils.camera.sensitivity = 4
 
 class aabb:
     def __init__(self, mins, maxs):
@@ -62,30 +52,31 @@ class aabb:
 
 def node_aabbs(node, bsp):
     aabbs = []
-    for child in node['children']:
-        if child > -1: #NODE
+    for child in node.children:
+        if child > -1: # NODE
             child = bsp.NODES[child]
             aabbs += node_aabbs(child, bsp)
-        else: #LEAF
+        else: # LEAF
             child = bsp.LEAVES[-1 - child]
-        aabbs.append(aabb(child['mins'], child['maxs']))
+        aabbs.append(aabb(child.mins, child.maxs))
     return aabbs
 
 def node_faces(node, bsp, all_faces_map):
     child_faces = []
-    for child in node['children']:
-        if child < 0: #LEAVES ONLY
+    for child in node.children:
+        if child < 0: # LEAVES ONLY
             child = bsp.LEAVES[-1 -child]
             child_faces = []
-            child_flf = child['firstleafface']
-            for face in bsp.LEAF_FACES[child_flf:child_flf + child['numleaffaces']]:
-                child_faces.append(all_faces_map[face])
-    draw_calls = compress_sequence.ref_compress(child_faces) #needs improving
+            child_flf = child.first_leaf_face
+            for face in bsp.LEAF_FACES[child_flf:child_flf + child.num_leaf_faces]:
+                child_faces.append(all_faces_map[face.value])
+    draw_calls = compress_sequence.ref_compress(child_faces) # needs improving
     return draw_calls
+
 
 def main(width, height, bsp):
     SDL_Init(SDL_INIT_VIDEO)
-    window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
+    window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS) # SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
     glColor(0, 0, 0, 0)
     gluPerspective(90, width / height, 0.1, 4096 * 4)
@@ -103,7 +94,7 @@ def main(width, height, bsp):
     all_faces_map = []
     start = 0
     for face in bsp.FACES:
-        if face['dispinfo'] == -1:
+        if face.disp_info == -1:
             f_verts = bsp.verts_of(face)
             out = f_verts[:3]
             f_verts = f_verts[3:]
@@ -114,19 +105,19 @@ def main(width, height, bsp):
             all_faces_map.append((start, f_verts_len))
             start += f_verts_len
         else:
-            power = bsp.DISP_INFO[face['dispinfo']]['power']
+            power = bsp.DISP_INFO[face.disp_info].power
             f_verts = bsp_tool.disp_tris(bsp.dispverts_of(face), power)
         all_faces += f_verts
 ##    all_faces = list(itertools.chain(*all_faces))
 
-    NODE = iter(filter(lambda x: x['children'][1] < 0, bsp.NODES))
+    NODE = [n for n in bsp.NODES if n.children[1] < 0]
     NODE = sorted(bsp.NODES, key=lambda node: sum([x[1] for x in node_faces(node, bsp, all_faces_map)]))
     current_node = NODE[0]
     current_node_index = 0
     draw_calls = node_faces(current_node, bsp, all_faces_map)
-    current_node_aabb = aabb(current_node['mins'], current_node['maxs'])
-    cnff = current_node['firstface']
-    current_node_faces = all_faces_map[cnff: cnff + current_node['numfaces']]
+    current_node_aabb = aabb(current_node.mins, current_node.maxs)
+    cnff = current_node.first_face
+    current_node_faces = all_faces_map[cnff: cnff + current_node.num_faces]
     try:
         cn_start = current_node_faces[0][0]
         cn_count = sum([x[1] for x in current_node_faces])
@@ -134,8 +125,8 @@ def main(width, height, bsp):
         cn_start = 0
         cn_count = 0
                     
-    all_nodes = list(map(lambda x: aabb(x['mins'], x['maxs']), bsp.NODES))
-    all_leaves = list(map(lambda x: aabb(x['mins'], x['maxs']), bsp.LEAVES))
+    all_nodes = [aabb(n.mins, n.maxs) for n in bsp.NODES]
+    all_leaves = [aabb(n.mins, n.maxs) for n in bsp.LEAVES]
 
     print(bsp.filename.upper(), end=' ')
     print('{:,}KB BSP'.format(bsp.bytesize // 1024), '>>>', end=' ')
@@ -153,7 +144,7 @@ def main(width, height, bsp):
 
     cam_spawn = vector.vec3(0, 0, 0)
     init_speed = 128
-    VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+    VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
 
     mousepos = vector.vec2()
     keys = []
@@ -197,7 +188,7 @@ def main(width, height, bsp):
                 while SDLK_BACKQUOTE in keys:
                     keys.remove(SDLK_BACKQUOTE)
             if SDLK_r in keys:
-                VIEW_CAMERA = camera.freecam(cam_spawn, None, init_speed)
+                VIEW_CAMERA = utils.camera.freecam(cam_spawn, None, init_speed)
             if SDLK_LSHIFT in keys:
                 VIEW_CAMERA.speed += VIEW_CAMERA.speed * .125
             if SDLK_LCTRL in keys:
@@ -206,10 +197,10 @@ def main(width, height, bsp):
                 current_node_index -= 1
                 current_node = NODE[current_node_index]
                 draw_calls = node_faces(current_node, bsp, all_faces_map)
-                current_node_aabb = aabb(current_node['mins'], current_node['maxs'])
+                current_node_aabb = aabb(current_node.mins, current_node.maxs)
                 VIEW_CAMERA.position = current_node_aabb.center
-                cnff = current_node['firstface']
-                current_node_faces = all_faces_map[cnff:cnff + current_node['numfaces']]
+                cnff = current_node.first_face
+                current_node_faces = all_faces_map[cnff:cnff + current_node.num_faces]
                 try:
                     cn_start = current_node_faces[0][0]
                     cn_count = sum([x[1] for x in current_node_faces])
@@ -224,10 +215,10 @@ def main(width, height, bsp):
                 current_node_index += 1
                 current_node = NODE[current_node_index]
                 draw_calls = node_faces(current_node, bsp, all_faces_map)
-                current_node_aabb = aabb(current_node['mins'], current_node['maxs'])
+                current_node_aabb = aabb(current_node.mins, current_node.maxs)
                 VIEW_CAMERA.position = current_node_aabb.center
-                cnff = current_node['firstface']
-                current_node_faces = all_faces_map[cnff:cnff + current_node['numfaces']]
+                cnff = current_node.first_face
+                current_node_faces = all_faces_map[cnff:cnff + current_node.num_faces]
                 try:
                     cn_start = current_node_faces[0][0]
                     cn_count = sum([x[1] for x in current_node_faces])
@@ -283,22 +274,10 @@ def main(width, height, bsp):
         SDL_GL_SwapWindow(window)
 
 if __name__ == '__main__':
-    import getopt
-    import sys, os
-    options = getopt.getopt(sys.argv[1:], 'w:h:bsp:')
-    width, height = 1280, 720
-    bsp = '../maps/test1.bsp'
-    for option in options:
-        for key, value in option:
-            if key == '-w':
-                width = int(value)
-            elif key == '-h':
-                height = int(value)
-            elif key == '-bsp':
-                bsp = value
     try:
+        bsp = '../maps/test1.bsp'
         bsp = bsp_tool.bsp(bsp) # load bsp file for debug
-        main(width, height, bsp)
+        main(1280, 720, bsp)
     except Exception as exc:
         SDL_Quit()
         raise exc

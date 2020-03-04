@@ -28,7 +28,7 @@ def test_to(func, limit):
             print('\n{}'.format(x + 1))
         sequence = [random.randrange(-256, 256, 1) / 256 for y in range(x+1)]
         v, i = func(sequence)
-        compressed_len = len(v) * 3 + len(i) / 2 #float32, uint16
+        compressed_len = len(v) * 3 + len(i) / 2 # float32, uint16
         uncompressed_len = len(sequence) * 3
         if compressed_len > uncompressed_len:
             print('!', end='')
@@ -58,10 +58,10 @@ def sub_sequences(sequence, seq_len):
     for i in range(len(sequence) - seq_len + 1):
         yield sequence[i: i + seq_len]
 
-#reduce repeats in indices
-#for x in itertools.combinations(last_tier_subseqs):
-#    x = [item for sublist in x for item in sublist]
-#    if subsequence in x: #more complex test
+# reduce repeats in indices
+# for x in itertools.combinations(last_tier_subseqs):
+#     x = [item for sublist in x for item in sublist]
+#     if subsequence in x: #more complex test
 
 def seq_compress(sequence): #not how that works
     """takes asequence and reduces all indices to repeating sub-sequences"""
@@ -121,9 +121,11 @@ def ref_skipped(references):
 
 
 if __name__ == "__main__":
-    import bsp_tool #test what you're built for
-    #test bsp face efficiency
-    #bytesize of vertice + edges = surfedges + face references
-    #vs length of raw vertices
+    import sys
+    sys.path.insert(0, "../")
+    import bsp_tool # test what you're built for
+    # test bsp face efficiency
+    # bytesize of vertice + edges = surfedges + face references
+    # vs length of raw vertices
 ##    test_to(vi_compress, 2048
     print(ref_compress([(0, 4), (2, 4), (2, 4), (4, 4), (4, 4), (8, 2)]))

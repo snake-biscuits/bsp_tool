@@ -139,6 +139,8 @@ def load_BMP(filename):
     file.close()    
     return texture(filename, width, height, pixel_format, bpp, pixels)
 
+# might want a RLE decoder
+
 ################################################################################
 ##           MUCH OF THE CODE AFTER THIS POINT IS COPIED FROM:                ##
 ##      https://developer.valvesoftware.com/wiki/Valve_Texture_Format         ##
