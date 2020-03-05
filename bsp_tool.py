@@ -320,26 +320,3 @@ def disp_tris(verts, power):
                 tris.append(verts[offset + 2])
                 tris.append(verts[offset + power2B])
     return tris
-
-
-if __name__=='__main__':
-    import argparse
-    # --game -G [teamfortress2/hl2/vindictus/titanfall2]
-    # -W strict # stop if cannot load ANY chunk
-    # -W lazy # ignore any and all chunks that cannot be loaded
-    # --stats [options] # list various stats into a .csv file
-    #                   # take an example .csv?
-    # -E / --external-lumps # look for .bsp_lump files in the same folder
-    # more options?
-    import sys
-    if len(sys.argv) > 1: # drag & drop obj converter
-        for map_path in sys.argv[1:]:
-            bsp_file = bsp(map_path)
-            start = time.time()
-            obj_file = open(map_path + '.obj', 'w')
-            bsp_file.export_obj(obj_file)
-            obj_file.close()
-            conversion_time = time.time() - start
-            print(f'Converting {bsp_file.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
-    else:
-        ... # do nothing (or uncomment tests)
