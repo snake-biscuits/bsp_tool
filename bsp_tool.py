@@ -141,7 +141,13 @@ class bsp():
                 _format = team_fortress2.surf_edge._format
             self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
             del self.RAW_SURFEDGES, _format
-        # - VISIBILITY
+        #-- TEXDATA STRING DATA --#
+        if hasattr(self, "RAW_TEXDATA_STRING_DATA"):
+            tdsd = self.RAW_TEXDATA_STRING_DATA.split(b"\0")
+            tdsd = [s.decode("ascii", errors="ignore") for s in tdsd]
+            self.TEXDATA_STRING_DATA = tdsd
+            del self.RAW_TEXDATA_STRING_DATA, tdsd
+        #-- VISIBILITY --#
 ##        self.VISIBILITY = [v[0] for v in struct.iter_unpack("i", self.RAW_VISIBLITY)]
 ##        num_clusters = self.VISIBILITY[0]
 ##        for i in range(num_clusters):

@@ -1,3 +1,11 @@
+import time
+import sys
+
+from utils import vector
+sys.path.insert(0, "../")
+import bsp_tool
+
+
 def write_obj(bsp): #TODO: write .mtl for each vmt
     start_time = time.time()
     total_faces = len(bsp.FACES)
@@ -85,13 +93,13 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
                 yield f"v {vector.vec3(*v):}\nvt {vector.vec2(*vt):}\n"
             power = bsp.DISP_INFO[displacement.disp_info].power
             disp_size = (2 ** power + 1) ** 2
-            tris = disp_tris(range(disp_size), power)
+            tris = bsp_tool.disp_tris(range(disp_size), power)
             for A, B, C in zip(tris[::3], tris[1::3], tris[2::3]):
                 A = (A + v_count, A + vt_count, normal)
                 B = (B + v_count, B + vt_count, normal)
                 C = (C + v_count, C + vt_count, normal)
-                a, b, c = [map(str, i) for i in (c, b, a)]
-                yield f"f {'/'.join(a)} {'/'.join(b)} {'/'.join(c)}\n"
+                A, B, C = [map(str, i) for i in (C, B, A)] # CCW FLIP
+                yield f"f {'/'.join(A)} {'/'.join(B)} {'/'.join(C)}\n"
             v_count += disp_size
             vt_count += disp_size
             face_count += 1
@@ -109,14 +117,12 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
 
 if __name__ == "__main__":
     import argparse
+    ### THE FOLLOWING COMMAND LINE ARGS ARE PLANNED BUT UNIMPLEMETED ###
     # -g --game [tf2/hl2/vindictus]
     # -o --outfile
     ## 3 error levels -W -Warn
     # -W strict // stop if cannot load ANY chunk
     # -W lazy // ignore any and all chunks that cannot be loaded
-    import sys
-    sys.path.insert(0, "../")
-    import bsp_tool
     if len(sys.argv) > 1: # drag & drop obj converter
         for map_path in sys.argv[1:]:
             bsp = bsp_tool.bsp(map_path)
