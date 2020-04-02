@@ -259,7 +259,7 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     flat = lambda self: [self.x, self.y, self.z]
 
 class vertex_normal(vertex): # LUMP 30 (001E)
-    _format = "3d"
+    _format = "3f"
     
 lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex_normal,
                 "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex}
