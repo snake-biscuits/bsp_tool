@@ -73,7 +73,8 @@ class bsp():
         self.mod = mod
         print(f"BSP file format version {self.bsp_version}")
         #rBSP map revision is before headers, VBSP is after
-        self.bytesize = len(file.read()) + 8
+        file.read() # move cursor to end of file
+        self.bytesize = file.tell()
 
         self.log = []
         self.lump_map = {}
@@ -110,7 +111,8 @@ class bsp():
                     getattr(self, LUMP).append(lump_class(data))
                 delattr(self, f"RAW_{LUMP}")
             except struct.error as exc:
-                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size. Wrong mod?")
+                struct_size = struct.calcsize(lump_class._format)
+                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size}). Wrong mod?")
 ##                raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")

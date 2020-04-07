@@ -243,6 +243,11 @@ class brush(common.base): # LUMP 92 (005C)
     _format = "3fi"
     _arrays = {"normal": [*"xyz"]}
 
+class mesh(common.base): # LUMP 80 (0050)
+    __slots__ = ["start", "length", "int_a", "negative",
+                 "int_c", "int_d", "int_e"]
+    _format = "7i" # 28 Bytes
+
 class model(common.base): # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
@@ -257,9 +262,7 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
-
-class vertex_normal(vertex): # LUMP 30 (001E)
-    _format = "3f"
     
-lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex_normal,
-                "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex}
+lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex,
+                "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex,
+                "MESHES": mesh}
