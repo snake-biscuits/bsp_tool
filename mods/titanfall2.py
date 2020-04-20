@@ -184,8 +184,8 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # ...
 # 004F MESH_INDICES          79
 # 0050 MESHES                80
-# 0051 MATERIAL_SORT         81
-# 0052 UNKNOWN_82            82
+# 0051 UNKNOWN_81            81
+# 0052 MATERIAL_SORT         82
 # 0053 LIGHTMAP_HEADERS      83
 # ...
 # 0055 CM_GRID                          85
@@ -235,28 +235,69 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
-# all guesses from staring at code and .bsps for far too long
-# indentifying patterns with drydock_worker.py
-# labelling presumed structures
 class brush(common.base): # LUMP 92 (005C)
-    __slots__ = ["normal", "unsure"] # origin, id?
-    _format = "3fi"
+    __slots__ = ["normal", "unknown"] # origin, id?
+    _format = "3fI"
     _arrays = {"normal": [*"xyz"]}
 
+class bump_lit_vertex(common.base): # LUMP 71 (0047)
+    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
+    # byte 8  - 12 = uv coords into albedo, normal, gloss, spec
+    # byte 20 - 28 = uv coords into lightmap
+    _format = "2I6f3I" # 44 bytes
+    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
+                "unknown": [*"abc"]}
+
+class material_sort(common.base): # LUMP 82 (0052)
+    __slots__ = ["texdata", "unknown", "vertices_start"]
+    _format = "HHI" # 12 bytes
+
 class mesh(common.base): # LUMP 80 (0050)
-    __slots__ = ["start", "length", "int_a", "negative",
-                 "int_c", "int_d", "int_e"]
-    _format = "7i" # 28 Bytes
+    __slots__ = ["start_index", "num_triangles", "unknown",
+                 "material_sort", "flags"]
+    # vertex type stored in flags
+    _format = "IH3IHI" # 28 Bytes
+    _arrays = {"unknown": [*"abc"]}
+
+#for mesh in meshes:
+#    mat = bsp.MATERIAL_SORT[mesh.material_sort]
+#    mat_start = mat.vertices_start
+#    mesh_offset = bsp.MESH_INDICES[mesh.indices_start]
+#    start = mat_start + mesh_offset
+#    finish = start + mesh.num_triangles * 3
+#    if mesh.flags & 0x600:
+#       mesh_tris = bsp.VERTS_UNLIT_TS[start:finish]
+#    elif mesh.flags & 0x400:
+#       mesh_tris = bsp.VERTS_UNLIT[start:finish]
+#    elif mesh.flags & 0x200:
+#       mesh_tris = bsp.VERTS_LIT_BUMP[start:finish]
+#    else: # possibly never happens
+#       mesh_tris = bsp.VERTICES[start:finish]
+
+class mesh_indices(common.base): # LUMP 79 (004F)
+    # need to rethink how the main script handles single slot lumps
+    __slots__ = ["index"]
+    _format = "H"
 
 class model(common.base): # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
 
+class texture_data(common.base): # LUMP 2 (0002)
+    __slots__ = ["unknown", "string_table_index", "unknown2"]
+    _format = "9i"
+    _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
+    
 class unlit_vertex(common.base): # LUMP 71 (0047)
-    __slots__ = ["sixkay", "eleven", "big", "neg_one"]
-    _format = "5i"
-    _arrays = {"big": [*"ab"]}
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2i2fi" # 20 bytes
+    _arrays = {"uv": [*"uv"]}
+
+class unlit_ts_vertex(common.base): # LUMP 74 (004A)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2i2f3i" # 28 bytes
+    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 class vertex(common.mapped_array): # LUMP 3 (0003)
     _mapping = [*"xyz"]
@@ -264,5 +305,6 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     flat = lambda self: [self.x, self.y, self.z]
     
 lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex,
-                "VERTICES": vertex, "VERTS_UNLIT": unlit_vertex,
-                "MESHES": mesh}
+                "VERTICES": vertex, "VERTS_LIT_BUMP": bump_lit_vertex,
+                "VERTS_UNLIT": unlit_vertex, "VERTS_UNLIT_TS": unlit_ts_vertex,
+                "MESHES": mesh, "MESH_INDICES": mesh_indices}
