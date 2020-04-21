@@ -249,14 +249,14 @@ class bump_lit_vertex(common.base): # LUMP 71 (0047)
                 "unknown": [*"abc"]}
 
 class material_sort(common.base): # LUMP 82 (0052)
-    __slots__ = ["texdata", "unknown", "vertices_start"]
-    _format = "HHI" # 12 bytes
+    __slots__ = ["texdata", "unknown", "vertices_start", "unknown2"]
+    _format = "hhII" # 12 bytes
 
 class mesh(common.base): # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
-    _format = "IH3IHI" # 28 Bytes
+    _format = "IH3IhI" # 28 Bytes
     _arrays = {"unknown": [*"abc"]}
 
 #for mesh in meshes:
@@ -274,15 +274,18 @@ class mesh(common.base): # LUMP 80 (0050)
 #    else: # possibly never happens
 #       mesh_tris = bsp.VERTICES[start:finish]
 
-class mesh_indices(common.base): # LUMP 79 (004F)
-    # need to rethink how the main script handles single slot lumps
-    __slots__ = ["index"]
+class mesh_indices(int): # LUMP 79 (004F)
     _format = "H"
 
 class model(common.base): # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
+
+class shadow_mesh(common.base): # LUMP 7F (0127)
+    __slots__ = ["start_index", "num_triangles", "unknown"]
+    _format = "2I2h" # assuming 12 bytes
+    _arrays = {"unknown": ["one", "negative_one"]}
 
 class texture_data(common.base): # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
@@ -304,7 +307,9 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
     
-lump_classes = {"CM_BRUSHES": brush, "MODELS": model, "VERTEX_NORMALS": vertex,
-                "VERTICES": vertex, "VERTS_LIT_BUMP": bump_lit_vertex,
-                "VERTS_UNLIT": unlit_vertex, "VERTS_UNLIT_TS": unlit_ts_vertex,
-                "MESHES": mesh, "MESH_INDICES": mesh_indices}
+lump_classes = {"CM_BRUSHES": brush, "MATERIAL_SORT": material_sort,
+                "MODELS": model, "TEXDATA": texture_data,
+                "VERTEX_NORMALS": vertex, "VERTICES": vertex,
+                "VERTS_LIT_BUMP": bump_lit_vertex, "VERTS_UNLIT": unlit_vertex,
+                "VERTS_UNLIT_TS": unlit_ts_vertex, "MESHES": mesh,
+                "MESH_INDICES": mesh_indices}
