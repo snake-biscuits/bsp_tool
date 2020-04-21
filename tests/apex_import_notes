@@ -1,0 +1,7 @@
+ERROR PARSING CM_BRUSHES:
+CM_BRUSHES lump is an unusual size (76 / 16). Wrong mod?
+ERROR PARSING VERTS_LIT_BUMP:
+VERTS_LIT_BUMP lump is an unusual size (79204256 / 44). Wrong mod?
+ERROR PARSING VERTS_UNLIT_TS:
+VERTS_UNLIT_TS lump is an unusual size (17688 / 28). Wrong mod?
+Imported mp_rr_canyonlands_64k_x_64k.bsp in 12.03 seconds
