@@ -184,7 +184,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # ...
 # 004F MESH_INDICES          79
 # 0050 MESHES                80
-# 0051 UNKNOWN_81            81
+# 0051 MESH_BOUNDS           81
 # 0052 MATERIAL_SORT         82
 # 0053 LIGHTMAP_HEADERS      83
 # ...
@@ -249,8 +249,9 @@ class bump_lit_vertex(common.base): # LUMP 71 (0047)
                 "unknown": [*"abc"]}
 
 class material_sort(common.base): # LUMP 82 (0052)
-    __slots__ = ["texdata", "unknown", "vertices_start", "unknown2"]
+    __slots__ = ["texdata", "unknown", "vertices_start"]
     _format = "hhII" # 12 bytes
+    _arrays = {"unknown": [*"ab"]}
 
 class mesh(common.base): # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
@@ -258,21 +259,6 @@ class mesh(common.base): # LUMP 80 (0050)
     # vertex type stored in flags
     _format = "IH3IhI" # 28 Bytes
     _arrays = {"unknown": [*"abc"]}
-
-#for mesh in meshes:
-#    mat = bsp.MATERIAL_SORT[mesh.material_sort]
-#    mat_start = mat.vertices_start
-#    mesh_offset = bsp.MESH_INDICES[mesh.indices_start]
-#    start = mat_start + mesh_offset
-#    finish = start + mesh.num_triangles * 3
-#    if mesh.flags & 0x600:
-#       mesh_tris = bsp.VERTS_UNLIT_TS[start:finish]
-#    elif mesh.flags & 0x400:
-#       mesh_tris = bsp.VERTS_UNLIT[start:finish]
-#    elif mesh.flags & 0x200:
-#       mesh_tris = bsp.VERTS_LIT_BUMP[start:finish]
-#    else: # possibly never happens
-#       mesh_tris = bsp.VERTICES[start:finish]
 
 class mesh_indices(int): # LUMP 79 (004F)
     _format = "H"
@@ -313,3 +299,25 @@ lump_classes = {"CM_BRUSHES": brush, "MATERIAL_SORT": material_sort,
                 "VERTS_LIT_BUMP": bump_lit_vertex, "VERTS_UNLIT": unlit_vertex,
                 "VERTS_UNLIT_TS": unlit_ts_vertex, "MESHES": mesh,
                 "MESH_INDICES": mesh_indices}
+
+
+# bsp methods for this bsp type
+# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
+def tris_of(bsp, mesh_index): # roughly translated from McSimp's exporter ^
+    # mp_drydock.MESHES[0].material_sort = -1
+    mesh = bsp.MESHES[mesh_index]
+    mat = bsp.MATERIAL_SORT[mesh.material_sort]
+    mat_start = mat.vertices_start
+    start = mat_start + mesh.start_index
+    finish = start + mesh.num_triangles * 3
+    indices = bsp.MESH_INDICES[start:finish]
+    if mesh.flags & 0x600:
+        verts = bsp.VERTS_UNLIT_TS
+    elif mesh.flags & 0x400:
+        verts = bsp.VERTS_UNLIT
+    elif mesh.flags & 0x200:
+        verts = bsp.VERTS_LIT_BUMP
+    else: # possibly never happens
+        verts = bsp.VERTICES
+    print(start, finish)
+    return [verts[i] for i in indices]
