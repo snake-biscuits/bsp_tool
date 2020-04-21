@@ -108,6 +108,8 @@ class bsp():
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
+                    if len(data) == 1:
+                        data = data[0]
                     getattr(self, LUMP).append(lump_class(data))
                 delattr(self, f"RAW_{LUMP}")
             except struct.error as exc:
@@ -247,7 +249,7 @@ class bsp():
         return verts
 
 
-    def export(self, outfile):
+    def export(self, outfile): # wip
         """expects outfile to be a file with write bytes capability"""
         outfile.write(b'VBSP')
         outfile.write((20).to_bytes(4, 'little')) # engine version
