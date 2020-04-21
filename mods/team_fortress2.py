@@ -117,6 +117,7 @@ class disp_vert(common.base): # LUMP 33
 
 class edge(list): # LUMP 12
     _format = "2h"
+    # list with the _format attribute
 
 class face(common.base): # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
