@@ -249,7 +249,7 @@ class bump_lit_vertex(common.base): # LUMP 71 (0047)
                 "unknown": [*"abc"]}
 
 class material_sort(common.base): # LUMP 82 (0052)
-    __slots__ = ["texdata", "unknown", "vertices_start"]
+    __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "hhII" # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
@@ -257,8 +257,8 @@ class mesh(common.base): # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
-    _format = "IH3IhI" # 28 Bytes
-    _arrays = {"unknown": [*"abc"]}
+    _format = "IH3I2HI" # 28 Bytes
+    _arrays = {"unknown": [*"abcd"]}
 
 class mesh_indices(int): # LUMP 79 (004F)
     _format = "H"
@@ -301,23 +301,22 @@ lump_classes = {"CM_BRUSHES": brush, "MATERIAL_SORT": material_sort,
                 "MESH_INDICES": mesh_indices}
 
 
-# bsp methods for this bsp type
+# BSP METHODS EXCLUSIVE TO THIS MOD:
+
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def tris_of(bsp, mesh_index): # roughly translated from McSimp's exporter ^
-    # mp_drydock.MESHES[0].material_sort = -1
+def tris_of(bsp, mesh_index): # simplified from McSimp's exporter ^
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
-    mat_start = mat.vertices_start
-    start = mat_start + mesh.start_index
+    start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
-    if mesh.flags & 0x600:
+    indices = [mat.vertex_offset + i for i in indices]
+    if mesh.flags & 0x400 and mesh.flags & 0x200:
         verts = bsp.VERTS_UNLIT_TS
     elif mesh.flags & 0x400:
         verts = bsp.VERTS_UNLIT
     elif mesh.flags & 0x200:
         verts = bsp.VERTS_LIT_BUMP
-    else: # possibly never happens
-        verts = bsp.VERTICES
-    print(start, finish)
+    else:
+        verts = bsp.VERTICES # LIT_FLAT
     return [verts[i] for i in indices]

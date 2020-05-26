@@ -1,0 +1,5 @@
+(005C) CM_BRUSHES lump is an unusual size (76 / 16)
+(0049) VERTS_LIT_BUMP lump is an unusual size (79204256 / 44)
+(004A) VERTS_UNLIT_TS lump is an unusual size (17688 / 28)
+
+(002C) TEXDATA_STRING_TABLE is not present
