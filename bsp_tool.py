@@ -91,7 +91,7 @@ class bsp():
             # change to store .bsp lumps anyway but as INTERNAL_
             # when lump_files == False don't bother looking for them
                 if lump_files == True: # lump_file not found
-                    self.log.append(f"external {ID.name} lump not found")
+                    self.log.append(f"external  {ID.name} lump not found")
                 data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None: # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])

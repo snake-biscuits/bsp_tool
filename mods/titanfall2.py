@@ -250,7 +250,7 @@ class bump_lit_vertex(common.base): # LUMP 71 (0047)
 
 class material_sort(common.base): # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
-    _format = "hhII" # 12 bytes
+    _format = "2h2I" # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
 class mesh(common.base): # LUMP 80 (0050)
@@ -302,6 +302,10 @@ lump_classes = {"CM_BRUSHES": brush, "MATERIAL_SORT": material_sort,
 
 
 # BSP METHODS EXCLUSIVE TO THIS MOD:
+mesh_types = {0x600: "VERTS_UNLIT_TS",
+              0x400: "VERTS_UNLIT",
+              0x200: "VERTS_LIT_BUMP"}
+# ^ a proper mapping of the flags would be nice
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
 def tris_of(bsp, mesh_index): # simplified from McSimp's exporter ^
@@ -311,12 +315,5 @@ def tris_of(bsp, mesh_index): # simplified from McSimp's exporter ^
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
-    if mesh.flags & 0x400 and mesh.flags & 0x200:
-        verts = bsp.VERTS_UNLIT_TS
-    elif mesh.flags & 0x400:
-        verts = bsp.VERTS_UNLIT
-    elif mesh.flags & 0x200:
-        verts = bsp.VERTS_LIT_BUMP
-    else:
-        verts = bsp.VERTICES # LIT_FLAT
+    verts = getattr(bsp, mesh_types[mesh.flags & 0x600])
     return [verts[i] for i in indices]

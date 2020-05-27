@@ -58,6 +58,8 @@ if __name__ == "__main__":
     ##        print(hex_id, lump_name, denoms)
 
     mesh_verts = lambda i: bsp_tool.titanfall2.tris_of(bsp, i)
+    mesh_types = {0x600: "UNLIT_TS", 0x400: "UNLIT",
+                  0x200: "LIT_BUMP", 0x000: "LIT_FLAT"}
 
     with open("drydock_meshes.obj", "w") as obj_file:
         obj_file.write("# mp_drydock.bsp\n")
@@ -71,7 +73,7 @@ if __name__ == "__main__":
             normals.append(f"vn {x} {y} {z}")
         obj_file.write("\n".join(normals) + "\n")
         for i, mesh in enumerate(bsp.MESHES):
-            buffer = [f"o MESH_{i:04d}"]
+            buffer = [f"o MESH_{i:04d}_{mesh_types[mesh.flags & 0x600]}"]
             material = bsp.MATERIAL_SORT[mesh.material_sort]
             texdata = bsp.TEXDATA[material.texdata]
             texture = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
