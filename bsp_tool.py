@@ -165,8 +165,8 @@ class bsp():
         print(f'Imported {self.filename} in {unpack_time:.2f} seconds')
 
 
-    def verts_of(self, face): # why so many crazy faces?
-        """vertex format [Position, Normal, TexCoord, LightCoord, Colour]"""
+    def verts_of(self, face):
+        """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
         verts, uvs, uv2s = [], [], []
         first_edge = face.first_edge
         for surfedge in self.SURFEDGES[first_edge:first_edge + face.num_edges]:
@@ -184,8 +184,8 @@ class bsp():
         for vert in verts:
             uv = [vector.dot(vert, normal(texture.s)) + texture.s.offset,
                   vector.dot(vert, normal(texture.t)) + texture.t.offset]
-            uv[0] /= tex_data.view_width
-            uv[1] /= tex_data.view_height
+            uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
+            uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
             uvs.append(vector.vec2(*uv))
             uv2 = [vector.dot(vert, normal(lightmap.s)) + lightmap.s.offset,
                    vector.dot(vert, normal(lightmap.t)) + lightmap.t.offset]
@@ -198,8 +198,8 @@ class bsp():
                 uv2 = [0, 0]
             uv2s.append(uv2)
         vert_count = len(verts)
-        normal = [self.PLANES[face.plane_num].normal] * vert_count
-        colour = [tex_data.reflectivity] * vert_count
+        normal = [self.PLANES[face.plane_num].normal] * vert_count # X Y Z
+        colour = [tex_data.reflectivity] * vert_count # R G B
         return list(zip(verts, normal, uvs, uv2s, colour))
 
 
