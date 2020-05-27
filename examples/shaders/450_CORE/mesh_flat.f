@@ -17,5 +17,5 @@ void main()
 	// vec4 Kd = light_intensity * dot(normal, light_ray) * vec4(light_colour, 1); // Kd = diffuse
 	vec4 Kd = vec4(1, 1, 1, 1);// * fake_Kd; // Kd = diffuse
 	
-	outColour = vec4(.5, .5, .5, 1) * (Ka + Kd);
+	outColour = vec4(1, 1, 1, 1);// * (Ka + Kd);
 }

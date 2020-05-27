@@ -93,12 +93,16 @@ def main(width, height, bsp):
     vertices = list(itertools.chain(*bsp.VERTICES))
     indices = []
     for i, mesh in enumerate(bsp.MESHES):
-        if mesh.flags & 0x200: # VERTS_UNLIT_TS or VERTS_LIT_BUMP
-            continue # skip this mesh
+##        if ???:
+##            continue # skip this mesh
         mesh_vertices = bsp_tool.apex_legends.tris_of(bsp, i)
         # stitch positions, normals & uvs together into a proper vertex format
         indices.append([v.position_index for v in mesh_vertices])
     indices = list(itertools.chain(*indices))
+
+    all_indices = set(indices)
+    all_vertices = set(range(len(vertices)))
+    print(len(all_vertices.difference(all_indices)), "vertices unreferenced")
 
     conversion_end = time.time()
     print(bsp.filename.upper(), end=' ')
@@ -117,7 +121,7 @@ def main(width, height, bsp):
 
     # SHADER SELECTION
     shader_folder = "shaders/"
-    render_mode = "debug"
+    render_mode = "flat"
     major, minor = glGetIntegerv(GL_MAJOR_VERSION), glGetIntegerv(GL_MINOR_VERSION)
     print(f"OpenGL Version {major}.{minor}")
     if major >= 4: #450
@@ -134,21 +138,18 @@ def main(width, height, bsp):
     # brush_shader
     vert_shader = compile_shader(f"{shader_folder}/brush.v", GL_VERTEX_SHADER)
     frag_shader = compile_shader(f"{shader_folder}/brush_{render_mode}.f", GL_FRAGMENT_SHADER)
-    try:
-        brush_shader = compileProgram(vert_shader, frag_shader)
-        glLinkProgram(brush_shader)
-    except: # OpenGL.GL.shaders.ShaderValidationError
-        print("\t- brush shader compile failed")
-        brush_shader = 0
+    brush_shader = compileProgram(vert_shader, frag_shader)
+    glLinkProgram(brush_shader)
     # mesh_shader (rBSP: TitanFall2 & Apex Legends)
     vert_shader = compile_shader(f"{shader_folder}/mesh.v", GL_VERTEX_SHADER)
     frag_shader = compile_shader(f"{shader_folder}/mesh_{render_mode}.f", GL_FRAGMENT_SHADER)
-    try:
-        mesh_shader = compileProgram(vert_shader, frag_shader)
-        glLinkProgram(mesh_shader)
-    except Exception as exc: # OpenGL.GL.shaders.ShaderValidationError
-        print("\t- mesh shader compile failed")
-        raise exc
+    mesh_shader = compileProgram(vert_shader, frag_shader)
+    glLinkProgram(mesh_shader)
+    # debug_mesh_shader
+    vert_shader = compile_shader(f"{shader_folder}/mesh_debug.v", GL_VERTEX_SHADER)
+    frag_shader = compile_shader(f"{shader_folder}/mesh_debug.f", GL_FRAGMENT_SHADER)
+    debug_mesh_shader = compileProgram(vert_shader, frag_shader)
+    glLinkProgram(debug_mesh_shader)
     del vert_shader, frag_shader
     
     # SHADER VERTEX FORMAT
@@ -247,10 +248,16 @@ def main(width, height, bsp):
         glPushMatrix()
         VIEW_CAMERA.set()
 
-        glUseProgram(mesh_shader)
-##        glPolygonMode(GL_FRONT, GL_LINE)
+        glUseProgram(debug_mesh_shader)
         glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
+        # wireframe
+##        glUseProgram(mesh_shader)
+##        glPolygonMode(GL_FRONT, GL_LINE)
+##        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
 ##        glPolygonMode(GL_FRONT, GL_FILL)
+        # points
+##        glUseProgram(mesh_shader)
+##        glDrawArrays(GL_POINTS, 0, len(vertices))
 
         # CENTER MARKER
         glUseProgram(0)
@@ -288,7 +295,7 @@ if __name__ == '__main__':
 
     mod = bsp_tool.apex_legends
     folder = "E:/Mod/ApexLegends/maps/"
-    filename = "mp_rr_canyonlands_mu2.bsp"
+    filename = "mp_rr_canyonlands_mu1_night.bsp"
     
     bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
     try:

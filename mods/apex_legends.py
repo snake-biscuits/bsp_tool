@@ -231,7 +231,7 @@ class mesh(common.base): # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
-    _format = "IH3I2HI" # 28 Bytes
+    _format = "IH3I2HI" # 28 bytes
     _arrays = {"unknown": [*"abcd"]}
 
 class mesh_indices(int): # LUMP 79 (004F)
@@ -258,25 +258,30 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
 
-# WRONG SIZE (2484040 / 44)
-class vertex_lit_bump(common.base): # LUMP 71 (0047)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
-    # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
-    # byte 20 - 28 = uv coords for lightmap
-    _format = "2I6f3I" # 44 bytes
-    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
-                "unknown": [*"abc"]}
+class vertex_blinn_phong(common.base): # LUMP 75 (004B)
+    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
+    _format = "2I4f" # 24 bytes
+    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"]}
+
+class vertex_lit_bump(common.base): # LUMP 73 (0049)
+    __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
+    _format = "2I2fi3f" # 32 bytes
+    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
+
+class vertex_lit_flat(common.base): # LUMP 72 (0048)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2I2fi" # 20 bytes
+    _arrays  = {"uv": [*"uv"]}
 
 class vertex_unlit(common.base): # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2fi" # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
-# WRONG SIZE (79068032 / 28)
 class vertex_unlit_ts(common.base): # LUMP 74 (004A)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2f3i" # 28 bytes
-    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
+    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
+    _format = "2I4f" # 24 bytes
+    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"]}
 
     
 lump_classes = {"MATERIAL_SORT": material_sort,
@@ -286,15 +291,19 @@ lump_classes = {"MATERIAL_SORT": material_sort,
                 "TEXDATA": texture_data,
                 "VERTEX_NORMALS": vertex,
                 "VERTICES": vertex,
+                "VERTS_BLINN_PHONG": vertex_blinn_phong,
                 "VERTS_LIT_BUMP": vertex_lit_bump,
+                "VERTS_LIT_FLAT": vertex_lit_flat,
                 "VERTS_UNLIT": vertex_unlit,
                 "VERTS_UNLIT_TS": vertex_unlit_ts}
 
 
 # BSP METHODS EXCLUSIVE TO THIS MOD:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
+              0x610: "VERTS_BLINN_PHONG",
               0x400: "VERTS_UNLIT",
-              0x200: "VERTS_LIT_BUMP"}
+              0x200: "VERTS_LIT_BUMP",
+              0x210: "VERTS_LIT_FLAT"}
 # ^ a proper mapping of the flags would be nice
 
 def tris_of(bsp, mesh_index): # assuming same as Titanfall 2
@@ -304,5 +313,8 @@ def tris_of(bsp, mesh_index): # assuming same as Titanfall 2
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
-    verts = getattr(bsp, mesh_types[mesh.flags & 0x600])
+    
+    mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
+    verts = getattr(bsp, mesh_types[mesh_type])
+    # ^ picking based on flags is hard
     return [verts[i] for i in indices]
