@@ -264,15 +264,20 @@ if __name__ == '__main__':
 ##    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
 ##    filename = "cp_cloak.bsp"
 
-    mod = bsp_tool.titanfall2
-    folder = "E:/Mod/Titanfall2/"
-##    mapname = "mp_colony02"
-##    mapname = "mp_crashsite3"
-    mapname = "mp_drydock"
-##    mapname = "mp_glitch"
-##    mapname = "mp_lf_uma"
-##    mapname = "mp_relic02"
-    filename = f"{mapname}/maps/{mapname}.bsp"
+##    mod = bsp_tool.titanfall2
+##    folder = "E:/Mod/Titanfall2/"
+####    mapname = "mp_colony02"
+####    mapname = "mp_crashsite3"
+##    mapname = "mp_drydock"
+####    mapname = "mp_glitch"
+####    mapname = "mp_lf_uma"
+####    mapname = "mp_relic02"
+##    filename = f"{mapname}/maps/{mapname}.bsp"
+
+    mod = bsp_tool.apex_legends
+    folder = "E:/Mod/ApexLegends/maps/"
+    filename = "mp_rr_canyonlands_mu2.bsp"
+    
     bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
     try:
         main(1280, 720, bsp)

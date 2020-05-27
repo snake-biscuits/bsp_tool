@@ -38,12 +38,17 @@ def hex_breakdown(stream):
     print(" ".join(f"{i:02x}" for i in int_stream))
 
 if __name__ == "__main__":
-    # titanfall_dir = "/media/jared/Sandisk/mp_drydock" # LINUX
-    titanfall_dir = "E:/Mod/Titanfall2/mp_drydock" # WINDOWS
-    working_filename = f"{titanfall_dir}/maps/mp_drydock.bsp" # DRYDOCK
-    # apex_legends_dir = "E:/Mod/ApexLegends/"
-    # working_filename = f"{apex_legends_dir}/maps/mp_rr_canyonlands_mu2.bsp"
-    bsp = bsp_tool.bsp(working_filename, mod=bsp_tool.titanfall2, lump_files=True)
+##    mod = bsp_tool.titanfall2
+##    folder = "/media/jared/Sandisk/" # LINUX
+##    folder = "E:/Mod/Titanfall2/" # WINDOWS
+##    mapname = "mp_drydock"
+##    filename = f"{mapname}/maps/{mapname}.bsp"
+
+    mod = bsp_tool.apex_legends
+    folder = "E:/Mod/ApexLegends/maps/"
+    filename = f"mp_rr_canyonlands_mu2.bsp"
+    
+    bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
 
     denominators = {}
     for attrib in dir(bsp):
@@ -51,40 +56,40 @@ if __name__ == "__main__":
             lump = getattr(bsp, attrib)
             lump_size = len(lump)
             lump_name = attrib[4:]
-            lump_id = getattr(bsp_tool.titanfall2.LUMP, lump_name)
+            lump_id = getattr(bsp_tool.apex_legends.LUMP, lump_name)
             hex_id = f"{lump_id.value:04x}"
             denoms = denominators_of(lump_size)
             denominators[lump_name] = denoms
-    ##        print(hex_id, lump_name, denoms)
+##            print(hex_id, lump_name, denoms)
 
-    mesh_verts = lambda i: bsp_tool.titanfall2.tris_of(bsp, i)
-    mesh_types = {0x600: "UNLIT_TS", 0x400: "UNLIT",
-                  0x200: "LIT_BUMP", 0x000: "LIT_FLAT"}
-
-    with open("drydock_meshes.obj", "w") as obj_file:
-        obj_file.write("# mp_drydock.bsp\n")
-        obj_file.write("# extracted with bsp_tool\n")
-        vertices = []
-        for x, y, z in bsp.VERTICES:
-            vertices.append(f"v {x} {y} {z}")
-        obj_file.write("\n".join(vertices) + "\n")
-        normals = []
-        for x, y, z in bsp.VERTEX_NORMALS:
-            normals.append(f"vn {x} {y} {z}")
-        obj_file.write("\n".join(normals) + "\n")
-        for i, mesh in enumerate(bsp.MESHES):
-            buffer = [f"o MESH_{i:04d}_{mesh_types[mesh.flags & 0x600]}"]
-            material = bsp.MATERIAL_SORT[mesh.material_sort]
-            texdata = bsp.TEXDATA[material.texdata]
-            texture = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
-            buffer.append(f"usemtl {texture}")
-            vertices = mesh_verts(i)
-            for i in range(0, len(vertices), 3):
-                A = vertices[i].position_index + 1
-                B = vertices[i + 1].position_index + 1
-                C = vertices[i + 2].position_index + 1
-                An = vertices[i].normal_index + 1
-                Bn = vertices[i + 1].normal_index + 1
-                Cn = vertices[i + 2].normal_index + 1
-                buffer.append(f"f {C}//{Cn} {B}//{Bn} {A}//{An}")
-            obj_file.write("\n".join(buffer) + "\n")
+    # .obj conversion
+##    mesh_verts = lambda i: bsp_tool.titanfall2.tris_of(bsp, i)
+##    mesh_types = {0x600: "UNLIT_TS", 0x400: "UNLIT",
+##                  0x200: "LIT_BUMP", 0x000: "LIT_FLAT"}
+##    with open("drydock_meshes.obj", "w") as obj_file:
+##        obj_file.write("# mp_drydock.bsp\n")
+##        obj_file.write("# extracted with bsp_tool\n")
+##        vertices = []
+##        for x, y, z in bsp.VERTICES:
+##            vertices.append(f"v {x} {y} {z}")
+##        obj_file.write("\n".join(vertices) + "\n")
+##        normals = []
+##        for x, y, z in bsp.VERTEX_NORMALS:
+##            normals.append(f"vn {x} {y} {z}")
+##        obj_file.write("\n".join(normals) + "\n")
+##        for i, mesh in enumerate(bsp.MESHES):
+##            buffer = [f"o MESH_{i:04d}_{mesh_types[mesh.flags & 0x600]}"]
+##            material = bsp.MATERIAL_SORT[mesh.material_sort]
+##            texdata = bsp.TEXDATA[material.texdata]
+##            texture = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
+##            buffer.append(f"usemtl {texture}")
+##            vertices = mesh_verts(i)
+##            for i in range(0, len(vertices), 3):
+##                A = vertices[i].position_index + 1
+##                B = vertices[i + 1].position_index + 1
+##                C = vertices[i + 2].position_index + 1
+##                An = vertices[i].normal_index + 1
+##                Bn = vertices[i + 1].normal_index + 1
+##                Cn = vertices[i + 2].normal_index + 1
+##                buffer.append(f"f {C}//{Cn} {B}//{Bn} {A}//{An}")
+##            obj_file.write("\n".join(buffer) + "\n")

@@ -22,7 +22,7 @@ import time
 import vector
 import vmf_tool
 
-from mods import team_fortress2, titanfall2, vindictus
+from mods import apex_legends, team_fortress2, titanfall2, vindictus
 
 
 def read_lump(file, header_address):
@@ -115,6 +115,7 @@ class bsp():
             except struct.error as exc:
                 struct_size = struct.calcsize(lump_class._format)
                 self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size}). Wrong mod?")
+                delattr(self, LUMP)
 ##                raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")

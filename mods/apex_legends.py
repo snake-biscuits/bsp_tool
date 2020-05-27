@@ -1,49 +1,50 @@
-# based on notes by Cra0kalo; developer of titanfall VPK tool and CSGO hacks
-# http://dev.cra0kalo.com/?p=202 (bsp) & https://dev.cra0kalo.com/?p=137 (vpk)
-
 import enum
 
 from . import common
 
 
-bsp_version = 37
+# always run bsp_tool.bsp with lump_files=True
+bsp_version = 47
 
-# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
-# Titanfall 2 has rBSP file-magic, 127 lumps & uses bsp_lump files:
-# <bsp filename>.<ID>.bsp_lump
-# where <ID> is a four digit hexadecimal string (lowercase)
+# Apex Legends has rBSP file-magic, ~128 lumps & uses .bsp_lump files:
+#   <bsp filename>.<ID>.bsp_lump
+#   where <ID> is a four digit hexadecimal string (lowercase)
 # entities are stored in 5 different .ent files per bsp
-## mp_drydock.bsp has .bsp_lump files for the following:
-# 0000 ENTITIES               0  (SPECIAL)
+
+# note which lumps appear in the .bsp, which have .bsp_lump files,
+# and which have both
+
+## mp_rr_canyonlands_mu2.bsp has .bsp_lump files for the following:
+# 0000 ENTITIES               0
 # 0001 PLANES                 1
 # 0002 TEXDATA                2
 # 0003 VERTICES               3
-# 0004 UNKNOWN_4              4  source VISIBILITY
-# 0005 UNKNOWN_5              5  source NODES
-# 0006 UNKNOWN_6              6  source TEXINFO
-# 0007 UNKNOWN_7              7  source FACES
+# 0004 UNKNOWN_4              4
+# 0005 UNKNOWN_5              5
 # ...
 # 000E MODELS                14
+# 000F UNKNOWN_15            15
+# 0010 UNKNOWN_16            16
+# 0011 UNKNOWN_17            17
+# 0012 UNKNOWN_18            18
+# 0013 UNKNOWN_19            19
+# 0014 UNKNOWN_20            20
 # ...
 # 0018 ENTITIY_PARTITIONS    24
 # ...
-# 001D PHYS_COLLIDE          29
 # 001E VERTEX_NORMALS        30
 # ...
 # 0023 GAME_LUMP             35
 # ...
+# 0025 UNKNOWN_37            37
+# 0026 UNKNOWN_38            38
+# 0027 UNKNOWN_39            39
 # 0028 PAKFILE               40 [zip with PK file-magic] (contains cubemaps)
 # ...
 # 002A CUBEMAPS              42
-# 002B TEXDATA_STRING_DATA   43
-# 002C TEXDATA_STRING_TABLE  44
 # ...
 # 0036 WORLDLIGHTS_HDR       54
-# ...
-# 0042 PHYSCOLL_TRIS         66
-# ...
-# 0044 PHYSCOLL_NODES        68
-# 0045 PHYSCOLL_HEADERS      69
+# 0037 UNKNOWN_55            55
 # ...
 # 0047 VERTS_UNLIT           71
 # ...
@@ -57,18 +58,7 @@ bsp_version = 37
 # 0053 LIGHTMAP_HEADERS      83
 # ...
 # 0055 CM_GRID                          85
-# 0056 CM_GRIDCELLS                     86
-# 0057 CM_GEO_SETS                      87
-# 0058 CM_GEO_SET_BOUNDS                88
-# 0059 CM_PRIMS                         89
-# 005A CM_PRIM_BOUNDS                   90
-# 005B CM_UNIQUE_CONTENTS               91
-# 005C CM_BRUSHES                       92
-# 005D CM_BRUSH_SIDE_PLANE_OFFSETS      93
-# 005E CM_BRUSH_SIDE_PROPS              94
-# 005F CM_BRUSH_TEX_VECS                95
-# 0060 TRICOLL_BEVEL_STARTS             96
-# 0061 TRICOLL_BEVEL_INDICES            97
+# ...
 # 0062 LIGHTMAP_DATA_SKY                98
 # 0063 CSM_AABB_NODES                   99
 # 0064 CSM_OBJ_REFS                    100
@@ -99,100 +89,105 @@ bsp_version = 37
 # 007D SHADOW_MESH_ALPHA_VERTS         125
 # 007E SHADOW_MESH_INDICES             126
 # 007F SHADOW_MESH_MESHES              127
-# some of the other lumps appear within the .bsp itself
 
 class LUMP(enum.Enum):
-    ENTITIES = 0 # entities are stored across multiple text files
-    PLANES = 1 # version 1
-    TEXDATA = 2 # version 1
+    ENTITIES = 0 # there are more entities in external .ent files
+    PLANES = 1
+    TEXDATA = 2
     VERTICES = 3
-    UNKNOWN_4 = 4 # source VISIBILITY
-    UNKNOWN_5 = 5 # source NODES
-    UNKNOWN_6 = 6 # source TEXINFO
-    UNKNOWN_7 = 7 # source FACES
-    UNKNOWN_8 = 8
-    UNKNOWN_9 = 9
+    UNKNOWN_4 = 4 #
+    UNKNOWN_5 = 5 #
+    UNUSED_6 = 6
+    UNUSED_7 = 7
+    UNUSED_8 = 8
+    UNUSED_9 = 9
     UNUSED_10 = 10
-    UNKNOWN_11 = 11
-    UNKNOWN_12 = 12
-    UNKNOWN_13 = 13
+    UNUSED_11 = 11
+    UNUSED_12 = 12
+    UNUSED_13 = 13
     MODELS = 14
-    UNUSED_16 = 16
-    UNKNOWN_17 = 17
-    UNKNOWN_18 = 18
-    UNKNOWN_19 = 19
-    UNUSED_20 = 20
-    UNUSED_21 = 21
+    UNKNOWN_16 = 16 #
+    UNKNOWN_17 = 17 #
+    UNKNOWN_18 = 18 #
+    UNKNOWN_19 = 19 #
+    UNKNOWN_20 = 20 #
+    UNKNOWN_21 = 21 #
     UNUSED_22 = 22
     UNUSED_23 = 23
     ENTITY_PARTITIONS = 24
-    UNKNOWN_25 = 25
-    UNKNOWN_26 = 26
-    UNKNOWN_27 = 27
-    UNKNOWN_28 = 28
-    PHYS_COLLIDE = 29
+    UNKNOWN_25 = 25 #
+    UNUSED_26 = 26
+    UNUSED_27 = 27
+    UNUSED_28 = 28
+    UNUSED_29 = 29
     VERTEX_NORMALS = 30
-    UNKNOWN_31 = 31
-    UNKNOWN_32 = 32
-    UNKNOWN_33 = 33
-    UNKNOWN_34 = 34
+    UNKNOWN_31 = 31 #
+    UNUSED_32 = 32
+    UNUSED_33 = 33
+    UNUSED_34 = 34
     GAME_LUMP = 35
-    LEAF_WATERDATA = 36
-    UNKNOWN_37 = 37
-    UNKNOWN_38 = 38
-    UNKNOWN_39 = 39
-    PAKFILE = 40 # zip file, contains cubemaps
-    UNKNOWN_41 = 41
+    LEAF_WATERDATA = 36 # uncertain
+    UNKNOWN_37 = 37 #
+    UNKNOWN_38 = 38 #
+    UNKNOWN_39 = 39 #
+    PAKFILE = 40 # zip file, contains cubemaps [citation needed]
+    UNKNOWN_41 = 41 #
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
-    TEXDATA_STRING_TABLE = 44
-    UNKNOWN_45 = 45
-    UNKNOWN_46 = 46
-    UNKNOWN_47 = 47
-    UNKNOWN_48 = 48
-    UNKNOWN_49 = 49
-    UNKNOWN_50 = 50
-    UNKNOWN_51 = 51
-    UNKNOWN_52 = 52
+    UNUSED_44 = 44
+    UNUSED_45 = 45
+    UNUSED_46 = 46
+    UNUSED_47 = 47
+    UNUSED_48 = 48
+    UNUSED_49 = 49
+    UNUSED_50 = 50
+    UNUSED_51 = 51
+    UNUSED_52 = 52
     UNUSED_53 = 53
-    WORLDLIGHTS_HDR = 54
-    UNKNOWN_59 = 59 # version 3
+    WORLDLIGHTS_HDR = 54 # uncertain
+    UNKNOWN_55 = 55 #
+    UNKNOWN_66 = 56 #
+    UNUSED_57 = 57
+    UNUSED_58 = 58
+    UNKNOWN_59 = 59 #
+    UNUSED_60 = 60
+    UNUSED_61 = 61
     PHYS_LEVEL = 62
-    UNKNOWN_63 = 63
-    UNKNOWN_64 = 64
-    UNKNOWN_65 = 65
-    TRICOLL_TRIS = 66
-    UNKNOWN_67 = 67
-    TRICOLL_NODES = 68
-    TRICOLL_HEADERS = 69
-    PHYSTRIS = 70
-    VERTS_UNLIT = 71 # VERTS_RESERVED_0 - 7
-    VERTS_LIT_FLAT = 72
-    VERTS_LIT_BUMP = 73 # version 2
-    VERTS_UNLIT_TS = 74
-    VERTS_BLINN_PHONG = 75 # version 1
-    VERTS_RESERVED_5 = 76 # version 1
-    VERTS_RESERVED_6 = 77
-    VERTS_RESERVED_7 = 78
-    MESH_INDICES = 79 # version 1
-    MESHES = 80 # version 1
+    UNUSED_63 = 63
+    UNUSED_64 = 64
+    UNUSED_65 = 65
+    UNUSED_66 = 66
+    UNUSED_67 = 67
+    UNUSED_68 = 68
+    UNUSED_69 = 69
+    UNUSED_70 = 70
+    VERTS_LIT_FLAT = 71
+    VERTS_LIT_BUMP = 72
+    VERTS_UNLIT_TS = 73
+    VERTS_BLINN_PHONG = 74
+    VERTS_RESERVED_5 = 75
+    UNUSED_76 = 76
+    UNUSED_77 = 77
+    VERTS_RESERVED_7 = 78 # uncertain
+    MESH_INDICES = 79
+    MESHES = 80
     MESH_BOUNDS = 81
-    MATERIAL_SORT = 82
+    MATERIAL_SORT = 82 # MATERIAL_SORT
     LIGHTMAP_HEADERS = 83
-    LIGHTMAP_DATA_DXT5 = 84
+    LIGHTMAP_DATA_DXT5 = 84 #
     CM_GRID = 85
     CM_GRIDCELLS = 86
     CM_GEO_SETS = 87
     CM_GEO_SET_BOUNDS = 88
     CM_PRIMS = 89
-    CM_PRIM_BOUNDS = 90 # version 1
-    CM_UNIQUE_CONTENTS = 91
+    CM_PRIM_BOUNDS = 90
+    UNUSED_91 = 91
     CM_BRUSHES = 92
-    CM_BRUSH_SIDE_PLANE_OFFSETS = 93
-    CM_BRUSH_SIDE_PROPS = 94
-    CM_BRUSH_TEX_VECS = 95
-    TRICOLL_BEVEL_STARTS = 96
-    TRICOLL_BEVEL_INDICES = 97
+    UNUSED_93 = 93
+    UNUSED_94 = 94
+    UNUSED_95 = 95
+    UNUSED_96 = 96
+    UNUSED_97 = 97
     LIGHTMAP_DATA_SKY = 98
     CSM_AABB_NODES = 99
     CSM_OBJ_REFS = 100
@@ -226,13 +221,7 @@ class LUMP(enum.Enum):
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-
 # classes for lumps (alphabetical order)
-class brush(common.base): # LUMP 92 (005C)
-    __slots__ = ["normal", "unknown"] # origin, id?
-    _format = "3fI"
-    _arrays = {"normal": [*"xyz"]}
-
 class material_sort(common.base): # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I" # 12 bytes
@@ -258,6 +247,7 @@ class shadow_mesh(common.base): # LUMP 7F (0127)
     _format = "2I2h" # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
+# WRONG SIZE (8384 / 36)
 class texture_data(common.base): # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"
@@ -281,22 +271,23 @@ class vertex_unlit(common.base): # LUMP 71 (0047)
     _format = "2i2fi" # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
+# WRONG SIZE (26616 / 28)
 class vertex_unlit_ts(common.base): # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2f3i" # 28 bytes
     _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
+
     
-lump_classes = {"CM_BRUSHES": brush,
-                "MATERIAL_SORT": material_sort,
+lump_classes = {"MATERIAL_SORT": material_sort,
+                "MESHES": mesh,
+                "MESH_INDICES": mesh_indices,
                 "MODELS": model,
                 "TEXDATA": texture_data,
                 "VERTEX_NORMALS": vertex,
                 "VERTICES": vertex,
                 "VERTS_LIT_BUMP": vertex_lit_bump,
                 "VERTS_UNLIT": vertex_unlit,
-                "VERTS_UNLIT_TS": vertex_unlit_ts,
-                "MESHES": mesh,
-                "MESH_INDICES": mesh_indices}
+                "VERTS_UNLIT_TS": vertex_unlit_ts}
 
 
 # BSP METHODS EXCLUSIVE TO THIS MOD:
@@ -305,8 +296,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x200: "VERTS_LIT_BUMP"}
 # ^ a proper mapping of the flags would be nice
 
-# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def tris_of(bsp, mesh_index): # simplified from McSimp's exporter ^
+def tris_of(bsp, mesh_index): # assuming same as Titanfall 2
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
