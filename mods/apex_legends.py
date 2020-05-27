@@ -161,11 +161,11 @@ class LUMP(enum.Enum):
     UNUSED_68 = 68
     UNUSED_69 = 69
     UNUSED_70 = 70
-    VERTS_LIT_FLAT = 71
-    VERTS_LIT_BUMP = 72
-    VERTS_UNLIT_TS = 73
-    VERTS_BLINN_PHONG = 74
-    VERTS_RESERVED_5 = 75
+    VERTS_UNLIT = 71
+    VERTS_LIT_FLAT = 72
+    VERTS_LIT_BUMP = 73
+    VERTS_UNLIT_TS = 74
+    VERTS_BLINN_PHONG = 75
     UNUSED_76 = 76
     UNUSED_77 = 77
     VERTS_RESERVED_7 = 78 # uncertain
@@ -258,6 +258,7 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
 
+# WRONG SIZE (2484040 / 44)
 class vertex_lit_bump(common.base): # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
     # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
@@ -271,7 +272,7 @@ class vertex_unlit(common.base): # LUMP 71 (0047)
     _format = "2i2fi" # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
-# WRONG SIZE (26616 / 28)
+# WRONG SIZE (79068032 / 28)
 class vertex_unlit_ts(common.base): # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2f3i" # 28 bytes

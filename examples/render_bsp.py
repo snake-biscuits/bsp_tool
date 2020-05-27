@@ -40,7 +40,7 @@ def main(width, height, bsp):
     glFrontFace(GL_CW)
     glPointSize(4)
     glPolygonMode(GL_BACK, GL_LINE)
-    gluPerspective(90, width / height, 0.1, 4096 * 5)
+    gluPerspective(90, width / height, 0.1, 1000000)
 
     # BSP => 3D GEOMETRY
     conversion_start = time.time()
@@ -70,20 +70,32 @@ def main(width, height, bsp):
 ##    vertices = list(itertools.chain(*itertools.chain(*all_faces)))
 ##    indices = range(len(vertices))
 
-    # v37 (TitanFall2) MESHES => GEOMETRY
-    ignore_keywords = ["tools\\", "world\\atmo", "world\\dev\\edge_detect",
-                       "decal"]
-    
+    # v37 (Titanfall 2) MESHES => GEOMETRY
+##    ignore_keywords = ["tools\\",
+##                       "world\\atmo",
+##                       "world\\dev\\edge_detect",
+##                       "decal"]
+##    vertices = list(itertools.chain(*bsp.VERTICES))
+##    indices = []
+##    for i, mesh in enumerate(bsp.MESHES):
+##        material = bsp.MATERIAL_SORT[mesh.material_sort]
+##        texdata = bsp.TEXDATA[material.texdata]
+##        texture_name = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
+##        if any([w in texture_name.lower() for w in ignore_keywords]):
+##            # filtering with regex would be neat
+##            continue # skip this mesh
+##        mesh_vertices = bsp_tool.titanfall2.tris_of(bsp, i)
+##        # stitch positions, normals & uvs together into a proper vertex format
+##        indices.append([v.position_index for v in mesh_vertices])
+##    indices = list(itertools.chain(*indices))
+
+    # v47 (Apex Legends) MESHES => GEOMETRY
     vertices = list(itertools.chain(*bsp.VERTICES))
     indices = []
     for i, mesh in enumerate(bsp.MESHES):
-        material = bsp.MATERIAL_SORT[mesh.material_sort]
-        texdata = bsp.TEXDATA[material.texdata]
-        texture_name = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
-        if any([w in texture_name.lower() for w in ignore_keywords]):
-            # filtering with regex would be neat
+        if mesh.flags & 0x200: # VERTS_UNLIT_TS or VERTS_LIT_BUMP
             continue # skip this mesh
-        mesh_vertices = bsp_tool.titanfall2.tris_of(bsp, i)
+        mesh_vertices = bsp_tool.apex_legends.tris_of(bsp, i)
         # stitch positions, normals & uvs together into a proper vertex format
         indices.append([v.position_index for v in mesh_vertices])
     indices = list(itertools.chain(*indices))
