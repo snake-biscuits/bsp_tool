@@ -34,44 +34,52 @@ def main(width, height, bsp):
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
     # GL SETUP
-    glClearColor(0, .5, 1, 0)
+    glClearColor(.5, 0, .5, 0)
     glEnable(GL_CULL_FACE)
     glEnable(GL_DEPTH_TEST)
     glFrontFace(GL_CW)
     glPointSize(4)
     glPolygonMode(GL_BACK, GL_LINE)
-    gluPerspective(90, width / height, 0.1, 4096 * 4)
+    gluPerspective(90, width / height, 0.1, 4096 * 5)
 
-    # BSP => VERTEX BUFFER OBJECTS
+    # BSP => 3D GEOMETRY
     conversion_start = time.time()
-    all_faces = []
-    all_faces_map = [] # [(start, length), ...]
-    start = 0
-    for face in bsp.FACES:
-        if face.disp_info == -1:
-            f_verts = bsp.verts_of(face) # add to vertex buffer here and fan the indices
-            out = f_verts[:3]
-            f_verts = f_verts[3:]
-            for vert in f_verts:
-                out += [out[0], out[-1], vert]
-            f_verts = out
-            f_verts_len = len(f_verts)
-            all_faces_map.append((start, f_verts_len))
-            start += f_verts_len
-        else: # face is a displacement
-            power = bsp.DISP_INFO[face.disp_info].power
-            f_verts = bsp.dispverts_of(face)
-            f_verts = bsp_tool.disp_tris(f_verts, power)
-            f_verts_len = len(f_verts)
-            all_faces_map.append((start, f_verts_len))
-            start += f_verts_len
-        all_faces += f_verts
-    slow_faces = all_faces.copy()
-    all_faces = list(itertools.chain(*itertools.chain(*all_faces)))
-    all_faces_size = len(all_faces)
 
-    vertices = all_faces
-    indices = range(all_faces_size)
+    # BSPv20 (Team Fortress 2) FACES => GEOMETRY
+##    all_faces = []
+##    all_faces_map = [] # [(start, length), ...]
+##    start = 0
+##    for face in bsp.FACES:
+##        if face.disp_info == -1:
+##            f_verts = bsp.verts_of(face) # add to vertex buffer here and fan the indices
+##            out = f_verts[:3]
+##            f_verts = f_verts[3:]
+##            for vert in f_verts:
+##                out += [out[0], out[-1], vert]
+##            f_verts = out
+##            f_verts_len = len(f_verts)
+##            all_faces_map.append((start, f_verts_len))
+##            start += f_verts_len
+##        else: # face is a displacement
+##            power = bsp.DISP_INFO[face.disp_info].power
+##            f_verts = bsp.dispverts_of(face)
+##            f_verts = bsp_tool.disp_tris(f_verts, power)
+##            f_verts_len = len(f_verts)
+##            all_faces_map.append((start, f_verts_len))
+##            start += f_verts_len
+##        all_faces += f_verts
+##    vertices = list(itertools.chain(*itertools.chain(*all_faces)))
+##    indices = range(len(vertices))
+
+    # BSPv37 (TitanFall2) MESHES => GEOMETRY
+    vertices = list(itertools.chain(*bsp.VERTICES))
+    indices = []
+    for i, mesh in enumerate(bsp.MESHES):
+        mesh_vertices = bsp_tool.titanfall2.tris_of(bsp, i)
+        # stictch vertex positions and normals together
+        indices.append([v.position_index for v in mesh_vertices])
+    print(indices[0][:6])
+    indices = list(itertools.chain(*indices))
 
     conversion_end = time.time()
     print(bsp.filename.upper(), end=' ')
@@ -79,7 +87,6 @@ def main(width, height, bsp):
     print(f"{len(vertices) // 9:,} TRIS", end=" & ")
     print(f"{(len(vertices) * 4) // 1024:,}KB VRAM")
     print(f"Converted to geometry in {(conversion_end - conversion_start) * 1000:,.3f}ms")
-    print()
 
     VERTEX_BUFFER, INDEX_BUFFER = glGenBuffers(2)
     # VERTICES
@@ -87,11 +94,11 @@ def main(width, height, bsp):
     glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, np.array(vertices, dtype=np.float32), GL_STATIC_DRAW)
     # INDICES
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER)
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint64), GL_STATIC_DRAW)
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices) * 4, np.array(indices, dtype=np.uint32), GL_STATIC_DRAW)
 
     # SHADER SELECTION
     shader_folder = "shaders/"
-    render_mode = "flat"
+    render_mode = "debug"
     major, minor = glGetIntegerv(GL_MAJOR_VERSION), glGetIntegerv(GL_MINOR_VERSION)
     print(f"OpenGL Version {major}.{minor}")
     if major >= 4: #450
@@ -108,13 +115,21 @@ def main(width, height, bsp):
     # brush_shader
     vert_shader = compile_shader(f"{shader_folder}/brush.v", GL_VERTEX_SHADER)
     frag_shader = compile_shader(f"{shader_folder}/brush_{render_mode}.f", GL_FRAGMENT_SHADER)
-    brush_shader = compileProgram(vert_shader, frag_shader)
-    glLinkProgram(brush_shader)
+    try:
+        brush_shader = compileProgram(vert_shader, frag_shader)
+        glLinkProgram(brush_shader)
+    except: # OpenGL.GL.shaders.ShaderValidationError
+        print("\t- brush shader compile failed")
+        brush_shader = 0
     # mesh_shader (rBSP: TitanFall2 & Apex Legends)
-##    vert_shader = compile_shader(f"{shader_folder}/mesh.v", GL_VERTEX_SHADER)
-##    frag_shader = compile_shader(f"{shader_folder}/mesh_{render_mode}.v", GL_VERTEX_SHADER)
-##    mesh_shader = compile_program(vert_shader, frag_shader)
-##    glLinkProgram(mesh_shader)
+    vert_shader = compile_shader(f"{shader_folder}/mesh.v", GL_VERTEX_SHADER)
+    frag_shader = compile_shader(f"{shader_folder}/mesh_{render_mode}.f", GL_FRAGMENT_SHADER)
+    try:
+        mesh_shader = compileProgram(vert_shader, frag_shader)
+        glLinkProgram(mesh_shader)
+    except Exception as exc: # OpenGL.GL.shaders.ShaderValidationError
+        print("\t- mesh shader compile failed")
+        raise exc
     del vert_shader, frag_shader
     
     # SHADER VERTEX FORMAT
@@ -128,6 +143,12 @@ def main(width, height, bsp):
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(24))
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(32))
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
+    glEnableVertexAttribArray(5) # mesh vertexPosition
+    glEnableVertexAttribArray(6) # mesh vertexNormal
+    glEnableVertexAttribArray(7) # mesh vertexTexCoord
+    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 12, GLvoidp(0))
+##    glVertexAttribPointer(6, 3, GL_FLOAT, GL_TRUE,  32, GLvoidp(12))
+##    glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, 32, GLvoidp(24))
 
     # SHADER UNIFORMS
     if USING_ES:
@@ -207,8 +228,8 @@ def main(width, height, bsp):
         glPushMatrix()
         VIEW_CAMERA.set()
 
-        glUseProgram(brush_shader)
-        glDrawArrays(GL_TRIANGLES, 0, len(vertices))
+        glUseProgram(mesh_shader)
+        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
 
         # CENTER MARKER
         glUseProgram(0)
@@ -230,18 +251,19 @@ def main(width, height, bsp):
 if __name__ == '__main__':
     width, height = 1280, 720
 
-    mod = bsp_tool.team_fortress2
-    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
-    filename = "cp_cloak.bsp"
+##    mod = bsp_tool.team_fortress2
+##    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
+##    filename = "cp_cloak.bsp"
 
-##    mod = bsp_tool.titanfall2
-##    folder = "E:/Mod/Titanfall2/"
-##    filename = "mp_glitch/maps/mp_glitch.bsp"
-    
-    bsp = bsp_tool.bsp(folder + filename, mod)
-    
-    try:
-        bsp_file = main(1280, 720, bsp)
-    except Exception as exc:
-        SDL_Quit()
-        raise exc
+    mod = bsp_tool.titanfall2
+    folder = "E:/Mod/Titanfall2/"
+    maplist = ["mp_colony02", "mp_crashsite3", "mp_drydock", "mp_glitch",
+               "mp_lf_uma", "mp_relic02"]
+    for mapname in maplist:
+        filename = f"{mapname}/maps/{mapname}.bsp"
+        bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
+        try:
+            main(1280, 720, bsp)
+        except Exception as exc:
+            SDL_Quit()
+            raise exc

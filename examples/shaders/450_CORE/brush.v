@@ -17,7 +17,13 @@ out vec3 reflectivityColour;
 
 out float fake_Kd;
 in int gl_VertexID;
-out int vertexIndex;
+out vec4 vertexIndexColour;
+
+float float_from(int integer)
+{
+	float result = (integer & 0xFF) / 255.0;
+	return result;
+}
 
 void main()
 {
@@ -28,7 +34,11 @@ void main()
 	reflectivityColour = vertexColour;
 	
 	fake_Kd = abs(normal.x / 3 + 1/3 * normal.y / 3 + 2/3 * normal.z / 3);
-	vertexIndex = gl_VertexID;
+	float R = float_from(gl_VertexID >> 24);
+	float G = float_from(gl_VertexID >> 16);
+	float B = float_from(gl_VertexID >> 8);
+	float A = float_from(gl_VertexID);
+	vertexIndexColour = vec4(R, G, B, A);
 	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(vertexPosition, 1);
 }
