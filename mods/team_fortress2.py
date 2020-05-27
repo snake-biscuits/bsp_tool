@@ -144,8 +144,7 @@ class leaf(common.base): # LUMP 10
     # need to reverse this for leaf.flat()
     # why did those bits need saving when the struct is padded?
 
-class leaf_face(common.base): # LUMP 16
-    __slots__ = ["value"]
+class leaf_face(int): # LUMP 16
     _format = "H"
 
 class node(common.base): # LUMP 5

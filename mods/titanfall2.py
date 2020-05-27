@@ -240,14 +240,6 @@ class brush(common.base): # LUMP 92 (005C)
     _format = "3fI"
     _arrays = {"normal": [*"xyz"]}
 
-class bump_lit_vertex(common.base): # LUMP 71 (0047)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
-    # byte 8  - 12 = uv coords into albedo, normal, gloss, spec
-    # byte 20 - 28 = uv coords into lightmap
-    _format = "2I6f3I" # 44 bytes
-    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
-                "unknown": [*"abc"]}
-
 class material_sort(common.base): # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I" # 12 bytes
@@ -277,27 +269,35 @@ class texture_data(common.base): # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
-    
-class unlit_vertex(common.base): # LUMP 71 (0047)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2fi" # 20 bytes
-    _arrays = {"uv": [*"uv"]}
-
-class unlit_ts_vertex(common.base): # LUMP 74 (004A)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2f3i" # 28 bytes
-    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 class vertex(common.mapped_array): # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
+
+class vertex_bump_lit(common.base): # LUMP 71 (0047)
+    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
+    # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
+    # byte 20 - 28 = uv coords for lightmap
+    _format = "2I6f3I" # 44 bytes
+    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
+                "unknown": [*"abc"]}
+
+class vertex_unlit(common.base): # LUMP 71 (0047)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2i2fi" # 20 bytes
+    _arrays = {"uv": [*"uv"]}
+
+class vertex_unlit_ts(common.base): # LUMP 74 (004A)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2i2f3i" # 28 bytes
+    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
     
 lump_classes = {"CM_BRUSHES": brush, "MATERIAL_SORT": material_sort,
                 "MODELS": model, "TEXDATA": texture_data,
                 "VERTEX_NORMALS": vertex, "VERTICES": vertex,
-                "VERTS_LIT_BUMP": bump_lit_vertex, "VERTS_UNLIT": unlit_vertex,
-                "VERTS_UNLIT_TS": unlit_ts_vertex, "MESHES": mesh,
+                "VERTS_LIT_BUMP": vertex_bump_lit, "VERTS_UNLIT": vertex_unlit,
+                "VERTS_UNLIT_TS": vertex_unlit_ts, "MESHES": mesh,
                 "MESH_INDICES": mesh_indices}
 
 

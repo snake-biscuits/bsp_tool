@@ -8,7 +8,7 @@ uniform mat4 gl_ModelViewProjectionMatrix;
 /* Vertex Data */
 out vec3 position;
 out smooth vec3 normal;
-out vec2 texUV;
+out vec2 albedoUV;
 
 out float fake_Kd;
 in int gl_VertexID;
@@ -18,7 +18,7 @@ void main()
 {
     position = vertexPosition;
     normal = vertexNormal;
-    texUV = vertexTexCoord;
+    albedoUV = vertexTexCoord;
 	
 	fake_Kd = abs(normal.x / 3 + 1/3 * normal.y / 3 + 2/3 * normal.z / 3);
 	vertexIndex = gl_VertexID;
