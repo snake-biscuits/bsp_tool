@@ -12,43 +12,34 @@ out vec3 position;
 
 //out float fake_Kd;
 in int gl_VertexID;
-out vec4 vertexIndexColour;
+out vec3 vertexIndexColour;
 
-vec4 int_to_rgb(int integer)
+vec3 int_to_rgb(int integer)
 {
-	// based on python's colorsys module (hsv_to_rgb)
-	float hue = integer / 65535;
+	// python's colorsys.hsv_to_rgb function
+	float hue = integer / 20480.0;
+	float saturation = 0.5;
+	float value = 0.0;
 	
-	/*
-	if s == 0.0:
-        return v, v, v
-    i = int(h*6.0) # XXX assume int() truncates!
-    f = (h*6.0) - i
-    p = v*(1.0 - s)
-    q = v*(1.0 - s*f)
-    t = v*(1.0 - s*(1.0-f))
-    i = i%6
-    if i == 0:
-        return v, t, p
-    if i == 1:
-        return q, v, p
-    if i == 2:
-        return p, v, t
-    if i == 3:
-        return p, q, v
-    if i == 4:
-        return t, p, v
-    if i == 5:
-        return v, p, q
-    # Cannot get here
-	*/
-	
-	float R = ((integer >> 24) % 255) / 255.0;
-	float G = ((integer >> 16) % 255) / 255.0;
-	float B = ((integer >> 8) % 255) / 255.0;
-	float A = (integer % 255) / 255.0;
-	vec4 result = vec4(R, G, B, A);
-	return result;
+    int i = int(hue * 6.0);
+    float f = (hue * 6.0) - i;
+    float p = (1.0 - saturation);
+    float q = (1.0 - saturation * f);
+    float t = (1.0 - saturation * (1.0 - f));
+    switch (i % 6) {
+		case 0:
+			return vec3(value, t, p);
+		case 1:
+			return vec3(q, value, p);
+		case 2:
+			return vec3(p, value, t);
+		case 3:
+			return vec3(p, q, value);
+		case 4:
+			return vec3(t, p, value);
+		case 5:
+			return vec3(value, p, q);
+	}
 }
 
 void main()

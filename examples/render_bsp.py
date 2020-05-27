@@ -34,7 +34,7 @@ def main(width, height, bsp):
     window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
     # GL SETUP
-    glClearColor(.5, 0, .5, 0)
+    glClearColor(.5, .5, .5, 0)
     glEnable(GL_CULL_FACE)
     glEnable(GL_DEPTH_TEST)
     glFrontFace(GL_CW)
@@ -44,8 +44,7 @@ def main(width, height, bsp):
 
     # BSP => 3D GEOMETRY
     conversion_start = time.time()
-
-    # BSPv20 (Team Fortress 2) FACES => GEOMETRY
+    # v20 (Team Fortress 2) FACES => GEOMETRY
 ##    all_faces = []
 ##    all_faces_map = [] # [(start, length), ...]
 ##    start = 0
@@ -71,14 +70,22 @@ def main(width, height, bsp):
 ##    vertices = list(itertools.chain(*itertools.chain(*all_faces)))
 ##    indices = range(len(vertices))
 
-    # BSPv37 (TitanFall2) MESHES => GEOMETRY
+    # v37 (TitanFall2) MESHES => GEOMETRY
+    ignore_keywords = ["tools\\", "world\\atmo", "world\\dev\\edge_detect",
+                       "decal"]
+    
     vertices = list(itertools.chain(*bsp.VERTICES))
     indices = []
     for i, mesh in enumerate(bsp.MESHES):
+        material = bsp.MATERIAL_SORT[mesh.material_sort]
+        texdata = bsp.TEXDATA[material.texdata]
+        texture_name = bsp.TEXDATA_STRING_DATA[texdata.string_table_index]
+        if any([w in texture_name.lower() for w in ignore_keywords]):
+            # filtering with regex would be neat
+            continue # skip this mesh
         mesh_vertices = bsp_tool.titanfall2.tris_of(bsp, i)
-        # stictch vertex positions and normals together
+        # stitch positions, normals & uvs together into a proper vertex format
         indices.append([v.position_index for v in mesh_vertices])
-    print(indices[0][:6])
     indices = list(itertools.chain(*indices))
 
     conversion_end = time.time()
@@ -229,7 +236,9 @@ def main(width, height, bsp):
         VIEW_CAMERA.set()
 
         glUseProgram(mesh_shader)
+##        glPolygonMode(GL_FRONT, GL_LINE)
         glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
+##        glPolygonMode(GL_FRONT, GL_FILL)
 
         # CENTER MARKER
         glUseProgram(0)
@@ -257,13 +266,16 @@ if __name__ == '__main__':
 
     mod = bsp_tool.titanfall2
     folder = "E:/Mod/Titanfall2/"
-    maplist = ["mp_colony02", "mp_crashsite3", "mp_drydock", "mp_glitch",
-               "mp_lf_uma", "mp_relic02"]
-    for mapname in maplist:
-        filename = f"{mapname}/maps/{mapname}.bsp"
-        bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
-        try:
-            main(1280, 720, bsp)
-        except Exception as exc:
-            SDL_Quit()
-            raise exc
+##    mapname = "mp_colony02"
+##    mapname = "mp_crashsite3"
+    mapname = "mp_drydock"
+##    mapname = "mp_glitch"
+##    mapname = "mp_lf_uma"
+##    mapname = "mp_relic02"
+    filename = f"{mapname}/maps/{mapname}.bsp"
+    bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
+    try:
+        main(1280, 720, bsp)
+    except Exception as exc:
+        SDL_Quit()
+        raise exc

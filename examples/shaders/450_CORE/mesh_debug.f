@@ -6,9 +6,9 @@ in vec3 position;
 // in smooth vec3 normal;
 // in vec2 albedoUV;
 
-in vec4 vertexIndexColour;
+in vec3 vertexIndexColour;
 
 void main()
 {
-	outColour = vertexIndexColour;
+	outColour = vec4(vertexIndexColour, 1);
 }
