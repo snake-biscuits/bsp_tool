@@ -50,6 +50,9 @@ bsp_version = 37
 # 0049 VERTS_LIT_BUMP        73
 # 004A VERTS_UNLIT_TS        74
 # ...
+# 004C VERTS_RESERVED_5      76
+# 004D VERTS_RESERVED_6      77
+# 004E VERTS_RESERVED_7      78
 # 004F MESH_INDICES          79
 # 0050 MESHES                80
 # 0051 MESH_BOUNDS           81
@@ -268,6 +271,11 @@ class vertex(common.mapped_array): # LUMP 3 (0003)
     _format = "3f"
     flat = lambda self: [self.x, self.y, self.z]
 
+class vertex_blinn_phong(common.base): # LUMP 75 (004B)
+    __slots__ = ["position_index", "normal_index", "unknown"]
+    _format = "4I" # 16 bytes
+    _arrays  = {"unknown": [*"ab"]}
+
 class vertex_lit_bump(common.base): # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
     # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
@@ -276,14 +284,24 @@ class vertex_lit_bump(common.base): # LUMP 71 (0047)
     _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
                 "unknown": [*"abc"]}
 
+class vertex_reserved_5(common.base): # LUMP 76 (004C)
+    __slots__ = ["position_index", "normal_index", "unknown", "uv", "uv2"]
+    _format = "7I4f" # 44 bytes
+    _arrays = {"unknown": [*"abcd"], "uv": [*"uv"], "uv2": [*"uv"]}
+
+class vertex_reserved_7(common.base): # LUMP 78 (004E)
+    __slots__ = ["position_index", "normal_index", "uv", "negative_one"]
+    _format = "2I2fi" # 20 bytes
+    _arrays = {"uv": [*"uv"]}
+
 class vertex_unlit(common.base): # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2fi" # 20 bytes
+    _format = "2I2fi" # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 class vertex_unlit_ts(common.base): # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2f3i" # 28 bytes
+    _format = "2I2f3i" # 28 bytes
     _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
     
 lump_classes = {"CM_BRUSHES": brush,
@@ -293,6 +311,7 @@ lump_classes = {"CM_BRUSHES": brush,
                 "VERTEX_NORMALS": vertex,
                 "VERTICES": vertex,
                 "VERTS_LIT_BUMP": vertex_lit_bump,
+                "VERTS_RESERVED_7": vertex_reserved_7,
                 "VERTS_UNLIT": vertex_unlit,
                 "VERTS_UNLIT_TS": vertex_unlit_ts,
                 "MESHES": mesh,

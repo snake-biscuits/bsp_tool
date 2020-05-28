@@ -90,19 +90,35 @@ def main(width, height, bsp):
 ##    indices = list(itertools.chain(*indices))
 
     # v47 (Apex Legends) MESHES => GEOMETRY
-    vertices = list(itertools.chain(*bsp.VERTICES))
-    indices = []
-    for i, mesh in enumerate(bsp.MESHES):
-##        if ???:
-##            continue # skip this mesh
-        mesh_vertices = bsp_tool.apex_legends.tris_of(bsp, i)
-        # stitch positions, normals & uvs together into a proper vertex format
-        indices.append([v.position_index for v in mesh_vertices])
-    indices = list(itertools.chain(*indices))
+##    vertices = list(itertools.chain(*bsp.VERTICES))
+##    indices = []
+##    for i, mesh in enumerate(bsp.MESHES):
+####        if ???:
+####            continue # skip this mesh
+##        mesh_vertices = bsp_tool.apex_legends.tris_of(bsp, i)
+##        # stitch positions, normals & uvs together into a proper vertex format
+##        indices.append([v.position_index for v in mesh_vertices])
+##    indices = list(itertools.chain(*indices))    
+##
+##    all_indices = set(indices)
+##    all_vertices = set(range(len(vertices)))
+##    print(len(all_vertices.difference(all_indices)), "vertices unreferenced")
 
-    all_indices = set(indices)
-    all_vertices = set(range(len(vertices)))
-    print(len(all_vertices.difference(all_indices)), "vertices unreferenced")
+    vertices = []
+    indices = []
+    print(f"Converting {len(bsp.MESHES)} meshes")
+    for mesh_index in range(len(bsp.MESHES)):
+        for vertex in bsp_tool.apex_legends.tris_of(bsp, mesh_index):
+            position = bsp.VERTICES[vertex.position_index]
+            normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+            uv = vertex.uv
+            vertex_data = (*position, *normal, *uv)
+##            if vertex_data not in indices:
+            vertices.append(vertex_data)
+            indices.append(len(indices))
+##            else:
+##                indices.append(indices.index(vertex_data))
+    vertices = list(itertools.chain(*vertices))
 
     conversion_end = time.time()
     print(bsp.filename.upper(), end=' ')
@@ -166,9 +182,9 @@ def main(width, height, bsp):
     glEnableVertexAttribArray(5) # mesh vertexPosition
     glEnableVertexAttribArray(6) # mesh vertexNormal
     glEnableVertexAttribArray(7) # mesh vertexTexCoord
-    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 12, GLvoidp(0))
-##    glVertexAttribPointer(6, 3, GL_FLOAT, GL_TRUE,  32, GLvoidp(12))
-##    glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, 32, GLvoidp(24))
+    glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 32, GLvoidp(0))
+    glVertexAttribPointer(6, 3, GL_FLOAT, GL_TRUE,  32, GLvoidp(12))
+    glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, 32, GLvoidp(24))
 
     # SHADER UNIFORMS
     if USING_ES:
@@ -295,7 +311,9 @@ if __name__ == '__main__':
 
     mod = bsp_tool.apex_legends
     folder = "E:/Mod/ApexLegends/maps/"
-    filename = "mp_rr_canyonlands_mu1_night.bsp"
+##    filename = "mp_rr_canyonlands_staging.bsp"
+##    filename = "mp_rr_canyonlands_mu1_night.bsp"
+    filename = "mp_rr_canyonlands_mu2.bsp"
     
     bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
     try:

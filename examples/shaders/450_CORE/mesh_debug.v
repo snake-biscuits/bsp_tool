@@ -1,23 +1,23 @@
 #version 450 core
 layout(location = 5) in vec3 vertexPosition;
-//layout(location = 6) in vec3 vertexNormal;
-//layout(location = 7) in vec2 vertexTexCoord;
+layout(location = 6) in vec3 vertexNormal;
+layout(location = 7) in vec2 vertexTexCoord;
 
 uniform mat4 gl_ModelViewProjectionMatrix;
 
 /* Vertex Data */
 out vec3 position;
-//out smooth vec3 normal;
-//out vec2 albedoUV;
+out smooth vec3 normal;
+out vec2 albedoUV;
 
-//out float fake_Kd;
+out float fakeKd;
 in int gl_VertexID;
 out vec3 vertexIndexColour;
 
 vec3 int_to_rgb(int integer)
 {
 	// python's colorsys.hsv_to_rgb function
-	float hue = integer / 20480.0;
+	float hue = (integer / 163840.0) + 0.66;
 	float saturation = 0.5;
 	float value = 0.0;
 	
@@ -45,11 +45,11 @@ vec3 int_to_rgb(int integer)
 void main()
 {
     position = vertexPosition;
-    //normal = vertexNormal;
-    //albedoUV = vertexTexCoord;
+    normal = vertexNormal;
+    albedoUV = vertexTexCoord;
 	
-	//fake_Kd = abs(normal.x / 3 + 1/3 * normal.y / 3 + 2/3 * normal.z / 3);
-	/* Vertex Scrambling Check */
+	fakeKd = abs(normal.x / 3 + 1/3 * normal.y / 3 + 2/3 * normal.z / 3);
+	
 	vertexIndexColour = int_to_rgb(gl_VertexID);
 	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(position, 1);

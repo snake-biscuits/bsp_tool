@@ -44,42 +44,43 @@ def hex_breakdown(stream):
 #   print side-by-side to look for patterns
 
 if __name__ == "__main__":
-##    mod = bsp_tool.titanfall2
+    mod = bsp_tool.titanfall2
 ##    folder = "/media/jared/Sandisk/" # LINUX
-##    folder = "E:/Mod/Titanfall2/" # WINDOWS
-##    mapname = "mp_drydock"
-##    filename = f"{mapname}/maps/{mapname}.bsp"
+    folder = "E:/Mod/Titanfall2/" # WINDOWS
+    mapname = "mp_lf_uma"
+    filename = f"{mapname}/maps/{mapname}.bsp"
 
-    mod = bsp_tool.apex_legends
-    folder = "E:/Mod/ApexLegends/maps/"
+##    mod = bsp_tool.apex_legends
+##    folder = "E:/Mod/ApexLegends/maps/"
 ##    filename = "mp_rr_canyonlands_mu1_night.bsp"
-##    bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
     
-    filenames = ["mp_rr_canyonlands_64k_x_64k.bsp",
-                 "mp_rr_canyonlands_mu1.bsp",
-                 "mp_rr_canyonlands_mu1_night.bsp",
-                 "mp_rr_canyonlands_mu2.bsp",
-                 "mp_rr_canyonlands_staging.bsp",
-                 "mp_rr_desertlands_64k_x_64k.bsp",
-                 "mp_rr_desertlands_mu1.bsp"]
+    bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
     
-    denominators = {}
-    for filename in filenames:
-        bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
-        denominators[filename] = {}
-        for attrib in dir(bsp):
-            if attrib.startswith("RAW_"):
-                lump = getattr(bsp, attrib)
-                lump_size = len(lump)
-                lump_name = attrib[4:]
-                lump_id = getattr(bsp_tool.apex_legends.LUMP, lump_name)
-                hex_id = f"{lump_id.value:04x}"
-                denoms = denominators_of(lump_size, start=4, step=4)
-                denominators[filename][lump_name] = denoms
-    common_denominators = {L: set(ds) for L, ds in denominators[filenames[0]].items()}
-    for denom_dict in denominators.values():
-        for lump, ds in denom_dict.items():
-            common_denominators[lump] = common_denominators[lump].union(set(ds))
+##    filenames = ["mp_rr_canyonlands_64k_x_64k.bsp",
+##                 "mp_rr_canyonlands_mu1.bsp",
+##                 "mp_rr_canyonlands_mu1_night.bsp",
+##                 "mp_rr_canyonlands_mu2.bsp",
+##                 "mp_rr_canyonlands_staging.bsp",
+##                 "mp_rr_desertlands_64k_x_64k.bsp",
+##                 "mp_rr_desertlands_mu1.bsp"]
+##    
+##    denominators = {}
+##    for filename in filenames:
+##        bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
+##        denominators[filename] = {}
+##        for attrib in dir(bsp):
+##            if attrib.startswith("RAW_"):
+##                lump = getattr(bsp, attrib)
+##                lump_size = len(lump)
+##                lump_name = attrib[4:]
+##                lump_id = getattr(bsp_tool.apex_legends.LUMP, lump_name)
+##                hex_id = f"{lump_id.value:04x}"
+##                denoms = denominators_of(lump_size, start=4, step=4)
+##                denominators[filename][lump_name] = denoms
+##    common_denominators = {L: set(ds) for L, ds in denominators[filenames[0]].items()}
+##    for denom_dict in denominators.values():
+##        for lump, ds in denom_dict.items():
+##            common_denominators[lump] = common_denominators[lump].union(set(ds))
     # also get the denominators of the differences in lump size
     # VERTS_BLINN_PHONG, VERTS_LIT_FLAT, TEXDATA
     # position_index, normal_index, ...

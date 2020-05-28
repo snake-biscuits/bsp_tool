@@ -3,12 +3,18 @@ layout(location = 0) out vec4 outColour;
 
 /* Vertex Data */
 in vec3 position;
-// in smooth vec3 normal;
-// in vec2 albedoUV;
+in smooth vec3 normal;
+in vec2 albedoUV;
 
+in float fakeKd;
 in vec3 vertexIndexColour;
 
 void main()
 {
-	outColour = vec4(vertexIndexColour, 1);
+	vec4 Ka = vec4(0.5, 0.5, 0.5, 1);
+	
+	// float stripe = mod((albedoUV.x + albedoUV.y) / 64.0, 1.0);
+	// stripe = (stripe > 0.5 ? 1.0 : 0.25);
+	
+	outColour = vec4(vertexIndexColour, 1) * min(fakeKd + Ka, 1);// * stripe;
 }
