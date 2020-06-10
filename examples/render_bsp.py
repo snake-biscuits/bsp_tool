@@ -13,25 +13,16 @@ from OpenGL.GLU import *
 from sdl2 import *
 # local imports
 import utils.camera
-sys.path.insert(0, '../')
+sys.path.insert(0, "../")
 import bsp_tool
 from vector import *
 
+
 utils.camera.sensitivity = 2
-
-def clamp(x, minimum=0, maximum=1):
-    return maximum if x > maximum else minimum if x < minimum else x
-
-def calcTriFanIndices(vertices, startIndex):
-    "polygon to triangle fan (indices only) - by Exactol"
-    indices = []
-    for i in range(1, len(vertices) - 1):
-        indices += [startIndex, startIndex + i, startIndex + i + 1]
-    return indices
 
 def main(width, height, bsp):
     SDL_Init(SDL_INIT_VIDEO)
-    window = SDL_CreateWindow(bytes(bsp.filename, 'utf-8'), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
+    window = SDL_CreateWindow(bytes(bsp.filename, "utf-8"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
     glContext = SDL_GL_CreateContext(window)
     # GL SETUP
     glClearColor(.5, .5, .5, 0)
@@ -40,7 +31,7 @@ def main(width, height, bsp):
     glFrontFace(GL_CW)
     glPointSize(4)
     glPolygonMode(GL_BACK, GL_LINE)
-    gluPerspective(90, width / height, 0.1, 1000000)
+    gluPerspective(120, width / height, 0.1, 1000000)
 
     # BSP => 3D GEOMETRY
     conversion_start = time.time()
@@ -121,7 +112,7 @@ def main(width, height, bsp):
     vertices = list(itertools.chain(*vertices))
 
     conversion_end = time.time()
-    print(bsp.filename.upper(), end=' ')
+    print(bsp.filename.upper(), end=" ")
     print(f"{bsp.bytesize // 1024:,}KB BSP", end=" >>> ")
     print(f"{len(vertices) // 9:,} TRIS", end=" & ")
     print(f"{(len(vertices) * 4) // 1024:,}KB VRAM")
@@ -189,11 +180,11 @@ def main(width, height, bsp):
     # SHADER UNIFORMS
     if USING_ES:
         glUseProgram(brush_shader)
-        attrib_position = glGetAttribLocation(brush_shader, 'vertexPosition')
-        attrib_normal = glGetAttribLocation(brush_shader, 'vertexNormal')
-        attrib_texture_uv = glGetAttribLocation(brush_shader, 'vertexTexCoord')
-        attrib_lightmap_uv = glGetAttribLocation(brush_shader, 'vertexLightCoord')
-        attrib_colour_uv = glGetAttribLocation(brush_shader, 'vertexColour')
+        attrib_position = glGetAttribLocation(brush_shader, "vertexPosition")
+        attrib_normal = glGetAttribLocation(brush_shader, "vertexNormal")
+        attrib_texture_uv = glGetAttribLocation(brush_shader, "vertexTexCoord")
+        attrib_lightmap_uv = glGetAttribLocation(brush_shader, "vertexLightCoord")
+        attrib_colour_uv = glGetAttribLocation(brush_shader, "vertexColour")
         # get MVP matrix location
         # mesh_shader
         glUseProgram(0)
@@ -292,7 +283,7 @@ def main(width, height, bsp):
         glPopMatrix()
         SDL_GL_SwapWindow(window)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     width, height = 1280, 720
 
 ##    mod = bsp_tool.team_fortress2

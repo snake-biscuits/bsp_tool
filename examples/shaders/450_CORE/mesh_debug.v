@@ -51,6 +51,9 @@ void main()
 	fakeKd = abs(normal.x / 3 + 1/3 * normal.y / 3 + 2/3 * normal.z / 3);
 	
 	vertexIndexColour = int_to_rgb(gl_VertexID);
+	vec3 desaturation_factor = vec3(0.3, 0.6, 0.1);
+	float d = dot(desaturation_factor, vertexIndexColour);
+	vertexIndexColour = vec3(d, d, d);
 	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(position, 1);
 }
