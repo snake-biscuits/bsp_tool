@@ -288,7 +288,10 @@ if __name__ == "__main__":
 
 ##    mod = bsp_tool.team_fortress2
 ##    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
-##    filename = "cp_cloak.bsp"
+####    filename = "cp_cloak.bsp"
+##    folder, filename = "../maps/", "pl_upward.bsp"
+
+##    bsp = bsp_tool.bsp(folder + filename, mod)
 
 ##    mod = bsp_tool.titanfall2
 ##    folder = "E:/Mod/Titanfall2/"
@@ -307,6 +310,7 @@ if __name__ == "__main__":
     filename = "mp_rr_canyonlands_mu2.bsp"
     
     bsp = bsp_tool.bsp(folder + filename, mod, lump_files=True)
+
     try:
         main(1280, 720, bsp)
     except Exception as exc:
