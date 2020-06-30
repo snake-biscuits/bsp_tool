@@ -33,16 +33,19 @@ def read_lump(file, header_address):
     if length == 0:
         return
     file.seek(offset)
+    data = file.read(length)
     if fourCC != 0: # lump is compressed
-        source_lzma_header = struct.unpack("3i5c", file.read(17))
+        file.seek(offset)
+        source_lzma_header = struct.unpack("3I5c", file.read(17))
         # magic, actual_size, compressed_size, properties = source_lzma_header
+        actual_size = source_lzma_header[1]
         compressed_size = source_lzma_header[2]
         properties = b"".join(source_lzma_header[3:])
         _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
         decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
-        data = decompressor.decompress(file.read(compressed_size))
-    else: # lump is not compressed
-        data = file.read(length)
+        data = decompressor.decompress(data[17:])
+        if len(data) != actual_size: # trim any tail
+            data = data[:actual_size]
     return data
 
 lump_header = collections.namedtuple("lump_header", ["offset", "length", "version", "fourCC"])
