@@ -21,7 +21,6 @@ import time
 
 import vector
 import vmf_tool
-
 from mods import apex_legends, team_fortress2, titanfall2, vindictus
 
 
@@ -31,35 +30,35 @@ def read_lump(file, header_address):
     length = int.from_bytes(file.read(4), "little")
     version = int.from_bytes(file.read(4), "little")
     fourCC = int.from_bytes(file.read(4), "little")
-    if length != 0:
-        if fourCC == 0:
-            file.seek(offset)
-            return file.read(length)
-        else:
-            file.seek(offset + 17) # SKIP lzma_header_t
-            try:
-                decompressed_lump = lzma.decompress(file.read(fourCC))
-            except:
-                raise RuntimeError(f'Error decompressing {lumpid.name}!')
-            if len(decompressed_lump) != fourCC:
-                raise RuntimeError(f'{lumpid.name} decompressed to {len(decompressed_lump)}, not {fourCC} as expected')
-            else:
-                return decompressed_lump
+    if length == 0:
+        return
+    file.seek(offset)
+    if fourCC != 0: # lump is compressed
+        source_lzma_header = struct.unpack("3i5c", file.read(17))
+        # magic, actual_size, compressed_size, properties = source_lzma_header
+        compressed_size = source_lzma_header[2]
+        properties = b"".join(source_lzma_header[3:])
+        _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
+        decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
+        data = decompressor.decompress(file.read(compressed_size))
+    else: # lump is not compressed
+        data = file.read(length)
+    return data
 
-lump_header = collections.namedtuple('lump_header', ['offset', 'length' ,'version', 'fourCC'])
+lump_header = collections.namedtuple("lump_header", ["offset", "length", "version", "fourCC"])
 
 class bsp():
     def __init__(self, filename, mod=team_fortress2, lump_files=False):
         # LOOKING AT FILES
-        if not filename.endswith('.bsp'):
-            filename += '.bsp' # for lazy terminal scripts
-        filename.replace('\\', '/')
-        split_filename = filename.rpartition('/')
+        if not filename.endswith(".bsp"):
+            filename += ".bsp" # for lazy terminal scripts
+        filename.replace("\\", "/")
+        split_filename = filename.rpartition("/")
         self.filename = split_filename[-1] # with .bsp extension
-        self.filepath = f'{split_filename[0]}/'
+        self.filepath = f"{split_filename[0]}/"
         local_files = os.listdir(self.filepath)
         self.associated_files = [f for f in local_files if f.startswith(self.filename[:-3])]
-        file = open(filename, 'rb')
+        file = open(filename, "rb")
         # BEGIN READING .BSP FILE
         file_magic = file.read(4)
         if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
@@ -95,8 +94,8 @@ class bsp():
                 data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None: # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])
-                self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), 'little') for i in range(4)])
-                setattr(self, 'RAW_' + ID.name, data)
+                self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), "little") for i in range(4)])
+                setattr(self, "RAW_" + ID.name, data)
             # else lump is empty
 
         # begin processing lumps
@@ -122,7 +121,7 @@ class bsp():
 ##                raise exc
 
         if self.log != []: # if errors occured, print to console
-            print(*self.log, sep='\n')
+            print(*self.log, sep="\n")
 
         ### SPECIAL LUMPS ###
         #-- ENTITIES --#
@@ -163,7 +162,7 @@ class bsp():
 
         file.close()
         unpack_time = time.time() - start_time
-        print(f'Imported {self.filename} in {unpack_time:.2f} seconds')
+        print(f"Imported {self.filename} in {unpack_time:.2f} seconds")
 
 
     def verts_of(self, face):
@@ -210,9 +209,9 @@ class bsp():
         returns rows, not tris"""
         verts = self.verts_of(face)
         if face.disp_info == -1:
-            raise RuntimeError('face is not a displacement!')
+            raise RuntimeError("face is not a displacement!")
         if len(verts) != 4:
-            raise RuntimeError('face does not have 4 corners (probably t-junctions)')
+            raise RuntimeError("face does not have 4 corners (probably t-junctions)")
         disp_info = self.DISP_INFO[face.disp_info]
         start = list(disp_info.start_position)
         start = [round(x, 1) for x in start] # approximate match
@@ -252,13 +251,13 @@ class bsp():
 
     def export(self, outfile): # wip
         """expects outfile to be a file with write bytes capability"""
-        outfile.write(b'VBSP')
-        outfile.write((20).to_bytes(4, 'little')) # engine version
+        outfile.write(b"VBSP")
+        outfile.write((20).to_bytes(4, "little")) # engine version
         offset = 0
         length = 0
         # USE THE LUMP MAP!
         # PRESERVE SOURCE FILE LUMP ORDER
-        split_bytes = lambda y: map(lambda x: x.to_bytes(1, 'big'), y)
+        split_bytes = lambda y: map(lambda x: x.to_bytes(1, "big"), y) # unused
         # convert all non_raw lumps back to raw
         for LUMP in self.mod.LUMP:
             if hasattr(self, f"RAW_{LUMP}"):
@@ -275,14 +274,14 @@ class bsp():
         # headers
         # get offsets from headers
         for ID in LUMP: # entities should be written last
-            outfile.write(offset.to_bytes(4, 'little'))
-            length = len(getattr(self, ID.name, 'RAW_' + ID.name)) #only lumps we have
+            outfile.write(offset.to_bytes(4, "little"))
+            length = len(getattr(self, ID.name, "RAW_" + ID.name)) #only lumps we have
             offset += length
-            outfile.write(b'0000') # lump version (actually important)
-            outfile.write(b'0000') # lump fourCC (only for compressed)
+            outfile.write(b"0000") # lump version (actually important)
+            outfile.write(b"0000") # lump fourCC (only for compressed)
         for ID in LUMP:
-            outfile.write(getattr(self, ID.name, 'RAW_' + ID.name))
-        outfile.write(b'0001') # map revision
+            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
+        outfile.write(b"0001") # map revision
 
 
 
@@ -331,3 +330,9 @@ def disp_tris(verts, power):
                 tris.append(verts[offset + 2])
                 tris.append(verts[offset + power2B])
     return tris
+
+
+if __name__ == "__main__":
+    # testing packed / repacked maps
+    test = bsp("maps/koth_sky_lock_b1.bsp")
+    test2 = bsp("maps/pl_upward.bsp")

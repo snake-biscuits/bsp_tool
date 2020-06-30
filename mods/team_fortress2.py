@@ -106,8 +106,7 @@ class disp_info(common.base): # LUMP 26
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                 "corner_neighbours": 44, "allowed_verts": 10}
 
-class disp_tri(common.base): # LUMP 48
-    __slots__ = ["value"]
+class disp_tri(int): # LUMP 48
     _format = "H"
 
 class disp_vert(common.base): # LUMP 33
