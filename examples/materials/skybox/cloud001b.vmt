@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$baseTexture" "skybox/Cloud001b"
-	"$translucent" 1
-	"$nofog" "1"
-	"%keywords" "tf"
-}

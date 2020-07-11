@@ -1,6 +1,0 @@
-﻿GL_TEXTURE_CUBE_MAP_POSITIVE_X 	Right	rt / _hdrrt
-GL_TEXTURE_CUBE_MAP_NEGATIVE_X 	Left	lf / _hdrlf
-GL_TEXTURE_CUBE_MAP_POSITIVE_Y 	Top	up / _hdrup
-GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 	Bottom	dn / _hdrdn
-GL_TEXTURE_CUBE_MAP_POSITIVE_Z 	Back	bk / _hdrft
-GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 	Front	ft / _hdrft

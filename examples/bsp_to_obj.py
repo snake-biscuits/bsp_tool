@@ -34,7 +34,7 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
             
     face_count = 0
     current_progress = 0.1
-    print('0...', end='')
+    print("0...", end="")
     for material in faces_by_material:
         yield f"usemtl {material}\n"
         for face in faces_by_material[material]:
@@ -69,7 +69,7 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
             yield "f " + ' '.join([f"{v}/{vt}/{vn}" for v, vt, vn in reversed(f)]) + "\n"
             face_count += 1
             if face_count >= total_faces * current_progress:
-                print(f'{current_progress * 10:.0f}...', end='')
+                print(f"{current_progress * 10:.0f}...", end="")
                 current_progress += 0.1
 
     disp_no = 0
@@ -111,7 +111,7 @@ def write_obj(bsp): #TODO: write .mtl for each vmt
     minutes = total_time // 60
     seconds = total_time - minutes * 60
     yield f"# file generated in {minutes:.0f} minutes {seconds:2.3f} seconds"
-    print('Done!')
+    print("Done!")
 
 
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
             bsp = bsp_tool.bsp(map_path)
             
             start = time.time()
-            obj_file = open(map_path + '.obj', 'w')
+            obj_file = open(map_path + ".obj", "w")
             buffer = ""
             for line in write_obj(bsp):
                 buffer += line
@@ -137,6 +137,6 @@ if __name__ == "__main__":
                     buffer = ""
             obj_file.close()
             conversion_time = time.time() - start
-            print(f'Converting {bsp.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}')
+            print(f"Converting {bsp.filename} took {conversion_time // 60:.0f}:{conversion_time % 60:.3f}")
     else:
-        ... # do nothing (or uncomment tests)
+        ... # do nothing (tests can go here)

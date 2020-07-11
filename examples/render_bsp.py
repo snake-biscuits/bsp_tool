@@ -5,21 +5,22 @@ import math
 import time
 import struct
 import sys
-# third-party imports
+
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileShader, compileProgram
 from OpenGL.GLU import *
 from sdl2 import *
-# local imports
-import utils.camera
+
+from utils import camera
+from utils import vector
 sys.path.insert(0, "../")
 import bsp_tool
-from vector import *
 
 
-utils.camera.sensitivity = 2
+camera.sensitivity = 2
 
+# TODO: select shaders and triangulation mode from bsp version & mod
 def main(width, height, bsp):
     SDL_Init(SDL_INIT_VIDEO)
     window = SDL_CreateWindow(bytes(bsp.filename, "utf-8"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL) #| SDL_WINDOW_BORDERLESS) #SDL_WINDOW_FULLSCREEN
@@ -32,8 +33,7 @@ def main(width, height, bsp):
     glPointSize(4)
     glPolygonMode(GL_BACK, GL_LINE)
     gluPerspective(120, width / height, 0.1, 1000000)
-
-    # BSP => 3D GEOMETRY
+    # BSP => VRAM TRIANGLES
     conversion_start = time.time()
     # v20 (Team Fortress 2) FACES => GEOMETRY
 ##    all_faces = []
@@ -81,20 +81,6 @@ def main(width, height, bsp):
 ##    indices = list(itertools.chain(*indices))
 
     # v47 (Apex Legends) MESHES => GEOMETRY
-##    vertices = list(itertools.chain(*bsp.VERTICES))
-##    indices = []
-##    for i, mesh in enumerate(bsp.MESHES):
-####        if ???:
-####            continue # skip this mesh
-##        mesh_vertices = bsp_tool.apex_legends.tris_of(bsp, i)
-##        # stitch positions, normals & uvs together into a proper vertex format
-##        indices.append([v.position_index for v in mesh_vertices])
-##    indices = list(itertools.chain(*indices))    
-##
-##    all_indices = set(indices)
-##    all_vertices = set(range(len(vertices)))
-##    print(len(all_vertices.difference(all_indices)), "vertices unreferenced")
-
     vertices = []
     indices = []
     print(f"Converting {len(bsp.MESHES)} meshes")
@@ -131,7 +117,7 @@ def main(width, height, bsp):
     render_mode = "flat"
     major, minor = glGetIntegerv(GL_MAJOR_VERSION), glGetIntegerv(GL_MINOR_VERSION)
     print(f"OpenGL Version {major}.{minor}")
-    if major >= 4: #450
+    if major >= 4: # Assuming GLSL 450
         USING_ES = False
         shader_folder += "450_CORE"    
     elif major == 3: # if GLSL 450 not supported, use GLES 300
@@ -160,19 +146,21 @@ def main(width, height, bsp):
     del vert_shader, frag_shader
     
     # SHADER VERTEX FORMAT
-    glEnableVertexAttribArray(0) # brush vertexPosition
-    glEnableVertexAttribArray(1) # brush vertexNormal
-    glEnableVertexAttribArray(2) # brush vertexTexcoord
-    glEnableVertexAttribArray(3) # brush vertexLightmapCoord
-    glEnableVertexAttribArray(4) # brush reflectivityColour
+    # BSP FACES
+    glEnableVertexAttribArray(0) # vertexPosition
+    glEnableVertexAttribArray(1) # vertexNormal
+    glEnableVertexAttribArray(2) # vertexTexcoord
+    glEnableVertexAttribArray(3) # vertexLightmapCoord
+    glEnableVertexAttribArray(4) # reflectivityColour
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(0))
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE,  52, GLvoidp(12))
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(24))
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 52, GLvoidp(32))
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 52, GLvoidp(40))
-    glEnableVertexAttribArray(5) # mesh vertexPosition
-    glEnableVertexAttribArray(6) # mesh vertexNormal
-    glEnableVertexAttribArray(7) # mesh vertexTexCoord
+    # rBSP MESHES
+    glEnableVertexAttribArray(5) # vertexPosition
+    glEnableVertexAttribArray(6) # vertexNormal
+    glEnableVertexAttribArray(7) # vertexTexCoord
     glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 32, GLvoidp(0))
     glVertexAttribPointer(6, 3, GL_FLOAT, GL_TRUE,  32, GLvoidp(12))
     glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, 32, GLvoidp(24))
@@ -185,15 +173,13 @@ def main(width, height, bsp):
         attrib_texture_uv = glGetAttribLocation(brush_shader, "vertexTexCoord")
         attrib_lightmap_uv = glGetAttribLocation(brush_shader, "vertexLightCoord")
         attrib_colour_uv = glGetAttribLocation(brush_shader, "vertexColour")
-        # get MVP matrix location
-        # mesh_shader
         glUseProgram(0)
 
     # INPUT STATE
     keys = []
-    mousepos = vec2()
-    view_init = vec3(0, 0, 32), None, 128
-    VIEW_CAMERA = utils.camera.freecam(*view_init)
+    mousepos = vector.vec2()
+    view_init = vector.vec3(0, 0, 32), None, 128
+    VIEW_CAMERA = camera.freecam(*view_init)
 
     # SDL EVENT STATE
     event = SDL_Event()
@@ -210,63 +196,48 @@ def main(width, height, bsp):
             if event.type == SDL_QUIT or event.key.keysym.sym == SDLK_ESCAPE and event.type == SDL_KEYDOWN:
                 SDL_GL_DeleteContext(glContext)
                 SDL_DestroyWindow(window)
-                SDL_Quit()
-                return bsp # let the user play with the bsp after we're done
-            # KEYBOARD INPUT
+                return SDL_Quit()
             if event.type == SDL_KEYDOWN:
                 if event.key.keysym.sym not in keys:
                     keys.append(event.key.keysym.sym)
             if event.type == SDL_KEYUP:
                 while event.key.keysym.sym in keys:
                     keys.remove(event.key.keysym.sym)
-            # MOUSE INPUT
-            if event.type == SDL_MOUSEMOTION:
-                mousepos += vec2(event.motion.xrel, event.motion.yrel)
-                SDL_WarpMouseInWindow(window, width // 2, height // 2)
-            if event.type == SDL_MOUSEWHEEL:
-                VIEW_CAMERA.speed += event.wheel.y * 32
             if event.type == SDL_MOUSEBUTTONDOWN:
                 if event.button.button not in keys:
                     keys.append(event.button.button)
             if event.type == SDL_MOUSEBUTTONUP:
                 while event.button.button in keys:
                     keys.remove(event.button.button)
+            if event.type == SDL_MOUSEMOTION:
+                mousepos += vector.vec2(event.motion.xrel, event.motion.yrel)
+                SDL_WarpMouseInWindow(window, width // 2, height // 2)
+            if event.type == SDL_MOUSEWHEEL:
+                VIEW_CAMERA.speed += event.wheel.y * 32
 
-        # PROCESS TICK
         dt = time.time() - end_of_previous_tick
         while dt >= 1 / tickrate:
+            # TICK START
             VIEW_CAMERA.update(mousepos, keys, 1 / tickrate)
-            # HANDLE KEYPRESSES
-            if SDLK_BACKQUOTE in keys: # ~ = print data for debugging
-                print(">>> PRINT RELEVANT DATA HERE <<<")
-                while SDLK_BACKQUOTE in keys:
+            if SDLK_BACKQUOTE in keys: # ~: debug print
+                print(VIEW_CAMERA)
+                while SDLK_BACKQUOTE in keys: # print once until pressed again
                     keys.remove(SDLK_BACKQUOTE)
-            if SDLK_r in keys: # R = reset camera
-                VIEW_CAMERA = utils.camera.freecam(*view_init)
-            if SDLK_LSHIFT in keys: # LShift = Camera speed +
+            if SDLK_r in keys: # R: reset camera
+                VIEW_CAMERA = camera.freecam(*view_init)
+            if SDLK_LSHIFT in keys: # LShift: Increase camera speed
                 VIEW_CAMERA.speed += 5
-            if SDLK_LCTRL in keys: # LCtrl = Camera speed -
+            if SDLK_LCTRL in keys: # LCtrl: reduce camera speed
                 VIEW_CAMERA.speed -= 5
-            dt -= 1 / tickrate # if dt >= 2/tickrate: simulate another tick
+            # TICK END
+            dt -= 1 / tickrate
             end_of_previous_tick = time.time()
 
-        # RENDER PASS
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
         VIEW_CAMERA.set()
-
         glUseProgram(debug_mesh_shader)
         glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
-        # wireframe
-##        glUseProgram(mesh_shader)
-##        glPolygonMode(GL_FRONT, GL_LINE)
-##        glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, GLvoidp(0))
-##        glPolygonMode(GL_FRONT, GL_FILL)
-        # points
-##        glUseProgram(mesh_shader)
-##        glDrawArrays(GL_POINTS, 0, len(vertices))
-
-        # CENTER MARKER
         glUseProgram(0)
         glBegin(GL_LINES)
         glColor(1, 0, 0)
@@ -279,9 +250,9 @@ def main(width, height, bsp):
         glVertex(0, 0, 0)
         glVertex(0, 0, 128)
         glEnd()
-
         glPopMatrix()
         SDL_GL_SwapWindow(window)
+
 
 if __name__ == "__main__":
     width, height = 1280, 720
