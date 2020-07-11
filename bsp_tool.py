@@ -1,15 +1,12 @@
-# www.gamedev.net/forums/topic/230012-eliminating-discontinuities-t-junctions-in-bsp/
-# what impact would rewriting a bsp with fixed t-juncts have?
-#
 # source_sdk_2013/mp/src/public/bspfile.h
 # source_sdk_2013/mp/src/utils/vbsp/writebsp.cpp
 # source_sdk_2013/mp/src/utils/vbsp/map.cpp
 #
 # LUMP_PAKFILE is never compressed. ? really ?
 # LUMP_GAME_LUMP is compressed in individual segments.
-# The compressed size of a game lump can be determined by subtracting the
-# current game lump's offset with that of the next entry. For this reason,
-# the last game lump is always an empty dummy which only contains the offset.
+# -- The compressed size of a game lump can be determined by subtracting the
+# -- current game lump's offset with that of the next entry. For this reason,
+# -- the last game lump is always an empty dummy which only contains the offset.
 import collections
 import copy
 import enum
@@ -23,6 +20,8 @@ import vector
 import vmf_tool
 from mods import apex_legends, team_fortress2, titanfall2, vindictus
 
+lump_header = collections.namedtuple("lump_header",
+                                    ["offset", "length", "version", "fourCC"])
 
 def read_lump(file, header_address):
     file.seek(header_address)
@@ -35,20 +34,17 @@ def read_lump(file, header_address):
     file.seek(offset)
     data = file.read(length)
     if fourCC != 0: # lump is compressed
-        file.seek(offset)
-        source_lzma_header = struct.unpack("3I5c", file.read(17))
-        # magic, actual_size, compressed_size, properties = source_lzma_header
+        source_lzma_header = struct.unpack("3I5c", data[:17])
         actual_size = source_lzma_header[1]
         compressed_size = source_lzma_header[2]
         properties = b"".join(source_lzma_header[3:])
         _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
         decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
         data = decompressor.decompress(data[17:])
-        if len(data) != actual_size: # trim any tail
+        if len(data) != actual_size:
             data = data[:actual_size]
     return data
 
-lump_header = collections.namedtuple("lump_header", ["offset", "length", "version", "fourCC"])
 
 class bsp():
     def __init__(self, filename, mod=team_fortress2, lump_files=False):
@@ -132,6 +128,7 @@ class bsp():
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
         self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
         self.ENTITIES = vmf_tool.namespace_from(self.ENTITIES)["ents"]
+        # TODO: replace vmf_tool with regex entity importer
         # top level namespace grouping classnames?
         # still index entities?
         # use fgdtools to fully unstringify entities
@@ -176,7 +173,7 @@ class bsp():
             edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1] # ?
             verts.append(self.VERTICES[edge[0]])
             verts.append(self.VERTICES[edge[1]])
-        verts = verts[::2] # why skip in this way?
+        verts = verts[::2] # edges likely aren't this simple
         # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
         # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
         tex_info = self.TEXINFO[face.tex_info] # index error?
@@ -252,39 +249,36 @@ class bsp():
         return verts
 
 
-    def export(self, outfile): # wip
-        """expects outfile to be a file with write bytes capability"""
-        outfile.write(b"VBSP")
-        outfile.write((20).to_bytes(4, "little")) # engine version
-        offset = 0
-        length = 0
-        # USE THE LUMP MAP!
-        # PRESERVE SOURCE FILE LUMP ORDER
-        split_bytes = lambda y: map(lambda x: x.to_bytes(1, "big"), y) # unused
-        # convert all non_raw lumps back to raw
-        for LUMP in self.mod.LUMP:
-            if hasattr(self, f"RAW_{LUMP}"):
-                continue
-            #elif LUMP is on special list
-            #  - ENTITIES
-            #  - GAME_LUMP
-            #  - SURF_EDGES
-            #  - VISIBILITY
-            elif hasattr(self, LUMP):
-                lump_format = self.mod.lump_classes[LUMP]._format # use the actual lump class of LUMP[0] instead
-                packer = lambda x: struct.pack(lump_format, *x.flat())
-                setattr(self, f"RAW_{LUMP}", map(packer, getattr(self, LUMP)))
-        # headers
-        # get offsets from headers
-        for ID in LUMP: # entities should be written last
-            outfile.write(offset.to_bytes(4, "little"))
-            length = len(getattr(self, ID.name, "RAW_" + ID.name)) #only lumps we have
-            offset += length
-            outfile.write(b"0000") # lump version (actually important)
-            outfile.write(b"0000") # lump fourCC (only for compressed)
-        for ID in LUMP:
-            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
-        outfile.write(b"0001") # map revision
+    def export(self, outfile):
+        """Expects outfile to be a file with write bytes capability"""
+        raise NotImplementedError("Exporting not yet possible")
+##        # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
+##        outfile.write(b"VBSP")
+##        outfile.write((20).to_bytes(4, "little")) # Engine version
+##        offset = 0
+##        length = 0
+##        # CONVERT INTERNAL LUMPS TO RAW LUMPS
+##        for LUMP in self.mod.LUMP:
+##            if hasattr(self, f"RAW_{LUMP}"):
+##                continue
+##            elif hasattr(self, LUMP):
+##                lump_format = self.mod.lump_classes[LUMP]._format
+##                pack_lump = lambda c: struct.pack(lump_format, *c.flat())
+##                setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
+##            # special lumps:
+##            #  - ENTITIES
+##            #  - GAME_LUMP
+##            #  - SURF_EDGES
+##            #  - VISIBILITY
+##            # seek lump header
+##            outfile.write(offset.to_bytes(4, "little"))
+##            length = len(getattr(self, ID.name, "RAW_" + ID.name))
+##            offset += length
+##            outfile.write(b"0000") # lump version (actually important)
+##            outfile.write(b"0000") # lump fourCC (only for compressed)
+##            # seek lump start in file
+##            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
+##        outfile.write(b"0001") # map revision
 
 
 
@@ -304,15 +298,12 @@ def disp_tris(verts, power):
                 tris.append(verts[offset + 0])
                 tris.append(verts[offset + power2A])
                 tris.append(verts[offset + 1])
-
                 tris.append(verts[offset + power2A])
                 tris.append(verts[offset + power2B])
                 tris.append(verts[offset + 1])
-
                 tris.append(verts[offset + power2B])
                 tris.append(verts[offset + power2C])
                 tris.append(verts[offset + 1])
-
                 tris.append(verts[offset + power2C])
                 tris.append(verts[offset + 2])
                 tris.append(verts[offset + 1])
@@ -320,15 +311,12 @@ def disp_tris(verts, power):
                 tris.append(verts[offset + 0])
                 tris.append(verts[offset + power2A])
                 tris.append(verts[offset + power2B])
-
                 tris.append(verts[offset + 1])
                 tris.append(verts[offset + 0])
                 tris.append(verts[offset + power2B])
-
                 tris.append(verts[offset + 2])
                 tris.append(verts[offset + 1])
                 tris.append(verts[offset + power2B])
-
                 tris.append(verts[offset + power2C])
                 tris.append(verts[offset + 2])
                 tris.append(verts[offset + power2B])
@@ -336,6 +324,4 @@ def disp_tris(verts, power):
 
 
 if __name__ == "__main__":
-    # testing packed / repacked maps
-    test = bsp("maps/koth_sky_lock_b1.bsp")
-    test2 = bsp("maps/pl_upward.bsp")
+    test = bsp("maps/pl_upward.bsp")
