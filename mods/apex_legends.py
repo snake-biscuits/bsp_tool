@@ -298,7 +298,7 @@ lump_classes = {"MATERIAL_SORT": material_sort,
                 "VERTS_UNLIT_TS": vertex_unlit_ts}
 
 
-# BSP METHODS EXCLUSIVE TO THIS MOD:
+# METHODS EXCLUSIVE TO THIS MOD:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x610: "VERTS_BLINN_PHONG",
               0x400: "VERTS_UNLIT",
@@ -306,15 +306,16 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x210: "VERTS_LIT_FLAT"}
 # ^ a proper mapping of the flags would be nice
 
-def tris_of(bsp, mesh_index): # assuming same as Titanfall 2
+def vertices_of_mesh(bsp, mesh_index):
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
-    
     mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
     verts = getattr(bsp, mesh_types[mesh_type])
     # ^ picking based on flags is hard
     return [verts[i] for i in indices]
+
+methods = {"vertices_of_mesh": vertices_of_mesh}

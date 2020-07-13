@@ -140,10 +140,12 @@ class node(common.base): # LUMP 5
 ##    _format = "2iIi4f18f"
 ##    _arrays = {"faces": 64, # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)
 ##               "u": 2, "v": 2,
-##               "uv_points": {c: [*"xyz"] for c in "ABCD"}}
+##               "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 lump_classes = team_fortress2.lump_classes.copy() # copy tf2 for other classes
 lump_classes.update({"AREAS": area, "AREA_PORTALS": area_portal,
                 "BRUSH_SIDES": brush_side, "DISP_INFO": disp_info,
                 "EDGES": edge, "FACES": face, "LEAVES": leaf,
                 "LEAF_FACES": leaf_face, "NODES": node, "ORIGINAL_FACES": face})
+
+methods = team_fortress2.methods # same methods as tf2

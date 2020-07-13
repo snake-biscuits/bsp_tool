@@ -318,19 +318,22 @@ lump_classes = {"CM_BRUSHES": brush,
                 "MESH_INDICES": mesh_indices}
 
 
-# BSP METHODS EXCLUSIVE TO THIS MOD:
+# METHODS EXCLUSIVE TO THIS MOD:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x400: "VERTS_UNLIT",
               0x200: "VERTS_LIT_BUMP"}
 # ^ a proper mapping of the flags would be nice
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def tris_of(bsp, mesh_index): # simplified from McSimp's exporter ^
+def vertices_of_mesh(bsp, mesh_index): # simplified from McSimp's exporter ^
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
-    verts = getattr(bsp, mesh_types[mesh.flags & 0x600])
+    mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
+    verts = getattr(bsp, mesh_types[mesh_type])
     return [verts[i] for i in indices]
+
+methods = {"vertices_of_mesh": vertices_of_mesh}
