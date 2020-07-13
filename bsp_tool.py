@@ -17,8 +17,7 @@ import re
 import struct
 import time
 
-import vector
-from mods import apex_legends, team_fortress2, titanfall2, vindictus
+import mods
 
 lump_header = collections.namedtuple("lump_header",
                                     ["offset", "length", "version", "fourCC"])
@@ -47,7 +46,7 @@ def read_lump(file, header_address):
 
 
 class bsp():
-    def __init__(self, filename, mod=team_fortress2, lump_files=False):
+    def __init__(self, filename, mod=mods.team_fortress2, lump_files=False):
         # LOOKING AT FILES
         if not filename.endswith(".bsp"):
             filename += ".bsp" # for lazy terminal scripts
@@ -72,6 +71,9 @@ class bsp():
         # 37 = Titanfall2
         # 47 = Apex Legends
         self.mod = mod
+        class_method = lambda function: lambda *args: function(self, *args)
+        for method_name, method in mod.methods.items():
+            setattr(self, method_name, class_method(method))
         print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
         # rBSP map revision is before headers, VBSP is after
         file.read() # move cursor to end of file
@@ -80,6 +82,7 @@ class bsp():
         self.log = []
         self.lump_map = {}
         start_time = time.time()
+        # TODO: store .bsp lumps as INTERNAL_ when lump_files == True
         for ID in self.mod.LUMP:
             lump_filename = f"{self.filename}.{ID.value:04x}.bsp_lump"
             # ^ rBSP .bsp_lump naming convention
@@ -88,18 +91,16 @@ class bsp():
                 # mp_drydock only has 72 bsp_lump files
                 # however other lumps within mp_drydock.bsp itself contain data
                 data = open(f"{self.filepath}{lump_filename}", "rb").read()
-                self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
+##                self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
             else:
-            # change to store .bsp lumps anyway but as INTERNAL_
-            # when lump_files == False don't bother looking for them
-                if lump_files == True: # lump_file not found
+                if lump_files == True and file_magic != b'rBSP':
                     self.log.append(f"external  {ID.name} lump not found")
                 data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None: # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])
                 self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), "little") for i in range(4)])
                 setattr(self, "RAW_" + ID.name, data)
-            # else lump is empty
+            # else: # lump is empty
 
         # begin processing lumps
         lump_classes = self.mod.lump_classes # self.mod is a module
@@ -162,7 +163,7 @@ class bsp():
             try:
                 _format = self.mod.surf_edge._format
             except:
-                _format = team_fortress2.surf_edge._format
+                _format = mods.team_fortress2.surf_edge._format
             self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
             del self.RAW_SURFEDGES, _format
         #-- TEXDATA STRING DATA --#
