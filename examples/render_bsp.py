@@ -41,7 +41,7 @@ def main(width, height, bsp):
 ##    start = 0
 ##    for face in bsp.FACES:
 ##        if face.disp_info == -1:
-##            f_verts = bsp.verts_of(face) # add to vertex buffer here and fan the indices
+##            f_verts = verts_of(bsp, face) # add to vertex buffer here and fan the indices
 ##            out = f_verts[:3]
 ##            f_verts = f_verts[3:]
 ##            for vert in f_verts:
@@ -52,8 +52,8 @@ def main(width, height, bsp):
 ##            start += f_verts_len
 ##        else: # face is a displacement
 ##            power = bsp.DISP_INFO[face.disp_info].power
-##            f_verts = bsp.dispverts_of(face)
-##            f_verts = bsp_tool.disp_tris(f_verts, power)
+##            f_verts = dispverts_of(bsp, face)
+##            f_verts = disp_tris(f_verts, power)
 ##            f_verts_len = len(f_verts)
 ##            all_faces_map.append((start, f_verts_len))
 ##            start += f_verts_len
@@ -252,6 +252,128 @@ def main(width, height, bsp):
         glEnd()
         glPopMatrix()
         SDL_GL_SwapWindow(window)
+
+def verts_of(bsp, face):
+    """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
+    verts, uvs, uv2s = [], [], []
+    first_edge = face.first_edge
+    for surfedge in bsp.SURFEDGES[first_edge:first_edge + face.num_edges]:
+        edge = bsp.EDGES[surfedge] if surfedge >= 0 else bsp.EDGES[-surfedge][::-1] # ?
+        verts.append(bsp.VERTICES[edge[0]])
+        verts.append(bsp.VERTICES[edge[1]])
+    verts = verts[::2] # edges likely aren't this simple
+    # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
+    # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+    tex_info = bsp.TEXINFO[face.tex_info] # index error?
+    tex_data = bsp.TEXDATA[tex_info.tex_data]
+    texture = tex_info.texture
+    lightmap = tex_info.lightmap
+    normal = lambda P: (P.x, P.y, P.z) # return the normal of plane (P)
+    for vert in verts:
+        uv = [vector.dot(vert, normal(texture.s)) + texture.s.offset,
+              vector.dot(vert, normal(texture.t)) + texture.t.offset]
+        uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
+        uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
+        uvs.append(vector.vec2(*uv))
+        uv2 = [vector.dot(vert, normal(lightmap.s)) + lightmap.s.offset,
+               vector.dot(vert, normal(lightmap.t)) + lightmap.t.offset]
+        uv2[0] -= face.lightmap_texture_mins_in_luxels.s
+        uv2[1] -= face.lightmap_texture_mins_in_luxels.t
+        try:
+            uv2[0] /= face.lightmap_texture_size_in_luxels.s
+            uv2[1] /= face.lightmap_texture_size_in_luxels.t
+        except ZeroDivisionError:
+            uv2 = [0, 0]
+        uv2s.append(uv2)
+    vert_count = len(verts)
+    normal = [bsp.PLANES[face.plane_num].normal] * vert_count # X Y Z
+    colour = [tex_data.reflectivity] * vert_count # R G B
+    return list(zip(verts, normal, uvs, uv2s, colour))
+
+def dispverts_of(bsp, face): # add format argument (lightmap uv, 2 uvs, etc)
+    """vertex format [Position, Normal, TexCoord, LightCoord, Colour]
+    normal is inherited from face
+    returns rows, not tris"""
+    verts = verts_of(bsp, face)
+    if face.disp_info == -1:
+        raise RuntimeError("face is not a displacement!")
+    if len(verts) != 4:
+        raise RuntimeError("face does not have 4 corners (probably t-junctions)")
+    disp_info = bsp.DISP_INFO[face.disp_info]
+    start = list(disp_info.start_position)
+    start = [round(x, 1) for x in start] # approximate match
+    round_verts = []
+    for vert in [v[0] for v in verts]:
+        round_verts.append([round(x, 1) for x in vert])
+    if start in round_verts: # "rotate"
+        index = round_verts.index(start)
+        verts = verts[index:] + verts[:index]
+    A, B, C, D = [vector.vec3(*v[0]) for v in verts]
+    Auv, Buv, Cuv, Duv = [vector.vec2(*v[2]) for v in verts]
+    Auv2, Buv2, Cuv2, Duv2 = [vector.vec2(*v[3]) for v in verts] # scale is wrong
+    AD = D - A
+    ADuv = Duv - Auv
+    ADuv2 = Duv2 - Auv2
+    BC = C - B
+    BCuv = Cuv - Buv
+    BCuv2 = Cuv2 - Buv2
+    power2 = 2 ** disp_info.power
+    full_power = (power2 + 1) ** 2
+    start = disp_info.disp_vert_start
+    stop = disp_info.disp_vert_start + full_power
+    new_verts, uvs, uv2s = [], [], []
+    for index, disp_vert in enumerate(bsp.DISP_VERTS[start:stop]):
+        t1 = index % (power2 + 1) / power2
+        t2 = index // (power2 + 1) / power2
+        bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
+        disp_vert = [x * disp_vert.distance for x in disp_vert.vector]
+        new_verts.append([a + b for a, b in zip(bary_vert, disp_vert)])
+        uvs.append(vector.lerp(Auv + (ADuv * t1), Buv + (BCuv * t1), t2))
+        uv2s.append(vector.lerp(Auv2 + (ADuv2 * t1), Buv2 + (BCuv2 * t1), t2))
+    normal = [verts[0][1]] * full_power
+    colour = [verts[0][4]] * full_power
+    verts = list(zip(new_verts, normal, uvs, uv2s, colour))
+    return verts
+
+def disp_tris(verts, power):
+    """takes flat array of verts and arranges them in a patterned triangle grid
+    expects verts to be an array of length ((2 ** power) + 1) ** 2"""
+    power2 = 2 ** power
+    power2A = power2 + 1
+    power2B = power2 + 2
+    power2C = power2 + 3
+    tris = []
+    for line in range(power2):
+        line_offset = power2A * line
+        for block in range(2 ** (power - 1)):
+            offset = line_offset + 2 * block
+            if line % 2 == 0: # |\|/|
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + 1])
+            else: #|/|\|
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2A])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + 0])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + 1])
+                tris.append(verts[offset + power2B])
+                tris.append(verts[offset + power2C])
+                tris.append(verts[offset + 2])
+                tris.append(verts[offset + power2B])
+    return tris
 
 
 if __name__ == "__main__":
