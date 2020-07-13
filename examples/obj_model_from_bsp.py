@@ -18,27 +18,26 @@ def source_bsp_to_obj(bsp): #TODO: write .mtl for each vmt
     vn_count = 1
     faces_by_material = {} # {material: [face, ...], ...}
     disps_by_material = {} # {material: [face, ...], ...}
-    for face in bsp.FACES:
+    for face_index, face in enumerate(bsp.FACES):
         tex_info = bsp.TEXINFO[face.tex_info]
         tex_data = bsp.TEXDATA[tex_info.tex_data]
         material = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
-        if face.disp_info != -1:
-            if material not in disps_by_material:
-                disps_by_material[material] = []
-            disps_by_material[material].append(face)
-        else:
+        if face.disp_info == -1:
             if material not in faces_by_material:
                 faces_by_material[material] = []
-            faces_by_material[material].append(face)
+            faces_by_material[material].append(face_index)
+        else:
+            if material not in disps_by_material:
+                disps_by_material[material] = []
+            disps_by_material[material].append(face_index)
     # FACES 
     face_number = 0
-    total_faces = len(bsp.FACES)
     current_progress = 0.1
     print("0...", end="")
     for material in faces_by_material:
         yield f"usemtl {material}\n"
-        for face in faces_by_material[material]:
-            face_vs = bsp.verts_of(face)
+        for face_index in faces_by_material[material]:
+            face_vs = bsp.vertices_of_face(face_index)
             vn = face_vs[0][1]
             if vn not in vns:
                 vns.append(vn)
@@ -68,7 +67,7 @@ def source_bsp_to_obj(bsp): #TODO: write .mtl for each vmt
                 f.append((v, vt, vn))
             yield "f " + ' '.join([f"{v}/{vt}/{vn}" for v, vt, vn in reversed(f)]) + "\n"
             face_number += 1
-            if face_number >= total_faces * current_progress:
+            if face_number >= len(bsp.FACES) * current_progress:
                 print(f"{current_progress * 10:.0f}...", end="")
                 current_progress += 0.1
     # DISPLACEMENTS
@@ -154,6 +153,7 @@ if __name__ == "__main__":
     ### THE FOLLOWING COMMAND LINE ARGS ARE PLANNED BUT UNIMPLEMETED ###
     # -g --game [apex_legends/team_fortess2/titanfall2/vindictus]
     # -o --outfile
+    sys.argv.append("../maps/pl_upward.bsp")
     if len(sys.argv) > 1: # drag & drop obj converter
         write_obj = source_bsp_to_obj
         # ^ selected with --game
@@ -170,13 +170,3 @@ if __name__ == "__main__":
             obj_file.close()
     else:
         ... # do nothing (tests can go here)
-        bsp = bsp_tool.bsp("E:/Mod/Titanfall2/mp_drydock/maps/mp_drydock.bsp", bsp_tool.mods.titanfall2)
-        obj_file = open("mp_drydock.obj", "w")
-        buffer = ""
-        for line in respawn_bsp_to_obj(bsp):
-            buffer += line
-            if len(buffer) > 2048:
-                obj_file.write(buffer)
-                buffer = ""
-        obj_file.write(buffer)
-        obj_file.close()
