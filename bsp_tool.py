@@ -13,11 +13,11 @@ import enum
 import itertools
 import lzma
 import os
+import re
 import struct
 import time
 
 import vector
-import vmf_tool
 from mods import apex_legends, team_fortress2, titanfall2, vindictus
 
 lump_header = collections.namedtuple("lump_header",
@@ -124,17 +124,33 @@ class bsp():
 
         ### SPECIAL LUMPS ###
         #-- ENTITIES --#
-        # don't forget some .bsps have no entities
+        # TODO: use fgdtools to fully unstringify entities
+        # rBSP .bsps have 5 associated entity files beginning with "ENTITIES01\n"
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
-        self.ENTITIES = "ent" + self.ENTITIES.replace("{", "ent\n{")
-        self.ENTITIES = vmf_tool.namespace_from(self.ENTITIES)["ents"]
-        # TODO: replace vmf_tool with regex entity importer
-        # top level namespace grouping classnames?
-        # still index entities?
-        # use fgdtools to fully unstringify entities
-        # >>> type: plane | re | (x y z) (x y z) (x y z)
-        # rBSP .bsps have 5 associated entities files beginning with "ENTITIES01\n"
-        del self.RAW_ENTITIES
+        entities = []
+        indent = 0
+        for line in self.ENTITIES.split("\n"):
+            if re.match("^[ \t]*$", line): # whitespace
+                continue
+            if "{" in line:
+                ent = dict()
+            elif re.match('".*" ".*"', line):
+                key, value = line[1:-1].split('" "')
+                if key not in ent:
+                    ent[key] = value
+                else:
+                    if isinstance(ent[key], list):
+                        ent[key].append(value)
+                    else:
+                        ent[key] = [ent[key], value]
+            elif "}" in line:
+                entities.append(ent)
+            elif line == b"\x00".decode():
+                continue
+            else:
+                raise RuntimeError(f"Unexpected line in entities: {line.encode()}")
+        self.ENTITIES = entities
+        del self.RAW_ENTITIES, entities
         #-- GAME LUMP --#
         ...
         #-- SURF_EDGES --#
@@ -163,91 +179,6 @@ class bsp():
         file.close()
         unpack_time = time.time() - start_time
         print(f"Imported {self.filename} in {unpack_time:.2f} seconds")
-
-
-    def verts_of(self, face):
-        """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
-        verts, uvs, uv2s = [], [], []
-        first_edge = face.first_edge
-        for surfedge in self.SURFEDGES[first_edge:first_edge + face.num_edges]:
-            edge = self.EDGES[surfedge] if surfedge >= 0 else self.EDGES[-surfedge][::-1] # ?
-            verts.append(self.VERTICES[edge[0]])
-            verts.append(self.VERTICES[edge[1]])
-        verts = verts[::2] # edges likely aren't this simple
-        # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
-        # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
-        tex_info = self.TEXINFO[face.tex_info] # index error?
-        tex_data = self.TEXDATA[tex_info.tex_data]
-        texture = tex_info.texture
-        lightmap = tex_info.lightmap
-        normal = lambda P: (P.x, P.y, P.z) # return the normal of plane (P)
-        for vert in verts:
-            uv = [vector.dot(vert, normal(texture.s)) + texture.s.offset,
-                  vector.dot(vert, normal(texture.t)) + texture.t.offset]
-            uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
-            uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
-            uvs.append(vector.vec2(*uv))
-            uv2 = [vector.dot(vert, normal(lightmap.s)) + lightmap.s.offset,
-                   vector.dot(vert, normal(lightmap.t)) + lightmap.t.offset]
-            uv2[0] -= face.lightmap_texture_mins_in_luxels.s
-            uv2[1] -= face.lightmap_texture_mins_in_luxels.t
-            try:
-                uv2[0] /= face.lightmap_texture_size_in_luxels.s
-                uv2[1] /= face.lightmap_texture_size_in_luxels.t
-            except ZeroDivisionError:
-                uv2 = [0, 0]
-            uv2s.append(uv2)
-        vert_count = len(verts)
-        normal = [self.PLANES[face.plane_num].normal] * vert_count # X Y Z
-        colour = [tex_data.reflectivity] * vert_count # R G B
-        return list(zip(verts, normal, uvs, uv2s, colour))
-
-
-    def dispverts_of(self, face): # add format argument (lightmap uv, 2 uvs, etc)
-        """vertex format [Position, Normal, TexCoord, LightCoord, Colour]
-        normal is inherited from face
-        returns rows, not tris"""
-        verts = self.verts_of(face)
-        if face.disp_info == -1:
-            raise RuntimeError("face is not a displacement!")
-        if len(verts) != 4:
-            raise RuntimeError("face does not have 4 corners (probably t-junctions)")
-        disp_info = self.DISP_INFO[face.disp_info]
-        start = list(disp_info.start_position)
-        start = [round(x, 1) for x in start] # approximate match
-        round_verts = []
-        for vert in [v[0] for v in verts]:
-            round_verts.append([round(x, 1) for x in vert])
-        if start in round_verts: # "rotate"
-            index = round_verts.index(start)
-            verts = verts[index:] + verts[:index]
-        A, B, C, D = [vector.vec3(*v[0]) for v in verts]
-        Auv, Buv, Cuv, Duv = [vector.vec2(*v[2]) for v in verts]
-        Auv2, Buv2, Cuv2, Duv2 = [vector.vec2(*v[3]) for v in verts] # scale is wrong
-        AD = D - A
-        ADuv = Duv - Auv
-        ADuv2 = Duv2 - Auv2
-        BC = C - B
-        BCuv = Cuv - Buv
-        BCuv2 = Cuv2 - Buv2
-        power2 = 2 ** disp_info.power
-        full_power = (power2 + 1) ** 2
-        start = disp_info.disp_vert_start
-        stop = disp_info.disp_vert_start + full_power
-        new_verts, uvs, uv2s = [], [], []
-        for index, disp_vert in enumerate(self.DISP_VERTS[start:stop]):
-            t1 = index % (power2 + 1) / power2
-            t2 = index // (power2 + 1) / power2
-            bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
-            disp_vert = [x * disp_vert.distance for x in disp_vert.vector]
-            new_verts.append([a + b for a, b in zip(bary_vert, disp_vert)])
-            uvs.append(vector.lerp(Auv + (ADuv * t1), Buv + (BCuv * t1), t2))
-            uv2s.append(vector.lerp(Auv2 + (ADuv2 * t1), Buv2 + (BCuv2 * t1), t2))
-        normal = [verts[0][1]] * full_power
-        colour = [verts[0][4]] * full_power
-        verts = list(zip(new_verts, normal, uvs, uv2s, colour))
-        return verts
-
 
     def export(self, outfile):
         """Expects outfile to be a file with write bytes capability"""
@@ -279,48 +210,6 @@ class bsp():
 ##            # seek lump start in file
 ##            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
 ##        outfile.write(b"0001") # map revision
-
-
-
-def disp_tris(verts, power):
-    """takes flat array of verts and arranges them in a patterned triangle grid
-    expects verts to be an array of length ((2 ** power) + 1) ** 2"""
-    power2 = 2 ** power
-    power2A = power2 + 1
-    power2B = power2 + 2
-    power2C = power2 + 3
-    tris = []
-    for line in range(power2):
-        line_offset = power2A * line
-        for block in range(2 ** (power - 1)):
-            offset = line_offset + 2 * block
-            if line % 2 == 0: # |\|/|
-                tris.append(verts[offset + 0])
-                tris.append(verts[offset + power2A])
-                tris.append(verts[offset + 1])
-                tris.append(verts[offset + power2A])
-                tris.append(verts[offset + power2B])
-                tris.append(verts[offset + 1])
-                tris.append(verts[offset + power2B])
-                tris.append(verts[offset + power2C])
-                tris.append(verts[offset + 1])
-                tris.append(verts[offset + power2C])
-                tris.append(verts[offset + 2])
-                tris.append(verts[offset + 1])
-            else: #|/|\|
-                tris.append(verts[offset + 0])
-                tris.append(verts[offset + power2A])
-                tris.append(verts[offset + power2B])
-                tris.append(verts[offset + 1])
-                tris.append(verts[offset + 0])
-                tris.append(verts[offset + power2B])
-                tris.append(verts[offset + 2])
-                tris.append(verts[offset + 1])
-                tris.append(verts[offset + power2B])
-                tris.append(verts[offset + power2C])
-                tris.append(verts[offset + 2])
-                tris.append(verts[offset + power2B])
-    return tris
 
 
 if __name__ == "__main__":
