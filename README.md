@@ -16,12 +16,11 @@ Many of these scripts are old experiments, and as a result are not well maintain
 
 ### Converting .bsp to .obj
   Navigate to `examples/`  
-  Drag the desired .bsp file(s) over `bsp_to_obj.py`  
+  Drag the desired .bsp file(s) over `obj_model_from_bsp.py`  
   An .obj file will appear next to the .bsp, wherever you dragged it from
   
 ### Rendering .bsp files in 3D
   `examples/render_bsp.py` requires some external libraries  
   Install them by running `$ pip install -r requirements.txt` in `bsp_tool/examples/`  
-  `render_bsp.py` is not user friendly; it is intended to be run from an interpreter / IDE  
-  At present `render_bsp.py` is configured to render Apex Legends maps  
-  
+  `render_bsp.py` is intended to be run from an editor, bsps are fed to the script manually
+ 
