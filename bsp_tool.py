@@ -60,17 +60,20 @@ class bsp():
         file = open(filename, "rb")
         # BEGIN READING .BSP FILE
         file_magic = file.read(4)
-        if file_magic not in (b"VBSP", b"rBSP"): # rBSP = Respawn BSP (Titanfall)
-            # ^ reversed file_magic for consoles (big endian)
+        if file_magic == b"rBSP": # rBSP = Respawn BSP (Titanfall/Apex Legends)
+            lump_files = True # most lumps are external
+        elif file_magic not in (b"VBSP", b"rBSP"): 
+            # note that on consoles file_magic is big endian
             raise RuntimeError(f"{file} is not a .bsp!")
         self.bsp_version = int.from_bytes(file.read(4), "little")
-        # mod should be calculated from bsp version
-        # 20 = Team Fortress 2, Orange Box & Vindictus
+        # mod should be calculated HERE from bsp_version
+        # 20 = Orange Box (team_fortress2)
         # 29 = Titanfall
         # 37 = Titanfall2
+        # 47 = Apex Legends
         self.mod = mod
-        print(f"BSP file format version {self.bsp_version}")
-        #rBSP map revision is before headers, VBSP is after
+        print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
+        # rBSP map revision is before headers, VBSP is after
         file.read() # move cursor to end of file
         self.bytesize = file.tell()
 
@@ -78,7 +81,8 @@ class bsp():
         self.lump_map = {}
         start_time = time.time()
         for ID in self.mod.LUMP:
-            lump_filename = f"{self.filename}.{ID.value:04x}.bsp_lump" # rBSP style .bsp_lump naming convention
+            lump_filename = f"{self.filename}.{ID.value:04x}.bsp_lump"
+            # ^ rBSP .bsp_lump naming convention
             if lump_files == True and lump_filename in self.associated_files:
                 # vBSP lumpfiles have headers, rBSP lumpfiles are headerless
                 # mp_drydock only has 72 bsp_lump files
@@ -178,7 +182,7 @@ class bsp():
 
         file.close()
         unpack_time = time.time() - start_time
-        print(f"Imported {self.filename} in {unpack_time:.2f} seconds")
+        print(f"Loaded  {self.filename} in {unpack_time:.2f} seconds")
 
     def export(self, outfile):
         """Expects outfile to be a file with write bytes capability"""
@@ -190,17 +194,17 @@ class bsp():
 ##        length = 0
 ##        # CONVERT INTERNAL LUMPS TO RAW LUMPS
 ##        for LUMP in self.mod.LUMP:
+##            # special lumps:
+##            #  - ENTITIES
+##            #  - GAME_LUMP
+##            #  - SURF_EDGES
+##            #  - VISIBILITY
 ##            if hasattr(self, f"RAW_{LUMP}"):
 ##                continue
 ##            elif hasattr(self, LUMP):
 ##                lump_format = self.mod.lump_classes[LUMP]._format
 ##                pack_lump = lambda c: struct.pack(lump_format, *c.flat())
 ##                setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
-##            # special lumps:
-##            #  - ENTITIES
-##            #  - GAME_LUMP
-##            #  - SURF_EDGES
-##            #  - VISIBILITY
 ##            # seek lump header
 ##            outfile.write(offset.to_bytes(4, "little"))
 ##            length = len(getattr(self, ID.name, "RAW_" + ID.name))
