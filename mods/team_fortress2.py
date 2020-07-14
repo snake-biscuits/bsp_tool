@@ -209,11 +209,31 @@ def vertices_of_face(bsp, face_index):
     face = bsp.FACES[face_index]
     verts, uvs, uv2s = [], [], []
     first_edge = face.first_edge
+    edges = []
     for surfedge in bsp.SURFEDGES[first_edge:first_edge + face.num_edges]:
-        edge = bsp.EDGES[surfedge] if surfedge >= 0 else bsp.EDGES[-surfedge][::-1]
-        # ^ is a surfedge is negative, the edge direction is reversed
-        verts.extend([bsp.VERTICES[i] for i in edge])
-    verts = verts[::2] # edges likely aren't this simple
+        if surfedge >= 0: # index is positive
+            edge = bsp.EDGES[surfedge]
+        else: # index is negatice
+            edge = bsp.EDGES[-surfedge][::-1] # reverse
+        edges.append(edge)
+    verts = [bsp.VERTICES[e[0]] for e in edges]
+    # t-junction / abnormal faces study
+    if {verts.count(i) for i in verts} != {1}:
+        print(f"Face #{face_index} has interesting edges (t-junction?):")
+        print(edges)
+        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
+        # ^ the first point on each edge is the last of the previous edge
+        if not all(loops): # such a case has yet to be found
+            print(loops)
+        repeats = [i for i, v in enumerate(verts) if verts.count(v) != 1]
+        if len(repeats) == 2:
+            index_a, index_b = repeats
+            if index_b - index_a == 2:
+                # edge goes out to one point and doubles back; delete it
+                verts.pop(index_a + 1)
+                verts.pop(index_a + 1)
+    # end study
+    # vector --> uv calculation discovered here:
     # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
     # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
     tex_info = bsp.TEXINFO[face.tex_info]

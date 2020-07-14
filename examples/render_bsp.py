@@ -231,26 +231,27 @@ def main(width, height, bsp):
 if __name__ == "__main__":
     bsps = []
     
-##    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
+    folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
 ##    filename = "cp_cloak.bsp"
-    folder, filename = "../maps/", "pl_upward.bsp"
+    filename = "cp_coldfront.bsp"
+##    folder, filename = "../maps/", "pl_upward.bsp"
     bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
 
-    folder = "E:/Mod/Titanfall2/"
-##    mapname = "mp_colony02"
-##    mapname = "mp_crashsite3"
-    mapname = "mp_drydock"
-##    mapname = "mp_glitch"
-##    mapname = "mp_lf_uma"
-##    mapname = "mp_relic02"
-    filename = f"{mapname}/maps/{mapname}.bsp"
-    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.titanfall2))
-
-    folder = "E:/Mod/ApexLegends/maps/"
-##    filename = "mp_rr_canyonlands_staging.bsp"
-##    filename = "mp_rr_canyonlands_mu1_night.bsp"
-    filename = "mp_rr_canyonlands_mu2.bsp"
-    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.apex_legends))
+##    folder = "E:/Mod/Titanfall2/"
+####    mapname = "mp_colony02"
+####    mapname = "mp_crashsite3"
+##    mapname = "mp_drydock"
+####    mapname = "mp_glitch"
+####    mapname = "mp_lf_uma"
+####    mapname = "mp_relic02"
+##    filename = f"{mapname}/maps/{mapname}.bsp"
+##    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.titanfall2))
+##
+##    folder = "E:/Mod/ApexLegends/maps/"
+####    filename = "mp_rr_canyonlands_staging.bsp"
+####    filename = "mp_rr_canyonlands_mu1_night.bsp"
+##    filename = "mp_rr_canyonlands_mu2.bsp"
+##    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.apex_legends))
 
     width, height = 1280, 720
     for bsp in bsps:
