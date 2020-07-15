@@ -59,10 +59,10 @@ def main(width, height, bsp):
                 vertices.extend(face_vertices)
             else:
                 face_vertices = bsp.vertices_of_displacement(face_index)
-                vertices.extend(face_vertices)
                 power = bsp.DISP_INFO[face.disp_info].power
                 disp_indices = bsp.mod.displacement_indices(power)
                 indices.extend([len(vertices) + i for i in disp_indices])
+                vertices.extend(face_vertices)
         vertices = list(itertools.chain(*[itertools.chain(*v) for v in vertices]))
     elif bsp.bsp_version >= 37: # Titanfall 2 & Apex Legends MESHES
         vertices = []
