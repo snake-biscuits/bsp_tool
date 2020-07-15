@@ -48,27 +48,27 @@ def main(width, height, bsp):
         vertices = []
         indices = []
         for face_index, face in enumerate(bsp.FACES):
-##            tex_info = bsp.TEXINFO[face.tex_info]
-##            tex_data = bsp.TEXDATA[tex_info.tex_data]
-##            texture_name = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
-##            if "TRIGGER" in texture_name:
-##                continue
-            huh = face.first_edge
-            heh = bsp.SURFEDGES[huh : (huh + face.num_edges)]
-            ugh = [bsp.EDGES[ass][0] if ass >= 0 else bsp.EDGES[-ass][1] for ass in heh][::2]
-            oof = {ugh.count(wha) for wha in ugh}
-            if oof == {1}:
+            tex_info = bsp.TEXINFO[face.tex_info]
+            tex_data = bsp.TEXDATA[tex_info.tex_data]
+            texture_name = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
+            if "TRIGGER" in texture_name:
                 continue
-##            if face.disp_info == -1:
-            face_vertices = bsp.vertices_of_face(face_index)
-            indices.extend(fan_range(len(vertices), len(face_vertices)))
-            vertices.extend(face_vertices)
-##            else:
-##                face_vertices = bsp.vertices_of_displacement(face_index)
-##                power = bsp.DISP_INFO[face.disp_info].power
-##                disp_indices = bsp.mod.displacement_indices(power)
-##                indices.extend([len(vertices) + i for i in disp_indices])
-##                vertices.extend(face_vertices)
+##            huh = face.first_edge
+##            heh = bsp.SURFEDGES[huh : (huh + face.num_edges)]
+##            ugh = [bsp.EDGES[ass][0] if ass >= 0 else bsp.EDGES[-ass][1] for ass in heh][::2]
+##            oof = {ugh.count(wha) for wha in ugh}
+##            if oof != {1}:
+##                continue
+            if face.disp_info == -1:
+                face_vertices = bsp.vertices_of_face(face_index)
+                indices.extend(fan_range(len(vertices), len(face_vertices)))
+                vertices.extend(face_vertices)
+            else:
+                face_vertices = bsp.vertices_of_displacement(face_index)
+                power = bsp.DISP_INFO[face.disp_info].power
+                disp_indices = bsp.mod.displacement_indices(power)
+                indices.extend([len(vertices) + i for i in disp_indices])
+                vertices.extend(face_vertices)
         vertices = list(itertools.chain(*[itertools.chain(*v) for v in vertices]))
     elif bsp.bsp_version >= 37: # Titanfall 2 & Apex Legends MESHES
         vertices = []
@@ -161,6 +161,21 @@ def main(width, height, bsp):
 ##        attrib_position = glGetAttribLocation(brush_shader, "MVP_matrix")
 ##        glUseProgram(0)
 
+    # tracing backwards from a path_track that touches nothing
+    # looking at train_watcher / cart for the start would be better
+    tracks = dict()
+    for entity in bsp.ENTITIES:
+        if entity["classname"] == "path_track":
+            if "target" not in entity:
+                start = entity
+                continue
+            next_track = entity["target"] # next path_track
+            tracks[next_track] = entity
+    payload_track = [start]
+    while len(payload_track) < len(tracks):
+        current_track = payload_track[-1]["targetname"] # name of path_track
+        payload_track.append(tracks[current_track]) # <<< tracing backwards
+
     # INPUT STATE
     keys = []
     mousepos = vector.vec2()
@@ -238,6 +253,18 @@ def main(width, height, bsp):
         glVertex(0, 0, 0)
         glVertex(0, 0, 128)
         glEnd()
+
+        glColor(1, 0, 1)
+        glBegin(GL_POINTS)
+        for entity in bsp.ENTITIES:
+            if "origin" not in entity:
+                continue
+            glVertex(*map(float, entity["origin"].split()))
+        glEnd()
+        glBegin(GL_LINE_STRIP)
+        for path_track in payload_track:
+            glVertex(*map(float, path_track["origin"].split()))
+        glEnd()
         glPopMatrix()
         SDL_GL_SwapWindow(window)
 
@@ -247,8 +274,8 @@ if __name__ == "__main__":
     
     folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
 ##    filename = "cp_cloak.bsp"
-    filename = "cp_coldfront.bsp"
-##    folder, filename = "../maps/", "pl_upward.bsp"
+##    filename = "cp_coldfront.bsp"
+    folder, filename = "../maps/", "pl_upward.bsp"
     bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
 
 ##    folder = "E:/Mod/Titanfall2/"
