@@ -211,7 +211,7 @@ def vertices_of_face(bsp, face_index):
     first_edge = face.first_edge
     edges = []
     positions = []
-    for surfedge in bsp.SURFEDGES[first_edge:first_edge + face.num_edges]:
+    for surfedge in bsp.SURFEDGES[first_edge : (first_edge + face.num_edges)]:
         if surfedge >= 0: # index is positive
             edge = bsp.EDGES[surfedge]
             positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
@@ -221,33 +221,7 @@ def vertices_of_face(bsp, face_index):
             positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
             # ^ utils/vrad/trace.cpp:635
         edges.append(edge)
-    positions = [bsp.VERTICES[e[0]] for e in edges]
-    if positions != [bsp.VERTICES[e[0]] for e in edges]:
-        print(edges)
-        print([bsp.VERTICES.index(P) for P in positions])
-##    # t-junction / abnormal faces study
-##    if {positions.count(i) for i in positions} != {1}:
-##        print(f"Face #{face_index} has interesting edges (t-junction?):")
-##        center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
-##        print(f"Area: {face.area:.3f} @ ({center:.3f})")
-##        print(edges)
-##        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
-##        # ^ the first point on each edge is the last of the previous edge
-##        if not all(loops): # such a case has yet to be found
-##            print(f"Face #{face_index} surfedges are broken:")
-##            print(loops)
-##        repeats = [i for i, P in enumerate(positions) if positions.count(P) != 1]
-##        if len(repeats) == 2:
-##            index_a, index_b = repeats
-##            if index_b - index_a == 2:
-##                # edge goes out to one point and doubles back; delete it
-##                positions.pop(index_a + 1)
-##                positions.pop(index_a + 1)
-##        else:
-##            print(f"Face #{face_index} has strange repeats:")
-##            print(positions)
-##            print(repeats)
-##    # end study
+    positions = t_junction_fixer(bsp, face, positions, edges)
     tex_info = bsp.TEXINFO[face.tex_info]
     tex_data = bsp.TEXDATA[tex_info.tex_data]
     texture = tex_info.texture
@@ -277,6 +251,44 @@ def vertices_of_face(bsp, face_index):
     normal = [bsp.PLANES[face.plane_num].normal] * len(positions) # X Y Z
     colour = [tex_data.reflectivity] * len(positions) # R G B
     return list(zip(positions, normal, uvs, uv2s, colour))
+
+def t_junction_fixer(bsp, face, positions, edges):
+    face_index = bsp.FACES.index(face)
+    first_edge = face.first_edge
+    if {positions.count(P) for P in positions} != {1}:
+        print(f"Face #{face_index} has interesting edges (t-junction?):")
+        print("\tAREA:", f"{face.area:.3f}")
+        center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
+        print("\tCENTER:", f"({center:.3f})")
+        print("\tSURFEDGES:", bsp.SURFEDGES[first_edge:first_edge + face.num_edges])
+        print("\tEDGES:", edges)
+        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
+        if not all(loops):
+            print("\tWARINNG! EDGES do not loop!")
+            print("\tLOOPS:", loops)
+        print("\tPOSITIONS:", [bsp.VERTICES.index(P) for P in positions])
+            
+        # PATCH
+        # -- if you see 1 index between 2 indentical indicies:
+        # -- compress the 3 indices down to just the first
+        repeats = [i for i, P in enumerate(positions) if positions.count(P) != 1]
+        if len(repeats) > 0:
+            print("\tREPEATS:", repeats)
+            print([bsp.VERTICES.index(P) for P in positions], "-->")
+        if len(repeats) == 2:
+            index_a, index_b = repeats
+            if index_b - index_a == 2:
+                # edge goes out to one point and doubles back; delete it
+                positions.pop(index_a + 1)
+                positions.pop(index_a + 1)
+            # what about Ts around the ends?
+            print([bsp.VERTICES.index(P) for P in positions])
+        else:
+            if repeats[1] == repeats[0] + 1 and repeats[1] == repeats[2] - 1:
+                positions.pop(repeats[1])
+                positions.pop(repeats[1])
+            print([bsp.VERTICES.index(P) for P in positions])
+    return positions
 
 def vertices_of_displacement(bsp, face_index):
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""

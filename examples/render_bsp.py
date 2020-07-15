@@ -33,7 +33,7 @@ def main(width, height, bsp):
     glContext = SDL_GL_CreateContext(window)
 
     glClearColor(.5, .5, .5, 0)
-    glEnable(GL_CULL_FACE)
+##    glEnable(GL_CULL_FACE)
     glEnable(GL_DEPTH_TEST)
     glFrontFace(GL_CW)
     glPointSize(4)
@@ -48,21 +48,27 @@ def main(width, height, bsp):
         vertices = []
         indices = []
         for face_index, face in enumerate(bsp.FACES):
-            tex_info = bsp.TEXINFO[face.tex_info]
-            tex_data = bsp.TEXDATA[tex_info.tex_data]
-            texture_name = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
-            if "TRIGGER" in texture_name:
+##            tex_info = bsp.TEXINFO[face.tex_info]
+##            tex_data = bsp.TEXDATA[tex_info.tex_data]
+##            texture_name = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
+##            if "TRIGGER" in texture_name:
+##                continue
+            huh = face.first_edge
+            heh = bsp.SURFEDGES[huh : (huh + face.num_edges)]
+            ugh = [bsp.EDGES[ass][0] if ass >= 0 else bsp.EDGES[-ass][1] for ass in heh][::2]
+            oof = {ugh.count(wha) for wha in ugh}
+            if oof == {1}:
                 continue
-            if face.disp_info == -1:
-                face_vertices = bsp.vertices_of_face(face_index)
-                indices.extend(fan_range(len(vertices), len(face_vertices)))
-                vertices.extend(face_vertices)
-            else:
-                face_vertices = bsp.vertices_of_displacement(face_index)
-                power = bsp.DISP_INFO[face.disp_info].power
-                disp_indices = bsp.mod.displacement_indices(power)
-                indices.extend([len(vertices) + i for i in disp_indices])
-                vertices.extend(face_vertices)
+##            if face.disp_info == -1:
+            face_vertices = bsp.vertices_of_face(face_index)
+            indices.extend(fan_range(len(vertices), len(face_vertices)))
+            vertices.extend(face_vertices)
+##            else:
+##                face_vertices = bsp.vertices_of_displacement(face_index)
+##                power = bsp.DISP_INFO[face.disp_info].power
+##                disp_indices = bsp.mod.displacement_indices(power)
+##                indices.extend([len(vertices) + i for i in disp_indices])
+##                vertices.extend(face_vertices)
         vertices = list(itertools.chain(*[itertools.chain(*v) for v in vertices]))
     elif bsp.bsp_version >= 37: # Titanfall 2 & Apex Legends MESHES
         vertices = []
@@ -241,9 +247,8 @@ if __name__ == "__main__":
     
     folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
 ##    filename = "cp_cloak.bsp"
-##    filename = "cp_coldfront.bsp"
-##    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
-    folder, filename = "../maps/", "pl_upward.bsp"
+    filename = "cp_coldfront.bsp"
+##    folder, filename = "../maps/", "pl_upward.bsp"
     bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
 
 ##    folder = "E:/Mod/Titanfall2/"
