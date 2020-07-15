@@ -210,66 +210,82 @@ def vertices_of_face(bsp, face_index):
     verts, uvs, uv2s = [], [], []
     first_edge = face.first_edge
     edges = []
+    positions = []
     for surfedge in bsp.SURFEDGES[first_edge:first_edge + face.num_edges]:
         if surfedge >= 0: # index is positive
             edge = bsp.EDGES[surfedge]
+            positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
+            # ^ utils/vrad/trace.cpp:637
         else: # index is negatice
             edge = bsp.EDGES[-surfedge][::-1] # reverse
+            positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
+            # ^ utils/vrad/trace.cpp:635
         edges.append(edge)
-    verts = [bsp.VERTICES[e[0]] for e in edges]
-    # t-junction / abnormal faces study
-    if {verts.count(i) for i in verts} != {1}:
-        print(f"Face #{face_index} has interesting edges (t-junction?):")
+    positions = [bsp.VERTICES[e[0]] for e in edges]
+    if positions != [bsp.VERTICES[e[0]] for e in edges]:
         print(edges)
-        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
-        # ^ the first point on each edge is the last of the previous edge
-        if not all(loops): # such a case has yet to be found
-            print(loops)
-        repeats = [i for i, v in enumerate(verts) if verts.count(v) != 1]
-        if len(repeats) == 2:
-            index_a, index_b = repeats
-            if index_b - index_a == 2:
-                # edge goes out to one point and doubles back; delete it
-                verts.pop(index_a + 1)
-                verts.pop(index_a + 1)
-    # end study
-    # vector --> uv calculation discovered here:
-    # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
-    # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+        print([bsp.VERTICES.index(P) for P in positions])
+##    # t-junction / abnormal faces study
+##    if {positions.count(i) for i in positions} != {1}:
+##        print(f"Face #{face_index} has interesting edges (t-junction?):")
+##        center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
+##        print(f"Area: {face.area:.3f} @ ({center:.3f})")
+##        print(edges)
+##        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
+##        # ^ the first point on each edge is the last of the previous edge
+##        if not all(loops): # such a case has yet to be found
+##            print(f"Face #{face_index} surfedges are broken:")
+##            print(loops)
+##        repeats = [i for i, P in enumerate(positions) if positions.count(P) != 1]
+##        if len(repeats) == 2:
+##            index_a, index_b = repeats
+##            if index_b - index_a == 2:
+##                # edge goes out to one point and doubles back; delete it
+##                positions.pop(index_a + 1)
+##                positions.pop(index_a + 1)
+##        else:
+##            print(f"Face #{face_index} has strange repeats:")
+##            print(positions)
+##            print(repeats)
+##    # end study
     tex_info = bsp.TEXINFO[face.tex_info]
     tex_data = bsp.TEXDATA[tex_info.tex_data]
     texture = tex_info.texture
     lightmap = tex_info.lightmap
     normal = lambda P: (P.x, P.y, P.z) # return the normal of plane (P)
-    for vert in verts:
-        uv = [vector.dot(vert, normal(texture.s)) + texture.s.offset,
-              vector.dot(vert, normal(texture.t)) + texture.t.offset]
+    # vector --> uv calculation discovered here:
+    # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
+    # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+    for P in positions:
+        # texture UV
+        uv = [vector.dot(P, normal(texture.s)) + texture.s.offset,
+              vector.dot(P, normal(texture.t)) + texture.t.offset]
         uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
         uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
         uvs.append(vector.vec2(*uv))
-        uv2 = [vector.dot(vert, normal(lightmap.s)) + lightmap.s.offset,
-               vector.dot(vert, normal(lightmap.t)) + lightmap.t.offset]
-        uv2[0] -= face.lightmap_texture_mins_in_luxels.s
-        uv2[1] -= face.lightmap_texture_mins_in_luxels.t
-        try:
+        # lightmap UV
+        uv2 = [vector.dot(P, normal(lightmap.s)) + lightmap.s.offset,
+               vector.dot(P, normal(lightmap.t)) + lightmap.t.offset]
+        if any([(face.lightmap_texture_size_in_luxels.s == 0), (face.lightmap_texture_size_in_luxels.t == 0)]):
+            uv2 = [0, 0]
+        else:
+            uv2[0] -= face.lightmap_texture_mins_in_luxels.s
+            uv2[1] -= face.lightmap_texture_mins_in_luxels.t
             uv2[0] /= face.lightmap_texture_size_in_luxels.s
             uv2[1] /= face.lightmap_texture_size_in_luxels.t
-        except ZeroDivisionError:
-            uv2 = [0, 0]
         uv2s.append(uv2)
-    vert_count = len(verts)
-    normal = [bsp.PLANES[face.plane_num].normal] * vert_count # X Y Z
-    colour = [tex_data.reflectivity] * vert_count # R G B
-    return list(zip(verts, normal, uvs, uv2s, colour))
+    normal = [bsp.PLANES[face.plane_num].normal] * len(positions) # X Y Z
+    colour = [tex_data.reflectivity] * len(positions) # R G B
+    return list(zip(positions, normal, uvs, uv2s, colour))
 
 def vertices_of_displacement(bsp, face_index):
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
     if face.disp_info == -1:
-        raise RuntimeError("Face is not a displacement!")
+        raise RuntimeError(f"Face #{face_index} is not a displacement!")
     base_vertices = bsp.vertices_of_face(face_index)
     if len(base_vertices) != 4:
-        raise RuntimeError("Face does not have 4 corners (probably t-junctions)")
+        raise RuntimeError(f"Face #{face_index} does not have 4 corners (probably t-junctions)")
     disp_info = bsp.DISP_INFO[face.disp_info]
     start = vector.vec3(disp_info.start_position)
     base_quad = [vector.vec3(*P) for P, N, uv, uv2, rgb in base_vertices]

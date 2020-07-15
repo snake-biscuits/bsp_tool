@@ -42,9 +42,17 @@ def main(width, height, bsp):
     
     conversion_start = time.time()
     if bsp.bsp_version == 20: # Team Fortress 2 FACES
+        # TODO: indentify materials & location in buffer
+        # -- this can allow for transparent trigger brushes
+        # -- alternatively, identify faces from the model lump
         vertices = []
         indices = []
         for face_index, face in enumerate(bsp.FACES):
+            tex_info = bsp.TEXINFO[face.tex_info]
+            tex_data = bsp.TEXDATA[tex_info.tex_data]
+            texture_name = bsp.TEXDATA_STRING_DATA[tex_data.tex_data_string_index]
+            if "TRIGGER" in texture_name:
+                continue
             if face.disp_info == -1:
                 face_vertices = bsp.vertices_of_face(face_index)
                 indices.extend(fan_range(len(vertices), len(face_vertices)))
@@ -233,8 +241,9 @@ if __name__ == "__main__":
     
     folder = "D:/SteamLibrary/steamapps/common/Team Fortress 2/tf/maps/"
 ##    filename = "cp_cloak.bsp"
-    filename = "cp_coldfront.bsp"
-##    folder, filename = "../maps/", "pl_upward.bsp"
+##    filename = "cp_coldfront.bsp"
+##    bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
+    folder, filename = "../maps/", "pl_upward.bsp"
     bsps.append(bsp_tool.bsp(folder + filename, bsp_tool.mods.team_fortress2))
 
 ##    folder = "E:/Mod/Titanfall2/"
