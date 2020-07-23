@@ -12,7 +12,7 @@ from utils import camera
 from utils import vector
 
 
-camera.sensitivity = .25
+camera.sensitivity = .5
 
 
 def main(width, height):
@@ -36,19 +36,9 @@ def main(width, height):
     vmt_map = dict() # {vmt_filename: vtf_filename}
     
     bsp_skyname = "sky_hydro_01" # worldspawn (first entity in LUMP_ENTITIES)
-    tails = ["dn", "up", "rt", "lf", "ft", "bk"] # Z-up
-    cubemap_faces = ["POSITIVE_Y", "NEGATIVE_Y", "POSITIVE_Z", "NEGATIVE_Z", "POSITIVE_X", "NEGATIVE_X"]
-    # {"dn": "POSITIVE_Y", "up": "NEGATIVE_Y"} etc.
-    # TODO: rotate textures for some faces
-    # GL_TEXTURE_CUBE_MAP_POSITIVE_X 	Right	rt / _hdrrt
-    # GL_TEXTURE_CUBE_MAP_NEGATIVE_X 	Left	lf / _hdrlf
-    # GL_TEXTURE_CUBE_MAP_POSITIVE_Y 	Top	up / _hdrup
-    # GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 	Bottom	dn / _hdrdn
-    # GL_TEXTURE_CUBE_MAP_POSITIVE_Z 	Back	bk / _hdrft
-    # GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 	Front	ft / _hdrft
-
     sky_scale = 512
     sky_textures = dict()
+    tails = ["dn", "up", "rt", "lf", "ft", "bk"] # Z-up
     for t in tails:
         vmt_filename = f"materials/skybox/{bsp_skyname}{t}.vmt"
         # PARSE VMT HERE TO FIND ACTUAL VTF & MODIFIERS
@@ -65,9 +55,15 @@ def main(width, height):
         sky_textures[vmt_filename] = filename
     
     # use already loaded textures
-    texture_SKYBOX = glGenTextures(1)
-    glActiveTexture(GL_TEXTURE0)
-    glBindTexture(GL_TEXTURE_CUBE_MAP, texture_SKYBOX)
+    cubemap_faces = ["POSITIVE_Y", "NEGATIVE_Y", "POSITIVE_Z", "NEGATIVE_Z", "POSITIVE_X", "NEGATIVE_X"]
+    # {"dn": "POSITIVE_Y", "up": "NEGATIVE_Y"} etc.
+    # TODO: rotate textures for some faces
+    # GL_TEXTURE_CUBE_MAP_POSITIVE_X 	Right	rt / _hdrrt
+    # GL_TEXTURE_CUBE_MAP_NEGATIVE_X 	Left	lf / _hdrlf
+    # GL_TEXTURE_CUBE_MAP_POSITIVE_Y 	Top	up / _hdrup
+    # GL_TEXTURE_CUBE_MAP_NEGATIVE_Y 	Bottom	dn / _hdrdn
+    # GL_TEXTURE_CUBE_MAP_POSITIVE_Z 	Back	bk / _hdrft
+    # GL_TEXTURE_CUBE_MAP_NEGATIVE_Z 	Front	ft / _hdrft
     for tex, face in zip(sky_textures, cubemap_faces):
         tex = loaded_textures[vmt_map[tex]]
         target = eval(f"GL_TEXTURE_CUBE_MAP_{face}")
