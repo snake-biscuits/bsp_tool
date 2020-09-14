@@ -1,12 +1,3 @@
-# source_sdk_2013/mp/src/public/bspfile.h
-# source_sdk_2013/mp/src/utils/vbsp/writebsp.cpp
-# source_sdk_2013/mp/src/utils/vbsp/map.cpp
-#
-# LUMP_PAKFILE is never compressed. ? really ?
-# LUMP_GAME_LUMP is compressed in individual segments.
-# -- The compressed size of a game lump can be determined by subtracting the
-# -- current game lump's offset with that of the next entry. For this reason,
-# -- the last game lump is always an empty dummy which only contains the offset.
 import collections
 import copy
 import enum
@@ -17,7 +8,7 @@ import re
 import struct
 import time
 
-import mods
+from . import mods
 
 lump_header = collections.namedtuple("lump_header",
                                     ["offset", "length", "version", "fourCC"])
@@ -157,6 +148,11 @@ class bsp():
         self.ENTITIES = entities
         del self.RAW_ENTITIES, entities
         #-- GAME LUMP --#
+        # LUMP_GAME_LUMP is compressed in individual segments.
+        # The compressed size of a game lump can be determined by subtracting
+        # the current game lump's offset with that of the next entry.
+        # For this reason, the last game lump is always an empty dummy which
+        # only contains the offset.
         ...
         #-- SURF_EDGES --#
         if hasattr(self, "RAW_SURFEDGES"):
