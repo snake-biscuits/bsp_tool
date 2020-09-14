@@ -1,17 +1,16 @@
 import collections
-import copy
-import enum
-import itertools
 import lzma
 import os
 import re
 import struct
 import time
+import types
 
 from . import mods
 
+
 lump_header = collections.namedtuple("lump_header",
-                                    ["offset", "length", "version", "fourCC"])
+                    ["offset", "length", "version", "fourCC"])
 
 def read_lump(file, header_address):
     file.seek(header_address)
@@ -61,6 +60,14 @@ class bsp():
                 mod = mods.by_version[self.bsp_version]
             except:
                 raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
+        elif isinstance(game, types.ModuleType):
+            mod = game # "game" is a python script
+            # this script is expected to contain:
+            # - bsp_version
+            # - LUMP(enum.Enum) - NAME_OF_LUMP = header_number
+            # - lump_header_address - {NAME_OF_LUMP: header_offset_into_file}
+            # - methods - {"function": function}
+            # - lump_classes - {"NAME_OF_LUMP": lump_class}  
         else:
             try:
                 mod = mods.by_name[game]
