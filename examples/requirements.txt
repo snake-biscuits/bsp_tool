@@ -1,4 +1,0 @@
-numpy==1.18.3
-PyOpenGL==3.1.5
-PySDL2==0.9.7
-pysdl2-dll==2.0.12
