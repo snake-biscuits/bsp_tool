@@ -6,7 +6,7 @@ with open("README.md", "r") as readme:
 
 setuptools.setup(
     name="bsp_tool",
-    packages=["bsp_tool"],
+    packages=setuptools.find_packages(),
     version="0.1.0",
     license="gpl-3.0",
     description="A library for .bsp file analysis & modification",
