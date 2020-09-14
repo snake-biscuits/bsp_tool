@@ -13,7 +13,7 @@ setuptools.setup(
     author="Jared Ketterer",
     author_email="haveanotherbiscuit@gmail.com",
     long_description=readme_text,
-    long_description="text/markdown",
+    long_description_content_type="text/markdown",
     url="https://github.com/snake-biscuits/bsp_tool",
     download_url="https://github.com/snake-biscuits/bsp_tool/archive/v0.1.0.tar.gz",
     keywords=["source", "bsp", "valve"],
