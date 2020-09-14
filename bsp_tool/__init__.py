@@ -37,31 +37,37 @@ def read_lump(file, header_address):
 
 
 class bsp():
-    def __init__(self, filename, mod=mods.team_fortress2, lump_files=False):
-        # LOOKING AT FILES
+    def __init__(self, filename, game="unknown", lump_files=False):
+        # NOTE FILES RELATED TO THIS .BSP
         if not filename.endswith(".bsp"):
-            filename += ".bsp" # for lazy terminal scripts
-        filename.replace("\\", "/")
-        split_filename = filename.rpartition("/")
-        self.filename = split_filename[-1] # with .bsp extension
-        self.filepath = f"{split_filename[0]}/"
-        local_files = os.listdir(self.filepath)
-        self.associated_files = [f for f in local_files if f.startswith(self.filename[:-3])]
-        file = open(filename, "rb")
+            filename += ".bsp"
+        self.filename = os.path.basename(filename)
+        self.folder = os.path.dirname(filename)
+        local_files = os.listdir(self.folder)
+        is_related = lambda n: n.startswith(os.path.splitext(self.filename)[0])
+        self.associated_files = [n for n in local_files if is_related(n)]
         # BEGIN READING .BSP FILE
+        file = open(filename, "rb")
         file_magic = file.read(4)
         if file_magic == b"rBSP": # rBSP = Respawn BSP (Titanfall/Apex Legends)
             lump_files = True # most lumps are external
         elif file_magic not in (b"VBSP", b"rBSP"): 
             # note that on consoles file_magic is big endian
             raise RuntimeError(f"{file} is not a .bsp!")
+        # GET SPECIFIC .BSP FORMAT
         self.bsp_version = int.from_bytes(file.read(4), "little")
-        # mod should be calculated HERE from bsp_version
-        # 20 = Orange Box (team_fortress2)
-        # 29 = Titanfall
-        # 37 = Titanfall2
-        # 47 = Apex Legends
+        if game.lower() == "unknown": # guess .bsp format from version
+            try:
+                mod = mods.by_version[self.bsp_version]
+            except:
+                raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
+        else:
+            try:
+                mod = mods.by_name[game]
+            except KeyError:
+                raise NotImplementedError(f"{game} .bsp is not supported")
         self.mod = mod
+        # ATTACH METHODS DEFINED BY IN self.mod
         class_method = lambda function: lambda *args: function(self, *args)
         for method_name, method in mod.methods.items():
             setattr(self, method_name, class_method(method))
@@ -81,7 +87,7 @@ class bsp():
                 # vBSP lumpfiles have headers, rBSP lumpfiles are headerless
                 # mp_drydock only has 72 bsp_lump files
                 # however other lumps within mp_drydock.bsp itself contain data
-                data = open(f"{self.filepath}{lump_filename}", "rb").read()
+                data = open(f"{os.path.join(self.folder, lump_filename)}", "rb").read()
 ##                self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
             else:
                 if lump_files == True and file_magic != b'rBSP':
@@ -115,7 +121,7 @@ class bsp():
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
 ##                raise exc
 
-        if self.log != []: # if errors occured, print to console
+        if self.log != []:
             print(*self.log, sep="\n")
 
         ### SPECIAL LUMPS ###
@@ -183,7 +189,7 @@ class bsp():
 
     def export(self, outfile):
         """Expects outfile to be a file with write bytes capability"""
-        raise NotImplementedError("Exporting not yet possible")
+        raise NotImplementedError()
 ##        # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
 ##        outfile.write(b"VBSP")
 ##        outfile.write((20).to_bytes(4, "little")) # Engine version
@@ -211,7 +217,3 @@ class bsp():
 ##            # seek lump start in file
 ##            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
 ##        outfile.write(b"0001") # map revision
-
-
-if __name__ == "__main__":
-    test = bsp("maps/pl_upward.bsp")
