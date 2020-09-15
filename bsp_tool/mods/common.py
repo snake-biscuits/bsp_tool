@@ -77,19 +77,3 @@ class mapped_array:
         for attr, value in zip(self._mapping, self):
             out.append(f"{attr}: {value}")
         return f"<mapped_array ({', '.join(out)})>"
-
-
-if __name__ == "__main__":
-    # class 'base' tests
-    class example(base):
-        __slots__ = ["id", "position", "data"]
-        _format = "i3f4i"
-        _arrays = {"position": [*"xyz"], "data": 4}
-    
-    e = example((0, .1, .2, .3, 4, 5, 6, 7))
-    # asserts etc.
-
-    # class mapped_array tests
-    ma_1 = mapped_array([0, 1, 2])
-    ma_2 = mapped_array([3, 4, 5], ['a', 'b', 'c'])
-    ma_3 = mapped_array([6, 7, 8, 9], {"D": ['i', 'ii'], "E": ['iii' ,' iv']})
