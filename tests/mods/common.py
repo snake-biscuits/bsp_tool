@@ -1,13 +1,13 @@
 import struct
 import unittest
 
-import bsp_tool.mods.common
+from bsp_tool.mods import common
 
 
 class TestBaseMethods(unittest.TestCase):
     
     def setUp(self):
-        class Example(base):
+        class Example(common.base):
             __slots__ = ["id", "position", "data"]
             _format = "i3f4i"
             _arrays = {"position": [*"xyz"], "data": 4}
@@ -27,10 +27,10 @@ class TestBaseMethods(unittest.TestCase):
         self.assertEqual(raw_struct, recreated_struct)
 
 
-class TestMappedArrayMethods(untittest.TestCase):
+class TestMappedArrayMethods(unittest.TestCase):
 
     def setUp(self):
-        self.sample_A = mapped_array([0, 1, 2])
-        self.sample_B = mapped_array([3, 4, 5], ['a', 'b', 'c'])
-        self.sample_C = mapped_array([6, 7, 8, 9], {"D": ['i', 'ii'],
-                                                    "E": ['iii' ,' iv']})
+        self.sample_A = common.mapped_array([0, 1, 2])
+        self.sample_B = common.mapped_array([3, 4, 5], ['a', 'b', 'c'])
+        self.sample_C = common.mapped_array([6, 7, 8, 9], {"D": ['i', 'ii'],
+                                                           "E": ['iii' ,' iv']})

@@ -16,7 +16,7 @@ def test_unpack(lump, into):
             out.append(lump[i:i+chunk_length])
         # ^ if "lump_size" cannot be equally divided the tail is lost
     elif isinstance(into, (common.base, common.mapped_array)):
-        out = struct.iter_unpack(lump_class._format, lump)
+        out = struct.iter_unpack(into._format, lump)
     else:
         raise NotImplemented("into must be type <int> or subclass of <common.base> or <common.mapped_array>")
     return out
@@ -40,7 +40,7 @@ def export_pointcloud(bsp, obj_file_name):
     with open(obj_file_name, "w") as obj_file:
         obj_file.write(f"# {bsp.filename}.bsp\n")
         obj_file.write("# extracted with bsp_tool\n")
-        obj_file.write("\n".join(f"v {x} {y} {z}" for x, y, x in bsp.VERTICES))
+        obj_file.write("\n".join(f"v {x} {y} {z}" for x, y, z in bsp.VERTICES))
 
 
 def analyse(array, *indices):
