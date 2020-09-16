@@ -12,7 +12,8 @@ bsp_tool needs to know each lump is constructed & this varies from game to game
 
 At present, not every lump's exact format is understood  
 When a lump of unknown format is loaded, it becomes `RAW_LUMPNAME` and the raw data is preserved  
-By default, bsp_tool assumes .bsps are version 20 (Team Fortress 2)  
-If this assumption is found to be false, bsp_tool will try other mods  
-The user can also specify what mod bsp_tool is to expect  
- 
+
+The user can specify what game bsp_tool is to expect  
+If no game is specified, bsp_tool will guess based on the bsp version  
+Be aware that some games share a version, but have different lump formats  
+To know which format bsp_tool will default to, see `mods/__init__.py`  

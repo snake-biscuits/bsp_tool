@@ -19,10 +19,9 @@ by_name = {
     }
 
 by_version = {
-    20: team_fortress2, # Orange Box
-    # ^ for now all version 20 .bsps are assumed to be from TF2
-    # - including vindictus .bsps
-    # 29: titanfall,
-    titanfall2.bsp_version: titanfall2,
-    apex_legends.bsp_version: apex_legends
+    team_fortress2.bsp_version: team_fortress2,  # 20 (Orange Box)
+    # vindictus is the same version as tf2,
+    # but multiple games use a similar format to tf2
+    titanfall2.bsp_version: titanfall2,  # 37
+    apex_legends.bsp_version: apex_legends  # 47
     }
