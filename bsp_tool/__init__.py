@@ -1,4 +1,4 @@
-"""A library for .bsp file analysis & modification """
+"""A library for .bsp file analysis & modification"""
 import collections
 import lzma
 import os
