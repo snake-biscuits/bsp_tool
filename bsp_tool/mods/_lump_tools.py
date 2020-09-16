@@ -5,7 +5,7 @@ from . import common
 
 
 def test_unpack(lump, into):
-    """unpack lump (bytesarray)
+    """Unpack lump (bytesarray)
     into a list of size into (int) or type into (common.base / mapped_array)"""
     lump_size = len(lump)
     out = []
@@ -21,8 +21,9 @@ def test_unpack(lump, into):
         raise NotImplemented("into must be type <int> or subclass of <common.base> or <common.mapped_array>")
     return out
 
-# spotting patterns in RAW_ lumps
+
 def denominators_of(x, start=8, step=4): # multiples of 4 only
+    """For guessing lump struct sizes"""
     out = set()
     for i in range(start, math.ceil(math.sqrt(x)) + 1, step):
         if x % i == 0:
@@ -33,12 +34,14 @@ def denominators_of(x, start=8, step=4): # multiples of 4 only
     else:
         return sorted(out)
 
-# export vertices to .obj file
-def export_pointcloud(bsp, obj_file_name)
+
+def export_pointcloud(bsp, obj_file_name):
+    """bsp.VERTICES --> .obj file"""
     with open(obj_file_name, "w") as obj_file:
         obj_file.write(f"# {bsp.filename}.bsp\n")
         obj_file.write("# extracted with bsp_tool\n")
         obj_file.write("\n".join(f"v {x} {y} {z}" for x, y, x in bsp.VERTICES))
+
 
 def analyse(array, *indices):
     """Take a split lump and anylyse multiple instances side-by-side"""
@@ -53,6 +56,7 @@ def analyse(array, *indices):
 
 
 def hex_breakdown(stream):
+    """Imagine a hex editor"""
     int_stream = struct.unpack(f"{len(stream)}B", stream)
     print(" ".join(f"{i:02x}" for i in int_stream))
 

@@ -15,10 +15,10 @@ class TestBaseMethods(unittest.TestCase):
 
     def test_flat(self):
         # test_unpack
-        raw_struct = b"\x00\x00\x00\x00" "\x00\x00\x00\x01" \
-                      "\x00\x00\x00\x02" "\x00\x00\x00\x03" \
-                      "\x00\x00\x00\x04" "\x00\x00\x00\x05" \
-                      "\x00\x00\x00\x06" "\x00\x00\x00\x07"
+        raw_struct = b"\x00\x00\x00\x00" b"\x00\x00\x00\x01" \
+                     b"\x00\x00\x00\x02" b"\x00\x00\x00\x03" \
+                     b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
+                     b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
         raw_tuple = struct.unpack(self.Example._format, raw_struct)
         test_struct = self.Example(raw_tuple)
         # test_pack
