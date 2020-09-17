@@ -203,30 +203,30 @@ class bsp():
     def export(self, outfile):
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
-##        # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
-##        outfile.write(b"VBSP")
-##        outfile.write((20).to_bytes(4, "little")) # Engine version
-##        offset = 0
-##        length = 0
-##        # CONVERT INTERNAL LUMPS TO RAW LUMPS
-##        for LUMP in self.mod.LUMP:
-##            # special lumps:
-##            #  - ENTITIES
-##            #  - GAME_LUMP
-##            #  - SURF_EDGES
-##            #  - VISIBILITY
-##            if hasattr(self, f"RAW_{LUMP}"):
-##                continue
-##            elif hasattr(self, LUMP):
-##                lump_format = self.mod.lump_classes[LUMP]._format
-##                pack_lump = lambda c: struct.pack(lump_format, *c.flat())
-##                setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
-##            # seek lump header
-##            outfile.write(offset.to_bytes(4, "little"))
-##            length = len(getattr(self, ID.name, "RAW_" + ID.name))
-##            offset += length
-##            outfile.write(b"0000") # lump version (actually important)
-##            outfile.write(b"0000") # lump fourCC (only for compressed)
-##            # seek lump start in file
-##            outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
-##        outfile.write(b"0001") # map revision
+        # # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
+        # outfile.write(b"VBSP")
+        # outfile.write((20).to_bytes(4, "little")) # Engine version
+        # offset = 0
+        # length = 0
+        # # CONVERT INTERNAL LUMPS TO RAW LUMPS
+        # for LUMP in self.mod.LUMP:
+        #     # special lumps:
+        #     #  - ENTITIES
+        #     #  - GAME_LUMP
+        #     #  - SURF_EDGES
+        #     #  - VISIBILITY
+        #     if hasattr(self, f"RAW_{LUMP}"):
+        #         continue
+        #     elif hasattr(self, LUMP):
+        #         lump_format = self.mod.lump_classes[LUMP]._format
+        #         pack_lump = lambda c: struct.pack(lump_format, *c.flat())
+        #         setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
+        #     # seek lump header
+        #     outfile.write(offset.to_bytes(4, "little"))
+        #     length = len(getattr(self, ID.name, "RAW_" + ID.name))
+        #     offset += length
+        #     outfile.write(b"0000") # lump version (actually important)
+        #     outfile.write(b"0000") # lump fourCC (only for compressed)
+        #     # seek lump start in file
+        #     outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
+        # outfile.write(b"0001") # map revision
