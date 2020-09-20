@@ -2,13 +2,16 @@ class base:
     __slots__ = []
     _format = ""
     _arrays = {}
-    def __init__(self, _tuple): # tuple from: struct.unpack(format, stream)
+
+    def __init__(self, _tuple):
+        # _tuple comes from: struct.unpack(self._format, bytes)
+        # usually from struct.iter_unpack(self._format, LUMP)
         i = 0
         for attr in self.__slots__:
             if attr in self._arrays:
                 array_map = self._arrays[attr]
                 if isinstance(array_map, dict):
-                    length = 0 # total size of all parts of the dict
+                    length = 0  # total size of all parts of the dict
                     for part in array_map.values():
                         if isinstance(part, list):
                             length += len(part)
@@ -20,10 +23,10 @@ class base:
                     length = len(array_map)
                     array = _tuple[i:i + length]
                     value = mapped_array(array, mapping=array_map)
-                else: # integer denoting array length
+                else:  # integer denoting array length
                     length = array_map
                     value = _tuple[i:i + length]
-            else: # this attribute is of length 1
+            else:  # this attribute is of length 1
                 value = _tuple[i]
                 length = 1
             setattr(self, attr, value)
@@ -49,6 +52,7 @@ class base:
 class mapped_array:
     """quick & dirty namespace (object exploited for it's dictionary)"""
     _mapping = [*"xyz"]
+
     def __init__(self, array, mapping=_mapping):
         if isinstance(mapping, dict):
             self._mapping = list(mapping.keys())
@@ -58,7 +62,7 @@ class mapped_array:
                 segment_array = mapped_array(segment, mapping=segment_map)
                 setattr(self, segment_key, segment_array)
                 i += len(segment_map)
-        else: # list of strings
+        else:  # list of strings
             for attr, value in zip(mapping, array):
                 setattr(self, attr, value)
             self._mapping = mapping

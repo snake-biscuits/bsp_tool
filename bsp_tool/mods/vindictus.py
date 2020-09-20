@@ -6,6 +6,7 @@ from . import team_fortress2
 
 bsp_version = 20
 
+
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
@@ -69,39 +70,46 @@ class LUMP(enum.Enum):
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     UNUSED4 = 61
-    UNUSED5 = 62 
+    UNUSED5 = 62
     UNUSED6 = 63
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # class for each lump in alphabetical order
+
+
 class area(common.base):
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
-class area_portal(common.base): # LUMP 21
+
+class area_portal(common.base):  # LUMP 21
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
                  "clip_portal_verts", "plane_num"]
     _format = "4Ii"
 
-class brush_side(common.base): # LUMP 19
+
+class brush_side(common.base):  # LUMP 19
     __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
     _format = "I3i"
 
-class disp_info(common.base): # LUMP 26
+
+class disp_info(common.base):  # LUMP 26
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start",
                  "power", "smoothing_angle", "unknown1", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
-    _format = "3f3if2iI2i144c10I" # Neighbours are also different
+    _format = "3f3if2iI2i144c10I"  # Neighbours are also different
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
 
-class edge(list): # LUMP 12
+
+class edge(list):  # LUMP 12
     _format = "2I"
 
-class face(common.base): # LUMP 7
+
+class face(common.base):  # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "unknown1", "first_edge",
                  "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
@@ -113,39 +121,52 @@ class face(common.base): # LUMP 7
     _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
                "lightmap_texture_size_in_luxels": [*"st"]}
 
-#class game_lump(common.base): # LUMP 35
+
+# class game_lump(common.base):  # LUMP 35
 #    __slots__ = ["id", "flags", "version", "offset", "length"]
 #    _format = "5i"
 
-class leaf(common.base): # LUMP 10
+
+class leaf(common.base):  # LUMP 10
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
                  "firstleafface", "numleaffaces", "firstleafbrush",
                  "numleafbrushes", "leafWaterDataID"]
     _format = "9i4Ii"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
-class leaf_face(common.base): # LUMP 16
+
+class leaf_face(common.base):  # LUMP 16
     __slots__ = ["value"]
     _format = "I"
-    
-class node(common.base): # LUMP 5
+
+
+class node(common.base):  # LUMP 5
     __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
                  "numfaces", "area", "padding"]
     _format = "12i"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
-##class overlay(common.base): # LUMP 45
-##    __slots__ = ["id", "tex_info", "face_count_and_render_order",
-##                 "faces", "u", "v", "uv_points", "origin", "normal"]
-##    _format = "2iIi4f18f"
-##    _arrays = {"faces": 64, # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)
-##               "u": 2, "v": 2,
-##               "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
-lump_classes = team_fortress2.lump_classes.copy() # copy tf2 for other classes
-lump_classes.update({"AREAS": area, "AREA_PORTALS": area_portal,
-                "BRUSH_SIDES": brush_side, "DISP_INFO": disp_info,
-                "EDGES": edge, "FACES": face, "LEAVES": leaf,
-                "LEAF_FACES": leaf_face, "NODES": node, "ORIGINAL_FACES": face})
+class overlay(common.base):  # LUMP 45
+    __slots__ = ["id", "tex_info", "face_count_and_render_order",
+                 "faces", "u", "v", "uv_points", "origin", "normal"]
+    _format = "2iIi4f18f"
+    _arrays = {"faces": 64,  # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)
+               "u": 2, "v": 2,
+               "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
-methods = team_fortress2.methods # same methods as tf2
+
+lump_classes = team_fortress2.lump_classes.copy()  # copy tf2 for other classes
+lump_classes.update({"AREAS": area,
+                     "AREA_PORTALS": area_portal,
+                     "BRUSH_SIDES": brush_side,
+                     "DISP_INFO": disp_info,
+                     "EDGES": edge,
+                     "FACES": face,
+                     "LEAVES": leaf,
+                     "LEAF_FACES": leaf_face,
+                     "NODES": node,
+                     "ORIGINAL_FACES": face})
+
+
+methods = team_fortress2.methods  # same methods as tf2

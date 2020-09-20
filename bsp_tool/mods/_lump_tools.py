@@ -18,11 +18,11 @@ def test_unpack(lump, into):
     elif isinstance(into, (common.base, common.mapped_array)):
         out = struct.iter_unpack(into._format, lump)
     else:
-        raise NotImplemented("into must be type <int> or subclass of <common.base> or <common.mapped_array>")
+        raise NotImplementedError("into must be type <int> or subclass of <common.base> or <common.mapped_array>")
     return out
 
 
-def denominators_of(x, start=8, step=4): # multiples of 4 only
+def denominators_of(x, start=8, step=4):  # multiples of 4 only
     """For guessing lump struct sizes"""
     out = set()
     for i in range(start, math.ceil(math.sqrt(x)) + 1, step):
@@ -49,9 +49,9 @@ def analyse(array, *indices):
         ints = array[index]
         raw = [i.to_bytes(4, "little", signed=True) for i in ints]
         print(f"::: INDEX = {index} :::")
-        print(*[f"{i:08x}" for i in ints]) # hex
-        print(*ints) # int
-        print(*[f[0] for f in struct.iter_unpack("f", b"".join(raw))]) # float
+        print(*[f"{i:08x}" for i in ints])  # hex
+        print(*ints)  # int
+        print(*[f[0] for f in struct.iter_unpack("f", b"".join(raw))])  # float
         print("=" * 80)
 
 

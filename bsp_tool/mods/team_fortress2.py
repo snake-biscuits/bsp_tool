@@ -1,10 +1,11 @@
 import enum
 
 from . import common
-from . import vector # for faces & displacements --> vertices & indices
+from . import vector  # for faces & displacements --> vertices & indices
 
 
 bsp_version = 20
+
 
 class LUMP(enum.Enum):
     ENTITIES = 0
@@ -69,57 +70,68 @@ class LUMP(enum.Enum):
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     UNUSED_61 = 61
-    UNUSED_62 = 62 
+    UNUSED_62 = 62
     UNUSED_63 = 63
-    
+
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-# class for each lump in alphabetical order
-class area(common.base):
+# classes for each lump, in alphabetical order:
+
+
+class area(common.base):  # LUMP 20
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
-class area_portal(common.base): # LUMP 21
+
+class area_portal(common.base):  # LUMP 21
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
                  "clip_portal_verts", "plane_num"]
     _format = "4Hi"
-    
-class brush(common.base): # LUMP 18
+
+
+class brush(common.base):  # LUMP 18
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
 
-class brush_side(common.base): # LUMP 19
+
+class brush_side(common.base):  # LUMP 19
     __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
     _format = "H3h"
 
-class cubemap(common.base): # LUMP 42
+
+class cubemap(common.base):  # LUMP 42
     __slots__ = ["origin", "size"]
     _format = "4i"
     _arrays = {"origin": [*"xyz"]}
 
-class disp_info(common.base): # LUMP 26
+
+class disp_info(common.base):  # LUMP 26
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start", "power",
                  "min_tesselation", "smoothing_angle", "contents", "map_face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
     _format = "3f4ifiH2i88c10I"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
-                "corner_neighbours": 44, "allowed_verts": 10}
+               "corner_neighbours": 44, "allowed_verts": 10}
 
-class disp_tri(int): # LUMP 48
+
+class disp_tri(int):  # LUMP 48
     _format = "H"
 
-class disp_vert(common.base): # LUMP 33
+
+class disp_vert(common.base):  # LUMP 33
     __slots__ = ["vector", "distance", "alpha"]
     _format = "5f"
     _arrays = {"vector": [*"xyz"]}
 
-class edge(list): # LUMP 12
-    _format = "2h"
-    # list with the _format attribute
 
-class face(common.base): # LUMP 7
+class edge(list):  # LUMP 12
+    _format = "2h"
+    # just a list() + the _format attribute
+
+
+class face(common.base):  # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
                  "tex_info", "disp_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap_texture_mins_in_luxels",
@@ -132,7 +144,8 @@ class face(common.base): # LUMP 7
 # class game_lump: # LUMP 35
 #     ... # another unique class
 
-class leaf(common.base): # LUMP 10
+
+class leaf(common.base):  # LUMP 10
     __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data_id", "padding"]
@@ -144,10 +157,12 @@ class leaf(common.base): # LUMP 10
     # need to reverse this for leaf.flat()
     # why did those bits need saving when the struct is padded?
 
-class leaf_face(int): # LUMP 16
+
+class leaf_face(int):  # LUMP 16
     _format = "H"
 
-class node(common.base): # LUMP 5
+
+class node(common.base):  # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
     # area is appears to always be 0
@@ -159,38 +174,47 @@ class node(common.base): # LUMP 5
 #     ... # it's a raw binary zip file
 #     # keep the raw data and provide an extraction / editing API?
 
-class plane(common.base): # LUMP 1
+
+class plane(common.base):  # LUMP 1
     __slots__ = ["normal", "distance", "type"]
     _format = "4fi"
     _arrays = {"normal": [*"xyz"]}
 
-class surf_edge: # LUMP 13
+
+class surf_edge:  # LUMP 13
     _format = "i"
 
-class tex_data(common.base): # LUMP 2
+
+class tex_data(common.base):  # LUMP 2
     __slots__ = ["reflectivity", "tex_data_string_index", "width", "height",
                  "view_width", "view_height"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"]}
 
-class tex_info(common.base): # LUMP 6
+
+class tex_info(common.base):  # LUMP 6
     __slots__ = ["texture", "lightmap", "mip_flags", "tex_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
 
-class vertex(common.mapped_array): # LUMP 3
+
+class vertex(common.mapped_array):  # LUMP 3
     _mapping = [*"xyz"]
     _format = "3f"
-    flat = lambda self: [self.x, self.y, self.z]
 
-class world_light(common.base): # LUMP 15
+    def flat(self):
+        return [self.x, self.y, self.z]
+
+
+class world_light(common.base):  # LUMP 15
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
-                 "constant", "linear", "quadratic", # attenuation
+                 "constant", "linear", "quadratic",  # attenuation
                  "flags", "tex_info", "owner"]
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
+
 
 lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal, "BRUSHES": brush,
                 "BRUSH_SIDES": brush_side, "CUBEMAPS": cubemap,
@@ -207,17 +231,17 @@ lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal, "BRUSHES": brush,
 def vertices_of_face(bsp, face_index):
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
-    verts, uvs, uv2s = [], [], []
+    uvs, uv2s = [], []
     first_edge = face.first_edge
     edges = []
     positions = []
-    for surfedge in bsp.SURFEDGES[first_edge : (first_edge + face.num_edges)]:
-        if surfedge >= 0: # index is positive
+    for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
+        if surfedge >= 0:  # index is positive
             edge = bsp.EDGES[surfedge]
             positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
             # ^ utils/vrad/trace.cpp:637
-        else: # index is negatice
-            edge = bsp.EDGES[-surfedge][::-1] # reverse
+        else:  # index is negatice
+            edge = bsp.EDGES[-surfedge][::-1]  # reverse
             positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
             # ^ utils/vrad/trace.cpp:635
         edges.append(edge)
@@ -226,20 +250,24 @@ def vertices_of_face(bsp, face_index):
     tex_data = bsp.TEXDATA[tex_info.tex_data]
     texture = tex_info.texture
     lightmap = tex_info.lightmap
-    normal = lambda P: (P.x, P.y, P.z) # return the normal of plane (P)
-    # vector --> uv calculation discovered here:
+
+    def vector_of(P):
+        """returns the normal of plane (P)"""
+        return (P.x, P.y, P.z)
+
+    # texture vector -> uv calculation discovered in:
     # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
     # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
     for P in positions:
         # texture UV
-        uv = [vector.dot(P, normal(texture.s)) + texture.s.offset,
-              vector.dot(P, normal(texture.t)) + texture.t.offset]
+        uv = [vector.dot(P, vector_of(texture.s)) + texture.s.offset,
+              vector.dot(P, vector_of(texture.t)) + texture.t.offset]
         uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
         uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
         uvs.append(vector.vec2(*uv))
         # lightmap UV
-        uv2 = [vector.dot(P, normal(lightmap.s)) + lightmap.s.offset,
-               vector.dot(P, normal(lightmap.t)) + lightmap.t.offset]
+        uv2 = [vector.dot(P, vector_of(lightmap.s)) + lightmap.s.offset,
+               vector.dot(P, vector_of(lightmap.t)) + lightmap.t.offset]
         if any([(face.lightmap_texture_size_in_luxels.s == 0), (face.lightmap_texture_size_in_luxels.t == 0)]):
             uv2 = [0, 0]
         else:
@@ -248,33 +276,36 @@ def vertices_of_face(bsp, face_index):
             uv2[0] /= face.lightmap_texture_size_in_luxels.s
             uv2[1] /= face.lightmap_texture_size_in_luxels.t
         uv2s.append(uv2)
-    normal = [bsp.PLANES[face.plane_num].normal] * len(positions) # X Y Z
-    colour = [tex_data.reflectivity] * len(positions) # R G B
+    normal = [bsp.PLANES[face.plane_num].normal] * len(positions)  # X Y Z
+    colour = [tex_data.reflectivity] * len(positions)  # R G B
     return list(zip(positions, normal, uvs, uv2s, colour))
 
-def t_junction_fixer(bsp, face, positions, edges):
-    face_index = bsp.FACES.index(face)
-    first_edge = face.first_edge
+
+def t_junction_fixer(bsp, face, positions, edges):  # WIP
+    # report to bsp.log rather than printing
+    # bsp may need a method wrapper to give a warning to check the logs
+    # face_index = bsp.FACES.index(face)
+    # first_edge = face.first_edge
     if {positions.count(P) for P in positions} != {1}:
-        print(f"Face #{face_index} has interesting edges (t-junction?):")
-        print("\tAREA:", f"{face.area:.3f}")
-        center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
-        print("\tCENTER:", f"({center:.3f})")
-        print("\tSURFEDGES:", bsp.SURFEDGES[first_edge:first_edge + face.num_edges])
-        print("\tEDGES:", edges)
-        loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
-        if not all(loops):
-            print("\tWARINNG! EDGES do not loop!")
-            print("\tLOOPS:", loops)
-        print("\tPOSITIONS:", [bsp.VERTICES.index(P) for P in positions])
-            
+        # print(f"Face #{face_index} has interesting edges (t-junction?):")
+        # print("\tAREA:", f"{face.area:.3f}")
+        # center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
+        # print("\tCENTER:", f"({center:.3f})")
+        # print("\tSURFEDGES:", bsp.SURFEDGES[first_edge:first_edge + face.num_edges])
+        # print("\tEDGES:", edges)
+        # loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
+        # if not all(loops):
+        #     print("\tWARINNG! EDGES do not loop!")
+        #     print("\tLOOPS:", loops)
+        # print("\tPOSITIONS:", [bsp.VERTICES.index(P) for P in positions])
+
         # PATCH
         # -- if you see 1 index between 2 indentical indicies:
         # -- compress the 3 indices down to just the first
         repeats = [i for i, P in enumerate(positions) if positions.count(P) != 1]
-        if len(repeats) > 0:
-            print("\tREPEATS:", repeats)
-            print([bsp.VERTICES.index(P) for P in positions], "-->")
+        # if len(repeats) > 0:
+        #     print("\tREPEATS:", repeats)
+        #     print([bsp.VERTICES.index(P) for P in positions], "-->")
         if len(repeats) == 2:
             index_a, index_b = repeats
             if index_b - index_a == 2:
@@ -289,6 +320,7 @@ def t_junction_fixer(bsp, face, positions, edges):
                 positions.pop(repeats[1])
             print([bsp.VERTICES.index(P) for P in positions])
     return positions
+
 
 def vertices_of_displacement(bsp, face_index):
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
@@ -305,7 +337,10 @@ def vertices_of_displacement(bsp, face_index):
     if start not in base_quad:
         start = sorted(base_quad, key=lambda P: (start - P).magnitude())[0]
     starting_index = base_quad.index(start)
-    rotated = lambda q: q[starting_index:] + q[:starting_index]
+
+    def rotated(q):
+        return q[starting_index:] + q[:starting_index]
+
     A, B, C, D = rotated(base_quad)
     AD = D - A
     BC = C - B
@@ -334,11 +369,11 @@ def vertices_of_displacement(bsp, face_index):
         vertices.append((true_vertex, normal, texture_uv, lightmap_uv, colour))
     return vertices
 
-methods = {"vertices_of_face": vertices_of_face,
-           "vertices_of_displacement": vertices_of_displacement}
 
-# STATIC METHODS
-def displacement_indices(power):
+methods = [vertices_of_face, vertices_of_displacement]
+
+
+def displacement_indices(power):  # static method / tool
     """returns an array of indices ((2 ** power) + 1) ** 2 long"""
     power2 = 2 ** power
     power2A = power2 + 1
@@ -349,12 +384,12 @@ def displacement_indices(power):
         line_offset = power2A * line
         for block in range(2 ** (power - 1)):
             offset = line_offset + 2 * block
-            if line % 2 == 0: # |\|/|
+            if line % 2 == 0:  # |\|/|
                 tris.extend([offset + 0, offset + power2A, offset + 1])
                 tris.extend([offset + power2A, offset + power2B, offset + 1])
                 tris.extend([offset + power2B, offset + power2C, offset + 1])
                 tris.extend([offset + power2C, offset + 2, offset + 1])
-            else: # |/|\|
+            else:  # |/|\|
                 tris.extend([offset + 0, offset + power2A, offset + power2B])
                 tris.extend([offset + 1, offset + 0, offset + power2B])
                 tris.extend([offset + 2, offset + 1, offset + power2B])

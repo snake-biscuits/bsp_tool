@@ -3,7 +3,6 @@ import enum
 from . import common
 
 
-# always run bsp_tool.bsp with lump_files=True
 bsp_version = 47
 
 # Apex Legends has rBSP file-magic, ~128 lumps & uses .bsp_lump files:
@@ -14,7 +13,7 @@ bsp_version = 47
 # note which lumps appear in the .bsp, which have .bsp_lump files,
 # and which have both
 
-## mp_rr_canyonlands_mu2.bsp has .bsp_lump files for the following:
+# mp_rr_canyonlands_mu2.bsp has .bsp_lump files for the following:
 # 0000 ENTITIES               0
 # 0001 PLANES                 1
 # 0002 TEXDATA                2
@@ -90,13 +89,14 @@ bsp_version = 47
 # 007E SHADOW_MESH_INDICES             126
 # 007F SHADOW_MESH_MESHES              127
 
+
 class LUMP(enum.Enum):
-    ENTITIES = 0 # there are more entities in external .ent files
+    ENTITIES = 0  # there are more entities in external .ent files
     PLANES = 1
     TEXDATA = 2
     VERTICES = 3
-    UNKNOWN_4 = 4 #
-    UNKNOWN_5 = 5 #
+    UNKNOWN_4 = 4  #
+    UNKNOWN_5 = 5  #
     UNUSED_6 = 6
     UNUSED_7 = 7
     UNUSED_8 = 8
@@ -106,32 +106,32 @@ class LUMP(enum.Enum):
     UNUSED_12 = 12
     UNUSED_13 = 13
     MODELS = 14
-    UNKNOWN_16 = 16 #
-    UNKNOWN_17 = 17 #
-    UNKNOWN_18 = 18 #
-    UNKNOWN_19 = 19 #
-    UNKNOWN_20 = 20 #
-    UNKNOWN_21 = 21 #
+    UNKNOWN_16 = 16  #
+    UNKNOWN_17 = 17  #
+    UNKNOWN_18 = 18  #
+    UNKNOWN_19 = 19  #
+    UNKNOWN_20 = 20  #
+    UNKNOWN_21 = 21  #
     UNUSED_22 = 22
     UNUSED_23 = 23
     ENTITY_PARTITIONS = 24
-    UNKNOWN_25 = 25 #
+    UNKNOWN_25 = 25  #
     UNUSED_26 = 26
     UNUSED_27 = 27
     UNUSED_28 = 28
     UNUSED_29 = 29
     VERTEX_NORMALS = 30
-    UNKNOWN_31 = 31 #
+    UNKNOWN_31 = 31  #
     UNUSED_32 = 32
     UNUSED_33 = 33
     UNUSED_34 = 34
     GAME_LUMP = 35
-    LEAF_WATERDATA = 36 # uncertain
-    UNKNOWN_37 = 37 #
-    UNKNOWN_38 = 38 #
-    UNKNOWN_39 = 39 #
-    PAKFILE = 40 # zip file, contains cubemaps [citation needed]
-    UNKNOWN_41 = 41 #
+    LEAF_WATERDATA = 36  # leaf? does apex have visleaves?
+    UNKNOWN_37 = 37  #
+    UNKNOWN_38 = 38  #
+    UNKNOWN_39 = 39  #
+    PAKFILE = 40  # zip file, contains cubemaps [citation needed]
+    UNKNOWN_41 = 41  #
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
     UNUSED_44 = 44
@@ -144,12 +144,12 @@ class LUMP(enum.Enum):
     UNUSED_51 = 51
     UNUSED_52 = 52
     UNUSED_53 = 53
-    WORLDLIGHTS_HDR = 54 # uncertain
-    UNKNOWN_55 = 55 #
-    UNKNOWN_66 = 56 #
+    WORLDLIGHTS_HDR = 54  # does apex have LDR?
+    UNKNOWN_55 = 55  #
+    UNKNOWN_66 = 56  #
     UNUSED_57 = 57
     UNUSED_58 = 58
-    UNKNOWN_59 = 59 #
+    UNKNOWN_59 = 59  #
     UNUSED_60 = 60
     UNUSED_61 = 61
     PHYS_LEVEL = 62
@@ -168,13 +168,13 @@ class LUMP(enum.Enum):
     VERTS_BLINN_PHONG = 75
     UNUSED_76 = 76
     UNUSED_77 = 77
-    VERTS_RESERVED_7 = 78 # uncertain
+    VERTS_RESERVED_7 = 78  # may not be
     MESH_INDICES = 79
     MESHES = 80
     MESH_BOUNDS = 81
-    MATERIAL_SORT = 82 # MATERIAL_SORT
+    MATERIAL_SORT = 82  # MATERIAL_SORT
     LIGHTMAP_HEADERS = 83
-    LIGHTMAP_DATA_DXT5 = 84 #
+    LIGHTMAP_DATA_DXT5 = 84  #
     CM_GRID = 85
     CM_GRIDCELLS = 86
     CM_GEO_SETS = 87
@@ -219,71 +219,85 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 126
     SHADOW_MESH_MESHES = 127
 
+
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
+
 # classes for lumps (alphabetical order)
-class material_sort(common.base): # LUMP 82 (0052)
+class material_sort(common.base):  # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
-    _format = "2h2I" # 12 bytes
+    _format = "2h2I"  # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
-class mesh(common.base): # LUMP 80 (0050)
+
+class mesh(common.base):  # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
-    _format = "IH3I2HI" # 28 bytes
+    _format = "IH3I2HI"  # 28 bytes
     _arrays = {"unknown": [*"abcd"]}
 
-class mesh_indices(int): # LUMP 79 (004F)
+
+class mesh_indices(int):  # LUMP 79 (004F)
     _format = "H"
 
-class model(common.base): # LUMP 14 (000E)
+
+class model(common.base):  # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
 
-class shadow_mesh(common.base): # LUMP 7F (0127)
+
+class shadow_mesh(common.base):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
-    _format = "2I2h" # assuming 12 bytes
+    _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
-# WRONG SIZE (8384 / 36)
-class texture_data(common.base): # LUMP 2 (0002)
+
+class texture_data(common.base):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
-    _format = "9i"
+    _format = "9i"  # WRONG SIZE (8384 / 36)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
-class vertex(common.mapped_array): # LUMP 3 (0003)
+
+class vertex(common.mapped_array):  # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
-    flat = lambda self: [self.x, self.y, self.z]
 
-class vertex_blinn_phong(common.base): # LUMP 75 (004B)
+    def flat(self):
+        return [self.x, self.y, self.z]
+
+
+class vertex_blinn_phong(common.base):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
-    _format = "2I4f" # 24 bytes
-    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"]}
+    _format = "2I4f"  # 24 bytes
+    _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
-class vertex_lit_bump(common.base): # LUMP 73 (0049)
+
+class vertex_lit_bump(common.base):  # LUMP 73 (0049)
     __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
-    _format = "2I2fi3f" # 32 bytes
-    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
+    _format = "2I2fi3f"  # 32 bytes
+    _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
-class vertex_lit_flat(common.base): # LUMP 72 (0048)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2fi" # 20 bytes
-    _arrays  = {"uv": [*"uv"]}
 
-class vertex_unlit(common.base): # LUMP 71 (0047)
+class vertex_lit_flat(common.base):  # LUMP 72 (0048)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2i2fi" # 20 bytes
+    _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
-class vertex_unlit_ts(common.base): # LUMP 74 (004A)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
-    _format = "2I4f" # 24 bytes
-    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"]}
 
-    
+class vertex_unlit(common.base):  # LUMP 71 (0047)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2i2fi"  # 20 bytes
+    _arrays = {"uv": [*"uv"]}
+
+
+class vertex_unlit_ts(common.base):  # LUMP 74 (004A)
+    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
+    _format = "2I4f"  # 24 bytes
+    _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
+
+
 lump_classes = {"MATERIAL_SORT": material_sort,
                 "MESHES": mesh,
                 "MESH_INDICES": mesh_indices,
@@ -306,6 +320,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x210: "VERTS_LIT_FLAT"}
 # ^ a proper mapping of the flags would be nice
 
+
 def vertices_of_mesh(bsp, mesh_index):
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
@@ -318,4 +333,5 @@ def vertices_of_mesh(bsp, mesh_index):
     # ^ picking based on flags is hard
     return [verts[i] for i in indices]
 
-methods = {"vertices_of_mesh": vertices_of_mesh}
+
+methods = [vertices_of_mesh]

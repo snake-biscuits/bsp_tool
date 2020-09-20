@@ -11,7 +11,7 @@ from . import mods
 
 
 lump_header = collections.namedtuple("lump_header",
-                    ["offset", "length", "version", "fourCC"])
+                                     ["offset", "length", "version", "fourCC"])
 
 
 def read_lump(file, header_address):
@@ -19,11 +19,12 @@ def read_lump(file, header_address):
     file.seek(header_address)
     offset = int.from_bytes(file.read(4), "little")
     length = int.from_bytes(file.read(4), "little")
-    version = int.from_bytes(file.read(4), "little")  # ignored, shouldn't be
+    version = int.from_bytes(file.read(4), "little")  # noqa F481
+    # ^ variable unused (lump versions have different formats!)
     fourCC = int.from_bytes(file.read(4), "little")
     if length == 0:
         return
-    # lump
+    # lump data
     file.seek(offset)
     data = file.read(length)
     if fourCC != 0:  # lump is compressed
@@ -66,7 +67,7 @@ class bsp():
             except KeyError:
                 raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
         elif isinstance(game, types.ModuleType):
-            mod = game # "game" is a python script
+            mod = game  # "game" is a python script
             # this script is expected to contain:
             # - bsp_version
             # - LUMP(enum.Enum) - NAME_OF_LUMP = header_number
@@ -79,13 +80,13 @@ class bsp():
             except KeyError:
                 raise NotImplementedError(f"{game} .bsp is not supported")
         self.mod = mod
-        # ATTACH METHODS DEFINED BY IN self.mod
-        class_method = lambda function: lambda *args: function(self, *args)
-        for method_name, method in mod.methods.items():
-            setattr(self, method_name, class_method(method))
+        for method in getattr(mod, "methods", list()):
+            # attach methods defined in mod, if any
+            types.MethodType(method, self)
+        # static_methods too?
         print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
         # rBSP map revision is before headers, VBSP is after
-        file.read() # move cursor to end of file
+        file.read()  # move cursor to end of file
         self.bytesize = file.tell()
 
         self.log = []
@@ -112,11 +113,11 @@ class bsp():
             # else: # lump is empty
 
         # begin processing lumps
-        lump_classes = self.mod.lump_classes # self.mod is a module
+        lump_classes = self.mod.lump_classes  # self.mod is a module
         for LUMP, lump_class in lump_classes.items():
             if not hasattr(self, f"RAW_{LUMP}"):
-                continue # skip unused lumps
-            try: # implement -Warn system here
+                continue  # skip unused lumps
+            try:  # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
                 for data in struct.iter_unpack(lump_class._format, RAW_LUMP):
@@ -124,9 +125,10 @@ class bsp():
                         data = data[0]
                     getattr(self, LUMP).append(lump_class(data))
                 delattr(self, f"RAW_{LUMP}")
-            except struct.error as exc:
+            except struct.error as exc:  # noqa: F841
                 struct_size = struct.calcsize(lump_class._format)
-                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size}). Wrong mod?")
+                self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size})." +
+                                "Wrong mod?")
                 delattr(self, LUMP)
                 # raise exc
             except Exception as exc:
@@ -142,9 +144,8 @@ class bsp():
         # rBSP .bsps have 5 associated entity files beginning with "ENTITIES01\n"
         self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
         entities = []
-        indent = 0
         for line in self.ENTITIES.split("\n"):
-            if re.match("^[ \t]*$", line): # whitespace
+            if re.match("^[ \t]*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:
                 ent = dict()

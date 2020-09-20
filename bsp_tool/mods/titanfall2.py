@@ -13,7 +13,7 @@ bsp_version = 37
 # <bsp filename>.<ID>.bsp_lump
 # where <ID> is a four digit hexadecimal string (lowercase)
 # entities are stored in 5 different .ent files per bsp
-## mp_drydock.bsp has .bsp_lump files for the following:
+# mp_drydock.bsp has .bsp_lump files for the following:
 # 0000 ENTITIES               0  (SPECIAL)
 # 0001 PLANES                 1
 # 0002 TEXDATA                2
@@ -104,15 +104,16 @@ bsp_version = 37
 # 007F SHADOW_MESH_MESHES              127
 # some of the other lumps appear within the .bsp itself
 
+
 class LUMP(enum.Enum):
-    ENTITIES = 0 # entities are stored across multiple text files
-    PLANES = 1 # version 1
-    TEXDATA = 2 # version 1
+    ENTITIES = 0  # entities are stored across multiple text files
+    PLANES = 1  # version 1
+    TEXDATA = 2  # version 1
     VERTICES = 3
-    UNKNOWN_4 = 4 # source VISIBILITY
-    UNKNOWN_5 = 5 # source NODES
-    UNKNOWN_6 = 6 # source TEXINFO
-    UNKNOWN_7 = 7 # source FACES
+    UNKNOWN_4 = 4  # source VISIBILITY
+    UNKNOWN_5 = 5  # source NODES
+    UNKNOWN_6 = 6  # source TEXINFO
+    UNKNOWN_7 = 7  # source FACES
     UNKNOWN_8 = 8
     UNKNOWN_9 = 9
     UNUSED_10 = 10
@@ -144,7 +145,7 @@ class LUMP(enum.Enum):
     UNKNOWN_37 = 37
     UNKNOWN_38 = 38
     UNKNOWN_39 = 39
-    PAKFILE = 40 # zip file, contains cubemaps
+    PAKFILE = 40  # zip file, contains cubemaps
     UNKNOWN_41 = 41
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
@@ -159,7 +160,7 @@ class LUMP(enum.Enum):
     UNKNOWN_52 = 52
     UNUSED_53 = 53
     WORLDLIGHTS_HDR = 54
-    UNKNOWN_59 = 59 # version 3
+    UNKNOWN_59 = 59  # version 3
     PHYS_LEVEL = 62
     UNKNOWN_63 = 63
     UNKNOWN_64 = 64
@@ -169,16 +170,16 @@ class LUMP(enum.Enum):
     TRICOLL_NODES = 68
     TRICOLL_HEADERS = 69
     PHYSTRIS = 70
-    VERTS_UNLIT = 71 # VERTS_RESERVED_0 - 7
+    VERTS_UNLIT = 71  # VERTS_RESERVED_0 - 7
     VERTS_LIT_FLAT = 72
-    VERTS_LIT_BUMP = 73 # version 2
+    VERTS_LIT_BUMP = 73  # version 2
     VERTS_UNLIT_TS = 74
-    VERTS_BLINN_PHONG = 75 # version 1
-    VERTS_RESERVED_5 = 76 # version 1
+    VERTS_BLINN_PHONG = 75  # version 1
+    VERTS_RESERVED_5 = 76  # version 1
     VERTS_RESERVED_6 = 77
     VERTS_RESERVED_7 = 78
-    MESH_INDICES = 79 # version 1
-    MESHES = 80 # version 1
+    MESH_INDICES = 79  # version 1
+    MESHES = 80  # version 1
     MESH_BOUNDS = 81
     MATERIAL_SORT = 82
     LIGHTMAP_HEADERS = 83
@@ -188,7 +189,7 @@ class LUMP(enum.Enum):
     CM_GEO_SETS = 87
     CM_GEO_SET_BOUNDS = 88
     CM_PRIMS = 89
-    CM_PRIM_BOUNDS = 90 # version 1
+    CM_PRIM_BOUNDS = 90  # version 1
     CM_UNIQUE_CONTENTS = 91
     CM_BRUSHES = 92
     CM_BRUSH_SIDE_PLANE_OFFSETS = 93
@@ -227,83 +228,100 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 126
     SHADOW_MESH_MESHES = 127
 
+
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
-class brush(common.base): # LUMP 92 (005C)
-    __slots__ = ["normal", "unknown"] # origin, id?
+class brush(common.base):  # LUMP 92 (005C)
+    __slots__ = ["normal", "unknown"]  # origin, id?
     _format = "3fI"
     _arrays = {"normal": [*"xyz"]}
 
-class material_sort(common.base): # LUMP 82 (0052)
+
+class material_sort(common.base):  # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
-    _format = "2h2I" # 12 bytes
+    _format = "2h2I"  # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
-class mesh(common.base): # LUMP 80 (0050)
+
+class mesh(common.base):  # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
-    _format = "IH3I2HI" # 28 Bytes
+    _format = "IH3I2HI"  # 28 Bytes
     _arrays = {"unknown": [*"abcd"]}
 
-class mesh_indices(int): # LUMP 79 (004F)
+
+class mesh_indices(int):  # LUMP 79 (004F)
     _format = "H"
 
-class model(common.base): # LUMP 14 (000E)
+
+class model(common.base):  # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
 
-class shadow_mesh(common.base): # LUMP 7F (0127)
+
+class shadow_mesh(common.base):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
-    _format = "2I2h" # assuming 12 bytes
+    _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
-class texture_data(common.base): # LUMP 2 (0002)
+
+class texture_data(common.base):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
-class vertex(common.mapped_array): # LUMP 3 (0003)
+
+class vertex(common.mapped_array):  # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
-    flat = lambda self: [self.x, self.y, self.z]
 
-class vertex_blinn_phong(common.base): # LUMP 75 (004B)
+    def flat(self):
+        return [self.x, self.y, self.z]
+
+
+class vertex_blinn_phong(common.base):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "unknown"]
-    _format = "4I" # 16 bytes
-    _arrays  = {"unknown": [*"ab"]}
+    _format = "4I"  # 16 bytes
+    _arrays = {"unknown": [*"ab"]}
 
-class vertex_lit_bump(common.base): # LUMP 71 (0047)
+
+class vertex_lit_bump(common.base):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
     # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
     # byte 20 - 28 = uv coords for lightmap
-    _format = "2I6f3I" # 44 bytes
-    _arrays  = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
-                "unknown": [*"abc"]}
+    _format = "2I6f3I"  # 44 bytes
+    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
+               "unknown": [*"abc"]}
 
-class vertex_reserved_5(common.base): # LUMP 76 (004C)
+
+class vertex_reserved_5(common.base):  # LUMP 76 (004C)
     __slots__ = ["position_index", "normal_index", "unknown", "uv", "uv2"]
-    _format = "7I4f" # 44 bytes
+    _format = "7I4f"  # 44 bytes
     _arrays = {"unknown": [*"abcd"], "uv": [*"uv"], "uv2": [*"uv"]}
 
-class vertex_reserved_7(common.base): # LUMP 78 (004E)
+
+class vertex_reserved_7(common.base):  # LUMP 78 (004E)
     __slots__ = ["position_index", "normal_index", "uv", "negative_one"]
-    _format = "2I2fi" # 20 bytes
+    _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
-class vertex_unlit(common.base): # LUMP 71 (0047)
+
+class vertex_unlit(common.base):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2fi" # 20 bytes
+    _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
-class vertex_unlit_ts(common.base): # LUMP 74 (004A)
+
+class vertex_unlit_ts(common.base):  # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2f3i" # 28 bytes
-    _arrays  = {"uv": [*"uv"], "unknown": [*"abc"]}
-    
+    _format = "2I2f3i"  # 28 bytes
+    _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
+
+
 lump_classes = {"CM_BRUSHES": brush,
                 "MATERIAL_SORT": material_sort,
                 "MODELS": model,
@@ -325,7 +343,9 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
 # ^ a proper mapping of the flags would be nice
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def vertices_of_mesh(bsp, mesh_index): # simplified from McSimp's exporter ^
+
+
+def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
@@ -336,4 +356,5 @@ def vertices_of_mesh(bsp, mesh_index): # simplified from McSimp's exporter ^
     verts = getattr(bsp, mesh_types[mesh_type])
     return [verts[i] for i in indices]
 
-methods = {"vertices_of_mesh": vertices_of_mesh}
+
+methods = [vertices_of_mesh]
