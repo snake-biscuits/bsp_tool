@@ -7,7 +7,7 @@ with open("README.md", "r") as readme:
 setuptools.setup(
     name="bsp_tool",
     packages=setuptools.find_packages(),
-    version="0.1.2",
+    version="0.2.0",
     license="gpl-3.0",
     description="A library for .bsp file analysis & modification",
     author="Jared Ketterer",
@@ -15,7 +15,7 @@ setuptools.setup(
     long_description=readme_text,
     long_description_content_type="text/markdown",
     url="https://github.com/snake-biscuits/bsp_tool",
-    download_url="https://github.com/snake-biscuits/bsp_tool/archive/v0.1.2.tar.gz",
+    download_url="https://github.com/snake-biscuits/bsp_tool/archive/v0.2.0.tar.gz",
     keywords=["source", "bsp", "valve"],
     classifiers=[
         "Development Status :: 4 - Beta",
