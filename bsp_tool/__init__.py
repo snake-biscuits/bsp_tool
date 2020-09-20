@@ -61,18 +61,19 @@ class bsp():
             raise RuntimeError(f"{file} is not a .bsp!")
         # GET SPECIFIC .BSP FORMAT
         self.bsp_version = int.from_bytes(file.read(4), "little")
-        if game.lower() == "unknown":  # guess .bsp format from version
+        if game.lower() == "unknown":
+            # guess .bsp format from version
             try:
                 mod = mods.by_version[self.bsp_version]
             except KeyError:
                 raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
         elif isinstance(game, types.ModuleType):
-            mod = game  # "game" is a python script
+            # custom python script, for experimenting / spelunking
+            mod = game
             # this script is expected to contain:
             # - bsp_version
             # - LUMP(enum.Enum) - NAME_OF_LUMP = header_number
             # - lump_header_address - {NAME_OF_LUMP: header_offset_into_file}
-            # - methods - {"function": function}
             # - lump_classes - {"NAME_OF_LUMP": lump_class}
         else:
             try:
