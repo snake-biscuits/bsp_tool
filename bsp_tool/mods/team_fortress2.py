@@ -76,37 +76,36 @@ class LUMP(enum.Enum):
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
+
 # classes for each lump, in alphabetical order:
-
-
-class area(common.base):  # LUMP 20
+class Area(common.Base):  # LUMP 20
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class area_portal(common.base):  # LUMP 21
+class AreaPortal(common.Base):  # LUMP 21
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
                  "clip_portal_verts", "plane_num"]
     _format = "4Hi"
 
 
-class brush(common.base):  # LUMP 18
+class Brush(common.Base):  # LUMP 18
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
 
 
-class brush_side(common.base):  # LUMP 19
+class BrushSide(common.Base):  # LUMP 19
     __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
     _format = "H3h"
 
 
-class cubemap(common.base):  # LUMP 42
+class Cubemap(common.Base):  # LUMP 42
     __slots__ = ["origin", "size"]
     _format = "4i"
     _arrays = {"origin": [*"xyz"]}
 
 
-class disp_info(common.base):  # LUMP 26
+class DisplacementInfo(common.Base):  # LUMP 26
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start", "power",
                  "min_tesselation", "smoothing_angle", "contents", "map_face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
@@ -114,24 +113,31 @@ class disp_info(common.base):  # LUMP 26
     _format = "3f4ifiH2i88c10I"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
+    # extend __init__ to unpack edge & corner neighbours with another class
+    # the "flat" method may need some changes to accommodate this
+
+    # def __init__(self, _tuple):
+    #     super(self, common.Base).__init__(_tuple)
+    #     self.edge_neighbours = ...
+    #     self.corner_neighbours = ...
 
 
-class disp_tri(int):  # LUMP 48
+class DisplacementTriangle(int):  # LUMP 48
     _format = "H"
 
 
-class disp_vert(common.base):  # LUMP 33
+class DisplacementVertex(common.Base):  # LUMP 33
     __slots__ = ["vector", "distance", "alpha"]
     _format = "5f"
     _arrays = {"vector": [*"xyz"]}
 
 
-class edge(list):  # LUMP 12
+class Edge(list):  # LUMP 12
     _format = "2h"
     # just a list() + the _format attribute
 
 
-class face(common.base):  # LUMP 7
+class Face(common.Base):  # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
                  "tex_info", "disp_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap_texture_mins_in_luxels",
@@ -145,7 +151,7 @@ class face(common.base):  # LUMP 7
 #     ... # another unique class
 
 
-class leaf(common.base):  # LUMP 10
+class Leaf(common.Base):  # LUMP 10
     __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data_id", "padding"]
@@ -158,11 +164,11 @@ class leaf(common.base):  # LUMP 10
     # why did those bits need saving when the struct is padded?
 
 
-class leaf_face(int):  # LUMP 16
+class LeafFace(int):  # LUMP 16
     _format = "H"
 
 
-class node(common.base):  # LUMP 5
+class Node(common.Base):  # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
     # area is appears to always be 0
@@ -175,31 +181,31 @@ class node(common.base):  # LUMP 5
 #     # keep the raw data and provide an extraction / editing API?
 
 
-class plane(common.base):  # LUMP 1
+class Plane(common.Base):  # LUMP 1
     __slots__ = ["normal", "distance", "type"]
     _format = "4fi"
     _arrays = {"normal": [*"xyz"]}
 
 
-class surf_edge:  # LUMP 13
+class SurfEdge:  # LUMP 13
     _format = "i"
 
 
-class tex_data(common.base):  # LUMP 2
+class TextureData(common.Base):  # LUMP 2
     __slots__ = ["reflectivity", "tex_data_string_index", "width", "height",
                  "view_width", "view_height"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"]}
 
 
-class tex_info(common.base):  # LUMP 6
+class TextureInfo(common.Base):  # LUMP 6
     __slots__ = ["texture", "lightmap", "mip_flags", "tex_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
 
 
-class vertex(common.mapped_array):  # LUMP 3
+class Vertex(common.MappedArray):  # LUMP 3
     _mapping = [*"xyz"]
     _format = "3f"
 
@@ -207,7 +213,7 @@ class vertex(common.mapped_array):  # LUMP 3
         return [self.x, self.y, self.z]
 
 
-class world_light(common.base):  # LUMP 15
+class WorldLight(common.Base):  # LUMP 15
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
@@ -216,15 +222,26 @@ class world_light(common.base):  # LUMP 15
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 
-lump_classes = {"AREAS": area, "AREA_PORTALS": area_portal, "BRUSHES": brush,
-                "BRUSH_SIDES": brush_side, "CUBEMAPS": cubemap,
-                "DISP_INFO": disp_info, "DISP_TRIS": disp_tri,
-                "DISP_VERTS": disp_vert, "EDGES": edge, "FACES": face,
-                "LEAVES": leaf, "LEAF_FACES": leaf_face, "NODES": node,
-                "ORIGINAL_FACES": face, "PLANES": plane,
-                "TEXDATA": tex_data, "TEXINFO": tex_info,
-                "VERTICES": vertex, "WORLD_LIGHTS": world_light,
-                "WORLD_LIGHTS_HDR": world_light}
+lump_classes = {"AREAS": Area,
+                "AREA_PORTALS": AreaPortal,
+                "BRUSHES": Brush,
+                "BRUSH_SIDES": BrushSide,
+                "CUBEMAPS": Cubemap,
+                "DISP_INFO": DisplacementInfo,
+                "DISP_TRIS": DisplacementTriangle,
+                "DISP_VERTS": DisplacementVertex,
+                "EDGES": Edge,
+                "FACES": Face,
+                "LEAVES": Leaf,
+                "LEAF_FACES": LeafFace,
+                "NODES": Node,
+                "ORIGINAL_FACES": Face,
+                "PLANES": Plane,
+                "TEXDATA": TextureData,
+                "TEXINFO": TextureInfo,
+                "VERTICES": Vertex,
+                "WORLD_LIGHTS": WorldLight,
+                "WORLD_LIGHTS_HDR": WorldLight}
 
 
 # METHODS EXCLUSIVE TO THIS MOD:

@@ -1,13 +1,13 @@
 import unittest
 
-from bsp_tool import bsp
+from bsp_tool import Bsp
 
 
 class TestBspImport(unittest.TestCase):
 
     def setUp(self):
-        self.test2_bsp = bsp("tests/maps/test2.bsp")
-        self.upward_bsp = bsp("tests/maps/pl_upward.bsp")
+        self.test2_bsp = Bsp("tests/maps/test2.bsp")
+        self.upward_bsp = Bsp("tests/maps/pl_upward.bsp")
 
     def test_no_errors(self):
         assert len(self.test2_bsp.log) == 0

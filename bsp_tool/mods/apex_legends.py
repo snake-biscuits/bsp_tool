@@ -224,13 +224,13 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
-class material_sort(common.base):  # LUMP 82 (0052)
+class MaterialSort(common.Base):  # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
 
-class mesh(common.base):  # LUMP 80 (0050)
+class Mesh(common.Base):  # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
@@ -238,29 +238,29 @@ class mesh(common.base):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcd"]}
 
 
-class mesh_indices(int):  # LUMP 79 (004F)
+class MeshIndices(int):  # LUMP 79 (004F)
     _format = "H"
 
 
-class model(common.base):  # LUMP 14 (000E)
+class Model(common.Base):  # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
 
 
-class shadow_mesh(common.base):  # LUMP 7F (0127)
+class ShadowMesh(common.Base):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
 
-class texture_data(common.base):  # LUMP 2 (0002)
+class TextureData(common.Base):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"  # WRONG SIZE (8384 / 36)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
-class vertex(common.mapped_array):  # LUMP 3 (0003)
+class Vertex(common.MappedArray):  # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
 
@@ -268,48 +268,48 @@ class vertex(common.mapped_array):  # LUMP 3 (0003)
         return [self.x, self.y, self.z]
 
 
-class vertex_blinn_phong(common.base):  # LUMP 75 (004B)
+class VertexBlinnPhong(common.Base):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-class vertex_lit_bump(common.base):  # LUMP 73 (0049)
+class VertexLitBump(common.Base):  # LUMP 73 (0049)
     __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
     _format = "2I2fi3f"  # 32 bytes
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 
-class vertex_lit_flat(common.base):  # LUMP 72 (0048)
+class VertexLitFlat(common.Base):  # LUMP 72 (0048)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
-class vertex_unlit(common.base):  # LUMP 71 (0047)
+class VertexUnlit(common.Base):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
-class vertex_unlit_ts(common.base):  # LUMP 74 (004A)
+class VertexUnlitTS(common.Base):  # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-lump_classes = {"MATERIAL_SORT": material_sort,
-                "MESHES": mesh,
-                "MESH_INDICES": mesh_indices,
-                "MODELS": model,
-                "TEXDATA": texture_data,
-                "VERTEX_NORMALS": vertex,
-                "VERTICES": vertex,
-                "VERTS_BLINN_PHONG": vertex_blinn_phong,
-                "VERTS_LIT_BUMP": vertex_lit_bump,
-                "VERTS_LIT_FLAT": vertex_lit_flat,
-                "VERTS_UNLIT": vertex_unlit,
-                "VERTS_UNLIT_TS": vertex_unlit_ts}
+lump_classes = {"MATERIAL_SORT": MaterialSort,
+                "MESHES": Mesh,
+                "MESH_INDICES": MeshIndices,
+                "MODELS": Model,
+                "TEXDATA": TextureData,
+                "VERTEX_NORMALS": Vertex,
+                "VERTICES": Vertex,
+                "VERTS_BLINN_PHONG": VertexBlinnPhong,
+                "VERTS_LIT_BUMP": VertexLitBump,
+                "VERTS_LIT_FLAT": VertexLitFlat,
+                "VERTS_UNLIT": VertexUnlit,
+                "VERTS_UNLIT_TS": VertexUnlitTS}
 
 
 # METHODS EXCLUSIVE TO THIS MOD:
@@ -318,7 +318,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x400: "VERTS_UNLIT",
               0x200: "VERTS_LIT_BUMP",
               0x210: "VERTS_LIT_FLAT"}
-# ^ a proper mapping of the flags would be nice
+# a function mapping mesh.flags to vertex lumps would be better
 
 
 def vertices_of_mesh(bsp, mesh_index):
@@ -328,10 +328,13 @@ def vertices_of_mesh(bsp, mesh_index):
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
+    # select vertex lump from mesh.MAP_FLAGS
     mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
     verts = getattr(bsp, mesh_types[mesh_type])
-    # ^ picking based on flags is hard
     return [verts[i] for i in indices]
+
+# look at bsp_tool_examples/visualise/render_bsp.py
+# assembling vertex buffers in a requested format would be cool
 
 
 methods = [vertices_of_mesh]

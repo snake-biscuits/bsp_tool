@@ -10,8 +10,7 @@ import types
 from . import mods
 
 
-lump_header = collections.namedtuple("lump_header",
-                                     ["offset", "length", "version", "fourCC"])
+lump_header = collections.namedtuple("lump_header", ["offset", "length", "version", "fourCC"])
 
 
 def read_lump(file, header_address):
@@ -41,7 +40,7 @@ def read_lump(file, header_address):
     return data
 
 
-class bsp():
+class Bsp():
     def __init__(self, filename, game="unknown", lump_files=False):
         # NOTE FILES RELATED TO THIS .BSP
         if not filename.endswith(".bsp"):
@@ -177,9 +176,9 @@ class bsp():
         # SURF_EDGES
         if hasattr(self, "RAW_SURFEDGES"):
             try:
-                _format = self.mod.surf_edge._format
+                _format = self.mod.SurfEdge._format
             except Exception:
-                _format = mods.team_fortress2.surf_edge._format
+                _format = mods.team_fortress2.SurfEdge._format
             # ^ is this try & except still nessecary?
             self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
             del self.RAW_SURFEDGES, _format

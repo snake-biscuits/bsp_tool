@@ -6,7 +6,7 @@ from . import common
 
 def test_unpack(lump, into):
     """Unpack lump (bytesarray)
-    into a list of size into (int) or type into (common.base / mapped_array)"""
+    into a list of size into (int) or type into (common.Base / MappedArray)"""
     lump_size = len(lump)
     out = []
     if isinstance(into, int):
@@ -15,10 +15,10 @@ def test_unpack(lump, into):
             i *= chunk_length
             out.append(lump[i:i+chunk_length])
         # ^ if "lump_size" cannot be equally divided the tail is lost
-    elif isinstance(into, (common.base, common.mapped_array)):
+    elif isinstance(into, (common.Base, common.MappedArray)):
         out = struct.iter_unpack(into._format, lump)
     else:
-        raise NotImplementedError("into must be type <int> or subclass of <common.base> or <common.mapped_array>")
+        raise NotImplementedError("into must be type <int> or subclass of <common.Base> or <common.MappedArray>")
     return out
 
 

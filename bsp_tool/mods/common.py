@@ -1,4 +1,4 @@
-class base:
+class Base:
     __slots__ = []
     _format = ""
     _arrays = {}
@@ -18,11 +18,11 @@ class base:
                         elif isinstance(part, int):
                             length += part
                     array = _tuple[i:i + length]
-                    value = mapped_array(array, mapping=array_map)
+                    value = MappedArray(array, mapping=array_map)
                 elif isinstance(array_map, list):
                     length = len(array_map)
                     array = _tuple[i:i + length]
-                    value = mapped_array(array, mapping=array_map)
+                    value = MappedArray(array, mapping=array_map)
                 else:  # integer denoting array length
                     length = array_map
                     value = _tuple[i:i + length]
@@ -41,7 +41,7 @@ class base:
         _tuple = []
         for slot in self.__slots__:
             value = getattr(self, slot)
-            if not isinstance(value, (list, tuple, mapped_array)):
+            if not isinstance(value, (list, tuple, MappedArray)):
                 _tuple.append(value)
             else:
                 for x in value:
@@ -49,8 +49,8 @@ class base:
         return _tuple
 
 
-class mapped_array:
-    """quick & dirty namespace (object exploited for it's dictionary)"""
+class MappedArray:
+    """Uses self.__dict__ to map objects to names. A basic Namespace"""
     _mapping = [*"xyz"]
 
     def __init__(self, array, mapping=_mapping):
@@ -59,7 +59,7 @@ class mapped_array:
             i = 0
             for segment_key, segment_map in mapping.items():
                 segment = array[i:i + len(segment_map)]
-                segment_array = mapped_array(segment, mapping=segment_map)
+                segment_array = MappedArray(segment, mapping=segment_map)
                 setattr(self, segment_key, segment_array)
                 i += len(segment_map)
         else:  # list of strings
@@ -80,4 +80,4 @@ class mapped_array:
         out = []
         for attr, value in zip(self._mapping, self):
             out.append(f"{attr}: {value}")
-        return f"<mapped_array ({', '.join(out)})>"
+        return f"<MappedArray ({', '.join(out)})>"
