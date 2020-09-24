@@ -168,6 +168,12 @@ class LeafFace(int):  # LUMP 16
     _format = "H"
 
 
+class Model(common.Base):
+    __slots__ = ["mins", "maxs", "origin", "head_node", "first_face", "num_faces"]
+    _format = "9f3i"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "origin": [*"xyz"]}
+
+
 class Node(common.Base):  # LUMP 5
     __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
@@ -234,6 +240,7 @@ lump_classes = {"AREAS": Area,
                 "FACES": Face,
                 "LEAVES": Leaf,
                 "LEAF_FACES": LeafFace,
+                "MODELS": Model,
                 "NODES": Node,
                 "ORIGINAL_FACES": Face,
                 "PLANES": Plane,
