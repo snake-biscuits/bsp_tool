@@ -31,6 +31,7 @@ class Base:
                 length = 1
             setattr(self, attr, value)
             i += length
+        # TODO: throw a warning if the whole tuple won't fit, long or short
 
     def __repr__(self):
         components = {s: getattr(self, s) for s in self.__slots__}

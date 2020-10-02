@@ -6,14 +6,15 @@ import re
 import struct
 import time
 import types
+from typing import Dict, List
 
 from . import mods
 
 
-lump_header = collections.namedtuple("lump_header", ["offset", "length", "version", "fourCC"])
+LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 
 
-def read_lump(file, header_address):
+def read_lump(file, header_address: int) -> bytes:
     # header
     file.seek(header_address)
     offset = int.from_bytes(file.read(4), "little")
@@ -41,7 +42,17 @@ def read_lump(file, header_address):
 
 
 class Bsp():
-    def __init__(self, filename, game="unknown", lump_files=False):
+    associated_files: List[str]
+    bsp_version: int
+    bytesize: int
+    filename: str
+    folder: str
+    log: List[str]
+    lump_map: Dict[int, LumpHeader]
+    mod: types.ModuleType
+    # LUMP List[LUMP_struct]
+
+    def __init__(self, filename: str, game: str = "unknown", lump_files: bool = False):
         # NOTE FILES RELATED TO THIS .BSP
         if not filename.endswith(".bsp"):
             filename += ".bsp"
@@ -89,8 +100,9 @@ class Bsp():
         file.read()  # move cursor to end of file
         self.bytesize = file.tell()
 
-        self.log = []
-        self.lump_map = {}
+        self.log: List[str] = []
+        self.lump_map: Dict[int, LumpHeader] = {}
+        # ^ {ID: LumpHeader}
         start_time = time.time()
         # TODO: store .bsp lumps as INTERNAL_ when lump_files == True
         for ID in self.mod.LUMP:
@@ -108,15 +120,16 @@ class Bsp():
                 data = read_lump(file, self.mod.lump_header_address[ID])
             if data is not None:  # record the .bsp lump headers (could be implemented better)
                 file.seek(self.mod.lump_header_address[ID])
-                self.lump_map[ID] = lump_header(*[int.from_bytes(file.read(4), "little") for i in range(4)])
+                self.lump_map[ID] = LumpHeader(*[int.from_bytes(file.read(4), "little") for i in range(4)])
                 setattr(self, "RAW_" + ID.name, data)
             # else: # lump is empty
 
-        # begin processing lumps
-        lump_classes = self.mod.lump_classes  # self.mod is a module
+        # PROCESS RAW LUMPS (this could be it's own method)
+        lump_classes: Dict = self.mod.lump_classes  # self.mod is a module
+        # ^ {"LUMP_NAME": LumpClass}
         for LUMP, lump_class in lump_classes.items():
             if not hasattr(self, f"RAW_{LUMP}"):
-                continue  # skip unused lumps
+                continue  # lump was empty, skip
             try:  # implement -Warn system here
                 setattr(self, LUMP, [])
                 RAW_LUMP = getattr(self, f"RAW_{LUMP}")
@@ -125,32 +138,32 @@ class Bsp():
                         data = data[0]
                     getattr(self, LUMP).append(lump_class(data))
                 delattr(self, f"RAW_{LUMP}")
-            except struct.error as exc:  # noqa: F841
+            except struct.error:
                 struct_size = struct.calcsize(lump_class._format)
                 self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size})." +
                                 "Wrong mod?")
                 delattr(self, LUMP)
-                # raise exc
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
                 # raise exc
 
-        if self.log != []:
+        if len(self.log) > 0:
             print(*self.log, sep="\n")
 
         # SPECIAL LUMPS
+
         # ENTITIES
         # TODO: use fgdtools to fully unstringify entities
         # rBSP .bsps have 5 associated entity files beginning with "ENTITIES01\n"
-        self.ENTITIES = self.RAW_ENTITIES.decode(errors="ignore")
-        entities = []
-        for line in self.ENTITIES.split("\n"):
+        self.ENTITIES: List[Dict[str, str]] = list()
+        # ^ [{"key": "value"}]
+        for line in self.RAW_ENTITIES.decode(errors="ignore").split("\n"):
             if re.match("^[ \t]*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:
                 ent = dict()
             elif re.match('".*" ".*"', line):
-                key, value = line[1:-1].split('" "')
+                key, value = line[1:-1].split('" "')  # could extract with regex
                 if key not in ent:
                     ent[key] = value
                 else:
@@ -159,13 +172,13 @@ class Bsp():
                     else:
                         ent[key] = [ent[key], value]
             elif "}" in line:
-                entities.append(ent)
+                self.ENTITIES.append(ent)
             elif line == b"\x00".decode():
                 continue
             else:
                 raise RuntimeError(f"Unexpected line in entities: {line.encode()}")
-        self.ENTITIES = entities
-        del self.RAW_ENTITIES, entities
+        del self.RAW_ENTITIES
+
         # GAME LUMP
         # LUMP_GAME_LUMP is compressed in individual segments.
         # The compressed size of a game lump can be determined by subtracting
