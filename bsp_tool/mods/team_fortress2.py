@@ -1,7 +1,8 @@
 import enum
+from typing import List
 
 from . import common
-from . import vector  # for faces & displacements --> vertices & indices
+from . import vector  # for methods
 
 
 bsp_version = 20
@@ -74,38 +75,102 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
+class Contents(enum.Enum):
+    EMPTY = 0x00
+    SOLID = 0x01
+    WINDOW = 0x02
+    AUX = 0x04
+    GRATE = 0x08  # allows bullets & vis
+    SLIME = 0x10
+    WATER = 0x20
+    MIST = 0x40
+    OPAQUE = 0x80  # blocks NPC line of sight
+    TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
+    UNUSED_1 = 0x200
+    UNUSED_2 = 0x400
+    TEAM1 = 0x0800
+    TEAM2 = 0x1000
+    IGNORE_NODRAW_OPAQUE = 0x2000
+    MOVEABLE = 0x4000
+    AREAPORTAL = 0x8000
+    PLAYER_CLIP = 0x10000
+    MONSTER_CLIP = 0x20000
+    # orientations?
+    CURRENT_0 = 0x40000
+    CURRENT_90 = 0x80000
+    CURRENT_180 = 0x100000
+    CURRENT_270 = 0x200000
+    CURRENT_UP = 0x400000
+    CURRENT_DOWN = 0x800000
+    ORIGIN = 0x1000000  # "removed before bsping an entity"
+    MONSTER = 0x2000000  # in-game only, shouldn't be in a .bsp
+    DEBRIS = 0x4000000
+    DETAIL = 0x8000000  # func_detail; for VVIS (visleaf assembly from Brushes)
+    TRANSLUCENT = 0x10000000
+    LADDER = 0x20000000
+    HITBOX = 0x40000000  # requests hit tracing use hitboxes
+
+
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for each lump, in alphabetical order:
 class Area(common.Base):  # LUMP 20
+    num_area_portals: int   # number of AreaPortals
+    first_area_portal: int  # index of first AreaPortal
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
 class AreaPortal(common.Base):  # LUMP 21
+    portal_key: int  # from brush id, an index?
+    first_clip_portal_vert: int  # index of ???
+    clip_portal_verts: int  # number of ???s
+    plane: int  # index of Plane
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
-                 "clip_portal_verts", "plane_num"]
+                 "clip_portal_verts", "plane"]
     _format = "4Hi"
 
 
 class Brush(common.Base):  # LUMP 18
+    """Assumed to carry over from .vmf"""
+    first_side: int  # index of first brushside
+    num_sides: int   # number of sides
+    contents: int    # contents bitflags
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
 
 
 class BrushSide(common.Base):  # LUMP 19
-    __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
+    """Face of a brush"""
+    plane: int      # index of Plane
+    tex_info: int   # index of TextureInfo
+    disp_info: int  # index of DisplacementInfo
+    bevel: int      # for lighting? smoothing groups?
+    __slots__ = ["plane", "tex_info", "disp_info", "bevel"]
     _format = "H3h"
 
 
 class Cubemap(common.Base):  # LUMP 42
+    """Origin for a cubemap texture to be centered on"""
+    origin: List[float]  # origin.xyz
+    size: int  # texture dimension (each face of a cubemap is square)
     __slots__ = ["origin", "size"]
     _format = "4i"
     _arrays = {"origin": [*"xyz"]}
 
 
 class DisplacementInfo(common.Base):  # LUMP 26
+    """Holds the information defining a displacement"""
+    start_position: List[float]  # rough XYZ of the vertex to orient around
+    disp_vert_start: int  # index of first DisplacementVertex
+    disp_tri_start: int   # index of first DisplacementTriangle
+    # ^ length of sequence for each varies depending on power
+    power: int  # level of subdivision
+    min_tesselation: int  # for tesselation shaders / triangle assembley?
+    smoothing_angle: float  # ?
+    contents: int  # contents bitflags
+    map_face: int  # index of Face?
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start", "power",
                  "min_tesselation", "smoothing_angle", "contents", "map_face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
@@ -113,8 +178,8 @@ class DisplacementInfo(common.Base):  # LUMP 26
     _format = "3f4ifiH2i88c10I"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
-    # extend __init__ to unpack edge & corner neighbours with another class
-    # the "flat" method may need some changes to accommodate this
+    # TODO: map neighbours with common.Base subclasses, rather than MappedArrays
+    # the flat & __init__ methods may need some changes to accommodate this
 
     # def __init__(self, _tuple):
     #     super(self, common.Base).__init__(_tuple)
@@ -123,22 +188,50 @@ class DisplacementInfo(common.Base):  # LUMP 26
 
 
 class DisplacementTriangle(int):  # LUMP 48
+    """Bitflags"""
+    # 0x01  SURFACE
+    # 0x02  WALKABLE
+    # 0x04  BUILDABLE
+    # 0x08  SURFPROP1
+    # 0x10  SURFPROP2
     _format = "H"
 
 
 class DisplacementVertex(common.Base):  # LUMP 33
+    """The positional deformation & blend value of a point in a displacement"""
+    vector: List[float]  # direction of vertex offset from barymetric base
+    distance: float      # length to scale deformation vector by
+    alpha: float         # [0-1] material blend factor
     __slots__ = ["vector", "distance", "alpha"]
     _format = "5f"
     _arrays = {"vector": [*"xyz"]}
 
 
 class Edge(list):  # LUMP 12
-    _format = "2h"
-    # just a list() + the _format attribute
+    """Edge of a Face, flipped if indexed negatively by a SurfEdge"""
+    _format = "2h"  # List[int]
 
 
 class Face(common.Base):  # LUMP 7
-    __slots__ = ["plane_num", "side", "on_node", "first_edge", "num_edges",
+    """makes up Models (including worldspawn), also referenced by LeafFaces"""
+    plane: int       # index of Plane
+    side: int        # "faces opposite to the node's plane direction"
+    on_node: bool    # if False, face is in a leaf
+    first_edge: int  # index of first SurfEdge
+    num_edges: int   # number of SurfEdges
+    tex_info: int    # index of TextureInfo
+    disp_info: int   # index of DisplacementInfo (None if -1)
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    styles: int      # 4 different lighting states? "switchable lighting info"
+    light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
+    area: float  # surface area of this face
+    lightmap_texture_mins_in_luxels: List[int]  # dimensions of lightmap segment
+    lightmap_texture_size_in_luxels: List[int]  # scalars for lightmap segment
+    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
+    first_primitive_id: int  # index of Primitive
+    smoothing_groups: int    # lightmap smoothing group
+    __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
                  "tex_info", "disp_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap_texture_mins_in_luxels",
                  "lightmap_texture_size_in_luxels", "original_face",
@@ -148,34 +241,62 @@ class Face(common.Base):  # LUMP 7
                "lightmap_texture_size_in_luxels": [*"st"]}
 
 # class game_lump: # LUMP 35
-#     ... # another unique class
+#     pass # unique sub-headers & offsets...
 
 
 class Leaf(common.Base):  # LUMP 10
+    """Endpoint of a vis tree branch, a pocket of Faces"""
+    contents: int  # contents bitflags
+    cluster: int   # index of this Leaf's cluster (parent node?)
+    area_flags: int  # area + flags (short area:9; short flags:7;)
+    # area and flags are held in the same float
+    # area = leaf[2] & 0xFF80 >> 7 # 9 bits
+    # flags = leaf[2] & 0x007F # 7 bits
+    # TODO: automatically split area & flags, merging back for flat()
+    # why was this done when the struct is padded by one short anyway?
+    mins: List[float]  # bounding box minimums along XYZ axes
+    maxs: List[float]  # bounding box maximums along XYZ axes
+    first_leaf_face: int   # index of first LeafFace
+    num_leaf_faces: int    # number of LeafFaces
+    first_leaf_brush: int  # index of first LeafBrush
+    num_leaf_brushes: int  # number of LeafBrushes
+    leaf_water_data_id: int  # -1 if this leaf isn't submerged
+    padding: int  # should be empty
     __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data_id", "padding"]
     _format = "i8h4H2h"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    # area and flags are bitmasked from the same value
-    # area = leaf[2] & 0xFF80 >> 7 # 9 bits
-    # flags = leaf[2] & 0x007F # 7 bits
-    # need to reverse this for leaf.flat()
-    # why did those bits need saving when the struct is padded?
 
 
 class LeafFace(int):  # LUMP 16
+    """Index of Face, this lump is a pre-organised sequence for the vis system"""
     _format = "H"
 
 
 class Model(common.Base):
+    """worldspawn (model lump index 0) & brush based entities"""
+    mins: List[float]  # bounding box minimums along XYZ axes
+    maxs: List[float]  # bounding box maximums along XYZ axes
+    origin: List[float]  # center of model, worldspawn is always at 0 0 0
+    head_node: int   # index of first Node
+    first_face: int  # index of first Face
+    num_faces: int   # number of Faces
     __slots__ = ["mins", "maxs", "origin", "head_node", "first_face", "num_faces"]
     _format = "9f3i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "origin": [*"xyz"]}
 
 
 class Node(common.Base):  # LUMP 5
-    __slots__ = ["plane_num", "children", "mins", "maxs", "first_face", "num_faces",
+    plane: int  # index of Plane
+    children: list[int]  # 2 indices; Node if positive, Leaf if negative
+    mins: List[float]  # bounding box minimums along XYZ axes
+    maxs: List[float]  # bounding box maximums along XYZ axes
+    first_face: int  # index of first Face
+    num_faces: int   # number of Faces
+    area: int  # index of Area, if all children are in the same area, else -1
+    padding: int  # should be empty
+    __slots__ = ["plane", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
     # area is appears to always be 0
     # however leaves correctly connect to all areas
@@ -185,19 +306,32 @@ class Node(common.Base):  # LUMP 5
 # class pakfile: # LUMP 40
 #     ... # it's a raw binary zip file
 #     # keep the raw data and provide an extraction / editing API?
+#     # io.BytesIO / lzma.reader object?
 
 
 class Plane(common.Base):  # LUMP 1
+    """3D Plane defining shape, used for physics & BSP/CSG calculations?"""
+    normal: List[float]
+    distance: float
+    type: int  # flags for axis alignment, appears to be unused
     __slots__ = ["normal", "distance", "type"]
     _format = "4fi"
     _arrays = {"normal": [*"xyz"]}
 
 
-class SurfEdge:  # LUMP 13
+class SurfEdge(int):  # LUMP 13
+    """Index into EDGES, edge direction is reversed if negative"""
     _format = "i"
 
 
 class TextureData(common.Base):  # LUMP 2
+    """Data on this view of a texture (.vmt), indexed by TextureInfo"""
+    reflectivity: List[float]
+    tex_data_string_index: int  # index of texture name (TEXDATA_STRING_TABLE)
+    width: int  # width of full texture
+    height: int  # height of full texture
+    view_width: int  # width of visible section of texture
+    view_height: int  # height of visible section of texture
     __slots__ = ["reflectivity", "tex_data_string_index", "width", "height",
                  "view_width", "view_height"]
     _format = "3f5i"
@@ -205,13 +339,23 @@ class TextureData(common.Base):  # LUMP 2
 
 
 class TextureInfo(common.Base):  # LUMP 6
+    """Texture projection info & index into TEXDATA"""
+    texture: List[List[float]]  # 2 texture projection vectors
+    lightmap: List[List[float]]  # 2 lightmap projection vectors
+    mip_flags: int  # flags for mipmapping?
+    tex_data: int  # index of TextureData
     __slots__ = ["texture", "lightmap", "mip_flags", "tex_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
+    # ^ nested MappedArrays; texture.s.x, texture.t.x
 
 
 class Vertex(common.MappedArray):  # LUMP 3
+    """a point in 3D space"""
+    x: float
+    y: float
+    z: float
     _mapping = [*"xyz"]
     _format = "3f"
 
@@ -220,6 +364,26 @@ class Vertex(common.MappedArray):  # LUMP 3
 
 
 class WorldLight(common.Base):  # LUMP 15
+    """A static light"""
+    origin: List[float]  # origin point of this light source
+    intensity: float     # light strength scalar
+    normal: List[float]  # light direction
+    cluster: int  # ?
+    type: int  # some enum?
+    style: int  # ? related to face styles?
+    # see base.fgd:
+    stop_dot: float  # ?
+    stop_dot2: float  # ?
+    exponent: float  # falloff?
+    radius: float
+    # attenuations:
+    constant: float
+    linear: float
+    quadratic: float
+    # ^ these factor into some equation...
+    flags: int  # bitflags?
+    tex_info: int  # index of TextureInfo
+    owner: int  # parent entity ID?
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
@@ -252,7 +416,7 @@ lump_classes = {"AREAS": Area,
 
 
 # METHODS EXCLUSIVE TO THIS MOD:
-def vertices_of_face(bsp, face_index):
+def vertices_of_face(bsp, face_index: int) -> List[float]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
     uvs, uv2s = [], []
@@ -300,12 +464,12 @@ def vertices_of_face(bsp, face_index):
             uv2[0] /= face.lightmap_texture_size_in_luxels.s
             uv2[1] /= face.lightmap_texture_size_in_luxels.t
         uv2s.append(uv2)
-    normal = [bsp.PLANES[face.plane_num].normal] * len(positions)  # X Y Z
+    normal = [bsp.PLANES[face.plane].normal] * len(positions)  # X Y Z
     colour = [tex_data.reflectivity] * len(positions)  # R G B
     return list(zip(positions, normal, uvs, uv2s, colour))
 
 
-def t_junction_fixer(bsp, face, positions, edges):  # WIP
+def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[List[float]]) -> List[List[float]]:  # WIP
     # report to bsp.log rather than printing
     # bsp may need a method wrapper to give a warning to check the logs
     # face_index = bsp.FACES.index(face)
@@ -346,7 +510,7 @@ def t_junction_fixer(bsp, face, positions, edges):  # WIP
     return positions
 
 
-def vertices_of_displacement(bsp, face_index):
+def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
     if face.disp_info == -1:
@@ -397,7 +561,7 @@ def vertices_of_displacement(bsp, face_index):
 methods = [vertices_of_face, vertices_of_displacement]
 
 
-def displacement_indices(power):  # static method / tool
+def displacement_indices(power: int) -> List[List[int]]:  # static method?
     """returns an array of indices ((2 ** power) + 1) ** 2 long"""
     power2 = 2 ** power
     power2A = power2 + 1
