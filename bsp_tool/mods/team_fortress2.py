@@ -289,7 +289,7 @@ class Model(common.Base):
 
 class Node(common.Base):  # LUMP 5
     plane: int  # index of Plane
-    children: list[int]  # 2 indices; Node if positive, Leaf if negative
+    children: List[int]  # 2 indices; Node if positive, Leaf if negative
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
     first_face: int  # index of first Face
