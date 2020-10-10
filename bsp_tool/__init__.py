@@ -92,6 +92,7 @@ class Bsp():
                 raise NotImplementedError(f"{game} .bsp is not supported")
         self.mod = mod
         for method in getattr(mod, "methods", list()):
+            method = types.MethodType(method, self)
             setattr(self, method.__name__, method)
         # attach static methods too?
         print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
