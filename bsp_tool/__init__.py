@@ -56,6 +56,7 @@ class Bsp():
         # NOTE FILES RELATED TO THIS .BSP
         if not filename.endswith(".bsp"):
             filename += ".bsp"
+        filename = os.path.realpath(filename)  # make sure we know the folder
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
         local_files = os.listdir(self.folder)
