@@ -92,9 +92,8 @@ class Bsp():
                 raise NotImplementedError(f"{game} .bsp is not supported")
         self.mod = mod
         for method in getattr(mod, "methods", list()):
-            # attach methods defined in mod, if any
-            types.MethodType(method, self)
-        # static_methods too?
+            setattr(self, method.__name__, method)
+        # attach static methods too?
         print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
         # rBSP map revision is before headers, VBSP is after
         file.read()  # move cursor to end of file
