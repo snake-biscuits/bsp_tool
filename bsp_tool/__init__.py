@@ -53,27 +53,22 @@ class Bsp():
     # LUMP List[LUMP_struct]
 
     def __init__(self, filename: str, game: str = "unknown", lump_files: bool = False):
-        # NOTE FILES RELATED TO THIS .BSP
-        if not filename.endswith(".bsp"):
-            filename += ".bsp"
+        assert filename.endswith(".bsp")
         filename = os.path.realpath(filename)  # make sure we know the folder
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
         local_files = os.listdir(self.folder)
-        def is_related(n): return n.startswith(os.path.splitext(self.filename)[0])
-        self.associated_files = [n for n in local_files if is_related(n)]
-        # BEGIN READING .BSP FILE
+        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
+        self.associated_files = [f for f in local_files if is_related(f)]
         file = open(filename, "rb")
         file_magic = file.read(4)
         if file_magic == b"rBSP":  # rBSP = Respawn BSP (Titanfall/Apex Legends)
             lump_files = True  # most lumps are external
         elif file_magic not in (b"VBSP", b"rBSP"):
-            # note that on consoles file_magic is big endian
+            # note that on consoles file_magic is big endian (reversed)
             raise RuntimeError(f"{file} is not a .bsp!")
-        # GET SPECIFIC .BSP FORMAT
         self.bsp_version = int.from_bytes(file.read(4), "little")
-        if game.lower() == "unknown":
-            # guess .bsp format from version
+        if game.lower() == "unknown":  # guess .bsp format from version
             try:
                 mod = mods.by_version[self.bsp_version]
             except KeyError:
