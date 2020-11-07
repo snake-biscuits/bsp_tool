@@ -1,7 +1,7 @@
 import enum
 
 from . import common
-from . import team_fortress2
+from . import orange_box
 
 
 bsp_version = 20
@@ -94,7 +94,7 @@ class BrushSide(common.Base):  # LUMP 19
     _format = "I3i"
 
 
-class DisplacementInfo(team_fortress2.DisplacementInfo):  # LUMP 26
+class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
     __slots__ = ["start_position", "disp_vert_start", "disp_tri_start",
                  "power", "smoothing_angle", "unknown1", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
@@ -155,7 +155,8 @@ class Overlay(common.Base):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
-lump_classes = team_fortress2.lump_classes.copy()  # copy tf2 for other classes
+# everything else is the same as orange box (Team Fortress 2 branch)
+lump_classes = orange_box.lump_classes.copy()
 lump_classes.update({"AREAS": Area,
                      "AREA_PORTALS": AreaPortal,
                      "BRUSH_SIDES": BrushSide,
@@ -168,4 +169,4 @@ lump_classes.update({"AREAS": Area,
                      "ORIGINAL_FACES": Face})
 
 
-methods = team_fortress2.methods  # uses the same methods as tf2
+methods = orange_box.methods
