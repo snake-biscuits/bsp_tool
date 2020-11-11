@@ -8,7 +8,7 @@ At present the tool read .bsps from most Source Engine games, as well as Titanfa
 The `mods/` folder contains classes for interpretting the lumps within .bsp files  
 bsp_tool needs to know each lump is constructed & this varies from game to game  
 `mods/common.py` provides some base classes  
-`vindictus.py` extends `team_fortress2.py`  
+`vindictus.py` extends `orange_box.py`  
 
 At present, not every lump's exact format is understood  
 When a lump of unknown format is loaded, it becomes `RAW_LUMPNAME` and the raw data is preserved  
