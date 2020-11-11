@@ -6,9 +6,9 @@ import re
 import struct
 import time
 import types
-from typing import Dict, List
+from typing import Dict, List, Union
 
-from . import mods
+from . import branches
 
 
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
@@ -42,6 +42,7 @@ def read_lump(file, header_address: int) -> bytes:
 
 
 class Bsp():
+    _engine_branch: types.ModuleType
     associated_files: List[str]
     bsp_version: int
     bytesize: int
@@ -49,10 +50,9 @@ class Bsp():
     folder: str
     log: List[str]
     lump_map: Dict[int, LumpHeader]
-    mod: types.ModuleType
     # LUMP List[LUMP_struct]
 
-    def __init__(self, filename: str, game: str = "unknown", lump_files: bool = False):
+    def __init__(self, filename: str, game: Union[str, types.ModuleType] = "unknown", external_lumps: bool = False):
         assert filename.endswith(".bsp")
         filename = os.path.realpath(filename)  # make sure we know the folder
         self.filename = os.path.basename(filename)
@@ -63,34 +63,14 @@ class Bsp():
         file = open(filename, "rb")
         file_magic = file.read(4)
         if file_magic == b"rBSP":  # rBSP = Respawn BSP (Titanfall/Apex Legends)
-            lump_files = True  # most lumps are external
+            external_lumps = True  # most lumps are external
         elif file_magic not in (b"VBSP", b"rBSP"):
             # note that on consoles file_magic is big endian (reversed)
             raise RuntimeError(f"{file} is not a .bsp!")
         self.bsp_version = int.from_bytes(file.read(4), "little")
-        if game.lower() == "unknown":  # guess .bsp format from version
-            try:
-                mod = mods.by_version[self.bsp_version]
-            except KeyError:
-                raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
-        elif isinstance(game, types.ModuleType):
-            # custom python script, for experimenting / spelunking
-            mod = game
-            # this script is expected to contain:
-            # - bsp_version
-            # - LUMP(enum.Enum) - NAME_OF_LUMP = header_number
-            # - lump_header_address - {NAME_OF_LUMP: header_offset_into_file}
-            # - lump_classes - {"NAME_OF_LUMP": lump_class}
-        else:
-            try:
-                mod = mods.by_name[game]
-            except KeyError:
-                raise NotImplementedError(f"{game} .bsp is not supported")
-        self.mod = mod
-        for method in getattr(mod, "methods", list()):
-            method = types.MethodType(method, self)
-            setattr(self, method.__name__, method)
-        # attach static methods too?
+
+        self.set_branch(game)
+
         print(f"Loading {self.filename} (BSP v{self.bsp_version})...")
         # rBSP map revision is before headers, VBSP is after
         file.read()  # move cursor to end of file
@@ -100,28 +80,28 @@ class Bsp():
         self.lump_map: Dict[int, LumpHeader] = {}
         # ^ {ID: LumpHeader}
         start_time = time.time()
-        # TODO: store .bsp lumps as INTERNAL_ when lump_files == True
-        for ID in self.mod.LUMP:
+        # TODO: store .bsp lumps as INTERNAL_ when external_lumps == True
+        for ID in self._engine_branch.LUMP:
             lump_filename = f"{self.filename}.{ID.value:04x}.bsp_lump"
             # ^ rBSP .bsp_lump naming convention
-            if lump_files is True and lump_filename in self.associated_files:
+            if external_lumps is True and lump_filename in self.associated_files:
                 # vBSP lumpfiles have headers, rBSP lumpfiles are headerless
                 # mp_drydock only has 72 bsp_lump files
                 # however other lumps within mp_drydock.bsp itself contain data
                 data = open(f"{os.path.join(self.folder, lump_filename)}", "rb").read()
                 # self.log.append(f"overwrote {ID.name} lump with external .bsp_lump")
             else:
-                if lump_files is True and file_magic != b"rBSP":
+                if external_lumps is True and file_magic != b"rBSP":
                     self.log.append(f"external  {ID.name} lump not found")
-                data = read_lump(file, self.mod.lump_header_address[ID])
+                data = read_lump(file, self._engine_branch.lump_header_address[ID])
             if data is not None:  # record the .bsp lump headers (could be implemented better)
-                file.seek(self.mod.lump_header_address[ID])
+                file.seek(self._engine_branch.lump_header_address[ID])
                 self.lump_map[ID] = LumpHeader(*[int.from_bytes(file.read(4), "little") for i in range(4)])
                 setattr(self, "RAW_" + ID.name, data)
             # else: # lump is empty
 
         # PROCESS RAW LUMPS (this could be it's own method)
-        lump_classes: Dict = self.mod.lump_classes  # self.mod is a module
+        lump_classes: Dict = self._engine_branch.lump_classes
         # ^ {"LUMP_NAME": LumpClass}
         for LUMP, lump_class in lump_classes.items():
             if not hasattr(self, f"RAW_{LUMP}"):
@@ -137,7 +117,7 @@ class Bsp():
             except struct.error:
                 struct_size = struct.calcsize(lump_class._format)
                 self.log.append(f"ERROR PARSING {LUMP}:\n{LUMP} lump is an unusual size ({len(RAW_LUMP)} / {struct_size})." +
-                                "Wrong mod?")
+                                "Wrong engine branch?")
                 delattr(self, LUMP)
             except Exception as exc:
                 self.log.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
@@ -185,9 +165,9 @@ class Bsp():
         # SURF_EDGES
         if hasattr(self, "RAW_SURFEDGES"):
             try:
-                _format = self.mod.SurfEdge._format
+                _format = self._engine_branch.SurfEdge._format
             except Exception:
-                _format = mods.orange_box.SurfEdge._format
+                _format = branches.orange_box.SurfEdge._format
             # ^ is this try & except still nessecary?
             self.SURFEDGES = [s[0] for s in struct.iter_unpack(_format, self.RAW_SURFEDGES)]
             del self.RAW_SURFEDGES, _format
@@ -219,7 +199,7 @@ class Bsp():
         # offset = 0
         # length = 0
         # # CONVERT INTERNAL LUMPS TO RAW LUMPS
-        # for LUMP in self.mod.LUMP:
+        # for LUMP in self._engine_branch.LUMP:
         #     # special lumps:
         #     #  - ENTITIES
         #     #  - GAME_LUMP
@@ -228,7 +208,7 @@ class Bsp():
         #     if hasattr(self, f"RAW_{LUMP}"):
         #         continue
         #     elif hasattr(self, LUMP):
-        #         lump_format = self.mod.lump_classes[LUMP]._format
+        #         lump_format = self._engine_branch.lump_classes[LUMP]._format
         #         pack_lump = lambda c: struct.pack(lump_format, *c.flat())
         #         setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
         #     # seek lump header
@@ -240,3 +220,35 @@ class Bsp():
         #     # seek lump start in file
         #     outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
         # outfile.write(b"0001") # map revision
+
+    def set_branch(self, game: Union[str, types.ModuleType]):
+        """Warning! calling .set_branch on a loaded .bsp will not convert it!"""
+        if not isinstance(game, (types.ModuleType, str)):
+            raise NotImplementedError(f"Cannot load {game} engine branch .bsp!")
+        if isinstance(game, types.ModuleType):
+            # ^ custom python script (module; copy of branch definition script)
+            # -- if experimenting / spelunking the user can use a script "live"
+            # expected contents:
+            # - bsp_version: int
+            # - LUMP(enum.Enum) - NAME_OF_LUMP = header_number: int
+            # - lump_header_address - {NAME_OF_LUMP: header_offset_into_file}
+            # - lump_classes - {"NAME_OF_LUMP": lump_class}
+            branch = game
+            return
+        # game is a string
+        if game.lower() == "unknown":
+            try:  # guess .bsp format from version
+                branch = branches.by_version[self.bsp_version]
+            except KeyError:
+                raise NotImplementedError(f"v{self.bsp_version} .bsp is not supported")
+        else:
+            try:  # lookup named branch / game
+                branch = branches.by_name[game]
+            except KeyError:
+                raise NotImplementedError(f"{game} .bsp format is not supported, yet.")
+        self._engine_branch = branch
+        # attach methods
+        for method in getattr(branch, "methods", list()):
+            method = types.MethodType(method, self)
+            setattr(self, method.__name__, method)
+        # could we also attach static methods?

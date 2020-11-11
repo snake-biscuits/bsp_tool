@@ -1,7 +1,7 @@
 import struct
 import unittest
 
-from bsp_tool.mods import common
+from bsp_tool.branches import common
 
 
 class TestBaseMethods(unittest.TestCase):
