@@ -519,7 +519,7 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     if len(base_vertices) != 4:
         raise RuntimeError(f"Face #{face_index} does not have 4 corners (probably t-junctions)")
     disp_info = bsp.DISP_INFO[face.disp_info]
-    start = vector.vec3(disp_info.start_position)
+    start = vector.vec3(*disp_info.start_position)
     base_quad = [vector.vec3(*P) for P, N, uv, uv2, rgb in base_vertices]
     # rotate so the point closest to start on the quad is index 0
     if start not in base_quad:
