@@ -1,5 +1,5 @@
 # based on notes by Cra0kalo; developer of titanfall VPK tool and CSGO hacks
-# http://dev.cra0kalo.com/?p=202 (bsp) & https://dev.cra0kalo.com/?p=137 (vpk)
+# https://dev.cra0kalo.com/?p=202 (bsp) & https://dev.cra0kalo.com/?p=137 (vpk)
 
 import enum
 
