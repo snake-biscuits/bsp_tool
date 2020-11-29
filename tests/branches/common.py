@@ -31,6 +31,6 @@ class TestMappedArrayMethods(unittest.TestCase):
 
     def setUp(self):
         self.sample_A = common.MappedArray([0, 1, 2])
-        self.sample_B = common.MappedArray([3, 4, 5], ['a', 'b', 'c'])
-        self.sample_C = common.MappedArray([6, 7, 8, 9], {"D": ['i', 'ii'],
-                                                           "E": ['iii', ' iv']})
+        self.sample_B = common.MappedArray([3, 4, 5], ["a", "b", "c"])
+        self.sample_C = common.MappedArray([6, 7, 8, 9], {"D": ["i", "ii"],
+                                                           "E": ["iii", " iv"]})
