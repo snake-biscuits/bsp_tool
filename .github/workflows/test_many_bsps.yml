@@ -1,0 +1,28 @@
+name: MegaTest
+
+on:
+  release:
+      branches: [master]
+
+jobs:
+    build:
+
+  runs-on: ubuntu-latest
+  strategy:
+    matrix:
+      python-version: [3.7, 3.8, 3.9]
+
+        steps:
+          # https://github.com/marketplace/actions/setup-steamcmd
+          - name: Setup steamcmd
+            uses: CyberAndrii/setup-steamcmd@v1
+          # This next step may take a while...
+          - name: Install all* source games
+            run: steamcmd +login anonymous +app_update 1172470 validate +quit
+            # ^ installs Apex Legends, need to extrack .bsps from special .vpks
+            # - also need test scripts to automatically scrape folders for .bsp
+            # - pass multiple folder paths in via terminal?
+          # - name: Run tests on each game
+          # export a file recording all failed tests & .bsp logs,
+          # - for unknown lumps, note lump sizes, patterns etc.
+          # & point out *interesting* .bsps
