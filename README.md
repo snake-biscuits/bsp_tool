@@ -11,7 +11,7 @@ bsp_tool needs to know each lump is constructed & this varies from game to game
 `vindictus.py` extends `orange_box.py`  
 
 At present, not every lump's exact format is understood  
-When a lump of unknown format is loaded, it becomes `RAW_LUMPNAME` and the raw data is preserved  
+When a lump of unknown format is loaded, the raw byte data is stored in `RAW_LUMPNAME`  
 
 The user can specify what game bsp_tool is to expect  
 If no game is specified, bsp_tool will guess based on the bsp version  
