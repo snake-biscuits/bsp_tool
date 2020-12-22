@@ -343,8 +343,6 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
 # ^ a proper mapping of the flags would be nice
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-
-
 def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
