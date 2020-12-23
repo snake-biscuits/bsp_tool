@@ -2,17 +2,18 @@ __all__ = ["orange_box", "vindictus", "read_lump"]
 import lzma
 import struct
 
+from ..base import LumpHeader
 from . import orange_box, vindictus
 
 
-def read_lump(file, header_address: int) -> bytes:
+def read_lump(file, header_address: int) -> (LumpHeader, bytes):
     # header
     file.seek(header_address)
     offset = int.from_bytes(file.read(4), "little")
     length = int.from_bytes(file.read(4), "little")
-    version = int.from_bytes(file.read(4), "little")  # noqa F481
-    # ^ variable unused (lump versions have different formats!)
+    version = int.from_bytes(file.read(4), "little")  # different lump versions have different formats!
     fourCC = int.from_bytes(file.read(4), "little")
+    header = LumpHeader(offset, length, version, fourCC)
     if length == 0:
         return
     # lump data
@@ -29,4 +30,4 @@ def read_lump(file, header_address: int) -> bytes:
         data = decompressor.decompress(data[17:])
         if len(data) != actual_size:
             data = data[:actual_size]
-    return data
+    return header, data

@@ -6,5 +6,5 @@ FILE_MAGIC = b"VBSP"
 
 
 class ValveBsp(base.Bsp):
-    # valve.read_lump()
+    read_lump = valve.read_lump
     ...
