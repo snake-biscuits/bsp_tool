@@ -7,22 +7,23 @@ on:
 jobs:
     build:
 
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      python-version: [3.7, 3.8, 3.9]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
 
-        steps:
+          steps:
+          - uses: actions/checkout@v2
           # https://github.com/marketplace/actions/setup-steamcmd
           - name: Setup steamcmd
             uses: CyberAndrii/setup-steamcmd@v1
           # This next step may take a while...
-          - name: Install all* source games
-            run: steamcmd +login anonymous +app_update 1172470 validate +quit
-            # ^ installs Apex Legends, need to extrack .bsps from special .vpks
-            # - also need test scripts to automatically scrape folders for .bsp
-            # - pass multiple folder paths in via terminal?
-          # - name: Run tests on each game
+          # - name: Install multiple games
+          #    run: steamcmd +login anonymous +app_update 1172470 validate +quit
+            # 1172470  Apex Legends
+            # 440      Team Fortress 2
+            # need to extract RESPAWN .bsps from special .vpks
+          # - name: Run tests on every .bsp
+          # need to scrape all installed games and hand .bsps to test suite
           # export a file recording all failed tests & .bsp logs,
-          # - for unknown lumps, note lump sizes, patterns etc.
-          # & point out *interesting* .bsps
+          # unknown lumps: lump sizes & patterns
