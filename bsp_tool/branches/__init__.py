@@ -1,27 +1,25 @@
-from . import apex_legends
-from . import orange_box
-from . import titanfall2
-from . import vindictus
+from .respawn import apex_legends, titanfall2
+from .valve import orange_box, vindictus
 
 
 by_name = {
-    "Apex": apex_legends,
+    # RESPAWN
     "Apex Legends": apex_legends,
-    "TF2": orange_box,
+    "Apex": apex_legends,
+    "TF|2": titanfall2,
+    "TitanFall 2": titanfall2,
+    "TitanFall2": titanfall2,
+    # VALVE
+    "Orange Box": orange_box,
+    "TF2": orange_box,  # Team Fortress 2
     "Team Fortress 2": orange_box,
     "Team Fortress2": orange_box,
-    "Titanfall 2": titanfall2,
-    "TitanFall 2": titanfall2,
-    "Titanfall2": titanfall2,
-    "TitanFall2": titanfall2,
-    "Vindictus": vindictus,
-    "Orange Box": orange_box
-    }
+    "Vindictus": vindictus}
+# make sure to use match case-insesitively!
 
 by_version = {
-    orange_box.bsp_version: orange_box,  # 20 (Orange Box)
-    # vindictus is the same version as tf2,
-    # but multiple games use a similar format to tf2
+    # RESPAWN
     titanfall2.bsp_version: titanfall2,  # 37
-    apex_legends.bsp_version: apex_legends  # 47
-    }
+    apex_legends.bsp_version: apex_legends,  # 47
+    # VALVE
+    orange_box.bsp_version: orange_box}  # 20

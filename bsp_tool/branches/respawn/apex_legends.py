@@ -1,6 +1,6 @@
 import enum
 
-from . import common
+from .. import base
 
 
 bsp_version = 47
@@ -224,13 +224,13 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
-class MaterialSort(common.Base):  # LUMP 82 (0052)
+class MaterialSort(base.Struct):  # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
     _arrays = {"unknown": [*"ab"]}
 
 
-class Mesh(common.Base):  # LUMP 80 (0050)
+class Mesh(base.Struct):  # LUMP 80 (0050)
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
@@ -242,25 +242,25 @@ class MeshIndices(int):  # LUMP 79 (004F)
     _format = "H"
 
 
-class Model(common.Base):  # LUMP 14 (000E)
+class Model(base.Struct):  # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
     _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
 
 
-class ShadowMesh(common.Base):  # LUMP 7F (0127)
+class ShadowMesh(base.Struct):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
 
-class TextureData(common.Base):  # LUMP 2 (0002)
+class TextureData(base.Struct):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"  # WRONG SIZE (8384 / 36)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
-class Vertex(common.MappedArray):  # LUMP 3 (0003)
+class Vertex(base.MappedArray):  # LUMP 3 (0003)
     _mapping = [*"xyz"]
     _format = "3f"
 
@@ -268,31 +268,31 @@ class Vertex(common.MappedArray):  # LUMP 3 (0003)
         return [self.x, self.y, self.z]
 
 
-class VertexBlinnPhong(common.Base):  # LUMP 75 (004B)
+class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-class VertexLitBump(common.Base):  # LUMP 73 (0049)
+class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
     _format = "2I2fi3f"  # 32 bytes
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 
-class VertexLitFlat(common.Base):  # LUMP 72 (0048)
+class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
-class VertexUnlit(common.Base):  # LUMP 71 (0047)
+class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
-class VertexUnlitTS(common.Base):  # LUMP 74 (004A)
+class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}

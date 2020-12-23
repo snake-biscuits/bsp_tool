@@ -1,8 +1,8 @@
 import enum
 from typing import List
 
-from . import common
-from . import vector  # for methods
+from .. import base
+from .. import vector  # for methods
 
 
 bsp_version = 20
@@ -115,14 +115,14 @@ lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for each lump, in alphabetical order:
-class Area(common.Base):  # LUMP 20
+class Area(base.Struct):  # LUMP 20
     num_area_portals: int   # number of AreaPortals
     first_area_portal: int  # index of first AreaPortal
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class AreaPortal(common.Base):  # LUMP 21
+class AreaPortal(base.Struct):  # LUMP 21
     portal_key: int  # from brush id, an index?
     first_clip_portal_vert: int  # index of ???
     clip_portal_verts: int  # number of ???s
@@ -132,7 +132,7 @@ class AreaPortal(common.Base):  # LUMP 21
     _format = "4Hi"
 
 
-class Brush(common.Base):  # LUMP 18
+class Brush(base.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
     first_side: int  # index of first brushside
     num_sides: int   # number of sides
@@ -141,7 +141,7 @@ class Brush(common.Base):  # LUMP 18
     _format = "3i"
 
 
-class BrushSide(common.Base):  # LUMP 19
+class BrushSide(base.Struct):  # LUMP 19
     """Face of a brush"""
     plane: int      # index of Plane
     tex_info: int   # index of TextureInfo
@@ -151,7 +151,7 @@ class BrushSide(common.Base):  # LUMP 19
     _format = "H3h"
 
 
-class Cubemap(common.Base):  # LUMP 42
+class Cubemap(base.Struct):  # LUMP 42
     """Origin for a cubemap texture to be centered on"""
     origin: List[float]  # origin.xyz
     size: int  # texture dimension (each face of a cubemap is square)
@@ -160,7 +160,7 @@ class Cubemap(common.Base):  # LUMP 42
     _arrays = {"origin": [*"xyz"]}
 
 
-class DisplacementInfo(common.Base):  # LUMP 26
+class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: List[float]  # rough XYZ of the vertex to orient around
     disp_vert_start: int  # index of first DisplacementVertex
@@ -178,11 +178,11 @@ class DisplacementInfo(common.Base):  # LUMP 26
     _format = "3f4ifiH2i88c10I"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
-    # TODO: map neighbours with common.Base subclasses, rather than MappedArrays
+    # TODO: map neighbours with base.Struct subclasses, rather than MappedArrays
     # the flat & __init__ methods may need some changes to accommodate this
 
     # def __init__(self, _tuple):
-    #     super(self, common.Base).__init__(_tuple)
+    #     super(self, base.Struct).__init__(_tuple)
     #     self.edge_neighbours = ...
     #     self.corner_neighbours = ...
 
@@ -197,7 +197,7 @@ class DisplacementTriangle(int):  # LUMP 48
     _format = "H"
 
 
-class DisplacementVertex(common.Base):  # LUMP 33
+class DisplacementVertex(base.Struct):  # LUMP 33
     """The positional deformation & blend value of a point in a displacement"""
     vector: List[float]  # direction of vertex offset from barymetric base
     distance: float      # length to scale deformation vector by
@@ -212,7 +212,7 @@ class Edge(list):  # LUMP 12
     _format = "2h"  # List[int]
 
 
-class Face(common.Base):  # LUMP 7
+class Face(base.Struct):  # LUMP 7
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     plane: int       # index of Plane
     side: int        # "faces opposite to the node's plane direction"
@@ -244,7 +244,7 @@ class Face(common.Base):  # LUMP 7
 #     pass # unique sub-headers & offsets...
 
 
-class Leaf(common.Base):  # LUMP 10
+class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: int  # contents bitflags
     cluster: int   # index of this Leaf's cluster (parent node?)
@@ -274,7 +274,7 @@ class LeafFace(int):  # LUMP 16
     _format = "H"
 
 
-class Model(common.Base):
+class Model(base.Struct):
     """worldspawn (model lump index 0) & brush based entities"""
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
@@ -287,7 +287,7 @@ class Model(common.Base):
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "origin": [*"xyz"]}
 
 
-class Node(common.Base):  # LUMP 5
+class Node(base.Struct):  # LUMP 5
     plane: int  # index of Plane
     children: List[int]  # 2 indices; Node if positive, Leaf if negative
     mins: List[float]  # bounding box minimums along XYZ axes
@@ -309,7 +309,7 @@ class Node(common.Base):  # LUMP 5
 #     # io.BytesIO / lzma.reader object?
 
 
-class Plane(common.Base):  # LUMP 1
+class Plane(base.Struct):  # LUMP 1
     """3D Plane defining shape, used for physics & BSP/CSG calculations?"""
     normal: List[float]
     distance: float
@@ -324,7 +324,7 @@ class SurfEdge(int):  # LUMP 13
     _format = "i"
 
 
-class TextureData(common.Base):  # LUMP 2
+class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
     tex_data_string_index: int  # index of texture name (TEXDATA_STRING_TABLE)
@@ -338,7 +338,7 @@ class TextureData(common.Base):  # LUMP 2
     _arrays = {"reflectivity": [*"rgb"]}
 
 
-class TextureInfo(common.Base):  # LUMP 6
+class TextureInfo(base.Struct):  # LUMP 6
     """Texture projection info & index into TEXDATA"""
     texture: List[List[float]]  # 2 texture projection vectors
     lightmap: List[List[float]]  # 2 lightmap projection vectors
@@ -351,7 +351,7 @@ class TextureInfo(common.Base):  # LUMP 6
     # ^ nested MappedArrays; texture.s.x, texture.t.x
 
 
-class Vertex(common.MappedArray):  # LUMP 3
+class Vertex(base.MappedArray):  # LUMP 3
     """a point in 3D space"""
     x: float
     y: float
@@ -363,7 +363,7 @@ class Vertex(common.MappedArray):  # LUMP 3
         return [self.x, self.y, self.z]
 
 
-class WorldLight(common.Base):  # LUMP 15
+class WorldLight(base.Struct):  # LUMP 15
     """A static light"""
     origin: List[float]  # origin point of this light source
     intensity: float     # light strength scalar

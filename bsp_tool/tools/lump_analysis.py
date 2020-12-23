@@ -1,12 +1,13 @@
 import math
 import struct
+from typing import Any, List
 
-from . import common
+from ..branches import base
 
 
-def test_unpack(lump, into):
+def test_unpack(lump, into) -> List[Any]:
     """Unpack lump (bytesarray)
-    into a list of size into (int) or type into (common.Base / MappedArray)"""
+    into a list of size 'into' (if an int) or type into (base.Struct / MappedArray)"""
     lump_size = len(lump)
     out = []
     if isinstance(into, int):
@@ -15,10 +16,10 @@ def test_unpack(lump, into):
             i *= chunk_length
             out.append(lump[i:i+chunk_length])
         # ^ if "lump_size" cannot be equally divided the tail is lost
-    elif isinstance(into, (common.Base, common.MappedArray)):
-        out = struct.iter_unpack(into._format, lump)
+    elif isinstance(into, (base.Struct, base.MappedArray)):
+        out = struct.iter_unpack(into._format, lump)  # just the tuple, not the class
     else:
-        raise NotImplementedError("into must be type <int> or subclass of <common.Base> or <common.MappedArray>")
+        raise NotImplementedError("into must be type <int> or subclass of <base.Struct> or <base.MappedArray>")
     return out
 
 

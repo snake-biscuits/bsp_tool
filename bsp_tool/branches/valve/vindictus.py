@@ -1,6 +1,6 @@
 import enum
 
-from . import common
+from .. import base
 from . import orange_box
 
 
@@ -78,18 +78,18 @@ lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # class for each lump in alphabetical order
-class Area(common.Base):
+class Area(base.Struct):
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class AreaPortal(common.Base):  # LUMP 21
+class AreaPortal(base.Struct):  # LUMP 21
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
                  "clip_portal_verts", "plane_num"]
     _format = "4Ii"
 
 
-class BrushSide(common.Base):  # LUMP 19
+class BrushSide(base.Struct):  # LUMP 19
     __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
     _format = "I3i"
 
@@ -108,7 +108,7 @@ class Edge(list):  # LUMP 12
     _format = "2I"
 
 
-class Face(common.Base):  # LUMP 7
+class Face(base.Struct):  # LUMP 7
     __slots__ = ["plane_num", "side", "on_node", "unknown1", "first_edge",
                  "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
@@ -121,12 +121,12 @@ class Face(common.Base):  # LUMP 7
                "lightmap_texture_size_in_luxels": [*"st"]}
 
 
-# class game_lump(common.Base):  # LUMP 35
+# class game_lump(base.Struct):  # LUMP 35
 #    __slots__ = ["id", "flags", "version", "offset", "length"]
 #    _format = "5i"
 
 
-class Leaf(common.Base):  # LUMP 10
+class Leaf(base.Struct):  # LUMP 10
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
                  "firstleafface", "numleaffaces", "firstleafbrush",
                  "numleafbrushes", "leafWaterDataID"]
@@ -134,19 +134,19 @@ class Leaf(common.Base):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class LeafFace(common.Base):  # LUMP 16
+class LeafFace(base.Struct):  # LUMP 16
     __slots__ = ["value"]
     _format = "I"
 
 
-class Node(common.Base):  # LUMP 5
+class Node(base.Struct):  # LUMP 5
     __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
                  "numfaces", "area", "padding"]
     _format = "12i"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class Overlay(common.Base):  # LUMP 45
+class Overlay(base.Struct):  # LUMP 45
     __slots__ = ["id", "tex_info", "face_count_and_render_order",
                  "faces", "u", "v", "uv_points", "origin", "normal"]
     _format = "2iIi4f18f"

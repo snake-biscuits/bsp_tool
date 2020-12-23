@@ -2,7 +2,7 @@
 from typing import Any, Dict, Iterable, List, Union
 
 
-class Base:
+class Struct:
     """base class for tuple <-> class conversion
     bytes <-> tuple conversion is handled by the struct module"""
     __slots__: List[str] = list()  # names of atributes, in order
@@ -78,7 +78,7 @@ class MappedArray:
                 # ^ will recurse again if child_mapping is a dict
                 setattr(self, attr, child)
                 i += len(child_mapping)
-        else:  # list of strings
+        else:  # List[str]
             for attr, value in zip(mapping, array):
                 setattr(self, attr, value)
             self._mapping = mapping
@@ -104,7 +104,7 @@ class MappedArray:
         for attr in self._mapping:
             value = getattr(self, attr)
             if isinstance(value, MappedArray):
-                array.extend(value.flat())
+                array.extend(value.flat())  # recursive call
             else:
                 array.append(value)
         return array
