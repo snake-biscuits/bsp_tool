@@ -1,5 +1,4 @@
 import collections
-import lzma
 import os
 import re
 import struct
