@@ -12,17 +12,17 @@ class Struct:
 
     def __init__(self, _tuple):
         # _tuple comes from: struct.unpack(self._format, bytes)
-        # usually from struct.iter_unpack(self._format, LUMP)
-        i = 0  # current index into _tuple
+        # usually from struct.iter_unpack(self._format, RAW_LUMP)
+        _tuple_index = 0
         for attr in self.__slots__:
             if attr not in self._arrays:
-                value = _tuple[i]
+                value = _tuple[_tuple_index]
                 length = 1
             else:
                 array_map = self._arrays[attr]
                 if isinstance(array_map, list):  # array_map: List[str]
                     length = len(array_map)
-                    array = _tuple[i:i + length]
+                    array = _tuple[_tuple_index:_tuple_index + length]
                     value = MappedArray(array, mapping=array_map)
                 elif isinstance(array_map, dict):  # array_map: Dict[str, List[str]]
                     length = 0  # count up the total size of the dict
@@ -31,15 +31,15 @@ class Struct:
                             length += len(part)
                         elif isinstance(part, int):
                             length += part
-                    array = _tuple[i:i + length]
+                    array = _tuple[_tuple_index:_tuple_index + length]
                     value = MappedArray(array, mapping=array_map)  # nested
                 elif isinstance(array_map, int):
                     length = array_map
-                    value = _tuple[i:i + length]
+                    value = _tuple[_tuple_index:_tuple_index + length]
                 else:
                     raise RuntimeError(f"{type(array_map)} in {self.__class__.__name__}._arrays")
             setattr(self, attr, value)
-            i += length
+            _tuple_index += length
         # TODO: throw a warning if the whole tuple won't fit
         # report len(_tuple) & struct.calcsize(self._format)
 
@@ -71,17 +71,22 @@ class MappedArray:
     def __init__(self, array: Iterable, mapping: Any = _mapping):
         if isinstance(mapping, dict):
             self._mapping = list(mapping.keys())
-            i = 0
+            array_index = 0
             for attr, child_mapping in mapping.items():
-                segment = array[i:i + len(child_mapping)]
-                child = MappedArray(segment, mapping=child_mapping)
-                # ^ will recurse again if child_mapping is a dict
+                segment = array[array_index:array_index + len(child_mapping)]
+                if child_mapping is not None:
+                    child = MappedArray(segment, mapping=child_mapping)
+                    # ^ will recurse again if child_mapping is a dict
+                else:
+                    child = segment  # if {"attr": None}  treat as a list entry
                 setattr(self, attr, child)
-                i += len(child_mapping)
-        else:  # List[str]
+                array_index += len(child_mapping)
+        elif isinstance(mapping, list):  # List[str]
             for attr, value in zip(mapping, array):
                 setattr(self, attr, value)
             self._mapping = mapping
+        else:
+            raise RuntimeError(f"Unexpected mapping: {type(mapping)}")
 
     def __eq__(self, other: Iterable) -> bool:
         return all([(a == b) for a, b in zip(self, other)])
@@ -96,7 +101,7 @@ class MappedArray:
         out = []
         for attr, value in zip(self._mapping, self):
             out.append(f"{attr}: {value}")
-        return f"<MappedArray ({', '.join(out)})>"
+        return f"<{self.__class__.__name__} ({', '.join(out)})>"
 
     def flat(self) -> list:
         """recreates the array this instance was generated from"""
