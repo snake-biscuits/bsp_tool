@@ -1,6 +1,5 @@
 # based on notes by Cra0kalo; developer of titanfall VPK tool and CSGO hacks
 # https://dev.cra0kalo.com/?p=202 (bsp) & https://dev.cra0kalo.com/?p=137 (vpk)
-
 import enum
 
 from .. import base
@@ -341,6 +340,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x400: "VERTS_UNLIT",
               0x200: "VERTS_LIT_BUMP"}
 # ^ a proper mapping of the flags would be nice
+
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
 def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
