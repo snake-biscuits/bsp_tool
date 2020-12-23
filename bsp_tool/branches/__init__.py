@@ -1,25 +1,33 @@
-from .respawn import apex_legends, titanfall2
-from .valve import orange_box, vindictus
+__all__ = ["id_software", "infinity_ward", "respawn", "valve",
+           "by_name", "by_version"]
+from . import id_software
+from . import infinity_ward
+from . import respawn
+from . import valve
 
 
 by_name = {
+    # ID SOFTWARE
+    "QuakeIII": id_software.quake3,
+    "Quake 3": id_software.quake3,
+    "Quake3": id_software.quake3,
     # RESPAWN
-    "Apex Legends": apex_legends,
-    "Apex": apex_legends,
-    "TF|2": titanfall2,
-    "TitanFall 2": titanfall2,
-    "TitanFall2": titanfall2,
+    "Apex Legends": respawn.apex_legends,
+    "Apex": respawn.apex_legends,
+    "TF|2": respawn.titanfall2,
+    "TitanFall 2": respawn.titanfall2,
+    "TitanFall2": respawn.titanfall2,
     # VALVE
-    "Orange Box": orange_box,
-    "TF2": orange_box,  # Team Fortress 2
-    "Team Fortress 2": orange_box,
-    "Team Fortress2": orange_box,
-    "Vindictus": vindictus}
-# make sure to use match case-insesitively!
+    "Orange Box": valve.orange_box,
+    "TF2": valve.orange_box,  # Team Fortress 2
+    "Team Fortress 2": valve.orange_box,
+    "Team Fortress2": valve.orange_box,
+    "Vindictus": valve.vindictus}
+# make sure to match case-insesitively!
 
 by_version = {
     # RESPAWN
-    titanfall2.bsp_version: titanfall2,  # 37
-    apex_legends.bsp_version: apex_legends,  # 47
+    respawn.titanfall2.bsp_version: respawn.titanfall2,  # 37
+    respawn.apex_legends.bsp_version: respawn.apex_legends,  # 47
     # VALVE
-    orange_box.bsp_version: orange_box}  # 20
+    valve.orange_box.bsp_version: valve.orange_box}  # 20

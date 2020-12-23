@@ -5,7 +5,7 @@ from .. import base
 from .. import vector  # for methods
 
 
-bsp_version = 20
+BSP_VERSION = 20
 
 
 class LUMP(enum.Enum):
@@ -134,8 +134,8 @@ class AreaPortal(base.Struct):  # LUMP 21
 
 class Brush(base.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
-    first_side: int  # index of first brushside
-    num_sides: int   # number of sides
+    first_side: int  # index into BrushSide lump
+    num_sides: int   # number of BrushSides after first_side included in this brush
     contents: int    # contents bitflags
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
@@ -143,10 +143,10 @@ class Brush(base.Struct):  # LUMP 18
 
 class BrushSide(base.Struct):  # LUMP 19
     """Face of a brush"""
-    plane: int      # index of Plane
-    tex_info: int   # index of TextureInfo
-    disp_info: int  # index of DisplacementInfo
-    bevel: int      # for lighting? smoothing groups?
+    plane: int      # index into Plane lump
+    tex_info: int   # index into TextureInfo lump
+    disp_info: int  # index into DisplacementInfo lump
+    bevel: int      # smoothing group?
     __slots__ = ["plane", "tex_info", "disp_info", "bevel"]
     _format = "H3h"
 
@@ -392,7 +392,7 @@ class WorldLight(base.Struct):  # LUMP 15
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 
-lump_classes = {"AREAS": Area,
+LUMP_CLASSES = {"AREAS": Area,
                 "AREA_PORTALS": AreaPortal,
                 "BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
@@ -415,7 +415,7 @@ lump_classes = {"AREAS": Area,
                 "WORLD_LIGHTS_HDR": WorldLight}
 
 
-# METHODS EXCLUSIVE TO THIS MOD:
+# branch exclusive methods, in alphabetical order:
 def vertices_of_face(bsp, face_index: int) -> List[float]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]

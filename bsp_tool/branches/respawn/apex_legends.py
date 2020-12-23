@@ -3,7 +3,7 @@ import enum
 from .. import base
 
 
-bsp_version = 47
+BSP_VERSION = 47
 
 # Apex Legends has rBSP file-magic, ~128 lumps & uses .bsp_lump files:
 #   <bsp filename>.<ID>.bsp_lump
@@ -312,7 +312,7 @@ lump_classes = {"MATERIAL_SORT": MaterialSort,
                 "VERTS_UNLIT_TS": VertexUnlitTS}
 
 
-# METHODS EXCLUSIVE TO THIS MOD:
+# branch exclusive methods, in alphabetical order:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x610: "VERTS_BLINN_PHONG",
               0x400: "VERTS_UNLIT",

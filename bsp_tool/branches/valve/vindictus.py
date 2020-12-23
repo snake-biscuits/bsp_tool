@@ -4,7 +4,7 @@ from .. import base
 from . import orange_box
 
 
-bsp_version = 20
+BSP_VERSION = 20
 
 
 class LUMP(enum.Enum):

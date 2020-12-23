@@ -5,7 +5,7 @@ import enum
 from .. import base
 
 
-bsp_version = 37
+BSP_VERSION = 37
 
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
 # Titanfall 2 has rBSP file-magic, 127 lumps & uses bsp_lump files:
@@ -335,7 +335,7 @@ lump_classes = {"CM_BRUSHES": Brush,
                 "MESH_INDICES": MeshIndices}
 
 
-# METHODS EXCLUSIVE TO THIS MOD:
+# branch exclusive methods, in alphabetical order:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
               0x400: "VERTS_UNLIT",
               0x200: "VERTS_LIT_BUMP"}
