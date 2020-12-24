@@ -6,6 +6,11 @@ from . import respawn
 from . import valve
 
 
+by_magic = {
+        b"IBSP": [*id_software, *infinity_ward],  # id_software.FILE_MAGIC & infinity_ward.FILE_MAGIC
+        b"rBSP": [*respawn],  # respawn.FILE_MAGIC
+        b"VBSP": [*valve]}  # valve.FILE_MAGIC
+
 by_name = {
     # ID SOFTWARE
     "QuakeIII": id_software.quake3,
