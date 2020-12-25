@@ -1,4 +1,5 @@
 import enum
+from typing import List
 
 from .. import base
 from . import orange_box
@@ -49,7 +50,7 @@ class LUMP(enum.Enum):
     PRIM_VERTS = 38
     PRIM_INDICES = 39
     PAKFILE = 40
-    CLIP_PORTAL_VERTS = 41
+    CLIP_PORTAL_VERTICES = 41
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
     TEXDATA_STRING_TABLE = 44
@@ -78,24 +79,42 @@ lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # class for each lump in alphabetical order
-class Area(base.Struct):
+class Area(base.Struct):  # LUMP 20
+    num_area_portals: int  # number or AreaPortals after first_area_portal in this Area
+    first_area_portal: int  # index into AreaPortal lump
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
 class AreaPortal(base.Struct):  # LUMP 21
-    __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
-                 "clip_portal_verts", "plane_num"]
+    portal_key: int  # unique ID?
+    other_area: int  # ???
+    first_clip_portal_vertex: int  # index into the ClipPortalVertex lump
+    num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
+    __slots__ = ["portal_key", "other_area", "first_clip_portal_vertex",
+                 "num_clip_portal_vertices", "plane_num"]
     _format = "4Ii"
 
 
 class BrushSide(base.Struct):  # LUMP 19
+    plane: int      # index into Plane lump
+    tex_info: int   # index into TextureInfo lump
+    disp_info: int  # index into DisplacementInfo lump
+    bevel: int      # smoothing group?
     __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
     _format = "I3i"
 
 
 class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
-    __slots__ = ["start_position", "disp_vert_start", "disp_tri_start",
+    start_position: List[float]  # approximate XYZ of first point in face this DisplacementInfo is rotated around
+    displacement_vertex_start: int  # index into DisplacementVertex lump
+    displacement_triangle_start: int  # index into DisplacementTriangle lump
+    power: int  # 2, 3 or 4; indicates subdivision level
+    smoothing_angle: float
+    unknown1: int  # don't know what this does in Vindictus' format
+    contents: int  # contents flags
+    face: int  # index into Face lump
+    __slots__ = ["start_position", "displacement_vertex_start", "displacement_triangle_start",
                  "power", "smoothing_angle", "unknown1", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
@@ -109,7 +128,8 @@ class Edge(list):  # LUMP 12
 
 
 class Face(base.Struct):  # LUMP 7
-    __slots__ = ["plane_num", "side", "on_node", "unknown1", "first_edge",
+    plane: int  # index into Plane lump
+    __slots__ = ["plane", "side", "on_node", "unknown1", "first_edge",
                  "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
                  "lightmap_texture_mins_in_luxels",

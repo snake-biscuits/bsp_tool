@@ -50,7 +50,7 @@ class LUMP(enum.Enum):
     PRIM_VERTS = 38
     PRIM_INDICES = 39
     PAKFILE = 40
-    CLIP_PORTAL_VERTS = 41
+    CLIP_PORTAL_VERTICES = 41
     CUBEMAPS = 42
     TEXDATA_STRING_DATA = 43
     TEXDATA_STRING_TABLE = 44
@@ -123,12 +123,12 @@ class Area(base.Struct):  # LUMP 20
 
 
 class AreaPortal(base.Struct):  # LUMP 21
-    portal_key: int  # from brush id, an index?
-    first_clip_portal_vert: int  # index of ???
-    clip_portal_verts: int  # number of ???s
-    plane: int  # index of Plane
-    __slots__ = ["portal_key", "other_area", "first_clip_portal_vert",
-                 "clip_portal_verts", "plane"]
+    portal_key: int                # from brush id?
+    first_clip_portal_vert: int    # index into the ClipPortalVertex lump
+    num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
+    plane: int                     # index of into the Plane lump
+    __slots__ = ["portal_key", "other_area", "first_clip_portal_vertex",
+                 "num_clip_portal_vertices", "plane"]
     _format = "4Hi"
 
 
@@ -214,13 +214,13 @@ class Edge(list):  # LUMP 12
 
 class Face(base.Struct):  # LUMP 7
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
-    plane: int       # index of Plane
+    plane: int       # index into Plane lump
     side: int        # "faces opposite to the node's plane direction"
     on_node: bool    # if False, face is in a leaf
-    first_edge: int  # index of first SurfEdge
-    num_edges: int   # number of SurfEdges
-    tex_info: int    # index of TextureInfo
-    disp_info: int   # index of DisplacementInfo (None if -1)
+    first_edge: int  # index into the SurfEdge lump
+    num_edges: int   # number of SurfEdges after first_edge in this Face
+    tex_info: int    # index into the TextureInfo lump
+    disp_info: int   # index into the DisplacementInfo lump (None if -1)
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
     styles: int      # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
@@ -274,39 +274,34 @@ class LeafFace(int):  # LUMP 16
     _format = "H"
 
 
-class Model(base.Struct):
-    """worldspawn (model lump index 0) & brush based entities"""
+class Model(base.Struct):  # LUMP 14
+    """Brush based entities; Index 0 is worldspawn"""
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
     origin: List[float]  # center of model, worldspawn is always at 0 0 0
-    head_node: int   # index of first Node
-    first_face: int  # index of first Face
-    num_faces: int   # number of Faces
+    head_node: int   # index into Node lump
+    first_face: int  # index into Face lump
+    num_faces: int   # number of Faces after first_face in this Model
     __slots__ = ["mins", "maxs", "origin", "head_node", "first_face", "num_faces"]
     _format = "9f3i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "origin": [*"xyz"]}
 
 
 class Node(base.Struct):  # LUMP 5
-    plane: int  # index of Plane
-    children: List[int]  # 2 indices; Node if positive, Leaf if negative
-    mins: List[float]  # bounding box minimums along XYZ axes
-    maxs: List[float]  # bounding box maximums along XYZ axes
-    first_face: int  # index of first Face
-    num_faces: int   # number of Faces
-    area: int  # index of Area, if all children are in the same area, else -1
-    padding: int  # should be empty
+    plane: int            # index into Plane lump
+    children: List[int]   # 2 indices; Node if positive, Leaf if negative
+    mins: List[float]     # bounding box minimums along XYZ axes
+    maxs: List[float]     # bounding box maximums along XYZ axes
+    first_face: int       # index into Face lump
+    num_faces: int        # number of Faces after first_face in this Node
+    area: int             # index into Area lump, if all children are in the same area, else -1
+    padding: int          # should be empty
     __slots__ = ["plane", "children", "mins", "maxs", "first_face", "num_faces",
                  "area", "padding"]
     # area is appears to always be 0
     # however leaves correctly connect to all areas
     _format = "3i6h2H2h"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
-
-# class pakfile: # LUMP 40
-#     ... # it's a raw binary zip file
-#     # keep the raw data and provide an extraction / editing API?
-#     # io.BytesIO / lzma.reader object?
 
 
 class Plane(base.Struct):  # LUMP 1
@@ -413,6 +408,12 @@ LUMP_CLASSES = {"AREAS": Area,
                 "VERTICES": Vertex,
                 "WORLD_LIGHTS": WorldLight,
                 "WORLD_LIGHTS_HDR": WorldLight}
+
+# SPECIAL LUMP LOADING FUNCTIONS
+# def load_pakfile: # LUMP 40
+#     ... # it's a raw binary zip file
+#     # keep the raw data and provide an extraction / editing API?
+#     # io.BytesIO / lzma.reader object?
 
 
 # branch exclusive methods, in alphabetical order:
