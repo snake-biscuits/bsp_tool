@@ -11,23 +11,24 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version"
 
 
 class Bsp():
-    BSP_VERSION: int = 0
     FILE_MAGIC: bytes = b"XBSP"
     HEADERS: Dict[int, LumpHeader] = dict()
     # ^ {LUMP_ID: List[LUMP_struct]}
+    VERSION: int = 0
     associated_files: List[str]  # local to loaded / exported file
     branch: ModuleType
-    bytesize: int = 0  # of loaded / exported file
+    filesize: int = 0  # of loaded / exported file
     filename: str
     folder: str
 
     def __init__(self, branch: ModuleType,  filename: str = "untitled"):
-        self.set_branch(branch)
+        self.set_branch(branch)  # use the branch definition to create new lump data
         self.filename = filename
         self.folder = os.getcwd()
 
     def load_lumps(self):
-        for ID in self.branch.LUMP:
+        """Load every lump from open self.file"""
+        for ID in self.branch.LUMP:  # load every lump, either as RAW_<LUMPNAME> or as <LUMPNAME> with classes
             LUMP = ID.name
             lump_header, lump_data = self.read_lump(self.branch.lump_header_address[ID])
             self.LUMP_HEADERS[LUMP] = lump_header
@@ -54,14 +55,15 @@ class Bsp():
                     # TODO: check a list of SPECIAL LUMP translating functions here
                     self.setattr(self, f"RAW_{LUMP}", lump_data)
 
-    def load(self, filename: str):
+    def load(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         # being a static method that instances this class would be great
         # but it might not do iheritance properlly...
         # can you call super() on a top-level class? TEST
         # load files
-        assert filename.endswith(".bsp")
-        filename = os.path.realpath(filename)  # get the full folder path
+        if not self.filename.endswith(".bsp"):
+            raise RuntimeError("Not a .bsp")
+        filename = os.path.realpath(self.filename)  # get the full folder path
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
         local_files = os.listdir(self.folder)
@@ -69,15 +71,15 @@ class Bsp():
         self.associated_files = [f for f in local_files if is_related(f)]
         file = open(filename, "rb")
         file_magic = file.read(4)
-        if file_magic != super().FILE_MAGIC:
+        if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(file.read(4), "little")
         print(f"Loading {self.filename} ({self.FILE_MAGIC} version {self.BSP_VERSION})...")
         file.read()  # move cursor to end of file
-        self.bytesize = file.tell()
+        self.filesize = file.tell()
 
         self.loading_errors: List[str] = []
-        self.load_lumps(file)
+        self.load_lumps(file)  # load most basic lumps
         if len(self.loading_errors) > 0:
             print(*self.loading_errors, sep="\n")
 
@@ -95,7 +97,7 @@ class Bsp():
                 key, value = line[1:-1].split('" "')  # could extract with regex
                 if key not in ent:
                     ent[key] = value
-                else:
+                else:  # don't override, share a list
                     if isinstance(ent[key], list):
                         ent[key].append(value)
                     else:
@@ -103,7 +105,7 @@ class Bsp():
             elif "}" in line:
                 self.ENTITIES.append(ent)
             elif line == b"\x00".decode():
-                continue
+                continue  # ignore raw bytes, might be related to lump alignment
             else:
                 raise RuntimeError(f"Unexpected line in entities: {line.encode()}")
         del self.RAW_ENTITIES
@@ -139,8 +141,8 @@ class Bsp():
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
         # # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
-        # outfile.write(b"VBSP")
-        # outfile.write((20).to_bytes(4, "little")) # Engine version
+        # outfile.write(self.FILE_MAGIC)
+        # outfile.write(self.VERSION.to_bytes(4, "little")) # Engine version
         # offset = 0
         # length = 0
         # # CONVERT INTERNAL LUMPS TO RAW LUMPS

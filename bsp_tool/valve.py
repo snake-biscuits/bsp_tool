@@ -11,15 +11,12 @@ LumpHeader = namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 
 
 def read_lump(file, header_address: int) -> (LumpHeader, bytes):
-    # header
+    # lump header
     file.seek(header_address)
-    offset = int.from_bytes(file.read(4), "little")
-    length = int.from_bytes(file.read(4), "little")
-    version = int.from_bytes(file.read(4), "little")  # different lump versions have different formats!
-    fourCC = int.from_bytes(file.read(4), "little")
+    offset, length, version, fourCC = struct.unpack("4i", file.read(16))
     header = LumpHeader(offset, length, version, fourCC)
     if length == 0:
-        return
+        return header, None
     # lump data
     file.seek(offset)
     data = file.read(length)
@@ -38,5 +35,5 @@ def read_lump(file, header_address: int) -> (LumpHeader, bytes):
 
 
 class ValveBsp(base.Bsp):
-    read_lump = read_lump  # can you patch in a static method in this way? TEST
-    ...
+    def read_lump(self, LUMP) -> (LumpHeader, bytes):
+        return read_lump(self.file, self.branch.lump_header_address[LUMP])
