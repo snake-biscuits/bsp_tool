@@ -20,10 +20,15 @@ class Bsp():
     filename: str
     folder: str
 
-    def __init__(self, branch: ModuleType,  filename: str = "untitled"):
-        self.set_branch(branch)  # use the branch definition to create new lump data
-        self.filename = filename
-        self.folder = os.getcwd()
+    def __init__(self, branch: ModuleType,  filename: str = "untitled.bsp"):
+        self.set_branch(branch)
+        if not self.filename.endswith(".bsp"):
+            raise RuntimeError("Not a .bsp")
+        filename = os.path.realpath(filename)
+        self.filename = os.path.basename(filename)
+        self.folder = os.path.dirname(filename)
+        if os.path.exists(filename):
+            self.load()
 
     def __enter__(self):
         self.load()
@@ -63,19 +68,10 @@ class Bsp():
 
     def load(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
-        # being a static method that instances this class would be great
-        # but it might not do iheritance properlly...
-        # can you call super() on a top-level class? TEST
-        # load files
-        if not self.filename.endswith(".bsp"):
-            raise RuntimeError("Not a .bsp")
-        filename = os.path.realpath(self.filename)  # get the full folder path
-        self.filename = os.path.basename(filename)
-        self.folder = os.path.dirname(filename)
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
         self.associated_files = [f for f in local_files if is_related(f)]
-        file = open(filename, "rb")
+        file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = file.read(4)
         if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{file} is not a valid .bsp!")
@@ -143,15 +139,21 @@ class Bsp():
         file.close()
         print(f"Loaded  {self.filename}")
 
-    def export(self, outfile):
+    def save(self):
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
-        # # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
+        # filename = os.path.join(self.folder, self.filename)
+        # if os.path.exists(filename):
+        #     if input(f"Overwrite {filename}? (Y/N): ").upper()[0] != "Y":  # ask permission to overwrite
+        #         print("Save Aborted")
+        #         return
+        # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
         # outfile.write(self.FILE_MAGIC)
         # outfile.write(self.VERSION.to_bytes(4, "little")) # Engine version
-        # offset = 0
-        # length = 0
         # # CONVERT INTERNAL LUMPS TO RAW LUMPS
+        # offset, length = 0, 0
+        # def save_lumps(...):
+        # ...
         # for LUMP in self._engine_branch.LUMP:
         #     # special lumps:
         #     #  - ENTITIES

@@ -35,5 +35,7 @@ def read_lump(file, header_address: int) -> (LumpHeader, bytes):
 
 
 class ValveBsp(base.Bsp):
+    branch = valve.orange_box  # default
+
     def read_lump(self, LUMP) -> (LumpHeader, bytes):
         return read_lump(self.file, self.branch.lump_header_address[LUMP])

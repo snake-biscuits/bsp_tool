@@ -25,9 +25,14 @@ def read_lump(file, header_address: int) -> (LumpHeader, bytes):  # .bsp interna
 
 
 class RespawnBsp(base.Bsp):
-    branch = respawn
-    read_lump = read_lump
-    # bsp revision appears before headers, not after (as in valve's variant)
+    branch = respawn.titanfall2
+
+    def __init__(self, branch=branch, filename="untitled.bsp"):
+        super(base.Bsp, self).__init__(branch, filename)
+        # NOTE: bsp revision appears before headers, not after (as in valve's variant)
+
+    def read_lump(self, LUMP) -> (LumpHeader, bytes):
+        return read_lump(self.file, self.branch.lump_header_address[LUMP])
 
     def load_lumps(self, file):
         for ID in self.branch.LUMP:
