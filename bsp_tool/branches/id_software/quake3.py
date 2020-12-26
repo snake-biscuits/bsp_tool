@@ -132,7 +132,7 @@ class Plane(base.struct):  # LUMP 2
 
 
 class Texture(base.Struct):  # LUMP 1
-    name: str  # 64 char texture filename?
+    name: str  # 64 char texture name; stored in WAD (Where's All the Data)?
     flags: int  # rendering bit flags?
     contents: int  # SOLID, AIR etc.
     __slots__ = ["name", "flags", "contents"]
