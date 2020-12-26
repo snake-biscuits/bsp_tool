@@ -12,8 +12,7 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version"
 
 class Bsp():
     FILE_MAGIC: bytes = b"XBSP"
-    HEADERS: Dict[int, LumpHeader] = dict()
-    # ^ {LUMP_ID: List[LUMP_struct]}
+    HEADERS: Dict[str, LumpHeader] = dict()
     VERSION: int = 0
     associated_files: List[str]  # local to loaded / exported file
     branch: ModuleType
@@ -25,6 +24,13 @@ class Bsp():
         self.set_branch(branch)  # use the branch definition to create new lump data
         self.filename = filename
         self.folder = os.getcwd()
+
+    def __enter__(self):
+        self.load()
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.file.close()
 
     def load_lumps(self):
         """Load every lump from open self.file"""
