@@ -1,7 +1,10 @@
+import collections
 import enum
+import struct
 from typing import List
 
 from .. import base
+from .. import shared  # special lumps
 from .. import vector  # for methods
 
 
@@ -112,11 +115,19 @@ class Contents(enum.Enum):
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+
+
+def read_lump_header(file, LUMP_ID: enum.Enum):
+    file.seek(lump_header_address[LUMP_ID])
+    id, flags, version, offset, length = struct.unpack("4i", file.read(16))
+    header = LumpHeader(id, flags, version, offset, length)
+    return header
 
 
 # classes for each lump, in alphabetical order:
 class Area(base.Struct):  # LUMP 20
-    num_area_portals: int   # number of AreaPortals
+    num_area_portals: int   # number of AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index of first AreaPortal
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
@@ -135,14 +146,13 @@ class AreaPortal(base.Struct):  # LUMP 21
 class Brush(base.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
     first_side: int  # index into BrushSide lump
-    num_sides: int   # number of BrushSides after first_side included in this brush
+    num_sides: int   # number of BrushSides after first_side in this Brush
     contents: int    # contents bitflags
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
 
 
 class BrushSide(base.Struct):  # LUMP 19
-    """Face of a brush"""
     plane: int      # index into Plane lump
     tex_info: int   # index into TextureInfo lump
     disp_info: int  # index into DisplacementInfo lump
@@ -152,7 +162,7 @@ class BrushSide(base.Struct):  # LUMP 19
 
 
 class Cubemap(base.Struct):  # LUMP 42
-    """Origin for a cubemap texture to be centered on"""
+    """Location (origin) & resolution (size)"""
     origin: List[float]  # origin.xyz
     size: int  # texture dimension (each face of a cubemap is square)
     __slots__ = ["origin", "size"]
@@ -179,7 +189,7 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_verts": 10}
     # TODO: map neighbours with base.Struct subclasses, rather than MappedArrays
-    # the flat & __init__ methods may need some changes to accommodate this
+    # both the __init__ & flat methods may need some changes to accommodate this
 
     # def __init__(self, _tuple):
     #     super(self, base.Struct).__init__(_tuple)
@@ -365,7 +375,7 @@ class WorldLight(base.Struct):  # LUMP 15
     normal: List[float]  # light direction
     cluster: int  # ?
     type: int  # some enum?
-    style: int  # ? related to face styles?
+    style: int  # related to face styles?
     # see base.fgd:
     stop_dot: float  # ?
     stop_dot2: float  # ?
@@ -403,17 +413,15 @@ LUMP_CLASSES = {"AREAS": Area,
                 "NODES": Node,
                 "ORIGINAL_FACES": Face,
                 "PLANES": Plane,
+                "SURFEDGES": SurfEdge,
                 "TEXDATA": TextureData,
                 "TEXINFO": TextureInfo,
                 "VERTICES": Vertex,
                 "WORLD_LIGHTS": WorldLight,
                 "WORLD_LIGHTS_HDR": WorldLight}
 
-# SPECIAL LUMP LOADING FUNCTIONS
-# def load_pakfile: # LUMP 40
-#     ... # it's a raw binary zip file
-#     # keep the raw data and provide an extraction / editing API?
-#     # io.BytesIO / lzma.reader object?
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
+                        "PAKFILE": shared.PakFile}
 
 
 # branch exclusive methods, in alphabetical order:

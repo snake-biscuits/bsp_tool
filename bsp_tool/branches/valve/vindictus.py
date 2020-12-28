@@ -1,7 +1,10 @@
+import collections
 import enum
+import struct
 from typing import List
 
 from .. import base
+from .. import shared  # special lumps
 from . import orange_box
 
 
@@ -76,6 +79,15 @@ class LUMP(enum.Enum):
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = collections.namedtuple("LumpHeader", ["id", "flags", "version", "offset", "length"])
+# since vindictus has a unique header format, valve .bsp have a header reading function in here
+
+
+def read_lump_header(file, LUMP_ID: enum.Enum):
+    file.seek(lump_header_address[LUMP_ID])
+    id, flags, version, offset, length = struct.unpack("5i", file.read(20))
+    header = LumpHeader(id, flags, version, offset, length)
+    return header
 
 
 # class for each lump in alphabetical order
@@ -175,9 +187,9 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
-# everything else is the same as orange box (Team Fortress 2 branch)
-lump_classes = orange_box.lump_classes.copy()
-lump_classes.update({"AREAS": Area,
+# every other class is the same as orange_box
+LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
+LUMP_CLASSES.update({"AREAS": Area,
                      "AREA_PORTALS": AreaPortal,
                      "BRUSH_SIDES": BrushSide,
                      "DISP_INFO": DisplacementInfo,
@@ -188,5 +200,6 @@ lump_classes.update({"AREAS": Area,
                      "NODES": Node,
                      "ORIGINAL_FACES": Face})
 
+SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES
 
 methods = orange_box.methods
