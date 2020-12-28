@@ -16,7 +16,7 @@ class TestBase:
                      b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
                      b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
         raw_tuple = struct.unpack(self.Example._format, raw_struct)
-        test_struct = self.Example(raw_tuple)
+        test_struct = Example(raw_tuple)
 
         assert test_struct.id == 0
         # assert test_struct.position == base.MappedArray([*"xyz"])
@@ -27,7 +27,7 @@ class TestBase:
                      b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
                      b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
         raw_tuple = struct.unpack(self.Example._format, raw_struct)
-        test_struct = self.Example(raw_tuple)
+        test_struct = Example(raw_tuple)
         flattened_struct = test_struct.flat()
         recreated_struct = struct.pack(self.Example._format, *flattened_struct)
         assert raw_struct == recreated_struct
