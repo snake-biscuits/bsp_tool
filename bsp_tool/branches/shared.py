@@ -20,6 +20,7 @@ class Entities(list):
                 if key not in ent:
                     ent[key] = value
                 else:  # don't override duplicate keys, share a list instead
+                    # generally duplicate keys are ouputs
                     if isinstance(ent[key], list):  # more than 2 of this key
                         ent[key].append(value)
                     else:  # second occurance of key
@@ -33,7 +34,17 @@ class Entities(list):
             super().__init__(entities)
 
     def as_bytes(self):
-        return b"\n".join(map(lambda s: s.encode("ascii"), self._ents))
+        entities = []
+        for entity_dict in self:  # Dict[str, Union[str, List[str]]]
+            entity = ["{"]
+            for key, value in entity_dict.items():
+                if isinstance(value, str):
+                    entity.append(f'"{key}" "{value}"')
+                else:  # multiple entries
+                    entity.extend([f'"{key}" "{v}"' for v in value])
+            entity.append("}")
+            entities.append("\n".join(entity))
+        return b"\n".join(map(lambda e: e.encode("ascii"), entities))
 
 
 class PakFile(zipfile.ZipFile):
