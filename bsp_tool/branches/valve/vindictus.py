@@ -1,5 +1,6 @@
 import collections
 import enum
+import os
 import struct
 from typing import List
 
@@ -7,7 +8,7 @@ from .. import base
 from . import orange_box
 
 
-with open("vindictus_notes.txt") as notes:
+with open(os.path.join(os.path.dirname(__file__), "vindictus_notes.txt")) as notes:
     __doc__ = notes.read()  # help(vindictus) will contain vindictus_notes.txt
 
 BSP_VERSION = 20
