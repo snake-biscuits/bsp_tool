@@ -4,9 +4,11 @@ import struct
 from typing import List
 
 from .. import base
-from .. import shared  # special lumps
 from . import orange_box
 
+
+with open("vindictus_notes.txt") as notes:
+    __doc__ = notes.read()  # help(vindictus) will contain vindictus_notes.txt
 
 BSP_VERSION = 20
 

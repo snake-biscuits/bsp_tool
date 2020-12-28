@@ -2,45 +2,45 @@ Vindictus
 
 Vindictus generally uses a lot more integers in place of shorts for its map data structures.
 
-The game uses a different dgamelump_t format:
+Also, vindictus uses a different dgamelump_t format:
 
 struct dgamelump_t
 {
-	int		id;		// gamelump ID
-	int		flags;		// flags
-	int		version;	// gamelump version
-	int		fileofs;	// offset to this gamelump
-	int		filelen;	// length
+    int    id;       // gamelump ID
+    int    flags;    // flags
+    int    version;  // gamelump version
+    int    fileofs;  // offset to this gamelump
+    int    filelen;  // length
 };
 
 
-Nodes and Leaves are also different, mainly changing to use ints instead of shorts:
+Nodes and Leaves are also different, mainly changed to use ints instead of shorts:
 
 struct dnode_t
 {
-	int		planenum;	// index into plane array
-	int		children[2];	// negative numbers are -(leafs + 1), not nodes
-	int		mins[3];	// for frustum culling
-	int		maxs[3];
-	int		firstface;	// index into face array
-	int		numfaces;	// counting both sides
-	int		unknown;	// seems to always be 0
+    int    planenum;     // index into plane array
+    int    children[2];  // negative numbers are -(leafs + 1), not nodes
+    int    mins[3];      // for frustum culling
+    int    maxs[3];
+    int    firstface;    // index into face array
+    int    numfaces;     // counting both sides
+    int    unknown;      // seems to always be 0
 };
 
-The Leaves structure, among other things, does away with the area field, and flags has its own integer field.
+The Leaf structure, among other things, does away with the area field, and flags has its own integer field.
 
 struct dleaf_t
 {
-	int			contents;		// OR of all brushes (not needed?)
-	int			cluster;		// cluster this leaf is in
-	int			flags;			// flags
-	int			mins[3];		// for frustum culling
-	int			maxs[3];
-	unsigned int		firstleafface;		// index into leaffaces
-	unsigned int		numleaffaces;
-	unsigned int		firstleafbrush;		// index into leafbrushes
-	unsigned int		numleafbrushes;
-	int			leafWaterDataID;	// -1 for not in water
+    int          contents;         // OR of all brushes (not needed?)
+    int          cluster;          // cluster this leaf is in
+    int          flags;            // flags
+    int          mins[3];          // for frustum culling
+    int          maxs[3];
+    unsigned int firstleafface;    // index into leaffaces
+    unsigned int numleaffaces;
+    unsigned int firstleafbrush;   // index into leafbrushes
+    unsigned int numleafbrushes;
+    int          leafWaterDataID;  // -1 for not in water
 };
 
 
