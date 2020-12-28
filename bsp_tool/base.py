@@ -55,7 +55,7 @@ class Bsp():
         for ID in self.branch.LUMP:  # load every lump, either as RAW_<LUMPNAME> or as <LUMPNAME> with classes
             lump_header, lump_data = self.read_lump(ID)
             LUMP = ID.name
-            self.LUMP_HEADERS[LUMP] = lump_header
+            self.HEADERS[LUMP] = lump_header
             if lump_data is not None:
                 if LUMP in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[ID.name]
@@ -82,28 +82,29 @@ class Bsp():
                     setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
                 else:  # lump structure unknown
                     # TODO: check a list of SPECIAL LUMP translating functions here
-                    self.setattr(self, f"RAW_{LUMP}", lump_data)
+                    setattr(self, f"RAW_{LUMP}", lump_data)
 
     def load(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
         self.associated_files = [f for f in local_files if is_related(f)]
-        file = open(os.path.join(self.folder, self.filename), "rb")
-        file_magic = file.read(4)
+        self.file = open(os.path.join(self.folder, self.filename), "rb")
+        file_magic = self.file.read(4)
         if file_magic != self.FILE_MAGIC:
-            raise RuntimeError(f"{file} is not a valid .bsp!")
-        self.BSP_VERSION = int.from_bytes(file.read(4), "little")
+            raise RuntimeError(f"{self.file} is not a valid .bsp!")
+        self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
+        # ^ location of BSP_VERSION varies from format to format
         print(f"Loading {self.filename} ({self.FILE_MAGIC} version {self.BSP_VERSION})...")
-        file.read()  # move cursor to end of file
-        self.filesize = file.tell()
+        self.file.read()  # move cursor to end of file
+        self.filesize = self.file.tell()
 
         self.loading_errors: List[str] = []
         self.load_lumps()
         if len(self.loading_errors) > 0:
             print(*self.loading_errors, sep="\n")
 
-        file.close()
+        self.file.close()
         print(f"Loaded  {self.filename}")
 
     def save(self):

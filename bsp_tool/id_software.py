@@ -4,13 +4,13 @@ import struct
 from . import base
 
 
-FILE_MAGIC = b"IBSP"
-
 LumpHeader = namedtuple("LumpHeader", ["offset", "length"])
 
 
 class IdTechBsp(base.Bsp):
     # https://www.mralligator.com/q3/
+    FILE_MAGIC = b"IBSP"
+
     @staticmethod
     def read_lump(file, header_address: int) -> (LumpHeader, bytes):
         # lump header

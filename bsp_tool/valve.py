@@ -2,18 +2,23 @@ from collections import namedtuple  # for type hints
 from enum import Enum  # for type hints
 import lzma
 import struct
+from types import ModuleType
 
 from . import base
 from .branches import valve
 
 
 class ValveBsp(base.Bsp):
+    # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
     FILE_MAGIC = b"VBSP"
     branch = valve.orange_box  # default
 
+    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp"):
+        super(ValveBsp, self).__init__(branch, filename)
+
     def read_lump(self, LUMP: Enum) -> (namedtuple, bytes):  # LumpHeader, data
         """Get LUMP from self.branch.LUMP; e.g. self.branch.LUMP.ENTITIES """
-        header = self.branch.read_lump_header(LUMP)
+        header = self.branch.read_lump_header(self.file, LUMP)
         if header.length == 0:
             return header, None
         self.file.seek(header.offset)

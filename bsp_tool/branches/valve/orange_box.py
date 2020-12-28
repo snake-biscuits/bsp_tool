@@ -120,8 +120,8 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version"
 
 def read_lump_header(file, LUMP_ID: enum.Enum):
     file.seek(lump_header_address[LUMP_ID])
-    id, flags, version, offset, length = struct.unpack("4i", file.read(16))
-    header = LumpHeader(id, flags, version, offset, length)
+    offset, length, version, fourCC = struct.unpack("4i", file.read(16))
+    header = LumpHeader(offset, length, version, fourCC)
     return header
 
 

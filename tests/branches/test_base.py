@@ -15,7 +15,7 @@ class TestBase:
                      b"\xDE\xAD\xBE\xEF" b"\xDE\xAD\xBE\xEF" \
                      b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
                      b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
-        raw_tuple = struct.unpack(self.Example._format, raw_struct)
+        raw_tuple = struct.unpack(Example._format, raw_struct)
         test_struct = Example(raw_tuple)
 
         assert test_struct.id == 0
@@ -26,10 +26,10 @@ class TestBase:
                      b"\x00\x00\x00\x02" b"\x00\x00\x00\x03" \
                      b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
                      b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
-        raw_tuple = struct.unpack(self.Example._format, raw_struct)
+        raw_tuple = struct.unpack(Example._format, raw_struct)
         test_struct = Example(raw_tuple)
         flattened_struct = test_struct.flat()
-        recreated_struct = struct.pack(self.Example._format, *flattened_struct)
+        recreated_struct = struct.pack(Example._format, *flattened_struct)
         assert raw_struct == recreated_struct
 
 
@@ -39,4 +39,4 @@ class TestMappedArray:
         sample_B = base.MappedArray([3, 4, 5], ["a", "b", "c"])
         sample_C = base.MappedArray([6, 7, 8, 9], {"D": ["i", "ii"],
                                                    "E": ["iii", " iv"]})
-        assert (sample_A, sample_B, sample_C) != (None, None, None)
+        assert all([sample_A, sample_B, sample_C])

@@ -5,14 +5,12 @@ from typing import Dict, List
 import zipfile
 
 
-class Entities:
-    _ents: List[Dict[str, str]]
-    # ^ [{"key": "value"}]
-
-    def __init__(self, raw_bytestring):
+class Entities(list):
+    def __init__(self, raw_entities):
         # TODO: use fgd-tools to fully unstringify entities
-        self._ents = list()
-        for line_no, line in enumerate(raw_bytestring.decode(errors="ignore").split("\n")):
+        entities: List[Dict[str, str]] = list()
+        # ^ [{"key": "value"}]
+        for line_no, line in enumerate(raw_entities.decode(errors="ignore").split("\n")):
             if re.match(R"^[ \t]*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:  # new entity
@@ -27,11 +25,12 @@ class Entities:
                     else:  # second occurance of key
                         ent[key] = [ent[key], value]
             elif "}" in line:  # close entity
-                self._ents.append(ent)
+                entities.append(ent)
             elif line == b"\x00".decode():
                 continue  # ignore raw bytes, might be related to lump alignment
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+            super().__init__(entities)
 
     def as_bytes(self):
         return b"\n".join(map(lambda s: s.encode("ascii"), self._ents))
@@ -40,7 +39,7 @@ class Entities:
 class PakFile(zipfile.ZipFile):
     def __init__(self, raw_zip_bytes):
         self._buffer = io.BytesIO(raw_zip_bytes)
-        super(zipfile.ZipFile, self).__init__(self._buffer)
+        super(PakFile, self).__init__(self._buffer)
 
     def as_bytes(self):
         return self._buffer.getvalue()

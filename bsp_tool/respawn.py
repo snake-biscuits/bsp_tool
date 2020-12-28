@@ -7,7 +7,6 @@ from .base import LumpHeader
 from .branches import respawn
 
 
-FILE_MAGIC = b"rBSP"
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
 
 
@@ -25,7 +24,9 @@ def read_lump(file, header_address: int) -> (LumpHeader, bytes):  # .bsp interna
 
 
 class RespawnBsp(base.Bsp):
-    branch = respawn.titanfall2
+    # https://dev.cra0kalo.com/?p=202
+    FILE_MAGIC = b"rBSP"
+    branch = respawn.titanfall2  # default branch
 
     def __init__(self, branch=branch, filename="untitled.bsp"):
         super(base.Bsp, self).__init__(branch, filename)
