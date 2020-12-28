@@ -16,5 +16,5 @@ When a lump of unknown format is loaded, the raw byte data is stored in `RAW_<LU
 
 The user can specify what game bsp_tool is to expect  
 If no game is specified, bsp_tool will try it's best to find a definition based on the file header  
-NOTE: Vindictus .bsp headers are identical to Orange Box  
+NOTE: Vindictus .bsp files have the same BSP_VERSION as Orange Box, but it's headers are different  
 The defaults for each header are defined in `branches/__init__.py`  
