@@ -1,12 +1,13 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "tools", "IdSoftBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
+__all__ = ["base", "branches", "load_bsp", "tools", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
+
 from types import ModuleType
 from typing import Union
 
 from . import base
 from . import branches
 from . import tools
-from .id_software import IdSoftBsp
+from .id_software import IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
 from .valve import ValveBsp
