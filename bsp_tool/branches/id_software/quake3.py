@@ -62,11 +62,11 @@ class Face(base.Struct):  # LUMP 13
     num_vertices: int  # number of Vertices after first_vertex in this face
     first_mesh_vertex: int  # index into MeshVertex lump
     num_mesh_vertices: int  # number of MeshVertices after first_mesh_vertex in this face
-    lightmap.index: int  # which of the 3 lightmap textures to use
-    lightmap.top_left: List[int]  # approximate top-left corner of visible lightmap segment
-    lightmap.size: List[int]  # size of visible lightmap segment
-    lightmap.origin: List[float]  # world space lightmap origin
-    lightmap.vector: List[List[float]]  # lightmap texture projection vectors
+    # lightmap.index: int  # which of the 3 lightmap textures to use
+    # lightmap.top_left: List[int]  # approximate top-left corner of visible lightmap segment
+    # lightmap.size: List[int]  # size of visible lightmap segment
+    # lightmap.origin: List[float]  # world space lightmap origin
+    # lightmap.vector: List[List[float]]  # lightmap texture projection vectors
     normal: List[float]
     size: List[float]  # texture patch dimensions
     __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
@@ -123,7 +123,7 @@ class Node(base.Struct):  # LUMP 3
     _arrays = {"child": [*"ab"], "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class Plane(base.struct):  # LUMP 2
+class Plane(base.Struct):  # LUMP 2
     normal: List[float]
     distance: float
     __slots__ = ["normal", "distance"]
@@ -141,8 +141,8 @@ class Texture(base.Struct):  # LUMP 1
 
 class Vertex(base.Struct):  # LUMP 10
     position: List[float]
-    uv.texture: List[float]
-    uv.lightmap: List[float]
+    # uv.texture: List[float]
+    # uv.lightmap: List[float]
     normal: List[float]
     colour: bytes  # 1 RGBA32 pixel / texel
     __slots__ = ["position", "uv", "normal", "colour"]

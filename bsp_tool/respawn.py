@@ -3,7 +3,7 @@ import os
 import struct
 
 from . import base
-from .source import LumpHeader
+from .base import LumpHeader
 from .branches import respawn
 
 

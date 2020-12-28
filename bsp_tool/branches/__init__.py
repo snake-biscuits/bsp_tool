@@ -1,5 +1,5 @@
-__all__ = ["id_software", "infinity_ward", "respawn", "valve",
-           "by_name", "by_version"]
+__all__ = ["id_software", "infinity_ward", "respawn", "valve", "by_magic", "by_name", "by_version"]
+
 from . import id_software
 from . import infinity_ward
 from . import respawn
@@ -7,9 +7,14 @@ from . import valve
 
 
 by_magic = {
-        b"IBSP": [*id_software, *infinity_ward],  # id_software.FILE_MAGIC & infinity_ward.FILE_MAGIC
-        b"rBSP": [*respawn],  # respawn.FILE_MAGIC
-        b"VBSP": [*valve]}  # valve.FILE_MAGIC
+        # id_software.FILE_MAGIC
+        b"IBSP": [id_software.quake3,
+                  # infinity_ward.FILE_MAGIC
+                  infinity_ward.call_of_duty1],
+        # respawn.FILE_MAGIC
+        b"rBSP": [respawn.apex_legends, respawn.titanfall2],
+        # valve.FILE_MAGIC
+        b"VBSP": [valve.orange_box, valve.vindictus]}
 
 by_name = {
     # ID SOFTWARE
@@ -31,8 +36,10 @@ by_name = {
 # make sure to match case-insesitively!
 
 by_version = {
+    # ID SOFTWARE
+    id_software.quake3.BSP_VERSION: id_software.quake3,  # 46
     # RESPAWN
-    respawn.titanfall2.bsp_version: respawn.titanfall2,  # 37
-    respawn.apex_legends.bsp_version: respawn.apex_legends,  # 47
+    respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
+    respawn.apex_legends.BSP_VERSION: respawn.apex_legends,  # 47
     # VALVE
-    valve.orange_box.bsp_version: valve.orange_box}  # 20
+    valve.orange_box.BSP_VERSION: valve.orange_box}  # 20

@@ -79,7 +79,7 @@ class Cell(base.Struct):  # LUMP 17
     _format = "52c"  # equivalent "13i"
 
 
-class CollisionIndex(int):
+class CollisionIndex(int):  # LUMP 26
     _format = "H"  # index into ??? lump
 
 
@@ -145,7 +145,7 @@ class Lightmap:  # LUMP 1
     def __init__(self, _tuple):
         self._pixels: List[bytes] = _tuple  # RGB_888
 
-    def __getitem__(self, row) -> List[bytes]:
+    def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
         # Lightmap[row][column] returns self.__getitem__(row)[column]
         row_start = row * 512
         return self._pixels[row_start:row_start + 512]  # TEST: does it work with negative indices?
