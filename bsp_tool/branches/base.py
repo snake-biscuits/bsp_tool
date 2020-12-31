@@ -37,7 +37,7 @@ class Struct:
                     length = array_map
                     value = _tuple[_tuple_index:_tuple_index + length]
                 else:
-                    raise RuntimeError(f"{type(array_map)} in {self.__class__.__name__}._arrays")
+                    raise RuntimeError(f"{type(array_map)} {array_map} in {self.__class__.__name__}._arrays")
             setattr(self, attr, value)
             _tuple_index += length
         # TODO: throw a warning if the whole tuple won't fit
@@ -73,14 +73,16 @@ class MappedArray:
             self._mapping = list(mapping.keys())
             array_index = 0
             for attr, child_mapping in mapping.items():
-                segment = array[array_index:array_index + len(child_mapping)]
                 if child_mapping is not None:
+                    segment = array[array_index:array_index + len(child_mapping)]
+                    array_index += len(child_mapping)
                     child = MappedArray(segment, mapping=child_mapping)
                     # ^ will recurse again if child_mapping is a dict
                 else:
+                    segment = array[array_index:array_index + 1]
+                    array_index += 1
                     child = segment  # if {"attr": None}  treat as a list entry
                 setattr(self, attr, child)
-                array_index += len(child_mapping)
         elif isinstance(mapping, list):  # List[str]
             for attr, value in zip(mapping, array):
                 setattr(self, attr, value)

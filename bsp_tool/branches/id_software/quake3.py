@@ -76,7 +76,7 @@ class Face(base.Struct):  # LUMP 13
     _format = "12i12f2i"
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
-               "normal": "xyz", "size": ["width", "height"]}
+               "normal": [*"xyz"], "size": ["width", "height"]}
 
 
 class Leaf(base.Struct):  # LUMP 4
