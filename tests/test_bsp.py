@@ -6,9 +6,9 @@ def test_load_bsp():
     test2_bsp = load_bsp("tests/maps/test2.bsp")
     upward_bsp = load_bsp("tests/maps/pl_upward.bsp")
     bigbox_bsp = load_bsp("tests/maps/test_bigbox.bsp")
-    assert isinstance(ValveBsp, test2_bsp)
-    assert isinstance(ValveBsp, upward_bsp)
-    assert isinstance(IdTechBsp, bigbox_bsp)
+    assert isinstance(test2_bsp, ValveBsp)
+    assert isinstance(upward_bsp, ValveBsp)
+    assert isinstance(bigbox_bsp, IdTechBsp)
 
 
 class TestValveBsp:
