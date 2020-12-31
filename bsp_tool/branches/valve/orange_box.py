@@ -118,8 +118,8 @@ lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 
 
-def read_lump_header(file, LUMP_ID: enum.Enum):
-    file.seek(lump_header_address[LUMP_ID])
+def read_lump_header(file, LUMP: enum.Enum):
+    file.seek(lump_header_address[LUMP])
     offset, length, version, fourCC = struct.unpack("4i", file.read(16))
     header = LumpHeader(offset, length, version, fourCC)
     return header

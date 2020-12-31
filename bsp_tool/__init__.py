@@ -4,36 +4,38 @@ __all__ = ["base", "branches", "load_bsp", "tools", "IdTechBsp", "D3DBsp", "Valv
 from types import ModuleType
 from typing import Union
 
-from . import base
-from . import branches
-from . import tools
+from . import base  # base.Bsp base class
+from . import branches  # all known .bsp variant definitions
+from . import tools  # tools for studying .bsps
 from .id_software import IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
 from .valve import ValveBsp
 
 
-def load_bsp(filename: str, branch: Union[str, ModuleType]):
+bsp_variant_by_file_magic = {b"IBSP": IdTechBsp,  # how to spot a D3DBsp?
+                             b"rBSP": RespawnBsp,
+                             b"VBSP": ValveBsp}
+
+
+def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
     if not filename.endswith(".bsp"):
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    with open(filename, "rb") as bsp_file:
+    with open(filename, "rb") as bsp_file:  # assuming the requested file exists
         file_magic = bsp_file.read(4)
-        if file_magic not in branches.by_magic:
-            raise RuntimeError(f"{filename} is not from a known engine branch ({file_magic.decode()})")
-    if branch.lower() == "unknown":  # guess .bsp format from version
-        bsp_version = int.from_bytes(bsp_file.read(4), "little")
-        if branch not in branches.by_version:
-            raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
-            # you can avoid this error by forcing a branch:
-            # - load_bsp("example.bsp", branches.valve.orange_box)
-        branch = branches.by_version[bsp_version]
-    else:  # look up branch by name
-        if branch not in branches.by_name:
-            raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
-        branch = branches.by_name[branch]
-
-    # create appropriate Bsp sub-class
-    ...
-    # this function should be attached to transitioning to creating .bsp files, rather than simply loading them.
-    # beyond that, compiling could be interesting, particularly parellellised lightmap generation
-    # (calculate per face texure, assemble & link afterwards)
+        BspVariant = bsp_variant_by_file_magic[file_magic]
+        if isinstance(branch, ModuleType):
+            pass  # goto return
+        elif branch.lower() == "unknown":  # assuming branch is a string
+            # guess .bsp format from version
+            bsp_version = int.from_bytes(bsp_file.read(4), "little")  # not always in this position
+            if bsp_version not in branches.by_version:
+                raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
+                # ^ you can avoid this error by forcing a branch:
+                # - load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
+            branch = branches.by_version[bsp_version]
+        else:  # look up branch by name
+            if branch not in branches.by_name:
+                raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
+            branch = branches.by_name[branch]
+    return BspVariant(branch, filename, load_automatically=True)

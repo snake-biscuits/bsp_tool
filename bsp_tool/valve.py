@@ -1,5 +1,5 @@
 from collections import namedtuple  # for type hints
-from enum import Enum  # for type hints
+import enum  # for type hints
 import lzma
 import struct
 from types import ModuleType
@@ -16,7 +16,7 @@ class ValveBsp(base.Bsp):
     def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", load_automatically: bool = True):
         super(ValveBsp, self).__init__(branch, filename, load_automatically)
 
-    def read_lump(self, LUMP: Enum) -> (namedtuple, bytes):  # LumpHeader, data
+    def read_lump(self, LUMP: enum.Enum) -> (namedtuple, bytes):  # LumpHeader, data
         """Get LUMP from self.branch.LUMP; e.g. self.branch.LUMP.ENTITIES """
         header = self.branch.read_lump_header(self.file, LUMP)
         if header.length == 0:

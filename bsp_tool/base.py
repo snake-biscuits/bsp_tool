@@ -56,10 +56,11 @@ class Bsp():
         return header, data
 
     def load_lumps(self):
-        """Load every lump from open self.file"""
-        for LUMP in self.branch.LUMP:  # load every lump, either as RAW_<LUMPNAME> or as <LUMPNAME> with classes
-            lump_header, lump_data = self.read_lump(LUMP)
-            self.HEADERS[LUMP.name] = lump_header
+        """Load every lump from self.file (self.file must already be open!)"""
+        for LUMP_enum in self.branch.LUMP:
+            lump_header, lump_data = self.read_lump(LUMP_enum)
+            LUMP = LUMP_enum.name
+            self.HEADERS[LUMP] = lump_header
             if lump_data is None:
                 continue
             if LUMP in self.branch.LUMP_CLASSES:
@@ -69,7 +70,7 @@ class Bsp():
                     for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
                         if len(_tuple) == 1:  # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
                             _tuple = _tuple[0]  # ^ there has to be a better way than this
-                        getattr(self, LUMP.name).append(LumpClass(_tuple))
+                        getattr(self, LUMP).append(LumpClass(_tuple))
                     # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
                 except struct.error:  # lump cannot be divided into a whole number of LumpClasses
                     struct_size = struct.calcsize(LumpClass._format)
@@ -81,6 +82,7 @@ class Bsp():
                     self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
                     # TODO: save a copy of the traceback for debugging
             elif LUMP in self.branch.SPECIAL_LUMP_CLASSES:
+                print(f"Special {LUMP} lump found! Using special parsing class!")
                 setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
                 # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
             else:  # lump structure unknown
