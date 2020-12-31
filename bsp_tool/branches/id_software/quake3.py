@@ -3,6 +3,8 @@ import enum
 from typing import List
 
 from .. import base
+from .. import shared  # special lumps
+
 
 BSP_VERSION = 46
 
@@ -30,7 +32,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# classes for lumps (alphabetical order) [12 / 17] + shared.Entities
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
@@ -163,6 +165,8 @@ LUMP_CLASSES = {"BRUSHES": Brush,
                 "PLANES": Plane,
                 "TEXTURES": Texture,
                 "VERTICES": Vertex}
+
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
 # branch exclusive methods, in alphabetical order:

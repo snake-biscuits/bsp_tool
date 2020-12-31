@@ -1,7 +1,17 @@
-from bsp_tool import ValveBsp
+from bsp_tool import load_bsp
+from bsp_tool import IdTechBsp, ValveBsp
 
 
-class TestBspImport:
+def test_load_bsp():
+    test2_bsp = load_bsp("tests/maps/test2.bsp")
+    upward_bsp = load_bsp("tests/maps/pl_upward.bsp")
+    bigbox_bsp = load_bsp("tests/maps/test_bigbox.bsp")
+    assert isinstance(ValveBsp, test2_bsp)
+    assert isinstance(ValveBsp, upward_bsp)
+    assert isinstance(IdTechBsp, bigbox_bsp)
+
+
+class TestValveBsp:
     def test_no_errors(self):
         test2_bsp = ValveBsp(filename="tests/maps/test2.bsp")
         upward_bsp = ValveBsp(filename="tests/maps/pl_upward.bsp")

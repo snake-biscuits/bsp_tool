@@ -3,10 +3,10 @@ import enum
 from typing import List
 
 from .. import base
+from .. import shared  # special lumps
 
 
-BSP_VERSION = 0x00  # ???
-# all of these specifications are guesses, only lump sizes are known
+BSP_VERSION = 0x00  # !!! UNKNOWN !!!
 
 
 class LUMP(enum.Enum):
@@ -38,7 +38,7 @@ class LUMP(enum.Enum):
     COLLISION_INDICES = 26
     MODELS = 27
     VISIBILITY = 28  # SPECIAL: Binary Partition tree (read bit by bit, with masks?)
-    ENTITIES = 29  # SPECIAL: string
+    ENTITIES = 29  # SPECIAL: string (typically ENTITIES would be #0)
     LIGHTS = 30
     UNKNOWN_31 = 31  # FOGS ?
     # big 32nd lump at ed of file, not in header?
@@ -49,7 +49,8 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# classes for lumps (alphabetical order): [31 / 32] + shared.Entities
+# all are incomplete guesses; only lump sizes are known
 class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     """AABB tree"""
     # too small to be mins & maxs of an AABB; probably indices (hence: AABB_TREE)
@@ -134,7 +135,7 @@ class Light(base.Struct):  # LUMP 30
     _format = "72c"  # equivalent "18i"
 
 
-class LightIndices(int):  # LUMP 19
+class LightIndex(int):  # LUMP 19
     _format = "H"  # index into Light lump
 
 
@@ -226,4 +227,34 @@ class TriangleSoup(base.Struct):  # LUMP 5
     _format = "16c"  # equivalent "4i"
 
 
-# ...
+LUMP_CLASSES = {"AABB_TREES": AxisAlignedBoundingBox,
+                "BRUSHES": Brush,
+                "BRUSH_SIDES": BrushSide,
+                "CELLS": Cell,
+                "COLLISION_INDICES": CollisionIndex,
+                "COLLISION_VERTICES": CollisionVertex,
+                "CULL_GROUPS": CullGroup,
+                "CULL_GROUP_INDICES": CullGroupIndex,
+                "DRAW_INDICES": DrawIndex,
+                "DRAW_VERTICES": DrawVertex,
+                "LEAVES": Leaf,
+                "LEAF_BRUSHES": LeafBrush,
+                "LEAF_SURFACES": LeafSurface,
+                "LIGHTS": Light,
+                "LIGHT_INDICES": LightIndex,
+                "LIGHTMAPS": Lightmap,
+                "MODELS": Model,
+                "NODES": Node,
+                "OCCLUDERS": Occluder,
+                "OCCLUDER_EDGES": OccluderEdge,
+                "OCCLUDER_INDICES": OccluderIndex,
+                "OCCLUDER_PLANES": OccluderPlane,
+                "PATCH_COLISION": PatchCollision,
+                "PLANES": Plane,
+                "PORTALS": Portal,
+                "SHADERS": Shader,
+                "TRIANGLE_SOUPS": TriangleSoup}  # mmm tasty
+
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
+
+methods = []

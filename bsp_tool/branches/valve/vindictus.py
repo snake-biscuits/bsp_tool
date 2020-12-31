@@ -93,7 +93,7 @@ def read_lump_header(file, LUMP_ID: enum.Enum):
     return header
 
 
-# class for each lump in alphabetical order
+# class for each lump in alphabetical order: [10 / 64] overriding orange_box
 class Area(base.Struct):  # LUMP 20
     num_area_portals: int  # number or AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index into AreaPortal lump

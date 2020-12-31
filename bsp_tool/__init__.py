@@ -13,29 +13,36 @@ from .respawn import RespawnBsp
 from .valve import ValveBsp
 
 
-bsp_variant_by_file_magic = {b"IBSP": IdTechBsp,  # how to spot a D3DBsp?
+bsp_variant_by_file_magic = {b"IBSP": IdTechBsp,
                              b"rBSP": RespawnBsp,
                              b"VBSP": ValveBsp}
 
 
 def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
-    if not filename.endswith(".bsp"):
+    # TODO: make legible
+    # identify developer variant
+    BspVariant = None
+    if filename.endswith(".d3dbsp"):
+        BspVariant = D3DBsp
+    elif not filename.endswith(".bsp"):
         raise RuntimeError(f"{filename} is not a .bsp file!")
     with open(filename, "rb") as bsp_file:  # assuming the requested file exists
         file_magic = bsp_file.read(4)
+        bsp_version = int.from_bytes(bsp_file.read(4), "little")  # not always in this position
+    if BspVariant != D3DBsp:  # D3DBsp indicated by extension only
         BspVariant = bsp_variant_by_file_magic[file_magic]
-        if isinstance(branch, ModuleType):
-            pass  # goto return
-        elif branch.lower() == "unknown":  # assuming branch is a string
-            # guess .bsp format from version
-            bsp_version = int.from_bytes(bsp_file.read(4), "little")  # not always in this position
-            if bsp_version not in branches.by_version:
-                raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
-                # ^ you can avoid this error by forcing a branch:
-                # - load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
-            branch = branches.by_version[bsp_version]
-        else:  # look up branch by name
-            if branch not in branches.by_name:
-                raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
-            branch = branches.by_name[branch]
+    # identify game variant
+    if isinstance(branch, ModuleType):
+        pass  # goto return
+    elif branch.lower() == "unknown":  # assuming branch is a string
+        # guess .bsp format from version
+        if bsp_version not in branches.by_version:
+            raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
+            # ^ you can avoid this error by forcing a branch:
+            # - load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
+        branch = branches.by_version[bsp_version]
+    else:  # look up branch by name
+        if branch not in branches.by_name:
+            raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
+        branch = branches.by_name[branch]
     return BspVariant(branch, filename, load_automatically=True)

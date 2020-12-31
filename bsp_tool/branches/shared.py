@@ -74,6 +74,7 @@ class TexDataStringData(list):
 
 
 class Visiblity:
+    # is IdTech format the same as Valve format?
     def __init__(self, raw_visibility):
         vis_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]
         num_clusters = vis_data

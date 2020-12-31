@@ -125,7 +125,7 @@ def read_lump_header(file, LUMP: enum.Enum):
     return header
 
 
-# classes for each lump, in alphabetical order:
+# classes for each lump, in alphabetical order: [22 / 64] + shared.Entities & shared.PakFile
 class Area(base.Struct):  # LUMP 20
     num_area_portals: int   # number of AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index of first AreaPortal

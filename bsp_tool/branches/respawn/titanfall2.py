@@ -1,6 +1,7 @@
 import enum
 
 from .. import base
+from .. import shared  # special lumps
 
 
 BSP_VERSION = 37
@@ -144,7 +145,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# classes for lumps (alphabetical order) [12 / 128] + shared.Entites
 class Brush(base.Struct):  # LUMP 92 (005C)
     __slots__ = ["normal", "unknown"]  # origin, id?
     _format = "3fI"
@@ -234,7 +235,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 
-lump_classes = {"CM_BRUSHES": Brush,
+LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MATERIAL_SORT": MaterialSort,
                 "MODELS": Model,
                 "TEXDATA": TextureData,
@@ -246,6 +247,8 @@ lump_classes = {"CM_BRUSHES": Brush,
                 "VERTS_UNLIT_TS": VertexUnlitTS,
                 "MESHES": Mesh,
                 "MESH_INDICES": MeshIndices}
+
+SPECIAL_LUMP_CLASSES = {"ENTIITES": shared.Entities}  # used on all 5 .ent files
 
 
 # branch exclusive methods, in alphabetical order:
@@ -264,7 +267,7 @@ def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
     mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]  # bitmask
-    verts = getattr(bsp, mesh_types[mesh_type])
+    verts = getattr(bsp, mesh_types[mesh_type])  # get bsp.VERTS_* lump
     return [verts[i] for i in indices]
 
 

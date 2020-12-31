@@ -1,93 +1,20 @@
 import enum
 
 from .. import base
+from .. import shared  # special lumps
 
 
 BSP_VERSION = 47
 
-# Apex Legends has rBSP file-magic, ~128 lumps & uses .bsp_lump files:
-#   <bsp filename>.<ID>.bsp_lump
-#   where <ID> is a four digit hexadecimal string (lowercase)
-# entities are stored in 5 different .ent files per bsp
-
-# note which lumps appear in the .bsp, which have .bsp_lump files,
-# and which have both
-
-# mp_rr_canyonlands_mu2.bsp has .bsp_lump files for the following:
-# 0000 ENTITIES               0
-# 0001 PLANES                 1
-# 0002 TEXDATA                2
-# 0003 VERTICES               3
-# 0004 UNKNOWN_4              4
-# 0005 UNKNOWN_5              5
-# ...
-# 000E MODELS                14
-# 000F UNKNOWN_15            15
-# 0010 UNKNOWN_16            16
-# 0011 UNKNOWN_17            17
-# 0012 UNKNOWN_18            18
-# 0013 UNKNOWN_19            19
-# 0014 UNKNOWN_20            20
-# ...
-# 0018 ENTITIY_PARTITIONS    24
-# ...
-# 001E VERTEX_NORMALS        30
-# ...
-# 0023 GAME_LUMP             35
-# ...
-# 0025 UNKNOWN_37            37
-# 0026 UNKNOWN_38            38
-# 0027 UNKNOWN_39            39
-# 0028 PAKFILE               40 [zip with PK file-magic] (contains cubemaps)
-# ...
-# 002A CUBEMAPS              42
-# ...
-# 0036 WORLDLIGHTS_HDR       54
-# 0037 UNKNOWN_55            55
-# ...
-# 0047 VERTS_UNLIT           71
-# ...
-# 0049 VERTS_LIT_BUMP        73
-# 004A VERTS_UNLIT_TS        74
-# ...
-# 004F MESH_INDICES          79
-# 0050 MESHES                80
-# 0051 MESH_BOUNDS           81
-# 0052 MATERIAL_SORT         82
-# 0053 LIGHTMAP_HEADERS      83
-# ...
-# 0055 CM_GRID                          85
-# ...
-# 0062 LIGHTMAP_DATA_SKY                98
-# 0063 CSM_AABB_NODES                   99
-# 0064 CSM_OBJ_REFS                    100
-# 0065 LIGHTPROBES                     101
-# 0066 STATIC_PROP_LIGHTPROBE_INDEX    102
-# 0067 LIGHTPROBE_TREE                 103
-# 0068 LIGHTPROBE_REFS                 104
-# 0069 LIGHTMAP_DATA_REAL_TIME_LIGHTS  105
-# 006A CELL_BSP_NODES                  106
-# 006B CELLS                           107
-# 006C PORTALS                         108
-# 006D PORTAL_VERTS                    109
-# 006E PORTAL_EDGES                    110
-# 006F PORTAL_VERT_EDGES               111
-# 0070 PORTAL_VERT_REFS                112
-# 0071 PORTAL_EDGE_REFS                113
-# 0072 PORTAL_EDGE_ISECT_EDGE          114
-# 0073 PORTAL_EDGE_ISECT_AT_VERT       115
-# 0074 PORTAL_EDGE_ISECT_HEADER        116
-# 0075 OCCLUSION_MESH_VERTICES         117
-# 0076 OCCLUSION_MESH_INDICES          118
-# 0077 CELL_AABB_NODES                 119
-# 0078 OBJ_REFS                        120
-# 0079 OBJ_REF_BOUNDS                  121
-# 007A UNKNOWN_122                     122
-# 007B LEVEL_INFO                      123
-# 007C SHADOW_MESH_OPAQUE_VERTS        124
-# 007D SHADOW_MESH_ALPHA_VERTS         125
-# 007E SHADOW_MESH_INDICES             126
-# 007F SHADOW_MESH_MESHES              127
+# Apex Legends has b"rBSP" file-magic and 128 lumps
+# ~72 of the 128 lumps appear in .bsp_lump files
+# the naming convention for these files is: "<bsp.filename>.<LUMP_HEX_ID>.bsp_lump"
+# where <LUMP_HEX_ID> is a lowercase four digit hexadecimal string
+# e.g. mp_rr_canyonlands.004a.bsp_lump (Lump #74: VertexUnlitTS)
+# entities are stored across 5 different .ent files per .bsp
+# the 5 files are: env, fx, script, snd, spawn
+# e.g. mp_rr_canyonlands_env.ent
+# presumably all this file splitting has to do with streaming data into memory
 
 
 class LUMP(enum.Enum):
@@ -298,7 +225,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-lump_classes = {"MATERIAL_SORT": MaterialSort,
+LUMP_CLASSES = {"MATERIAL_SORT": MaterialSort,
                 "MESHES": Mesh,
                 "MESH_INDICES": MeshIndices,
                 "MODELS": Model,
@@ -311,6 +238,8 @@ lump_classes = {"MATERIAL_SORT": MaterialSort,
                 "VERTS_UNLIT": VertexUnlit,
                 "VERTS_UNLIT_TS": VertexUnlitTS}
 
+SPECIAL_LUMP_CLASSES = {"ENTIITES": shared.Entities}  # used on all 5 .ent files
+
 
 # branch exclusive methods, in alphabetical order:
 mesh_types = {0x600: "VERTS_UNLIT_TS",
@@ -321,20 +250,16 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
 # a function mapping mesh.flags to vertex lumps would be better
 
 
-def vertices_of_mesh(bsp, mesh_index):
+def vertices_of_mesh(bsp, mesh_index: int):
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = bsp.MESH_INDICES[start:finish]
     indices = [mat.vertex_offset + i for i in indices]
-    # select vertex lump from mesh.MAP_FLAGS
     mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
-    verts = getattr(bsp, mesh_types[mesh_type])
+    verts = getattr(bsp, mesh_types[mesh_type])  # get bsp.VERTS_* lump
     return [verts[i] for i in indices]
-
-# look at bsp_tool_examples/visualise/render_bsp.py
-# assembling vertex buffers in a requested format would be cool
 
 
 methods = [vertices_of_mesh]
