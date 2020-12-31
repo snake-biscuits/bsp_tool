@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import collections
+import enum  # for type hints
 import os
 import struct
 from types import MethodType, ModuleType
@@ -8,7 +9,10 @@ from typing import Dict, List, Union
 
 
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
-# ^ copy of branches.valve.orange_box.LumpHeader
+# TODO: streamline lump header definition
+# - version matters, different struct definitions have to be accounted for
+# - a fourCC other than 0 means a lump is compressed
+# - the game lump has sub headers where fourCC defines lump type
 
 
 class Bsp():
@@ -22,27 +26,28 @@ class Bsp():
     filename: str
     folder: str
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp"):
+    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", load_automatically: bool = True):
         self.set_branch(branch)
         if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
-        if os.path.exists(filename):
-            self.load()
+        if load_automatically:
+            if os.path.exists(filename):
+                self.load()
 
     def __enter__(self):
-        self.load()
+        self.load()  # force auto load
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        # TODO: inform the user if the path they provided was incorrect
         self.file.close()
 
-    def read_lump(self, LUMP_ID):
+    def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # header
-        # TODO: streamline lump header definition in subclasses; especially for saving
-        self.file.seek(self.branch.lump_header_address[LUMP_ID])
+        self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
         header = LumpHeader(offset, length, version, fourCC)
         # data
@@ -52,37 +57,34 @@ class Bsp():
 
     def load_lumps(self):
         """Load every lump from open self.file"""
-        for ID in self.branch.LUMP:  # load every lump, either as RAW_<LUMPNAME> or as <LUMPNAME> with classes
-            lump_header, lump_data = self.read_lump(ID)
-            LUMP = ID.name
-            self.HEADERS[LUMP] = lump_header
-            if lump_data is not None:
-                if LUMP in self.branch.LUMP_CLASSES:
-                    LumpClass = self.branch.LUMP_CLASSES[ID.name]
-                    try:
-                        setattr(self, LUMP, list())
-                        for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
-                            if len(_tuple) == 1:  # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
-                                _tuple = _tuple[0]  # ^ there has to be a better way than this
-                            getattr(self, ID.name).append(LumpClass(_tuple))
-                        # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
-                    except struct.error:
-                        # lump cannot be divided into a whole number of LumpClasses
-                        struct_size = struct.calcsize(LumpClass._format)
-                        self.loading_errors.append(f"ERROR PARSING {LUMP}:\n"
-                                                   f"{LUMP} lump is an unusual size ({len(lump_data)} / {struct_size})."
-                                                   " Wrong engine branch?")
-                        delattr(self, LUMP)
-                    except Exception as exc:
-                        # likely an error with initialising LumpClass
-                        self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
-                        # TODO: save a copy of the traceback for debugging
-                # special lumps (more complicated than a simple list, all one object)
-                elif LUMP in self.branch.SPECIAL_LUMP_CLASSES:
-                    setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
-                else:  # lump structure unknown
-                    # TODO: check a list of SPECIAL LUMP translating functions here
-                    setattr(self, f"RAW_{LUMP}", lump_data)
+        for LUMP in self.branch.LUMP:  # load every lump, either as RAW_<LUMPNAME> or as <LUMPNAME> with classes
+            lump_header, lump_data = self.read_lump(LUMP)
+            self.HEADERS[LUMP.name] = lump_header
+            if lump_data is None:
+                continue
+            if LUMP in self.branch.LUMP_CLASSES:
+                LumpClass = self.branch.LUMP_CLASSES[LUMP]
+                try:
+                    setattr(self, LUMP, list())
+                    for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
+                        if len(_tuple) == 1:  # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
+                            _tuple = _tuple[0]  # ^ there has to be a better way than this
+                        getattr(self, LUMP.name).append(LumpClass(_tuple))
+                    # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
+                except struct.error:  # lump cannot be divided into a whole number of LumpClasses
+                    struct_size = struct.calcsize(LumpClass._format)
+                    self.loading_errors.append(f"ERROR PARSING {LUMP}:\n"
+                                               f"{LUMP} lump is an unusual size ({len(lump_data)} / {struct_size})."
+                                               " Wrong engine branch?")
+                    delattr(self, LUMP)
+                except Exception as exc:  # likely an error with initialising LumpClass
+                    self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
+                    # TODO: save a copy of the traceback for debugging
+            elif LUMP in self.branch.SPECIAL_LUMP_CLASSES:
+                setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
+                # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
+            else:  # lump structure unknown
+                setattr(self, f"RAW_{LUMP}", lump_data)
 
     def load(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
@@ -132,12 +134,12 @@ class Bsp():
         #         setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
         #     # seek lump header
         #     outfile.write(offset.to_bytes(4, "little"))
-        #     length = len(getattr(self, ID.name, "RAW_" + ID.name))
+        #     length = len(getattr(self, LUMP.name, "RAW_" + LUMP.name))
         #     offset += length
         #     outfile.write(b"0000") # lump version (actually important)
         #     outfile.write(b"0000") # lump fourCC (only for compressed)
         #     # seek lump start in file
-        #     outfile.write(getattr(self, ID.name, "RAW_" + ID.name))
+        #     outfile.write(getattr(self, LUMP.name, "RAW_" + LUMP.name))
         # outfile.write(b"0001") # map revision
 
     def set_branch(self, branch: Union[str, ModuleType]):
