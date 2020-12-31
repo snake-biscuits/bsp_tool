@@ -82,7 +82,6 @@ class Bsp():
                     self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
                     # TODO: save a copy of the traceback for debugging
             elif LUMP in self.branch.SPECIAL_LUMP_CLASSES:
-                print(f"Special {LUMP} lump found! Using special parsing class!")
                 setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
                 # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
             else:  # lump structure unknown
