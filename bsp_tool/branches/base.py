@@ -80,19 +80,15 @@ class MappedArray:
 
     def __init__(self, array: Iterable, mapping: Any = _mapping):
         if isinstance(mapping, dict):
-            print(f"MappedArray({array},", f"    {mapping})", sep="\n")
             self._mapping = list(mapping.keys())
             array_index = 0
             for attr, child_mapping in mapping.items():
-                print(f"creating {attr}")
                 if child_mapping is not None:
                     segment = array[array_index:array_index + mapping_length({None: child_mapping})]
-                    print(f"{array}[{array_index}:{array_index + mapping_length({None: child_mapping})}] = {segment}")
                     array_index += len(child_mapping)
                     child = MappedArray(segment, mapping=child_mapping)  # will recurse again if child_mapping is a dict
                 else:  # if {"attr": None}
                     array_index += 1
-                    print(f"{array}[{array_index}] = {array[array_index]}")
                     child = array[array_index]
                 setattr(self, attr, child)
         elif isinstance(mapping, list):  # List[str]
