@@ -25,7 +25,8 @@ class Struct:
                     array = _tuple[_tuple_index:_tuple_index + length]
                     value = MappedArray(array, mapping=array_map)
                 elif isinstance(array_map, dict):  # array_map: Dict[str, List[str]]
-                    array = _tuple[_tuple_index:_tuple_index + mapping_length(array_map)]
+                    length = mapping_length(array_map)
+                    array = _tuple[_tuple_index:_tuple_index + length]
                     value = MappedArray(array, mapping=array_map)  # nested
                 elif isinstance(array_map, int):
                     length = array_map
@@ -83,13 +84,14 @@ class MappedArray:
             self._mapping = list(mapping.keys())
             array_index = 0
             for attr, child_mapping in mapping.items():
+                # TODO: child_mapping of type int takes a slice, storing a mutable list
                 if child_mapping is not None:
                     segment = array[array_index:array_index + mapping_length({None: child_mapping})]
                     array_index += len(child_mapping)
                     child = MappedArray(segment, mapping=child_mapping)  # will recurse again if child_mapping is a dict
                 else:  # if {"attr": None}
                     array_index += 1
-                    child = array[array_index]
+                    child = array[array_index]  # take a single item, not a slice
                 setattr(self, attr, child)
         elif isinstance(mapping, list):  # List[str]
             for attr, value in zip(mapping, array):
