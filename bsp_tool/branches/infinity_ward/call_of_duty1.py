@@ -139,9 +139,9 @@ class LightIndex(int):  # LUMP 19
     _format = "H"  # index into Light lump
 
 
-class Lightmap:  # LUMP 1
-    _format = "3c" * 512 * 512  # 512x512 RGB
-    # what if: base.Struct._arrays = {512: {512: [*"rgb"]}}
+class Lightmap(int):  # LUMP 1
+    """Raw pixel bytes, 512x512 RGB_888 image"""
+    _format = f"{512 * 512 * 3}s"  # 512x512 RGB
 
     def __init__(self, _tuple):
         self._pixels: List[bytes] = _tuple  # RGB_888

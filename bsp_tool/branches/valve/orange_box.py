@@ -243,12 +243,10 @@ class Face(base.Struct):  # LUMP 7
     smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
                  "tex_info", "disp_info", "surface_fog_volume_id", "styles",
-                 "light_offset", "area", "lightmap_texture_mins_in_luxels",
-                 "lightmap_texture_size_in_luxels", "original_face",
+                 "light_offset", "area", "lightmap", "original_face",
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
-    _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
-               "lightmap_texture_size_in_luxels": [*"st"]}
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 # class game_lump: # LUMP 35
 #     pass # unique sub-headers & offsets...

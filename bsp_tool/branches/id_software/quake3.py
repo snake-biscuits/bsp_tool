@@ -1,6 +1,7 @@
 # https://www.mralligator.com/q3/
 import enum
 from typing import List
+import struct
 
 from .. import base
 from .. import shared  # special lumps
@@ -32,7 +33,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [12 / 17] + shared.Entities
+# classes for lumps (alphabetical order) [14 / 17] + shared.Entities
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
@@ -101,6 +102,21 @@ class LeafFace(int):  # LUMP 5
     _format = "i"
 
 
+class Lightmap(bytes):  # LUMP 1
+    """Raw pixel bytes, 128x128 RGB_888 image"""
+    _format = f"{128 * 128 * 3}s"
+
+
+class LightVolume(base.Struct):  # LUMP 15
+    # LightVolumess make up a 3D grid whose dimensions are:
+    # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
+    # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
+    # z = floor(MODELS[0].maxs.z / 128) - ceil(MODELS[0].mins.z / 128) + 1
+    _format = "8B"
+    __slots__ = ["ambient", "directional", "direction"]
+    _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
+
+
 class MeshVertex(int):  # LUMP 11
     _format = "i"
 
@@ -153,12 +169,28 @@ class Vertex(base.Struct):  # LUMP 10
                "normal": [*"xyz"]}
 
 
+# special lump classes (alphabetical order):
+class Visibility:
+    """Cluster X is visible from Cluster Y if:
+    bit (1 << y % 8) of vecs[x * vector_size + y // 8] is set
+    NOTE: Clusters are associated with Leaves"""
+    def __init__(self, raw_visiblity: bytes):
+        self.vector_count, self.vector_size = struct.unpack("2i", raw_visiblity[:8])
+        self.vectors = struct.unpack(f"{self.vector_count * self.vector_size}B", raw_visiblity[8:])
+
+    def as_bytes(self):
+        vectors_bytes = f"{self.vector_count * self.vector_size}B"
+        return struct.pack(f"2i{vectors_bytes}", (self.vector_count, self.vector_size, *self.vectors))
+
+
 LUMP_CLASSES = {"BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
                 "EFFECTS": Effect,
                 "FACES": Face,
                 "LEAVES": Leaf,
+                "LEAF_BRUSHES": LeafBrush,
                 "LEAF_FACES": LeafFace,
+                "LIGHTMAPS": Lightmap,
                 "MESH_VERTICES": MeshVertex,
                 "MODELS": Model,
                 "NODES": Node,
@@ -166,7 +198,8 @@ LUMP_CLASSES = {"BRUSHES": Brush,
                 "TEXTURES": Texture,
                 "VERTICES": Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
+                        "VIS_DATA": Visibility}
 
 
 # branch exclusive methods, in alphabetical order:
