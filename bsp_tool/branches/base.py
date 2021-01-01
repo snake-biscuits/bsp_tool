@@ -25,13 +25,7 @@ class Struct:
                     array = _tuple[_tuple_index:_tuple_index + length]
                     value = MappedArray(array, mapping=array_map)
                 elif isinstance(array_map, dict):  # array_map: Dict[str, List[str]]
-                    length = 0  # count up the total size of the dict
-                    for part in array_map.values():
-                        if isinstance(part, list):
-                            length += len(part)
-                        elif isinstance(part, int):
-                            length += part
-                    array = _tuple[_tuple_index:_tuple_index + length]
+                    array = _tuple[_tuple_index:_tuple_index + mapping_length(array_map)]
                     value = MappedArray(array, mapping=array_map)  # nested
                 elif isinstance(array_map, int):
                     length = array_map
@@ -61,6 +55,22 @@ class Struct:
         return _tuple
 
 
+def mapping_length(mapping: Dict[str, Any]) -> int:
+    length = 0
+    for sub_mapping in mapping.values():
+        if isinstance(sub_mapping, list):
+            length += len(sub_mapping)
+        elif isinstance(sub_mapping, int):
+            length += sub_mapping
+        elif isinstance(sub_mapping, dict):
+            length += mapping_length(sub_mapping)
+        elif sub_mapping is None:
+            length += 1
+        else:
+            raise RuntimeError(f"Unexpexted Mapping! ({mapping}, {sub_mapping})")
+    return length
+
+
 class MappedArray:
     """Maps a given iterable to a series of names, can even be a nested mapping"""
     _mapping: Union[List[str], Dict[str, Any]] = [*"xyz"]
@@ -70,18 +80,20 @@ class MappedArray:
 
     def __init__(self, array: Iterable, mapping: Any = _mapping):
         if isinstance(mapping, dict):
+            print(f"MappedArray({array},", f"    {mapping})", sep="\n")
             self._mapping = list(mapping.keys())
             array_index = 0
             for attr, child_mapping in mapping.items():
+                print(f"creating {attr}")
                 if child_mapping is not None:
-                    segment = array[array_index:array_index + len(child_mapping)]
+                    segment = array[array_index:array_index + mapping_length({None: child_mapping})]
+                    print(f"{array}[{array_index}:{array_index + mapping_length({None: child_mapping})}] = {segment}")
                     array_index += len(child_mapping)
-                    child = MappedArray(segment, mapping=child_mapping)
-                    # ^ will recurse again if child_mapping is a dict
-                else:
-                    segment = array[array_index:array_index + 1]
+                    child = MappedArray(segment, mapping=child_mapping)  # will recurse again if child_mapping is a dict
+                else:  # if {"attr": None}
                     array_index += 1
-                    child = segment  # if {"attr": None}  treat as a list entry
+                    print(f"{array}[{array_index}] = {array[array_index]}")
+                    child = array[array_index]
                 setattr(self, attr, child)
         elif isinstance(mapping, list):  # List[str]
             for attr, value in zip(mapping, array):
