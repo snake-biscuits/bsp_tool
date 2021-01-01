@@ -45,4 +45,4 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
         if branch not in branches.by_name:
             raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
         branch = branches.by_name[branch]
-    return BspVariant(branch, filename, load_automatically=True)
+    return BspVariant(branch, filename, autoload=True)

@@ -13,8 +13,8 @@ class ValveBsp(base.Bsp):
     FILE_MAGIC = b"VBSP"
     branch = valve.orange_box  # default
 
-    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", load_automatically: bool = True):
-        super(ValveBsp, self).__init__(branch, filename, load_automatically)
+    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
+        super(ValveBsp, self).__init__(branch, filename, autoload)
 
     def read_lump(self, LUMP: enum.Enum) -> (namedtuple, bytes):  # LumpHeader, data
         """Get LUMP from self.branch.LUMP; e.g. self.branch.LUMP.ENTITIES """

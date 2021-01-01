@@ -18,7 +18,7 @@ class RespawnBsp(base.Bsp):
     FILE_MAGIC = b"rBSP"
     branch = respawn.titanfall2  # default branch
 
-    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", load_automatically: bool = True):
+    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
         super(base.Bsp, self).__init__(branch, filename)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 

@@ -26,14 +26,14 @@ class Bsp():
     filename: str
     folder: str
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", load_automatically: bool = True):
+    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         self.set_branch(branch)
         if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
-        if load_automatically:
+        if autoload:
             if os.path.exists(filename):
                 self.load()
 
