@@ -26,22 +26,25 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
         BspVariant = D3DBsp
     elif not filename.endswith(".bsp"):
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    with open(filename, "rb") as bsp_file:  # assuming the requested file exists
+    # -- check file-magic & bsp format version
+    with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
         bsp_version = int.from_bytes(bsp_file.read(4), "little")  # not always in this position
-    if BspVariant != D3DBsp:  # D3DBsp indicated by extension only
+    # -- get engine branch from file magic (D3DBsp is IBSP but also .d3dbsp)
+    if BspVariant != D3DBsp:
         BspVariant = bsp_variant_by_file_magic[file_magic]
-    # identify game variant
+    # -- choose the branch script
     if isinstance(branch, ModuleType):
-        pass  # goto return
-    elif branch.lower() == "unknown":  # assuming branch is a string
-        # guess .bsp format from version
+        pass  # use the provided branch script
+    # guess .bsp format from version
+    elif branch.lower() == "unknown":
         if bsp_version not in branches.by_version:
             raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
-            # ^ you can avoid this error by forcing a branch:
-            # - load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
+            # ^ if you got this error, force a branch!
+            # e.g. >>> load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
         branch = branches.by_version[bsp_version]
-    else:  # look up branch by name
+    # lookup branch by name
+    else:
         if branch not in branches.by_name:
             raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
         branch = branches.by_name[branch]

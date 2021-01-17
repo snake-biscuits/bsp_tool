@@ -4,7 +4,9 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 47  # olympus is version 48
+BSP_VERSION = 47  # Olympus is version 48
+# how to load for 2 different .bsp versions?
+# will need to tackle this to handle lump versions too...
 
 # Apex Legends has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files
@@ -13,8 +15,10 @@ BSP_VERSION = 47  # olympus is version 48
 # e.g. mp_rr_canyonlands.004a.bsp_lump (Lump #74: VertexUnlitTS)
 # entities are stored across 5 different .ent files per .bsp
 # the 5 files are: env, fx, script, snd, spawn
-# e.g. mp_rr_canyonlands_env.ent
+# e.g. mp_rr_canyonlands_env.ent  # kings canyon lighting, fog etc.
 # presumably all this file splitting has to do with streaming data into memory
+# each .ent file has a header similar to: ENTITIES02 model_count=28
+# model_count appears to be the same across all .ent files for a given .bsp
 
 
 class LUMP(enum.Enum):

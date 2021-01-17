@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import collections
 import enum  # for type hints
-import fnmatch
 import os
 import struct
 from types import MethodType, ModuleType
@@ -29,7 +28,7 @@ class Bsp():
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         self.set_branch(branch)
-        if not fnmatch.fnmatch(filename, "*.bsp"):
+        if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
         self.filename = os.path.basename(filename)

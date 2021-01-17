@@ -41,5 +41,6 @@ by_version = {
     # RESPAWN
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
     respawn.apex_legends.BSP_VERSION: respawn.apex_legends,  # 47
+    48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     # VALVE
     valve.orange_box.BSP_VERSION: valve.orange_box}  # 20
