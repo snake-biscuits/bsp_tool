@@ -6,7 +6,7 @@ from types import ModuleType
 
 from . import base
 from .base import LumpHeader
-from .branches import respawn
+from .branches import respawn, shared
 
 
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
@@ -34,7 +34,7 @@ class RespawnBsp(base.Bsp):
         data = self.file.read(length)
         return header, data
 
-    def load_lumps(self, file):
+    def load_lumps(self):
         for LUMP in self.branch.LUMP:
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
             if lump_filename in self.associated_files:  # .bsp_lump file exists
@@ -42,14 +42,19 @@ class RespawnBsp(base.Bsp):
                     data = lump_file.read()
                 # the .bsp_lump file has no header, this is just the matching header in the .bsp
                 # unsure how / if headers for external .bsp_lump affect anything
-                file.seek(self.branch.lump_header_address[LUMP])  # internal .bsp lump header
-                offset, length, version, fourCC = struct.unpack("4i", file.read(16))
+                self.file.seek(self.branch.lump_header_address[LUMP])  # internal .bsp lump header
+                offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
                 lump_filesize = len(data)
                 header = ExternalLumpHeader(offset, length, version, fourCC, lump_filename, lump_filesize)
                 # TODO: save contents of matching .bsp lump as INTERNAL_<LUMPNAME> / RAW_INTERNAL_<LUMPNAME>
             else:  # .bsp internal lump
-                header, data = self.read_lump(file, LUMP)
+                header, data = self.read_lump(LUMP)
             self.HEADERS[LUMP] = header
             if data is not None:
                 setattr(self, "RAW_" + LUMP.name, data)
-        # TODO: load all 5 ENTITIES files
+        for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
+            entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
+            if entity_file in self.associated_files:
+                with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
+                    assert ent_file.readline() == b"ENTITIES01\n"
+                    setattr(self, f"ENTITIES_{ent_filetype}", shared.Entities(ent_file.read()))
