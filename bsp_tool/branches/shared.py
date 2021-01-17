@@ -1,3 +1,4 @@
+import fnmatch
 import io
 import re
 import struct
@@ -8,6 +9,7 @@ import zipfile
 class Entities(list):
     def __init__(self, raw_entities):
         # TODO: use fgd-tools to fully unstringify entities
+        # TODO: split into a true init method & a load method
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
         for line_no, line in enumerate(raw_entities.decode(errors="ignore").split("\n")):
@@ -32,6 +34,14 @@ class Entities(list):
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
             super().__init__(entities)
+
+    def find(self, **keys: Dict[str, str]) -> List[Dict[str, str]]:
+        """.find(classname="light_environment") -> [{classname: "light_envrionment", "origin": ...}]"""
+        # fnmatch allows for using wildcards
+        # >>> bsp.ENTITIES.find(classname="light*")  # -> [<light_environment>, <light_spot>, ...]
+        # however a blank pattern always matches
+        # >>> bsp.ENTITIES.find(targetname="")  # does not return only entities with no targetname, instead it returns all
+        return [e for e in self if all([fnmatch.fnmatch(e.get(k, ""), v) for k, v in keys.items()])]
 
     def as_bytes(self):
         entities = []
