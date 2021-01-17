@@ -49,7 +49,7 @@ class RespawnBsp(base.Bsp):
                 # TODO: save contents of matching .bsp lump as INTERNAL_<LUMPNAME> / RAW_INTERNAL_<LUMPNAME>
             else:  # .bsp internal lump
                 header, data = self.read_lump(LUMP)
-            self.HEADERS[LUMP] = header
+            self.HEADERS[LUMP.name] = header
             if data is not None:
                 setattr(self, "RAW_" + LUMP.name, data)
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
@@ -57,7 +57,7 @@ class RespawnBsp(base.Bsp):
             if entity_file in self.associated_files:
                 with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
                     lump_name = f"ENTITIES_{ent_filetype}"
-                    self.HEADERS[lump_name] = ent_file.readline().rstrip("\n")
+                    self.HEADERS[lump_name] = ent_file.readline().decode().rstrip("\n")
                     # Titanfall:  ENTITIES01
                     # Apex Legends:  ENTITIES02 model_count=0
                     setattr(self, lump_name, shared.Entities(ent_file.read()))
