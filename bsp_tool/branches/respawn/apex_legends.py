@@ -242,7 +242,7 @@ LUMP_CLASSES = {"MATERIAL_SORT": MaterialSort,
                 "VERTS_UNLIT": VertexUnlit,
                 "VERTS_UNLIT_TS": VertexUnlitTS}
 
-SPECIAL_LUMP_CLASSES = {"ENTIITES": shared.Entities}  # used on all 5 .ent files
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
 # branch exclusive methods, in alphabetical order:

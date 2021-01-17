@@ -248,7 +248,7 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MESHES": Mesh,
                 "MESH_INDICES": MeshIndices}
 
-SPECIAL_LUMP_CLASSES = {"ENTIITES": shared.Entities}  # used on all 5 .ent files
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}  # used on all 5 .ent files
 
 
 # branch exclusive methods, in alphabetical order:
