@@ -18,3 +18,6 @@ The user can specify what game bsp_tool is to expect
 If no game is specified, bsp_tool will try it's best to find a definition based on the file header  
 NOTE: Vindictus .bsp files have the same BSP_VERSION as Orange Box, but it's headers are different  
 The defaults for each header are defined in `branches/__init__.py`  
+
+Make sure you're using 64 bit Python!  
+Respawn branch .bsp files (Apex Legends & Titanfall 2) need more than 4GB of RAM!  
