@@ -56,5 +56,9 @@ class RespawnBsp(base.Bsp):
             entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
             if entity_file in self.associated_files:
                 with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
-                    assert ent_file.readline() == b"ENTITIES01\n"
-                    setattr(self, f"ENTITIES_{ent_filetype}", shared.Entities(ent_file.read()))
+                    lump_name = f"ENTITIES_{ent_filetype}"
+                    self.HEADERS[lump_name] = ent_file.readline().rstrip("\n")
+                    # Titanfall:  ENTITIES01
+                    # Apex Legends:  ENTITIES02 model_count=0
+                    setattr(self, lump_name, shared.Entities(ent_file.read()))
+                    # each .ent file also has a null byte at the very end

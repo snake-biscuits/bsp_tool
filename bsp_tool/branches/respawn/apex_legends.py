@@ -4,7 +4,7 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 47
+BSP_VERSION = 47  # olympus is version 48
 
 # Apex Legends has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files
