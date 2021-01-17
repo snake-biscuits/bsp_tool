@@ -19,7 +19,7 @@ class RespawnBsp(base.Bsp):
     branch = respawn.titanfall2  # default branch
 
     def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
-        super(base.Bsp, self).__init__(branch, filename)
+        super(RespawnBsp, self).__init__(branch, filename)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
     def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):  # just .bsp internal lumps

@@ -192,7 +192,7 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     # both the __init__ & flat methods may need some changes to accommodate this
 
     # def __init__(self, _tuple):
-    #     super(self, base.Struct).__init__(_tuple)
+    #     super(base.Struct, self).__init__(_tuple)
     #     self.edge_neighbours = ...
     #     self.corner_neighbours = ...
 
