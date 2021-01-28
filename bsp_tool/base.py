@@ -17,7 +17,7 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version"
 
 class Bsp():
     FILE_MAGIC: bytes = b"XBSP"
-    HEADERS: Dict[str, LumpHeader] = dict()
+    HEADERS: Dict[str, LumpHeader]
     # ^ {"LUMP_NAME": LumpHeader}
     VERSION: int = 0
     associated_files: List[str]  # local to loaded / exported file
@@ -27,6 +27,7 @@ class Bsp():
     folder: str
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
+        self.HEADERS = dict()
         self.set_branch(branch)
         if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")

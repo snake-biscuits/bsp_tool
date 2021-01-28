@@ -80,7 +80,7 @@ class TexDataStringData(list):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data.split(b"\0")])
 
     def as_bytes(self):
-        return b"\0".join([t.encode("ascii") for t in self])
+        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
 
 
 class Visiblity:

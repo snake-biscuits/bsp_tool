@@ -147,8 +147,9 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [12 / 128] + shared.Entites
 class Brush(base.Struct):  # LUMP 92 (005C)
+    # CM_BRUSHES  (CM = collision model?)
     __slots__ = ["normal", "unknown"]  # origin, id?
-    _format = "3fI"
+    _format = "3fI"  # not index & length into some list of planes?
     _arrays = {"normal": [*"xyz"]}
 
 
@@ -171,9 +172,9 @@ class MeshIndices(int):  # LUMP 79 (004F)
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
-    __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
-    _format = "8i"
-    _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
+    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes"]
+    _format = "6f2I"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
@@ -248,7 +249,8 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MESHES": Mesh,
                 "MESH_INDICES": MeshIndices}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}  # used on all 5 .ent files
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # used on all 5 .ent files
+                        "TEXDATA_STRING_DATA": shared.TexDataStringData}
 
 
 # branch exclusive methods, in alphabetical order:
