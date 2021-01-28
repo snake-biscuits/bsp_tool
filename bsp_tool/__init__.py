@@ -38,6 +38,7 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
         pass  # use the provided branch script
     # guess .bsp format from version
     elif branch.lower() == "unknown":
+        branch = branch.lower()
         if bsp_version not in branches.by_version:
             raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
             # ^ if you got this error, force a branch!
