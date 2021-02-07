@@ -6,7 +6,6 @@ from typing import Union
 
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
-from . import tools  # tools for studying .bsps
 from .id_software import IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
