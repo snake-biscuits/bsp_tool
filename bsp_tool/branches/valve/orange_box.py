@@ -476,7 +476,7 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
     return list(zip(positions, normal, uvs, uv2s, colour))
 
 
-def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[List[float]]) -> List[List[float]]:  # WIP
+def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[List[float]]) -> List[List[float]]:
     # report to bsp.log rather than printing
     # bsp may need a method wrapper to give a warning to check the logs
     # face_index = bsp.FACES.index(face)
@@ -563,6 +563,10 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
         colour = base_vertices[0][4]
         vertices.append((true_vertex, normal, texture_uv, lightmap_uv, colour))
     return vertices
+
+
+# TODO: vertices_of_model method which walks the node tree
+# TODO: vertices_of_node method
 
 
 methods = [vertices_of_face, vertices_of_displacement]

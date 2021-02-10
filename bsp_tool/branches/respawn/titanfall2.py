@@ -262,7 +262,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
 def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
-    """Vertex Format: (position.xyz, normal.xyz, uv.xy"""
+    """Vertex Format: (position.xyz, normal.xyz, uv.xy)"""
     mesh = bsp.MESHES[mesh_index]
     mat = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
@@ -274,4 +274,13 @@ def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
     return [verts[i] for i in indices]
 
 
-methods = [vertices_of_mesh]
+def vertices_of_model(bsp, model_index):
+    # model 0 is base map, other models are referenced by entities
+    out = ()
+    model = bsp.MODELS[model_index]
+    for i in range(model.first_mesh, model.num_meshes):
+        out.extend(bsp.vertices_of_mesh(i))
+    return out
+
+
+methods = [vertices_of_mesh, vertices_of_model]

@@ -1,1 +1,4 @@
+numpy
 Pillow
+PyOpenGL
+PyQt5
