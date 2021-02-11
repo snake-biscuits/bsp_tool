@@ -2,7 +2,7 @@ import OpenGL.GL as gl
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from . import camera
-from . import render_manager
+from . import render
 from . import vector
 
 
@@ -17,7 +17,7 @@ camera.keybinds = {camera.FORWARD: [QtCore.Qt.Key_W],
 class Viewport(QtWidgets.QOpenGLWidget):
     def __init__(self):
         super(Viewport, self).__init__(parent=None)
-        self.render_manager = render_manager.RenderManager()
+        self.render_manager = render.Manager()
         self.camera = camera.Camera((0, 0, 0))  # start camera at origin
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.update)
@@ -89,6 +89,6 @@ def view_bsp(bsp):  # so far rBSP only
     indices = [i for i, v in enumerate(vertices)]
 
     viewport.show()
-    mesh_0 = render_manager.Renderable("Mesh 0", "mesh_flat", vertices, indices)
-    viewport.render_manager.add_renderable(mesh_0)  # add renderable won't work until shaders are initialised
+    mesh_0 = render.Renderable("Mesh 0", "mesh_flat", vertices, indices)
+    viewport.render_manager.add_renderable(mesh_0)
     app.exec_()
