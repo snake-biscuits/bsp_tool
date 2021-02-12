@@ -40,7 +40,7 @@ class Entities(list):
         # fnmatch allows for using wildcards
         # >>> bsp.ENTITIES.find(classname="light*")  # -> [<light_environment>, <light_spot>, ...]
         # however a blank pattern always matches
-        # >>> bsp.ENTITIES.find(targetname="")  # does not return only entities with no targetname, instead it returns all
+        # >>> bsp.ENTITIES.find(targetname="")  # returns all entities, rather than only entities with no targetname
         return [e for e in self if all([fnmatch.fnmatch(e.get(k, ""), v) for k, v in keys.items()])]
 
     def as_bytes(self):

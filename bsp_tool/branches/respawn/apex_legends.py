@@ -4,9 +4,7 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 47  # Olympus is version 48
-# how to load for 2 different .bsp versions?
-# will need to tackle this to handle lump versions too...
+BSP_VERSION = 47  # Olympus onwards is version 48
 
 # Apex Legends has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files
@@ -187,7 +185,7 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "unknown2"]
-    _format = "9i"  # WRONG SIZE (8384 / 36)
+    _format = "9i"  # 32 bytes for version 48 .bsps?
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
@@ -241,6 +239,7 @@ LUMP_CLASSES = {"MATERIAL_SORT": MaterialSort,
                 "VERTS_LIT_FLAT": VertexLitFlat,
                 "VERTS_UNLIT": VertexUnlit,
                 "VERTS_UNLIT_TS": VertexUnlitTS}
+# TODO: some system for switching out lump classes based on lump / bsp version
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
