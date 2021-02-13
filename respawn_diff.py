@@ -4,13 +4,14 @@ from bsp_tool.branches.respawn import titanfall, titanfall2
 
 
 ported_maps = [("mp_angel_city", "mp_angel_city"),
-               ("mp_colony", "mp_colony"),
+               ("mp_colony", "mp_colony02"),
                ("mp_relic", "mp_relic02"),
+               ("mp_rise", "mp_rise"),
                ("mp_wargames", "mp_wargames")]
 
 
 for r1_filename, r2_filename in ported_maps:
-    print(r1_filename)
+    print(r1_filename.upper())
     r1_map = RespawnBsp(titanfall, f"E:/Mod/Titanfall/maps/{r1_filename}.bsp")
     r1o_map = RespawnBsp(titanfall, f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp")
     r2_map = RespawnBsp(titanfall2, f"E:/Mod/Titanfall2/maps/{r2_filename}.bsp")
