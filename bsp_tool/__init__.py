@@ -34,6 +34,8 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
     # -- get engine branch from file magic (D3DBsp is IBSP but also .d3dbsp)
     if BspVariant != D3DBsp:
         BspVariant = bsp_variant_by_file_magic[file_magic]
+        if file_magic == b"IBSP" and bsp_version == branches.infinity_ward.call_of_duty1.BSP_VERSION:
+            BspVariant = D3DBsp  # CoD 1 uses the .bsp extension & b"IBSP" file-magic
     # -- choose the branch script
     if isinstance(branch, ModuleType):
         pass  # use the provided branch script

@@ -8,7 +8,7 @@ from types import MethodType, ModuleType
 from typing import Dict, List, Union
 
 
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])  # Valve lump header
 # TODO: streamline lump header definition
 # - version matters, different struct definitions have to be accounted for
 # - a fourCC other than 0 means a lump is compressed
@@ -54,6 +54,8 @@ class Bsp():
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
         header = LumpHeader(offset, length, version, fourCC)
+        if header.length == 0:
+            return header, None
         # data
         self.file.seek(header.offset)
         data = self.file.read(header.length)
@@ -72,8 +74,10 @@ class Bsp():
                 try:
                     setattr(self, LUMP, list())
                     for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
-                        if len(_tuple) == 1:  # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
-                            _tuple = _tuple[0]  # ^ there has to be a better way than this
+                        if len(_tuple) == 1 and not isinstance(_tuple[0], bytes):
+                            # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
+                            # there has to be a better way than this
+                            _tuple = _tuple[0]
                         getattr(self, LUMP).append(LumpClass(_tuple))
                     # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
                 except struct.error:  # lump cannot be divided into a whole number of LumpClasses
@@ -82,12 +86,19 @@ class Bsp():
                                                f"{LUMP} lump is an unusual size ({len(lump_data)} / {struct_size})."
                                                " Wrong engine branch?")
                     delattr(self, LUMP)
+                    setattr(self, f"RAW_{LUMP}", lump_data)
                 except Exception as exc:  # likely an error with initialising LumpClass
                     self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
+                    setattr(self, f"RAW_{LUMP}", lump_data)
                     # TODO: save a copy of the traceback for debugging
             elif LUMP in self.branch.SPECIAL_LUMP_CLASSES:
-                setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
-                # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
+                try:
+                    setattr(self, LUMP, self.branch.SPECIAL_LUMP_CLASSES[LUMP](lump_data))
+                    # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
+                except Exception as exc:
+                    self.loading_errors.append(f"ERROR PARSING {LUMP}:\n{exc.__class__.__name__}: {exc}")
+                    setattr(self, f"RAW_{LUMP}", lump_data)
+                    # TODO: save a copy of the traceback for debugging
             else:  # lump structure unknown
                 setattr(self, f"RAW_{LUMP}", lump_data)
 
