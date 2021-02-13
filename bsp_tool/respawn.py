@@ -17,6 +17,9 @@ class RespawnBsp(base.Bsp):
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     FILE_MAGIC = b"rBSP"
     branch = respawn.titanfall2  # default branch
+    # NOTE: these files are usually stored in .vpk files
+    # -- Respawn's .vpk format is different to Valve's
+    # -- You'll need the Titanfall specific .vpk tool to extract maps
 
     def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
         super(RespawnBsp, self).__init__(branch, filename)
@@ -89,3 +92,8 @@ class RespawnBsp(base.Bsp):
                     # Apex Legends:  ENTITIES02 model_count=0
                     setattr(self, lump_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
+
+    def save_as(self, filename=""):
+        if filename == "":
+            filename = os.path.join(self.folder, self.filename)
+        # look at self.HEADERS & self.associated_files to see which lumps are saved externally

@@ -11,6 +11,8 @@ LumpHeader = namedtuple("LumpHeader", ["offset", "length"])
 class IdTechBsp(base.Bsp):
     # https://www.mralligator.com/q3/
     FILE_MAGIC = b"IBSP"
+    # NOTE: these files are usually stored in .pk3 files
+    # -- see bsp_tool.tools.pk3 for a handy extractor
 
     def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # lump header

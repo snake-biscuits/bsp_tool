@@ -97,7 +97,7 @@ class LUMP(enum.Enum):
     MATERIAL_SORT = 82
     LIGHTMAP_HEADERS = 83
     LIGHTMAP_DATA_DXT5 = 84
-    CM_GRID = 85
+    CM_GRID = 85  # CM? Collision model?
     CM_GRIDCELLS = 86
     CM_GEO_SETS = 87
     CM_GEO_SET_BOUNDS = 88
@@ -145,9 +145,8 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [12 / 128] + shared.Entites
+# classes for lumps (alphabetical order) [12 / 128] + 2 special lumps
 class Brush(base.Struct):  # LUMP 92 (005C)
-    # CM_BRUSHES  (CM = collision model?)
     __slots__ = ["normal", "unknown"]  # origin, id?
     _format = "3fI"  # not index & length into some list of planes?
     _arrays = {"normal": [*"xyz"]}
