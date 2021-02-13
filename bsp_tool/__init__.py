@@ -22,6 +22,8 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
     # identify developer variant
     BspVariant = None
     if filename.endswith(".d3dbsp"):
+        # NOTE: Call of Duty 1 has .bsp files in .pk3 archives
+        # -- later games instead use .d3dbsp in .iwd archives
         BspVariant = D3DBsp
     elif not filename.endswith(".bsp"):
         raise RuntimeError(f"{filename} is not a .bsp file!")

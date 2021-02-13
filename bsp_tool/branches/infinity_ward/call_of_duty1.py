@@ -1,4 +1,6 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
+# NOTE: Call of Duty 1 has .bsp files in .pk3 archives
+# -- later games instead use .d3dbsp in .iwd archives
 import enum
 from typing import List
 
@@ -6,7 +8,7 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 0x00  # !!! UNKNOWN !!!
+BSP_VERSION = 59  # maps/MP/mp_railyard.bsp is IBSP v59
 
 
 class LUMP(enum.Enum):
