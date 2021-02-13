@@ -46,6 +46,9 @@ class Bsp():
         # TODO: inform the user if the path they provided was incorrect
         self.file.close()
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__} {self.filename} at 0x{id(self):016X}>"
+
     def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
