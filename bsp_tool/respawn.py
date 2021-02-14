@@ -66,6 +66,7 @@ class RespawnBsp(base.Bsp):
 
     def load_lumps(self):
         for LUMP in self.branch.LUMP:
+            # external .bsp.00XX.bsp_lump lump
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
             if lump_filename in self.associated_files:  # .bsp_lump file exists
                 with open(os.path.join(self.folder, lump_filename), "rb") as lump_file:
@@ -76,12 +77,13 @@ class RespawnBsp(base.Bsp):
                 offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
                 lump_filesize = len(data)
                 header = ExternalLumpHeader(offset, length, version, fourCC, lump_filename, lump_filesize)
-                # TODO: save contents of matching .bsp lump as INTERNAL_<LUMPNAME> / RAW_INTERNAL_<LUMPNAME>
-            else:  # .bsp internal lump
+            # internal .bsp lump
+            else:
                 header, data = self.read_lump(LUMP)
             self.HEADERS[LUMP.name] = header
             if data is not None:
                 self.parse_lump(LUMP.name, data)
+        # .ent files
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
             entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
             if entity_file in self.associated_files:

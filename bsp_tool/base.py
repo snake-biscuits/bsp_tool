@@ -47,7 +47,8 @@ class Bsp():
         self.file.close()
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} {self.filename} at 0x{id(self):016X}>"
+        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
+        return f"<{self.__class__.__name__} {self.filename} {version} at 0x{id(self):016X}>"
 
     def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # header
@@ -178,3 +179,20 @@ class Bsp():
             method = MethodType(method, self)
             setattr(self, method.__name__, method)
         # could we also attach static methods?
+
+    def lump_as_bytes(self, lump_name):
+        if hasattr(self, f"RAW_{lump_name}"):
+            return getattr(self, f"RAW_{lump_name}")
+        if not hasattr(self, lump_name):
+            return b""  # assume lump is empty
+        lump = getattr(self, lump_name)
+        if lump_name in self.branch.LUMP_CLASSES:
+            LumpClass = self.branch.LUMP_CLASSES[lump_name]
+            if hasattr(LumpClass, "flat"):
+                return b"".join(map(lambda x: struct.pack(LumpClass._format, *x.flat()), lump))
+            else:  # List[int] lump
+                return b"".join(map(lambda x: struct.pack(LumpClass._format, x), lump))
+        elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+            return lump.as_bytes()
+        else:
+            raise RuntimeError(f"Don't know how to convert {lump_name} lump to bytes")
