@@ -74,7 +74,7 @@ class Bsp():
                 try:
                     setattr(self, LUMP, list())
                     for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
-                        if len(_tuple) == 1 and not isinstance(_tuple[0], bytes):
+                        if len(_tuple) == 1:
                             # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
                             # there has to be a better way than this
                             _tuple = _tuple[0]
