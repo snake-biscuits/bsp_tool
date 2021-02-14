@@ -2,6 +2,7 @@ import enum
 
 from .. import base
 from .. import shared  # special lumps
+from . import titanfall
 
 
 BSP_VERSION = 37
@@ -152,141 +153,11 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [12 / 128] + 2 special lumps
-class Brush(base.Struct):  # LUMP 92 (005C)
-    __slots__ = ["normal", "unknown"]  # origin, id?
-    _format = "3fI"  # not index & length into some list of planes?
-    _arrays = {"normal": [*"xyz"]}
+# classes for lumps (alphabetical order) [X / 128] + 2 special lumps
+LUMP_CLASSES = titanfall.LUMP_CLASSES
 
-
-class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    __slots__ = ["texdata", "unknown", "vertex_offset"]
-    _format = "2h2I"  # 12 bytes
-    _arrays = {"unknown": [*"ab"]}
-
-
-class Mesh(base.Struct):  # LUMP 80 (0050)
-    __slots__ = ["start_index", "num_triangles", "unknown",
-                 "material_sort", "flags"]
-    # vertex type stored in flags
-    _format = "IH3I2HI"  # 28 Bytes
-    _arrays = {"unknown": [*"abcd"]}
-
-
-class MeshIndices(int):  # LUMP 79 (004F)
-    _format = "H"
-
-
-class Model(base.Struct):  # LUMP 14 (000E)
-    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes"]
-    _format = "6f2I"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-
-
-class ShadowMesh(base.Struct):  # LUMP 7F (0127)
-    __slots__ = ["start_index", "num_triangles", "unknown"]
-    _format = "2I2h"  # assuming 12 bytes
-    _arrays = {"unknown": ["one", "negative_one"]}
-
-
-class TextureData(base.Struct):  # LUMP 2 (0002)
-    __slots__ = ["unknown", "string_table_index", "unknown2"]
-    _format = "9i"
-    _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
-
-
-class Vertex(base.MappedArray):  # LUMP 3 (0003)
-    _mapping = [*"xyz"]
-    _format = "3f"
-
-    def flat(self):
-        return [self.x, self.y, self.z]
-
-
-class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    __slots__ = ["position_index", "normal_index", "unknown"]
-    _format = "4I"  # 16 bytes
-    _arrays = {"unknown": [*"ab"]}
-
-
-class VertexLitBump(base.Struct):  # LUMP 71 (0047)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
-    # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
-    # byte 20 - 28 = uv coords for lightmap
-    _format = "2I6f3I"  # 44 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
-               "unknown": [*"abc"]}
-
-
-class VertexReserved5(base.Struct):  # LUMP 76 (004C)
-    __slots__ = ["position_index", "normal_index", "unknown", "uv", "uv2"]
-    _format = "7I4f"  # 44 bytes
-    _arrays = {"unknown": [*"abcd"], "uv": [*"uv"], "uv2": [*"uv"]}
-
-
-class VertexReserved7(base.Struct):  # LUMP 78 (004E)
-    __slots__ = ["position_index", "normal_index", "uv", "negative_one"]
-    _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
-
-
-class VertexUnlit(base.Struct):  # LUMP 71 (0047)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
-
-
-class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2f3i"  # 28 bytes
-    _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
-
-
-LUMP_CLASSES = {"CM_BRUSHES": Brush,
-                "MATERIAL_SORT": MaterialSort,
-                "MODELS": Model,
-                "TEXDATA": TextureData,
-                "VERTEX_NORMALS": Vertex,
-                "VERTICES": Vertex,
-                "VERTS_LIT_BUMP": VertexLitBump,
-                "VERTS_RESERVED_7": VertexReserved7,
-                "VERTS_UNLIT": VertexUnlit,
-                "VERTS_UNLIT_TS": VertexUnlitTS,
-                "MESHES": Mesh,
-                "MESH_INDICES": MeshIndices}
-
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # used on all 5 .ent files
-                        "TEXDATA_STRING_DATA": shared.TexDataStringData}
+SPECIAL_LUMP_CLASSES = titanfall.LUMP_CLASSES
 
 
 # branch exclusive methods, in alphabetical order:
-mesh_types = {0x600: "VERTS_UNLIT_TS",
-              0x400: "VERTS_UNLIT",
-              0x200: "VERTS_LIT_BUMP"}
-# ^ a proper mapping of the flags would be nice
-
-
-# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
-    """Vertex Format: (position.xyz, normal.xyz, uv.xy)"""
-    mesh = bsp.MESHES[mesh_index]
-    mat = bsp.MATERIAL_SORT[mesh.material_sort]
-    start = mesh.start_index
-    finish = start + mesh.num_triangles * 3
-    indices = bsp.MESH_INDICES[start:finish]
-    indices = [mat.vertex_offset + i for i in indices]
-    mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]  # bitmask
-    verts = getattr(bsp, mesh_types[mesh_type])  # get bsp.VERTS_* lump
-    return [verts[i] for i in indices]
-
-
-def vertices_of_model(bsp, model_index):
-    # model 0 is base map, other models are referenced by entities
-    out = ()
-    model = bsp.MODELS[model_index]
-    for i in range(model.first_mesh, model.num_meshes):
-        out.extend(bsp.vertices_of_mesh(i))
-    return out
-
-
-methods = [vertices_of_mesh, vertices_of_model]
+methods = [*titanfall.methods]
