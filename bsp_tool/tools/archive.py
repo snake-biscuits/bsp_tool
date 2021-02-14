@@ -27,5 +27,5 @@ def search_folder(folder, pattern="*.bsp", archive="*.pk3"):
 
 def extract_folder(folder, pattern="*.bsp", path=None, archive="*.pk3"):
     for archive_filename in fnmatch.filter(os.listdir(folder), archive):
-        archive = Pk3(os.path.join(folder, archive_filename))  # works on any zip-like format
-        archive.extract_match(pattern=pattern, path=path)
+        archive_file = Pk3(os.path.join(folder, archive_filename))  # works on any zip-like format
+        archive_file.extract_match(pattern=pattern, path=path)
