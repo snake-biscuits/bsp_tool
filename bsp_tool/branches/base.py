@@ -38,6 +38,9 @@ class Struct:
         # TODO: throw a warning if the whole tuple won't fit
         # report len(_tuple) & struct.calcsize(self._format)
 
+    def __iter__(self) -> Iterable:
+        return iter([getattr(self, attr) for attr in self.__slots__])
+
     def __repr__(self) -> str:
         components = {s: getattr(self, s) for s in self.__slots__}
         return f"<{self.__class__.__name__} {components}>"
