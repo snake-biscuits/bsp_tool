@@ -14,8 +14,8 @@ class Pk3(zipfile.ZipFile):
         return fnmatch.filter(self.namelist(), pattern)
 
 
-class Iwd(Pk3):
-    """Call of Duty 2 & 4 store data in .iwd files, these also appear to be .zip archives"""
+Iwd = Pk3
+Iwd.__doc__ = """Call of Duty 2 .bsps are stored in .iwd files, which are basically .zip archives"""
 
 
 def search_folder(folder, pattern="*.bsp", archive="*.pk3"):
@@ -23,3 +23,9 @@ def search_folder(folder, pattern="*.bsp", archive="*.pk3"):
         print(pk3_filename)
         pk3 = Pk3(os.path.join(folder, pk3_filename))
         print(*["\t" + bsp for bsp in pk3.search(pattern)], sep="\n", end="\n\n")
+
+
+def extract_folder(folder, pattern="*.bsp", path=None, archive="*.pk3"):
+    for archive_filename in fnmatch.filter(os.listdir(folder), archive):
+        archive = Pk3(os.path.join(folder, archive_filename))  # works on any zip-like format
+        archive.extract_match(pattern=pattern, path=path)
