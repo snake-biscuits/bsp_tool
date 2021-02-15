@@ -4,8 +4,16 @@ import os
 import re
 from typing import Iterable
 
-from bsp_tool import RespawnBsp
-from bsp_tool.branches.respawn import titanfall, titanfall2
+from ... import RespawnBsp
+from ...branches.respawn import titanfall, titanfall2
+
+
+shared_maps = [("mp_angel_city", "mp_angel_city"),
+               ("mp_colony", "mp_colony02"),
+               ("mp_relic", "mp_relic02"),
+               ("mp_rise", "mp_rise"),
+               ("mp_wargames", "mp_wargames")]
+# ^ r1 map name, r2 map name
 
 
 def diff_respawn_bsps(bsp1, bsp2):
@@ -58,30 +66,36 @@ def diff_respawn_bsps(bsp1, bsp2):
 
 def dump_headers(maplist):
     for r1_filename, r2_filename in maplist:
+        # if not os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp"):
+        #     continue  # need to test r1o maps against r1
         print(r1_filename.upper())
+
+        r1o_map_exists = os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp")
+
         r1_map = RespawnBsp(titanfall, f"E:/Mod/Titanfall/maps/{r1_filename}.bsp")
-        r1o_map = RespawnBsp(titanfall, f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp")
+        if r1o_map_exists:
+            r1o_map = RespawnBsp(titanfall, f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp")
         r2_map = RespawnBsp(titanfall2, f"E:/Mod/Titanfall2/maps/{r2_filename}.bsp")
 
-        if not os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp"):
-            continue  # need to test r1o maps against r1
         for i in range(128):
             r1_lump = titanfall.LUMP(i)
             r2_lump = titanfall2.LUMP(i)
 
-            print(r1_lump.name)
-            bsp1_header = r1_map.HEADERS[r1_lump.name]
-            bsp2_header = r1o_map.HEADERS[r1_lump.name]
-            if bsp2_header.offset - bsp1_header.offset == 1684:
-                print(True)
+            r1_header = r1_map.HEADERS[r1_lump.name]
+            if r1o_map_exists:
+                r1o_header = r1o_map.HEADERS[r1_lump.name]
+                r1o_header_length = r1o_header.length
             else:
-                print(False, bsp2_header.offset - bsp1_header.offset)
-            # TODO: skip empty lumps
+                r1o_header_length = 0
+            r2_header = r1_map.HEADERS[r2_lump.name]
+            if (r1_header.length, r1o_header_length, r2_header.length) == (0, 0, 0):
+                continue  # skip empty lumps
+            print(r1_lump.name)
             print(f"{r1_lump.value:04X}  {r1_lump.name}")
-            print(f"{'r1':<8}", r1_map.HEADERS[r1_lump.name])
-            if os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp"):
-                print(f"{'r1o':<8}", r1o_map.HEADERS[r1_lump.name])
-            print(f"{'r2':<8}", r2_map.HEADERS[r2_lump.name])
+            print(f"{'r1':<8}", r1_header)
+            if r1o_map_exists:
+                print(f"{'r1o':<8}", r1o_header)
+            print(f"{'r2':<8}", r2_header)
 
         del r1_map, r1o_map, r2_map
         print("=" * 80)
@@ -108,14 +122,9 @@ if __name__ == "__main__":
     # # r2_relic = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_relic02.bsp")
     # diff_respawn_bsps(r1_relic, r1o_relic)
 
-    r1_angel = RespawnBsp(titanfall, "E:/Mod/Titanfall/maps/mp_angel_city.bsp")
-    r1o_angel = RespawnBsp(titanfall, "E:/Mod/TitanfallOnline/maps/mp_angel_city.bsp")
-    # r2_angel = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
-    diff_respawn_bsps(r1_angel, r1o_angel)
+    # r1_angel = RespawnBsp(titanfall, "E:/Mod/Titanfall/maps/mp_angel_city.bsp")
+    # r1o_angel = RespawnBsp(titanfall, "E:/Mod/TitanfallOnline/maps/mp_angel_city.bsp")
+    # # r2_angel = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
+    # diff_respawn_bsps(r1_angel, r1o_angel)
 
-    # shared_maps = [("mp_angel_city", "mp_angel_city"),
-    #                ("mp_colony", "mp_colony02"),
-    #                ("mp_relic", "mp_relic02"),
-    #                ("mp_rise", "mp_rise"),
-    #                ("mp_wargames", "mp_wargames")]
-    # dump_headers(shared_maps)
+    dump_headers(shared_maps)
