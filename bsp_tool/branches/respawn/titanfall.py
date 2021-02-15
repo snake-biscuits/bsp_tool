@@ -172,6 +172,12 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+class Plane(base.Struct):  # LUMP 1 (0001)
+    __slots__ = ["normal", "distance"]
+    _format = "4f"
+    _arrays = {"normal": [*"xyz"]}
+
+
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
@@ -234,6 +240,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MATERIAL_SORT": MaterialSort,
                 "MODELS": Model,
+                "PLANES": Plane,
                 "TEXDATA": TextureData,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
@@ -244,7 +251,8 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MESHES": Mesh,
                 "MESH_INDICES": MeshIndices}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # used on all 5 .ent files
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.Entites to unpack the .ent files
+                        "PAKFILE": shared.PakFile,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData}
 
 

@@ -155,6 +155,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps
 LUMP_CLASSES = titanfall.LUMP_CLASSES
+# LUMP_CLASSES.update({})
 
 SPECIAL_LUMP_CLASSES = titanfall.LUMP_CLASSES
 
