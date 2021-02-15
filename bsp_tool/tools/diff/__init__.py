@@ -1,5 +1,6 @@
 """Run with 64-bit python! Respawn .bsp files are large!"""
 import difflib
+import itertools
 import os
 import re
 from typing import Iterable
@@ -44,24 +45,53 @@ def diff_respawn_bsps(bsp1, bsp2):
         print("YES!" if lumps_match else "NOPE")
         # diff lumps
         # if not lumps_match:
-        #     if lump1 in bsp1.branch.LUMP_CLASSES:
-        #         for i, entries in enumerate(zip(getattr(bsp1, lump1), getattr(bsp2, lump2))):
-        #             lump_entry1, lump_entry2 = entries
-        #             if lump_entry1 != lump_entry2:
-        #                 print(f"@@ {lump1}[{i}] @@")
-        #                 print("-", lump_entry1)
-        #                 print("+", lump_entry2)
+        #     # TODO: measure the scale of the differences
+        #     if lump1 in bsp1.branch.LUMP_CLASSES and lump2 in bsp2.branch.LUMP_CLASSES:
+        #         difflib.unified_diff([lc.__repr__() for lc in getattr(bsp1, lump1)],
+        #                              [lc.__repr__() for lc in getattr(bsp2, lump2)],
+        #                              f"{bsp1.filename}.{lump1}", f"{bsp1.filename}.{lump1}")
+        #     elif lump1 == "ENTIITES":
+        #         diff_entities(bsp1, bsp2)
+        #     elif lump1 == "PAKFILE":
+        #         diff_pakfiles(bsp1, bsp2)
         #     else:
-        #         # diff = difflib.diff_bytes(difflib.unified_diff,
-        #         #                           [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
-        #         #                           f"{bsp1.filename}.{lump1}".encode(), f"{bsp2.filename}.{lump2}".encode())
-        #         # print(*diff, sep="\n")
+        #         diff = difflib.diff_bytes(difflib.unified_diff,
+        #                                   [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
+        #                                   f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
+        #         print(*diff, sep="\n")
         #         pass
-        #         # TODO: count the number of differences
 
     for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
         print(ent_file, end="  ")
         print("YES!" if getattr(bsp1, ent_file) == getattr(bsp1, ent_file) else "NOPE")
+
+
+def diff_entities(bsp1: RespawnBsp, bsp2: RespawnBsp):
+    for i, e1, e2 in zip(itertools.count(), bsp1.ENTITIES, bsp2.ENTITIES):
+        if e1 != e2:
+            print(f"Entity #{i}")
+            print("  {")
+            for k1, k2, v1, v2 in zip(e1.keys(), e2.keys(), e1.values(), e2.values()):
+                if v1 != v2:
+                    print(f'-     "{k1}" "{v1}"')
+                    print(f'+     "{k2}" "{v2}"')
+                else:
+                    print(f'      "{k1}" "{v1}"')
+            print("  }")
+
+
+def diff_pakfiles(bsp1: RespawnBsp, bsp2: RespawnBsp):
+    pak1_files = bsp1.PAKFILE.namelist()
+    pak2_files = bsp2.PAKFILE.namelist()
+    for filename in pak1_files:
+        if filename not in pak2_files:
+            print(f"- {filename}")
+        else:
+            print(f"  {filename}")
+            # compare sizes with .PAKFILE.getinfo("filename").file_size
+    for filename in pak2_files:
+        if filename not in pak1_files:
+            print(f"+ {filename}")
 
 
 def dump_headers(maplist):
@@ -87,7 +117,7 @@ def dump_headers(maplist):
                 r1o_header_length = r1o_header.length
             else:
                 r1o_header_length = 0
-            r2_header = r1_map.HEADERS[r2_lump.name]
+            r2_header = r2_map.HEADERS[r2_lump.name]
             if (r1_header.length, r1o_header_length, r2_header.length) == (0, 0, 0):
                 continue  # skip empty lumps
             print(r1_lump.name)
@@ -97,7 +127,9 @@ def dump_headers(maplist):
                 print(f"{'r1o':<8}", r1o_header)
             print(f"{'r2':<8}", r2_header)
 
-        del r1_map, r1o_map, r2_map
+        del r1_map, r2_map
+        if r1o_map_exists:
+            del r1o_map
         print("=" * 80)
 
 
