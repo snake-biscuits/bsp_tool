@@ -5,15 +5,13 @@ import struct
 from types import ModuleType
 
 from . import base
-from .branches import valve
 
 
 class ValveBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
     FILE_MAGIC = b"VBSP"
-    branch = valve.orange_box  # default
 
-    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
+    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(ValveBsp, self).__init__(branch, filename, autoload)
 
     def read_lump(self, LUMP: enum.Enum) -> (namedtuple, bytes):  # LumpHeader, data

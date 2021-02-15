@@ -6,7 +6,7 @@ from types import ModuleType
 
 from . import base
 from .base import LumpHeader
-from .branches import respawn, shared
+from .branches import shared
 
 
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
@@ -16,12 +16,11 @@ class RespawnBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     FILE_MAGIC = b"rBSP"
-    branch = respawn.titanfall2  # default branch
-    # NOTE: these files are usually stored in .vpk files
+    # NOTE: respawn .bsp files are usually stored in .vpk files
     # -- Respawn's .vpk format is different to Valve's
     # -- You'll need the Titanfall specific .vpk tool to extract maps
 
-    def __init__(self, branch: ModuleType = branch, filename: str = "untitled.bsp", autoload: bool = True):
+    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(RespawnBsp, self).__init__(branch, filename)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
