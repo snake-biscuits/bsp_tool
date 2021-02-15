@@ -60,6 +60,8 @@ class Manager:
         self.buffer_size = size
         self.renderables = dict()
         self.buffer_update_queue = list()
+        self.vertex_formats = dict()
+        self.uniforms = dict()
 
         vertex_shaders, fragment_shaders = dict(), dict()
         # ^ {"shader_filename": """shader_text"""}
