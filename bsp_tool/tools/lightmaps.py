@@ -103,8 +103,25 @@ def save_vbsp(vbsp, folder="./"):
     page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
 
 
-def save_rbsp(rbsp, folder="./"):
-    """Saves to '<folder>/<rbsp.filename>.lightmaps.png'"""
-    # rbsp.LIGHTMAP_HEADERS  sizes? referenced by meshes?
-    # rbsp.LIGHTMAP_DATA_DXT5  decode
-    raise NotImplementedError()
+def save_rbsp(rbsp, folder="./"):  # TITANFALL 2 ONLY!
+    """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
+    sky_lightmaps = list()
+    realtime_lightmaps = list()
+    first_pixel = 0
+    last_pixel = 0
+    for header in rbsp.LIGHTMAP_HEADERS:
+        for i in range(header.count * 2):
+            last_pixel = first_pixel + (header.width * header.height * 4)
+            sky_bytes = rbsp.RAW_LIGHTMAP_DATA_SKY[first_pixel:last_pixel]
+            sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
+            sky_lightmaps.append(sky_lightmap)
+            realtime_bytes = rbsp.RAW_LIGHTMAP_DATA_REAL_TIME_LIGHTS[first_pixel:last_pixel]
+            realtime_lightmap = Image.frombytes("RGBA", (header.width, header.height), realtime_bytes, "raw")
+            realtime_lightmaps.append(realtime_lightmap)
+            first_pixel = last_pixel
+    # TODO: if folder doesn't exist, create it
+    max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS])
+    sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
+    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
+    realtime_lightmap_page = sum(realtime_lightmaps, start=LightmapPage(max_width=max_width))
+    realtime_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.realtime_lightmaps.png"))

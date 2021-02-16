@@ -93,7 +93,7 @@ class LUMP(enum.Enum):
     MESH_BOUNDS = 81
     MATERIAL_SORT = 82
     LIGHTMAP_HEADERS = 83
-    LIGHTMAP_DATA_DXT5 = 84
+    LIGHTMAP_DATA_DXT5 = 84  # unused?
     CM_GRID = 85
     CM_GRIDCELLS = 86
     CM_GEO_SETS = 87
@@ -152,7 +152,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"origin": [*"xyz"]}
 
 
-class Dxt5(base.Struct):  # LUMP 84 (0054)
+class Dxt5(base.Struct):  # LUMP 84 (0054) unused?
     alpha: List[int]
     # alpha.c0: int  # 8bit alpha pallet pixel
     # alpha.c1: int  # 8bit alpha pallet pixel
@@ -163,9 +163,9 @@ class Dxt5(base.Struct):  # LUMP 84 (0054)
     # colour.lut: bytes  # 2-bit 4x4 lookup table (4 bytes)
     """4x4 encoded tiles of pixels"""
     __slots__ = ["alpha", "colour"]
-    _format = "2b6s2H4s"
+    _format = "2B6s2H4s"
     _arrays = {"alpha": ["a0", "a1", "lut"],
-               "colour": {"c0", "c1", "lut"}}
+               "colour": ["c0", "c1", "lut"]}
 
     def as_rgba(self) -> bytes:
         # https://en.wikipedia.org/wiki/S3_Texture_Compression#DXT4_and_DXT5
@@ -200,6 +200,15 @@ class Dxt5(base.Struct):  # LUMP 84 (0054)
             colour_lut = colour_lut >> 2
             alpha_lut = alpha_lut >> 3
         return b"".join(reversed(pixels))  # 4x4 tile of 8888RGBA pixels
+
+
+class LightmapHeader(base.Struct):  # LUMP 83 (0053)
+    count: int  # assuming this counts the number of lightmaps this size
+    width: int
+    height: int
+    __slots__ = ["count", "width", "height"]
+    _format = "I2H"
+    # there's actually 2 identically sized lightmaps for each header
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
@@ -292,7 +301,8 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
-                "LIGHTMAP_DATA_DXT5": Dxt5,
+                "LIGHTMAP_DATA_DXT5": Dxt5,  # unused?
+                "LIGHTMAP_HEADERS": LightmapHeader,
                 "MATERIAL_SORT": MaterialSort,
                 "MODELS": Model,
                 "PLANES": Plane,
