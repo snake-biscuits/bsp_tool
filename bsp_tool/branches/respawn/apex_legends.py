@@ -1,8 +1,7 @@
 import enum
 
 from .. import base
-from .. import shared  # special lumps
-from . import titanfall2
+from . import titanfall, titanfall2
 
 
 BSP_VERSION = 47  # Olympus onwards is version 48
@@ -104,7 +103,7 @@ class LUMP(enum.Enum):
     MESH_BOUNDS = 81
     MATERIAL_SORT = 82  # MATERIAL_SORT
     LIGHTMAP_HEADERS = 83
-    LIGHTMAP_DATA_DXT5 = 84  #
+    LIGHTMAP_HEADERS_2 = 84
     CM_GRID = 85
     CM_GRIDCELLS = 86
     CM_GEO_SETS = 87
@@ -228,8 +227,9 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"MATERIAL_SORT": MaterialSort,
+LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
+LUMP_CLASSES.update({"LIGHTMAP_HEADERS_2": titanfall.LightmapHeader,
+                     "MATERIAL_SORT": MaterialSort,
                      "MESHES": Mesh,
                      "MESH_INDICES": MeshIndices,
                      "MODELS": Model,
