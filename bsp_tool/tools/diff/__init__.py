@@ -17,7 +17,7 @@ shared_maps = [("mp_angel_city", "mp_angel_city"),
 # ^ r1 map name, r2 map name
 
 
-def diff_respawn_bsps(bsp1, bsp2):
+def diff_respawn_bsps(bsp1, bsp2, full=False):
     for i in range(128):
         lump1 = bsp1.branch.LUMP(i).name
         lump2 = bsp2.branch.LUMP(i).name
@@ -43,23 +43,24 @@ def diff_respawn_bsps(bsp1, bsp2):
 
         lumps_match = (lump_1_contents == lump_2_contents)
         print("YES!" if lumps_match else "NOPE")
-        # diff lumps
-        # if not lumps_match:
-        #     # TODO: measure the scale of the differences
-        #     if lump1 in bsp1.branch.LUMP_CLASSES and lump2 in bsp2.branch.LUMP_CLASSES:
-        #         difflib.unified_diff([lc.__repr__() for lc in getattr(bsp1, lump1)],
-        #                              [lc.__repr__() for lc in getattr(bsp2, lump2)],
-        #                              f"{bsp1.filename}.{lump1}", f"{bsp1.filename}.{lump1}")
-        #     elif lump1 == "ENTIITES":
-        #         diff_entities(bsp1, bsp2)
-        #     elif lump1 == "PAKFILE":
-        #         diff_pakfiles(bsp1, bsp2)
-        #     else:
-        #         diff = difflib.diff_bytes(difflib.unified_diff,
-        #                                   [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
-        #                                   f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
-        #         print(*diff, sep="\n")
-        #         pass
+        if full:
+            # diff lumps
+            if not lumps_match:
+                # TODO: measure the scale of the differences
+                if lump1 in bsp1.branch.LUMP_CLASSES and lump2 in bsp2.branch.LUMP_CLASSES:
+                    difflib.unified_diff([lc.__repr__() for lc in getattr(bsp1, lump1)],
+                                         [lc.__repr__() for lc in getattr(bsp2, lump2)],
+                                         f"{bsp1.filename}.{lump1}", f"{bsp1.filename}.{lump1}")
+                elif lump1 == "ENTIITES":
+                    diff_entities(bsp1, bsp2)
+                elif lump1 == "PAKFILE":
+                    diff_pakfiles(bsp1, bsp2)
+                else:
+                    diff = difflib.diff_bytes(difflib.unified_diff,
+                                              [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
+                                              f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
+                    print(*diff, sep="\n")
+                    pass
 
     for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
         print(ent_file, end="  ")
@@ -89,6 +90,7 @@ def diff_pakfiles(bsp1: RespawnBsp, bsp2: RespawnBsp):
         else:
             print(f"  {filename}")
             # compare sizes with .PAKFILE.getinfo("filename").file_size
+            # compare file hashes?
     for filename in pak2_files:
         if filename not in pak1_files:
             print(f"+ {filename}")
@@ -151,12 +153,12 @@ def xxd(data: bytes, width: int = 32) -> str:
 if __name__ == "__main__":
     # r1_relic = RespawnBsp(titanfall, "E:/Mod/Titanfall/maps/mp_relic.bsp")
     # r1o_relic = RespawnBsp(titanfall, "E:/Mod/TitanfallOnline/maps/mp_relic.bsp")
-    # # r2_relic = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_relic02.bsp")
-    # diff_respawn_bsps(r1_relic, r1o_relic)
+    # r2_relic = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_relic02.bsp")
+    # diff_respawn_bsps(r1_relic, r1o_relic)  # IDENTICAL!
 
     # r1_angel = RespawnBsp(titanfall, "E:/Mod/Titanfall/maps/mp_angel_city.bsp")
     # r1o_angel = RespawnBsp(titanfall, "E:/Mod/TitanfallOnline/maps/mp_angel_city.bsp")
-    # # r2_angel = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
-    # diff_respawn_bsps(r1_angel, r1o_angel)
+    # r2_angel = RespawnBsp(titanfall2, "E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
+    # diff_respawn_bsps(r1_angel, r1o_angel)  # slight differences! interesting!
 
     dump_headers(shared_maps)
