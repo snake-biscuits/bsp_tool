@@ -203,6 +203,6 @@ LUMP_CLASSES.update({"AREAS": Area,
                      "NODES": Node,
                      "ORIGINAL_FACES": Face})
 
-SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES
+SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
-methods = orange_box.methods
+methods = [*orange_box.methods]
