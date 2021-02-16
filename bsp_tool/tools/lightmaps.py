@@ -80,7 +80,7 @@ def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
 
 
 def save_vbsp(vbsp, folder="./"):
-    """Saves to '<folder>/<bsp.filename>.lightmaps.png'"""
+    """Saves to '<folder>/<vbsp.filename>.lightmaps.png'"""
     if not hasattr(vbsp, "RAW_LIGHTING"):
         if not hasattr(vbsp, "RAW_LIGHTING_HDR"):  # HDR only
             raise RuntimeError(f"{vbsp.filename} has no lighting data")
@@ -101,3 +101,10 @@ def save_vbsp(vbsp, folder="./"):
     sorted_lightmaps = sorted(lightmaps, key=lambda i: -(i.size[0] * i.size[1]))
     page = sum(sorted_lightmaps, start=LightmapPage())
     page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
+
+
+def save_rbsp(rbsp, folder="./"):
+    """Saves to '<folder>/<rbsp.filename>.lightmaps.png'"""
+    # rbsp.LIGHTMAP_HEADERS  sizes? referenced by meshes?
+    # rbsp.LIGHTMAP_DATA_DXT5  decode
+    raise NotImplementedError()

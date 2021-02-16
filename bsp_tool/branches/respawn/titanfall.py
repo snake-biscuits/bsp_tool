@@ -1,4 +1,5 @@
 import enum
+from typing import List
 
 from .. import base
 from .. import shared
@@ -143,9 +144,62 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [12 / 128] + 2 special lumps
 class Brush(base.Struct):  # LUMP 92 (005C)
-    __slots__ = ["normal", "unknown"]  # origin, id?
-    _format = "3fI"  # not index & length into some list of planes?
-    _arrays = {"normal": [*"xyz"]}
+    origin: List[float]
+    unknown: int  # id? some index?
+    # was expecting first_plane & num_planes but OK
+    __slots__ = ["origin", "unknown"]
+    _format = "3fI"  # seems short
+    _arrays = {"origin": [*"xyz"]}
+
+
+class LightmapData(base.Struct):  # LUMP 84 (0054)
+    alpha: List[int]
+    # alpha.c0: int  # 8bit alpha pallet pixel
+    # alpha.c1: int  # 8bit alpha pallet pixel
+    # alpha.lut: bytes  # 3-bit 4x4 lookup table (6 bytes)
+    colour: List[int]
+    # colour.c0: int  # 565RGB pallet pixel
+    # colour.c1: int  # 565RGB pallet pixel
+    # colour.lut: bytes  # 2-bit 4x4 lookup table (4 bytes)
+    """4x4 encoded tiles of pixels"""
+    __slots__ = ["alpha", "colour"]
+    _format = "2b6s2H4s"
+    _arrays = {"alpha": ["a0", "a1", "lut"],
+               "colour": {"c0", "c1", "lut"}}
+
+    def as_rgba(self) -> bytes:
+        # https://en.wikipedia.org/wiki/S3_Texture_Compression#DXT4_and_DXT5
+        # calculate a2-7 (alpha palette)
+        a0, a1 = self.alpha.a0, self.alpha.a1
+        if a0 > a1:
+            a2, a3, a4, a5, a6, a7 = [((6 - i) * a0 + (1 + i) * a1) / 7 for i in range(6)]
+        else:
+            a2, a3, a4, a5 = [((4 - i) * a0 + (1 + i) * a1) / 5 for i in range(4)]
+            a6 = 0
+            a7 = 255
+        alpha_palette = [a0, a1, a2, a3, a4, a5, a6, a7]
+        # calculate c2 & c3 (colour palette)
+        c0, c1 = self.colour.c0, self.colour.c1
+        c0, c1 = map(lambda c: [(c >> 11) << 3, ((c >> 5) % 64) << 2, (c % 32) << 3], [c0, c1])
+        # ^ 565RGB to 888RGB
+        if c0 > c1:
+            c2 = [a * 2 // 3 + b // 3 for a, b in zip(c0, c1)]
+            c3 = [a // 3 + b * 2 // 3 for a, b in zip(c0, c1)]
+        else:  # c0 <= c1
+            c2 = [a // 2 + b // 2 for a, b in zip(c0, c1)]
+            c3 = (0, 0, 0)
+        colour_palette = [c0, c1, c2, c3]
+        # lookup tables --> pixels
+        alpha_lut = int.from_bytes(self.alpha.lut, "big")
+        colour_lut = int.from_bytes(self.colour.lut, "big")
+        pixels = []
+        for i in range(16):
+            colour = colour_palette[colour_lut % 4]
+            alpha = alpha_palette[alpha_lut % 8]
+            pixels.append(bytes([*colour, alpha]))
+            colour_lut = colour_lut >> 2
+            alpha_lut = alpha_lut >> 3
+        return b"".join(reversed(pixels))  # 4x4 tile of 8888RGBA pixels
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
