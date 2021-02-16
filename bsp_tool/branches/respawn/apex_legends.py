@@ -2,6 +2,7 @@ import enum
 
 from .. import base
 from .. import shared  # special lumps
+from . import titanfall2
 
 
 BSP_VERSION = 47  # Olympus onwards is version 48
@@ -227,21 +228,21 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-LUMP_CLASSES = {"MATERIAL_SORT": MaterialSort,
-                "MESHES": Mesh,
-                "MESH_INDICES": MeshIndices,
-                "MODELS": Model,
-                "TEXDATA": TextureData,
-                "VERTEX_NORMALS": Vertex,
-                "VERTICES": Vertex,
-                "VERTS_BLINN_PHONG": VertexBlinnPhong,
-                "VERTS_LIT_BUMP": VertexLitBump,
-                "VERTS_LIT_FLAT": VertexLitFlat,
-                "VERTS_UNLIT": VertexUnlit,
-                "VERTS_UNLIT_TS": VertexUnlitTS}
-# TODO: some system for switching out lump classes based on lump / bsp version
+LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES
+LUMP_CLASSES.update({"MATERIAL_SORT": MaterialSort,
+                     "MESHES": Mesh,
+                     "MESH_INDICES": MeshIndices,
+                     "MODELS": Model,
+                     "TEXDATA": TextureData,
+                     "VERTEX_NORMALS": Vertex,
+                     "VERTICES": Vertex,
+                     "VERTS_BLINN_PHONG": VertexBlinnPhong,
+                     "VERTS_LIT_BUMP": VertexLitBump,
+                     "VERTS_LIT_FLAT": VertexLitFlat,
+                     "VERTS_UNLIT": VertexUnlit,
+                     "VERTS_UNLIT_TS": VertexUnlitTS})
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
+SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES
 
 
 # branch exclusive methods, in alphabetical order:
