@@ -152,7 +152,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"origin": [*"xyz"]}
 
 
-class LightmapData(base.Struct):  # LUMP 84 (0054)
+class Dxt5(base.Struct):  # LUMP 84 (0054)
     alpha: List[int]
     # alpha.c0: int  # 8bit alpha pallet pixel
     # alpha.c1: int  # 8bit alpha pallet pixel
@@ -172,9 +172,9 @@ class LightmapData(base.Struct):  # LUMP 84 (0054)
         # calculate a2-7 (alpha palette)
         a0, a1 = self.alpha.a0, self.alpha.a1
         if a0 > a1:
-            a2, a3, a4, a5, a6, a7 = [((6 - i) * a0 + (1 + i) * a1) / 7 for i in range(6)]
+            a2, a3, a4, a5, a6, a7 = [((6 - i) * a0 + (1 + i) * a1) // 7 for i in range(6)]
         else:
-            a2, a3, a4, a5 = [((4 - i) * a0 + (1 + i) * a1) / 5 for i in range(4)]
+            a2, a3, a4, a5 = [((4 - i) * a0 + (1 + i) * a1) // 5 for i in range(4)]
             a6 = 0
             a7 = 255
         alpha_palette = [a0, a1, a2, a3, a4, a5, a6, a7]
@@ -187,7 +187,7 @@ class LightmapData(base.Struct):  # LUMP 84 (0054)
             c3 = [a // 3 + b * 2 // 3 for a, b in zip(c0, c1)]
         else:  # c0 <= c1
             c2 = [a // 2 + b // 2 for a, b in zip(c0, c1)]
-            c3 = (0, 0, 0)
+            c3 = [0, 0, 0]
         colour_palette = [c0, c1, c2, c3]
         # lookup tables --> pixels
         alpha_lut = int.from_bytes(self.alpha.lut, "big")
@@ -292,6 +292,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
+                "LIGHTMAP_DATA_DXT5": Dxt5,
                 "MATERIAL_SORT": MaterialSort,
                 "MODELS": Model,
                 "PLANES": Plane,
