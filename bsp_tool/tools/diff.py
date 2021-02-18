@@ -5,8 +5,8 @@ import os
 import re
 from typing import Iterable
 
-from ... import RespawnBsp
-from ...branches.respawn import titanfall, titanfall2
+from .. import RespawnBsp
+from ..branches.respawn import titanfall, titanfall2
 
 
 shared_maps = [("mp_angel_city", "mp_angel_city"),
@@ -61,6 +61,9 @@ def diff_respawn_bsps(bsp1, bsp2, full=False):
                                               f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
                     print(*diff, sep="\n")
                     pass
+        else:
+            print(bsp1_header)
+            print(bsp2_header)
 
     for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
         print(ent_file, end="  ")
@@ -69,6 +72,7 @@ def diff_respawn_bsps(bsp1, bsp2, full=False):
 
 def diff_entities(bsp1: RespawnBsp, bsp2: RespawnBsp):
     for i, e1, e2 in zip(itertools.count(), bsp1.ENTITIES, bsp2.ENTITIES):
+        # TODO: rather than print statments, generate the text & use difflib on it
         if e1 != e2:
             print(f"Entity #{i}")
             print("  {")
