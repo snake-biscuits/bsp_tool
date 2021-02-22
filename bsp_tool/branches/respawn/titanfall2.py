@@ -24,10 +24,10 @@ class LUMP(enum.Enum):
     PLANES = 0x0001  # version 1
     TEXDATA = 0x0002  # version 1
     VERTICES = 0x0003
-    UNUSED_4 = 0x0004
-    UNUSED_5 = 0x0005
-    UNUSED_6 = 0x0006
-    UNUSED_7 = 0x0007
+    UNKNOWN_4 = 0x0004
+    UNKNOWN_5 = 0x0005
+    UNKNOWN_6 = 0x0006
+    UNKNOWN_7 = 0x0007
     UNUSED_8 = 0x0008
     UNUSED_9 = 0x0009
     UNUSED_10 = 0x000A
