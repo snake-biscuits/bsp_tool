@@ -63,8 +63,8 @@ class LUMP(enum.Enum):
     UNUSED_51 = 0x0033
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
-    WORLDLIGHTS_HDR = 0x0036
-    UNUSED_55 = 0x0037
+    WORLDLIGHTS = 0x0036
+    WORLDLIGHTS_PARENT_INFO = 0x0037
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
     UNUSED_58 = 0x003A
@@ -131,7 +131,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    UNKNOWN_122 = 0x007A
+    LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE = 0x007A
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -208,7 +208,7 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
     height: int
     __slots__ = ["count", "width", "height"]
     _format = "I2H"
-    # there's actually 2 identically sized lightmaps for each header
+    # there's actually 2 identically sized lightmaps for each header (for titanfall2)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
