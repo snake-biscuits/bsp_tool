@@ -39,6 +39,7 @@ class Bsp():
                 self.load()
 
     def __enter__(self):
+        # TODO: check if already loaded to avoid loading twice
         self.load()  # force auto load
         return self
 
