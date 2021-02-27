@@ -4,7 +4,7 @@ from .. import base
 from . import titanfall, titanfall2
 
 
-BSP_VERSION = 47  # Olympus onwards is version 48
+BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 
 # Apex Legends has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files
