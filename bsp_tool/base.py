@@ -116,7 +116,7 @@ class Bsp():
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
         # ^ location of BSP_VERSION varies from format to format
         print(f"Loading {self.filename} ({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})...")
-        self.file.read()  # move cursor to end of file
+        self.file.seek(0, 2)  # move cursor to end of file
         self.filesize = self.file.tell()
 
         self.loading_errors: List[str] = []
