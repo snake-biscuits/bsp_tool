@@ -3,6 +3,7 @@ import enum  # for type hints
 import os
 import struct
 from types import ModuleType
+from typing import Dict
 
 from . import base
 from .base import LumpHeader
@@ -24,7 +25,8 @@ class RespawnBsp(base.Bsp):
         super(RespawnBsp, self).__init__(branch, filename)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
-    def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):  # just .bsp internal lumps
+    def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
+        """Only reads lumps stored in the main .bsp file"""
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
@@ -37,16 +39,18 @@ class RespawnBsp(base.Bsp):
         return header, data
 
     def parse_lump(self, LUMP, data):
-        """convert lump data to LumpClasses"""
+        """Convert lump data to LumpClass / SpecialLumpClass"""
+        # TODO: simplify exception handling
+        # TODO: simplify loading lumps of type List[int]
         if LUMP in self.branch.LUMP_CLASSES:
             LumpClass = self.branch.LUMP_CLASSES[LUMP]
             try:
                 setattr(self, LUMP, list())
                 for _tuple in struct.iter_unpack(LumpClass._format, data):
                     if len(_tuple) == 1:  # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
-                        _tuple = _tuple[0]  # ^ there has to be a better way than this
+                        _tuple = _tuple[0]  # there has to be a better way than this
                     getattr(self, LUMP).append(LumpClass(_tuple))
-                # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
+                # TODO: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
             except struct.error:  # lump cannot be divided into a whole number of LumpClasses
                 struct_size = struct.calcsize(LumpClass._format)
                 self.loading_errors.append(f"ERROR PARSING {LUMP}:\n"
@@ -68,12 +72,10 @@ class RespawnBsp(base.Bsp):
             # external .bsp.00XX.bsp_lump lump
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
             if lump_filename in self.associated_files:  # .bsp_lump file exists
-                with open(os.path.join(self.folder, lump_filename), "rb") as lump_file:
-                    data = lump_file.read()
-                # the .bsp_lump file has no header, this is just the matching header in the .bsp
-                # unsure how / if headers for external .bsp_lump affect anything
                 self.file.seek(self.branch.lump_header_address[LUMP])  # internal .bsp lump header
                 offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
+                with open(os.path.join(self.folder, lump_filename), "rb") as lump_file:
+                    data = lump_file.read()
                 lump_filesize = len(data)
                 header = ExternalLumpHeader(offset, length, version, fourCC, lump_filename, lump_filesize)
             # internal .bsp lump
@@ -97,4 +99,55 @@ class RespawnBsp(base.Bsp):
     def save_as(self, filename=""):
         if filename == "":
             filename = os.path.join(self.folder, self.filename)
-        # look at self.HEADERS & self.associated_files to see which lumps are saved externally
+        outfile = open(filename, "wb")
+        outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, 30, 127))
+        # ^ file-magic, bsp format version, map revision, lump count - 1
+        # TODO: get map revision when loading the .bsp
+        # - requires overriding the base.Bsp load() method
+        lump_order = sorted([L for L in self.branch.LUMP if self.HEADERS[L.name].length != 0],
+                            key=lambda L: self.HEADERS[L.name].offset)
+        # ^ order of all internal lumps
+        lump_offsets = dict()
+        # ^ {"lump.name": offset}
+        offset = 16 + (128 * 16)  # first byte after main .bsp header
+        raw_lumps = self.raw_lumps()
+        for lump in lump_order:
+            # TODO: make sure each lump is padded to start at the next multiple of 4 bytes
+            lump_offsets[lump.name] = offset
+            offset += len(raw_lumps[lump.name])
+        del offset
+        external_lumps = set()
+        # ^ {"lump.name"}
+        for lump in self.branch.LUMP:
+            old_header = self.HEADERS[lump.name]
+            if isinstance(old_header, ExternalLumpHeader):
+                external_lumps.add(lump.name)  # write to .bsp_lump, not main .bsp
+                # NOTE: so far external rBSP lumps seem to have an offset of the final .bsp filesize
+            if old_header.length == 0:
+                lump_length = 0
+            else:
+                lump_length = len(raw_lumps[lump.name])
+            lump_offset = lump_offsets.get(lump.name, old_header.offset)
+            # ^ get new lump_offset from raw_lumps, if calculated
+            outfile.write(struct.pack("4I", lump_offset, lump_length, old_header.version, 0))
+            # ^ offset, length, version, fourCC
+            # fourCC is 0 because we aren't encoding
+        # TODO: write raw_lumps to main .bsp / external .bsp_lump files
+
+    def raw_lumps(self) -> Dict[str, bytes]:
+        raw_lumps = dict()
+        # ^ {"lump.name": b"raw lump data"}
+        for lump in self.branch.LUMP:
+            if self.HEADERS[lump.name].length == 0:  # does this also skip external lumps?
+                continue
+            if hasattr(self, f"RAW_{lump.name}"):
+                raw_lump = getattr(self, f"RAW_{lump.name}")
+            elif lump.name in self.branch.LUMP_CLASSES:
+                _format = self.branch.LUMP_CLASSES[lump.name]._format
+                raw_lump = b"".join([struct.pack(_format, *x) for x in getattr(self, lump.name)])
+            elif lump.name in self.branch.SPECIAL_LUMP_CLASSES:
+                raw_lump = getattr(self, lump.name).as_bytes()
+            else:
+                raise RuntimeError(f"Don't know how to export {lump.name} lump!")
+            raw_lumps[lump.name] = raw_lump
+        return raw_lumps

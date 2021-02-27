@@ -39,12 +39,9 @@ class Bsp():
                 self.load()
 
     def __enter__(self):
-        # TODO: check if already loaded to avoid loading twice
-        self.load()  # force auto load
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        # TODO: inform the user if the path they provided was incorrect
         self.file.close()
 
     def __repr__(self):
