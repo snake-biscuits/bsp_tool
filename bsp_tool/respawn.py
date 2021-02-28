@@ -3,7 +3,7 @@ import enum  # for type hints
 import os
 import struct
 from types import ModuleType
-from typing import Dict
+from typing import Dict, List
 
 from . import base
 from .base import LumpHeader
@@ -67,6 +67,31 @@ class RespawnBsp(base.Bsp):
         else:
             setattr(self, "RAW_" + LUMP, data)
 
+    def load(self):
+        """Loads filename using the format outlined in this .bsp's branch defintion script"""
+        local_files = os.listdir(self.folder)
+        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
+        self.associated_files = [f for f in local_files if is_related(f)]
+        self.file = open(os.path.join(self.folder, self.filename), "rb")
+        file_magic = self.file.read(4)
+        if file_magic != self.FILE_MAGIC:
+            raise RuntimeError(f"{self.file} is not a valid .bsp!")
+        self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
+        self.REVISION = int.from_bytes(self.file.read(4), "little")
+        # next 4 bytes should be int(127)
+        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
+        print(f"Loading {self.filename} {version}...")
+        self.file.seek(0, 2)  # move cursor to end of file
+        self.filesize = self.file.tell()
+
+        self.loading_errors: List[str] = []
+        self.load_lumps()
+        if len(self.loading_errors) > 0:
+            print(*self.loading_errors, sep="\n")
+
+        self.file.close()
+        print(f"Loaded  {self.filename}")
+
     def load_lumps(self):
         for LUMP in self.branch.LUMP:
             # external .bsp.00XX.bsp_lump lump
@@ -97,54 +122,87 @@ class RespawnBsp(base.Bsp):
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename=""):
+        """Defaults to overriding the original file"""
         if filename == "":
             filename = os.path.join(self.folder, self.filename)
         outfile = open(filename, "wb")
-        outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, 30, 127))
-        # ^ file-magic, bsp format version, map revision, lump count - 1
-        # TODO: get map revision when loading the .bsp
-        # - requires overriding the base.Bsp load() method
-        lump_order = sorted([L for L in self.branch.LUMP if self.HEADERS[L.name].length != 0],
-                            key=lambda L: self.HEADERS[L.name].offset)
-        # ^ order of all internal lumps
-        lump_offsets = dict()
-        # ^ {"lump.name": offset}
-        offset = 16 + (128 * 16)  # first byte after main .bsp header
-        raw_lumps = self.raw_lumps()
+        outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
+        # NOTE: some preprocessing checks / automation could be done here
+        # - e.g. change TEXDATA_STRING_TABLE to match RAW_TEXDATA_STRING_DATA
+        # - sort entities into .ent files based on classname
+        # -- for r2+ .ent calcluate the model count
+        lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.HEADERS[L.name].offset)
+        headers = dict()
+        # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
+        external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.HEADERS[L.name], ExternalLumpHeader)}
+        # NOTE: external rBSP lumps seem to have an offsets past the final .bsp filesize
+        # -- current theory: lumps are split into seperate files after compilation
+        # -- external lumps also have a length of 0 in headers, likely indicating their abscense from the .bsp
+        current_offset = 16 + (16 * 128)  # first byte after headers
+        raw_lumps: Dict[str, bytes] = self.raw_lumps()
+        # {"lump.name": b"raw lump data]"}
         for lump in lump_order:
-            # TODO: make sure each lump is padded to start at the next multiple of 4 bytes
-            lump_offsets[lump.name] = offset
-            offset += len(raw_lumps[lump.name])
-        del offset
-        external_lumps = set()
-        # ^ {"lump.name"}
-        for lump in self.branch.LUMP:
-            old_header = self.HEADERS[lump.name]
-            if isinstance(old_header, ExternalLumpHeader):
-                external_lumps.add(lump.name)  # write to .bsp_lump, not main .bsp
-                # NOTE: so far external rBSP lumps seem to have an offset of the final .bsp filesize
-            if old_header.length == 0:
-                lump_length = 0
+            if lump.name not in raw_lumps:
+                headers[lump.name] = LumpHeader(0, 0, 0, 0)
+                continue
+            if current_offset % 4 != 0:  # pad to start at the next multiple of 4 bytes
+                current_offset += 4 - current_offset % 4
+            offset = current_offset
+            length = len(raw_lumps[lump.name])
+            version = self.HEADERS[lump.name].version
+            # ^ this will change when multi-version support is added
+            fourCC = 0
+            if lump.name in external_lumps:
+                external_lump_filename = f"{os.path.basename(filename)}.{lump.value:04x}.bsp_lump"
+                header = ExternalLumpHeader(offset, 0, version, fourCC, external_lump_filename, length)
             else:
-                lump_length = len(raw_lumps[lump.name])
-            lump_offset = lump_offsets.get(lump.name, old_header.offset)
-            # ^ get new lump_offset from raw_lumps, if calculated
-            outfile.write(struct.pack("4I", lump_offset, lump_length, old_header.version, 0))
+                header = LumpHeader(offset, length, version, fourCC)
+            headers[lump.name] = header
+            current_offset += length
+        # write headers
+        for lump in self.branch.LUMP:
+            offset, length, version, fourCC = headers[lump.name][:4]
+            outfile.write(struct.pack("4I", offset, length, version, fourCC))
             # ^ offset, length, version, fourCC
             # fourCC is 0 because we aren't encoding
-        # TODO: write raw_lumps to main .bsp / external .bsp_lump files
+        # write lump contents
+        for lump in lump_order:
+            if lump.name not in raw_lumps:
+                continue
+            if lump.name in external_lumps:
+                external_lump = f"{filename}.{lump.value:04x}.bsp_lump"
+                with open(external_lump, "wb") as out_lumpfile:
+                    out_lumpfile.write(raw_lumps[lump.name])
+            else:
+                padding_length = headers[lump.name].offset - outfile.tell()
+                # NOTE: padding_length should not exceed 3
+                if padding_length > 0:
+                    outfile.write(b"\x00" * padding_length)
+                outfile.write(raw_lumps[lump.name])
+        outfile.close()
+        # write .ent lumps
+        for ent_variant in ("env", "fx", "script", "snd", "spawn"):
+            ent_filename = f"{os.path.splitext(filename)[0]}_{ent_variant}.ent"
+            with open(ent_filename, "wb") as ent_file:
+                ent_file.write(self.HEADERS[f"ENTITIES_{ent_variant}"].encode("ascii"))
+                ent_file.write(b"\n")
+                ent_file.write(getattr(self, f"ENTITIES_{ent_variant}").as_bytes())
 
     def raw_lumps(self) -> Dict[str, bytes]:
         raw_lumps = dict()
         # ^ {"lump.name": b"raw lump data"}
         for lump in self.branch.LUMP:
-            if self.HEADERS[lump.name].length == 0:  # does this also skip external lumps?
-                continue
+            if not hasattr(self, lump.name) and not hasattr(self, f"RAW_{lump.name}"):
+                continue  # ignore absent lumps
             if hasattr(self, f"RAW_{lump.name}"):
                 raw_lump = getattr(self, f"RAW_{lump.name}")
             elif lump.name in self.branch.LUMP_CLASSES:
+                lump_data = getattr(self, lump.name)
                 _format = self.branch.LUMP_CLASSES[lump.name]._format
-                raw_lump = b"".join([struct.pack(_format, *x) for x in getattr(self, lump.name)])
+                if hasattr(self.branch.LUMP_CLASSES[lump.name], "flat"):
+                    raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_data])
+                else:  # assuming LumpClass(int)
+                    raw_lump = struct.pack(f"{len(lump_data)}{_format}", *lump_data)
             elif lump.name in self.branch.SPECIAL_LUMP_CLASSES:
                 raw_lump = getattr(self, lump.name).as_bytes()
             else:

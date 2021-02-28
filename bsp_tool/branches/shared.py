@@ -54,7 +54,7 @@ class Entities(list):
                     entity.extend([f'"{key}" "{v}"' for v in value])
             entity.append("}")
             entities.append("\n".join(entity))
-        return b"\n".join(map(lambda e: e.encode("ascii"), entities))
+        return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
 
 
 class PakFile(zipfile.ZipFile):
@@ -80,7 +80,7 @@ class TexDataStringData(list):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data.split(b"\0")])
 
     def as_bytes(self):
-        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
+        return b"\0".join([t.encode("ascii") for t in self])
 
 
 class Visiblity:

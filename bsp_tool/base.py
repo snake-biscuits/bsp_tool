@@ -111,8 +111,8 @@ class Bsp():
         if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
-        # ^ location of BSP_VERSION varies from format to format
-        print(f"Loading {self.filename} ({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})...")
+        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
+        print(f"Loading {self.filename} {version}...")
         self.file.seek(0, 2)  # move cursor to end of file
         self.filesize = self.file.tell()
 
