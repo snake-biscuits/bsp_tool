@@ -77,10 +77,10 @@ class GameLump:
 
 class TexDataStringData(list):
     def __init__(self, raw_texdata_string_data):
-        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data.split(b"\0")])
+        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data[:-1].split(b"\0")])
 
     def as_bytes(self):
-        return b"\0".join([t.encode("ascii") for t in self])
+        return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
 
 
 class Visiblity:
