@@ -182,11 +182,17 @@ class RespawnBsp(base.Bsp):
         outfile.close()
         # write .ent lumps
         for ent_variant in ("env", "fx", "script", "snd", "spawn"):
+            if not hasattr(self, f"ENTITIES_{ent_variant}"):
+                continue
             ent_filename = f"{os.path.splitext(filename)[0]}_{ent_variant}.ent"
             with open(ent_filename, "wb") as ent_file:
+                # TODO: generate header if none exists
                 ent_file.write(self.HEADERS[f"ENTITIES_{ent_variant}"].encode("ascii"))
                 ent_file.write(b"\n")
                 ent_file.write(getattr(self, f"ENTITIES_{ent_variant}").as_bytes())
+
+    def save(self):
+        self.save_as()  # override self.filepath/self.filename
 
     def raw_lumps(self) -> Dict[str, bytes]:
         raw_lumps = dict()
