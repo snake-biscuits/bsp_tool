@@ -152,12 +152,13 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"origin": [*"xyz"]}
 
 
-class Dxt5(base.Struct):  # LUMP 84 (0054) unused?
-    alpha: List[int]
-    # alpha.c0: int  # 8bit alpha pallet pixel
-    # alpha.c1: int  # 8bit alpha pallet pixel
+class Dxt5(base.Struct):  # LUMP 84 (0054)
+    # unused?
+    alpha: (int, int, bytes)
+    # alpha.a0: int  # 8bit alpha pallet pixel
+    # alpha.a1: int  # 8bit alpha pallet pixel
     # alpha.lut: bytes  # 3-bit 4x4 lookup table (6 bytes)
-    colour: List[int]
+    colour: (int, int, bytes)
     # colour.c0: int  # 565RGB pallet pixel
     # colour.c1: int  # 565RGB pallet pixel
     # colour.lut: bytes  # 2-bit 4x4 lookup table (4 bytes)
@@ -169,7 +170,7 @@ class Dxt5(base.Struct):  # LUMP 84 (0054) unused?
 
     def as_rgba(self) -> bytes:
         # https://en.wikipedia.org/wiki/S3_Texture_Compression#DXT4_and_DXT5
-        # calculate a2-7 (alpha palette)
+        # calculate a2 - a7 (alpha palette)
         a0, a1 = self.alpha.a0, self.alpha.a1
         if a0 > a1:
             a2, a3, a4, a5, a6, a7 = [((6 - i) * a0 + (1 + i) * a1) // 7 for i in range(6)]
@@ -212,6 +213,9 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
+    # MaterialSort -> TexData, VertexReservedX
+    # TexData -> TexDataStringTable -> TexDataStringTable
+    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     texdata: int  # index of this MaterialSort's Texdata
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     unknown: int
@@ -221,6 +225,14 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
+    # Mesh -> MaterialSort -> TexData, VertexReservedX
+    # TexData -> TexDataStringTable -> TexDataStringTable
+    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
+    start_index: int  # ...
+    num_triangles: int  # ...
+    # unknown.a - d
+    material_sort: int  # index of this Mesh's MaterialSort
+    flags: int  # specifies VertexReservedX to draw vertices from
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     # vertex type stored in flags
@@ -233,30 +245,51 @@ class MeshIndices(int):  # LUMP 79 (004F)
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
+    """bsp.MODELS[0] is always worldspawn"""
+    # Model -> Mesh -> MaterialSort -> TexData, VertexReservedX
+    # TexData -> TexDataStringTable -> TexDataStringTable
+    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
+    mins: List[float]  # bounding box mins
+    maxs: List[float]  # bounding box maxs
+    first_mesh: int  # index of first Mesh
+    num_meshes: int  # number of Meshes after first_mesh in this model
     __slots__ = ["mins", "maxs", "first_mesh", "num_meshes"]
     _format = "6f2I"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class Plane(base.Struct):  # LUMP 1 (0001)
+    # Brush -> Plane?
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
+    # ??? -> ShadowMesh -> ???
+    # presumably start_index & num_triangles point at SHADOW_MESH_INDICES
+    # however SHADOW_MESH_INDICES is huge & not a multiple of 4 bytes
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
+    # MaterialSort -> TexData, VertexReservedX
+    # TexData -> TexDataStringTable -> TexDataStringTable
+    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
+class TextureDataStringTable(int):  # LUMP 44 (002C)
+    """Points to the starting index of string of same index in TEXDATA_STRING_DATA"""
+    _format = "I"
+
+
 class Vertex(base.MappedArray):  # LUMP 3 (0003)
+    """3D position / normal vector"""
     _mapping = [*"xyz"]
     _format = "3f"
 
@@ -264,6 +297,7 @@ class Vertex(base.MappedArray):  # LUMP 3 (0003)
         return [self.x, self.y, self.z]
 
 
+# special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "unknown"]
     _format = "4I"  # 16 bytes
@@ -310,6 +344,8 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MODELS": Model,
                 "PLANES": Plane,
                 "TEXDATA": TextureData,
+                "TEXDATA_STRING_TABLE": TextureDataStringTable,
+                "SHADOW_MESH_MESHES": ShadowMesh,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
                 "VERTS_LIT_BUMP": VertexLitBump,
@@ -332,7 +368,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
+def vertices_of_mesh(bsp, mesh_index: int):  # simplified from McSimp's exporter ^
     """Vertex Format: (position.xyz, normal.xyz, uv.xy)"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
@@ -346,7 +382,7 @@ def vertices_of_mesh(bsp, mesh_index):  # simplified from McSimp's exporter ^
     return [verts[i] for i in indices]
 
 
-def vertices_of_model(bsp, model_index):
+def vertices_of_model(bsp, model_index: int):
     # NOTE: model 0 is worldspawn, other models are referenced by entities
     out = ()
     model = bsp.MODELS[model_index]
@@ -355,4 +391,12 @@ def vertices_of_model(bsp, model_index):
     return out
 
 
-methods = [vertices_of_mesh, vertices_of_model]
+def replace_texture(bsp, texture: str, replacement: str):
+    texture_index = bsp.TEXDATA_STRING_DATA.index(texture)
+    bsp.TEXDATA_STRING_DATA.insert(texture_index, replacement)
+    bsp.TEXDATA_STRING_DATA.pop(texture_index + 1)
+    for texture_name in bsp.TEXDATA_STRING_DATA:
+        ...
+
+
+methods = [vertices_of_mesh, vertices_of_model, replace_texture]
