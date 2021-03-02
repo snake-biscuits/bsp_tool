@@ -1,7 +1,12 @@
+import collections
+import itertools
+import fnmatch
 import math
+import os
 import struct
 from typing import Any, List
 
+from .. import load_bsp
 from ..branches import base
 
 
@@ -23,7 +28,7 @@ def test_unpack(lump, into) -> List[Any]:
     return out
 
 
-def denominators_of(x, start=8, step=4):  # multiples of 4 only
+def denominators_of(x: int, start=8, step=4) -> List[int]:
     """For guessing lump struct sizes"""
     out = set()
     for i in range(start, math.ceil(math.sqrt(x)) + 1, step):
@@ -31,14 +36,30 @@ def denominators_of(x, start=8, step=4):  # multiples of 4 only
             out.add(i)
             out.add(x // i)
     if len(out) == 0:
-        return f"found no denomimnators for {x}"
+        return f"found no denominators for {x}"
     else:
         return sorted(out)
 
 
-def export_pointcloud(bsp, obj_file_name):
+def potential_sizes(lump_sizes, start=8, step=4) -> List[int]:
+    lump_sizes = set(lump_sizes)
+    for a, b in itertools.combinations(lump_sizes, 2):
+        lump_sizes.add(abs(a - b))
+    lump_sizes.discard(0)
+    lump_sizes = list(lump_sizes)
+    first_denoms = denominators_of(lump_sizes[0], start, step)
+    if isinstance(first_denoms, str):
+        return ["unknown"]
+    common_denominators = set(first_denoms)
+    for size in lump_sizes[1:]:
+        denoms = denominators_of(size, start, step)
+        common_denominators = common_denominators.intersection(denoms)
+    return sorted(list(common_denominators))
+
+
+def export_pointcloud(bsp, obj_filename: str):
     """bsp.VERTICES --> .obj file"""
-    with open(obj_file_name, "w") as obj_file:
+    with open(obj_filename, "w") as obj_file:
         obj_file.write(f"# {bsp.filename}.bsp\n")
         obj_file.write("# extracted with bsp_tool\n")
         obj_file.write("\n".join(f"v {x} {y} {z}" for x, y, z in bsp.VERTICES))
@@ -56,13 +77,29 @@ def analyse(array, *indices):
         print("=" * 80)
 
 
-def hex_breakdown(stream):
-    """Imagine a hex editor"""
-    int_stream = struct.unpack(f"{len(stream)}B", stream)
-    print(" ".join(f"{i:02x}" for i in int_stream))
+def lump_size_csv(folder: str, csv_name: str):
+    out_csv = open(f"{csv_name}.csv", "w")
+    lump_sizes = collections.defaultdict(set)
+    for bsp_filename in fnmatch.filter(os.listdir(folder), "*.bsp"):
+        bsp = load_bsp(os.path.join(folder, bsp_filename))
+        for lump in bsp.branch.LUMP:
+            header = bsp.HEADERS[lump.name]
+            if hasattr(header, "filesize"):
+                lump_sizes[lump.name].add(header.filesize)
+            elif hasattr(header, "length"):
+                lump_sizes[lump.name].add(header.length)
+        del bsp
 
-# poll multiple maps of same mod, combine sets of denoms of lump_X in each
-# AND denoms of the size differences between those lumps across multiple maps
-
-# assemble all this into dict {lump_type: possible_chunksizes}
-# also .csv listing lump size by map and chunksizes
+    for lump_name, sizes in lump_sizes.items():
+        if sizes == {0}:
+            out_csv.write(f"{lump_name},unused" + "\n")
+            continue  # lump is unused
+        sizes = sorted(list(sizes))
+        out_csv.write(f"{lump_name}," + ",".join(map(str, sizes)) + "\n")
+    out_csv.write(",\n,\n")
+    for lump_name, sizes in lump_sizes.items():
+        if sizes == {0}:
+            continue  # lump is unused
+        out_csv.write(f"{lump_name}," + ",".join(map(str, potential_sizes(sizes))) + "\n")
+        # NOTE: if potential sizes returns an empty set, try a different 'step' value
+    out_csv.close()
