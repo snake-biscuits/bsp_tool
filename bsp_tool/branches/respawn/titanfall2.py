@@ -1,7 +1,6 @@
 import enum
 
 from .. import base
-from .. import shared  # special lumps
 from . import titanfall
 
 
@@ -56,7 +55,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATERDATA = 0x0024
+    LEAF_WATERDATA = 0x0024  # unused
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -90,21 +89,21 @@ class LUMP(enum.Enum):
     UNUSED_67 = 0x0043
     TRICOLL_NODES = 0x0044
     TRICOLL_HEADERS = 0x0045
-    PHYSTRIS = 0x0046
-    VERTS_UNLIT = 0x0047  # VERTS_RESERVED_0 - 7
-    VERTS_LIT_FLAT = 0x0048
-    VERTS_LIT_BUMP = 0x0049
-    VERTS_UNLIT_TS = 0x004A
-    VERTS_BLINN_PHONG = 0x004B
-    VERTS_RESERVED_5 = 0x004C
-    VERTS_RESERVED_6 = 0x004D
-    VERTS_RESERVED_7 = 0x004E
+    PHYSTRIS = 0x0046  # unused
+    VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
+    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1  # unused
+    VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
+    VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
+    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4  # unused
+    VERTS_RESERVED_5 = 0x004C  # unused
+    VERTS_RESERVED_6 = 0x004D  # unused
+    VERTS_RESERVED_7 = 0x004E  # unused
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
-    LIGHTMAP_DATA_DXT5 = 0x0054  # unused?
+    LIGHTMAP_DATA_DXT5 = 0x0054  # unused
     CM_GRID = 0x0055
     CM_GRIDCELLS = 0x0056
     CM_GEO_SETS = 0x0057
@@ -154,8 +153,15 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps
+# special vertices
+class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
+    __slots__ = ["position_index", "normal_index", "unknown"]
+    _format = "4I"  # 16 bytes
+    _arrays = {"unknown": [*"ab"]}
+
+
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-# LUMP_CLASSES.update({})
+LUMP_CLASSES.update({"VERTS_BLINN_PHONG": VertexBlinnPhong})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 

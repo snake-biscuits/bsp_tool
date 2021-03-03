@@ -50,7 +50,7 @@ class LUMP(enum.Enum):
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
     PAKFILE = 0x0028  # zip file, contains cubemaps
-    UNKNOWN_41 = 0x0029
+    UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
     TEXDATA_STRING_DATA = 0x002B
     TEXDATA_STRING_TABLE = 0x002C
@@ -64,7 +64,7 @@ class LUMP(enum.Enum):
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
     WORLDLIGHTS = 0x0036
-    WORLDLIGHTS_PARENT_INFO = 0x0037
+    WORLDLIGHTS_PARENT_INFO = 0x0037  # unused
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
     UNUSED_58 = 0x003A
@@ -80,26 +80,26 @@ class LUMP(enum.Enum):
     TRICOLL_NODES = 0x0044
     TRICOLL_HEADERS = 0x0045
     PHYSTRIS = 0x0046
-    VERTS_UNLIT = 0x0047  # VERTS_RESERVED_0 - 7
-    VERTS_LIT_FLAT = 0x0048
-    VERTS_LIT_BUMP = 0x0049  # version 2
-    VERTS_UNLIT_TS = 0x004A
-    VERTS_BLINN_PHONG = 0x004B  # version 1
-    VERTS_RESERVED_5 = 0x004C  # version 1
-    VERTS_RESERVED_6 = 0x004D
-    VERTS_RESERVED_7 = 0x004E
-    MESH_INDICES = 0x004F  # version 1
-    MESHES = 0x0050  # version 1
+    VERTS_UNLIT = 0x0047     # VERTS_RESERVED_0
+    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1
+    VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2
+    VERTS_UNLIT_TS = 0x004A  # VERTS_RESERVED_3
+    VERTS_RESERVED_4 = 0x004B  # unused
+    VERTS_RESERVED_5 = 0x004C  # unused
+    VERTS_RESERVED_6 = 0x004D  # unused
+    VERTS_RESERVED_7 = 0x004E  # unused
+    MESH_INDICES = 0x004F
+    MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
-    LIGHTMAP_DATA_DXT5 = 0x0054  # unused?
+    LIGHTMAP_DATA_DXT5 = 0x0054  # unused
     CM_GRID = 0x0055
     CM_GRIDCELLS = 0x0056
     CM_GEO_SETS = 0x0057
     CM_GEO_SET_BOUNDS = 0x0058
     CM_PRIMS = 0x0059
-    CM_PRIM_BOUNDS = 0x005A  # version 1
+    CM_PRIM_BOUNDS = 0x005A
     CM_UNIQUE_CONTENTS = 0x005B
     CM_BRUSHES = 0x005C
     CM_BRUSH_SIDE_PLANE_OFFSETS = 0x005D
@@ -131,7 +131,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE = 0x007A
+    LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE = 0x007A  # unused
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -298,12 +298,6 @@ class Vertex(base.MappedArray):  # LUMP 3 (0003)
 
 
 # special vertices
-class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    __slots__ = ["position_index", "normal_index", "unknown"]
-    _format = "4I"  # 16 bytes
-    _arrays = {"unknown": [*"ab"]}
-
-
 class VertexLitBump(base.Struct):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
     # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
@@ -361,10 +355,10 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.E
 
 
 # branch exclusive methods, in alphabetical order:
-mesh_types = {0x600: "VERTS_UNLIT_TS",
-              0x400: "VERTS_UNLIT",
-              0x200: "VERTS_LIT_BUMP"}
-# ^ a proper mapping of the flags would be nice
+mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
+              0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
+              0x200: "VERTS_LIT_BUMP"}  # VERTS_RESERVED_2
+# does VERTS_LIT_FLAT / VERTS_RESERVED_1 get a flag?
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
@@ -375,16 +369,16 @@ def vertices_of_mesh(bsp, mesh_index: int):  # simplified from McSimp's exporter
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    # TODO: cleaup these last 3 lines, the mesh_types dict is a wierd approach
+    # mesh.flags -> vertex lump
+    # TODO: is there a better way to determine the vertex lump from mesh.flags?
     mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
-    # ^ use mesh_types & mesh.flags with a bitmask to select the vertex lump
     verts = getattr(bsp, mesh_types[mesh_type])
     return [verts[i] for i in indices]
 
 
 def vertices_of_model(bsp, model_index: int):
     # NOTE: model 0 is worldspawn, other models are referenced by entities
-    out = ()
+    out = list()
     model = bsp.MODELS[model_index]
     for i in range(model.first_mesh, model.num_meshes):
         out.extend(bsp.vertices_of_mesh(i))
@@ -392,11 +386,14 @@ def vertices_of_model(bsp, model_index: int):
 
 
 def replace_texture(bsp, texture: str, replacement: str):
-    texture_index = bsp.TEXDATA_STRING_DATA.index(texture)
+    texture_index = bsp.TEXDATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
     bsp.TEXDATA_STRING_DATA.insert(texture_index, replacement)
     bsp.TEXDATA_STRING_DATA.pop(texture_index + 1)
+    bsp.TEXDATA_STRING_TABLE = list()
+    offset = 0  # starting index of texture name in raw TEXDATA_STRING_DATA
     for texture_name in bsp.TEXDATA_STRING_DATA:
-        ...
+        bsp.TEXDATA_STRING_TABLE.append(offset)
+        offset += len(texture_name) + 1  # +1 for null byte
 
 
 methods = [vertices_of_mesh, vertices_of_model, replace_texture]
