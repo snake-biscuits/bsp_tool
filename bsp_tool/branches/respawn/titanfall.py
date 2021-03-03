@@ -10,8 +10,8 @@ BSP_VERSION = 29
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
-    PLANES = 0x0001  # version 1
-    TEXDATA = 0x0002  # version 1
+    PLANES = 0x0001
+    TEXDATA = 0x0002
     VERTICES = 0x0003
     UNUSED_4 = 0x0004
     UNUSED_5 = 0x0005
@@ -152,57 +152,6 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"origin": [*"xyz"]}
 
 
-class Dxt5(base.Struct):  # LUMP 84 (0054)
-    # unused?
-    alpha: (int, int, bytes)
-    # alpha.a0: int  # 8bit alpha pallet pixel
-    # alpha.a1: int  # 8bit alpha pallet pixel
-    # alpha.lut: bytes  # 3-bit 4x4 lookup table (6 bytes)
-    colour: (int, int, bytes)
-    # colour.c0: int  # 565RGB pallet pixel
-    # colour.c1: int  # 565RGB pallet pixel
-    # colour.lut: bytes  # 2-bit 4x4 lookup table (4 bytes)
-    """4x4 encoded tiles of pixels"""
-    __slots__ = ["alpha", "colour"]
-    _format = "2B6s2H4s"
-    _arrays = {"alpha": ["a0", "a1", "lut"],
-               "colour": ["c0", "c1", "lut"]}
-
-    def as_rgba(self) -> bytes:
-        # https://en.wikipedia.org/wiki/S3_Texture_Compression#DXT4_and_DXT5
-        # calculate a2 - a7 (alpha palette)
-        a0, a1 = self.alpha.a0, self.alpha.a1
-        if a0 > a1:
-            a2, a3, a4, a5, a6, a7 = [((6 - i) * a0 + (1 + i) * a1) // 7 for i in range(6)]
-        else:
-            a2, a3, a4, a5 = [((4 - i) * a0 + (1 + i) * a1) // 5 for i in range(4)]
-            a6 = 0
-            a7 = 255
-        alpha_palette = [a0, a1, a2, a3, a4, a5, a6, a7]
-        # calculate c2 & c3 (colour palette)
-        c0, c1 = self.colour.c0, self.colour.c1
-        c0, c1 = map(lambda c: [(c >> 11) << 3, ((c >> 5) % 64) << 2, (c % 32) << 3], [c0, c1])
-        # ^ 565RGB to 888RGB
-        if c0 > c1:
-            c2 = [a * 2 // 3 + b // 3 for a, b in zip(c0, c1)]
-            c3 = [a // 3 + b * 2 // 3 for a, b in zip(c0, c1)]
-        else:  # c0 <= c1
-            c2 = [a // 2 + b // 2 for a, b in zip(c0, c1)]
-            c3 = [0, 0, 0]
-        colour_palette = [c0, c1, c2, c3]
-        # lookup tables --> pixels
-        alpha_lut = int.from_bytes(self.alpha.lut, "big")
-        colour_lut = int.from_bytes(self.colour.lut, "big")
-        pixels = []
-        for i in range(16):
-            colour = colour_palette[colour_lut % 4]
-            alpha = alpha_palette[alpha_lut % 8]
-            pixels.append(bytes([*colour, alpha]))
-            colour_lut = colour_lut >> 2
-            alpha_lut = alpha_lut >> 3
-        return b"".join(reversed(pixels))  # 4x4 tile of 8888RGBA pixels
-
-
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
     count: int  # assuming this counts the number of lightmaps this size
     width: int
@@ -240,7 +189,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcd"]}
 
 
-class MeshIndices(int):  # LUMP 79 (004F)
+class MeshIndex(int):  # LUMP 79 (004F)
+    # ??? -> MeshIndex -> Mesh
     _format = "H"
 
 
@@ -307,18 +257,6 @@ class VertexLitBump(base.Struct):  # LUMP 71 (0047)
                "unknown": [*"abc"]}
 
 
-class VertexReserved5(base.Struct):  # LUMP 76 (004C)
-    __slots__ = ["position_index", "normal_index", "unknown", "uv", "uv2"]
-    _format = "7I4f"  # 44 bytes
-    _arrays = {"unknown": [*"abcd"], "uv": [*"uv"], "uv2": [*"uv"]}
-
-
-class VertexReserved7(base.Struct):  # LUMP 78 (004E)
-    __slots__ = ["position_index", "normal_index", "uv", "negative_one"]
-    _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
-
-
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
@@ -332,22 +270,20 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
-                "LIGHTMAP_DATA_DXT5": Dxt5,  # unused?
                 "LIGHTMAP_HEADERS": LightmapHeader,
                 "MATERIAL_SORT": MaterialSort,
+                "MESHES": Mesh,
+                "MESH_INDICES": MeshIndex,
                 "MODELS": Model,
                 "PLANES": Plane,
+                "SHADOW_MESH_MESHES": ShadowMesh,
                 "TEXDATA": TextureData,
                 "TEXDATA_STRING_TABLE": TextureDataStringTable,
-                "SHADOW_MESH_MESHES": ShadowMesh,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
                 "VERTS_LIT_BUMP": VertexLitBump,
-                "VERTS_RESERVED_7": VertexReserved7,
                 "VERTS_UNLIT": VertexUnlit,
-                "VERTS_UNLIT_TS": VertexUnlitTS,
-                "MESHES": Mesh,
-                "MESH_INDICES": MeshIndices}
+                "VERTS_UNLIT_TS": VertexUnlitTS}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.Entites to unpack the .ent files
                         "PAKFILE": shared.PakFile,
