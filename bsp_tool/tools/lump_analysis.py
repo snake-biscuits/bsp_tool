@@ -46,6 +46,8 @@ def potential_sizes(lump_sizes, start=8, step=4) -> List[int]:
     for a, b in itertools.combinations(lump_sizes, 2):
         lump_sizes.add(abs(a - b))
     lump_sizes.discard(0)
+    if len(lump_sizes) == 0:
+        return [0]
     lump_sizes = list(lump_sizes)
     first_denoms = denominators_of(lump_sizes[0], start, step)
     if isinstance(first_denoms, str):
@@ -79,27 +81,27 @@ def analyse(array, *indices):
 
 def lump_size_csv(folder: str, csv_name: str):
     out_csv = open(f"{csv_name}.csv", "w")
-    lump_sizes = collections.defaultdict(set)
-    for bsp_filename in fnmatch.filter(os.listdir(folder), "*.bsp"):
+    map_folder = list(fnmatch.filter(os.listdir(folder), "*.bsp"))
+    out_csv.write("LUMP," + ",".join(map_folder) + "\n")
+    lump_sizes = collections.defaultdict(list)
+    for bsp_filename in map_folder:
         bsp = load_bsp(os.path.join(folder, bsp_filename))
         for lump in bsp.branch.LUMP:
             header = bsp.HEADERS[lump.name]
             if hasattr(header, "filesize"):
-                lump_sizes[lump.name].add(header.filesize)
+                lump_sizes[lump.name].append(header.filesize)
             elif hasattr(header, "length"):
-                lump_sizes[lump.name].add(header.length)
+                lump_sizes[lump.name].append(header.length)
         del bsp
-
     for lump_name, sizes in lump_sizes.items():
-        if sizes == {0}:
-            out_csv.write(f"{lump_name},unused" + "\n")
+        if set(sizes) == {0}:
             continue  # lump is unused
-        sizes = sorted(list(sizes))
         out_csv.write(f"{lump_name}," + ",".join(map(str, sizes)) + "\n")
-    out_csv.write(",\n,\n")
+
+    out_csv.write(",\nLUMP,POTENTIAL SIZES\n")
     for lump_name, sizes in lump_sizes.items():
         if sizes == {0}:
             continue  # lump is unused
-        out_csv.write(f"{lump_name}," + ",".join(map(str, potential_sizes(sizes))) + "\n")
-        # NOTE: if potential sizes returns an empty set, try a different 'step' value
+        could_bes = list(map(str, potential_sizes(sizes, start=2, step=2)))
+        out_csv.write(f"{lump_name}," + ",".join(could_bes) + "\n")
     out_csv.close()
