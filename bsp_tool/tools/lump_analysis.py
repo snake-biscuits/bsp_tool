@@ -79,8 +79,8 @@ def analyse(array, *indices):
         print("=" * 80)
 
 
-def lump_size_csv(folder: str, csv_name: str):
-    out_csv = open(f"{csv_name}.csv", "w")
+def sizes_csv(folder: str, csv_name: str):
+    out_csv = open(csv_name, "w")
     map_folder = list(fnmatch.filter(os.listdir(folder), "*.bsp"))
     out_csv.write("LUMP," + ",".join(map_folder) + "\n")
     lump_sizes = collections.defaultdict(list)
@@ -105,3 +105,31 @@ def lump_size_csv(folder: str, csv_name: str):
         could_bes = list(map(str, potential_sizes(sizes, start=2, step=2)))
         out_csv.write(f"{lump_name}," + ",".join(could_bes) + "\n")
     out_csv.close()
+
+
+def headers_markdown(folder: str, md_name: str):
+    out_md = open(md_name, "w")
+    map_folder = list(fnmatch.filter(os.listdir(folder), "*.bsp"))
+    for bsp_filename in map_folder:
+        bsp = load_bsp(os.path.join(folder, bsp_filename))
+        map_name = os.path.splitext(bsp_filename)[0].split("_")
+        if map_name[0] == "mp":
+            map_name = " ".join(map_name[1:])
+        else:
+            map_name = " ".join(map_name)
+        out_md.write(f"### {map_name.upper()}" + "\n")
+        out_md.write("<details>\n  <summary>Click to expand</summary>\n\n")
+        out_md.write("| Lump | External | Offset | Size | Version | FourCC |\n")
+        out_md.write("| :--- | :------- | :----- | :--- | :------ | :----- |\n")
+        for lump in bsp.branch.LUMP:
+            header = bsp.HEADERS[lump.name]
+            external = hasattr(header, "filename")
+            size = header.filesize if external else header.length
+            offset, version, fourCC = header.offset, header.version, header.fourCC
+            if (offset, size, version, fourCC) == (0, 0, 0, 0):
+                continue  # skip empty lumps
+            out_md.write(f"{lump.name} | {':heavy_check_mark:' if external else ':x:'} | " +
+                         f"{offset} | {size} | {version} | {fourCC} |" + "\n")
+        out_md.write("</details>\n\n")
+        del bsp
+    out_md.close()
