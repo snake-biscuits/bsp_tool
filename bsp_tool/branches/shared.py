@@ -1,13 +1,13 @@
+from typing import Dict, List
 import fnmatch
 import io
 import re
 import struct
-from typing import Dict, List
 import zipfile
 
 
 class Entities(list):
-    def __init__(self, raw_entities):
+    def __init__(self, raw_entities: bytes):
         # TODO: use fgd-tools to fully unstringify entities
         # TODO: split into a true init method & a load method
         entities: List[Dict[str, str]] = list()
@@ -41,9 +41,10 @@ class Entities(list):
         # >>> bsp.ENTITIES.find(classname="light*")  # -> [<light_environment>, <light_spot>, ...]
         # however a blank pattern always matches
         # >>> bsp.ENTITIES.find(targetname="")  # returns all entities, rather than only entities with no targetname
+        # NOTE: all given keys must match
         return [e for e in self if all([fnmatch.fnmatch(e.get(k, ""), v) for k, v in keys.items()])]
 
-    def as_bytes(self):
+    def as_bytes(self) -> bytes:
         entities = []
         for entity_dict in self:  # Dict[str, Union[str, List[str]]]
             entity = ["{"]
@@ -58,35 +59,41 @@ class Entities(list):
 
 
 class PakFile(zipfile.ZipFile):
-    def __init__(self, raw_zip_bytes):
-        self._buffer = io.BytesIO(raw_zip_bytes)
+    def __init__(self, raw_zip: bytes):
+        self._buffer = io.BytesIO(raw_zip)
         super(PakFile, self).__init__(self._buffer)
 
-    def as_bytes(self):
+    def as_bytes(self) -> bytes:
         return self._buffer.getvalue()
 
 
 class GameLump:
-    def __init__(self, raw_game_lump):  # do we need the header too?
+    def __init__(self, raw_game_lump: bytes):
+        # NOTE: need the header to calculate offsets iirc
         raise NotImplementedError("Game lumps hard")
-        # If it's compressed, good luck. Each sub-lump is compressed individually.
+        # If it's compressed, good luck.
+        # - Each sub-lump is compressed individually.
 
-    def as_bytes(self):
+    def as_bytes(self) -> bytes:
         raise NotImplementedError("Game lumps hard")
 
 
 class TexDataStringData(list):
-    def __init__(self, raw_texdata_string_data):
+    def __init__(self, raw_texdata_string_data: bytes):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data[:-1].split(b"\0")])
 
-    def as_bytes(self):
+    def find(self, pattern: str) -> List[str]:
+        pattern = pattern.lower()
+        return fnmatch.filter(map(str.lower, self), f"*{pattern}*")
+
+    def as_bytes(self) -> bytes:
         return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
 
 
 class Visiblity:
     # is IdTech format the same as Valve format?
     # is Titanfall (v29) the same?
-    def __init__(self, raw_visibility):
+    def __init__(self, raw_visibility: bytes):
         vis_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]
         num_clusters = vis_data
         for i in range(num_clusters):
@@ -97,5 +104,5 @@ class Visiblity:
             # from bytes inside the .bsp file?
         raise NotImplementedError("Understanding of Visibility lump is incomplete")
 
-    def as_bytes(self):
+    def as_bytes(self) -> bytes:
         raise NotImplementedError("Visibility lump hard")
