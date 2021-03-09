@@ -1,4 +1,5 @@
 ﻿from collections import namedtuple
+import fnmatch
 import itertools
 import os
 from typing import Any, Dict, List, Set
@@ -57,10 +58,11 @@ class Manager:
 
     def __init__(self, size=256*10**6):  # size is in bytes (default 256MB)
         self.buffer_size = size
-        self.renderables = dict()
         self.buffer_update_queue = list()
-        self.vertex_formats = dict()
+        self.renderables = dict()
+        self.shaders = dict()
         self.uniforms = dict()
+        self.vertex_formats = dict()
         self.parse_shaders()
 
     def parse_shaders(self):
@@ -76,7 +78,9 @@ class Manager:
 
         for vertex_shader_name, vertex_shader_text in vertex_shaders.items():
             uniforms, layouts = dict(), dict()
-            # ^ {"uniform": }, {("attrib", glsl_type): location}
+            # ^ {"uniform": glsl_type}, {("attrib", glsl_type): location}
+            # TODO: use regex to parse shaders, as formatting is loose
+            # -- would likely constitute it's own script
             for line in vertex_shader_text.split(";"):
                 line = line.split()
                 if line[0] == "uniform":
@@ -89,14 +93,30 @@ class Manager:
                     glsl_type, attribute = line[-2], line[-1]
                     layouts[(attribute, glsl_type)] = location
 
+            vertex_shader_name = os.path.splitext(vertex_shader_name)[0]  # "mesh.vert" -> "mesh"
             self.shaders[vertex_shader_name] = dict()
-            # ^ {"vertex_shader.vert": {"fragment_shader.frag": shader_pointer}}
+            # ^ {"vertex_shader": {"fragment_shader.frag": shader_pointer}}
             self.uniforms[vertex_shader_name] = uniforms
+            # ^ {"vertex_shader": {"uniform": ("glsl_type", uniform_location)}}
             self.vertex_formats[vertex_shader_name] = sorted(layouts, key=lambda k: layouts[k])
-        # TODO: configure vertex attribs for each shader (set_shader method?)
-            ...
-        # TODO: match vertex shaders to fragment shaders
-        # TODO: parse fragment shader uniforms
+            # ^ {"vertex_shader": [("attribute", "glsl_type")]}
+            # TODO: test to check if layout index matters, otherwise sorted order should do
+            for fragment_shader_name in [n for n in fragment_shaders if n.startswith(vertex_shader_name)]:
+                fragment_shader_text = fragment_shaders[fragment_shader_name]
+                uniforms = dict()
+                # ^ {"uniform": None}
+                # TODO: use regex to parse shaders, as formatting is loose
+                # -- would likely constitute it's own script
+                for line in fragment_shader_text.split(";"):
+                    line = line.split()
+                    if line[0] == "uniform":
+                        # "uniform", ~precision, glsl_type, uniform
+                        glsl_type, uniform = line[-2], line[-1]
+                        uniforms[uniform] = glsl_type
+                fragment_shader_name = os.path.splitext(fragment_shader_name)[0].lstrip(f"{vertex_shader_name}_")
+                # ^ "mesh_flat.frag" -> "flat"
+                self.shaders[vertex_shader_name][fragment_shader_name] = None  # filled by compile_shaders
+                self.uniforms[f"{vertex_shader_name}_{fragment_shader_name}"] = uniforms
 
     def init_GL(self):
         gl.glClearColor(0.25, 0.25, 0.5, 0.0)
@@ -104,26 +124,33 @@ class Manager:
         gluPerspective(90, 1, 0.1, 1024)
         gl.glTranslate(0, 0, -8)
         gl.glPointSize(4)
-        self.import_shader("mesh_flat")
+        self.compile_shaders()
 
     def compile_shaders(self):
         global shader_folder
-        for vertex_shader_name in self.shaders:
-            for fragment_shader_name in self.shaders[vertex_shader_name]:
-                with open(os.path.join(shader_folder, vertex_shader_name)) as vertex_shader_file:
-                    vertex_shader_text = vertex_shader_file.read()
-                with open(os.path.join(shader_folder, fragment_shader_name)) as fragment_shader_file:
-                    fragment_shader_text = fragment_shader_file.read()
+        for vertex_shader_type in self.shaders:
+            # NOTE: fragment shaders are matched in the .parse_shaders() method
+            for fragment_shader_type in self.shaders[vertex_shader_type]:
+                with open(os.path.join(shader_folder, f"{vertex_shader_type}.vert")) as file:
+                    vertex_shader_text = file.read()
+                with open(os.path.join(shader_folder, f"{vertex_shader_type}_{fragment_shader_type}.frag")) as file:
+                    fragment_shader_text = file.read()
+                # TODO: check if you can compile vertex shaders once then link multiple times
                 vertex_shader = compileShader(vertex_shader_text, gl.GL_VERTEX_SHADER)
                 fragment_shader = compileShader(fragment_shader_text, gl.GL_FRAGMENT_SHADER)
                 shader = compileProgram(vertex_shader, fragment_shader)
-                gl.glLinkProgram(shader)  # CHECK: can you compile the vertex shader once then link multiple times?
-                self.shaders[vertex_shader_name][fragment_shader_name] = shader
+                gl.glLinkProgram(shader)
+                self.shaders[vertex_shader_type][vertex_shader_type] = shader
+                # get uniform locations for updates
                 gl.glUseProgram(shader)
-                for uniform, glsl_type in self.uniforms[vertex_shader_name]:
-                    self.uniforms[fragment_shader_name][(uniform, glsl_type)] = gl.glGetUniformLocation(shader, uniform)
-                for uniform, glsl_type in self.uniforms[fragment_shader_name]:
-                    self.uniforms[fragment_shader_name][(uniform, glsl_type)] = gl.glGetUniformLocation(shader, uniform)
+                for uniform in self.uniforms[vertex_shader_type]:
+                    self.uniforms[vertex_shader_type][uniform] = (glsl_type, gl.glGetUniformLocation(shader, uniform))
+                # ^ runs multiple times per vertex shader
+                for uniform, glsl_type in self.uniforms[f"{vertex_shader_type}_{fragment_shader_type}"]:
+                    self.uniforms[vertex_shader_type][uniform] = (glsl_type, gl.glGetUniformLocation(shader, uniform))
+        # TODO: configure vertex attribs for each shader
+        # - a .set_shader() method would be ideal since some shaders need to be switched between
+        # NOTE: vertex attribs only need change between base vertex shaders! and sometimes not even then!
 
     def init_buffers(self):
         self.VERTEX_BUFFER = gl.glGenBuffers(1)
@@ -137,7 +164,8 @@ class Manager:
         gl.glVertexAttribPointer(0, 3, gl.GL_FLOAT, gl.GL_FALSE, 12, gl.GLvoidp(0))
 
     def draw(self):
-        gl.glUseProgram(self.shaders["basic"])
+        # TODO: get list of shader programs and indices from self.renderables
+        gl.glUseProgram(self.shaders["mesh"]["flat"])
         gl.glDrawElements(gl.GL_TRIANGLES, self.draw_length, gl.GL_UNSIGNED_INT, gl.GLvoidp(0))
 
     def update(self):

@@ -1,7 +1,7 @@
 #version 300 es
 layout(location = 0) in vec3 vertex_position;
 layout(location = 1) in vec3 vertex_normal;
-layout(location = 2) in vec3 vertex_uv;
+layout(location = 2) in vec2 vertex_uv;
 
 uniform mat4 view_matrix;
 
