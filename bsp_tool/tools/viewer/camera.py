@@ -22,7 +22,7 @@ sensitivity = 2
 class Camera:
     position: vector.vec3
     rotation: vector.vec3
-    speed: float = 384
+    speed: float = 32
 
     def __init__(self, position: (float, float, float), rotation: (float, float, float) = (0, 0, 0)):
         self.position = vector.vec3(*position)

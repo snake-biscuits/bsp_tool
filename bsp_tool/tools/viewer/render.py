@@ -71,9 +71,9 @@ class Manager:
         global shader_folder
         for shader_file in os.listdir(shader_folder):
             with open(os.path.join(shader_folder, shader_file)) as shader_text:
-                if shader_file.endswith(".vert"):
+                if fnmatch.fnmatch(shader_file, "*.v*"):
                     vertex_shaders[shader_file] = shader_text.read()
-                elif shader_file.endswith(".frag"):
+                elif fnmatch.fnmatch(shader_file, "*.f*"):
                     fragment_shaders[shader_file] = shader_text.read()
 
         for vertex_shader_name, vertex_shader_text in vertex_shaders.items():
