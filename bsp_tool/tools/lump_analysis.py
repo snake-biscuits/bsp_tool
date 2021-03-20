@@ -93,6 +93,7 @@ def sizes_csv(folder: str, csv_name: str):
             elif hasattr(header, "length"):
                 lump_sizes[lump.name].append(header.length)
         del bsp
+
     for lump_name, sizes in lump_sizes.items():
         if set(sizes) == {0}:
             continue  # lump is unused
@@ -102,7 +103,9 @@ def sizes_csv(folder: str, csv_name: str):
     for lump_name, sizes in lump_sizes.items():
         if sizes == {0}:
             continue  # lump is unused
-        could_bes = list(map(str, potential_sizes(sizes, start=2, step=2)))
+        could_bes = tuple(map(str, potential_sizes(sizes, start=2, step=2)))
+        if len(could_bes) == 0 or could_bes in ((0,), ("unknown",)):
+            continue
         out_csv.write(f"{lump_name}," + ",".join(could_bes) + "\n")
     out_csv.close()
 
