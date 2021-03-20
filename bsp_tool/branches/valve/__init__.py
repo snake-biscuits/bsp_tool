@@ -1,6 +1,8 @@
-__all__ = ["orange_box"]
+__all__ = ["cs_go", "cs_source", "orange_box"]
 
 # TODO: Goldsrc
+from . import cs_go
+from . import cs_source
 from . import orange_box  # Most Source Engine Games
 # TODO: Source 2 (does source 2 use .bsp?)
 

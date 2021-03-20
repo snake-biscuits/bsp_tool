@@ -15,34 +15,40 @@ by_magic = {
     b"IBSP": [id_software.quake3, infinity_ward.call_of_duty1],
     # respawn.FILE_MAGIC
     b"rBSP": [respawn.apex_legends, respawn.titanfall2],
-    # valve.FILE_MAGIC
-    b"VBSP": [valve.orange_box, nexon.vindictus]
+    # nexon.FILE_MAGIC & valve.FILE_MAGIC
+    b"VBSP": [nexon.vindictus, valve.orange_box]
            }
 
 by_name = {
     # ID SOFTWARE
-    "quakeiii": id_software.quake3,
-    "quake 3": id_software.quake3,
     "quake3": id_software.quake3,
+    "quakeiii": id_software.quake3,
     # INFINITY WARD
-    "call of duty": infinity_ward.call_of_duty1,
+    "callofduty": infinity_ward.call_of_duty1,
     "cod": infinity_ward.call_of_duty1,
+    # NEXON
+    "counterstrikeonline2": nexon.cso2,
+    "cso2": nexon.cso2,
+    "csonline2": nexon.cso2,
+    "vindictus": nexon.vindictus,
     # RESPAWN
-    "apex legends": respawn.apex_legends,
     "apex": respawn.apex_legends,
+    "apexlegends": respawn.apex_legends,
     "r1": respawn.titanfall,
     "r2": respawn.titanfall2,
     "r5": respawn.apex_legends,
     "tf|2": respawn.titanfall2,
     "titanfall": respawn.titanfall,
-    "titanfall 2": respawn.titanfall2,
     "titanfall2": respawn.titanfall2,
     # VALVE
-    "orange box": valve.orange_box,
-    "tf2": valve.orange_box,  # Team Fortress 2
-    "team fortress 2": valve.orange_box,
-    "team fortress2": valve.orange_box,
-    "vindictus": nexon.vindictus
+    "csgo": valve.cs_go,
+    "css": valve.cs_source,
+    "cssource": valve.cs_source,
+    "globaloffensive": valve.cs_go,
+    "orangebox": valve.orange_box,
+    "teamfortress 2": valve.orange_box,
+    "teamfortress2": valve.orange_box,
+    "tf2": valve.orange_box
           }
 
 by_version = {
@@ -50,6 +56,9 @@ by_version = {
     id_software.quake3.BSP_VERSION: id_software.quake3,  # 46
     # INFINITY WARD
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
+    # NEXON
+    nexon.cso2.BSP_VERSION: nexon.cso2,  # 100?
+    # skip vindictus, v20 defaults to orange_box
     # RESPAWN
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
@@ -57,5 +66,7 @@ by_version = {
     48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
     # VALVE
-    valve.orange_box.BSP_VERSION: valve.orange_box  # 20
+    valve.cs_source.BSP_VERSION: valve.cs_source,
+    valve.cs_go.BSP_VERSION: valve.cs_go,
+    valve.orange_box.BSP_VERSION: valve.orange_box  # 20 (many sub-variants)
              }
