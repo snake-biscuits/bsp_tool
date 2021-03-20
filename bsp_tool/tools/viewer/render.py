@@ -143,11 +143,17 @@ class Manager:
                 self.shaders[vertex_shader_type][vertex_shader_type] = shader
                 # get uniform locations for updates
                 gl.glUseProgram(shader)
-                for uniform in self.uniforms[vertex_shader_type]:
-                    self.uniforms[vertex_shader_type][uniform] = (glsl_type, gl.glGetUniformLocation(shader, uniform))
+                # NOTE: self.uniforms = {"shader_program": {("uniform_name", "glsl_type"): id}}
+                for uniform_key in self.uniforms[vertex_shader_type]:
+                    uniform_name, glsl_type = uniform_key
+                    uniform_location = gl.glGetUniformLocation(shader, uniform_name)
+                    self.uniforms[vertex_shader_type][uniform_key] = (glsl_type, uniform_location)
                 # ^ runs multiple times per vertex shader
-                for uniform, glsl_type in self.uniforms[f"{vertex_shader_type}_{fragment_shader_type}"]:
-                    self.uniforms[vertex_shader_type][uniform] = (glsl_type, gl.glGetUniformLocation(shader, uniform))
+                final_shader_name = f"{vertex_shader_type}_{fragment_shader_type}"
+                for uniform_key in self.uniforms[final_shader_name]:
+                    uniform_name, glsl_type = uniform_key
+                    uniform_location = gl.glGetUniformLocation(shader, uniform_name)
+                    self.uniforms[final_shader_name][uniform_key] = (glsl_type, uniform_location)
         # TODO: configure vertex attribs for each shader
         # - a .set_shader() method would be ideal since some shaders need to be switched between
         # NOTE: vertex attribs only need change between base vertex shaders! and sometimes not even then!
