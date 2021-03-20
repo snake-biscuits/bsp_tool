@@ -5,7 +5,7 @@ import struct
 from typing import List
 
 from .. import base
-from . import orange_box
+from ..valve import orange_box
 
 
 with open(os.path.join(os.path.dirname(__file__), "vindictus_notes.txt")) as notes:
