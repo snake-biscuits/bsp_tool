@@ -30,6 +30,8 @@ by_name = {
     "counterstrikeonline2": nexon.cso2,
     "cso2": nexon.cso2,
     "csonline2": nexon.cso2,
+    "mabinogi": nexon.vindictus,
+    "mabinogiheroes": nexon.vindictus,
     "vindictus": nexon.vindictus,
     # RESPAWN
     "apex": respawn.apex_legends,
@@ -46,7 +48,6 @@ by_name = {
     "cssource": valve.cs_source,
     "globaloffensive": valve.cs_go,
     "orangebox": valve.orange_box,
-    "teamfortress 2": valve.orange_box,
     "teamfortress2": valve.orange_box,
     "tf2": valve.orange_box
           }

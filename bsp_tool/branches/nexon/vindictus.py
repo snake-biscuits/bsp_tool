@@ -1,3 +1,4 @@
+"""Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
 import collections
 import enum
 import os
@@ -169,8 +170,8 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class LeafFace(base.Struct):  # LUMP 16
-    __slots__ = ["value"]
+class LeafFace(int):  # LUMP 16
+    """Index of Face, this lump is a pre-organised sequence for the vis system"""
     _format = "I"
 
 

@@ -4,6 +4,7 @@ import fnmatch
 import math
 import os
 import struct
+import traceback
 from typing import Any, List
 
 from .. import load_bsp
@@ -81,11 +82,17 @@ def analyse(array, *indices):
 
 def sizes_csv(folder: str, csv_name: str):
     out_csv = open(csv_name, "w")
-    map_folder = list(fnmatch.filter(os.listdir(folder), "*.bsp"))
+    map_folder = sorted(fnmatch.filter(os.listdir(folder), "*.bsp"))
     out_csv.write("LUMP," + ",".join(map_folder) + "\n")
     lump_sizes = collections.defaultdict(list)
     for bsp_filename in map_folder:
-        bsp = load_bsp(os.path.join(folder, bsp_filename))
+        try:
+            bsp = load_bsp(os.path.join(folder, bsp_filename))
+            print()  # for tidy logs
+        except Exception as exc:
+            print(f"Encountered a {exc.__class__.__name__} loading {bsp_filename}:")
+            traceback.print_exc()
+            continue
         for lump in bsp.branch.LUMP:
             header = bsp.HEADERS[lump.name]
             if hasattr(header, "filesize"):
