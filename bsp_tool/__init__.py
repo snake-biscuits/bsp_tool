@@ -1,6 +1,7 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "tools", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
 
+import difflib
 from types import ModuleType
 from typing import Union
 
@@ -55,12 +56,16 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
         # ^ "Counter-Strike: Online 2" -> "counterstrikeonline2"
         if branch != "unknown":
             if branch not in branches.by_name:
-                # TODO: Give a warning and use a defaul
-                raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
+                close_matches = difflib.get_close_matches(branch, branches.by_name)
+                if len(close_matches) == 0:
+                    raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
+                else:
+                    print(f'"{branch}" is not a known branch, trying "{close_matches[0]}"...')
+                    branch = close_matches[0]
             branch = branches.by_name[branch]
         else:
             if bsp_version not in branches.by_version:
-                # TODO: Give a warning and use a defaul
+                # TODO: Give a warning and use a default
                 raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
             branch = branches.by_version[bsp_version]
             return BspVariant(branch, filename, autoload=True)
