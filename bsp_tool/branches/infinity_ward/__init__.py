@@ -1,3 +1,5 @@
 __all__ = ["call_of_duty1"]
 
 from . import call_of_duty1
+
+__doc__ = """Infinity Ward created the Call of Duty Franchise, built on the idTech3 (Q3A) engine."""

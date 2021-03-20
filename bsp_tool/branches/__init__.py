@@ -1,10 +1,14 @@
-__all__ = ["id_software", "infinity_ward", "respawn", "valve", "by_magic", "by_name", "by_version"]
+__all__ = ["id_software", "infinity_ward", "nexon", "respawn", "valve",
+           "by_magic", "by_name", "by_version"]
 
 from . import id_software
 from . import infinity_ward
+from . import nexon
 from . import respawn
 from . import valve
 
+
+__doc__ = """Index of developers of bsp format variants"""
 
 by_magic = {
     # id_software.FILE_MAGIC & infinity_ward.FILE_MAGIC
@@ -12,7 +16,7 @@ by_magic = {
     # respawn.FILE_MAGIC
     b"rBSP": [respawn.apex_legends, respawn.titanfall2],
     # valve.FILE_MAGIC
-    b"VBSP": [valve.orange_box, valve.vindictus]
+    b"VBSP": [valve.orange_box, nexon.vindictus]
            }
 
 by_name = {
@@ -38,7 +42,7 @@ by_name = {
     "tf2": valve.orange_box,  # Team Fortress 2
     "team fortress 2": valve.orange_box,
     "team fortress2": valve.orange_box,
-    "vindictus": valve.vindictus
+    "vindictus": nexon.vindictus
           }
 
 by_version = {
