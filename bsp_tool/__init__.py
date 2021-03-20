@@ -12,45 +12,55 @@ from .respawn import RespawnBsp
 from .valve import ValveBsp
 
 
-bsp_variant_by_file_magic = {b"IBSP": IdTechBsp,
-                             b"rBSP": RespawnBsp,
-                             b"VBSP": ValveBsp}
+developers_by_file_magic = {b"IBSP": "id Software",  # also Infinity Ward
+                            b"rBSP": "Respawn Entertainment",
+                            b"VBSP": "Valve Software"}
 
 
-def load_bsp(filename: str, branch: Union[str, ModuleType] = "unknown"):
-    # TODO: make legible
-    # identify developer variant
-    BspVariant = None
+def get_developer(filename: str) -> str:
+    developer = "Unknown"
     if filename.endswith(".d3dbsp"):
-        # NOTE: Call of Duty 1 has .bsp files in .pk3 archives
-        # -- later games instead use .d3dbsp in .iwd archives
-        BspVariant = D3DBsp
+        developer = "Infinity Ward"
     elif not filename.endswith(".bsp"):
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    # -- check file-magic & bsp format version
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
-        bsp_version = int.from_bytes(bsp_file.read(4), "little")  # not always in this position
-    # -- get engine branch from file magic (D3DBsp is IBSP but also .d3dbsp)
-    if BspVariant != D3DBsp:
-        BspVariant = bsp_variant_by_file_magic[file_magic]
-        if file_magic == b"IBSP" and bsp_version == branches.infinity_ward.call_of_duty1.BSP_VERSION:
-            BspVariant = D3DBsp  # CoD 1 uses the .bsp extension & b"IBSP" file-magic
-    # -- choose the branch script
+        bsp_version = int.from_bytes(bsp_file.read(4), "little")
+        # NOTE: bsp_version is not always in this position
+    if developer != "Infinity Ward":
+        developer = developers_by_file_magic[file_magic]
+        if file_magic == b"IBSP" and bsp_version == 59:  # CoD1 bsp_version
+            developer = "Infinity Ward"
+    return developer
+
+
+def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
+    # TODO: make legible
+    # TODO: default branches for certain criteria
+    # identify developer variant
+    variants = {"id Software": IdTechBsp,
+                "Infinity Ward": D3DBsp,
+                "Respawn Entertainment": RespawnBsp,
+                "Valve Software": ValveBsp}  # catches Nexon Source branch
+    BspVariant = variants[get_developer(filename)]
+    with open(filename, "rb") as bsp_file:
+        file_magic = bsp_file.read(4)
+        bsp_version = int.from_bytes(bsp_file.read(4), "little")
+        # NOTE: bsp_version is not always in this position
     if isinstance(branch, ModuleType):
-        pass  # use the provided branch script
-    # guess .bsp format from version
-    elif branch.lower() == "unknown":
+        return BspVariant(branch, filename, autoload=True)
+    elif isinstance(branch, str):
         branch = branch.lower()
-        if bsp_version not in branches.by_version:
-            raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
-            # ^ if you got this error, force a branch!
-            # e.g. >>> load_bsp("tests/maps/test2.bsp", branches.valve.orange_box)
-        branch = branches.by_version[bsp_version]
-    # lookup branch by name
-    else:
-        branch = branch.lower()
-        if branch not in branches.by_name:
-            raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
-        branch = branches.by_name[branch]
-    return BspVariant(branch, filename, autoload=True)
+        branch = "".join(filter(str.isalnum, branch))
+        # ^ "Counter-Strike: Online 2" -> "counterstrikeonline2"
+        if branch != "unknown":
+            if branch not in branches.by_name:
+                # TODO: Give a warning and use a defaul
+                raise NotImplementedError(f"{branch} .bsp format is not supported, yet.")
+            branch = branches.by_name[branch]
+        else:
+            if bsp_version not in branches.by_version:
+                # TODO: Give a warning and use a defaul
+                raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
+            branch = branches.by_version[bsp_version]
+            return BspVariant(branch, filename, autoload=True)

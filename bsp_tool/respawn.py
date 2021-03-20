@@ -20,6 +20,7 @@ class RespawnBsp(base.Bsp):
     # NOTE: respawn .bsp files are usually stored in .vpk files
     # -- Respawn's .vpk format is different to Valve's
     # -- You'll need the Titanfall specific .vpk tool to extract maps
+    # -- https://noskill.gitbook.io/titanfall2/how-to-start-modding/modding-introduction/modding-tools
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(RespawnBsp, self).__init__(branch, filename)
