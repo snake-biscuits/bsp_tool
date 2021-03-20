@@ -54,7 +54,7 @@ class FastFile:  # TODO: provide a zipfile.ZipFile-like interface
         # contents = {"filename": (start_index, data_length)}
         index_count, separator1, filetype_key, separator2 = struct.unpack("4I", decompressed_bytes[44:44 + 16])
         # assert separator1 == separator2 == 0xFFFFFFFF
-        print(index_count, separator1, filetype_key, hex(separator2))
+        print(index_count, hex(separator1), filetype_key, hex(separator2))
         print(filetypes[filetype_key])
 
 
