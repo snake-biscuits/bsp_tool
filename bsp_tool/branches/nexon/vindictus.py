@@ -135,8 +135,8 @@ class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
     _format = "3f3if2iI2i144c10I"  # Neighbours are also different
-    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
-               "corner_neighbours": 44, "allowed_verts": 10}
+    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 72,
+               "corner_neighbours": 72, "allowed_verts": 10}
 
 
 class Edge(list):  # LUMP 12

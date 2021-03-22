@@ -6,10 +6,11 @@ import struct
 import zipfile
 
 from . import vindictus
+from .. import base
 from .. import shared
 
 
-BSP_VERSION = 100
+BSP_VERSION = 100  # 1.00?
 
 
 class LUMP(enum.Enum):
@@ -80,18 +81,23 @@ class LUMP(enum.Enum):
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+CSOLumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "compressed", "fourCC"])
+# NOTE: looking at headers, a half int of value 0x0001 seemed attached to version seemed to make sense
 
 
 def read_lump_header(file, LUMP: enum.Enum):
     file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = LumpHeader(offset, length, version, fourCC)
+    offset, length, version, compressed = struct.unpack("2I2H", file.read(12))
+    fourCC = int.from_bytes(file.read(4), "big")  # fourCC is big endian for some reason
+    header = CSOLumpHeader(offset, length, version, bool(compressed), fourCC)
     return header
+# NOTE: lump header formats could easily be a:  LumpClass(base.Struct)
 
 
 # classes for each lump, in alphabetical order: [XX / 64]
-...
+class DisplacementInfo(base.Struct):  # LUMP 26
+    __slots__ = [f"unknown{i + 1}" for i in range(61)]  # not yet used
+    _format = "60IH"  # 242 bytes, 10 bytes more than Vindictus
 
 # NOTE: dcubemap_t varies (160 bytes 2013era, 164 bytes 2017era)
 # NOTE: if lighting settings are not Medium, maps from 2013 era crash

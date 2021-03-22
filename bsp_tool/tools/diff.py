@@ -33,6 +33,8 @@ def diff_bsps(bsp1, bsp2, full=False):
         print("Y" if bsp1_header.version == bsp2_header.version else "N", end="")
         print("Y" if bsp1_header.fourCC == bsp2_header.fourCC else "N", end="  ")
 
+        # TODO: compare compressed lumps to uncompressed
+
         try:
             lump_1_contents = bsp1.lump_as_bytes(lump1)
             lump_2_contents = bsp2.lump_as_bytes(lump2)
