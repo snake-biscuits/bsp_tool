@@ -97,6 +97,8 @@ def sizes_csv(folder: str, csv_name: str):
             header = bsp.HEADERS[lump.name]
             if hasattr(header, "filesize"):
                 lump_sizes[lump.name].append(header.filesize)
+            elif getattr(header, "fourCC", 0) > 0:
+                lump_sizes[lump.name].append(header.fourCC)
             elif hasattr(header, "length"):
                 lump_sizes[lump.name].append(header.length)
         del bsp

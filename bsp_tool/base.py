@@ -11,7 +11,7 @@ from typing import Dict, List, Union
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])  # Valve lump header
 # TODO: streamline lump header definition
 # - version matters, different struct definitions have to be accounted for
-# - a fourCC other than 0 means a lump is compressed
+# - a fourCC other than 0 means a lump is compressed (stored uncompressed size)
 # - the game lump has sub headers where fourCC defines lump type
 
 
