@@ -42,15 +42,15 @@ class LUMP(enum.Enum):
     UNUSED1 = 23
     UNUSED2 = 24
     UNUSED3 = 25
-    DISP_INFO = 26
+    DISPLACEMENT_INFO = 26
     ORIGINAL_FACES = 27
-    PHYS_DISP = 28
-    PHYS_COLLIDE = 29
+    PHYSICS_DISPLACEMENT = 28
+    PHYSICSCOLLIDE = 29
     VERT_NORMALS = 30
     VERT_NORMAL_INDICES = 31
-    DISP_LIGHTMAP_ALPHAS = 32
-    DISP_VERTS = 33
-    DISP_LIGHTMAP_SAMPLE_POSITIONS = 34
+    DISPLACEMENT_LIGHTMAP_ALPHAS = 32
+    DISPLACEMENT_VERTS = 33
+    DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS = 34
     GAME_LUMP = 35
     LEAF_WATER_DATA = 36
     PRIMITIVES = 37
@@ -64,8 +64,8 @@ class LUMP(enum.Enum):
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MARCO_TEXTURE_INFO = 47
-    DISP_TRIS = 48
-    PHYS_COLLIDE_SURFACE = 49
+    DISPLACEMENT_TRIS = 48
+    PHYSICSCOLLIDE_SURFACE = 49
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
@@ -115,9 +115,9 @@ class AreaPortal(base.Struct):  # LUMP 21
 class BrushSide(base.Struct):  # LUMP 19
     plane: int      # index into Plane lump
     tex_info: int   # index into TextureInfo lump
-    disp_info: int  # index into DisplacementInfo lump
+    displacement_info: int  # index into DisplacementInfo lump
     bevel: int      # smoothing group?
-    __slots__ = ["plane_num", "tex_info", "disp_info", "bevel"]
+    __slots__ = ["plane_num", "tex_info", "displacement_info", "bevel"]
     _format = "I3i"
 
 
@@ -146,7 +146,7 @@ class Edge(list):  # LUMP 12
 class Face(base.Struct):  # LUMP 7
     plane: int  # index into Plane lump
     __slots__ = ["plane", "side", "on_node", "unknown1", "first_edge",
-                 "num_edges", "tex_info", "disp_info", "surface_fog_volume_id",
+                 "num_edges", "tex_info", "displacement_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
                  "lightmap_texture_mins_in_luxels",
                  "lightmap_texture_size_in_luxels",
@@ -177,7 +177,7 @@ class LeafFace(int):  # LUMP 16
 
 class Node(base.Struct):  # LUMP 5
     __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
-                 "numfaces", "area", "padding"]
+                 "numfaces", "padding"]
     _format = "12i"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
@@ -196,7 +196,7 @@ LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS": Area,
                      "AREA_PORTALS": AreaPortal,
                      "BRUSH_SIDES": BrushSide,
-                     "DISP_INFO": DisplacementInfo,
+                     "DISPLACEMENT_INFO": DisplacementInfo,
                      "EDGES": Edge,
                      "FACES": Face,
                      "LEAVES": Leaf,

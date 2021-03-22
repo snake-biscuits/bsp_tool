@@ -38,15 +38,15 @@ class LUMP(enum.Enum):
     UNUSED_23 = 23
     UNUSED_24 = 24
     UNUSED_25 = 25
-    DISP_INFO = 26
+    DISPLACEMENT_INFO = 26
     ORIGINAL_FACES = 27
-    PHYS_DISP = 28
-    PHYS_COLLIDE = 29
+    PHYSICS_DISPLACEMENT = 28
+    PHYSICSCOLLIDE = 29
     VERT_NORMALS = 30
     VERT_NORMAL_INDICES = 31
-    DISP_LIGHTMAP_ALPHAS = 32
-    DISP_VERTS = 33
-    DISP_LIGHTMAP_SAMPLE_POSITIONS = 34
+    DISPLACEMENT_LIGHTMAP_ALPHAS = 32
+    DISPLACEMENT_VERTS = 33
+    DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS = 34
     GAME_LUMP = 35
     LEAF_WATER_DATA = 36
     PRIMITIVES = 37
@@ -60,8 +60,8 @@ class LUMP(enum.Enum):
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MARCO_TEXTURE_INFO = 47
-    DISP_TRIS = 48
-    PHYS_COLLIDE_SURFACE = 49
+    DISPLACEMENT_TRIS = 48
+    PHYSICSCOLLIDE_SURFACE = 49
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
@@ -155,9 +155,9 @@ class Brush(base.Struct):  # LUMP 18
 class BrushSide(base.Struct):  # LUMP 19
     plane: int      # index into Plane lump
     tex_info: int   # index into TextureInfo lump
-    disp_info: int  # index into DisplacementInfo lump
+    displacement_info: int  # index into DisplacementInfo lump
     bevel: int      # smoothing group?
-    __slots__ = ["plane", "tex_info", "disp_info", "bevel"]
+    __slots__ = ["plane", "tex_info", "displacement_info", "bevel"]
     _format = "H3h"
 
 
@@ -173,15 +173,15 @@ class Cubemap(base.Struct):  # LUMP 42
 class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: List[float]  # rough XYZ of the vertex to orient around
-    disp_vert_start: int  # index of first DisplacementVertex
-    disp_tri_start: int   # index of first DisplacementTriangle
+    displacement_vert_start: int  # index of first DisplacementVertex
+    displacement_tri_start: int   # index of first DisplacementTriangle
     # ^ length of sequence for each varies depending on power
     power: int  # level of subdivision
     min_tesselation: int  # for tesselation shaders / triangle assembley?
     smoothing_angle: float  # ?
     contents: int  # contents bitflags
     map_face: int  # index of Face?
-    __slots__ = ["start_position", "disp_vert_start", "disp_tri_start", "power",
+    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start", "power",
                  "min_tesselation", "smoothing_angle", "contents", "map_face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
@@ -230,7 +230,7 @@ class Face(base.Struct):  # LUMP 7
     first_edge: int  # index into the SurfEdge lump
     num_edges: int   # number of SurfEdges after first_edge in this Face
     tex_info: int    # index into the TextureInfo lump
-    disp_info: int   # index into the DisplacementInfo lump (None if -1)
+    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
     styles: int      # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
@@ -242,7 +242,7 @@ class Face(base.Struct):  # LUMP 7
     first_primitive_id: int  # index of Primitive
     smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
-                 "tex_info", "disp_info", "surface_fog_volume_id", "styles",
+                 "tex_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face",
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
@@ -400,9 +400,9 @@ LUMP_CLASSES = {"AREAS": Area,
                 "BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
                 "CUBEMAPS": Cubemap,
-                "DISP_INFO": DisplacementInfo,
-                "DISP_TRIS": DisplacementTriangle,
-                "DISP_VERTS": DisplacementVertex,
+                "DISPLACEMENT_INFO": DisplacementInfo,
+                "DISPLACEMENT_TRIS": DisplacementTriangle,
+                "DISPLACEMENT_VERTS": DisplacementVertex,
                 "EDGES": Edge,
                 "FACES": Face,
                 "LEAVES": Leaf,
@@ -521,12 +521,12 @@ def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[L
 def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
-    if face.disp_info == -1:
+    if face.displacement_info == -1:
         raise RuntimeError(f"Face #{face_index} is not a displacement!")
     base_vertices = bsp.vertices_of_face(face_index)
     if len(base_vertices) != 4:
         raise RuntimeError(f"Face #{face_index} does not have 4 corners (probably t-junctions)")
-    disp_info = bsp.DISP_INFO[face.disp_info]
+    disp_info = bsp.DISPLACEMENT_INFO[face.displacement_info]
     start = vector.vec3(*disp_info.start_position)
     base_quad = [vector.vec3(*P) for P, N, uv, uv2, rgb in base_vertices]
     # rotate so the point closest to start on the quad is index 0
@@ -548,16 +548,16 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     uv2AD = uv2D - uv2A
     uv2BC = uv2C - uv2B
     power2 = 2 ** disp_info.power
-    disp_verts = bsp.DISP_VERTS[disp_info.disp_vert_start:]
+    disp_verts = bsp.DISPLACEMENT_VERTS[disp_info.displacement_vert_start:]
     disp_verts = disp_verts[:(power2 + 1) ** 2]
     vertices = []
-    for index, disp_vert in enumerate(disp_verts):
+    for index, disp_vertex in enumerate(disp_verts):
         t1 = index % (power2 + 1) / power2
         t2 = index // (power2 + 1) / power2
         bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
         # ^ interpolates across the base_quad to find the barymetric point
-        disp_vert = [x * disp_vert.distance for x in disp_vert.vector]
-        true_vertex = [a + b for a, b in zip(bary_vert, disp_vert)]
+        displacement_vert = [x * disp_vertex.distance for x in disp_vertex.vector]
+        true_vertex = [a + b for a, b in zip(bary_vert, displacement_vert)]
         texture_uv = vector.lerp(uvA + (uvAD * t1), uvB + (uvBC * t1), t2)
         lightmap_uv = vector.lerp(uv2A + (uv2AD * t1), uv2B + (uv2BC * t1), t2)
         normal = base_vertices[0][1]

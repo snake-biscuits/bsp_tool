@@ -5,12 +5,13 @@ import io
 import struct
 import zipfile
 
-from .. import valve
+from . import vindictus
+from .. import shared
 
 
 BSP_VERSION = 100
 
-LUMP = valve.cs_source.LUMP
+LUMP = vindictus.LUMP
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 
@@ -23,16 +24,14 @@ def read_lump_header(file, LUMP: enum.Enum):
 
 
 # classes for each lump, in alphabetical order: [XX / 64]
-class LeafFace(int):  # LUMP 16
-    """Index of Face, this lump is a pre-organised sequence for the vis system"""
-    _format = "I"  # same as Vindictus
+...
 
 # NOTE: dcubemap_t varies (160 bytes 2013era, 164 bytes 2017era)
 # NOTE: if lighting settings are not Medium, maps from 2013 era crash
 
 
-# special lump classes, in alphadebital order: [XX / 64]
-class PakFile(zipfile.ZipFile):
+# special lump classes, in alphabetical order
+class PakFile(zipfile.ZipFile):  # WIP
     """CSO2 PakFiles have a custom .zip format"""
     # b"CS" file magic & different header format?
     def __init__(self, raw_zip: bytes):
@@ -48,10 +47,10 @@ class PakFile(zipfile.ZipFile):
         return raw_zip
 
 
-LUMP_CLASSES = valve.cs_source.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LEAF_FACE": LeafFace})
+LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
 
-SPECIAL_LUMP_CLASSES = valve.cs_source.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.update({"PAKFILE": PakFile})
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
+                        "TEXDATA_STRING_DATA": shared.TexDataStringData,
+                        "PAKFILE": PakFile}
 
-methods = valve.cs_source.methods
+methods = vindictus.methods

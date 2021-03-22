@@ -49,7 +49,7 @@ class LUMP(enum.Enum):
     UNUSED_26 = 0x001A
     UNUSED_27 = 0x001B
     UNUSED_28 = 0x001C
-    PHYS_COLLIDE = 0x001D  # unused
+    PHYSICSCOLLIDE = 0x001D  # unused
     VERTEX_NORMALS = 0x001E
     UNUSED_31 = 0x001F
     UNUSED_32 = 0x0020
@@ -82,7 +82,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYS_LEVEL = 0x003E  # length 0, version 6?
+    PHYSICSLEVEL = 0x003E  # length 0, version 6?
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041

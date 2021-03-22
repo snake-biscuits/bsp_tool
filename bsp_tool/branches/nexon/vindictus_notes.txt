@@ -95,15 +95,15 @@ With 232 bytes, the displacement info struct of Vindictus is notably bigger than
 struct ddispinfo_t
 {
 	Vector			startPosition;		// start position used for orientation
-	int			DispVertStart;		// Index into LUMP_DISP_VERTS.
-	int			DispTriStart;		// Index into LUMP_DISP_TRIS.
+	int			DispVertStart;		// Index into LUMP_DISPLACEMENT_VERTS.
+	int			DispTriStart;		// Index into LUMP_DISPLACEMENT_TRIS.
 	int			power;			// power - indicates size of surface (2^power	1)
 	float			smoothingAngle;		// lighting smoothing angle
 	int			unknown0;
 	int			contents;		// surface contents
 	unsigned int		MapFace;		// Which map face this displacement comes from.
 	int			LightmapAlphaStart;	// Index into ddisplightmapalpha.
-	int			LightmapSamplePositionStart;	// Index into LUMP_DISP_LIGHTMAP_SAMPLE_POSITIONS.
+	int			LightmapSamplePositionStart;	// Index into LUMP_DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS.
 	CDispNeighbor		EdgeNeighbors[4];	// Indexed by NEIGHBOREDGE_ defines.
 	CDispCornerNeighbors	CornerNeighbors[4];	// Indexed by CORNER_ defines.
 	unsigned int		AllowedVerts[10];	// active verticies

@@ -2,6 +2,7 @@
 __all__ = ["base", "branches", "load_bsp", "tools", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
 
 import difflib
+import os
 from types import ModuleType
 from typing import Union
 
@@ -39,6 +40,8 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
     # TODO: make legible
     # TODO: default branches for certain criteria
     # identify developer variant
+    if not os.path.exists(filename):
+        raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
     variants = {"id Software": IdTechBsp,
                 "Infinity Ward": D3DBsp,
                 "Respawn Entertainment": RespawnBsp,
