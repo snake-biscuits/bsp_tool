@@ -30,7 +30,7 @@ class RespawnBsp(base.Bsp):
         """Only reads lumps stored in the main .bsp file"""
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
-        offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
+        offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
         header = LumpHeader(offset, length, version, fourCC)
         if length == 0:
             return header, None
@@ -99,7 +99,7 @@ class RespawnBsp(base.Bsp):
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
             if lump_filename in self.associated_files:  # .bsp_lump file exists
                 self.file.seek(self.branch.lump_header_address[LUMP])  # internal .bsp lump header
-                offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
+                offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
                 with open(os.path.join(self.folder, lump_filename), "rb") as lump_file:
                     data = lump_file.read()
                 lump_filesize = len(data)
@@ -152,21 +152,17 @@ class RespawnBsp(base.Bsp):
             length = len(raw_lumps[lump.name])
             version = self.HEADERS[lump.name].version
             # ^ this will change when multi-version support is added
-            fourCC = 0
+            fourCC = 0  # fourCC is 0 because we aren't encoding
             if lump.name in external_lumps:
                 external_lump_filename = f"{os.path.basename(filename)}.{lump.value:04x}.bsp_lump"
                 header = ExternalLumpHeader(offset, 0, version, fourCC, external_lump_filename, length)
+                # ^ offset, length, version, fourCC
             else:
                 header = LumpHeader(offset, length, version, fourCC)
-            headers[lump.name] = header
+            outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
+            headers[lump.name] = header  # recorded for noting padding
             current_offset += length
-        # write headers
-        for lump in self.branch.LUMP:
-            offset, length, version, fourCC = headers[lump.name][:4]
-            outfile.write(struct.pack("4I", offset, length, version, fourCC))
-            # ^ offset, length, version, fourCC
-            # fourCC is 0 because we aren't encoding
-        # write lump contents
+        # write lump contents (cannot be done until headers allocate padding)
         for lump in lump_order:
             if lump.name not in raw_lumps:
                 continue

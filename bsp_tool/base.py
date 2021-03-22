@@ -51,7 +51,7 @@ class Bsp():
     def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
-        offset, length, version, fourCC = struct.unpack("4i", self.file.read(16))
+        offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
         header = LumpHeader(offset, length, version, fourCC)
         if header.length == 0:
             return header, None
