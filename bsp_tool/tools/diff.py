@@ -17,17 +17,17 @@ shared_maps = [("mp_angel_city", "mp_angel_city"),
 # ^ r1 map name, r2 map name
 
 
-def diff_respawn_bsps(bsp1, bsp2, full=False):
-    for i in range(128):
-        lump1 = bsp1.branch.LUMP(i).name
-        lump2 = bsp2.branch.LUMP(i).name
+def diff_bsps(bsp1, bsp2, full=False):
+    for lump1, lump2 in zip(bsp1.branch.LUMP, bsp2.branch.LUMP):
+        lump1 = lump1.name
+        lump2 = lump2.name
         bsp1_header = bsp1.HEADERS[lump1]
         bsp2_header = bsp2.HEADERS[lump2]
 
         if bsp1_header.length == 0 and bsp2_header.length == 0:
             continue  # skip empty lumps
 
-        print(f"{bsp1.branch.LUMP(i).name}", end="  ")
+        print(f"{lump1}", end="  ")
         print("Y" if bsp1_header.offset == bsp2_header.offset else "N", end="")
         print("Y" if bsp1_header.length == bsp2_header.length else "N", end="")
         print("Y" if bsp1_header.version == bsp2_header.version else "N", end="")
@@ -65,9 +65,12 @@ def diff_respawn_bsps(bsp1, bsp2, full=False):
             print(bsp1_header)
             print(bsp2_header)
 
+
+def diff_rbsps(rbsp1, rbsp2, full=False):
+    diff_bsps(rbsp1, rbsp2, full)
     for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
         print(ent_file, end="  ")
-        print("YES!" if getattr(bsp1, ent_file) == getattr(bsp1, ent_file) else "NOPE")
+        print("YES!" if getattr(rbsp1, ent_file) == getattr(rbsp1, ent_file) else "NOPE")
 
 
 def diff_entities(bsp1: RespawnBsp, bsp2: RespawnBsp):
