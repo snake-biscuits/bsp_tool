@@ -27,6 +27,8 @@ def get_developer(filename: str) -> str:
         raise RuntimeError(f"{filename} is not a .bsp file!")
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
+        if file_magic not in developers_by_file_magic:
+            raise RuntimeError(f"'{filename}' is not a valid .bsp file")
         bsp_version = int.from_bytes(bsp_file.read(4), "little")
         # NOTE: bsp_version is not always in this position
     if developer != "Infinity Ward":

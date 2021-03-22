@@ -1,25 +1,15 @@
 Loading aim_dust.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (92016 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (255960 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (108584 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (9504 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  aim_dust.bsp
 
 Loading awp_metro.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (611496 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (75824 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (232596 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (260 / 12). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (232596 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (39072 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -27,29 +17,17 @@ CUBEMAPS lump is an unusual size (3772 / 16). Wrong engine branch?
 Loaded  awp_metro.bsp
 
 Loading awp_museum.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (225552 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1022904 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (266056 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (333036 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (822168 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (333036 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  awp_museum.bsp
 
 Loading bigcity_main.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (3692664 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (1054256 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (1411524 / 8). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (1411524 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (236544 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -57,29 +35,17 @@ CUBEMAPS lump is an unusual size (6888 / 16). Wrong engine branch?
 Loaded  bigcity_main.bsp
 
 Loading bigcity_pvp.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (961200 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (4939776 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (1144472 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (1340 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (4265208 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (1849608 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  bigcity_pvp.bsp
 
 Loading campaign_05.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (231672 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (292524 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (731952 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (292524 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (175472 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -87,16 +53,10 @@ CUBEMAPS lump is an unusual size (7052 / 16). Wrong engine branch?
 Loaded  campaign_05.bsp
 
 Loading cs_aquarium.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (92400 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (490752 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (111160 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (1100 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (418032 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (253128 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (99264 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -104,12 +64,8 @@ CUBEMAPS lump is an unusual size (6068 / 16). Wrong engine branch?
 Loaded  cs_aquarium.bsp
 
 Loading cs_assault.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (583416 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (263592 / 32). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (419040 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (120032 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -117,14 +73,10 @@ CUBEMAPS lump is an unusual size (2952 / 16). Wrong engine branch?
 Loaded  cs_assault.bsp
 
 Loading cs_estate.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (837504 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (173656 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (269100 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (719424 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (269100 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (119856 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -132,12 +84,10 @@ CUBEMAPS lump is an unusual size (3444 / 16). Wrong engine branch?
 Loaded  cs_estate.bsp
 
 Loading cs_italy.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1094544 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (303856 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (820 / 12). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (483384 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (238480 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -145,29 +95,19 @@ CUBEMAPS lump is an unusual size (5576 / 16). Wrong engine branch?
 Loaded  cs_italy.bsp
 
 Loading cs_italy_night.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1100664 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (356664 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (458580 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (620 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (902088 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (458580 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (238480 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  cs_italy_night.bsp
 
 Loading cs_militia.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (500904 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (181048 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (206124 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (395352 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (206124 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (184448 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -175,31 +115,19 @@ CUBEMAPS lump is an unusual size (5084 / 16). Wrong engine branch?
 Loaded  cs_militia.bsp
 
 Loading cs_office.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (168816 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (724824 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (199864 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (597168 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (303480 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (262944 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  cs_office.bsp
 
 Loading cs_office_xmas.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (181680 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (730368 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (308124 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (603216 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (308124 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (262944 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -207,10 +135,10 @@ CUBEMAPS lump is an unusual size (4756 / 16). Wrong engine branch?
 Loaded  cs_office_xmas.bsp
 
 Loading de_aztec.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (771696 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (286308 / 8). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (286308 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (108416 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -218,23 +146,17 @@ CUBEMAPS lump is an unusual size (8692 / 16). Wrong engine branch?
 Loaded  de_aztec.bsp
 
 Loading de_cbble.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (394184 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (620 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (749880 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (418536 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (48576 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  de_cbble.bsp
 
 Loading de_centered.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1213920 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (868248 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (129184 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -242,16 +164,8 @@ CUBEMAPS lump is an unusual size (5740 / 16). Wrong engine branch?
 Loaded  de_centered.bsp
 
 Loading de_cornerwork.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (757224 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (182672 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (228612 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (579312 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (228612 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -259,14 +173,8 @@ CUBEMAPS lump is an unusual size (1804 / 16). Wrong engine branch?
 Loaded  de_cornerwork.bsp
 
 Loading de_cornerwork2.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (92688 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (678024 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (108528 / 32). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (463896 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (23760 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -274,14 +182,8 @@ CUBEMAPS lump is an unusual size (4428 / 16). Wrong engine branch?
 Loaded  de_cornerwork2.bsp
 
 Loading de_dust.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (309840 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (909864 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (757440 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (191312 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -289,12 +191,8 @@ CUBEMAPS lump is an unusual size (3608 / 16). Wrong engine branch?
 Loaded  de_dust.bsp
 
 Loading de_dust2.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1612944 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (100 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1280016 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (342320 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -302,12 +200,8 @@ CUBEMAPS lump is an unusual size (2296 / 16). Wrong engine branch?
 Loaded  de_dust2.bsp
 
 Loading de_dust2_decompressed.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1612944 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (100 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1280016 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (342320 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -315,14 +209,10 @@ CUBEMAPS lump is an unusual size (2296 / 16). Wrong engine branch?
 Loaded  de_dust2_decompressed.bsp
 
 Loading de_headquarter.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (69744 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1388304 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (83664 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (393804 / 8). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (393804 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (68816 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -330,16 +220,10 @@ CUBEMAPS lump is an unusual size (6232 / 16). Wrong engine branch?
 Loaded  de_headquarter.bsp
 
 Loading de_highland.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (66096 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (858024 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (77560 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (460 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (723024 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (293160 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (96272 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -347,14 +231,8 @@ CUBEMAPS lump is an unusual size (4100 / 16). Wrong engine branch?
 Loaded  de_highland.bsp
 
 Loading de_inferno.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1299240 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (336784 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (1300 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1113264 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (192896 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -362,12 +240,8 @@ CUBEMAPS lump is an unusual size (8200 / 16). Wrong engine branch?
 Loaded  de_inferno.bsp
 
 Loading de_nuke.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (198632 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (620 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (486072 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (143088 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -375,12 +249,10 @@ CUBEMAPS lump is an unusual size (6888 / 16). Wrong engine branch?
 Loaded  de_nuke.bsp
 
 Loading de_prodigy.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (493560 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (194936 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (246264 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (123200 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -388,14 +260,8 @@ CUBEMAPS lump is an unusual size (5576 / 16). Wrong engine branch?
 Loaded  de_prodigy.bsp
 
 Loading de_sa02.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (39024 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (233280 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (46312 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (56672 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -403,18 +269,10 @@ CUBEMAPS lump is an unusual size (3608 / 16). Wrong engine branch?
 Loaded  de_sa02.bsp
 
 Loading de_sa03.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (687504 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (765000 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (821016 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (742596 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (340 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (618984 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (742596 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (179520 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -422,14 +280,8 @@ CUBEMAPS lump is an unusual size (820 / 16). Wrong engine branch?
 Loaded  de_sa03.bsp
 
 Loading de_storage.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1427256 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (202552 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (410100 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1175472 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (410100 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -437,16 +289,10 @@ CUBEMAPS lump is an unusual size (8692 / 16). Wrong engine branch?
 Loaded  de_storage.bsp
 
 Loading de_storm.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (59568 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (541368 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (70000 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (380 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (447696 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (226872 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (42064 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -454,16 +300,10 @@ CUBEMAPS lump is an unusual size (3444 / 16). Wrong engine branch?
 Loaded  de_storm.bsp
 
 Loading de_survivor.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1131336 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (128968 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (356748 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (700 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (895968 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (356748 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (159808 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -471,16 +311,10 @@ CUBEMAPS lump is an unusual size (9348 / 16). Wrong engine branch?
 Loaded  de_survivor.bsp
 
 Loading de_tides.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (90768 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (545688 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (106736 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (294588 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (481680 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (294588 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (93632 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -488,14 +322,10 @@ CUBEMAPS lump is an unusual size (3772 / 16). Wrong engine branch?
 Loaded  de_tides.bsp
 
 Loading de_tosca.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1151280 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (240240 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (466476 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1022544 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (466476 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (118272 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -503,18 +333,10 @@ CUBEMAPS lump is an unusual size (7052 / 16). Wrong engine branch?
 Loaded  de_tosca.bsp
 
 Loading de_train.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (159600 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (732024 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (188048 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (307764 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (940 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (568728 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (307764 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (182160 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -522,44 +344,26 @@ CUBEMAPS lump is an unusual size (4264 / 16). Wrong engine branch?
 Loaded  de_train.bsp
 
 Loading de_vantage.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1152720 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (177800 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (397452 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (580 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (995040 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (397452 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (110528 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  de_vantage.bsp
 
 Loading de_vertigo.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1189512 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (199640 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (481188 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (620 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1032912 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (481188 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  de_vertigo.bsp
 
 Loading dm_cargoship.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (730872 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (285180 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (860 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (585072 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (285180 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (29568 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -567,18 +371,10 @@ CUBEMAPS lump is an unusual size (4756 / 16). Wrong engine branch?
 Loaded  dm_cargoship.bsp
 
 Loading dm_dustrush.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (94224 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (274536 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (112056 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (157860 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (250344 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (157860 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (22704 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -586,16 +382,10 @@ CUBEMAPS lump is an unusual size (820 / 16). Wrong engine branch?
 Loaded  dm_dustrush.bsp
 
 Loading dm_killhouse.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (280944 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (27832 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (105396 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (258984 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (105396 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (14608 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -603,85 +393,55 @@ CUBEMAPS lump is an unusual size (1476 / 16). Wrong engine branch?
 Loaded  dm_killhouse.bsp
 
 Loading dm_mboss.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (10704 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (310896 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (237960 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (6512 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  dm_mboss.bsp
 
 Loading dm_playground.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (198384 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (627840 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (239736 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (404784 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (335304 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (5808 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
 CUBEMAPS lump is an unusual size (8364 / 16). Wrong engine branch?
 Loaded  dm_playground.bsp
 
-Encountered a KeyError loading dm_sa01.bsp:
+Encountered a RuntimeError loading dm_sa01.bsp:
 Traceback (most recent call last):
   File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\tools\lump_analysis.py", line 90, in sizes_csv
     bsp = load_bsp(os.path.join(folder, bsp_filename))
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 46, in load_bsp
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 51, in load_bsp
     BspVariant = variants[get_developer(filename)]
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 32, in get_developer
-    developer = developers_by_file_magic[file_magic]
-KeyError: b'\xf1\x84KP'
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 31, in get_developer
+    raise RuntimeError(f"'{filename}' is not a valid .bsp file")
+RuntimeError: 'E:/Mod/CSO2/maps/dm_sa01.bsp' is not a valid .bsp file
 Loading dm_sewer.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (63312 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (172008 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (74480 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (63228 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (87912 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (63228 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (13552 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  dm_sewer.bsp
 
 Loading dm_shutdown.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (42192 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (345528 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (120948 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (276984 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (120948 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (61600 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  dm_shutdown.bsp
 
 Loading dm_uprising.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (209424 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (583992 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (253400 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (436752 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (172200 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (63184 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -689,57 +449,37 @@ CUBEMAPS lump is an unusual size (6724 / 16). Wrong engine branch?
 Loaded  dm_uprising.bsp
 
 Loading duel_diner.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (93840 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (462096 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (111608 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (408888 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (187752 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (52976 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  duel_diner.bsp
 
 Loading ew_lasttrain.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (286032 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (295260 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (470160 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (295260 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (47344 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  ew_lasttrain.bsp
 
 Loading gb_varena.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (468288 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (258552 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (109092 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (317376 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (109092 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (8800 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  gb_varena.bsp
 
 Loading gm_giant.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (91344 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (957168 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (662112 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (292008 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (70400 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -747,14 +487,10 @@ CUBEMAPS lump is an unusual size (1148 / 16). Wrong engine branch?
 Loaded  gm_giant.bsp
 
 Loading hm_multi01.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (2834568 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (542472 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (380 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (2460744 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (1034328 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (355696 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -762,10 +498,10 @@ CUBEMAPS lump is an unusual size (10168 / 16). Wrong engine branch?
 Loaded  hm_multi01.bsp
 
 Loading hs2_assault.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1178136 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (343784 / 32). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (390600 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (150656 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -773,14 +509,10 @@ CUBEMAPS lump is an unusual size (3116 / 16). Wrong engine branch?
 Loaded  hs2_assault.bsp
 
 Loading hs2_cargoship.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1384056 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (231896 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (452700 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (260 / 12). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (452700 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (43648 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -788,12 +520,8 @@ CUBEMAPS lump is an unusual size (2952 / 16). Wrong engine branch?
 Loaded  hs2_cargoship.bsp
 
 Loading hs2_estate.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1455984 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (294168 / 32). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1207440 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (150304 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -801,68 +529,44 @@ CUBEMAPS lump is an unusual size (15580 / 16). Wrong engine branch?
 Loaded  hs2_estate.bsp
 
 Loading hs2_italy2.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (316272 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1322064 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (455724 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (380 / 12). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (455724 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (168080 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  hs2_italy2.bsp
 
 Loading hs2_italy2_xmas.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (290352 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1342080 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (343000 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1080000 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (124784 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  hs2_italy2_xmas.bsp
 
-Encountered a KeyError loading hs2_office.bsp:
+Encountered a RuntimeError loading hs2_office.bsp:
 Traceback (most recent call last):
   File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\tools\lump_analysis.py", line 90, in sizes_csv
     bsp = load_bsp(os.path.join(folder, bsp_filename))
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 46, in load_bsp
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 51, in load_bsp
     BspVariant = variants[get_developer(filename)]
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 32, in get_developer
-    developer = developers_by_file_magic[file_magic]
-KeyError: b'\xc2\xabn\xea'
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 31, in get_developer
+    raise RuntimeError(f"'{filename}' is not a valid .bsp file")
+RuntimeError: 'E:/Mod/CSO2/maps/hs2_office.bsp' is not a valid .bsp file
 Loading hs2_phouse.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (218064 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1278288 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (257488 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (260 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (995976 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (361320 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (121792 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  hs2_phouse.bsp
 
 Loading hs2_sa01.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (150384 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (751104 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (177968 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (340 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (579168 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (220632 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (39424 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -870,14 +574,10 @@ CUBEMAPS lump is an unusual size (3116 / 16). Wrong engine branch?
 Loaded  hs2_sa01.bsp
 
 Loading hs2_sa02.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (853632 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (199472 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (340 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (662616 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (249192 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (88000 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -885,16 +585,10 @@ CUBEMAPS lump is an unusual size (3608 / 16). Wrong engine branch?
 Loaded  hs2_sa02.bsp
 
 Loading hs2_sa03.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (816624 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1427616 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (930732 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (340 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1124856 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (930732 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (206272 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -902,12 +596,10 @@ CUBEMAPS lump is an unusual size (984 / 16). Wrong engine branch?
 Loaded  hs2_sa03.bsp
 
 Loading hs2_studio.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1149552 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (257432 / 32). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (931320 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (375576 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (85360 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -915,16 +607,10 @@ CUBEMAPS lump is an unusual size (3116 / 16). Wrong engine branch?
 Loaded  hs2_studio.bsp
 
 Loading hs_aqua.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (384480 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (116592 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (192108 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (460 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (324288 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (192108 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (62128 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -932,18 +618,10 @@ CUBEMAPS lump is an unusual size (2952 / 16). Wrong engine branch?
 Loaded  hs_aqua.bsp
 
 Loading hs_dust2.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (330288 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (876384 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (392336 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (331212 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (696816 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (331212 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (217888 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -951,27 +629,17 @@ CUBEMAPS lump is an unusual size (820 / 16). Wrong engine branch?
 Loaded  hs_dust2.bsp
 
 Loading hs_festival.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (468432 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (119728 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (1220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (388368 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (68992 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  hs_festival.bsp
 
 Loading hs_highland.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (65808 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (810792 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (682776 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (309432 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (53328 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -979,16 +647,10 @@ CUBEMAPS lump is an unusual size (3116 / 16). Wrong engine branch?
 Loaded  hs_highland.bsp
 
 Loading hs_italy2.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (808488 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (315896 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (269172 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (590976 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (269172 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (137984 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -996,12 +658,10 @@ CUBEMAPS lump is an unusual size (2460 / 16). Wrong engine branch?
 Loaded  hs_italy2.bsp
 
 Loading hs_italy2_xmas.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (731232 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (270012 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (270012 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (94160 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1009,12 +669,10 @@ CUBEMAPS lump is an unusual size (2460 / 16). Wrong engine branch?
 Loaded  hs_italy2_xmas.bsp
 
 Loading hs_studio.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (649944 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (442728 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (194328 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (54032 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1022,29 +680,19 @@ CUBEMAPS lump is an unusual size (2952 / 16). Wrong engine branch?
 Loaded  hs_studio.bsp
 
 Loading mad_city.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (2565792 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (452816 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (942324 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (2073816 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (942324 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (161744 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  mad_city.bsp
 
 Loading mad_city_big.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (2940264 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (780248 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (835860 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (2429928 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (835860 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (170192 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1052,44 +700,24 @@ CUBEMAPS lump is an unusual size (2788 / 16). Wrong engine branch?
 Loaded  mad_city_big.bsp
 
 Loading testzone_transition1.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (122160 / 32). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (145096 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (602856 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (12672 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  testzone_transition1.bsp
 
 Loading testzone_transition2.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (131952 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (413136 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (160328 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (317592 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (18128 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  testzone_transition2.bsp
 
 Loading tuto_walk.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (178416 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (957816 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (216328 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (292860 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (808056 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (292860 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (181808 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1097,85 +725,49 @@ CUBEMAPS lump is an unusual size (4428 / 16). Wrong engine branch?
 Loaded  tuto_walk.bsp
 
 Loading uc_aztec.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (62640 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (194184 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (74424 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (260 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (106920 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (15136 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  uc_aztec.bsp
 
 Loading uc_museum.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (73680 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (241344 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (88200 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (106956 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (201240 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (106956 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (6688 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  uc_museum.bsp
 
 Loading uc_shutdown.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (308232 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (54040 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (105828 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (380 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (234144 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (105828 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (59664 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  uc_shutdown.bsp
 
 Loading zc_laboratory.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (265392 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (1036440 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (906048 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (171600 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zc_laboratory.bsp
 
 Loading zc_trainyard.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (343056 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (438852 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (967824 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (438852 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zc_trainyard.bsp
 
 Loading zd_aztec.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (914400 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (607768 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (681552 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (345240 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (111584 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1183,27 +775,19 @@ CUBEMAPS lump is an unusual size (9348 / 16). Wrong engine branch?
 Loaded  zd_aztec.bsp
 
 Loading zd_boss.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (112952 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (130932 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (176328 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (130932 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (17248 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zd_boss.bsp
 
 Loading zd_internal.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (550080 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (268968 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (100 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (421920 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (293640 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (23408 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1211,27 +795,17 @@ CUBEMAPS lump is an unusual size (11644 / 16). Wrong engine branch?
 Loaded  zd_internal.bsp
 
 Loading zd_italy.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (899424 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (155176 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (750888 / 56). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (16016 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zd_italy.bsp
 
 Loading zd_lasttrain.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (236264 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (169692 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (329328 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (169692 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (30096 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1239,16 +813,10 @@ CUBEMAPS lump is an unusual size (2952 / 16). Wrong engine branch?
 Loaded  zd_lasttrain.bsp
 
 Loading zd_nuke.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (227472 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (796032 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (278824 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (276156 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (579168 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (276156 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (173712 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1256,12 +824,10 @@ CUBEMAPS lump is an unusual size (4100 / 16). Wrong engine branch?
 Loaded  zd_nuke.bsp
 
 Loading zd_park.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (2283768 / 56). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (3260 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (1756080 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (724632 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (200112 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1269,40 +835,30 @@ CUBEMAPS lump is an unusual size (13940 / 16). Wrong engine branch?
 Loaded  zd_park.bsp
 
 Loading zd_trainyard.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1504512 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (505400 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (445692 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (20 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (940896 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (445692 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (153472 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
 CUBEMAPS lump is an unusual size (6396 / 16). Wrong engine branch?
 Loaded  zd_trainyard.bsp
 
-Encountered a KeyError loading zp_assault.bsp:
+Encountered a RuntimeError loading zp_assault.bsp:
 Traceback (most recent call last):
   File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\tools\lump_analysis.py", line 90, in sizes_csv
     bsp = load_bsp(os.path.join(folder, bsp_filename))
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 46, in load_bsp
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 51, in load_bsp
     BspVariant = variants[get_developer(filename)]
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 32, in get_developer
-    developer = developers_by_file_magic[file_magic]
-KeyError: b'\x9a\n4\xb6'
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 31, in get_developer
+    raise RuntimeError(f"'{filename}' is not a valid .bsp file")
+RuntimeError: 'E:/Mod/CSO2/maps/zp_assault.bsp' is not a valid .bsp file
 Loading zp_aztec.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (772272 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (490000 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (286452 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (596376 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (286452 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (108416 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1310,12 +866,10 @@ CUBEMAPS lump is an unusual size (8692 / 16). Wrong engine branch?
 Loaded  zp_aztec.bsp
 
 Loading zp_estate.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (842616 / 56). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (262260 / 8). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (705960 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (262260 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (119680 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1323,16 +877,10 @@ CUBEMAPS lump is an unusual size (3444 / 16). Wrong engine branch?
 Loaded  zp_estate.bsp
 
 Loading zp_italy.bsp (VBSP version 100)...
-ERROR PARSING FACES:
-FACES lump is an unusual size (1058040 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (332528 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (457452 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (620 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (877392 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (457452 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (238480 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1340,42 +888,28 @@ CUBEMAPS lump is an unusual size (5740 / 16). Wrong engine branch?
 Loaded  zp_italy.bsp
 
 Loading zp_militia.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (239952 / 32). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (282576 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (195108 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (500 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (423000 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (195108 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (153472 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zp_militia.bsp
 
-Encountered a KeyError loading zp_storm.bsp:
+Encountered a RuntimeError loading zp_storm.bsp:
 Traceback (most recent call last):
   File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\tools\lump_analysis.py", line 90, in sizes_csv
     bsp = load_bsp(os.path.join(folder, bsp_filename))
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 46, in load_bsp
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 51, in load_bsp
     BspVariant = variants[get_developer(filename)]
-  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 32, in get_developer
-    developer = developers_by_file_magic[file_magic]
-KeyError: b'\xdd-\xb9\xa8'
+  File "C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\__init__.py", line 31, in get_developer
+    raise RuntimeError(f"'{filename}' is not a valid .bsp file")
+RuntimeError: 'E:/Mod/CSO2/maps/zp_storm.bsp' is not a valid .bsp file
 Loading zp_uprising.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (216816 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (591984 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (262024 / 32). Wrong engine branch?
 ERROR PARSING BRUSH_SIDES:
-BRUSH_SIDES lump is an unusual size (168204 / 8). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (435888 / 56). Wrong engine branch?
+BRUSH_SIDES lump is an unusual size (168204 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (63184 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1383,27 +917,17 @@ CUBEMAPS lump is an unusual size (6724 / 16). Wrong engine branch?
 Loaded  zp_uprising.bsp
 
 Loading zz_festival.bsp (VBSP version 100)...
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (95144 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (1060 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (345096 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (130920 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (68288 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 Loaded  zz_festival.bsp
 
 Loading zz_phouse.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (99024 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (643680 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (116424 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (521712 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (193320 / 16). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:
@@ -1411,16 +935,10 @@ CUBEMAPS lump is an unusual size (13612 / 16). Wrong engine branch?
 Loaded  zz_phouse.bsp
 
 Loading zz_prodigy.bsp (VBSP version 100)...
-ERROR PARSING NODES:
-NODES lump is an unusual size (156816 / 32). Wrong engine branch?
-ERROR PARSING FACES:
-FACES lump is an unusual size (495288 / 56). Wrong engine branch?
-ERROR PARSING LEAVES:
-LEAVES lump is an unusual size (185528 / 32). Wrong engine branch?
-ERROR PARSING AREA_PORTALS:
-AREA_PORTALS lump is an unusual size (220 / 12). Wrong engine branch?
-ERROR PARSING ORIGINAL_FACES:
-ORIGINAL_FACES lump is an unusual size (402552 / 56). Wrong engine branch?
+ERROR PARSING BRUSH_SIDES:
+BRUSH_SIDES lump is an unusual size (250296 / 16). Wrong engine branch?
+ERROR PARSING DISPLACEMENT_INFO:
+DISPLACEMENT_INFO lump is an unusual size (123200 / 232). Wrong engine branch?
 ERROR PARSING PAKFILE:
 BadZipFile: File is not a zip file
 ERROR PARSING CUBEMAPS:

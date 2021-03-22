@@ -38,10 +38,10 @@ class LUMP(enum.Enum):
     BRUSH_SIDES = 19
     AREAS = 20
     AREA_PORTALS = 21
-    UNUSED0 = 22
-    UNUSED1 = 23
-    UNUSED2 = 24
-    UNUSED3 = 25
+    UNUSED_22 = 22
+    UNUSED_23 = 23
+    UNUSED_24 = 24
+    UNUSED_25 = 25
     DISPLACEMENT_INFO = 26
     ORIGINAL_FACES = 27
     PHYSICS_DISPLACEMENT = 28
@@ -77,9 +77,9 @@ class LUMP(enum.Enum):
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    UNUSED4 = 61
-    UNUSED5 = 62
-    UNUSED6 = 63
+    UNUSED_61 = 61
+    UNUSED_62 = 62
+    UNUSED_63 = 63
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
