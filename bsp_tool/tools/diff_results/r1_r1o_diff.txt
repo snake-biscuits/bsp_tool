@@ -40,7 +40,6 @@ ExternalLumpHeader(offset=10956, length=8611, version=0, fourCC=0, filename='mp_
 LumpHeader(offset=10956, length=8611, version=0, fourCC=0)
 TEXDATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=19568, length=988, version=0, fourCC=0, filename='mp_airbase.bsp.002c.bsp_lump', filesize=988)
-
 LumpHeader(offset=19568, length=988, version=0, fourCC=0)
 WORLDLIGHTS  NYYY  YES!
 ExternalLumpHeader(offset=120408600, length=139500, version=1, fourCC=0, filename='mp_airbase.bsp.0036.bsp_lump', filesize=139500)
@@ -870,7 +869,6 @@ ExternalLumpHeader(offset=24439084, length=6923820, version=0, fourCC=0, filenam
 LumpHeader(offset=24419896, length=6923256, version=0, fourCC=0)
 MODELS  NYYY  NOPE
 ExternalLumpHeader(offset=2312276, length=864, version=0, fourCC=0, filename='mp_haven.bsp.000e.bsp_lump', filesize=864)
-
 LumpHeader(offset=2312132, length=864, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=5841348, length=28, version=0, fourCC=0, filename='mp_haven.bsp.0018.bsp_lump', filesize=28)
@@ -886,18 +884,15 @@ ExternalLumpHeader(offset=156066656, length=1246360, version=0, fourCC=0, filena
 LumpHeader(offset=153673436, length=1246360, version=0, fourCC=0)
 LEAF_WATERDATA  NYYY  YES!
 ExternalLumpHeader(offset=155988328, length=12, version=1, fourCC=0, filename='mp_haven.bsp.0024.bsp_lump', filesize=12)
-
 LumpHeader(offset=153595108, length=12, version=1, fourCC=0)
 PAKFILE  NNYY  NOPE
 ExternalLumpHeader(offset=157313016, length=617367, version=0, fourCC=0, filename='mp_haven.bsp.0028.bsp_lump', filesize=617367)
 LumpHeader(offset=154919796, length=618061, version=0, fourCC=0)
 CUBEMAPS  NYYY  YES!
 ExternalLumpHeader(offset=155988340, length=16, version=0, fourCC=0, filename='mp_haven.bsp.002a.bsp_lump', filesize=16)
-
 LumpHeader(offset=153595120, length=16, version=0, fourCC=0)
 TEXDATA_STRING_DATA  NNYY  NOPE
 ExternalLumpHeader(offset=10704, length=9114, version=0, fourCC=0, filename='mp_haven.bsp.002b.bsp_lump', filesize=9114)
-
 LumpHeader(offset=10632, length=9052, version=0, fourCC=0)
 TEXDATA_STRING_TABLE  NNYY  NOPE
 ExternalLumpHeader(offset=19820, length=960, version=0, fourCC=0, filename='mp_haven.bsp.002c.bsp_lump', filesize=960)
@@ -1009,7 +1004,6 @@ ExternalLumpHeader(offset=2313140, length=1608, version=0, fourCC=0, filename='m
 LumpHeader(offset=2312996, length=1608, version=0, fourCC=0)
 CELLS  NYYY  YES!
 ExternalLumpHeader(offset=2314748, length=608, version=0, fourCC=0, filename='mp_haven.bsp.006b.bsp_lump', filesize=608)
-
 LumpHeader(offset=2314604, length=608, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=2315356, length=9972, version=0, fourCC=0, filename='mp_haven.bsp.006c.bsp_lump', filesize=9972)
@@ -1067,7 +1061,6 @@ ExternalLumpHeader(offset=4830340, length=633726, version=0, fourCC=0, filename=
 LumpHeader(offset=4829888, length=633726, version=0, fourCC=0)
 SHADOW_MESH_MESHES  NYYY  NOPE
 ExternalLumpHeader(offset=5464068, length=192, version=0, fourCC=0, filename='mp_haven.bsp.007f.bsp_lump', filesize=192)
-
 LumpHeader(offset=5463616, length=192, version=0, fourCC=0)
 ENTITIES_env  YES!
 ENTITIES_fx  YES!
@@ -1111,14 +1104,12 @@ ExternalLumpHeader(offset=144900940, length=1281438, version=0, fourCC=0, filena
 LumpHeader(offset=142531700, length=1158630, version=0, fourCC=0)
 CUBEMAPS  NYYY  YES!
 ExternalLumpHeader(offset=141753260, length=16, version=0, fourCC=0, filename='mp_nexus.bsp.002a.bsp_lump', filesize=16)
-
 LumpHeader(offset=139384356, length=16, version=0, fourCC=0)
 TEXDATA_STRING_DATA  NNYY  NOPE
 ExternalLumpHeader(offset=16752, length=14169, version=0, fourCC=0, filename='mp_nexus.bsp.002b.bsp_lump', filesize=14169)
 LumpHeader(offset=16788, length=14201, version=0, fourCC=0)
 TEXDATA_STRING_TABLE  NNYY  NOPE
 ExternalLumpHeader(offset=30924, length=1632, version=0, fourCC=0, filename='mp_nexus.bsp.002c.bsp_lump', filesize=1632)
-
 LumpHeader(offset=30992, length=1636, version=0, fourCC=0)
 WORLDLIGHTS  NYYY  YES!
 ExternalLumpHeader(offset=141753276, length=52900, version=1, fourCC=0, filename='mp_nexus.bsp.0036.bsp_lump', filesize=52900)
@@ -1535,14 +1526,12 @@ ExternalLumpHeader(offset=172418564, length=894569, version=0, fourCC=0, filenam
 LumpHeader(offset=172418564, length=894569, version=0, fourCC=0)
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=170551856, length=16, version=0, fourCC=0, filename='mp_relic.bsp.002a.bsp_lump', filesize=16)
-
 LumpHeader(offset=170551856, length=16, version=0, fourCC=0)
 TEXDATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=12504, length=10296, version=0, fourCC=0, filename='mp_relic.bsp.002b.bsp_lump', filesize=10296)
 LumpHeader(offset=12504, length=10296, version=0, fourCC=0)
 TEXDATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=22800, length=1160, version=0, fourCC=0, filename='mp_relic.bsp.002c.bsp_lump', filesize=1160)
-
 LumpHeader(offset=22800, length=1160, version=0, fourCC=0)
 WORLDLIGHTS  YYYY  YES!
 ExternalLumpHeader(offset=170551872, length=69800, version=1, fourCC=0, filename='mp_relic.bsp.0036.bsp_lump', filesize=69800)
@@ -1705,7 +1694,6 @@ ExternalLumpHeader(offset=9008156, length=925062, version=0, fourCC=0, filename=
 LumpHeader(offset=9008156, length=925062, version=0, fourCC=0)
 SHADOW_MESH_MESHES  YYYY  YES!
 ExternalLumpHeader(offset=9933220, length=288, version=0, fourCC=0, filename='mp_relic.bsp.007f.bsp_lump', filesize=288)
-
 LumpHeader(offset=9933220, length=288, version=0, fourCC=0)
 ENTITIES_env  YES!
 ENTITIES_fx  YES!
@@ -1725,7 +1713,6 @@ ExternalLumpHeader(offset=20936, length=187568, version=1, fourCC=0, filename='m
 LumpHeader(offset=20936, length=187440, version=1, fourCC=0)
 TEXDATA  YYYY  NOPE
 ExternalLumpHeader(offset=2064, length=8820, version=1, fourCC=0, filename='mp_runoff.bsp.0002.bsp_lump', filesize=8820)
-
 LumpHeader(offset=2064, length=8820, version=1, fourCC=0)
 VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=29955260, length=8621772, version=0, fourCC=0, filename='mp_runoff.bsp.0003.bsp_lump', filesize=8621772)
@@ -1798,7 +1785,6 @@ ExternalLumpHeader(offset=100408212, length=56, version=1, fourCC=0, filename='m
 LumpHeader(offset=101441204, length=64, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=28448820, length=28, version=0, fourCC=0, filename='mp_runoff.bsp.0055.bsp_lump', filesize=28)
-
 LumpHeader(offset=29331792, length=28, version=0, fourCC=0)
 CM_GRIDCELLS  NNYY  NOPE
 ExternalLumpHeader(offset=28448964, length=41652, version=0, fourCC=0, filename='mp_runoff.bsp.0056.bsp_lump', filesize=41652)
