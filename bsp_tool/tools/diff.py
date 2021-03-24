@@ -105,13 +105,12 @@ def diff_pakfiles(bsp1: RespawnBsp, bsp2: RespawnBsp):
             print(f"+ {filename}")
 
 
-def dump_headers(maplist):
+def dump_headers(maplist):  # just for r1 / r1o / r2  (Titanfall Games)
     for r1_filename, r2_filename in maplist:
-        # if not os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp"):
-        #     continue  # need to test r1o maps against r1
         print(r1_filename.upper())
 
         r1o_map_exists = os.path.exists(f"E:/Mod/TitanfallOnline/maps/{r1_filename}.bsp")
+        # TODO: do close matches exist?
 
         r1_map = RespawnBsp(titanfall, f"E:/Mod/Titanfall/maps/{r1_filename}.bsp")
         if r1o_map_exists:
@@ -131,7 +130,7 @@ def dump_headers(maplist):
             r2_header = r2_map.HEADERS[r2_lump.name]
             if (r1_header.length, r1o_header_length, r2_header.length) == (0, 0, 0):
                 continue  # skip empty lumps
-            print(r1_lump.name)
+            print(r1_lump.name, "/", r2_lump.name)
             print(f"{r1_lump.value:04X}  {r1_lump.name}")
             print(f"{'r1':<8}", r1_header)
             if r1o_map_exists:
