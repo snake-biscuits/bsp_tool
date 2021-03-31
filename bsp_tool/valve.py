@@ -16,6 +16,7 @@ class ValveBsp(base.Bsp):
 
     def read_lump(self, LUMP: enum.Enum) -> (namedtuple, bytes):  # LumpHeader, data
         """Get LUMP from self.branch.LUMP; e.g. self.branch.LUMP.ENTITIES """
+        # NOTE: each branch of VBSP has unique headers; so a read_lump_header function is called from branch
         header = self.branch.read_lump_header(self.file, LUMP)
         if header.length == 0:
             return header, None

@@ -16,7 +16,7 @@ class D3DBsp(base.Bsp):
     # NOTE: Call of Duty 1 has .bsp files in .pk3 archives
     # -- later games instead use .d3dbsp in .iwd archives
 
-    def read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
+    def _read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
         length, offset = struct.unpack("2i", self.file.read(8))
