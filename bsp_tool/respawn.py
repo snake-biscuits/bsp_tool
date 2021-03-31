@@ -101,7 +101,7 @@ class RespawnBsp(base.Bsp):
                 # lump header
                 self.file.seek(self.branch.lump_header_address[LUMP])
                 offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
-                lump_filesize = os.path.getsize(lump_filename)
+                lump_filesize = os.path.getsize(os.path.join(self.folder, lump_filename))
                 header = ExternalLumpHeader(offset, length, version, fourCC, lump_filename, lump_filesize)
                 # lump data
                 # NOTE: if loading dynamically, skip this step
