@@ -189,7 +189,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 
 class MeshIndex(int):  # LUMP 79 (004F)
-    # ??? -> MeshIndex -> Mesh
+    """Used in assembling meshes (see vertices_of_mesh)"""
+    # Mesh -> MeshIndex -> Vertices
     _format = "H"
 
 
@@ -217,7 +218,7 @@ class Plane(base.Struct):  # LUMP 1 (0001)
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
-    # ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
+    # ??? -> ShadowMesh -> ShadowMeshIndices -> ??? (triangles?)
     # presumably start_index & num_triangles point at SHADOW_MESH_INDICES
     # however SHADOW_MESH_INDICES is huge & not a multiple of 4 bytes
     start_index: int  # unsure what lump is indexed
