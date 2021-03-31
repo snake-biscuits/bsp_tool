@@ -1,5 +1,5 @@
 import enum
-from typing import List
+from typing import List, Union
 
 from .. import base
 from .. import shared
@@ -177,15 +177,14 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # Mesh -> MaterialSort -> TexData, VertexReservedX
     # TexData -> TexDataStringTable -> TexDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
-    start_index: int  # ...
-    num_triangles: int  # ...
-    # unknown.a - d
+    start_index: int  # index into this Mesh's VertexReservedX
+    num_triangles: int  # number of Triangle in VertexReservedX after start_index
+    unknown: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # specifies VertexReservedX to draw vertices from
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
-    # vertex type stored in flags
-    _format = "2I 3ih HI"  # 28 Bytes
+    _format = "2I3ihHI"  # 28 Bytes
     _arrays = {"unknown": [*"abcd"]}
 
 
@@ -209,16 +208,22 @@ class Model(base.Struct):  # LUMP 14 (000E)
 
 
 class Plane(base.Struct):  # LUMP 1 (0001)
-    # Brush -> Plane?
+    normal: List[float]  # normal unit vector
+    distance: float
+    # ??? -> Brush -> Plane ?  (unsure)
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
-    # ??? -> ShadowMesh -> ???
+    # ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
     # presumably start_index & num_triangles point at SHADOW_MESH_INDICES
     # however SHADOW_MESH_INDICES is huge & not a multiple of 4 bytes
+    start_index: int  # unsure what lump is indexed
+    num_triangles: int
+    # unknown.one: int  # usually one
+    # unknown.negative_one: int  # usually negative one
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
@@ -226,8 +231,11 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
     # MaterialSort -> TexData, VertexReservedX
-    # TexData -> TexDataStringTable -> TexDataStringTable
+    # TexData -> TexDataStringTable -> TexDataStringData
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
+    unknown: List[int]
+    string_table_index: int  # index of material name in TEXDATA_STRING_DATA / TABLE
+    unknown2: List[int]
     __slots__ = ["unknown", "string_table_index", "unknown2"]
     _format = "9i"
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
@@ -240,30 +248,42 @@ class TextureDataStringTable(int):  # LUMP 44 (002C)
 
 class Vertex(base.MappedArray):  # LUMP 3 (0003)
     """3D position / normal vector"""
+    x: float
+    y: float
+    z: float
     _mapping = [*"xyz"]
     _format = "3f"
-
-    def flat(self):
-        return [self.x, self.y, self.z]
 
 
 # special vertices
 class VertexLitBump(base.Struct):  # LUMP 71 (0047)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VERTEX_NORMALS lump
+    uv: List[float]  # albedo / normal / gloss / specular uv
+    uv2: List[float]  # secondary uv? any target?
+    uv3: List[float]  # lightmap uv
+    unknown: List[int]  # unknown
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
-    # byte 8  - 12 = uv coords for albedo, normal, gloss & specular maps
-    # byte 20 - 28 = uv coords for lightmap
     _format = "2I6f3I"  # 44 bytes
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
                "unknown": [*"abc"]}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VERTEX_NORMALS lump
+    uv: List[float]  # uv coords
+    unknown: int
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VERTEX_NORMALS lump
+    uv: List[float]  # uv coords
+    unknown: List[int]
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2f3i"  # 28 bytes
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
@@ -298,8 +318,9 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-def vertices_of_mesh(bsp, mesh_index: int):  # simplified from McSimp's exporter ^
-    """Vertex Format: (position.xyz, normal.xyz, uv.xy)"""
+# simplified from McSimp's exporter ^
+def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUnlit, VertexUnlitTS]]:
+    """Spits out VertexLitBump / VertexUnlit / VertexUnlitTS"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
