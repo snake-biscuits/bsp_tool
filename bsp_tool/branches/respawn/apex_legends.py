@@ -153,7 +153,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (63 unused)
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I"  # 12 bytes

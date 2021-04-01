@@ -142,7 +142,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [12 / 128] + 2 special lumps
+# classes for lumps (alphabetical order) [12 / 128] + 3 special lumps (57 unused)
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]
     unknown: int  # id? some index?
@@ -257,7 +257,7 @@ class Vertex(base.MappedArray):  # LUMP 3 (0003)
 
 
 # special vertices
-class VertexLitBump(base.Struct):  # LUMP 71 (0047)
+class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VERTEX_NORMALS lump
     uv: List[float]  # albedo / normal / gloss / specular uv

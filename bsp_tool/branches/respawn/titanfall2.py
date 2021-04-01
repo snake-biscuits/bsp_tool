@@ -152,7 +152,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [X / 128] + 2 special lumps
+# classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "unknown"]
