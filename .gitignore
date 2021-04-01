@@ -126,3 +126,7 @@ dmypy.json
 
 # Visual Studio Code
 .vscode/
+
+# Blender
+.blend1
+.blend2
