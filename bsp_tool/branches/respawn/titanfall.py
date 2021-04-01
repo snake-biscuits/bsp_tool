@@ -184,8 +184,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     flags: int  # specifies VertexReservedX to draw vertices from
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
-    _format = "2I3ihHI"  # 28 Bytes
-    _arrays = {"unknown": [*"abcd"]}
+    _format = "IHh3ihHI"  # 28 Bytes
+    _arrays = {"unknown": [*"abcde"]}
 
 
 class MeshIndex(int):  # LUMP 79 (004F)
