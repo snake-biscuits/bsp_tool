@@ -56,7 +56,7 @@ class RespawnBsp(base.Bsp):
                 struct_size = struct.calcsize(LumpClass._format)
                 self.loading_errors.append(f"ERROR PARSING {LUMP_NAME}:\n"
                                            f"{LUMP_NAME} is an unusual size ({len(lump_data)} / {struct_size})."
-                                           "Wrong engine branch?")
+                                           "\nWrong engine branch?")
                 setattr(self, f"RAW_{LUMP_NAME}", lump_data)
                 delattr(self, LUMP_NAME)
             except Exception as exc:  # assuming some error occured initialising a LumpClass

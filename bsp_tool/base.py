@@ -25,6 +25,7 @@ class Bsp():
     filesize: int = 0  # of loaded / exported file
     filename: str
     folder: str
+    loading_errors: List[str]  # list of errors raised loading lumps
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         self.HEADERS = dict()
@@ -83,7 +84,7 @@ class Bsp():
                     struct_size = struct.calcsize(LumpClass._format)
                     self.loading_errors.append(f"ERROR PARSING {LUMP_NAME}:\n"
                                                f"{LUMP_NAME} lump is an unusual size ({len(lump_data)} / {struct_size})"
-                                               "Wrong engine branch?")
+                                               "\nWrong engine branch?")
                     delattr(self, LUMP_NAME)
                     setattr(self, f"RAW_{LUMP_NAME}", lump_data)
                 except Exception as exc:  # likely an error with initialising LumpClass

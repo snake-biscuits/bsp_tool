@@ -121,6 +121,7 @@ class PakFile(zipfile.ZipFile):  # WIP
 
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
+# NOTE: 2013 maps use orange_box DisplacementInfo (176 byte)
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData,
