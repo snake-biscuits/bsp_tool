@@ -107,13 +107,12 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
             for map in map_names:
                 try:
                     loaded_bsp = load_bsp(os.path.join(map_dir, map))
-                    # NOTE: loaded_bsp.branch.__name__ will be "branches.developer.game"
                     variant, bsp_version, branch = expected_branch[game_name]
                     assert isinstance(loaded_bsp, variant)
                     assert loaded_bsp.BSP_VERSION == bsp_version
                     assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}"
-                    # TODO: assert branch matches the one expected for this game
-                    del loaded_bsp  # CONSERVE RAM!
+                    assert len(loaded_bsp.loading_errors) == 0
+                    del loaded_bsp
                 except Exception as exc:
                     # TODO: log more info per failure, write to file
                     # -- would make a good github action artifact
@@ -124,19 +123,17 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
 
 
 class TestIdTechBsp:
-    # def test_no_errors(self):
-    #     assert len(bsps["bigbox"].loading_errors) == 0
-    # TODO: since loading_errors is gone, testing all lumps are mapped correctly is harder to automate
+    def test_no_errors(self):
+        assert len(bsps["bigbox"].loading_errors) == 0
 
     def test_entities_loaded(self):
         assert bsps["bigbox"].ENTITIES[0]["classname"] == "worldspawn"
 
 
 class TestValveBsp:
-    # def test_no_errors(self):
-    #     assert len(bsps["test2"].loading_errors) == 0
-    #     assert len(bsps["upward"].loading_errors) == 0
-    # TODO: since loading_errors is gone, testing all lumps are mapped correctly is harder to automate
+    def test_no_errors(self):
+        assert len(bsps["test2"].loading_errors) == 0
+        assert len(bsps["upward"].loading_errors) == 0
 
     def test_entites_loaded(self):
         assert bsps["test2"].ENTITIES[0]["classname"] == "worldspawn"
