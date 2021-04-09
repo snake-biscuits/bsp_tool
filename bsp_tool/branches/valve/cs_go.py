@@ -12,6 +12,7 @@ read_lump_header = orange_box.read_lump_header
 
 # classes for each lump, in alphabetical order: [XX / 64]
 
+BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
