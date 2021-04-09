@@ -3,7 +3,23 @@ import fnmatch
 import io
 import re
 import struct
+import types
 import zipfile
+
+
+def basic_lump(cls):  # decorator
+    """Modifies methods of decorated class"""
+    def __init__(s, _tuple):  # __init__((x,))  ->  __init__(x)
+        super(cls, s).__init__(_tuple[0])
+    types.MethodType(__init__, cls)
+    setattr(cls, "__init__", __init__)
+
+    def flat(s):
+        """Return contents in tuple form"""
+        return (s,)
+    types.MethodType(flat, cls)
+    setattr(cls, "flat", flat)
+    return cls
 
 
 class Entities(list):

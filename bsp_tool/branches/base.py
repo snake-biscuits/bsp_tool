@@ -38,6 +38,12 @@ class Struct:
         # TODO: throw a warning if the whole tuple won't fit
         # report len(_tuple) & struct.calcsize(self._format)
 
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+        else:
+            return self.flat() == other.flat()
+
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self.__slots__])
 

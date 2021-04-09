@@ -1,6 +1,7 @@
 import enum
 
 from .. import base
+from .. import shared
 from . import titanfall, titanfall2
 
 
@@ -168,6 +169,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcd"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class MeshIndices(int):  # LUMP 79 (004F)
     _format = "H"
 

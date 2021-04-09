@@ -1,5 +1,6 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "tools", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
+__all__ = ["base", "branches", "load_bsp", "lumps", "tools",
+           "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
 
 import difflib
 import os
@@ -8,6 +9,7 @@ from typing import Union
 
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
+from . import lumps  # handles loading data dynamically
 from .id_software import IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp

@@ -188,6 +188,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcde"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class MeshIndex(int):  # LUMP 79 (004F)
     """Used in assembling meshes (see vertices_of_mesh)"""
     # Mesh -> MeshIndex -> Vertices
@@ -242,6 +243,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class TextureDataStringTable(int):  # LUMP 44 (002C)
     """Points to the starting index of string of same index in TEXDATA_STRING_DATA"""
     _format = "I"

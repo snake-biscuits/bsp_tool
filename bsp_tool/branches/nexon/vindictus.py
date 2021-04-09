@@ -6,6 +6,7 @@ import struct
 from typing import List
 
 from .. import base
+from .. import shared
 from ..valve import orange_box
 
 
@@ -142,6 +143,9 @@ class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
 class Edge(list):  # LUMP 12
     _format = "2I"
 
+    def flat(self):
+        return self
+
 
 class Face(base.Struct):  # LUMP 7
     plane: int  # index into Plane lump
@@ -170,6 +174,7 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LeafFace(int):  # LUMP 16
     """Index of Face, this lump is a pre-organised sequence for the vis system"""
     _format = "I"

@@ -82,6 +82,7 @@ class Cell(base.Struct):  # LUMP 17
     _format = "52s"  # equivalent "13i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class CollisionIndex(int):  # LUMP 26
     _format = "H"  # index into ??? lump
 
@@ -100,10 +101,12 @@ class CullGroup(base.Struct):  # LUMP 9
     _format = "32s"  # equivalent "8i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class CullGroupIndex(int):  # LUMP 10
     _format = "I"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class DrawIndex(int):  # LUMP 8
     _format = "H"
 
@@ -122,10 +125,12 @@ class Leaf(base.Struct):  # LUMP 21
     _format = "36s"  # equivalent "9i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LeafBrush(int):  # LUMP 22
     _format = "I"  # index into Brush lump
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LeafSurface(int):  # LUMP 4
     _format = "I"  # index into Face lump ?
 
@@ -137,19 +142,21 @@ class Light(base.Struct):  # LUMP 30
     _format = "72s"  # equivalent "18i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LightIndex(int):  # LUMP 19
     _format = "H"  # index into Light lump
 
 
-class Lightmap(int):  # LUMP 1
+class Lightmap(list):  # LUMP 1
     """Raw pixel bytes, 512x512 RGB_888 image"""
-    _format = f"{512 * 512 * 3}s"  # 512x512 RGB
+    _format = "3s" * 512 * 512  # 512x512 RGB_888
 
     def __init__(self, _tuple):
         self._pixels: List[bytes] = _tuple  # RGB_888
 
     def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
         # Lightmap[row][column] returns self.__getitem__(row)[column]
+        # to get a specific pixel: self._pixels[index]
         row_start = row * 512
         return self._pixels[row_start:row_start + 512]  # TEST: does it work with negative indices?
 
@@ -185,14 +192,17 @@ class Occluder(base.Struct):  # LUMP 12
     _format = "4i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderEdge(int):  # LUMP 14
     _format = "I"  # index into the ??? lump
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderIndex(int):  # LUMP 15
     _format = "H"  # index into the Occluder lump
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderPlane(int):  # LUMP 13
     _format = "I"  # index into Plane lump
 

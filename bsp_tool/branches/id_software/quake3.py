@@ -92,19 +92,33 @@ class Leaf(base.Struct):  # LUMP 4
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LeafBrush(int):  # LUMP 6
     """index into Brushes"""
     _format = "i"
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class LeafFace(int):  # LUMP 5
     """index into Faces"""
     _format = "i"
 
 
-class Lightmap(bytes):  # LUMP 1
+class Lightmap(list):  # LUMP 14
     """Raw pixel bytes, 128x128 RGB_888 image"""
-    _format = f"{128 * 128 * 3}s"
+    _format = "3s" * 128 * 128  # 128x128 RGB_888
+
+    def __init__(self, _tuple):
+        self._pixels: List[bytes] = _tuple  # RGB_888
+
+    def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
+        # Lightmap[row][column] returns self.__getitem__(row)[column]
+        # to get a specific pixel: self._pixels[index]
+        row_start = row * 512
+        return self._pixels[row_start:row_start + 512]  # TEST: does it work with negative indices?
+
+    def flat(self) -> bytes:
+        return b"".join(self._pixels)
 
 
 class LightVolume(base.Struct):  # LUMP 15
@@ -117,6 +131,7 @@ class LightVolume(base.Struct):  # LUMP 15
     _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
 
 
+@shared.basic_lump  # adds flat method & modifies __init__
 class MeshVertex(int):  # LUMP 11
     _format = "i"
 
@@ -172,7 +187,7 @@ class Vertex(base.Struct):  # LUMP 10
 # special lump classes (alphabetical order):
 class Visibility:
     """Cluster X is visible from Cluster Y if:
-    bit (1 << y % 8) of vecs[x * vector_size + y // 8] is set
+    bit (1 << Y % 8) of vecs[X * vector_size + Y // 8] is set
     NOTE: Clusters are associated with Leaves"""
     def __init__(self, raw_visiblity: bytes):
         self.vector_count, self.vector_size = struct.unpack("2i", raw_visiblity[:8])

@@ -7,37 +7,43 @@ import struct
 from types import MethodType, ModuleType
 from typing import Dict, List, Union
 
-
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])  # Valve lump header
-# TODO: streamline lump header definition
-# - version matters, different struct definitions have to be accounted for
-# - a fourCC other than 0 means a lump is compressed (stored uncompressed size)
-# - the game lump has sub headers where fourCC defines lump type
+from . import lumps
 
 
-class Bsp():
+# NOTE: LumpHeaders must have these attrs, but how they are read / order will vary
+LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+ExternalLumpHeader = collections.namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC",
+                                                                   "filename", "filesize"])
+# NOTE: if fourCC != 0: lump is compressed  (fourCC value == uncompressed size)
+
+
+class Bsp:
+    """Bsp base class"""
     FILE_MAGIC: bytes = b"XBSP"
     HEADERS: Dict[str, LumpHeader]
     # ^ {"LUMP_NAME": LumpHeader}
-    VERSION: int = 0
-    associated_files: List[str]  # local to loaded / exported file
-    branch: ModuleType
-    filesize: int = 0  # of loaded / exported file
+    VERSION: int = 0  # .bsp format version
+    associated_files: List[str]  # files in the folder of loaded file with similar names
+    branch: ModuleType  # soft copy of "branch script"
+    bsp_file_size: int = 0  # size of .bsp in bytes
     filename: str
     folder: str
     loading_errors: List[str]  # list of errors raised loading lumps
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        self.HEADERS = dict()
-        self.set_branch(branch)
         if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
         self.filename = os.path.basename(filename)
         self.folder = os.path.dirname(filename)
+        self.set_branch(branch)
+        self.HEADERS = dict()
         if autoload:
             if os.path.exists(filename):
-                self.load()
+                self._preload()
+            else:
+                print(f"{filename} not found, creating a new .bsp")
+                self.HEADERS = {L.name: LumpHeader(0, 0, 0, 0) for L in self.branch.LUMP}
 
     def __enter__(self):
         return self
@@ -49,85 +55,70 @@ class Bsp():
         version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
         return f"<{self.__class__.__name__} {self.filename} {version} at 0x{id(self):016X}>"
 
-    def _read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
+    def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
+        """Reads bytes of lump"""
         # header
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
+        # TODO: use a read & write function / struct.iter_unpack
+        # -- this could potentially allow for simplified subclasses
+        # -- e.g. LumpHeader(*struct.unpack("4I", self.file.read(16)))  ->  self.LumpHeader(self.file)
         header = LumpHeader(offset, length, version, fourCC)
-        if header.length == 0:
-            return header, None
-        # data
-        self.file.seek(header.offset)
-        data = self.file.read(header.length)
-        return header, data
+        return header
 
-    def load_lumps(self):
-        """Load every lump from self.file (self.file must already be open!)"""
-        for LUMP_enum in self.branch.LUMP:
-            lump_header, lump_data = self._read_lump(LUMP_enum)
-            LUMP_NAME = LUMP_enum.name
-            self.HEADERS[LUMP_NAME] = lump_header
-            if lump_data is None:
-                continue
-            if LUMP_NAME in self.branch.LUMP_CLASSES:
-                LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
-                try:
-                    setattr(self, LUMP_NAME, list())
-                    for _tuple in struct.iter_unpack(LumpClass._format, lump_data):
-                        if len(_tuple) == 1:
-                            # if ._format is 1 variable, return the 1 variable, not a len(1) tuple
-                            # there has to be a better way than this
-                            _tuple = _tuple[0]
-                        getattr(self, LUMP_NAME).append(LumpClass(_tuple))
-                    # WHY NOT: setattr(self, LUMP, [*map(LumpClass, struct.iter_unpack(LumpClass._format, lump_data))])
-                except struct.error:  # lump cannot be divided into a whole number of LumpClasses
-                    struct_size = struct.calcsize(LumpClass._format)
-                    self.loading_errors.append(f"ERROR PARSING {LUMP_NAME}:\n"
-                                               f"{LUMP_NAME} lump is an unusual size ({len(lump_data)} / {struct_size})"
-                                               "\nWrong engine branch?")
-                    delattr(self, LUMP_NAME)
-                    setattr(self, f"RAW_{LUMP_NAME}", lump_data)
-                except Exception as exc:  # likely an error with initialising LumpClass
-                    self.loading_errors.append(f"ERROR PARSING {LUMP_NAME}:\n{exc.__class__.__name__}: {exc}")
-                    setattr(self, f"RAW_{LUMP_NAME}", lump_data)
-                    # TODO: save a copy of the traceback for debugging
-            elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
-                try:
-                    setattr(self, LUMP_NAME, self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME](lump_data))
-                    # ^ self.SPECIAL_LUMP = SpecialLumpClass(data)
-                except Exception as exc:
-                    self.loading_errors.append(f"ERROR PARSING {LUMP_NAME}:\n{exc.__class__.__name__}: {exc}")
-                    setattr(self, f"RAW_{LUMP_NAME}", lump_data)
-                    # TODO: save a copy of the traceback for debugging
-            else:  # lump structure unknown
-                setattr(self, f"RAW_{LUMP_NAME}", lump_data)
-
-    def load(self):
+    def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
         self.associated_files = [f for f in local_files if is_related(f)]
+        # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
         if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
-        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
-        print(f"Loading {self.filename} {version}...")
+        version_string = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
+        print(f"Opening {self.filename} {version_string}...")
+        # read headers
+        # TODO: define headers in branch script as a base.Struct (overriding a default)
+        # however, keep using ExternalLumpHeaders? could be overly complicated
         self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        self.bsp_file_size = self.file.tell()
 
-        self.loading_errors: List[str] = []
-        self.load_lumps()
-        if len(self.loading_errors) > 0:
-            print(*self.loading_errors, sep="\n")
-
-        self.file.close()
-        print(f"Loaded  {self.filename}")
+        for LUMP_enum in self.branch.LUMP:
+            # CHECK: is lump external? (are associated_files overriding)
+            lump_header = self._read_header(LUMP_enum)
+            LUMP_NAME = LUMP_enum.name
+            self.HEADERS[LUMP_NAME] = lump_header
+            if lump_header.length is None:
+                continue
+            if LUMP_NAME in self.branch.LUMP_CLASSES:
+                LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
+                try:
+                    setattr(self, LUMP_NAME, lumps.BspLump(self.file, lump_header, LumpClass))
+                except RuntimeError:  # lump cannot be divided into a whole number of LumpClasses
+                    setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
+            elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
+                SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
+                # TODO: use a method to grab data for lump, should also handle externals
+                # NOTE: lumps.BspLump
+                self.file.seek(lump_header.offset)
+                lump_data = self.file.read(lump_header.length)
+                try:
+                    setattr(self, LUMP_NAME, SpecialLumpClass(lump_data))
+                except Exception:  # TODO: log the exception for debugging
+                    setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
+            else:  # lump structure unknown
+                setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
+        # TODO: try and refactor so the "save lump as raw" case is only on one line
+        # TODO: print which lumps loaded to the terminal
+        # TODO: (maybe) give a pretty ascii visualisation of the .bsp file
+        # -- ^ could be pretty handy for understanding re-saving actually ^
 
     def save(self):
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
+        # TODO: check BspLump._changes are all of type LumpClass
         # filename = os.path.join(self.folder, self.filename)
         # if os.path.exists(filename):
         #     if input(f"Overwrite {filename}? (Y/N): ").upper()[0] != "Y":  # ask permission to overwrite
@@ -172,8 +163,12 @@ class Bsp():
         # - [*map(LumpClass, struct.iter_unpack(LumpClass._format: str, lump.read(): bytes))]
         # if any lump cannot be divided into a whole number of LumpClasses, it remains a RAW_LUMP
         # the failure is also logged, along with the sizes of the LumpClass._format & lump data
+        # TODO: build new BspLump objects, keeping any changes made
+        # NOTE: this doesn't mean changing formats, could cause major issues!
+        # -- will require some clear debug warnings / checks
         self.branch = branch
         # attach methods
+        # NOTE: does not remove methods from former branch
         for method in getattr(branch, "methods", list()):
             method = MethodType(method, self)
             setattr(self, method.__name__, method)
