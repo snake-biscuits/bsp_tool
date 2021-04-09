@@ -58,6 +58,16 @@ class Entities(list):
         return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
 
 
+class GameLump:
+    def __init__(self, raw_game_lump: bytes):
+        # NOTE: need the header to calculate offsets
+        raise NotImplementedError("Game lumps hard")
+        # If it's compressed, good luck; each sub-lump is compressed individually.
+
+    def as_bytes(self) -> bytes:
+        raise NotImplementedError("Game lumps hard")
+
+
 class PakFile(zipfile.ZipFile):
     def __init__(self, raw_zip: bytes):
         self._buffer = io.BytesIO(raw_zip)
@@ -65,17 +75,6 @@ class PakFile(zipfile.ZipFile):
 
     def as_bytes(self) -> bytes:
         return self._buffer.getvalue()
-
-
-class GameLump:
-    def __init__(self, raw_game_lump: bytes):
-        # NOTE: need the header to calculate offsets iirc
-        raise NotImplementedError("Game lumps hard")
-        # If it's compressed, good luck.
-        # - Each sub-lump is compressed individually.
-
-    def as_bytes(self) -> bytes:
-        raise NotImplementedError("Game lumps hard")
 
 
 class TexDataStringData(list):

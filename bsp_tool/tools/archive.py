@@ -1,4 +1,4 @@
-"""Tools for opening and searching .pk3 & .iwd archives"""
+"""Tools for opening and searching .iwd & .pk3 archives"""
 import fnmatch
 import os
 import struct

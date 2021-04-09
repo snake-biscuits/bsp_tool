@@ -122,6 +122,10 @@ class PakFile(zipfile.ZipFile):  # WIP
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
 # NOTE: 2013 maps use orange_box DisplacementInfo (176 byte)
+# NOTE: 2017era maps use the same version numbers etc as 2013era
+# -- this is a nightmare for autodetecting
+# however, since 2013 is no longer supported by CSO2, supporting just 2017 should work
+# supporting 2013era maps should only require a tweak of orange_box
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData,
