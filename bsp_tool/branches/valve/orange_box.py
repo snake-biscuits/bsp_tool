@@ -395,23 +395,24 @@ class WorldLight(base.Struct):  # LUMP 15
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 
+BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": DisplacementTriangle,
+                      "LEAF_FACES": LeafFace,
+                      "SURFEDGES": SurfEdge}
+
 LUMP_CLASSES = {"AREAS": Area,
                 "AREA_PORTALS": AreaPortal,
                 "BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
                 "CUBEMAPS": Cubemap,
                 "DISPLACEMENT_INFO": DisplacementInfo,
-                "DISPLACEMENT_TRIS": DisplacementTriangle,
                 "DISPLACEMENT_VERTS": DisplacementVertex,
                 "EDGES": Edge,
                 "FACES": Face,
                 "LEAVES": Leaf,
-                "LEAF_FACES": LeafFace,
                 "MODELS": Model,
                 "NODES": Node,
                 "ORIGINAL_FACES": Face,
                 "PLANES": Plane,
-                "SURFEDGES": SurfEdge,
                 "TEXDATA": TextureData,
                 "TEXINFO": TextureInfo,
                 "VERTICES": Vertex,

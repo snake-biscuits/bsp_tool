@@ -1,7 +1,6 @@
 import enum
 
 from .. import base
-from .. import shared
 from . import titanfall, titanfall2
 
 
@@ -169,8 +168,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcd"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
-class MeshIndices(int):  # LUMP 79 (004F)
+class MeshIndex(int):  # LUMP 79 (004F)
     _format = "H"
 
 
@@ -230,11 +228,12 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
+BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex}
+
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"LIGHTMAP_HEADERS_2": titanfall.LightmapHeader,
                      "MATERIAL_SORT": MaterialSort,
                      "MESHES": Mesh,
-                     "MESH_INDICES": MeshIndices,
                      "MODELS": Model,
                      "TEXDATA": TextureData,
                      "VERTEX_NORMALS": Vertex,

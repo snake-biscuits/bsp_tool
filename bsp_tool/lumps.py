@@ -1,7 +1,17 @@
+from __future__ import annotations
+
 import collections
 import io
+import lzma
 import struct
 from typing import Any, Union
+
+
+# TODO: _changes attr, hold edits until applied by base.Bsp
+# -- should also override any returned entries with _changes
+# ^ doing this allows Bsp.lump_as_bytes to "apply" all changes
+# NOTE: _changes can be cleared once a lump is written, since the changes are in the source file
+# However, compressed lumps will need to be reloaded
 
 
 def _remap_negative_index(index: int, length: int):
@@ -29,11 +39,64 @@ def _remap_slice(_slice: slice, length: int):
     return slice(start, stop, step)
 
 
-def create_BspLump(file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object = None):
-    if LumpClass is None:
+def decompressed(file: io.BufferedReader, lump_header: collections.namedtuple) -> io.BytesIO:
+    if lump_header.fourCC != 0:
+        if not hasattr(lump_header, "filename"):  # internal compressed lump
+            file.seek(lump_header.offset)
+            data = file.read(lump_header.length)
+        else:  # external compressed lump is unlikely, but possible
+            data = open(lump_header.filename, "rb").read()
+        # have to remap lzma header format slightly
+        lzma_header = struct.unpack("4s2I5c", data[:17])
+        # b"LZMA" = lzma_header[0]
+        actual_size = lzma_header[1]
+        assert actual_size == lump_header.fourCC
+        # compressed_size = lzma_header[2]
+        properties = b"".join(lzma_header[3:])
+        _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
+        decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
+        decoded_data = decompressor.decompress(data[17:])
+        decoded_data = decoded_data[:actual_size]  # trim any excess bytes
+        assert len(decoded_data) == actual_size
+        file = io.BytesIO(decoded_data)
+        # HACK: trick BspLump into recognisind the decompressed lump sze
+        LumpHeader = lump_header.__class__  # how2 edit a tuple
+        lump_header_dict = dict(zip(LumpHeader._fields, lump_header))
+        lump_header_dict["offset"] = 0
+        lump_header_dict["length"] = lump_header.fourCC
+        lump_header = LumpHeader(*[lump_header_dict[f] for f in LumpHeader._fields])
+    return file, lump_header
+
+
+def create_BspLump(file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object = None) -> BspLump:
+    if hasattr(lump_header, "fourCC"):
+        file, lump_header = decompressed(file, lump_header)
+    if not hasattr(lump_header, "filename"):
+        if LumpClass is not None:
+            return BspLump(file, lump_header, LumpClass)
+        else:
+            return RawBspLump(file, lump_header)
+    else:
+        if LumpClass is not None:
+            return ExternalBspLump(lump_header, LumpClass)
+        else:
+            return ExternalRawBspLump(lump_header)
+
+
+def create_RawBspLump(file: io.BufferedReader, lump_header: collections.namedtuple) -> RawBspLump:
+    if not hasattr(lump_header, "filename"):
         return RawBspLump(file, lump_header)
     else:
-        return BspLump(file, lump_header, LumpClass)
+        return ExternalRawBspLump(lump_header)
+
+
+def create_BasicBspLump(file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object) -> BasicBspLump:
+    if hasattr(lump_header, "fourCC"):
+        file, lump_header = decompressed(file, lump_header)
+    if not hasattr(lump_header, "filename"):
+        return BasicBspLump(file, lump_header, LumpClass)
+    else:
+        return ExternalBasicBspLump(lump_header, LumpClass)
 
 
 class RawBspLump:  # list-like
@@ -88,6 +151,9 @@ class RawBspLump:  # list-like
     def __len__(self):
         return self._length
 
+    # TODO: append method, adds to _changes
+    # TODO: insert method (makes _changes complicated...)
+
 
 class BspLump(RawBspLump):  # list-like
     """Dynamically reads LumpClasses from a binary file"""
@@ -96,12 +162,12 @@ class BspLump(RawBspLump):  # list-like
     offset: int  # position in file where lump begins
     _length: int  # number of indexable entries
 
-    def __init__(self, file, lump_header: collections.namedtuple, LumpClass: object):
+    def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object):
         self.file = file
         self.offset = lump_header.offset
         self._entry_size = struct.calcsize(LumpClass._format)
         if lump_header.length % self._entry_size != 0:
-            raise RuntimeError(f"{LumpClass} does not divide lump evenly! ({lump_header.length} / {self._entry_size})")
+            raise RuntimeError(f"LumpClass does not divide lump evenly! ({lump_header.length} / {self._entry_size})")
         self._length = lump_header.length // self._entry_size
         self.LumpClass = LumpClass
 
@@ -141,4 +207,89 @@ class BspLump(RawBspLump):  # list-like
                 out.append(entry)
         return out
 
-# TODO: ExternalBspLump; if lump_header has a filename, load that lump
+
+class BasicBspLump(BspLump):  # list-like
+    """Dynamically reads LumpClasses from a binary file"""
+    # NOTE: this class does not handle compressed lumps
+    file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
+    offset: int  # position in file where lump begins
+    _length: int  # number of indexable entries
+
+    def __getitem__(self, index: Union[int, slice]):
+        """Reads bytes from self.file & returns LumpClass(es)"""
+        # read bytes -> struct.unpack tuples -> LumpClass
+        # TODO: handle out of range & negative indices
+        # NOTE: BspLump[index] = LumpClass(entry)
+        if isinstance(index, int):
+            index = _remap_negative_index(index, self._length)
+            self.file.seek(self.offset + (index * self._entry_size))
+            raw_entry = struct.unpack(self.LumpClass._format, self.file.read(self._entry_size))
+            return self.LumpClass(raw_entry[0])  # change 1
+        elif isinstance(index, slice):
+            _slice = _remap_slice(index, self._length)
+            if _slice.step == 0:
+                raise ValueError("slice step cannot be 0")
+            elif _slice.step in (1, None):
+                self.file.seek(self.offset + (_slice.start * self._entry_size))
+                raw_bytes = self.file.read((_slice.stop - _slice.start) * self._entry_size)
+                raw_entries = struct.iter_unpack(self.LumpClass._format, raw_bytes)
+                return list(map(lambda t: self.LumpClass(t[0]), raw_entries))  # change 2
+            else:
+                out = list()
+                for i in range(_slice.start, _slice.stop, _slice.step):
+                    out.append(self.__getitem__(i))
+                return out
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+
+
+class ExternalRawBspLump(RawBspLump):
+    """Maps an open binary file to a list-like object"""
+    file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
+    offset: int  # position in file where lump begins
+    _length: int  # number of indexable entries
+    # TODO: _changes attr, hold edits until applied by base.Bsp
+    # -- should also override any returned entries with _changes
+
+    def __init__(self, lump_header: collections.namedtuple):
+        self.file = open(lump_header.filename, "rb")
+        self.offset = 0  # let your ancestors to all the work
+        self._length = lump_header.filesize  # should match length, but you never know
+        # NOTE: ignores fourCC, no decompression is performed
+
+    def __del__(self):
+        self.file.close()
+
+
+# NOTE: ValveBsp external lumps will have a header at the start of the external file
+# -- since we still have .offset that's easily dealt with
+class ExternalBspLump(BspLump):
+    """Dynamically reads LumpClasses from a binary file"""
+    # NOTE: this class does not handle compressed lumps
+    file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
+    offset: int  # position in file where lump begins
+    _length: int  # number of indexable entries
+
+    def __init__(self, lump_header: collections.namedtuple, LumpClass: object):
+        super(ExternalBspLump, self).__init__(None, lump_header, LumpClass)
+        self.file = open(lump_header.filename, "rb")
+        self.offset = 0
+
+    def __del__(self):
+        self.file.close()
+
+
+class ExternalBasicBspLump(BasicBspLump):
+    """Dynamically reads LumpClasses from a binary file"""
+    # NOTE: this class does not handle compressed lumps
+    file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
+    offset: int  # position in file where lump begins
+    _length: int  # number of indexable entries
+
+    def __init__(self, lump_header: collections.namedtuple, LumpClass: object):
+        super(ExternalBspLump, self).__init__(None, lump_header, LumpClass)
+        self.file = open(lump_header.filename, "rb")
+        self.offset = 0
+
+    def __del__(self):
+        self.file.close()

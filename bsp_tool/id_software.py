@@ -14,14 +14,8 @@ class IdTechBsp(base.Bsp):
     # NOTE: these files are usually stored in .pk3 files
     # -- see bsp_tool.tools.pk3 for a handy extractor
 
-    def _read_lump(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
-        # lump header
+    def _read_header(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length = struct.unpack("2i", self.file.read(8))
         header = LumpHeader(offset, length)
-        if length == 0:
-            return header, None
-        # lump data
-        self.file.seek(offset)
-        data = self.file.read(length)
-        return header, data
+        return header

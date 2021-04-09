@@ -6,7 +6,6 @@ import struct
 from typing import List
 
 from .. import base
-from .. import shared
 from ..valve import orange_box
 
 
@@ -174,7 +173,6 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LeafFace(int):  # LUMP 16
     """Index of Face, this lump is a pre-organised sequence for the vis system"""
     _format = "I"
@@ -196,6 +194,8 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
+BASIC_LUMP_CLASSES = {"LEAF_FACES": LeafFace}
+
 # every other class is the same as orange_box
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS": Area,
@@ -205,7 +205,6 @@ LUMP_CLASSES.update({"AREAS": Area,
                      "EDGES": Edge,
                      "FACES": Face,
                      "LEAVES": Leaf,
-                     "LEAF_FACES": LeafFace,
                      "NODES": Node,
                      "ORIGINAL_FACES": Face})
 

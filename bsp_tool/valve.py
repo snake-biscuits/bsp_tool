@@ -32,6 +32,7 @@ class ValveBsp(base.Bsp):
             return header, None
         self.file.seek(header.offset)
         data = self.file.read(header.length)
+        assert len(data) == header.fourCC
         if header.fourCC != 0:  # lump is compressed
             source_lzma_header = struct.unpack("3I5c", data[:17])
             # b"LZMA" = source_lzma_header[0]

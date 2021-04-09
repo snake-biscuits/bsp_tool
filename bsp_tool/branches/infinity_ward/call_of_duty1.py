@@ -82,7 +82,6 @@ class Cell(base.Struct):  # LUMP 17
     _format = "52s"  # equivalent "13i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class CollisionIndex(int):  # LUMP 26
     _format = "H"  # index into ??? lump
 
@@ -101,12 +100,10 @@ class CullGroup(base.Struct):  # LUMP 9
     _format = "32s"  # equivalent "8i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class CullGroupIndex(int):  # LUMP 10
     _format = "I"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class DrawIndex(int):  # LUMP 8
     _format = "H"
 
@@ -125,12 +122,10 @@ class Leaf(base.Struct):  # LUMP 21
     _format = "36s"  # equivalent "9i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LeafBrush(int):  # LUMP 22
     _format = "I"  # index into Brush lump
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LeafSurface(int):  # LUMP 4
     _format = "I"  # index into Face lump ?
 
@@ -142,7 +137,6 @@ class Light(base.Struct):  # LUMP 30
     _format = "72s"  # equivalent "18i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LightIndex(int):  # LUMP 19
     _format = "H"  # index into Light lump
 
@@ -192,17 +186,14 @@ class Occluder(base.Struct):  # LUMP 12
     _format = "4i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderEdge(int):  # LUMP 14
     _format = "I"  # index into the ??? lump
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderIndex(int):  # LUMP 15
     _format = "H"  # index into the Occluder lump
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class OccluderPlane(int):  # LUMP 13
     _format = "I"  # index into Plane lump
 
@@ -243,28 +234,30 @@ class TriangleSoup(base.Struct):  # LUMP 5
     _format = "16s"  # equivalent "4i"
 
 
+BASIC_LUMP_CLASSES = {"COLLISION_INDICES": CollisionIndex,
+                      "CULL_GROUP_INDICES": CullGroupIndex,
+                      "DRAW_INDICES": DrawIndex,
+                      "LEAF_BRUSHES": LeafBrush,
+                      "LEAF_SURFACES": LeafSurface,
+                      "LIGHT_INDICES": LightIndex,
+                      "OCCLUDER_EDGES": OccluderEdge,
+                      "OCCLUDER_INDICES": OccluderIndex,
+                      "OCCLUDER_PLANES": OccluderPlane}
+
+
 LUMP_CLASSES = {"AABB_TREES": AxisAlignedBoundingBox,
                 "BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
                 "CELLS": Cell,
-                "COLLISION_INDICES": CollisionIndex,
                 "COLLISION_VERTICES": CollisionVertex,
                 "CULL_GROUPS": CullGroup,
-                "CULL_GROUP_INDICES": CullGroupIndex,
-                "DRAW_INDICES": DrawIndex,
                 "DRAW_VERTICES": DrawVertex,
                 "LEAVES": Leaf,
-                "LEAF_BRUSHES": LeafBrush,
-                "LEAF_SURFACES": LeafSurface,
                 "LIGHTS": Light,
-                "LIGHT_INDICES": LightIndex,
                 "LIGHTMAPS": Lightmap,
                 "MODELS": Model,
                 "NODES": Node,
                 "OCCLUDERS": Occluder,
-                "OCCLUDER_EDGES": OccluderEdge,
-                "OCCLUDER_INDICES": OccluderIndex,
-                "OCCLUDER_PLANES": OccluderPlane,
                 "PATCH_COLISION": PatchCollision,
                 "PLANES": Plane,
                 "PORTALS": Portal,

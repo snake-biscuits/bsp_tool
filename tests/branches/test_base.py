@@ -9,7 +9,7 @@ class Example(base.Struct):
     _arrays = {"position": [*"xyz"], "data": 4}
 
 
-class TestBase:
+class TestStruct:
     def test_unpack(self):
         raw_struct = b"\x00\x00\x00\x00" b"\xDE\xAD\xBE\xEF" \
                      b"\xDE\xAD\xBE\xEF" b"\xDE\xAD\xBE\xEF" \

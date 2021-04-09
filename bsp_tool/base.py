@@ -57,7 +57,6 @@ class Bsp:
 
     def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
         """Reads bytes of lump"""
-        # header
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
         # TODO: use a read & write function / struct.iter_unpack
@@ -85,12 +84,13 @@ class Bsp:
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
+        self.loading_errors: Dict[str, Exception] = dict()
         for LUMP_enum in self.branch.LUMP:
             # CHECK: is lump external? (are associated_files overriding)
             lump_header = self._read_header(LUMP_enum)
             LUMP_NAME = LUMP_enum.name
             self.HEADERS[LUMP_NAME] = lump_header
-            if lump_header.length is None:
+            if lump_header.length == 0:
                 continue
             if LUMP_NAME in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
@@ -98,22 +98,38 @@ class Bsp:
                     setattr(self, LUMP_NAME, lumps.BspLump(self.file, lump_header, LumpClass))
                 except RuntimeError:  # lump cannot be divided into a whole number of LumpClasses
                     setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
-            elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
+            if LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
                 # TODO: use a method to grab data for lump, should also handle externals
                 # NOTE: lumps.BspLump
                 self.file.seek(lump_header.offset)
                 lump_data = self.file.read(lump_header.length)
                 try:
-                    setattr(self, LUMP_NAME, SpecialLumpClass(lump_data))
-                except Exception:  # TODO: log the exception for debugging
-                    setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
-            else:  # lump structure unknown
-                setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
+                    BspLump = SpecialLumpClass(lump_data)
+                except Exception:
+                    # TODO: log the exception for debugging
+                    BspLump = lumps.create_BspLump(self.file, lump_header)  # default to raw lump (bytes)
+            elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
+                LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME]
+                try:
+                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                except Exception as exc:
+                    self.loading_errors[LUMP_NAME] = exc
+                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            else:  # LumpClass / RawBspLump
+                LumpClass = self.branch.LUMP_CLASSES.get(LUMP_NAME, None)
+                try:
+                    BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+                except Exception as exc:
+                    self.loading_errors[LUMP_NAME] = exc
+                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            setattr(self, LUMP_NAME, BspLump)
         # TODO: try and refactor so the "save lump as raw" case is only on one line
         # TODO: print which lumps loaded to the terminal
         # TODO: (maybe) give a pretty ascii visualisation of the .bsp file
         # -- ^ could be pretty handy for understanding re-saving actually ^
+        if len(self.loading_errors) > 0:
+            print(*[f"{L}: {e}" for L, e in self.loading_errors.items()], sep="\n")
 
     def save(self):
         """Expects outfile to be a file with write bytes capability"""

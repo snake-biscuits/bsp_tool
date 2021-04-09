@@ -188,7 +188,6 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcde"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class MeshIndex(int):  # LUMP 79 (004F)
     """Used in assembling meshes (see vertices_of_mesh)"""
     # Mesh -> MeshIndex -> Vertices
@@ -243,7 +242,6 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class TextureDataStringTable(int):  # LUMP 44 (002C)
     """Points to the starting index of string of same index in TEXDATA_STRING_DATA"""
     _format = "I"
@@ -292,6 +290,9 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 
+BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex,
+                      "TEXDATA_STRING_TABLE": TextureDataStringTable}
+
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "LIGHTMAP_HEADERS": LightmapHeader,
                 "MATERIAL_SORT": MaterialSort,
@@ -301,7 +302,6 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "PLANES": Plane,
                 "SHADOW_MESH_MESHES": ShadowMesh,
                 "TEXDATA": TextureData,
-                "TEXDATA_STRING_TABLE": TextureDataStringTable,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
                 "VERTS_LIT_BUMP": VertexLitBump,

@@ -92,13 +92,11 @@ class Leaf(base.Struct):  # LUMP 4
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LeafBrush(int):  # LUMP 6
     """index into Brushes"""
     _format = "i"
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class LeafFace(int):  # LUMP 5
     """index into Faces"""
     _format = "i"
@@ -131,7 +129,6 @@ class LightVolume(base.Struct):  # LUMP 15
     _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
 
 
-@shared.basic_lump  # adds flat method & modifies __init__
 class MeshVertex(int):  # LUMP 11
     _format = "i"
 
@@ -198,15 +195,16 @@ class Visibility:
         return struct.pack(f"2i{vectors_bytes}", (self.vector_count, self.vector_size, *self.vectors))
 
 
+BASIC_LUMP_CLASSES = {"LEAF_BRUSHES": LeafBrush,
+                      "LEAF_FACES": LeafFace,
+                      "MESH_VERTICES": MeshVertex}
+
 LUMP_CLASSES = {"BRUSHES": Brush,
                 "BRUSH_SIDES": BrushSide,
                 "EFFECTS": Effect,
                 "FACES": Face,
                 "LEAVES": Leaf,
-                "LEAF_BRUSHES": LeafBrush,
-                "LEAF_FACES": LeafFace,
                 "LIGHTMAPS": Lightmap,
-                "MESH_VERTICES": MeshVertex,
                 "MODELS": Model,
                 "NODES": Node,
                 "PLANES": Plane,

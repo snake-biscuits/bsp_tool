@@ -160,6 +160,8 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     _arrays = {"unknown": [*"ab"]}
 
 
+BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
+
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"VERTS_BLINN_PHONG": VertexBlinnPhong})
 

@@ -120,6 +120,8 @@ class PakFile(zipfile.ZipFile):  # WIP
         return raw_zip
 
 
+BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
+
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
 # NOTE: 2013 maps use orange_box DisplacementInfo (176 byte)
 # NOTE: 2017era maps use the same version numbers etc as 2013era
