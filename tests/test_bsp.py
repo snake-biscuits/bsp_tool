@@ -62,6 +62,11 @@ games_to_test = {"Titanfall": ["maps"],  # E:/Mod/Titanfall/maps
                  "CoD1": ["maps", "maps/MP"]}  # Call of Duty 1 .bsps, extracted from .pk3s
 # ^ fast test to double check rBSP & D3DBsp
 
+expected_branch = {"CoD1": (D3DBsp, 59, "infinity_ward.call_of_duty1"),
+                   # "CSO2": (ValveBsp, 100, "nexon.cso2"),  # NOTE: both 2013 & 2017 bsps are version 100
+                   "Titanfall": (RespawnBsp, 29, "respawn.titanfall")}
+# ^ {"game": (type(bsp), BSP_VERSION, "branch")}
+
 
 def test_load_all_bsps():  # WARNING: will take hours if you have lots of games installed
     """Scan system for .bsp files & test them all"""
@@ -90,7 +95,7 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
             game_map_dirs[game].append(os.path.join("E:/Mod", game, map_dir))
 
     # for every valid game
-    failures = collections.defaultdict(list)
+    failures = list()
     for game_name, map_dirs in game_map_dirs.items():
         for map_dir in map_dirs:
             if not os.path.exists(map_dir):
@@ -102,15 +107,20 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
             for map in map_names:
                 try:
                     loaded_bsp = load_bsp(os.path.join(map_dir, map))
-                    assert isinstance(loaded_bsp, (IdTechBsp, D3DBsp, RespawnBsp, ValveBsp))
+                    # NOTE: loaded_bsp.branch.__name__ will be "branches.developer.game"
+                    variant, bsp_version, branch = expected_branch[game_name]
+                    assert isinstance(loaded_bsp, variant)
+                    assert loaded_bsp.BSP_VERSION == bsp_version
+                    assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}"
                     # TODO: assert branch matches the one expected for this game
                     del loaded_bsp  # CONSERVE RAM!
-                except Exception:
+                except Exception as exc:
                     # TODO: log more info per failure, write to file
                     # -- would make a good github action artifact
-                    failures[game_name].append(map)
+                    failures.append((map, exc))
 
-    assert len(failures) == 0  # pytest will list all .bsps that failed to load
+    print(failures)
+    assert len(failures) == 0
 
 
 class TestIdTechBsp:
