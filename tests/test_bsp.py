@@ -87,12 +87,13 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
         #     for sourcemod in os.listdir(sourcemods_path):
         #         if os.path.isdir(os.path.join(sourcemods_path, sourcemod)):
         #             game_map_dirs[sourcemod].append(os.path.join(sourcemods_path, sourcemod, "maps"))
-    extracted_games = os.listdir("E:/Mod")  # maps extracted from .vpks etc.
-    for game in extracted_games:
-        if game not in games_to_test:
-            continue
-        for map_dir in games_to_test[game]:
-            game_map_dirs[game].append(os.path.join("E:/Mod", game, map_dir))
+    if os.path.exists("E:/Mod"):  # maps extracted from .vpks etc.
+        extracted_games = os.listdir("E:/Mod")
+        for game in extracted_games:
+            if game not in games_to_test:
+                continue
+            for map_dir in games_to_test[game]:
+                game_map_dirs[game].append(os.path.join("E:/Mod", game, map_dir))
 
     # for every valid game
     failures = list()
