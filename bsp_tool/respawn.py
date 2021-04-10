@@ -110,10 +110,8 @@ class RespawnBsp(base.Bsp):
         if len(self.loading_errors) > 0:
             print(*[f"{L}: {e}" for L, e in self.loading_errors.items()], sep="\n")
 
-    def save_as(self, filename=""):
+    def save_as(self, filename: str):
         """Defaults to overriding the original file"""
-        if filename == "":
-            filename = os.path.join(self.folder, self.filename)
         outfile = open(filename, "wb")
         outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
         # NOTE: some preprocessing checks / automation could be done here
@@ -129,7 +127,7 @@ class RespawnBsp(base.Bsp):
         # -- external lumps also have a length of 0 in headers, likely indicating their abscense from the .bsp
         current_offset = 16 + (16 * 128)  # first byte after headers
         raw_lumps: Dict[str, bytes] = self.raw_lumps()
-        # {"lump.name": b"raw lump data]"}
+        # {"LUMP.name": b"raw lump data]"}
         for lump in lump_order:
             if lump.name not in raw_lumps:
                 headers[lump.name] = LumpHeader(0, 0, 0, 0)
@@ -177,7 +175,7 @@ class RespawnBsp(base.Bsp):
                 ent_file.write(getattr(self, f"ENTITIES_{ent_variant}").as_bytes())
 
     def save(self):
-        self.save_as()  # override self.filepath/self.filename
+        self.save_as(os.path.join(self.folder, self.filename))
 
     def raw_lumps(self) -> Dict[str, bytes]:
         raw_lumps = dict()

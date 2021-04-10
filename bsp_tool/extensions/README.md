@@ -1,5 +1,5 @@
 # `bsp_tool` Extensions
-`bsp_tool/tools` holds various extension scripts that use bsp_tool to do various operations  
+`bsp_tool/extensions` holds various extension scripts that use bsp_tool to do various operations  
 
 ## archive.py
 This script requires no dependencies  
@@ -74,7 +74,7 @@ Setting `full` to `True` will use `difflib` to show the differences in bytes
 
 calling this function at the end of the file, in the `if __name__ == "__main__":` section and saving the contents to a file is advised, as this can take a while and really fill up a terminal  
 ```sh
-$ python bsp_tool/tools/diff.py > diff_results/css_cso2_dust2.txt
+$ python bsp_tool/extensions/diff.py > diff_results/css_cso2_dust2.txt
 ```
 
 `diff_entities` and `diff_pakfiles` give more targetted diffs for special lumps  
