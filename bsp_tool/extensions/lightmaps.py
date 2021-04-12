@@ -112,15 +112,15 @@ def save_rbsp(rbsp, folder="./"):  # TITANFALL 2 ONLY!
     for header in rbsp.LIGHTMAP_HEADERS:
         for i in range(header.count * 2):
             last_pixel = first_pixel + (header.width * header.height * 4)
-            sky_bytes = rbsp.RAW_LIGHTMAP_DATA_SKY[first_pixel:last_pixel]
+            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[first_pixel:last_pixel]
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
-            realtime_bytes = rbsp.RAW_LIGHTMAP_DATA_REAL_TIME_LIGHTS[first_pixel:last_pixel]
+            realtime_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[first_pixel:last_pixel]
             realtime_lightmap = Image.frombytes("RGBA", (header.width, header.height), realtime_bytes, "raw")
             realtime_lightmaps.append(realtime_lightmap)
             first_pixel = last_pixel
     # TODO: if folder doesn't exist, create it
-    max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS])
+    max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
     sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
     realtime_lightmap_page = sum(realtime_lightmaps, start=LightmapPage(max_width=max_width))

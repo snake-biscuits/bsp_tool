@@ -97,7 +97,7 @@ class Bsp:
                 try:
                     setattr(self, LUMP_NAME, lumps.BspLump(self.file, lump_header, LumpClass))
                 except RuntimeError:  # lump cannot be divided into a whole number of LumpClasses
-                    setattr(self, f"RAW_{LUMP_NAME}", lumps.RawBspLump(self.file, lump_header))
+                    setattr(self, LUMP_NAME, lumps.RawBspLump(self.file, lump_header))
             if LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
                 # TODO: use a method to grab data for lump, should also handle externals
