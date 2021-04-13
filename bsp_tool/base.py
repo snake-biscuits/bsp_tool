@@ -131,39 +131,36 @@ class Bsp:
         if len(self.loading_errors) > 0:
             print(*[f"{L}: {e}" for L, e in self.loading_errors.items()], sep="\n")
 
-    def save(self):
+    def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
-        # TODO: check BspLump._changes are all of type LumpClass
-        # filename = os.path.join(self.folder, self.filename)
         # if os.path.exists(filename):
         #     if input(f"Overwrite {filename}? (Y/N): ").upper()[0] != "Y":  # ask permission to overwrite
         #         print("Save Aborted")
         #         return
-        # USE THE LUMP MAP! PRESERVE ORIGINAL FILE'S LUMP ORDER
+        # # try to preserve the original order of lumps
         # outfile.write(self.FILE_MAGIC)
-        # outfile.write(self.VERSION.to_bytes(4, "little")) # Engine version
-        # # CONVERT INTERNAL LUMPS TO RAW LUMPS
-        # offset, length = 0, 0
-        # def save_lumps(...):
-        # ...
+        # outfile.write(self.VERSION.to_bytes(4, "little"))  # .bsp format version
         # for LUMP in self._engine_branch.LUMP:
         #     # convert special lumps to raw
-        #     if hasattr(self, f"RAW_{LUMP}"):
+        #     if hasattr(self, LUMP.name):
         #         continue
-        #     elif hasattr(self, LUMP):  # if lump in self.branch.LUMP_CLASSES
+        #     elif hasattr(self, LUMP.name):  # if lump in self.branch.LUMP_CLASSES
         #         lump_format = self._engine_branch.lump_classes[LUMP]._format
         #         pack_lump = lambda c: struct.pack(lump_format, *c.flat())
-        #         setattr(self, f"RAW_{LUMP}", map(pack_lump, getattr(self, LUMP)))
+        #         setattr(self, LUMP.name, map(pack_lump, getattr(self, LUMP)))
         #     # seek lump header
         #     outfile.write(offset.to_bytes(4, "little"))
-        #     length = len(getattr(self, LUMP.name, "RAW_" + LUMP.name))
+        #     length = len(getattr(self, LUMP.name, None))
         #     offset += length
-        #     outfile.write(b"0000") # lump version (actually important)
-        #     outfile.write(b"0000") # lump fourCC (only for compressed)
+        #     outfile.write(b"\x00\x00\x00\x00") # lump version (actually important)
+        #     outfile.write(b"\x00\x00\x00\x00") # lump fourCC (only for compressed)
         #     # seek lump start in file
-        #     outfile.write(getattr(self, LUMP.name, "RAW_" + LUMP.name))
+        #     outfile.write(getattr(self, LUMP.name))
         # outfile.write(b"0001") # map revision
+
+    def save(self):
+        self.save_as(os.path.join(self.folder, self.filename))
 
     def set_branch(self, branch: Union[str, ModuleType]):
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
@@ -177,7 +174,6 @@ class Bsp:
         # each LumpClass needs a ._format attr
         # a lump is converted to a list of LumpClasses with:
         # - [*map(LumpClass, struct.iter_unpack(LumpClass._format: str, lump.read(): bytes))]
-        # if any lump cannot be divided into a whole number of LumpClasses, it remains a RAW_LUMP
         # the failure is also logged, along with the sizes of the LumpClass._format & lump data
         # TODO: build new BspLump objects, keeping any changes made
         # NOTE: this doesn't mean changing formats, could cause major issues!
@@ -190,19 +186,20 @@ class Bsp:
             setattr(self, method.__name__, method)
         # could we also attach static methods?
 
-    def lump_as_bytes(self, lump_name):
-        if hasattr(self, f"RAW_{lump_name}"):
-            return getattr(self, f"RAW_{lump_name}")
+    def lump_as_bytes(self, lump_name: str) -> bytes:
+        # NOTE: if a lump failed to read correctly, converting to bytes will fail
+        # -- this is because LumpClasses are expected
         if not hasattr(self, lump_name):
-            return b""  # assume lump is empty
-        lump = getattr(self, lump_name)
-        if lump_name in self.branch.LUMP_CLASSES:
-            LumpClass = self.branch.LUMP_CLASSES[lump_name]
-            if hasattr(LumpClass, "flat"):
-                return b"".join(map(lambda x: struct.pack(LumpClass._format, *x.flat()), lump))
-            else:  # List[int] lump
-                return b"".join(map(lambda x: struct.pack(LumpClass._format, x), lump))
+            return b""  # lump is empty / deleted
+        lump_entries = getattr(self, lump_name)
+        if lump_name in self.branch.BASIC_LUMP_CLASSES:
+            _format = self.branch.BASIC_LUMP_CLASSES[lump_name]._format
+            raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)
+        elif lump_name in self.branch.LUMP_CLASSES:
+            _format = self.branch.LUMP_CLASSES[lump_name]._format
+            raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_entries])
         elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
-            return lump.as_bytes()
-        else:
-            raise RuntimeError(f"Don't know how to convert {lump_name} lump to bytes")
+            raw_lump = lump_entries.as_bytes()
+        else:  # assume lump_entries is just bytes
+            raw_lump = b"".join(lump_entries)
+        return raw_lump

@@ -81,13 +81,13 @@ def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
 
 def save_vbsp(vbsp, folder="./"):
     """Saves to '<folder>/<vbsp.filename>.lightmaps.png'"""
-    if not hasattr(vbsp, "RAW_LIGHTING"):
-        if not hasattr(vbsp, "RAW_LIGHTING_HDR"):  # HDR only
+    if not hasattr(vbsp, "LIGHTING"):
+        if not hasattr(vbsp, "LIGHTING_HDR"):  # HDR only
             raise RuntimeError(f"{vbsp.filename} has no lighting data")
         else:
-            lightmap_texels = vbsp.RAW_LIGHTING_HDR
+            lightmap_texels = vbsp.LIGHTING_HDR
     else:
-        lightmap_texels = vbsp.RAW_LIGHTING
+        lightmap_texels = vbsp.LIGHTING
     lightmaps = list()
     for face in vbsp.FACES:
         if face.light_offset == -1 or face.styles == -1:

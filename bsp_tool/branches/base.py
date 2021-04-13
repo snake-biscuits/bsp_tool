@@ -12,7 +12,6 @@ class Struct:
 
     def __init__(self, _tuple):
         # _tuple comes from: struct.unpack(self._format, bytes)
-        # usually from struct.iter_unpack(self._format, RAW_LUMP)
         _tuple_index = 0
         for attr in self.__slots__:
             if attr not in self._arrays:

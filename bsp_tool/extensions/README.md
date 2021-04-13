@@ -110,7 +110,7 @@ def save_rbsp(rbsp: bsp_tool.RespawnBsp, folder="./"):  # TITANFALL 2 ONLY!
     """Saves to {folder}/{rbsp.filename}.sky.lightmaps.png"""
     # rBSP have a LIGHTMAP_HEADERS lump, Titanfall 1, 2 & Apex all vary
     # Titanfall 2 appears to have two consecutive entries per LightmapHeader
-    # both of equal size and 2 in both the RAW_LIGHTMAP_DATA_SKY & RAW_LIGHTMAP_DATA_REAL_TIME_LIGHTS lumps
+    # both of equal size and 2 in both the LIGHTMAP_DATA_SKY & LIGHTMAP_DATA_REAL_TIME_LIGHTS lumps
     # Titanfall 1 appears to only have one for each?
     # Apex is different again
     # They appear to map: base lightmap albedo, areas covered by dynamic light, surface normals & dot(sunVector, N)
