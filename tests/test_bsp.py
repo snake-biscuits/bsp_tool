@@ -6,19 +6,14 @@ from bsp_tool import load_bsp
 from bsp_tool import IdTechBsp, D3DBsp, RespawnBsp, ValveBsp
 
 
-global bsps
-bsps = dict()
-# TODO: make a dict for each bsp variant
-
-
 def test_load_bsp():  # must run first!
     """load all maps in tests/maps for testing"""
-    bsps["test2"] = load_bsp("tests/maps/test2.bsp")
-    bsps["upward"] = load_bsp("tests/maps/pl_upward.bsp")
-    bsps["bigbox"] = load_bsp("tests/maps/test_bigbox.bsp")
-    assert isinstance(bsps["test2"], ValveBsp)
-    assert isinstance(bsps["upward"], ValveBsp)
-    assert isinstance(bsps["bigbox"], IdTechBsp)
+    test2 = load_bsp("tests/maps/test2.bsp")
+    upward = load_bsp("tests/maps/pl_upward.bsp")
+    bigbox = load_bsp("tests/maps/test_bigbox.bsp")
+    assert isinstance(test2, ValveBsp)
+    assert isinstance(upward, ValveBsp)
+    assert isinstance(bigbox, IdTechBsp)
     # TODO: assert branch and version for each bsp
 
 
@@ -122,9 +117,9 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
                     loaded_bsp = load_bsp(os.path.join(map_dir, map))
                     variant, bsp_version, branch = expected_branch[game_name]
                     assert isinstance(loaded_bsp, variant)
-                    assert loaded_bsp.BSP_VERSION == bsp_version
-                    assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}"
-                    assert len(loaded_bsp.loading_errors) == 0
+                    assert loaded_bsp.BSP_VERSION == bsp_version, "wrong bsp version"
+                    assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}", "wrong branch"
+                    assert len(loaded_bsp.loading_errors) == 0, f"failed to read {len(loaded_bsp.loading_errors)} lumps"
                     del loaded_bsp
                 except Exception as exc:
                     # TODO: log more info per failure, write to file
@@ -133,21 +128,3 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
 
     print(failures)
     assert len(failures) == 0
-
-
-class TestIdTechBsp:
-    def test_no_errors(self):
-        assert len(bsps["bigbox"].loading_errors) == 0
-
-    def test_entities_loaded(self):
-        assert bsps["bigbox"].ENTITIES[0]["classname"] == "worldspawn"
-
-
-class TestValveBsp:
-    def test_no_errors(self):
-        assert len(bsps["test2"].loading_errors) == 0
-        assert len(bsps["upward"].loading_errors) == 0
-
-    def test_entites_loaded(self):
-        assert bsps["test2"].ENTITIES[0]["classname"] == "worldspawn"
-        assert bsps["upward"].ENTITIES[0]["classname"] == "worldspawn"
