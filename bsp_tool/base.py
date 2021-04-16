@@ -78,9 +78,6 @@ class Bsp:
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
         version_string = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
         print(f"Opening {self.filename} {version_string}...")
-        # read headers
-        # TODO: define headers in branch script as a base.Struct (overriding a default)
-        # however, keep using ExternalLumpHeaders? could be overly complicated
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
@@ -95,20 +92,19 @@ class Bsp:
             if LUMP_NAME in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
                 try:
-                    setattr(self, LUMP_NAME, lumps.BspLump(self.file, lump_header, LumpClass))
+                    setattr(self, LUMP_NAME, lumps.create_BspLump(self.file, lump_header, LumpClass))
                 except RuntimeError:  # lump cannot be divided into a whole number of LumpClasses
-                    setattr(self, LUMP_NAME, lumps.RawBspLump(self.file, lump_header))
+                    setattr(self, LUMP_NAME, lumps.create_RawBspLump(self.file, lump_header))
             if LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
                 # TODO: use a method to grab data for lump, should also handle externals
-                # NOTE: lumps.BspLump
                 self.file.seek(lump_header.offset)
                 lump_data = self.file.read(lump_header.length)
                 try:
                     BspLump = SpecialLumpClass(lump_data)
-                except Exception:
-                    # TODO: log the exception for debugging
-                    BspLump = lumps.create_BspLump(self.file, lump_header)  # default to raw lump (bytes)
+                except Exception as exc:
+                    self.loading_errors[LUMP_NAME] = exc
+                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
             elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME]
                 try:

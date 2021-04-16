@@ -47,7 +47,7 @@ class RespawnBsp(base.Bsp):
         if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
-        self.REVISION = int.from_bytes(self.file.read(4), "little")
+        self.REVISION = int.from_bytes(self.file.read(4), "little")  # just for rBSP
         # next 4 bytes should be int(127)
         version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
         print(f"Loading {self.filename} {version}...")
@@ -79,8 +79,9 @@ class RespawnBsp(base.Bsp):
                     lump_data = open(lump_header.filename, "rb").read()
                 try:
                     BspLump = SpecialLumpClass(lump_data)
-                except Exception:
-                    pass  # TODO: NOTIFY THE USER THAT A LUMP DIDN'T LOAD!
+                except Exception as exc:
+                    self.loading_errors[LUMP.name] = exc
+                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
             elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
                 BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)

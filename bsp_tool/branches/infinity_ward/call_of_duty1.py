@@ -8,7 +8,7 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 59  # maps/MP/mp_railyard.bsp is IBSP v59
+BSP_VERSION = 59
 
 
 class LUMP(enum.Enum):
