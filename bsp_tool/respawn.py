@@ -48,9 +48,7 @@ class RespawnBsp(base.Bsp):
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
         self.REVISION = int.from_bytes(self.file.read(4), "little")  # just for rBSP
-        # next 4 bytes should be int(127)
-        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
-        print(f"Loading {self.filename} {version}...")
+        assert int.from_bytes(self.file.read(4), "little") == 127
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
@@ -107,9 +105,6 @@ class RespawnBsp(base.Bsp):
                     # Apex Legends:  ENTITIES02 model_count=0
                     setattr(self, lump_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
-
-        if len(self.loading_errors) > 0:
-            print(*[f"{L}: {e}" for L, e in self.loading_errors.items()], sep="\n")
 
     def save_as(self, filename: str):
         outfile = open(filename, "wb")

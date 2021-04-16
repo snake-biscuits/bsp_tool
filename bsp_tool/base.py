@@ -76,8 +76,6 @@ class Bsp:
         if file_magic != self.FILE_MAGIC:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
         self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
-        version_string = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
-        print(f"Opening {self.filename} {version_string}...")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
@@ -89,6 +87,7 @@ class Bsp:
             self.HEADERS[LUMP_NAME] = lump_header
             if lump_header.length == 0:
                 continue
+            # TODO: refactor down to one try/except create_RawBspLump
             if LUMP_NAME in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
                 try:
@@ -120,12 +119,6 @@ class Bsp:
                     self.loading_errors[LUMP_NAME] = exc
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP_NAME, BspLump)
-        # TODO: try and refactor so the "save lump as raw" case is only on one line
-        # TODO: print which lumps loaded to the terminal
-        # TODO: (maybe) give a pretty ascii visualisation of the .bsp file
-        # -- ^ could be pretty handy for understanding re-saving actually ^
-        if len(self.loading_errors) > 0:
-            print(*[f"{L}: {e}" for L, e in self.loading_errors.items()], sep="\n")
 
     def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
