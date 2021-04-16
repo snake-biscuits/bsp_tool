@@ -25,37 +25,37 @@ steam_directories = ["C:/Program Files (x86)/Steam",  # default Windows
 # NOTE: all rBSPs are in .vpks, and cannot easily be extracted
 # TODO: Dark Messiah maps are in .vpks
 # WARNING: Tests every .bsp it can find on your PC, very slow
-games_to_test = {  # Valve Bsp
-         # Black Mesa
-         "Counter-Strike Global Offensive": ["csgo/maps"],
-         "counter-strike source": ["cstrike/maps", "cstrike/download/maps"],
-         # Condition Zero / CZ Deleted Scenes
-         "day of defeat source": ["dod/maps"],
-         "half-life 2": ["hl2/maps"],
-         "Left 4 Dead 2": ["left4dead2/maps", "left4dead2_dlc1/maps",
-                           "left4dead2_dlc2/maps", "left4dead2_dlc3/maps"],
-         "SourceFilmmaker": ["game/tf/maps"],
-         "Team Fortress 2": ["tf/maps", "tf/download/maps"],
+# games_to_test = {  # Valve Bsp
+#          # Black Mesa
+#          "Counter-Strike Global Offensive": ["csgo/maps"],
+#          "counter-strike source": ["cstrike/maps", "cstrike/download/maps"],
+#          # Condition Zero / CZ Deleted Scenes
+#          "day of defeat source": ["dod/maps"],
+#          "half-life 2": ["hl2/maps"],
+#          "Left 4 Dead 2": ["left4dead2/maps", "left4dead2_dlc1/maps",
+#                            "left4dead2_dlc2/maps", "left4dead2_dlc3/maps"],
+#          "SourceFilmmaker": ["game/tf/maps"],
+#          "Team Fortress 2": ["tf/maps", "tf/download/maps"],
+#          # Extracted .bsps
+#          # ValveBsp
+#          "CSO2": ["maps"],  # Nexon's Counter-Strike: Online 2
+#          # NOTE: some CSO2 maps are from an older engine version, with no in file indication of this
+#          # D3DBsp
+#          "CoD1": ["maps", "maps/MP"],
+#          "CoD2": ["maps", "maps/mp"],  # *.d3dbsp
+#          "CoD4": ["maps"],  # not yet extracted
+#          # RespawnBsp
+#          "Titanfall": ["maps", "r1/maps"],
+#          "TitanfallOnline": ["maps", "r1/maps"],  # Nexon's TitanfallOnline
+#          "Titanfall2": ["maps", "r2/maps"],
+#          "ApexLegends": ["maps"],  # (Steam)  "Apex Legends": ["r5/maps"]  # or vpk/
+#          # IdTechBsp
+#          "QuakeIII": ["maps"]}  # (Steam)  "Quake 3 Arena": ["baseq3"]  # .pk3s
+# # ^ {"game": ["map_dir"]}
 
-         # PRE-EXCTRACTED .BSPS (E:/Mod/...)
-         "CSO2": ["maps"],  # Nexon's Counter-Strike: Online 2
-         # NOTE: some CSO2 maps are from an older engine version, with no in file indication of this
-         # D3DBsp
-         "CoD1": ["maps", "maps/MP"],
-         "CoD2": ["maps", "maps/mp"],  # *.d3dbsp
-         "CoD4": ["maps"],  # not yet extracted
-         # RespawnBsp
-         "Titanfall": ["maps", "r1/maps"],
-         "TitanfallOnline": ["maps", "r1/maps"],  # Nexon's TitanfallOnline
-         "Titanfall2": ["maps", "r2/maps"],
-         "ApexLegends": ["maps"],  # (Steam)  "Apex Legends": ["r5/maps"]  # or vpk/
-         # IdTechBsp
-         "QuakeIII": ["maps"]}  # (Steam)  "Quake 3 Arena": ["baseq3"]  # .pk3s
-# ^ {"game": ["map_dir"]}
-
-# games_to_test = {"Titanfall": ["maps"],  # E:/Mod/Titanfall/maps
-#                  "CoD1": ["maps", "maps/MP"]}  # Call of Duty 1 .bsps, extracted from .pk3s
-# # ^ fast test to double check rBSP & D3DBsp
+games_to_test = {"Titanfall": ["maps"],  # E:/Mod/Titanfall/maps
+                 "CoD1": ["maps", "maps/MP"]}  # Call of Duty 1 .bsps, extracted from .pk3s
+# ^ fast test to double check rBSP & D3DBsp
 
 expected_branch = {"ApexLegends": (RespawnBsp, 47, "respawn.apex_legends"),  # some are v48
                    "Counter-Strike Global Offensive": (ValveBsp, 21, "valve.cs_go"),
@@ -115,10 +115,11 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
             for map in map_names:
                 try:
                     loaded_bsp = load_bsp(os.path.join(map_dir, map))
-                    variant, bsp_version, branch = expected_branch[game_name]
-                    assert isinstance(loaded_bsp, variant)
-                    assert loaded_bsp.BSP_VERSION == bsp_version, "wrong bsp version"
-                    assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}", "wrong branch"
+                    if game_name in expected_branch:
+                        variant, bsp_version, branch = expected_branch[game_name]
+                        assert isinstance(loaded_bsp, variant)
+                        assert loaded_bsp.BSP_VERSION == bsp_version, "wrong bsp version"
+                        assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}", "wrong branch"
                     assert len(loaded_bsp.loading_errors) == 0, f"failed to read {len(loaded_bsp.loading_errors)} lumps"
                     del loaded_bsp
                 except Exception as exc:

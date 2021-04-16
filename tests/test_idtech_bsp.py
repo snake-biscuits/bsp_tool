@@ -1,4 +1,4 @@
-import os
+# import os
 import struct
 
 from bsp_tool import IdTechBsp
@@ -28,12 +28,11 @@ def test_face_struct():  # most complex branches.base.MappedArray
     return faces
 
 
-def test_save_as():
-    with open("tests/maps/test_bigbox.bsp", "rb") as file:
-        original = file.read()
-    bigbox.save_as("tests/maps/bigbox_save_test.bsp")
-    with open("tests/maps/bigbox_save_test.bsp", "rb") as file:
-        saved = file.read()
-    os.remove("tests/maps/bigbox_save_test.bsp")
-
-    assert original == saved
+# def test_save_as():  # Not implemented
+#     with open("tests/maps/test_bigbox.bsp", "rb") as file:
+#         original = file.read()
+#     bigbox.save_as("tests/maps/bigbox_save_test.bsp")
+#     with open("tests/maps/bigbox_save_test.bsp", "rb") as file:
+#         saved = file.read()
+#     os.remove("tests/maps/bigbox_save_test.bsp")
+#     assert original == saved
