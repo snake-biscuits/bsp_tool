@@ -103,7 +103,7 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
                 game_map_dirs[game].append(os.path.join("E:/Mod", game, map_dir))
 
     # for every valid game
-    failures = list()
+    failures = collections.defaultdict(list)
     for game_name, map_dirs in game_map_dirs.items():
         for map_dir in map_dirs:
             if not os.path.exists(map_dir):
@@ -125,7 +125,7 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
                 except Exception as exc:
                     # TODO: log more info per failure, write to file
                     # -- would make a good github action artifact
-                    failures.append((map, exc))
+                    failures[game_name].append((map, exc))
 
-    print(failures)
-    assert len(failures) == 0
+    for game_name in failures:
+        assert len(failures[game_name]) == 0, f"Errors loading {game_name}"
