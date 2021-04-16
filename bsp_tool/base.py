@@ -28,7 +28,7 @@ class Bsp:
     bsp_file_size: int = 0  # size of .bsp in bytes
     filename: str
     folder: str
-    loading_errors: List[str]  # list of errors raised loading lumps
+    loading_errors: Dict[str, Exception]  # errors raised loading lumps
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         if not filename.endswith(".bsp"):

@@ -24,7 +24,7 @@ class RespawnBsp(base.Bsp):
     # -- https://noskill.gitbook.io/titanfall2/how-to-start-modding/modding-introduction/modding-tools
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        super(RespawnBsp, self).__init__(branch, filename)
+        super(RespawnBsp, self).__init__(branch, filename, autoload)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
     def _read_header(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
@@ -83,7 +83,7 @@ class RespawnBsp(base.Bsp):
                     pass  # TODO: NOTIFY THE USER THAT A LUMP DIDN'T LOAD!
             elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
-                BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+                BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
             else:  # LumpClass / RawBspLump
                 LumpClass = self.branch.LUMP_CLASSES.get(LUMP.name, None)
                 try:

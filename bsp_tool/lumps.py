@@ -90,7 +90,7 @@ def create_RawBspLump(file: io.BufferedReader, lump_header: collections.namedtup
         return ExternalRawBspLump(lump_header)
 
 
-def create_BasicBspLump(file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object) -> BasicBspLump:
+def create_BasicBspLump(file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object) -> BasicBspLump:  # noqa E502
     if hasattr(lump_header, "fourCC"):
         file, lump_header = decompressed(file, lump_header)
     if not hasattr(lump_header, "filename"):
