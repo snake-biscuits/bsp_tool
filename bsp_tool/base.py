@@ -28,7 +28,8 @@ class Bsp:
     bsp_file_size: int = 0  # size of .bsp in bytes
     filename: str
     folder: str
-    loading_errors: Dict[str, Exception]  # errors raised loading lumps
+    loading_errors: Dict[str, Exception]
+    # ^ {"LUMP_NAME": Exception encountered}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         if not filename.endswith(".bsp"):
@@ -123,30 +124,17 @@ class Bsp:
     def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
         raise NotImplementedError()
-        # if os.path.exists(filename):
-        #     if input(f"Overwrite {filename}? (Y/N): ").upper()[0] != "Y":  # ask permission to overwrite
-        #         print("Save Aborted")
-        #         return
+        # os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
+        # outfile = open(filename, "wb")
         # # try to preserve the original order of lumps
         # outfile.write(self.FILE_MAGIC)
         # outfile.write(self.VERSION.to_bytes(4, "little"))  # .bsp format version
-        # for LUMP in self._engine_branch.LUMP:
-        #     # convert special lumps to raw
-        #     if hasattr(self, LUMP.name):
-        #         continue
-        #     elif hasattr(self, LUMP.name):  # if lump in self.branch.LUMP_CLASSES
-        #         lump_format = self._engine_branch.lump_classes[LUMP]._format
-        #         pack_lump = lambda c: struct.pack(lump_format, *c.flat())
-        #         setattr(self, LUMP.name, map(pack_lump, getattr(self, LUMP)))
-        #     # seek lump header
-        #     outfile.write(offset.to_bytes(4, "little"))
-        #     length = len(getattr(self, LUMP.name, None))
-        #     offset += length
-        #     outfile.write(b"\x00\x00\x00\x00") # lump version (actually important)
-        #     outfile.write(b"\x00\x00\x00\x00") # lump fourCC (only for compressed)
-        #     # seek lump start in file
-        #     outfile.write(getattr(self, LUMP.name))
+        # for LUMP in self.branch.LUMP:
+        #     pass  # calculate and write each header
+        #     # adapting each header to bytes could be hard
+        # # write the contents of each lump
         # outfile.write(b"0001") # map revision
+        # # write contents of lumps
 
     def save(self):
         self.save_as(os.path.join(self.folder, self.filename))
@@ -175,20 +163,20 @@ class Bsp:
             setattr(self, method.__name__, method)
         # could we also attach static methods?
 
-    def lump_as_bytes(self, lump_name: str) -> bytes:
+    def lump_as_bytes(self, LUMP_name: str) -> bytes:
         # NOTE: if a lump failed to read correctly, converting to bytes will fail
         # -- this is because LumpClasses are expected
-        if not hasattr(self, lump_name):
+        if not hasattr(self, LUMP_name):
             return b""  # lump is empty / deleted
-        lump_entries = getattr(self, lump_name)
-        if lump_name in self.branch.BASIC_LUMP_CLASSES:
-            _format = self.branch.BASIC_LUMP_CLASSES[lump_name]._format
+        lump_entries = getattr(self, LUMP_name)
+        if LUMP_name in self.branch.BASIC_LUMP_CLASSES:
+            _format = self.branch.BASIC_LUMP_CLASSES[LUMP_name]._format
             raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)
-        elif lump_name in self.branch.LUMP_CLASSES:
-            _format = self.branch.LUMP_CLASSES[lump_name]._format
+        elif LUMP_name in self.branch.LUMP_CLASSES:
+            _format = self.branch.LUMP_CLASSES[LUMP_name]._format
             raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_entries])
-        elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+        elif LUMP_name in self.branch.SPECIAL_LUMP_CLASSES:
             raw_lump = lump_entries.as_bytes()
-        else:  # assume lump_entries is just bytes
-            raw_lump = b"".join(lump_entries)
+        else:  # assume lump_entries is RawBspLump
+            raw_lump = bytes(lump_entries)
         return raw_lump

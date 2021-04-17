@@ -52,7 +52,7 @@ class RespawnBsp(base.Bsp):
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
-        self.loading_errors: Dict[str, Exception] = []
+        self.loading_errors: Dict[str, Exception] = dict()
         # internal & external lumps
         for LUMP in self.branch.LUMP:  # external .bsp.00XX.bsp_lump lump
             external = False
@@ -99,19 +99,20 @@ class RespawnBsp(base.Bsp):
             entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
             if entity_file in self.associated_files:
                 with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
-                    lump_name = f"ENTITIES_{ent_filetype}"
-                    self.HEADERS[lump_name] = ent_file.readline().decode().rstrip("\n")
+                    LUMP_name = f"ENTITIES_{ent_filetype}"
+                    self.HEADERS[LUMP_name] = ent_file.readline().decode().rstrip("\n")
                     # Titanfall:  ENTITIES01
                     # Apex Legends:  ENTITIES02 model_count=0
-                    setattr(self, lump_name, shared.Entities(ent_file.read()))
+                    setattr(self, LUMP_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename: str):
+        os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")
         outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
         # NOTE: some preprocessing checks / automation could be done here
         # - e.g. change TEXDATA_STRING_TABLE to match TEXDATA_STRING_DATA
-        # - sort entities into .ent files based on classname
+        # - sort entities into .ent files based on classname (would require a lookup table)
         # -- for Titanfall2 / Apex .ent: calculate the total model count
         lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.HEADERS[L.name].offset)
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
@@ -144,9 +145,13 @@ class RespawnBsp(base.Bsp):
                 # ^ offset, length, version, fourCC
             else:
                 header = LumpHeader(offset, length, version, fourCC)
-            outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
+        del current_offset
+        # write headers
+        for LUMP in self.branch.LUMP:
+            header = headers[LUMP.name]
+            outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
