@@ -9,10 +9,9 @@ LumpHeader = namedtuple("LumpHeader", ["offset", "length"])
 
 
 class IdTechBsp(base.Bsp):
-    # https://www.mralligator.com/q3/
     FILE_MAGIC = b"IBSP"
-    # NOTE: these files are usually stored in .pk3 files
-    # -- see bsp_tool.extensions.Pk3 for a handy extractor
+    # https://www.mralligator.com/q3/
+    # NOTE: Quake 3 .bsp are usually stored in .pk3 files
 
     def _read_header(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
         self.file.seek(self.branch.lump_header_address[LUMP])

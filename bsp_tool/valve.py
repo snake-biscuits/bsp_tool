@@ -17,7 +17,8 @@ class ValveBsp(base.Bsp):
     filesize: int = 0  # size of .bsp in bytes
     filename: str
     folder: str
-    loading_errors: List[str]  # list of errors raised loading lumps
+    loading_errors: Dict[str, Exception]
+    # ^ {"LUMP_NAME": Exception encountered}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(ValveBsp, self).__init__(branch, filename, autoload)
