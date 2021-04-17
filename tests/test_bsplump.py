@@ -20,7 +20,7 @@ class TestRawBspLump:
 
     def test_list_conversion(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
-            assert list(lump) == [int(b) for b in lump[::]], f"{map_name} vis lump does not match"
+            assert list(lump) == [int(b) for b in lump], f"{map_name} vis lump does not match"
 
     def test_indexing(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
@@ -38,7 +38,7 @@ class TestBspLump:
     def test_list_conversion(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            assert list(lump) == [b for b in lump[::]], f"{map_name} vis lump does not match"
+            assert list(lump) == [b for b in lump], f"{map_name} vis lump does not match"
 
     def test_indexing(self):
         for map_name in bsps:
@@ -55,9 +55,28 @@ class TestBspLump:
             with pytest.raises(TypeError):
                 assert lump["one"], f"{map_name} failed"
 
+    def test_del(self):
+        for map_name in bsps:
+            lump = bsps[map_name].VERTICES
+            initial_length = len(lump)
+            del lump[0]
+            assert len(lump) == initial_length - 1, f"{map_name} failed"
+            initial_length = len(lump)
+            del lump[:2]
+            assert len(lump) == initial_length - 2, f"{map_name} failed"
+
+    def test_setitem(self):
+        for map_name in bsps:
+            lump = bsps[map_name].VERTICES
+            empty_entry = lump.LumpClass([0] * 20)
+            lump[0] = empty_entry
+            assert lump[0] == empty_entry, f"{map_name} failed"
+            lump[:2] = [empty_entry, empty_entry]
+            assert lump[:2] == [empty_entry, empty_entry], f"{map_name} failed"
+
 
 class TestExternalBspLump:  # TODO: get external lumps to sample
-    pass  # same tests, and ensure data is external, not internal
+    pass  # ensure data is external, not internal
 
 
 class TestBasicBspLump:
@@ -69,7 +88,7 @@ class TestBasicBspLump:
     def test_list_conversion(self):
         for map_name in bsps:
             lump = bsps[map_name].LEAF_FACES
-            assert list(lump) == [b for b in lump[::]], f"{map_name} vis lump does not match"
+            assert list(lump) == [b for b in lump], f"{map_name} vis lump does not match"
 
     def test_indexing(self):
         for map_name in bsps:
