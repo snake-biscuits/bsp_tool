@@ -54,6 +54,7 @@ class RespawnBsp(base.Bsp):
 
         self.loading_errors: Dict[str, Exception] = dict()
         # internal & external lumps
+        # TODO: break down into a _load_lump method, allowing reloading
         for LUMP in self.branch.LUMP:  # external .bsp.00XX.bsp_lump lump
             external = False
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
@@ -168,7 +169,6 @@ class RespawnBsp(base.Bsp):
                     outfile.write(b"\x00" * padding_length)
                 outfile.write(raw_lumps[LUMP.name])
         outfile.close()  # main .bsp is written
-        # TODO: reload all lumps.BspLump etc.
         # write .ent lumps
         for ent_variant in ("env", "fx", "script", "snd", "spawn"):
             if not hasattr(self, f"ENTITIES_{ent_variant}"):
@@ -182,3 +182,4 @@ class RespawnBsp(base.Bsp):
 
     def save(self):
         self.save_as(os.path.join(self.folder, self.filename))
+        self._preload()  # reload lumps, clearing all BspLump._changes
