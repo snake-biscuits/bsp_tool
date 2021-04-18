@@ -7,14 +7,7 @@ import struct
 from typing import Any, Dict, Union
 
 
-# TODO: _changes attr, hold edits until applied by base.Bsp
-# -- should also override any returned entries with _changes
-# ^ doing this allows Bsp.lump_as_bytes to "apply" all changes
-# NOTE: _changes can be cleared once a lump is written, since the changes are in the source file
-# However, compressed lumps will need to be reloaded
-
-
-def _remap_negative_index(index: int, length: int):
+def _remap_negative_index(index: int, length: int) -> int:
     "simplify to positive integer"
     if index < 0:
         index = length + index
@@ -23,7 +16,7 @@ def _remap_negative_index(index: int, length: int):
     return index
 
 
-def _remap_slice(_slice: slice, length: int):
+def _remap_slice(_slice: slice, length: int) -> slice:
     "simplify to positive start & stop within range(0, length)"
     start, stop, step = _slice.start, _slice.stop, _slice.step
     if start is None:
@@ -183,7 +176,6 @@ class BspLump(RawBspLump):
     def __getitem__(self, index: Union[int, slice]):
         """Reads bytes from self.file & returns LumpClass(es)"""
         # read bytes -> struct.unpack tuples -> LumpClass
-        # TODO: handle out of range & negative indices
         # NOTE: BspLump[index] = LumpClass(entry)
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
@@ -241,7 +233,6 @@ class BasicBspLump(BspLump):
     def __getitem__(self, index: Union[int, slice]):
         """Reads bytes from self.file & returns LumpClass(es)"""
         # read bytes -> struct.unpack tuples -> LumpClass
-        # TODO: handle out of range & negative indices
         # NOTE: BspLump[index] = LumpClass(entry)
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
@@ -266,7 +257,6 @@ class ExternalRawBspLump(RawBspLump):
     _changes: Dict[int, bytes]
     # ^ {index: new_byte}
     _length: int  # number of indexable entries
-    # TODO: _changes attr, hold edits until applied by base.Bsp
     # -- should also override any returned entries with _changes
 
     def __init__(self, lump_header: collections.namedtuple):

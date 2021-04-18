@@ -20,7 +20,7 @@ class TestRawBspLump:
 
     def test_list_conversion(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
-            assert list(lump) == [int(b) for b in lump], f"{map_name} vis lump does not match"
+            assert list(lump) == [int(b) for b in lump], f"{map_name}.VISIBILITY failed"  # bigbox.LIGHT_VOLUMES
 
     def test_indexing(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
@@ -38,7 +38,7 @@ class TestBspLump:
     def test_list_conversion(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            assert list(lump) == [b for b in lump], f"{map_name} vis lump does not match"
+            assert list(lump) == [b for b in lump], f"{map_name}.VERTICES failed"
 
     def test_indexing(self):
         for map_name in bsps:

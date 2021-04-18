@@ -10,7 +10,7 @@ class Struct:
     _arrays: Dict[str, Any] = dict()  # slots to be mapped into MappedArrays
     # each value in _arrays is a mapping to generate a MappedArray from
 
-    def __init__(self, _tuple):
+    def __init__(self, _tuple: Iterable):
         # _tuple comes from: struct.unpack(self._format, bytes)
         _tuple_index = 0
         for attr in self.__slots__:
