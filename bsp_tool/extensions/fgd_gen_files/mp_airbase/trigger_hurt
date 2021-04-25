@@ -1,0 +1,13 @@
+{
+	"model" "*6"
+	"origin" "-2412 364 -1104"
+	"StartDisabled" "0"
+	"nodmgforce" "1"
+	"damageSourceName" "fall"
+	"damagemodel" "0"
+	"damagecap" "20"
+	"damage" "10000"
+	"spawnflags" "4099"
+	"targetname" "trigger_hurt_1"
+	"classname" "trigger_hurt"
+}

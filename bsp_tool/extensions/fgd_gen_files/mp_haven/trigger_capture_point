@@ -1,0 +1,32 @@
+{
+	"model" "*1"
+	"origin" "360 1032 75"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hp_museum"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*2"
+	"origin" "360 1032 20"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hp_museum1"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*3"
+	"origin" "-254 -768 260"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hp_lobby1"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*5"
+	"origin" "2304 2176 272"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hp_restaurant"
+	"classname" "trigger_capture_point"
+}

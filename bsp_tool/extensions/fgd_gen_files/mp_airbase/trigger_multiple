@@ -1,0 +1,27 @@
+{
+	"model" "*58"
+	"origin" "-2432 3520 1760"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "tower_main_death_trigger_1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*59"
+	"origin" "-2432 3488 1664"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "tower_main_death_trigger_2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*60"
+	"origin" "-4867.55 4614 836"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "tower_main_death_trigger_3"
+	"classname" "trigger_multiple"
+}

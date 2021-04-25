@@ -1,0 +1,72 @@
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-892 -448 128"
+	"targetname" "env_soundscape_cannon_controlroom_2"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "772 -448 128"
+	"targetname" "soundscape_cannon_controlroom_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-60 -704 128"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "soundscape_cannon_lower"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "3652.87 1438.8 512"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "soundscape_warehouse"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-1464 1620 96"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "soundscape_observatory"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "1597.37 -100.788 160.001"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "soundscape_cannoncontrol"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "1216.73 1715.95 320"
+	"soundscape" "AMB_Outpost_INT_ClosedRoom"
+	"targetname" "soundscape_gondola"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-15296 128 15296"
+	"soundscape" "AMB_Outpost_EXT_Global"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}

@@ -1,0 +1,12 @@
+{
+	"world_maxs" "11370 7552 3190"
+	"world_mins" "-12003 -14921 -5873"
+	"skyname" "sky_vivid_blue_light_horizon_hdr"
+	"minpropscreenwidth" "75"
+	"maxpropscreenwidth" "100"
+	"maxblobcount" "250"
+	"detailvbsp" "detail.vbsp"
+	"detailmaterial" "detail/detailsprites"
+	"classname" "worldspawn"
+	"mapversion" "195"
+}

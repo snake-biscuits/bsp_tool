@@ -1,0 +1,144 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "7200 6064 1880"
+	"soundscape" "AMB_Boneyard_Ext_Global"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "1968 1360 712"
+	"soundscape" "AMB_Boneyard_INT_ClosedRoom"
+	"targetname" "bunker016"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-256 1752 360"
+	"soundscape" "AMB_Boneyard_INT_HalfOpen"
+	"targetname" "dogwhistle_top"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-248 2088 0"
+	"soundscape" "AMB_Boneyard_INT_ClosedRoom"
+	"targetname" "dogwhistle_bottom"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-2184 1000 104"
+	"soundscape" "AMB_Boneyard_INT_HalfOpen"
+	"targetname" "armory"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-3496 784 128"
+	"soundscape" "amb_boneyard_INT_HalfOpen"
+	"targetname" "barracks"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "320 400 392"
+	"soundscape" "AMB_Boneyard_INT_HalfOpen"
+	"requireLOS" "1"
+	"targetname" "bunker_exploded"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-304 248 -192"
+	"soundscape" "AMB_Boneyard_INT_HalfOpen"
+	"targetname" "bunker_hallway"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "1672 -296 264"
+	"soundscape" "AMB_Boneyard_INT_ClosedRoom"
+	"requireLOS" "0"
+	"targetname" "barracks_big"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-2592 -320 24"
+	"soundscape" "amb_boneyard_INT_HalfOpen"
+	"targetname" "research_lab"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "-2592 -912 -232"
+	"soundscape" "amb_boneyard_INT_ClosedRoom"
+	"requireLOS" "1"
+	"targetname" "caves"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "-3576 -1216 24"
+	"soundscape" "amb_boneyard_INT_ClosedRoom"
+	"requireLOS" "1"
+	"targetname" "bunker004"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "-2240 -1656 -224"
+	"soundscape" "amb_boneyard_INT_ClosedRoom"
+	"requireLOS" "1"
+	"targetname" "bunker_small"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-296 -2048 -224"
+	"soundscape" "AMB_Boneyard_INT_ClosedRoom"
+	"targetname" "generator_room"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "-2704 -3632 -120"
+	"soundscape" "amb_boneyard_INT_ClosedRoom"
+	"requireLOS" "1"
+	"targetname" "runway_garage"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "7792 8160 256"
+	"soundscape" "AMB_Boneyard_INT_ClosedRoom"
+	"targetname" "env_soundscape_closed_room"
+	"classname" "env_soundscape_triggerable"
+}

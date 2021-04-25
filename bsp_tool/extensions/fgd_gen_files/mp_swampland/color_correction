@@ -1,0 +1,13 @@
+{
+	"StartDisabled" "0"
+	"spawnflags" "0"
+	"minfalloff" "-1"
+	"maxweight" "1"
+	"maxfalloff" "-1"
+	"fadeOutDuration" "0"
+	"fadeInDuration" "0"
+	"origin" "736 -6976 3072"
+	"filename" "materials/correction/mp_swampland.raw"
+	"targetname" "color_correction_6"
+	"classname" "color_correction"
+}

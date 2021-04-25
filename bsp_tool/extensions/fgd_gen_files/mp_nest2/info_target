@@ -1,0 +1,62 @@
+{
+	"editorclass" "info_target_fx"
+	"spawnflags" "2"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-2428.21 2103.98 -51"
+	"targetname" "out_A"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"spawnflags" "2"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1878 1898 -66"
+	"targetname" "out_B"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "10.1045 148.113 -6.25217e-016"
+	"origin" "1725.01 1960.87 368.882"
+	"target" "prop_bigbrother_panel_2"
+	"targetname" "panel_cam2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "20.3568 108.753 -1.30174e-015"
+	"origin" "-1728 2016 16"
+	"target" "prop_bigbrother_panel_1"
+	"targetname" "panel_cam1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-13.1123 29.9545 -2.49239"
+	"origin" "-3320 1613 42"
+	"target" "prop_bigbrother_panel_1"
+	"targetname" "panel_cam10"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-10.7513 158.613 1.16741"
+	"origin" "3202.25 1506.78 83.4482"
+	"target" "prop_bigbrother_panel_2"
+	"targetname" "panel_cam20"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "3136.12 -3964.63 154.798"
+	"targetname" "info_target_1"
+	"classname" "info_target"
+}

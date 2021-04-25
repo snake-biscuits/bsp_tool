@@ -1,0 +1,30 @@
+{
+	"UseableBy" "0"
+	"traverseType" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -153.575 0"
+	"origin" "2828.96 -972.155 42.0031"
+	"targetname" "traverse_1"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"traverseType" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -67.993 0"
+	"origin" "2978.18 -390.786 38.0011"
+	"targetname" "traverse_1"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"traverseType" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -49.5 0"
+	"origin" "3085.96 -638.999 38.0015"
+	"targetname" "traverse_1"
+	"classname" "traverse"
+}

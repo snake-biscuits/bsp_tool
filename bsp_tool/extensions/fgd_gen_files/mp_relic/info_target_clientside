@@ -1,0 +1,1279 @@
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.88937 -35.769 6.09019"
+	"origin" "924.097 -425.072 690.191"
+	"targetname" "ship_vent2"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "7.18641 -31.805 6.1196"
+	"origin" "1296.74 -2069.74 1317.26"
+	"targetname" "ship_pipe9"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.88937 -35.769 6.09019"
+	"origin" "1333.3 -1512 1407.47"
+	"targetname" "ship_pipe10"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "82.6239 104.964 -164.538"
+	"origin" "-445.689 -2311.6 83.8378"
+	"targetname" "ship_exhaust1"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "88.275 75.6906 167.65"
+	"origin" "1057.46 -1849.74 1150.06"
+	"targetname" "ship_exhaust2"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "81.4933 87.117 179.1"
+	"origin" "-1046.94 -1848.06 1240.92"
+	"targetname" "ship_exhaust3"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "69.0324 153.192 -113.236"
+	"origin" "-953.262 -3098.63 762.963"
+	"targetname" "ship_exhaust5"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "71.748 154.434 -112.422"
+	"origin" "-965.169 -3587.04 689.538"
+	"targetname" "ship_exhaust6"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-732.402 -4117.35 246.122"
+	"targetname" "ship_pipe2"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-732.402 -4125.35 306.122"
+	"targetname" "ship_pipe"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "989.842 -5326.23 298.444"
+	"targetname" "ship_pipe1"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "979.842 -5431.23 293.444"
+	"targetname" "ship_pipe3"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "974.842 -5558.23 288.444"
+	"targetname" "ship_pipe4"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "80.9537 90 -2.20356e-014"
+	"origin" "-29.8588 -1870.37 633.491"
+	"targetname" "ship_pipe5"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "30.3464 90 -2.05393e-015"
+	"origin" "-84.8235 -4911.13 712.025"
+	"targetname" "ship_pipe6"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "35.0287 180 -2.4592e-015"
+	"origin" "528.189 -3994 588.811"
+	"targetname" "ship_pipe7"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "80.9537 90 -2.20356e-014"
+	"origin" "-23.4305 -1963.93 620.461"
+	"targetname" "ship_pipe8"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "69.4918 90 -9.37943e-015"
+	"origin" "-67.5119 -2236.74 1167.31"
+	"targetname" "ship_vent4"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "46.6663 -176.882 92.2683"
+	"origin" "509.413 -2140.26 774.197"
+	"targetname" "ship_vent1"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "8.95111 100.118 1.59038"
+	"origin" "-551.146 -4998.86 592.419"
+	"targetname" "ship_vent3"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "6.28062 -142.361 -5.15429"
+	"origin" "-1257.09 -2069.88 1371"
+	"targetname" "ship_pipe11"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-21.6629 -67.042 -8.88747"
+	"origin" "-238.683 -3358.57 833.552"
+	"targetname" "ship_vent5"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-0 109.472 0"
+	"origin" "35.1713 -3723.84 739.04"
+	"targetname" "ship_vent6"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "68.5401 7.762 98.3333"
+	"origin" "-626.433 -3158.73 1053.84"
+	"targetname" "ship_vent7"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "50.7205 171.009 -18.0778"
+	"origin" "677.468 -4227.98 800.235"
+	"targetname" "ship_pipe12"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-83.2763 90 2.9759e-014"
+	"origin" "349.116 -4475.6 332.172"
+	"targetname" "ship_vent8"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "30.8401 172.162 -94.0359"
+	"origin" "49.9111 -4159.15 377.887"
+	"targetname" "ship_vent9"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "41.2158 179.847 89.8991"
+	"origin" "-204.211 -3278.52 621.527"
+	"targetname" "ship_sparks"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "37.2732 3.50835e-015 -90"
+	"origin" "-116.358 -2438.38 986.118"
+	"targetname" "ship_sparks1"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "58.2439 180 90"
+	"origin" "-191.7 -2426.53 971.982"
+	"targetname" "ship_sparks2"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "84.3947 3.50835e-015 -90"
+	"origin" "15.5205 -3300.83 708.43"
+	"targetname" "ship_sparks3"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "44.6473 -82.109 -174.437"
+	"origin" "-494.294 -4486.75 721.985"
+	"targetname" "ship_sparks4"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "60.9372 -100.673 164.775"
+	"origin" "-496.77 -4413.06 622.84"
+	"targetname" "ship_sparks5"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "64.1961 -4.55141e-015 -7.25612e-015"
+	"origin" "58.8266 -4659.45 666.348"
+	"targetname" "ship_sparks6"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "34.9334 -180 180"
+	"origin" "-15.9165 -4652.28 685.988"
+	"targetname" "ship_sparks7"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "69.937 142.695 109.282"
+	"origin" "-590.299 -4230.2 430.468"
+	"targetname" "ship_sparks8"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "40.2785 99.9438 6.85734"
+	"origin" "-696.92 -4655.94 398.417"
+	"targetname" "ship_vent10"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "13.0118 86.5509 -8.10729e-016"
+	"origin" "537.534 -3581.69 479.784"
+	"targetname" "ship_sparks9"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "20.3322 164.643 -22.1501"
+	"origin" "681.739 -4159.65 736.898"
+	"targetname" "ship_sparks10"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.50063"
+	"angles" "82.0553 99.2331 -170.681"
+	"origin" "-73.447 -3793.37 817.411"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.59665"
+	"angles" "22.2118 3.0478 98.472"
+	"origin" "-353.713 -3780.29 704.535"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.7925"
+	"angles" "-15.0366 -178.055 -98.1189"
+	"origin" "285.498 -3780.41 686.913"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.67515"
+	"angles" "45.2897 -91.295 -91.8242"
+	"origin" "77.5037 -4250.25 571.301"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.91142"
+	"angles" "-1.45079 178.782 172.188"
+	"origin" "-517.072 -4105.64 623.223"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.58705"
+	"angles" "31.3607 90.7841 91.5029"
+	"origin" "-535.668 -4708.57 518.535"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.85525"
+	"angles" "-6.10462 -179.331 -97.8841"
+	"origin" "360.267 -3381.89 942.028"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.652"
+	"angles" "-11.4473 -178.577 -97.9993"
+	"origin" "-406.445 -3381.26 958.875"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.5457"
+	"angles" "-59.4301 -166.696 74.4441"
+	"origin" "-355.83 -3742.3 908.307"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.57366"
+	"angles" "-0.630239 179.912 82.1604"
+	"origin" "156.116 -3742.21 896.997"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.99426"
+	"angles" "-10.3355 -15.805 144.449"
+	"origin" "-220.843 -1910.16 92.6254"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.55954"
+	"angles" "-9.35525 -14.419 144.212"
+	"origin" "171.07 -1914.76 88.9365"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.50446"
+	"angles" "-7.26606 123.23 176.778"
+	"origin" "-1016.33 -4562.76 750.378"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.72539"
+	"angles" "-7.92693 95.3695 -179.466"
+	"origin" "307.918 -2456.11 87.2016"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.58312"
+	"angles" "2.46074 -152.827 172.444"
+	"origin" "-355.455 -2454.28 65.4553"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1113.47 -5123.3 1047.14"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1114 -4951.58 1070.86"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1114.51 -4782.38 1094.12"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1115.05 -4612.95 1118.09"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1115.55 -4448.24 1140.85"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1116.09 -4276.58 1165.12"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1116.6 -4112.02 1187.87"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1117.12 -3943.06 1211.48"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1117.62 -3775.8 1234.32"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1118.12 -3606.36 1256.82"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1118.63 -3440.22 1279.63"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1119.15 -3270.59 1303.26"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1119.67 -3101.43 1326.5"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1120.19 -2932.86 1349.78"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "1120.73 -2756.07 1374.43"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "781.829 -4975.57 845.48"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "782.683 -4698.09 883.888"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "783.536 -4418.86 922.524"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "784.409 -4144.12 961.727"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "785.269 -3868.28 1000.66"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "786.124 -3591.61 1039.21"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "786.986 -3309.93 1078.02"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "787.819 -3032.49 1115.46"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "788.676 -2763.8 1154.17"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "789.533 -2487.51 1192.8"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "781.002 -1776.1 360.285"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "794.76 -624.383 520.09"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "791.709 -1200.1 440.005"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "793.881 -912.274 480.436"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "786.377 -1488.22 401.087"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "783.678 -1632.19 380.246"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "789.042 -1344.15 420.51"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "793.431 -1056.69 460.172"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "1.28325 0.0017 97.8411"
+	"origin" "794.317 -768.063 500.107"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-780.134 -1776.4 392.106"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-781.918 -1632.41 412.45"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-783.715 -1488.25 432.272"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-785.5 -1344.21 452.581"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-787.287 -1200.32 472.673"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-788.121 -1056.47 492.861"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-787.681 -912.391 512.737"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-787.237 -768.61 532.722"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.16297 -179.125 82.1402"
+	"origin" "-786.789 -624.657 552.943"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.30349 178.869 82.132"
+	"origin" "-1112.65 -2347.45 934.097"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "57.1703 167.504 74.338"
+	"origin" "-1094.62 -2343.18 905.601"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1097.41 -2850.46 833.986"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1113.42 -2856.44 864.62"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1099.4 -3332.28 767.723"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1115.34 -3337.15 798.075"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1100.98 -3816.21 700.774"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1117.23 -3820.53 730.567"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1102.35 -4324.46 631.075"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1118.33 -4326.96 661.793"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1103.62 -4752.72 572.071"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1119.69 -4756.99 602.87"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "45.9623 171.585 79.0575"
+	"origin" "-1105 -5157.36 516.493"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "5.22708 179.047 82.1299"
+	"origin" "-1120.94 -5160.83 547.541"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1155.27 -2746.36 1358.68"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1155.8 -2922.89 1334.15"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1156.32 -3091.41 1310.88"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1156.84 -3260.43 1287.61"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1157.35 -3430.24 1264.59"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1157.87 -3596.42 1241.41"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1158.38 -3765.73 1218.38"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1158.88 -3933.17 1195.48"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1159.4 -4102.01 1172"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1159.91 -4266.34 1149.31"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1160.44 -4438.19 1125.34"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1160.94 -4602.98 1102.46"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1161.48 -4772.36 1078.87"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1161.99 -4941.52 1055.36"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1162.52 -5113.26 1031.81"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1163.11 -5282.82 1007.64"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1163.62 -5451.8 984.249"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28309 -179.998 82.1589"
+	"origin" "-1164.15 -5623.49 960.848"
+	"targetname" "ship_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "-1.28328 -179.998 172.159"
+	"origin" "-983.845 -2621.66 1018.56"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "82.0554 99.2333 99.4859"
+	"origin" "757.51 -4403.43 710.627"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "82.0554 99.2337 99.4862"
+	"origin" "758.415 -4250.34 731.19"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.50063"
+	"angles" "-67.0949 -161.158 69.4859"
+	"origin" "389.664 -4520.25 521.92"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.59665"
+	"angles" "-1.62152 20.9414 -172.221"
+	"origin" "170.442 -3440.27 700.426"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.7925"
+	"angles" "0.630018 -166.243 172.08"
+	"origin" "-86.1353 -3440.13 705.601"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.67515"
+	"angles" "-4.30575 156.589 173.317"
+	"origin" "-342.369 -3440.26 711.678"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.91142"
+	"angles" "-6.5698 64.8503 -175.523"
+	"origin" "425.842 -3439.64 693.837"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.58705"
+	"angles" "42.9349 91.1959 -88.2471"
+	"origin" "366.228 -2726.56 780.777"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.85525"
+	"angles" "-80.0405 -51.809 142.056"
+	"origin" "-89.4752 -2266.62 853.755"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.652"
+	"angles" "7.92598 -84.731 179.452"
+	"origin" "-1026.97 -3503.06 694.204"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.57366"
+	"angles" "4.45693 -24.715 -173.416"
+	"origin" "-1027 -3646.25 674.718"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.99426"
+	"angles" "-6.40097 135.737 175.284"
+	"origin" "-1027.35 -3159.81 740.459"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.55954"
+	"angles" "-6.26017 137.422 175.099"
+	"origin" "-1026.57 -3013.05 761.973"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.50446"
+	"angles" "53.5118 -91.277 88.4737"
+	"origin" "-1133.67 -4952.39 675.52"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.76583"
+	"angles" "-62.4108 -15.452 107.128"
+	"origin" "-352.163 -4317.46 635.874"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.80088"
+	"angles" "-75.667 -147.57 56.5674"
+	"origin" "-357.888 -4081.25 663.124"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.58312"
+	"angles" "39.1403 -91.043 -91.6546"
+	"origin" "763.251 -2488.12 995.32"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.72539"
+	"angles" "-87.286 -61.797 -118.228"
+	"origin" "761.132 -3317.34 880.488"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1.52852"
+	"angles" "51.8422 9.9167 -77.2463"
+	"origin" "-34.0765 -4101.83 777.41"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "2112 -8492 -464"
+	"spawnflags" "2"
+	"targetname" "vdu_camera_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2112 -8556 -528"
+	"spawnflags" "2"
+	"targetname" "vdu_character_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2880 -8740 -512"
+	"spawnflags" "2"
+	"targetname" "cockpit_geo_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "310.824 -3383.81 813.929"
+	"targetname" "ship_speaker1"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-645.323 -3581.6 806.106"
+	"targetname" "ship_speaker2"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-530.546 -4738.27 461.982"
+	"targetname" "ship_speaker3"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "592.658 -4503.03 782.587"
+	"targetname" "ship_speaker4"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-271.37 -3962.89 336.304"
+	"targetname" "ship_speaker5"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "601.069 -2103.63 645.808"
+	"targetname" "ship_speaker6"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-609.359 -2857.57 1097.91"
+	"targetname" "ship_speaker7"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "702.62 -3490.38 501.84"
+	"targetname" "ship_speaker9"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-535.676 -2259.63 555.455"
+	"targetname" "ship_speaker10"
+	"classname" "info_target_clientside"
+}

@@ -1,0 +1,162 @@
+{
+	"model" "*2"
+	"origin" "3112 -624 276"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*4"
+	"origin" "2460 -564 272"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*7"
+	"origin" "1648 -1104 260"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*11"
+	"origin" "1596 -2992 344"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*13"
+	"origin" "-1676 1016 264"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*15"
+	"origin" "-896 -120 276"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*20"
+	"origin" "-2888.96 2509.06 268"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*21"
+	"origin" "-3613.89 2889.71 276"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*25"
+	"origin" "-2174.8 2614.7 266"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*27"
+	"origin" "-28 -304 252"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*32"
+	"origin" "1444 1204 288"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*34"
+	"origin" "1444 1204 284"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*36"
+	"origin" "532 3276 316"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"targetname" "trigger_soundscape_5"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*39"
+	"origin" "-1911.08 4634.33 413"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*48"
+	"origin" "-968.62 3856.71 313"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_3"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*58"
+	"origin" "-3060 348 288"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*65"
+	"origin" "2756 -2644 376"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*72"
+	"origin" "64 -64 7040"
+	"spawnflags" "4097"
+	"soundscape" "env_soundscape_triggerable_1"
+	"requireLOS" "1"
+	"StartDisabled" "0"
+	"targetname" "GLBL_trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}

@@ -1,0 +1,2140 @@
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -14.617 0"
+	"origin" "-1952.37 2525.03 411.001"
+	"traverseType" "4"
+	"targetname" "info_node_1551"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "2328.09 -1666.96 209.376"
+	"traverseType" "4"
+	"targetname" "info_node_109"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "2328.09 -1435.09 209.376"
+	"traverseType" "4"
+	"targetname" "info_node_1261"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "2328.09 -1292.46 209.376"
+	"traverseType" "4"
+	"targetname" "info_node_1262"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "2328.09 -1071.71 209.376"
+	"traverseType" "4"
+	"targetname" "info_node_1263"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-600 2192 540"
+	"traverseType" "9"
+	"targetname" "traverse_29"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-600 1936 540"
+	"traverseType" "9"
+	"targetname" "traverse_1"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-600 1680 540"
+	"traverseType" "9"
+	"targetname" "traverse_2"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "-168 2384 540"
+	"traverseType" "9"
+	"targetname" "traverse_3"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "-64 2384 540"
+	"traverseType" "9"
+	"targetname" "traverse_4"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 0 0"
+	"origin" "376 1664 540"
+	"traverseType" "9"
+	"targetname" "traverse_5"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 0 0"
+	"origin" "376 1952 540"
+	"traverseType" "9"
+	"targetname" "traverse_6"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 0 0"
+	"origin" "376 2088 540"
+	"traverseType" "9"
+	"targetname" "traverse_7"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "56 1472 540"
+	"traverseType" "9"
+	"targetname" "traverse_8"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "-216 1472 540"
+	"traverseType" "9"
+	"targetname" "traverse_9"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "56 2192 536"
+	"traverseType" "8"
+	"targetname" "traverse_10"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "-280 2192 536"
+	"traverseType" "8"
+	"targetname" "traverse_11"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "-280 1664 536"
+	"traverseType" "8"
+	"targetname" "traverse_12"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "56 1664 536"
+	"traverseType" "8"
+	"targetname" "traverse_13"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -15.996 0"
+	"origin" "-1062 2300 534"
+	"traverseType" "11"
+	"targetname" "traverse_14"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 74.004 0"
+	"origin" "-1242 2580 534"
+	"traverseType" "9"
+	"targetname" "traverse_15"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 29.3188 0"
+	"origin" "-1082 2468 534"
+	"traverseType" "9"
+	"targetname" "traverse_16"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-2159.28 2416.2 410.001"
+	"traverseType" "9"
+	"targetname" "traverse_17"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-2247.28 2440.2 410.001"
+	"traverseType" "9"
+	"targetname" "traverse_18"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-2135.28 2798.2 410.001"
+	"traverseType" "9"
+	"targetname" "traverse_19"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-2029.28 2770.2 410.001"
+	"traverseType" "9"
+	"targetname" "traverse_20"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-2781.28 2836.2 416.001"
+	"traverseType" "9"
+	"targetname" "traverse_21"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-2957.28 2884.2 416.001"
+	"traverseType" "9"
+	"targetname" "traverse_22"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-2871.28 2860.2 416.001"
+	"traverseType" "9"
+	"targetname" "traverse_23"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-3015.28 2188.2 416.001"
+	"traverseType" "9"
+	"targetname" "traverse_24"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-3111.28 2212.2 416.001"
+	"traverseType" "9"
+	"targetname" "traverse_25"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -14.665 0"
+	"origin" "-2551.28 2324.2 432.001"
+	"traverseType" "9"
+	"targetname" "traverse_26"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -14.665 0"
+	"origin" "-2575.28 2232.2 432.001"
+	"traverseType" "9"
+	"targetname" "traverse_27"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 165.335 0"
+	"origin" "-3304.72 2467.8 432.001"
+	"traverseType" "9"
+	"targetname" "traverse_28"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 165.335 0"
+	"origin" "-3280.72 2559.8 432.001"
+	"traverseType" "9"
+	"targetname" "traverse_30"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-3873.72 2822.8 440.001"
+	"traverseType" "9"
+	"targetname" "traverse_31"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 165.335 0"
+	"origin" "-3891.72 3040.8 440.001"
+	"traverseType" "9"
+	"targetname" "traverse_32"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-3349.72 2968.8 440.001"
+	"traverseType" "9"
+	"targetname" "traverse_33"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-3658.72 3461.8 632.001"
+	"traverseType" "10"
+	"targetname" "traverse_34"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -104.665 0"
+	"origin" "-3246.72 3345.8 632.001"
+	"traverseType" "10"
+	"targetname" "traverse_35"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -14.665 0"
+	"origin" "-3150.72 3629.8 632.001"
+	"traverseType" "10"
+	"targetname" "traverse_36"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 75.335 0"
+	"origin" "-3218.72 3917.8 632.001"
+	"traverseType" "10"
+	"targetname" "traverse_37"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -86.993 0"
+	"origin" "-1074 3140 594"
+	"traverseType" "9"
+	"targetname" "traverse_38"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -14.684 0"
+	"origin" "-966 3244 594"
+	"traverseType" "9"
+	"targetname" "traverse_39"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 75.316 0"
+	"origin" "-1023 3495 594"
+	"traverseType" "8"
+	"targetname" "traverse_40"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "-1360 1512 512"
+	"traverseType" "9"
+	"targetname" "traverse_41"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 90 0"
+	"origin" "-1856 1512 512"
+	"traverseType" "9"
+	"targetname" "traverse_42"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-1896 1440 512"
+	"traverseType" "9"
+	"targetname" "traverse_43"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-1896 904 512"
+	"traverseType" "9"
+	"targetname" "traverse_44"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-1896 816 512"
+	"traverseType" "9"
+	"targetname" "traverse_45"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "-1656 520 512"
+	"traverseType" "9"
+	"targetname" "traverse_46"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "-1528 520 512"
+	"traverseType" "9"
+	"targetname" "traverse_47"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -90 0"
+	"origin" "-1400 520 512"
+	"traverseType" "9"
+	"targetname" "traverse_48"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-1544 1176 968"
+	"traverseType" "9"
+	"targetname" "traverse_49"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-1656 1176 968"
+	"traverseType" "9"
+	"targetname" "traverse_50"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-1496 1400 968"
+	"traverseType" "9"
+	"targetname" "traverse_51"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-1496 1288 968"
+	"traverseType" "9"
+	"targetname" "traverse_52"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-4096 1792 433"
+	"traverseType" "8"
+	"targetname" "traverse_53"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-3968 1792 433"
+	"traverseType" "8"
+	"targetname" "traverse_54"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-4404 1720 433"
+	"traverseType" "9"
+	"targetname" "traverse_55"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-4404 1592 433"
+	"traverseType" "9"
+	"targetname" "traverse_56"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-4172 520 472"
+	"traverseType" "9"
+	"targetname" "traverse_57"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-4076 520 472"
+	"traverseType" "9"
+	"targetname" "traverse_58"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-3916 960 472"
+	"traverseType" "9"
+	"targetname" "traverse_59"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-3916 1048 472"
+	"traverseType" "9"
+	"targetname" "traverse_60"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-3544 608 520"
+	"traverseType" "9"
+	"targetname" "traverse_61"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-2880 464 448"
+	"traverseType" "9"
+	"targetname" "traverse_62"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-2732 464 448"
+	"traverseType" "9"
+	"targetname" "traverse_63"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-3384 640 520"
+	"traverseType" "9"
+	"targetname" "traverse_64"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-456 140 384"
+	"traverseType" "9"
+	"targetname" "traverse_65"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 180 0"
+	"origin" "-456 76 384"
+	"traverseType" "9"
+	"targetname" "traverse_66"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "48 -456 385"
+	"traverseType" "9"
+	"targetname" "traverse_67"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "112 -456 385"
+	"traverseType" "9"
+	"targetname" "traverse_68"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "208 -456 385"
+	"traverseType" "9"
+	"targetname" "traverse_69"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "304 -456 385"
+	"traverseType" "9"
+	"targetname" "traverse_70"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "393 -264 385"
+	"traverseType" "9"
+	"targetname" "traverse_71"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "393 -136 385"
+	"traverseType" "9"
+	"targetname" "traverse_72"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "393 -200 385"
+	"traverseType" "9"
+	"targetname" "traverse_73"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "296 -74 716"
+	"traverseType" "9"
+	"targetname" "traverse_74"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "232 -74 716"
+	"traverseType" "9"
+	"targetname" "traverse_75"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "120 -74 716"
+	"traverseType" "9"
+	"targetname" "traverse_76"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "72 126 716"
+	"traverseType" "9"
+	"targetname" "traverse_77"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "72 70 716"
+	"traverseType" "9"
+	"targetname" "traverse_78"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-44 -354 800"
+	"traverseType" "9"
+	"targetname" "traverse_79"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-44 -290 800"
+	"traverseType" "9"
+	"targetname" "traverse_80"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-44 -162 800"
+	"traverseType" "9"
+	"targetname" "traverse_81"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-44 -226 800"
+	"traverseType" "9"
+	"targetname" "traverse_82"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-262 12 800"
+	"traverseType" "9"
+	"targetname" "traverse_83"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-326 12 800"
+	"traverseType" "9"
+	"targetname" "traverse_84"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-390 12 800"
+	"traverseType" "9"
+	"targetname" "traverse_85"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "761 216 548"
+	"traverseType" "9"
+	"targetname" "traverse_86"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "825 216 548"
+	"traverseType" "9"
+	"targetname" "traverse_87"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1017 216 548"
+	"traverseType" "9"
+	"targetname" "traverse_88"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1081 216 548"
+	"traverseType" "9"
+	"targetname" "traverse_89"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "681 8 548"
+	"traverseType" "9"
+	"targetname" "traverse_90"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "864 -944 608"
+	"traverseType" "10"
+	"targetname" "traverse_93"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "864 -848 608"
+	"traverseType" "10"
+	"targetname" "traverse_92"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "496 -880 608"
+	"traverseType" "10"
+	"targetname" "traverse_94"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "496 -976 608"
+	"traverseType" "10"
+	"targetname" "traverse_95"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "496 -1272 608"
+	"traverseType" "9"
+	"targetname" "traverse_96"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "496 -1328 608"
+	"traverseType" "9"
+	"targetname" "traverse_97"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "448 -1520 368"
+	"traverseType" "9"
+	"targetname" "traverse_98"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "448 -1584 368"
+	"traverseType" "9"
+	"targetname" "traverse_99"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "448 -1456 368"
+	"traverseType" "9"
+	"targetname" "traverse_100"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1280 -1120 402"
+	"traverseType" "9"
+	"targetname" "traverse_102"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1280 -928 402"
+	"traverseType" "9"
+	"targetname" "traverse_103"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1280 -768 402"
+	"traverseType" "9"
+	"targetname" "traverse_104"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1416 -560 677"
+	"traverseType" "9"
+	"targetname" "traverse_101"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1416 -656 677"
+	"traverseType" "9"
+	"targetname" "traverse_105"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1376 -784 402"
+	"traverseType" "9"
+	"targetname" "traverse_106"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1888 -552 677"
+	"traverseType" "10"
+	"targetname" "traverse_107"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1888 -488 677"
+	"traverseType" "10"
+	"targetname" "traverse_108"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1488 -352 677"
+	"traverseType" "10"
+	"targetname" "traverse_109"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1808 -352 677"
+	"traverseType" "10"
+	"targetname" "traverse_110"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1952 -1336 616"
+	"traverseType" "10"
+	"targetname" "traverse_111"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1840 -1400 616"
+	"traverseType" "10"
+	"targetname" "traverse_112"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1712 -1400 616"
+	"traverseType" "10"
+	"targetname" "traverse_113"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1456 -1400 616"
+	"traverseType" "10"
+	"targetname" "traverse_114"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1520 -1400 616"
+	"traverseType" "10"
+	"targetname" "traverse_115"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1952 -1016 616"
+	"traverseType" "10"
+	"targetname" "traverse_116"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1952 -952 616"
+	"traverseType" "10"
+	"targetname" "traverse_117"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1952 -824 616"
+	"traverseType" "10"
+	"targetname" "traverse_118"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1326 -542 402"
+	"traverseType" "8"
+	"targetname" "traverse_119"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "992 557 744"
+	"traverseType" "10"
+	"targetname" "traverse_120"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1152 557 744"
+	"traverseType" "10"
+	"targetname" "traverse_121"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1248 557 744"
+	"traverseType" "10"
+	"targetname" "traverse_122"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1344 557 744"
+	"traverseType" "10"
+	"targetname" "traverse_123"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "900 1032 744"
+	"traverseType" "10"
+	"targetname" "traverse_124"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "900 872 744"
+	"traverseType" "10"
+	"targetname" "traverse_125"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "900 776 744"
+	"traverseType" "10"
+	"targetname" "traverse_126"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "900 680 744"
+	"traverseType" "10"
+	"targetname" "traverse_127"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1446 717 744"
+	"traverseType" "9"
+	"targetname" "traverse_128"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1446 957 744"
+	"traverseType" "9"
+	"targetname" "traverse_130"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1446 1053 744"
+	"traverseType" "9"
+	"targetname" "traverse_131"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1862 1096 498"
+	"traverseType" "8"
+	"targetname" "traverse_132"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1798 1096 498"
+	"traverseType" "8"
+	"targetname" "traverse_133"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1590 1096 498"
+	"traverseType" "9"
+	"targetname" "traverse_134"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1872 1024 498"
+	"traverseType" "9"
+	"targetname" "traverse_135"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "2560 373 572"
+	"traverseType" "9"
+	"targetname" "traverse_136"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "2560 309 572"
+	"traverseType" "9"
+	"targetname" "traverse_137"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "2560 613 572"
+	"traverseType" "9"
+	"targetname" "traverse_138"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2336 760 572"
+	"traverseType" "9"
+	"targetname" "traverse_139"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2256 760 572"
+	"traverseType" "9"
+	"targetname" "traverse_140"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -138.777 0"
+	"origin" "2366 19 572"
+	"traverseType" "9"
+	"targetname" "traverse_141"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1936 565 572"
+	"traverseType" "9"
+	"targetname" "traverse_142"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1974 1510 368"
+	"traverseType" "9"
+	"targetname" "traverse_143"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1976 1610 368"
+	"traverseType" "9"
+	"targetname" "traverse_144"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1974 1846 368"
+	"traverseType" "9"
+	"targetname" "traverse_145"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1976 1210 368"
+	"traverseType" "9"
+	"targetname" "traverse_146"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1492 1328 448"
+	"traverseType" "9"
+	"targetname" "traverse_147"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1492 1456 448"
+	"traverseType" "9"
+	"targetname" "traverse_148"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1492 1712 448"
+	"traverseType" "9"
+	"targetname" "traverse_149"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1228 1284 448"
+	"traverseType" "9"
+	"targetname" "traverse_150"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "996 1292 448"
+	"traverseType" "9"
+	"targetname" "traverse_151"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-178 3072 456"
+	"traverseType" "9"
+	"targetname" "traverse_152"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-178 3016 456"
+	"traverseType" "9"
+	"targetname" "traverse_153"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-178 3480 456"
+	"traverseType" "9"
+	"targetname" "traverse_154"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-178 3536 456"
+	"traverseType" "9"
+	"targetname" "traverse_155"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1232 3072 456"
+	"traverseType" "9"
+	"targetname" "traverse_156"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "3560 -2320 548"
+	"traverseType" "9"
+	"targetname" "traverse_157"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "3648 -2320 548"
+	"traverseType" "9"
+	"targetname" "traverse_158"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "3704 -2648 548"
+	"traverseType" "9"
+	"targetname" "traverse_159"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "3616 -2648 548"
+	"traverseType" "9"
+	"targetname" "traverse_160"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "3891 -2600 548"
+	"traverseType" "9"
+	"targetname" "traverse_161"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "3096 -2785 748"
+	"traverseType" "9"
+	"targetname" "traverse_162"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "2872 -2785 748"
+	"traverseType" "9"
+	"targetname" "traverse_163"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "2424 -2785 748"
+	"traverseType" "9"
+	"targetname" "traverse_164"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1708 -2870 494"
+	"traverseType" "9"
+	"targetname" "traverse_165"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1580 -2870 494"
+	"traverseType" "9"
+	"targetname" "traverse_166"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1788 -3114 494"
+	"traverseType" "9"
+	"targetname" "traverse_167"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1596 -3114 494"
+	"traverseType" "9"
+	"targetname" "traverse_168"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "0.983261"
+	"angles" "-0 -15.996 0"
+	"origin" "-1046 2360 534"
+	"traverseType" "11"
+	"targetname" "traverse_129"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 135.173 0"
+	"origin" "926 1112 744"
+	"traverseType" "13"
+	"targetname" "traverse_169"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "864 -1040 608"
+	"traverseType" "11"
+	"targetname" "traverse_170"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "864 -1312 608"
+	"traverseType" "11"
+	"targetname" "traverse_171"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -40.968 0"
+	"origin" "-3470.72 3505.8 632.001"
+	"traverseType" "13"
+	"targetname" "traverse_172"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -40.968 0"
+	"origin" "-3550.72 3521.8 632.001"
+	"traverseType" "13"
+	"targetname" "traverse_173"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 165.335 0"
+	"origin" "-3240.72 2711.8 432.001"
+	"traverseType" "11"
+	"targetname" "traverse_175"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -14.665 0"
+	"origin" "-3335.2 2829.72 440.001"
+	"traverseType" "11"
+	"targetname" "traverse_176"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "344 88 716"
+	"traverseType" "13"
+	"targetname" "traverse_179"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "2327.88 -1896 209.25"
+	"traverseType" "4"
+	"targetname" "info_node_781"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-4081.29 63.961 170"
+	"traverseType" "1"
+	"targetname" "info_node_1721"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-4167.29 59.961 170"
+	"traverseType" "1"
+	"targetname" "info_node_1723"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-4349.29 57.961 170"
+	"traverseType" "1"
+	"targetname" "info_node_1724"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-3455.46 800.291 168"
+	"traverseType" "1"
+	"targetname" "info_node_1727"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-3215.46 800.291 168"
+	"traverseType" "1"
+	"targetname" "info_node_1728"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-2921.46 800.291 168"
+	"traverseType" "1"
+	"targetname" "info_node_1731"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-2591.46 800.291 168"
+	"traverseType" "1"
+	"targetname" "info_node_1732"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -106.647 0"
+	"origin" "-1867.48 3117.39 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1733"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -105.864 0"
+	"origin" "-1755.5 3085.43 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1737"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -105.864 0"
+	"origin" "-1613.5 3049.43 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1738"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -105.864 0"
+	"origin" "-1363.5 2981.43 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1739"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -105.864 0"
+	"origin" "-1089.5 2905.43 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1740"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-961.43 2970.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1741"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-929.43 3058.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1742"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-853.43 3350.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1743"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-667.43 4042.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1745"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-631.43 4176.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1746"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-597.43 4306.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1747"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -15.864 0"
+	"origin" "-533.43 4540.5 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1751"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 74.136 0"
+	"origin" "-692.5 4632.57 173.002"
+	"traverseType" "1"
+	"targetname" "info_node_1752"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1522.83 3599.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1756"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1385.83 3808.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1758"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1448.76 3742.17 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1759"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1076.83 3816.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1760"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "953.83 3816.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1761"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "841.83 3816.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1762"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "685.83 3816.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1763"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "561.83 3816.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1764"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-54.17 3808.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1765"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-165.17 3805.76 201.999"
+	"traverseType" "2"
+	"targetname" "info_node_1766"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-3380.9 107.84 180"
+	"traverseType" "1"
+	"targetname" "info_node_1771"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "976.48 3037.03 455.998"
+	"traverseType" "11"
+	"targetname" "traverse_177"
+	"classname" "traverse"
+}
+{
+	"UseableBy" "0"
+	"model" "models/dev/editor_traverse.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "976.396 3508.51 456"
+	"traverseType" "11"
+	"targetname" "traverse_178"
+	"classname" "traverse"
+}

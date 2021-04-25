@@ -1,0 +1,18 @@
+{
+	"model" "*2"
+	"origin" "1228 -768 3516"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "env_soundscape_triggerable_1"
+	"targetname" "amb_trainingground_ext_global"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*4"
+	"origin" "992 3584 16"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_TrainingGround_INT_ClosedRoom"
+	"targetname" "trigger_soundscape_ship"
+	"classname" "trigger_soundscape"
+}

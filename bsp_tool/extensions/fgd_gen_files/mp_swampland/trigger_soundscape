@@ -1,0 +1,53 @@
+{
+	"model" "*25"
+	"origin" "0 -1792 6016"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Swampland_Ext_Global"
+	"targetname" "trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*26"
+	"origin" "-1732 -2532 184"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Swampland_Int_Temple"
+	"targetname" "trigger_soundscape_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*27"
+	"origin" "-2964 -1828 112"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trigger_soundscape_3"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*28"
+	"origin" "-4392 -360 248"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Swampland_Int_Temple"
+	"targetname" "trigger_soundscape_4"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*29"
+	"origin" "-960 -408 80"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Swampland_Int_Temple"
+	"targetname" "trigger_soundscape_5"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*30"
+	"origin" "-1192 1728 32"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Swampland_Int_Temple"
+	"targetname" "trigger_soundscape_6"
+	"classname" "trigger_soundscape"
+}

@@ -1,0 +1,13 @@
+{
+	"SunSpreadAngle" "0"
+	"spawnclass" "reLight"
+	"shadows" "1"
+	"cloudoffset" "0 0 0 0"
+	"_ambient" "219 219 216 280"
+	"_light" "255 255 252 76"
+	"pitch" "-48.0437"
+	"angles" "48.0437 -100.465 -9.97433"
+	"origin" "-2.18286e-013 512 512"
+	"targetname" "light_environment_1"
+	"classname" "light_environment"
+}

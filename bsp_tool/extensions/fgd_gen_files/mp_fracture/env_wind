@@ -1,0 +1,15 @@
+{
+	"minwind" "20"
+	"mingustdelay" "10"
+	"maxwind" "50"
+	"maxgustdelay" "20"
+	"gustduration" "5"
+	"gustdirchange" "20"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1952 396 2048"
+	"mingust" "75"
+	"maxgust" "212"
+	"targetname" "env_wind_1"
+	"classname" "env_wind"
+}

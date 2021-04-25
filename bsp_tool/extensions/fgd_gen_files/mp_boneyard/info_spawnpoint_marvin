@@ -1,0 +1,55 @@
+{
+	"TeamNum" "0"
+	"StartDisabled" "0"
+	"scale" "1"
+	"angles" "-0 107.345 0"
+	"origin" "-362.11 2013.62 -78.0014"
+	"headtype" "0"
+	"bodytype" "1"
+	"targetname" "info_spawnpoint_marvin_5"
+	"classname" "info_spawnpoint_marvin"
+}
+{
+	"TeamNum" "0"
+	"StartDisabled" "0"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "-696 1544 164.001"
+	"headtype" "0"
+	"bodytype" "1"
+	"targetname" "info_spawnpoint_marvin_1"
+	"classname" "info_spawnpoint_marvin"
+}
+{
+	"TeamNum" "0"
+	"StartDisabled" "0"
+	"scale" "1"
+	"angles" "-0 -129.016 0"
+	"origin" "73.2855 1724.18 170.001"
+	"headtype" "0"
+	"bodytype" "1"
+	"targetname" "info_spawnpoint_marvin_2"
+	"classname" "info_spawnpoint_marvin"
+}
+{
+	"TeamNum" "0"
+	"StartDisabled" "0"
+	"scale" "1"
+	"angles" "-0 -162.279 0"
+	"origin" "584 1912 161.002"
+	"headtype" "0"
+	"bodytype" "1"
+	"targetname" "info_spawnpoint_marvin_3"
+	"classname" "info_spawnpoint_marvin"
+}
+{
+	"TeamNum" "0"
+	"StartDisabled" "0"
+	"scale" "1"
+	"angles" "-0 68.3964 0"
+	"origin" "-328 1224 162.001"
+	"headtype" "0"
+	"bodytype" "1"
+	"targetname" "info_spawnpoint_marvin_4"
+	"classname" "info_spawnpoint_marvin"
+}

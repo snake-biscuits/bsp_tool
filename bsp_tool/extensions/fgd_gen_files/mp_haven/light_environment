@@ -1,0 +1,14 @@
+{
+	"SunSpreadAngle" "0"
+	"spawnclass" "reLight"
+	"shadows" "1"
+	"_ambient" "130 201 255 318"
+	"_light" "255 249 224 1045"
+	"pitch" "-46.1746"
+	"angles" "46.1746 54.1259 -62.5667"
+	"origin" "440.153 196.665 121.999"
+	"cloudoffset" "-11879 -939 22679 19293"
+	"cloudmask" "world/cloud_masks/mp_haven_cloud_mask_col"
+	"targetname" "light_environment_2"
+	"classname" "light_environment"
+}

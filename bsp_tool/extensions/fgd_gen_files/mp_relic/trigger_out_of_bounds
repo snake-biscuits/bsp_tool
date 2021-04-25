@@ -1,0 +1,208 @@
+{
+	"model" "*23"
+	"origin" "684 -3100 2428"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_1"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*24"
+	"origin" "-560 -3048 2456"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_2"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*25"
+	"origin" "828 -4540 2092"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_3"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*26"
+	"origin" "999 426 -392"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_4"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*28"
+	"origin" "-11.7538 -3891.2 1794.24"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_1"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*29"
+	"origin" "-546.315 -4166.51 1283.64"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_2"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*30"
+	"origin" "-327.184 -2707.62 1467.58"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_3"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*34"
+	"origin" "420.772 -4637.91 830.409"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_5"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*35"
+	"origin" "67.8725 -2984 1420.65"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_4"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*36"
+	"origin" "70.0481 -2360.54 1518.6"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_6"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*37"
+	"origin" "358.91 -2709.24 1464.1"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_7"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*38"
+	"origin" "-74.967 -2415.28 1296.22"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_8"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*39"
+	"origin" "360.635 -2499.64 1943.25"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_9"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*40"
+	"origin" "15.7102 -4766.83 1188.36"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_10"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*41"
+	"origin" "19.0689 -3667.21 1339.75"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_11"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*42"
+	"origin" "601.397 -4166.48 1257.93"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_12"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*43"
+	"origin" "443.119 -4670.35 844.02"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_13"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*44"
+	"origin" "-156.814 -4125.41 1123.07"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_14"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*45"
+	"origin" "157.524 -3988.69 1134.86"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_15"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*46"
+	"origin" "348.779 -3889.62 1144.22"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_16"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*47"
+	"origin" "470.244 -4727.48 1742.96"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_17"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*48"
+	"origin" "14.3942 -4715.61 1754.81"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_18"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*49"
+	"origin" "-378.525 -4066.74 1852.99"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_19"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*50"
+	"origin" "-6.2225 -2599.97 1999.96"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_20"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*51"
+	"origin" "148.402 -2456.88 1622.72"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_21"
+	"classname" "trigger_out_of_bounds"
+}
+{
+	"model" "*52"
+	"origin" "146.891 -2877.53 1554.71"
+	"StartDisabled" "0"
+	"spawnflags" "4099"
+	"targetname" "trigger_out_of_bounds_22"
+	"classname" "trigger_out_of_bounds"
+}

@@ -1,0 +1,10 @@
+{
+	"origin" "-2442 4454 -116"
+	"targetname" "info_lightprobe_1"
+	"classname" "info_lightprobe"
+}
+{
+	"origin" "546.755 -163.318 -24"
+	"targetname" "info_lightprobe_1"
+	"classname" "info_lightprobe"
+}

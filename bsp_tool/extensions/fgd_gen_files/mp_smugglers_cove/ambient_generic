@@ -1,0 +1,1134 @@
+{
+	"origin" "3613.22 -4449.93 7.99041"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3093.61 -4583.4 8.02297"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2652.81 -4748.2 10.2873"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4299.32 -4423.73 7.99369"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4699.6 -4900.79 7.9912"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4685.63 -5308.32 7.99904"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4579.19 -5708.48 8.00921"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4260.1 -5958.26 7.97033"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3847.75 -6455.79 8.00959"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3636.44 -6817.67 7.99937"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3285.98 -7199.67 8.02379"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2807.28 -7501.42 8.02957"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2473.22 -7659.45 7.96322"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2163.19 -7739.73 8.02183"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1645.11 -7811.93 8.01769"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1291.8 -7814.98 7.98771"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1223.7 -8100.02 8.04675"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "779.219 -8242.55 8.00304"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "414.748 -8321.7 8.04615"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "107.677 -8376.68 7.93684"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-203.955 -8427.76 7.98581"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-530.689 -8485.28 8.00753"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-879.424 -8568.51 8.02375"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1178.8 -8628.61 7.96059"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1438.71 -8691.21 7.92432"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1685.43 -8720.64 7.99735"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2002.11 -8775.3 8.04201"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3135.49 -8703.42 8.04955"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3384.53 -8590.08 7.96971"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3604.3 -8467.46 7.97865"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3857.88 -8366.93 7.98045"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4169.67 -8218.02 8.00138"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4507.08 -8065.65 13.8007"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4850.5 -7882.42 8.01544"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5165.33 -7634.8 8.02348"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5397.37 -7419.15 8.01071"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5696.24 -7122.81 7.99762"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6010.5 -6755.83 8.01151"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6364.79 -6324.34 8.04204"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6546.92 -6035.7 15.0435"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6704.93 -5617.13 7.96868"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6876.21 -5318.42 7.91037"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-7022.45 -5078.42 16.6913"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-7206.98 -4707.93 12.216"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-7404.05 -4330.56 8.02353"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6958.48 -4294.68 8.09152"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6692.95 -4254.51 8.02699"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6388.26 -4235.74 8.08448"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5931.1 -4149.52 8.04338"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5368.2 -4190.88 7.95235"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5043.09 -4192.34 8.07579"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4504.3 -4254.76 38.9096"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4159.66 -4209.29 7.93305"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3805.53 -4117.51 8.07213"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3358.71 -4182.93 7.93175"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore54"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3022.46 -4221.74 7.93796"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore55"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2746.12 -4265.66 20.3062"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore56"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2500.14 -4406.77 8.05045"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore57"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2011.24 -4724.39 8.00015"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore58"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1741.12 -4702.01 7.93224"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore59"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1389.81 -4596.43 8.0729"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore60"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1046.53 -4333.02 8.05311"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore61"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-860.85 -3966.54 8.01364"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore62"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-949.951 -3614.81 8.02157"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore63"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-841.867 -3262.87 8.03624"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore64"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-873.83 -2839.03 7.95258"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore65"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-845.996 -2500.79 8.06709"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore66"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1057.81 -2146.37 8.0644"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore67"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-871.81 -1890.54 8.05441"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore68"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-619.289 -1795.09 7.97435"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore69"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-488.54 -1401.25 8.91518"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore70"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-446.032 -919.597 8.01051"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore71"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-502.064 -574.519 7.98681"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore72"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-505.288 -273.979 7.99337"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore73"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-327.442 -41.9175 8.00557"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore74"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-70.7707 193.46 7.99193"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore75"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "92.4444 386.647 7.98156"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore76"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "445.497 372.435 7.9894"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore77"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "604.309 229.312 26.1921"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore78"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "524.641 -43.6299 8.00498"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore79"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "228.375 -229.27 84.12"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore80"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "235.847 -479.69 7.9666"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore81"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "195.301 -744.556 8.00213"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore82"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "106.816 -912.164 7.98898"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore83"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-125.558 -1122.83 8.01221"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore84"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-168.878 -1371.03 8.03381"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore85"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-46.8294 -1488.2 18.3634"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore86"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "101.777 -1652.14 13.4307"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore87"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "279.602 -1853.82 7.99043"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore88"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "373.314 -2168.7 19.649"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore89"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "365.414 -2506.37 8.01891"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore90"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "320.467 -2689.77 8.00701"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore91"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "75.0763 -2805 8.00017"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore92"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "84.5157 -3087.99 7.9731"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore93"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-15.2037 -3353.63 8.01752"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore94"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-75.3906 -3756.52 7.98126"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore95"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-148.724 -4034.23 8.02045"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore96"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-78.5095 -4344.14 8.00348"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore97"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "188.685 -4493.26 8.00607"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore98"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "500.739 -4625.41 32.0065"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore99"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "777.246 -4829.67 8.00844"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore100"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "522.799 -4983.94 8.01332"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore101"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "149.629 -4924.93 8.0141"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore102"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-11.7441 -5159.81 8.79508"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore103"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "26.8399 -5421.43 8.01801"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore104"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "248.334 -5474.76 7.98052"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore105"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "502.214 -5374.53 7.98998"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore106"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "707.495 -5339.11 7.98193"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore107"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "960.661 -5255.76 8.0062"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore108"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1253.55 -5253.31 7.97104"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore109"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1623.72 -5076.85 8.01758"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore110"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1867.83 -4894.38 8.03423"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore111"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2241.4 -4892.81 13.2338"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore112"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2564.8 -4917.21 8.02021"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLapShore"
+	"targetname" "WaterLap_Shore113"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3048.48 -4895.33 8.05089"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3842.96 -4800.35 8.0145"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5280.29 -4779.55 7.96559"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6118.58 -4933.07 8.0329"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5244.5 -6090.69 8.08271"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4035.17 -5823.94 8.0237"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3837.06 -6537.23 8.0599"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4552.58 -7061.73 8.00257"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3510.47 -7579.58 8.04626"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3413.44 -6924.49 7.94999"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2735.97 -6698.5 7.99078"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2777.45 -7415.67 7.95871"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2586.21 -8009.23 8.01196"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2608.4 -8544.63 8.01715"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2473.57 -8850.51 8.0483"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2166.12 -7310.95 7.96161"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1830.37 -7672.51 8.0083"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1195.55 -8251.89 7.96427"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-308.607 -7664.4 8.00067"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1738.99 -7022.49 8.01388"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-585.092 -7210.92 8.00595"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-550.035 -6920.04 7.95635"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-730.239 -6696.6 7.96209"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-386.528 -6399.56 8.01727"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-253.759 -6197.63 7.96211"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-188.319 -6035.17 8.05285"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "92.6214 -5679.3 8.0499"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1132.62 -6837.13 8.01019"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "947.842 -6654.04 8.07418"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1911.52 -7390.55 8.10718"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2292.81 -6962.59 8.06073"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2992.27 -6704.67 7.99291"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2101.7 -6444.87 8.00887"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3398.27 -6262.71 8.09232"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2650.45 -6193.87 8.11776"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3852.41 -5788.81 7.91195"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "13.9483 -7085.52 7.98861"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "557.322 -7033.12 8.07155"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "956.365 -7160.91 8.04522"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "181.976 -6494.15 7.93806"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "652.878 -6130.81 8.04908"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1003.01 -5761.27 8.02751"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1558.98 -6129.1 8.09856"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1673.08 -5615.47 7.95339"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2482.21 -5325 8.09354"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2669.69 -5679.07 7.98095"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3767.13 -5100.08 8.00268"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3487.92 -4908.28 7.89972"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4408.05 -5264.91 7.8765"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2963.5 -6260.77 7.98609"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1150.66 -6155.41 8.02569"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1992.28 -6218.68 8.1037"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2317.63 -5386.33 8.04603"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1690.06 -5411.73 8.09893"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-630.966 -5625.86 8.05455"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap54"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1048.54 -5075.74 8.11968"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap55"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-381.211 -4930.28 7.88134"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap56"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-597.848 -4263.11 7.84909"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap57"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-569.006 -4574.01 7.97758"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap58"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-356.006 -3675.88 7.95286"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap59"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-559.831 -3519.24 8.07422"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap60"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-343.974 -3135.46 8.00865"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap61"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-539.524 -2927.29 8.08276"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap62"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-264.068 -2650.15 8.08383"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap63"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-513.66 -2247.23 8.07125"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap64"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-130.519 -2112.14 7.96614"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap65"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-335.269 -1558.24 7.93434"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap66"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-292.417 -611.335 7.98383"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap67"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-97.0488 -469.397 8.15179"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap68"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "280.821 76.0087 7.84653"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap69"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-61.3535 -2432.44 7.92958"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap70"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5734.54 -5552.52 8.07027"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap71"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4657.22 -6144.96 8.12639"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap72"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5161.79 -6845.04 7.96697"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap73"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4315.14 -7529.12 8.02133"
+	"soundName" "Amb_SmugglersCove_Emitter_WaterLap"
+	"targetname" "WaterLap74"
+	"classname" "ambient_generic"
+}

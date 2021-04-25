@@ -1,0 +1,24 @@
+{
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "9872 -2896 -672"
+	"spawnflags" "2"
+	"targetname" "vdu_camera_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "9872 -2960 -736"
+	"spawnflags" "2"
+	"targetname" "vdu_character_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "10640 -3144 -720"
+	"spawnflags" "2"
+	"targetname" "cockpit_geo_ref"
+	"classname" "info_target_clientside"
+}

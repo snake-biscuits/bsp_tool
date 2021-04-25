@@ -1,0 +1,9 @@
+{
+	"model" "*19"
+	"origin" "-2398 -4166 548.214"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trigger_nessy"
+	"classname" "trigger_once"
+}

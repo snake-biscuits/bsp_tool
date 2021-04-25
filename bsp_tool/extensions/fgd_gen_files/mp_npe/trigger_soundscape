@@ -1,0 +1,134 @@
+{
+	"model" "*123"
+	"origin" "112 864 8032"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_TrainingGround"
+	"targetname" "trigger_soundscape_mosh"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*124"
+	"origin" "-12328.4 -4167.76 256"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trigger_soundscape_cabin"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*125"
+	"origin" "-12256 -1592 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*126"
+	"origin" "-9952 -832 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*127"
+	"origin" "-9472 7164 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Industrial"
+	"targetname" "trigger_soundscape_pilot3"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*128"
+	"origin" "-6596 -3808 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot4"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*129"
+	"origin" "-6504 1372 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Industrial"
+	"targetname" "trigger_soundscape_pilot5"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*130"
+	"origin" "-3782 -4128 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot6"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*131"
+	"origin" "-790 -2760 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot7"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*132"
+	"origin" "1490 -1938 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot8"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*133"
+	"origin" "2792 -1934 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot9"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*134"
+	"origin" "4058 -1916 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_pilot10"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*135"
+	"origin" "6618 -664 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_titan11"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*136"
+	"origin" "8476 -3450 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_titan1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*137"
+	"origin" "10252 -3660 -96"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "Amb_NPE_Holodeck"
+	"targetname" "trigger_soundscape_titan2"
+	"classname" "trigger_soundscape"
+}

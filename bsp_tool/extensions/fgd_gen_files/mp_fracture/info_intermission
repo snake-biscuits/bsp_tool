@@ -1,0 +1,6 @@
+{
+	"origin" "5097.85 400.594 257.264"
+	"target" "intermission_target"
+	"targetname" "info_intermission_2"
+	"classname" "info_intermission"
+}

@@ -1,0 +1,18 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "10624 11480 6016"
+	"soundscape" "AMB_Swampland_Ext_Global"
+	"targetname" "AMB_Swampland_Ext_Global"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "10992 11552 6016"
+	"soundscape" "AMB_Swampland_Int_Temple"
+	"targetname" "AMB_Swampland_Int_Temple"
+	"classname" "env_soundscape_triggerable"
+}

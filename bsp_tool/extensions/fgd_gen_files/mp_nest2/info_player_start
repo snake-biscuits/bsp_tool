@@ -1,0 +1,16 @@
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-224 -2720 288.001"
+	"targetname" "info_player_start_1"
+	"classname" "info_player_start"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-224 -2720 288.001"
+	"targetname" "info_player_start_2"
+	"classname" "info_player_start"
+}

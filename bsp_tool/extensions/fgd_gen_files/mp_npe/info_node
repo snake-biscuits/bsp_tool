@@ -1,0 +1,3122 @@
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-960 -2528 4"
+	"targetname" "info_node_91"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-768 -2048 4"
+	"targetname" "info_node_17"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-576 -2240 4"
+	"targetname" "info_node_7"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-960 -2240 4"
+	"targetname" "info_node_9"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-960 -1856 4"
+	"targetname" "info_node_10"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-576 -2528 4"
+	"targetname" "info_node_6"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-768 -2432 4"
+	"targetname" "info_node_13"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-576 -1856 4"
+	"targetname" "info_node_11"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4248 -3416 63.9995"
+	"targetname" "info_node_1"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4248 -3744 63.9995"
+	"targetname" "info_node_2"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3952 -3744 63.9995"
+	"targetname" "info_node_8"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3952 -3416 63.9995"
+	"targetname" "info_node_25"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3696 -3744 63.9995"
+	"targetname" "info_node_26"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3696 -3416 63.9995"
+	"targetname" "info_node_27"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3464 -3416 63.9995"
+	"targetname" "info_node_28"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3464 -3744 63.9995"
+	"targetname" "info_node_29"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3576 -3584 63.9995"
+	"targetname" "info_node_33"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3824 -3584 63.9995"
+	"targetname" "info_node_34"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4104 -3584 63.9995"
+	"targetname" "info_node_40"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-869.052 323.9 6466.01"
+	"targetname" "info_node_79"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1296 -2136 8"
+	"targetname" "info_node_41"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1752 -2136 8"
+	"targetname" "info_node_42"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1288 -1760 8"
+	"targetname" "info_node_43"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1744 -1760 8"
+	"targetname" "info_node_44"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1288 -1424 8"
+	"targetname" "info_node_45"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1744 -1424 8"
+	"targetname" "info_node_47"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1744 -1096 8"
+	"targetname" "info_node_94"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1288 -1096 8"
+	"targetname" "info_node_95"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1280 -824 8"
+	"targetname" "info_node_96"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1736 -824 8"
+	"targetname" "info_node_97"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1512 -960 8"
+	"targetname" "info_node_98"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1512 -1280 8"
+	"targetname" "info_node_99"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1512 -1592 8"
+	"targetname" "info_node_100"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1512 -1968 8"
+	"targetname" "info_node_101"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "201.101 527.161 6466"
+	"targetname" "info_node_3"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "196.243 102.015 6466.01"
+	"targetname" "info_node_4"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-39.6737 74.8853 6435.1"
+	"targetname" "info_node_5"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-116.336 334.856 6465.99"
+	"targetname" "info_node_12"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-292.319 333.173 6466.01"
+	"targetname" "info_node_14"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-293.274 86.8508 6466"
+	"targetname" "info_node_15"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-687.921 85.9666 6465.99"
+	"targetname" "info_node_16"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-701.285 322.961 6466.01"
+	"targetname" "info_node_18"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-871.401 99.2566 6465.99"
+	"targetname" "info_node_19"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1102.9 95.87 6529.99"
+	"targetname" "info_node_20"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1099.03 511.68 6529.99"
+	"targetname" "info_node_21"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1721.84 516.4 6530.01"
+	"targetname" "info_node_22"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1710.65 888.036 6470.59"
+	"targetname" "info_node_23"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1441.84 877.042 6392.66"
+	"targetname" "info_node_24"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1479.06 1133.85 6391.52"
+	"targetname" "info_node_30"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1574.35 1182.92 6403.42"
+	"targetname" "info_node_31"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1494.26 1474.2 6454.34"
+	"targetname" "info_node_35"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1496.73 1656.78 6449.7"
+	"targetname" "info_node_36"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1732.05 1652.52 6440.46"
+	"targetname" "info_node_37"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1486.04 2074.97 6442.85"
+	"targetname" "info_node_39"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1488.89 2240.6 6443.39"
+	"targetname" "info_node_46"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1743.07 2225.57 6444.69"
+	"targetname" "info_node_48"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1723.59 2611.16 6478.31"
+	"targetname" "info_node_49"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1497.68 2614 6471.51"
+	"targetname" "info_node_50"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1486.75 2820.68 6470.74"
+	"targetname" "info_node_51"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1705.42 2822.72 6461.96"
+	"targetname" "info_node_52"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1720.44 3194.33 6519.83"
+	"targetname" "info_node_53"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1489.26 3200.04 6452.95"
+	"targetname" "info_node_54"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1501.63 3382.67 6463.55"
+	"targetname" "info_node_55"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1705.08 3390.22 6532.71"
+	"targetname" "info_node_56"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1705.02 3760.43 6465.96"
+	"targetname" "info_node_57"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1330.14 3786.72 6455.08"
+	"targetname" "info_node_58"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1307.79 4403.25 6544.9"
+	"targetname" "info_node_59"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-940.41 4424.23 6508.06"
+	"targetname" "info_node_60"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-966.601 4218.88 6473.15"
+	"targetname" "info_node_61"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-963.143 4163.06 6459.61"
+	"targetname" "info_node_62"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-895.282 4165.64 6460.37"
+	"targetname" "info_node_63"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-764.748 4207.61 6473.56"
+	"targetname" "info_node_64"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-759.965 4424.22 6500.12"
+	"targetname" "info_node_65"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-363.091 4432.39 6492.3"
+	"targetname" "info_node_66"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-357.393 4192.25 6471.87"
+	"targetname" "info_node_67"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-169.219 4197.69 6486.91"
+	"targetname" "info_node_68"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-185.827 4400.16 6540.54"
+	"targetname" "info_node_69"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "173.869 4423.35 6489.51"
+	"targetname" "info_node_70"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "191.048 4067 6479.11"
+	"targetname" "info_node_71"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "474.099 4052.62 6481.26"
+	"targetname" "info_node_72"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "476.754 4604.54 6491.82"
+	"targetname" "info_node_73"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "478.367 4359.19 6502.27"
+	"targetname" "info_node_74"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1040.08 4647.51 6493.44"
+	"targetname" "info_node_75"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1057.82 4372.85 6508"
+	"targetname" "info_node_76"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1050.75 4019.05 6481.87"
+	"targetname" "info_node_77"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1351.82 4037.05 6474.93"
+	"targetname" "info_node_78"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1365.81 4396.21 6484.21"
+	"targetname" "info_node_80"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1674.85 4421.34 6475.74"
+	"targetname" "info_node_81"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1640.65 4326.63 6459.44"
+	"targetname" "info_node_82"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1642.62 4159.49 6455.7"
+	"targetname" "info_node_83"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1863.09 4163.12 6459.49"
+	"targetname" "info_node_84"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1862.87 4414.37 6500.82"
+	"targetname" "info_node_85"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2244.66 4438.49 6493.71"
+	"targetname" "info_node_86"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2198.36 4323.88 6492.54"
+	"targetname" "info_node_87"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2259.64 4201.31 6490.36"
+	"targetname" "info_node_88"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2420.39 4120.35 6488.15"
+	"targetname" "info_node_89"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2475.36 4219.16 6498.44"
+	"targetname" "info_node_90"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2414.69 4268.83 6498.85"
+	"targetname" "info_node_92"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2417.24 4432.89 6505.11"
+	"targetname" "info_node_93"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2693.77 4430.92 6495.34"
+	"targetname" "info_node_102"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2743.06 4371.11 6495.33"
+	"targetname" "info_node_103"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2836.53 4334.19 6504.42"
+	"targetname" "info_node_104"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2835.49 3780.75 6443.96"
+	"targetname" "info_node_105"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2817.33 4057.23 6480.69"
+	"targetname" "info_node_106"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3229.69 3776.2 6473.35"
+	"targetname" "info_node_107"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3193.06 3519.12 6460.08"
+	"targetname" "info_node_122"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2970.24 3378.85 6470.76"
+	"targetname" "info_node_123"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2980.2 3197.05 6478.61"
+	"targetname" "info_node_124"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3061.56 3090.79 6470.09"
+	"targetname" "info_node_125"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3221.85 2808.17 6458.5"
+	"targetname" "info_node_126"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2985.69 2810.92 6471.25"
+	"targetname" "info_node_127"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2974.45 2623.35 6468.91"
+	"targetname" "info_node_128"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3207.33 2618.61 6481.32"
+	"targetname" "info_node_129"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3207.07 2234.33 6474.35"
+	"targetname" "info_node_130"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2976.67 2240.27 6468.68"
+	"targetname" "info_node_131"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2980.54 2049.38 6472.25"
+	"targetname" "info_node_132"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3133.59 2055.72 6474.74"
+	"targetname" "info_node_133"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3188.94 1665.85 6476.67"
+	"targetname" "info_node_134"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2979.04 1658.72 6456.89"
+	"targetname" "info_node_135"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2991.08 1462.14 6439.99"
+	"targetname" "info_node_136"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3200.72 1470.87 6466.75"
+	"targetname" "info_node_137"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3200.77 1084.75 6473.35"
+	"targetname" "info_node_138"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2975.81 1084.83 6465.15"
+	"targetname" "info_node_139"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2975.12 901.566 6475.57"
+	"targetname" "info_node_140"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3177.49 903.631 6478.97"
+	"targetname" "info_node_141"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "3191.41 507.297 6537.99"
+	"targetname" "info_node_142"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2580.46 484.109 6465.99"
+	"targetname" "info_node_143"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2580.6 109.992 6466"
+	"targetname" "info_node_144"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2443.68 99.4788 6466"
+	"targetname" "info_node_145"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2436.95 326.95 6465.99"
+	"targetname" "info_node_146"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2256.54 331.725 6465.99"
+	"targetname" "info_node_147"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2258.38 90.4298 6465.99"
+	"targetname" "info_node_148"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1950.84 159.356 6430.35"
+	"targetname" "info_node_149"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1864.34 322.534 6466"
+	"targetname" "info_node_150"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1682.33 317.01 6466.01"
+	"targetname" "info_node_151"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1685.01 220.13 6434.51"
+	"targetname" "info_node_152"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1360.6 88.6152 6465.99"
+	"targetname" "info_node_153"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1339 529.414 6466"
+	"targetname" "info_node_154"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "998.221 520.968 6466"
+	"targetname" "info_node_155"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "997.355 341.184 6465.99"
+	"targetname" "info_node_156"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "559.853 335.31 6465.99"
+	"targetname" "info_node_157"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "534.772 528.537 6466"
+	"targetname" "info_node_158"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2876.31 513.466 6537.99"
+	"targetname" "info_node_159"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2060.99 503.356 6465.99"
+	"targetname" "info_node_160"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2346.94 752.226 6466"
+	"targetname" "info_node_161"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1666.56 746.674 6410"
+	"targetname" "info_node_162"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1154.69 740.638 6465.99"
+	"targetname" "info_node_163"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "751.707 729.8 6422.02"
+	"targetname" "info_node_164"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "373.601 746.629 6466.01"
+	"targetname" "info_node_165"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-185.476 742.817 6466.01"
+	"targetname" "info_node_166"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-645.817 738.978 6466.02"
+	"targetname" "info_node_167"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1268.37 757.087 6529.98"
+	"targetname" "info_node_168"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-920.85 1101.57 6395.77"
+	"targetname" "info_node_169"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1235.22 1243.6 6475.17"
+	"targetname" "info_node_170"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1269.64 1867.99 6467.23"
+	"targetname" "info_node_171"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1283.54 2423.73 6454.21"
+	"targetname" "info_node_172"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1184.63 2748.94 6473.44"
+	"targetname" "info_node_173"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1191.44 3314.83 6478"
+	"targetname" "info_node_174"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-973.258 3317.53 6414.02"
+	"targetname" "info_node_175"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-957.756 3717.39 6412.07"
+	"targetname" "info_node_176"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-858.971 2739.58 6413.57"
+	"targetname" "info_node_177"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-856.182 2678.63 6411.98"
+	"targetname" "info_node_178"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-776.044 2657.57 6406.72"
+	"targetname" "info_node_179"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-761.695 1935.2 6410.54"
+	"targetname" "info_node_180"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-771.399 2294.08 6414.2"
+	"targetname" "info_node_181"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1034.84 2275.04 6377.78"
+	"targetname" "info_node_182"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-544.362 1935.4 6403.44"
+	"targetname" "info_node_183"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-533.796 1832.8 6405.39"
+	"targetname" "info_node_184"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-797.974 1834.14 6409.92"
+	"targetname" "info_node_185"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-823.074 1422.74 6397.36"
+	"targetname" "info_node_186"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-470.097 1400.87 6392.36"
+	"targetname" "info_node_187"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-961.903 1826.13 6409.59"
+	"targetname" "info_node_188"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-974.328 1424.28 6398.19"
+	"targetname" "info_node_189"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1217.3 1568.34 6471.73"
+	"targetname" "info_node_190"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-555.858 2340.45 6405.88"
+	"targetname" "info_node_191"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-554.194 2640.98 6405.57"
+	"targetname" "info_node_192"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-702.995 2686.01 6414"
+	"targetname" "info_node_193"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-709.034 2770.71 6414"
+	"targetname" "info_node_194"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-511.507 2766.88 6412.1"
+	"targetname" "info_node_195"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-517.475 3319.19 6414.01"
+	"targetname" "info_node_196"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-654.784 3698.12 6411.69"
+	"targetname" "info_node_198"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1218.43 4014.03 6522.74"
+	"targetname" "info_node_199"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1116.23 3573.2 6480"
+	"targetname" "info_node_200"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-1422.48 3573.09 6466.86"
+	"targetname" "info_node_201"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-310.654 3383.5 6407.61"
+	"targetname" "info_node_202"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-299.802 3138.6 6409.54"
+	"targetname" "info_node_203"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-362.248 3781.88 6382.37"
+	"targetname" "info_node_204"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-644.473 3969.65 6461.72"
+	"targetname" "info_node_205"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-28.633 3795.31 6376.02"
+	"targetname" "info_node_206"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "321.635 3777.28 6390.44"
+	"targetname" "info_node_207"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "626.031 3737.42 6409.06"
+	"targetname" "info_node_208"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "493.075 3344.29 6409.93"
+	"targetname" "info_node_209"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "636.853 3238.49 6413.99"
+	"targetname" "info_node_210"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "470.277 3158.2 6414.7"
+	"targetname" "info_node_211"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "56.6532 3360.35 6399.16"
+	"targetname" "info_node_212"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "51.2473 3156.84 6400.28"
+	"targetname" "info_node_213"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "325.354 3532.86 6384.1"
+	"targetname" "info_node_214"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-137.299 3532 6380.92"
+	"targetname" "info_node_215"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "887.819 3136.12 6545.99"
+	"targetname" "info_node_216"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "884.416 2771.49 6546"
+	"targetname" "info_node_217"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "890.998 2949.96 6546.01"
+	"targetname" "info_node_218"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "572.256 2549.46 6414.01"
+	"targetname" "info_node_219"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "791.016 2767.24 6520.73"
+	"targetname" "info_node_220"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "765.864 3144.67 6518.92"
+	"targetname" "info_node_221"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "608.12 2921.9 6445.8"
+	"targetname" "info_node_222"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "439.081 2723.34 6412.49"
+	"targetname" "info_node_223"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-164.222 2919.36 6381.56"
+	"targetname" "info_node_224"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "256.265 2924.78 6387.95"
+	"targetname" "info_node_225"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "453.213 2487.2 6413.99"
+	"targetname" "info_node_226"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "448.325 2347.33 6413.99"
+	"targetname" "info_node_227"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "217.293 2289.44 6381.86"
+	"targetname" "info_node_228"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-264.515 2306.78 6405.45"
+	"targetname" "info_node_229"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1.03872 2517.3 6381"
+	"targetname" "info_node_230"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-364.144 2579.83 6379.52"
+	"targetname" "info_node_231"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "456.608 2212.64 6414"
+	"targetname" "info_node_232"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "325.997 2414.52 6398.32"
+	"targetname" "info_node_233"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "345.667 2160.12 6403.05"
+	"targetname" "info_node_234"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "335.821 1904.08 6414.21"
+	"targetname" "info_node_235"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "375.317 2093.63 6407.26"
+	"targetname" "info_node_236"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "384.029 1978.25 6419.21"
+	"targetname" "info_node_237"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "440.129 1921.34 6413.99"
+	"targetname" "info_node_238"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "385.986 1654.69 6407.67"
+	"targetname" "info_node_239"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "372.163 1208.58 6401.75"
+	"targetname" "info_node_240"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "219.47 1960.11 6396.32"
+	"targetname" "info_node_241"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-251.92 1972.83 6403.13"
+	"targetname" "info_node_242"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-422.838 2150.83 6403.36"
+	"targetname" "info_node_243"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-397.162 1609.07 6407.49"
+	"targetname" "info_node_244"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-35.884 1803.15 6407.3"
+	"targetname" "info_node_245"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "161.489 1415.72 6402.38"
+	"targetname" "info_node_246"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-376.9 1008.69 6388.4"
+	"targetname" "info_node_247"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-148.969 1365.92 6384.87"
+	"targetname" "info_node_248"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "97.9099 1080.18 6391.07"
+	"targetname" "info_node_249"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "555.204 1000.81 6398.11"
+	"targetname" "info_node_250"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "974.051 997.133 6396.02"
+	"targetname" "info_node_251"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1131.44 1172.54 6394.21"
+	"targetname" "info_node_252"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1687.24 1170.2 6384.26"
+	"targetname" "info_node_253"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1363.75 956.241 6402.24"
+	"targetname" "info_node_254"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "445.877 1242.3 6414"
+	"targetname" "info_node_255"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "685.243 1244.33 6414.01"
+	"targetname" "info_node_256"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1089.88 1257.07 6411.99"
+	"targetname" "info_node_257"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1083.91 1491.1 6414"
+	"targetname" "info_node_258"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1719.87 1495.83 6377.12"
+	"targetname" "info_node_259"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1334.57 1487.03 6383.56"
+	"targetname" "info_node_260"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1620.27 1816.97 6386.93"
+	"targetname" "info_node_261"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1069.62 1821.17 6414.01"
+	"targetname" "info_node_262"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1360.17 1919.29 6383.01"
+	"targetname" "info_node_263"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1148.47 1958.57 6409.5"
+	"targetname" "info_node_264"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1077.05 2238.28 6414.01"
+	"targetname" "info_node_265"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1418.43 2267.86 6398.13"
+	"targetname" "info_node_266"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1556.62 2198.45 6374.24"
+	"targetname" "info_node_267"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1598.56 2276.87 6384.62"
+	"targetname" "info_node_268"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1465.97 2447.85 6429.12"
+	"targetname" "info_node_269"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1215.36 2455.59 6483.39"
+	"targetname" "info_node_270"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "991.76 2441.49 6534.23"
+	"targetname" "info_node_271"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "873.662 2477.2 6546"
+	"targetname" "info_node_272"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "887.193 2400.43 6546"
+	"targetname" "info_node_273"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1098.79 2634.57 6488.29"
+	"targetname" "info_node_274"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1265.12 3135.67 6415.57"
+	"targetname" "info_node_275"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1121.2 2919.32 6477.38"
+	"targetname" "info_node_276"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1391.24 2824.45 6386.42"
+	"targetname" "info_node_277"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1961.51 1163.35 6384.73"
+	"targetname" "info_node_278"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2590.88 1145.48 6367.15"
+	"targetname" "info_node_279"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2631.22 1556.3 6362.04"
+	"targetname" "info_node_280"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2802.24 1833.21 6451.17"
+	"targetname" "info_node_281"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2583.17 2084.49 6387.23"
+	"targetname" "info_node_282"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2787.85 2470.63 6450.47"
+	"targetname" "info_node_283"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2772.71 2997.45 6478.69"
+	"targetname" "info_node_284"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2788.45 3492.15 6472.38"
+	"targetname" "info_node_285"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2583.57 3906.53 6464.57"
+	"targetname" "info_node_286"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2587.23 3270.48 6403.71"
+	"targetname" "info_node_287"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2082.01 3920.31 6468.52"
+	"targetname" "info_node_288"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2386.8 3585.93 6405.5"
+	"targetname" "info_node_289"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2576.11 2694.24 6400.54"
+	"targetname" "info_node_290"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2530.3 2285.71 6376.06"
+	"targetname" "info_node_291"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2398.25 2422.02 6373.79"
+	"targetname" "info_node_292"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2254.43 2507.89 6378.92"
+	"targetname" "info_node_293"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2000.72 2483.14 6388.11"
+	"targetname" "info_node_294"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1859.36 2368.52 6394.7"
+	"targetname" "info_node_295"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1750.58 2246.22 6389.9"
+	"targetname" "info_node_296"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1762.39 2075.94 6390.77"
+	"targetname" "info_node_297"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1764.62 1940.92 6401.61"
+	"targetname" "info_node_298"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1847.02 1816.28 6404.4"
+	"targetname" "info_node_299"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1973.52 1685.61 6398.68"
+	"targetname" "info_node_300"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2157.91 1671.13 6394"
+	"targetname" "info_node_301"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2344.9 1714.45 6394.87"
+	"targetname" "info_node_302"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2520.37 1851.42 6406.5"
+	"targetname" "info_node_303"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2158.36 1849.11 6410"
+	"targetname" "info_node_304"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2390.36 2079.11 6410"
+	"targetname" "info_node_305"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1929.36 2079.11 6410"
+	"targetname" "info_node_306"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2023.36 1936.11 6410"
+	"targetname" "info_node_307"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2304.36 1958.11 6410"
+	"targetname" "info_node_308"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2285.36 2210.11 6410"
+	"targetname" "info_node_309"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2159.36 2266.11 6410"
+	"targetname" "info_node_310"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2009.36 2210.11 6410"
+	"targetname" "info_node_311"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2283.9 2927.3 6426"
+	"targetname" "info_node_312"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2286.99 3340.75 6425.98"
+	"targetname" "info_node_313"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2024.08 3602.6 6409.3"
+	"targetname" "info_node_314"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1752.46 3815.01 6386.19"
+	"targetname" "info_node_315"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1472.65 3828.43 6383.55"
+	"targetname" "info_node_316"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1196.77 3913.51 6482.77"
+	"targetname" "info_node_317"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "978.899 3904.65 6484.27"
+	"targetname" "info_node_318"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "951.675 3736.19 6417.06"
+	"targetname" "info_node_319"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "775.967 4526.08 6484.3"
+	"targetname" "info_node_320"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "790.45 4149.44 6482.01"
+	"targetname" "info_node_321"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1241.05 3727.59 6418.65"
+	"targetname" "info_node_322"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1456.85 3471.25 6396.39"
+	"targetname" "info_node_323"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2019.21 3129.2 6426"
+	"targetname" "info_node_324"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1640.49 3136.69 6408.25"
+	"targetname" "info_node_325"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1750.24 3477.94 6413.26"
+	"targetname" "info_node_326"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1912.29 2822.51 6425.99"
+	"targetname" "info_node_327"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1632.79 2651.11 6386.26"
+	"targetname" "info_node_328"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1815.23 1467.92 6383.91"
+	"targetname" "info_node_329"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "2180.73 1377.01 6395.46"
+	"targetname" "info_node_330"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "907.467 3221.76 6578"
+	"targetname" "info_node_331"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "708.222 3214.01 6578"
+	"targetname" "info_node_332"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "711.035 3654.75 6578"
+	"targetname" "info_node_333"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1153.31 3649.48 6577.99"
+	"targetname" "info_node_334"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1154.52 3207.65 6577.99"
+	"targetname" "info_node_335"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1046.33 3444 6578"
+	"targetname" "info_node_336"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "846.652 3452.23 6578"
+	"targetname" "info_node_337"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "568.824 1666.79 6690"
+	"targetname" "info_node_338"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "854.219 1663.67 6690"
+	"targetname" "info_node_339"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "869.972 1347.06 6690.15"
+	"targetname" "info_node_340"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "958.674 1351.34 6690"
+	"targetname" "info_node_341"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "648.186 1416.14 6695.18"
+	"targetname" "info_node_342"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "567.942 1506.99 6692.21"
+	"targetname" "info_node_343"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "752.916 1530.42 6690"
+	"targetname" "info_node_344"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "960.904 1513.81 6634"
+	"targetname" "info_node_345"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "953.54 1654.46 6555"
+	"targetname" "info_node_346"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "888.908 1643.71 6555"
+	"targetname" "info_node_347"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "877.596 1360.23 6555"
+	"targetname" "info_node_348"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "961.596 1364.23 6555"
+	"targetname" "info_node_349"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "593.009 1376.15 6554"
+	"targetname" "info_node_350"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "758.224 1519.63 6554"
+	"targetname" "info_node_351"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "644.051 1658.89 6555"
+	"targetname" "info_node_352"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "647.685 1788.64 6554"
+	"targetname" "info_node_353"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "635.173 2042.87 6554"
+	"targetname" "info_node_354"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "636.67 2155.35 6555"
+	"targetname" "info_node_355"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "792.982 2477.81 6555"
+	"targetname" "info_node_356"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "653.855 2370.83 6555"
+	"targetname" "info_node_357"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "961.764 1495.47 6514"
+	"targetname" "info_node_358"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "925.451 1653.3 6418"
+	"targetname" "info_node_359"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "923.827 1769.58 6414"
+	"targetname" "info_node_360"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "824.997 1653.48 6418"
+	"targetname" "info_node_361"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "683.758 1646.19 6418"
+	"targetname" "info_node_362"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "694.986 1361.76 6418"
+	"targetname" "info_node_363"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "585.03 1341.56 6418"
+	"targetname" "info_node_364"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "597.108 1643.83 6418"
+	"targetname" "info_node_365"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "799.654 1372.11 6418"
+	"targetname" "info_node_366"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "970.151 1402.89 6418"
+	"targetname" "info_node_367"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1065.15 1394.89 6418"
+	"targetname" "info_node_368"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "884.214 2308.05 6414"
+	"targetname" "info_node_369"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "854.334 1770.08 6414"
+	"targetname" "info_node_370"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "848.442 2202.41 6414"
+	"targetname" "info_node_371"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "857.205 1929.54 6414"
+	"targetname" "info_node_372"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "956.874 1931.14 6414"
+	"targetname" "info_node_373"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "954.869 2238.97 6414"
+	"targetname" "info_node_374"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "712.442 2211.41 6414"
+	"targetname" "info_node_375"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "607.211 2353.89 6414"
+	"targetname" "info_node_376"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "720.507 2286.53 6414"
+	"targetname" "info_node_377"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "892.029 2450.65 6418"
+	"targetname" "info_node_378"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "892.29 2661.63 6418"
+	"targetname" "info_node_379"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "890.797 2855.55 6418"
+	"targetname" "info_node_380"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "887.857 3089.73 6418"
+	"targetname" "info_node_381"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "895.993 3254.61 6419"
+	"targetname" "info_node_382"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1112.35 3309.22 6419"
+	"targetname" "info_node_383"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1247.77 3306.3 6402.89"
+	"targetname" "info_node_384"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1031.29 3264.06 6419"
+	"targetname" "info_node_385"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1038.01 3374.08 6418"
+	"targetname" "info_node_386"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1090.14 3430.91 6419"
+	"targetname" "info_node_387"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1085.4 3546.55 6419"
+	"targetname" "info_node_388"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "836.248 3632.16 6419"
+	"targetname" "info_node_389"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "835.423 3736.27 6412.52"
+	"targetname" "info_node_390"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "758.096 3492.66 6418"
+	"targetname" "info_node_391"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "739.706 3631.32 6418"
+	"targetname" "info_node_392"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1057.62 3489.48 6419"
+	"targetname" "info_node_393"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1109.34 3631.89 6418"
+	"targetname" "info_node_394"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "755.55 3246.95 6408"
+	"targetname" "info_node_395"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "724.915 3388.79 6408"
+	"targetname" "info_node_396"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3392 -3360 208"
+	"targetname" "info_node_397"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3648 -3360 208"
+	"targetname" "info_node_398"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3840 -3360 208"
+	"targetname" "info_node_399"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4032 -3360 208"
+	"targetname" "info_node_400"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4256 -3360 208"
+	"targetname" "info_node_401"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8304 -4316 32.0019"
+	"targetname" "info_node_407"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8584 -4316 32.0019"
+	"targetname" "info_node_408"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8584 -4524 32.0019"
+	"targetname" "info_node_409"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8304 -4524 32.0019"
+	"targetname" "info_node_410"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8448 -3900 32.0019"
+	"targetname" "info_node_411"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8448 -3372 32.0019"
+	"targetname" "info_node_412"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8448 -2876 32.0019"
+	"targetname" "info_node_413"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8448 -2460 32.0019"
+	"targetname" "info_node_414"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8288 -2396 32.0019"
+	"targetname" "info_node_415"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8608 -2396 32.0019"
+	"targetname" "info_node_416"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8592 -2140 32.0019"
+	"targetname" "info_node_417"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8288 -2140 32.0019"
+	"targetname" "info_node_418"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9728 -4864 32"
+	"targetname" "info_node_419"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10240 -4864 32"
+	"targetname" "info_node_452"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10240 -5376 32"
+	"targetname" "info_node_453"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9728 -5376 32"
+	"targetname" "info_node_454"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -5120 32"
+	"targetname" "info_node_455"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -4816 32"
+	"targetname" "info_node_456"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -4544 32"
+	"targetname" "info_node_457"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9824 -4416 32"
+	"targetname" "info_node_458"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10144 -4416 32"
+	"targetname" "info_node_459"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10144 -4080 32"
+	"targetname" "info_node_460"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9824 -4080 32"
+	"targetname" "info_node_461"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9824 -3744 32"
+	"targetname" "info_node_462"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10144 -3744 32"
+	"targetname" "info_node_463"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -3648 32"
+	"targetname" "info_node_464"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -3456 32"
+	"targetname" "info_node_465"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9808 -3312 32"
+	"targetname" "info_node_466"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10032 -3360 32"
+	"targetname" "info_node_467"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10016 -3056 32"
+	"targetname" "info_node_468"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9808 -3024 32"
+	"targetname" "info_node_469"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9808 -2720 32"
+	"targetname" "info_node_470"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10128 -2720 32"
+	"targetname" "info_node_471"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10288 -2864 32"
+	"targetname" "info_node_472"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10304 -2672 32"
+	"targetname" "info_node_473"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10528 -2672 32"
+	"targetname" "info_node_474"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10512 -2880 32"
+	"targetname" "info_node_475"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10672 -2992 32"
+	"targetname" "info_node_476"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10736 -2672 32"
+	"targetname" "info_node_477"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "8448 -4140 32.0019"
+	"targetname" "info_node_32"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "9984 -3904 32"
+	"targetname" "info_node_38"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10384 -4528 32"
+	"targetname" "info_node_405"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10384 -4176 32"
+	"targetname" "info_node_406"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10272 -4080 32"
+	"targetname" "info_node_478"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "10272 -3888 32"
+	"targetname" "info_node_479"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4104 -3840 63.9995"
+	"targetname" "info_node_480"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3824 -3840 63.9995"
+	"targetname" "info_node_481"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3576 -3840 63.9995"
+	"targetname" "info_node_482"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3696 -4000 63.9995"
+	"targetname" "info_node_483"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4248 -4000 63.9995"
+	"targetname" "info_node_484"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3464 -4000 63.9995"
+	"targetname" "info_node_485"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3952 -4000 63.9995"
+	"targetname" "info_node_486"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4104 -4096 63.9995"
+	"targetname" "info_node_487"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3824 -4096 63.9995"
+	"targetname" "info_node_488"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3576 -4096 63.9995"
+	"targetname" "info_node_489"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3696 -4256 63.9995"
+	"targetname" "info_node_490"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-4248 -4256 63.9995"
+	"targetname" "info_node_491"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3464 -4256 63.9995"
+	"targetname" "info_node_492"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "-3952 -4256 63.9995"
+	"targetname" "info_node_493"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "636.853 3430.49 6413.99"
+	"targetname" "info_node_210"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "476.853 3238.49 6413.99"
+	"targetname" "info_node_210"
+	"classname" "info_node"
+}
+{
+	"nodeid" "1"
+	"spawnflags" "0"
+	"origin" "1149.71 1499.36 6404"
+	"targetname" "info_node_494"
+	"classname" "info_node"
+}

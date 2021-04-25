@@ -1,0 +1,88 @@
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 139.67 0"
+	"origin" "1368 -1968 0.250299"
+	"tempJob" "1"
+	"job" "window"
+	"targetname" "script_marvin_job_1"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 -45.477 0"
+	"origin" "1704 -1968 0.250299"
+	"tempJob" "1"
+	"job" "welding"
+	"targetname" "script_marvin_job_2"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 0 0"
+	"origin" "1720 -1696 0.250299"
+	"tempJob" "1"
+	"job" "window"
+	"targetname" "script_marvin_job_3"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "1328 -1688 0.250299"
+	"tempJob" "1"
+	"job" "welding"
+	"targetname" "script_marvin_job_4"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 -155.739 0"
+	"origin" "1312 -1336 0.250299"
+	"tempJob" "1"
+	"job" "window"
+	"targetname" "script_marvin_job_5"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 -36.396 0"
+	"origin" "1656 -1376 0.250299"
+	"tempJob" "1"
+	"job" "welding"
+	"targetname" "script_marvin_job_6"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 55.1887 0"
+	"origin" "1600 -1040 0.250299"
+	"tempJob" "1"
+	"job" "window"
+	"targetname" "script_marvin_job_7"
+	"classname" "script_marvin_job"
+}
+{
+	"rendercolor" "0 155 255"
+	"model" "models/dev/editor_ref.mdl"
+	"scale" "1"
+	"angles" "-0 128.416 0"
+	"origin" "1440 -1144 0.250299"
+	"tempJob" "1"
+	"job" "welding"
+	"targetname" "script_marvin_job_8"
+	"classname" "script_marvin_job"
+}

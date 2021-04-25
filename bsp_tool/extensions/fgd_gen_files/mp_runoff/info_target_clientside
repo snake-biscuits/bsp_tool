@@ -1,0 +1,56 @@
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "3.50835e-015 90 90"
+	"origin" "21.875 -2540 182.25"
+	"targetname" "warning_light_dlight_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "3.50835e-015 180 90"
+	"origin" "415 -2842.13 182.25"
+	"targetname" "warning_light_dlight_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "3.50835e-015 3.50835e-015 90"
+	"origin" "272 -1557.88 108.25"
+	"targetname" "warning_light_dlight_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"editorclass" "info_target_fx_clientside"
+	"scale" "1"
+	"angles" "3.50835e-015 90 90"
+	"origin" "19 -1902 108"
+	"targetname" "warning_light_fx"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "-6566 1964 -1172"
+	"spawnflags" "2"
+	"targetname" "vdu_camera_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-6566 1900 -1236"
+	"spawnflags" "2"
+	"targetname" "vdu_character_ref"
+	"classname" "info_target_clientside"
+}
+{
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-5798 1716 -1220"
+	"spawnflags" "2"
+	"targetname" "cockpit_geo_ref"
+	"classname" "info_target_clientside"
+}

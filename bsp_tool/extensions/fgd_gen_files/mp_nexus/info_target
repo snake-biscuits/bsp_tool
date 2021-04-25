@@ -1,0 +1,59 @@
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -88.988 0"
+	"origin" "-1968 1616 1112"
+	"target" "spec_cam2"
+	"targetname" "escape_node2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "16.3986 -151.801 -1.77825e-006"
+	"origin" "88 2720 1632"
+	"targetname" "spec_cam2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "24.5617 -46.804 -2.34213"
+	"origin" "-64 360 2232"
+	"targetname" "spec_cam1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 1.012 0"
+	"origin" "1592 -1088 976"
+	"target" "spec_cam1"
+	"targetname" "escape_node1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "5.94595 33.1306 0.51212"
+	"origin" "-3200 -2216 688"
+	"targetname" "spec_cam3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -88.988 0"
+	"origin" "-1504 -1512 440"
+	"target" "spec_cam3"
+	"targetname" "escape_node3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-64 -64 -4864"
+	"targetname" "spacenode"
+	"classname" "info_target"
+}

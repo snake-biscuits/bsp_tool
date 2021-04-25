@@ -1,0 +1,27 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "11963 15124 5024"
+	"soundscape" "amb_fracture_exterior_base2"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "11584 15112 1704"
+	"soundscape" "AMB_Fracture_INT_Room"
+	"targetname" "AMB_Fracture_INT_Room"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "11816 15112 1704"
+	"soundscape" "AMB_Fracture_INT_ClosedRoom"
+	"targetname" "AMB_Fracture_INT_ClosedRoom"
+	"classname" "env_soundscape_triggerable"
+}

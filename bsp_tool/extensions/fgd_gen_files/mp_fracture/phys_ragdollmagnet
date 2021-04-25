@@ -1,0 +1,18 @@
+{
+	"origin" "1547.2 -1782 488"
+	"spawnflags" "0"
+	"radius" "150"
+	"force" "5000"
+	"axis" "1547.2 -1782 487.99"
+	"angles" "0 0 0"
+	"classname" "phys_ragdollmagnet"
+}
+{
+	"origin" "1670.65 -1919.78 488"
+	"spawnflags" "0"
+	"radius" "150"
+	"force" "5000"
+	"axis" "1670.65 -1919.78 487.99"
+	"angles" "0 0 0"
+	"classname" "phys_ragdollmagnet"
+}

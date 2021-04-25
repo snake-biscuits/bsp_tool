@@ -1,0 +1,702 @@
+{
+	"origin" "180.729 -4497.76 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_01"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "469.152 -4466.49 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "324.152 -4030.1 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "739.745 -4200.34 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "344.5 -3606.26 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "928.191 -3765.35 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "320.331 -3251.47 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1224.39 -3421.3 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "783.794 -3166.75 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "535.484 -2431.23 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1123.04 -2723.89 -1087.88"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1662.1 -2813.21 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1585.44 -2180.13 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1167.74 -1915.86 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "316.988 -1905.73 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "549.977 -1840.91 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1000.08 -1038.81 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "351.777 -1146.77 -1087.87"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2021.39 -3255.7 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1596.47 -3289.46 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2041.92 -2701.77 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1508.2 -2663.98 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1847.67 -2351.59 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1330.17 -2169.99 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1727.98 -2879.28 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1650.82 -2495.1 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1250.21 -48.5614 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1722.32 -105.793 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1202.03 -542.996 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1679.24 -524.998 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1648.97 -760.597 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1736.2 -1183.07 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1227.9 -1203.46 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4742.65 -3055.52 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4249.28 -3010.69 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4112.38 -2440 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4451.98 -2614.34 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4750.02 -2514.95 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4143.09 -2076.01 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4763.9 -2121.87 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4740.63 -1702.39 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4135.6 -1603.95 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4700.31 -1147.62 -1087.66"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4116.01 -1019.27 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4688.23 -355.704 -1087.68"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4233.19 -488.862 -1087.84"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4441.79 -2080.43 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4421.63 -1572.69 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3991.72 -754.888 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3400.47 -618.953 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3787.7 -211.04 -1087.85"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3201.65 133.779 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4117.7 582.557 -1087.67"
+	"soundName" "amb_sandtrap_emitter_lappingwater_v1"
+	"targetname" "amb_sandtrap_emitter_lappingwater_53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1021.93 -5081.85 75.9994"
+	"soundName" "amb_sandtrap_emitter_steam_medium"
+	"targetname" "amb_sandtrap_emitter_steam_medium_01"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1143.54 -1884.94 -122.314"
+	"soundName" "amb_sandtrap_emitter_steam_medium"
+	"targetname" "amb_sandtrap_emitter_steam_medium_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2032.35 -1918.27 -172.048"
+	"soundName" "amb_sandtrap_emitter_steam_medium"
+	"targetname" "amb_sandtrap_emitter_steam_medium_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1927.67 -1513.57 -125.158"
+	"soundName" "amb_sandtrap_emitter_steam_medium"
+	"targetname" "amb_sandtrap_emitter_steam_medium_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-826.593 -4464 -36.4289"
+	"soundName" "amb_sandwater_emitter_sparks"
+	"targetname" "amb_sandwater_emitter_sparks_01"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-749.953 -4093.55 -39.6085"
+	"soundName" "amb_sandwater_emitter_sparks"
+	"targetname" "amb_sandwater_emitter_sparks_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1148.13 141.032 315.677"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-835.372 129.368 335.158"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-565.865 180.604 389.826"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-268.88 180.947 445.761"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-6.22472 -37.2879 452.5"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "308.037 -56.823 210.615"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "281.545 -331.756 271.029"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "45.3455 -314.735 473.569"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-24.8054 -311.927 647.804"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-483.974 -459.084 704.83"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-511.386 -763.33 560.591"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1751.1 108.654 1511.07"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1237.87 125.571 1513.02"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "267.13 137.865 1517.96"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-541.196 96.5311 1511.89"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1365.94 106.357 1515.87"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2120.43 104.558 1515.16"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1725.75 110.154 1511.57"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-863.844 114.282 1513.04"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2618.27 125.084 1513.04"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2960.48 128.33 1518.05"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3309.76 117.259 1513.08"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3565.06 70.8374 1452.6"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2600.84 62.0015 1282.67"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2894.09 -82.7578 1268.76"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3157.92 -240.581 1282.65"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3518.35 -315.643 1266.58"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3736.35 128.986 1195.33"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3736.36 -306.91 859.023"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3716.41 77.3992 649.867"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3733.95 -288.978 461.925"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3735.01 97.2425 323.077"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4171.33 51.1141 380.815"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4325.54 83.6872 673.03"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4639.77 104.22 704.101"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4995.07 90.2674 698.371"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5405.82 78.2396 660.217"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5484.18 68.5142 269.577"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1052.52 -2970.01 -703.284"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1072.57 -2534.25 -811.126"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1064.34 -2525.99 -319.474"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1058.73 -2973.26 -43.5954"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1050.13 -2962.61 161.739"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1087.42 -2543.36 173.037"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1040.08 -2934.56 685.186"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1121.11 -2500.36 608.793"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1413.7 -2524.48 750.013"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1051.94 -2964.83 1252.27"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1039.61 -2919.6 1802.09"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1034.98 -2940.16 2192"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1041.92 -2939.89 2664.15"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "433.088 -4984.61 846.414"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "433.119 -4981.73 1683.8"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_54"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "434.166 -4941.88 2697.87"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_55"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3317.26 -6264.38 189.558"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_56"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3738.75 -6234.32 551.954"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_57"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4216.67 -6221.61 567.087"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_58"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4801.34 -6267.86 580.958"
+	"soundName" "amb_Sandtrap_emitter_longpipe"
+	"targetname" "amb_Sandtrap_emitter_longpipe_59"
+	"classname" "ambient_generic"
+}

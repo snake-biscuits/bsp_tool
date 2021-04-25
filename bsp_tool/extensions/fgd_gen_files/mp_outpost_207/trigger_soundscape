@@ -1,0 +1,80 @@
+{
+	"model" "*38"
+	"origin" "652 -368 28"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "trigger_soundscape_cannon_controlroom_1"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*39"
+	"origin" "-774 -430 28"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "AMB_Outpost_INT_SmallRoom"
+	"targetname" "soundscape_cannon_controlroom_2"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*40"
+	"origin" "-60 -700 -264"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "soundscape_cannon_lower"
+	"targetname" "trigger_soundscape_cannon_lower"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*72"
+	"origin" "3521.42 1341.73 -208"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "soundscape_warehouse"
+	"targetname" "trigger_soundscape_warehouse"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*77"
+	"origin" "1592 -130 -64"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "soundscape_cannoncontrol"
+	"targetname" "trigger_soundscape_cannoncontrol"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*78"
+	"origin" "-1432 1586.13 -64"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "soundscape_observatory"
+	"targetname" "trigger_soundscape_observatory"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*79"
+	"origin" "-2624 1408 -288"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trigger_soundscape_observatory_under"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*80"
+	"origin" "824 1770 -124"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "soundscape_gondola"
+	"targetname" "trigger_soundscape_gondola"
+	"classname" "trigger_soundscape"
+}
+{
+	"model" "*89"
+	"origin" "96 128 6502"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"soundscape" "env_soundscape_triggerable_1"
+	"targetname" "AMB_global_EXT_trigger_soundscape_1"
+	"classname" "trigger_soundscape"
+}

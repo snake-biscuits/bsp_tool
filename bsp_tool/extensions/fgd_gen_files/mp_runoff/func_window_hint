@@ -1,0 +1,560 @@
+{
+	"halfheight" "46.5"
+	"halfwidth" "49"
+	"right" "1 -0 0"
+	"origin" "153 -3348 470.5"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "46.5"
+	"halfwidth" "49"
+	"right" "-1 0 0"
+	"origin" "153 -3324 470.5"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "40"
+	"right" "1 -0 0"
+	"origin" "-516 -3856 458"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "40"
+	"right" "-1 0 0"
+	"origin" "-516 -3848 458"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "40"
+	"right" "1 -0 0"
+	"origin" "-696 -3856 458"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "40"
+	"right" "-1 0 0"
+	"origin" "-696 -3848 458"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "46"
+	"halfwidth" "36"
+	"right" "-0 -1 0"
+	"origin" "-416 -3440 462"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "46"
+	"halfwidth" "36"
+	"right" "0 1 0"
+	"origin" "-408 -3440 462"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "44"
+	"halfwidth" "36"
+	"right" "0 -1 0"
+	"origin" "-128 -3432 476"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "44"
+	"halfwidth" "36"
+	"right" "0 1 0"
+	"origin" "-116 -3432 476"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "33.5"
+	"halfwidth" "41.5"
+	"right" "-0 -1 0"
+	"origin" "-424 -3658.5 335.5"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "33.5"
+	"halfwidth" "41.5"
+	"right" "0 1 0"
+	"origin" "-416 -3658.5 335.5"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "128 -432 612"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "136 -432 612"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "128 -1760 600"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "136 -1760 600"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1408 1056 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1408 1064 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1216 1336 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1216 1344 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "46"
+	"halfwidth" "56"
+	"right" "1 -0 0"
+	"origin" "-1648 1024 470"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "46"
+	"halfwidth" "56"
+	"right" "-1 0 0"
+	"origin" "-1648 1032 470"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1216 1056 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1216 1064 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1408 1336 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "84"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1408 1344 372"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "56"
+	"right" "-0 -1 0"
+	"origin" "-1544 1216 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "56"
+	"right" "0 1 0"
+	"origin" "-1536 1216 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "72"
+	"right" "-0 -1 0"
+	"origin" "-1024 1224 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "72"
+	"right" "0 1 0"
+	"origin" "-1016 1224 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "54"
+	"right" "-0 -1 0"
+	"origin" "-584 1264 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "54"
+	"right" "0 1 0"
+	"origin" "-576 1264 472"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "52"
+	"right" "-0 -1 0"
+	"origin" "-1576 832 336"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "52"
+	"right" "0 1 0"
+	"origin" "-1568 832 336"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "32"
+	"right" "1 -0 0"
+	"origin" "-1952 1368 468"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "32"
+	"right" "-1 0 0"
+	"origin" "-1952 1376 468"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "-856 -1776 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "-848 -1776 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1048 -1920 586"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1048 -1912 586"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "-840 -400 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "-832 -400 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1484 -216 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1484 -208 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "-1032 -1080 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "-1024 -1080 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "36"
+	"right" "-0 -1 0"
+	"origin" "-2572 -104 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "36"
+	"right" "0 1 0"
+	"origin" "-2564 -104 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "36"
+	"right" "-0 -1 0"
+	"origin" "-2572 -2088 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "36"
+	"right" "0 1 0"
+	"origin" "-2564 -2088 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1632 -1280 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1632 -1272 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1784 -512 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1784 -504 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "-1936 -1536 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "-1928 -1536 584"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1620 -832 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1620 -824 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "1 -0 0"
+	"origin" "-1620 -1352 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-1 0 0"
+	"origin" "-1620 -1344 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "-0 -1 0"
+	"origin" "-839.197 -373.872 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "48"
+	"halfwidth" "64"
+	"right" "0 1 0"
+	"origin" "-831.197 -373.872 328"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "49"
+	"halfwidth" "45"
+	"right" "-0 -1 0"
+	"origin" "128 -1766 601"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "49"
+	"halfwidth" "45"
+	"right" "0 1 0"
+	"origin" "136 -1766 601"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "33"
+	"halfwidth" "40"
+	"right" "1 -0 0"
+	"origin" "1346 -1672 321"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "33"
+	"halfwidth" "40"
+	"right" "-1 0 0"
+	"origin" "1346 -1664 321"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "34"
+	"right" "-0 -1 0"
+	"origin" "568 -2344 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "34"
+	"right" "0 1 0"
+	"origin" "576 -2344 570"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "34"
+	"right" "1 -0 0"
+	"origin" "1344 -1672 594"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "42"
+	"halfwidth" "34"
+	"right" "-1 0 0"
+	"origin" "1344 -1664 594"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "40"
+	"halfwidth" "40"
+	"right" "1 -0 0"
+	"origin" "976 -2048 592"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "40"
+	"halfwidth" "40"
+	"right" "-1 0 0"
+	"origin" "976 -2040 592"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "65.7609"
+	"right" "0.707107 -0.707107 0"
+	"origin" "67 581 612"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "52"
+	"halfwidth" "65.7609"
+	"right" "-0.707107 0.707107 0"
+	"origin" "71 585 612"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "1 -0 0"
+	"origin" "1215.5 -448 605"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "-1 0 0"
+	"origin" "1215.5 -440 605"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "1 -0 0"
+	"origin" "1279.5 -448 325"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "-1 0 0"
+	"origin" "1279.5 -440 325"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "1 -0 0"
+	"origin" "1159.5 -8 605"
+	"classname" "func_window_hint"
+}
+{
+	"halfheight" "45"
+	"halfwidth" "49.5"
+	"right" "-1 0 0"
+	"origin" "1159.5 0 605"
+	"classname" "func_window_hint"
+}

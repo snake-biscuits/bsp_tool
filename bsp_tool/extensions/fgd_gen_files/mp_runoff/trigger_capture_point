@@ -1,0 +1,24 @@
+{
+	"model" "*4"
+	"origin" "-2144 -1052 424"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hardpoint_B"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*5"
+	"origin" "380 840 164"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hardpoint_A"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*6"
+	"origin" "260 -2504 152"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_hardpoint_C"
+	"classname" "trigger_capture_point"
+}

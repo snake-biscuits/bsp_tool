@@ -1,0 +1,36 @@
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "14856 13960 7248"
+	"soundscape" "Amb_SmugglersCove_EXT_Global"
+	"requireLOS" "1"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "14972.4 13946.7 7248"
+	"soundscape" "Amb_SmugglersCove_INT_HalfOpen"
+	"requireLOS" "1"
+	"targetname" "Amb_SmugglersCove_INT_HalfOpen"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "15080.2 13940.4 7248"
+	"soundscape" "Amb_SmugglersCove_INT_SmallRoom"
+	"requireLOS" "1"
+	"targetname" "Amb_SmugglersCove_INT_SmallRoom"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "15159.4 13946.7 7248"
+	"soundscape" "Amb_SmugglersCove_INT_ClosedRoom"
+	"requireLOS" "0"
+	"targetname" "Amb_SmugglersCove_INT_ClosedRoom"
+	"classname" "env_soundscape_triggerable"
+}

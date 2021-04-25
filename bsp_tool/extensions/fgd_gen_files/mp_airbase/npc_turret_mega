@@ -1,0 +1,44 @@
+{
+	"spawnflags" "0"
+	"model" "models/turrets/turret_imc_lrg.mdl"
+	"additionalequipment" "mp_weapon_mega_turret"
+	"AccuracyMultiplier" "1"
+	"scale" "1"
+	"angles" "-0 115.676 0"
+	"origin" "-1168 -3458 341"
+	"targetname" "npc_turret_mega_1pf2892"
+	"classname" "npc_turret_mega"
+}
+{
+	"spawnflags" "0"
+	"model" "models/turrets/turret_imc_lrg.mdl"
+	"additionalequipment" "mp_weapon_mega_turret"
+	"AccuracyMultiplier" "1"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-7438.5 7635.28 251.25"
+	"targetname" "turret_mega_2"
+	"classname" "npc_turret_mega"
+}
+{
+	"spawnflags" "0"
+	"model" "models/turrets/turret_imc_lrg.mdl"
+	"additionalequipment" "mp_weapon_mega_turret"
+	"AccuracyMultiplier" "1"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "-9870.5 -4300.72 251.25"
+	"targetname" "turret_mega_1"
+	"classname" "npc_turret_mega"
+}
+{
+	"spawnflags" "0"
+	"model" "models/turrets/turret_imc_lrg.mdl"
+	"additionalequipment" "mp_weapon_mega_turret"
+	"AccuracyMultiplier" "1"
+	"scale" "1"
+	"angles" "-0 180 0"
+	"origin" "4401.5 7635.28 251.25"
+	"targetname" "turret_mega_3"
+	"classname" "npc_turret_mega"
+}

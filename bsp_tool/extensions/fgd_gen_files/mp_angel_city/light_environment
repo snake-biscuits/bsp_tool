@@ -1,0 +1,14 @@
+{
+	"SunSpreadAngle" "0"
+	"spawnclass" "reLight"
+	"shadows" "1"
+	"_ambient" "198 221 226 102"
+	"_light" "255 249 229 2141"
+	"pitch" "-39.6899"
+	"angles" "39.6899 151.277 -2.842"
+	"origin" "-4804.27 2674.07 456.464"
+	"cloudoffset" "-268 -4764 9357 9376"
+	"cloudmask" "world/cloud_masks/mp_angel_city_mask01_col"
+	"targetname" "light_environment_1"
+	"classname" "light_environment"
+}

@@ -1,0 +1,68 @@
+{
+	"origin" "3241 2587 -191"
+	"soundName" "amb_fracture_future_ac_fan_01"
+	"targetname" "ambient_generic_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3519 2412 -188"
+	"soundName" "amb_fracture_computer_console_01"
+	"targetname" "ambient_generic_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1519 926 254"
+	"soundName" "amb_fracture_waterfall_bottom1"
+	"targetname" "ambient_generic_5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1531 657 229"
+	"soundName" "amb_fracture_waterfall_bottom2"
+	"targetname" "ambient_generic_6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1519 638 633"
+	"soundName" "amb_fracture_waterfall_top1"
+	"targetname" "ambient_generic_7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1507 888 744"
+	"soundName" "amb_fracture_waterfall_top2"
+	"targetname" "ambient_generic_8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "66 -1985 217"
+	"soundscape" "AMB_Fracture_INT_Room"
+	"soundName" "Fracture_Turbine_LP"
+	"targetname" "Turbine_Charlie_01"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "384 -1988 217"
+	"soundscape" "AMB_Fracture_INT_Room"
+	"soundName" "Fracture_Turbine_LP"
+	"targetname" "Turbine_Charlie_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "514 -1858 217"
+	"soundName" "Fracture_Turbine_LP"
+	"targetname" "Turbine_Charlie_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "852 -1857 217"
+	"soundName" "Fracture_Turbine_LP"
+	"targetname" "Turbine_Charlie_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5045 -4582 683"
+	"soundName" "amb_fracture_waterfall_top1"
+	"targetname" "Waterfall_Alpha_Top"
+	"classname" "ambient_generic"
+}

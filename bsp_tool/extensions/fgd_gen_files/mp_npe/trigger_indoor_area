@@ -1,0 +1,24 @@
+{
+	"model" "*54"
+	"origin" "928 3440 6416"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_2"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*55"
+	"origin" "896 2768 6456"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_3"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*56"
+	"origin" "768 1992 6496"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_4"
+	"classname" "trigger_indoor_area"
+}

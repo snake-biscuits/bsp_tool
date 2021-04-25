@@ -1,0 +1,14 @@
+{
+	"SunSpreadAngle" "0"
+	"spawnclass" "reLight"
+	"shadows" "1"
+	"_ambient" "168 214 198 510"
+	"_light" "255 244 226 1530"
+	"pitch" "-28.9179"
+	"angles" "28.9179 106.914 -6.51285"
+	"origin" "-160 -4 2712"
+	"cloudoffset" "-1864 -18916 20810 14730"
+	"cloudmask" "world/cloud_masks/mp_smugglers_cove_could_mask01_col"
+	"targetname" "light_environment_1"
+	"classname" "light_environment"
+}

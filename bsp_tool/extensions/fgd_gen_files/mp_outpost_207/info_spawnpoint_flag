@@ -1,0 +1,12 @@
+{
+	"TeamNum" "2"
+	"origin" "4134.45 1808.32 -440"
+	"targetname" "info_spawnpoint_flag_1"
+	"classname" "info_spawnpoint_flag"
+}
+{
+	"origin" "-1778.95 1847.41 -47.9999"
+	"TeamNum" "3"
+	"targetname" "info_spawnpoint_flag_2"
+	"classname" "info_spawnpoint_flag"
+}

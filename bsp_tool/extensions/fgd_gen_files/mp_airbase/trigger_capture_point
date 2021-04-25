@@ -1,0 +1,24 @@
+{
+	"model" "*48"
+	"origin" "2344 -704 884"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_capture_point_C"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*49"
+	"origin" "-412 -4030 430"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_capture_point_A"
+	"classname" "trigger_capture_point"
+}
+{
+	"model" "*50"
+	"origin" "-1700 -714 300"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_capture_point_B"
+	"classname" "trigger_capture_point"
+}

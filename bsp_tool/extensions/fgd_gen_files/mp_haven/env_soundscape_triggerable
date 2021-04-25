@@ -1,0 +1,18 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "15037.9 10085.6 6408"
+	"soundscape" "Amb_Haven_EXT_Global"
+	"targetname" "Amb_Haven_EXT_Global"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "14889.3 10058.9 6408"
+	"soundscape" "Amb_Haven_INT_Building"
+	"targetname" "Amb_Haven_INT_Building"
+	"classname" "env_soundscape_triggerable"
+}

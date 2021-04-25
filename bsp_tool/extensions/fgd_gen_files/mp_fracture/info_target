@@ -1,0 +1,661 @@
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-30.4279 104.66 -180"
+	"origin" "2503.44 4681.51 -124.808"
+	"spawnflags" "2"
+	"fxgroup" "randomspark"
+	"targetname" "fx_spark_random3"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "32.6961 -75.34 -2.25199e-015"
+	"origin" "2520.41 4979.55 -208.764"
+	"spawnflags" "2"
+	"fxgroup" "randomspark"
+	"targetname" "fx_spark_random2"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "0.527094 87.0979 -6.83166"
+	"origin" "-2093.01 -5000.19 145.897"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust19"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "14.5599 -143.93 -9.11236e-016"
+	"origin" "-3186.28 -1606.7 226.729"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust17"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-15.4251 -134.718 9.68016e-016"
+	"origin" "-2843.52 -1388 273.527"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust18"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-3.78006 -115.401 -15.0781"
+	"origin" "-672.27 131.38 119.09"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust16"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-6.54549e-016 122.489 -10.7526"
+	"origin" "-426.912 -976.807 355.376"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust14"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-12.9362 -73.334 -17.8676"
+	"origin" "1054.78 -285.025 189.961"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust15"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-8.13226 -36.465 -16.5687"
+	"origin" "-2136.68 -1439.95 155.685"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust12"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-6.56005e-016 7.7105 -10.7768"
+	"origin" "-161.649 -202.607 230.167"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust13"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-0 -158.377 0"
+	"origin" "-3040.7 -1490.73 246.564"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust11"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "0.527094 87.0979 24.1406"
+	"origin" "-3320.47 -4767.83 107.025"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust10"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "12.0839 85.6914 -6.98693"
+	"origin" "-2083.65 -4793.58 145.897"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust9"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-16.9894 84.8109 -7.16613"
+	"origin" "-2127.51 -5202.55 138.193"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust8"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-6.90018e-016 -30.243 -11.3428"
+	"origin" "2423.03 -2806 367.954"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust6"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-0 0.9949 0"
+	"origin" "180.375 -5017.75 201.668"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust7"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-1.72474e-015 62.3831 -29.4464"
+	"origin" "4997.07 -2038.9 -128.766"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust4"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "6.0115 56.3214 -17.8886"
+	"origin" "4346.57 -2959.38 -78.1964"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust5"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "9.32592e-016 31.392 15.4157"
+	"origin" "4979.82 4803.03 -187.521"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust2"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-2.10791e-015 175.312 -36.9291"
+	"origin" "5030.86 -668.113 -207.677"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust3"
+	"classname" "info_target"
+}
+{
+	"editorclass" "info_target_fx"
+	"scale" "1"
+	"angles" "-1.60772e-015 -12.279 -27.2745"
+	"origin" "5381.37 944.124 -177.598"
+	"spawnflags" "2"
+	"fxgroup" "megathumper_dust"
+	"targetname" "fx_thumper_dust1"
+	"classname" "info_target"
+}
+{
+	"origin" "422.395 -267.606 161.026"
+	"targetname" "operator_drone_height4"
+	"angles" "0 0 0"
+	"classname" "info_target"
+}
+{
+	"origin" "1172 -742 -640"
+	"targetname" "operator_drone_height"
+	"angles" "0 0 0"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "0 0 512"
+	"targetname" "map_centerplus512_target"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-1231 4819 3795"
+	"targetname" "info_target_refuealShipHover"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-10.4261 -165.353 6.45556e-016"
+	"origin" "4921.52 354.95 290.532"
+	"targetname" "intermission_target"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 104.871 0"
+	"origin" "2619.27 3592.89 807"
+	"targetname" "introMilitiaNPCzipright"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -16.027 0"
+	"origin" "3840 4144 -189.331"
+	"targetname" "introMilitiaNPCland"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -116.461 0"
+	"origin" "-2359.16 -4907.3 816"
+	"targetname" "intro_dropoff_imc_1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -162.564 0"
+	"origin" "-2873.03 -4439.24 688"
+	"targetname" "intro_dropoff_imc_2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 73.9806 3.06941e-016"
+	"origin" "10240 6320 -9424"
+	"targetname" "intro_idle_militia_1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 73.9806 3.06941e-016"
+	"origin" "10880 6096 -9424"
+	"targetname" "intro_idle_militia_2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2380.51 -350.776 135.999"
+	"targetname" "intro_militia_assault_1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "1587.53 -1831.66 177.031"
+	"targetname" "intro_imc_assault_1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 86.7387 0"
+	"origin" "3442.42 3385.17 559"
+	"targetname" "introMilitiaNPCzipleft"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 92.9021 0"
+	"origin" "3115.66 3893.6 -158.904"
+	"target" "introCaptainChang"
+	"targetname" "spawnCaptainChang"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -2.3349 0"
+	"origin" "6255 6463.67 -163.967"
+	"targetname" "exitCaptainChang"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 92.9021 0"
+	"origin" "3093.45 4201.11 -152.97"
+	"targetname" "introCaptainChang"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -2.3349 0"
+	"origin" "5625.08 5088.93 -281.957"
+	"target" "exitCaptainChang"
+	"targetname" "exitCaptainChang1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -34.61 0"
+	"origin" "2965.81 4298.71 -168.43"
+	"targetname" "introCaptainGrunt2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -114.042 0"
+	"origin" "2597.59 4261.15 -155.877"
+	"targetname" "introSquadGrunt0"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -57.36 0"
+	"origin" "3045.41 4308 -171.96"
+	"targetname" "introCaptainGrunt3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -121.862 0"
+	"origin" "3141.45 4313.11 -173.553"
+	"targetname" "introCaptainGrunt4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -141.838 0"
+	"origin" "3198.68 4297.44 -173.88"
+	"targetname" "introCaptainGrunt1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -103.362 0"
+	"origin" "3757.36 4096.4 -159.287"
+	"targetname" "introSquadGrunt1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -162 0"
+	"origin" "-1905 -4418 213"
+	"targetname" "introcaptainIMC"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -67.248 0"
+	"origin" "-2897.97 -3811.72 89.1934"
+	"target" "introIMCcaptaingrunt1"
+	"targetname" "introIMCgrunt2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -75.215 0"
+	"origin" "-2773.18 -3739.69 96.5727"
+	"target" "introIMCcaptaingrunt3"
+	"targetname" "introIMCgrunt4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -75.215 0"
+	"origin" "-2647.09 -3739.37 101.077"
+	"target" "introIMCcaptaingrunt2"
+	"targetname" "introIMCgrunt5"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -50.577 0"
+	"origin" "-3002.52 -3927.67 84.5188"
+	"target" "introIMCcaptaingrunt4"
+	"targetname" "introIMCgrunt6"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -51.585 0"
+	"origin" "-2184 -4289.07 176.742"
+	"targetname" "introIMCcaptaingrunt1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 27.0371 0"
+	"origin" "-2334.65 -4558.3 167.518"
+	"targetname" "introIMCcaptaingrunt2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -35.659 0"
+	"origin" "-2189.54 -4293.63 168.821"
+	"targetname" "introIMCcaptaingrunt3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 28.7684 0"
+	"origin" "-2304.02 -4635.69 146.365"
+	"targetname" "introIMCcaptaingrunt4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1782.96 -48.8723 176.05"
+	"targetname" "IntroCaptainDeath"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 78.7585 0"
+	"origin" "1837.49 -2475.91 92.3174"
+	"targetname" "IntroIMCCaptainStep1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -90 0"
+	"origin" "1799.37 -782.73 176.78"
+	"targetname" "IntroCaptainsMelee"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -107.236 0"
+	"origin" "1971.74 2183.33 95.732"
+	"targetname" "IntroMCORCaptainStep1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 162.609 0"
+	"origin" "-4130.7 -7000.52 402.033"
+	"targetname" "exitCaptainRiggs"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 162.609 0"
+	"origin" "-3165.29 -5836.61 284.043"
+	"target" "exitCaptainRiggs"
+	"targetname" "exitCaptainRiggs2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -2.8523 0"
+	"origin" "5860.35 373.233 279.364"
+	"targetname" "endingRescueShip2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -80.183 0"
+	"origin" "878.941 -3417.66 749.179"
+	"targetname" "endingRescueShip3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -94.156 0"
+	"origin" "-2619.73 -3629.62 632.836"
+	"targetname" "endingRescueShip4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 2.1109 0"
+	"origin" "3399.99 4193.88 -168.531"
+	"targetname" "introzipland1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 2.1109 0"
+	"origin" "3416.73 4064.14 -165.089"
+	"targetname" "introzipland2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 2.1109 0"
+	"origin" "3400 3906.52 -156.464"
+	"targetname" "introzipland3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2746.66 4349.32 -158.15"
+	"targetname" "introzipland4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2780.18 4037.71 -144.911"
+	"targetname" "introzipland5"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "2866.18 3872.71 -162.492"
+	"targetname" "introzipland6"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 75.5932 0"
+	"origin" "3671.79 3185.18 347.85"
+	"targetname" "endingRescueShip1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-6392.46 8819.32 -10688"
+	"targetname" "intro_MCOR_spacenode"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-2455.61 4887.97 -10754"
+	"targetname" "intro_crow1_spacenode"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-48.2049 4138.72 -9986"
+	"targetname" "intro_crow1_spacenode1"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-1975.96 3105.33 -10498"
+	"targetname" "intro_crow1_spacenode2"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-7963.19 11420.5 -14558"
+	"targetname" "intro_crow1_spacenode3"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-7768.39 11994.5 -14046"
+	"targetname" "intro_crow1_spacenode4"
+	"classname" "info_target"
+}
+{
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-5 -62.25 3.06941e-016"
+	"origin" "-7704.13 10235.6 -13790"
+	"targetname" "intro_crow1_spacenode5"
+	"classname" "info_target"
+}

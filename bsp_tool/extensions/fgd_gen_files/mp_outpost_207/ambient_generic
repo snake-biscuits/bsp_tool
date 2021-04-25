@@ -1,0 +1,90 @@
+{
+	"origin" "-319.956 3168.32 55.3694"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-319.961 3528.44 54.9313"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1824.12 2303.97 -202.632"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1042.11 -549.197 -180.242"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "750.345 -923.465 43.1757"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "746.304 2164.88 -191.526"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1615.65 2205.19 -129.334"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "382.439 1769.93 -192.373"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "128.632 1771.47 -194.696"
+	"soundName" "Amb_Outpost207_Emitter_Fan"
+	"targetname" "Outpost_Fan_Emitter4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1593.2 2218.19 57.3546"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1647.01 -158.292 -129.696"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1095.85 -279.872 -128.553"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1192.15 1683.52 -145.367"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1431.22 1213.01 -15.0937"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1875.86 1958.86 -16.2247"
+	"soundName" "Amb_Outpost207_Emit_console"
+	"targetname" "Outpost_Computer_Emitter5"
+	"classname" "ambient_generic"
+}

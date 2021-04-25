@@ -1,0 +1,17 @@
+{
+	"teamnum" "0"
+	"model" "models/dev/mp_droppod_spawn.mdl"
+	"gamemode_te" "1"
+	"gamemode_tdm" "1"
+	"gamemode_survival" "0"
+	"gamemode_lts" "1"
+	"gamemode_exfil" "1"
+	"gamemode_ctt" "1"
+	"gamemode_ctf" "1"
+	"gamemode_cp" "1"
+	"scale" "1"
+	"angles" "-0 90 0"
+	"origin" "-391.55 540.02 6430.24"
+	"targetname" "info_spawnpoint_titan_1"
+	"classname" "info_spawnpoint_droppod"
+}

@@ -1,0 +1,27 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "12096 11976 4544"
+	"soundscape" "Amb_Nexus_EXT_Global"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "12149.1 11971.6 4544"
+	"soundscape" "Amb_Nexus_INT_SmallRoom"
+	"targetname" "Amb_Nexus_INT_SmallRoom"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "12234.1 11967.5 4544"
+	"soundscape" "Amb_Nexus_INT_ClosedRoom"
+	"targetname" "Amb_Nexus_INT_ClosedRoom"
+	"classname" "env_soundscape_triggerable"
+}

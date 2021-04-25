@@ -1,0 +1,1606 @@
+{
+	"origin" "1082.25 -259.847 -248.713"
+	"soundscape" "Amb_Haven_INT_Building"
+	"soundName" "Haven_Emit_Waterfall_Bottom"
+	"targetname" "Haven_Emit_Waterfall_Bottom"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1080.4 -903.835 -244.615"
+	"soundscape" "Amb_Haven_INT_Building"
+	"soundName" "Haven_Emit_Waterfall_Bottom"
+	"targetname" "Haven_Emit_Waterfall_Bottom2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1082.5 -270.61 -99.209"
+	"soundscape" "Amb_Haven_INT_Building"
+	"soundName" "Haven_Emit_Waterfall_Falling"
+	"targetname" "Haven_Emit_Waterfall_Falling2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1085.64 -915.414 -69.4347"
+	"soundscape" "Amb_Haven_INT_Building"
+	"soundName" "Haven_Emit_Waterfall_Falling"
+	"targetname" "Haven_Emit_Waterfall_Falling1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5422.54 -1114.95 -259.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5301.14 -1319.88 -254.998"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5161.83 -1679.67 -255.005"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4976.95 -1926.99 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4975.38 -2130.17 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5147.84 -2249.15 -255.011"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5390.89 -2528.69 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5334.62 -2984.32 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5006.29 -3011.33 -254.998"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4734.51 -3237.37 -255.004"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4365.46 -3238.68 -255.004"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4628.71 -3503.92 -255.004"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4737.05 -3732.04 -255.008"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4680.32 -4061.62 -254.999"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4653.16 -4342.65 -255.006"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4518.12 -4577.8 -254.995"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4159.09 -4661.78 -255.007"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3960.86 -4396.79 -255.33"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3859.14 -4138.79 -254.994"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3788.41 -3782.99 -255.011"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3669.46 -3417.48 -254.99"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3483.8 -3348.52 -254.996"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3211.87 -3396.08 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2973.75 -3444.11 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2654.93 -3493.33 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2369.49 -3420.12 -250.919"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1853.19 -3310.29 -255.01"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1525.07 -3362.67 -254.995"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1289.51 -3408.48 -255.005"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1114.63 -3770.38 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "834.284 -3779.84 -254.993"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "610.519 -3760.83 -254.984"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "429.157 -3776.76 -254.999"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "348.556 -3354.15 -255"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "179.016 -3335.27 -254.987"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-187.108 -3321.96 -255.016"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-365.424 -3646.24 -255.014"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "185.045 -3775.16 -255.007"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-706.227 -3898.45 -254.994"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-910.542 -3778.84 -254.988"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1013.34 -3572.51 -255.005"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1148.51 -3480.14 -255.013"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1402.54 -3499.67 -254.994"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1671.48 -3524.34 -254.984"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1941.8 -3463.82 -254.987"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2187.05 -3519.78 -255.007"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2522.51 -3592 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2557.34 -3766.71 -255.013"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2771.06 -4069.06 -254.238"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2975.69 -4158.96 -254.998"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3216.61 -4130.48 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3443.99 -3943.3 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3294.26 -3619.15 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3032.15 -3525.68 -254.998"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_54"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2815.79 -3347.26 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_55"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3050.75 -3060.42 -253.952"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_56"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3112.06 -2844.36 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_57"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3075.51 -2569.98 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_58"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3110.78 -2343.12 -255"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_59"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3235.38 -2117.02 -255.007"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_60"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3586.67 -2097.13 -254.995"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_61"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3876.56 -2159.77 -255.002"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_62"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4140.72 -2180.94 -255.005"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_63"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4285 -2013.66 -251.858"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_64"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4147 -1800.73 -255.01"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_65"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3944.27 -1624.13 -254.995"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_66"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3773.17 -1416.41 -255.003"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_67"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3546.31 -1310.56 -255.012"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_68"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3345.89 -1202.66 -255.005"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_69"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3283.48 -864.809 -253.325"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_70"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3350.98 -624.68 -254.993"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_71"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3377.63 -316.981 -254.998"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_72"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3411.82 33.8338 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_73"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3443.4 416.22 -254.99"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_74"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3392.68 830.892 -254.988"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_75"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3722.37 884.087 -254.988"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_76"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4002.08 1110.05 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_77"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3855.78 1399.81 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_78"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3432.03 1329.9 -254.997"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_79"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3262.25 1530.06 -254.993"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_80"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3284.09 1885.08 -252.871"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_81"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3677.13 1719.3 -255.002"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_82"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3756.21 2019.3 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_83"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3619.18 2350.62 -254.995"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_84"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3430.61 2679.78 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_85"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3668.33 2945.88 -255.004"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_86"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4009.63 3077.78 -255.001"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_87"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4319.02 2874.77 -254.994"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_88"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4538.43 2764.03 -254.993"
+	"soundName" "Amb_Haven_Emitter_WaterLapShore"
+	"targetname" "Haven_Emit_WaterLap_89"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5788.04 -1232.74 -255.007"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "6229.56 -1200.5 -255.009"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "6585.68 -1331.74 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_3"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5551.47 -1581.73 -255"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_4"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5328.32 -1918.45 -255.009"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_5"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5866.74 -1860.66 -254.98"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_6"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "6314.11 -2084.34 -255.008"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_7"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5927.88 -2486.96 -255.003"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_8"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5593.48 -2199.42 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_9"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "6129.85 -2979.61 -255.016"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_10"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5607.7 -2839.25 -255.008"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_11"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "6450.51 -2530.81 -255.026"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_12"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4886.07 -3455.5 -254.999"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_13"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5273.62 -3340.24 -254.992"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_14"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5808.98 -3281.92 -254.994"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_15"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5859.61 -3646.69 -254.988"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_16"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5510.87 -3705.83 -254.993"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_17"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5155.17 -3790.08 -255.002"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_18"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4852.25 -4207.16 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_19"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5137.86 -4376.67 -254.98"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_20"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5399.47 -4249.52 -255.017"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_21"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5820.59 -4092.9 -255.017"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_22"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5707.44 -4573.88 -255.023"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_23"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5474.79 -4701.75 -254.979"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_24"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5149.96 -4740.81 -255.016"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_25"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4860.03 -4587.57 -254.981"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_26"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4646.17 -5061.29 -254.977"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_27"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4868.27 -5005.16 -255.001"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_28"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5163.54 -5073.53 -254.985"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_29"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5479.64 -5296.21 -255.021"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_30"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5359.63 -4913.78 -255.015"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_31"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "5252.08 -5558.85 -254.995"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_32"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4971.26 -5402.16 -254.974"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_33"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4741.46 -5419.58 -254.977"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_34"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4563.79 -5420.22 -254.98"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_35"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "4268.96 -5162.71 -255"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_36"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3974.78 -4891.84 -255.006"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_37"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3814.93 -5548.87 -255.006"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_38"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2739.83 -5561.45 -255.015"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_39"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3673.15 -5191.94 -254.994"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_40"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2686.26 -4962.62 -255.008"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_41"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3293.69 -4723.79 -255.015"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_42"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3463.62 -4321.73 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_43"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2961.38 -3870.94 -254.998"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_44"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2946.19 -4361.66 -254.998"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_45"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2624.09 -4231.66 -255.008"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_46"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2354.41 -4667.92 -255"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_47"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2309.17 -3978.85 -254.986"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_48"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1860.88 -4294.44 -255.005"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_49"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1790.14 -3902.76 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_50"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "2374.84 -5317.89 -254.998"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_51"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1822.53 -5577.27 -255.003"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_52"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1851.92 -5034.93 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_53"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1637.09 -4623.5 -255.005"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_54"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1404.31 -3845.5 -254.983"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_55"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "955.31 -4251.66 -255.021"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_56"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1114.06 -4836.56 -254.983"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_58"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1274.61 -5167.55 -254.989"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_59"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1189.83 -5541.3 -255.002"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_60"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "426.237 -4078.46 -255.01"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_61"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "667.495 -4838.18 -254.994"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_62"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "682.996 -5244.65 -254.999"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_63"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "291.041 -5501.54 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_64"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "8.60169 -5231.4 -254.999"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_65"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "329.254 -4815.7 -255.011"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_66"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-216.755 -5651.85 -254.999"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_67"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-506.913 -5213.53 -255"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_68"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-895.017 -5598.19 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_69"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "41.9741 -4934.51 -255.003"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_70"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-43.7959 -4669.78 -254.995"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_71"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-292.748 -4454.82 -255.002"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_72"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-47.3693 -4036.55 -254.995"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_73"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-546.712 -4929.94 -255.011"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_74"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-810.901 -5176.84 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_75"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1234.88 -5524.35 -254.99"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_76"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1637.51 -5595.76 -255.01"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_77"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-731.916 -4516.07 -255.004"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_78"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1229.33 -4604.86 -255.009"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_79"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1894.15 -4798.84 -254.987"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_80"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-465.626 -4251.99 -254.988"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_81"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-856.159 -4046.85 -255.025"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_82"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1086.14 -4390.21 -254.954"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_83"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1247.21 -3940.08 -254.971"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_84"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1269.02 -3613.6 -254.972"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_85"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1667.38 -3676.84 -255.022"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_86"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1466.5 -4399.73 -255.002"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_87"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1756.68 -4511.38 -254.963"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_88"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1623.98 -4230.21 -255.02"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_89"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-1779.1 -4083.58 -254.963"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_90"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2182.06 -4498.11 -255.029"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_91"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2160.35 -4825.11 -255.028"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_92"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2407.15 -5098.41 -255.012"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_93"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2273.28 -5413.79 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_94"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2481.16 -5563.96 -254.977"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_95"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2724.16 -5458.07 -254.981"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_96"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2797.94 -5046.07 -254.993"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_97"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2855.71 -4607.66 -255.002"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_98"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2622.02 -4656.74 -254.997"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_99"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2614.66 -4262.08 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_100"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2329.95 -4178.86 -254.989"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_101"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2384.71 -3779.06 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_102"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-2098.93 -3835 -255.011"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_103"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3108.4 -5328.5 -254.986"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_104"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3302.83 -4935.99 -254.98"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_105"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3482.83 -4465.59 -254.985"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_106"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3837.8 -4653.29 -254.979"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_107"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4455.68 -3854.66 -255.001"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_108"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3885.09 -3905.38 -255.026"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_109"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3112.58 -3314.29 -255.004"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_110"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3353.9 -3004.64 -255.019"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_111"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3371.25 -2567.99 -255.031"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_112"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3637.06 -2354.95 -255.028"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_113"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3828.47 -2835.68 -254.978"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_114"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3622.46 -3347.2 -255.022"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_115"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4094.12 -4227.03 -255.046"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_116"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3699.29 -4163.47 -254.985"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_117"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4198.76 -3402.33 -254.96"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_118"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4189.41 -2545.88 -254.951"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_119"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4457.5 -2260.9 -254.942"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_120"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4306.7 -3011.74 -254.96"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_121"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4637.81 -3021.96 -255.061"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_122"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4640.75 -3532.27 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_123"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4954.62 -3478.7 -254.95"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_124"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5197.84 -3170.91 -254.936"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_125"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5430.38 -2898.52 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_126"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4788.8 -2567.97 -254.931"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_127"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5143.58 -2612.92 -254.973"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_128"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5285.9 -2185.34 -255.019"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_129"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4759.55 -2012.9 -255.007"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_130"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4448.56 -1709.86 -255.001"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_131"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4936.38 -1727.44 -255.012"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_132"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5148.73 -1520.21 -254.984"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_133"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5048.26 -947.899 -255.019"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_134"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4769.23 -1268.9 -254.986"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_135"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4257.23 -1263.07 -255.001"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_136"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4576.46 -847.135 -254.983"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_137"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3889.85 -1120.04 -255.025"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_138"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3592.9 -916.151 -254.984"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_139"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3670.96 -576.599 -255.005"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_140"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4109.99 -737.362 -254.991"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_141"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4461.15 -499.309 -255.018"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_142"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4865.21 -471.924 -254.999"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_143"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-5059.47 -468.036 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_144"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3641.27 -146.859 -255.008"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_145"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3922.21 -285.569 -254.983"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_146"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4334.94 -87.8975 -254.99"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_147"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4850.12 31.3165 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_148"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4749.03 657.871 -255.015"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_149"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4266.45 295.621 -254.996"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_150"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3760.59 211.584 -254.998"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_151"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3716.51 606.806 -254.985"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_152"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4173.89 710.862 -254.995"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_153"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4675.38 1071.27 -254.977"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_154"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4389.29 817.618 -254.984"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_155"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4037.61 1578.87 -254.994"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_156"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4376.83 1443.35 -254.997"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_157"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4690.35 1603.92 -255.024"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_158"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4588.38 2208.34 -255.022"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_159"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4176.89 2069.35 -254.986"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_160"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3902.75 1980.34 -254.969"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_161"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3831.6 2438.83 -254.992"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_162"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4162.45 2477.81 -254.989"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_163"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4471.64 2571.11 -255.027"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_164"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-4013.3 2787.02 -255.014"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_165"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-3618.41 2746.35 -255.009"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_166"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "911.117 130.225 -256.221"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_167"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "586.817 99.0087 -256.22"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_168"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "716.379 -220.733 -256.218"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_169"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "561.006 -817.726 -256.221"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_170"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "884.726 -831.956 -256.216"
+	"soundName" "Amb_Haven_Emit_WaterLap"
+	"targetname" "Haven_Emit_WaterLap_Offshore_171"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-320.518 -1232.92 164.265"
+	"soundName" "Haven_emit_ElectricalGrind"
+	"targetname" "Haven_emit_ElectricalGrind_1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "-190.237 -1231.92 159.999"
+	"soundName" "Haven_emit_ElectricalGrind"
+	"targetname" "Haven_emit_ElectricalGrind_2"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1539 -345.602 171.807"
+	"soundName" "Haven_emit_TrickleFountain"
+	"targetname" "Haven_emit_TrickleFountain_1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "1531 -736.222 172.484"
+	"soundName" "Haven_emit_TrickleFountain_2"
+	"targetname" "Haven_emit_TrickleFountain_2"
+	"classname" "ambient_generic"
+}

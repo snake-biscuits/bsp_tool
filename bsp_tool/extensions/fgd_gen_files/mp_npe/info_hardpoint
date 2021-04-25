@@ -1,0 +1,9 @@
+{
+	"hardpointName" "random"
+	"scale" "1"
+	"angles" "-0 45 0"
+	"origin" "856 2244 6544"
+	"model" "models/communication/terminal_com_station_nobase.mdl"
+	"targetname" "info_hardpoint_1"
+	"classname" "info_hardpoint"
+}

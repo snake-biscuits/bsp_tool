@@ -1,0 +1,27 @@
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "14356.8 14451 7040"
+	"soundscape" "AMB_AngelCity_EXT_Global"
+	"requireLOS" "0"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "14652 14405 7040"
+	"soundscape" "AMB_AngelCity_INT_SmallRoom"
+	"requireLOS" "0"
+	"targetname" "AMB_AngelCity_INT_SmallRoom"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "15013.6 14395.1 7040"
+	"soundscape" "AMB_AngelCity_INT_ClosedRoom"
+	"requireLOS" "0"
+	"targetname" "AMB_AngelCity_INT_ClosedRoom"
+	"classname" "env_soundscape_triggerable"
+}

@@ -1,0 +1,26 @@
+{
+	"model" "*66"
+	"origin" "-32 -288 -896"
+	"StartDisabled" "0"
+	"nodmgforce" "1"
+	"damageSourceName" "fall"
+	"damagemodel" "0"
+	"damagecap" "20"
+	"damage" "10000"
+	"spawnflags" "4099"
+	"targetname" "trigger_hurt_1"
+	"classname" "trigger_hurt"
+}
+{
+	"model" "*71"
+	"origin" "-32 -288 -896"
+	"StartDisabled" "0"
+	"nodmgforce" "1"
+	"damageSourceName" "fall"
+	"damagemodel" "0"
+	"damagecap" "20"
+	"damage" "10000"
+	"spawnflags" "4099"
+	"targetname" "trigger_hurt_2"
+	"classname" "trigger_hurt"
+}

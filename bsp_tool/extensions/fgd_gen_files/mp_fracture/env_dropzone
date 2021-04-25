@@ -1,0 +1,24 @@
+{
+	"origin" "-1024 -2304 1024"
+	"teamnum" "3"
+	"refuel" "1"
+	"radius" "4000"
+	"targetname" "env_dropzone_1"
+	"classname" "env_dropzone"
+}
+{
+	"origin" "5376 -1216 512"
+	"teamnum" "2"
+	"refuel" "1"
+	"radius" "3000"
+	"targetname" "env_dropzone_2"
+	"classname" "env_dropzone"
+}
+{
+	"origin" "5472 4192 512"
+	"teamnum" "2"
+	"refuel" "1"
+	"radius" "3000"
+	"targetname" "env_dropzone_3"
+	"classname" "env_dropzone"
+}

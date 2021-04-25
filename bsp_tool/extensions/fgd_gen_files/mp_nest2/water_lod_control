@@ -1,0 +1,7 @@
+{
+	"cheapwaterstartdistance" "1000"
+	"cheapwaterenddistance" "2000"
+	"origin" "3464 -2928 4096"
+	"targetname" "water_lod_control_1"
+	"classname" "water_lod_control"
+}

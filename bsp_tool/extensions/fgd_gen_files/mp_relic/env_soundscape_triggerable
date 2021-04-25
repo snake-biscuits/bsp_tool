@@ -1,0 +1,162 @@
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "7568 4296 4496"
+	"soundscape" "AMB_Relic_EXT_Global"
+	"targetname" "env_soundscape_triggerable_1"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-16 -5136 528"
+	"soundscape" "AMB_Relic_INT_SmallRoom"
+	"targetname" "ship_interior"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-1840 -5184 480"
+	"targetname" "barracks"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-2208 -3936 608"
+	"targetname" "foremans_office"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-2128 -3184 176"
+	"targetname" "titan_garage"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-3376 -3504 608"
+	"targetname" "storage"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-3504 -2336 528"
+	"targetname" "hospital"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-832 -3424 160"
+	"targetname" "turbine_room"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "-592 -2720 64"
+	"targetname" "small_building01"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "816 -2704 240"
+	"targetname" "fire_control"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "2032 -3024 224"
+	"targetname" "scrap_storage"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "2928 -3056 224"
+	"targetname" "scrap_house"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "2048 -3888 432"
+	"targetname" "control_room"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "2016 -5184 208"
+	"targetname" "cantina"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "1168 -5952 288"
+	"targetname" "ship_turbine"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"soundscape" "Nothing"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "3229 -3940 224"
+	"targetname" "power_station"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "7651.37 4290.4 288"
+	"soundscape" "AMB_Relic_INT_SmallRoom"
+	"targetname" "AMB_Relic_INT_SmallRoom"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "7600.56 4250.21 288"
+	"soundscape" "AMB_Relic_INT_ClosedRoom"
+	"targetname" "AMB_Relic_INT_ClosedRoom"
+	"classname" "env_soundscape_triggerable"
+}

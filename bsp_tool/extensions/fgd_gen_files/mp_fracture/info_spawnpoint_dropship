@@ -1,0 +1,81 @@
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -168.2 0"
+	"origin" "5696 2016 352"
+	"targetname" "info_spawnpoint_dropship_1"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -178.703 0"
+	"origin" "4040 -1384 216"
+	"targetname" "info_spawnpoint_dropship_2"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -114.173 0"
+	"origin" "4000 3968 480"
+	"targetname" "info_spawnpoint_dropship_3"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -67.38 0"
+	"origin" "3400 4400 416"
+	"targetname" "info_spawnpoint_dropship_4"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -40.303 0"
+	"origin" "-1462 -976 632"
+	"targetname" "info_spawnpoint_dropship_5"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 49.697 0"
+	"origin" "-2944 -4736 608"
+	"targetname" "info_spawnpoint_dropship_6"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 73.8729 0"
+	"origin" "416 -4560 608"
+	"targetname" "info_spawnpoint_dropship_7"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 163.873 0"
+	"origin" "3552 -2496 608"
+	"targetname" "info_spawnpoint_dropship_8"
+	"classname" "info_spawnpoint_dropship"
+}
+{
+	"teamnum" "0"
+	"spawnflags" "0"
+	"scale" "1"
+	"angles" "-0 -157.766 0"
+	"origin" "5464 440 712"
+	"targetname" "info_spawnpoint_dropship_9"
+	"classname" "info_spawnpoint_dropship"
+}

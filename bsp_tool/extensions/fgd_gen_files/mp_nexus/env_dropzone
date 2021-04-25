@@ -1,0 +1,32 @@
+{
+	"radius" "2500"
+	"origin" "-568 -3016 552"
+	"teamnum" "3"
+	"refuel" "1"
+	"targetname" "env_dropzone_1"
+	"classname" "env_dropzone"
+}
+{
+	"radius" "2500"
+	"origin" "80 5888 560"
+	"teamnum" "3"
+	"refuel" "1"
+	"targetname" "env_dropzone_2"
+	"classname" "env_dropzone"
+}
+{
+	"radius" "2500"
+	"origin" "1616 -2320 608"
+	"teamnum" "2"
+	"refuel" "1"
+	"targetname" "env_dropzone_3"
+	"classname" "env_dropzone"
+}
+{
+	"radius" "2500"
+	"origin" "-248 5072 688"
+	"teamnum" "2"
+	"refuel" "1"
+	"targetname" "env_dropzone_4"
+	"classname" "env_dropzone"
+}

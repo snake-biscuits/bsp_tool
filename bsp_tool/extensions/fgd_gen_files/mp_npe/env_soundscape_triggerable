@@ -1,0 +1,27 @@
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "13562.7 13795.7 4256"
+	"soundscape" "Amb_NPE_Holodeck"
+	"requireLOS" "1"
+	"targetname" "Amb_NPE_Holodeck"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"radius" "128"
+	"origin" "14089.6 13738.5 4256"
+	"soundscape" "Amb_NPE_Industrial"
+	"requireLOS" "1"
+	"targetname" "Amb_NPE_Industrial"
+	"classname" "env_soundscape_triggerable"
+}
+{
+	"StartDisabled" "0"
+	"requireLOS" "0"
+	"radius" "128"
+	"origin" "13896 13360 8032"
+	"soundscape" "Amb_TrainingGround_EXT_Global"
+	"targetname" "Amb_NPE_TrainingGround"
+	"classname" "env_soundscape_triggerable"
+}

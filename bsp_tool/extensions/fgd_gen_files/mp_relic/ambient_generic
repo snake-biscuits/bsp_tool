@@ -1,0 +1,12 @@
+{
+	"origin" "3472 -3824 576"
+	"soundName" "Amb_Relic_Emit_Turbine"
+	"targetname" "ambient_generic_1"
+	"classname" "ambient_generic"
+}
+{
+	"origin" "3020.22 -3818.2 552.82"
+	"soundName" "Amb_Relic_Emit_Turbine"
+	"targetname" "ambient_generic_2"
+	"classname" "ambient_generic"
+}

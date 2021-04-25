@@ -1,0 +1,783 @@
+{
+	"model" "*1"
+	"origin" "-12292 -2166 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_6"
+	"targetname" "trigger_lightswitch"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*2"
+	"origin" "-12288 -1122 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_7"
+	"targetname" "trigger_lightswitch1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*3"
+	"origin" "-12292 -2422 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_3"
+	"targetname" "trigger_lightswitch2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*4"
+	"origin" "-12288 -2686 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_1"
+	"targetname" "trigger_lightswitch3"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*5"
+	"origin" "-12288 35 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_9"
+	"scr_flagSet" "PlayerPastRunAndJump"
+	"targetname" "trigger_lightswitch4"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*6"
+	"origin" "-12288 -1520 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerNearJump"
+	"targetname" "trig_near_jump"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*7"
+	"origin" "-12296 -1128 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerPastJump"
+	"targetname" "trig_past_jump"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*8"
+	"origin" "-12288 856 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerNearMantle"
+	"targetname" "trig_near_mantle"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*11"
+	"origin" "-12288 -2772 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "SprintDoorsStartClosing"
+	"targetname" "trig_start_closing_sprint_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*12"
+	"origin" "-12288 -1792.5 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerPassedSprintDoors"
+	"targetname" "trig_past_sprint_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*13"
+	"origin" "-10128 -3840 512"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerEnteredWallrunArea"
+	"targetname" "trig_wallrun_start"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*14"
+	"origin" "-9984 -2448 512"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerReachedWallrunPlatform2"
+	"targetname" "trig_wallrun_platform2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*15"
+	"origin" "-9984 -800 512"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerReachedWallrunPlatform3"
+	"targetname" "trig_wallrun_platform3"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*16"
+	"origin" "-9984 1280 512"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerReachedWallrunPlatform4"
+	"targetname" "trig_wallrun_platform4"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*17"
+	"origin" "-6656 -4128 432"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerReachedDoublejumpPlatform2"
+	"targetname" "trig_doublejump_platform2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*18"
+	"origin" "-3840 -3188 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "CloseCloakSwapDoors"
+	"targetname" "trig_past_cloak_area"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*19"
+	"origin" "10496 -2048 136"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_end_titan_pet"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*20"
+	"origin" "5504 -5368 192"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "StartTitanSprintDoors"
+	"targetname" "trig_start_dash_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*21"
+	"origin" "5504 -3376 192"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "TitanSprintFinishLine"
+	"targetname" "trig_dash_doors_finishline"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*22"
+	"origin" "6656 -1436 192"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "TitanDashFinishLine"
+	"targetname" "trig_dash_finishline"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*23"
+	"origin" "6652 1560 152"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerPastDashThreat"
+	"targetname" "trig_past_dash_threat"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*24"
+	"origin" "6656 1550 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_14"
+	"targetname" "trigger_lightswitch6"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*25"
+	"origin" "8452 -4588 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerStartTitanVortex"
+	"targetname" "trig_vortex_start"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*26"
+	"origin" "9968 -3404 152"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "2"
+	"scr_flagSet" "TitanPetPassedGate"
+	"targetname" "trig_titan_past_pet_gate"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*27"
+	"origin" "6136 -1392 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_25"
+	"targetname" "trigger_lightswitch_dash_L"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*28"
+	"origin" "7120 -1384 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_26"
+	"targetname" "trigger_lightswitch_dash_R"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*31"
+	"origin" "6136 -1280 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_27"
+	"targetname" "trigger_lightswitch_dash_T"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*32"
+	"origin" "7120 -1280 112"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_28"
+	"targetname" "trigger_lightswitch_dash_B"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*35"
+	"origin" "-12288 -3932 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerStartWalkSection"
+	"targetname" "trig_walk_starting_line"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*36"
+	"origin" "-12288 -3926 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_11"
+	"targetname" "trigger_lightswitch5"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*37"
+	"origin" "-12288 -3582 68"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_21"
+	"targetname" "trigger_lightswitch7"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*38"
+	"origin" "-12288 -1956 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerSprintZoneEnd"
+	"targetname" "trig_sprint_zone_end"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*39"
+	"origin" "-12284 -3219 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerPassedWalkDoors"
+	"targetname" "trig_past_walk_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*40"
+	"origin" "-12292 1064 208"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerPastMantle"
+	"targetname" "trig_past_mantle"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*41"
+	"origin" "-12284 -3136.5 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "SafeToCloseWalkDoors"
+	"targetname" "trig_safe_to_close_walk_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*42"
+	"origin" "-12288 -1686.75 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "SafeToCloseSprintDoors"
+	"targetname" "trig_safe_to_close_sprint_doors"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*44"
+	"origin" "6656 352 160"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerDashThreat_Alcove1"
+	"targetname" "trig_dashthreat_alcove_1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*45"
+	"origin" "6656 1280 160"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerDashThreat_Alcove2"
+	"targetname" "trig_dashthreat_alcove_2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*46"
+	"origin" "-9984 -2862 768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_22"
+	"targetname" "trigger_lightswitch8"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*47"
+	"origin" "-9984 -1214 768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_29"
+	"targetname" "trigger_lightswitch9"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*48"
+	"origin" "-9984 818 768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_31"
+	"targetname" "trigger_lightswitch10"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*49"
+	"origin" "-9984 2346 896"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_32"
+	"scr_flagSet" "PlayerReachedWallrunEnd"
+	"targetname" "trigger_lightswitch11"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*50"
+	"origin" "-6652 -4366 712"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_34"
+	"targetname" "trigger_lightswitch12"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*51"
+	"origin" "-6652 -3038 440"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_36"
+	"scr_flagSet" "PlayerPastDoubleJump2"
+	"targetname" "trigger_lightswitch13"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*52"
+	"origin" "-6656 -2314 572"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "info_target_fx_39"
+	"scr_flagSet" "PlayerPassedDoubleJumpCeiling"
+	"targetname" "trigger_lightswitch14"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*53"
+	"origin" "-824 3048 6640"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "trig_moshpit_start_building"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*57"
+	"origin" "6656 -792 160"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerStartDashThreat"
+	"targetname" "trig_start_dash_threat"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*65"
+	"origin" "-12288 -128 -736"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_jump1"
+	"targetname" "player_reset_trigger"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*66"
+	"origin" "-6656 -4672 -288"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_doublejump1"
+	"targetname" "player_reset_trigger_30"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*67"
+	"origin" "-6656 -3328 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_doublejump2"
+	"targetname" "player_reset_trigger_31"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*68"
+	"origin" "-9984 -3304 -768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_dest_wallrun1"
+	"targetname" "player_reset_trigger_20"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*69"
+	"origin" "-9984 -1568 -768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_dest_wallrun2"
+	"targetname" "player_reset_trigger_21"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*70"
+	"origin" "-9936 256 -768"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_dest_wallrun7"
+	"targetname" "player_reset_trigger_22"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*71"
+	"origin" "-9984 1968 -784"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "teleport_dest_wallrun8"
+	"targetname" "player_reset_trigger_23"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*72"
+	"origin" "-12288 1410 234"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endRunAndJump"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*73"
+	"origin" "-9792 6512 -672"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "destination_wallrun_playground_pit1"
+	"targetname" "player_reset_trigger_24"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*74"
+	"origin" "-8768 8390 -672"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "dest_wallrun_playground_pit3"
+	"targetname" "player_reset_trigger_26"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*75"
+	"origin" "-9024 7552 -672"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"target" "dest_wallrun_playground_pit2"
+	"targetname" "player_reset_trigger_25"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*76"
+	"origin" "-9982 2850 318"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endWallrun"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*77"
+	"origin" "-6656 -1790 570"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endDoubleJumpTraining"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*78"
+	"origin" "-6784 2972 742"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endDoubleJumpPlayground"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*79"
+	"origin" "-3840 -2557 100"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endCloakTraining"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*80"
+	"origin" "-768 -766 96"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endSmartPistolTraining"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*81"
+	"origin" "-8768 9426 260"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endWallrunPlayground"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*94"
+	"origin" "2912 -1935 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"target" "grenadetrig_light_1"
+	"spawnflags" "64"
+	"targetname" "trig_grenade_target_1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*95"
+	"origin" "2912 -1935 192"
+	"wait" "1"
+	"StartDisabled" "0"
+	"target" "grenadetrig_light_2"
+	"spawnflags" "64"
+	"targetname" "trig_grenade_target_2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*96"
+	"origin" "2720 -1680 64"
+	"wait" "1"
+	"StartDisabled" "0"
+	"target" "grenadetrig_light_4"
+	"spawnflags" "64"
+	"targetname" "trig_grenade_target_3"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*97"
+	"origin" "2720 -1680 192"
+	"wait" "1"
+	"StartDisabled" "0"
+	"target" "grenadetrig_light_3"
+	"spawnflags" "64"
+	"targetname" "trig_grenade_target_4"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*98"
+	"origin" "6656 2432 124"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endTitanDash"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*99"
+	"origin" "8448 -1536 124"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"targetname" "module_advance_trigger_endVortex"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*103"
+	"origin" "-768 -2856 446"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerNearMultikillSpot"
+	"targetname" "trig_near_multikill_spot"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*104"
+	"origin" "-766 -2192 118"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "PlayerNearMultiLockSpot"
+	"targetname" "trig_near_multilock_spot"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*113"
+	"origin" "-9986 6736 678"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_HighRoad_1"
+	"targetname" "trig_highroad_1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*114"
+	"origin" "-8768 7722 678"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_HighRoad_2"
+	"targetname" "trig_highroad_2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*115"
+	"origin" "-8768 8958 290"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_BonusEval"
+	"targetname" "trig_bonus_eval"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*116"
+	"origin" "-9428 7488 48"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_HighRoad_Fail"
+	"targetname" "trig_highroad_fail"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*117"
+	"origin" "-9408 7236 -218"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_LowRoad_1"
+	"targetname" "trig_lowroad_1"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*118"
+	"origin" "-8774 7892 -232"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "WallrunPlayground_LowRoad_2"
+	"targetname" "trig_lowroad_2"
+	"classname" "trigger_multiple"
+}
+{
+	"model" "*119"
+	"origin" "-6786 2616 744"
+	"wait" "1"
+	"StartDisabled" "0"
+	"spawnflags" "4097"
+	"scr_flagSet" "DoublejumpPlayground_PlayerEval"
+	"targetname" "trig_doublejump_playground_playereval"
+	"classname" "trigger_multiple"
+}

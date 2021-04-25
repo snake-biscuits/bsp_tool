@@ -1,0 +1,88 @@
+{
+	"model" "*1"
+	"origin" "-668 -3588 392"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_11"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*2"
+	"origin" "196 -3556 404"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_1"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*27"
+	"origin" "408 -1846 384"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_3"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*28"
+	"origin" "288 -2644 284"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_8"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*29"
+	"origin" "256 -2168 156"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_9"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*30"
+	"origin" "352 -1800 124"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_10"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*31"
+	"origin" "1384 -1860 384"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_11"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*32"
+	"origin" "832 -1856 616"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_12"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*35"
+	"origin" "348 -2390 608"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_4"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*41"
+	"origin" "330 266 160"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_13"
+	"classname" "trigger_indoor_area"
+}
+{
+	"model" "*42"
+	"origin" "380 944 448"
+	"StartDisabled" "0"
+	"spawnflags" "3"
+	"targetname" "trigger_indoor_area_16"
+	"classname" "trigger_indoor_area"
+}
