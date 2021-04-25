@@ -142,7 +142,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [12 / 128] + 3 special lumps (57 unused)
+# classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (57 unused)
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]
     unknown: int  # id? some index?
@@ -150,6 +150,15 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     __slots__ = ["origin", "unknown"]
     _format = "3fI"  # seems short
     _arrays = {"origin": [*"xyz"]}
+
+
+class Cubemap(base.MappedArray):  # LUMP 42 (002A)
+    x: int
+    y: int
+    z: int
+    unknown: int  # index? flags?
+    _mapping = [*"xyz", "unknown"]
+    _format = "3iI"
 
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
@@ -167,9 +176,9 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     texdata: int  # index of this MaterialSort's Texdata
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
-    unknown: int
+    cubemap: int  # index of this MaterialSort's Cubemap
     vertex_offset: int
-    __slots__ = ["texdata", "lightmap_header", "unknown", "vertex_offset"]
+    __slots__ = ["texdata", "lightmap_header", "cubemap", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
 
 
@@ -236,10 +245,16 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     unknown: List[int]
     string_table_index: int  # index of material name in TEXDATA_STRING_DATA / TABLE
-    unknown2: List[int]
-    __slots__ = ["unknown", "string_table_index", "unknown2"]
+    # ^ nameStringTableID
+    width: int
+    height: int
+    view_width: int
+    view_height: int
+    flags: int
+    __slots__ = ["unknown", "string_table_index", "width", "height",
+                 "view_width", "view_height", "flags"]
     _format = "9i"
-    _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
+    _arrays = {"unknown": [*"abc"]}
 
 
 class TextureDataStringTable(int):  # LUMP 44 (002C)
@@ -294,6 +309,7 @@ BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex,
                       "TEXDATA_STRING_TABLE": TextureDataStringTable}
 
 LUMP_CLASSES = {"CM_BRUSHES": Brush,
+                "CUBEMAPS": Cubemap,
                 "LIGHTMAP_HEADERS": LightmapHeader,
                 "MATERIAL_SORT": MaterialSort,
                 "MESHES": Mesh,
