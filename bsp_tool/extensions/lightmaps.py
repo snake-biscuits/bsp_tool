@@ -74,8 +74,8 @@ def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
     for lightmap_bytes in ibsp.LIGHTMAPS:
         lightmap = Image.frombytes("RGB", (128, 128), lightmap_bytes, "raw")
         lightmap_images.append(lightmap)
-    # TODO: if folder doesn't exist, create it
     tiled_lightmaps = sum(lightmap_images, start=LightmapPage(max_width=128 * 5))
+    os.makedirs(folder, exist_ok=True)
     tiled_lightmaps.image.save(os.path.join(folder, f"{ibsp.filename}.lightmaps.png"))
 
 
@@ -100,6 +100,7 @@ def save_vbsp(vbsp, folder="./"):
         lightmaps.append(face_lightmap)
     sorted_lightmaps = sorted(lightmaps, key=lambda i: -(i.size[0] * i.size[1]))
     page = sum(sorted_lightmaps, start=LightmapPage())
+    os.makedirs(folder, exist_ok=True)
     page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
 
 
@@ -119,7 +120,7 @@ def save_rbsp(rbsp, folder="./"):  # TITANFALL 2 ONLY!
             realtime_lightmap = Image.frombytes("RGBA", (header.width, header.height), realtime_bytes, "raw")
             realtime_lightmaps.append(realtime_lightmap)
             first_pixel = last_pixel
-    # TODO: if folder doesn't exist, create it
+    os.makedirs(folder, exist_ok=True)
     max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
     sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))

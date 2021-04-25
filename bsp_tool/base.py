@@ -35,8 +35,7 @@ class Bsp:
         if not filename.endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
-        self.filename = os.path.basename(filename)
-        self.folder = os.path.dirname(filename)
+        self.folder, self.filename = os.path.split(filename)
         self.set_branch(branch)
         self.HEADERS = dict()
         if autoload:
