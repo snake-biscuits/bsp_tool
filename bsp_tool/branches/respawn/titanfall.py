@@ -285,6 +285,12 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
                "unknown": [*"abc"]}
 
 
+class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "9I"
+    _arrays = {"uv": [*"uv"], "unknown": [*"abcde"]}
+
+
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VERTEX_NORMALS lump
@@ -320,6 +326,7 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
                 "VERTS_LIT_BUMP": VertexLitBump,
+                "VERTS_LIT_FLAT": VertexLitFlat,
                 "VERTS_UNLIT": VertexUnlit,
                 "VERTS_UNLIT_TS": VertexUnlitTS}
 
@@ -331,8 +338,8 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.E
 # branch exclusive methods, in alphabetical order:
 mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
-              0x200: "VERTS_LIT_BUMP"}  # VERTS_RESERVED_2
-# does VERTS_LIT_FLAT / VERTS_RESERVED_1 get a flag?
+              0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
+              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py

@@ -76,7 +76,7 @@ def potential_sizes(lump_sizes, start=8, step=4) -> List[int]:
     lump_sizes = set(lump_sizes)
     for a, b in itertools.combinations(lump_sizes, 2):
         lump_sizes.add(abs(a - b))
-    lump_sizes.discard(0)
+    lump_sizes.discard(0)  # TODO: check this worked
     if len(lump_sizes) == 0:
         return [0]
     lump_sizes = list(lump_sizes)
