@@ -1,9 +1,12 @@
 import importlib
+import math
 import os
 import sys
+from typing import Dict, List
 
 import bmesh
 import bpy
+import mathutils
 
 blend_dir = os.path.dirname(bpy.data.filepath)
 if blend_dir not in sys.path:
@@ -24,32 +27,89 @@ def load_materials(bsp):  # -> List[materials]
     for material_name in bsp.TEXDATA_STRING_DATA:
         # TODO: check if material is already loaded
         material = bpy.data.materials.new(material_name)
+        # TODO: option to look for .vmt & load colour, textures etc.
         materials.append(material)
     return materials
 
 
+# colourspace translation
+def srgb_to_linear(*srgb: List[float]) -> List[float]:
+    linear = list()
+    for s in srgb:
+        if s <= 0.0404482362771082:
+            lin = s / 12.92
+        else:
+            lin = ((s + 0.055) / 1.055) ** 2.4
+        linear.append(lin)
+    return linear
+
+
+def linear_to_srgb(*linear: List[float]) -> List[float]:
+    srgb = list()
+    for lin in linear:
+        if lin > 0.00313066844250063:
+            s = 1.055 * (lin ** (1.0 / 2.4)) - 0.055
+        else:
+            s = 12.92 * lin
+        srgb.append(s)
+    return srgb
+
+
+# entity reference objects
+def ent_to_light(entity: Dict[str, str]) -> bpy.types.PointLight:
+    light_name = entity.get("targetname", entity["classname"])
+    if entity["classname"] == "light":
+        light = bpy.data.lights.new(light_name, "POINT")
+    elif entity["classname"] == "light_spot":
+        light = bpy.data.lights.new(light_name, "SPOT")
+    elif entity["classname"] == "light_environment":
+        light = bpy.data.lights.new(light_name, "SUN")
+        light.angle = math.radians(float(entity.get("SunSpreadAngle", "0")))
+    light.cycles.use_multiple_importance_sampling = False
+    if entity.get("_lightHDR", "-1 -1 -1 1") == "-1 -1 -1 1":
+        r, g, b, brightness = map(float, entity["_light"].split())
+        light.color = srgb_to_linear(r, g, b)
+        light.energy = brightness
+    else:
+        r, g, b, brightness = map(float, entity["_lightHDR"].split())
+        light.color = srgb_to_linear(r, g, b)
+        light.energy = brightness * float(entity.get("_lightscaleHDR", "1"))
+    return light
+
+
+# TODO: cubemaps, lightprobes
+ent_object_data = {"light": ent_to_light, "light_spot": ent_to_light, "light_environment": ent_to_light,
+                   "ambient_generic": lambda e: bpy.data.speakers.new(e.get("targetname", e["classname"]))}
+
+
 def load_entities(rbsp):
-    entity_collection = bpy.data.collections.new(f"{rbsp.filename} Entities")
-    bpy.context.scene.collection.children.link(entity_collection)
-    # TODO: collection for each classname
-    all_entities = (*rbsp.ENTITIES, *rbsp.ENTITIES_env, *rbsp.ENTITIES_fx,
-                    *rbsp.ENTITIES_script, *rbsp.ENTITIES_snd, *rbsp.ENTITIES_spawn)
-    for i, entity in enumerate(all_entities):
-        # bpy.data.speakers.new()  # if classname = "ambient_generic"
-        # bpy.data.lights.new()  # if classname.startswith("light")  [light_environment = sun]
-        reference = bpy.data.objects.new(f"{entity['classname']} [{i}]", None)
-        reference.empty_display_type = "SPHERE"
-        reference.empty_display_size = 64
-        entity_collection.objects.link(reference)
-        reference.location = [*map(float, entity.get("origin", "0 0 0").split())]
-        # TODO: create different object types based on classname
-        # -- further optimisation (props with shared worldmodel share mesh data)
-        for field in entity:
-            reference[field] = entity[field]
-        if "targetname" in entity:
-            reference.name = entity["targetname"]
-        # TODO: apply parenting
-    # TODO: once all ents are loaded, connect point for keyframe_rope / path_track etc.
+    all_entities = (rbsp.ENTITIES, rbsp.ENTITIES_env, rbsp.ENTITIES_fx,
+                    rbsp.ENTITIES_script, rbsp.ENTITIES_snd, rbsp.ENTITIES_spawn)
+    block_names = ("Internal", "Environment", "Effects", "Script", "Sound", "Spawn")
+    for entity_block, block_name in zip(all_entities, block_names):
+        entity_collection = bpy.data.collections.new(f"{rbsp.filename} {block_name} Entities")
+        bpy.context.scene.collection.children.link(entity_collection)
+        for entity in entity_block:
+            object_data = ent_object_data.get(entity["classname"], lambda e: None)(entity)
+            name = entity.get("targetname", entity["classname"])
+            entity_object = bpy.data.objects.new(name, object_data)
+            if object_data is None:
+                entity_object.empty_display_type = "SPHERE"
+                entity_object.empty_display_size = 64
+                if entity["classname"].startswith("info_node"):
+                    entity_object.empty_display_type = "CUBE"
+            entity_collection.objects.link(entity_object)
+            entity_object.location = [*map(float, entity.get("origin", "0 0 0").split())]
+            # NOTE: default source orientation is facing east (+Xaa)
+            angles = [*map(lambda x: math.radians(float(x)), entity.get("angles", "0 0 0").split())]
+            entity_object.rotation_euler = mathutils.Euler((angles[2],
+                                                            -float(entity.get("pitch", -angles[0])),
+                                                            angles[1] + 180))
+            # TODO: apply parenting
+            # TODO: further optimisation (props with shared worldmodel share mesh data)
+            for field in entity:
+                entity_object[field] = entity[field]
+        # TODO: once all ents are loaded, connect paths for keyframe_rope / path_track etc.
 
 
 def load_rbsp(rbsp):
@@ -72,7 +132,7 @@ def load_rbsp(rbsp):
             for triangle_index in range(0, len(mesh_vertices), 3):
                 face_indices = list()
                 uvs = dict()
-                for vert_index in range(3):
+                for vert_index in reversed(range(3)):  # invert winding order for backfaces
                     rbsp_vertex = mesh_vertices[triangle_index + vert_index]
                     vertex = rbsp.VERTICES[rbsp_vertex.position_index]
                     if rbsp_vertex.position_index not in bmesh_vertices:
@@ -145,8 +205,8 @@ def load_apex_rbsp(rbsp):
 
 
 # NOTE: objects created by a second load may get messy
-bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_box.bsp")  # func_breakable_surf meshes with unknown flags
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
+bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_lobby_02.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_hub_timeshift.bsp")
 try:
     load_rbsp(bsp)
