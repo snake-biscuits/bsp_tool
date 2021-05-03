@@ -81,7 +81,7 @@ class LUMP(enum.Enum):
     TRICOLL_HEADERS = 0x0045
     PHYSTRIS = 0x0046
     VERTS_UNLIT = 0x0047     # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1
+    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1  # what flags?
     VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2
     VERTS_UNLIT_TS = 0x004A  # VERTS_RESERVED_3
     VERTS_RESERVED_4 = 0x004B  # unused
@@ -145,9 +145,8 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (57 unused)
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]
-    unknown: int  # id? some index?
-    # was expecting first_plane & num_planes but OK
-    __slots__ = ["origin", "unknown"]
+    contents: int  # looks like a bit flags
+    __slots__ = ["origin", "contents"]
     _format = "3fI"  # seems short
     _arrays = {"origin": [*"xyz"]}
 
@@ -226,7 +225,7 @@ class Plane(base.Struct):  # LUMP 1 (0001)
     _arrays = {"normal": [*"xyz"]}
 
 
-class ShadowMesh(base.Struct):  # LUMP 7F (0127)
+class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     # ??? -> ShadowMesh -> ShadowMeshIndices -> ??? (triangles?)
     # presumably start_index & num_triangles point at SHADOW_MESH_INDICES
     # however SHADOW_MESH_INDICES is huge & not a multiple of 4 bytes
@@ -237,6 +236,10 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
+
+
+class StaticProp(base.Struct):  # GAME_LUMP (sprp)
+    _format = "20x"
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -322,6 +325,7 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MODELS": Model,
                 "PLANES": Plane,
                 "SHADOW_MESH_MESHES": ShadowMesh,
+                "sprp": StaticProp,  # game_lump
                 "TEXDATA": TextureData,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,

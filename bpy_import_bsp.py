@@ -62,6 +62,8 @@ def ent_to_light(entity: Dict[str, str]) -> bpy.types.PointLight:
         light = bpy.data.lights.new(light_name, "POINT")
     elif entity["classname"] == "light_spot":
         light = bpy.data.lights.new(light_name, "SPOT")
+        light.spot_size = math.radians(float(entity["_cone"]))
+        # spot_blend = _inner_cone / _cone
     elif entity["classname"] == "light_environment":
         light = bpy.data.lights.new(light_name, "SUN")
         light.angle = math.radians(float(entity.get("SunSpreadAngle", "0")))
@@ -74,12 +76,17 @@ def ent_to_light(entity: Dict[str, str]) -> bpy.types.PointLight:
         r, g, b, brightness = map(float, entity["_lightHDR"].split())
         light.color = srgb_to_linear(r, g, b)
         light.energy = brightness * float(entity.get("_lightscaleHDR", "1"))
+    # TODO: use vector math nodes to mimic light curves
+    if "_zero_percent_distance" in entity:
+        light.use_custom_distance = True
+        light.cutoff_distance = float(entity["_zero_percent_distance"])
     return light
 
 
-# TODO: cubemaps, lightprobes
+# TODO: cubemaps, lightprobes, props
 ent_object_data = {"light": ent_to_light, "light_spot": ent_to_light, "light_environment": ent_to_light,
                    "ambient_generic": lambda e: bpy.data.speakers.new(e.get("targetname", e["classname"]))}
+# NOTE: info_target has "editorclass", allowing it to be another object (e.g. a weapon pickup)
 
 
 def load_entities(rbsp):
@@ -102,9 +109,8 @@ def load_entities(rbsp):
             entity_object.location = [*map(float, entity.get("origin", "0 0 0").split())]
             # NOTE: default source orientation is facing east (+Xaa)
             angles = [*map(lambda x: math.radians(float(x)), entity.get("angles", "0 0 0").split())]
-            entity_object.rotation_euler = mathutils.Euler((angles[2],
-                                                            -float(entity.get("pitch", -angles[0])),
-                                                            angles[1] + 180))
+            angles[0] = math.radians(-float(entity.get("pitch", -math.degrees(angles[0]))))
+            entity_object.rotation_euler = mathutils.Euler((angles[2], angles[0], angles[1]))
             # TODO: apply parenting
             # TODO: further optimisation (props with shared worldmodel share mesh data)
             for field in entity:
@@ -113,6 +119,7 @@ def load_entities(rbsp):
 
 
 def load_rbsp(rbsp):
+    """RespawnBsp import (except Apex)"""
     materials = load_materials(rbsp)
     # TODO: master collection for map
     for model_index, model in enumerate(rbsp.MODELS):
@@ -162,6 +169,7 @@ def load_rbsp(rbsp):
 
 
 def load_apex_rbsp(rbsp):
+    """Apex mapping of TEXDATA & MODEL lumps is incomplete"""
     master_collection = bpy.data.collections.new(f"{rbsp.filename}")
     bpy.context.scene.collection.children.link(master_collection)
     # TODO: parse models
@@ -204,17 +212,30 @@ def load_apex_rbsp(rbsp):
     load_entities(rbsp)
 
 
-# NOTE: objects created by a second load may get messy
+# NOTE: remember to delete the previous import manually & purge orphans
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
-bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_lobby_02.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_hub_timeshift.bsp")
-try:
-    load_rbsp(bsp)
-except Exception as exc:
-    load_entities(bsp)
-    raise exc
+bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_box.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
+load_rbsp(bsp)
 
+# APEX LEGENDS
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_lobby_s2.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")
 # load_apex_rbsp(bsp)
 
-del bsp
+
+# TODO: Shift+A > Add Entity
+# -- requires an fgd to sort out keyvalues and how they relate to blender properties
+# TODO: Ctrl+Shift+T > To Solid Entity
+
+
+def export_rbsp(blender_bsp: str, filename: str, game_name: str):
+    branch_script = bsp_tool.branches.by_name.get(game_name, bsp_tool.branches.respawn.titanfall)
+    bsp = bsp_tool.RespawnBsp(branch_script, filename)
+    # TODO: checkbox collections in UI
+    # something like sourcetools scene widget?
+    for entity in bsp.data.collections[f"{blender_bsp}.bsp Internal Entities"]:
+        ...
