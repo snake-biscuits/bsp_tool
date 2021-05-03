@@ -298,7 +298,7 @@ class ExternalBasicBspLump(BasicBspLump):
     _length: int  # number of indexable entries
 
     def __init__(self, lump_header: collections.namedtuple, LumpClass: object):
-        super(ExternalBspLump, self).__init__(None, lump_header, LumpClass)
+        super(ExternalBasicBspLump, self).__init__(None, lump_header, LumpClass)
         self.file = open(lump_header.filename, "rb")
         self.offset = 0
         self._changes = dict()  # changes must be applied externally

@@ -151,13 +151,12 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"origin": [*"xyz"]}
 
 
-class Cubemap(base.MappedArray):  # LUMP 42 (002A)
-    x: int
-    y: int
-    z: int
+class Cubemap(base.Struct):  # LUMP 42 (002A)
+    origin: List[int]
     unknown: int  # index? flags?
-    _mapping = [*"xyz", "unknown"]
+    __slots__ = ["origin", "unknown"]
     _format = "3iI"
+    _arrays = {"origin": [*"xyz"]}
 
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)

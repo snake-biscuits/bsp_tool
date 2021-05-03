@@ -58,11 +58,10 @@ class RespawnBsp(base.Bsp):
         for LUMP in self.branch.LUMP:  # external .bsp.00XX.bsp_lump lump
             external = False
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
-            lump_filename = os.path.join(self.folder, lump_filename)
             lump_header = self._read_header(LUMP)
             if lump_filename in self.associated_files:  # .bsp_lump file exists
                 external = True
-                self.file.seek(self.branch.lump_header_address[LUMP])
+                lump_filename = os.path.join(self.folder, lump_filename)
                 lump_filesize = os.path.getsize(os.path.join(self.folder, lump_filename))
                 assert lump_header.length == lump_filesize, "huh. that's never happened before"
                 lump_header = ExternalLumpHeader(*lump_header, lump_filename, lump_filesize)
@@ -107,7 +106,7 @@ class RespawnBsp(base.Bsp):
                     setattr(self, LUMP_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
 
-    def save_as(self, filename: str):
+    def save_as(self, filename: str, single_file: bool = False):
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")
         outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
@@ -118,6 +117,8 @@ class RespawnBsp(base.Bsp):
         lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.HEADERS[L.name].offset)
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
         external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.HEADERS[L.name], ExternalLumpHeader)}
+        if single_file:
+            external_lumps = set()
         # NOTE: external rBSP lumps seem to have an offsets past the final .bsp filesize
         # -- current theory: lumps are split into seperate files after compilation
         raw_lumps: Dict[str, bytes] = dict()
@@ -180,6 +181,6 @@ class RespawnBsp(base.Bsp):
                 ent_file.write(b"\n")
                 ent_file.write(getattr(self, f"ENTITIES_{ent_variant}").as_bytes())
 
-    def save(self):
-        self.save_as(os.path.join(self.folder, self.filename))
+    def save(self, single_file: bool = False):
+        self.save_as(os.path.join(self.folder, self.filename), single_file)
         self._preload()  # reload lumps, clearing all BspLump._changes
