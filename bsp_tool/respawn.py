@@ -153,7 +153,6 @@ class RespawnBsp(base.Bsp):
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
-                print(f"skipping {LUMP.name} lump")
                 continue
             # write external lump
             if LUMP.name in external_lumps:
