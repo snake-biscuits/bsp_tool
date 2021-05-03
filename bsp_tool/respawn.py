@@ -107,32 +107,24 @@ class RespawnBsp(base.Bsp):
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename: str, single_file: bool = False):
-        os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
-        outfile = open(filename, "wb")
-        outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
-        # NOTE: some preprocessing checks / automation could be done here
-        # - e.g. change TEXDATA_STRING_TABLE to match TEXDATA_STRING_DATA
-        # - sort entities into .ent files based on classname (would require a lookup table)
-        # -- for Titanfall2 / Apex .ent: calculate the total model count
         lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.HEADERS[L.name].offset)
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
         external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.HEADERS[L.name], ExternalLumpHeader)}
         if single_file:
             external_lumps = set()
-        # NOTE: external rBSP lumps seem to have an offsets past the final .bsp filesize
-        # -- current theory: lumps are split into seperate files after compilation
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
             lump_bytes = self.lump_as_bytes(LUMP.name)
-            if lump_bytes != b"":
+            if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
-        # calculate lump sizes
+        # recalculate headers
         current_offset = 16 + (16 * 128)  # first byte after headers
         headers = dict()
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
-                headers[LUMP.name] = LumpHeader(0, 0, 0, 0)
+                version = self.HEADERS[LUMP.name].version  # PHYSICSLEVEL needs version preserved
+                headers[LUMP.name] = LumpHeader(0, 0, version, 0)
                 continue
             if current_offset % 4 != 0:  # pad to start at the next multiple of 4 bytes
                 current_offset += 4 - current_offset % 4
@@ -150,6 +142,10 @@ class RespawnBsp(base.Bsp):
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
         del current_offset
+        # make file
+        os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
+        outfile = open(filename, "wb")
+        outfile.write(struct.pack("4s3I", self.FILE_MAGIC, self.BSP_VERSION, self.REVISION, 127))
         # write headers
         for LUMP in self.branch.LUMP:
             header = headers[LUMP.name]
@@ -157,6 +153,7 @@ class RespawnBsp(base.Bsp):
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
+                print(f"skipping {LUMP.name} lump")
                 continue
             # write external lump
             if LUMP.name in external_lumps:
