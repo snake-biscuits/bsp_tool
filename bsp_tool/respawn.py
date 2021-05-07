@@ -63,33 +63,33 @@ class RespawnBsp(base.Bsp):
                 external = True
                 lump_filename = os.path.join(self.folder, lump_filename)
                 lump_filesize = os.path.getsize(os.path.join(self.folder, lump_filename))
-                assert lump_header.length == lump_filesize, "huh. that's never happened before"
                 lump_header = ExternalLumpHeader(*lump_header, lump_filename, lump_filesize)
             self.HEADERS[LUMP.name] = lump_header
             if lump_header.length == 0:
                 continue  # skip empty lumps
-            if LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
-                SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name]
-                if not external:
-                    self.file.seek(lump_header.offset)
-                    lump_data = self.file.read(lump_header.length)
-                else:
-                    lump_data = open(lump_header.filename, "rb").read()
-                try:
-                    BspLump = SpecialLumpClass(lump_data)
-                except Exception as exc:
-                    self.loading_errors[LUMP.name] = exc
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
-                LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
-                BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
-            else:  # LumpClass / RawBspLump
-                LumpClass = self.branch.LUMP_CLASSES.get(LUMP.name, None)
-                try:
+            try:
+                if LUMP.name == "GAME_LUMP":
+                    GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
+                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses)
+                elif LUMP.name in self.branch.LUMP_CLASSES:
+                    LumpClass = self.branch.LUMP_CLASSES[LUMP.name]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
-                except Exception as exc:
-                    self.loading_errors[LUMP.name] = exc
+                elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
+                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
+                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
+                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name]
+                    if not external:
+                        self.file.seek(lump_header.offset)
+                        lump_data = self.file.read(lump_header.length)
+                    else:
+                        lump_data = open(lump_header.filename, "rb").read()
+                    BspLump = SpecialLumpClass(lump_data)
+                else:
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            except Exception as exc:
+                self.loading_errors[LUMP.name] = exc
+                BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
         # TODO: (maybe) give a pretty ascii visualisation of the .bsp file
         # -- ^ could be pretty handy for understanding re-saving actually ^
@@ -115,6 +115,8 @@ class RespawnBsp(base.Bsp):
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
+            if LUMP.name == "GAME_LUMP":
+                continue  # generate after headers, need to set child headers
             lump_bytes = self.lump_as_bytes(LUMP.name)
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes

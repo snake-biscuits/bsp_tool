@@ -1,4 +1,6 @@
 import enum
+import io
+import struct
 from typing import List, Union
 
 from .. import base
@@ -237,8 +239,15 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     _arrays = {"unknown": ["one", "negative_one"]}
 
 
-class StaticProp(base.Struct):  # GAME_LUMP (sprp)
-    _format = "20x"
+class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "dx_level", "flags", "lightmap", "unknown"]
+    _format = "6f3HBi6f2Hi2H2i"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
+               "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
+               "dx_level": ["min", "max"], "lightmap": ["width", "height"],
+               "unknown": [*"ab"]}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -313,6 +322,29 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
 
 
+# classes for special lumps (alphabetical order)
+class RespawnGameLump_SPRP:
+    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
+        self._static_prop_format = StaticPropClass._format
+        sprp_lump = io.BytesIO(raw_sprp_lump)
+        prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
+        setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
+        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
+        setattr(self, "leafs", leafs)
+        # NOTE: no count for props
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read())
+        setattr(self, "props", list(map(StaticPropClass, props)))
+
+    def as_bytes(self) -> bytes:
+        return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.prop_names],
+                         int.to_bytes(len(self.leafs), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leafs],
+                         *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
+
+
 BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex,
                       "TEXDATA_STRING_TABLE": TextureDataStringTable}
 
@@ -324,7 +356,6 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
                 "MODELS": Model,
                 "PLANES": Plane,
                 "SHADOW_MESH_MESHES": ShadowMesh,
-                "sprp": StaticProp,  # game_lump
                 "TEXDATA": TextureData,
                 "VERTEX_NORMALS": Vertex,
                 "VERTICES": Vertex,
@@ -336,6 +367,9 @@ LUMP_CLASSES = {"CM_BRUSHES": Brush,
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.Entites to unpack the .ent files
                         "PAKFILE": shared.PakFile,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData}
+
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv12)}
+# NOTE: expecting Python 3.6+ for consistent dict order
 
 
 # branch exclusive methods, in alphabetical order:

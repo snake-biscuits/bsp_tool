@@ -1,6 +1,7 @@
 import enum
 
 from .. import base
+from .. import shared
 from . import titanfall
 
 
@@ -153,6 +154,12 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
+class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
+    __slots__ = ["unknown"]
+    _format = "20i"  # 60 bytes, b"\xFF" * 4, 16 bytes
+    _arrays = {"unknown": [*"abcdefghijklmnopqrst"]}
+
+
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "unknown"]
@@ -167,6 +174,8 @@ LUMP_CLASSES.update({"VERTS_BLINN_PHONG": VertexBlinnPhong})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv13)}
+# NOTE: expecting Python 3.6+ for consistent dict order
 
 # branch exclusive methods, in alphabetical order:
 methods = [*titanfall.methods]

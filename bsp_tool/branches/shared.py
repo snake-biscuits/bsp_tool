@@ -58,14 +58,36 @@ class Entities(list):
         return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
 
 
-class GameLump:
-    def __init__(self, raw_game_lump: bytes):
-        # NOTE: need the header to calculate offsets
-        raise NotImplementedError("Game lumps hard")
-        # If it's compressed, good luck; each sub-lump is compressed individually.
+class GameLump_SPRP:
+    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
+        """Get StaticPropClass from GameLump version"""
+        # # lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)
+        sprp_lump = io.BytesIO(raw_sprp_lump)
+        prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
+        setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
+        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
+        setattr(self, "leafs", leafs)
+        prop_count = int.from_bytes(sprp_lump.read(4), "little")
+        read_size = struct.calcsize(StaticPropClass._format) * prop_count
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+        setattr(self, "props", map(StaticPropClass, props))
+        here = sprp_lump.tell()
+        end = sprp_lump.seek(0, 2)
+        assert here == end, "Had some leftover bytes, bad format"
 
     def as_bytes(self) -> bytes:
-        raise NotImplementedError("Game lumps hard")
+        if len(self.props) > 0:
+            prop_format = self.props[0]._format
+        else:
+            prop_format = ""
+        return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.prop_names],
+                         int.to_bytes(len(self.leafs), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leafs],
+                         int.to_bytes(len(self.props), 4, "little"),
+                         *[struct.pack(prop_format, *p.flat()) for p in self.props]])
 
 
 class PakFile(zipfile.ZipFile):

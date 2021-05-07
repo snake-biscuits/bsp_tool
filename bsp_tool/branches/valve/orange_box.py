@@ -248,9 +248,6 @@ class Face(base.Struct):  # LUMP 7
     _format = "Hb?i4h4bif5i2HI"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
-# class game_lump: # LUMP 35
-#     pass # unique sub-headers & offsets...
-
 
 class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
@@ -320,6 +317,16 @@ class Plane(base.Struct):  # LUMP 1
     __slots__ = ["normal", "distance", "type"]
     _format = "4fi"
     _arrays = {"normal": [*"xyz"]}
+
+
+class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "dx_level", "flags", "lightmap"]
+    _format = "6f3HBi6f2Hi2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
+               "lightmap": ["width", "height"]}
 
 
 class SurfEdge(int):  # LUMP 13
@@ -422,6 +429,9 @@ LUMP_CLASSES = {"AREAS": Area,
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData,
                         "PAKFILE": shared.PakFile}
+
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}
+# NOTE: expecting Python 3.6+ for consistent dict order
 
 
 # branch exclusive methods, in alphabetical order:

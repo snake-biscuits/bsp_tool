@@ -5,7 +5,7 @@ import enum  # for type hints
 import os
 import struct
 from types import MethodType, ModuleType
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from . import lumps
 
@@ -87,37 +87,29 @@ class Bsp:
             self.HEADERS[LUMP_NAME] = lump_header
             if lump_header.length == 0:
                 continue
-            # TODO: refactor down to one try/except create_RawBspLump
-            if LUMP_NAME in self.branch.LUMP_CLASSES:
-                LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
-                try:
-                    setattr(self, LUMP_NAME, lumps.create_BspLump(self.file, lump_header, LumpClass))
-                except RuntimeError:  # lump cannot be divided into a whole number of LumpClasses
-                    setattr(self, LUMP_NAME, lumps.create_RawBspLump(self.file, lump_header))
-            if LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
-                SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
-                # TODO: use a method to grab data for lump, should also handle externals
-                self.file.seek(lump_header.offset)
-                lump_data = self.file.read(lump_header.length)
-                try:
-                    BspLump = SpecialLumpClass(lump_data)
-                except Exception as exc:
-                    self.loading_errors[LUMP_NAME] = exc
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
-                LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME]
-                try:
-                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
-                except Exception as exc:
-                    self.loading_errors[LUMP_NAME] = exc
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            else:  # LumpClass / RawBspLump
-                LumpClass = self.branch.LUMP_CLASSES.get(LUMP_NAME, None)
-                try:
+            try:
+                if LUMP_NAME == "GAME_LUMP":
+                    GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
+                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses)
+                elif LUMP_NAME in self.branch.LUMP_CLASSES:
+                    LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
-                except Exception as exc:
-                    self.loading_errors[LUMP_NAME] = exc
+                elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
+                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME]
+                    if not isinstance(lump_header, ExternalLumpHeader):
+                        self.file.seek(lump_header.offset)
+                        lump_data = self.file.read(lump_header.length)
+                    else:
+                        lump_data = open(lump_header.filename, "rb").read()
+                    BspLump = SpecialLumpClass(lump_data)
+                elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
+                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME]
+                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                else:
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            except Exception as exc:
+                self.loading_errors[LUMP_NAME] = exc
+                BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP_NAME, BspLump)
 
     def save_as(self, filename: str):
@@ -138,28 +130,16 @@ class Bsp:
     def save(self):
         self.save_as(os.path.join(self.folder, self.filename))
 
-    def set_branch(self, branch: Union[str, ModuleType]):
+    def set_branch(self, branch: ModuleType):
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
-        # branch is a imported branch definition
-        # you can write your own script, expected contents are:
-        # - BSP_VERSION: int
-        # - LUMP(enum.Enum): NAME_OF_LUMP = int
-        # - lump_header_address: {NAME_OF_LUMP: header_offset_into_file}
-        # - LUMP_CLASSES: {"NAME_OF_LUMP": LumpClass}
-        # - SPECIAL_LUMP_CLASSES: {"NAME_OF_LUMP": LumpClass}
-        # each LumpClass needs a ._format attr
-        # a lump is converted to a list of LumpClasses with:
-        # - [*map(LumpClass, struct.iter_unpack(LumpClass._format: str, lump.read(): bytes))]
-        # the failure is also logged, along with the sizes of the LumpClass._format & lump data
-        # TODO: build new BspLump objects, keeping any changes made
-        # NOTE: this doesn't mean changing formats, could cause major issues!
-        # -- will require some clear debug warnings / checks
+        # branch is a "branch script" that has been imported into python
+        # if writing your own "branch script", see branches/README.md for a guide
         self.branch = branch
         # attach methods
-        # NOTE: does not remove methods from former branch
         for method in getattr(branch, "methods", list()):
             method = MethodType(method, self)
             setattr(self, method.__name__, method)
+        # NOTE: does not remove methods from former branch
         # could we also attach static methods?
 
     def lump_as_bytes(self, LUMP_name: str) -> bytes:
