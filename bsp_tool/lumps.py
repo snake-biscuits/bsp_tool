@@ -107,6 +107,7 @@ class RawBspLump:
         self.file = file
         self.offset = lump_header.offset
         self._changes = dict()
+        # ^ {index: new_value}
         self._length = lump_header.length
 
     def __getitem__(self, index: Union[int, slice]) -> bytes:
@@ -123,6 +124,13 @@ class RawBspLump:
             return bytes([self[i] for i in range(_slice.start, _slice.stop, _slice.step)])
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+
+    def __iadd__(self, other_bytes: bytes):
+        if not isinstance(other_bytes, bytes):
+            raise TypeError(f"can't concat {other_bytes.__class__.__name__} to bytes")
+        start = self._length
+        self._length += len(other_bytes)
+        self[start:] = other_bytes
 
     def __setitem__(self, index: Union[int, slice], value: Any):
         if isinstance(index, int):

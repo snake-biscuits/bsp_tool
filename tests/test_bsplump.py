@@ -11,8 +11,7 @@ bsps = {"test2": load_bsp("tests/maps/test2.bsp"),
 
 class TestRawBspLump:
     raw_lumps = [bsps["test2"].VISIBILITY,
-                 bsps["upward"].VISIBILITY,
-                 bsps["bigbox"].LIGHT_VOLUMES]
+                 bsps["upward"].VISIBILITY]
 
     def test_its_raw(self):
         for lump in self.raw_lumps:
@@ -20,7 +19,7 @@ class TestRawBspLump:
 
     def test_list_conversion(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
-            assert list(lump) == [int(b) for b in lump], f"{map_name}.VISIBILITY failed"  # bigbox.LIGHT_VOLUMES
+            assert list(lump) == [int(b) for b in lump], f"{map_name}.VISIBILITY failed"
 
     def test_indexing(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
