@@ -33,7 +33,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [14 / 17] + shared.Entities
+# classes for lumps (alphabetical order) [16 / 17] + shared.Entities
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
@@ -205,6 +205,7 @@ LUMP_CLASSES = {"BRUSHES": Brush,
                 "FACES": Face,
                 "LEAVES": Leaf,
                 "LIGHTMAPS": Lightmap,
+                "LIGHT_VOLUMES": LightVolume,
                 "MODELS": Model,
                 "NODES": Node,
                 "PLANES": Plane,

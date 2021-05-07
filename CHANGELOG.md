@@ -5,13 +5,14 @@
 ## New
  * Added `load_bsp` function to identify bsp type  
  * Added `D3DBsp`, `IdTechBsp`, `RespawnBsp` & `ValveBsp` classes
- * Added general support for PakFiles
+ * Added general support for the PakFile lump
+ * Added general support for the GameLump lump
  * Extension scripts
    * `archive.py` extractor for CoD `.iwd` / Quake `.pk3`
    * `diff.py` compare bsps for changelogs / study
    * `lightmaps.py` bsp lightmap -> `.png`
    * `lump_analysis.py` determine lump sizes with stats
- * Prototype Blender 2.92 rBSP editor
+ * Prototype Blender 2.92 RespawnBsp editor
 
 ## Changed
  * Bsp lumps are loaded dynamically, reducing memory usage

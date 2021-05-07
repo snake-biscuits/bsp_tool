@@ -58,7 +58,7 @@ class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     # too small to be mins & maxs of an AABB; probably indices (hence: AABB_TREE)
     data: bytes
     __slots__ = ["data"]
-    _format = "12s"  # equivalent "3i"
+    _format = "12s"
 
 
 class Brush(base.Struct):  # LUMP 4
@@ -79,7 +79,7 @@ class Cell(base.Struct):  # LUMP 17
     """No idea what this is / does"""
     data: bytes
     __slots__ = ["data"]
-    _format = "52s"  # equivalent "13i"
+    _format = "52s"
 
 
 class CollisionIndex(int):  # LUMP 26
@@ -97,7 +97,7 @@ class CollisionVertex(base.MappedArray):  # LUMP 25
 class CullGroup(base.Struct):  # LUMP 9
     data: bytes
     __slots__ = ["data"]
-    _format = "32s"  # equivalent "8i"
+    _format = "32s"
 
 
 class CullGroupIndex(int):  # LUMP 10
@@ -111,7 +111,7 @@ class DrawIndex(int):  # LUMP 8
 class DrawVertex(base.Struct):  # LUMP 7
     data: bytes
     __slots__ = ["data"]
-    _format = "44s"  # equivalent "11f"
+    _format = "44s"
 
 
 class Leaf(base.Struct):  # LUMP 21
@@ -119,7 +119,7 @@ class Leaf(base.Struct):  # LUMP 21
     # num_leaf_brushes
     data: bytes
     __slots__ = ["data"]
-    _format = "36s"  # equivalent "9i"
+    _format = "36s"
 
 
 class LeafBrush(int):  # LUMP 22
@@ -134,7 +134,7 @@ class Light(base.Struct):  # LUMP 30
     # attenuations, colours, strengths
     data: bytes
     __slots__ = ["data"]
-    _format = "72s"  # equivalent "18i"
+    _format = "72s"
 
 
 class LightIndex(int):  # LUMP 19
@@ -201,7 +201,7 @@ class OccluderPlane(int):  # LUMP 13
 class PatchCollision(base.Struct):  # LUMP 24
     data: bytes
     __slots__ = ["data"]
-    _format = "16s"  # equivalent 4i
+    _format = "16s"
 
 
 class Plane(base.Struct):  # LUMP 2
@@ -215,7 +215,7 @@ class Plane(base.Struct):  # LUMP 2
 class Portal(base.Struct):  # LUMP 18
     data: bytes
     __slots__ = ["data"]
-    _format = "16s"  # equivalent "4i"
+    _format = "16s"
 
 
 class Shader(base.Struct):  # LUMP 0
@@ -223,15 +223,14 @@ class Shader(base.Struct):  # LUMP 0
     texture: str
     flags: int
     contents: int
-    __slots__ = ["texture", "unknown"]
-    _format = "64s2i"  # equivelent "18i"
-    _arrays = {"unknown": [*"ab"]}
+    __slots__ = ["texture", "flags", "contents"]
+    _format = "64s2i"
 
 
 class TriangleSoup(base.Struct):  # LUMP 5
     data: bytes
     __slots__ = ["data"]
-    _format = "16s"  # equivalent "4i"
+    _format = "16s"
 
 
 BASIC_LUMP_CLASSES = {"COLLISION_INDICES": CollisionIndex,
