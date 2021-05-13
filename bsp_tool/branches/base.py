@@ -43,6 +43,9 @@ class Struct:
         else:
             return self.flat() == other.flat()
 
+    def __hash__(self):
+        return hash(tuple(self.flat()))
+
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self.__slots__])
 
@@ -113,6 +116,9 @@ class MappedArray:
 
     def __getitem__(self, index: str) -> Any:
         return getattr(self, self._mapping[index])
+
+    def __hash__(self):
+        return hash(tuple(self.flat()))
 
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self._mapping])
