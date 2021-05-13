@@ -243,11 +243,11 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "dx_level", "flags", "lightmap", "unknown"]
-    _format = "6f3HBi6f2Hi2H2i"
+    _format = "6f3HBi6f2Hi2H3i"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
                "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
                "dx_level": ["min", "max"], "lightmap": ["width", "height"],
-               "unknown": [*"ab"]}
+               "unknown": [*"abc"]}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -330,11 +330,13 @@ class RespawnGameLump_SPRP:
         prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
         prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
         setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        leaf_count = int.from_bytes(sprp_lump.read(4), "little")  # usually 0
         leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leafs", leafs)
-        # NOTE: no count for props
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read())
+        prop_count, unknown1, unknown2 = struct.unpack("3i", sprp_lump.read(12))
+        self.unknown1, self.unknown2 = unknown1, unknown2
+        prop_size = struct.calcsize(StaticPropClass._format)
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
 
     def as_bytes(self) -> bytes:
@@ -342,6 +344,7 @@ class RespawnGameLump_SPRP:
                          *[struct.pack("128s", n) for n in self.prop_names],
                          int.to_bytes(len(self.leafs), 4, "little"),
                          *[struct.pack("H", L) for L in self.leafs],
+                         *struct.pack("3I", len(self.props), self.unknown1, self.unknown2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
@@ -368,7 +371,7 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.E
                         "PAKFILE": shared.PakFile,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData}
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv12)}
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: RespawnGameLump_SPRP(raw_lump, StaticPropv12)}
 # NOTE: expecting Python 3.6+ for consistent dict order
 
 

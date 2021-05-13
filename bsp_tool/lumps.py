@@ -319,19 +319,20 @@ GameLumpHeader = collections.namedtuple("GameLumpHeader", ["id", "flags", "versi
 
 
 class GameLump:
-    # NOTE: will require special handling saving to file
-    # -- internal header offsets must be calculated from new lump_header
+    is_external = False
+
     def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple, LumpClasses: Dict[str, object]):
         if not hasattr(lump_header, "filename"):
             file.seek(lump_header.offset)
-        else:  # ExternalLumpHeader
+        else:
+            self.is_external = True
             file = open(lump_header.filename, "rb")
         game_lumps_count = int.from_bytes(file.read(4), "little")
         self.HEADERS = dict()
         for i in range(game_lumps_count):
             id, flags, version, offset, length = struct.unpack("4s2H2i", file.read(16))
             id = id.decode("ascii")[::-1]  # b"prps" -> "sprp"
-            if hasattr(lump_header, "filename"):  # ExternalLumpHeader
+            if self.is_external:
                 offset = offset - lump_header.offset
             child_header = GameLumpHeader(id, flags, version, offset, length)
             self.HEADERS[id] = child_header
@@ -342,6 +343,7 @@ class GameLump:
                 try:
                     child_lump = child_LumpClass(file.read(child_header.length))
                 except Exception:
+                    # TODO: report the error, but keep reading other child lumps
                     child_lump = create_RawBspLump(file, child_header)
                 setattr(self, child_name, child_lump)
             else:

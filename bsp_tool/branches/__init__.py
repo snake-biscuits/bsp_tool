@@ -78,7 +78,9 @@ def gen_docs():  # hardcoded to RespawnBsp
     print(f"# {bsp_format_name} Supported Games (v0.3.0)")
     print("| Bsp version | Game | Branch script | Lumps supported |")
 
-    game_scripts = {"Counter-Strike: Source": valve.orange_box}
+    game_scripts = {"Titanfall": respawn.titanfall,
+                    "Titanfall|2": respawn.titanfall2,
+                    "Apex Legends": respawn.apex_legends}
     # ^ {"game": script}
     # NOTE: markdown looks the same without padding
     game_name_padding = max(len(g) for g in game_scripts.keys())
