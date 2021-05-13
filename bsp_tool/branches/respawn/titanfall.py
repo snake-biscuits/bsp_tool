@@ -240,14 +240,37 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
+    # struct StaticPropLumpv12_t {
+    #     Vector          m_Origin;
+    #     QAngle          m_Angles;
+    #     unsigned short  m_PropType;
+    #     unsigned short  m_FirstLeaf;
+    #     unsigned short  m_LeafCount;
+    #     unsigned char   m_Solid;
+    #     int             m_Skin;
+    #     unsigned int    m_EnvCubemap;  // new !
+    #     float           m_FadeMinDist;
+    #     float           m_FadeMaxDist;
+    #     Vector          m_LightingOrigin;
+    #     float           m_flForcedFadeScale;
+    #     unsigned char   MinCPULevel;
+    #     unsigned char   MaxCPULevel;
+    #     unsigned char   MinGPULevel;
+    #     unsigned char   MaxGPULevel;
+    #     color32         m_DiffuseModulation;
+    #     bool            m_bDisableX360;
+    #     float           m_Scale
+    #     unsigned short  m_collisionFlagsAdd;  // new !
+    #     unsigned short  m_collisionFlagsRemove; };  // new !
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "dx_level", "flags", "lightmap", "unknown"]
-    _format = "6f3HBi6f2Hi2H3i"
+                 "solid_mode", "skin", "cubemap_index", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+                 "disable_x360", "scale", "collision_flags"]
+    _format = "6f3HBiI6f4b4B?f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
                "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
-               "dx_level": ["min", "max"], "lightmap": ["width", "height"],
-               "unknown": [*"abc"]}
+               "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+               "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -323,7 +346,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 # classes for special lumps (alphabetical order)
-class RespawnGameLump_SPRP:
+class TitanfallGameLump_SPRP:
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
@@ -371,7 +394,7 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.E
                         "PAKFILE": shared.PakFile,
                         "TEXDATA_STRING_DATA": shared.TexDataStringData}
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: RespawnGameLump_SPRP(raw_lump, StaticPropv12)}
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: TitanfallGameLump_SPRP(raw_lump, StaticPropv12)}
 # NOTE: expecting Python 3.6+ for consistent dict order
 
 

@@ -1,7 +1,8 @@
 import enum
+import io
+import struct
 
 from .. import base
-from .. import shared
 from . import titanfall
 
 
@@ -167,6 +168,29 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     _arrays = {"unknown": [*"ab"]}
 
 
+# classes for special lumps (alphabetical order)
+class Titanfall2GameLump_SPRP:
+    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
+        self._static_prop_format = StaticPropClass._format
+        sprp_lump = io.BytesIO(raw_sprp_lump)
+        prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
+        setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
+        prop_count, unknown1, unknown2 = struct.unpack("3i", sprp_lump.read(12))
+        self.unknown1, self.unknown2 = unknown1, unknown2
+        prop_size = struct.calcsize(StaticPropClass._format)
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
+        setattr(self, "props", list(map(StaticPropClass, props)))
+
+    def as_bytes(self) -> bytes:
+        return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.prop_names],
+                         int.to_bytes(len(self.leafs), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leafs],
+                         *struct.pack("3I", len(self.props), self.unknown1, self.unknown2),
+                         *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
+
+
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
@@ -174,7 +198,7 @@ LUMP_CLASSES.update({"VERTS_BLINN_PHONG": VertexBlinnPhong})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv13)}
+GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: Titanfall2GameLump_SPRP(raw_lump, StaticPropv13)}
 # NOTE: expecting Python 3.6+ for consistent dict order
 
 # branch exclusive methods, in alphabetical order:
