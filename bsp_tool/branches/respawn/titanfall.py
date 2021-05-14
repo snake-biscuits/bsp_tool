@@ -241,32 +241,33 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     # struct StaticPropLumpv12_t {
-    #     Vector          m_Origin;
-    #     QAngle          m_Angles;
-    #     unsigned short  m_PropType;
-    #     unsigned short  m_FirstLeaf;
-    #     unsigned short  m_LeafCount;
-    #     unsigned char   m_Solid;
-    #     int             m_Skin;
-    #     unsigned int    m_EnvCubemap;  // new !
-    #     float           m_FadeMinDist;
-    #     float           m_FadeMaxDist;
-    #     Vector          m_LightingOrigin;
-    #     float           m_flForcedFadeScale;
-    #     unsigned char   MinCPULevel;
-    #     unsigned char   MaxCPULevel;
-    #     unsigned char   MinGPULevel;
-    #     unsigned char   MaxGPULevel;
-    #     color32         m_DiffuseModulation;
-    #     bool            m_bDisableX360;
-    #     float           m_Scale
-    #     unsigned short  m_collisionFlagsAdd;  // new !
-    #     unsigned short  m_collisionFlagsRemove; };  // new !
+    #     Vector          Origin;
+    #     QAngle          Angles;
+    #     unsigned short  PropType;  // index to .mdl name
+    #     unsigned short  FirstLeaf;
+    #     unsigned short  LeafCount;
+    #     unsigned char   Solid;
+    #     unsigned char   Flags;
+    #     int             Skin;
+    #     unsigned int    EnvCubemap;  // new ! unsure if index
+    #     float           FadeMinDist;
+    #     float           FadeMaxDist;
+    #     Vector          LightingOrigin;
+    #     float           ForcedFadeScale;
+    #     char            MinCPULevel;  // -1 for doesn't matter
+    #     char            MaxCPULevel;
+    #     char            MinGPULevel;
+    #     char            MaxGPULevel;
+    #     color32         DiffuseModulation;
+    #     bool            DisableX360;  // 4 byte bool
+    #     float           Scale  // should be 1.0?
+    #     unsigned short  collisionFlagsAdd;  // new !
+    #     unsigned short  collisionFlagsRemove; };  // new !
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "cubemap_index", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "disable_x360", "scale", "collision_flags"]
-    _format = "6f3HBiI6f4b4B?f2H"
+                 "solid_mode", "flags", "skin", "cubemap_index", "fade_distance",
+                 "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
+                 "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
+    _format = "6f3H2BiI6f4b4B?f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
                "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
                "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
