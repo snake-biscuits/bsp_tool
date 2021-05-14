@@ -1,4 +1,5 @@
 from typing import Dict, List
+import enum
 import fnmatch
 import io
 import re
@@ -97,6 +98,21 @@ class PakFile(zipfile.ZipFile):
 
     def as_bytes(self) -> bytes:
         return self._buffer.getvalue()
+
+
+class SPRP_flags(enum.Enum):
+    FLAG_FADES = 0x1  # use fade distances
+    USE_LIGHTING_ORIGIN = 0x2
+    NO_DRAW = 0x4    # computed at run time based on dx level
+    # the following are set in a level editor:
+    IGNORE_NORMALS = 0x8
+    NO_SHADOW = 0x10
+    SCREEN_SPACE_FADE = 0x20
+    # next 3 are for lighting compiler
+    NO_PER_VERTEX_LIGHTING = 0x40
+    NO_SELF_SHADOWING = 0x80
+    NO_PER_TEXEL_LIGHTING = 0x100
+    EDITOR_MASK = 0x1d8
 
 
 class TexDataStringData(list):
