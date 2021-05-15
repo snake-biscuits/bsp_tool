@@ -156,9 +156,39 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
-    __slots__ = ["unknown"]
-    _format = "20i"  # 60 bytes, b"\xFF" * 4, 16 bytes
-    _arrays = {"unknown": [*"abcdefghijklmnopqrst"]}
+    # definition worked out by BobtheBob
+    # struct StaticPropLumpv13 {
+    # Vector          origin;
+    # Vector          angles;
+    # char            filler_1[4];
+    # unsigned short  mdl_name;
+    # unsigned char   solid_mode;
+    # unsigned char   flags;
+
+    # // char            filler_2[4];
+    # // Vector          lighting_origin;
+    # // float           forced_fade_scale;
+    # int             unknown_2
+    # float           fade_distance.max
+    # int             unknown_3[3]
+    # // not 100% sure on this ^^^ but it seems to be OK
+    # // at the very least there's 4 valid floats here
+    # char            MinCPULevel;  // -1
+    # char            MaxCPULevel;
+    # char            MinGPULevel;
+    # char            MaxGPULevel;
+    # // not 100% sure on this but it seems to be ok
+    # color32         diffuse_modulation;  // this seems to really always just be 0000
+    # unsigned short  collisionFlagsAdd;
+    # unsigned short  collisionFlagsRemove; };
+    __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
+                 "unknown_2", "max_fade_distance", "unknown_3", "cpu_level", "gpu_level",
+                 "diffuse_modulation", "collision_flags"]
+    _format = "6f4bH2Bif 3i8b2H"  # 64 bytes
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown_1": 4,
+               "fade_distance": ["min", "max"], "unknown_3": 2, "cpu_level": ["min", "max"],
+               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
+               "collision_flags": ["add", "remove"]}
 
 
 # special vertices
@@ -173,9 +203,9 @@ class Titanfall2GameLump_SPRP:
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
-        prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
-        setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
+        mdl_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        mdl_names = struct.iter_unpack("128s", sprp_lump.read(128 * mdl_name_count))
+        setattr(self, "mdl_names", [t[0].replace(b"\0", b"").decode() for t in mdl_names])
         prop_count, unknown1, unknown2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown1, self.unknown2 = unknown1, unknown2
         prop_size = struct.calcsize(StaticPropClass._format)
