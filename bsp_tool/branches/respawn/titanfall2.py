@@ -167,13 +167,13 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     # char            unknown_2[4];
     # float           forced_fade_scale;
     # Vector          lighting_origin;
-    # char            cpu_level.min;         // -1 for doesn't matter
+    # char            cpu_level.min;           // usually -1
     # char            cpu_level.max;
     # char            gpu_level.min;
     # char            gpu_level.max;
-    # color32         diffuse_modulation;    // this seems to really always just be 0000
-    # unsigned short  collisionFlagsAdd;
-    # unsigned short  collisionFlagsRemove;
+    # color32         diffuse_modulation;      // this seems to really always just be 0000
+    # unsigned short  collision_flags.add;     // new!
+    # unsigned short  collision_flags.remove;  // new!
     __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
                  "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
