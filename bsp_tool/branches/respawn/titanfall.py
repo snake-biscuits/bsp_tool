@@ -240,31 +240,31 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
-    # struct StaticPropLumpv12_t {
-    #     Vector          Origin;
-    #     QAngle          Angles;
-    #     unsigned short  PropType;  // index to .mdl name
-    #     unsigned short  FirstLeaf;
-    #     unsigned short  LeafCount;
-    #     unsigned char   Solid;
-    #     unsigned char   Flags;
-    #     int             Skin;
-    #     unsigned int    EnvCubemap;  // new ! unsure if index
-    #     float           FadeMinDist;
-    #     float           FadeMaxDist;
-    #     Vector          LightingOrigin;
-    #     float           ForcedFadeScale;
-    #     char            MinCPULevel;  // -1 for doesn't matter
-    #     char            MaxCPULevel;
-    #     char            MinGPULevel;
-    #     char            MaxGPULevel;
-    #     color32         DiffuseModulation;
-    #     bool            DisableX360;  // 4 byte bool
-    #     float           Scale  // should be 1.0?
-    #     unsigned short  collisionFlagsAdd;  // new !
-    #     unsigned short  collisionFlagsRemove; };  // new !
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "cubemap_index", "fade_distance",
+    # structure definition worked out with BobTheBob
+    # Vector          origin;
+    # QAngle          angles;
+    # unsigned short  mdl_name;
+    # unsigned short  first_leaf;
+    # unsigned short  leaf_count;
+    # unsigned char   solid;
+    # unsigned char   flags;
+    # int             skin;
+    # unsigned int    cubemap;                 // new! an index?
+    # float           fade_distance.min;
+    # float           fade_distance.max;
+    # Vector          lighting_origin;
+    # float           forced_fade_scale;
+    # char            cpu_level.min;           // -1 for doesn't matter
+    # char            cpu_level.max;
+    # char            gpu_level.min;
+    # char            gpu_level.max;
+    # color32         diffuse_modulation;
+    # bool            disable_x360;            // 4 byte bool
+    # float           scale                    // should be 1.0?
+    # unsigned short  collision_flags.add;     // new!
+    # unsigned short  collision_flags.remove;  // new!
+    __slots__ = ["origin", "angles", "mdl_name", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "cubemap", "fade_distance",
                  "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
                  "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
     _format = "6f3H2BiI6f4b4B?f2H"
@@ -351,9 +351,9 @@ class TitanfallGameLump_SPRP:
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
-        prop_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        prop_names = struct.iter_unpack("128s", sprp_lump.read(128 * prop_name_count))
-        setattr(self, "prop_names", [t[0].replace(b"\0", b"").decode() for t in prop_names])
+        mdl_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        mdl_names = struct.iter_unpack("128s", sprp_lump.read(128 * mdl_name_count))
+        setattr(self, "mdl_names", [t[0].replace(b"\0", b"").decode() for t in mdl_names])
         leaf_count = int.from_bytes(sprp_lump.read(4), "little")  # usually 0
         leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leafs", leafs)

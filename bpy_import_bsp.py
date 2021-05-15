@@ -118,6 +118,29 @@ def load_entities(rbsp):
         # TODO: once all ents are loaded, connect paths for keyframe_rope / path_track etc.
 
 
+def load_static_props(rbsp):
+    """Titanfall 1 Only"""
+    game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
+    # TODO: hook into SourceIO to import .mdl files
+    # TODO: make a collection for static props
+    for mdl_path in rbsp.GAME_LUMP.sprp.prop_names:
+        os.path.join(game_dir, mdl_path)  # TODO: import each prop once
+    # TODO: instance each prop at listed location & rotation etc.
+
+
+def generate_threatening_aura(radius=768, count=32):
+    for i in range(count):
+        degrees = (360 / count) * i
+        base = (0, radius)
+        theta = math.radians(degrees)
+        cos_theta = math.cos(theta)
+        sin_theta = math.sin(theta)
+        new_x = math.fsum([base[0] * cos_theta,  base[1] * sin_theta])
+        new_y = math.fsum([base[1] * cos_theta, -base[0] * sin_theta])
+        position = (new_x, new_y, 1.0)
+        # TODO: spawn props at position, with z rotation theta
+
+
 def load_rbsp(rbsp):
     """RespawnBsp import (except Apex)"""
     materials = load_materials(rbsp)

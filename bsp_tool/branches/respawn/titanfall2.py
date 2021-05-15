@@ -157,36 +157,29 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     # definition worked out by BobtheBob
-    # struct StaticPropLumpv13 {
     # Vector          origin;
     # Vector          angles;
-    # char            filler_1[4];
+    # char            unknown_1[4];
     # unsigned short  mdl_name;
     # unsigned char   solid_mode;
     # unsigned char   flags;
-
-    # // char            filler_2[4];
-    # // Vector          lighting_origin;
-    # // float           forced_fade_scale;
-    # int             unknown_2
-    # float           fade_distance.max
-    # int             unknown_3[3]
-    # // not 100% sure on this ^^^ but it seems to be OK
-    # // at the very least there's 4 valid floats here
-    # char            MinCPULevel;  // -1
-    # char            MaxCPULevel;
-    # char            MinGPULevel;
-    # char            MaxGPULevel;
-    # // not 100% sure on this but it seems to be ok
-    # color32         diffuse_modulation;  // this seems to really always just be 0000
+    # /* uncertain past this point */
+    # char            unknown_2[4];
+    # float           forced_fade_scale;
+    # Vector          lighting_origin;
+    # char            cpu_level.min;         // -1 for doesn't matter
+    # char            cpu_level.max;
+    # char            gpu_level.min;
+    # char            gpu_level.max;
+    # color32         diffuse_modulation;    // this seems to really always just be 0000
     # unsigned short  collisionFlagsAdd;
-    # unsigned short  collisionFlagsRemove; };
+    # unsigned short  collisionFlagsRemove;
     __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
-                 "unknown_2", "max_fade_distance", "unknown_3", "cpu_level", "gpu_level",
-                 "diffuse_modulation", "collision_flags"]
-    _format = "6f4bH2Bif 3i8b2H"  # 64 bytes
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown_1": 4,
-               "fade_distance": ["min", "max"], "unknown_3": 2, "cpu_level": ["min", "max"],
+                 "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
+                 "gpu_level", "diffuse_modulation", "collision_flags"]
+    _format = "6f4bH2B4b4f8b2H"  # 64 bytes
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown_1": 4, "unknown_2": 4,
+               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
                "collision_flags": ["add", "remove"]}
 
