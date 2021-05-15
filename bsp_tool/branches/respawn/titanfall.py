@@ -403,7 +403,8 @@ GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: TitanfallGameLump_SPRP(raw_lump, S
 mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
               0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
-              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
+              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1  # assumed, prob not
+# NOTE: r1 mp_corporate has some meshes with no 0x600 flags, seems to be func_breakable_surf
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
