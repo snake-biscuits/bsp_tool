@@ -54,7 +54,8 @@ class RespawnBsp(base.Bsp):
 
         self.loading_errors: Dict[str, Exception] = dict()
         # internal & external lumps
-        # TODO: break down into a _load_lump method, allowing reloading
+        # TODO: store both internal & external lumps
+        # TODO: break down into a _load_lump method, allowing reloading per lump
         for LUMP in self.branch.LUMP:  # external .bsp.00XX.bsp_lump lump
             external = False
             lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"

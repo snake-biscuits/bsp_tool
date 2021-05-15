@@ -104,7 +104,10 @@ def save_vbsp(vbsp, folder="./"):
     page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
 
 
-def save_rbsp(rbsp, folder="./"):  # TITANFALL 2 ONLY!
+# NOTE: Titanfall2 Internal Lightmap Data lumps only
+# TODO: Figure out why external LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel
+# -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
+def save_rbsp(rbsp, folder="./"):
     """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
     sky_lightmaps = list()
     realtime_lightmaps = list()

@@ -204,6 +204,7 @@ class Titanfall2GameLump_SPRP:
         prop_size = struct.calcsize(StaticPropClass._format)
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
+        # TODO: check if are there any leftover bytes at the end?
 
     def as_bytes(self) -> bytes:
         return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),

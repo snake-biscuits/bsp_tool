@@ -7,6 +7,12 @@ import struct
 import zipfile
 
 
+# TODO: make special classes __init__ method create an empty mutable object
+# TODO: move current special class __init__ to a .from_bytes() method
+# TODO: prototype the system for saving game lumps to file
+# -- need to know filesize, but modify the headers of each lump to have file relative offsets
+
+
 class Entities(list):
     def __init__(self, raw_entities: bytes):
         # TODO: use fgd-tools to fully unstringify entities
