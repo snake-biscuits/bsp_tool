@@ -2,6 +2,8 @@
  A library for .bsp file analysis & modification
 
 `bsp_tool` provides a Command Line Interface for exploring & editing .bsp files  
+
+## Supported Games
 The range of .bsp formats supported covers many developers:  
 
 | id Software | Infinity Ward | Nexon | Respawn Entertainment | Valve Software |
@@ -10,11 +12,10 @@ The range of .bsp formats supported covers many developers:
 | | | Vindictus | Titanfall 2 | Team Fortress 2 |
 | | | | Apex Legends | Counter-Strike: Global Offensive |
 
-No format is 100% supported yet.  
-For more details, see the `SUPPORTED.md` file in each developer's folder  
+No format is 100% supported, yet.  
 Unsupported elements are treated as raw bytes  
+For more details, see the `SUPPORTED.md` file in each developer's branch folder  
 
-> e.g. bsp_tool/branches/valve/SUPPORTED.md
 
 ## Reading .bsps
 Most .bsps can be read with the `bsp_tool.load_bsp()` function  
@@ -32,3 +33,15 @@ Many scripts import from others, this helps to trace the "genealogy" of the form
 ### Utilities
 `branches/base.py` provides some base classes for mapping out rough structures  
 `branches/shared.py` details some common structures (PakFiles etc.)  
+
+## Project Goals
+`bsp_tool` seeks to provide "living documentation" of the .bsp format  
+
+At present, my focus is on creating custom mapping tools for Titanfall & CSO2  
+I hope this documentation proves useful to developers of similar tools  
+
+Please do not use `bsp_tool` to copy another creator's work  
+The primary goal of `bsp_tool` is to provide mapping tools for games that have none  
+Please don't just copy a map from one game to another and call it a day  
+
+Create something new, and see what level design can do in the hands of players  
