@@ -19,10 +19,10 @@ class LUMP(enum.Enum):
     VISIBILITY = 4
     NODES = 5
     TEXINFO = 6
-    FACES = 7
-    LIGHTING = 8
-    OCCLUSION = 9
-    LEAVES = 10
+    FACES = 7  # version 1
+    LIGHTING = 8  # version 1
+    OCCLUSION = 9  # version 2
+    LEAVES = 10  # version 1
     FACEIDS = 11
     EDGES = 12
     SURFEDGES = 13
@@ -65,12 +65,12 @@ class LUMP(enum.Enum):
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
-    LIGHTING_HDR = 53
+    LIGHTING_HDR = 53  # version 1
     WORLD_LIGHTS_HDR = 54
-    LEAF_AMBIENT_LIGHTING_HDR = 55
-    LEAF_AMBIENT_LIGHTING = 56
+    LEAF_AMBIENT_LIGHTING_HDR = 55  # version 1
+    LEAF_AMBIENT_LIGHTING = 56  # version 1
     XZIP_PAKFILE = 57
-    FACES_HDR = 58
+    FACES_HDR = 58  # version 1
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     UNUSED_61 = 61
@@ -402,9 +402,10 @@ class WorldLight(base.Struct):  # LUMP 15
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": DisplacementTriangle,
-                      "LEAF_FACES": LeafFace,
-                      "SURFEDGES": SurfEdge}
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": {0: DisplacementTriangle},
+                      "LEAF_FACES": {0: LeafFace},
+                      "SURFEDGES": {0: SurfEdge}}
 
 LUMP_CLASSES = {"AREAS": Area,
                 "AREA_PORTALS": AreaPortal,
@@ -413,22 +414,22 @@ LUMP_CLASSES = {"AREAS": Area,
                 "CUBEMAPS": Cubemap,
                 "DISPLACEMENT_INFO": DisplacementInfo,
                 "DISPLACEMENT_VERTS": DisplacementVertex,
-                "EDGES": Edge,
-                "FACES": Face,
-                "LEAVES": Leaf,
-                "MODELS": Model,
-                "NODES": Node,
+                "EDGES": {0: Edge},
+                "FACES": {1: Face},
+                "LEAVES": {1: Leaf},
+                "MODELS": {0: Model},
+                "NODES": {0: Node},
                 "ORIGINAL_FACES": Face,
-                "PLANES": Plane,
-                "TEXDATA": TextureData,
-                "TEXINFO": TextureInfo,
+                "PLANES": {0: Plane},
+                "TEXDATA": {0: TextureData},
+                "TEXINFO": {0: TextureInfo},
                 "VERTICES": Vertex,
                 "WORLD_LIGHTS": WorldLight,
                 "WORLD_LIGHTS_HDR": WorldLight}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
-                        "TEXDATA_STRING_DATA": shared.TexDataStringData,
-                        "PAKFILE": shared.PakFile}
+SPECIAL_LUMP_CLASSES = {"ENTITIES": {0: shared.Entities},
+                        "TEXDATA_STRING_DATA": {0: shared.TexDataStringData},
+                        "PAKFILE": {0: shared.PakFile}}
 
 GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}
 # NOTE: expecting Python 3.6+ for consistent dict order
