@@ -7,9 +7,10 @@ import zipfile
 
 from . import vindictus
 from .. import base
-from .. import shared
 
 
+# NOTE: there are two variants with identical version numbers
+# -- 2013era & 2017era
 BSP_VERSION = 100  # 1.00?
 
 
@@ -21,10 +22,10 @@ class LUMP(enum.Enum):
     VISIBILITY = 4
     NODES = 5
     TEXINFO = 6
-    FACES = 7
-    LIGHTING = 8
-    OCCLUSION = 9
-    LEAVES = 10
+    FACES = 7  # version 1
+    LIGHTING = 8  # version 1
+    OCCLUSION = 9  # version 2
+    LEAVES = 10  # version 1
     FACEIDS = 11
     EDGES = 12
     SURFEDGES = 13
@@ -67,15 +68,15 @@ class LUMP(enum.Enum):
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
-    LIGHTING_HDR = 53
+    LIGHTING_HDR = 53  # version 1
     WORLD_LIGHTS_HDR = 54
-    LEAF_AMBIENT_LIGHTING_HDR = 55
-    LEAF_AMBIENT_LIGHTING = 56
+    LEAF_AMBIENT_LIGHTING_HDR = 55  # version 1
+    LEAF_AMBIENT_LIGHTING = 56  # version 1
     XZIP_PAKFILE = 57
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    UNKNOWN_61 = 61
+    UNKNOWN_61 = 61  # version 1
     UNUSED_62 = 62
     UNUSED_63 = 63
 
@@ -120,6 +121,7 @@ class PakFile(zipfile.ZipFile):  # WIP
         return raw_zip
 
 
+# {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
@@ -129,8 +131,7 @@ LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
 # however, since 2013 is no longer supported by CSO2, supporting just 2017 should work
 # supporting 2013era maps should only require a tweak of orange_box
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
-                        "TEXDATA_STRING_DATA": shared.TexDataStringData,
-                        "PAKFILE": PakFile}
+SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.update({"PAKFILE": {0: PakFile}})  # WIP
 
 methods = vindictus.methods

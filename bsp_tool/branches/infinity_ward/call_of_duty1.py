@@ -17,7 +17,7 @@ class LUMP(enum.Enum):
     PLANES = 2
     BRUSH_SIDES = 3
     BRUSHES = 4
-    TRIANGLE_SOUPS = 6  # mmm tasty
+    TRIANGLE_SOUPS = 6
     DRAW_VERTICES = 7
     DRAW_INDICES = 8
     CULL_GROUPS = 9  # visibility
@@ -35,7 +35,7 @@ class LUMP(enum.Enum):
     LEAVES = 21
     LEAF_BRUSHES = 22
     LEAF_SURFACES = 23
-    PATCH_COLISION = 24  # decal clipping? reference for painting bullet holes?
+    PATCH_COLLISION = 24  # decal clipping? reference for painting bullet holes?
     COLLISION_VERTICES = 25
     COLLISION_INDICES = 26
     MODELS = 27
@@ -233,35 +233,35 @@ class TriangleSoup(base.Struct):  # LUMP 5
     _format = "16s"
 
 
-BASIC_LUMP_CLASSES = {"COLLISION_INDICES": CollisionIndex,
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  CollisionIndex,
                       "CULL_GROUP_INDICES": CullGroupIndex,
-                      "DRAW_INDICES": DrawIndex,
-                      "LEAF_BRUSHES": LeafBrush,
-                      "LEAF_SURFACES": LeafSurface,
-                      "LIGHT_INDICES": LightIndex,
-                      "OCCLUDER_EDGES": OccluderEdge,
-                      "OCCLUDER_INDICES": OccluderIndex,
-                      "OCCLUDER_PLANES": OccluderPlane}
+                      "DRAW_INDICES":       DrawIndex,
+                      "LEAF_BRUSHES":       LeafBrush,
+                      "LEAF_SURFACES":      LeafSurface,
+                      "LIGHT_INDICES":      LightIndex,
+                      "OCCLUDER_EDGES":     OccluderEdge,
+                      "OCCLUDER_INDICES":   OccluderIndex,
+                      "OCCLUDER_PLANES":    OccluderPlane}
 
-
-LUMP_CLASSES = {"AABB_TREES": AxisAlignedBoundingBox,
-                "BRUSHES": Brush,
-                "BRUSH_SIDES": BrushSide,
-                "CELLS": Cell,
+LUMP_CLASSES = {"AABB_TREES":         AxisAlignedBoundingBox,
+                "BRUSHES":            Brush,
+                "BRUSH_SIDES":        BrushSide,
+                "CELLS":              Cell,
                 "COLLISION_VERTICES": CollisionVertex,
-                "CULL_GROUPS": CullGroup,
-                "DRAW_VERTICES": DrawVertex,
-                "LEAVES": Leaf,
-                "LIGHTS": Light,
-                "LIGHTMAPS": Lightmap,
-                "MODELS": Model,
-                "NODES": Node,
-                "OCCLUDERS": Occluder,
-                "PATCH_COLISION": PatchCollision,
-                "PLANES": Plane,
-                "PORTALS": Portal,
-                "SHADERS": Shader,
-                "TRIANGLE_SOUPS": TriangleSoup}  # mmm tasty
+                "CULL_GROUPS":        CullGroup,
+                "DRAW_VERTICES":      DrawVertex,
+                "LEAVES":             Leaf,
+                "LIGHTS":             Light,
+                "LIGHTMAPS":          Lightmap,
+                "MODELS":             Model,
+                "NODES":              Node,
+                "OCCLUDERS":          Occluder,
+                "PATCH_COLLISION":    PatchCollision,
+                "PLANES":             Plane,
+                "PORTALS":            Portal,
+                "SHADERS":            Shader,
+                "TRIANGLE_SOUPS":     TriangleSoup}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 

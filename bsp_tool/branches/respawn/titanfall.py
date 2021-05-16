@@ -347,7 +347,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 # classes for special lumps (alphabetical order)
-class TitanfallGameLump_SPRP:
+class GameLump_SPRP:  # unique to Titanfall
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
@@ -372,31 +372,32 @@ class TitanfallGameLump_SPRP:
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
-BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex,
-                      "TEXDATA_STRING_TABLE": TextureDataStringTable}
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = {"MESH_INDICES":         {0: MeshIndex},
+                      "TEXDATA_STRING_TABLE": {0: TextureDataStringTable}}
 
-LUMP_CLASSES = {"CM_BRUSHES": Brush,
-                "CUBEMAPS": Cubemap,
-                "LIGHTMAP_HEADERS": LightmapHeader,
-                "MATERIAL_SORT": MaterialSort,
-                "MESHES": Mesh,
-                "MODELS": Model,
-                "PLANES": Plane,
-                "SHADOW_MESH_MESHES": ShadowMesh,
-                "TEXDATA": TextureData,
-                "VERTEX_NORMALS": Vertex,
-                "VERTICES": Vertex,
-                "VERTS_LIT_BUMP": VertexLitBump,
-                "VERTS_LIT_FLAT": VertexLitFlat,
-                "VERTS_UNLIT": VertexUnlit,
-                "VERTS_UNLIT_TS": VertexUnlitTS}
+LUMP_CLASSES = {"CM_BRUSHES":         {0: Brush},
+                "CUBEMAPS":           {0: Cubemap},
+                "LIGHTMAP_HEADERS":   {1: LightmapHeader},
+                "MATERIAL_SORT":      {0: MaterialSort},
+                "MESHES":             {0: Mesh},
+                "MODELS":             {0: Model},
+                "PLANES":             {1: Plane},
+                "SHADOW_MESH_MESHES": {0: ShadowMesh},
+                "TEXDATA":            {1: TextureData},
+                "VERTEX_NORMALS":     {0: Vertex},
+                "VERTICES":           {0: Vertex},
+                "VERTS_LIT_BUMP":     {1: VertexLitBump},
+                "VERTS_LIT_FLAT":     {1: VertexLitFlat},
+                "VERTS_UNLIT":        {0: VertexUnlit},
+                "VERTS_UNLIT_TS":     {0: VertexUnlitTS}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,  # RespawnBsp uses shared.Entites to unpack the .ent files
-                        "PAKFILE": shared.PakFile,
-                        "TEXDATA_STRING_DATA": shared.TexDataStringData}
+SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
+                        "PAKFILE":             {0: shared.PakFile},
+                        "TEXDATA_STRING_DATA": {0: shared.TexDataStringData}}
+# NOTE: .ent files are handled by the RespawnBsp class directly
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: TitanfallGameLump_SPRP(raw_lump, StaticPropv12)}
-# NOTE: expecting Python 3.6+ for consistent dict order
+GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}
 
 
 # branch exclusive methods, in alphabetical order:

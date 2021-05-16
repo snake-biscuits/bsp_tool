@@ -194,19 +194,20 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
-BASIC_LUMP_CLASSES = {"LEAF_FACES": LeafFace}
+# NOTE: vindictus is very similar to orange_box
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = {"LEAF_FACES": {0: LeafFace}}
 
-# every other class is the same as orange_box
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"AREAS": Area,
-                     "AREA_PORTALS": AreaPortal,
-                     "BRUSH_SIDES": BrushSide,
-                     "DISPLACEMENT_INFO": DisplacementInfo,
-                     "EDGES": Edge,
-                     "FACES": Face,
-                     "LEAVES": Leaf,
-                     "NODES": Node,
-                     "ORIGINAL_FACES": Face})
+LUMP_CLASSES.update({"AREAS":             {0: Area},
+                     "AREA_PORTALS":      {0: AreaPortal},
+                     "BRUSH_SIDES":       {0: BrushSide},
+                     "DISPLACEMENT_INFO": {0: DisplacementInfo},
+                     "EDGES":             {0: Edge},
+                     "FACES":             {0: Face},
+                     "LEAVES":            {0: Leaf},
+                     "NODES":             {0: Node},
+                     "ORIGINAL_FACES":    {0: Face}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 

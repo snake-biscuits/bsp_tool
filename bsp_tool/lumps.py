@@ -133,6 +133,7 @@ class RawBspLump:
         self[start:] = other_bytes
 
     def __setitem__(self, index: Union[int, slice], value: Any):
+        # TODO: allow slice assignment to act like insert/extend
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
             self._changes[index] = value
@@ -273,9 +274,6 @@ class ExternalRawBspLump(RawBspLump):
         self._changes = dict()  # changes must be applied externally
         self._length = lump_header.filesize
 
-    def __del__(self):
-        self.file.close()
-
 
 class ExternalBspLump(BspLump):
     """Dynamically reads LumpClasses from a binary file"""
@@ -291,9 +289,6 @@ class ExternalBspLump(BspLump):
         self.file = open(lump_header.filename, "rb")
         self.offset = 0  # NOTE: 16 if ValveBsp
         self._changes = dict()  # changes must be applied externally
-
-    def __del__(self):
-        self.file.close()
 
 
 class ExternalBasicBspLump(BasicBspLump):
@@ -311,17 +306,17 @@ class ExternalBasicBspLump(BasicBspLump):
         self.offset = 0
         self._changes = dict()  # changes must be applied externally
 
-    def __del__(self):
-        self.file.close()
-
 
 GameLumpHeader = collections.namedtuple("GameLumpHeader", ["id", "flags", "version", "offset", "length"])
 
 
 class GameLump:
     is_external = False
+    loading_errors: Dict[str, Any]
+    # ^ {"child_lump": Exception}
 
     def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple, LumpClasses: Dict[str, object]):
+        self.loading_errors = dict()
         if not hasattr(lump_header, "filename"):
             file.seek(lump_header.offset)
         else:
@@ -337,13 +332,13 @@ class GameLump:
             child_header = GameLumpHeader(id, flags, version, offset, length)
             self.HEADERS[id] = child_header
         for child_name, child_header in self.HEADERS.items():
-            child_LumpClass = LumpClasses.get(child_name, None)
-            if child_name in LumpClasses:
+            child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
+            if child_LumpClass is not None:
                 file.seek(child_header.offset)
                 try:
                     child_lump = child_LumpClass(file.read(child_header.length))
-                except Exception:
-                    # TODO: report the error, but keep reading other child lumps
+                except Exception as exc:
+                    self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
                 setattr(self, child_name, child_lump)
             else:

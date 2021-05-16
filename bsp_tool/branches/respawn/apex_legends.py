@@ -168,10 +168,6 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _arrays = {"unknown": [*"abcd"]}
 
 
-class MeshIndex(int):  # LUMP 79 (004F)
-    _format = "H"
-
-
 class Model(base.Struct):  # LUMP 14 (000E)
     __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
     _format = "8i"
@@ -228,23 +224,32 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
 
 
-BASIC_LUMP_CLASSES = {"MESH_INDICES": MeshIndex}
+# NOTE: all Apex lumps are version 0
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHTMAP_HEADERS_2": titanfall.LightmapHeader,
-                     "MATERIAL_SORT": MaterialSort,
-                     "MESHES": Mesh,
-                     "MODELS": Model,
-                     "TEXDATA": TextureData,
-                     "VERTEX_NORMALS": Vertex,
-                     "VERTICES": Vertex,
-                     "VERTS_BLINN_PHONG": VertexBlinnPhong,
-                     "VERTS_LIT_BUMP": VertexLitBump,
-                     "VERTS_LIT_FLAT": VertexLitFlat,
-                     "VERTS_UNLIT": VertexUnlit,
-                     "VERTS_UNLIT_TS": VertexUnlitTS})
+LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
+                     "LIGHTMAP_HEADERS_2": {0: titanfall.LightmapHeader},
+                     "MATERIAL_SORT":      {0: MaterialSort},
+                     "MESHES":             {0: Mesh},
+                     "MODELS":             {0: Model},
+                     "PLANES":             {0: titanfall.Plane},
+                     "TEXDATA":            {0: TextureData},
+                     "VERTEX_NORMALS":     {0: Vertex},
+                     "VERTICES":           {0: Vertex},
+                     "VERTS_BLINN_PHONG":  {0: VertexBlinnPhong},
+                     "VERTS_LIT_BUMP":     {0: VertexLitBump},
+                     "VERTS_LIT_FLAT":     {0: VertexLitFlat},
+                     "VERTS_UNLIT":        {0: VertexUnlit},
+                     "VERTS_UNLIT_TS":     {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
+
+# NOTE: Apex GAME_LUMP versions are the same as BSP_VERSION
+# GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv47),
+#                               48: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv48),
+#                               49: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv49)}}
 
 
 # branch exclusive methods, in alphabetical order:

@@ -404,35 +404,35 @@ class WorldLight(base.Struct):  # LUMP 15
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": {0: DisplacementTriangle},
-                      "LEAF_FACES": {0: LeafFace},
-                      "SURFEDGES": {0: SurfEdge}}
+                      "LEAF_FACES":        {0: LeafFace},
+                      "SURFEDGES":         {0: SurfEdge}}
 
-LUMP_CLASSES = {"AREAS": Area,
-                "AREA_PORTALS": AreaPortal,
-                "BRUSHES": Brush,
-                "BRUSH_SIDES": BrushSide,
-                "CUBEMAPS": Cubemap,
-                "DISPLACEMENT_INFO": DisplacementInfo,
-                "DISPLACEMENT_VERTS": DisplacementVertex,
-                "EDGES": {0: Edge},
-                "FACES": {1: Face},
-                "LEAVES": {1: Leaf},
-                "MODELS": {0: Model},
-                "NODES": {0: Node},
-                "ORIGINAL_FACES": Face,
-                "PLANES": {0: Plane},
-                "TEXDATA": {0: TextureData},
-                "TEXINFO": {0: TextureInfo},
-                "VERTICES": Vertex,
-                "WORLD_LIGHTS": WorldLight,
-                "WORLD_LIGHTS_HDR": WorldLight}
+LUMP_CLASSES = {"AREAS":              {0: Area},
+                "AREA_PORTALS":       {0: AreaPortal},
+                "BRUSHES":            {0: Brush},
+                "BRUSH_SIDES":        {0: BrushSide},
+                "CUBEMAPS":           {0: Cubemap},
+                "DISPLACEMENT_INFO":  {0: DisplacementInfo},
+                "DISPLACEMENT_VERTS": {0: DisplacementVertex},
+                "EDGES":              {0: Edge},
+                "FACES":              {1: Face},
+                "LEAVES":             {1: Leaf},
+                "MODELS":             {0: Model},
+                "NODES":              {0: Node},
+                "ORIGINAL_FACES":     {0: Face},
+                "PLANES":             {0: Plane},
+                "TEXDATA":            {0: TextureData},
+                "TEXINFO":            {0: TextureInfo},
+                "VERTICES":           {0: Vertex},
+                "WORLD_LIGHTS":       {0: WorldLight},
+                "WORLD_LIGHTS_HDR":   {0: WorldLight}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": {0: shared.Entities},
+SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
                         "TEXDATA_STRING_DATA": {0: shared.TexDataStringData},
-                        "PAKFILE": {0: shared.PakFile}}
+                        "PAKFILE":             {0: shared.PakFile}}
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}
-# NOTE: expecting Python 3.6+ for consistent dict order
+GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
+                              10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}
 
 
 # branch exclusive methods, in alphabetical order:

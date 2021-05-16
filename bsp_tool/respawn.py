@@ -11,6 +11,10 @@ from .base import LumpHeader
 from .branches import shared
 
 
+# TODO: (maybe) give a pretty ascii visualisation of the .bsp file
+# -- indicate which lumps are used, order, sizes, compare external lumps etc.
+
+
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
 
 
@@ -73,13 +77,13 @@ class RespawnBsp(base.Bsp):
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                     BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses)
                 elif LUMP.name in self.branch.LUMP_CLASSES:
-                    LumpClass = self.branch.LUMP_CLASSES[LUMP.name]
+                    LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
                 elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
-                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
+                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name][lump_header.version]
                     BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
                 elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
-                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name]
+                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name][lump_header.version]
                     if not external:
                         self.file.seek(lump_header.offset)
                         lump_data = self.file.read(lump_header.length)
@@ -88,12 +92,12 @@ class RespawnBsp(base.Bsp):
                     BspLump = SpecialLumpClass(lump_data)
                 else:
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            except KeyError:  # lump version not supported
+                BspLump = lumps.create_RawBspLump(self.file, lump_header)
             except Exception as exc:
                 self.loading_errors[LUMP.name] = exc
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
-        # TODO: (maybe) give a pretty ascii visualisation of the .bsp file
-        # -- ^ could be pretty handy for understanding re-saving actually ^
 
         # .ent files
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):

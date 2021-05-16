@@ -28,9 +28,9 @@
 | 21 | 20 | `LEAVES`             |  0 | `infinity_ward.call_of_duty1.Leaf`                   |  10% |
 | 22 | 20 | `LEAF_BRUSHES`       |  0 | `infinity_ward.call_of_duty1.LeafBrush`              | 100% |
 | 23 | 20 | `LEAF_SURFACES`      |  0 | `infinity_ward.call_of_duty1.LeafSurface`            | 100% |
-| 24 | 20 | `PATCH_COLISION`     |  0 | `infinity_ward.call_of_duty1.PatchCollision`         |  10% |
-| 25 | 20 | `COLISION_VERTICES`  |  0 | `infinity_ward.call_of_duty1.CollisionVertex`        | 100% |
-| 26 | 20 | `COLISION_INDICES`   |  0 | `infinity_ward.call_of_duty1.CollisionIndex`         | 100% |
+| 24 | 20 | `PATCH_COLLISION`    |  0 | `infinity_ward.call_of_duty1.PatchCollision`         |  10% |
+| 25 | 20 | `COLLISION_VERTICES` |  0 | `infinity_ward.call_of_duty1.CollisionVertex`        | 100% |
+| 26 | 20 | `COLLISION_INDICES`  |  0 | `infinity_ward.call_of_duty1.CollisionIndex`         | 100% |
 | 27 | 20 | `MODELS`             |  0 | `infinity_ward.call_of_duty1.Model`                  |  90% |
 | 28 | 20 | `VISIBILITY`         |  0 | :x:                                                  |   0% |
 | 29 | 20 | `LIGHTS`             |  0 | `infinity_ward.call_of_duty1.Light`                  |  10% |

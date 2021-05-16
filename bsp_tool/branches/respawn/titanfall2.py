@@ -192,7 +192,7 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
 
 
 # classes for special lumps (alphabetical order)
-class Titanfall2GameLump_SPRP:
+class GameLump_SPRP:  # unique to Titanfall|2
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
@@ -215,15 +215,15 @@ class Titanfall2GameLump_SPRP:
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
+# {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"VERTS_BLINN_PHONG": VertexBlinnPhong})
+LUMP_CLASSES.update({"VERTS_BLINN_PHONG": {0: VertexBlinnPhong}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_CLASSES = {"sprp": lambda raw_lump: Titanfall2GameLump_SPRP(raw_lump, StaticPropv13)}
-# NOTE: expecting Python 3.6+ for consistent dict order
+GAME_LUMP_CLASSES = {"sprp": {13: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv13)}}
 
 # branch exclusive methods, in alphabetical order:
 methods = [*titanfall.methods]
