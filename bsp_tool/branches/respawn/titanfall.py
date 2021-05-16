@@ -12,8 +12,8 @@ BSP_VERSION = 29
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
-    PLANES = 0x0001
-    TEXDATA = 0x0002
+    PLANES = 0x0001  # version 1
+    TEXDATA = 0x0002  # version 1
     VERTICES = 0x0003
     UNUSED_4 = 0x0004
     UNUSED_5 = 0x0005
@@ -47,7 +47,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATERDATA = 0x0024
+    LEAF_WATERDATA = 0x0024  # version 1
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -65,7 +65,7 @@ class LUMP(enum.Enum):
     UNUSED_51 = 0x0033
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
-    WORLDLIGHTS = 0x0036
+    WORLDLIGHTS = 0x0036  # version 1
     WORLDLIGHTS_PARENT_INFO = 0x0037  # unused
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
@@ -73,18 +73,18 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICSLEVEL = 0x003E  # length 0, version 6?
+    PHYSICSLEVEL = 0x003E  # always empty, but version varies (6, 16)
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
-    TRICOLL_TRIS = 0x0042
+    TRICOLL_TRIS = 0x0042  # version 2
     UNUSED_67 = 0x0043
-    TRICOLL_NODES = 0x0044
-    TRICOLL_HEADERS = 0x0045
+    TRICOLL_NODES = 0x0044  # version 1
+    TRICOLL_HEADERS = 0x0045  # version 1
     PHYSTRIS = 0x0046
     VERTS_UNLIT = 0x0047     # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1  # what flags?
-    VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2
+    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1  # version 1  # mesh flags unknown
+    VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2  # version 1
     VERTS_UNLIT_TS = 0x004A  # VERTS_RESERVED_3
     VERTS_RESERVED_4 = 0x004B  # unused
     VERTS_RESERVED_5 = 0x004C  # unused
@@ -94,7 +94,7 @@ class LUMP(enum.Enum):
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
-    LIGHTMAP_HEADERS = 0x0053
+    LIGHTMAP_HEADERS = 0x0053  # version 1
     LIGHTMAP_DATA_DXT5 = 0x0054  # unused
     CM_GRID = 0x0055
     CM_GRIDCELLS = 0x0056
@@ -187,14 +187,14 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # TexData -> TexDataStringTable -> TexDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     start_index: int  # index into this Mesh's VertexReservedX
-    num_triangles: int  # number of Triangle in VertexReservedX after start_index
+    num_triangles: int  # number of Triangles in VertexReservedX after start_index
     unknown: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # specifies VertexReservedX to draw vertices from
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     _format = "IHh3ihHI"  # 28 Bytes
-    _arrays = {"unknown": [*"abcde"]}
+    _arrays = {"unknown": 5}
 
 
 class MeshIndex(int):  # LUMP 79 (004F)
@@ -289,7 +289,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     __slots__ = ["unknown", "string_table_index", "width", "height",
                  "view_width", "view_height", "flags"]
     _format = "9i"
-    _arrays = {"unknown": [*"abc"]}
+    _arrays = {"unknown": 3}
 
 
 class TextureDataStringTable(int):  # LUMP 44 (002C)
