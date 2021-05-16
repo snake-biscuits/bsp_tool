@@ -20,12 +20,12 @@
 |  5 |  20 | `NODES`                                  |  0 | `valve.orange_box.Node`               | 100% |
 |    |  20 |                                          |  0 | `nexon.vindictus.Node`                | 100% |
 |  6 |  20 | `TEXINFO`                                |  0 | `valve.orange_box.TextureInfo`        | 100% |
-|  7 |  20 | `FACES`                                  |  0 | `valve.orange_box.Face`               | 100% |
-|    |  20 |                                          |  0 | `nexon.vindictus.Face`                |  90% |
-|  8 |  20 | `LIGHTING`                               |  0 | raw RGBE pixels                       | 100% |
-|  9 |  20 | `OCCLUSION`                              |  0 | :x:                                   |   0% |
-| 10 |  20 | `LEAVES`                                 |  0 | `valve.orange_box.Leaf`               | 100% |
-|    |  20 |                                          |  0 | `nexon.vindictus.Leaf`                | 100% |
+|  7 |  20 | `FACES`                                  |  1 | `valve.orange_box.Face`               | 100% |
+|    |  20 |                                          |  1 | `nexon.vindictus.Face`                |  90% |
+|  8 |  20 | `LIGHTING`                               |  1 | raw RGBE pixels                       | 100% |
+|  9 |  20 | `OCCLUSION`                              |  2 | :x:                                   |   0% |
+| 10 |  20 | `LEAVES`                                 |  1 | `valve.orange_box.Leaf`               | 100% |
+|    |  20 |                                          |  1 | `nexon.vindictus.Leaf`                | 100% |
 | 11 |  20 | `FACEIDS`                                |  0 | :x:                                   |   0% |
 | 12 |  20 | `EDGES`                                  |  0 | `valve.orange_box.Edge`               | 100% |
 |    |  20 |                                          |  0 | `nexon.vindictus.Edge`                | 100% |
@@ -72,12 +72,12 @@
 | 50 |  20 | `WATER_OVERLAYS`                         |  0 | :x:                                   |   0% |
 | 51 |  20 | `LEAF_AMBIENT_INDEX_HDR`                 |  0 | :x:                                   |   0% |
 | 52 |  20 | `LEAF_AMBIENT_INDEX`                     |  0 | :x:                                   |   0% |
-| 53 |  20 | `LIGHTING_HDR`                           |  0 | raw RGBE pixels                       | 100% |
+| 53 |  20 | `LIGHTING_HDR`                           |  1 | raw RGBE pixels                       | 100% |
 | 54 |  20 | `WORLD_LIGHTS_HDR`                       |  0 | `valve.orange_box.WorldLight`         | 100% |
-| 55 |  20 | `LEAF_AMBIENT_LIGHTING_HDR`              |  0 | :x:                                   |   0% |
-| 56 |  20 | `LEAF_AMBIENT_LIGHTING`                  |  0 | :x:                                   |   0% |
+| 55 |  20 | `LEAF_AMBIENT_LIGHTING_HDR`              |  1 | :x:                                   |   0% |
+| 56 |  20 | `LEAF_AMBIENT_LIGHTING`                  |  1 | :x:                                   |   0% |
 | 57 |  20 | `XZIP_PAKFILE`                           |  0 | :x:                                   |   0% |
-| 58 |  20 | `FACES_HDR`                              |  0 | :x:                                   |   0% |
+| 58 |  20 | `FACES_HDR`                              |  1 | :x:                                   |   0% |
 | 59 |  20 | `MAP_FLAGS`                              |  0 | :x:                                   |   0% |
 | 60 |  20 | `OVERLAY_FADES`                          |  0 | :x:                                   |   0% |
 
