@@ -1,25 +1,34 @@
 # bsp_tool
  A library for .bsp file analysis & modification
 
-bsp_tool has no UI, it only provides a python interface to the contents of the requested .bsp  
-This interface is provided via the `bsp_tool.base.Bsp` class & subclasses  
-At present the tool reads .bsps from most Source Engine games, as well as Titanfall 2 & Apex Legends  
+`bsp_tool` provides a Command Line Interface for exploring & editing .bsp files  
+The range of .bsp formats supported covers many developers:  
 
-The `branches/` folder contains classes for interpreting the lumps within .bsp files  
-`bsp_tool` needs to know how each lump is constructed and this varies from game to game  
-`branches/base.py` provides some base classes to help quickly map out a rough structures  
-NOTE: `valve/vindictus.py` extends `valve/orange_box.py`  
-Since the format is mostly the same between branches, most structure definitions can be copied over  
+| id Software | Infinity Ward | Nexon | Respawn Entertainment | Valve Software |
+| ----------- | ------------- | ----- | --------------------- | -------------- |
+| Quake 3 Arena | Call of Duty 1 | Counter-Strike: Online 2 | Titanfall | Counter-Strike: Source |
+| | | Vindictus | Titanfall 2 | Team Fortress 2 |
+| | | | Apex Legends | Counter-Strike: Global Offensive |
 
-At present, not every lump's exact format is understood  
-When a lump of unknown format is loaded, `bsp_tool` just reads the raw bytes  
+No format is 100% supported yet.  
+For more details, see the `SUPPORTED.md` file in each developer's folder  
+Unsupported elements are treated as raw bytes  
 
-The user can specify what game `bsp_tool.load_bsp()` is to expect  
-If no game is specified, `bsp_tool.load_bsp()` will try it's best to find a game based on the file header  
+> e.g. bsp_tool/branches/valve/SUPPORTED.md
 
-> NOTE: Vindictus .bsp files have the same `.VERSION` as Orange Box, but it's headers are different  
+## Reading .bsps
+Most .bsps can be read with the `bsp_tool.load_bsp()` function  
+`bsp_tool.load_bsp()` does it's best to detect the specific branch of the format  
+However some .bsp formats shared identifiers with very different games  
+For example: both Vindictus and Team Fortress 2 are version 20  
+In these cases, the user must manually select the game / "branch script"  
 
-The defaults for each header are defined in `branches/__init__.py`  
+## Branch Scripts
+To parse the .bsp format, `bsp_tool` utilitises a system of "branch scripts"  
+`bsp_tool/branches/` contains folders for every developer  
+Each of these developer folders has a python script for each game  
+Many scripts import from others, this helps to trace the "genealogy" of the format, as well as reducing redundant code  
 
-Make sure you're using 64 bit Python!  
-Respawn branch .bsp files (Apex Legends & Titanfall 2) need more than 4GB of RAM!  
+### Utilities
+`branches/base.py` provides some base classes for mapping out rough structures  
+`branches/shared.py` details some common structures (PakFiles etc.)  
