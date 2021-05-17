@@ -10,6 +10,9 @@ from . import render
 from . import vector
 
 
+# TODO: raycasts, orbit view, selection, hide, set/edit shader, load file, edit geo
+
+
 camera.keybinds = {camera.UP: [sdl2.SDLK_q], camera.FORWARD: [sdl2.SDLK_w], camera.DOWN: [sdl2.SDLK_e],
                    camera.LEFT: [sdl2.SDLK_a], camera.BACK: [sdl2.SDLK_s], camera.RIGHT: [sdl2.SDLK_d]}
 
