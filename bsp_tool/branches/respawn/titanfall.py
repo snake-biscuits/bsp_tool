@@ -40,14 +40,14 @@ class LUMP(enum.Enum):
     UNUSED_26 = 0x001A
     UNUSED_27 = 0x001B
     UNUSED_28 = 0x001C
-    PHYSICSCOLLIDE = 0x001D
+    PHYSICS_COLLIDE = 0x001D
     VERTEX_NORMALS = 0x001E
     UNUSED_31 = 0x001F
     UNUSED_32 = 0x0020
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATERDATA = 0x0024  # version 1
+    LEAF_WATER_DATA = 0x0024  # version 1
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -73,7 +73,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICSLEVEL = 0x003E  # always empty, but version varies (6, 16)
+    PHYSICS_LEVEL = 0x003E  # always empty, but version varies (6, 16)
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -227,9 +227,7 @@ class Plane(base.Struct):  # LUMP 1 (0001)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    # ??? -> ShadowMesh -> ShadowMeshIndices -> ??? (triangles?)
-    # presumably start_index & num_triangles point at SHADOW_MESH_INDICES
-    # however SHADOW_MESH_INDICES is huge & not a multiple of 4 bytes
+    # ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
     start_index: int  # unsure what lump is indexed
     num_triangles: int
     # unknown.one: int  # usually one

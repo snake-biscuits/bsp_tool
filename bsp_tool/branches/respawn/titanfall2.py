@@ -50,14 +50,14 @@ class LUMP(enum.Enum):
     UNUSED_26 = 0x001A
     UNUSED_27 = 0x001B
     UNUSED_28 = 0x001C
-    PHYSICSCOLLIDE = 0x001D
+    PHYSICS_COLLIDE = 0x001D
     VERTEX_NORMALS = 0x001E
     UNUSED_31 = 0x001F
     UNUSED_32 = 0x0020
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATERDATA = 0x0024  # unused
+    LEAF_WATER_DATA = 0x0024  # unused
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -83,7 +83,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICSLEVEL = 0x003E  # length 0, version 6?
+    PHYSICS_LEVEL = 0x003E  # length 0, version 6?
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -96,7 +96,7 @@ class LUMP(enum.Enum):
     VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1  # unused?
     VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
     VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
-    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4  # unused
+    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4  # unused?
     VERTS_RESERVED_5 = 0x004C  # unused
     VERTS_RESERVED_6 = 0x004D  # unused
     VERTS_RESERVED_7 = 0x004E  # unused

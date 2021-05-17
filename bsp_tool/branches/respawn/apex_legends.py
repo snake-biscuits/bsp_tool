@@ -49,14 +49,14 @@ class LUMP(enum.Enum):
     UNUSED_26 = 0x001A
     UNUSED_27 = 0x001B
     UNUSED_28 = 0x001C
-    PHYSICSCOLLIDE = 0x001D  # unused
+    PHYSICS_COLLIDE = 0x001D  # unused
     VERTEX_NORMALS = 0x001E
     UNUSED_31 = 0x001F
     UNUSED_32 = 0x0020
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATERDATA = 0x0024  # unused
+    LEAF_WATER_DATA = 0x0024  # unused
     UNKNOWN_37 = 0x0025
     UNKNOWN_38 = 0x0026
     UNKNOWN_39 = 0x0027
@@ -64,7 +64,7 @@ class LUMP(enum.Enum):
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
     TEXDATA_STRING_DATA = 0x002B
-    TEXDATA_STRING_TABLE = 0x002C  # unused
+    UNUSED_44 = 0x002C
     UNUSED_45 = 0x002D
     UNUSED_46 = 0x002E
     UNUSED_47 = 0x002F
@@ -82,7 +82,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICSLEVEL = 0x003E  # length 0, version 6?
+    PHYSICS_LEVEL = 0x003E  # length 0, version 6?
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -186,14 +186,6 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
 
 
-class Vertex(base.MappedArray):  # LUMP 3 (0003)
-    _mapping = [*"xyz"]
-    _format = "3f"
-
-    def flat(self):
-        return [self.x, self.y, self.z]
-
-
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
@@ -236,8 +228,6 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "MODELS":             {0: Model},
                      "PLANES":             {0: titanfall.Plane},
                      "TEXDATA":            {0: TextureData},
-                     "VERTEX_NORMALS":     {0: Vertex},
-                     "VERTICES":           {0: Vertex},
                      "VERTS_BLINN_PHONG":  {0: VertexBlinnPhong},
                      "VERTS_LIT_BUMP":     {0: VertexLitBump},
                      "VERTS_LIT_FLAT":     {0: VertexLitFlat},
