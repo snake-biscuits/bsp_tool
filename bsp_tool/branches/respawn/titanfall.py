@@ -307,26 +307,29 @@ class Vertex(base.MappedArray):  # LUMP 3 (0003)
 # special vertices
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
-    normal_index: int  # index into VERTEX_NORMALS lump
+    normal_index: int  # index into VertexNormal lump
     uv: List[float]  # albedo / normal / gloss / specular uv
     uv2: List[float]  # secondary uv? any target?
     uv3: List[float]  # lightmap uv
     unknown: List[int]  # unknown
     __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
     _format = "2I6f3I"  # 44 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"],
-               "unknown": [*"abc"]}
+    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"], "unknown": 3}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
+    uv: List[float]  # uv coords
+    unknown: List[int]
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "9I"
-    _arrays = {"uv": [*"uv"], "unknown": [*"abcde"]}
+    _arrays = {"uv": [*"uv"], "unknown": 5}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     position_index: int  # index into Vertex lump
-    normal_index: int  # index into VERTEX_NORMALS lump
+    normal_index: int  # index into VertexNormal lump
     uv: List[float]  # uv coords
     unknown: int
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
@@ -336,7 +339,7 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     position_index: int  # index into Vertex lump
-    normal_index: int  # index into VERTEX_NORMALS lump
+    normal_index: int  # index into VertexNormal lump
     uv: List[float]  # uv coords
     unknown: List[int]
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
