@@ -92,10 +92,10 @@ LumpHeader(offset=31145436, length=439200, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=30385596, length=877072, version=0, fourCC=0, filename='mp_airbase.bsp.0058.bsp_lump', filesize=877072)
 LumpHeader(offset=30267036, length=878400, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=31862340, length=40284, version=0, fourCC=0, filename='mp_airbase.bsp.0059.bsp_lump', filesize=40284)
 LumpHeader(offset=31745004, length=40092, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=31701204, length=161136, version=0, fourCC=0, filename='mp_airbase.bsp.005a.bsp_lump', filesize=161136)
 LumpHeader(offset=31584636, length=160368, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -309,10 +309,10 @@ LumpHeader(offset=39770332, length=454640, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=38864448, length=909024, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=909024)
 LumpHeader(offset=38861052, length=909280, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=40433680, length=51424, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=51424)
 LumpHeader(offset=40430652, length=51420, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=40227984, length=205696, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=205696)
 LumpHeader(offset=40224972, length=205680, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NNYY  NOPE
@@ -520,10 +520,10 @@ LumpHeader(offset=37618576, length=317632, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=37080600, length=636656, version=0, fourCC=0, filename='mp_boneyard.bsp.0058.bsp_lump', filesize=636656)
 LumpHeader(offset=36983312, length=635264, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=38190896, length=38828, version=0, fourCC=0, filename='mp_boneyard.bsp.0059.bsp_lump', filesize=38828)
 LumpHeader(offset=38091552, length=38836, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=38035584, length=155312, version=0, fourCC=0, filename='mp_boneyard.bsp.005a.bsp_lump', filesize=155312)
 LumpHeader(offset=37936208, length=155344, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -731,10 +731,10 @@ LumpHeader(offset=30532504, length=483344, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=29565816, length=966688, version=0, fourCC=0, filename='mp_fracture.bsp.0058.bsp_lump', filesize=966688)
 LumpHeader(offset=29565816, length=966688, version=0, fourCC=0)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=31062712, length=11716, version=0, fourCC=0, filename='mp_fracture.bsp.0059.bsp_lump', filesize=11716)
 LumpHeader(offset=31062712, length=11716, version=0, fourCC=0)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=31015848, length=46864, version=0, fourCC=0, filename='mp_fracture.bsp.005a.bsp_lump', filesize=46864)
 LumpHeader(offset=31015848, length=46864, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -948,10 +948,10 @@ LumpHeader(offset=23876728, length=492048, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=22911772, length=984128, version=0, fourCC=0, filename='mp_haven.bsp.0058.bsp_lump', filesize=984128)
 LumpHeader(offset=22892632, length=984096, version=0, fourCC=0)
-CM_PRIMS  NYYY  YES!
+CM_PRIMITIVES  NYYY  YES!
 ExternalLumpHeader(offset=24428860, length=10224, version=0, fourCC=0, filename='mp_haven.bsp.0059.bsp_lump', filesize=10224)
 LumpHeader(offset=24409672, length=10224, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NYYY  YES!
+CM_PRIMITIVE_BOUNDS  NYYY  YES!
 ExternalLumpHeader(offset=24387964, length=40896, version=0, fourCC=0, filename='mp_haven.bsp.005a.bsp_lump', filesize=40896)
 LumpHeader(offset=24368776, length=40896, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -1159,10 +1159,10 @@ LumpHeader(offset=35768516, length=404008, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=34998348, length=807248, version=0, fourCC=0, filename='mp_nexus.bsp.0058.bsp_lump', filesize=807248)
 LumpHeader(offset=34960500, length=808016, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=36404740, length=48880, version=0, fourCC=0, filename='mp_nexus.bsp.0059.bsp_lump', filesize=48880)
 LumpHeader(offset=36368028, length=48876, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=36209220, length=195520, version=0, fourCC=0, filename='mp_nexus.bsp.005a.bsp_lump', filesize=195520)
 LumpHeader(offset=36172524, length=195504, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NNYY  NOPE
@@ -1370,10 +1370,10 @@ LumpHeader(offset=46345820, length=335928, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=45670968, length=671904, version=0, fourCC=0, filename='mp_outpost_207.bsp.0058.bsp_lump', filesize=671904)
 LumpHeader(offset=45673964, length=671856, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=47000616, length=80448, version=0, fourCC=0, filename='mp_outpost_207.bsp.0059.bsp_lump', filesize=80448)
 LumpHeader(offset=47003524, length=80444, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=46678824, length=321792, version=0, fourCC=0, filename='mp_outpost_207.bsp.005a.bsp_lump', filesize=321792)
 LumpHeader(offset=46681748, length=321776, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -1581,10 +1581,10 @@ LumpHeader(offset=35579740, length=420968, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=34737804, length=841936, version=0, fourCC=0, filename='mp_relic.bsp.0058.bsp_lump', filesize=841936)
 LumpHeader(offset=34737804, length=841936, version=0, fourCC=0)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=36080196, length=19872, version=0, fourCC=0, filename='mp_relic.bsp.0059.bsp_lump', filesize=19872)
 LumpHeader(offset=36080196, length=19872, version=0, fourCC=0)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=36000708, length=79488, version=0, fourCC=0, filename='mp_relic.bsp.005a.bsp_lump', filesize=79488)
 LumpHeader(offset=36000708, length=79488, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -1795,10 +1795,10 @@ LumpHeader(offset=30309500, length=467720, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=28490616, length=845296, version=0, fourCC=0, filename='mp_runoff.bsp.0058.bsp_lump', filesize=845296)
 LumpHeader(offset=29374060, length=935440, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=29915920, length=39340, version=0, fourCC=0, filename='mp_runoff.bsp.0059.bsp_lump', filesize=39340)
 LumpHeader(offset=30934468, length=39312, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=29758560, length=157360, version=0, fourCC=0, filename='mp_runoff.bsp.005a.bsp_lump', filesize=157360)
 LumpHeader(offset=30777220, length=157248, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NNYY  NOPE
@@ -2006,10 +2006,10 @@ LumpHeader(offset=17640892, length=353760, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NYYY  YES!
 ExternalLumpHeader(offset=16952776, length=707520, version=0, fourCC=0, filename='mp_sandtrap.bsp.0058.bsp_lump', filesize=707520)
 LumpHeader(offset=16933372, length=707520, version=0, fourCC=0)
-CM_PRIMS  NYYY  YES!
+CM_PRIMITIVES  NYYY  YES!
 ExternalLumpHeader(offset=18074760, length=15176, version=0, fourCC=0, filename='mp_sandtrap.bsp.0059.bsp_lump', filesize=15176)
 LumpHeader(offset=18055356, length=15176, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NYYY  YES!
+CM_PRIMITIVE_BOUNDS  NYYY  YES!
 ExternalLumpHeader(offset=18014056, length=60704, version=0, fourCC=0, filename='mp_sandtrap.bsp.005a.bsp_lump', filesize=60704)
 LumpHeader(offset=17994652, length=60704, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -2223,10 +2223,10 @@ LumpHeader(offset=24253312, length=354616, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=23547648, length=709280, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0058.bsp_lump', filesize=709280)
 LumpHeader(offset=23544080, length=709232, version=0, fourCC=0)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=24710672, length=24776, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0059.bsp_lump', filesize=24776)
 LumpHeader(offset=24707048, length=24780, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=24611568, length=99104, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.005a.bsp_lump', filesize=99104)
 LumpHeader(offset=24607928, length=99120, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  YES!
@@ -2440,10 +2440,10 @@ LumpHeader(offset=28833520, length=444632, version=0, fourCC=0)
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=28045324, length=888832, version=0, fourCC=0, filename='mp_swampland.bsp.0058.bsp_lump', filesize=888832)
 LumpHeader(offset=27944256, length=889264, version=0, fourCC=0)
-CM_PRIMS  NYYY  NOPE
+CM_PRIMITIVES  NYYY  NOPE
 ExternalLumpHeader(offset=29424316, length=11436, version=0, fourCC=0, filename='mp_swampland.bsp.0059.bsp_lump', filesize=11436)
 LumpHeader(offset=29323896, length=11436, version=0, fourCC=0)
-CM_PRIM_BOUNDS  NYYY  NOPE
+CM_PRIMITIVE_BOUNDS  NYYY  NOPE
 ExternalLumpHeader(offset=29378572, length=45744, version=0, fourCC=0, filename='mp_swampland.bsp.005a.bsp_lump', filesize=45744)
 LumpHeader(offset=29278152, length=45744, version=0, fourCC=0)
 CM_UNIQUE_CONTENTS  NYYY  NOPE

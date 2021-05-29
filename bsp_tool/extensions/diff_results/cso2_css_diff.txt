@@ -97,7 +97,7 @@ LumpHeader(offset=10161240, length=76194, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=7112232, length=6602, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=405736, length=26376, version=0, compressed=True, fourCC=352200)
 LumpHeader(offset=1390640, length=60320, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -109,7 +109,7 @@ LumpHeader(offset=10248304, length=59960, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=436972, length=2100, version=0, compressed=True, fourCC=22720)
 LumpHeader(offset=1500780, length=11150, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=439072, length=2928, version=0, compressed=True, fourCC=87312)
 LumpHeader(offset=1511932, length=42576, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -269,7 +269,7 @@ LumpHeader(offset=8267584, length=10284, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=5236096, length=19978, version=0, compressed=True, fourCC=286768)
 LumpHeader(offset=8277868, length=73456, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=364200, length=29626, version=0, compressed=True, fourCC=677500)
 LumpHeader(offset=1034188, length=0, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -281,7 +281,7 @@ LumpHeader(offset=8362004, length=35656, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=394148, length=2730, version=0, compressed=True, fourCC=29460)
 LumpHeader(offset=1049916, length=5100, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=396880, length=3677, version=0, compressed=True, fourCC=110880)
 LumpHeader(offset=1055016, length=17046, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -439,7 +439,7 @@ LumpHeader(offset=19846740, length=10116, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4976456, length=10917, version=0, compressed=True, fourCC=141024)
 LumpHeader(offset=19856856, length=64416, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=365204, length=146623, version=0, compressed=True, fourCC=563200)
 LumpHeader(offset=1193480, length=368060, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -454,7 +454,7 @@ LumpHeader(offset=11350544, length=36, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=907720, length=2929, version=0, compressed=True, fourCC=30080)
 LumpHeader(offset=3144776, length=15180, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=910652, length=3669, version=0, compressed=True, fourCC=143472)
 LumpHeader(offset=3159956, length=70332, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -613,7 +613,7 @@ LumpHeader(offset=9467768, length=63482, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=6107644, length=146812, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=251492, length=37133, version=0, compressed=True, fourCC=754840)
 LumpHeader(offset=1180160, length=54300, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -625,7 +625,7 @@ LumpHeader(offset=9539940, length=27372, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=301964, length=2371, version=0, compressed=True, fourCC=27740)
 LumpHeader(offset=1842356, length=8380, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=304336, length=2723, version=0, compressed=True, fourCC=95016)
 LumpHeader(offset=1850736, length=32010, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -782,7 +782,7 @@ LumpHeader(offset=15266240, length=64146, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=7016720, length=117476, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=484684, length=119261, version=0, compressed=True, fourCC=408640)
 LumpHeader(offset=1142848, length=310780, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -797,7 +797,7 @@ LumpHeader(offset=7134196, length=12, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=737032, length=1697, version=0, compressed=True, fourCC=18020)
 LumpHeader(offset=1995160, length=8050, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=738732, length=2032, version=0, compressed=True, fourCC=61092)
 LumpHeader(offset=2003212, length=27240, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -958,7 +958,7 @@ LumpHeader(offset=10366732, length=85798, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=7766708, length=16965, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=451756, length=12777, version=0, compressed=True, fourCC=150320)
 LumpHeader(offset=1213020, length=10860, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -970,7 +970,7 @@ LumpHeader(offset=10465768, length=20952, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=523312, length=3429, version=0, compressed=True, fourCC=35720)
 LumpHeader(offset=1311184, length=6980, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=526744, length=5101, version=0, compressed=True, fourCC=161208)
 LumpHeader(offset=1318164, length=27408, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1126,7 +1126,7 @@ LumpHeader(offset=12525116, length=16416, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6391240, length=13262, version=0, compressed=True, fourCC=236004)
 LumpHeader(offset=12541532, length=60106, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=449240, length=31972, version=0, compressed=True, fourCC=550220)
 LumpHeader(offset=1909844, length=89680, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1138,7 +1138,7 @@ LumpHeader(offset=12609280, length=26962, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=609280, length=2673, version=0, compressed=True, fourCC=26940)
 LumpHeader(offset=2252992, length=6400, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=611956, length=3345, version=0, compressed=True, fourCC=99396)
 LumpHeader(offset=2259392, length=23700, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1294,7 +1294,7 @@ LumpHeader(offset=12722292, length=18180, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6427180, length=23470, version=0, compressed=True, fourCC=405476)
 LumpHeader(offset=12740472, length=58986, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=592220, length=66961, version=0, compressed=True, fourCC=1011700)
 LumpHeader(offset=2221808, length=101700, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1306,7 +1306,7 @@ LumpHeader(offset=12807868, length=29620, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=728108, length=2097, version=0, compressed=True, fourCC=23700)
 LumpHeader(offset=2947284, length=6860, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=730208, length=2421, version=0, compressed=True, fourCC=75852)
 LumpHeader(offset=2954144, length=23568, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1462,7 +1462,7 @@ LumpHeader(offset=13024832, length=30084, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6464956, length=27393, version=0, compressed=True, fourCC=340452)
 LumpHeader(offset=13054916, length=108788, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=396724, length=25202, version=0, compressed=True, fourCC=548000)
 LumpHeader(offset=3050064, length=64340, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1477,7 +1477,7 @@ LumpHeader(offset=11073084, length=24, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=422260, length=3214, version=0, compressed=True, fourCC=36480)
 LumpHeader(offset=3347004, length=11300, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=425476, length=4013, version=0, compressed=True, fourCC=131724)
 LumpHeader(offset=3358304, length=42282, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1633,7 +1633,7 @@ LumpHeader(offset=10778820, length=12684, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4475060, length=12841, version=0, compressed=True, fourCC=171368)
 LumpHeader(offset=10791504, length=74966, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=304468, length=21231, version=0, compressed=True, fourCC=407620)
 LumpHeader(offset=1114208, length=11620, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1648,7 +1648,7 @@ LumpHeader(offset=8088800, length=24, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=364184, length=2118, version=0, compressed=True, fourCC=24100)
 LumpHeader(offset=1236416, length=10350, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=366304, length=2734, version=0, compressed=True, fourCC=90348)
 LumpHeader(offset=1246768, length=38514, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1809,7 +1809,7 @@ LumpHeader(offset=7867228, length=69648, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=5126760, length=24300, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=243028, length=78578, version=0, compressed=True, fourCC=378000)
 LumpHeader(offset=1296320, length=37080, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1824,7 +1824,7 @@ LumpHeader(offset=5151060, length=0, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=411316, length=1614, version=0, compressed=True, fourCC=16760)
 LumpHeader(offset=1450364, length=5800, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=412932, length=2183, version=0, compressed=True, fourCC=68232)
 LumpHeader(offset=1456164, length=20778, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -1987,7 +1987,7 @@ LumpHeader(offset=9431364, length=79614, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=5088064, length=19549, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=225456, length=35626, version=0, compressed=True, fourCC=267120)
 LumpHeader(offset=1406836, length=110120, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -1999,7 +1999,7 @@ LumpHeader(offset=9518640, length=26244, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=262696, length=2557, version=0, compressed=True, fourCC=27460)
 LumpHeader(offset=1626208, length=10350, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=265256, length=3428, version=0, compressed=True, fourCC=106380)
 LumpHeader(offset=1636560, length=37866, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE
@@ -2154,7 +2154,7 @@ LumpHeader(offset=7326524, length=3360, version=0, fourCC=0)
 VERT_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4219452, length=11683, version=0, compressed=True, fourCC=209596)
 LumpHeader(offset=7329884, length=61220, version=0, fourCC=0)
-DISPLACEMENT_VERTS  NNYN  NOPE
+DISPLACEMENT_VERTICES  NNYN  NOPE
 LumpHeader(offset=218316, length=38337, version=0, compressed=True, fourCC=595900)
 LumpHeader(offset=819028, length=178980, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS  NNYN  NOPE
@@ -2166,7 +2166,7 @@ LumpHeader(offset=7396796, length=63808, version=0, fourCC=0)
 PRIMITIVES  NNYN  NOPE
 LumpHeader(offset=259836, length=2205, version=0, compressed=True, fourCC=23700)
 LumpHeader(offset=1105360, length=6960, version=0, fourCC=0)
-PRIM_INDICES  NNYN  NOPE
+PRIMITIVE_INDICES  NNYN  NOPE
 LumpHeader(offset=262044, length=2800, version=0, compressed=True, fourCC=132000)
 LumpHeader(offset=1112320, length=25122, version=0, fourCC=0)
 PAKFILE  NNYY  NOPE

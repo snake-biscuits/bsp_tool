@@ -23,7 +23,7 @@ class LUMP(enum.Enum):
     LIGHTING = 8  # version 1
     OCCLUSION = 9  # version 2
     LEAVES = 10  # version 1
-    FACEIDS = 11
+    FACE_IDS = 11
     EDGES = 12
     SURFEDGES = 13
     MODELS = 14
@@ -42,16 +42,26 @@ class LUMP(enum.Enum):
     ORIGINAL_FACES = 27
     PHYSICS_DISPLACEMENT = 28
     PHYSICS_COLLIDE = 29
-    VERT_NORMALS = 30
-    VERT_NORMAL_INDICES = 31
+    VERTEX_NORMALS = 30
+    VERTEX_NORMAL_INDICES = 31
     DISPLACEMENT_LIGHTMAP_ALPHAS = 32
-    DISPLACEMENT_VERTS = 33
+    DISPLACEMENT_VERTICES = 33
     DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS = 34
     GAME_LUMP = 35
     LEAF_WATER_DATA = 36
+    # PRIMITIVES or "water indices" are a leftover from Quake.
+    # In the Source Engine they are used to correct for "t-junctions".
+    # "t-junctions" are a type of innacuracy which arises in BSP construction.
+    # In brush-based .bsp, Constructive Solid Geometry (CSG) operations occur.
+    # CSG "slices" & can potentially merges brushes, this also helps define visleaves
+    # (CSG operations are the same as the Boolen Modifier in Blender).
+    # These "slices" must be applied to brush faces,
+    # which are stored as a clockwise series of 3D points.
+    # Some slices create erroneous edges, especially where func_detail meets world.
+    # The PRIMITIVES lump forces a specific shape to compensate for these errors.
     PRIMITIVES = 37
-    PRIM_VERTS = 38
-    PRIM_INDICES = 39
+    PRIMITIVE_VERTICES = 38
+    PRIMITIVE_INDICES = 39
     PAKFILE = 40
     CLIP_PORTAL_VERTICES = 41
     CUBEMAPS = 42
@@ -184,10 +194,10 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start", "power",
                  "min_tesselation", "smoothing_angle", "contents", "map_face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
-                 "edge_neighbours", "corner_neighbours", "allowed_verts"]
+                 "edge_neighbours", "corner_neighbours", "allowed_vertices"]
     _format = "3f4ifiH2i88c10I"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
-               "corner_neighbours": 44, "allowed_verts": 10}
+               "corner_neighbours": 44, "allowed_vertices": 10}
     # TODO: map neighbours with base.Struct subclasses, rather than MappedArrays
     # both the __init__ & flat methods may need some changes to accommodate this
 
@@ -407,25 +417,26 @@ BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": {0: DisplacementTriangle},
                       "LEAF_FACES":        {0: LeafFace},
                       "SURFEDGES":         {0: SurfEdge}}
 
-LUMP_CLASSES = {"AREAS":              {0: Area},
-                "AREA_PORTALS":       {0: AreaPortal},
-                "BRUSHES":            {0: Brush},
-                "BRUSH_SIDES":        {0: BrushSide},
-                "CUBEMAPS":           {0: Cubemap},
-                "DISPLACEMENT_INFO":  {0: DisplacementInfo},
-                "DISPLACEMENT_VERTS": {0: DisplacementVertex},
-                "EDGES":              {0: Edge},
-                "FACES":              {1: Face},
-                "LEAVES":             {1: Leaf},
-                "MODELS":             {0: Model},
-                "NODES":              {0: Node},
-                "ORIGINAL_FACES":     {0: Face},
-                "PLANES":             {0: Plane},
-                "TEXDATA":            {0: TextureData},
-                "TEXINFO":            {0: TextureInfo},
-                "VERTICES":           {0: Vertex},
-                "WORLD_LIGHTS":       {0: WorldLight},
-                "WORLD_LIGHTS_HDR":   {0: WorldLight}}
+LUMP_CLASSES = {"AREAS":                 {0: Area},
+                "AREA_PORTALS":          {0: AreaPortal},
+                "BRUSHES":               {0: Brush},
+                "BRUSH_SIDES":           {0: BrushSide},
+                "CUBEMAPS":              {0: Cubemap},
+                "DISPLACEMENT_INFO":     {0: DisplacementInfo},
+                "DISPLACEMENT_VERTICES": {0: DisplacementVertex},
+                "EDGES":                 {0: Edge},
+                "FACES":                 {1: Face},
+                "LEAVES":                {1: Leaf},
+                "MODELS":                {0: Model},
+                "NODES":                 {0: Node},
+                "ORIGINAL_FACES":        {0: Face},
+                "PLANES":                {0: Plane},
+                "TEXDATA":               {0: TextureData},
+                "TEXINFO":               {0: TextureInfo},
+                "VERTICES":              {0: Vertex},
+                "VERTEX_NORMALS":        {0: Vertex},
+                "WORLD_LIGHTS":          {0: WorldLight},
+                "WORLD_LIGHTS_HDR":      {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
                         "TEXDATA_STRING_DATA": {0: shared.TexDataStringData},
@@ -560,7 +571,7 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     uv2AD = uv2D - uv2A
     uv2BC = uv2C - uv2B
     power2 = 2 ** disp_info.power
-    disp_verts = bsp.DISPLACEMENT_VERTS[disp_info.displacement_vert_start:]
+    disp_verts = bsp.DISPLACEMENT_VERTICES[disp_info.displacement_vert_start:]
     disp_verts = disp_verts[:(power2 + 1) ** 2]
     vertices = []
     for index, disp_vertex in enumerate(disp_verts):

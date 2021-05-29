@@ -98,10 +98,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -321,10 +321,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -544,10 +544,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -767,10 +767,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -990,10 +990,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -1213,10 +1213,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -1436,10 +1436,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -1659,10 +1659,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -1882,10 +1882,10 @@ ExternalLumpHeader(offset=24542200, length=59848, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
-CM_PRIMS  YYYY  YES!
+CM_PRIMITIVES  YYYY  YES!
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
-CM_PRIM_BOUNDS  YYYY  YES!
+CM_PRIMITIVE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 CM_UNIQUE_CONTENTS  YYYY  YES!
@@ -2105,10 +2105,10 @@ ExternalLumpHeader(offset=24734744, length=61032, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24612680, length=122064, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=122064)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25231952, length=109044, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=109044)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24795776, length=436176, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=436176)
 CM_UNIQUE_CONTENTS  NNYY  NOPE
@@ -2328,10 +2328,10 @@ ExternalLumpHeader(offset=24636228, length=61152, version=0, fourCC=0, filename=
 CM_GEO_SET_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=24422504, length=119696, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=119696)
 ExternalLumpHeader(offset=24513924, length=122304, version=0, fourCC=0, filename='mp_angel_city.bsp.0058.bsp_lump', filesize=122304)
-CM_PRIMS  NNYY  NOPE
+CM_PRIMITIVES  NNYY  NOPE
 ExternalLumpHeader(offset=25033184, length=107784, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=107784)
 ExternalLumpHeader(offset=25133908, length=109132, version=0, fourCC=0, filename='mp_angel_city.bsp.0059.bsp_lump', filesize=109132)
-CM_PRIM_BOUNDS  NNYY  NOPE
+CM_PRIMITIVE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=24602048, length=431136, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=431136)
 ExternalLumpHeader(offset=24697380, length=436528, version=0, fourCC=0, filename='mp_angel_city.bsp.005a.bsp_lump', filesize=436528)
 CM_UNIQUE_CONTENTS  NYYY  NOPE

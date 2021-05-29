@@ -1,6 +1,6 @@
 # Changelog
 
-# v0.3.0 (April 2021)
+# v0.3.0 (May 2021)
 
 ## New
  * Added `load_bsp` function to identify bsp type  
@@ -36,4 +36,5 @@
 
 ## Updated Game Support
  * Apex Legends
+ * Titanfall
  * Titanfall 2

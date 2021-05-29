@@ -95,7 +95,7 @@ With 232 bytes, the displacement info struct of Vindictus is notably bigger than
 struct ddispinfo_t
 {
 	Vector			startPosition;		// start position used for orientation
-	int			DispVertStart;		// Index into LUMP_DISPLACEMENT_VERTS.
+	int			DispVertStart;		// Index into LUMP_DISPLACEMENT_VERTICES.
 	int			DispTriStart;		// Index into LUMP_DISPLACEMENT_TRIS.
 	int			power;			// power - indicates size of surface (2^power	1)
 	float			smoothingAngle;		// lighting smoothing angle

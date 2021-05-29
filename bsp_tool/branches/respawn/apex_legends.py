@@ -109,8 +109,8 @@ class LUMP(enum.Enum):
     CM_GRIDCELLS = 0x0056  # unused
     CM_GEO_SETS = 0x0057  # unused
     CM_GEO_SET_BOUNDS = 0x0058  # unused
-    CM_PRIMS = 0x0059  # unused
-    CM_PRIM_BOUNDS = 0x005A  # unused
+    CM_PRIMITIVES = 0x0059  # unused
+    CM_PRIMITIVE_BOUNDS = 0x005A  # unused
     CM_UNIQUE_CONTENTS = 0x005B  # unused
     CM_BRUSHES = 0x005C  # unused
     CM_BRUSH_SIDE_PLANE_OFFSETS = 0x005D  # unused
