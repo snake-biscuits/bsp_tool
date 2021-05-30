@@ -89,26 +89,28 @@ class Area(base.Struct):  # LUMP 20
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
-LUMP_CLASSES = {"AREAS": Area}
+LUMP_CLASSES = {"AREAS": {0: Area}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
-                        "PAKFILE": shared.PakFile}
+SPECIAL_LUMP_CLASSES = {"ENTITIES": {0: shared.Entities},
+                        "PAKFILE":  {0: shared.PakFile}}
 ```
 
 If you compare [`bsp_tool/branches/valve/orange_box.py`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) you'll see I've left a lot out here, but this basic batch script is a great start for translating any .bsp variant  
 
 At the top we have the bsp format version, mostly as a note  
-Next comes the `LUMP` enums, these list each lump in the order they appear in the bsp header  
+Next comes the `LUMP` enum, this lists each lump in the order they appear in the bsp header  
 
-> If you don't list a lump it won't be imported  
-> Listing `UNKNOWN_23` & `UNUNSED_63` in LUMP will save their contents as `RAW_LUMPNAME` (unless they're empty)
+> Lumps without LumpClasses are loaded as raw bytes
+> Invalid LumpClasses will generate an error (silent, saved to bsp.loading_errors)
+> Invalid lumps will still be loaded as raw bytes
 
-Attached to this we have `lump_header_address`, this connects each LUMP entry to the offset .bsp where it's header begins
+Attached to this we have `lump_header_address`, this connects each LUMP entry to the offset .bsp where it's header begins  
 Then comes the lump classes, these translate most lumps into python objects (more on them later)  
 We also have some special lump classes, these are loaded in a different way to other lumps, and some are shared across **almost all** bsp variants
 
 The Bsp class reads the headers for each lump and holds the contents in `Bsp.HEADERS`  
-This dictionary of headers takes the name given in the branch scripts' `LUMP` class
+This dictionary of headers takes the name given in the branch scripts' `LUMP` class  
+Lump names are tied to a dictionary, which ties lump version (`int`) to LumpClass  
 From there, a lump is either saved as `Bsp.RAW_LUMPNAME` (bytes) or `Bsp.LUMPNAME` (List[LumpClass]) if it the lump is listed in `LUMP_CLASSES`
 
 
@@ -132,7 +134,7 @@ class LumpClass(base.struct):
 `__slots__` names the main attributes of the LumpClass  
 `_format` holds the format string for `struct.iter_unpack`  
 (I recommend also giving type hints for each attribute, so others don't have to work them out from `_format`)  
-`_arrays` is optional, it holds a dictionary for generating a `base.MappedArray` to help group attributes
+`_arrays` is optional, it holds a dictionary for generating a `base.MappedArray` to help group attributes  
 For the most complex use of arrays (so far), see: [`branches.id_software.quake3.Face`](https://github.com/snake-biscuits/bsp_tool/blob/06f184b0cdf5133ea12ce8e0f5442398d6310d2a/bsp_tool/branches/id_software/quake3.py#L60)  
 
 So the above example would turn the C struct:
