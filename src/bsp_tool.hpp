@@ -4,29 +4,38 @@
 
 
 namespace bsp_tool {
+    class BSPFile {
+        public:
+            std::fstream  _file;
+
+            template<typename T>
+            void _read(T x) { this->_file.read((char*) &x, sizeof(T)); };
+
+            char  filename[FILENAME_MAX];
+            int   format_version;
+
+            BSPFile(char filename[]) {
+                strcpy(this->filename, filename);
+                this->_file.open(filename, std::ios::in | std::ios::binary);
+                if (!this->_file) { throw "could not find .bsp file"; }
+            };
+
+            ~BSPFile() { this->_file.close(); };
+
+    };
+
     namespace id_software {
         const int FILE_MAGIC = ('I' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length; };
 
         // Holds a loose .bsp header and dynamically reads data from the .bsp file
         // Data is loaded fast, but with no safety checks.
-        class IdSoftBSPFile {
-            private:
-                std::fstream  _file;
-
-                template<typename T>
-                void _read(T x) { this->_file.read((char*) &x, sizeof(T)); }
-
+        class IdSoftBSPFile : public BSPFile {
             public:
-                char          filename[FILENAME_MAX];
-                int           format_version;
                 LumpHeader    headers[17];
 
-                IdSoftBSPFile(char filename[]) {
+                IdSoftBSPFile(char filename[]) : BSPFile(filename) {
                     int file_magic;
-                    strcpy(this->filename, filename);
-                    this->_file.open(filename, std::ios::in | std::ios::binary);
-                    if (!this->_file) { throw "could not find .bsp file"; }
                     this->_read(file_magic);
                     if (file_magic != FILE_MAGIC) { throw "not a valid IBSP file"; }
                     this->_read(this->format_version);
@@ -45,7 +54,7 @@ namespace bsp_tool {
                     return lump_entries;
                 };
 
-                // Vertex v = some_bsp::getLumpIndex<Vertex>(LUMP::VERTICES, i);
+                // Vertex v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
                 template <typename T>
                 T getLumpEntry(int LUMP_index, int entry_index) {
                     T lump_entry;
@@ -84,7 +93,52 @@ namespace bsp_tool {
         const int FILE_MAGIC = ('V' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length, version, uncompressed_size; };
 
-        // TODO: class ValveBSP
+        // VBSP .bsp files have many variants
+        // https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
+        // https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific
+        class ValveBSPFile : public BSPFile {
+            public:
+                int           revision;
+                LumpHeader    headers[17];
+
+                ValveBSPFile(char filename[]) : BSPFile(filename) {
+                    int file_magic;
+                    this->_read(file_magic);
+                    if (file_magic != FILE_MAGIC) { throw "not a valid VBSP file"; }
+                    this->_read(this->format_version);
+                    this->_read(this->headers);
+                    this->_read(this->revision);
+                };
+
+                ~ValveBSPFile() { this->_file.close(); };
+
+                // Vertex bsp_vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
+                template<typename T>
+                T* getLump(int LUMP_index) {
+                    T* lump_entries;
+                    LumpHeader header = this->headers[LUMP_index];
+                    this->_file.seekg(header.offset, std::ios::beg);
+                    this->_file.read((char*) &lump_entries, header.length);
+                    return lump_entries;
+                };
+
+                // Vertex v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
+                template <typename T>
+                T getLumpEntry(int LUMP_index, int entry_index) {
+                    T lump_entry;
+                    LumpHeader header = this->headers[LUMP_index];
+                    this->_file.seekg(header.offset + (sizeof(T) * entry_index), std::ios::beg);
+                    this->_read(lump_entry);
+                    return lump_entry;
+                };
+
+                // char* buffer = some_bsp::getRawLump(LUMP::VERTICES);
+                void getRawLump(int LUMP_index, char* buffer) {
+                    LumpHeader header = this->headers[LUMP_index];
+                    this->_file.seekg(header.offset, std::ios::beg);
+                    this->_file.read(buffer, header.length);
+                };
+        };
 
         namespace orange_box {
             const int BSP_VERSION = 20;
@@ -129,33 +183,22 @@ namespace bsp_tool {
         const int FILE_MAGIC = ('r' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length, version, uncompressed_size; };
 
-        class RespawnBSPFile {
-            private:
-                std::fstream  _file;
-                std::fstream  _external[128];
-
-                template<typename T>
-                void _read(T x) { this->_file.read((char*) &x, sizeof(T)); };
+        class RespawnBSPFile : public BSPFile {
             public:
-                char          filename[FILENAME_MAX];
-                int           format_version;
+                std::fstream  _external[128];
                 int           revision;
                 LumpHeader    headers[128];
 
-                RespawnBSPFile(char filename[]) {
+                RespawnBSPFile(char filename[]) : BSPFile(filename) {
                     int file_magic, lump_count;
-                    strcpy(this->filename, filename);
-                    this->_file.open(filename, std::ios::in | std::ios::binary);
-                    if (!this->_file) { throw "could not find .bsp file"; }
                     this->_read(file_magic);
                     if (file_magic != FILE_MAGIC) { throw "not a valid rBSP file"; }
                     this->_read(this->format_version);
+                    this->_read(this->revision);
                     this->_read(lump_count);
                     if (lump_count != 127) { throw "not a valid rBSP file"; }
                     this->_read(this->headers);
-                    this->_read(this->revision);
-                    // TODO: find external .bsp_lump files and save filenames
-                    // - use malloc to save init the C strings in this->_external
+                    // TODO: find external .bsp_lump files and open them
                 };
 
                 ~RespawnBSPFile();
