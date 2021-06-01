@@ -323,7 +323,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     uv: List[float]  # uv coords
     unknown: List[int]
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "9I"
+    _format = "2I2f5I"
     _arrays = {"uv": [*"uv"], "unknown": 5}
 
 
@@ -333,7 +333,7 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     uv: List[float]  # uv coords
     unknown: int
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2fi"  # 20 bytes
+    _format = "2I2fI"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
@@ -343,8 +343,8 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     uv: List[float]  # uv coords
     unknown: List[int]
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2f3i"  # 28 bytes
-    _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
+    _format = "2I2f3I"  # 28 bytes
+    _arrays = {"uv": [*"uv"], "unknown": 3}
 
 
 # classes for special lumps (alphabetical order)
@@ -402,6 +402,7 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 
 
 # branch exclusive methods, in alphabetical order:
+# mesh.flags -> VERTS_RESERVED_X
 mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
               0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
@@ -418,11 +419,9 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUn
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    # mesh.flags -> vertex lump
-    # TODO: is there a better way to determine the vertex lump from mesh.flags?
-    mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
-    verts = getattr(bsp, mesh_types[mesh_type])
-    return [verts[i] for i in indices]
+    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x600])
+    # NOTE: which vertex lump is used matters for shaders & buffer assembly
+    return [VERTEX_LUMP[i] for i in indices]
 
 
 def vertices_of_model(bsp, model_index: int):
