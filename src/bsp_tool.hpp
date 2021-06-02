@@ -1,28 +1,32 @@
 #include <cstdio>
-#include <cstring>
+#include <filesystem>  // -std=c++17
 #include <fstream>
+#include <string>
 
+
+namespace fs = std::filesystem;
 
 namespace bsp_tool {
+
+    // Base BSPFile class, gives an interface to read the .bsp file
     class BSPFile {
         public:
-            std::fstream  _file;
+            std::fstream _file;
+            std::string filename;
+            int format_version;
 
             template<typename T>
             void _read(T x) { this->_file.read((char*) &x, sizeof(T)); };
 
-            char  filename[FILENAME_MAX];
-            int   format_version;
-
             BSPFile(char filename[]) {
-                strcpy(this->filename, filename);
+                this->filename = filename;
                 this->_file.open(filename, std::ios::in | std::ios::binary);
                 if (!this->_file) { throw "could not find .bsp file"; }
             };
 
             ~BSPFile() { this->_file.close(); };
-
     };
+
 
     namespace id_software {
         const int FILE_MAGIC = ('I' + ('B' << 8) + ('S' << 16) + ('P' << 24));
@@ -32,7 +36,7 @@ namespace bsp_tool {
         // Data is loaded fast, but with no safety checks.
         class IdSoftBSPFile : public BSPFile {
             public:
-                LumpHeader    headers[17];
+                LumpHeader headers[17];
 
                 IdSoftBSPFile(char filename[]) : BSPFile(filename) {
                     int file_magic;
@@ -98,8 +102,8 @@ namespace bsp_tool {
         // https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific
         class ValveBSPFile : public BSPFile {
             public:
-                int           revision;
-                LumpHeader    headers[17];
+                int revision;
+                LumpHeader headers[17];
 
                 ValveBSPFile(char filename[]) : BSPFile(filename) {
                     int file_magic;
@@ -139,6 +143,7 @@ namespace bsp_tool {
                     this->_file.read(buffer, header.length);
                 };
         };
+
 
         namespace orange_box {
             const int BSP_VERSION = 20;
@@ -185,9 +190,9 @@ namespace bsp_tool {
 
         class RespawnBSPFile : public BSPFile {
             public:
-                std::fstream  _external[128];
-                int           revision;
-                LumpHeader    headers[128];
+                std::fstream _external[128];
+                int revision;
+                LumpHeader headers[128];
 
                 RespawnBSPFile(char filename[]) : BSPFile(filename) {
                     int file_magic, lump_count;
@@ -198,7 +203,19 @@ namespace bsp_tool {
                     this->_read(lump_count);
                     if (lump_count != 127) { throw "not a valid rBSP file"; }
                     this->_read(this->headers);
-                    // TODO: find external .bsp_lump files and open them
+                    /* load external .bsp_lump files */
+                    fs::path bsp_lump(".bsp_lump"), bsp_path(filename), current_file;
+                    int LUMP_index; std::string LUMP_hex_index;
+                    for (auto file : fs::directory_iterator(bsp_path.parent_path())) {
+                        current_file = file.path();
+                        if (current_file.extension() == bsp_lump) {
+                            if (current_file.stem().stem() == bsp_path.filename()) {
+                                LUMP_hex_index = current_file.stem().extension().string();
+                                LUMP_index = std::stoi(LUMP_hex_index.substr(1, std::string::npos), 0, 16);
+                                this->_external[LUMP_index] = std::fstream(current_file.string());
+                            }
+                        }
+                    }
                 };
 
                 ~RespawnBSPFile();
