@@ -247,4 +247,18 @@ namespace bsp_tool {
     template<typename BSPVariant>
     int* searchEntities(BSPVariant bsp, char search[]);  // TODO: write function
 
+    struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };
+
+    // Gets the sub-headers in the internal game lumps of a bsp file
+    // NOTE: will only read the game lump in the .bsp file, not external lumps
+    template<typename BSPVariant>
+    struct GameLumpHeader* getGameLumpHeaders(BSPVariant bsp) {
+        bsp._file.seekg(bsp.headers[35].offset);  // NOTE: LUMP::GAME_LUMP is usually 35
+        int game_lump_count;
+        bsp._read(game_lump_count);
+        struct GameLumpHeader game_lump_headers[game_lump_count];
+        bsp._read(game_lump_headers);
+        return game_lump_headers;
+    };
+
 }
