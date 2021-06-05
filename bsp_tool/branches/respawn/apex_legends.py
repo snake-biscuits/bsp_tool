@@ -240,7 +240,7 @@ SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 # GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv47),
 #                               48: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv48),
 #                               49: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv49)}}
-
+# TODO: identify Apex Legends' GameLump & StaticProp structures
 
 # branch exclusive methods, in alphabetical order:
 mesh_types = {0x600: "VERTS_UNLIT_TS",

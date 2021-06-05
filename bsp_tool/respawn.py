@@ -120,8 +120,6 @@ class RespawnBsp(base.Bsp):
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
-            if LUMP.name == "GAME_LUMP":
-                continue  # generate after headers, need to set child headers
             lump_bytes = self.lump_as_bytes(LUMP.name)
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
@@ -149,6 +147,8 @@ class RespawnBsp(base.Bsp):
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
         del current_offset
+        if "GAME_LUMP" in raw_lumps and "GAME_LUMP" not in external_lumps:
+            raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
         # make file
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")

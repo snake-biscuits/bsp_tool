@@ -325,12 +325,12 @@ class GameLump:
         game_lumps_count = int.from_bytes(file.read(4), "little")
         self.HEADERS = dict()
         for i in range(game_lumps_count):
-            id, flags, version, offset, length = struct.unpack("4s2H2i", file.read(16))
-            id = id.decode("ascii")[::-1]  # b"prps" -> "sprp"
+            _id, flags, version, offset, length = struct.unpack("4s2H2i", file.read(16))
+            _id = _id.decode("ascii")[::-1]  # b"prps" -> "sprp"
             if self.is_external:
                 offset = offset - lump_header.offset
-            child_header = GameLumpHeader(id, flags, version, offset, length)
-            self.HEADERS[id] = child_header
+            child_header = GameLumpHeader(_id, flags, version, offset, length)
+            self.HEADERS[_id] = child_header
         for child_name, child_header in self.HEADERS.items():
             child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
             if child_LumpClass is not None:
@@ -343,3 +343,24 @@ class GameLump:
                 setattr(self, child_name, child_lump)
             else:
                 setattr(self, child_name, create_RawBspLump(file, child_header))
+
+    def as_bytes(self, lump_offset=0):
+        """lump_offset makes headers relative to the file"""
+        out = []
+        out.append(len(self.HEADERS).to_bytes(4, "little"))
+        headers = []
+        cursor_offset = lump_offset + 4 + len(self.HEADERS) * 12
+        for child_name, child_header in self.HEADERS.items():
+            child_lump = getattr(self, child_name)
+            if isinstance(child_lump, RawBspLump):
+                child_lump_bytes = child_lump[::]
+            else:
+                child_lump_bytes = child_lump.as_bytes()  # SpecialLumpClass method
+            out.append(child_lump_bytes)
+            # calculate header
+            _id, flags, version, offset, length = child_header
+            offset, length = cursor_offset, len(child_lump_bytes)
+            cursor_offset += length
+            headers.append(GameLumpHeader(_id, flags, version, offset, length))
+        out[1:1] = headers  # insert headers after calculating
+        return b"".join(out)
