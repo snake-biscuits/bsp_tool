@@ -8,23 +8,49 @@ namespace fs = std::filesystem;
 
 namespace bsp_tool {
 
-    // Base BSPFile class, gives an interface to read the .bsp file
-    class BSPFile {
+    // Bsp base class; gives an interface to read the .bsp file
+    template<typename LumpHeaderStruct, int lump_count>
+    class Bsp {
         public:
-            std::fstream _file;
-            std::string filename;
-            int format_version;
+            std::fstream      _file;
+            std::string       filename;
+            int               format_version;
+            LumpHeaderStruct  headers[lump_count];
 
+            // NOTE: _read requires x to be initialised; as a result, x cannot be initialised with _read.
             template<typename T>
-            void _read(T x) { this->_file.read((char*) &x, sizeof(T)); };
+            void _read(T* x) { this->_file.read((char*) x, sizeof(*x)); };
 
-            BSPFile(char filename[]) {
+            Bsp(const char filename[]) {
                 this->filename = filename;
                 this->_file.open(filename, std::ios::in | std::ios::binary);
-                if (!this->_file) { throw "could not find .bsp file"; }
+                if (!this->_file) {
+                    throw std::runtime_error("could not find .bsp file"); }
             };
 
-            ~BSPFile() { this->_file.close(); };
+            ~Bsp() {};
+
+            // Vertex vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
+            // char raw_lump[] = some_bsp::getLump<char>(LUMP::VERTICES);
+            template<typename T>
+            T* getLump(int LUMP_index) {
+                T* lump_entries;
+                LumpHeaderStruct header = this->headers[LUMP_index];
+                this->_file.seekg(header.offset, std::ios::beg);
+                this->_file.read((char*) &lump_entries, header.length);
+                return lump_entries;
+            };
+
+            // Vertex v; v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
+            // char raw_snippet[1024]; raw_snippet = some_bsp::getLumpEntry<char>(LUMP::VERTICES, 0);
+            template <typename T>
+            T getLumpEntry(int LUMP_index, int entry_index) {
+                T lump_entry;
+                LumpHeaderStruct header = this->headers[LUMP_index];
+                this->_file.seekg(header.offset + (sizeof(T) * entry_index), std::ios::beg);
+                this->_read(&lump_entry);
+                return lump_entry;
+            };
     };
 
 
@@ -32,48 +58,20 @@ namespace bsp_tool {
         const int FILE_MAGIC = ('I' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length; };
 
-        // Holds a loose .bsp header and dynamically reads data from the .bsp file
-        // Data is loaded fast, but with no safety checks.
-        class IdSoftBSPFile : public BSPFile {
+        class IdTechBsp : public Bsp<LumpHeader, 17> {
             public:
-                LumpHeader headers[17];
+                using BspBaseClass = Bsp<LumpHeader, 17>;
 
-                IdSoftBSPFile(char filename[]) : BSPFile(filename) {
-                    int file_magic;
-                    this->_read(file_magic);
-                    if (file_magic != FILE_MAGIC) { throw "not a valid IBSP file"; }
-                    this->_read(this->format_version);
-                    this->_read(this->headers);
+                IdTechBsp(const char filename[]) : BspBaseClass(filename) {
+                    this->_file.seekg(0, std::ios::beg);
+                    int file_magic; this->_read(&file_magic);
+                    if (file_magic != FILE_MAGIC) {
+                        throw std::runtime_error("unexpected file magic for IBSP"); }
+                    this->_read(&this->format_version);
+                    this->_read(&this->headers);
                 };
 
-                ~IdSoftBSPFile() { this->_file.close(); };
-
-                // Vertex bsp_vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
-                template<typename T>
-                T* getLump(int LUMP_index) {
-                    T* lump_entries;
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset, std::ios::beg);
-                    this->_file.read((char*) &lump_entries, header.length);
-                    return lump_entries;
-                };
-
-                // Vertex v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
-                template <typename T>
-                T getLumpEntry(int LUMP_index, int entry_index) {
-                    T lump_entry;
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset + (sizeof(T) * entry_index), std::ios::beg);
-                    this->_read(lump_entry);
-                    return lump_entry;
-                };
-
-                // char* buffer = some_bsp::getRawLump(LUMP::VERTICES);
-                void getRawLump(int LUMP_index, char* buffer) {
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset, std::ios::beg);
-                    this->_file.read(buffer, header.length);
-                };
+                ~IdTechBsp() {};
         };
 
         namespace quake {
@@ -100,48 +98,23 @@ namespace bsp_tool {
         // VBSP .bsp files have many variants
         // https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
         // https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific
-        class ValveBSPFile : public BSPFile {
+        class ValveBsp : public Bsp<LumpHeader, 64> {
             public:
                 int revision;
-                LumpHeader headers[17];
 
-                ValveBSPFile(char filename[]) : BSPFile(filename) {
-                    int file_magic;
-                    this->_read(file_magic);
-                    if (file_magic != FILE_MAGIC) { throw "not a valid VBSP file"; }
-                    this->_read(this->format_version);
-                    this->_read(this->headers);
-                    this->_read(this->revision);
+                using BspBaseClass = Bsp<LumpHeader, 64>;
+
+                ValveBsp(const char filename[]) : BspBaseClass(filename) {
+                    this->_file.seekg(0, std::ios::beg);
+                    int file_magic = 0; this->_read(&file_magic);
+                    if (file_magic != FILE_MAGIC) {
+                        throw std::runtime_error("unexpected file magic for VBSP"); }
+                    this->_read(&this->format_version);
+                    this->_read(&this->headers);
+                    this->_read(&this->revision);
                 };
 
-                ~ValveBSPFile() { this->_file.close(); };
-
-                // Vertex bsp_vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
-                template<typename T>
-                T* getLump(int LUMP_index) {
-                    T* lump_entries;
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset, std::ios::beg);
-                    this->_file.read((char*) &lump_entries, header.length);
-                    return lump_entries;
-                };
-
-                // Vertex v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
-                template <typename T>
-                T getLumpEntry(int LUMP_index, int entry_index) {
-                    T lump_entry;
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset + (sizeof(T) * entry_index), std::ios::beg);
-                    this->_read(lump_entry);
-                    return lump_entry;
-                };
-
-                // char* buffer = some_bsp::getRawLump(LUMP::VERTICES);
-                void getRawLump(int LUMP_index, char* buffer) {
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset, std::ios::beg);
-                    this->_file.read(buffer, header.length);
-                };
+                ~ValveBsp() {};
         };
 
 
@@ -188,21 +161,24 @@ namespace bsp_tool {
         const int FILE_MAGIC = ('r' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length, version, uncompressed_size; };
 
-        class RespawnBSPFile : public BSPFile {
+        class RespawnBsp : public Bsp<LumpHeader, 128> {
             public:
                 std::fstream _external[128];
                 int revision;
-                LumpHeader headers[128];
 
-                RespawnBSPFile(char filename[]) : BSPFile(filename) {
-                    int file_magic, lump_count;
-                    this->_read(file_magic);
-                    if (file_magic != FILE_MAGIC) { throw "not a valid rBSP file"; }
-                    this->_read(this->format_version);
-                    this->_read(this->revision);
-                    this->_read(lump_count);
-                    if (lump_count != 127) { throw "not a valid rBSP file"; }
-                    this->_read(this->headers);
+                using BspBaseClass = Bsp<LumpHeader, 128>;
+
+                RespawnBsp(const char filename[]) : BspBaseClass(filename) {
+                    this->_file.seekg(0, std::ios::beg);
+                    int file_magic, lump_count; this->_read(&file_magic);
+                    if (file_magic != FILE_MAGIC) {
+                        throw std::runtime_error("unexpected file magic for rBSP"); }
+                    this->_read(&this->format_version);
+                    this->_read(&this->revision);
+                    this->_read(&lump_count);
+                    if (lump_count != 127) {
+                        throw std::runtime_error("rBSP header does not contain '127'"); }
+                    this->_read(&this->headers);
                     /* load external .bsp_lump files */
                     fs::path bsp_lump(".bsp_lump"), bsp_path(filename), current_file;
                     int LUMP_index; std::string LUMP_hex_index;
@@ -218,17 +194,10 @@ namespace bsp_tool {
                     }
                 };
 
-                ~RespawnBSPFile();
+                ~RespawnBsp() {};
 
-                template<typename T>
-                T* getLump(int LUMP_index) {
-                    T* lump_entries;
-                    LumpHeader header = this->headers[LUMP_index];
-                    this->_file.seekg(header.offset, std::ios::beg);
-                    this->_file.read((char*) &lump_entries, header.length);
-                    return lump_entries;
-                };
-
+                // Vertex v[] = some_bsp::getExternalLump<Vertex>(LUMP::VERTICES);
+                // char raw_lump[] = some_bsp::getExternalLump<char>(LUMP::VERTICES);
                 template<typename T>
                 T* getExternalLump(int LUMP_index) {
                     T* lump_entries;
@@ -237,16 +206,23 @@ namespace bsp_tool {
                     external_lump >> lump_entries;
                     return lump_entries;
                 };
+
+                // Vertex v = some_bsp::getExternalLumpEntry<Vertex>(LUMP::VERTICES, 0);
+                // char raw_snippet[1024] = some_bsp::getExternalLumpEntry<char>(LUMP::VERTICES, 0);
+                template <typename T>
+                T getExternalLumpEntry(int LUMP_index, int entry_index) {
+                    T lump_entry;
+                    std::fstream external_lump = this->_external[LUMP_index];
+                    external_lump.seekg(sizeof(T) * entry_index, std::ios::beg);
+                    external_lump.read((char*) &lump_entry, sizeof(T));
+                    return lump_entry;
+                };
         };
     }
 
-    /* Common Structs & Functions*/
-    struct Vertex { float x, y, z; };  // LUMP::VERTICES, LUMP::VERTEX_NORMALS
+    /* Common Methods */
 
-    // returns a list of indices that match the search regexp (texted on each line)
-    template<typename BSPVariant>
-    int* searchEntities(BSPVariant bsp, char search[]);  // TODO: write function
-
+    /* Game Lump */
     struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };
 
     // Gets the sub-headers in the internal game lumps of a bsp file
@@ -255,10 +231,9 @@ namespace bsp_tool {
     struct GameLumpHeader* getGameLumpHeaders(BSPVariant bsp) {
         bsp._file.seekg(bsp.headers[35].offset);  // NOTE: LUMP::GAME_LUMP is usually 35
         int game_lump_count;
-        bsp._read(game_lump_count);
+        bsp._read(&game_lump_count);
         struct GameLumpHeader game_lump_headers[game_lump_count];
-        bsp._read(game_lump_headers);
+        bsp._read(&game_lump_headers);
         return game_lump_headers;
     };
-
 }
