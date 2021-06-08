@@ -90,7 +90,7 @@ class LUMP(enum.Enum):
     UNUSED_67 = 0x0043
     TRICOLL_NODES = 0x0044  # unused
     TRICOLL_HEADERS = 0x0045  # unused
-    PHYSTRIS = 0x0046  # unused
+    PHYSICS_TRIANGLES = 0x0046  # unused
     VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
     VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1  # unused
     VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2

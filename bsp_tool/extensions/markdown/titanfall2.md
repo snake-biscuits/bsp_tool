@@ -27,7 +27,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 175441800 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 9724088 | 3082760 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 12806848 | 8216256 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 21023104 | 401852 | 1 | 0 |
-PHYSTRIS | :x: | 24413680 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 24413680 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 32710664 | 26280 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 32736944 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 32736944 | 50402748 | 1 | 0 |
@@ -112,7 +112,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 201961692 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5821012 | 2685700 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 8506712 | 7159104 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 15665816 | 239008 | 1 | 0 |
-PHYSTRIS | :x: | 18956716 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 18956716 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 25059328 | 9540 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 25068868 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 25068868 | 46726504 | 1 | 0 |
@@ -197,7 +197,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 7813356 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 156876 | 66528 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 223404 | 177344 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 400748 | 8096 | 1 | 0 |
-PHYSTRIS | :x: | 505604 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 505604 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 625660 | 9960 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 635620 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 635620 | 552948 | 1 | 0 |
@@ -282,7 +282,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 5207012 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 158196 | 67080 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 225276 | 178880 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 404156 | 8228 | 1 | 0 |
-PHYSTRIS | :x: | 509420 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 509420 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 630968 | 9960 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 640928 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 640928 | 552948 | 1 | 0 |
@@ -367,7 +367,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 52701424 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5326616 | 705252 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 6031868 | 1876544 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 7908412 | 164648 | 1 | 0 |
-PHYSTRIS | :x: | 8633384 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 8633384 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 10898856 | 11120 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 10909976 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 10909976 | 9938940 | 1 | 0 |
@@ -452,7 +452,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 202599844 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 11483184 | 4368508 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 15851692 | 11645824 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 27497516 | 204644 | 1 | 0 |
-PHYSTRIS | :x: | 34359620 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 34359620 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 43988184 | 9840 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 43998024 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 43998024 | 46208624 | 1 | 0 |
@@ -537,7 +537,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 171850892 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5266404 | 2605012 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 7871416 | 6944192 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 14815608 | 254320 | 1 | 0 |
-PHYSTRIS | :x: | 18199828 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 18199828 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 24826688 | 4400 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 24831088 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 24831088 | 38151080 | 1 | 0 |
@@ -622,7 +622,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 207185704 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6891236 | 4960464 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 11851700 | 13216000 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 25067700 | 287980 | 1 | 0 |
-PHYSTRIS | :x: | 34754756 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 34754756 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 45041336 | 4400 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 45045736 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 45045736 | 46714712 | 1 | 0 |
@@ -707,7 +707,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 186556420 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5837632 | 3368400 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 9206032 | 8977088 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 18183120 | 247500 | 1 | 0 |
-PHYSTRIS | :x: | 23441172 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 23441172 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 30904492 | 4480 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 30908972 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 30908972 | 32937124 | 1 | 0 |
@@ -792,7 +792,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 147135424 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 4369668 | 3611040 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 7980708 | 9625280 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 17605988 | 155936 | 1 | 0 |
-PHYSTRIS | :x: | 27617084 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 27617084 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 34867664 | 4200 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 34871864 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 34871864 | 33640464 | 1 | 0 |
@@ -877,7 +877,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 114693056 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 8287808 | 2365456 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 10653264 | 6308480 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 16961744 | 163152 | 1 | 0 |
-PHYSTRIS | :x: | 20087840 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 20087840 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 25524748 | 17840 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 25542588 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 25542588 | 31142584 | 1 | 0 |
@@ -962,7 +962,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 163456920 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 33059060 | 2648320 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 35707380 | 7069952 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 42777332 | 145860 | 1 | 0 |
-PHYSTRIS | :x: | 49529160 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 49529160 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 55431004 | 8520 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 55439524 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 55439524 | 25231712 | 1 | 0 |
@@ -1047,7 +1047,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 28059516 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 892452 | 403440 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 1295892 | 1070784 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 2366676 | 78628 | 1 | 0 |
-PHYSTRIS | :x: | 2797496 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 2797496 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 3995364 | 3840 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 3999204 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 3999204 | 6114988 | 1 | 0 |
@@ -1132,7 +1132,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 47212844 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 1324740 | 1229656 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 2554396 | 3277824 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 5832220 | 61864 | 1 | 0 |
-PHYSTRIS | :x: | 9435236 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 9435236 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 12157428 | 960 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 12158388 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 12158388 | 12115224 | 1 | 0 |
@@ -1217,7 +1217,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 21143660 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 710436 | 253016 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 963452 | 674816 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 1638268 | 38896 | 1 | 0 |
-PHYSTRIS | :x: | 1828460 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 1828460 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 2613216 | 1920 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 2615136 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 2615136 | 4827680 | 1 | 0 |
@@ -1302,7 +1302,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 33431796 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 856468 | 571584 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 1428052 | 1523264 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 2951316 | 62568 | 1 | 0 |
-PHYSTRIS | :x: | 3471632 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 3471632 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 4899736 | 1040 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 4900776 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 4900776 | 8991004 | 1 | 0 |
@@ -1387,7 +1387,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 22452416 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 965824 | 258344 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 1224168 | 689024 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 1913192 | 36652 | 1 | 0 |
-PHYSTRIS | :x: | 2179728 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 2179728 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 2956516 | 1360 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 2957876 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 2957876 | 3812248 | 1 | 0 |
@@ -1472,7 +1472,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 34383960 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 954380 | 596576 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 1550956 | 1589056 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 3140012 | 61556 | 1 | 0 |
-PHYSTRIS | :x: | 3649428 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 3649428 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 5253520 | 1040 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 5254560 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 5254560 | 8129880 | 1 | 0 |
@@ -1557,7 +1557,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 179657264 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 7543000 | 3057320 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 10600320 | 8148224 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 18748544 | 252120 | 1 | 0 |
-PHYSTRIS | :x: | 22249544 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 22249544 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 29797732 | 7360 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 29805092 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 29805092 | 39381496 | 1 | 0 |
@@ -1642,7 +1642,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 190666160 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 11694572 | 3011888 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 14706460 | 8030720 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 22737180 | 254936 | 1 | 0 |
-PHYSTRIS | :x: | 26573564 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 26573564 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 36032808 | 8800 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 36041608 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 36041608 | 51774844 | 1 | 0 |
@@ -1727,7 +1727,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 182478512 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6804912 | 4674184 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 11479096 | 12460928 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 23940024 | 263956 | 1 | 0 |
-PHYSTRIS | :x: | 31922492 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 31922492 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 42081356 | 208800 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 42290156 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 42290156 | 46184776 | 1 | 0 |
@@ -1812,7 +1812,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 78112372 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 4457960 | 1362552 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 5820512 | 3623360 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 9443872 | 238480 | 1 | 0 |
-PHYSTRIS | :x: | 10883588 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 10883588 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 15015124 | 213380 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 15228504 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 15228504 | 13657204 | 1 | 0 |
@@ -1897,7 +1897,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 315418108 | 5092 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6532944 | 5658092 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 12191036 | 15079040 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 27270076 | 427900 | 1 | 0 |
-PHYSTRIS | :x: | 35839080 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 35839080 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 48629028 | 3760 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 48632788 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 48632788 | 69110404 | 1 | 0 |
@@ -1982,7 +1982,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 509076992 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3374652 | 4922216 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 8296868 | 13108032 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 21404900 | 413248 | 1 | 0 |
-PHYSTRIS | :x: | 31878152 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 31878152 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 44919452 | 15280 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 44934732 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 44934732 | 64894896 | 1 | 0 |
@@ -2067,7 +2067,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 261879196 | 18012 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6272988 | 3367764 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 9640752 | 8920064 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 18560816 | 650540 | 1 | 0 |
-PHYSTRIS | :x: | 23620080 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 23620080 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 31669008 | 60120 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 31729128 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 31729128 | 36295820 | 1 | 0 |
@@ -2152,7 +2152,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 399942740 | 4560 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 2848192 | 5598536 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 8446728 | 14921984 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 23368712 | 292688 | 1 | 0 |
-PHYSTRIS | :x: | 38279936 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 38279936 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 51439132 | 27700 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 51466832 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 51466832 | 77448404 | 1 | 0 |
@@ -2237,7 +2237,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 222630800 | 3648 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3656236 | 5433172 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 9089408 | 14464128 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 23553536 | 442420 | 1 | 0 |
-PHYSTRIS | :x: | 31670168 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 31670168 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 42919992 | 71400 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 42991392 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 42991392 | 53964724 | 1 | 0 |
@@ -2322,7 +2322,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 282200648 | 2736 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 32091472 | 6644328 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 38735800 | 17716032 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 56451832 | 313632 | 1 | 0 |
-PHYSTRIS | :x: | 72463284 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 72463284 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 87215804 | 30480 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 87246284 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 87246284 | 66543268 | 1 | 0 |
@@ -2407,7 +2407,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 237153876 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 9938776 | 3259976 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 13198752 | 8669120 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 21867872 | 418880 | 1 | 0 |
-PHYSTRIS | :x: | 27420904 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 27420904 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 36835748 | 45620 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 36881368 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 36881368 | 47528184 | 1 | 0 |
@@ -2492,7 +2492,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 311393156 | 138016 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3721256 | 5012964 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 8734220 | 13358272 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 22092492 | 416988 | 1 | 0 |
-PHYSTRIS | :x: | 30689412 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 30689412 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 44332980 | 1920 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 44334900 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 44334900 | 82510208 | 1 | 0 |
@@ -2577,7 +2577,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 259232148 | 684 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 16499712 | 5250048 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 21749760 | 13991808 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 35741568 | 351296 | 1 | 0 |
-PHYSTRIS | :x: | 43465600 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 43465600 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 54694620 | 88140 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 54782760 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 54782760 | 57709036 | 1 | 0 |
@@ -2662,7 +2662,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 319127300 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 8249692 | 6213464 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 14463156 | 16546048 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 31009204 | 626692 | 1 | 0 |
-PHYSTRIS | :x: | 44716608 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 44716608 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 59672476 | 14500 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 59686976 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 59686976 | 79229744 | 1 | 0 |
@@ -2747,7 +2747,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 279914436 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 10170792 | 4986828 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 15157620 | 13282240 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 28439860 | 571648 | 1 | 0 |
-PHYSTRIS | :x: | 36365068 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 36365068 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 48499344 | 18300 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 48517644 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 48517644 | 62617808 | 1 | 0 |
@@ -2832,7 +2832,7 @@ WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 317018956 | 76 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 7657608 | 4413072 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 12070680 | 11758784 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 23829464 | 593120 | 1 | 0 |
-PHYSTRIS | :x: | 30222800 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 30222800 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 42404416 | 138000 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 42542416 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 42542416 | 55020636 | 1 | 0 |
@@ -2917,7 +2917,7 @@ WORLDLIGHTS_PARENT_INFO | :x: | 259489208 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5979516 | 3381908 | 2 | 0 |
 TRICOLL_NODES | :heavy_check_mark: | 9361424 | 9010432 | 1 | 0 |
 TRICOLL_HEADERS | :heavy_check_mark: | 18371856 | 143616 | 1 | 0 |
-PHYSTRIS | :x: | 25943228 | 0 | 0 | 0 |
+PHYSICS_TRIANGLES | :x: | 25943228 | 0 | 0 | 0 |
 VERTS_UNLIT | :heavy_check_mark: | 32849036 | 50440 | 0 | 0 |
 VERTS_LIT_FLAT | :x: | 32899476 | 0 | 1 | 0 |
 VERTS_LIT_BUMP | :heavy_check_mark: | 32899476 | 31328792 | 1 | 0 |

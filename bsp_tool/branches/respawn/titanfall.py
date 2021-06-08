@@ -81,7 +81,7 @@ class LUMP(enum.Enum):
     UNUSED_67 = 0x0043
     TRICOLL_NODES = 0x0044  # version 1
     TRICOLL_HEADERS = 0x0045  # version 1
-    PHYSTRIS = 0x0046
+    PHYSICS_TRIANGLES = 0x0046
     VERTS_UNLIT = 0x0047     # VERTS_RESERVED_0
     VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1  # version 1  # mesh flags unknown
     VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2  # version 1
@@ -146,11 +146,29 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (57 unused)
 class Brush(base.Struct):  # LUMP 92 (005C)
-    origin: List[float]
-    contents: int  # looks like a bit flags
-    __slots__ = ["origin", "contents"]
-    _format = "3fI"  # seems short
-    _arrays = {"origin": [*"xyz"]}
+    mins: List[float]
+    flags: int
+    maxs: List[float]
+    unknown: int  # almost always 0
+    __slots__ = ["mins", "flags", "maxs", "unknown"]
+    _format = "3fi3fi"
+    _arrays = {"mins": [*"xyz"], "maxs:": [*"xyz"]}
+
+
+class Cell(base.Struct):  # LUMP 107 (006B)
+    a: int
+    b: int
+    c: int
+    d: int  # always -1?
+    _format = "4h"
+    __slots__ = ["a", "b", "c", "d"]
+
+
+class CellBspNode(base.Struct):  # LUMP 108 (006C)
+    a: int  # sometimes -1; -1 means leaf?
+    b: int
+    _format = "2i"
+    __slots__ = ["a", "b"]
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
@@ -217,6 +235,30 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+class Node(base.Struct):  # LUMP 99 (0063) / LUMP 119 (0077)
+    mins: List[float]
+    unknown1: int
+    maxs: List[float]
+    unknown2: int
+    __slots__ = ["mins", "unknown1", "maxs", "unknown2"]
+    _format = "3fi3fi"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+
+
+class ObjRef(int):  # LUMP 100 (0064)
+    _format = "H"
+
+
+class ObjRefBounds(base.Struct):
+    mins: List[float]
+    maxs: List[float]
+    _format = "8f"
+    __slots__ = ["mins", "maxs"]
+    _arrays = {"mins": [*"xyzw"], "maxs": [*"xyzw"]}
+    # NOTE: w is always 0, could be a copy of the Node class
+    # - CM_BRUSHES Brush may also use this class
+
+
 class Plane(base.Struct):  # LUMP 1 (0001)
     normal: List[float]  # normal unit vector
     distance: float
@@ -235,6 +277,14 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": ["one", "negative_one"]}
+
+
+class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
+    origin: List[float]
+    unknown: List[int]  # unknown[1] might be a float
+    _format = "3f2i"
+    __slots__ = ["origin", "unknown"]
+    _arrays = {"origin": [*"xyz"], "unknown": 2}
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
@@ -374,24 +424,33 @@ class GameLump_SPRP:  # unique to Titanfall
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"MESH_INDICES":         {0: MeshIndex},
+BASIC_LUMP_CLASSES = {"CSM_OBJ_REFS":         {0: ObjRef},
+                      "MESH_INDICES":         {0: MeshIndex},
+                      "OBJ_REFS":             {0: ObjRef},
                       "TEXDATA_STRING_TABLE": {0: TextureDataStringTable}}
 
-LUMP_CLASSES = {"CM_BRUSHES":         {0: Brush},
-                "CUBEMAPS":           {0: Cubemap},
-                "LIGHTMAP_HEADERS":   {1: LightmapHeader},
-                "MATERIAL_SORT":      {0: MaterialSort},
-                "MESHES":             {0: Mesh},
-                "MODELS":             {0: Model},
-                "PLANES":             {1: Plane},
-                "SHADOW_MESH_MESHES": {0: ShadowMesh},
-                "TEXDATA":            {1: TextureData},
-                "VERTEX_NORMALS":     {0: Vertex},
-                "VERTICES":           {0: Vertex},
-                "VERTS_LIT_BUMP":     {1: VertexLitBump},
-                "VERTS_LIT_FLAT":     {1: VertexLitFlat},
-                "VERTS_UNLIT":        {0: VertexUnlit},
-                "VERTS_UNLIT_TS":     {0: VertexUnlitTS}}
+LUMP_CLASSES = {"CELLS":                    {0: Cell},
+                "CELL_AABB_NODES":          {0: Node},
+                "CELL_BSP_NODES":           {0: CellBspNode},
+                "CM_BRUSHES":               {0: Brush},
+                "CSM_AABB_NODES":           {0: Node},
+                "CUBEMAPS":                 {0: Cubemap},
+                "LIGHTMAP_HEADERS":         {1: LightmapHeader},
+                "MATERIAL_SORT":            {0: MaterialSort},
+                "MESHES":                   {0: Mesh},
+                "MODELS":                   {0: Model},
+                "OBJ_REF_BOUNDS":           {0: ObjRefBounds},
+                "PLANES":                   {1: Plane},
+                "SHADOW_MESH_MESHES":       {0: ShadowMesh},
+                "SHADOW_MESH_ALPHA_VERTS":  {0: ShadowMeshAlphaVertex},
+                "SHADOW_MESH_OPAQUE_VERTS": {0: Vertex},
+                "TEXDATA":                  {1: TextureData},
+                "VERTEX_NORMALS":           {0: Vertex},
+                "VERTICES":                 {0: Vertex},
+                "VERTS_LIT_BUMP":           {1: VertexLitBump},
+                "VERTS_LIT_FLAT":           {1: VertexLitFlat},
+                "VERTS_UNLIT":              {0: VertexUnlit},
+                "VERTS_UNLIT_TS":           {0: VertexUnlitTS}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
                         "PAKFILE":             {0: shared.PakFile},
