@@ -39,7 +39,7 @@ MATERIAL_SORT | :heavy_check_mark: | 88784340 | 10164 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 88794504 | 40 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 123397552 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 24413680 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 24413840 | 8664 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 24413840 | 8664 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 24542200 | 59848 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 24422504 | 119696 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 25033184 | 107784 | 0 | 0 |
@@ -124,7 +124,7 @@ MATERIAL_SORT | :heavy_check_mark: | 75894116 | 4620 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 75898736 | 56 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 128327592 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 18956716 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 18956892 | 8580 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 18956892 | 8580 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 19069552 | 52040 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 18965472 | 104080 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 19388216 | 66656 | 0 | 0 |
@@ -209,7 +209,7 @@ MATERIAL_SORT | :heavy_check_mark: | 1257700 | 348 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 1258048 | 16 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 2830928 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 505604 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 505652 | 7028 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 505652 | 7028 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 515096 | 1208 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 512680 | 2416 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 519232 | 732 | 0 | 0 |
@@ -294,7 +294,7 @@ MATERIAL_SORT | :heavy_check_mark: | 1263008 | 348 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 1263356 | 16 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 2836236 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 509420 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 509472 | 7028 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 509472 | 7028 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 518980 | 1240 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 516500 | 2480 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 523340 | 780 | 0 | 0 |
@@ -379,7 +379,7 @@ MATERIAL_SORT | :heavy_check_mark: | 21995216 | 7020 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 22002236 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 33536596 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 8633384 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 8633548 | 8488 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 8633548 | 8488 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 8714148 | 36056 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 8642036 | 72112 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 8973676 | 55868 | 0 | 0 |
@@ -464,7 +464,7 @@ MATERIAL_SORT | :heavy_check_mark: | 96623264 | 2772 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 96626036 | 40 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 138569116 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 34359620 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 34359752 | 8884 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 34359752 | 8884 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 34496188 | 63776 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 34368636 | 127552 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 34786572 | 56652 | 0 | 0 |
@@ -549,7 +549,7 @@ MATERIAL_SORT | :heavy_check_mark: | 68002496 | 6768 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 68009264 | 48 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 110476640 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 18199828 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 18199996 | 7424 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 18199996 | 7424 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 18316188 | 54384 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 18207420 | 108768 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 18603340 | 58192 | 0 | 0 |
@@ -634,7 +634,7 @@ MATERIAL_SORT | :heavy_check_mark: | 99824852 | 8520 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 99833372 | 40 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 141776452 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 34754756 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 34754892 | 7420 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 34754892 | 7420 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 34857656 | 47672 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 34762312 | 95344 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 35132832 | 56876 | 0 | 0 |
@@ -719,7 +719,7 @@ MATERIAL_SORT | :heavy_check_mark: | 69344932 | 3432 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 69348364 | 56 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 116010052 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 23441172 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 23441304 | 7420 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 23441304 | 7420 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 23545764 | 48520 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 23448724 | 97040 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 23799388 | 51276 | 0 | 0 |
@@ -804,7 +804,7 @@ MATERIAL_SORT | :heavy_check_mark: | 74232184 | 780 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 74232964 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 99398812 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 27617084 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 27617176 | 7228 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 27617176 | 7228 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 27676340 | 25968 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 27624404 | 51936 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 27798452 | 24036 | 0 | 0 |
@@ -889,7 +889,7 @@ MATERIAL_SORT | :heavy_check_mark: | 60507508 | 3564 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 60511072 | 32 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 80434048 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 20087840 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 20087992 | 8528 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 20087992 | 8528 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 20213192 | 58336 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 20096520 | 116672 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 20569544 | 74504 | 0 | 0 |
@@ -974,7 +974,7 @@ MATERIAL_SORT | :heavy_check_mark: | 84834000 | 2424 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 84836424 | 40 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 101089392 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 49529160 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 49529292 | 6952 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 49529292 | 6952 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 49639284 | 51520 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 49536244 | 103040 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 50073940 | 95784 | 0 | 0 |
@@ -1059,7 +1059,7 @@ MATERIAL_SORT | :heavy_check_mark: | 10968344 | 2208 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 10970552 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 17786320 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 2797496 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 2797616 | 8468 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 2797616 | 8468 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 2829460 | 11688 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 2806084 | 23376 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 2909468 | 17080 | 0 | 0 |
@@ -1144,7 +1144,7 @@ MATERIAL_SORT | :heavy_check_mark: | 26287896 | 1536 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 26289432 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 33629488 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 9435236 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 9435344 | 1684 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 9435344 | 1684 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 9455524 | 9248 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 9437028 | 18496 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 9506724 | 10488 | 0 | 0 |
@@ -1229,7 +1229,7 @@ MATERIAL_SORT | :heavy_check_mark: | 7960232 | 924 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 7961156 | 16 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 13204052 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 1828460 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 1828528 | 1004 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 1828528 | 1004 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 1846636 | 8552 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 1829532 | 17104 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 1909140 | 13488 | 0 | 0 |
@@ -1314,7 +1314,7 @@ MATERIAL_SORT | :heavy_check_mark: | 14867044 | 1812 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 14868856 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 22208912 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 3471632 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 3471736 | 1004 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 3471736 | 1004 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 3493812 | 10536 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 3472740 | 21072 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 3555692 | 12836 | 0 | 0 |
@@ -1399,7 +1399,7 @@ MATERIAL_SORT | :heavy_check_mark: | 7280052 | 780 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 7280832 | 16 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 13572304 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 2179728 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 2179808 | 1004 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 2179808 | 1004 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 2197308 | 8248 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 2180812 | 16496 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 2236804 | 7812 | 0 | 0 |
@@ -1484,7 +1484,7 @@ MATERIAL_SORT | :heavy_check_mark: | 14618892 | 2160 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 14621052 | 32 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 22485404 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 3649428 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 3649520 | 1004 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 3649520 | 1004 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 3676028 | 12752 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 3650524 | 25504 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 3761068 | 18072 | 0 | 0 |
@@ -1569,7 +1569,7 @@ MATERIAL_SORT | :heavy_check_mark: | 73976016 | 7320 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 73983336 | 56 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 114353568 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 22249544 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 22249684 | 7060 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 22249684 | 7060 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 22386920 | 65088 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 22256744 | 130176 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 22798488 | 86620 | 0 | 0 |
@@ -1654,7 +1654,7 @@ MATERIAL_SORT | :heavy_check_mark: | 94173944 | 3384 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 94177328 | 48 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 130877536 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 26573564 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 26573712 | 5924 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 26573712 | 5924 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 26688292 | 54328 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 26579636 | 108656 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 27173260 | 107660 | 0 | 0 |
@@ -1739,7 +1739,7 @@ MATERIAL_SORT | :heavy_check_mark: | 95376472 | 5616 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 95382088 | 16 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 112159320 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 31922492 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 31922636 | 8548 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 31922636 | 8548 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 32024400 | 46608 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 31931184 | 93216 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 32292160 | 55288 | 0 | 0 |
@@ -1824,7 +1824,7 @@ MATERIAL_SORT | :heavy_check_mark: | 31210228 | 7440 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 31217668 | 24 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 49043484 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 10883588 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 10883728 | 2512 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 10883728 | 2512 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 10967744 | 40752 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 10886240 | 81504 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 11261136 | 63160 | 0 | 0 |
@@ -1909,7 +1909,7 @@ MATERIAL_SORT | :heavy_check_mark: | 126960160 | 3240 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 126963400 | 72 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 202460944 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 35839080 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 35839196 | 8876 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 35839196 | 8876 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 36017800 | 84864 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 35848072 | 169728 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 36397112 | 73612 | 0 | 0 |
@@ -1994,7 +1994,7 @@ MATERIAL_SORT | :heavy_check_mark: | 119632868 | 2652 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 119635520 | 96 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 216104608 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 31878152 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 31878268 | 10940 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 31878268 | 10940 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 32021512 | 66152 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 31889208 | 132304 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 32293312 | 51412 | 0 | 0 |
@@ -2079,7 +2079,7 @@ MATERIAL_SORT | :heavy_check_mark: | 74125412 | 4032 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 74129444 | 88 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 147005564 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 23620080 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 23620244 | 11760 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 23620244 | 11760 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 23972356 | 170176 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 23632004 | 340352 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 24680932 | 134600 | 0 | 0 |
@@ -2164,7 +2164,7 @@ MATERIAL_SORT | :heavy_check_mark: | 138051396 | 3468 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 138054864 | 88 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 208833832 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 38279936 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 38280068 | 8200 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 38280068 | 8200 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 38509580 | 110656 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 38288268 | 221312 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 38894876 | 68660 | 0 | 0 |
@@ -2249,7 +2249,7 @@ MATERIAL_SORT | :heavy_check_mark: | 104777528 | 3480 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 104781008 | 48 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 147248384 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 31670168 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 31670300 | 7440 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 31670300 | 7440 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 31879804 | 101032 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 31677740 | 202064 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 32307940 | 81776 | 0 | 0 |
@@ -2334,7 +2334,7 @@ MATERIAL_SORT | :heavy_check_mark: | 163576876 | 3300 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 163580176 | 48 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 209717568 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 72463284 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 72463456 | 7836 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 72463456 | 7836 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 72721372 | 125040 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 72471292 | 250080 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 73352892 | 126620 | 0 | 0 |
@@ -2419,7 +2419,7 @@ MATERIAL_SORT | :heavy_check_mark: | 90611828 | 5100 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 90616928 | 72 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 148288680 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 27420904 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 27421080 | 8956 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 27421080 | 8956 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 27604724 | 87344 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 27430036 | 174688 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 28068324 | 94064 | 0 | 0 |
@@ -2504,7 +2504,7 @@ MATERIAL_SORT | :heavy_check_mark: | 136418380 | 2724 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 136421104 | 72 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 211918648 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 30689412 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 30689516 | 8664 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 30689516 | 8664 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 30736756 | 19288 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 30698180 | 38576 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 31007068 | 62756 | 0 | 0 |
@@ -2589,7 +2589,7 @@ MATERIAL_SORT | :heavy_check_mark: | 120504160 | 5856 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 120510016 | 64 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 173987456 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 43465600 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 43465840 | 10116 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 43465840 | 10116 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 43671508 | 97776 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 43475956 | 195552 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 44195828 | 106636 | 0 | 0 |
@@ -2674,7 +2674,7 @@ MATERIAL_SORT | :heavy_check_mark: | 148392092 | 7212 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 148399304 | 72 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 213411088 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 44716608 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 44716792 | 13536 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 44716792 | 13536 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 45094104 | 181888 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 44730328 | 363776 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 45771160 | 123792 | 0 | 0 |
@@ -2759,7 +2759,7 @@ MATERIAL_SORT | :heavy_check_mark: | 118902380 | 6228 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 118908608 | 72 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 176056072 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 36365068 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 36365224 | 12532 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 36365224 | 12532 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 36665644 | 143944 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 36377756 | 287888 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 37315540 | 126488 | 0 | 0 |
@@ -2844,7 +2844,7 @@ MATERIAL_SORT | :heavy_check_mark: | 104964880 | 5580 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 104970460 | 80 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 175225132 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 30222800 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 30222996 | 9168 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 30222996 | 9168 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 30457252 | 112544 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 30232164 | 225088 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 31191860 | 155516 | 0 | 0 |
@@ -2929,7 +2929,7 @@ MATERIAL_SORT | :heavy_check_mark: | 69890228 | 1416 | 0 | 0 |
 LIGHTMAP_HEADERS | :heavy_check_mark: | 69891644 | 40 | 1 | 0 |
 LIGHTMAP_DATA_DXT5 | :x: | 101348964 | 0 | 0 | 0 |
 CM_GRID | :heavy_check_mark: | 25943228 | 28 | 0 | 0 |
-CM_GRIDCELLS | :heavy_check_mark: | 25943320 | 9292 | 0 | 0 |
+CM_GRID_CELLS | :heavy_check_mark: | 25943320 | 9292 | 0 | 0 |
 CM_GEO_SETS | :heavy_check_mark: | 26015572 | 31480 | 0 | 0 |
 CM_GEO_SET_BOUNDS | :heavy_check_mark: | 25952612 | 62960 | 0 | 0 |
 CM_PRIMITIVES | :heavy_check_mark: | 26132012 | 21240 | 0 | 0 |

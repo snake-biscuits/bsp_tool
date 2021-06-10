@@ -89,7 +89,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -312,7 +312,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -535,7 +535,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -758,7 +758,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -981,7 +981,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -1204,7 +1204,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -1427,7 +1427,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -1650,7 +1650,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -1873,7 +1873,7 @@ ExternalLumpHeader(offset=88794504, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  YYYY  YES!
@@ -2096,7 +2096,7 @@ ExternalLumpHeader(offset=88971772, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24603860, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24604016, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  NNYY  NOPE
@@ -2319,7 +2319,7 @@ ExternalLumpHeader(offset=88871800, length=40, version=1, fourCC=0, filename='mp
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=24413680, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=24505100, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=24413840, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 ExternalLumpHeader(offset=24505260, length=8664, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=8664)
 CM_GEO_SETS  NNYY  NOPE

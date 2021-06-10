@@ -106,7 +106,7 @@ class LUMP(enum.Enum):
     LIGHTMAP_HEADERS = 0x0053
     LIGHTMAP_DATA_DXT5 = 0x0054  # unused
     CM_GRID = 0x0055
-    CM_GRIDCELLS = 0x0056  # unused
+    CM_GRID_CELLS = 0x0056  # unused
     CM_GEO_SETS = 0x0057  # unused
     CM_GEO_SET_BOUNDS = 0x0058  # unused
     CM_PRIMITIVES = 0x0059  # unused

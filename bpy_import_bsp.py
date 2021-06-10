@@ -237,17 +237,18 @@ def load_apex_rbsp(rbsp):
 
 # NOTE: remember to delete the previous import manually & purge orphans
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
+bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_box.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
-# load_rbsp(bsp)
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_grave.bsp")
+load_rbsp(bsp)
 
 # APEX LEGENDS (Season 9)
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")
-bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
-load_apex_rbsp(bsp)
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
+# load_apex_rbsp(bsp)
 
 
 # TODO: Shift+A > Add Entity

@@ -83,7 +83,7 @@ LumpHeader(offset=60321888, length=56, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=30329212, length=28, version=0, fourCC=0, filename='mp_airbase.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=30210652, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=30329316, length=56280, version=0, fourCC=0, filename='mp_airbase.bsp.0056.bsp_lump', filesize=56280)
 LumpHeader(offset=30210756, length=56280, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -300,7 +300,7 @@ LumpHeader(offset=102938400, length=56, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=38800032, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=38796632, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=38800148, length=64300, version=0, fourCC=0, filename='mp_angel_city.bsp.0056.bsp_lump', filesize=64300)
 LumpHeader(offset=38796752, length=64300, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -511,7 +511,7 @@ LumpHeader(offset=78939424, length=48, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=37040700, length=28, version=0, fourCC=0, filename='mp_boneyard.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=36943412, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=37040812, length=39788, version=0, fourCC=0, filename='mp_boneyard.bsp.0056.bsp_lump', filesize=39788)
 LumpHeader(offset=36943524, length=39788, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -722,7 +722,7 @@ LumpHeader(offset=88921556, length=48, version=1, fourCC=0)
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=29510900, length=28, version=0, fourCC=0, filename='mp_fracture.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=29510900, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=29511024, length=54792, version=0, fourCC=0, filename='mp_fracture.bsp.0056.bsp_lump', filesize=54792)
 LumpHeader(offset=29511024, length=54792, version=0, fourCC=0)
 CM_GEO_SETS  YYYY  YES!
@@ -939,7 +939,7 @@ LumpHeader(offset=76153000, length=48, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=22868956, length=28, version=0, fourCC=0, filename='mp_haven.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=22849816, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=22869072, length=42700, version=0, fourCC=0, filename='mp_haven.bsp.0056.bsp_lump', filesize=42700)
 LumpHeader(offset=22849932, length=42700, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -1150,7 +1150,7 @@ LumpHeader(offset=79947204, length=40, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=34965856, length=28, version=0, fourCC=0, filename='mp_nexus.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=34928004, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=34965956, length=32392, version=0, fourCC=0, filename='mp_nexus.bsp.0056.bsp_lump', filesize=32392)
 LumpHeader(offset=34928108, length=32392, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -1361,7 +1361,7 @@ LumpHeader(offset=88465996, length=40, version=1, fourCC=0)
 CM_GRID  NYYY  YES!
 ExternalLumpHeader(offset=45625512, length=28, version=0, fourCC=0, filename='mp_outpost_207.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=45628504, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NNYY  NOPE
+CM_GRID_CELLS  NNYY  NOPE
 ExternalLumpHeader(offset=45625612, length=45356, version=0, fourCC=0, filename='mp_outpost_207.bsp.0056.bsp_lump', filesize=45356)
 LumpHeader(offset=45628604, length=45360, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -1572,7 +1572,7 @@ LumpHeader(offset=89389784, length=48, version=1, fourCC=0)
 CM_GRID  YYYY  YES!
 ExternalLumpHeader(offset=34708340, length=28, version=0, fourCC=0, filename='mp_relic.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=34708340, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  YYYY  YES!
+CM_GRID_CELLS  YYYY  YES!
 ExternalLumpHeader(offset=34708456, length=29348, version=0, fourCC=0, filename='mp_relic.bsp.0056.bsp_lump', filesize=29348)
 LumpHeader(offset=34708456, length=29348, version=0, fourCC=0)
 CM_GEO_SETS  YYYY  YES!
@@ -1786,7 +1786,7 @@ LumpHeader(offset=101441204, length=64, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=28448820, length=28, version=0, fourCC=0, filename='mp_runoff.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=29331792, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NNYY  NOPE
+CM_GRID_CELLS  NNYY  NOPE
 ExternalLumpHeader(offset=28448964, length=41652, version=0, fourCC=0, filename='mp_runoff.bsp.0056.bsp_lump', filesize=41652)
 LumpHeader(offset=29331932, length=42128, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -1997,7 +1997,7 @@ LumpHeader(offset=43954804, length=40, version=1, fourCC=0)
 CM_GRID  NYYY  YES!
 ExternalLumpHeader(offset=16903208, length=28, version=0, fourCC=0, filename='mp_sandtrap.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=16883804, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  YES!
+CM_GRID_CELLS  NYYY  YES!
 ExternalLumpHeader(offset=16903296, length=49480, version=0, fourCC=0, filename='mp_sandtrap.bsp.0056.bsp_lump', filesize=49480)
 LumpHeader(offset=16883892, length=49480, version=0, fourCC=0)
 CM_GEO_SETS  NYYY  YES!
@@ -2214,7 +2214,7 @@ LumpHeader(offset=56543700, length=40, version=1, fourCC=0)
 CM_GRID  NYYY  YES!
 ExternalLumpHeader(offset=23499032, length=28, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=23495464, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=23499136, length=48512, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0056.bsp_lump', filesize=48512)
 LumpHeader(offset=23495568, length=48512, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
@@ -2431,7 +2431,7 @@ LumpHeader(offset=65368436, length=40, version=1, fourCC=0)
 CM_GRID  NYYY  NOPE
 ExternalLumpHeader(offset=28000632, length=28, version=0, fourCC=0, filename='mp_swampland.bsp.0055.bsp_lump', filesize=28)
 LumpHeader(offset=27899564, length=28, version=0, fourCC=0)
-CM_GRIDCELLS  NYYY  NOPE
+CM_GRID_CELLS  NYYY  NOPE
 ExternalLumpHeader(offset=28000756, length=44568, version=0, fourCC=0, filename='mp_swampland.bsp.0056.bsp_lump', filesize=44568)
 LumpHeader(offset=27899688, length=44568, version=0, fourCC=0)
 CM_GEO_SETS  NNYY  NOPE
