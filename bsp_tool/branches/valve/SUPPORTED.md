@@ -49,8 +49,8 @@
 |    |     |                                          |  0 | `nexon.vindictus.Face`                |  90% |
 | 28 |  20 | `PHYSICS_DISPLACEMENT`                   |  0 | :x:                                   |   0% |
 | 29 |  20 | `PHYSICS_COLLIDE`                        |  0 | :x:                                   |   0% |
-| 30 |  20 | `VERT_NORMALS`                           |  0 | :x:                                   |   0% |
-| 31 |  20 | `VERT_NORMAL_INDICES`                    |  0 | :x:                                   |   0% |
+| 30 |  20 | `VERTEX_NORMALS`                         |  0 | :x:                                   |   0% |
+| 31 |  20 | `VERTEX_NORMAL_INDICES`                  |  0 | :x:                                   |   0% |
 | 32 |  20 | `DISPLACEMENT_LIGHTMAP_ALPHAS`           |  0 | :x:                                   |   0% |
 | 33 |  20 | `DISPLACEMENT_VERTICES`                  |  0 | `valve.orange_box.DisplacementVertex` | 100% |
 | 34 |  20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` |  0 | :x:                                   |   0% |
@@ -58,8 +58,8 @@
 |    |     | `GAME_LUMP.sprp`                         | 10 | `valve.orange_box.StaticPropv10`      | 100% |
 |    |     | `GAME_LUMP.dprp`                         |  0 | :x:                                   |   0% |
 | 36 |  20 | `LEAF_WATER_DATA`                        |  0 | :x:                                   |   0% |
-| 38 |  20 | `PRIMITIVE_VERTS`                             |  0 | :x:                                   |   0% |
-| 39 |  20 | `PRIMITIVE_INDICES`                           |  0 | :x:                                   |   0% |
+| 38 |  20 | `PRIMITIVE_VERTICES`                     |  0 | :x:                                   |   0% |
+| 39 |  20 | `PRIMITIVE_INDICES`                      |  0 | :x:                                   |   0% |
 | 40 |  20 | `PAKFILE`                                |  0 | `shared.PakFile`                      | 100% |
 | 41 |  20 | `CLIP_PORTAL_VERTICES`                   |  0 | :x:                                   |   0% |
 | 42 |  20 | `CUBEMAPS`                               |  0 | `valve.orange_box.Cubemap`            | 100% |

@@ -62,7 +62,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 47713188 | 23244 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 47736432 | 5009824 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 53427004 | 2069300 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 55496304 | 16554400 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 299862464 | 14742 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 299862464 | 14742 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 72050704 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 72050740 | 6003372 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 78054112 | 260760 | 0 | 0 |
@@ -134,7 +134,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 48101872 | 23400 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 48125272 | 4619360 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 53372928 | 1977188 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 55350116 | 15817504 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 291102372 | 16758 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 291102372 | 16758 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 71167620 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 71167656 | 6015060 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 77182716 | 240660 | 0 | 0 |
@@ -206,7 +206,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 48345128 | 23976 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 48369104 | 4560480 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 53548720 | 2030724 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 55579444 | 16245792 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 293891480 | 19404 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 293891480 | 19404 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 71825236 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 71825272 | 6040740 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 77866012 | 242480 | 0 | 0 |
@@ -278,7 +278,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 49213648 | 27420 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 49241068 | 4924832 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 54832408 | 1911312 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 56743720 | 15290496 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 296855708 | 16380 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 296855708 | 16380 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 72034216 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 72034252 | 6196824 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 78231076 | 233980 | 0 | 0 |
@@ -352,7 +352,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 1090188 | 144 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 1090188 | 45376 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 1141832 | 23156 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 1164988 | 185248 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 5698140 | 252 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 5698140 | 252 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 1350236 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 1350272 | 141888 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 1492160 | 12080 | 0 | 0 |
@@ -424,7 +424,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 47830216 | 12738 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 47842956 | 4328000 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 52771776 | 2155200 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 54926976 | 17241600 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 292566580 | 26586 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 292566580 | 26586 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 72168576 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 72168612 | 7015212 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 72168612 | 177100 | 0 | 0 |
@@ -496,7 +496,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 49971304 | 14232 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 49985536 | 4277152 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 54852056 | 2143908 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 56995964 | 17151264 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 319825604 | 26208 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 319825604 | 26208 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 74147228 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 74147264 | 7005720 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 81152984 | 166660 | 0 | 0 |
@@ -570,7 +570,7 @@ OCCLUSION_MESH_INDICES | :heavy_check_mark: | 51995284 | 18330 | 0 | 0 |
 CELL_AABB_NODES | :heavy_check_mark: | 52013616 | 2968032 | 0 | 0 |
 OBJ_REFS | :heavy_check_mark: | 55399140 | 2112708 | 0 | 0 |
 OBJ_REF_BOUNDS | :heavy_check_mark: | 57511848 | 16901664 | 0 | 0 |
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE | :heavy_check_mark: | 281097348 | 31500 | 0 | 0 |
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE | :heavy_check_mark: | 281097348 | 31500 | 0 | 0 |
 LEVEL_INFO | :heavy_check_mark: | 74413512 | 36 | 0 | 0 |
 SHADOW_MESH_OPAQUE_VERTS | :heavy_check_mark: | 74413548 | 7514052 | 0 | 0 |
 SHADOW_MESH_ALPHA_VERTS | :heavy_check_mark: | 81927600 | 69500 | 0 | 0 |

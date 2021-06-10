@@ -29,7 +29,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -197,7 +197,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -252,7 +252,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -420,7 +420,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -475,7 +475,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -643,7 +643,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -698,7 +698,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -866,7 +866,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -921,7 +921,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -1089,7 +1089,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -1144,7 +1144,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -1312,7 +1312,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -1367,7 +1367,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -1535,7 +1535,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -1590,7 +1590,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -1758,7 +1758,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -1813,7 +1813,7 @@ ExternalLumpHeader(offset=4661572, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  YYYY  YES!
@@ -1981,7 +1981,7 @@ ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  YYYY  YES!
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 LEVEL_INFO  YYYY  YES!
@@ -2036,7 +2036,7 @@ ExternalLumpHeader(offset=4669392, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9894004, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  NYYY  YES!
+PHYSICS_COLLIDE  NYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9894032, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  NNYY  NOPE
@@ -2204,7 +2204,7 @@ ExternalLumpHeader(offset=5592284, length=81070, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5673356, length=1297120, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1297120)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  NNYY  NOPE
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  NNYY  NOPE
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=164731428, length=2646, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2646)
 LEVEL_INFO  NYYY  NOPE
@@ -2259,7 +2259,7 @@ ExternalLumpHeader(offset=4668484, length=128, version=0, fourCC=0, filename='mp
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=9703620, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=9795892, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
-PHYSICSCOLLIDE  NYYY  YES!
+PHYSICS_COLLIDE  NYYY  YES!
 ExternalLumpHeader(offset=9703648, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 ExternalLumpHeader(offset=9795920, length=20437, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=20437)
 VERTEX_NORMALS  NNYY  NOPE
@@ -2427,7 +2427,7 @@ ExternalLumpHeader(offset=5521216, length=79478, version=0, fourCC=0, filename='
 OBJ_REF_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5600696, length=1271648, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1271648)
-LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE  NNYY  NOPE
+LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  NNYY  NOPE
 ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2394)
 ExternalLumpHeader(offset=164631456, length=2268, version=0, fourCC=0, filename='mp_angel_city.bsp.007a.bsp_lump', filesize=2268)
 LEVEL_INFO  NYYY  NOPE

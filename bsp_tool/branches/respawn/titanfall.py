@@ -133,7 +133,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    LIGHTMAP_DATA_REAL_TIME_LIGHT_PAGE = 0x007A  # unused
+    LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE = 0x007A  # unused
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -153,6 +153,10 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     __slots__ = ["mins", "flags", "maxs", "unknown"]
     _format = "3fi3fi"
     _arrays = {"mins": [*"xyz"], "maxs:": [*"xyz"]}
+
+
+class BrushSidePlaneOffsets(int):
+    _format = "H"
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
@@ -424,10 +428,11 @@ class GameLump_SPRP:  # unique to Titanfall
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"CSM_OBJ_REFS":         {0: ObjRef},
-                      "MESH_INDICES":         {0: MeshIndex},
-                      "OBJ_REFS":             {0: ObjRef},
-                      "TEXDATA_STRING_TABLE": {0: TextureDataStringTable}}
+BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: BrushSidePlaneOffsets},
+                      "CSM_OBJ_REFS":                {0: ObjRef},
+                      "MESH_INDICES":                {0: MeshIndex},
+                      "OBJ_REFS":                    {0: ObjRef},
+                      "TEXDATA_STRING_TABLE":        {0: TextureDataStringTable}}
 
 LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "CELL_AABB_NODES":          {0: Node},

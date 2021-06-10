@@ -20,7 +20,7 @@ LumpHeader(offset=8872244, length=2240, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=13333464, length=28, version=0, fourCC=0, filename='mp_airbase.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=13342384, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=13333492, length=9966529, version=0, fourCC=0, filename='mp_airbase.bsp.001d.bsp_lump', filesize=9966529)
 LumpHeader(offset=13342412, length=10011749, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -234,7 +234,7 @@ LumpHeader(offset=9343812, length=2336, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=15777292, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=15778524, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=15777320, length=8439741, version=0, fourCC=0, filename='mp_angel_city.bsp.001d.bsp_lump', filesize=8439741)
 LumpHeader(offset=15778552, length=8435109, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -451,7 +451,7 @@ LumpHeader(offset=11652904, length=2144, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=15743540, length=28, version=0, fourCC=0, filename='mp_boneyard.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=15740416, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=15743568, length=6246498, version=0, fourCC=0, filename='mp_boneyard.bsp.001d.bsp_lump', filesize=6246498)
 LumpHeader(offset=15740444, length=6245026, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -662,7 +662,7 @@ LumpHeader(offset=3870268, length=1856, version=0, fourCC=0)
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=9074072, length=28, version=0, fourCC=0, filename='mp_fracture.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=9074072, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=9074100, length=4312692, version=0, fourCC=0, filename='mp_fracture.bsp.001d.bsp_lump', filesize=4312692)
 LumpHeader(offset=9074100, length=4312692, version=0, fourCC=0)
 VERTEX_NORMALS  YYYY  YES!
@@ -873,7 +873,7 @@ LumpHeader(offset=2312132, length=864, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=5841348, length=28, version=0, fourCC=0, filename='mp_haven.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=5822672, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NYYY  NOPE
+PHYSICS_COLLIDE  NYYY  NOPE
 ExternalLumpHeader(offset=5841376, length=2680633, version=0, fourCC=0, filename='mp_haven.bsp.001d.bsp_lump', filesize=2680633)
 LumpHeader(offset=5822700, length=2680633, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -1090,7 +1090,7 @@ LumpHeader(offset=9267196, length=1504, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=15823152, length=28, version=0, fourCC=0, filename='mp_nexus.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=15803564, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=15823180, length=10299472, version=0, fourCC=0, filename='mp_nexus.bsp.001d.bsp_lump', filesize=10299472)
 LumpHeader(offset=15803592, length=10281208, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -1301,7 +1301,7 @@ LumpHeader(offset=13772768, length=2880, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=17730384, length=28, version=0, fourCC=0, filename='mp_outpost_207.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=17730508, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=17730412, length=13689378, version=0, fourCC=0, filename='mp_outpost_207.bsp.001d.bsp_lump', filesize=13689378)
 LumpHeader(offset=17730536, length=13692248, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -1512,7 +1512,7 @@ LumpHeader(offset=5431948, length=2208, version=0, fourCC=0)
 ENTITY_PARTITIONS  YYYY  YES!
 ExternalLumpHeader(offset=10449776, length=28, version=0, fourCC=0, filename='mp_relic.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=10449776, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  YYYY  YES!
+PHYSICS_COLLIDE  YYYY  YES!
 ExternalLumpHeader(offset=10449804, length=5827944, version=0, fourCC=0, filename='mp_relic.bsp.001d.bsp_lump', filesize=5827944)
 LumpHeader(offset=10449804, length=5827944, version=0, fourCC=0)
 VERTEX_NORMALS  YYYY  YES!
@@ -1723,7 +1723,7 @@ LumpHeader(offset=3955184, length=1920, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=9156164, length=28, version=0, fourCC=0, filename='mp_runoff.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=9320052, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=9156192, length=5244712, version=0, fourCC=0, filename='mp_runoff.bsp.001d.bsp_lump', filesize=5244712)
 LumpHeader(offset=9320080, length=5246024, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -1937,7 +1937,7 @@ LumpHeader(offset=2176352, length=1536, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=5474720, length=28, version=0, fourCC=0, filename='mp_sandtrap.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=5455316, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NYYY  NOPE
+PHYSICS_COLLIDE  NYYY  NOPE
 ExternalLumpHeader(offset=5474748, length=2859905, version=0, fourCC=0, filename='mp_sandtrap.bsp.001d.bsp_lump', filesize=2859905)
 LumpHeader(offset=5455344, length=2859905, version=0, fourCC=0)
 VERTEX_NORMALS  NYYY  YES!
@@ -2148,7 +2148,7 @@ LumpHeader(offset=5061064, length=1600, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=8320968, length=28, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=8317392, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=8320996, length=4650355, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.001d.bsp_lump', filesize=4650355)
 LumpHeader(offset=8317420, length=4650619, version=0, fourCC=0)
 VERTEX_NORMALS  NNYY  NOPE
@@ -2365,7 +2365,7 @@ LumpHeader(offset=2344536, length=1024, version=0, fourCC=0)
 ENTITY_PARTITIONS  NYYY  YES!
 ExternalLumpHeader(offset=7405884, length=28, version=0, fourCC=0, filename='mp_swampland.bsp.0018.bsp_lump', filesize=28)
 LumpHeader(offset=7301700, length=28, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYY  NOPE
+PHYSICS_COLLIDE  NNYY  NOPE
 ExternalLumpHeader(offset=7405912, length=2773085, version=0, fourCC=0, filename='mp_swampland.bsp.001d.bsp_lump', filesize=2773085)
 LumpHeader(offset=7301728, length=2771477, version=0, fourCC=0)
 VERTEX_NORMALS  NYYY  NOPE

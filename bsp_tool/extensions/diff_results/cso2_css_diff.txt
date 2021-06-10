@@ -85,13 +85,13 @@ LumpHeader(offset=1978820, length=284424, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=3918448, length=15882, version=0, compressed=True, fourCC=75390)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=3688696, length=229750, version=0, compressed=True, fourCC=914600)
 LumpHeader(offset=7265684, length=1127510, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=3934332, length=5246, version=0, compressed=True, fourCC=11004)
 LumpHeader(offset=10152432, length=8808, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=3939580, length=12705, version=0, compressed=True, fourCC=160620)
 LumpHeader(offset=10161240, length=76194, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -139,7 +139,7 @@ LumpHeader(offset=1485624, length=15154, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=432112, length=408, version=0, compressed=True, fourCC=45568)
 LumpHeader(offset=1450960, length=8256, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=8393196, length=1759233, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -260,13 +260,13 @@ LumpHeader(offset=1512448, length=263872, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=5207760, length=15552, version=0, compressed=True, fourCC=141761)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=4655180, length=552577, version=0, compressed=True, fourCC=2095499)
 LumpHeader(offset=6480760, length=893411, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=5223312, length=12783, version=0, compressed=True, fourCC=27372)
 LumpHeader(offset=8267584, length=10284, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=5236096, length=19978, version=0, compressed=True, fourCC=286768)
 LumpHeader(offset=8277868, length=73456, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -311,7 +311,7 @@ LumpHeader(offset=1034188, length=15728, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=393828, length=109, version=0, compressed=True, fourCC=86720)
 LumpHeader(offset=1034188, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=7374172, length=893411, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -430,13 +430,13 @@ LumpHeader(offset=3582080, length=280784, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=4861920, length=106992, version=0, compressed=True, fourCC=187291)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=4662684, length=199233, version=0, compressed=True, fourCC=787633)
 LumpHeader(offset=11436868, length=2412436, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=4968912, length=7543, version=0, compressed=True, fourCC=13128)
 LumpHeader(offset=19846740, length=10116, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4976456, length=10917, version=0, compressed=True, fourCC=141024)
 LumpHeader(offset=19856856, length=64416, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -484,7 +484,7 @@ LumpHeader(offset=3132212, length=12564, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=511828, length=2011, version=0, compressed=True, fourCC=73792)
 LumpHeader(offset=1561540, length=47744, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=13849304, length=5997433, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNNN  NOPE
@@ -601,13 +601,13 @@ LumpHeader(offset=2245796, length=243432, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=3513072, length=24818, version=0, compressed=True, fourCC=164976)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=3175592, length=337477, version=0, compressed=True, fourCC=1382226)
 LumpHeader(offset=6272624, length=1302741, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=3537892, length=4730, version=0, compressed=True, fourCC=10452)
 LumpHeader(offset=9464336, length=3432, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=3542624, length=13711, version=0, compressed=True, fourCC=189560)
 LumpHeader(offset=9467768, length=63482, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -652,7 +652,7 @@ LumpHeader(offset=1829388, length=12966, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=288628, length=298, version=0, compressed=True, fourCC=96960)
 LumpHeader(offset=1234460, length=7680, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=7575368, length=1888968, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -770,13 +770,13 @@ LumpHeader(offset=1093040, length=49808, version=0, fourCC=0)
 ORIGINAL_FACES  NNYN  NOPE
 LumpHeader(offset=885312, length=31092, version=0, compressed=True, fourCC=596736)
 LumpHeader(offset=2407724, length=236432, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=5172200, length=1067785, version=0, compressed=True, fourCC=4489045)
 LumpHeader(offset=7148748, length=2215318, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=6239988, length=13590, version=0, compressed=True, fourCC=25428)
 LumpHeader(offset=15243008, length=23232, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6253580, length=17011, version=0, compressed=True, fourCC=200604)
 LumpHeader(offset=15266240, length=64146, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -827,7 +827,7 @@ LumpHeader(offset=1981684, length=13474, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=603948, length=1276, version=0, compressed=True, fourCC=56896)
 LumpHeader(offset=1453628, length=48064, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=9364068, length=5878939, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -946,13 +946,13 @@ LumpHeader(offset=1846996, length=327432, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=6187112, length=8344, version=0, compressed=True, fourCC=30128)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=5744984, length=442128, version=0, compressed=True, fourCC=1816368)
 LumpHeader(offset=7794368, length=1218651, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=6195456, length=12190, version=0, compressed=True, fourCC=26064)
 LumpHeader(offset=10348732, length=18000, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6207648, length=16388, version=0, compressed=True, fourCC=270956)
 LumpHeader(offset=10366732, length=85798, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -1000,7 +1000,7 @@ LumpHeader(offset=1293276, length=17908, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=464536, length=165, version=0, compressed=True, fourCC=19776)
 LumpHeader(offset=1223880, length=1536, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=9013020, length=1335709, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -1117,13 +1117,13 @@ LumpHeader(offset=3007220, length=267736, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=6343072, length=41159, version=0, compressed=True, fourCC=123875)
 LumpHeader(offset=12525116, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=5964256, length=378813, version=0, compressed=True, fourCC=1626982)
 LumpHeader(offset=10928280, length=1596836, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=6384232, length=7006, version=0, compressed=True, fourCC=15972)
 LumpHeader(offset=12525116, length=16416, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6391240, length=13262, version=0, compressed=True, fourCC=236004)
 LumpHeader(offset=12541532, length=60106, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -1285,13 +1285,13 @@ LumpHeader(offset=3687932, length=235256, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=6375736, length=37006, version=0, compressed=True, fourCC=207331)
 LumpHeader(offset=12701396, length=20893, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=5773672, length=602061, version=0, compressed=True, fourCC=2574123)
 LumpHeader(offset=11872236, length=829160, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=6412744, length=14436, version=0, compressed=True, fourCC=32124)
 LumpHeader(offset=12722292, length=18180, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6427180, length=23470, version=0, compressed=True, fourCC=405476)
 LumpHeader(offset=12740472, length=58986, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -1453,13 +1453,13 @@ LumpHeader(offset=4712388, length=507640, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=6434868, length=15388, version=0, compressed=True, fourCC=115784)
 LumpHeader(offset=13002696, length=22133, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=5874268, length=560597, version=0, compressed=True, fourCC=2247356)
 LumpHeader(offset=11178044, length=1824651, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=6450256, length=14698, version=0, compressed=True, fourCC=32244)
 LumpHeader(offset=13024832, length=30084, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=6464956, length=27393, version=0, compressed=True, fourCC=340452)
 LumpHeader(offset=13054916, length=108788, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -1624,13 +1624,13 @@ LumpHeader(offset=1718556, length=285488, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=4454388, length=14598, version=0, compressed=True, fourCC=88255)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=4168380, length=286008, version=0, compressed=True, fourCC=1209819)
 LumpHeader(offset=8210524, length=1226377, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=4468988, length=6071, version=0, compressed=True, fourCC=12840)
 LumpHeader(offset=10778820, length=12684, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4475060, length=12841, version=0, compressed=True, fourCC=171368)
 LumpHeader(offset=10791504, length=74966, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
@@ -1678,7 +1678,7 @@ LumpHeader(offset=1220940, length=15474, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=325700, length=167, version=0, compressed=True, fourCC=52224)
 LumpHeader(offset=1125828, length=1536, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=9436904, length=1341916, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNNN  NOPE
@@ -1797,13 +1797,13 @@ LumpHeader(offset=1885128, length=266000, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=3594544, length=42357, version=0, compressed=True, fourCC=100970)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=3336408, length=258133, version=0, compressed=True, fourCC=996552)
 LumpHeader(offset=5162732, length=1142553, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=3636904, length=5682, version=0, compressed=True, fourCC=12576)
 LumpHeader(offset=7843312, length=23916, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=3642588, length=11071, version=0, compressed=True, fourCC=135084)
 LumpHeader(offset=7867228, length=69648, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -1854,7 +1854,7 @@ LumpHeader(offset=1435784, length=14578, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=321608, length=932, version=0, compressed=True, fourCC=49600)
 LumpHeader(offset=1333400, length=5184, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=6305288, length=1538021, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -1975,13 +1975,13 @@ LumpHeader(offset=2147908, length=361088, version=0, fourCC=0)
 PHYSICS_DISPLACEMENT  NNYN  NOPE
 LumpHeader(offset=3351096, length=29697, version=0, compressed=True, fourCC=70954)
 LumpHeader(offset=0, length=0, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=3029500, length=321595, version=0, compressed=True, fourCC=1168795)
 LumpHeader(offset=5120664, length=1604982, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=3380796, length=10330, version=0, compressed=True, fourCC=21264)
 LumpHeader(offset=9412896, length=18468, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=3391128, length=16857, version=0, compressed=True, fourCC=148916)
 LumpHeader(offset=9431364, length=79614, version=0, fourCC=0)
 DISPLACEMENT_LIGHTMAP_ALPHAS  NNYY  NOPE
@@ -2029,7 +2029,7 @@ LumpHeader(offset=1609296, length=16910, version=0, fourCC=0)
 DISPLACEMENT_TRIS  NNYN  NOPE
 LumpHeader(offset=261084, length=624, version=0, compressed=True, fourCC=34240)
 LumpHeader(offset=1516956, length=14144, version=0, fourCC=0)
-PHYSICSCOLLIDE_SURFACE  NNYY  NOPE
+PHYSICS_COLLIDE_SURFACE  NNYY  NOPE
 LumpHeader(offset=0, length=0, version=0, compressed=False, fourCC=0)
 LumpHeader(offset=6725648, length=2687246, version=0, fourCC=0)
 LEAF_AMBIENT_INDEX_HDR  NNYN  NOPE
@@ -2145,13 +2145,13 @@ LumpHeader(offset=804068, length=14960, version=0, fourCC=0)
 ORIGINAL_FACES  NNYN  NOPE
 LumpHeader(offset=384612, length=26588, version=0, compressed=True, fourCC=568728)
 LumpHeader(offset=1842260, length=243320, version=0, fourCC=0)
-PHYSICSCOLLIDE  NNYN  NOPE
+PHYSICS_COLLIDE  NNYN  NOPE
 LumpHeader(offset=3147380, length=1069469, version=0, compressed=True, fourCC=6164784)
 LumpHeader(offset=6337696, length=988828, version=0, fourCC=0)
-VERT_NORMALS  NNYN  NOPE
+VERTEX_NORMALS  NNYN  NOPE
 LumpHeader(offset=4216852, length=2598, version=0, compressed=True, fourCC=5976)
 LumpHeader(offset=7326524, length=3360, version=0, fourCC=0)
-VERT_NORMAL_INDICES  NNYN  NOPE
+VERTEX_NORMAL_INDICES  NNYN  NOPE
 LumpHeader(offset=4219452, length=11683, version=0, compressed=True, fourCC=209596)
 LumpHeader(offset=7329884, length=61220, version=0, fourCC=0)
 DISPLACEMENT_VERTICES  NNYN  NOPE
