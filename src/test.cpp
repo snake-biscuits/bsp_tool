@@ -63,7 +63,7 @@ namespace bsp_tool {
 
 
 /* Print the headers of each .bsp for the given developer */
-void print_usage(char* argv_0) { printf("Usage: $ %s [DEVELOPER] [FILE]...", argv_0); }
+void print_usage(char* argv_0) { printf("Usage: $ %s [DEVELOPER] [FILE]...\n", argv_0); }
 
 
 int main(int argc, char* argv[]) {
