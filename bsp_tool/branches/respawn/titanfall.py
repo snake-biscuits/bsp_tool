@@ -199,7 +199,7 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     texdata: int  # index of this MaterialSort's Texdata
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
-    vertex_offset: int
+    vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
     __slots__ = ["texdata", "lightmap_header", "cubemap", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
 

@@ -1,4 +1,5 @@
 import enum
+from typing import List
 
 from .. import base
 from . import titanfall, titanfall2
@@ -13,6 +14,7 @@ BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 # e.g. mp_rr_canyonlands.004a.bsp_lump (Lump #74: VertexUnlitTS)
 # entities are stored across 5 different .ent files per .bsp
 # the 5 files are: env, fx, script, snd, spawn
+# NOTE: the ENTITY_PARTITIONS lump may define which of these a .bsp is to use
 # e.g. mp_rr_canyonlands_env.ent  # kings canyon lighting, fog etc.
 # presumably all this file splitting has to do with streaming data into memory
 # each .ent file has a header similar to: ENTITIES02 model_count=28
@@ -21,9 +23,9 @@ BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
-    PLANES = 0x0001
+    PLANES = 0x0001  # "Collision planes"
     TEXDATA = 0x0002
-    VERTICES = 0x0003
+    VERTICES = 0x0003  # "Map vertexes"
     LIGHTPROBE_PARENT_INFOS = 0x0004
     SHADOW_ENVIRONMENTS = 0x0005
     UNUSED_6 = 0x0006
@@ -35,12 +37,12 @@ class LUMP(enum.Enum):
     UNUSED_12 = 0x000C
     UNUSED_13 = 0x000D
     MODELS = 0x000E
-    UNKNOWN_15 = 0x000F
-    UNKNOWN_16 = 0x0010
-    UNKNOWN_17 = 0x0011
-    UNKNOWN_18 = 0x0012
-    UNKNOWN_19 = 0x0013
-    UNKNOWN_20 = 0x0014
+    SURFACE_NAMES = 0x000F
+    CONTENT_MASKS = 0x0010
+    SURFACE_PROPERTIES = 0x0011
+    BVH_NODES = 0x0012  # for collision
+    BVH_LEAF_DATA = 0x0013
+    PACKED_VERTICES = 0x0014
     UNUSED_21 = 0x0015
     UNUSED_22 = 0x0016
     UNUSED_23 = 0x0017
@@ -57,13 +59,13 @@ class LUMP(enum.Enum):
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
     LEAF_WATER_DATA = 0x0024  # unused
-    UNKNOWN_37 = 0x0025
+    UNKNOWN_37 = 0x0025  # connected to VIS lumps
     UNKNOWN_38 = 0x0026
-    UNKNOWN_39 = 0x0027
+    UNKNOWN_39 = 0x0027  # connected to VIS lumps
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
-    TEXDATA_STRING_DATA = 0x002B
+    TEXDATA_STRING_DATA = 0x002B  # NULL bytes?
     UNUSED_44 = 0x002C
     UNUSED_45 = 0x002D
     UNUSED_46 = 0x002E
@@ -155,9 +157,12 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (63 unused)
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
+    texdata: int  # index of this MaterialSort's Texdata
+    unknown: List[int]  # lightmap indices?
+    vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
     __slots__ = ["texdata", "unknown", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
-    _arrays = {"unknown": [*"ab"]}
+    _arrays = {"unknown": 2}
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
@@ -165,25 +170,31 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
                  "material_sort", "flags"]
     # vertex type stored in flags
     _format = "IH3I2HI"  # 28 bytes
-    _arrays = {"unknown": [*"abcd"]}
+    _arrays = {"unknown": 4}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
-    __slots__ = ["big_negative", "big_positive", "small_int", "tiny_int"]
-    _format = "8i"
-    _arrays = {"big_negative": [*"abc"], "big_positive": [*"abc"]}
+    mins: List[float]  # AABB mins
+    maxs: List[float]  # AABB maxs
+    unknown: List[int]  # \_(;/)_/
+    __slots__ = ["mins", "maxs", "unknown"]
+    _format = "6f10i"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 10}
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
+    start_index: int  # assumed
+    num_triangles: int  # assumed
+    unknown: List[int]  # usually (1, -1)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
-    _arrays = {"unknown": ["one", "negative_one"]}
+    _arrays = {"unknown": 2}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    __slots__ = ["unknown", "string_table_index", "unknown2"]
-    _format = "9i"  # 32 bytes for version 48 .bsps?
-    _arrays = {"unknown": [*"abc"], "unknown2": [*"abcde"]}
+    __slots__ = ["unknown", "string_table_index"]
+    _format = "4i"
+    _arrays = {"unknown": 3}
 
 
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
@@ -195,7 +206,7 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
     _format = "2I2fi3f"  # 32 bytes
-    _arrays = {"uv": [*"uv"], "unknown": [*"abc"]}
+    _arrays = {"uv": [*"uv"], "unknown": 3}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
