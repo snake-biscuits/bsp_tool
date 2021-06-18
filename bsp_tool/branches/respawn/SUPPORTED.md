@@ -37,12 +37,12 @@ No differences have been found, yet.
 |  14 | 000E | 29 | `MODELS`                  |  0 | `respawn.titanfall.Model`          | 100% |
 |     |      | 37 |                           |  0 | `respawn.titanfall.Model`          | 100% |
 |     |      | 47 |                           |  0 | `respawn.apex_legends.Model`       |  10% |
-|  15 | 000F | 47 | `UNKNOWN_15`              |  0 | :x:                                |   0% |
-|  16 | 0010 | 47 | `UNKNOWN_16`              |  0 | :x:                                |   0% |
-|  17 | 0011 | 47 | `UNKNOWN_17`              |  0 | :x:                                |   0% |
-|  18 | 0012 | 47 | `UNKNOWN_18`              |  0 | :x:                                |   0% |
-|  19 | 0013 | 47 | `UNKNOWN_19`              |  0 | :x:                                |   0% |
-|  20 | 0014 | 47 | `UNKNOWN_20`              |  0 | :x:                                |   0% |
+|  15 | 000F | 47 | `SURFACE_NAMES`           |  0 | :x:                                |   0% |
+|  16 | 0010 | 47 | `CONTENT_MASKS`           |  0 | :x:                                |   0% |
+|  17 | 0011 | 47 | `SURFACE_PROPERTIES`      |  0 | :x:                                |   0% |
+|  18 | 0012 | 47 | `BVH_NODES`               |  0 | :x:                                |   0% |
+|  19 | 0013 | 47 | `BVH_LEAF_DATA`           |  0 | :x:                                |   0% |
+|  20 | 0014 | 47 | `PACKED_VERTICES`         |  0 | :x:                                |   0% |
 |  24 | 0018 | 29 | `ENTITY_PARTITIONS`       |  0 | :x:                                |   0% |
 |     |      | 37 |                           |  0 | :x:                                |   0% |
 |     |      | 47 |                           |  0 | :x:                                |   0% |
@@ -58,6 +58,9 @@ No differences have been found, yet.
 |  36 | 0024 | 29 | `LEAF_WATER_DATA`         |  1 | :x:                                |   0% |
 |     |      | 37 |                           |  0 | :x:                                |   0% |
 |     |      | 47 |                           |  0 | :x:                                |   0% |
+|  37 |      | 47 | `UNKNOWN_37`              |  0 | :x:                                |   0% |
+|  39 |      | 47 | `UNKNOWN_38`              |  0 | :x:                                |   0% |
+|  39 |      | 47 | `UNKNOWN_39`              |  0 | :x:                                |   0% |
 |  40 | 0028 | 29 | `PAKFILE`                 |  0 | `shared.PakFile`                   | 100% |
 |     |      | 37 |                           |  0 | `shared.PakFile`                   | 100% |
 |     |      | 47 |                           |  0 | `shared.PakFile`                   | 100% |

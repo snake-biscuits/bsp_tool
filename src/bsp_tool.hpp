@@ -167,17 +167,21 @@ namespace bsp_tool {
             public:
                 std::fstream _external[128];
                 int revision;
+                int lump_count;
 
                 using BspBaseClass = Bsp<LumpHeader, 128>;
 
                 RespawnBsp(const char filename[]) : BspBaseClass(filename) {
                     this->_file.seekg(0, std::ios::beg);
-                    int file_magic, lump_count; this->_read(&file_magic);
+                    int file_magic; this->_read(&file_magic);
                     if (file_magic != FILE_MAGIC) {
                         throw std::runtime_error("unexpected file magic for rBSP"); }
                     this->_read(&this->format_version);
                     this->_read(&this->revision);
-                    this->_read(&lump_count);
+                    this->_read(&this->lump_count);
+                    // NOTE: RespawnBsp lump_count can vary! and it can affect the read!
+                    // However, all known bsps are lump_count = 127, so we only handle that case
+                    // Properly handling lump_count would mean we can't subclass ;\/__\/.
                     if (lump_count != 127) {
                         throw std::runtime_error("rBSP header does not contain '127'"); }
                     this->_read(&this->headers);
