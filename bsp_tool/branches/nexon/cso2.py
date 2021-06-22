@@ -17,11 +17,11 @@ BSP_VERSION = 100  # 1.00?
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
-    TEXDATA = 2
+    TEXTURE_DATA = 2
     VERTICES = 3
     VISIBILITY = 4
     NODES = 5
-    TEXINFO = 6
+    TEXTURE_INFO = 6
     FACES = 7  # version 1
     LIGHTING = 8  # version 1
     OCCLUSION = 9  # version 2
@@ -58,8 +58,8 @@ class LUMP(enum.Enum):
     PAKFILE = 40
     CLIP_PORTAL_VERTICES = 41
     CUBEMAPS = 42
-    TEXDATA_STRING_DATA = 43
-    TEXDATA_STRING_TABLE = 44
+    TEXTURE_DATA_STRING_DATA = 43
+    TEXTURE_DATA_STRING_TABLE = 44
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MARCO_TEXTURE_INFO = 47

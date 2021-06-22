@@ -54,7 +54,7 @@ struct dface_t
 	short		unknown0;		// always 0?
 	int		firstedge;		// index into surfedges
 	int		numedges;		// number of surfedges
-	int		texinfo;		// texture info
+	int		texture_info;		// texture info
 	int		dispinfo;		// displacement info
 	int		surfaceFogVolumeID;	// ?
 	// Comment this unknown for v1
@@ -76,7 +76,7 @@ Brush sides have an identical format, except using ints instead of shorts:
 struct dbrushside_t
 {
 	unsigned int	planenum;
-	int		texinfo;
+	int		texture_info;
 	int		dispinfo;
 	int		bevel;
 };

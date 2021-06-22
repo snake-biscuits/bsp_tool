@@ -18,7 +18,7 @@ LumpHeader(offset=6928880, length=177456, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=32939, version=0, compressed=True, fourCC=189680)
 LumpHeader(offset=1036, length=160960, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=391532, length=2936, version=0, compressed=True, fourCC=6880)
 LumpHeader(offset=1362256, length=11488, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -30,7 +30,7 @@ LumpHeader(offset=4917892, length=2010986, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=325412, length=34378, version=0, compressed=True, fourCC=223968)
 LumpHeader(offset=734744, length=173120, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=359792, length=31738, version=0, compressed=True, fourCC=241704)
 LumpHeader(offset=907864, length=454392, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -121,10 +121,10 @@ LumpHeader(offset=7120668, length=1440, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=3676348, length=1746, version=0, compressed=True, fourCC=2952)
 LumpHeader(offset=7122108, length=944, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=3678096, length=1343, version=0, compressed=True, fourCC=5297)
 LumpHeader(offset=7123052, length=14004, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=3679440, length=293, version=0, compressed=True, fourCC=860)
 LumpHeader(offset=7137056, length=1556, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -193,7 +193,7 @@ LumpHeader(offset=6335312, length=124399, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=87387, version=0, compressed=True, fourCC=465160)
 LumpHeader(offset=1036, length=112680, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=338092, length=2438, version=0, compressed=True, fourCC=5664)
 LumpHeader(offset=1025676, length=8512, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -205,7 +205,7 @@ LumpHeader(offset=5687236, length=648074, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=247576, length=41984, version=0, compressed=True, fourCC=256128)
 LumpHeader(offset=614660, length=168448, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=289560, length=48532, version=0, compressed=True, fourCC=386856)
 LumpHeader(offset=783108, length=242568, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -293,10 +293,10 @@ LumpHeader(offset=6467908, length=2496, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=4650924, length=2797, version=0, compressed=True, fourCC=5576)
 LumpHeader(offset=6470404, length=976, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=4653724, length=1126, version=0, compressed=True, fourCC=3793)
 LumpHeader(offset=6471380, length=7922, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=4654852, length=247, version=0, compressed=True, fourCC=708)
 LumpHeader(offset=6479304, length=1104, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -363,7 +363,7 @@ LumpHeader(offset=11162744, length=177239, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=68951, version=0, compressed=True, fourCC=296600)
 LumpHeader(offset=1036, length=294320, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=341796, length=2168, version=0, compressed=True, fourCC=5248)
 LumpHeader(offset=1062584, length=6464, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -375,7 +375,7 @@ LumpHeader(offset=10633060, length=529683, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=284992, length=24557, version=0, compressed=True, fourCC=152832)
 LumpHeader(offset=760392, length=98144, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=309552, length=32242, version=0, compressed=True, fourCC=206856)
 LumpHeader(offset=858536, length=204048, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -466,10 +466,10 @@ LumpHeader(offset=11350592, length=1248, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=4652220, length=2826, version=0, compressed=True, fourCC=5084)
 LumpHeader(offset=11351840, length=864, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=4655048, length=1002, version=0, compressed=True, fourCC=3545)
 LumpHeader(offset=11352704, length=5561, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=4656052, length=233, version=0, compressed=True, fourCC=656)
 LumpHeader(offset=11358268, length=808, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -534,7 +534,7 @@ LumpHeader(offset=5837888, length=258402, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=35913, version=0, compressed=True, fourCC=208280)
 LumpHeader(offset=1036, length=96160, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=227704, length=1956, version=0, compressed=True, fourCC=4384)
 LumpHeader(offset=1155696, length=11264, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -546,7 +546,7 @@ LumpHeader(offset=5462428, length=375457, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=168404, length=28603, version=0, compressed=True, fourCC=168816)
 LumpHeader(offset=523616, length=138016, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=197008, length=30693, version=0, compressed=True, fourCC=248904)
 LumpHeader(offset=661632, length=494064, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -634,10 +634,10 @@ LumpHeader(offset=9567312, length=263100, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=3169820, length=4187, version=0, compressed=True, fourCC=7216)
 LumpHeader(offset=6254468, length=448, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=3174008, length=1026, version=0, compressed=True, fourCC=3231)
 LumpHeader(offset=6254916, length=15410, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=3175036, length=207, version=0, compressed=True, fourCC=548)
 LumpHeader(offset=6270328, length=1592, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -706,7 +706,7 @@ LumpHeader(offset=6967380, length=45292, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=109774, version=0, compressed=True, fourCC=584200)
 LumpHeader(offset=1036, length=169160, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=472780, length=676, version=0, compressed=True, fourCC=1536)
 LumpHeader(offset=1085488, length=7552, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -718,7 +718,7 @@ LumpHeader(offset=6194608, length=772769, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=362600, length=62068, version=0, compressed=True, fourCC=401376)
 LumpHeader(offset=619992, length=145024, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=424668, length=48110, version=0, compressed=True, fourCC=338904)
 LumpHeader(offset=765016, length=320472, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -809,10 +809,10 @@ LumpHeader(offset=7134500, length=2376, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=5165748, length=4374, version=0, compressed=True, fourCC=8692)
 LumpHeader(offset=7136876, length=896, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=5170124, length=393, version=0, compressed=True, fourCC=1180)
 LumpHeader(offset=7137772, length=9304, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=5170520, length=103, version=0, compressed=True, fourCC=192)
 LumpHeader(offset=7147076, length=968, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -879,7 +879,7 @@ LumpHeader(offset=7680200, length=77882, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=82985, version=0, compressed=True, fourCC=438160)
 LumpHeader(offset=1036, length=188640, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=444376, length=2306, version=0, compressed=True, fourCC=5312)
 LumpHeader(offset=1205644, length=4736, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -891,7 +891,7 @@ LumpHeader(offset=6923472, length=756725, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=326028, length=47576, version=0, compressed=True, fourCC=335328)
 LumpHeader(offset=821732, length=208736, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=373604, length=70772, version=0, compressed=True, fourCC=415944)
 LumpHeader(offset=1030468, length=175176, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -982,10 +982,10 @@ LumpHeader(offset=7783688, length=0, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=5738128, length=4002, version=0, compressed=True, fourCC=7872)
 LumpHeader(offset=7783688, length=752, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=5742132, length=1239, version=0, compressed=True, fourCC=4022)
 LumpHeader(offset=7784440, length=5443, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=5743372, length=239, version=0, compressed=True, fourCC=664)
 LumpHeader(offset=7789884, length=612, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -1050,7 +1050,7 @@ LumpHeader(offset=10705500, length=181740, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=69160, version=0, compressed=True, fourCC=396560)
 LumpHeader(offset=1036, length=159000, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=425152, length=2383, version=0, compressed=True, fourCC=5472)
 LumpHeader(offset=1893428, length=4448, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1062,7 +1062,7 @@ LumpHeader(offset=10227124, length=478375, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=333944, length=44256, version=0, compressed=True, fourCC=309840)
 LumpHeader(offset=1582988, length=121728, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=378200, length=46952, version=0, compressed=True, fourCC=290736)
 LumpHeader(offset=1704716, length=188712, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -1150,10 +1150,10 @@ LumpHeader(offset=10892360, length=1248, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=5958868, length=2198, version=0, compressed=True, fourCC=3608)
 LumpHeader(offset=10893608, length=592, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=5961068, length=1251, version=0, compressed=True, fourCC=4172)
 LumpHeader(offset=10894200, length=2923, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=5962320, length=247, version=0, compressed=True, fourCC=684)
 LumpHeader(offset=10897124, length=556, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -1218,7 +1218,7 @@ LumpHeader(offset=11743580, length=98863, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=130893, version=0, compressed=True, fourCC=707720)
 LumpHeader(offset=1036, length=245120, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=562220, length=677, version=0, compressed=True, fourCC=1440)
 LumpHeader(offset=2205472, length=4192, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1230,7 +1230,7 @@ LumpHeader(offset=11132236, length=611341, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=406388, length=101678, version=0, compressed=True, fourCC=643392)
 LumpHeader(offset=1888856, length=133952, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=508068, length=54152, version=0, compressed=True, fourCC=560304)
 LumpHeader(offset=2022808, length=182664, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -1318,10 +1318,10 @@ LumpHeader(offset=11847212, length=1320, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=5771640, length=1400, version=0, compressed=True, fourCC=2296)
 LumpHeader(offset=11848532, length=592, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=5773040, length=328, version=0, compressed=True, fourCC=1060)
 LumpHeader(offset=11849124, length=2785, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=5773368, length=99, version=0, compressed=True, fourCC=180)
 LumpHeader(offset=11851912, length=524, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -1386,7 +1386,7 @@ LumpHeader(offset=10850980, length=213656, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=84414, version=0, compressed=True, fourCC=468280)
 LumpHeader(offset=1036, length=333840, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=375380, length=3084, version=0, compressed=True, fourCC=7392)
 LumpHeader(offset=3019712, length=10464, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1398,7 +1398,7 @@ LumpHeader(offset=9578808, length=1272171, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=261892, length=44618, version=0, compressed=True, fourCC=283392)
 LumpHeader(offset=2460680, length=180672, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=306512, length=68866, version=0, compressed=True, fourCC=489816)
 LumpHeader(offset=2641352, length=378360, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -1489,10 +1489,10 @@ LumpHeader(offset=11073124, length=1440, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=5868412, length=4076, version=0, compressed=True, fourCC=8200)
 LumpHeader(offset=11074564, length=704, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=5872488, length=1472, version=0, compressed=True, fourCC=5073)
 LumpHeader(offset=11075268, length=10386, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=5873960, length=306, version=0, compressed=True, fourCC=924)
 LumpHeader(offset=11085656, length=1308, version=0, fourCC=0)
 OVERLAYS  NNYY  NOPE
@@ -1557,7 +1557,7 @@ LumpHeader(offset=7826384, length=237423, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=39772, version=0, compressed=True, fourCC=218520)
 LumpHeader(offset=1036, length=174000, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=287820, length=2989, version=0, compressed=True, fourCC=7008)
 LumpHeader(offset=1099568, length=10944, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1569,7 +1569,7 @@ LumpHeader(offset=7311696, length=514685, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=229904, length=26706, version=0, compressed=True, fourCC=164160)
 LumpHeader(offset=741472, length=136192, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=256612, length=31206, version=0, compressed=True, fourCC=248616)
 LumpHeader(offset=877664, length=221904, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -1660,10 +1660,10 @@ LumpHeader(offset=8088836, length=1440, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=4155932, length=3473, version=0, compressed=True, fourCC=6888)
 LumpHeader(offset=8090276, length=656, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=4159408, length=1365, version=0, compressed=True, fourCC=5030)
 LumpHeader(offset=8090932, length=11917, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=4160776, length=294, version=0, compressed=True, fourCC=876)
 LumpHeader(offset=8102852, length=1368, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -1730,7 +1730,7 @@ LumpHeader(offset=4893360, length=220726, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=52007, version=0, compressed=True, fourCC=278440)
 LumpHeader(offset=1036, length=166120, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=227584, length=2104, version=0, compressed=True, fourCC=4896)
 LumpHeader(offset=1281152, length=5664, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1742,7 +1742,7 @@ LumpHeader(offset=4503852, length=389506, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=173100, length=27756, version=0, compressed=True, fourCC=164640)
 LumpHeader(offset=648976, length=162304, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=200856, length=26726, version=0, compressed=True, fourCC=196704)
 LumpHeader(offset=811280, length=469872, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -1836,10 +1836,10 @@ LumpHeader(offset=5151072, length=384, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=3330904, length=2887, version=0, compressed=True, fourCC=5576)
 LumpHeader(offset=5151456, length=496, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=3333792, length=1197, version=0, compressed=True, fourCC=3689)
 LumpHeader(offset=5151952, length=6486, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=3334992, length=226, version=0, compressed=True, fourCC=612)
 LumpHeader(offset=5158440, length=772, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -1908,7 +1908,7 @@ LumpHeader(offset=4966024, length=115528, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=62264, version=0, compressed=True, fourCC=321600)
 LumpHeader(offset=1036, length=211960, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=213620, length=1146, version=0, compressed=True, fourCC=2528)
 LumpHeader(offset=1366132, length=2336, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -1920,7 +1920,7 @@ LumpHeader(offset=4630652, length=335372, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=161272, length=15091, version=0, compressed=True, fourCC=90768)
 LumpHeader(offset=686532, length=122176, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=176364, length=37255, version=0, compressed=True, fourCC=310320)
 LumpHeader(offset=808708, length=557424, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -2011,10 +2011,10 @@ LumpHeader(offset=5107628, length=0, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=3024708, length=2216, version=0, compressed=True, fourCC=3772)
 LumpHeader(offset=5107628, length=432, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=3026924, length=641, version=0, compressed=True, fourCC=1871)
 LumpHeader(offset=5108060, length=2077, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=3027568, length=142, version=0, compressed=True, fourCC=316)
 LumpHeader(offset=5110140, length=316, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE
@@ -2081,7 +2081,7 @@ LumpHeader(offset=6038396, length=181445, version=0, fourCC=0)
 PLANES  YNYN  NOPE
 LumpHeader(offset=1036, length=27094, version=0, compressed=True, fourCC=189120)
 LumpHeader(offset=1036, length=110840, version=0, fourCC=0)
-TEXDATA  NNYN  NOPE
+TEXTURE_DATA  NNYN  NOPE
 LumpHeader(offset=201940, length=1416, version=0, compressed=True, fourCC=3008)
 LumpHeader(offset=798788, length=5280, version=0, fourCC=0)
 VERTICES  NNYN  NOPE
@@ -2093,7 +2093,7 @@ LumpHeader(offset=5797308, length=241086, version=0, fourCC=0)
 NODES  NNYN  NOPE
 LumpHeader(offset=152288, length=27022, version=0, compressed=True, fourCC=159600)
 LumpHeader(offset=506884, length=90016, version=0, fourCC=0)
-TEXINFO  NNYN  NOPE
+TEXTURE_INFO  NNYN  NOPE
 LumpHeader(offset=179312, length=22627, version=0, compressed=True, fourCC=240480)
 LumpHeader(offset=596900, length=201888, version=0, fourCC=0)
 FACES  NNYN  NOPE
@@ -2178,10 +2178,10 @@ LumpHeader(offset=6239924, length=1152, version=0, fourCC=0)
 CUBEMAPS  NNYN  NOPE
 LumpHeader(offset=3140884, length=2443, version=0, compressed=True, fourCC=4264)
 LumpHeader(offset=6241076, length=688, version=0, fourCC=0)
-TEXDATA_STRING_DATA  NNYN  NOPE
+TEXTURE_DATA_STRING_DATA  NNYN  NOPE
 LumpHeader(offset=3143328, length=642, version=0, compressed=True, fourCC=2480)
 LumpHeader(offset=6241764, length=5864, version=0, fourCC=0)
-TEXDATA_STRING_TABLE  NNYN  NOPE
+TEXTURE_DATA_STRING_TABLE  NNYN  NOPE
 LumpHeader(offset=3143972, length=161, version=0, compressed=True, fourCC=376)
 LumpHeader(offset=6247628, length=660, version=0, fourCC=0)
 OVERLAYS  NNYN  NOPE

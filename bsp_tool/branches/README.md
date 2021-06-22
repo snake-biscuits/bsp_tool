@@ -171,8 +171,8 @@ All that's really required is an `__init__` method and an `.as_bytes()` method f
 Here's `branches.shared.TexDataStringData` as an example of how basic a special lump class can be:
 ```python
 class TexDataStringData(list):
-    def __init__(self, raw_texdata_string_data):
-        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data.split(b"\0")])
+    def __init__(self, raw_texture_data_string_data):
+        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texture_data_string_data.split(b"\0")])
 
     def as_bytes(self):
         return b"\0".join([t.encode("ascii") for t in self]) + b"\0"

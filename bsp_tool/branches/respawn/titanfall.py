@@ -13,7 +13,7 @@ BSP_VERSION = 29
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
     PLANES = 0x0001  # version 1
-    TEXDATA = 0x0002  # version 1
+    TEXTURE_DATA = 0x0002  # version 1
     VERTICES = 0x0003
     UNUSED_4 = 0x0004
     UNUSED_5 = 0x0005
@@ -54,8 +54,8 @@ class LUMP(enum.Enum):
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
-    TEXDATA_STRING_DATA = 0x002B
-    TEXDATA_STRING_TABLE = 0x002C
+    TEXTURE_DATA_STRING_DATA = 0x002B
+    TEXTURE_DATA_STRING_TABLE = 0x002C
     UNUSED_45 = 0x002D
     UNUSED_46 = 0x002E
     UNUSED_47 = 0x002F
@@ -196,11 +196,11 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     # MaterialSort -> TexData, VertexReservedX
     # TexData -> TexDataStringTable -> TexDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
-    texdata: int  # index of this MaterialSort's Texdata
+    texture_data: int  # index of this MaterialSort's Texdata
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
-    __slots__ = ["texdata", "lightmap_header", "cubemap", "vertex_offset"]
+    __slots__ = ["texture_data", "lightmap_header", "cubemap", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
 
 
@@ -331,7 +331,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     # TexData -> TexDataStringTable -> TexDataStringData
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     unknown: List[int]
-    string_table_index: int  # index of material name in TEXDATA_STRING_DATA / TABLE
+    string_table_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     # ^ nameStringTableID
     width: int
     height: int
@@ -345,7 +345,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 
 class TextureDataStringTable(int):  # LUMP 44 (002C)
-    """Points to the starting index of string of same index in TEXDATA_STRING_DATA"""
+    """Points to the starting index of string of same index in TEXTURE_DATA_STRING_DATA"""
     _format = "I"
 
 
@@ -432,7 +432,7 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: BrushSidePlaneOffsets},
                       "CSM_OBJ_REFS":                {0: ObjRef},
                       "MESH_INDICES":                {0: MeshIndex},
                       "OBJ_REFS":                    {0: ObjRef},
-                      "TEXDATA_STRING_TABLE":        {0: TextureDataStringTable}}
+                      "TEXTURE_DATA_STRING_TABLE":        {0: TextureDataStringTable}}
 
 LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "CELL_AABB_NODES":          {0: Node},
@@ -449,7 +449,7 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "SHADOW_MESH_MESHES":       {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTS":  {0: ShadowMeshAlphaVertex},
                 "SHADOW_MESH_OPAQUE_VERTS": {0: Vertex},
-                "TEXDATA":                  {1: TextureData},
+                "TEXTURE_DATA":                  {1: TextureData},
                 "VERTEX_NORMALS":           {0: Vertex},
                 "VERTICES":                 {0: Vertex},
                 "VERTS_LIT_BUMP":           {1: VertexLitBump},
@@ -459,7 +459,7 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
                         "PAKFILE":             {0: shared.PakFile},
-                        "TEXDATA_STRING_DATA": {0: shared.TexDataStringData}}
+                        "TEXTURE_DATA_STRING_DATA": {0: shared.TexDataStringData}}
 # NOTE: .ent files are handled by the RespawnBsp class directly
 
 GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}
@@ -498,13 +498,13 @@ def vertices_of_model(bsp, model_index: int):
 
 
 def replace_texture(bsp, texture: str, replacement: str):
-    texture_index = bsp.TEXDATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
-    bsp.TEXDATA_STRING_DATA.insert(texture_index, replacement)
-    bsp.TEXDATA_STRING_DATA.pop(texture_index + 1)
-    bsp.TEXDATA_STRING_TABLE = list()
-    offset = 0  # starting index of texture name in raw TEXDATA_STRING_DATA
-    for texture_name in bsp.TEXDATA_STRING_DATA:
-        bsp.TEXDATA_STRING_TABLE.append(offset)
+    texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
+    bsp.TEXTURE_DATA_STRING_DATA.insert(texture_index, replacement)
+    bsp.TEXTURE_DATA_STRING_DATA.pop(texture_index + 1)
+    bsp.TEXTURE_DATA_STRING_TABLE = list()
+    offset = 0  # starting index of texture name in raw TEXTURE_DATA_STRING_DATA
+    for texture_name in bsp.TEXTURE_DATA_STRING_DATA:
+        bsp.TEXTURE_DATA_STRING_TABLE.append(offset)
         offset += len(texture_name) + 1  # +1 for null byte
 
 

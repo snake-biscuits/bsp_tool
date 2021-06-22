@@ -24,7 +24,7 @@ BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
     PLANES = 0x0001  # "Collision planes"
-    TEXDATA = 0x0002
+    TEXTURE_DATA = 0x0002
     VERTICES = 0x0003  # "Map vertexes"
     LIGHTPROBE_PARENT_INFOS = 0x0004
     SHADOW_ENVIRONMENTS = 0x0005
@@ -65,7 +65,7 @@ class LUMP(enum.Enum):
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
-    TEXDATA_STRING_DATA = 0x002B  # NULL bytes?
+    TEXTURE_DATA_STRING_DATA = 0x002B  # NULL bytes?
     UNUSED_44 = 0x002C
     UNUSED_45 = 0x002D
     UNUSED_46 = 0x002E
@@ -157,10 +157,10 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (63 unused)
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    texdata: int  # index of this MaterialSort's Texdata
+    texture_data: int  # index of this MaterialSort's Texdata
     unknown: List[int]  # lightmap indices?
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
-    __slots__ = ["texdata", "unknown", "vertex_offset"]
+    __slots__ = ["texture_data", "unknown", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
     _arrays = {"unknown": 2}
 
@@ -238,7 +238,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "MESHES":             {0: Mesh},
                      "MODELS":             {0: Model},
                      "PLANES":             {0: titanfall.Plane},
-                     "TEXDATA":            {0: TextureData},
+                     "TEXTURE_DATA":            {0: TextureData},
                      "VERTS_BLINN_PHONG":  {0: VertexBlinnPhong},
                      "VERTS_LIT_BUMP":     {0: VertexLitBump},
                      "VERTS_LIT_FLAT":     {0: VertexLitFlat},

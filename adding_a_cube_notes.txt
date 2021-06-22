@@ -9,20 +9,20 @@ Loaded  mp_box.bsp
 >>> mp_box.MESHES[68]
 <Mesh {'start_index': 3810, 'num_triangles': 9437186, 'unknown': <MappedArray (a: 3, b: -1, c: -1, d: -1)>, 'material_sort': 28, 'flags': 263168}>
 >>> mp_box.MATERIAL_SORT[28]
-<MaterialSort {'texdata': 16, 'lightmap_header': -1, 'unknown': 1572863, 'vertex_offset': 0}>
->>> mp_box.TEXDATA_STRING_DATA[16]
+<MaterialSort {'texture_data': 16, 'lightmap_header': -1, 'unknown': 1572863, 'vertex_offset': 0}>
+>>> mp_box.TEXTURE_DATA_STRING_DATA[16]
 'TOOLS\\TOOLSTRIGGER'
 >>> len(mp_box.MATERIAL_SORT)
 29
 >>> mp_box.MATERIAL_SORT[0]
-<MaterialSort {'texdata': 7, 'lightmap_header': 1, 'unknown': 11206656, 'vertex_offset': 0}>
->>> [mp_box.TEXDATA_STRING_DATA[ms.texdata] for ms in mp_box.MATERIAL_SORT]
+<MaterialSort {'texture_data': 7, 'lightmap_header': 1, 'unknown': 11206656, 'vertex_offset': 0}>
+>>> [mp_box.TEXTURE_DATA_STRING_DATA[ms.texture_data] for ms in mp_box.MATERIAL_SORT]
 ['WORLD\\HAVEN\\WALLS\\RED_WALL_01', 'WORLD\\DEV\\DEV_WHITE_512', 'WORLD\\DEV\\DEV_WHITE_512', 'WORLD\\DEV\\DEV_GROUND_512', 'WORLD\\DEV\\DEV_GROUND_512', 'WORLD\\PLASTIC\\PLASTIC_BLUE', 'WORLD\\PLASTIC\\PLASTIC_BLUE', 'WORLD\\DEV\\DEV_ORANGE_512', 'WORLD\\DEV\\DEV_ORANGE_512', 'WORLD\\DEV\\WEAPON_RANGE_TARGET', 'WORLD\\DEV\\WEAPON_RANGE_TARGET', 'world\\signs\\sign_numbers_yellow_plastic_gasoline', 'world\\signs\\sign_numbers_yellow_plastic_gasoline', 'WORLD\\HAVEN\\WALLS\\RED_WALL_01', 'WORLD\\HAVEN\\WALLS\\RED_WALL_01', 'WORLD\\CONCRETE\\CONCRETE_ALLEY_01', 'WORLD\\CONCRETE\\CONCRETE_ALLEY_01', 'WORLD\\METAL\\METAL_DIAMOND_PLATE_LARGE_CLEAN', 'WORLD\\METAL\\METAL_DIAMOND_PLATE_LARGE_CLEAN', 'WORLD\\METAL\\BEAM_IMC_METAL_GRAY_MAT', 'WORLD\\METAL\\BEAM_IMC_METAL_GRAY_MAT', 'WORLD\\METAL\\METAL_GREY_WALLPANEL_01', 'WORLD\\METAL\\METAL_GREY_WALLPANEL_01', 'WORLD\\FLOORS\\IMC_FLOOR_LARGE_PANEL_01', 'WORLD\\FLOORS\\IMC_FLOOR_LARGE_PANEL_01', 'TOOLS\\TOOLSSKYBOX', 'world\\decal\\imc_logo_large', 'world\\decal\\imc_logo_large', 'TOOLS\\TOOLSTRIGGER']
->>> len(mp_box.TEXDATA), len(mp_box.TEXDATA_STRING_DATA)
+>>> len(mp_box.TEXTURE_DATA), len(mp_box.TEXTURE_DATA_STRING_DATA)
 (17, 18)
->>> mp_box.TEXDATA_STRING_DATA[-1]
+>>> mp_box.TEXTURE_DATA_STRING_DATA[-1]
 ''
->>> white_boxes = [*filter(lambda m: mp_box.MATERIAL_SORT[m.material_sort].texdata == 2, mp_box.MESHES)]
+>>> white_boxes = [*filter(lambda m: mp_box.MATERIAL_SORT[m.material_sort].texture_data == 2, mp_box.MESHES)]
 [<Mesh {'start_index': 3576, 'num_triangles': 144703490, 'unknown': <MappedArray (a: 131075, b: -256, c: 8585283, d: 10269)>, 'material_sort': 24, 'flags': 1051136}>, <Mesh {'start_index': 3582, 'num_triangles': 144965634, 'unknown': <MappedArray (a: 131075, b: -256, c: 5898307, d: 10269)>, 'material_sort': 24, 'flags': 1051136}>]
 >>> mp_box.MESHES.index(white_boxes[0])
 59
@@ -35,7 +35,7 @@ Loaded  mp_box.bsp
 >>> # unknown.c is a starting index?  num_triangles is huge!
 >>> # this should be a good base for our new cube
 >>> from bsp_tool.branches.respawn.titanfall import Mesh
->>> # make a cube in the middle of the map with texdata=2
+>>> # make a cube in the middle of the map with texture_data=2
 >>> len(mp_box.VERTICES)
 801
 >>> # ^ Mesh.start_index

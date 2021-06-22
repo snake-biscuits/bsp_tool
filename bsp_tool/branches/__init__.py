@@ -10,14 +10,9 @@ from . import valve
 
 __doc__ = """Index of developers of bsp format variants"""
 
-by_magic = {
-    # id_software.FILE_MAGIC & infinity_ward.FILE_MAGIC
-    b"IBSP": [id_software.quake3, infinity_ward.call_of_duty1],
-    # respawn.FILE_MAGIC
-    b"rBSP": [respawn.apex_legends, respawn.titanfall2],
-    # nexon.FILE_MAGIC & valve.FILE_MAGIC
-    b"VBSP": [nexon.vindictus, valve.orange_box]
-           }
+FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
+                        b"rBSP": respawn,
+                        b"VBSP": [nexon, valve]}
 
 by_name = {
     # ID SOFTWARE

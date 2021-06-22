@@ -14,11 +14,11 @@ BSP_VERSION = 20
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
-    TEXDATA = 2
+    TEXTURE_DATA = 2
     VERTICES = 3
     VISIBILITY = 4
     NODES = 5
-    TEXINFO = 6
+    TEXTURE_INFO = 6
     FACES = 7  # version 1
     LIGHTING = 8  # version 1
     OCCLUSION = 9  # version 2
@@ -65,8 +65,8 @@ class LUMP(enum.Enum):
     PAKFILE = 40
     CLIP_PORTAL_VERTICES = 41
     CUBEMAPS = 42
-    TEXDATA_STRING_DATA = 43
-    TEXDATA_STRING_TABLE = 44
+    TEXTURE_DATA_STRING_DATA = 43
+    TEXTURE_DATA_STRING_TABLE = 44
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MACRO_TEXTURE_INFO = 47
@@ -262,7 +262,7 @@ class Face(base.Struct):  # LUMP 7
 class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: int  # contents bitflags
-    cluster: int   # index of this Leaf's cluster (parent node?)
+    cluster: int   # index of this Leaf's cluster (parent node?) (visibility?)
     area_flags: int  # area + flags (short area:9; short flags:7;)
     # area and flags are held in the same float
     # area = leaf[2] & 0xFF80 >> 7 # 9 bits
@@ -347,7 +347,7 @@ class SurfEdge(int):  # LUMP 13
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
-    tex_data_string_index: int  # index of texture name (TEXDATA_STRING_TABLE)
+    tex_data_string_index: int  # index of texture name (TEXTURE_DATA_STRING_TABLE)
     width: int  # width of full texture
     height: int  # height of full texture
     view_width: int  # width of visible section of texture
@@ -359,7 +359,7 @@ class TextureData(base.Struct):  # LUMP 2
 
 
 class TextureInfo(base.Struct):  # LUMP 6
-    """Texture projection info & index into TEXDATA"""
+    """Texture projection info & index into TEXTURE_DATA"""
     texture: List[List[float]]  # 2 texture projection vectors
     lightmap: List[List[float]]  # 2 lightmap projection vectors
     mip_flags: int  # flags for mipmapping?
@@ -431,15 +431,15 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "NODES":                 {0: Node},
                 "ORIGINAL_FACES":        {0: Face},
                 "PLANES":                {0: Plane},
-                "TEXDATA":               {0: TextureData},
-                "TEXINFO":               {0: TextureInfo},
+                "TEXTURE_DATA":               {0: TextureData},
+                "TEXTURE_INFO":               {0: TextureInfo},
                 "VERTICES":              {0: Vertex},
                 "VERTEX_NORMALS":        {0: Vertex},
                 "WORLD_LIGHTS":          {0: WorldLight},
                 "WORLD_LIGHTS_HDR":      {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
-                        "TEXDATA_STRING_DATA": {0: shared.TexDataStringData},
+                        "TEXTURE_DATA_STRING_DATA": {0: shared.TexDataStringData},
                         "PAKFILE":             {0: shared.PakFile}}
 
 GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
@@ -465,8 +465,8 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
             # ^ utils/vrad/trace.cpp:635
         edges.append(edge)
     positions = t_junction_fixer(bsp, face, positions, edges)
-    tex_info = bsp.TEXINFO[face.tex_info]
-    tex_data = bsp.TEXDATA[tex_info.tex_data]
+    tex_info = bsp.TEXTURE_INFO[face.tex_info]
+    tex_data = bsp.TEXTURE_DATA[tex_info.tex_data]
     texture = tex_info.texture
     lightmap = tex_info.lightmap
 

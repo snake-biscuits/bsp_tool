@@ -7,7 +7,9 @@ import zlib
 
 
 # TODO: Nexon .pkg loader
-# TODO: Respawn .vpk loader
+# TODO: Respawn .vpk loader  (make a pull request to ValvePython/vpk)
+# - copy functionality from mrsteyk/RSPNVPK (with permission ofc)
+# TODO: IdTech .pak loader  (https://quakewiki.org/wiki/.pak)
 
 class Pk3(zipfile.ZipFile):
     """Quake & Call of Duty 1 .bsps are stored in .pk3 files, which are basically .zip archives"""

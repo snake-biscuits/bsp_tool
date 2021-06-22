@@ -6,7 +6,7 @@
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 9588432 | 115185 | 0 | 0 |
 PLANES | :heavy_check_mark: | 35592 | 723312 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 15948 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 15948 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 25140968 | 7569696 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 170378492 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 9588360 | 72 | 0 | 0 |
@@ -20,8 +20,8 @@ GAME_LUMP | :heavy_check_mark: | 175441800 | 1354664 | 0 | 0 |
 LEAF_WATERDATA | :x: | 175298024 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 176796464 | 6293752 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 175298024 | 192 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 18012 | 15808 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 33820 | 1772 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 18012 | 15808 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 33820 | 1772 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 175298216 | 143584 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 175441800 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 9724088 | 3082760 | 2 | 0 |
@@ -91,7 +91,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 9361584 | 252 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 5741800 | 79168 | 0 | 0 |
 PLANES | :heavy_check_mark: | 17952 | 307440 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 7380 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 7380 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 19454872 | 5604456 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 200579100 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 5741728 | 72 | 0 | 0 |
@@ -105,8 +105,8 @@ GAME_LUMP | :heavy_check_mark: | 201961692 | 1318760 | 0 | 0 |
 LEAF_WATERDATA | :x: | 201898668 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 203280452 | 2622602 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 201898668 | 80 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 9444 | 7687 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 17132 | 820 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 9444 | 7687 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 17132 | 820 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 201898748 | 62944 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 201961692 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5821012 | 2685700 | 2 | 0 |
@@ -176,7 +176,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 5511968 | 216 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 155320 | 1512 | 0 | 0 |
 PLANES | :heavy_check_mark: | 3612 | 1424 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 720 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 720 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 519964 | 105696 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 4846488 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 155248 | 72 | 0 | 0 |
@@ -190,8 +190,8 @@ GAME_LUMP | :heavy_check_mark: | 7813356 | 616 | 0 | 0 |
 LEAF_WATERDATA | :x: | 7811980 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 7813972 | 1049228 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 7811980 | 32 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 2784 | 748 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 3532 | 80 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 2784 | 748 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 3532 | 80 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 7812012 | 1344 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 7813356 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 156876 | 66528 | 2 | 0 |
@@ -261,7 +261,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 155100 | 84 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 156640 | 1512 | 0 | 0 |
 PLANES | :heavy_check_mark: | 3612 | 1424 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 720 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 720 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 524120 | 106848 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 4856564 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 156568 | 72 | 0 | 0 |
@@ -275,8 +275,8 @@ GAME_LUMP | :heavy_check_mark: | 5207012 | 1448 | 0 | 0 |
 LEAF_WATERDATA | :x: | 5205636 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 5208460 | 1049242 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 5205636 | 32 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 2784 | 748 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 3532 | 80 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 2784 | 748 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 3532 | 80 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 5205668 | 1344 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 5207012 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 158196 | 67080 | 2 | 0 |
@@ -346,7 +346,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 155920 | 84 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 5216224 | 110346 | 0 | 0 |
 PLANES | :heavy_check_mark: | 25528 | 551248 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 11160 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 11160 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 9029544 | 1869312 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 49995344 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 5216152 | 72 | 0 | 0 |
@@ -360,8 +360,8 @@ GAME_LUMP | :heavy_check_mark: | 52701424 | 1250088 | 0 | 0 |
 LEAF_WATERDATA | :x: | 52629184 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 53951512 | 3671488 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 52629184 | 112 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 13224 | 11061 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 24288 | 1240 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 13224 | 11061 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 24288 | 1240 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 52629296 | 72128 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 52701424 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5326616 | 705252 | 2 | 0 |
@@ -431,7 +431,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 5065492 | 204 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 11133148 | 349989 | 0 | 0 |
 PLANES | :heavy_check_mark: | 11936 | 1810720 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 4644 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 4644 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 34843224 | 9144960 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 199082556 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 11133076 | 72 | 0 | 0 |
@@ -445,8 +445,8 @@ GAME_LUMP | :heavy_check_mark: | 202599844 | 750632 | 0 | 0 |
 LEAF_WATERDATA | :x: | 202548420 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 203350476 | 4195944 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 202548420 | 128 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 6708 | 4710 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 11420 | 516 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 6708 | 4710 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 11420 | 516 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 202548548 | 51296 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 202599844 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 11483184 | 4368508 | 2 | 0 |
@@ -516,7 +516,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 10965092 | 192 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 5210120 | 56237 | 0 | 0 |
 PLANES | :heavy_check_mark: | 26348 | 408784 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 10872 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 10872 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 18661532 | 6165156 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 169901868 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 5210048 | 72 | 0 | 0 |
@@ -530,8 +530,8 @@ GAME_LUMP | :heavy_check_mark: | 171850892 | 665512 | 0 | 0 |
 LEAF_WATERDATA | :x: | 171794508 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 172516404 | 1573678 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 171794508 | 48 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 12936 | 12203 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 25140 | 1208 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 12936 | 12203 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 25140 | 1208 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 171794556 | 56336 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 171850892 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5266404 | 2605012 | 2 | 0 |
@@ -601,7 +601,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 5087748 | 276 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 6844024 | 47168 | 0 | 0 |
 PLANES | :heavy_check_mark: | 30652 | 187232 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 13176 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 13176 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 35189708 | 9851628 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 204912012 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 6843952 | 72 | 0 | 0 |
@@ -615,8 +615,8 @@ GAME_LUMP | :heavy_check_mark: | 207185704 | 856040 | 0 | 0 |
 LEAF_WATERDATA | :x: | 207142152 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 208041744 | 3147028 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 207142152 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 15240 | 13948 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 29188 | 1464 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 15240 | 13948 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 29188 | 1464 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 207142248 | 43456 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 207185704 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6891236 | 4960464 | 2 | 0 |
@@ -686,7 +686,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 6643796 | 300 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 5690896 | 146690 | 0 | 0 |
 PLANES | :heavy_check_mark: | 14476 | 121360 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5544 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5544 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 23850664 | 7053828 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 184575836 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 5690824 | 72 | 0 | 0 |
@@ -700,8 +700,8 @@ GAME_LUMP | :heavy_check_mark: | 186556420 | 2038440 | 0 | 0 |
 LEAF_WATERDATA | :x: | 186510516 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 188594860 | 3147054 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 186510516 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7608 | 6251 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 13860 | 616 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7608 | 6251 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 13860 | 616 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 186510612 | 45808 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 186556420 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5837632 | 3368400 | 2 | 0 |
@@ -771,7 +771,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 5399312 | 180 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 4276232 | 93389 | 0 | 0 |
 PLANES | :heavy_check_mark: | 4724 | 71792 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 1332 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 1332 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 27822488 | 7045176 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 140764188 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 4276160 | 72 | 0 | 0 |
@@ -785,8 +785,8 @@ GAME_LUMP | :heavy_check_mark: | 147135424 | 1039336 | 0 | 0 |
 LEAF_WATERDATA | :x: | 147083952 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 148174760 | 2098128 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 147083952 | 64 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 3396 | 1179 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 4576 | 148 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 3396 | 1179 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 4576 | 148 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 147084016 | 51408 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 147135424 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 4369668 | 3611040 | 2 | 0 |
@@ -856,7 +856,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 4238128 | 156 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 8128112 | 159649 | 0 | 0 |
 PLANES | :heavy_check_mark: | 14968 | 636960 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5832 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5832 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 20644048 | 4880700 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 113720016 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 8128040 | 72 | 0 | 0 |
@@ -870,8 +870,8 @@ GAME_LUMP | :heavy_check_mark: | 114693056 | 1239400 | 0 | 0 |
 LEAF_WATERDATA | :x: | 114646880 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 115932456 | 1049222 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 114646880 | 32 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7896 | 6422 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 14320 | 648 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7896 | 6422 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 14320 | 648 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 114646912 | 46144 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 114693056 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 8287808 | 2365456 | 2 | 0 |
@@ -941,7 +941,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 7861376 | 216 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 32875912 | 183101 | 0 | 0 |
 PLANES | :heavy_check_mark: | 11548 | 7236016 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 4284 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 4284 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 50169724 | 5261280 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 129637676 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 32875840 | 72 | 0 | 0 |
@@ -955,8 +955,8 @@ GAME_LUMP | :heavy_check_mark: | 163456920 | 1072680 | 0 | 0 |
 LEAF_WATERDATA | :x: | 163422024 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 164529600 | 2098134 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 163422024 | 64 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 6348 | 4724 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 11072 | 476 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 6348 | 4724 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 11072 | 476 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 163422088 | 34832 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 163456920 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 33059060 | 2648320 | 2 | 0 |
@@ -1026,7 +1026,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 32696776 | 180 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 884908 | 7500 | 0 | 0 |
 PLANES | :heavy_check_mark: | 10516 | 41744 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 3744 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 3744 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 2926548 | 1068816 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 27074236 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 884836 | 72 | 0 | 0 |
@@ -1040,8 +1040,8 @@ GAME_LUMP | :heavy_check_mark: | 28059516 | 171048 | 0 | 0 |
 LEAF_WATERDATA | :x: | 28030748 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 28230564 | 3147034 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 28030748 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 5808 | 4291 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 10100 | 416 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 5808 | 4291 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 10100 | 416 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 28030844 | 28672 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 28059516 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 892452 | 403440 | 2 | 0 |
@@ -1111,7 +1111,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 858100 | 108 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 1322712 | 1984 | 0 | 0 |
 PLANES | :heavy_check_mark: | 7860 | 110144 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 2700 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 2700 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 9517212 | 2640216 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 46441424 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 1322640 | 72 | 0 | 0 |
@@ -1125,8 +1125,8 @@ GAME_LUMP | :heavy_check_mark: | 47212844 | 206184 | 0 | 0 |
 LEAF_WATERDATA | :x: | 47196028 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 47419028 | 4195942 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 47196028 | 128 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 4764 | 2793 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 7560 | 300 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 4764 | 2793 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 7560 | 300 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 47196156 | 16688 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 47212844 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 1324740 | 1229656 | 2 | 0 |
@@ -1196,7 +1196,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 1296260 | 120 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 708340 | 2050 | 0 | 0 |
 PLANES | :heavy_check_mark: | 5568 | 27152 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 1620 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 1620 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 1922628 | 690588 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 20327708 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 708268 | 72 | 0 | 0 |
@@ -1210,8 +1210,8 @@ GAME_LUMP | :heavy_check_mark: | 21143660 | 149544 | 0 | 0 |
 LEAF_WATERDATA | :x: | 21128892 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 21293204 | 3147038 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 21128892 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 3684 | 1701 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 5388 | 180 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 3684 | 1701 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 5388 | 180 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 21128988 | 14672 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 21143660 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 710436 | 253016 | 2 | 0 |
@@ -1281,7 +1281,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 673256 | 108 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 852192 | 4230 | 0 | 0 |
 PLANES | :heavy_check_mark: | 9072 | 60912 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 3204 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 3204 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 3568528 | 1331208 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 32419064 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 852120 | 72 | 0 | 0 |
@@ -1295,8 +1295,8 @@ GAME_LUMP | :heavy_check_mark: | 33431796 | 133160 | 0 | 0 |
 LEAF_WATERDATA | :x: | 33406836 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 33564956 | 3147042 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 33406836 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 5268 | 3445 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 8716 | 356 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 5268 | 3445 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 8716 | 356 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 33406932 | 24864 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 33431796 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 856468 | 571584 | 2 | 0 |
@@ -1366,7 +1366,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 840068 | 84 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 964008 | 1769 | 0 | 0 |
 PLANES | :heavy_check_mark: | 5156 | 106432 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 1476 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 1476 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 2244616 | 711900 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 21725196 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 963936 | 72 | 0 | 0 |
@@ -1380,8 +1380,8 @@ GAME_LUMP | :heavy_check_mark: | 22452416 | 186280 | 0 | 0 |
 LEAF_WATERDATA | :x: | 22437456 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 22638696 | 2098136 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 22437456 | 64 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 3540 | 1449 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 4992 | 164 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 3540 | 1449 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 4992 | 164 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 22437520 | 14896 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 22452416 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 965824 | 258344 | 2 | 0 |
@@ -1451,7 +1451,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 938228 | 84 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 950144 | 4192 | 0 | 0 |
 PLANES | :heavy_check_mark: | 9744 | 28720 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 3528 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 3528 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 3779140 | 1474380 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 33537176 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 950072 | 72 | 0 | 0 |
@@ -1465,8 +1465,8 @@ GAME_LUMP | :heavy_check_mark: | 34383960 | 336744 | 0 | 0 |
 LEAF_WATERDATA | :x: | 34355432 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 34720704 | 2622580 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 34355432 | 80 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 5592 | 3757 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 9352 | 392 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 5592 | 3757 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 9352 | 392 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 34355512 | 28448 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 34383960 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 954380 | 596576 | 2 | 0 |
@@ -1536,7 +1536,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 923348 | 120 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 7352508 | 190447 | 0 | 0 |
 PLANES | :heavy_check_mark: | 26504 | 624592 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 11520 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 11520 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 22885108 | 6912624 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 171101456 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 7352436 | 72 | 0 | 0 |
@@ -1550,8 +1550,8 @@ GAME_LUMP | :heavy_check_mark: | 179657264 | 1418472 | 0 | 0 |
 LEAF_WATERDATA | :x: | 179536208 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 181075736 | 3147034 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 179536208 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 13584 | 11637 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 25224 | 1280 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 13584 | 11637 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 25224 | 1280 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 179536304 | 120960 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 179657264 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 7543000 | 3057320 | 2 | 0 |
@@ -1621,7 +1621,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 7206300 | 300 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 11565372 | 129155 | 0 | 0 |
 PLANES | :heavy_check_mark: | 13804 | 1036944 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5508 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5508 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 27280920 | 8751888 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 183626912 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 11565300 | 72 | 0 | 0 |
@@ -1635,8 +1635,8 @@ GAME_LUMP | :heavy_check_mark: | 190666160 | 1336872 | 0 | 0 |
 LEAF_WATERDATA | :x: | 190551440 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 192003032 | 1049220 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 190551440 | 32 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7572 | 5618 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 13192 | 612 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7572 | 5618 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 13192 | 612 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 190551472 | 114688 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 190666160 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 11694572 | 3011888 | 2 | 0 |
@@ -1706,7 +1706,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 11432892 | 276 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 6591192 | 213675 | 0 | 0 |
 PLANES | :heavy_check_mark: | 21724 | 209296 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 8784 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 8784 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 32347448 | 9733908 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 144906580 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 6591120 | 72 | 0 | 0 |
@@ -1720,8 +1720,8 @@ GAME_LUMP | :heavy_check_mark: | 182478512 | 1077352 | 0 | 0 |
 LEAF_WATERDATA | :x: | 182401856 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 183555864 | 1573672 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 182401856 | 48 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 10848 | 9899 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 20748 | 976 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 10848 | 9899 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 20748 | 976 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 182401904 | 76608 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 182478512 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6804912 | 4674184 | 2 | 0 |
@@ -1791,7 +1791,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 6435728 | 240 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 4402768 | 53471 | 0 | 0 |
 PLANES | :heavy_check_mark: | 27276 | 311696 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 12024 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 12024 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 11324296 | 3690828 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 74428536 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 4402696 | 72 | 0 | 0 |
@@ -1805,8 +1805,8 @@ GAME_LUMP | :heavy_check_mark: | 78112372 | 659304 | 0 | 0 |
 LEAF_WATERDATA | :x: | 77961460 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 78771676 | 1573680 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 77961460 | 48 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 14088 | 11851 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 25940 | 1336 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 14088 | 11851 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 25940 | 1336 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 77961508 | 150864 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 78112372 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 4457960 | 1362552 | 2 | 0 |
@@ -1876,7 +1876,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 4332056 | 288 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 6482900 | 49439 | 0 | 0 |
 PLANES | :heavy_check_mark: | 14072 | 328272 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5400 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5400 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 36470724 | 12158304 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 312198800 | 896 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 6482864 | 36 | 0 | 0 |
@@ -1890,8 +1890,8 @@ GAME_LUMP | :heavy_check_mark: | 315423200 | 947368 | 0 | 0 |
 LEAF_WATERDATA | :x: | 315324476 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 316370568 | 3671484 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 315324476 | 112 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7464 | 6008 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 13472 | 600 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7464 | 6008 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 13472 | 600 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 315324588 | 93520 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 315418108 | 5092 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6532944 | 5658092 | 2 | 0 |
@@ -1961,7 +1961,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 6231620 | 240 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 3351236 | 10617 | 0 | 0 |
 PLANES | :heavy_check_mark: | 11212 | 141216 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 4032 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 4032 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 32344724 | 12574728 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 345572940 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 3351200 | 36 | 0 | 0 |
@@ -1975,8 +1975,8 @@ GAME_LUMP | :heavy_check_mark: | 509076992 | 193960 | 0 | 0 |
 LEAF_WATERDATA | :x: | 508916032 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 509270952 | 4195950 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 508916032 | 128 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 6096 | 4665 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 10764 | 448 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 6096 | 4665 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 10764 | 448 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 508916160 | 160832 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 509076992 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3374652 | 4922216 | 2 | 0 |
@@ -2046,7 +2046,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 3335664 | 192 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 6245204 | 26615 | 0 | 0 |
 PLANES | :heavy_check_mark: | 17060 | 649312 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 6912 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 6912 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 24815532 | 6853476 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 247921408 | 12068 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 6245096 | 108 | 0 | 0 |
@@ -2060,8 +2060,8 @@ GAME_LUMP | :heavy_check_mark: | 261897208 | 2042728 | 0 | 0 |
 LEAF_WATERDATA | :x: | 261672044 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 263939936 | 2098132 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 261672044 | 64 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 8976 | 7313 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 16292 | 768 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 8976 | 7313 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 16292 | 768 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 261672108 | 207088 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 261879196 | 18012 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 6272988 | 3367764 | 2 | 0 |
@@ -2131,7 +2131,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 6209268 | 264 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 2817852 | 27024 | 0 | 0 |
 PLANES | :heavy_check_mark: | 14584 | 207504 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5652 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5652 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 38963536 | 12475596 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 308199924 | 280 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 2817744 | 108 | 0 | 0 |
@@ -2145,8 +2145,8 @@ GAME_LUMP | :heavy_check_mark: | 399947300 | 864168 | 0 | 0 |
 LEAF_WATERDATA | :x: | 399836548 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 400811468 | 4195948 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 399836548 | 128 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7716 | 6239 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 13956 | 628 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7716 | 6239 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 13956 | 628 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 399836676 | 106064 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 399942740 | 4560 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 2848192 | 5598536 | 2 | 0 |
@@ -2216,7 +2216,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 2707580 | 288 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 3652084 | 4105 | 0 | 0 |
 PLANES | :heavy_check_mark: | 14528 | 315920 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5796 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5796 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 32389716 | 10530276 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 209921648 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 3652012 | 72 | 0 | 0 |
@@ -2230,8 +2230,8 @@ GAME_LUMP | :heavy_check_mark: | 222634448 | 951464 | 0 | 0 |
 LEAF_WATERDATA | :x: | 222436496 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 223585912 | 3147048 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 222436496 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7860 | 6022 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 13884 | 644 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7860 | 6022 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 13884 | 644 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 222436592 | 194208 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 222630800 | 3648 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3656236 | 5433172 | 2 | 0 |
@@ -2301,7 +2301,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 3551676 | 192 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 32088228 | 955 | 0 | 0 |
 PLANES | :heavy_check_mark: | 13472 | 6159120 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 5364 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 5364 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 73479512 | 13736292 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 280697408 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 32088120 | 108 | 0 | 0 |
@@ -2315,8 +2315,8 @@ GAME_LUMP | :heavy_check_mark: | 282203384 | 2699176 | 0 | 0 |
 LEAF_WATERDATA | :x: | 282121448 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 284902560 | 7867106 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 282121448 | 240 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 7428 | 5445 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 12876 | 596 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 7428 | 5445 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 12876 | 596 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 282121688 | 78960 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 282200648 | 2736 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 32091472 | 6644328 | 2 | 0 |
@@ -2386,7 +2386,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 31306132 | 336 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 9909612 | 26311 | 0 | 0 |
 PLANES | :heavy_check_mark: | 21580 | 535216 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 8424 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 8424 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 28162388 | 8673360 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 228675972 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 9909504 | 108 | 0 | 0 |
@@ -2400,8 +2400,8 @@ GAME_LUMP | :heavy_check_mark: | 237153876 | 2209000 | 0 | 0 |
 LEAF_WATERDATA | :x: | 237053780 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 239362876 | 17307250 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 237053780 | 528 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 10488 | 10155 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 20644 | 936 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 10488 | 10155 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 20644 | 936 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 237054308 | 99568 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 237153876 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 9938776 | 3259976 | 2 | 0 |
@@ -2471,7 +2471,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 9634028 | 540 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 3714732 | 5361 | 0 | 0 |
 PLANES | :heavy_check_mark: | 11172 | 465488 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 4248 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 4248 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 31069824 | 13263156 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 309428704 | 1260 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 3714696 | 36 | 0 | 0 |
@@ -2485,8 +2485,8 @@ GAME_LUMP | :heavy_check_mark: | 311531172 | 812840 | 0 | 0 |
 LEAF_WATERDATA | :x: | 311178676 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 312344012 | 11013806 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 311178676 | 336 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 6312 | 4385 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 10700 | 472 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 6312 | 4385 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 10700 | 472 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 311179012 | 214144 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 311393156 | 138016 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 3721256 | 5012964 | 2 | 0 |
@@ -2556,7 +2556,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 3709844 | 36 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 16421788 | 77318 | 0 | 0 |
 PLANES | :heavy_check_mark: | 22572 | 2769504 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 9612 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 9612 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 44302464 | 10392156 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 249307260 | 308 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 16421680 | 108 | 0 | 0 |
@@ -2570,8 +2570,8 @@ GAME_LUMP | :heavy_check_mark: | 259232832 | 884968 | 0 | 0 |
 LEAF_WATERDATA | :x: | 259099044 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 260117800 | 8916006 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 259099044 | 272 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 11676 | 9827 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 21504 | 1068 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 11676 | 9827 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 21504 | 1068 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 259099316 | 132832 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 259232148 | 684 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 16499712 | 5250048 | 2 | 0 |
@@ -2641,7 +2641,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 16296048 | 324 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 8174760 | 65457 | 0 | 0 |
 PLANES | :heavy_check_mark: | 27332 | 655408 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 11448 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 11448 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 45894952 | 13777524 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 314433628 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 8174616 | 144 | 0 | 0 |
@@ -2655,8 +2655,8 @@ GAME_LUMP | :heavy_check_mark: | 319127300 | 1406504 | 0 | 0 |
 LEAF_WATERDATA | :x: | 319021668 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 320533804 | 7867106 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 319021668 | 240 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 13512 | 12547 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 26060 | 1272 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 13512 | 12547 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 26060 | 1272 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 319021908 | 105392 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 319127300 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 8249692 | 6213464 | 2 | 0 |
@@ -2726,7 +2726,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 8034296 | 300 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 10108452 | 61735 | 0 | 0 |
 PLANES | :heavy_check_mark: | 23112 | 533952 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 9864 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 9864 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 37442028 | 11057316 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 261046656 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 10108416 | 36 | 0 | 0 |
@@ -2740,8 +2740,8 @@ GAME_LUMP | :heavy_check_mark: | 279914436 | 1272040 | 0 | 0 |
 LEAF_WATERDATA | :x: | 279796628 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 281186476 | 3147028 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 279796628 | 96 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 11928 | 10087 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 22016 | 1096 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 11928 | 10087 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 22016 | 1096 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 279796724 | 117712 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 279914436 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 10170792 | 4986828 | 2 | 0 |
@@ -2811,7 +2811,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 9843968 | 240 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 7602176 | 34156 | 0 | 0 |
 PLANES | :heavy_check_mark: | 22944 | 456016 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 9108 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 9108 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 31347376 | 11057040 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 269555632 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 7602104 | 72 | 0 | 0 |
@@ -2825,8 +2825,8 @@ GAME_LUMP | :heavy_check_mark: | 317019032 | 2305512 | 0 | 0 |
 LEAF_WATERDATA | :x: | 316827052 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 319324544 | 19929518 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 316827052 | 608 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 11172 | 10759 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 21932 | 1012 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 11172 | 10759 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 21932 | 1012 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 316827660 | 191296 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :heavy_check_mark: | 317018956 | 76 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 7657608 | 4413072 | 2 | 0 |
@@ -2896,7 +2896,7 @@ SHADOW_MESH_MESHES | :heavy_check_mark: | 7523780 | 396 | 0 | 0 |
 | :--- | :------- | :----- | :--- | :------ | :----- |
 ENTITIES | :heavy_check_mark: | 5960624 | 13528 | 0 | 0 |
 PLANES | :heavy_check_mark: | 6812 | 126704 | 1 | 0 |
-TEXDATA | :heavy_check_mark: | 2064 | 2376 | 1 | 0 |
+TEXTURE_DATA | :heavy_check_mark: | 2064 | 2376 | 1 | 0 |
 VERTICES | :heavy_check_mark: | 26153252 | 6695784 | 0 | 0 |
 LIGHTPROBE_PARENT_INFOS | :heavy_check_mark: | 149228868 | 28 | 0 | 0 |
 SHADOW_ENVIRONMENTS | :heavy_check_mark: | 5960516 | 108 | 0 | 0 |
@@ -2910,8 +2910,8 @@ GAME_LUMP | :heavy_check_mark: | 259489208 | 1853096 | 0 | 0 |
 LEAF_WATERDATA | :x: | 259454776 | 0 | 1 | 0 |
 PAKFILE | :heavy_check_mark: | 261342304 | 8916008 | 0 | 0 |
 CUBEMAPS | :heavy_check_mark: | 259454776 | 272 | 0 | 0 |
-TEXDATA_STRING_DATA | :heavy_check_mark: | 4440 | 2106 | 0 | 0 |
-TEXDATA_STRING_TABLE | :heavy_check_mark: | 6548 | 264 | 0 | 0 |
+TEXTURE_DATA_STRING_DATA | :heavy_check_mark: | 4440 | 2106 | 0 | 0 |
+TEXTURE_DATA_STRING_TABLE | :heavy_check_mark: | 6548 | 264 | 0 | 0 |
 WORLDLIGHTS | :heavy_check_mark: | 259455048 | 34160 | 3 | 0 |
 WORLDLIGHTS_PARENT_INFO | :x: | 259489208 | 0 | 3 | 0 |
 TRICOLL_TRIS | :heavy_check_mark: | 5979516 | 3381908 | 2 | 0 |

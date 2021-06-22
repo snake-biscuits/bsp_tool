@@ -5,7 +5,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -44,10 +44,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -228,7 +228,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -267,10 +267,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -451,7 +451,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -490,10 +490,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -674,7 +674,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -713,10 +713,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -897,7 +897,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -936,10 +936,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -1120,7 +1120,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -1159,10 +1159,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -1343,7 +1343,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -1382,10 +1382,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -1566,7 +1566,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -1605,10 +1605,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -1789,7 +1789,7 @@ ExternalLumpHeader(offset=9588432, length=115185, version=0, fourCC=0, filename=
 PLANES  YYYY  YES!
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
-TEXDATA  YYYY  YES!
+TEXTURE_DATA  YYYY  YES!
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  YYYY  YES!
@@ -1828,10 +1828,10 @@ ExternalLumpHeader(offset=176796464, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  YYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  YES!
+TEXTURE_DATA_STRING_DATA  YYYY  YES!
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  YES!
+TEXTURE_DATA_STRING_TABLE  YYYY  YES!
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  YYYY  YES!
@@ -2012,7 +2012,7 @@ ExternalLumpHeader(offset=9778824, length=115180, version=0, fourCC=0, filename=
 PLANES  YNYY  NOPE
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=726352, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=726352)
-TEXDATA  YYYY  NOPE
+TEXTURE_DATA  YYYY  NOPE
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  NNYY  NOPE
@@ -2051,10 +2051,10 @@ ExternalLumpHeader(offset=179195060, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  NYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=177675116, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  NOPE
+TEXTURE_DATA_STRING_DATA  YYYY  NOPE
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  NOPE
+TEXTURE_DATA_STRING_TABLE  YYYY  NOPE
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  NYYY  YES!
@@ -2235,7 +2235,7 @@ ExternalLumpHeader(offset=9680712, length=115180, version=0, fourCC=0, filename=
 PLANES  YNYY  NOPE
 ExternalLumpHeader(offset=35592, length=723312, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=723312)
 ExternalLumpHeader(offset=35592, length=724960, version=1, fourCC=0, filename='mp_angel_city.bsp.0001.bsp_lump', filesize=724960)
-TEXDATA  YYYY  NOPE
+TEXTURE_DATA  YYYY  NOPE
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 ExternalLumpHeader(offset=2064, length=15948, version=1, fourCC=0, filename='mp_angel_city.bsp.0002.bsp_lump', filesize=15948)
 VERTICES  NNYY  NOPE
@@ -2274,10 +2274,10 @@ ExternalLumpHeader(offset=179082104, length=6293752, version=0, fourCC=0, filena
 CUBEMAPS  NYYY  YES!
 ExternalLumpHeader(offset=175298024, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
 ExternalLumpHeader(offset=177562288, length=192, version=0, fourCC=0, filename='mp_angel_city.bsp.002a.bsp_lump', filesize=192)
-TEXDATA_STRING_DATA  YYYY  NOPE
+TEXTURE_DATA_STRING_DATA  YYYY  NOPE
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
 ExternalLumpHeader(offset=18012, length=15808, version=0, fourCC=0, filename='mp_angel_city.bsp.002b.bsp_lump', filesize=15808)
-TEXDATA_STRING_TABLE  YYYY  NOPE
+TEXTURE_DATA_STRING_TABLE  YYYY  NOPE
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 ExternalLumpHeader(offset=33820, length=1772, version=0, fourCC=0, filename='mp_angel_city.bsp.002c.bsp_lump', filesize=1772)
 WORLDLIGHTS  NYYY  YES!

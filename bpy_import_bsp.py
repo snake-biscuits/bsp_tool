@@ -24,7 +24,7 @@ importlib.reload(bsp_tool.branches.respawn.apex_legends)
 
 def load_materials(bsp):  # -> List[materials]
     materials = []
-    for material_name in bsp.TEXDATA_STRING_DATA:
+    for material_name in bsp.TEXTURE_DATA_STRING_DATA:
         # TODO: check if material is already loaded
         material = bpy.data.materials.new(material_name)
         # TODO: option to look for .vmt & load colour, textures etc.
@@ -183,8 +183,8 @@ def load_rbsp(rbsp):
                     loop[uv_layer].uv = uv_dict[tuple(loop.vert.co)]
             blender_bmesh.to_mesh(blender_mesh)
             blender_bmesh.free()
-            texdata = rbsp.TEXDATA[rbsp.MATERIAL_SORT[mesh.material_sort].texdata]
-            blender_mesh.materials.append(materials[texdata.string_table_index])
+            texture_data = rbsp.TEXTURE_DATA[rbsp.MATERIAL_SORT[mesh.material_sort].texture_data]
+            blender_mesh.materials.append(materials[texture_data.string_table_index])
             blender_mesh.update()
             blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
             model_collection.objects.link(blender_object)
@@ -192,7 +192,7 @@ def load_rbsp(rbsp):
 
 
 def load_apex_rbsp(rbsp):
-    """Apex mapping of TEXDATA & MODEL lumps is incomplete"""
+    """Apex mapping of TEXTURE_DATA & MODEL lumps is incomplete"""
     master_collection = bpy.data.collections.new(f"{rbsp.filename}")
     bpy.context.scene.collection.children.link(master_collection)
     # TODO: parse models
@@ -228,7 +228,7 @@ def load_apex_rbsp(rbsp):
                 loop[uv_layer].uv = uv_dict[tuple(loop.vert.co)]
         blender_bmesh.to_mesh(blender_mesh)
         blender_bmesh.free()
-        # TODO: parse texdata to match materials
+        # TODO: parse texture_data to match materials
         blender_mesh.update()
         blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
         master_collection.objects.link(blender_object)

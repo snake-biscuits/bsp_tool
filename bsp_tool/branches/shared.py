@@ -122,8 +122,8 @@ class SPRP_flags(enum.Enum):
 
 
 class TexDataStringData(list):
-    def __init__(self, raw_texdata_string_data: bytes):
-        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texdata_string_data[:-1].split(b"\0")])
+    def __init__(self, raw_texture_data_string_data: bytes):
+        super().__init__([t.decode("ascii", errors="ignore") for t in raw_texture_data_string_data[:-1].split(b"\0")])
 
     def find(self, pattern: str) -> List[str]:
         pattern = pattern.lower()
@@ -134,7 +134,7 @@ class TexDataStringData(list):
 
 
 class Visiblity:
-    # is IdTech format the same as Valve format?
+    # seems to be the same across Source & Quake engines
     # is Titanfall (v29) the same?
     def __init__(self, raw_visibility: bytes):
         vis_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]

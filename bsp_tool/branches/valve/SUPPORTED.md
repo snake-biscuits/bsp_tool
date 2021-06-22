@@ -14,12 +14,12 @@
 |    |  21 |                                          |  0 | `shared.Entities`                     | 100% |
 |    | 100 |                                          |  0 | `shared.Entities`                     | 100% |
 |  1 |  20 | `PLANES`                                 |  0 | `valve.orange_box.Plane`              | 100% |
-|  2 |  20 | `TEXDATA`                                |  0 | `valve.orange_box.TextureData`        | 100% |
+|  2 |  20 | `TEXTURE_DATA`                                |  0 | `valve.orange_box.TextureData`        | 100% |
 |  3 |  20 | `VERTICES`                               |  0 | `valve.orange_box.Vertex`             | 100% |
 |  4 |  20 | `VISIBILITY`                             |  0 | :x:                                   |   0% |
 |  5 |  20 | `NODES`                                  |  0 | `valve.orange_box.Node`               | 100% |
 |    |     |                                          |  0 | `nexon.vindictus.Node`                | 100% |
-|  6 |  20 | `TEXINFO`                                |  0 | `valve.orange_box.TextureInfo`        | 100% |
+|  6 |  20 | `TEXTURE_INFO`                           |  0 | `valve.orange_box.TextureInfo`        | 100% |
 |  7 |  20 | `FACES`                                  |  1 | `valve.orange_box.Face`               | 100% |
 |    |     |                                          |  1 | `nexon.vindictus.Face`                |  90% |
 |  8 |  20 | `LIGHTING`                               |  1 | raw RGBE pixels                       | 100% |
@@ -63,7 +63,7 @@
 | 40 |  20 | `PAKFILE`                                |  0 | `shared.PakFile`                      | 100% |
 | 41 |  20 | `CLIP_PORTAL_VERTICES`                   |  0 | :x:                                   |   0% |
 | 42 |  20 | `CUBEMAPS`                               |  0 | `valve.orange_box.Cubemap`            | 100% |
-| 43 |  20 | `TEXDATA_STRING_DATA`                    |  0 | `shared.TexDataStringData`            | 100% |
+| 43 |  20 | `TEXTURE_DATA_STRING_DATA`                    |  0 | `shared.TexDataStringData`            | 100% |
 | 45 |  20 | `OVERLAYS`                               |  0 | :x:                                   |   0% |
 | 46 |  20 | `LEAF_MIN_DIST_TO_WATER`                 |  0 | :x:                                   |   0% |
 | 47 |  20 | `FACE_MACRO_TEXTURE_INFO`                |  0 | :x:                                   |   0% |
