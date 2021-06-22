@@ -88,6 +88,10 @@ class Leaf(base.Struct):  # LUMP 10
                "sound": ["water", "sky", "slime", "lava"]}
 
 
+class LeafFace(int):  # LUMP 11
+    _format = "h"
+
+
 class LeafType(enum.Enum):
     # NOTE: other types exist, but are unknown
     NORMAL = -1
@@ -152,7 +156,7 @@ class Plane(base.Struct):  # LUMP 1
     _arrays = {"normal": [*"xyz"]}
 
 
-class SurfEdge(int):
+class SurfEdge(int):  # LUMP 13
     _format = "h"
 
 
@@ -210,6 +214,7 @@ BASIC_LUMP_CLASSES = {"EDGES": Edge,
 LUMP_CLASSES = {"CLIP_NODES": ClipNode,
                 "FACES": Face,
                 "LEAVES": Leaf,
+                "LEAF_FACES": LeafFace,
                 "MODELS": Model,
                 "NODES": Node,
                 "PLANES": Plane,
