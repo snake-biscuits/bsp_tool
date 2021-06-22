@@ -16,6 +16,7 @@ FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
 
 by_name = {
     # ID SOFTWARE
+    "quake": id_software.quake,
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,
     # INFINITY WARD
@@ -49,6 +50,7 @@ by_name = {
 
 by_version = {
     # ID SOFTWARE
+    id_software.quake3.BSP_VERSION: id_software.quake,  # 23
     id_software.quake3.BSP_VERSION: id_software.quake3,  # 46
     # INFINITY WARD
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
