@@ -121,7 +121,7 @@ class SPRP_flags(enum.Enum):
     EDITOR_MASK = 0x1d8
 
 
-class TexDataStringData(list):
+class TextureDataStringData(list):
     def __init__(self, raw_texture_data_string_data: bytes):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texture_data_string_data[:-1].split(b"\0")])
 
@@ -131,6 +131,11 @@ class TexDataStringData(list):
 
     def as_bytes(self) -> bytes:
         return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
+
+
+class TextureDataStringTable(int):  # BasicLumpClass
+    """Points to the starting index of string of same index in TEXTURE_DATA_STRING_DATA"""
+    _format = "I"
 
 
 class Visiblity:

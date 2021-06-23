@@ -14,7 +14,7 @@
 |    |  21 |                                          |  0 | `shared.Entities`                     | 100% |
 |    | 100 |                                          |  0 | `shared.Entities`                     | 100% |
 |  1 |  20 | `PLANES`                                 |  0 | `valve.orange_box.Plane`              | 100% |
-|  2 |  20 | `TEXTURE_DATA`                                |  0 | `valve.orange_box.TextureData`        | 100% |
+|  2 |  20 | `TEXTURE_DATA`                           |  0 | `valve.orange_box.TextureData`        | 100% |
 |  3 |  20 | `VERTICES`                               |  0 | `valve.orange_box.Vertex`             | 100% |
 |  4 |  20 | `VISIBILITY`                             |  0 | :x:                                   |   0% |
 |  5 |  20 | `NODES`                                  |  0 | `valve.orange_box.Node`               | 100% |
@@ -42,6 +42,10 @@
 |    |     |                                          |  0 | `nexon.vindictus.Area`                | 100% |
 | 21 |  20 | `AREA_PORTALS`                           |  0 | `valve.orange_box.AreaPortal`         | 100% |
 |    |     |                                          |  0 | `nexon.vindictus.AreaPortal`          | 100% |
+| 22 |  20 | `UNUSED_22`                              |  0 | :x:                                   |   0% |
+| 23 |  20 | `UNUSED_23`                              |  0 | :x:                                   |   0% |
+| 24 |  20 | `UNUSED_24`                              |  0 | :x:                                   |   0% |
+| 25 |  20 | `UNUSED_25`                              |  0 | :x:                                   |   0% |
 | 26 |  20 | `DISPLACEMENT_INFO`                      |  0 | `valve.orange_box.DisplacementInfo`   | 100% |
 |    |     |                                          |  0 | `nexon.vindictus.DisplacementInfo`    |  90% |
 |    | 100 |                                          |  0 | `nexon.cso2.DisplacementInfo`         |  10% |
@@ -58,12 +62,14 @@
 |    |     | `GAME_LUMP.sprp`                         | 10 | `valve.orange_box.StaticPropv10`      | 100% |
 |    |     | `GAME_LUMP.dprp`                         |  0 | :x:                                   |   0% |
 | 36 |  20 | `LEAF_WATER_DATA`                        |  0 | :x:                                   |   0% |
+| 37 |  20 | `PRIMITIVES`                             |  0 | :x:                                   |   0% |
 | 38 |  20 | `PRIMITIVE_VERTICES`                     |  0 | :x:                                   |   0% |
 | 39 |  20 | `PRIMITIVE_INDICES`                      |  0 | :x:                                   |   0% |
 | 40 |  20 | `PAKFILE`                                |  0 | `shared.PakFile`                      | 100% |
 | 41 |  20 | `CLIP_PORTAL_VERTICES`                   |  0 | :x:                                   |   0% |
 | 42 |  20 | `CUBEMAPS`                               |  0 | `valve.orange_box.Cubemap`            | 100% |
-| 43 |  20 | `TEXTURE_DATA_STRING_DATA`                    |  0 | `shared.TexDataStringData`            | 100% |
+| 43 |  20 | `TEXTURE_DATA_STRING_DATA`               |  0 | `shared.TextureDataStringData`        | 100% |
+| 44 |  20 | `TEXTURE_DATA_STRING_TABLE`              |  0 | `shared.TextureDataStringTable`       | 100% |
 | 45 |  20 | `OVERLAYS`                               |  0 | :x:                                   |   0% |
 | 46 |  20 | `LEAF_MIN_DIST_TO_WATER`                 |  0 | :x:                                   |   0% |
 | 47 |  20 | `FACE_MACRO_TEXTURE_INFO`                |  0 | :x:                                   |   0% |

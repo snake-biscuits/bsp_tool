@@ -168,9 +168,9 @@ Not all lumps are as simple as a list of structs, and this is where special lump
 Special lump classes are initialised from the raw bytes of a lump, turning them into python objects that are easier to work with
 All that's really required is an `__init__` method and an `.as_bytes()` method for re-saving
 
-Here's `branches.shared.TexDataStringData` as an example of how basic a special lump class can be:
+Here's `branches.shared.TextureDataStringData` as an example of how basic a special lump class can be:
 ```python
-class TexDataStringData(list):
+class TextureDataStringData(list):
     def __init__(self, raw_texture_data_string_data):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texture_data_string_data.split(b"\0")])
 

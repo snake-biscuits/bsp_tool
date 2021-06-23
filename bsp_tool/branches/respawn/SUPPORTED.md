@@ -72,9 +72,9 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  42 | 002A | 29 | `CUBEMAPS`                  |  0 | `respawn.titanfall.Cubemap`        |  75% |
 |     |      | 37 |                             |  0 | `respawn.titanfall.Cubemap`        |  75% |
 |     |      | 47 |                             |  0 | `respawn.titanfall.Cubemap`        |  75% |
-|  43 | 002B | 29 | `TEXTURE_DATA_STRING_DATA`  |  0 | `shared.TexDataStringData`         | 100% |
-|     |      | 37 |                             |  0 | `shared.TexDataStringData`         | 100% |
-|     |      | 47 |                             |  0 | `shared.TexDataStringData`         | 100% |
+|  43 | 002B | 29 | `TEXTURE_DATA_STRING_DATA`  |  0 | `shared.TextureDataStringData`     | 100% |
+|     |      | 37 |                             |  0 | `shared.TextureDataStringData`     | 100% |
+|     |      | 47 |                             |  0 | `shared.TextureDataStringData`     | 100% |
 |  44 | 002C | 29 | `TEXTURE_DATA_STRING_TABLE` |  0 | `shared.TextureDataStringTable`    | 100% |
 |     |      | 37 |                             |  0 | `shared.TextureDataStringTable`    | 100% |
 |     |      | 47 | `UNUSED_44`                 |  0 | :x:                                |   0% |

@@ -195,22 +195,22 @@ class Visibility:
         return struct.pack(f"2i{vectors_bytes}", (self.vector_count, self.vector_size, *self.vectors))
 
 
-BASIC_LUMP_CLASSES = {"LEAF_BRUSHES": LeafBrush,
-                      "LEAF_FACES": LeafFace,
+BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  LeafBrush,
+                      "LEAF_FACES":    LeafFace,
                       "MESH_VERTICES": MeshVertex}
 
-LUMP_CLASSES = {"BRUSHES": Brush,
-                "BRUSH_SIDES": BrushSide,
-                "EFFECTS": Effect,
-                "FACES": Face,
-                "LEAVES": Leaf,
-                "LIGHTMAPS": Lightmap,
+LUMP_CLASSES = {"BRUSHES":       Brush,
+                "BRUSH_SIDES":   BrushSide,
+                "EFFECTS":       Effect,
+                "FACES":         Face,
+                "LEAVES":        Leaf,
+                "LIGHTMAPS":     Lightmap,
                 "LIGHT_VOLUMES": LightVolume,
-                "MODELS": Model,
-                "NODES": Node,
-                "PLANES": Plane,
-                "TEXTURES": Texture,
-                "VERTICES": Vertex}
+                "MODELS":        Model,
+                "NODES":         Node,
+                "PLANES":        Plane,
+                "TEXTURES":      Texture,
+                "VERTICES":      Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
                         "VIS_DATA": Visibility}

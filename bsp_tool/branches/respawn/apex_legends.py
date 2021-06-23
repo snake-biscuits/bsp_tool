@@ -157,7 +157,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (63 unused)
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    texture_data: int  # index of this MaterialSort's Texdata
+    texture_data: int  # index of this MaterialSort's TextureData
     unknown: List[int]  # lightmap indices?
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
     __slots__ = ["texture_data", "unknown", "vertex_offset"]

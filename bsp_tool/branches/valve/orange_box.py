@@ -413,9 +413,10 @@ class WorldLight(base.Struct):  # LUMP 15
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS": {0: DisplacementTriangle},
-                      "LEAF_FACES":        {0: LeafFace},
-                      "SURFEDGES":         {0: SurfEdge}}
+BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: DisplacementTriangle},
+                      "LEAF_FACES":                {0: LeafFace},
+                      "SURFEDGES":                 {0: SurfEdge},
+                      "TEXTURE_DATA_STRING_TABLE": {0: shared.TextureDataStringTable}}
 
 LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "AREA_PORTALS":          {0: AreaPortal},
@@ -431,16 +432,16 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "NODES":                 {0: Node},
                 "ORIGINAL_FACES":        {0: Face},
                 "PLANES":                {0: Plane},
-                "TEXTURE_DATA":               {0: TextureData},
-                "TEXTURE_INFO":               {0: TextureInfo},
+                "TEXTURE_DATA":          {0: TextureData},
+                "TEXTURE_INFO":          {0: TextureInfo},
                 "VERTICES":              {0: Vertex},
                 "VERTEX_NORMALS":        {0: Vertex},
                 "WORLD_LIGHTS":          {0: WorldLight},
                 "WORLD_LIGHTS_HDR":      {0: WorldLight}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TexDataStringData},
-                        "PAKFILE":             {0: shared.PakFile}}
+SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
+                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
+                        "PAKFILE":                  {0: shared.PakFile}}
 
 GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
                               10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}

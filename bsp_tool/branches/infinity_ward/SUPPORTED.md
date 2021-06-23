@@ -1,7 +1,7 @@
 # D3DBsp (Infinity Ward) Supported Games (v0.3.0)
 | Bsp version | Game | Branch script | Lumps supported |
 | -- | ------------------------------------------------------------------------------- | -------------------------------- | ------: |
-| 59 | [Call of Duty 1](https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp) | `infinity_ward/call_of_duty1.py` | 30 / 32 |
+| 59 | [Call of Duty 1](https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp) | `infinity_ward/call_of_duty1.py` | 29 / 32 |
 
 | Lump index | Bsp version | Lump name | Lump version | LumpClass | % of struct mapped |
 | -: | -: | -------------------- | -: | ---------------------------------------------------- | ---: |

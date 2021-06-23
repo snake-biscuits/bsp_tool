@@ -193,10 +193,10 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    # MaterialSort -> TexData, VertexReservedX
-    # TexData -> TexDataStringTable -> TexDataStringTable
+    # MaterialSort -> TextureData, VertexReservedX
+    # TextureData -> TextureDataStringTable -> TextureDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
-    texture_data: int  # index of this MaterialSort's Texdata
+    texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
@@ -205,8 +205,8 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    # Mesh -> MaterialSort -> TexData, VertexReservedX
-    # TexData -> TexDataStringTable -> TexDataStringTable
+    # Mesh -> MaterialSort -> TextureData, VertexReservedX
+    # TextureData -> TextureDataStringTable -> TextureDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     start_index: int  # index into this Mesh's VertexReservedX
     num_triangles: int  # number of Triangles in VertexReservedX after start_index
@@ -227,8 +227,8 @@ class MeshIndex(int):  # LUMP 79 (004F)
 
 class Model(base.Struct):  # LUMP 14 (000E)
     """bsp.MODELS[0] is always worldspawn"""
-    # Model -> Mesh -> MaterialSort -> TexData, VertexReservedX
-    # TexData -> TexDataStringTable -> TexDataStringTable
+    # Model -> Mesh -> MaterialSort -> TextureData, VertexReservedX
+    # TextureData -> TextureDataStringTable -> TextureDataStringTable
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     mins: List[float]  # bounding box mins
     maxs: List[float]  # bounding box maxs
@@ -327,8 +327,8 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    # MaterialSort -> TexData, VertexReservedX
-    # TexData -> TexDataStringTable -> TexDataStringData
+    # MaterialSort -> TextureData, VertexReservedX
+    # TextureData -> TextureDataStringTable -> TextureDataStringData
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     unknown: List[int]
     string_table_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
@@ -342,11 +342,6 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
                  "view_width", "view_height", "flags"]
     _format = "9i"
     _arrays = {"unknown": 3}
-
-
-class TextureDataStringTable(int):  # LUMP 44 (002C)
-    """Points to the starting index of string of same index in TEXTURE_DATA_STRING_DATA"""
-    _format = "I"
 
 
 class Vertex(base.MappedArray):  # LUMP 3 (0003)
@@ -432,7 +427,7 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: BrushSidePlaneOffsets},
                       "CSM_OBJ_REFS":                {0: ObjRef},
                       "MESH_INDICES":                {0: MeshIndex},
                       "OBJ_REFS":                    {0: ObjRef},
-                      "TEXTURE_DATA_STRING_TABLE":        {0: TextureDataStringTable}}
+                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.TextureDataStringTable}}
 
 LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "CELL_AABB_NODES":          {0: Node},
@@ -449,7 +444,7 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "SHADOW_MESH_MESHES":       {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTS":  {0: ShadowMeshAlphaVertex},
                 "SHADOW_MESH_OPAQUE_VERTS": {0: Vertex},
-                "TEXTURE_DATA":                  {1: TextureData},
+                "TEXTURE_DATA":             {1: TextureData},
                 "VERTEX_NORMALS":           {0: Vertex},
                 "VERTICES":                 {0: Vertex},
                 "VERTS_LIT_BUMP":           {1: VertexLitBump},
@@ -457,9 +452,9 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "VERTS_UNLIT":              {0: VertexUnlit},
                 "VERTS_UNLIT_TS":           {0: VertexUnlitTS}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":            {0: shared.Entities},
-                        "PAKFILE":             {0: shared.PakFile},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TexDataStringData}}
+SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
+                        "PAKFILE":                  {0: shared.PakFile},
+                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
 # NOTE: .ent files are handled by the RespawnBsp class directly
 
 GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}

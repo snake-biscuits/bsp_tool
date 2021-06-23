@@ -208,20 +208,20 @@ class MipTextureLump:  # LUMP 2
         raise NotImplementedError("Haven't tested to locate texture data yet")
 
 
-BASIC_LUMP_CLASSES = {"EDGES": Edge,
+BASIC_LUMP_CLASSES = {"EDGES":     Edge,
                       "SURFEDGES": SurfEdge}
 
-LUMP_CLASSES = {"CLIP_NODES": ClipNode,
-                "FACES": Face,
-                "LEAVES": Leaf,
-                "LEAF_FACES": LeafFace,
-                "MODELS": Model,
-                "NODES": Node,
-                "PLANES": Plane,
+LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
+                "FACES":        Face,
+                "LEAVES":       Leaf,
+                "LEAF_FACES":   LeafFace,
+                "MODELS":       Model,
+                "NODES":        Node,
+                "PLANES":       Plane,
                 "TEXTURE_INFO": TextureInfo,
-                "VERTICES": Vertex}
+                "VERTICES":     Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
+SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
                         "MIP_TEXTURES": MipTextureLump}
 
 

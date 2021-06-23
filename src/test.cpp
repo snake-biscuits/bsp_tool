@@ -9,7 +9,7 @@ namespace bsp_tool {
                                    "Faces", "Lightmaps", "LightVolumes", "VisData"};
     }
     namespace valve_software {
-        char lump_names[64][64] = {"Entities", "Planes", "TexData", "Vertices", "Visibility",
+        char lump_names[64][64] = {"Entities", "Planes", "TextureData", "Vertices", "Visibility",
                                    "Nodes", "TexInfo", "Faces", "Lighting", "Occlusion",
                                    "Leaves", "FaceIDs", "Edges", "SurfEdges", "Models",
                                    "WorldLights", "LeafFaces", "LeafBrushes", "Brushes",
@@ -20,7 +20,7 @@ namespace bsp_tool {
                                    "DisplacementVertices", "DisplacementLightmapSamplePosition",
                                    "GameLump", "LeafWaterData", "Primitives", "PrimitiveVertices",
                                    "PrimitiveIndices", "PakFile", "ClipPortalVertices", "Cubemaps",
-                                   "TexDataStringData", "TexDataStringTable", "Overlays",
+                                   "TextureDataStringData", "TextureDataStringTable", "Overlays",
                                    "LeafMinDistToWater", "FaceMacroTextureInfo", "DisplacementTriangles",
                                    "PhysicsCollideSurface", "WaterOverlays", "LeafAmbientIndexHDR",
                                    "LeafAmbientIndex", "LightingHDR", "WorldLightsHDR",
@@ -28,14 +28,14 @@ namespace bsp_tool {
                                    "FacesHDR", "MapFlags", "OverlayFades", "Unused61", "Unused62", "Unused63"};
     }
     namespace respawn_entertainment {
-        char lump_names[128][64] = {"Entities", "Planes", "TexData", "Vertices", "Unused04", "Unused05",
+        char lump_names[128][64] = {"Entities", "Planes", "TextureData", "Vertices", "Unused04", "Unused05",
                                     "Unused06", "Unused07", "Unused08", "Unused09", "Unused10", "Unused11",
                                     "Unused12", "Unused13", "Models", "Unused15", "Unused16", "Unused17",
                                     "Unused18", "Unused19", "Unused20", "Unused21", "Unused22", "Unused23",
                                     "EntityPartitions", "Unused25", "Unused26", "Unused27", "Unused28",
                                     "PhysicsCollide", "VertexNormals", "Unused31", "Unused32", "Unused33",
                                     "Unused34", "GameLump", "LeafWaterData", "Unused37", "Unused38", "Unused39",
-                                    "PakFile", "Unused41", "Cubemaps", "TexDataStringData", "TexDataStringTable",
+                                    "PakFile", "Unused41", "Cubemaps", "TextureDataStringData", "TextureDataStringTable",
                                     "Unused45", "Unused46", "Unused47", "Unused48", "Unused49", "Unused50",
                                     "Unused51", "Unused52", "Unused53", "WorldLights", "WorldLightParentInfo",
                                     "Unused56", "Unused57", "Unused58", "Unused59", "Unused60", "Unused61",
