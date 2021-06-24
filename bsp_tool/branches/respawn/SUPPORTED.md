@@ -21,8 +21,8 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |   1 | 0001 | 29 | `PLANES`                    |  1 | `respawn.titanfall.Plane`          | 100% |
 |     |      | 37 |                             |  1 | `respawn.titanfall.Plane`          | 100% |
 |     |      | 47 |                             |  0 | `respawn.titanfall.Plane`          | 100% |
-|   2 | 0002 | 29 | `TEXTURE_DATA`              |  1 | `respawn.titanfall.TextureData`    |  66% |
-|     |      | 37 |                             |  1 | `respawn.titanfall.TextureData`    |  66% |
+|   2 | 0002 | 29 | `TEXTURE_DATA`              |  1 | `respawn.titanfall.TextureData`    | 100% |
+|     |      | 37 |                             |  1 | `respawn.titanfall.TextureData`    | 100% |
 |     |      | 47 |                             |  0 | `respawn.apex_legends.TextureData` |  11% |
 |   3 | 0003 | 29 | `VERTICES`                  |  0 | `respawn.titanfall.Vertex`         | 100% |
 |     |      | 37 |                             |  0 | `respawn.titanfall.Vertex`         | 100% |

@@ -330,7 +330,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     # MaterialSort -> TextureData, VertexReservedX
     # TextureData -> TextureDataStringTable -> TextureDataStringData
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
-    unknown: List[int]
+    reflectivity: List[int]  # copy of .vtf reflectivity value, for bounce lighting
     string_table_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     # ^ nameStringTableID
     width: int
@@ -338,10 +338,10 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     view_width: int
     view_height: int
     flags: int
-    __slots__ = ["unknown", "string_table_index", "width", "height",
+    __slots__ = ["reflectivity", "string_table_index", "width", "height",
                  "view_width", "view_height", "flags"]
     _format = "9i"
-    _arrays = {"unknown": 3}
+    _arrays = {"reflectivity": [*"rgb"]}
 
 
 class Vertex(base.MappedArray):  # LUMP 3 (0003)
@@ -503,4 +503,25 @@ def replace_texture(bsp, texture: str, replacement: str):
         offset += len(texture_name) + 1  # +1 for null byte
 
 
-methods = [vertices_of_mesh, vertices_of_model, replace_texture]
+def find_mesh_by_texture(bsp, texture: str):
+    # very slow backward traces
+    texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
+    for texture_data_index, texture_data in enumerate(bsp.TEXTURE_DATA):
+        if texture_data.string_table_index != texture_index:
+            continue
+        for material_sort_index, material_sort in enumerate(bsp.MATERIAL_SORT):
+            if material_sort.texture_data != texture_data_index:
+                continue
+            for mesh in bsp.MESHES:
+                if mesh.material_sort == material_sort_index:
+                    yield mesh
+
+
+def get_mesh_texture(bsp, mesh_index: int):
+    mesh = bsp.MESHES[mesh_index]
+    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+    texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.string_table_index]
+
+
+methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture]
