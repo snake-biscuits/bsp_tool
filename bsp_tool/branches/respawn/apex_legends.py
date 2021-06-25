@@ -2,6 +2,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import shared
 from . import titanfall, titanfall2
 
 
@@ -238,7 +239,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "MESHES":             {0: Mesh},
                      "MODELS":             {0: Model},
                      "PLANES":             {0: titanfall.Plane},
-                     "TEXTURE_DATA":            {0: TextureData},
+                     "TEXTURE_DATA":       {0: TextureData},
                      "VERTS_BLINN_PHONG":  {0: VertexBlinnPhong},
                      "VERTS_LIT_BUMP":     {0: VertexLitBump},
                      "VERTS_LIT_FLAT":     {0: VertexLitFlat},
@@ -246,6 +247,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "VERTS_UNLIT_TS":     {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
 # NOTE: Apex GAME_LUMP versions are the same as BSP_VERSION
 # GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv47),
