@@ -397,6 +397,14 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 # classes for special lumps (alphabetical order)
+class EntityPartition(list):
+    def __init__(self, raw_lump: bytes):
+        super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
+
+    def as_bytes(self) -> bytes:
+        return b" ".join([*self, b"\x00"])
+
+
 class GameLump_SPRP:  # unique to Titanfall
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
@@ -452,7 +460,8 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "VERTS_UNLIT":              {0: VertexUnlit},
                 "VERTS_UNLIT_TS":           {0: VertexUnlitTS}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
+SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":        {0: EntityPartition},
+                        "ENTITIES":                 {0: shared.Entities},
                         "PAKFILE":                  {0: shared.PakFile},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
 # NOTE: .ent files are handled by the RespawnBsp class directly
