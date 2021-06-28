@@ -37,4 +37,4 @@
 | 14 | 23 | `MODELS`        | `id_software.quake.Model`          | 100% |
 |    | 46 | `LIGHTMAPS`     | `id_software.quake3.Lightmap`      | 100% |
 | 15 | 46 | `LIGHT_VOLUMES` | `id_software.quake3.LightVolume`   | 100% |
-| 16 | 46 | `VIS_DATA`      | `id_software.quake3.Visibility`    |  10% |
+| 16 | 46 | `VISIBILITY`    | `id_software.quake3.Visibility`    |  10% |

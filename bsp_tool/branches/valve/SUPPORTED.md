@@ -7,6 +7,9 @@
 |  21 | Counter-Strike: Global Offensive | `valve/orange_box.py` | 25 / 64 |
 | 100 | Counter-Strike: Online 2         | `nexon/cso2.py`       |  2 / 64 |
 
+> This table includes some of Nexon's Source Engine titles
+Nexon didn't make many changes, so I consider them part of the broader Source Engine
+
 | Lump index | Bsp version | Lump name | Lump version | LumpClass | % of struct mapped |
 | -: | --: | ---------------------------------------- | -: | ------------------------------------- | ---: |
 |  0 |  19 | `ENTITIES`                               |  0 | `shared.Entities`                     | 100% |

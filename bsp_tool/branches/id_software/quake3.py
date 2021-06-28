@@ -27,7 +27,7 @@ class LUMP(enum.Enum):
     FACES = 13
     LIGHTMAPS = 14  # 3 128x128 RGB888 images
     LIGHT_VOLUMES = 15
-    VIS_DATA = 16
+    VISIBILITY = 16
 
 
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
@@ -213,7 +213,7 @@ LUMP_CLASSES = {"BRUSHES":       Brush,
                 "VERTICES":      Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
-                        "VIS_DATA": Visibility}
+                        "VISIBILITY": Visibility}
 
 
 # branch exclusive methods, in alphabetical order:

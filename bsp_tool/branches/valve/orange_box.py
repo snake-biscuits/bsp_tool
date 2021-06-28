@@ -347,12 +347,12 @@ class SurfEdge(int):  # LUMP 13
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
-    tex_data_string_index: int  # index of texture name (TEXTURE_DATA_STRING_TABLE)
+    name_index: int  # index of texture name (TEXTURE_DATA_STRING_TABLE)
     width: int  # width of full texture
     height: int  # height of full texture
     view_width: int  # width of visible section of texture
     view_height: int  # height of visible section of texture
-    __slots__ = ["reflectivity", "tex_data_string_index", "width", "height",
+    __slots__ = ["reflectivity", "name_index", "width", "height",
                  "view_width", "view_height"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"]}

@@ -142,12 +142,12 @@ class Visiblity:
     # seems to be the same across Source & Quake engines
     # is Titanfall (v29) the same?
     def __init__(self, raw_visibility: bytes):
-        vis_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]
-        num_clusters = vis_data
+        visibility_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]
+        num_clusters = visibility_data
         for i in range(num_clusters):
             i = (2 * i) + 1
-            pvs_offset = vis_data[i]  # noqa: F841
-            pas_offset = vis_data[i + 1]  # noqa: F841
+            pvs_offset = visibility_data[i]  # noqa: F841
+            pas_offset = visibility_data[i + 1]  # noqa: F841
             # ^ pointers into RLE encoded bits mapping the PVS tree
             # from bytes inside the .bsp file?
         raise NotImplementedError("Understanding of Visibility lump is incomplete")

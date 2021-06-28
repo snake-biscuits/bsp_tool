@@ -11,10 +11,6 @@ from .base import LumpHeader
 from .branches import shared
 
 
-# TODO: (maybe) give a pretty ascii visualisation of the .bsp file
-# -- indicate which lumps are used, order, sizes, compare external lumps etc.
-
-
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
 
 

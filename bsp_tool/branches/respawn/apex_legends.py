@@ -193,7 +193,8 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    __slots__ = ["unknown", "string_table_index"]
+    name_index: int  # index of this TextureData's surface name
+    __slots__ = ["unknown", "name_index"]
     _format = "4i"
     _arrays = {"unknown": 3}
 
@@ -247,6 +248,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "VERTS_UNLIT_TS":     {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")  # now unused
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
 # NOTE: Apex GAME_LUMP versions are the same as BSP_VERSION

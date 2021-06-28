@@ -331,14 +331,14 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     # TextureData -> TextureDataStringTable -> TextureDataStringData
     # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     reflectivity: List[int]  # copy of .vtf reflectivity value, for bounce lighting
-    string_table_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
+    name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     # ^ nameStringTableID
     width: int
     height: int
     view_width: int
     view_height: int
     flags: int
-    __slots__ = ["reflectivity", "string_table_index", "width", "height",
+    __slots__ = ["reflectivity", "name_index", "width", "height",
                  "view_width", "view_height", "flags"]
     _format = "9i"
     _arrays = {"reflectivity": [*"rgb"]}

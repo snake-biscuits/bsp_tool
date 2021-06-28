@@ -6,7 +6,7 @@ namespace bsp_tool {
         char lump_names[17][64] = {"Entities", "Textures", "Planes", "Nodes", "Leaves",
                                    "LeafFaces", "LeafBrushes", "Models", "Brushes",
                                    "BrushSides", "Vertices", "MeshVertices", "Effects",
-                                   "Faces", "Lightmaps", "LightVolumes", "VisData"};
+                                   "Faces", "Lightmaps", "LightVolumes", "Visibility"};
     }
     namespace valve_software {
         char lump_names[64][64] = {"Entities", "Planes", "TextureData", "Vertices", "Visibility",

@@ -194,7 +194,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "unknown"]
     _format = "4I"  # 16 bytes
-    _arrays = {"unknown": [*"ab"]}
+    _arrays = {"unknown": 2}
 
 
 # classes for special lumps (alphabetical order)
