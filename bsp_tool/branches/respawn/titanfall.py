@@ -133,7 +133,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE = 0x007A  # unused
+    UNUSED_122 = 0x007A
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -155,7 +155,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _arrays = {"mins": [*"xyz"], "maxs:": [*"xyz"]}
 
 
-class BrushSidePlaneOffsets(int):
+class BrushSidePlaneOffsets(int):  # LUMP 93 (005D)
     _format = "H"
 
 
@@ -185,11 +185,11 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
     count: int  # assuming this counts the number of lightmaps this size
+    # NOTE: there's actually 2 identically sized lightmaps for each header (for titanfall2)
     width: int
     height: int
     __slots__ = ["count", "width", "height"]
     _format = "I2H"
-    # there's actually 2 identically sized lightmaps for each header (for titanfall2)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
@@ -253,7 +253,7 @@ class ObjRef(int):  # LUMP 100 (0064)
     _format = "H"
 
 
-class ObjRefBounds(base.Struct):
+class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
     mins: List[float]
     maxs: List[float]
     _format = "8f"
@@ -289,6 +289,10 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
     _format = "3f2i"
     __slots__ = ["origin", "unknown"]
     _arrays = {"origin": [*"xyz"], "unknown": 2}
+
+
+class ShadowMeshIndex(int):
+    _format = "H"
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
@@ -435,6 +439,7 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: BrushSidePlaneOffsets},
                       "CSM_OBJ_REFS":                {0: ObjRef},
                       "MESH_INDICES":                {0: MeshIndex},
                       "OBJ_REFS":                    {0: ObjRef},
+                      "SHADOW_MESH_INDICES":         {0: ShadowMeshIndex},
                       "TEXTURE_DATA_STRING_TABLE":   {0: shared.TextureDataStringTable}}
 
 LUMP_CLASSES = {"CELLS":                    {0: Cell},

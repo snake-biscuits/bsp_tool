@@ -143,7 +143,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE = 0x007A
+    LIGHTMAP_DATA_RTL_PAGE = 0x007A  #
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -155,7 +155,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
-class LightmapRealTimeLightsPage(base.Struct):
+class LightmapPage(base.Struct):
     data: bytes
     _format = "128s"
     __slots__ = ["data"]
@@ -225,8 +225,8 @@ class GameLump_SPRP:  # unique to Titanfall|2
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"VERTS_BLINN_PHONG":              {0: VertexBlinnPhong},
-                     "LIGHTMAP_DATA_REAL_TIME_LIGHTS": {0: LightmapRealTimeLightsPage}})
+LUMP_CLASSES.update({"VERTS_BLINN_PHONG":                   {0: VertexBlinnPhong},
+                     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
