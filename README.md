@@ -8,8 +8,8 @@ The range of .bsp formats supported covers many developers:
 
 | id Software | Infinity Ward | Nexon | Respawn Entertainment | Valve Software |
 | ----------- | ------------- | ----- | --------------------- | -------------- |
-| Quake 3 Arena | Call of Duty 1 | Counter-Strike: Online 2 | Titanfall | Counter-Strike: Source |
-| | | Vindictus | Titanfall 2 | Team Fortress 2 |
+| Quake | Call of Duty 1 | Counter-Strike: Online 2 | Titanfall | Counter-Strike: Source |
+| Quake 3 Arena | | Vindictus | Titanfall 2 | Team Fortress 2 |
 | | | | Apex Legends | Counter-Strike: Global Offensive |
 
 No format is 100% supported, yet.  
