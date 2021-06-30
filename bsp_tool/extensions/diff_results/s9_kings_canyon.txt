@@ -1,0 +1,147 @@
+>>> diff.diff_rbsps(r5_s5_kc, r5_s9_kc)
+ENTITIES  NNYY  NOPE
+ExternalLumpHeader(offset=89838976, length=559731, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0000.bsp_lump', filesize=559731)
+ExternalLumpHeader(offset=89529160, length=597651, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0000.bsp_lump', filesize=597651)
+PLANES  NNYY  ????
+TEXTURE_DATA  YNYY  ????
+VERTICES  NNYY  ????
+LIGHTPROBE_PARENT_INFOS  NYYY  NOPE
+ExternalLumpHeader(offset=351512200, length=28, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0004.bsp_lump', filesize=28)
+ExternalLumpHeader(offset=366607028, length=28, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0004.bsp_lump', filesize=28)
+SHADOW_ENVIRONMENTS  NYYY  NOPE
+ExternalLumpHeader(offset=89838904, length=72, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0005.bsp_lump', filesize=72)
+ExternalLumpHeader(offset=89529088, length=72, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0005.bsp_lump', filesize=72)
+MODELS  NNYY  ????
+SURFACE_NAMES  NNYY  NOPE
+ExternalLumpHeader(offset=162816, length=19151, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.000f.bsp_lump', filesize=19151)
+ExternalLumpHeader(offset=166224, length=19249, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.000f.bsp_lump', filesize=19249)
+CONTENT_MASKS  NNYY  NOPE
+ExternalLumpHeader(offset=181968, length=724, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0010.bsp_lump', filesize=724)
+ExternalLumpHeader(offset=185476, length=764, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0010.bsp_lump', filesize=764)
+SURFACE_PROPERTIES  NNYY  NOPE
+ExternalLumpHeader(offset=182692, length=4120, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0011.bsp_lump', filesize=4120)
+ExternalLumpHeader(offset=186240, length=4160, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0011.bsp_lump', filesize=4160)
+BVH_NODES  NNYY  NOPE
+ExternalLumpHeader(offset=186812, length=25570944, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0012.bsp_lump', filesize=25570944)
+ExternalLumpHeader(offset=190400, length=25834496, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0012.bsp_lump', filesize=25834496)
+BVH_LEAF_DATA  NNYY  NOPE
+ExternalLumpHeader(offset=25757756, length=21636408, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0013.bsp_lump', filesize=21636408)
+
+ExternalLumpHeader(offset=26024896, length=21933440, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0013.bsp_lump', filesize=21933440)
+PACKED_VERTICES  NYYY  YES!
+ExternalLumpHeader(offset=47394164, length=3120, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0014.bsp_lump', filesize=3120)
+ExternalLumpHeader(offset=47958336, length=3120, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0014.bsp_lump', filesize=3120)
+ENTITY_PARTITIONS  NYYY  ????
+VERTEX_NORMALS  NNYY  ????
+GAME_LUMP  NNYY  ????
+UNKNOWN_37  NNYY  NOPE
+ExternalLumpHeader(offset=52746256, length=367632, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0025.bsp_lump', filesize=367632)
+ExternalLumpHeader(offset=53035388, length=343260, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0025.bsp_lump', filesize=343260)
+UNKNOWN_38  NNYY  NOPE
+ExternalLumpHeader(offset=87848880, length=702672, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0026.bsp_lump', filesize=702672)
+ExternalLumpHeader(offset=87575560, length=664780, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0026.bsp_lump', filesize=664780)
+UNKNOWN_39  NNYY  NOPE
+ExternalLumpHeader(offset=53113888, length=313114, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0027.bsp_lump', filesize=313114)
+ExternalLumpHeader(offset=53378648, length=291304, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0027.bsp_lump', filesize=291304)
+PAKFILE  NNYY  NOPE
+ExternalLumpHeader(offset=381151992, length=15209464, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0028.bsp_lump', filesize=15209464)
+ExternalLumpHeader(offset=396325000, length=54, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0028.bsp_lump', filesize=54)
+CUBEMAPS  NYYY  ????
+UNKNOWN_43  NNYY  NOPE
+LumpHeader(offset=0, length=0, version=0, fourCC=0)
+ExternalLumpHeader(offset=366607520, length=116, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.002b.bsp_lump', filesize=116)
+WORLDLIGHTS  NNYY  NOPE
+ExternalLumpHeader(offset=351512692, length=739312, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0036.bsp_lump', filesize=739312)
+ExternalLumpHeader(offset=366607636, length=793184, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0036.bsp_lump', filesize=793184)
+WORLDLIGHTS_PARENT_INFO  NYYY  NOPE
+ExternalLumpHeader(offset=352252004, length=6688, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0037.bsp_lump', filesize=6688)
+ExternalLumpHeader(offset=367400820, length=6688, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0037.bsp_lump', filesize=6688)
+VERTS_UNLIT  NNYY  ????
+VERTS_LIT_BUMP  NNYY  ????
+VERTS_UNLIT_TS  NNYY  ????
+MESH_INDICES  NNYY  ????
+MESHES  NNYY  ????
+MESH_BOUNDS  NNYY  NOPE
+ExternalLumpHeader(offset=200380164, length=1242080, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0051.bsp_lump', filesize=1242080)
+ExternalLumpHeader(offset=200363932, length=1240640, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0051.bsp_lump', filesize=1240640)
+MATERIAL_SORT  NNYY  ????
+LIGHTMAP_HEADERS  NYYY  ????
+CM_GRID  NYYY  NOPE
+ExternalLumpHeader(offset=352258692, length=76, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0055.bsp_lump', filesize=76)
+ExternalLumpHeader(offset=367407508, length=76, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0055.bsp_lump', filesize=76)
+UNKNOWN_97  NNYY  NOPE
+LumpHeader(offset=0, length=0, version=0, fourCC=0)
+ExternalLumpHeader(offset=255808708, length=13549568, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0061.bsp_lump', filesize=13549568)
+LIGHTMAP_DATA_SKY  NYYY  NOPE
+ExternalLumpHeader(offset=201628096, length=54198272, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0062.bsp_lump', filesize=54198272)
+ExternalLumpHeader(offset=201610436, length=54198272, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0062.bsp_lump', filesize=54198272)
+CSM_AABB_NODES  NNYY  ????
+CSM_OBJ_REFS  NNYY  ????
+LIGHTPROBES  NNYY  NOPE
+ExternalLumpHeader(offset=321562036, length=28156032, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0065.bsp_lump', filesize=28156032)
+ExternalLumpHeader(offset=335841840, length=28969584, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0065.bsp_lump', filesize=28969584)
+STATIC_PROP_LIGHTPROBE_INDEX  NNYY  NOPE
+ExternalLumpHeader(offset=349718068, length=1794132, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0066.bsp_lump', filesize=1794132)
+ExternalLumpHeader(offset=364811424, length=1795604, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0066.bsp_lump', filesize=1795604)
+LIGHTPROBE_TREE  NNYY  NOPE
+ExternalLumpHeader(offset=316748944, length=449352, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0067.bsp_lump', filesize=449352)
+ExternalLumpHeader(offset=330122212, length=535288, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0067.bsp_lump', filesize=535288)
+LIGHTPROBE_REFS  NNYY  NOPE
+ExternalLumpHeader(offset=317198296, length=4363740, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0068.bsp_lump', filesize=4363740)
+ExternalLumpHeader(offset=330657500, length=5184340, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0068.bsp_lump', filesize=5184340)
+LIGHTMAP_DATA_REAL_TIME_LIGHTS  NYYY  NOPE
+ExternalLumpHeader(offset=255826368, length=44036096, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0069.bsp_lump', filesize=40648704)
+ExternalLumpHeader(offset=269358276, length=44036096, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0069.bsp_lump', filesize=40648704)
+CELL_BSP_NODES  NNYY  ????
+CELLS  NNYY  ????
+PORTALS  NNYY  NOPE
+ExternalLumpHeader(offset=47409348, length=44100, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.006c.bsp_lump', filesize=44100)
+ExternalLumpHeader(offset=47977168, length=32784, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.006c.bsp_lump', filesize=32784)
+PORTAL_VERTS  NNYY  NOPE
+ExternalLumpHeader(offset=47453448, length=37812, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.006d.bsp_lump', filesize=37812)
+ExternalLumpHeader(offset=48009952, length=73932, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.006d.bsp_lump', filesize=73932)
+PORTAL_EDGES  NNYY  NOPE
+ExternalLumpHeader(offset=47491260, length=9272, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.006e.bsp_lump', filesize=9272)
+ExternalLumpHeader(offset=48083884, length=10364, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.006e.bsp_lump', filesize=10364)
+PORTAL_VERT_EDGES  NNYY  NOPE
+ExternalLumpHeader(offset=47500532, length=50416, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.006f.bsp_lump', filesize=50416)
+ExternalLumpHeader(offset=48094248, length=98576, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.006f.bsp_lump', filesize=98576)
+PORTAL_VERT_REFS  NNYY  NOPE
+ExternalLumpHeader(offset=47550948, length=16458, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0070.bsp_lump', filesize=16458)
+ExternalLumpHeader(offset=48192824, length=12320, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0070.bsp_lump', filesize=12320)
+PORTAL_EDGE_REFS  NNYY  NOPE
+ExternalLumpHeader(offset=47567408, length=16458, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0071.bsp_lump', filesize=16458)
+ExternalLumpHeader(offset=48205144, length=12320, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0071.bsp_lump', filesize=12320)
+PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+ExternalLumpHeader(offset=47583868, length=43088, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0072.bsp_lump', filesize=43088)
+ExternalLumpHeader(offset=48217464, length=44064, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0072.bsp_lump', filesize=44064)
+PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+ExternalLumpHeader(offset=47626956, length=43088, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0073.bsp_lump', filesize=43088)
+ExternalLumpHeader(offset=48261528, length=44064, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0073.bsp_lump', filesize=44064)
+PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+ExternalLumpHeader(offset=47670044, length=18544, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0074.bsp_lump', filesize=18544)
+ExternalLumpHeader(offset=48305592, length=20728, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0074.bsp_lump', filesize=20728)
+OCCLUSION_MESH_VERTS  NNYY  NOPE
+ExternalLumpHeader(offset=47688588, length=24600, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0075.bsp_lump', filesize=24600)
+ExternalLumpHeader(offset=48326320, length=24780, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0075.bsp_lump', filesize=24780)
+OCCLUSION_MESH_INDICES  NNYY  NOPE
+ExternalLumpHeader(offset=47713188, length=23244, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0076.bsp_lump', filesize=23244)
+ExternalLumpHeader(offset=48351100, length=23424, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0076.bsp_lump', filesize=23424)
+CELL_AABB_NODES  NNYY  ????
+OBJ_REFS  NNYY  ????
+OBJ_REF_BOUNDS  NNYY  ????
+LIGHTMAP_DATA_RTL_PAGE  NNYY  NOPE
+ExternalLumpHeader(offset=299862464, length=14742, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.007a.bsp_lump', filesize=14742)
+ExternalLumpHeader(offset=313394372, length=16254, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.007a.bsp_lump', filesize=16254)
+LEVEL_INFO  NYYY  NOPE
+ExternalLumpHeader(offset=72050704, length=36, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.007b.bsp_lump', filesize=36)
+ExternalLumpHeader(offset=72089100, length=36, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.007b.bsp_lump', filesize=36)
+SHADOW_MESH_OPAQUE_VERTS  NNYY  ????
+SHADOW_MESH_ALPHA_VERTS  NNYY  ????
+SHADOW_MESH_INDICES  NNYY  ????
+SHADOW_MESH_MESHES  NNYY  ????
+ENTITIES_env  YES!
+ENTITIES_fx  YES!
+ENTITIES_script  YES!
+ENTITIES_snd  YES!
+ENTITIES_spawn  YES!
