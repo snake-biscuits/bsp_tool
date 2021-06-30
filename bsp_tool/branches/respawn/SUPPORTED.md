@@ -31,10 +31,10 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |     |      | 47 |                                  |  0 | `respawn.titanfall.Vertex`                | 100% |
 |   4 | 0004 | 29 | `UNUSED_4`                       |  0 | :x:                                       |   0% |
 |     |      | 37 | `LIGHTPROBE_PARENT_INFOS`        |  0 | :x:                                       |   0% |
-|     |      | 47 | `LIGHTPROBE_PARENT_INFOS`        |  0 | :x:                                       |   0% |
+|     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |   5 | 0005 | 29 | `UNUSED_5`                       |  0 | :x:                                       |   0% |
 |     |      | 37 | `SHADOW_ENVIRONMENTS`            |  0 | :x:                                       |   0% |
-|     |      | 47 | `SHADOW_ENVIRONMENTS`            |  0 | :x:                                       |   0% |
+|     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |   6 | 0006 | 29 | `UNUSED_6`                       |  0 | :x:                                       |   0% |
 |     |      | 37 | `LIGHTPROBE_BSP_NODES`           |  0 | :x:                                       |   0% |
 |     |      | 47 | `UNUSED_6`                       |  0 | :x:                                       |   0% |
@@ -55,7 +55,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  17 | 0011 | 47 | `SURFACE_PROPERTIES`             |  0 | :x:                                       |   0% |
 |  18 | 0012 | 47 | `BVH_NODES`                      |  0 | :x:                                       |   0% |
 |  19 | 0013 | 47 | `BVH_LEAF_DATA`                  |  0 | :x:                                       |   0% |
-|  20 | 0014 | 47 | `PACKED_VERTICES`                |  0 | :x:                                       |   0% |
+|  20 | 0014 | 29 | `UNUSED_20`                      |  0 | :x:                                       |   0% |
 |  21 | 0015 | 29 | `UNUSED_21`                      |  0 | :x:                                       |   0% |
 |  24 | 0018 | 29 | `ENTITY_PARTITIONS`              |  0 | `respawn.titanfall.EntityPartition`       | 100% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.EntityPartition`       | 100% |
@@ -66,7 +66,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  28 | 001C | 29 | `UNUSED_28`                      |  0 | :x:                                       |   0% |
 |  29 | 001D | 29 | `PHYSICS_COLLIDE`                |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_29`                      |  0 | :x:                                       |   0% |
 |  30 | 001E | 29 | `VERTEX_NORMALS`                 |  0 | `respawn.titanfall.Vertex`                | 100% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.Vertex`                | 100% |
 |     |      | 47 |                                  |  0 | `respawn.titanfall.Vertex`                | 100% |
@@ -82,11 +82,15 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |     |      | 47 | `GAME_LUMP.sprp`                 | 47 | :x:                                       |   0% |
 |     |      | 47 | `GAME_LUMP.sprp.props`           |    | :x:                                       |   0% |
 |  36 | 0024 | 29 | `LEAF_WATER_DATA`                |  1 | :x:                                       |   0% |
-|     |      | 37 |                                  |  0 | :x:                                       |   0% |
+|     |      | 37 | `UNUSED_36`                      |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
-|  37 | 0025 | 47 | `UNKNOWN_37`                     |  0 | :x:                                       |   0% |
-|  38 | 0026 | 47 | `UNKNOWN_38`                     |  0 | :x:                                       |   0% |
-|  39 | 0027 | 47 | `UNKNOWN_39`                     |  0 | :x:                                       |   0% |
+|  37 | 0025 | 29 | `UNUSED_37`                      |  0 | :x:                                       |   0% |
+|     |      | 37 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNKNOWN_37`                     |  0 | :x:                                       |   0% |
+|  38 | 0026 | 29 | `UNUSED_38`                      |  0 | :x:                                       |   0% |
+|  39 | 0027 | 29 | `UNUSED_39`                      |  0 | :x:                                       |   0% |
+|     |      | 37 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNKNOWN_39`                     |  0 | :x:                                       |   0% |
 |  40 | 0028 | 29 | `PAKFILE`                        |  0 | `shared.PakFile`                          | 100% |
 |     |      | 37 |                                  |  0 | `shared.PakFile`                          | 100% |
 |     |      | 47 |                                  |  0 | `shared.PakFile`                          | 100% |
@@ -96,7 +100,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |     |      | 47 |                                  |  0 | `respawn.titanfall.Cubemap`               |  75% |
 |  43 | 002B | 29 | `TEXTURE_DATA_STRING_DATA`       |  0 | `shared.TextureDataStringData`            | 100% |
 |     |      | 37 |                                  |  0 | `shared.TextureDataStringData`            | 100% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_43`                      |  0 | :x:                                       |   0% |
 |  44 | 002C | 29 | `TEXTURE_DATA_STRING_TABLE`      |  0 | `shared.TextureDataStringTable`           | 100% |
 |     |      | 37 |                                  |  0 | `shared.TextureDataStringTable`           | 100% |
 |     |      | 47 | `UNUSED_44`                      |  0 | :x:                                       |   0% |
@@ -112,8 +116,8 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  54 | 0036 | 29 | `WORLDLIGHTS`                    |  1 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
-|  55 | 0036 | 29 | `WORLDLIGHTS_PARENT_INFO`        |  0 | :x:                                       |   0% |
-|     |      | 37 |                                  |  0 | :x:                                       |   0% |
+|  55 | 0037 | 29 | `UNUSED_55`                      |  0 | :x:                                       |   0% |
+|     |      | 37 | `WORLDLIGHTS_PARENT_INFO`        |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |  56 | 0038 | 29 | `UNUSED_56`                      |  0 | :x:                                       |   0% |
 |  57 | 0039 | 29 | `UNUSED_57`                      |  0 | :x:                                       |   0% |
@@ -123,22 +127,22 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  61 | 003D | 29 | `UNUSED_61`                      |  0 | :x:                                       |   0% |
 |  62 | 003E | 29 | `PHYSICS_LEVEL`                  |  6 | :x:                                       |   0% |
 |     |      | 37 |                                  | 16 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_62`                      |  0 | :x:                                       |   0% |
 |  63 | 003F | 29 | `UNUSED_63`                      |  0 | :x:                                       |   0% |
 |  64 | 0040 | 29 | `UNUSED_64`                      |  0 | :x:                                       |   0% |
 |  65 | 0041 | 29 | `UNUSED_65`                      |  0 | :x:                                       |   0% |
 |  66 | 0042 | 29 | `TRICOLL_TRIS`                   |  2 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_66`                      |  0 | :x:                                       |   0% |
 |  67 | 0043 | 29 | `UNUSED_67`                      |  0 | :x:                                       |   0% |
 |  68 | 0044 | 29 | `TRICOLL_NODES`                  |  1 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_68`                      |  0 | :x:                                       |   0% |
 |  69 | 0045 | 29 | `TRICOLL_HEADERS`                |  1 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_69`                      |  0 | :x:                                       |   0% |
 |  70 | 0046 | 29 | `PHYSICS_TRIANGLES`              |  0 | :x:                                       |   0% |
-|     |      | 37 |                                  |  0 | :x:                                       |   0% |
+|     |      | 37 | `UNUSED_70`                      |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |  71 | 0047 | 29 | `VERTS_UNLIT`                    |  0 | `respawn.titanfall.VertexUnlit`           |  80% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.VertexUnlit`           |  80% |
@@ -152,8 +156,8 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  74 | 004A | 29 | `VERTS_UNLIT_TS`                 |  0 | `respawn.titanfall.VertexUnlitTS`         |  57% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.VertexUnlitTS`         |  57% |
 |     |      | 47 |                                  |  0 | `respawn.apex_legends.VertexUnlitTS`      | 100% |
-|  75 | 004B | 29 | `VERTS_RESERVED_4`               |  0 | :x:                                       |   0% |
-|     |      | 37 | `VERTS_BLINN_PHONG`              |  0 | `respawn.titanfall2.VertexBlinnPhong`     |  50% |
+|  75 | 004B | 29 | `VERTS_BLINN_PHONG`              |  0 | `respawn.titanfall.VertexBlinnPhong`      |  50% |
+|     |      | 37 |                                  |  0 | `respawn.titanfall.VertexBlinnPhong`      |  50% |
 |     |      | 47 |                                  |  0 | `respawn.apex_legends.VertexBlinnPhong`   | 100% |
 |  76 | 004C | 29 | `VERTS_RESERVED_5`               |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
@@ -179,7 +183,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  83 | 0053 | 29 | `LIGHTMAP_HEADERS`               |  1 | `respawn.titanfall.LightmapHeader`        | 100% |
 |     |      | 37 |                                  |  1 | `respawn.titanfall.LightmapHeader`        | 100% |
 |     |      | 47 |                                  |  0 | `respawn.titanfall.LightmapHeader`        | 100% |
-|  84 | 0054 | 29 | `LIGHTMAP_DATA_DXT5`             |  0 | :x:                                       |   0% |
+|  84 | 0054 | 29 | `UNUSED_84`                      |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |  85 | 0055 | 29 | `CM_GRID`                        |  0 | :x:                                       |   0% |
@@ -187,40 +191,40 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |
 |  86 | 0056 | 29 | `CM_GRID_CELLS`                  |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_86`                      |  0 | :x:                                       |   0% |
 |  87 | 0057 | 29 | `CM_GEO_SETS`                    |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_87`                      |  0 | :x:                                       |   0% |
 |  88 | 0058 | 29 | `CM_GEO_SET_BOUNDS`              |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_88`                      |  0 | :x:                                       |   0% |
 |  89 | 0059 | 29 | `CM_PRIMITIVES`                  |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_89`                      |  0 | :x:                                       |   0% |
 |  90 | 005A | 29 | `CM_PRIMITIVE_BOUNDS`            |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_90`                      |  0 | :x:                                       |   0% |
 |  91 | 005B | 29 | `CM_UNIQUE_CONTENTS`             |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_91`                      |  0 | :x:                                       |   0% |
 |  92 | 005C | 29 | `CM_BRUSHES`                     |  0 | `respawn.titanfall.Brush`                 |  88% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.Brush`                 |  88% |
-|     |      | 47 |                                  |  0 | `respawn.titanfall.Brush`                 |  88% |
+|     |      | 47 | `UNUSED_92`                      |  0 | :x:                                       |  88% |
 |  93 | 005D | 29 | `CM_BRUSH_SIDE_PLANE_OFFSETS`    |  0 | `respawn.titanfall.BrushSidePlaneOffsets` | 100% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.BrushSidePlaneOffsets` | 100% |
-|     |      | 47 |                                  |  0 | `respawn.titanfall.BrushSidePlaneOffsets` | 100% |
+|     |      | 47 | `UNUSED_93`                      |  0 | :x:                                       | 100% |
 |  94 | 005E | 29 | `CM_BRUSH_SIDE_PROPS`            |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_94`                      |  0 | :x:                                       |   0% |
 |  95 | 005F | 29 | `CM_BRUSH_TEX_VECS`              |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_95`                      |  0 | :x:                                       |   0% |
 |  96 | 0060 | 29 | `TRICOLL_BEVEL_STARTS`           |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNUSED_96`                      |  0 | :x:                                       |   0% |
 |  97 | 0061 | 29 | `TRICOLL_BEVEL_INDICES`          |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
-|     |      | 47 |                                  |  0 | :x:                                       |   0% |
+|     |      | 47 | `UNKNOWN_97`                     |  0 | :x:                                       |   0% |
 |  98 | 0062 | 29 | `LIGHTMAP_DATA_SKY`              |  0 | :x:                                       |   0% |
 |     |      | 37 |                                  |  0 | :x:                                       |   0% |
 |     |      | 47 |                                  |  0 | :x:                                       |   0% |

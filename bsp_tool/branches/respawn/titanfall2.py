@@ -57,7 +57,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATER_DATA = 0x0024  # unused
+    UNUSED_36 = 0x0024
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -83,7 +83,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E  # length 0, version 6?
+    PHYSICS_LEVEL = 0x003E
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -91,21 +91,21 @@ class LUMP(enum.Enum):
     UNUSED_67 = 0x0043
     TRICOLL_NODES = 0x0044
     TRICOLL_HEADERS = 0x0045
-    PHYSICS_TRIANGLES = 0x0046  # unused
+    UNUSED_70 = 0x0046
     VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1  # unused?
+    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1
     VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
     VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
-    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4  # unused?
-    VERTS_RESERVED_5 = 0x004C  # unused
-    VERTS_RESERVED_6 = 0x004D  # unused
-    VERTS_RESERVED_7 = 0x004E  # unused
+    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4
+    VERTS_RESERVED_5 = 0x004C
+    VERTS_RESERVED_6 = 0x004D
+    VERTS_RESERVED_7 = 0x004E
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
-    LIGHTMAP_DATA_DXT5 = 0x0054  # unused
+    UNUSED_84 = 0x0054
     CM_GRID = 0x0055
     CM_GRID_CELLS = 0x0056
     CM_GEO_SETS = 0x0057
@@ -143,7 +143,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFS = 0x0078
     OBJ_REF_BOUNDS = 0x0079
-    LIGHTMAP_DATA_RTL_PAGE = 0x007A  #
+    LIGHTMAP_DATA_RTL_PAGE = 0x007A
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTS = 0x007C
     SHADOW_MESH_ALPHA_VERTS = 0x007D
@@ -154,7 +154,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [X / 128] + 2 special lumps (54 unused)
+# classes for lumps (alphabetical order)
 class LightmapPage(base.Struct):
     data: bytes
     _format = "128s"
@@ -190,13 +190,6 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
                "collision_flags": ["add", "remove"]}
 
 
-# special vertices
-class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    __slots__ = ["position_index", "normal_index", "unknown"]
-    _format = "4I"  # 16 bytes
-    _arrays = {"unknown": 2}
-
-
 # classes for special lumps (alphabetical order)
 class GameLump_SPRP:  # unique to Titanfall|2
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
@@ -225,8 +218,7 @@ class GameLump_SPRP:  # unique to Titanfall|2
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"VERTS_BLINN_PHONG":                   {0: VertexBlinnPhong},
-                     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage}})
+LUMP_CLASSES["LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE"] = {0: LightmapPage}
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 

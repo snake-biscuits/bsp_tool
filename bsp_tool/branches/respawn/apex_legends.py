@@ -24,9 +24,9 @@ BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
-    PLANES = 0x0001  # "Collision planes"
+    PLANES = 0x0001
     TEXTURE_DATA = 0x0002
-    VERTICES = 0x0003  # "Map vertexes"
+    VERTICES = 0x0003
     LIGHTPROBE_PARENT_INFOS = 0x0004
     SHADOW_ENVIRONMENTS = 0x0005
     UNUSED_6 = 0x0006
@@ -41,7 +41,7 @@ class LUMP(enum.Enum):
     SURFACE_NAMES = 0x000F
     CONTENT_MASKS = 0x0010
     SURFACE_PROPERTIES = 0x0011
-    BVH_NODES = 0x0012  # for collision
+    BVH_NODES = 0x0012
     BVH_LEAF_DATA = 0x0013
     PACKED_VERTICES = 0x0014
     UNUSED_21 = 0x0015
@@ -52,21 +52,21 @@ class LUMP(enum.Enum):
     UNUSED_26 = 0x001A
     UNUSED_27 = 0x001B
     UNUSED_28 = 0x001C
-    PHYSICS_COLLIDE = 0x001D  # unused
+    UNUSED_29 = 0x001D
     VERTEX_NORMALS = 0x001E
     UNUSED_31 = 0x001F
     UNUSED_32 = 0x0020
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATER_DATA = 0x0024  # unused
+    UNUSED_36 = 0x0024
     UNKNOWN_37 = 0x0025  # connected to VIS lumps
     UNKNOWN_38 = 0x0026
     UNKNOWN_39 = 0x0027  # connected to VIS lumps
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
-    TEXTURE_DATA_STRING_DATA = 0x002B  # NULL bytes?
+    UNKNOWN_43 = 0x002B
     UNUSED_44 = 0x002C
     UNUSED_45 = 0x002D
     UNUSED_46 = 0x002E
@@ -85,42 +85,42 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E  # length 0, version 6?
+    UNUSED_62 = 0x003E
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
-    TRICOLL_TRIS = 0x0042  # unused
+    UNUSED_66 = 0x0042
     UNUSED_67 = 0x0043
-    TRICOLL_NODES = 0x0044  # unused
-    TRICOLL_HEADERS = 0x0045  # unused
-    PHYSICS_TRIANGLES = 0x0046  # unused
+    UNUSED_68 = 0x0044
+    UNUSED_69 = 0x0045
+    UNUSED_70 = 0x0046
     VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1  # unused
+    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1
     VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
     VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
-    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4  # unused
-    VERTS_RESERVED_5 = 0x004C  # unused
-    VERTS_RESERVED_6 = 0x004D  # unused
-    VERTS_RESERVED_7 = 0x004E  # unused
+    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4
+    VERTS_RESERVED_5 = 0x004C
+    VERTS_RESERVED_6 = 0x004D
+    VERTS_RESERVED_7 = 0x004E
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
-    LIGHTMAP_DATA_DXT5 = 0x0054  # unused
+    UNUSED_84 = 0x0054
     CM_GRID = 0x0055
-    CM_GRID_CELLS = 0x0056  # unused
-    CM_GEO_SETS = 0x0057  # unused
-    CM_GEO_SET_BOUNDS = 0x0058  # unused
-    CM_PRIMITIVES = 0x0059  # unused
-    CM_PRIMITIVE_BOUNDS = 0x005A  # unused
-    CM_UNIQUE_CONTENTS = 0x005B  # unused
-    CM_BRUSHES = 0x005C  # unused
-    CM_BRUSH_SIDE_PLANE_OFFSETS = 0x005D  # unused
-    CM_BRUSH_SIDE_PROPS = 0x005E  # unused
-    CM_BRUSH_TEX_VECS = 0x005F  # unused
-    TRICOLL_BEVEL_STARTS = 0x0060  # unused
-    TRICOLL_BEVEL_INDICES = 0x0061
+    UNUSED_86 = 0x0056
+    UNUSED_87 = 0x0057
+    UNUSED_88 = 0x0058
+    UNUSED_89 = 0x0059
+    UNUSED_90 = 0x005A
+    UNUSED_91 = 0x005B
+    UNUSED_92 = 0x005C
+    UNUSED_93 = 0x005D
+    UNUSED_94 = 0x005E
+    UNUSED_95 = 0x005F
+    UNUSED_96 = 0x0060
+    UNKNOWN_97 = 0x0061
     LIGHTMAP_DATA_SKY = 0x0062
     CSM_AABB_NODES = 0x0063
     CSM_OBJ_REFS = 0x0064
@@ -156,7 +156,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (63 unused)
+# classes for lumps (alphabetical order)
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     unknown: List[int]  # lightmap indices?
@@ -258,11 +258,11 @@ SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}}
 # TODO: identify Apex Legends' GameLump & StaticProp structures
 
 # branch exclusive methods, in alphabetical order:
-mesh_types = {0x600: "VERTS_UNLIT_TS",
-              0x610: "VERTS_BLINN_PHONG",
-              0x400: "VERTS_UNLIT",
-              0x200: "VERTS_LIT_BUMP",
-              0x210: "VERTS_LIT_FLAT"}
+mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
+              0x610: "VERTS_BLINN_PHONG",  # VERTS_RESERVED_4
+              0x400: "VERTS_UNLIT",        # VERTS_RESERVED_0
+              0x200: "VERTS_LIT_BUMP",     # VERTS_RESERVED_2
+              0x210: "VERTS_LIT_FLAT"}     # VERTS_RESERVED_1
 # a function mapping mesh.flags to vertex lumps would be better
 
 

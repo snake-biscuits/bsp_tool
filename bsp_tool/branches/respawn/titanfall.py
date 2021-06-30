@@ -12,8 +12,8 @@ BSP_VERSION = 29
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000
-    PLANES = 0x0001  # version 1
-    TEXTURE_DATA = 0x0002  # version 1
+    PLANES = 0x0001
+    TEXTURE_DATA = 0x0002
     VERTICES = 0x0003
     UNUSED_4 = 0x0004
     UNUSED_5 = 0x0005
@@ -47,7 +47,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATER_DATA = 0x0024  # version 1
+    LEAF_WATER_DATA = 0x0024
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -65,37 +65,37 @@ class LUMP(enum.Enum):
     UNUSED_51 = 0x0033
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
-    WORLDLIGHTS = 0x0036  # version 1
-    WORLDLIGHTS_PARENT_INFO = 0x0037  # unused
+    WORLDLIGHTS = 0x0036
+    UNUSED_55 = 0x0037
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
     UNUSED_58 = 0x003A
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E  # always empty, but version varies (6, 16)
+    PHYSICS_LEVEL = 0x003E
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
-    TRICOLL_TRIS = 0x0042  # version 2
+    TRICOLL_TRIS = 0x0042
     UNUSED_67 = 0x0043
-    TRICOLL_NODES = 0x0044  # version 1
-    TRICOLL_HEADERS = 0x0045  # version 1
+    TRICOLL_NODES = 0x0044
+    TRICOLL_HEADERS = 0x0045
     PHYSICS_TRIANGLES = 0x0046
-    VERTS_UNLIT = 0x0047     # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048  # VERTS_RESERVED_1  # version 1  # mesh flags unknown
-    VERTS_LIT_BUMP = 0x0049  # VERTS_RESERVED_2  # version 1
-    VERTS_UNLIT_TS = 0x004A  # VERTS_RESERVED_3
-    VERTS_RESERVED_4 = 0x004B  # unused
-    VERTS_RESERVED_5 = 0x004C  # unused
-    VERTS_RESERVED_6 = 0x004D  # unused
-    VERTS_RESERVED_7 = 0x004E  # unused
+    VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
+    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1
+    VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
+    VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3  # func_breakable_surf?
+    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4
+    VERTS_RESERVED_5 = 0x004C
+    VERTS_RESERVED_6 = 0x004D
+    VERTS_RESERVED_7 = 0x004E
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
     MATERIAL_SORT = 0x0052
-    LIGHTMAP_HEADERS = 0x0053  # version 1
-    LIGHTMAP_DATA_DXT5 = 0x0054  # unused
+    LIGHTMAP_HEADERS = 0x0053
+    UNUSED_84 = 0x0054
     CM_GRID = 0x0055
     CM_GRID_CELLS = 0x0056
     CM_GEO_SETS = 0x0057
@@ -144,7 +144,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [13 / 128] + 3 special lumps (57 unused)
+# classes for lumps (alphabetical order)
 class Brush(base.Struct):  # LUMP 92 (005C)
     mins: List[float]
     flags: int
@@ -358,6 +358,12 @@ class Vertex(base.MappedArray):  # LUMP 3 (0003)
 
 
 # special vertices
+class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
+    __slots__ = ["position_index", "normal_index", "unknown"]
+    _format = "4I"  # 16 bytes
+    _arrays = {"unknown": 2}
+
+
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -460,6 +466,7 @@ LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "TEXTURE_DATA":             {1: TextureData},
                 "VERTEX_NORMALS":           {0: Vertex},
                 "VERTICES":                 {0: Vertex},
+                "VERTS_BLINN_PHONG":        {0: VertexBlinnPhong},
                 "VERTS_LIT_BUMP":           {1: VertexLitBump},
                 "VERTS_LIT_FLAT":           {1: VertexLitFlat},
                 "VERTS_UNLIT":              {0: VertexUnlit},
@@ -479,8 +486,7 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
               0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
-              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1  # assumed, prob not
-# NOTE: r1 mp_corporate has some meshes with no 0x600 flags, seems to be func_breakable_surf
+              0x210: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
@@ -492,7 +498,7 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUn
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x600])
+    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x610])
     # NOTE: which vertex lump is used matters for shaders & buffer assembly
     return [VERTEX_LUMP[i] for i in indices]
 
