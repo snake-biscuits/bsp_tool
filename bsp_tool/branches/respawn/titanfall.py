@@ -448,7 +448,7 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
               0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
-              0x210: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
+              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
@@ -459,7 +459,7 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUn
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x610])
+    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x600])
     # NOTE: which vertex lump is used matters for shaders & buffer assembly
     return [VERTEX_LUMP[i] for i in indices]
 

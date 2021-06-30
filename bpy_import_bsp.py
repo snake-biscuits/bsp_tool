@@ -184,11 +184,49 @@ def load_rbsp(rbsp):
             blender_bmesh.to_mesh(blender_mesh)
             blender_bmesh.free()
             texture_data = rbsp.TEXTURE_DATA[rbsp.MATERIAL_SORT[mesh.material_sort].texture_data]
-            blender_mesh.materials.append(materials[texture_data.string_table_index])
+            blender_mesh.materials.append(materials[texture_data.name_index])
             blender_mesh.update()
             blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
             model_collection.objects.link(blender_object)
     load_entities(rbsp)
+
+
+# load a mesh by selecting the vertex lump manually
+def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
+    blender_mesh = bpy.data.meshes.new("TEST_MESH")
+    blender_bmesh = bmesh.new()  # mesh data
+    # vertices of mesh
+    mesh = rbsp.MESHES[index]
+    material_sort = rbsp.MATERIAL_SORT[mesh.material_sort]
+    # NOTE: forgot to apply material
+    start = mesh.start_index
+    finish = start + mesh.num_triangles * 3
+    indices = [material_sort.vertex_offset + i for i in rbsp.MESH_INDICES[start:finish]]
+    VERTEX_LUMP = getattr(rbsp, VERTS_RESERVED)  # force vertex lump
+    mesh_vertices = [VERTEX_LUMP[i] for i in indices]
+    # convert to bmesh
+    bmesh_vertices = dict()
+    # ^ {rbsp_vertex.position_index: BMVert}
+    for triangle_index in range(0, len(mesh_vertices), 3):
+        face_indices = list()
+        uvs = dict()
+        for vert_index in reversed(range(3)):  # invert winding order for backfaces
+            rbsp_vertex = mesh_vertices[triangle_index + vert_index]
+            vertex = rbsp.VERTICES[rbsp_vertex.position_index]
+            if rbsp_vertex.position_index not in bmesh_vertices:
+                bmesh_vertices[rbsp_vertex.position_index] = blender_bmesh.verts.new(vertex)
+            face_indices.append(rbsp_vertex.position_index)
+        try:
+            blender_bmesh.faces.new([bmesh_vertices[vpi] for vpi in face_indices])
+        except ValueError:  # "face already exists"
+            pass
+    # skip uv
+    blender_bmesh.to_mesh(blender_mesh)
+    blender_bmesh.free()
+    # skip texture
+    blender_mesh.update()
+    blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
+    bpy.context.scene.collection.objects.link(blender_object)
 
 
 def load_apex_rbsp(rbsp):
@@ -235,20 +273,24 @@ def load_apex_rbsp(rbsp):
     load_entities(rbsp)
 
 
-# NOTE: remember to delete the previous import manually & purge orphans
+# TITANFALL
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
 bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/TitanfallOnline/maps/mp_box.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_angel_city.bsp")
+
+# TITANFALL 2
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_grave.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
 load_rbsp(bsp)
 
-# APEX LEGENDS (Season 9)
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")
+# APEX LEGENDS
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 2/mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")  # Season 9 Event
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
 # load_apex_rbsp(bsp)
+
+# NOTE: remember to delete the previous import manually & purge orphans
 
 
 # TODO: Shift+A > Add Entity
