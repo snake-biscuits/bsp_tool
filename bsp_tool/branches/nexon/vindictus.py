@@ -6,6 +6,7 @@ import struct
 from typing import List
 
 from .. import base
+from .. import shared
 from ..valve import orange_box
 
 
@@ -160,22 +161,12 @@ class Face(base.Struct):  # LUMP 7
                "lightmap_texture_size_in_luxels": [*"st"]}
 
 
-# class game_lump(base.Struct):  # LUMP 35
-#    __slots__ = ["id", "flags", "version", "offset", "length"]
-#    _format = "5i"
-
-
 class Leaf(base.Struct):  # LUMP 10
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
                  "firstleafface", "numleaffaces", "firstleafbrush",
                  "numleafbrushes", "leafWaterDataID"]
     _format = "9i4Ii"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-
-
-class LeafFace(int):  # LUMP 16
-    """Index of Face, this lump is a pre-organised sequence for the vis system"""
-    _format = "I"
 
 
 class Node(base.Struct):  # LUMP 5
@@ -194,9 +185,9 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
-# NOTE: vindictus is very similar to orange_box
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"LEAF_FACES": {0: LeafFace}}
+BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES["LEAF_FACES"] = {0: shared.UnsignedInts}
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS":             {0: Area},

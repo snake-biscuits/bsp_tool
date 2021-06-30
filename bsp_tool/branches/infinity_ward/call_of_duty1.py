@@ -82,10 +82,6 @@ class Cell(base.Struct):  # LUMP 17
     _format = "52s"
 
 
-class CollisionIndex(int):  # LUMP 26
-    _format = "H"  # index into ??? lump
-
-
 class CollisionVertex(base.MappedArray):  # LUMP 25
     x: float
     y: float
@@ -98,14 +94,6 @@ class CullGroup(base.Struct):  # LUMP 9
     data: bytes
     __slots__ = ["data"]
     _format = "32s"
-
-
-class CullGroupIndex(int):  # LUMP 10
-    _format = "I"
-
-
-class DrawIndex(int):  # LUMP 8
-    _format = "H"
 
 
 class DrawVertex(base.Struct):  # LUMP 7
@@ -122,23 +110,11 @@ class Leaf(base.Struct):  # LUMP 21
     _format = "36s"
 
 
-class LeafBrush(int):  # LUMP 22
-    _format = "I"  # index into Brush lump
-
-
-class LeafSurface(int):  # LUMP 4
-    _format = "I"  # index into Face lump ?
-
-
 class Light(base.Struct):  # LUMP 30
     # attenuations, colours, strengths
     data: bytes
     __slots__ = ["data"]
     _format = "72s"
-
-
-class LightIndex(int):  # LUMP 19
-    _format = "H"  # index into Light lump
 
 
 class Lightmap(list):  # LUMP 1
@@ -186,18 +162,6 @@ class Occluder(base.Struct):  # LUMP 12
     _format = "4i"
 
 
-class OccluderEdge(int):  # LUMP 14
-    _format = "I"  # index into the ??? lump
-
-
-class OccluderIndex(int):  # LUMP 15
-    _format = "H"  # index into the Occluder lump
-
-
-class OccluderPlane(int):  # LUMP 13
-    _format = "I"  # index into Plane lump
-
-
 class PatchCollision(base.Struct):  # LUMP 24
     data: bytes
     __slots__ = ["data"]
@@ -234,15 +198,15 @@ class TriangleSoup(base.Struct):  # LUMP 5
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  CollisionIndex,
-                      "CULL_GROUP_INDICES": CullGroupIndex,
-                      "DRAW_INDICES":       DrawIndex,
-                      "LEAF_BRUSHES":       LeafBrush,
-                      "LEAF_SURFACES":      LeafSurface,
-                      "LIGHT_INDICES":      LightIndex,
-                      "OCCLUDER_EDGES":     OccluderEdge,
-                      "OCCLUDER_INDICES":   OccluderIndex,
-                      "OCCLUDER_PLANES":    OccluderPlane}
+BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  shared.UnsignedShorts,
+                      "CULL_GROUP_INDICES": shared.UnsignedInts,
+                      "DRAW_INDICES":       shared.UnsignedShorts,
+                      "LEAF_BRUSHES":       shared.UnsignedInts,
+                      "LEAF_SURFACES":      shared.UnsignedInts,
+                      "LIGHT_INDICES":      shared.UnsignedShorts,
+                      "OCCLUDER_EDGES":     shared.UnsignedShorts,
+                      "OCCLUDER_INDICES":   shared.UnsignedShorts,
+                      "OCCLUDER_PLANES":    shared.UnsignedInts}
 
 LUMP_CLASSES = {"AABB_TREES":         AxisAlignedBoundingBox,
                 "BRUSHES":            Brush,

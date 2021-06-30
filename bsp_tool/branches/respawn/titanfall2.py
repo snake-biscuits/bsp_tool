@@ -57,7 +57,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    UNUSED_36 = 0x0024
+    LEAF_WATER_DATA = 0x0024
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -150,6 +150,20 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+# Changes from Titanfall to Titanfall 2
+# New:
+# UNUSED_4 -> LIGHTPROBE_PARENT_INFOS
+# UNUSED_5 -> SHADOW_ENVIRONMENTS
+# UNUSED_6 -> LIGHTPROBE_BSP_NODES
+# UNUSED_7 -> LIGHTPROBE_BSP_REF_IDS
+# UNUSED_55 -> WORLDLIGHTS_PARENT_INFO
+# UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
+# Deprecated:
+# PHYSICS_TRIANGLES
+
+
+# TODO: a rough map of the relationships between lumps:
+
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
@@ -162,24 +176,6 @@ class LightmapPage(base.Struct):
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
-    # definition worked out by BobtheBob
-    # Vector          origin;
-    # Vector          angles;
-    # char            unknown_1[4];
-    # unsigned short  mdl_name;
-    # unsigned char   solid_mode;
-    # unsigned char   flags;
-    # /* uncertain past this point */
-    # char            unknown_2[4];
-    # float           forced_fade_scale;
-    # Vector          lighting_origin;
-    # char            cpu_level.min;           // usually -1
-    # char            cpu_level.max;
-    # char            gpu_level.min;
-    # char            gpu_level.max;
-    # color32         diffuse_modulation;      // this seems to really always just be 0000
-    # unsigned short  collision_flags.add;     // new!
-    # unsigned short  collision_flags.remove;  // new!
     __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
                  "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]

@@ -87,7 +87,21 @@ class LUMP(enum.Enum):
     UNUSED_62 = 62
     UNUSED_63 = 63
 
+# TODO: a rough map of the relationships between lumps:
 
+
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+
+
+def read_lump_header(file, LUMP: enum.Enum):
+    file.seek(lump_header_address[LUMP])
+    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
+    header = LumpHeader(offset, length, version, fourCC)
+    return header
+
+
+# enums for flags
 class Contents(enum.Enum):
     EMPTY = 0x00
     SOLID = 0x01
@@ -124,15 +138,12 @@ class Contents(enum.Enum):
     HITBOX = 0x40000000  # requests hit tracing use hitboxes
 
 
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
-
-
-def read_lump_header(file, LUMP: enum.Enum):
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = LumpHeader(offset, length, version, fourCC)
-    return header
+class DispTris(enum.Enum):  # flags
+    SURFACE = 0x01
+    WALKABLE = 0x02
+    BUILDABLE = 0x04
+    SURFPROP1 = 0x08
+    SURFPROP2 = 0x10
 
 
 # classes for each lump, in alphabetical order: [22 / 64]
@@ -207,16 +218,6 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     #     self.corner_neighbours = ...
 
 
-class DisplacementTriangle(int):  # LUMP 48
-    """Bitflags"""
-    # 0x01  SURFACE
-    # 0x02  WALKABLE
-    # 0x04  BUILDABLE
-    # 0x08  SURFPROP1
-    # 0x10  SURFPROP2
-    _format = "H"
-
-
 class DisplacementVertex(base.Struct):  # LUMP 33
     """The positional deformation & blend value of a point in a displacement"""
     vector: List[float]  # direction of vertex offset from barymetric base
@@ -284,11 +285,6 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class LeafFace(int):  # LUMP 16
-    """Index of Face, this lump is a pre-organised sequence for the vis system"""
-    _format = "H"
-
-
 class Model(base.Struct):  # LUMP 14
     """Brush based entities; Index 0 is worldspawn"""
     mins: List[float]  # bounding box minimums along XYZ axes
@@ -337,11 +333,6 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
                "lightmap": ["width", "height"]}
-
-
-class SurfEdge(int):  # LUMP 13
-    """Index into EDGES, edge direction is reversed if negative"""
-    _format = "i"
 
 
 class TextureData(base.Struct):  # LUMP 2
@@ -413,10 +404,10 @@ class WorldLight(base.Struct):  # LUMP 15
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: DisplacementTriangle},
-                      "LEAF_FACES":                {0: LeafFace},
-                      "SURFEDGES":                 {0: SurfEdge},
-                      "TEXTURE_DATA_STRING_TABLE": {0: shared.TextureDataStringTable}}
+BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: shared.UnsignedShorts},
+                      "LEAF_FACES":                {0: shared.UnsignedShorts},
+                      "SURFEDGES":                 {0: shared.Ints},
+                      "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts}}
 
 LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "AREA_PORTALS":          {0: AreaPortal},

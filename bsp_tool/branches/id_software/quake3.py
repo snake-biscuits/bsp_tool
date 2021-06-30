@@ -30,6 +30,14 @@ class LUMP(enum.Enum):
     VISIBILITY = 16
 
 
+# a rough map of the relationships between lumps
+# Model -> Brush -> BrushSide
+#      |        |-> Texture
+#      |-> Face -> MeshVertex
+#              |-> Texture
+#              |-> Vertex
+
+
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
@@ -92,16 +100,6 @@ class Leaf(base.Struct):  # LUMP 4
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class LeafBrush(int):  # LUMP 6
-    """index into Brushes"""
-    _format = "i"
-
-
-class LeafFace(int):  # LUMP 5
-    """index into Faces"""
-    _format = "i"
-
-
 class Lightmap(list):  # LUMP 14
     """Raw pixel bytes, 128x128 RGB_888 image"""
     _format = "3s" * 128 * 128  # 128x128 RGB_888
@@ -127,10 +125,6 @@ class LightVolume(base.Struct):  # LUMP 15
     _format = "8B"
     __slots__ = ["ambient", "directional", "direction"]
     _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
-
-
-class MeshVertex(int):  # LUMP 11
-    _format = "i"
 
 
 class Model(base.Struct):  # LUMP 7
@@ -195,9 +189,9 @@ class Visibility:
         return struct.pack(f"2i{vectors_bytes}", (self.vector_count, self.vector_size, *self.vectors))
 
 
-BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  LeafBrush,
-                      "LEAF_FACES":    LeafFace,
-                      "MESH_VERTICES": MeshVertex}
+BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  shared.Ints,
+                      "LEAF_FACES":    shared.Ints,
+                      "MESH_VERTICES": shared.Ints}
 
 LUMP_CLASSES = {"BRUSHES":       Brush,
                 "BRUSH_SIDES":   BrushSide,

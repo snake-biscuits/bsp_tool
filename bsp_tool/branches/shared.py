@@ -13,6 +13,24 @@ import zipfile
 # -- need to know filesize, but modify the headers of each lump to have file relative offsets
 
 
+# Basic Lump Classes
+class Ints(int):
+    _format = "i"
+
+
+class Shorts(int):
+    _format = "h"
+
+
+class UnsignedInts(int):
+    _format = "I"
+
+
+class UnsignedShorts(int):
+    _format = "H"
+
+
+# Special Lump Classes
 class Entities(list):
     def __init__(self, raw_entities: bytes):
         # TODO: use fgd-tools to fully unstringify entities
@@ -131,11 +149,6 @@ class TextureDataStringData(list):
 
     def as_bytes(self) -> bytes:
         return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
-
-
-class TextureDataStringTable(int):  # BasicLumpClass
-    """Points to the starting index of string of same index in TEXTURE_DATA_STRING_DATA"""
-    _format = "I"
 
 
 class Visiblity:

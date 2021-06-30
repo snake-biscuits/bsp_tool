@@ -85,7 +85,7 @@ class LUMP(enum.Enum):
     VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
     VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1
     VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
-    VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3  # func_breakable_surf?
+    VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
     VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4
     VERTS_RESERVED_5 = 0x004C
     VERTS_RESERVED_6 = 0x004D
@@ -140,6 +140,16 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+# a rough map of the relationships between lumps:
+# Mesh -> MeshIndex -> Vertices  (are you sure about meshindex?)
+#     |-> MaterialSort -> TextureData
+#                     |-> VertexReservedX
+# TextureData -> TextureDataStringTable -> TextureDataStringTable
+# VertexReservedX -> Vertex
+#                |-> VertexNormal
+#
+# ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
+
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
@@ -153,10 +163,6 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     __slots__ = ["mins", "flags", "maxs", "unknown"]
     _format = "3fi3fi"
     _arrays = {"mins": [*"xyz"], "maxs:": [*"xyz"]}
-
-
-class BrushSidePlaneOffsets(int):  # LUMP 93 (005D)
-    _format = "H"
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
@@ -193,9 +199,6 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    # MaterialSort -> TextureData, VertexReservedX
-    # TextureData -> TextureDataStringTable -> TextureDataStringTable
-    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
@@ -205,24 +208,18 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    # Mesh -> MaterialSort -> TextureData, VertexReservedX
-    # TextureData -> TextureDataStringTable -> TextureDataStringTable
-    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     start_index: int  # index into this Mesh's VertexReservedX
-    num_triangles: int  # number of Triangles in VertexReservedX after start_index
+    num_triangles: int  # number of triangles in VertexReservedX after start_index
     unknown: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # specifies VertexReservedX to draw vertices from
+    # 0x4, 0x8, 0x10, 0x20  (0x10 MESHES?)
+    # 0x200, 0x400  (MESHES?)
+    # 0x800, 0x1000, 0x2000, 0x40000, 0x100000, 0x200000
     __slots__ = ["start_index", "num_triangles", "unknown",
                  "material_sort", "flags"]
     _format = "IHh3ihHI"  # 28 Bytes
     _arrays = {"unknown": 5}
-
-
-class MeshIndex(int):  # LUMP 79 (004F)
-    """Used in assembling meshes (see vertices_of_mesh)"""
-    # Mesh -> MeshIndex -> Vertices
-    _format = "H"
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
@@ -249,10 +246,6 @@ class Node(base.Struct):  # LUMP 99 (0063) / LUMP 119 (0077)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class ObjRef(int):  # LUMP 100 (0064)
-    _format = "H"
-
-
 class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
     mins: List[float]
     maxs: List[float]
@@ -273,7 +266,6 @@ class Plane(base.Struct):  # LUMP 1 (0001)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    # ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
     start_index: int  # unsure what lump is indexed
     num_triangles: int
     # unknown.one: int  # usually one
@@ -291,34 +283,7 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
     _arrays = {"origin": [*"xyz"], "unknown": 2}
 
 
-class ShadowMeshIndex(int):
-    _format = "H"
-
-
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
-    # structure definition worked out with BobTheBob
-    # Vector          origin;
-    # QAngle          angles;
-    # unsigned short  mdl_name;
-    # unsigned short  first_leaf;
-    # unsigned short  leaf_count;
-    # unsigned char   solid;
-    # unsigned char   flags;
-    # int             skin;
-    # unsigned int    cubemap;                 // new! an index?
-    # float           fade_distance.min;
-    # float           fade_distance.max;
-    # Vector          lighting_origin;
-    # float           forced_fade_scale;
-    # char            cpu_level.min;           // -1 for doesn't matter
-    # char            cpu_level.max;
-    # char            gpu_level.min;
-    # char            gpu_level.max;
-    # color32         diffuse_modulation;
-    # bool            disable_x360;            // 4 byte bool
-    # float           scale                    // should be 1.0?
-    # unsigned short  collision_flags.add;     // new!
-    # unsigned short  collision_flags.remove;  // new!
     __slots__ = ["origin", "angles", "mdl_name", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "cubemap", "fade_distance",
                  "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
@@ -331,9 +296,6 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    # MaterialSort -> TextureData, VertexReservedX
-    # TextureData -> TextureDataStringTable -> TextureDataStringData
-    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     reflectivity: List[int]  # copy of .vtf reflectivity value, for bounce lighting
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     # ^ nameStringTableID
@@ -441,12 +403,12 @@ class GameLump_SPRP:  # unique to Titanfall
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: BrushSidePlaneOffsets},
-                      "CSM_OBJ_REFS":                {0: ObjRef},
-                      "MESH_INDICES":                {0: MeshIndex},
-                      "OBJ_REFS":                    {0: ObjRef},
-                      "SHADOW_MESH_INDICES":         {0: ShadowMeshIndex},
-                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.TextureDataStringTable}}
+BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
+                      "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
+                      "MESH_INDICES":                {0: shared.UnsignedShorts},
+                      "OBJ_REFS":                    {0: shared.UnsignedShorts},
+                      "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
+                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts}}
 
 LUMP_CLASSES = {"CELLS":                    {0: Cell},
                 "CELL_AABB_NODES":          {0: Node},
@@ -489,8 +451,7 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
               0x210: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
 
 
-# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-# simplified from McSimp's exporter ^
+# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
 def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUnlit, VertexUnlitTS]]:
     """Spits out VertexLitBump / VertexUnlit / VertexUnlitTS"""
     mesh = bsp.MESHES[mesh_index]

@@ -1,5 +1,5 @@
 import enum
-from typing import List
+from typing import Any, List
 
 from .. import base
 from .. import shared
@@ -152,6 +152,44 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+# Changes from Titanfall 2 to Apex Legends
+# New:
+# UNUSED_15 -> SURFACE_NAMES
+# UNUSED_16 -> CONTENT_MASKS
+# UNUSED_17 -> SURFACE_PROPERTIES
+# UNUSED_18 -> BVH_NODES
+# UNUSED_19 -> BVH_LEAF_DATA
+# UNUSED_20 -> PACKED_VERTICES
+# UNUSED_37 -> UNKNOWN_37
+# UNUSED_38 -> UNKNOWN_38
+# UNUSED_39 -> UNKNOWN_39
+# TEXTURE_DATA_STRING_DATA -> UNKNOWN_43
+# TRICOLL_BEVEL_INDICES -> UNKNOWN_97
+# Deprecated:
+# LIGHTPROBE_BSP_NODES
+# LIGHTPROBE_BSP_REF_IDS
+# PHYSICS_COLLIDE
+# LEAF_WATER_DATA
+# TEXTURE_DATA_STRING_TABLE
+# PHYSICS_LEVEL
+# TRICOLL_TRIS
+# TRICOLL_NODES
+# TRICOLL_HEADERS
+# CM_GRID_CELLS
+# CM_GEO_SETS
+# CM_GEO_SET_BOUNDS
+# CM_PRIMITIVES
+# CM_PRIMITIVE_BOUNDS
+# CM_UNIQUE_CONTENTS
+# CM_BRUSHES
+# CM_BRUSH_SIDE_PLANE_OFFSETS
+# CM_BRUSH_SIDE_PROPS
+# CM_BRUSH_TEX_VECS
+# TRICOLL_BEVEL_STARTS
+
+
+# TODO: a rough map of the relationships between lumps:
+
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
@@ -235,7 +273,6 @@ BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
-                     "LIGHTMAP_HEADERS_2": {0: titanfall.LightmapHeader},
                      "MATERIAL_SORT":      {0: MaterialSort},
                      "MESHES":             {0: Mesh},
                      "MODELS":             {0: Model},
@@ -248,13 +285,16 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "VERTS_UNLIT_TS":     {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")  # now unused
+SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
 # NOTE: Apex GAME_LUMP versions are the same as BSP_VERSION
 # GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv47),
 #                               48: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv48),
 #                               49: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv49)}}
+GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
+                              48: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
+                              49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
 # TODO: identify Apex Legends' GameLump & StaticProp structures
 
 # branch exclusive methods, in alphabetical order:
@@ -263,19 +303,20 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
               0x400: "VERTS_UNLIT",        # VERTS_RESERVED_0
               0x200: "VERTS_LIT_BUMP",     # VERTS_RESERVED_2
               0x210: "VERTS_LIT_FLAT"}     # VERTS_RESERVED_1
-# a function mapping mesh.flags to vertex lumps would be better
 
 
-def vertices_of_mesh(bsp, mesh_index: int):
+# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
+def vertices_of_mesh(bsp, mesh_index: int) -> List[Any]:
     mesh = bsp.MESHES[mesh_index]
-    mat = bsp.MATERIAL_SORT[mesh.material_sort]
+    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
-    indices = bsp.MESH_INDICES[start:finish]
-    indices = [mat.vertex_offset + i for i in indices]
-    mesh_type = list(filter(lambda k: mesh.flags & k == k, mesh_types))[0]
-    verts = getattr(bsp, mesh_types[mesh_type])  # get bsp.VERTS_* lump
-    return [verts[i] for i in indices]
+    indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
+    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x610])
+    # NOTE: which vertex lump is used matters for shaders & buffer assembly
+    return [VERTEX_LUMP[i] for i in indices]
 
 
-methods = [vertices_of_mesh]
+methods = [*titanfall.methods]
+methods.pop(methods.index(titanfall.vertices_of_mesh))
+methods.append(vertices_of_mesh)
