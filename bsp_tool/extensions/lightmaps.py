@@ -104,28 +104,67 @@ def save_vbsp(vbsp, folder="./"):
     page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
 
 
-# NOTE: Titanfall2 Internal Lightmap Data lumps only
-# TODO: Figure out why external LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel
-# -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
-def save_rbsp(rbsp, folder="./"):
+def save_rbsp_r1(rbsp, folder="./"):
     """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
     sky_lightmaps = list()
-    realtime_lightmaps = list()
-    first_pixel = 0
-    last_pixel = 0
+    sky_start, sky_end = 0, 0
+    rtl_lightmaps = list()
+    rtl_start, rtl_end = 0, 0
     for header in rbsp.LIGHTMAP_HEADERS:
+        rtl_end = rtl_start + (header.width * header.height * 4)
+        # REAL_TIME_LIGHTS x1
+        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
+        rtl_lightmaps.append(rtl_lightmap)
+        rtl_start = rtl_end
         for i in range(header.count * 2):
-            last_pixel = first_pixel + (header.width * header.height * 4)
-            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[first_pixel:last_pixel]
+            sky_end = sky_start + (header.width * header.height * 4)
+            # SKY x2
+            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end]
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
-            realtime_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[first_pixel:last_pixel]
-            realtime_lightmap = Image.frombytes("RGBA", (header.width, header.height), realtime_bytes, "raw")
-            realtime_lightmaps.append(realtime_lightmap)
-            first_pixel = last_pixel
+            sky_start = sky_end
     os.makedirs(folder, exist_ok=True)
     max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
     sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
-    realtime_lightmap_page = sum(realtime_lightmaps, start=LightmapPage(max_width=max_width))
-    realtime_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.realtime_lightmaps.png"))
+    rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=max_width))
+    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl_lightmaps.png"))
+
+
+# NOTE: Titanfall2 Internal Lightmap Data lumps only
+# TODO: Figure out why external LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel
+# -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
+def save_rbsp_r2(rbsp, folder="./"):
+    """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
+    sky_lightmaps = list()
+    sky_start, sky_end = 0, 0
+    rtl_lightmaps = list()
+    rtl_start, rtl_end = 0, 0
+    for header in rbsp.LIGHTMAP_HEADERS:
+        for i in range(header.count * 2):
+            # SKY_A + SKY_B
+            sky_end = sky_start + (header.width * header.height * 4)
+            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end]
+            sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
+            sky_lightmaps.append(sky_lightmap)
+            sky_start = sky_end
+            # RTL_A + RTL_B
+            rtl_end = rtl_start + (header.width * header.height * 4)
+            rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+            rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
+            rtl_lightmaps.append(rtl_lightmap)
+            rtl_start = rtl_end
+        # RTL_C
+        rtl_end = rtl_start + (header.width * header.height)
+        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
+        rtl_lightmaps.append(rtl_lightmap)
+        rtl_start = rtl_end
+    os.makedirs(folder, exist_ok=True)
+    sky_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2  # SKY_A | SKY_B
+    sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=sky_width))
+    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
+    rtl_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 3  # RTL_A | RTL_B | RTL_C
+    rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=rtl_width))
+    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl_lightmaps.png"))
