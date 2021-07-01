@@ -1,5 +1,5 @@
 import enum
-from typing import Any, List
+from typing import List
 
 from .. import base
 from .. import shared

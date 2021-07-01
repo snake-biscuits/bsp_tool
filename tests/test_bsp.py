@@ -71,7 +71,7 @@ expected_branch = {"ApexLegends": (RespawnBsp, 47, "respawn.apex_legends"),  # s
                    "TitanfallOnline": (RespawnBsp, 29, "respawn.titanfall"),
                    "Titanfall2": (RespawnBsp, 37, "respawn.titanfall2"),
                    "QuakeIII": (IdTechBsp, 46, "id_software.quake3")}
-# ^ {"game": (type(bsp), BSP_VERSION, "branch")}
+# ^ {"game": (type(bsp), bsp_version, "branch")}
 # TODO: generate expected_branch from branches/__init__.py
 
 
@@ -118,7 +118,7 @@ def test_load_all_bsps():  # WARNING: will take hours if you have lots of games 
                     if game_name in expected_branch:
                         variant, bsp_version, branch = expected_branch[game_name]
                         assert isinstance(loaded_bsp, variant)
-                        assert loaded_bsp.BSP_VERSION == bsp_version, "wrong bsp version"
+                        assert loaded_bsp.bsp_version == bsp_version, "wrong bsp version"
                         assert loaded_bsp.branch.__name__ == f"bsp_tool.branches.{branch}", "wrong branch"
                     assert len(loaded_bsp.loading_errors) == 0, f"failed to read {len(loaded_bsp.loading_errors)} lumps"
                     del loaded_bsp

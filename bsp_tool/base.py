@@ -19,15 +19,15 @@ ExternalLumpHeader = collections.namedtuple("ExternalLumpHeader", ["offset", "le
 
 class Bsp:
     """Bsp base class"""
-    FILE_MAGIC: bytes = b"XBSP"
-    HEADERS: Dict[str, LumpHeader]
-    # ^ {"LUMP_NAME": LumpHeader}
-    VERSION: int = 0  # .bsp format version
+    bsp_version: int = 0  # .bsp format version
     associated_files: List[str]  # files in the folder of loaded file with similar names
     branch: ModuleType  # soft copy of "branch script"
     bsp_file_size: int = 0  # size of .bsp in bytes
+    file_magic: bytes = b"XBSP"
     filename: str
     folder: str
+    headers: Dict[str, LumpHeader]
+    # ^ {"LUMP_NAME": LumpHeader}
     loading_errors: Dict[str, Exception]
     # ^ {"LUMP_NAME": Exception encountered}
 
@@ -37,13 +37,13 @@ class Bsp:
         filename = os.path.realpath(filename)
         self.folder, self.filename = os.path.split(filename)
         self.set_branch(branch)
-        self.HEADERS = dict()
+        self.headers = dict()
         if autoload:
             if os.path.exists(filename):
                 self._preload()
             else:
                 print(f"{filename} not found, creating a new .bsp")
-                self.HEADERS = {L.name: LumpHeader(0, 0, 0, 0) for L in self.branch.LUMP}
+                self.headers = {L.name: LumpHeader(0, 0, 0, 0) for L in self.branch.LUMP}
 
     def __enter__(self):
         return self
@@ -52,7 +52,7 @@ class Bsp:
         self.file.close()
 
     def __repr__(self):
-        version = f"({self.FILE_MAGIC.decode('ascii', 'ignore')} version {self.BSP_VERSION})"
+        version = f"({self.file_magic.decode('ascii', 'ignore')} version {self.bsp_version})"
         return f"<{self.__class__.__name__} {self.filename} {version} at 0x{id(self):016X}>"
 
     def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
@@ -73,18 +73,19 @@ class Bsp:
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
-        if file_magic != self.FILE_MAGIC:
+        if file_magic != self.file_magic:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
-        self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
+        self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
+        self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP_enum in self.branch.LUMP:
             # CHECK: is lump external? (are associated_files overriding)
             lump_header = self._read_header(LUMP_enum)
             LUMP_NAME = LUMP_enum.name
-            self.HEADERS[LUMP_NAME] = lump_header
+            self.headers[LUMP_NAME] = lump_header
             if lump_header.length == 0:
                 continue
             try:
@@ -120,7 +121,7 @@ class Bsp:
         # os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         # outfile = open(filename, "wb")
         # # try to preserve the original order of lumps
-        # outfile.write(self.FILE_MAGIC)
+        # outfile.write(self.file_magic)
         # outfile.write(self.VERSION.to_bytes(4, "little"))  # .bsp format version
         # for LUMP in self.branch.LUMP:
         #     pass  # calculate and write each header

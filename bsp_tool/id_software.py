@@ -12,7 +12,7 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length"])
 
 
 class IdTechBsp(base.Bsp):
-    FILE_MAGIC = b"IBSP"
+    file_magic = b"IBSP"
     # https://www.mralligator.com/q3/
     # NOTE: Quake 3 .bsp are usually stored in .pk3 files
 
@@ -24,12 +24,13 @@ class IdTechBsp(base.Bsp):
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
-        if file_magic != self.FILE_MAGIC:
+        if file_magic != self.file_magic:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
-        self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
+        self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
+        self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP_enum in self.branch.LUMP:
             # CHECK: is lump external? (are associated_files overriding)

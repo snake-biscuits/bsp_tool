@@ -12,7 +12,7 @@ LumpHeader = collections.namedtuple("LumpHeader", ["length", "offset"])
 
 
 class D3DBsp(base.Bsp):
-    FILE_MAGIC = b"IBSP"
+    file_magic = b"IBSP"
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_2:_d3dbsp
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
@@ -28,18 +28,19 @@ class D3DBsp(base.Bsp):
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
-        if file_magic != self.FILE_MAGIC:
+        if file_magic != self.file_magic:
             raise RuntimeError(f"{self.file} is not a valid .bsp!")
-        self.BSP_VERSION = int.from_bytes(self.file.read(4), "little")
+        self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
+        self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP_enum in self.branch.LUMP:
             # CHECK: is lump external? (are associated_files overriding)
             lump_header = self._read_header(LUMP_enum)
             LUMP_NAME = LUMP_enum.name
-            self.HEADERS[LUMP_NAME] = lump_header
+            self.headers[LUMP_NAME] = lump_header
             if lump_header.length == 0:
                 continue
             try:

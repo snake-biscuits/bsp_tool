@@ -7,7 +7,7 @@ from . import base
 
 class ValveBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
-    FILE_MAGIC = b"VBSP"
+    file_magic = b"VBSP"
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(ValveBsp, self).__init__(branch, filename, autoload)
