@@ -445,10 +445,11 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 
 # branch exclusive methods, in alphabetical order:
 # mesh.flags -> VERTS_RESERVED_X
-mesh_types = {0x600: "VERTS_UNLIT_TS",  # VERTS_RESERVED_3
-              0x400: "VERTS_UNLIT",     # VERTS_RESERVED_0
-              0x200: "VERTS_LIT_BUMP",  # VERTS_RESERVED_2
-              0x000: "VERTS_LIT_FLAT"}  # VERTS_RESERVED_1
+mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
+              # 0x?: "VERTS_BLINN_PHONG",  # VERTS_RESERVED_4
+              0x400: "VERTS_UNLIT",        # VERTS_RESERVED_0
+              0x200: "VERTS_LIT_BUMP",     # VERTS_RESERVED_2
+              0x000: "VERTS_LIT_FLAT"}     # VERTS_RESERVED_1
 
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)

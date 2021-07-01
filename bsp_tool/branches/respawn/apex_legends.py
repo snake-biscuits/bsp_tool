@@ -288,35 +288,11 @@ SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
-# NOTE: Apex GAME_LUMP versions are the same as BSP_VERSION
-# GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv47),
-#                               48: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv48),
-#                               49: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv49)}}
+# NOTE: Apex GAME_LUMP.sprp versions are the same as BSP_VERSION
 GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
                               48: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
                               49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
-# TODO: identify Apex Legends' GameLump & StaticProp structures
 
 # branch exclusive methods, in alphabetical order:
-mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
-              # 0x?00: "VERTS_BLINN_PHONG",  # VERTS_RESERVED_4
-              0x400: "VERTS_UNLIT",        # VERTS_RESERVED_0
-              0x200: "VERTS_LIT_BUMP",     # VERTS_RESERVED_2
-              0x000: "VERTS_LIT_FLAT"}     # VERTS_RESERVED_1
-
-
-# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
-def vertices_of_mesh(bsp, mesh_index: int) -> List[Any]:
-    mesh = bsp.MESHES[mesh_index]
-    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
-    start = mesh.start_index
-    finish = start + mesh.num_triangles * 3
-    indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x600])
-    # NOTE: which vertex lump is used matters for shaders & buffer assembly
-    return [VERTEX_LUMP[i] for i in indices]
-
-
-methods = [*titanfall.methods]
-methods.pop(methods.index(titanfall.vertices_of_mesh))
-methods.append(vertices_of_mesh)
+methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model]
+# NOTE: other titanfall methods break, since there is no TEXTURE_DATA_STRING_DATA
