@@ -238,10 +238,10 @@ class Model(base.Struct):  # LUMP 14 (000E)
 
 class Node(base.Struct):  # LUMP 99 (0063) / LUMP 119 (0077)
     mins: List[float]
-    unknown1: int
+    unknown_1: int
     maxs: List[float]
-    unknown2: int
-    __slots__ = ["mins", "unknown1", "maxs", "unknown2"]
+    unknown_2: int
+    __slots__ = ["mins", "unknown_1", "maxs", "unknown_2"]
     _format = "3fi3fi"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
@@ -284,7 +284,23 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
-    __slots__ = ["origin", "angles", "mdl_name", "first_leaf", "num_leafs",
+    origin: List[float]  # x, y, z
+    angles: List[float]  # pitch, yaw, roll
+    mdl_name: int  # index into GAME_LUMP.sprp.mdl_names
+    first_leaf: int
+    num_leaves: int  # NOTE: Titanfall doesn't have visleaves?
+    solid_mode: int  # bitflags
+    flags: int
+    skin: int
+    cubemap: int  # index of this StaticProp's Cubemap
+    fade_distance: float
+    lighting_origin: List[float]  # x, y, z
+    forced_fade_scale: float  # two fade distances?
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    collision_flags: List[int]  # add, remove
+    __slots__ = ["origin", "angles", "mdl_name", "first_leaf", "num_leaves",
                  "solid_mode", "flags", "skin", "cubemap", "fade_distance",
                  "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
                  "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
@@ -298,7 +314,6 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 class TextureData(base.Struct):  # LUMP 2 (0002)
     reflectivity: List[int]  # copy of .vtf reflectivity value, for bounce lighting
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
-    # ^ nameStringTableID
     width: int
     height: int
     view_width: int
@@ -387,8 +402,8 @@ class GameLump_SPRP:  # unique to Titanfall
         leaf_count = int.from_bytes(sprp_lump.read(4), "little")  # usually 0
         leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leafs", leafs)
-        prop_count, unknown1, unknown2 = struct.unpack("3i", sprp_lump.read(12))
-        self.unknown1, self.unknown2 = unknown1, unknown2
+        prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
+        self.unknown_1, self.unknown_2 = unknown_1, unknown_2
         prop_size = struct.calcsize(StaticPropClass._format)
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
@@ -398,7 +413,7 @@ class GameLump_SPRP:  # unique to Titanfall
                          *[struct.pack("128s", n) for n in self.prop_names],
                          int.to_bytes(len(self.leafs), 4, "little"),
                          *[struct.pack("H", L) for L in self.leafs],
-                         *struct.pack("3I", len(self.props), self.unknown1, self.unknown2),
+                         *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 

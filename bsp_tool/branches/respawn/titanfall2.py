@@ -1,6 +1,7 @@
 import enum
 import io
 import struct
+from typing import List
 
 from .. import base
 from . import titanfall
@@ -176,6 +177,20 @@ class LightmapPage(base.Struct):
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
+    origin: List[float]  # x, y, z
+    angles: List[float]  # pitch, yaw, roll
+    unknown_1: List[int]
+    mdl_name: int  # index into GAME_LUMP.sprp.mdl_names
+    solid_mode: int  # bitflags
+    flags: int
+    unknown_2: List[int]
+    forced_fade_scale: float
+    lighting_origin: List[float]  # x, y, z
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    collision_flags: List[int]  # add, remove
+    # NOTE: no skin or cubemap
     __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
                  "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
@@ -194,8 +209,8 @@ class GameLump_SPRP:  # unique to Titanfall|2
         mdl_name_count = int.from_bytes(sprp_lump.read(4), "little")
         mdl_names = struct.iter_unpack("128s", sprp_lump.read(128 * mdl_name_count))
         setattr(self, "mdl_names", [t[0].replace(b"\0", b"").decode() for t in mdl_names])
-        prop_count, unknown1, unknown2 = struct.unpack("3i", sprp_lump.read(12))
-        self.unknown1, self.unknown2 = unknown1, unknown2
+        prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
+        self.unknown_1, self.unknown_2 = unknown_1, unknown_2
         prop_size = struct.calcsize(StaticPropClass._format)
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
@@ -206,7 +221,7 @@ class GameLump_SPRP:  # unique to Titanfall|2
                          *[struct.pack("128s", n) for n in self.prop_names],
                          int.to_bytes(len(self.leafs), 4, "little"),
                          *[struct.pack("H", L) for L in self.leafs],
-                         *struct.pack("3I", len(self.props), self.unknown1, self.unknown2),
+                         *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
