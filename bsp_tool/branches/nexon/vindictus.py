@@ -1,17 +1,12 @@
 """Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
 import collections
 import enum
-import os
 import struct
 from typing import List
 
 from .. import base
 from .. import shared
 from ..valve import orange_box
-
-
-with open(os.path.join(os.path.dirname(__file__), "vindictus_notes.txt")) as notes:
-    __doc__ = notes.read()  # help(vindictus) will contain vindictus_notes.txt
 
 BSP_VERSION = 20
 
@@ -128,11 +123,11 @@ class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
     displacement_triangle_start: int  # index into DisplacementTriangle lump
     power: int  # 2, 3 or 4; indicates subdivision level
     smoothing_angle: float
-    unknown1: int  # don't know what this does in Vindictus' format
+    unknown: int  # don't know what this does in Vindictus' format
     contents: int  # contents flags
     face: int  # index into Face lump
     __slots__ = ["start_position", "displacement_vertex_start", "displacement_triangle_start",
-                 "power", "smoothing_angle", "unknown1", "contents", "face",
+                 "power", "smoothing_angle", "unknown", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_verts"]
     _format = "3f3if2iI2i144c10I"  # Neighbours are also different
@@ -149,7 +144,7 @@ class Edge(list):  # LUMP 12
 
 class Face(base.Struct):  # LUMP 7
     plane: int  # index into Plane lump
-    __slots__ = ["plane", "side", "on_node", "unknown1", "first_edge",
+    __slots__ = ["plane", "side", "on_node", "unknown", "first_edge",
                  "num_edges", "tex_info", "displacement_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
                  "lightmap_texture_mins_in_luxels",
@@ -185,6 +180,16 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
+# classes for special lumps (alphabetical order)
+# TODO: StaticPropv5, StaticPropv6
+# TODO: GameLump (alternate header format)
+# old: struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };
+# new: struct GameLumpHeader { char id[4]; int flags, version, offset, length; };
+# also the sprp lump includes a "scales" sub-lump after leaves
+# struct StaticPropScale { int static_prop; Vector scales; };  // Different scalar for each axis
+# struct StaticPropScalesLump { int count; StaticPropScales scales[count]; };
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 BASIC_LUMP_CLASSES["LEAF_FACES"] = {0: shared.UnsignedInts}
@@ -196,10 +201,14 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
                      "DISPLACEMENT_INFO": {0: DisplacementInfo},
                      "EDGES":             {0: Edge},
                      "FACES":             {0: Face},
+                     # NOTE: LeafBrush also differs from orange_box (not implemented)
                      "LEAVES":            {0: Leaf},
                      "NODES":             {0: Node},
                      "ORIGINAL_FACES":    {0: Face}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+
+# GAME_LUMP_CLASSES = {"sprp": {5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
+#                               6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
 
 methods = [*orange_box.methods]
