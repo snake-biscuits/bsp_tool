@@ -1,6 +1,6 @@
 # Changelog
 
-# v0.3.0 (May 2021)
+# v0.3.0 (July 2021)
 
 ## New
  * Added `load_bsp` function to identify bsp type  
@@ -13,6 +13,7 @@
    * `lightmaps.py` bsp lightmap -> `.png`
    * `lump_analysis.py` determine lump sizes with stats
  * Prototype Blender 2.92 RespawnBsp editor
+ * Made a basic C++ 17 implementation in `src/`
 
 ## Changed
  * Bsp lumps are loaded dynamically, reducing memory usage
@@ -25,6 +26,8 @@
    * `LUMP_CLASSES` for standard `LumpClasses`
    * `SPECIAL_LUMP_CLASSES` for irregular types (e.g. PakFile)
  * Bsps no longer print on a successful load, only on an unsuccessful load
+ * `Base.Bsp` & subclasses have reserved ALL CAPS member names for lumps only
+   * BSP_VERSION, FILE_MAGIC, HEADERS, REVISION -> bsp_version, file_magic, headers, revision
 
 ## New Supported Games
   * Call of Duty 1
