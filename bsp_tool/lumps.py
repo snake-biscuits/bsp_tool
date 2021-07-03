@@ -323,17 +323,19 @@ class GameLump:
             self.is_external = True
             file = open(lump_header.filename, "rb")
         game_lumps_count = int.from_bytes(file.read(4), "little")
-        self.HEADERS = dict()
+        self.headers = dict()
         for i in range(game_lumps_count):
             _id, flags, version, offset, length = struct.unpack("4s2H2i", file.read(16))
             _id = _id.decode("ascii")[::-1]  # b"prps" -> "sprp"
             if self.is_external:
                 offset = offset - lump_header.offset
             child_header = GameLumpHeader(_id, flags, version, offset, length)
-            self.HEADERS[_id] = child_header
-        for child_name, child_header in self.HEADERS.items():
+            self.headers[_id] = child_header
+        for child_name, child_header in self.headers.items():
             child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
-            if child_LumpClass is not None:
+            if child_LumpClass is None:
+                setattr(self, child_name, create_RawBspLump(file, child_header))
+            else:
                 file.seek(child_header.offset)
                 try:
                     child_lump = child_LumpClass(file.read(child_header.length))
@@ -341,16 +343,14 @@ class GameLump:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
                 setattr(self, child_name, child_lump)
-            else:
-                setattr(self, child_name, create_RawBspLump(file, child_header))
 
     def as_bytes(self, lump_offset=0):
         """lump_offset makes headers relative to the file"""
         out = []
-        out.append(len(self.HEADERS).to_bytes(4, "little"))
+        out.append(len(self.headers).to_bytes(4, "little"))
         headers = []
-        cursor_offset = lump_offset + 4 + len(self.HEADERS) * 12
-        for child_name, child_header in self.HEADERS.items():
+        cursor_offset = lump_offset + 4 + len(self.headers) * 12
+        for child_name, child_header in self.headers.items():
             child_lump = getattr(self, child_name)
             if isinstance(child_lump, RawBspLump):
                 child_lump_bytes = child_lump[::]
