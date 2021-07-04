@@ -108,7 +108,7 @@ Attached to this we have `lump_header_address`, this connects each LUMP entry to
 Then comes the lump classes, these translate most lumps into python objects (more on them later)  
 We also have some special lump classes, these are loaded in a different way to other lumps, and some are shared across **almost all** bsp variants
 
-The Bsp class reads the headers for each lump and holds the contents in `Bsp.HEADERS`  
+The Bsp class reads the headers for each lump and holds the contents in `Bsp.headers`  
 This dictionary of headers takes the name given in the branch scripts' `LUMP` class  
 Lump names are tied to a dictionary, which ties lump version (`int`) to LumpClass  
 From there, a lump is either saved as `Bsp.RAW_LUMPNAME` (bytes) or `Bsp.LUMPNAME` (List[LumpClass]) if it the lump is listed in `LUMP_CLASSES`

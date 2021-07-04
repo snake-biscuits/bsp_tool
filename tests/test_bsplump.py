@@ -92,7 +92,9 @@ class TestBasicBspLump:
     def test_indexing(self):
         for map_name in bsps:
             lump = bsps[map_name].LEAF_FACES
-            LumpClass = bsps[map_name].branch.LeafFace
+            LumpClass = bsps[map_name].branch.BASIC_LUMP_CLASSES["LEAF_FACES"]
+            if isinstance(LumpClass, dict):  # ValveBsp branches use dicts for multiple lump versions
+                LumpClass = list(LumpClass.values())[0]
             assert isinstance(lump[0], LumpClass), f"{map_name} failed"
             assert isinstance(lump[:1], list), f"{map_name} failed"
             assert len(lump[:1]) == 1, f"{map_name} failed"

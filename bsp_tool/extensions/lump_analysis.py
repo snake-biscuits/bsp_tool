@@ -59,7 +59,7 @@ def headers_markdown(folder: str, md_name: str):
         out_md.write("| Lump | External | Offset | Size | Version | FourCC |\n")
         out_md.write("| :--- | :------- | :----- | :--- | :------ | :----- |\n")
         for lump in bsp.branch.LUMP:
-            header = bsp.HEADERS[lump.name]
+            header = bsp.headers[lump.name]
             external = hasattr(header, "filename")
             size = header.filesize if external else header.length
             offset, version, fourCC = header.offset, header.version, header.fourCC
@@ -104,7 +104,7 @@ def sizes_csv(folder: str, csv_name: str):
             traceback.print_exc()
             continue
         for lump in bsp.branch.LUMP:
-            header = bsp.HEADERS[lump.name]
+            header = bsp.headers[lump.name]
             if hasattr(header, "filesize"):
                 lump_sizes[lump.name].append(header.filesize)
             elif getattr(header, "fourCC", 0) > 0:

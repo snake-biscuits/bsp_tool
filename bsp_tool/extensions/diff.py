@@ -21,8 +21,8 @@ def diff_bsps(bsp1, bsp2, full=False):
     for lump1, lump2 in zip(bsp1.branch.LUMP, bsp2.branch.LUMP):
         lump1 = lump1.name
         lump2 = lump2.name
-        bsp1_header = bsp1.HEADERS[lump1]
-        bsp2_header = bsp2.HEADERS[lump2]
+        bsp1_header = bsp1.headers[lump1]
+        bsp2_header = bsp2.headers[lump2]
 
         if bsp1_header.length == 0 and bsp2_header.length == 0:
             continue  # skip empty lumps
@@ -121,13 +121,13 @@ def dump_headers(maplist):  # just for r1 / r1o / r2  (Titanfall Games)
             r1_lump = titanfall.LUMP(i)
             r2_lump = titanfall2.LUMP(i)
 
-            r1_header = r1_map.HEADERS[r1_lump.name]
+            r1_header = r1_map.headers[r1_lump.name]
             if r1o_map_exists:
-                r1o_header = r1o_map.HEADERS[r1_lump.name]
+                r1o_header = r1o_map.headers[r1_lump.name]
                 r1o_header_length = r1o_header.length
             else:
                 r1o_header_length = 0
-            r2_header = r2_map.HEADERS[r2_lump.name]
+            r2_header = r2_map.headers[r2_lump.name]
             if (r1_header.length, r1o_header_length, r2_header.length) == (0, 0, 0):
                 continue  # skip empty lumps
             print(r1_lump.name, "/", r2_lump.name)

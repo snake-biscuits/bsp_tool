@@ -122,7 +122,7 @@ class Bsp:
         # outfile = open(filename, "wb")
         # # try to preserve the original order of lumps
         # outfile.write(self.file_magic)
-        # outfile.write(self.VERSION.to_bytes(4, "little"))  # .bsp format version
+        # outfile.write(self.version.to_bytes(4, "little"))  # .bsp format version
         # for LUMP in self.branch.LUMP:
         #     pass  # calculate and write each header
         #     # adapting each header to bytes could be hard

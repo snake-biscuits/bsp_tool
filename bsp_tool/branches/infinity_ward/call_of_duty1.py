@@ -58,7 +58,7 @@ class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     # too small to be mins & maxs of an AABB; probably indices (hence: AABB_TREE)
     data: bytes
     __slots__ = ["data"]
-    _format = "12s"
+    _format = "12s"  # size may be incorrect
 
 
 class Brush(base.Struct):  # LUMP 4

@@ -18,7 +18,7 @@ def test_entities_loaded():
 
 def test_face_struct():  # most complex branches.base.MappedArray
     # TODO: add some asserts, be thorough
-    header = bigbox.HEADERS["FACES"]
+    header = bigbox.headers["FACES"]
     with open(bigbox.file.name, "rb") as file:
         file.seek(header.offset)
         raw_faces = file.read(header.length)
