@@ -6,7 +6,7 @@ with open("README.md", "r") as readme:
 
 setuptools.setup(
     name="bsp_tool",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where=".", include=("bsp_tool*",)),
     version="0.3.0",
     license="gpl-3.0",
     description="A library for .bsp file analysis & modification",
@@ -20,14 +20,14 @@ setuptools.setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Games/Entertainment :: First Person Shooters",
         "Topic :: Multimedia :: Graphics :: 3D Modeling",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8"
+        "Topic :: Software Development :: Libraries :: Python Modules"
     ],
     python_requires=">=3.6")
