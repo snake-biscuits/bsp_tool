@@ -141,14 +141,19 @@ class LUMP(enum.Enum):
     SHADOW_MESH_MESHES = 0x007F
 
 # a rough map of the relationships between lumps:
-# Mesh -> MeshIndex -> Vertices  (are you sure about meshindex?)
-#     |-> MaterialSort -> TextureData
-#                     |-> VertexReservedX
+# Model -> Mesh -> MaterialSort -> TextureData
+#                              |-> VertexReservedX
+#                              |-> MeshIndex
+#
 # TextureData -> TextureDataStringTable -> TextureDataStringTable
 # VertexReservedX -> Vertex
 #                |-> VertexNormal
 #
-# ??? -> ShadowMeshIndices -> ShadowMesh -> ??? (triangles?)
+# ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
+# ??? -> Brush -?> Plane
+#
+# LightmapHeader -> LIGHTMAP_DATA_SKY
+#               |-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -224,9 +229,6 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 class Model(base.Struct):  # LUMP 14 (000E)
     """bsp.MODELS[0] is always worldspawn"""
-    # Model -> Mesh -> MaterialSort -> TextureData, VertexReservedX
-    # TextureData -> TextureDataStringTable -> TextureDataStringTable
-    # VertexReservedX -> Vertex, Vertex(normal), VertexReservedX.uv
     mins: List[float]  # bounding box mins
     maxs: List[float]  # bounding box maxs
     first_mesh: int  # index of first Mesh
@@ -259,7 +261,6 @@ class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
 class Plane(base.Struct):  # LUMP 1 (0001)
     normal: List[float]  # normal unit vector
     distance: float
-    # ??? -> Brush -> Plane ?  (unsure)
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
