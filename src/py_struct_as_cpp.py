@@ -1,9 +1,11 @@
 from __future__ import annotations
 import enum
+import inspect
 import itertools
+import re
 from typing import Any, Dict, List, Union
 
-from bsp_tool.branches.base import mapping_length, Struct
+from bsp_tool.branches.base import mapping_length, MappedArray, Struct
 # bsp_tool.branches.base Types Quick Reference
 # class base.Struct:
 #   __slots__: List[str]     # top-level attr name
@@ -26,15 +28,27 @@ ChildMapping = Union[Dict[str, Any], List[str], int, None]
 CType = str
 
 
-def LumpClass_as_C(LumpClass: Struct) -> str:
-    name = LumpClass.__name__
-    attrs = LumpClass.__slots__
-    formats = split_format(LumpClass._format)
-    mappings = getattr(LumpClass, "_arrays", dict())
+# TODO: revise
+def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
+    name = lump_class.__name__
+    formats = split_format(lump_class._format)
+    if isinstance(lump_class, Struct):
+        attrs = lump_class.__slots__
+        mappings = getattr(lump_class, "_arrays", dict())
+    elif isinstance(lump_class, MappedArray):
+        special_mapping = lump_class._mapping
+        if isinstance(special_mapping, list):
+            attrs, mappings = special_mapping, None
+        elif isinstance(special_mapping, dict):
+            attrs = special_mapping.keys()
+            mappings = special_mapping
+    else:
+        return TypeError(f"Cannot convert {type(lump_class)} to C")
     return make_c_struct(name, attrs, formats, mappings)
     # ^ {"name": {"type": "child_name"}}
 
 
+# TODO: revise
 def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: ChildMapping = dict()) -> Dict[str, any]:
     members = list()
     i = 0
@@ -51,33 +65,16 @@ def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: Chi
 
 
 def split_format(_format: str) -> List[str]:
-    # TODO: reduce complexity w/ regex
-    # https://stackoverflow.com/questions/5318143/find-and-replace-a-string-pattern-n-times-where-n-is-defined-in-the-pattern
+    _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefdspP]", _format.replace(" ", ""))
     out = list()
-    _format = _format.replace(" ", "")
-    if _format[-1].isnumeric():
-        raise RuntimeError("_format is invalid (ends in a number)")
-    i = 0
-    while i < len(_format):
-        char = _format[i]
-        if char.isalpha() or char == "?":
-            out.append(_format[i])
-        elif char.isnumeric():
-            # find the whole number
-            j = 1
-            while _format[i:i + j].isnumeric():
-                j += 1
-            j -= 1
-            count, i = int(_format[i:i + j]), i + j
-            f = _format[i]
-            assert f.isalpha() or f == "?", f"Invalid character '{f}' in _format"
-            if f == "s":
-                out.append(f"{count}s")
-            else:
-                out.extend([f] * count)
+    for f in _format:
+        match_numbered = re.match(r"([0-9]+)([xcbB\?hHiIlLqQnNefdpP])", f)
+        # NOTE: does not decompress strings
+        if match_numbered is not None:
+            count, f = match_numbered.groups()
+            out.extend(f * int(count))
         else:
-            raise RuntimeError(f"Invalid character '{char}' in _format")
-        i += 1
+            out.append(f)
     return out
 
 
@@ -95,20 +92,71 @@ def c_type_of(attr: str, formats: List[str], mapping: ChildMapping) -> (CType, s
         c_type = type_LUT[formats[0]]
         return c_type, attr
     if isinstance(mapping, int):  # C list type
-        if len(set(format)) > 1:  # mixed types
-            raise NotImplementedError("List mapping mixes types: '{format}'")
-            # ("attr", "2ih", 4) -> ("struct { int A[2]; short B; }", "attr")
-            if mapping > 26:
+        if len(set(formats)) == 1:
+            c_type = type_LUT[formats[0]]
+            return c_type, f"{attr}[{mapping}]"
+            # ^ ("type", "name[count]")
+        else:  # mixed types
+            if mapping > 26:  # ("attr", "2ih", 4) -> ("struct { int A[2]; short B; }", "attr")
                 raise NotImplementedError("Cannot convert list of mixed type")
             mapping = [chr(97 + i) for i in range(mapping)]
-            return c_type_of(attr, format, mapping)  # use list mapping instead
-        c_type = type_LUT[formats[0]]
-        return c_type, f"{attr}[{mapping}]"  # type  name[count]
+            return c_type_of(attr, formats, mapping)  # use list mapping instead
+            # ^ {"attr": {"child_A": Type, "child_B": Type}}
     elif isinstance(mapping, (list, dict)):  # basic / nested struct
         return make_c_struct(attr, formats, mapping)
         # ^ {"attr": {"child_1": Type, "child_2": Type}}
     else:
         raise RuntimeError("How did this happen?")
+
+
+def apply_typing(members: Dict[str, CType]) -> Dict[str, CType]:
+    """{'name', 'char[256]'} -> {'name[256]', 'char'}"""
+    # NOTE: type may be a struct
+    out = dict()
+    # ^ {"member_1": "type", "member_2": "type[]"}
+    for member, _type in members.items():
+        count_search = re.search(r"([a-z]+)\[([0-9]+)\]", _type)
+        if count_search is not None:
+            _type, count = count_search.groups()
+            member = f"{member}[{count}]"
+        out[member] = _type
+    return out
+
+
+def compact_members(members: Dict[str, str]) -> List[str]:
+    """run after apply_typing"""
+    # NOTE: type may be a struct, cannot chain inner structs!
+    # - in this case, the inner must be declared externally
+    members = list(members.items())
+    # ^ [("member_1", "type"), ("member_2", "type")]
+    type_groups = [list(members[0])]
+    # ^ [["type", "member_1", "member_2"], ["type", "member_1"]]
+    for member, _type in members[1:]:
+        if _type == type_groups[-1][0]:
+            type_groups[-1].append(member)
+        else:
+            type_groups.append([_type, member])
+    out = list()
+    # NOTE: this automatically creates "lines" & does not allow for aligning variables
+    for _type, *members in type_groups:
+        out.append(f"{_type} {', '.join(map(str, members))};")
+    return out
+
+
+pattern_thc = re.compile(r"([\w\.]+):\s[\w\[\]]+  # ([\w ]+)")
+# NOTE: also catches commented type hints to allow labelling of inner members
+
+
+def get_type_hint_comments(cls: object) -> Dict[str, str]:
+    out = dict()
+    # ^ {"member": "comment"}
+    for line in inspect.getsource(cls):
+        match = pattern_thc.seach(line)
+        if match is None:
+            continue
+        member, comment = match.groups()
+        out[member] = comment
+    return out
 
 
 class StyleFlags(enum.Enum):
@@ -127,68 +175,44 @@ class StyleFlags(enum.Enum):
     INNER = 0b10
     # other flags
     ALIGN_MEMBERS = 0x04
-    ALIGN_COMMENTS = 0x08
+    ALIGN_COMMENTS = 0x08  # per-member comments used on FULL modes only
     # COMPACT = 0x10  # use compact members (smaller multi-line definitions)
-
-
-def apply_typing(members: Dict[str, CType]) -> Dict[str, CType]:
-    """{'name', 'char[256]'} -> {'name[256]', 'char'}"""
-    # NOTE: type may be a struct
-    out = dict()
-    # ^ {"member_1": "type", "member_2": "type[]"}
-    for member, _type in members.items():
-        if _type.endswith("]"):
-            _type, count = member[:-1].split("[")
-            member = f"{member}[{count}]"
-        out[member] = _type
-    return out
-
-
-def compact_members(members: Dict[str, str]) -> List[str]:
-    """run after apply_typing"""
-    # NOTE: type may be a struct, cannot chain inner structs!
-    # - in this case, the inner must be declared externally
-    members = list(members.items())
-    # ^ [("member_1", "type"), ("member_2", "type")]
-    type_groups = [[members[0], members[0]]]
-    # ^ [["type", "member_1", "member_2"], "type", "member_1"]
-    for member, _type in list(members.items())[1:]:
-        if _type == type_groups[-1][0]:
-            type_groups[-1].append(member)
-        else:
-            type_groups.append([_type, member])
-    out = list()
-    for _type, *members in type_groups:
-        members = ", ".join(members)
-        out.append(f"{_type} {members};")
-    return out
+    # NOTE: ONERs should be compact by default
 
 
 def definition_as_str(name: str, members: Dict[str, Any], mode: int = 0x04, comments: Dict[str, str] = dict()) -> str:
     # members = {"member_1": "type", "member_2": "type[]"}
     # comments = {"member_1": "comment"}
-    if ~(mode & StyleFlags.INNER):  # snake_case -> CamelCase
+    if not mode & StyleFlags.INNER.value:  # snake_case -> CamelCase
         name = "".join([word.title() for word in name.split("_")])
     # NOTE: this should be redundant, but strict styles make reading Cpp easier
     # generate output
-    output_type = mode & StyleFlags.TYPE_MASK
-    if output_type & StyleFlags.INNER:
+    output_type = mode & StyleFlags.TYPE_MASK.value
+    if output_type & StyleFlags.INNER.value:
         opener, closer = "struct {", "}" + f" {name};\n"
     else:  # OUTER
         opener, closer = f"struct {name} " + "{", "};\n"
-    if output_type & StyleFlags.ONER:
+    if output_type & StyleFlags.ONER.value:
+        joiner = " "
         definitions = compact_members(apply_typing(members))
-        return " ".join([opener, *definitions, closer])
     else:  # FULL (multi-line)
+        joiner = "\n"
         alignment = 1
-        if mode & StyleFlags.ALIGN_MEMBERS:
-            alignment = max([len(t) for t, n in members]) + 2
-        definitions = [f"    {t.ljust(alignment)} {n};" for n, t in apply_typing(members)]
-        if output_type & StyleFlags.INNER:
+        if mode & StyleFlags.ALIGN_MEMBERS.value:
+            alignment = max([len(t) for t in members.keys() if not t.startswith("struct")]) + 2
+        half_definitions = [f"    {t.ljust(alignment)} {n};" for n, t in apply_typing(members).items()]
+        alignment = max([len(d) for d in half_definitions]) if mode & StyleFlags.ALIGN_COMMENTS.value else 1
+        definitions = []
+        for member, definition in zip(members, half_definitions):
+            if member in comments:
+                definitions.append(f"{definition.ljust(alignment)}  \\\\ {comments[member]}")
+            else:
+                definitions.append(definition)
+        if output_type & StyleFlags.INNER.value:
             opener += f"  // {name}"
-        return "\n".join([opener, *definitions, closer])
+    out = joiner.join([opener, *definitions, closer])
+    return out
     # TODO: ensure recursion works ok for assembling inner structs
-    # TODO: member comments
 
 
 def branch_script_as_cpp(branch_script):
@@ -214,7 +238,7 @@ def branch_script_as_cpp(branch_script):
                             decls, "}\n\n"])
     out.extend(lump_decls)
     # TODO: BasicLumpClasses -> comments?
-    # TODO: LumpClasses -> LumpClass_as_C
+    # TODO: LumpClasses -> lump_class_as_c
     # TODO: SpecialLumpClasses -> inspect.getsource(SpecialLumpClass) in Cpp TODO
     # TODO: methods -> [inspect.getsource(m) for m in methods] in Cpp TODO
 
@@ -230,12 +254,32 @@ def branch_script_as_cpp(branch_script):
 #     unsigned short  unknown[4];
 # };
 
-# Parse the Python script and grab comments from annotations
-# - Cannot be aligned until after the struct definition is assembled
-# import inspect, re
-# comments
-# for line in inspect.getsource(LumpClass):
-#
-
 # LumpClass.__doc__ in a comment above it's Cpp definition
 # // for one liner, /* */ with padded spaces for multi-line
+
+
+if __name__ == "__main__":
+    pass
+
+    # print(split_format("128s4I2bhHhh"))  # OK
+    members = {"id": "int", "name": "char[256]", "inner": "struct { float a, b; }",
+               "skin": "short", "flags": "short"}
+    comments = {"id": "GUID", "inner": "inner struct"}
+    # print(apply_typing(members))  # OK
+    # print(compact_members(members))  # OK
+    print("=== Outer Full ===")
+    print(definition_as_str("Test", members, comments=comments, mode=0))  # OK
+    print("=== Outer Full + Aligned Members ===")
+    print(definition_as_str("Test", members, comments=comments, mode=0 | 4))  # OK
+    print("=== Outer Full + Aligned Members & Comments ===")
+    print(definition_as_str("Test", members, comments=comments, mode=0 | 4 | 8))  # OK
+    print("=== Outer Oner ===")
+    print(definition_as_str("Test", members, comments=comments, mode=1))  # OK
+    print("=== Inner Full ===")
+    print(definition_as_str("test", members, comments=comments, mode=2))  # OK
+    print("=== Inner Full + Aligned Members ===")
+    print(definition_as_str("test", members, comments=comments, mode=2 | 4))  # OK
+    print("=== Outer Full + Aligned Members & Comments ===")
+    print(definition_as_str("Test", members, comments=comments, mode=2 | 4 | 8))  # OK
+    print("=== Inner Oner ===")
+    print(definition_as_str("test", members, comments=comments, mode=3))  # OK
