@@ -505,7 +505,7 @@ def find_mesh_by_texture(bsp, texture: str):
     # very slow backward traces
     texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
     for texture_data_index, texture_data in enumerate(bsp.TEXTURE_DATA):
-        if texture_data.string_table_index != texture_index:
+        if texture_data.name_index != texture_index:
             continue
         for material_sort_index, material_sort in enumerate(bsp.MATERIAL_SORT):
             if material_sort.texture_data != texture_data_index:
@@ -519,7 +519,7 @@ def get_mesh_texture(bsp, mesh_index: int):
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.string_table_index]
+    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
 
 
-methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture]
+methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture, get_mesh_texture]
