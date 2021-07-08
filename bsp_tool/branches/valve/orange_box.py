@@ -102,7 +102,11 @@ def read_lump_header(file, LUMP: enum.Enum):
 
 
 # enums for flags
-class Contents(enum.Enum):
+class Contents(enum.IntFlag):  # Brush flags
+    # src/public/bspflags.h
+    # NOTE: compiler gets these flags from a combination of all textures on the brush
+    # e.g. any non opaque face means this brush is non-opaque, and will not block vis
+    # visible
     EMPTY = 0x00
     SOLID = 0x01
     WINDOW = 0x02
@@ -110,19 +114,20 @@ class Contents(enum.Enum):
     GRATE = 0x08  # allows bullets & vis
     SLIME = 0x10
     WATER = 0x20
-    MIST = 0x40
-    OPAQUE = 0x80  # blocks NPC line of sight
+    MIST = 0x40  # BLOCK_LOS, blocks AI line of sight
+    OPAQUE = 0x80  # blocks NPC line of sight, may be non-solid
     TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
     UNUSED_1 = 0x200
-    UNUSED_2 = 0x400
+    UNUSED_2 = 0x400  # titanfall vertex lump flags?
     TEAM1 = 0x0800
     TEAM2 = 0x1000
-    IGNORE_NODRAW_OPAQUE = 0x2000
-    MOVEABLE = 0x4000
+    IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NODRAW
+    MOVEABLE = 0x4000  # pushables
+    # not visible
     AREAPORTAL = 0x8000
     PLAYER_CLIP = 0x10000
     MONSTER_CLIP = 0x20000
-    # orientations?
+    # CURRENT_ flags are for moving water
     CURRENT_0 = 0x40000
     CURRENT_90 = 0x80000
     CURRENT_180 = 0x100000
@@ -138,7 +143,28 @@ class Contents(enum.Enum):
     HITBOX = 0x40000000  # requests hit tracing use hitboxes
 
 
-class DispTris(enum.Enum):  # flags
+class Surface(enum.IntFlag):  # TextureInfo flags
+    # src/public/bspflags.h
+    # NOTE: compiler gets these flags from the texture
+    LIGHT = 0x0001  # value will hold the light strength ???
+    SKY2D = 0x0002  # don't draw, indicates we should skylight + draw 2d sky but not draw the 3D skybox
+    SKY = 0x0004  # don't draw, but add to skybox
+    WARP = 0x0008  # turbulent water warp
+    TRANSLUCENT = 0x0010
+    NO_PORTAL = 0x0020  # the surface can not have a portal placed on it
+    TRIGGER = 0x0040  # xbox hack to work around elimination of trigger surfaces, which breaks occluders
+    NODRAW = 0x0080
+    HINT = 0x0100  # make a bsp split on this face
+    SKIP = 0x0200  # don't split on this face, allows for non-closed brushes
+    NO_LIGHT = 0x0400  # fon't calculate light
+    BUMPLIGHT = 0x0800  # calculate three lightmaps for the surface for bumpmapping (ssbump?)
+    NO_SHADOWS = 0x1000
+    NO_DECALS = 0x2000
+    NO_CHOP = 0x4000	 # don't subdivide patches on this surface
+    HITBOX = 0x8000  # surface is part of a hitbox
+
+
+class DispTris(enum.IntFlag):  # DisplacementTriangle flags
     SURFACE = 0x01
     WALKABLE = 0x02
     BUILDABLE = 0x04
@@ -353,9 +379,9 @@ class TextureInfo(base.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
     texture: List[List[float]]  # 2 texture projection vectors
     lightmap: List[List[float]]  # 2 lightmap projection vectors
-    mip_flags: int  # flags for mipmapping?
+    flags: int  # Surface flags
     tex_data: int  # index of TextureData
-    __slots__ = ["texture", "lightmap", "mip_flags", "tex_data"]
+    __slots__ = ["texture", "lightmap", "flags", "tex_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
