@@ -21,21 +21,20 @@ from bsp_tool.branches.base import mapping_length, MappedArray, Struct
 #     _mapping: None            # plain, siblings have mappings
 #     # e.g. {"id": None, "position": [*"xy"]}
 
-# TODO: Tests! None of this code is tested!
-
 # type aliases
 ChildMapping = Union[Dict[str, Any], List[str], int, None]
 CType = str
+TypeMap = Dict[CType, str]
+# ^ {"type": "member"}
 
 
-# TODO: revise
 def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
     name = lump_class.__name__
     formats = split_format(lump_class._format)
-    if isinstance(lump_class, Struct):
+    if issubclass(lump_class, Struct):
         attrs = lump_class.__slots__
         mappings = getattr(lump_class, "_arrays", dict())
-    elif isinstance(lump_class, MappedArray):
+    elif issubclass(lump_class, MappedArray):
         special_mapping = lump_class._mapping
         if isinstance(special_mapping, list):
             attrs, mappings = special_mapping, None
@@ -43,25 +42,32 @@ def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
             attrs = special_mapping.keys()
             mappings = special_mapping
     else:
-        return TypeError(f"Cannot convert {type(lump_class)} to C")
+        raise TypeError(f"Cannot convert {type(lump_class)} to C")
     return make_c_struct(name, attrs, formats, mappings)
-    # ^ {"name": {"type": "child_name"}}
+    # ^ ("name", {"type": "member"})
 
 
 # TODO: revise
-def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: ChildMapping = dict()) -> Dict[str, any]:
+def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: ChildMapping = dict()) -> (str, TypeMap):
     members = list()
     i = 0
     for attr in attrs:
         member_name = attr
         sub_mapping = mappings.get(attr)
-        format_size = mapping_length(sub_mapping)
+        if isinstance(sub_mapping, int):
+            format_size = sub_mapping
+        elif isinstance(sub_mapping, list):
+            format_size = len(sub_mapping)
+        elif isinstance(sub_mapping, dict):
+            format_size = mapping_length(sub_mapping)
+        else:
+            raise TypeError(f"Invalid {sub_mapping = }")
         attr_format = formats[i:i+format_size]
         c_type, member_name = c_type_of(member_name, attr_format, sub_mapping)
         # TODO: convert c_type to one-liner
         members.append((c_type, member_name))
     return {name: {a: t for t, a in members}}
-    # ^ {"name": {"type": "child_name"}}
+    # ^ {"name": {"type": "member"}}
 
 
 def split_format(_format: str) -> List[str]:
@@ -115,7 +121,7 @@ def apply_typing(members: Dict[str, CType]) -> Dict[str, CType]:
     out = dict()
     # ^ {"member_1": "type", "member_2": "type[]"}
     for member, _type in members.items():
-        count_search = re.search(r"([a-z]+)\[([0-9]+)\]", _type)
+        count_search = re.search(r"([a-z]+)\[([0-9]+)\]", _type)  # type[count]
         if count_search is not None:
             _type, count = count_search.groups()
             member = f"{member}[{count}]"
@@ -148,8 +154,7 @@ pattern_thc = re.compile(r"([\w\.]+):\s[\w\[\]]+  # ([\w ]+)")
 
 
 def get_type_hint_comments(cls: object) -> Dict[str, str]:
-    out = dict()
-    # ^ {"member": "comment"}
+    out = dict()  # {"member": "comment"}
     for line in inspect.getsource(cls):
         match = pattern_thc.seach(line)
         if match is None:
@@ -159,8 +164,12 @@ def get_type_hint_comments(cls: object) -> Dict[str, str]:
     return out
 
 
-class StyleFlags(enum.Enum):
+class Style(enum.IntFlag):
+    # masks
     TYPE_MASK = 0b11
+    ONER = 0b01
+    INNER = 0b10
+    # major styles
     OUTER_FULL = 0b00
     # struct OuterFull {
     #     type  member;
@@ -171,48 +180,45 @@ class StyleFlags(enum.Enum):
     #     type  member;
     # } inner_full;
     INNER_ONER = 0b11  # struct { type d, e, f; } inner_oner;
-    ONER = 0b01
-    INNER = 0b10
-    # other flags
+    # _FULL bonus flags
     ALIGN_MEMBERS = 0x04
-    ALIGN_COMMENTS = 0x08  # per-member comments used on FULL modes only
-    # COMPACT = 0x10  # use compact members (smaller multi-line definitions)
-    # NOTE: ONERs should be compact by default
+    ALIGN_COMMENTS = 0x08
+    # TODO: align with inner structs?
+    # TODO: COMPACT = 0x10  # use compact members
 
 
 def definition_as_str(name: str, members: Dict[str, Any], mode: int = 0x04, comments: Dict[str, str] = dict()) -> str:
     # members = {"member_1": "type", "member_2": "type[]"}
     # comments = {"member_1": "comment"}
-    if not mode & StyleFlags.INNER.value:  # snake_case -> CamelCase
+    if not mode & Style.INNER:  # snake_case -> CamelCase
         name = "".join([word.title() for word in name.split("_")])
     # NOTE: this should be redundant, but strict styles make reading Cpp easier
     # generate output
-    output_type = mode & StyleFlags.TYPE_MASK.value
-    if output_type & StyleFlags.INNER.value:
+    output_type = mode & Style.TYPE_MASK
+    if output_type & Style.INNER:
         opener, closer = "struct {", "}" + f" {name};\n"
     else:  # OUTER
         opener, closer = f"struct {name} " + "{", "};\n"
-    if output_type & StyleFlags.ONER.value:
+    if output_type & Style.ONER:
         joiner = " "
         definitions = compact_members(apply_typing(members))
     else:  # FULL (multi-line)
         joiner = "\n"
         alignment = 1
-        if mode & StyleFlags.ALIGN_MEMBERS.value:
+        if mode & Style.ALIGN_MEMBERS:
             alignment = max([len(t) for t in members.keys() if not t.startswith("struct")]) + 2
         half_definitions = [f"    {t.ljust(alignment)} {n};" for n, t in apply_typing(members).items()]
-        alignment = max([len(d) for d in half_definitions]) if mode & StyleFlags.ALIGN_COMMENTS.value else 1
+        alignment = max([len(d) for d in half_definitions]) if mode & Style.ALIGN_COMMENTS else 1
         definitions = []
         for member, definition in zip(members, half_definitions):
             if member in comments:
                 definitions.append(f"{definition.ljust(alignment)}  \\\\ {comments[member]}")
             else:
                 definitions.append(definition)
-        if output_type & StyleFlags.INNER.value:
+        if output_type & Style.INNER:
             opener += f"  // {name}"
     out = joiner.join([opener, *definitions, closer])
     return out
-    # TODO: ensure recursion works ok for assembling inner structs
 
 
 def branch_script_as_cpp(branch_script):
@@ -242,8 +248,6 @@ def branch_script_as_cpp(branch_script):
     # TODO: SpecialLumpClasses -> inspect.getsource(SpecialLumpClass) in Cpp TODO
     # TODO: methods -> [inspect.getsource(m) for m in methods] in Cpp TODO
 
-# TODO: Tests! None of this code is tested!
-
 # Nice to haves:
 # Give common inner structs their own types  (this would require the user to name each type)
 # struct Vector { float x, y, z; };
@@ -268,18 +272,24 @@ if __name__ == "__main__":
     # print(apply_typing(members))  # OK
     # print(compact_members(members))  # OK
     print("=== Outer Full ===")
-    print(definition_as_str("Test", members, comments=comments, mode=0))  # OK
+    print(definition_as_str("Test", members, comments=comments, mode=Style.OUTER_FULL))  # OK
     print("=== Outer Full + Aligned Members ===")
     print(definition_as_str("Test", members, comments=comments, mode=0 | 4))  # OK
     print("=== Outer Full + Aligned Members & Comments ===")
     print(definition_as_str("Test", members, comments=comments, mode=0 | 4 | 8))  # OK
     print("=== Outer Oner ===")
-    print(definition_as_str("Test", members, comments=comments, mode=1))  # OK
+    print(definition_as_str("Test", members, comments=comments, mode=Style.OUTER_ONER))  # OK
     print("=== Inner Full ===")
-    print(definition_as_str("test", members, comments=comments, mode=2))  # OK
+    print(definition_as_str("test", members, comments=comments, mode=Style.INNER_FULL))  # OK
     print("=== Inner Full + Aligned Members ===")
     print(definition_as_str("test", members, comments=comments, mode=2 | 4))  # OK
     print("=== Outer Full + Aligned Members & Comments ===")
     print(definition_as_str("Test", members, comments=comments, mode=2 | 4 | 8))  # OK
     print("=== Inner Oner ===")
-    print(definition_as_str("test", members, comments=comments, mode=3))  # OK
+    print(definition_as_str("test", members, comments=comments, mode=Style.INNER_ONER))  # OK
+
+    # TODO: test branch_script_as_cpp
+    # from bsp_tool.branches.id_software.quake3 import Face  # noqa F401
+    # TODO: test lump_class_as_c(Face)
+    # from bsp_tool.branches.valve.orange_box import Plane
+    # print(lump_class_as_c(Plane))
