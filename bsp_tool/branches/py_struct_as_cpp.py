@@ -22,7 +22,7 @@ from .base import mapping_length, MappedArray, Struct
 #     # e.g. {"id": None, "position": [*"xy"]}
 
 # type aliases
-ChildMapping = Union[Dict[str, Any], List[str], int, None]
+Mapping = Union[Dict[str, Any], List[str], int, None]  # _arrays or _mapping
 CType = str
 TypeMap = Dict[CType, str]
 # ^ {"type": "member"}
@@ -48,7 +48,7 @@ def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
 
 
 # TODO: revise
-def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: ChildMapping = dict()) -> (str, TypeMap):
+def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: Mapping = dict()) -> Dict[str, TypeMap]:
     members = list()
     i = 0
     for attr in attrs:
@@ -61,7 +61,7 @@ def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: Chi
         elif isinstance(sub_mapping, dict):
             format_size = mapping_length(sub_mapping)
         else:
-            raise TypeError(f"Invalid {sub_mapping = }")
+            raise TypeError(f"Invalid sub_mapping: {sub_mapping}")
         attr_format = formats[i:i+format_size]
         c_type, member_name = c_type_of(member_name, attr_format, sub_mapping)
         # TODO: convert c_type to one-liner
@@ -91,7 +91,7 @@ type_LUT = {"c": "char",  "?": "bool",
             "f": "float", "g": "double"}
 
 
-def c_type_of(attr: str, formats: List[str], mapping: ChildMapping) -> (CType, str):
+def c_type_of(attr: str, formats: List[str], mapping: Mapping) -> (CType, str):
     if not isinstance(mapping, (dict, list, int, None)):
         raise TypeError(f"Invalid mapping: {type(mapping)}")
     if isinstance(mapping, None):  # one object
@@ -217,8 +217,7 @@ def definition_as_str(name: str, members: Dict[str, Any], mode: int = 0x04, comm
                 definitions.append(definition)
         if output_type & Style.INNER:
             opener += f"  // {name}"
-    out = joiner.join([opener, *definitions, closer])
-    return out
+    return joiner.join([opener, *definitions, closer])
 
 
 def branch_script_as_cpp(branch_script):
