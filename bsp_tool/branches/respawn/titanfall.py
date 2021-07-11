@@ -420,6 +420,7 @@ class GameLump_SPRP:  # unique to Titanfall
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
+                      "CM_BRUSH_SIDE_PROPS":         {0: shared.UnsignedShorts},
                       "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
                       "OBJ_REFS":                    {0: shared.UnsignedShorts},
