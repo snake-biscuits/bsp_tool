@@ -311,6 +311,14 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+class LeafWaterData(base.Struct):
+    surface_z: float  # global Z height of the water's surface
+    min_z: float  # bottom of the water volume?
+    texture_data: int  # index to this LeafWaterData's TextureData
+    _format = "2fh"
+    _mapping = ["surface_z", "min_z", "texture_data"]
+
+
 class Model(base.Struct):  # LUMP 14
     """Brush based entities; Index 0 is worldspawn"""
     mins: List[float]  # bounding box minimums along XYZ axes

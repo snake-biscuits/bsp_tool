@@ -179,11 +179,11 @@ class Cell(base.Struct):  # LUMP 107 (006B)
     __slots__ = ["a", "b", "c", "d"]
 
 
-class CellBspNode(base.Struct):  # LUMP 108 (006C)
+class CellBspNode(base.MappedArray):  # LUMP 108 (006C)
     a: int  # sometimes -1; -1 means leaf?
     b: int
     _format = "2i"
-    __slots__ = ["a", "b"]
+    _mapping = [*"ab"]
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
@@ -192,6 +192,14 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
     __slots__ = ["origin", "unknown"]
     _format = "3iI"
     _arrays = {"origin": [*"xyz"]}
+
+
+class LeafWaterData(base.Struct):
+    surface_z: float  # global Z height of the water's surface
+    min_z: float  # bottom of the water volume?
+    texture_data: int  # index to this LeafWaterData's TextureData
+    _format = "2fI"
+    _mapping = ["surface_z", "min_z", "texture_data"]
 
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
@@ -421,6 +429,7 @@ class GameLump_SPRP:  # unique to Titanfall
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_BRUSH_SIDE_PROPS":         {0: shared.UnsignedShorts},
+                      "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # flags?
                       "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
                       "OBJ_REFS":                    {0: shared.UnsignedShorts},
