@@ -5,7 +5,7 @@ import itertools
 import re
 from typing import Any, Dict, List, Union
 
-from bsp_tool.branches.base import mapping_length, MappedArray, Struct
+from .base import mapping_length, MappedArray, Struct
 # bsp_tool.branches.base Types Quick Reference
 # class base.Struct:
 #   __slots__: List[str]     # top-level attr name
