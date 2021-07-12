@@ -1,5 +1,6 @@
 import collections
 import enum
+import io
 import struct
 from typing import List
 
@@ -435,6 +436,23 @@ class WorldLight(base.Struct):  # LUMP 15
                  "flags", "tex_info", "owner"]
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
+
+
+# classes for special lumps (alphabetical order)
+class PhysicsDisplacement(list):  # LUMP 28
+    def __init__(self, raw_lump: bytes):
+        lump = io.BytesIO(raw_lump)
+        count = int.from_bytes(lump.read(2), "little")
+        data_sizes = list(*struct.unpack(f"{count}H", lump.read(count * 2)))
+        physics_data = list()
+        for size in data_sizes:
+            physics_data.append(lump.read(size))
+        super().__init__(physics_data)
+
+    def as_bytes(self) -> bytes:
+        count = len(self).to_bytes(2, "little")
+        sizes = map(lambda s: s.to_bytes(2, "little"), [len(d) for d in self])
+        return b"".join(count, *sizes, *self)
 
 
 # {"LUMP_NAME": {version: LumpClass}}
