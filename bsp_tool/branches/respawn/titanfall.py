@@ -125,7 +125,7 @@ class LUMP(enum.Enum):
     PORTAL_VERT_EDGES = 0x006F
     PORTAL_VERT_REFS = 0x0070
     PORTAL_EDGE_REFS = 0x0071
-    PORTAL_EDGE_ISECT_EDGE = 0x0072
+    PORTAL_EDGE_ISECT_AT_EDGE = 0x0072
     PORTAL_EDGE_ISECT_AT_VERT = 0x0073
     PORTAL_EDGE_ISECT_HEADER = 0x0074
     OCCLUSION_MESH_VERTS = 0x0075
@@ -154,6 +154,15 @@ class LUMP(enum.Enum):
 #
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               |-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
+#
+# Portal -?> PortalEdge -> PortalVertex
+# PortalEdgeRef -> PortalEdge
+# PortalVertRef -> PortalVertex
+# PortalEdgeIntersect -> PortalEdge?
+#                    |-> PortalVertex
+# PortalEdgeIntersectHeader -> ???
+# NOTE: there are always as many intersect headers as edges
+# NOTE: there are also always as many vert refs as edge refs
 
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -179,19 +188,21 @@ class Cell(base.Struct):  # LUMP 107 (006B)
     __slots__ = ["a", "b", "c", "d"]
 
 
-class CellBspNode(base.MappedArray):  # LUMP 108 (006C)
-    a: int  # sometimes -1; -1 means leaf?
-    b: int
-    _format = "2i"
-    _mapping = [*"ab"]
-
-
 class Cubemap(base.Struct):  # LUMP 42 (002A)
     origin: List[int]
     unknown: int  # index? flags?
     __slots__ = ["origin", "unknown"]
     _format = "3iI"
     _arrays = {"origin": [*"xyz"]}
+
+
+# NOTE: only one 28 byte entry per file
+class Grid(base.Struct):  # LUMP 85 (0055)
+    scale: float  # scaled against some global vector in engine
+    unknown: List[int]
+    __slots__ = ["scale", "unknown"]
+    _format = "f6i"
+    _arrays = {"unknown": 6}
 
 
 class LeafWaterData(base.Struct):
@@ -246,7 +257,7 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class Node(base.Struct):  # LUMP 99 (0063) / LUMP 119 (0077)
+class Node(base.Struct):  # LUMP 99, 106 & 119 (0063, 006A & 0077)
     mins: List[float]
     unknown_1: int
     maxs: List[float]
@@ -257,13 +268,14 @@ class Node(base.Struct):  # LUMP 99 (0063) / LUMP 119 (0077)
 
 
 class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
+    # NOTE: w is always 0, could be a copy of the Node class
+    # - CM_BRUSHES Brush may also use this class
+    # NOTE: introduced in v29, not present in v25
     mins: List[float]
     maxs: List[float]
     _format = "8f"
     __slots__ = ["mins", "maxs"]
     _arrays = {"mins": [*"xyzw"], "maxs": [*"xyzw"]}
-    # NOTE: w is always 0, could be a copy of the Node class
-    # - CM_BRUSHES Brush may also use this class
 
 
 class Plane(base.Struct):  # LUMP 1 (0001)
@@ -272,6 +284,32 @@ class Plane(base.Struct):  # LUMP 1 (0001)
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
+
+
+class Portal(base.Struct):  # LUMP 108 (006C)
+    unknown: List[int]
+    index: int  # looks like an index
+    __slots__ = ["unknown", "index"]
+    _format = "3I"
+    _arrays = {"unknown": 2}
+
+
+class PortalEdge(list):  # LUMP 110 (006E)
+    _format = "2h"
+
+
+class PortalEdgeIntersect(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
+    unknown: List[int]  # oftens ends with a few -1, allows for variable length?
+    __slots__ = ["unknown"]
+    _format = "4i"
+    _arrays = {"unknown": 4}
+
+
+class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
+    start: int  # 0 - 3170
+    count: int  # 1 - 6
+    _mapping = ["start", "count"]  # assumed
+    _format = "2i"
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
@@ -433,32 +471,44 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
                       "OBJ_REFS":                    {0: shared.UnsignedShorts},
+                      "OCCLUSION_MESH_INDICES":      {0: shared.Shorts},
+                      "PORTAL_EDGE_REFS":            {0: shared.UnsignedShorts},
+                      "PORTAL_VERT_REFS":            {0: shared.UnsignedShorts},
                       "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
                       "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts}}
 
-LUMP_CLASSES = {"CELLS":                    {0: Cell},
-                "CELL_AABB_NODES":          {0: Node},
-                "CELL_BSP_NODES":           {0: CellBspNode},
-                "CM_BRUSHES":               {0: Brush},
-                "CSM_AABB_NODES":           {0: Node},
-                "CUBEMAPS":                 {0: Cubemap},
-                "LIGHTMAP_HEADERS":         {1: LightmapHeader},
-                "MATERIAL_SORT":            {0: MaterialSort},
-                "MESHES":                   {0: Mesh},
-                "MODELS":                   {0: Model},
-                "OBJ_REF_BOUNDS":           {0: ObjRefBounds},
-                "PLANES":                   {1: Plane},
-                "SHADOW_MESH_MESHES":       {0: ShadowMesh},
-                "SHADOW_MESH_ALPHA_VERTS":  {0: ShadowMeshAlphaVertex},
-                "SHADOW_MESH_OPAQUE_VERTS": {0: Vertex},
-                "TEXTURE_DATA":             {1: TextureData},
-                "VERTEX_NORMALS":           {0: Vertex},
-                "VERTICES":                 {0: Vertex},
-                "VERTS_BLINN_PHONG":        {0: VertexBlinnPhong},
-                "VERTS_LIT_BUMP":           {1: VertexLitBump},
-                "VERTS_LIT_FLAT":           {1: VertexLitFlat},
-                "VERTS_UNLIT":              {0: VertexUnlit},
-                "VERTS_UNLIT_TS":           {0: VertexUnlitTS}}
+LUMP_CLASSES = {"CELLS":                     {0: Cell},
+                "CELL_AABB_NODES":           {0: Node},
+                "CELL_BSP_NODES":            {0: Node},  # same type as AABB nodes?
+                "CM_BRUSHES":                {0: Brush},
+                "CM_GRID":                   {0: Grid},
+                "CSM_AABB_NODES":            {0: Node},
+                "CUBEMAPS":                  {0: Cubemap},
+                "LIGHTMAP_HEADERS":          {1: LightmapHeader},
+                "MATERIAL_SORT":             {0: MaterialSort},
+                "MESHES":                    {0: Mesh},
+                "MODELS":                    {0: Model},
+                "OBJ_REF_BOUNDS":            {0: ObjRefBounds},
+                "OCCLUSION_MESH_VERTS":      {0: Vertex},
+                "PLANES":                    {1: Plane},
+                "PORTALS":                   {0: Portal},
+                "PORTAL_EDGES":              {0: PortalEdge},
+                "PORTAL_EDGE_ISECT_AT_VERT": {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_ISECT_AT_EDGE": {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_ISECT_HEADER":  {0: PortalEdgeIntersectHeader},
+                "PORTAL_VERTS":              {0: Vertex},
+                "PORTAL_VERT_EDGES":         {0: PortalEdgeIntersect},
+                "SHADOW_MESH_MESHES":        {0: ShadowMesh},
+                "SHADOW_MESH_ALPHA_VERTS":   {0: ShadowMeshAlphaVertex},
+                "SHADOW_MESH_OPAQUE_VERTS":  {0: Vertex},
+                "TEXTURE_DATA":              {1: TextureData},
+                "VERTEX_NORMALS":            {0: Vertex},
+                "VERTICES":                  {0: Vertex},
+                "VERTS_BLINN_PHONG":         {0: VertexBlinnPhong},
+                "VERTS_LIT_BUMP":            {1: VertexLitBump},
+                "VERTS_LIT_FLAT":            {1: VertexLitFlat},
+                "VERTS_UNLIT":               {0: VertexUnlit},
+                "VERTS_UNLIT_TS":            {0: VertexUnlitTS}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":        {0: EntityPartition},
                         "ENTITIES":                 {0: shared.Entities},
