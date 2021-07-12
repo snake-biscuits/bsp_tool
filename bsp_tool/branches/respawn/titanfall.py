@@ -145,6 +145,9 @@ class LUMP(enum.Enum):
 #                              |-> VertexReservedX
 #                              |-> MeshIndex
 #
+# MeshBounds & Mesh (must have equal number of each)
+#
+#
 # TextureData -> TextureDataStringTable -> TextureDataStringTable
 # VertexReservedX -> Vertex
 #                |-> VertexNormal
@@ -160,15 +163,25 @@ class LUMP(enum.Enum):
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    |-> PortalVertex
+#
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
+#
+# Grid probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
 
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
+class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
+    unknown: List[int]  # shorts seem to work best? doesn't look like AABB bounds?
+    __slots__ = ["unknown"]
+    _format = "8h"
+    _arrays = {"unknown": 8}
+
+
 class Brush(base.Struct):  # LUMP 92 (005C)
     mins: List[float]
     flags: int
@@ -185,7 +198,7 @@ class Cell(base.Struct):  # LUMP 107 (006B)
     c: int
     d: int  # always -1?
     _format = "4h"
-    __slots__ = ["a", "b", "c", "d"]
+    __slots__ = [*"abcd"]
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
@@ -198,7 +211,7 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
-    scale: float  # scaled against some global vector in engine
+    scale: float  # scaled against some global vector in engine, I think
     unknown: List[int]
     __slots__ = ["scale", "unknown"]
     _format = "f6i"
@@ -244,6 +257,17 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
                  "material_sort", "flags"]
     _format = "IHh3ihHI"  # 28 Bytes
     _arrays = {"unknown": 5}
+
+
+class MeshBounds(base.Struct):  # LUMP 81 (0051)
+    # NOTE: these are all guesses
+    mins: List[float]
+    flags_1: int  # is this finally the extreme SIMD AABB?
+    maxs: List[float]
+    flags_2: int
+    __slots__ = ["mins", "flags_1", "maxs", "flags_2"]
+    _format = "3fI3fI"
+    _arrays = {"unknown": 8}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
@@ -372,6 +396,12 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     _arrays = {"reflectivity": [*"rgb"]}
 
 
+class TextureVector(base.Struct):  # LUMP 95 (005F)
+    __slots__ = ["s", "t"]
+    __format = "8f"
+    _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
+
+
 class Vertex(base.MappedArray):  # LUMP 3 (0003)
     """3D position / normal vector"""
     x: float
@@ -467,6 +497,8 @@ class GameLump_SPRP:  # unique to Titanfall
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_BRUSH_SIDE_PROPS":         {0: shared.UnsignedShorts},
+                      "CM_GRID_CELLS":               {0: shared.UnsignedInts},
+                      "CM_PRIMITIVES":               {0: shared.UnsignedInts},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # flags?
                       "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
@@ -475,18 +507,24 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "PORTAL_EDGE_REFS":            {0: shared.UnsignedShorts},
                       "PORTAL_VERT_REFS":            {0: shared.UnsignedShorts},
                       "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
-                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts}}
+                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts},
+                      "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
+                      "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts}}
 
 LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "CELL_AABB_NODES":           {0: Node},
                 "CELL_BSP_NODES":            {0: Node},  # same type as AABB nodes?
                 "CM_BRUSHES":                {0: Brush},
+                "CM_BRUSH_TEX_VECS":         {0: TextureVector},
+                "CM_GEO_SET_BOUNDS":         {0: Bounds},
                 "CM_GRID":                   {0: Grid},
+                "CM_PRIMITIVE_BOUNDS":       {0: Bounds},
                 "CSM_AABB_NODES":            {0: Node},
                 "CUBEMAPS":                  {0: Cubemap},
                 "LIGHTMAP_HEADERS":          {1: LightmapHeader},
                 "MATERIAL_SORT":             {0: MaterialSort},
                 "MESHES":                    {0: Mesh},
+                "MESH_BOUNDS":               {0: MeshBounds},
                 "MODELS":                    {0: Model},
                 "OBJ_REF_BOUNDS":            {0: ObjRefBounds},
                 "OCCLUSION_MESH_VERTS":      {0: Vertex},

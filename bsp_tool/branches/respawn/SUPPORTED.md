@@ -130,36 +130,36 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  79 | 004F | 29 | `MESH_INDICES`                   |  0 | `shared.UnsignedShorts`                       | 100% |
 |  80 | 0050 | 29 | `MESHES`                         |  0 | `respawn.titanfall.Mesh`                      |  45% |
 |     |      | 47 |                                  |  0 | `respawn.apex_legends.Mesh`                   |  80% |
-|  81 | 0051 | 29 | `MESH_BOUNDS`                    |  0 | :x:                                           |   0% |
+|  81 | 0051 | 29 | `MESH_BOUNDS`                    |  0 | `respawn.apex_legends.MeshBounds`             |  75% |
 |  82 | 0052 | 29 | `MATERIAL_SORT`                  |  0 | `respawn.titanfall.MaterialSort`              | 100% |
 |     |      | 37 |                                  |  0 | `respawn.titanfall.MaterialSort`              | 100% |
 |     |      | 47 |                                  |  0 | `respawn.apex_legends.MaterialSort`           |  50% |
 |  83 | 0053 | 29 | `LIGHTMAP_HEADERS`               |  1 | `respawn.titanfall.LightmapHeader`            | 100% |
 |  84 | 0054 | 29 | `UNUSED_84`                      |  0 | :x:                                           |   0% |
 |  85 | 0055 | 29 | `CM_GRID`                        |  0 | `respawn.titanfall.Grid`                      |  15% |
-|  86 | 0056 | 29 | `CM_GRID_CELLS`                  |  0 | :x:                                           |   0% |
+|  86 | 0056 | 29 | `CM_GRID_CELLS`                  |  0 | `shared.UnsignedInts`                         |  90% |
 |     |      | 47 | `UNUSED_86`                      |  0 | :x:                                           |   0% |
 |  87 | 0057 | 29 | `CM_GEO_SETS`                    |  0 | :x:                                           |   0% |
 |     |      | 47 | `UNUSED_87`                      |  0 | :x:                                           |   0% |
-|  88 | 0058 | 29 | `CM_GEO_SET_BOUNDS`              |  0 | :x:                                           |   0% |
+|  88 | 0058 | 29 | `CM_GEO_SET_BOUNDS`              |  0 | `respawn.titanfall.Bounds`                    |  10% |
 |     |      | 47 | `UNUSED_88`                      |  0 | :x:                                           |   0% |
-|  89 | 0059 | 29 | `CM_PRIMITIVES`                  |  0 | :x:                                           |   0% |
+|  89 | 0059 | 29 | `CM_PRIMITIVES`                  |  0 | `shared.UnsignedInts`                         | 100% |
 |     |      | 47 | `UNUSED_89`                      |  0 | :x:                                           |   0% |
-|  90 | 005A | 29 | `CM_PRIMITIVE_BOUNDS`            |  0 | :x:                                           |   0% |
+|  90 | 005A | 29 | `CM_PRIMITIVE_BOUNDS`            |  0 | `respawn.titanfall.Bounds`                    |  10% |
 |     |      | 47 | `UNUSED_90`                      |  0 | :x:                                           |   0% |
-|  91 | 005B | 29 | `CM_UNIQUE_CONTENTS`             |  0 | :x:                                           |   0% |
+|  91 | 005B | 29 | `CM_UNIQUE_CONTENTS`             |  0 | `shared.UnsignedInts`                         | 100% |
 |     |      | 47 | `UNUSED_91`                      |  0 | :x:                                           |   0% |
 |  92 | 005C | 29 | `CM_BRUSHES`                     |  0 | `respawn.titanfall.Brush`                     |  88% |
 |     |      | 47 | `UNUSED_92`                      |  0 | :x:                                           |  88% |
 |  93 | 005D | 29 | `CM_BRUSH_SIDE_PLANE_OFFSETS`    |  0 | `respawn.titanfall.BrushSidePlaneOffsets`     | 100% |
 |     |      | 47 | `UNUSED_93`                      |  0 | :x:                                           | 100% |
-|  94 | 005E | 29 | `CM_BRUSH_SIDE_PROPS`            |  0 | :x:                                           |   0% |
+|  94 | 005E | 29 | `CM_BRUSH_SIDE_PROPS`            |  0 | `shared.UnsignedShorts`                       | 100% |
 |     |      | 47 | `UNUSED_94`                      |  0 | :x:                                           |   0% |
-|  95 | 005F | 29 | `CM_BRUSH_TEX_VECS`              |  0 | :x:                                           |   0% |
+|  95 | 005F | 29 | `CM_BRUSH_TEX_VECS`              |  0 | `respawn.titanfall.TextureVector`             | 100% |
 |     |      | 47 | `UNUSED_95`                      |  0 | :x:                                           |   0% |
-|  96 | 0060 | 29 | `TRICOLL_BEVEL_STARTS`           |  0 | :x:                                           |   0% |
+|  96 | 0060 | 29 | `TRICOLL_BEVEL_STARTS`           |  0 | `shared.UnsignedShorts`                       | 100% |
 |     |      | 47 | `UNUSED_96`                      |  0 | :x:                                           |   0% |
-|  97 | 0061 | 29 | `TRICOLL_BEVEL_INDICES`          |  0 | :x:                                           |   0% |
+|  97 | 0061 | 29 | `TRICOLL_BEVEL_INDICES`          |  0 | `shared.UnsignedInts`                         | 100% |
 |     |      | 47 | `UNKNOWN_97`                     |  0 | :x:                                           |   0% |
 |  98 | 0062 | 29 | `LIGHTMAP_DATA_SKY`              |  0 | 1x RGBA textures per header                   | 100% |
 |     |      | 37 |                                  |  0 | 2x RGBA textures per header                   |  90% |
