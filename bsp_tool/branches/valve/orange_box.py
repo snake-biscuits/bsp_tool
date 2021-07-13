@@ -485,6 +485,9 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile}}
+# TODO: PHYSICS_COLLIDE
+# https://github.com/ValveSoftware/source-sdk-2013/tree/master/mp/src/utils/vbsp/ivp.cpp#L1498
+# ^ seems to be where vbsp.exe generates the PHYSICS_COLLIDE lump
 
 GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
                               10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}
