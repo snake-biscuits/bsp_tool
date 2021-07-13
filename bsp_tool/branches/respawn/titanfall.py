@@ -140,13 +140,12 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
-# a rough map of the relationships between lumps:
+# Rough map of the relationships between lumps:
 # Model -> Mesh -> MaterialSort -> TextureData
 #                              |-> VertexReservedX
 #                              |-> MeshIndex
 #
 # MeshBounds & Mesh (must have equal number of each)
-#
 #
 # TextureData -> TextureDataStringTable -> TextureDataStringTable
 # VertexReservedX -> Vertex
