@@ -58,7 +58,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    LEAF_WATER_DATA = 0x0024
+    UNUSED_36 = 0x0024
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -160,6 +160,7 @@ class LUMP(enum.Enum):
 # UNUSED_55 -> WORLDLIGHTS_PARENT_INFO
 # UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
 # Deprecated:
+# LEAF_WATER_DATA
 # PHYSICS_TRIANGLES
 
 # Rough map of the relationships between lumps:
