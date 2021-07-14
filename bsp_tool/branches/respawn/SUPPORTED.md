@@ -99,9 +99,8 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  59 | 003B | 29 | `UNUSED_59`                      |  0 | :x:                                           |   0% |
 |  60 | 003C | 29 | `UNUSED_60`                      |  0 | :x:                                           |   0% |
 |  61 | 003D | 29 | `UNUSED_61`                      |  0 | :x:                                           |   0% |
-|  62 | 003E | 29 | `PHYSICS_LEVEL`                  |  6 | :x:                                           |   0% |
-|     |      | 37 |                                  | 16 | :x:                                           |   0% |
-|     |      | 47 | `UNUSED_62`                      |  0 | :x:                                           |   0% |
+|  62 | 003E | 29 | `PHYSICS_LEVEL`                  | 16 | :x:                                           |   0% |
+|     |      | 37 | `UNUSED_62`                      |  0 | :x:                                           |   0% |
 |  63 | 003F | 29 | `UNUSED_63`                      |  0 | :x:                                           |   0% |
 |  64 | 0040 | 29 | `UNUSED_64`                      |  0 | :x:                                           |   0% |
 |  65 | 0041 | 29 | `UNUSED_65`                      |  0 | :x:                                           |   0% |

@@ -84,7 +84,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E
+    UNUSED_62 = 0x003E
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -161,6 +161,7 @@ class LUMP(enum.Enum):
 # UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
 # Deprecated:
 # LEAF_WATER_DATA
+# PHYSICS_LEVEL
 # PHYSICS_TRIANGLES
 
 # Rough map of the relationships between lumps:
