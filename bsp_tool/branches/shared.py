@@ -1,7 +1,6 @@
 from typing import Dict, List
 import collections
 import enum
-import fnmatch
 import io
 import re
 import struct
@@ -16,6 +15,7 @@ import zipfile
 # TODO: make a base class for SpecialLumpClasses the facilitates dynamic indexing
 # -- use the lumps system to dynamically index a file:
 # -- do an initial scan for where each entry begins & have a .read_entry() method
+# TODO: consider using __repr__ methods, as SpecialLumpClasses can get large
 
 
 # Basic Lump Classes
@@ -70,14 +70,16 @@ class Entities(list):
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
             super().__init__(entities)
 
-    def find(self, **keys: Dict[str, str]) -> List[Dict[str, str]]:
-        """.find(classname="light_environment") -> [{classname: "light_envrionment", "origin": ...}]"""
-        # fnmatch allows for using wildcards
-        # >>> bsp.ENTITIES.find(classname="light*")  # -> [<light_environment>, <light_spot>, ...]
-        # however a blank pattern always matches
-        # >>> bsp.ENTITIES.find(targetname="")  # returns all entities, rather than only entities with no targetname
-        # NOTE: all given keys must match
-        return [e for e in self if all([fnmatch.fnmatch(e.get(k, ""), v) for k, v in keys.items()])]
+    def find(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
+        """.find(classname="light_environment") -> [{"classname": "light_environment", ...}]"""
+        # NOTE: exact matches only!
+        return [e for e in self if all([e.get(k, "") == v for k, v in search.items()])]
+
+    # TODO: find_regex
+
+    # TODO: find_any  (any k == v, not all)
+
+    # TODO: find_any_regex
 
     def as_bytes(self) -> bytes:
         entities = []
@@ -205,9 +207,10 @@ class TextureDataStringData(list):
     def __init__(self, raw_texture_data_string_data: bytes):
         super().__init__([t.decode("ascii", errors="ignore") for t in raw_texture_data_string_data[:-1].split(b"\0")])
 
-    def find(self, pattern: str) -> List[str]:
-        pattern = pattern.lower()
-        return fnmatch.filter(map(str.lower, self), f"*{pattern}*")
+    # TODO: use regex to search
+    # def find(self, pattern: str) -> List[str]:
+    #     pattern = pattern.lower()
+    #     return fnmatch.filter(map(str.lower, self), f"*{pattern}*")
 
     def as_bytes(self) -> bytes:
         return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
