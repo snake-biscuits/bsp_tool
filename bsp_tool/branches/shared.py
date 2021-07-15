@@ -11,6 +11,10 @@ import zipfile
 # TODO: move current special class __init__ to a .from_bytes() method
 # TODO: prototype the system for saving game lumps to file
 # -- need to know filesize, but modify the headers of each lump to have file relative offsets
+# -- NOTE: fully implemented in RespawnBsp.save_as
+# TODO: make a base class for SpecialLumpClasses the facilitates dynamic indexing
+# -- use the lumps system to dynamically index a file:
+# -- do an initial scan for where each entry begins & have a .read_entry() method
 
 
 # Basic Lump Classes
@@ -44,8 +48,8 @@ class Entities(list):
             if "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
-                key_value_pair = re.search(r'"([^"]+)"\s"([^"]*)"', line)
-                if not key_value_pair:  # strange...
+                key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
+                if not key_value_pair:
                     print(f"ERROR LOADING ENTITIES: Line {line_no:05d}:  {line}")
                     continue
                 key, value = key_value_pair.groups()
