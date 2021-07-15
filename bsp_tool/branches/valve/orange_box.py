@@ -218,6 +218,14 @@ class Cubemap(base.Struct):  # LUMP 42
     _arrays = {"origin": [*"xyz"]}
 
 
+class DisplacementFlags(enum.IntFlag):
+    """Displacement collision flags"""
+    UNUSED = 1
+    NO_PHYS = 2
+    NO_HULL = 4
+    NO_RAY = 8
+
+
 class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: List[float]  # rough XYZ of the vertex to orient around
@@ -225,15 +233,16 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     displacement_tri_start: int   # index of first DisplacementTriangle
     # ^ length of sequence for each varies depending on power
     power: int  # level of subdivision
+    flags: int  # see DisplacementFlags
     min_tesselation: int  # for tesselation shaders / triangle assembley?
     smoothing_angle: float  # ?
     contents: int  # contents bitflags
     map_face: int  # index of Face?
-    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start", "power",
-                 "min_tesselation", "smoothing_angle", "contents", "map_face",
-                 "lightmap_alpha_start", "lightmap_sample_position_start",
+    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start",
+                 "power", "flags", "min_tesselation", "smoothing_angle", "contents",
+                 "map_face", "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_vertices"]
-    _format = "3f4ifiH2i88c10I"
+    _format = "3f3iHhfiH2i88c10i"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_vertices": 10}
     # TODO: map neighbours with base.Struct subclasses, rather than MappedArrays
