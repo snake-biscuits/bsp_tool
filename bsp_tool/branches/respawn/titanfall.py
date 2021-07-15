@@ -1,7 +1,7 @@
 import enum
 import io
 import struct
-from typing import List, Union
+from typing import Dict, List, Union
 
 from .. import base
 from .. import shared
@@ -569,10 +569,12 @@ mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
               0x200: "VERTS_LIT_BUMP",     # VERTS_RESERVED_2
               0x000: "VERTS_LIT_FLAT"}     # VERTS_RESERVED_1
 
+VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]
+
 
 # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
-def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUnlit, VertexUnlitTS]]:
-    """Spits out VertexLitBump / VertexUnlit / VertexUnlitTS"""
+def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
+    """gets the VertexReservedX linked to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
@@ -583,7 +585,8 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[Union[VertexLitBump, VertexUn
     return [VERTEX_LUMP[i] for i in indices]
 
 
-def vertices_of_model(bsp, model_index: int):
+def vertices_of_model(bsp, model_index: int) -> List[VertexReservedX]:
+    """gets the VertexReservedX linked to every Mesh in bsp.MODELS[model_index]"""
     # NOTE: model 0 is worldspawn, other models are referenced by entities
     out = list()
     model = bsp.MODELS[model_index]
@@ -593,6 +596,7 @@ def vertices_of_model(bsp, model_index: int):
 
 
 def replace_texture(bsp, texture: str, replacement: str):
+    """Substitutes a texture name in the .bsp (if it is present)"""
     texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
     bsp.TEXTURE_DATA_STRING_DATA.insert(texture_index, replacement)
     bsp.TEXTURE_DATA_STRING_DATA.pop(texture_index + 1)
@@ -603,8 +607,8 @@ def replace_texture(bsp, texture: str, replacement: str):
         offset += len(texture_name) + 1  # +1 for null byte
 
 
-def find_mesh_by_texture(bsp, texture: str):
-    # very slow backward traces
+def find_mesh_by_texture(bsp, texture: str) -> Mesh:
+    """This is a generator, will yeild one Mesh at a time.  Very innefficient!"""
     texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
     for texture_data_index, texture_data in enumerate(bsp.TEXTURE_DATA):
         if texture_data.name_index != texture_index:
@@ -617,11 +621,25 @@ def find_mesh_by_texture(bsp, texture: str):
                     yield mesh
 
 
-def get_mesh_texture(bsp, mesh_index: int):
+def get_mesh_texture(bsp, mesh_index: int) -> str:
+    """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
     return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
 
 
-methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture, get_mesh_texture]
+def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[str, str]]]:
+    """search_all_entities(key="value") -> {"LUMP": [{"key": "value", ...}]}"""
+    out = dict()
+    for LUMP_name in ("ENTITIES", *(f"ENTITIES_{s}" for s in ("env", "fx", "script", "snd", "spawn"))):
+        entity_lump = getattr(bsp, LUMP_name, shared.Entities(b""))
+        results = entity_lump.find(**search)
+        if len(results) != 0:
+            out[LUMP_name] = results
+    return out
+
+
+methods = [vertices_of_mesh, vertices_of_model,
+           replace_texture, find_mesh_by_texture, get_mesh_texture,
+           search_all_entities]
