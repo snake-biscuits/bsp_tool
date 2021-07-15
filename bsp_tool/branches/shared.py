@@ -44,7 +44,11 @@ class Entities(list):
             if "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
-                key, value = re.search(r'"([^"]+)"\s"([^"]+)"', line).groups()
+                key_value_pair = re.search(r'"([^"]+)"\s"([^"]*)"', line)
+                if not key_value_pair:  # strange...
+                    print(f"ERROR LOADING ENTITIES: Line {line_no:05d}:  {line}")
+                    continue
+                key, value = key_value_pair.groups()
                 if key not in ent:
                     ent[key] = value
                 else:  # don't override duplicate keys, share a list instead
