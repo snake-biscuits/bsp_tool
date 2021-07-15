@@ -97,8 +97,10 @@ class Bsp:
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
                 elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
                     SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME][lump_header.version]
-                    decoded_file, _ = lumps.decompressed(self.file, lump_header)
-                    BspLump = SpecialLumpClass(decoded_file.read())
+                    d_file, d_header = lumps.decompressed(self.file, lump_header)
+                    d_file.seek(d_header.offset)
+                    lump_data = d_file.read(d_header.length)
+                    BspLump = SpecialLumpClass(lump_data)
                 elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
                     LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME][lump_header.version]
                     BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
