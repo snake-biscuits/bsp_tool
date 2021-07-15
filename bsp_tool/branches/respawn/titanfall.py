@@ -151,6 +151,9 @@ class LUMP(enum.Enum):
 # VertexReservedX -> Vertex
 #                |-> VertexNormal
 #
+# LeafWaterData -> TextureData -> water material
+# NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
+#
 # ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
 # ??? -> Brush -?> Plane
 #
@@ -512,9 +515,9 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
 
 LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "CELL_AABB_NODES":           {0: Node},
-                "CELL_BSP_NODES":            {0: Node},  # same type as AABB nodes?
+                # "CELL_BSP_NODES":            {0: Node},
                 "CM_BRUSHES":                {0: Brush},
-                "CM_BRUSH_TEX_VECS":         {0: TextureVector},
+                # "CM_BRUSH_TEX_VECS":         {0: TextureVector},
                 "CM_GEO_SET_BOUNDS":         {0: Bounds},
                 "CM_GRID":                   {0: Grid},
                 "CM_PRIMITIVE_BOUNDS":       {0: Bounds},
