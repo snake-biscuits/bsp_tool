@@ -55,7 +55,7 @@ Nexon didn't make many changes, so I consider them part of the broader Source En
 | 27 |  20 | `ORIGINAL_FACES`                         |  0 | `valve.orange_box.Face`               | 100% |
 |    |     |                                          |  0 | `nexon.vindictus.Face`                |  90% |
 | 28 |  20 | `PHYSICS_DISPLACEMENT`                   |  0 | `orange_box.PhysicsDisplacement`      |  90% |
-| 29 |  20 | `PHYSICS_COLLIDE`                        |  0 | :x:                                   |   0% |
+| 29 |  20 | `PHYSICS_COLLIDE`                        |  0 | `shared.PhysicsCollide`               |  66% |
 | 30 |  20 | `VERTEX_NORMALS`                         |  0 | :x:                                   |   0% |
 | 31 |  20 | `VERTEX_NORMAL_INDICES`                  |  0 | :x:                                   |   0% |
 | 32 |  20 | `DISPLACEMENT_LIGHTMAP_ALPHAS`           |  0 | :x:                                   |   0% |

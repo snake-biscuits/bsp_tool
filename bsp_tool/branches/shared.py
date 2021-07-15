@@ -1,4 +1,5 @@
 from typing import Dict, List
+import collections
 import enum
 import fnmatch
 import io
@@ -133,8 +134,60 @@ class PakFile(zipfile.ZipFile):
         return self._buffer.getvalue()
 
 
-class SPRP_flags(enum.Enum):
-    FLAG_FADES = 0x1  # use fade distances
+class PhysicsBlock:  # TODO: actually process this data
+    """.phy without the header"""
+    # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/utils/vbsp/ivp.cpp#L205
+    # unsigned int CPhysCollisionEntry::WriteCollisionBinary(char *pDest) {
+    # 	return physcollision->CollideWrite(pDest, m_pCollide); }
+    def __init__(self, raw_PHY: bytes):
+        # https://github.com/maxdup/mdl-tools/blob/master/mdltools/phy_struct.py#L83
+        self._data = raw_PHY
+
+    def as_bytes(self) -> bytes:
+        return self._data
+
+
+PhysicsHeader = collections.namedtuple("dphysmodel_t", ["model", "data_size", "script_size", "solid_count"])
+# struct dphysmodel_t { int model_index, data_size, keydata_size, solid_count; };
+
+
+class PhysicsCollide(list):
+    # [model_index: int, solids: List[PhysicsBlock], script: bytes]
+    # TODO: allow for multiple PhysicsBlock classes to support VPhysics changes
+    def __init__(self, raw_lump: bytes):
+        collision_models = list()
+        lump = io.BytesIO(raw_lump)
+        header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
+        while header != PhysicsHeader(-1, -1, 0, 0):  # end of PHYSICS_COLLIDE
+            solids = list()
+            for i in range(header.solid_count):
+                # CPhysCollisionEntry->WriteCollisionBinary
+                cb_size = int.from_bytes(lump.read(4), "little")
+                solids.append(lump.read(cb_size))  # TODO: process with PhysicsBlock
+                # ^ same as contents of a .phy after the header (PhysicsBlock)
+            # NOTE: should have read as many bytes as header.data_size
+            script = lump.read(header.script_size)  # ascii
+            collision_models.append([header.model, solids, script])
+            header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
+        super().__init__(collision_models)
+
+    def as_bytes(self) -> bytes:
+        def phy_bytes(collision_model):
+            model, solids, script = collision_model
+            solid_count = len(solids)
+            data_size = len([s for s in solids]) + solid_count * 4
+            header = struct.pack("4i", model, data_size, len(script), solid_count)
+            solid_binaries = list()
+            for phy_block in solids:
+                collision_data = phy_block.to_bytes()
+                solid_binaries.append(len(collision_data).to_bytes(4, "little"))
+                solid_binaries.append(collision_data)
+            return b"".join([header, *solid_binaries, script])
+        return b"".join(map(phy_bytes, self))
+
+
+class SPRP_flags(enum.IntFlag):
+    FADES = 0x1  # use fade distances
     USE_LIGHTING_ORIGIN = 0x2
     NO_DRAW = 0x4    # computed at run time based on dx level
     # the following are set in a level editor:
@@ -145,7 +198,7 @@ class SPRP_flags(enum.Enum):
     NO_PER_VERTEX_LIGHTING = 0x40
     NO_SELF_SHADOWING = 0x80
     NO_PER_TEXEL_LIGHTING = 0x100
-    EDITOR_MASK = 0x1d8
+    EDITOR_MASK = 0x1D8
 
 
 class TextureDataStringData(list):

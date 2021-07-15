@@ -52,7 +52,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  26 | 001A | 29 | `UNUSED_26`                      |  0 | :x:                                           |   0% |
 |  27 | 001B | 29 | `UNUSED_27`                      |  0 | :x:                                           |   0% |
 |  28 | 001C | 29 | `UNUSED_28`                      |  0 | :x:                                           |   0% |
-|  29 | 001D | 29 | `PHYSICS_COLLIDE`                |  0 | :x:                                           |   0% |
+|  29 | 001D | 29 | `PHYSICS_COLLIDE`                |  0 | `shared.PhysicsCollide`                       |  66% |
 |     |      | 47 | `UNUSED_29`                      |  0 | :x:                                           |   0% |
 |  30 | 001E | 29 | `VERTEX_NORMALS`                 |  0 | `respawn.titanfall.Vertex`                    | 100% |
 |  31 | 001F | 29 | `UNUSED_31`                      |  0 | :x:                                           |   0% |

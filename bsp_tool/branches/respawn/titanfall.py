@@ -554,6 +554,7 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
 SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":        {0: EntityPartition},
                         "ENTITIES":                 {0: shared.Entities},
                         "PAKFILE":                  {0: shared.PakFile},
+                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
 # NOTE: .ent files are handled by the RespawnBsp class directly
 

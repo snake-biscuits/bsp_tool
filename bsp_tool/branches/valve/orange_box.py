@@ -45,23 +45,13 @@ class LUMP(enum.Enum):
     PHYSICS_COLLIDE = 29
     VERTEX_NORMALS = 30
     VERTEX_NORMAL_INDICES = 31
-    DISPLACEMENT_LIGHTMAP_ALPHAS = 32
+    DISPLACEMENT_LIGHTMAP_ALPHAS = 32  # deprecated / X360 ?
     DISPLACEMENT_VERTICES = 33
     DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS = 34
     GAME_LUMP = 35
     LEAF_WATER_DATA = 36
-    # PRIMITIVES or "water indices" are a leftover from Quake.
-    # In the Source Engine they are used to correct for "t-junctions".
-    # "t-junctions" are a type of innacuracy which arises in BSP construction.
-    # In brush-based .bsp, Constructive Solid Geometry (CSG) operations occur.
-    # CSG "slices" & can potentially merges brushes, this also helps define visleaves
-    # (CSG operations are the same as the Boolen Modifier in Blender).
-    # These "slices" must be applied to brush faces,
-    # which are stored as a clockwise series of 3D points.
-    # Some slices create erroneous edges, especially where func_detail meets world.
-    # The PRIMITIVES lump forces a specific shape to compensate for these errors.
     PRIMITIVES = 37
-    PRIMITIVE_VERTICES = 38
+    PRIMITIVE_VERTICES = 38  # deprecated / X360 ?
     PRIMITIVE_INDICES = 39
     PAKFILE = 40
     CLIP_PORTAL_VERTICES = 41
@@ -72,15 +62,15 @@ class LUMP(enum.Enum):
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MACRO_TEXTURE_INFO = 47
     DISPLACEMENT_TRIS = 48
-    PHYSICS_COLLIDE_SURFACE = 49
-    WATER_OVERLAYS = 50
+    PHYSICS_COLLIDE_SURFACE = 49  # deprecated / X360 ?
+    WATER_OVERLAYS = 50  # deprecated / X360 ?
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
     LIGHTING_HDR = 53  # version 1
     WORLD_LIGHTS_HDR = 54
     LEAF_AMBIENT_LIGHTING_HDR = 55  # version 1
     LEAF_AMBIENT_LIGHTING = 56  # version 1
-    XZIP_PAKFILE = 57
+    XZIP_PAKFILE = 57  # deprecated / X360 ?
     FACES_HDR = 58  # version 1
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
@@ -88,7 +78,21 @@ class LUMP(enum.Enum):
     UNUSED_62 = 62
     UNUSED_63 = 63
 
-# TODO: a rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
+# Node -> Face -> Plane
+#             |-> DisplacementInfo -> DisplacementVertex
+#             |-> SurfEdge -> Edge -> Vertex
+#
+# PRIMITIVES or "water indices" are a leftover from Quake.
+# In the Source Engine they are used to correct for "t-junctions".
+# "t-junctions" are a type of innacuracy which arises in BSP construction.
+# In brush-based .bsp, Constructive Solid Geometry (CSG) operations occur.
+# CSG "slices" & can potentially merges brushes, this also helps define visleaves
+# (CSG operations are the same as the Boolen Modifier in Blender).
+# These "slices" must be applied to brush faces,
+# which are stored as a clockwise series of 3D points.
+# Some slices create erroneous edges, especially where func_detail meets world.
+# The PRIMITIVES lump forces a specific shape to compensate for these errors.
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -494,10 +498,8 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
-                        "PAKFILE":                  {0: shared.PakFile}}
-# TODO: PHYSICS_COLLIDE
-# https://github.com/ValveSoftware/source-sdk-2013/tree/master/mp/src/utils/vbsp/ivp.cpp#L1498
-# ^ seems to be where vbsp.exe generates the PHYSICS_COLLIDE lump
+                        "PAKFILE":                  {0: shared.PakFile},
+                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}}
 
 GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
                               10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}
