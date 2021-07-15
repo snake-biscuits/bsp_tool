@@ -325,7 +325,7 @@ class LeafWaterData(base.Struct):
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_data: int  # index to this LeafWaterData's TextureData
-    _format = "2fh"
+    _format = "2fI"
     _mapping = ["surface_z", "min_z", "texture_data"]
 
 
