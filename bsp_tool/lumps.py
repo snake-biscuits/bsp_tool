@@ -36,7 +36,7 @@ def _remap_slice(_slice: slice, length: int) -> slice:
 
 def decompressed(file: io.BufferedReader, lump_header: collections.namedtuple) -> io.BytesIO:
     """Takes a lump and decompresses it if nessecary. Also corrects lump_header offset & length"""
-    if lump_header.fourCC != 0:
+    if getattr(lump_header, "fourCC", 0) != 0:
         if not hasattr(lump_header, "filename"):  # internal compressed lump
             file.seek(lump_header.offset)
             data = file.read(lump_header.length)

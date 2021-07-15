@@ -32,18 +32,19 @@ class UnsignedShorts(int):
 
 # Special Lump Classes
 class Entities(list):
+    # NOTE: are the bytes decompressed first!?
     def __init__(self, raw_entities: bytes):
         # TODO: use fgd-tools to fully unstringify entities
         # TODO: split into a true init method & a load method
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
         for line_no, line in enumerate(raw_entities.decode(errors="ignore").split("\n")):
-            if re.match(R"^[ \t]*$", line):  # line is blank / whitespace
+            if re.match(r"^\s*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
-                key, value = re.findall(R'(?<=")[^"]*(?=")', line)[::2]
+                key, value = re.search(r'"([^"]+)"\s"([^"]+)"', line).groups()
                 if key not in ent:
                     ent[key] = value
                 else:  # don't override duplicate keys, share a list instead
