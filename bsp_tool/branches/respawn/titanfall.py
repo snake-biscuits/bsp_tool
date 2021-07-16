@@ -251,7 +251,14 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
     _format = "I2H"
 
 
-class MaterialSort(base.Struct):  # LUMP 82 (0052)
+class LightProbeRef(base.Struct):  # LUMP 104 (0068)
+    origin: List[float]  # coords of lightprobe
+    lightprobe: int  # index of this LightProbeRef's LightProbe
+    __slots__ = ["origin", "lightprobe"]
+    _format = "3fI"
+    _arrays = {"origin": [*"xyz"]}
+
+
 class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
@@ -539,6 +546,7 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "CUBEMAPS":                  {0: Cubemap},
                 "LEAF_WATER_DATA":           {0: LeafWaterData},
                 "LIGHTMAP_HEADERS":          {1: LightmapHeader},
+                "LightProbeRef":             {0: LightProbeRef},
                 "MATERIAL_SORT":             {0: MaterialSort},
                 "MESHES":                    {0: Mesh},
                 "MESH_BOUNDS":               {0: MeshBounds},
