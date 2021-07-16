@@ -152,41 +152,71 @@ class PakFile(zipfile.ZipFile):
         return self._buffer.getvalue()
 
 
+# PhysicsBlock headers
+CollideHeader = collections.namedtuple("swapcollideheader_t", ["id", "version", "model_type"])
+# struct swapcollideheader_t { int size, vphysicsID; short version, model_type; };
+SurfaceHeader = collections.namedtuple("swapcompactsurfaceheader_t", ["size", "drag_axis_areas", "axis_map_size"])
+# struct swapcompactsurfaceheader_t { int surfaceSize; Vector dragAxisAreas; int axisMapSize; };
+MoppHeader = collections.namedtuple("swapmoppsurfaceheader_t ", ["size"])
+# struct swapmoppsurfaceheader_t { int moppSize; };
+
+
 class PhysicsBlock:  # TODO: actually process this data
-    """.phy without the header"""
-    # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/utils/vbsp/ivp.cpp#L205
-    # unsigned int CPhysCollisionEntry::WriteCollisionBinary(char *pDest) {
-    # 	return physcollision->CollideWrite(pDest, m_pCollide); }
-    def __init__(self, raw_PHY: bytes):
-        # https://github.com/maxdup/mdl-tools/blob/master/mdltools/phy_struct.py#L83
-        self._data = raw_PHY
+    # byte swapper: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/utils/common/bsplib.cpp#L1677
+    def __init__(self, raw_lump: bytes):
+        """Editting not yet supported"""
+        self._raw = raw_lump
+        lump = io.BytesIO(raw_lump)
+        header = CollideHeader(*struct.unpack("4s2h", lump.read(8)))
+        assert header.id == b"VPHY", "if 'YHPV' byte order is flipped"
+        # version isn't checked by the byteswap, probably important for VPHYSICS
+        if header.model_type == 0:
+            size, *drag_axis_areas, axis_map_size = struct.unpack("i3fi", lump.read(20))
+            surface_header = SurfaceHeader(size, drag_axis_areas, axis_map_size)
+        elif header.model_type == 1:
+            surface_header = MoppHeader(*struct.unpack("i", lump.read(4)))
+        else:
+            raise RuntimeError("Invalid model type")
+        self.header = (header, surface_header)
+        self.data = lump.read(surface_header.size)
+        assert lump.tell() == len(raw_lump)
 
     def as_bytes(self) -> bytes:
-        return self._data
+        header, surface_header = self.header
+        if header.model_type == 0:
+            size, drag_axis_areas, axis_map_size = surface_header
+            surface_header = struct.pack("i3fi", len(self.data), *drag_axis_areas, axis_map_size)
+        elif header.model_type == 1:
+            surface_header = struct.pack("i", len(self.data))
+        else:
+            raise RuntimeError("Invalid model type")
+        header = struct.pack("4s2h", *header)
+        return b"".join([header, surface_header, self.data])
 
 
+# PhysicsCollide headers
 PhysicsHeader = collections.namedtuple("dphysmodel_t", ["model", "data_size", "script_size", "solid_count"])
 # struct dphysmodel_t { int model_index, data_size, keydata_size, solid_count; };
 
 
 class PhysicsCollide(list):
-    # [model_index: int, solids: List[PhysicsBlock], script: bytes]
-    # TODO: allow for multiple PhysicsBlock classes to support VPhysics changes
+    """[model_index: int, solids: List[bytes], script: bytes]"""
+    # passed to VCollideLoad in vphysics.dll
     def __init__(self, raw_lump: bytes):
         collision_models = list()
         lump = io.BytesIO(raw_lump)
         header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
-        while header != PhysicsHeader(-1, -1, 0, 0):  # end of PHYSICS_COLLIDE
+        while header != PhysicsHeader(-1, -1, 0, 0) and lump.tell() != len(raw_lump):
             solids = list()
             for i in range(header.solid_count):
                 # CPhysCollisionEntry->WriteCollisionBinary
                 cb_size = int.from_bytes(lump.read(4), "little")
-                solids.append(lump.read(cb_size))  # TODO: process with PhysicsBlock
-                # ^ same as contents of a .phy after the header (PhysicsBlock)
+                solids.append(PhysicsBlock(lump.read(cb_size)))
             # NOTE: should have read as many bytes as header.data_size
             script = lump.read(header.script_size)  # ascii
             collision_models.append([header.model, solids, script])
             header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
+        assert header == PhysicsHeader(-1, -1, 0, 0), "PhysicsCollide ended incorrectly"
         super().__init__(collision_models)
 
     def as_bytes(self) -> bytes:
@@ -197,7 +227,7 @@ class PhysicsCollide(list):
             header = struct.pack("4i", model, data_size, len(script), solid_count)
             solid_binaries = list()
             for phy_block in solids:
-                collision_data = phy_block.to_bytes()
+                collision_data = phy_block.as_bytes()
                 solid_binaries.append(len(collision_data).to_bytes(4, "little"))
                 solid_binaries.append(collision_data)
             return b"".join([header, *solid_binaries, script])
