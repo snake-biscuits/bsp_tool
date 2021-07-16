@@ -157,7 +157,7 @@ CollideHeader = collections.namedtuple("swapcollideheader_t", ["id", "version", 
 # struct swapcollideheader_t { int size, vphysicsID; short version, model_type; };
 SurfaceHeader = collections.namedtuple("swapcompactsurfaceheader_t", ["size", "drag_axis_areas", "axis_map_size"])
 # struct swapcompactsurfaceheader_t { int surfaceSize; Vector dragAxisAreas; int axisMapSize; };
-MoppHeader = collections.namedtuple("swapmoppsurfaceheader_t ", ["size"])
+MoppHeader = collections.namedtuple("swapmoppsurfaceheader_t", ["size"])
 # struct swapmoppsurfaceheader_t { int moppSize; };
 
 
