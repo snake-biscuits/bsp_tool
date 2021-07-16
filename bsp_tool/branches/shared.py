@@ -18,6 +18,22 @@ import zipfile
 # TODO: consider using __repr__ methods, as SpecialLumpClasses can get large
 
 
+# flag enums
+class SPRP_flags(enum.IntFlag):
+    FADES = 0x1  # use fade distances
+    USE_LIGHTING_ORIGIN = 0x2
+    NO_DRAW = 0x4    # computed at run time based on dx level
+    # the following are set in a level editor:
+    IGNORE_NORMALS = 0x8
+    NO_SHADOW = 0x10
+    SCREEN_SPACE_FADE = 0x20
+    # next 3 are for lighting compiler
+    NO_PER_VERTEX_LIGHTING = 0x40
+    NO_SELF_SHADOWING = 0x80
+    NO_PER_TEXEL_LIGHTING = 0x100
+    EDITOR_MASK = 0x1D8
+
+
 # Basic Lump Classes
 class Ints(int):
     _format = "i"
@@ -186,21 +202,6 @@ class PhysicsCollide(list):
                 solid_binaries.append(collision_data)
             return b"".join([header, *solid_binaries, script])
         return b"".join(map(phy_bytes, self))
-
-
-class SPRP_flags(enum.IntFlag):
-    FADES = 0x1  # use fade distances
-    USE_LIGHTING_ORIGIN = 0x2
-    NO_DRAW = 0x4    # computed at run time based on dx level
-    # the following are set in a level editor:
-    IGNORE_NORMALS = 0x8
-    NO_SHADOW = 0x10
-    SCREEN_SPACE_FADE = 0x20
-    # next 3 are for lighting compiler
-    NO_PER_VERTEX_LIGHTING = 0x40
-    NO_SELF_SHADOWING = 0x80
-    NO_PER_TEXEL_LIGHTING = 0x100
-    EDITOR_MASK = 0x1D8
 
 
 class TextureDataStringData(list):

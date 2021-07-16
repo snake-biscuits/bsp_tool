@@ -138,9 +138,6 @@ class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
 class Edge(list):  # LUMP 12
     _format = "2I"
 
-    def flat(self):
-        return self
-
 
 class Face(base.Struct):  # LUMP 7
     plane: int  # index into Plane lump

@@ -170,9 +170,6 @@ class Vertex(base.MappedArray):  # LUMP 3
     _mapping = [*"xyz"]
     _format = "3f"
 
-    def flat(self):
-        return [self.x, self.y, self.z]
-
 
 # special lump classes (alphabetical order):
 class MipTextureLump:  # LUMP 2

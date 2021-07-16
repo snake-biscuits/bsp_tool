@@ -106,8 +106,9 @@ def read_lump_header(file, LUMP: enum.Enum):
     return header
 
 
-# enums for flags
-class Contents(enum.IntFlag):  # Brush flags
+# flag enums
+class Contents(enum.IntFlag):
+    """Brush flags"""
     # src/public/bspflags.h
     # NOTE: compiler gets these flags from a combination of all textures on the brush
     # e.g. any non opaque face means this brush is non-opaque, and will not block vis
@@ -148,11 +149,29 @@ class Contents(enum.IntFlag):  # Brush flags
     HITBOX = 0x40000000  # requests hit tracing use hitboxes
 
 
-class Surface(enum.IntFlag):  # TextureInfo flags
+class DisplacementFlags(enum.IntFlag):
+    """DisplacementInfo collision flags"""
+    UNUSED = 1
+    NO_PHYS = 2
+    NO_HULL = 4
+    NO_RAY = 8
+
+
+class DispTris(enum.IntFlag):
+    """DisplacementTriangle flags"""
+    SURFACE = 0x01
+    WALKABLE = 0x02
+    BUILDABLE = 0x04
+    SURFPROP1 = 0x08
+    SURFPROP2 = 0x10
+
+
+class Surface(enum.IntFlag):
+    """TextureInfo flags"""
     # src/public/bspflags.h
     # NOTE: compiler gets these flags from the texture
     LIGHT = 0x0001  # value will hold the light strength ???
-    SKY2D = 0x0002  # don't draw, indicates we should skylight + draw 2d sky but not draw the 3D skybox
+    SKY_2D = 0x0002  # don't draw, indicates we should skylight + draw 2d sky but not draw the 3D skybox
     SKY = 0x0004  # don't draw, but add to skybox
     WARP = 0x0008  # turbulent water warp
     TRANSLUCENT = 0x0010
@@ -169,29 +188,21 @@ class Surface(enum.IntFlag):  # TextureInfo flags
     HITBOX = 0x8000  # surface is part of a hitbox
 
 
-class DispTris(enum.IntFlag):  # DisplacementTriangle flags
-    SURFACE = 0x01
-    WALKABLE = 0x02
-    BUILDABLE = 0x04
-    SURFPROP1 = 0x08
-    SURFPROP2 = 0x10
-
-
 # classes for each lump, in alphabetical order: [22 / 64]
-class Area(base.Struct):  # LUMP 20
+class Area(base.MappedArray):  # LUMP 20
     num_area_portals: int   # number of AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index of first AreaPortal
-    __slots__ = ["num_area_portals", "first_area_portal"]
+    _mapping = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class AreaPortal(base.Struct):  # LUMP 21
+class AreaPortal(base.MappedArray):  # LUMP 21
     portal_key: int                # from brush id?
     first_clip_portal_vert: int    # index into the ClipPortalVertex lump
     num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
     plane: int                     # index of into the Plane lump
-    __slots__ = ["portal_key", "other_area", "first_clip_portal_vertex",
-                 "num_clip_portal_vertices", "plane"]
+    _mapping = ["portal_key", "other_area", "first_clip_portal_vertex",
+                "num_clip_portal_vertices", "plane"]
     _format = "4Hi"
 
 
@@ -220,14 +231,6 @@ class Cubemap(base.Struct):  # LUMP 42
     __slots__ = ["origin", "size"]
     _format = "4i"
     _arrays = {"origin": [*"xyz"]}
-
-
-class DisplacementFlags(enum.IntFlag):
-    """Displacement collision flags"""
-    UNUSED = 1
-    NO_PHYS = 2
-    NO_HULL = 4
-    NO_RAY = 8
 
 
 class DisplacementInfo(base.Struct):  # LUMP 26
@@ -417,9 +420,6 @@ class Vertex(base.MappedArray):  # LUMP 3
     z: float
     _mapping = [*"xyz"]
     _format = "3f"
-
-    def flat(self):
-        return [self.x, self.y, self.z]
 
 
 class WorldLight(base.Struct):  # LUMP 15

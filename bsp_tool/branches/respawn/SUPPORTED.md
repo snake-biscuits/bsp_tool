@@ -127,7 +127,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 |  77 | 004D | 29 | `VERTS_RESERVED_6`               |  0 | :x:                                           |   0% |
 |  78 | 004E | 29 | `VERTS_RESERVED_7`               |  0 | :x:                                           |   0% |
 |  79 | 004F | 29 | `MESH_INDICES`                   |  0 | `shared.UnsignedShorts`                       | 100% |
-|  80 | 0050 | 29 | `MESHES`                         |  0 | `respawn.titanfall.Mesh`                      |  45% |
+|  80 | 0050 | 29 | `MESHES`                         |  0 | `respawn.titanfall.Mesh`                      |  33% |
 |     |      | 47 |                                  |  0 | `respawn.apex_legends.Mesh`                   |  80% |
 |  81 | 0051 | 29 | `MESH_BOUNDS`                    |  0 | `respawn.apex_legends.MeshBounds`             |  75% |
 |  82 | 0052 | 29 | `MATERIAL_SORT`                  |  0 | `respawn.titanfall.MaterialSort`              | 100% |
@@ -167,7 +167,7 @@ In Titanfall 1 & 2 this lump has a non-zero version
 | 101 | 0065 | 29 | `LIGHTPROBES`                    |  0 | :x:                                           |   0% |
 | 102 | 0066 | 29 | `STATIC_PROP_LIGHTPROBE_INDEX`   |  0 | :x:                                           |   0% |
 | 103 | 0067 | 29 | `LIGHTPROBE_TREE`                |  0 | :x:                                           |   0% |
-| 104 | 0068 | 29 | `LIGHTPROBE_REFS`                |  0 | :x:                                           |   0% |
+| 104 | 0068 | 29 | `LIGHTPROBE_REFS`                |  0 | `respawn.titanfall.LightProbeRef`             | 100% |
 | 105 | 0069 | 29 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` |  0 | 2x RGBA textures per header + 1/4 size?       |  66% |
 | 106 | 006A | 29 | `CELL_BSP_NODES`                 |  0 | `respawn.titanfall.Node`                      |  75% |
 | 107 | 006B | 29 | `CELLS`                          |  0 | `respawn.titanfall.Cell`                      | 100% |

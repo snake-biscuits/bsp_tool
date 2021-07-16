@@ -176,6 +176,20 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
+# flag enums
+class MeshFlags(enum.IntFlag):
+    UNUSED_0 = 0x01  # 2 ^ (UNUSED | UNKNOWN)
+    UNUSED_1 = 0x02
+    UNKNOWN_2 = 0x04
+    UNKNOWN_3 = 0x08
+    VERTEX_MASK = 0x600
+    VERTS_LIT_FLAT = 0x000     # VERTS_RESERVED_1
+    VERTS_LIT_BUMP = 0x200     # VERTS_RESERVED_2
+    VERTS_UNLIT = 0x400        # VERTS_RESERVED_0
+    VERTS_UNLIT_TS = 0x600     # VERTS_RESERVED_3
+    # VERTS_BLINN_PHONG = 0x???  # VERTS_RESERVED_4
+
+
 # classes for lumps (alphabetical order)
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     unknown: List[int]  # shorts seem to work best? doesn't look like AABB bounds?
@@ -224,8 +238,8 @@ class LeafWaterData(base.Struct):
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_data: int  # index to this LeafWaterData's TextureData
-    _format = "2fI"
     _mapping = ["surface_z", "min_z", "texture_data"]
+    _format = "2fI"
 
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
@@ -238,27 +252,27 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
+class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
-    __slots__ = ["texture_data", "lightmap_header", "cubemap", "vertex_offset"]
+    _mapping = ["texture_data", "lightmap_header", "cubemap", "vertex_offset"]
     _format = "2h2I"  # 12 bytes
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
     start_index: int  # index into this Mesh's VertexReservedX
     num_triangles: int  # number of triangles in VertexReservedX after start_index
-    unknown: List[int]
+    unknown: List[int]  # 16 bytes
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # specifies VertexReservedX to draw vertices from
     # 0x4, 0x8, 0x10, 0x20  (0x10 MESHES?)
     # 0x200, 0x400  (MESHES?)
     # 0x800, 0x1000, 0x2000, 0x40000, 0x100000, 0x200000
-    __slots__ = ["start_index", "num_triangles", "unknown",
-                 "material_sort", "flags"]
-    _format = "IHh3ihHI"  # 28 Bytes
-    _arrays = {"unknown": 5}
+    __slots__ = ["start_index", "num_triangles", "unknown", "material_sort", "flags"]
+    _format = "IH8hHI"  # 28 Bytes
+    _arrays = {"unknown": 8}
 
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)
@@ -562,7 +576,7 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 
 
 # branch exclusive methods, in alphabetical order:
-# mesh.flags -> VERTS_RESERVED_X
+# mesh.flags -> VertexReservedX
 mesh_types = {0x600: "VERTS_UNLIT_TS",     # VERTS_RESERVED_3
               # 0x?: "VERTS_BLINN_PHONG",  # VERTS_RESERVED_4
               0x400: "VERTS_UNLIT",        # VERTS_RESERVED_0
