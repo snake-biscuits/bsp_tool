@@ -59,9 +59,10 @@ namespace bsp_tool {
         struct LumpHeader { int offset, length; };
 
         // NOTE: Q3A .bsps have 17 lumps, Quake .bsps have 15
-        class IdTechBsp : public Bsp<LumpHeader, 17> {
+        template<int lump_count>
+        class IdTechBsp : public Bsp<LumpHeader, lump_count> {
             public:
-                using BspBaseClass = Bsp<LumpHeader, 17>;
+                using BspBaseClass = Bsp<LumpHeader, lump_count>;
 
                 IdTechBsp(const char filename[]) : BspBaseClass(filename) {
                     this->_file.seekg(0, std::ios::beg);

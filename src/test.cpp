@@ -2,6 +2,7 @@
 
 
 namespace bsp_tool {
+    // NOTE: Quake III Arena lump names
     namespace id_software {
         char lump_names[17][64] = {"Entities", "Textures", "Planes", "Nodes", "Leaves",
                                    "LeafFaces", "LeafBrushes", "Models", "Brushes",
