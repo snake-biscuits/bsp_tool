@@ -1,0 +1,29 @@
+table {
+  border:none;
+  border-collapse: collapse;
+}
+
+table td {
+  padding-left: 24px;
+}
+
+
+table td:first-child {  /* year column */
+  border-right: 2px solid #999;
+  padding-right: 12px;
+  padding-left: 0px;
+  
+  /* TODO: month markers */
+}
+
+.node {
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 4px;
+
+  position: relative;
+  top: 0;
+  left: 512;
+
+  text-align: center;
+}
