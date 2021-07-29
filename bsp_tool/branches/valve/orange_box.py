@@ -197,7 +197,8 @@ class Area(base.MappedArray):  # LUMP 20
 
 
 class AreaPortal(base.MappedArray):  # LUMP 21
-    portal_key: int                # from brush id?
+    # public/bspfile.h dareaportal_t &  utils/vbsp/portals.cpp EmitAreaPortals
+    portal_key: int                # for tying to entities
     first_clip_portal_vert: int    # index into the ClipPortalVertex lump
     num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
     plane: int                     # index of into the Plane lump

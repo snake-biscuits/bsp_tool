@@ -10,8 +10,8 @@
   * [Respawn Entertainment](./respawn/SUPPORTED.html)
   * [Valve Software](./valve/SUPPORTED.html)
 
-> TODO: Generate html with documentation links for each list of supported games
-> TODO: Update documentation on with GitHub actions
+> TODO: Generate html with documentation links for each list of supported games  
+> TODO: Update documentation on with GitHub actions  
 
 
 ## Usage
@@ -23,8 +23,7 @@
 >>> bsp = _
 ```
 
-> TODO: Explain the Bsp base class, expected usage, lump names & branches
-
+> TODO: Explain the Bsp base class, expected usage, lump names & branches  
 > Note: Respawn .bsp files should have .bsp_lump & .ent files in the same folder
 
 ### Game Detection
@@ -34,12 +33,15 @@ However, some .bsp formats share identifiers with very different games
 > Example: both Vindictus and Team Fortress 2 are version 20  
 
 When loading maps from the following games, you must specify the branch with:
+
 ```python
 bsp_tool.load_bsp("filename", bsp_tool.branches.developer.game)
 ```
+
 | Game | **incorrecty** detected branch | correct branch script |
 | - | - | - |
 | Vindictus | `valve.orange_box` | `nexon.vindictus` |
+
 
 > Note: the loaded branch is stored in the bsp object's `.branch` attribute  
 
@@ -49,11 +51,10 @@ bsp_tool.load_bsp("filename", bsp_tool.branches.developer.game)
 At present, my focus is on creating custom mapping tools for Titanfall & CSO2  
 I hope this documentation proves useful to developers of similar tools  
 
-Please do not use `bsp_tool` to copy another creator's work  
-The primary goal of `bsp_tool` is to provide mapping tools for games that have none  
-Please don't just copy a map from one game to another and call it a day  
-
-Create something new, and see what level design can do in the hands of players  
+**Please do not use `bsp_tool` to copy, decompile or steal another creator's work**  
+The primary goal of `bsp_tool` is to extend community mapping tools  
+If you want to bring maps to a game like CSO2 or Titanfall, please don't stop at porting  
+Create something new, and show us all what level design tools can do in the hands of players  
 
  * [Timeline of the .bsp format](./timeline.html)
 

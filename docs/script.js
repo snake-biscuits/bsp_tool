@@ -83,6 +83,7 @@ function scrapeDeveloper(name) {
 }
 
 
+// TODO: CITATIONS IN DATABASE! ALWAYS CREDIT THE SOURCE!
 // TODO: track groups
 // TODO: hover link preview
 //  -- wikipedia entry
@@ -92,13 +93,13 @@ function scrapeDeveloper(name) {
 //  -- ratings
 // TODO: filter options
 // TODO: parallel timelines & columns
-// TODO: add landmark, note, node
-// TODO: show citations
-// TODO: request scrape
+// TODO: add landmark, note, node, connection (in html editor)
+//  -- live wiki article scraping (do research in editor)
+//  -- download changes as .zip (for making a commit / pull request)
 // TODO: filters config
 // TODO: release platform icons
 // TODO: tag/filter buttons
-// TODO: search, filter by connection
+// TODO: search, filter by connections
 // TODO: verify database completeness
 // TODO: community links
 // TODO: generate .zip of changes
