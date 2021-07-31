@@ -1,6 +1,6 @@
 # Changelog
 
-# v0.3.0 (~2021)
+# v0.3.0 (July 2021)
 
 ## New
  * Added `load_bsp` function to identify bsp type  
@@ -16,8 +16,7 @@
  * Made a basic C++ 17 implementation in `src/`
 
 ## Changed
- * `Bsp` lumps are loaded dynamically, reducing memory usage
-   * New wrapper classes can be found in `bsp_tool/lumps.py`
+ * Bsp lumps are loaded dynamically, reducing memory usage
  * `mods/` changed to `branches/`
    * added subfolders for developers
    * helpful lists for auto-detecting a .bsp's origin
@@ -26,22 +25,19 @@
    * `BASIC_LUMP_CLASSES` for types like `short int`
    * `LUMP_CLASSES` for standard `LumpClasses`
    * `SPECIAL_LUMP_CLASSES` for irregular types (e.g. PakFile)
-   * `GAME_LUMP_CLASSES` for game lump SpecialLumpClasses
- * `Bsp`s no longer print to console once loaded
+ * Bsps no longer print on a successful load, only on an unsuccessful load
  * `Base.Bsp` & subclasses have reserved ALL CAPS member names for lumps only
    * BSP_VERSION, FILE_MAGIC, HEADERS, REVISION -> bsp_version, file_magic, headers, revision
- * TODO: load external lumps and internal lumps at the same time
 
 ## New Supported Games
   * Call of Duty 1
   * Counter-Strike: Global Offensive
   * Counter-Strike: Online 2
   * Counter-Strike: Source
-  * Quake
+  * Titanfall
   * Quake 3 Arena
 
 ## Updated Game Support
  * Apex Legends
- * Orange Box
  * Titanfall
  * Titanfall 2
