@@ -1,33 +1,42 @@
-// scraper.js  Wikipedia -> JSON
-// read_database.js  parse DB layout
+// wiki_trawl.js      WikiMedia API -> JSON
+// read_database.js   parse DB layout
 // write_database.js  save changes
-// timeline.js  draw nodes & connections
+// timeline.js        draw nodes & connections
 
 window.database = {
   "games":
   [
     { "name": "Quake",
-      "releases": { "PC (shareware)": "June 22 1996" },
+      "releases": {"PC (shareware)": "June 22 1996"},
       "links":
       [ "https://en.wikipedia.org/wiki/Quake_(video_game)",
-        "https://store.steampowered.com/app/2310/QUAKE/" ]
+        "https://store.steampowered.com/app/2310/QUAKE/" ],
+      "citations": {"releases['PC (shareware)']": "wikipedia"}
     },
-    { "name": "Quake 2" },
-    { "name": "Half-Life" },
-    { "name": "Half-Life 2" },
-    { "name": "Portal 2" },
+    { "name": "Quake II",
+      "links": ["https://en.wikipedia.org/wiki/Quake_II"]
+    }
   ]
 }
 
-fetch("./main.json")
+fetch("https://snake-biscuits.github.io/bsp_tool/main.json")
       .then(r => { return r.json() })
       .then(d => console.log(d))
-      // .then(data => {window.database = data});
+      // .then(data => {window.database = data})
 
 window.timeline = document.getElementById("timeline")
 
 
-function chronologize(db_list) {
+function chronologiesGames() {
+  for (game in window.database.games) {
+    release_year = 2021
+    for (platform in game.releases) {
+        year = Number(platform.substr(-4, -1))
+        if (year < release_year) {
+            release_year = year;
+        }
+    }
+  }
   // get the dates of each node
   // populate a timeline with nodes
 }
@@ -36,6 +45,8 @@ function generateNode(node_json) {
   // make a node object with links etc.
   // all one dynamic object
   // https://codeburst.io/learn-how-to-create-html-elements-with-plain-javascript-4f1323f96252
+  // insert table row
+  // td year, td <div class="node"> [many nodes]
 }
 // ^ calling the above ^
 // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
@@ -44,22 +55,24 @@ function generateNode(node_json) {
 // how are connections drawn?
 // maybe 2D canvas background?
 
+
+/* database ops */
 function updateDatabase() {
   // identify incomplete entries
-  // scrape wiki entries
-  // connect to parent groups
+  // trawl wikipedia
+  // make connections
   // - list game under dev / engine etc.
   // update citations
-  // log text changes
-  // use a temp .json before overriding
+  // log a diff
+  // use a temp .json, don't overwrite the old one!
 }
 
-/* web scrapers */
-function scrapeWiki(wikipedia_page) {
-  // base for wikipedia scrapers
+/* data trawling */
+function trawlWiki(wikipedia_page) {
+  // https://www.mediawiki.org/wiki/API:Etiquette
 }
 
-function scrapeGame(name) {
+function processGamePage(wiki_page) {
   // release dates & platforms
   // dev & publisher
   // technical leads (code & design)
@@ -67,7 +80,7 @@ function scrapeGame(name) {
   // connections: series, fork etc.
 }
 
-function scrapeEngine(name) {
+function procressEnginePage(wiki_page) {
   // release date
   // games
   // connections
@@ -75,7 +88,7 @@ function scrapeEngine(name) {
   // programmers & designers
 }
 
-function scrapeDeveloper(name) {
+function processDeveloperPage(name) {
   // acquistions
   // dev careers
   // partnerships

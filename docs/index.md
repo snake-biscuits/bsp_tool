@@ -6,7 +6,7 @@
 ## Supported Games
   * [Id Software](./id_software/SUPPORTED.html)
   * [Infinity Ward](./infinity_ward/SUPPORTED.html)
-  <!-- * [Nexon](./nexon/SUPPORTED.html) -->
+  * [Nexon](./nexon/SUPPORTED.html)
   * [Respawn Entertainment](./respawn/SUPPORTED.html)
   * [Valve Software](./valve/SUPPORTED.html)
 

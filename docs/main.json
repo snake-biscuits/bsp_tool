@@ -2,57 +2,74 @@
     { "name": "Quake",
       "developers": ["Id Software"],
       "publishers": ["GT Interactive"],
-
       "designers": [
         "American McGee",
         "John Romero",
-        "Tim Willits"],
+        "Tim Willits" ],
       "programmers": [
         "John Carmack",
-        "Micheal Abrash"],
-
+        "Micheal Abrash" ],
       "releases": {
         "Linux": "July 5 1996",
         "Mac OS": "August 28 1997",
-        "Nintendo 64": {
-          "North America": "March 24 1998",
-          "Europe": "May 24 1998"},
+        "Nintendo 64 (North America)": "March 24 1998",
+        "Nintendo 64 (Europe)": "May 24 1998",
         "PC (full)": "July 22 1996",
         "PC (shareware)": "June 22 1996",
         "Sega Saturn": "October 31 1997",
-        "Steam": "May 31 2007"},
-
+        "Steam": "May 31 2007" },
     "singleplayer": true,
     "multiplayer": true,
-
     "links": [
       "https://en.wikipedia.org/wiki/Quake_(video_game)",
-      "https://store.steampowered.com/app/2310/QUAKE/"]
+      "https://store.steampowered.com/app/2310/QUAKE/" ]
     },
 
-    {"name": "Quake 2"},
-    {"name": "Half-Life"},
-    {"name": "Half-Life 2"},
-    {"name": "Portal 2"},
-    {"name": "Doom"}
+    { "name": "Quake 2",
+      "links": ["https://en.wikipedia.org/wiki/Quake_II"] },
+
+    { "name": "Half-Life"},
+
+    { "name": "Half-Life 2"},
+
+    { "name": "Portal 2"},
+
+    { "name": "Doom",
+      "releases": {
+        "MS-DOS (North America)": "December 10 1993",
+        "MS-DOS (Europe)": "December 1993" },
+      "links": [
+        "https://en.wikipedia.org/wiki/Doom_(1993_video_game)",
+        "https://doom.fandom.com/wiki/WAD",
+        "https://doomwiki.org/wiki/Masters_of_Doom" ]
+    },
+
+    { "name": "Doom II",
+      "releases": {"MS-DOS": "October 10 1994"},
+      "links": ["https://en.wikipedia.org/wiki/Doom_II"]
+    }
   ],
       
   "engines": [
     { "name": "Id Tech 1",
       "released": 1993,
       "developers": ["Id Software"],
-      "games": ["Doom"]
+      "games": ["Doom"],
+      "links": ["https://en.m.wikipedia.org/wiki/Doom_engine"]
     },
+
     { "name": "Id Tech 2",
       "released": 1996,
       "developers": ["Id Software"],
       "games": ["Quake", "Quake 2"]
     },
+
     { "name": "GoldSrc",
       "released": 1998,
       "developers": ["Valve Software"],
       "games": ["Half-life"]
     },
+
     { "name": "Source Engine - Orange Box",
       "released": 2003,
       "developers": ["Valve Software"],
@@ -62,8 +79,7 @@
         "Portal",
         "Team Fortress 2",
         "Half-Life 2: Episode 1",
-        "Half-Life 2: Episode 2"
-      ]
+        "Half-Life 2: Episode 2"]
     }
   ],
 
