@@ -49,6 +49,8 @@ def gen_rbsp():
             # ^ {lump_version, LumpClass}
             for lump_version, LumpClass in lump_classes.items():
                 lump_class = f"`{LumpClass.__module__[len('bsp_tool.branches.'):]}.{LumpClass.__name__}`"
+                # TODO: use the inspect module to generate links for each LumpClass
+                # -- https://github.com
                 percent = 100
                 if lump.name in game_scripts[game].LUMP_CLASSES:
                     if issubclass(LumpClass, base.Struct):
@@ -66,12 +68,14 @@ def gen_rbsp():
                 # TODO: Lightmap data lumps are *partially* mapped by extensions.lightmaps
                 print(f"| {i} | {i:04X} | {bsp_version} | {lump_name} | {lump_version} | {lump_class} | {percent}% |")
             if len(lump_classes) == 0:
-                print(f"| {i} | {i:04X} | {bsp_version} | {lump_name} | 0 | :x: | 0% |")
+                print(f"| {i} | {i:04X} | {bsp_version} | {lump_name} | 0 | | 0% |")
         # TODO: skip unused lines / duplicate LumpClasses
         # TODO: blank repeated LUMP_NAMES & lump_indices for trailing lines
         # TODO: include lump relationship maps (use timeline .html nodes?)
         # TODO: include summaries of changes between sequels
         # -- (LUMP_NAME_A -> LUMP_NAME_B) [DEPRECATED / NEW if either is UNUSED]
+        # TODO: GAME_LUMP special case
+        # -- lumps.GameLump -> dev.game.GameLump_SPRP -> StaticPropvX
 
 
 if __name__ == "__main__":

@@ -197,7 +197,7 @@ class MipTextureLump:  # LUMP 2
         raise NotImplementedError("Haven't tested to locate texture data yet")
 
 
-BASIC_LUMP_CLASSES = {"EDGES":      Edge,
+BASIC_LUMP_CLASSES = {"EDGES":      Edge,  # TEST: does this work ok?
                       "LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Shorts}
 
