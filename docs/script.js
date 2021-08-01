@@ -3,6 +3,13 @@
 // write_database.js  save changes
 // timeline.js        draw nodes & connections
 
+// https://developer.valvesoftware.com/wiki/Quake_Engine_Hierarchy
+// ^ extend this and make it interactive!
+// https://en.wikipedia.org/wiki/Quake_(video_game)#/media/File:Quake_-_family_tree.svg
+// ^ more linear, but out of date!
+// https://en.wikipedia.org/wiki/Quake_(video_game)#/media/File:Quake_-_family_tree_2.svg
+// ^ clearer, but goes backwards and misses Titanfall & CoD
+
 window.database = {
   "games":
   [
