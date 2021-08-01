@@ -245,7 +245,7 @@ def load_apex_rbsp(rbsp):
         for triangle_index in range(0, len(mesh_vertices), 3):
             face_indices = list()
             uvs = dict()
-            for vert_index in range(3):
+            for vert_index in reversed(range(3)):
                 rbsp_vertex = mesh_vertices[triangle_index + vert_index]
                 vertex = rbsp.VERTICES[rbsp_vertex.position_index]
                 if rbsp_vertex.position_index not in bmesh_vertices:
@@ -275,20 +275,21 @@ def load_apex_rbsp(rbsp):
 
 # TITANFALL
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
-bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_angel_city.bsp")
 
 # TITANFALL 2
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
-load_rbsp(bsp)
+# load_rbsp(bsp)
 
 # APEX LEGENDS
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 2/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")  # Season 9 Event
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
-# load_apex_rbsp(bsp)
+bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 9/mp_rr_aqueduct.bsp")
+load_apex_rbsp(bsp)
 
 # NOTE: remember to delete the previous import manually & purge orphans
 
