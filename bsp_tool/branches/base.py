@@ -90,7 +90,9 @@ class MappedArray:
     # or, a dict containing a list of attr names, or another dict
     # this second form is difficult to express as a type hint
 
-    def __init__(self, array: Iterable, mapping: Any = _mapping):
+    def __init__(self, array: Iterable, mapping: Any = None):
+        if mapping is None:
+            mapping = self._mapping  # hack to use a default
         if isinstance(mapping, dict):
             self._mapping = list(mapping.keys())
             array_index = 0
