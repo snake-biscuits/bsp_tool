@@ -10,7 +10,7 @@ import mathutils
 
 blend_dir = os.path.dirname(bpy.data.filepath)
 if blend_dir not in sys.path:
-    sys.path.append(blend_dir)
+    sys.path.append(blend_dir)  # mount bsp_tool
 
 import bsp_tool  # noqa E402
 
@@ -22,17 +22,36 @@ importlib.reload(bsp_tool.branches.respawn.titanfall2)
 importlib.reload(bsp_tool.branches.respawn.apex_legends)
 
 
-def load_materials(bsp):  # -> List[materials]
-    materials = []
-    for material_name in bsp.TEXTURE_DATA_STRING_DATA:
-        # TODO: check if material is already loaded
-        material = bpy.data.materials.new(material_name)
-        # TODO: option to look for .vmt & load colour, textures etc.
-        materials.append(material)
+# TODO: log errors to a bpy.data.texts["{bsp.filename}_log"]
+game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
+
+
+def load_materials(bsp):  # -> List[blender_material]
+    material_dir = os.path.join(game_dir, "materials")
+    materials = list()
+    # if game_dir is not "":
+    #     for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
+    #         try:
+    #             # NOTE: only Titanfall 1 uses vtfs
+    #             # - TF|2 & Apex stream textures from .rpak (also proprietary PBR probably)
+    #             bpy.ops.import_texture.vmt(filepath=material_dir, files=[{"name": f"{vmt_name}.vmt"}])
+    #             # NOTE: SourceIO will print FileNotFound errors to console
+    #             material = bpy.data.materials[os.path.basename(vmt_name)]
+    #             # TODO: SourceIO can't find the .vtfs, even though they're right next to the .vmts
+    #         except (KeyError, NameError, FileNotFoundError) as exc:
+    #             material = bpy.data.materials.new(vmt_name)
+    #         except Exception as exc:  # just in case something unexpected happens
+    #             material = bpy.data.materials.new(vmt_name)
+    #         materials.append(material)
+    # else:
+    for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
+        materials.append(bpy.data.materials.new(vmt_name))
+        # TODO: have a light "build_material" function
+        # -- make tooltextures semitransparent in the viewport
     return materials
 
 
-# colourspace translation
+# colourspace translation (for light entities)
 def srgb_to_linear(*srgb: List[float]) -> List[float]:
     linear = list()
     for s in srgb:
@@ -80,21 +99,22 @@ def ent_to_light(entity: Dict[str, str]) -> bpy.types.PointLight:
     if "_zero_percent_distance" in entity:
         light.use_custom_distance = True
         light.cutoff_distance = float(entity["_zero_percent_distance"])
+    light.energy = light.energy / 100
     return light
 
 
-# TODO: cubemaps, lightprobes, props
+# TODO: cubemaps, lightprobes, props, areaportals
 ent_object_data = {"light": ent_to_light, "light_spot": ent_to_light, "light_environment": ent_to_light,
                    "ambient_generic": lambda e: bpy.data.speakers.new(e.get("targetname", e["classname"]))}
-# NOTE: info_target has "editorclass", allowing it to be another object (e.g. a weapon pickup)
+# NOTE: info_target has a "editorclass" key, allowing it to be another object (e.g. a weapon pickup)
 
 
-def load_entities(rbsp):
-    all_entities = (rbsp.ENTITIES, rbsp.ENTITIES_env, rbsp.ENTITIES_fx,
-                    rbsp.ENTITIES_script, rbsp.ENTITIES_snd, rbsp.ENTITIES_spawn)
+def load_entities(bsp):
+    all_entities = (bsp.ENTITIES, bsp.ENTITIES_env, bsp.ENTITIES_fx,
+                    bsp.ENTITIES_script, bsp.ENTITIES_snd, bsp.ENTITIES_spawn)
     block_names = ("Internal", "Environment", "Effects", "Script", "Sound", "Spawn")
     for entity_block, block_name in zip(all_entities, block_names):
-        entity_collection = bpy.data.collections.new(f"{rbsp.filename} {block_name} Entities")
+        entity_collection = bpy.data.collections.new(f"{bsp.filename} {block_name} Entities")
         bpy.context.scene.collection.children.link(entity_collection)
         for entity in entity_block:
             object_data = ent_object_data.get(entity["classname"], lambda e: None)(entity)
@@ -107,38 +127,31 @@ def load_entities(rbsp):
                     entity_object.empty_display_type = "CUBE"
             entity_collection.objects.link(entity_object)
             entity_object.location = [*map(float, entity.get("origin", "0 0 0").split())]
-            # NOTE: default source orientation is facing east (+Xaa)
+            # NOTE: default source orientation is facing east (+X)
             angles = [*map(lambda x: math.radians(float(x)), entity.get("angles", "0 0 0").split())]
             angles[0] = math.radians(-float(entity.get("pitch", -math.degrees(angles[0]))))
             entity_object.rotation_euler = mathutils.Euler((angles[2], angles[0], angles[1]))
-            # TODO: apply parenting
-            # TODO: further optimisation (props with shared worldmodel share mesh data)
+            # TODO: further optimisation (props with shared worldmodel share mesh data) [ent_object_data]
             for field in entity:
                 entity_object[field] = entity[field]
         # TODO: once all ents are loaded, connect paths for keyframe_rope / path_track etc.
+        # TODO: identify model ent's collections and reposition them
+        # TODO: apply parental relationships on a second pass
 
 
-def load_static_props(rbsp):
+def load_static_props(bsp):
     """Titanfall 1 Only"""
-    game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
+    model_dir = os.path.join(game_dir, "models")
     # TODO: hook into SourceIO to import .mdl files
     # TODO: make a collection for static props
-    for mdl_path in rbsp.GAME_LUMP.sprp.prop_names:
-        os.path.join(game_dir, mdl_path)  # TODO: import each prop once
-    # TODO: instance each prop at listed location & rotation etc.
-
-
-def generate_threatening_aura(radius=768, count=32):
-    for i in range(count):
-        degrees = (360 / count) * i
-        base = (0, radius)
-        theta = math.radians(degrees)
-        cos_theta = math.cos(theta)
-        sin_theta = math.sin(theta)
-        new_x = math.fsum([base[0] * cos_theta,  base[1] * sin_theta])
-        new_y = math.fsum([base[1] * cos_theta, -base[0] * sin_theta])
-        position = (new_x, new_y, 1.0)
-        # TODO: spawn props at position, with z rotation theta
+    for mdl_name in rbsp.GAME_LUMP.sprp.mdl_names:
+        try:
+            bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": mdl_name}])
+            # now find it, each model creates a collection...
+            # this is gonna be real memory intensive...
+        except Exception as exc:
+            pass  # SourceIO not installed etc.
+    # TODO: instance each prop at listed location & rotation etc. (preserve object data)
 
 
 def load_rbsp(rbsp):
@@ -188,7 +201,6 @@ def load_rbsp(rbsp):
             blender_mesh.update()
             blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
             model_collection.objects.link(blender_object)
-    load_entities(rbsp)
 
 
 # load a mesh by selecting the vertex lump manually
@@ -270,26 +282,27 @@ def load_apex_rbsp(rbsp):
         blender_mesh.update()
         blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
         master_collection.objects.link(blender_object)
-    load_entities(rbsp)
+    
 
 
 # TITANFALL
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_angel_city.bsp")
+bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_colony.bsp")  # smallest after lobby
 
 # TITANFALL 2
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_angel_city.bsp")
-# load_rbsp(bsp)
+load_rbsp(bsp)
 
 # APEX LEGENDS
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 2/mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")  # Season 9 Event
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
-bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 9/mp_rr_aqueduct.bsp")
-load_apex_rbsp(bsp)
+# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 9/mp_rr_aqueduct.bsp")
+# load_apex_rbsp(bsp)
+
+load_entities(bsp)
 
 # NOTE: remember to delete the previous import manually & purge orphans
 
