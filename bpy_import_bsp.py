@@ -27,7 +27,7 @@ game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
 
 
 def load_materials(bsp):  # -> List[blender_material]
-    material_dir = os.path.join(game_dir, "materials")
+    # material_dir = os.path.join(game_dir, "materials")
     materials = list()
     # if game_dir is not "":
     #     for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
@@ -126,7 +126,12 @@ def load_entities(bsp):
                 if entity["classname"].startswith("info_node"):
                     entity_object.empty_display_type = "CUBE"
             entity_collection.objects.link(entity_object)
-            entity_object.location = [*map(float, entity.get("origin", "0 0 0").split())]
+            position = [*map(float, entity.get("origin", "0 0 0").split())]
+            entity_object.location = position
+            if entity.get("model", "").startswith("*"):
+                model_collection = bpy.data.collections[f"{bsp.filename} Model #{entity['model'][1:]}"]
+                for o in model_collection.objects:
+                    o.location = position
             # NOTE: default source orientation is facing east (+X)
             angles = [*map(lambda x: math.radians(float(x)), entity.get("angles", "0 0 0").split())]
             angles[0] = math.radians(-float(entity.get("pitch", -math.degrees(angles[0]))))
@@ -144,12 +149,12 @@ def load_static_props(bsp):
     model_dir = os.path.join(game_dir, "models")
     # TODO: hook into SourceIO to import .mdl files
     # TODO: make a collection for static props
-    for mdl_name in rbsp.GAME_LUMP.sprp.mdl_names:
+    for mdl_name in bsp.GAME_LUMP.sprp.mdl_names:
         try:
             bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": mdl_name}])
             # now find it, each model creates a collection...
             # this is gonna be real memory intensive...
-        except Exception as exc:
+        except Exception:
             pass  # SourceIO not installed etc.
     # TODO: instance each prop at listed location & rotation etc. (preserve object data)
 
@@ -221,7 +226,7 @@ def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
     # ^ {rbsp_vertex.position_index: BMVert}
     for triangle_index in range(0, len(mesh_vertices), 3):
         face_indices = list()
-        uvs = dict()
+        # TODO: uvs
         for vert_index in reversed(range(3)):  # invert winding order for backfaces
             rbsp_vertex = mesh_vertices[triangle_index + vert_index]
             vertex = rbsp.VERTICES[rbsp_vertex.position_index]
@@ -282,17 +287,18 @@ def load_apex_rbsp(rbsp):
         blender_mesh.update()
         blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
         master_collection.objects.link(blender_object)
-    
 
 
 # TITANFALL
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
-bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_colony.bsp")  # smallest after lobby
+# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_colony.bsp")  # smallest after lobby
 
 # TITANFALL 2
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
+bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_boomtown.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
+
 load_rbsp(bsp)
 
 # APEX LEGENDS
@@ -300,6 +306,7 @@ load_rbsp(bsp)
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")  # Season 9 Event
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 9/mp_rr_aqueduct.bsp")
+
 # load_apex_rbsp(bsp)
 
 load_entities(bsp)
