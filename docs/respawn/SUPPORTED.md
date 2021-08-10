@@ -1,6 +1,7 @@
 # RespawnBsp (Respawn Entertainment) Supported Games (v0.3.0)
+
 | Bsp version | Game | Branch script | Supported lumps | Unused lumps |
-| -: | - | - | -: |
+| -: | - | - | -: | -: |
 | 29 | Titanfall | `respawn.titanfall` | 56 / 75 | 53 |
 | 37 | Titanfall 2 | `respawn.titanfall2` | 57 / 78 | 50 |
 | 47 | Apex Legends | `respawn.apex_legends` | 57 / 69 | 59 |
