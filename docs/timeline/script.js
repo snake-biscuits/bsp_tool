@@ -10,6 +10,9 @@
 // https://en.wikipedia.org/wiki/Quake_(video_game)#/media/File:Quake_-_family_tree_2.svg
 // ^ clearer, but goes backwards and misses Titanfall & CoD
 
+// https://icculus.org/gtkradiant/developers.html#gamepacks
+// ^ give links to tools for each game
+
 window.database = {
   "games":
   [

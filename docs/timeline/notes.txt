@@ -1,0 +1,27 @@
+THis can get complicated fast
+need to set a limit on what is relevant
+making a wiki rabbithole mapper here
+
+not everything needs a write up, should have a bare skeleton with optional deeper dives
+
+Sabre 3D, Unreal & Tim Willits will come up if we talk about Quake Champions
+https://en.wikipedia.org/wiki/Quake_Champions
+Id Tech 6 / Sabre3D hybrid [FORK]
+https://en.wikipedia.org/wiki/Saber_Interactive
+Sabre built their own engine (sabre 3d) and made a UE4 hybrid in the Halo MCC
+Explaining that is way off scope
+
+Doom / IdTech 1 -> Quake / Quake II / Half-Life / IdTech 2 -> IdTech Lineage
+GoldSrc -> Source Engine -> Respawn's Source Engine Fork / Source 2
+(Can discuss engine limitations via Apex Legends & CS-GO:DangerZone level design
+QuakeWsrs -> Call of Duty Series
+
+
+formar relationships
+ .ase files can pass ascii models from Id Tech/IW Engine .map files to UDK (Unreal Development Kit)
+ .map (Id Tech) -> .rmf (GoldSrc) -> .vmf (Source Engine)
+ ^ all 3 can be compiled into .bsp for their respective engines
+ and then there's .wad
+ Garry's Mod / S&box shall consume all
+ 
+ https://kotaku.com/ancient-90s-code-from-quake-still-controls-lights-in-h-1847105972

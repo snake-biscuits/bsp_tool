@@ -33,8 +33,8 @@ def gen_rbsp():
 
     # notes
     print("\n> No differences in Apex' formats have been found, yet."
-          "\n> For now, we are assuming the base apex script covers all seasons\n",
-          "\n> bsp_tool.load_bsp() will load Apex maps correctly, regardless of season\n",
+          "\n> For now, we are assuming the `apex_legends` script covers all seasons\n",
+          "\n> bsp_tool.load_bsp() will load all Apex maps, regardless of season\n",
           "\n> All Apex Legends GameLump.sprp lump versions are the same as the BSP version\n")
 
     # table of lumps

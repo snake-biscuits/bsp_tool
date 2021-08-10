@@ -39,7 +39,7 @@ Show us all what level design tools can do in the hands of players!
   * [Valve Software](./valve/SUPPORTED.html)
 
 ## .bsp Format Reference
-  [Timeline of the .bsp format (WIP)](./timeline.html)
+  [Timeline of the .bsp format (WIP)](./timeline/index.html)
 
 ## [Changelog](./CHANGELOG.html)
 You can see a list of all changes in the [changelog](./CHANGELOG.html)
