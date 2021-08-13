@@ -1,3 +1,5 @@
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
+# TODO: list games this branch supports
 import collections
 import enum
 import io
@@ -10,6 +12,25 @@ from .. import vector  # for methods
 
 
 BSP_VERSION = 20
+
+GAMES = ["Alien Swarm",
+         "Alien Swarm Reactive Drop",
+         "Day of Defeat: Source",
+         "G-String",
+         "Garry's Mod",
+         "Half-Life 1 Source Deathmatch",
+         "half-life 2",
+         "half-life 2 deathmatch",
+         "Half-Life 2 Update",
+         "left 4 dead",
+         "Left 4 Dead 2",
+         "SourceFilmmaker",
+         "NEOTOKYO",
+         "Portal",
+         "Portal 2",
+         "Portal Reloaded",
+         "Tactical Intervention",
+         "Team Fortress 2"]
 
 
 class LUMP(enum.Enum):
@@ -93,6 +114,119 @@ class LUMP(enum.Enum):
 # which are stored as a clockwise series of 3D points.
 # Some slices create erroneous edges, especially where func_detail meets world.
 # The PRIMITIVES lump forces a specific shape to compensate for these errors.
+#
+# ClipPortalVertices are AreaPortal geometry
+
+
+# engine limits: (2013 SDK bspfile.h)
+class MIN(enum.Enum):
+    DISPLACEMENT_POWER = 2
+
+
+class MAX(enum.Enum):
+    # misc:
+    CUBEMAP_SAMPLES = 1024
+    DISPLACEMENT_POWER = 4
+    DISPLACEMENT_CORNER_NEIGHBORS = 4
+    ENTITY_KEY, ENTITY_VALUE = 32, 1024  # key value pair sizes
+    LIGHTMAPS = 4  # ? left over from Quake / GoldSrc lightmap format ?
+    LIGHTMAP_DIMENSION_WITH_BORDER_BRUSH = 35  # "vbsp cut limit" +1 (to account for rounding errors)
+    LIGHTMAP_DIMENSION_WITHOUT_BORDER_BRUSH = 32
+    LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT = 128
+    LIGHTMAP_DIMENSION_WITHOUT_BORDER_DISPLACEMENT = 125
+    # absolute maximum, based on previous values
+    LIGHTMAP_DIMENSION_WITH_BORDER = LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT
+    LIGHTMAP_DIMENSION_WITHOUT_BORDER = LIGHTMAP_DIMENSION_WITHOUT_BORDER_DISPLACEMENT
+    LIGHTING_STYLES = 64
+    PORTAL_VERTICES = 128000
+    # lumps:
+    ENTITIES = 8192
+    PLANES = 65536
+    TEXTURE_DATA = 2048
+    VERTICES = 65536
+    VISIBILITY_CLUSTERS = 65536
+    VISIBILITY_SIZE = 0x1000000  # "increased in BSPVERSION 7"
+    NODES = 65536
+    TEXTURE_INFO = 12288
+    FACES = 65536
+    LIGHTING_SIZE = 0x1000000
+    LEAVES = 65536
+    EDGES = 256000
+    SURFEDGES = 512000
+    MODELS = 1024
+    WORLD_LIGHTS = 8192
+    LEAF_FACES = 65536
+    LEAF_BRUSHES = 65536
+    BRUSHES = 8192
+    BRUSH_SIDES = 65536
+    AREAS = 256
+    AREA_BYTES = AREAS // 8
+    AREA_PORTALS = 1024
+    # UNUSED_24 [PORTALVERTS] = 128000
+    DISPLACEMENT_INFO = 2048
+    ORIGINAL_FACES = FACES
+    VERTEX_NORMALS = 256000
+    VERTEX_NORMAL_INDICES = 256000
+    DISPLACEMENT_VERTICES_FOR_ONE = (2 ** DISPLACEMENT_POWER + 1) ** 2
+    DISPLACEMENT_VERTICES = DISPLACEMENT_INFO * DISPLACEMENT_VERTICES_FOR_ONE
+    LEAF_WATER_DATA = 32768
+    PRIMITIVES = 32768
+    PRIMITIVE_VERTICES = 65536
+    PRIMITIVE_INDICES = 65536
+    TEXDATA_STRING_DATA = 256000
+    TEXDATA_STRING_TABLE = 65536
+    OVERLAYS = 512
+    DISPLACEMENT_TRIANGLES_FOR_ONE = 2 ** DISPLACEMENT_POWER * 3
+    DISPLACEMENT_TRIANGLES = DISPLACEMENT_INFO * DISPLACEMENT_TRIANGLES_FOR_ONE
+    WATER_OVERLAYS = 16384
+    LIGHTING_HDR_SIZE = LIGHTING_SIZE
+    WORLD_LIGHTS_HDR = WORLD_LIGHTS
+    FACES_HDR = FACES
+
+
+class MAX_X360(enum.Enum):  # "force static arrays to be very small"
+    """#if !defined( BSP_USE_LESS_MEMORY )"""
+    ENTITIES = 2
+    PLANES = 2
+    TEXTURE_DATA = 2
+    VERTICES = 2
+    VISIBILITY_CLUSTERS = 2
+    NODES = 2
+    TEXTURE_INFO = 2
+    FACES = 2
+    LIGHTING_SIZE = 2
+    LEAVES = 2
+    EDGES = 2
+    SURFEDGES = 2
+    MODELS = 2
+    WORLD_LIGHTS = 2
+    LEAF_FACES = 2
+    LEAF_BRUSHES = 2
+    BRUSHES = 2
+    BRUSH_SIDES = 2
+    AREAS = 2
+    AREA_BYTES = 2
+    AREA_PORTALS = 2
+    # UNUSED_24 [PORTALVERTS] = 2
+    DISPLACEMENT_INFO = 2
+    ORIGINAL_FACES = FACES
+    VERTEX_NORMALS = 2
+    VERTEX_NORMAL_INDICES = 2
+    DISPLACEMENT_VERTICES_FOR_ONE = (2 ** MAX.DISPLACEMENT_POWER.value + 1) ** 2
+    DISPLACEMENT_VERTICES = DISPLACEMENT_INFO * DISPLACEMENT_VERTICES_FOR_ONE
+    LEAF_WATER_DATA = 2
+    PRIMITIVES = 2
+    PRIMITIVE_VERTICES = 2
+    PRIMITIVE_INDICES = 2
+    TEXDATA_STRING_DATA = 2
+    TEXDATA_STRING_TABLE = 2
+    OVERLAYS = 2
+    DISPLACEMENT_TRIANGLES_FOR_ONE = 2 ** MAX.DISPLACEMENT_POWER.value * 3
+    DISPLACEMENT_TRIANGLES = DISPLACEMENT_INFO * DISPLACEMENT_TRIANGLES_FOR_ONE
+    WATER_OVERLAYS = 2
+    LIGHTING_HDR_SIZE = LIGHTING_SIZE
+    WORLD_LIGHTS_HDR = WORLD_LIGHTS
+    FACES_HDR = FACES
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -274,7 +408,7 @@ class DisplacementVertex(base.Struct):  # LUMP 33
 
 class Edge(list):  # LUMP 12
     """Edge of a Face, flipped if indexed negatively by a SurfEdge"""
-    _format = "2h"  # List[int]
+    _format = "2H"  # List[int]
 
 
 class Face(base.Struct):  # LUMP 7
@@ -365,6 +499,12 @@ class Node(base.Struct):  # LUMP 5
     # however leaves correctly connect to all areas
     _format = "3i6h2H2h"
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
+
+
+class OverlayFade(base.MappedArray):  # LUMP 60
+    """Holds fade distances for the overlay of the same index"""
+    _mapping = ["min", "max"]
+    _format = "2f"
 
 
 class Plane(base.Struct):  # LUMP 1
@@ -488,6 +628,7 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "LEAVES":                {1: Leaf},
                 "MODELS":                {0: Model},
                 "NODES":                 {0: Node},
+                "OVERLAY_FADES":         {0: OverlayFade},
                 "ORIGINAL_FACES":        {0: Face},
                 "PLANES":                {0: Plane},
                 "TEXTURE_DATA":          {0: TextureData},
