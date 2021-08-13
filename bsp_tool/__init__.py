@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
+           "GoldSrcBsp", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
 
 import difflib
 import os
@@ -13,7 +13,7 @@ from . import lumps  # handles loading data dynamically
 from .id_software import IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
-from .valve import ValveBsp
+from .valve import GoldSrcBsp, ValveBsp
 
 
 developers_by_file_magic = {b"IBSP": "id Software",  # also Infinity Ward

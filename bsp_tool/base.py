@@ -106,7 +106,8 @@ class Bsp:
                     BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
                 else:
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            except KeyError:  # lump version not supported
+            except KeyError:  # lump VERSION not supported
+                self.loading_errors[LUMP_NAME] = KeyError(f"{LUMP_NAME} v{lump_header.version} is not supported")
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
             except Exception as exc:
                 self.loading_errors[LUMP_NAME] = exc
