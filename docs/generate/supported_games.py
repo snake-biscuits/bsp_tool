@@ -1,19 +1,27 @@
+import inspect
 import sys
 
-sys.path.insert(0, "../../")  # HACK to load bsp_tool from docs/generators/
+# HACK: load ../../bsp_tool from docs/generators/
+sys.path.insert(0, "../../")
 from bsp_tool.branches import base  # noqa: E402
 from bsp_tool.branches import respawn  # noqa: E402
 
 
 # TODO: copy generated files to docs & branches
+# TODO: generate fresh docs with GitHub actions
 
 def gen_rbsp():
+    # TODO: provide links for relevant specifications
+    # NOTE: some branch scripts have links to repos etc. on the first line
     bsp_format_name = "RespawnBsp (Respawn Entertainment)"
-    print(f"# {bsp_format_name} Supported Games (v0.3.0)")
+    print(f"# {bsp_format_name} Supported Games (v0.3.0)\n")
     # NOTE: increment with bsp_tool release
 
+    # TODO: completeness percentage (total lumps * each lump's percentage)
+
     # table of games
-    print("| Bsp version | Game | Branch script | Supported lumps | Unused lumps |")
+    print("| Bsp version | Game | Branch script | Supported lumps | Unused lumps |",
+          "| ----------: | ---- | ------------- | --------------: | -----------: |", sep="\n")
     game_scripts = {"Titanfall": respawn.titanfall,
                     "Titanfall 2": respawn.titanfall2,
                     "Apex Legends": respawn.apex_legends}
@@ -21,7 +29,6 @@ def gen_rbsp():
     LumpClasses = {n: {**s.BASIC_LUMP_CLASSES, **s.LUMP_CLASSES, **s.SPECIAL_LUMP_CLASSES}
                    for n, s in game_scripts.items()}
     # ^ {"game": {"LUMP_NAME": LumpClass}}
-    print("| -: | - | - | -: |")
     for game in sorted(game_scripts, key=lambda g: game_scripts[g].BSP_VERSION):
         script = game_scripts[game]
         version = script.BSP_VERSION
@@ -44,13 +51,21 @@ def gen_rbsp():
     for i in range(max([len(v.LUMP) for v in game_scripts.values()])):
         lumps = [(n, g.BSP_VERSION, g.LUMP(i)) for n, g in game_scripts.items()]
         for game, bsp_version, lump in lumps:
+            if lump.name.starts_with("UNUSED_"):
+                continue  # skip unused lumps
             lump_name = f"`{lump.name}`"
             lump_classes = LumpClasses[game].get(lump.name, dict())
             # ^ {lump_version, LumpClass}
             for lump_version, LumpClass in lump_classes.items():
-                lump_class = f"`{LumpClass.__module__[len('bsp_tool.branches.'):]}.{LumpClass.__name__}`"
-                # TODO: use the inspect module to generate links for each LumpClass
-                # -- https://github.com
+                # TODO: test if importing a LumpClass via `import x as y` breaks this
+                # TODO: look into the built-in `inspect` module, it may hold better solutions
+                lump_class_module = LumpClass.__module__[len('bsp_tool.branches.'):]
+                # NOTE: forks should substitute their own repo here
+                repo_url = "https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/"
+                script_url = lump_class_module.replace(".", "/")
+                lump_class_url = f"{repo_url}{script_url}.py#L{inspect.getsourcelines(LumpClass)[1]}"
+                # ^ link to LumpClass' declaration in the repe
+                lump_class = f"[{lump_class_module}.{LumpClass.__name__}]({lump_class_url})"
                 percent = 100
                 if lump.name in game_scripts[game].LUMP_CLASSES:
                     if issubclass(LumpClass, base.Struct):

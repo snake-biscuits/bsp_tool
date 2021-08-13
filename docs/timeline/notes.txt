@@ -14,14 +14,34 @@ Explaining that is way off scope
 Doom / IdTech 1 -> Quake / Quake II / Half-Life / IdTech 2 -> IdTech Lineage
 GoldSrc -> Source Engine -> Respawn's Source Engine Fork / Source 2
 (Can discuss engine limitations via Apex Legends & CS-GO:DangerZone level design
-QuakeWsrs -> Call of Duty Series
+QuakeWorld -> Call of Duty Series [citation needed]
 
 
-formar relationships
+format relationships
  .ase files can pass ascii models from Id Tech/IW Engine .map files to UDK (Unreal Development Kit)
  .map (Id Tech) -> .rmf (GoldSrc) -> .vmf (Source Engine)
  ^ all 3 can be compiled into .bsp for their respective engines
  and then there's .wad
  Garry's Mod / S&box shall consume all
- 
+
  https://kotaku.com/ancient-90s-code-from-quake-still-controls-lights-in-h-1847105972
+
+
+Doom / GoldSrc / GZDoom (SRB2 Kart is based on GZDoom)
+https://zdoom.org/wiki/WAD
+https://zdoom.org/wiki/Universal_Doom_Map_Format
+
+IW Engine radiant
+https://callofduty.fandom.com/wiki/Radiant
+
+Old Quake Games:
+https://archive.org/details/classicpcgames?query=quake&sin=
+https://www.amazon.com/Tremor-Quake-Combined-Levels-C-patches-Pc/dp/B000JIJJXW
+
+honorable mentions for popular mods?
+John Romero's SIGIL MegaWad (Unity)
+https://www.moddb.com/mods/thunders-leaves
+
+
+https://doomwiki.org/wiki/Timeline
+https://doomwiki.org/wiki/Commercial_games
