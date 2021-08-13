@@ -1,4 +1,5 @@
-# https://www.gamers.org/dEngine/quake/spec/quake-spec34/qkspec_4.htm
+# https://github.com/id-Software/Quake/blob/master/WinQuake/bspfile.h  (v29)
+# https://www.gamers.org/dEngine/quake/spec/quake-spec34/qkspec_4.htm  (v23)
 import enum
 from typing import Dict, List
 import struct
@@ -7,9 +8,10 @@ from .. import base
 from .. import shared  # special lumps
 
 
-BSP_VERSION = 23
+BSP_VERSION = 29
 
 
+# lump names & indices:
 class LUMP(enum.Enum):
     ENTITIES = 0  # one long string
     PLANES = 1
@@ -40,6 +42,54 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
+# engine limits:
+class MAX(enum.Enum):
+    ENTITIES = 1024
+    PLANES = 32767
+    MIP_TEXTURES = 512
+    MIP_TEXTURES_SIZE = 0x200000  # in bytes
+    VERTICES = 65535
+    VISIBILITY_SIZE = 0x100000  # in bytes
+    NODES = 32767  # "because negative shorts are contents"
+    TEXTURE_INFO = 4096
+    FACES = 65535
+    LIGHTING_SIZE = 0x100000  # in bytes
+    CLIP_NODES = 32767
+    LEAVES = 8192
+    MARK_SURFACES = 65535
+    EDGES = 256000
+    MODELS = 256
+    BRUSHES = 4096  # for radiant / q2map ?
+    ENTITY_KEY = 32
+    ENTITY_STRING = 65536
+    ENTITY_VALUE = 1024
+    PORTALS = 65536  # related to leaves
+    SURFEDGES = 512000
+
+
+# flag enums
+class Contents(enum.IntFlag):
+    """Brush flags"""
+    # src/public/bspflags.h
+    # NOTE: compiler gets these flags from a combination of all textures on the brush
+    # e.g. any non opaque face means this brush is non-opaque, and will not block vis
+    # visible
+    EMPTY = -1
+    SOLID = -2
+    WATER = -3
+    SLIME = -4
+    LAVA = -5
+    SKY = -6
+    ORIGIN = -7  # remove when compiling from .map to .bsp
+    CLIP = -8  # "changed to contents_solid"
+    CURRENT_0 = -9
+    CURRENT_90 = -10
+    CURRENT_180 = -11
+    CURRENT_270 = -12
+    CURRENT_UP = -13
+    CURRENT_DOWN = -14
+
+
 # classes for lumps (alphabetical order) [X / 15] + shared.Entities
 class ClipNode(base.Struct):  # LUMP 9
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
@@ -47,7 +97,6 @@ class ClipNode(base.Struct):  # LUMP 9
     # basic convex solid stuff
     plane: int
     children: List[int]  # +ve ClipNode, -1 outside model, -2 inside model
-
     __slots__ = ["plane", "children"]
     _format = "I2h"
     _arrays = {"children": ["front", "back"]}
@@ -80,7 +129,6 @@ class Leaf(base.Struct):  # LUMP 10
     first_leaf_face: int
     num_leaf_faces: int
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-
     __slots__ = ["type", "cluster", "bounds", "first_leaf_face",
                  "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
@@ -126,6 +174,7 @@ class MipTexture(base.Struct):  # LUMP 2 (used in MipTextureLump)
     _arrays = {"size": ["width", "height"],
                "offsets": ["full", "half", "quarter", "eighth"]}
     # TODO: transparently access texture data with offsets
+    # -- this may require a lumps.BspLump subclass, like GameLump
 
 
 class Node(base.Struct):  # LUMP 5
@@ -136,7 +185,6 @@ class Node(base.Struct):  # LUMP 5
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int
     num_faces: int
-
     _format = "I8h"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
@@ -146,7 +194,6 @@ class Plane(base.Struct):  # LUMP 1
     normal: List[float]
     distance: float
     type: int  # 0-5 (Axial X-Z, Non-Axial X-Z)
-
     __slots__ = ["normal", "distance", "type"]
     _format = "4fI"
     _arrays = {"normal": [*"xyz"]}
