@@ -8,8 +8,18 @@ from ..id_software import quake  # GoldSrc was forked from IdTech 2 during Quake
 
 BSP_VERSION = 30
 
-GAMES = ["Half-Life 1"]
-# TODO: cs1.6 cscz, csczds, hlof, hlbs, tfc, dmc, ricochet
+GAMES = [*[f"Half-Life/{mod}" for mod in [
+                       "bshift",    # Half-Life: Blue Shift
+                       "cstrike",   # Counter-Strike
+                       "czero",     # Counter-Strike: Condition Zero
+                       "czeror",    # Counter-Strike: Condition Zero - Deleted Scenes
+                       "dmc",       # Deathmatch Classic
+                       "dod",       # Day of Defeat
+                       "gearbox",   # Half-Life: Opposing Force
+                       "ricochet",  # Ricochet
+                       "tfc",       # Team Fortress Classic
+                       "valve"]],   # Half-Life
+         "Halfquake Trilogy", "Sven Co-op"]
 
 
 # lump names & indices:

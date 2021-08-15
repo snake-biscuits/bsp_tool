@@ -17,6 +17,7 @@ FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
 # NOTE: bsp_tool/__init__.py: load_bsp can be fed a string to select the relevant branch script
 # by_name is searched with a lowercase, numbers & letters only version of that string
 # NOTE: some (but not all!) games are listed here have multiple valid names (including internal mod names)
+# TODO: generate from branch.GAMES (folder names)
 by_name = {
     # Id Software - Id Tech 2
     "quake": id_software.quake,
@@ -104,21 +105,23 @@ by_name = {
           }
 
 by_version = {
-    # ID SOFTWARE
+    # Id Software
     id_software.quake3.BSP_VERSION: id_software.quake,  # 23
     id_software.quake3.BSP_VERSION: id_software.quake3,  # 46
-    # INFINITY WARD
+    # Infinity Ward
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
-    # NEXON
+    # Nexon
     nexon.cso2.BSP_VERSION: nexon.cso2,  # 100?
     # skip vindictus, v20 defaults to orange_box
-    # RESPAWN
+    # Respawn Entertainment
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
     respawn.apex_legends.BSP_VERSION: respawn.apex_legends,  # 47
     48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
-    # VALVE
+    # Valve Software - GoldSrc
+    valve.goldsrc.BSP_VERSION: valve.goldsrc,
+    # Valve Software - Source Engine
     valve.cs_source.BSP_VERSION: valve.cs_source,
     valve.cs_go.BSP_VERSION: valve.cs_go,
     valve.orange_box.BSP_VERSION: valve.orange_box  # 20 (many sub-variants)
@@ -134,7 +137,6 @@ by_version = {
     # 19: valve.dod_s  # Day of Defeat: Source
     # 19: valve.hl2
     # 19: valve.hl2_dm  # Half-Life 2: Deathmatch
-    # NOTE: orange_box should cover most v20 VBSPs
     # 20: ace.zeno_clash  # ACE Team: Zeno Clash (http://www.moddb.com/games/zeno-clash/downloads/zeno-clash-sdk/)
     # 20: arkane.dark_messiah  # Arkane Studios: Dark Messiah of Might and Magic
     # 20: crowbar.black_mesa  # Crowbar Collective: Black Mesa
@@ -149,7 +151,7 @@ by_version = {
     # 20: valve.portal
     # 20: valve.tf2  # Team Fortress 2
     # 21: briscoe.dear_esther  # Robert Briscoe: Dear Esther
-    # 21: dwraden.begginer  # Davey Wraden: The Beginner's Guide
+    # 21: dwraden.beginner  # Davey Wraden: The Beginner's Guide
     # 21: dwraden.stanley_parable  # 2013 SDK mod?
     # 21: new_world.insurgency  # New World Interactive: Insurgency
     # 21: valve.alien_swarm

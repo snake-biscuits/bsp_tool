@@ -13,24 +13,31 @@ from .. import vector  # for methods
 
 BSP_VERSION = 20
 
-GAMES = ["Alien Swarm",
-         "Alien Swarm Reactive Drop",
-         "Day of Defeat: Source",
-         "G-String",
-         "Garry's Mod",
-         "Half-Life 1 Source Deathmatch",
-         "half-life 2",
-         "half-life 2 deathmatch",
+GAMES = ["day of defeat source",
+         "G String",
+         "GarrysMod",
          "Half-Life 2 Update",
-         "left 4 dead",
-         "Left 4 Dead 2",
-         "SourceFilmmaker",
          "NEOTOKYO",
          "Portal",
-         "Portal 2",
-         "Portal Reloaded",
-         "Tactical Intervention",
-         "Team Fortress 2"]
+         "Team Fortress 2"]  # failing on TF2 Party? newlines in entities
+
+# FAILING = ["Alien Swarm",
+#            "Alien Swarm Reactive Drop",
+#            "Counter-Strike Global Offensive",
+#            "counter-strike source",
+#            "Half-Life 1 Source Deathmatch",
+#            *[f"half-life 2/{mod}" for mod in [
+#                            "ep2",          # Half-Life: Episode 2
+#                            "episodic",     # Half-Life: Episode 1
+#                            "hl1",          # Half-Life: Source
+#                            "hl2",          # Half-Life 2
+#                            "lostcoast"]],  # Lost Coast
+#            "half-life 2 deathmatch",
+#            "left 4 dead",
+#            "Left 4 Dead 2",
+#            "SourceFilmmaker",
+#            "Portal 2",
+#            "Portal Reloaded"]
 
 
 class LUMP(enum.Enum):

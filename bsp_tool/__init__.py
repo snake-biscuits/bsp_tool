@@ -16,56 +16,51 @@ from .respawn import RespawnBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
-developers_by_file_magic = {b"IBSP": "id Software",  # also Infinity Ward
-                            b"rBSP": "Respawn Entertainment",
-                            b"VBSP": "Valve Software"}
-# NOTE: GoldSrc has no file_magic, just jumps straight to version
+developers_by_file_magic = {b"IBSP": IdTechBsp,  # also D3DBsp
+                            b"rBSP": RespawnBsp,
+                            b"VBSP": ValveBsp}
+# HACK: GoldSrcBsp has no file-magic, substituting BSP_VERSION
+goldsrc_versions = [branches.valve.goldsrc.BSP_VERSION]
+developers_by_file_magic.update({v.to_bytes(4, "little"): GoldSrcBsp for v in goldsrc_versions})
+
+cod_ibsp_versions = [getattr(branches.infinity_ward, b).BSP_VERSION for b in branches.infinity_ward.__all__]
 
 
-def get_developer(filename: str) -> str:
-    """returns assumed developer of .bsp format for given filename"""
-    developer = "Unknown"
+def guess_by_file_magic(filename: str) -> (base.Bsp, int):
+    """returns BspVariant & version"""
+    BspVariant = None
     if filename.endswith(".d3dbsp"):
-        developer = "Infinity Ward"
-    elif not filename.endswith(".bsp"):
+        BspVariant = D3DBsp
+    elif filename.endswith(".bsp"):
+        with open(filename, "rb") as bsp_file:
+            file_magic = bsp_file.read(4)
+            if file_magic not in developers_by_file_magic:
+                raise RuntimeError(f"'{filename}' does not resemble a .bsp file")
+            bsp_version = int.from_bytes(bsp_file.read(4), "little")
+        BspVariant = developers_by_file_magic[file_magic]
+        if BspVariant == GoldSrcBsp:
+            bsp_version = int.from_bytes(file_magic, "little")
+        # D3DBsp has b"IBSP" file_magic
+        if file_magic == b"IBSP" and bsp_version in cod_ibsp_versions:
+            BspVariant = D3DBsp
+    else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    with open(filename, "rb") as bsp_file:
-        file_magic = bsp_file.read(4)
-        if file_magic not in developers_by_file_magic:
-            # TODO: check if GoldSrc
-            raise RuntimeError(f"'{filename}' is not a valid .bsp file")
-        bsp_version = int.from_bytes(bsp_file.read(4), "little")
-        # NOTE: bsp_version is not always in this position
-    if developer != "Infinity Ward":
-        developer = developers_by_file_magic[file_magic]
-        if file_magic == b"IBSP" and bsp_version == 59:  # CoD1 bsp_version
-            developer = "Infinity Ward"
-    return developer
+    return BspVariant, bsp_version
 
 
 def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
     """Calculate and return the correct base.Bsp sub-class for the given .bsp"""
     if not os.path.exists(filename):
         raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
-    # identify developer
-    variants = {"id Software": IdTechBsp,
-                "Infinity Ward": D3DBsp,
-                "Respawn Entertainment": RespawnBsp,
-                "Valve Software": ValveBsp}  # catches Nexon Source branch
-    BspVariant = variants[get_developer(filename)]
-    # check header
-    with open(filename, "rb") as bsp_file:
-        file_magic = bsp_file.read(4)
-        bsp_version = int.from_bytes(bsp_file.read(4), "little")
-        # NOTE: bsp_version is not always in this position
+    BspVariant, bsp_version = guess_by_file_magic(filename)
     if isinstance(branch, ModuleType):
         return BspVariant(branch, filename, autoload=True)
     elif isinstance(branch, str):
         # TODO: default to other methods on fail
-        branch = branch.lower()
-        branch = "".join(filter(str.isalnum, branch))
+        branch: str = branch.lower()
+        branch: str = "".join(filter(str.isalnum, branch))
         # ^ "Counter-Strike: Online 2" -> "counterstrikeonline2"
-        if branch != "unknown":
+        if branch != "unknown":  # not default
             if branch not in branches.by_name:
                 close_matches = difflib.get_close_matches(branch, branches.by_name)
                 if len(close_matches) == 0:
@@ -76,8 +71,11 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
                           f"Trying '{close_matches[0]}'...", sep="\n")
                     branch: str = close_matches[0]
             branch: ModuleType = branches.by_name[branch]  # "name" -> branch_script
+        # guess branch by format version
         else:
             if bsp_version not in branches.by_version:
-                raise NotImplementedError(f"{file_magic} version {bsp_version} is not supported")
-            branch = branches.by_version[bsp_version]
-            return BspVariant(branch, filename, autoload=True)
+                raise NotImplementedError(f"{BspVariant} v{bsp_version} is not supported!")
+            branch: ModuleType = branches.by_version[bsp_version]
+        return BspVariant(branch, filename, autoload=True)
+    else:
+        raise TypeError(f"Cannot use branch of type `{branch.__class__.__name__}`")
