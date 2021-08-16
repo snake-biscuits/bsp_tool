@@ -7,6 +7,7 @@ import struct
 import zipfile
 
 
+# TODO: adapt SpecialLumpClasses to be more in-line with lumps.BspLump subclasses
 # TODO: make special classes __init__ method create an empty mutable object
 # TODO: move current special class __init__ to a .from_bytes() method
 # TODO: prototype the system for saving game lumps to file
@@ -52,14 +53,15 @@ class UnsignedShorts(int):
 
 
 # Special Lump Classes
-class Entities(list):
+class Entities(list):  # would https://github.com/ValvePython/vdf do this better?
     # NOTE: are the bytes decompressed first!?
     def __init__(self, raw_entities: bytes):
         # TODO: use fgd-tools to fully unstringify entities
         # TODO: split into a true init method & a load method
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
-        for line_no, line in enumerate(raw_entities.decode(errors="ignore").split("\n")):
+        # TODO: handle newlines in keys / values
+        for line_no, line in enumerate(raw_entities.decode(errors="ignore").splitlines()):
             if re.match(r"^\s*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:  # new entity
@@ -80,14 +82,14 @@ class Entities(list):
                         ent[key] = [ent[key], value]
             elif "}" in line:  # close entity
                 entities.append(ent)
-            elif line == b"\x00".decode():
-                continue  # ignore raw bytes, might be related to lump alignment
+            elif line == b"\x00".decode():  # ignore null bytes
+                continue
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
             super().__init__(entities)
 
-    def find(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
-        """.find(classname="light_environment") -> [{"classname": "light_environment", ...}]"""
+    def search(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
+        """.search(classname="light_environment") -> [{"classname": "light_environment", ...}]"""
         # NOTE: exact matches only!
         return [e for e in self if all([e.get(k, "") == v for k, v in search.items()])]
 
