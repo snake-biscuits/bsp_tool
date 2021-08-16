@@ -1,15 +1,13 @@
 # https://github.com/ValveSoftware/halflife/blob/master/utils/common/bspfile.h
 # http://hlbsp.sourceforge.net/index.php?content=bspdef
-# TODO: list games this branch supports
+# https://valvedev.info/tools/bsptwomap/
 import enum
 
-from .. import shared
 from ..id_software import quake  # GoldSrc was forked from IdTech 2 during Quake II development
 
 BSP_VERSION = 30
 
 GAMES = [*[f"Half-Life/{mod}" for mod in [
-                       "bshift",    # Half-Life: Blue Shift
                        "cstrike",   # Counter-Strike
                        "czero",     # Counter-Strike: Condition Zero
                        "czeror",    # Counter-Strike: Condition Zero - Deleted Scenes
@@ -39,8 +37,18 @@ class LUMP(enum.Enum):
     EDGES = 12
     MODELS = 14
 
+# Known lump changes from Quake -> GoldSrc:
+# New:
+#   MARK_SURFACES
+# Deprecated:
+#   LEAF_FACES
+#   SURFEDGES
 
-# engine limits:
+
+lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
+
+# Engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
     PLANES = 32767
@@ -78,7 +86,7 @@ class Contents(enum.IntFlag):
     SLIME = -4
     LAVA = -5
     SKY = -6
-    ORIGIN = -7  # remove when compiling from .map to .bsp
+    ORIGIN = -7  # removed when compiling from .map to .bsp
     CLIP = -8  # "changed to contents_solid"
     CURRENT_0 = -9
     CURRENT_90 = -10
@@ -89,26 +97,24 @@ class Contents(enum.IntFlag):
     TRANSLUCENT = -15
 
 
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
-# NOTE: according to github, GoldSrc has a checksum for each lump?
-
-
 # classes for lumps (alphabetical order):
-
+# TODO: Model, Node
 
 # classes for special lumps (alphabetical order):
-
-
-# {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"EDGES": quake.Edge}
-
-LUMP_CLASSES = {"PLANES": quake.Plane}
-
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 # TODO: make a special LumpCLass for MipTextures
 # -- any lump containing offsets needs it's own BspLump subclass
 # {"TEXTURES": lambda raw_lump: lump.MipTextures(quake.MipTexture, raw_lump)}
 
+# {"LUMP_NAME": {version: LumpClass}}
+BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
+
+LUMP_CLASSES = quake.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("MODELS")
+LUMP_CLASSES.pop("NODES")
+
+SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.pop("MIP_TEXTURES")
+
 
 # branch exclusive methods, in alphabetical order:
-methods = []
+methods = [*quake.methods]
