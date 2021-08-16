@@ -152,7 +152,7 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
-# Changes from Titanfall 2 to Apex Legends
+# Known lump changes from Titanfall 2 -> Apex Legends:
 # New:
 # UNUSED_15 -> SURFACE_NAMES
 # UNUSED_16 -> CONTENT_MASKS
@@ -320,5 +320,5 @@ GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_
                               49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
 
 # branch exclusive methods, in alphabetical order:
-methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model]
+methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model, titanfall.search_all_entities]
 # NOTE: other titanfall methods break, since there is no TEXTURE_DATA_STRING_DATA

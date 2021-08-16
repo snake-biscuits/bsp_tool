@@ -36,6 +36,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --verbose --cov=bsp_tool
-        # --verbose lists success / failure for every game tested
-        # --cov=bsp_tool can be helpful for locating bugs
+        pytest -vv --cov=bsp_tool

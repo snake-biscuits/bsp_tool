@@ -21,8 +21,6 @@ FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
 by_name = {
     # Id Software - Id Tech 2
     "quake": id_software.quake,
-    # TODO: test QuakeWorld
-    # TODO: figure out which source ports are supported
     # Id Software - Id Tech 3
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,

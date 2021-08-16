@@ -22,7 +22,8 @@ class GoldSrcBsp(IdTechBsp):
         super(GoldSrcBsp, self).__init__(branch, filename, autoload)
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} {self.filename} (version {self.bsp_version}) at 0x{id(self):016X}>"
+        version = f"(version {self.bsp_version})"  # no file_magic
+        return f"<{self.__class__.__name__} '{self.filename}' {self.branch.__name__} {version} at 0x{id(self):016X}>"
 
     def _preload(self):
         self.file = open(os.path.join(self.folder, self.filename), "rb")

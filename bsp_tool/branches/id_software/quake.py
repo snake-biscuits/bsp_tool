@@ -29,7 +29,7 @@ class LUMP(enum.Enum):
     SURFEDGES = 13  # indices into EDGES (-ve indices reverse edge direction)
     MODELS = 14
 
-# a rough map of the relationships between lumps:
+# A rough map of the relationships between lumps:
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
 #                   |-> CLIP_NODES -> PLANES
 
@@ -42,7 +42,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# engine limits:
+# Engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
     PLANES = 32767

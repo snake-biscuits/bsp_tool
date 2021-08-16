@@ -151,7 +151,7 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
-# Changes from Titanfall to Titanfall 2
+# Known lump changes from Titanfall -> Titanfall 2:
 # New:
 # UNUSED_4 -> LIGHTPROBE_PARENT_INFOS
 # UNUSED_5 -> SHADOW_ENVIRONMENTS

@@ -28,6 +28,8 @@ cod_ibsp_versions = [getattr(branches.infinity_ward, b).BSP_VERSION for b in bra
 
 def guess_by_file_magic(filename: str) -> (base.Bsp, int):
     """returns BspVariant & version"""
+    if os.path.getsize(filename) == 0:  # HL2/ d2_coast_02.bsp
+        raise RuntimeError(f"{filename} is an empty file")
     BspVariant = None
     if filename.endswith(".d3dbsp"):
         BspVariant = D3DBsp

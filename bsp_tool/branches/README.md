@@ -14,6 +14,10 @@ The developer is identified from the "file-magic", the first four bytes of any .
   - `b"rBSP"` for `RespawnBsp`  Respawn
   - `b"VBSP"` for `ValveBsp`    Valve
 
+> This rule isn't perfect! most mods out there are Source Engine forks with b"VBSP"  
+
+> GoldSrc .bsp files don't have any file magic!  
+
 Most of the major differences between each developer's format are the number of lumps & bsp header  
 They also use some lumps which are unique to each developer's Quake based engine  
 More on those differences in an upcoming wiki page...  

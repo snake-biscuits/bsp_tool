@@ -1,5 +1,4 @@
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
-# TODO: list games this branch supports
 import collections
 import enum
 import io
@@ -13,17 +12,15 @@ from .. import vector  # for methods
 
 BSP_VERSION = 20
 
-GAMES = ["day of defeat source",
+GAMES = ["Day of Defeat: Source",
          "G String",
-         "GarrysMod",
+         "Garry's Mod",
          "Half-Life 2 Update",
          "NEOTOKYO",
          "Portal",
          "Team Fortress 2"]  # failing on TF2 Party? newlines in entities
 
-# FAILING = ["Alien Swarm",
-#            "Alien Swarm Reactive Drop",
-#            "Counter-Strike Global Offensive",
+# FAILING = ["Counter-Strike Global Offensive",
 #            "counter-strike source",
 #            "Half-Life 1 Source Deathmatch",
 #            *[f"half-life 2/{mod}" for mod in [
@@ -33,8 +30,6 @@ GAMES = ["day of defeat source",
 #                            "hl2",          # Half-Life 2
 #                            "lostcoast"]],  # Lost Coast
 #            "half-life 2 deathmatch",
-#            "left 4 dead",
-#            "Left 4 Dead 2",
 #            "SourceFilmmaker",
 #            "Portal 2",
 #            "Portal Reloaded"]
@@ -52,7 +47,7 @@ class LUMP(enum.Enum):
     LIGHTING = 8  # version 1
     OCCLUSION = 9  # version 2
     LEAVES = 10  # version 1
-    FACE_IDS = 11
+    FACE_IDS = 11  # TF2 branch, for mapping debug & detail prop seed
     EDGES = 12
     SURFEDGES = 13
     MODELS = 14

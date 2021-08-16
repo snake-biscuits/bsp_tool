@@ -125,17 +125,20 @@ extracted_dirs = {
                         ]}
 # ^ {"game_dir": ["map_dir"]}
 
-# https://www.moddb.com/mods/map-labs
 # https://geshl2.com
+# https://www.moddb.com/mods/riot-act
+# https://www.moddb.com/mods/map-labs
 # TODO: https://tf2classic.com
-# TODO: https://www.moddb.com/mods/riot-act
-sourcemod_dirs = {"gesource": ["maps"],  # 26 maps | 775 MB | GoldenEye: Source
-                  "episodeone": ["maps"],  # 11 maps | 281 MB | Map Labs #2
-                  "RunThinkShootLiveVille2": ["maps"],  # 19 maps | 728 MB | Map Labs #3
-                  "cromulentville2": ["maps"],  # 21 maps | 342 MB | Test Tube #7
-                  "companionpiece2": ["maps"],  # 18 maps | 429 MB | Map Labs #8
-                  "eyecandy": ["maps"],   # 41 maps | 652 MB | Test Tube #8
-                  "tworooms": ["maps"]}  # 39 maps | 496 MB | Test Tube #9
+sourcemod_dirs = {mod: ["maps"] for mod in [
+                      "gesource",  # 26 maps | 775 MB | GoldenEye: Source
+                      "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
+                      # Map Labs
+                      "episodeone",  # 11 maps | 281 MB | Map Labs #2
+                      "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs #3
+                      "cromulentville2",  # 21 maps | 342 MB | Test Tube #7
+                      "companionpiece2",  # 18 maps | 429 MB | Map Labs #8
+                      "eyecandy",   # 41 maps | 652 MB | Test Tube #8
+                      "tworooms"]}  # 39 maps | 496 MB | Test Tube #9
 
 # every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}  # ~64GB
 
