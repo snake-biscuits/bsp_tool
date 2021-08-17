@@ -1,0 +1,8 @@
+assert all lump class formats don't discard bytes
+  byte alignment can skip a short etc
+
+ensure methods work for each index of their associated lump
+  is it possible to hook a lump method to a parent .bsp?
+
+ensure type hints on LumpClasses are correct
+  mix with py_struct_as_cpp auto-generation
