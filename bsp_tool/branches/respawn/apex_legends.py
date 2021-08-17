@@ -188,13 +188,12 @@ class LUMP(enum.Enum):
 # TRICOLL_BEVEL_STARTS
 
 # Rough map of the relationships between lumps:
-# Model -> Mesh -> MaterialSort -> TextureData
+# Model -> Mesh -> MaterialSort -> TextureData -> Surface Name
 #                              |-> VertexReservedX
-#                              |-> MeshIndex
+#                              |-> MeshIndex?
 #
 # MeshBounds & Mesh (must have equal number of each)
 #
-# TextureData -> SurfaceName
 # VertexReservedX -> Vertex
 #                |-> VertexNormal
 #
@@ -221,12 +220,15 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps (alphabetical order)
+# NOTE: LightmapHeader.count doesn't look like a count, quite off in general
+
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
-    unknown: List[int]  # lightmap indices?
+    lightmap_index: int  # index of this MaterialSort's LightmapHeader (can be -1)
+    unknown: List[int]  # ({0?}, {??..??})
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
     __slots__ = ["texture_data", "unknown", "vertex_offset"]
-    _format = "2h2I"  # 12 bytes
+    _format = "4hI"  # 12 bytes
     _arrays = {"unknown": 2}
 
 
@@ -257,10 +259,13 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
+    # very unsure
     name_index: int  # index of this TextureData's surface name
-    __slots__ = ["unknown", "name_index"]
+    width: int  # powers of 2?
+    height: int  # powers of 2?
+    flags: int  # OR'd powers of 2?
+    __slots__ = ["name_index", "width", "height", "flags"]
     _format = "4i"
-    _arrays = {"unknown": 3}
 
 
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
