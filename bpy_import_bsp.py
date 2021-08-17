@@ -26,9 +26,9 @@ importlib.reload(bsp_tool.branches.respawn.apex_legends)
 game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
 
 
-def load_materials(bsp):  # -> List[blender_material]
-    # material_dir = os.path.join(game_dir, "materials")
+def load_materials(bsp):  # -> List[BlenderMaterial]
     materials = list()
+    # material_dir = os.path.join(game_dir, "materials")
     # if game_dir is not "":
     #     for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
     #         try:
@@ -149,14 +149,17 @@ def load_static_props(bsp):
     model_dir = os.path.join(game_dir, "models")
     # TODO: hook into SourceIO to import .mdl files
     # TODO: make a collection for static props
-    for mdl_name in bsp.GAME_LUMP.sprp.mdl_names:
-        try:
+    try:
+        bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": "error.mdl"}])
+        # ^ doesn't return the modelname!? /;
+    except Exception as exc:
+        print("Source IO not installed!", exc)
+    else:
+        for mdl_name in bsp.GAME_LUMP.sprp.mdl_names:
             bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": mdl_name}])
-            # now find it, each model creates a collection...
+            # now find it..., each model creates a collection...
             # this is gonna be real memory intensive...
-        except Exception:
-            pass  # SourceIO not installed etc.
-    # TODO: instance each prop at listed location & rotation etc. (preserve object data)
+            # TODO: instance each prop at listed location & rotation etc. (preserve object data)
 
 
 def load_rbsp(rbsp):
@@ -210,6 +213,7 @@ def load_rbsp(rbsp):
 
 # load a mesh by selecting the vertex lump manually
 def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
+    # NOTE: skips UVs
     blender_mesh = bpy.data.meshes.new("TEST_MESH")
     blender_bmesh = bmesh.new()  # mesh data
     # vertices of mesh
@@ -226,7 +230,6 @@ def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
     # ^ {rbsp_vertex.position_index: BMVert}
     for triangle_index in range(0, len(mesh_vertices), 3):
         face_indices = list()
-        # TODO: uvs
         for vert_index in reversed(range(3)):  # invert winding order for backfaces
             rbsp_vertex = mesh_vertices[triangle_index + vert_index]
             vertex = rbsp.VERTICES[rbsp_vertex.position_index]
@@ -289,40 +292,36 @@ def load_apex_rbsp(rbsp):
         master_collection.objects.link(blender_object)
 
 
-# TITANFALL
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_corporate.bsp")    # func_breakable_surf meshes with unknown flags
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall/maps/mp_colony.bsp")  # smallest after lobby
+TITANFALL = "E:/Mod/Titanfall/maps/"
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")    # odd model flags for breakable glass
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_colony.bsp")  # smallest map after lobby
 
-# TITANFALL 2
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_training.bsp")
-bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/sp_boomtown.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
+TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
+# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
+# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_boomtown.bsp")
+# bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_lobby.bsp")
 
-load_rbsp(bsp)
+# load_rbsp(bsp)
 
-# APEX LEGENDS
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 2/mp_lobby.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_canyonlands_64k_x_64k.bsp")  # Season 9 Event
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/mp_rr_desertlands_mu2.bsp")
-# bsp = bsp_tool.load_bsp("E:/Mod/ApexLegends/maps/Season 9/mp_rr_aqueduct.bsp")
+APEX = "E:/Mod/ApexLegends/"
+S2 = "season2/maps/"
+S3 = "season3_3dec19/maps/"
+S10 = "season10_10aug21/maps/"
+# bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
+bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
+# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_desertlands_mu2.bsp")
+# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
+# NOTE: mp_rr_party_crasher.bsp is the smallest map after lobby
 
-# load_apex_rbsp(bsp)
+load_apex_rbsp(bsp)
 
 load_entities(bsp)
+# NOTE: Apex entity models are breaking
 
 # NOTE: remember to delete the previous import manually & purge orphans
 
 
 # TODO: Shift+A > Add Entity
-# -- requires an fgd to sort out keyvalues and how they relate to blender properties
+# -- requires .fgd to identify key-value types & ranges (which would be nice for importing too)
 # TODO: Ctrl+Shift+T > To Solid Entity
-
-
-def export_rbsp(blender_bsp: str, filename: str, game_name: str):
-    branch_script = bsp_tool.branches.by_name.get(game_name, bsp_tool.branches.respawn.titanfall)
-    bsp = bsp_tool.RespawnBsp(branch_script, filename)
-    # TODO: checkbox collections in UI
-    # something like sourcetools scene widget?
-    for entity in bsp.data.collections[f"{blender_bsp}.bsp Internal Entities"]:
-        ...
