@@ -744,6 +744,30 @@ def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[L
     return positions
 
 
+def displacement_indices(power: int) -> List[List[int]]:  # not directly a method
+    """returns an array of indices ((2 ** power) + 1) ** 2 long"""
+    power2 = 2 ** power
+    power2A = power2 + 1
+    power2B = power2 + 2
+    power2C = power2 + 3
+    tris = []
+    for line in range(power2):
+        line_offset = power2A * line
+        for block in range(2 ** (power - 1)):
+            offset = line_offset + 2 * block
+            if line % 2 == 0:  # |\|/|
+                tris.extend([offset + 0, offset + power2A, offset + 1])
+                tris.extend([offset + power2A, offset + power2B, offset + 1])
+                tris.extend([offset + power2B, offset + power2C, offset + 1])
+                tris.extend([offset + power2C, offset + 2, offset + 1])
+            else:  # |/|\|
+                tris.extend([offset + 0, offset + power2A, offset + power2B])
+                tris.extend([offset + 1, offset + 0, offset + power2B])
+                tris.extend([offset + 2, offset + 1, offset + power2B])
+                tris.extend([offset + power2C, offset + 2, offset + power2B])
+    return tris
+
+
 def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
     face = bsp.FACES[face_index]
@@ -792,32 +816,8 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
     return vertices
 
 
-# TODO: vertices_of_model method which walks the node tree
-# TODO: vertices_of_node method
+# TODO: vertices_of_model: walk the node tree
+# TODO: vertices_of_node
 
 
-methods = [vertices_of_face, vertices_of_displacement]
-
-
-def displacement_indices(power: int) -> List[List[int]]:  # static method?
-    """returns an array of indices ((2 ** power) + 1) ** 2 long"""
-    power2 = 2 ** power
-    power2A = power2 + 1
-    power2B = power2 + 2
-    power2C = power2 + 3
-    tris = []
-    for line in range(power2):
-        line_offset = power2A * line
-        for block in range(2 ** (power - 1)):
-            offset = line_offset + 2 * block
-            if line % 2 == 0:  # |\|/|
-                tris.extend([offset + 0, offset + power2A, offset + 1])
-                tris.extend([offset + power2A, offset + power2B, offset + 1])
-                tris.extend([offset + power2B, offset + power2C, offset + 1])
-                tris.extend([offset + power2C, offset + 2, offset + 1])
-            else:  # |/|\|
-                tris.extend([offset + 0, offset + power2A, offset + power2B])
-                tris.extend([offset + 1, offset + 0, offset + power2B])
-                tris.extend([offset + 2, offset + 1, offset + power2B])
-                tris.extend([offset + power2C, offset + 2, offset + power2B])
-    return tris
+methods = [vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]

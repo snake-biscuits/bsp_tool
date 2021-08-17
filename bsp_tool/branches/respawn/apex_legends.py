@@ -320,5 +320,6 @@ GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_
                               49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
 
 # branch exclusive methods, in alphabetical order:
-methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model, titanfall.search_all_entities]
+methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
+           titanfall.search_all_entities, shared.worldspawn_volume]
 # NOTE: other titanfall methods break, since there is no TEXTURE_DATA_STRING_DATA

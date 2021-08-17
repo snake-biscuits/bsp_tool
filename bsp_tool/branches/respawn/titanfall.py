@@ -664,4 +664,4 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
 
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
-           search_all_entities]
+           search_all_entities, shared.worldspawn_volume]

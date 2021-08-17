@@ -1,10 +1,11 @@
-from typing import Dict, List
 import collections
 import enum
 import io
+import math
 import re
 import struct
 import zipfile
+from typing import Dict, List
 
 
 # TODO: adapt SpecialLumpClasses to be more in-line with lumps.BspLump subclasses
@@ -265,3 +266,12 @@ class Visiblity:
 
     def as_bytes(self) -> bytes:
         raise NotImplementedError("Visibility lump hard")
+
+
+# methods
+def worldspawn_volume(bsp):
+    """allows for sorting maps by size"""
+    worldspawn = bsp.ENTITIES[0]
+    maxs = map(float, worldspawn["world_maxs"].split())
+    mins = map(float, worldspawn["world_mins"].split())
+    return math.sqrt(sum([(b - a) ** 2 for a, b in zip(mins, maxs)]))
