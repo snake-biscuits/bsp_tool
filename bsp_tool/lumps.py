@@ -110,6 +110,9 @@ class RawBspLump:
         # ^ {index: new_value}
         self._length = lump_header.length
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: {self.LumpClass.__name__}[{len(self)}] at  at 0x{id(self):016X}>"
+
     def __getitem__(self, index: Union[int, slice]) -> bytes:
         """Reads bytes from the start of the lump"""
         if isinstance(index, int):

@@ -23,7 +23,8 @@ class GoldSrcBsp(IdTechBsp):
 
     def __repr__(self):
         version = f"(version {self.bsp_version})"  # no file_magic
-        return f"<{self.__class__.__name__} '{self.filename}' {self.branch.__name__} {version} at 0x{id(self):016X}>"
+        game = self.branch.__name__[len(self.branch.__package__) + 1:]
+        return f"<{self.__class__.__name__} '{self.filename}' {game} {version} at 0x{id(self):016X}>"
 
     def _preload(self):
         self.file = open(os.path.join(self.folder, self.filename), "rb")
