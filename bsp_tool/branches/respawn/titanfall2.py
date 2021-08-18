@@ -197,7 +197,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# classes for lumps (alphabetical order):
 class LightmapPage(base.Struct):
     data: bytes
     _format = "128s"
@@ -229,8 +229,15 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
                "collision_flags": ["add", "remove"]}
 
 
-# classes for special lumps (alphabetical order)
-class GameLump_SPRP:  # unique to Titanfall|2
+# classes for special lumps (alphabetical order):
+class GameLump_SPRP:
+    """New in Titanfall 2"""
+    _static_prop_format: str  # StaticPropClass._format
+    mdl_names: List[str]
+    unknown_1: int
+    unknown_2: int  # indexes?
+    props: List[object]  # StaticPropClass
+
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
@@ -245,10 +252,10 @@ class GameLump_SPRP:  # unique to Titanfall|2
         # TODO: check if are there any leftover bytes at the end?
 
     def as_bytes(self) -> bytes:
+        # NOTE: additions to .props must be of the correct type,
+        #  GameLump_SPRP does not perform conversions of any kind!
         return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
                          *[struct.pack("128s", n) for n in self.prop_names],
-                         int.to_bytes(len(self.leafs), 4, "little"),
-                         *[struct.pack("H", L) for L in self.leafs],
                          *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
