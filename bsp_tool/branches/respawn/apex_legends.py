@@ -227,7 +227,7 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     lightmap_index: int  # index of this MaterialSort's LightmapHeader (can be -1)
     unknown: List[int]  # ({0?}, {??..??})
     vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
-    __slots__ = ["texture_data", "unknown", "vertex_offset"]
+    __slots__ = ["texture_data", "lightmap_index", "unknown", "vertex_offset"]
     _format = "4hI"  # 12 bytes
     _arrays = {"unknown": 2}
 
