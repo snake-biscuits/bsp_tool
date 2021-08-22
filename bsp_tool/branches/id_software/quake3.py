@@ -9,6 +9,8 @@ from .. import shared  # special lumps
 
 BSP_VERSION = 46
 
+GAMES = ["Quake 3 Arena"]
+
 
 class LUMP(enum.Enum):
     ENTITIES = 0  # one long string

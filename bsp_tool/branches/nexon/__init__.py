@@ -8,3 +8,5 @@ They have worked with both Valve & Respawn's Source Engine (CS:O & TF:O [cancell
 
 # NOTE: Nexon games are build on source, and use it's FILE_MAGIC
 FILE_MAGIC = b"VBSP"
+
+branches = [cso2, vindictus]

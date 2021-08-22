@@ -11,6 +11,7 @@ from .. import vector  # for methods
 
 
 BSP_VERSION = 20
+# NOTE: v20 Source BSPs differ widely, since many forks are of this version
 
 GAMES = ["Day of Defeat: Source",
          "G String",
@@ -20,9 +21,7 @@ GAMES = ["Day of Defeat: Source",
          "Portal",
          "Team Fortress 2"]  # failing on TF2 Party? newlines in entities
 
-# FAILING = ["Counter-Strike Global Offensive",
-#            "counter-strike source",
-#            "Half-Life 1 Source Deathmatch",
+# FAILING = ["Half-Life 1 Source Deathmatch",
 #            *[f"half-life 2/{mod}" for mod in [
 #                            "ep2",          # Half-Life: Episode 2
 #                            "episodic",     # Half-Life: Episode 1

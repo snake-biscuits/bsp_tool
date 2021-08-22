@@ -18,6 +18,13 @@ FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
 # by_name is searched with a lowercase, numbers & letters only version of that string
 # NOTE: some (but not all!) games are listed here have multiple valid names (including internal mod names)
 # TODO: generate from branch.GAMES (folder names)
+
+
+def simplify_name(name: str) -> str:
+    """'Counter-Strike: Online 2' -> 'counterstrikeonline2'"""
+    return "".join(filter(str.isalnum, name.lower()))
+
+
 by_name = {
     # Id Software - Id Tech 2
     "quake": id_software.quake,

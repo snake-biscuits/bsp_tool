@@ -10,6 +10,8 @@ from .. import shared  # special lumps
 
 BSP_VERSION = 29
 
+GAMES = ["Quake"]
+
 
 # lump names & indices:
 class LUMP(enum.Enum):

@@ -59,9 +59,7 @@ def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
         return BspVariant(branch, filename, autoload=True)
     elif isinstance(branch, str):
         # TODO: default to other methods on fail
-        branch: str = branch.lower()
-        branch: str = "".join(filter(str.isalnum, branch))
-        # ^ "Counter-Strike: Online 2" -> "counterstrikeonline2"
+        branch: str = branches.simplify_name(branch)
         if branch != "unknown":  # not default
             if branch not in branches.by_name:
                 close_matches = difflib.get_close_matches(branch, branches.by_name)

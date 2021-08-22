@@ -9,6 +9,8 @@ from . import titanfall
 
 BSP_VERSION = 37
 
+GAMES = ["Titanfall 2"]
+
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
 # TitanFall|2 has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files

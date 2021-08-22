@@ -10,6 +10,8 @@ from .. import shared  # special lumps
 
 BSP_VERSION = 59
 
+GAMES = ["Call of Duty"]
+
 
 class LUMP(enum.Enum):
     SHADERS = 0

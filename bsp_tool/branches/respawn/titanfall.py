@@ -9,6 +9,8 @@ from .. import shared
 
 BSP_VERSION = 29
 
+GAMES = ["Titanfall", "TitanfallOnline"]
+
 
 class LUMP(enum.Enum):
     ENTITIES = 0x0000

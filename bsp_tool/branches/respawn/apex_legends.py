@@ -8,6 +8,8 @@ from . import titanfall, titanfall2
 
 BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
 
+GAMES = ["Apex Legends"]
+
 # Apex Legends has b"rBSP" file-magic and 128 lumps
 # ~72 of the 128 lumps appear in .bsp_lump files
 # the naming convention for these files is: "<bsp.filename>.<LUMP_HEX_ID>.bsp_lump"
