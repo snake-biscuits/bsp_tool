@@ -51,7 +51,7 @@ def gen_rbsp():
     for i in range(max([len(v.LUMP) for v in game_scripts.values()])):
         lumps = [(n, g.BSP_VERSION, g.LUMP(i)) for n, g in game_scripts.items()]
         for game, bsp_version, lump in lumps:
-            if lump.name.starts_with("UNUSED_"):
+            if lump.name.startswith("UNUSED_"):
                 continue  # skip unused lumps
             lump_name = f"`{lump.name}`"
             lump_classes = LumpClasses[game].get(lump.name, dict())

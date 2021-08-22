@@ -126,10 +126,10 @@ class MappedArray:
         return iter([getattr(self, attr) for attr in self._mapping])
 
     def __repr__(self) -> str:
-        out = []
+        attrs = []
         for attr, value in zip(self._mapping, self):
-            out.append(f"{attr}: {value}")
-        return f"<{self.__class__.__name__} ({', '.join(out)})>"
+            attrs.append(f"{attr}: {value}")
+        return f"<{self.__class__.__name__} ({', '.join(attrs)})>"
 
     def flat(self) -> list:
         """recreates the array this instance was generated from"""
