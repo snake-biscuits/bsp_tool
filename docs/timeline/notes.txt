@@ -19,17 +19,17 @@ not everything needs a write up, should have a bare skeleton with optional deepe
 2003 |                     |---------------------------> call of duty                    \-> cs:source
 2004 |                     |-> doom3                     |                                   |-> half-life2
 2005 |                     |   |-> quake 4               \-> call of duty2                   |   |
-2006 |     call_of_duty3 <-|   |-> prey                      |                               |   \-> episodic
+2006 |     call of duty3 <-|   |-> prey                      |                               |   \-> episodic
 2007 |                     |   |-> quake wars                \-> modern warfare              |       \-> orange box
 2008 |                     |   |                  world at war <-|-> quantum of solace       |           \-> left4dead
 2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |               |-> left4dead2
-2010 |        quake_live <-/   |                  \-> blops          |                       |   vindictus <-|-> alien swarm
-2011 |                 brink <-|-> rage               |              \-> modern_warfare3     |               \-> portal2
+2010 |        quake:live <-/   |                  \-> blops          |                       |   vindictus <-|-> alien swarm
+2011 |                 brink <-|-> rage               |              \-> modern warfare3     |               \-> portal2
 2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |                   |-> cs:go
 2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2          |
 2014 |               evil within <-|-> new order          |                  |                                   \-> titanfall
 2015 |                             |-> old blood          \-> blops3         |                                       |
-2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite_warfare        \-> titanfall2
+2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare        \-> titanfall2
      |                  dishonored 2 <-|                      |                              |                           |
 2017 | death outsider <-|   doom VFR <-|-> new colossus       |                              |                           |
 2018 |                  |              |                      |-> blops4                     |                           |
