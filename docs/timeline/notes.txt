@@ -1,8 +1,77 @@
-THis can get complicated fast
+This can get complicated fast
 need to set a limit on what is relevant
 making a wiki rabbithole mapper here
 
 not everything needs a write up, should have a bare skeleton with optional deeper dives
+
+```
+1992 |     wolfenstein 3d
+1993 |     \-> doom
+1994 | doom2 <-|-> heretic
+1995 |         |-> hexen
+1996 |         \-> quake
+1997 |             \-> quake2
+1998 |                 |---------------------------------------------------------------> half-life
+1999 |                 \-> quake3                                                        |
+2000 |                     |                                                             |
+2001 |                     |                                                             |
+2002 |                     |                                                             |
+2003 |                     |---------------------------> call of duty                    \-> cs:source
+2004 |                     |-> doom3                     |                                   |-> half-life2
+2005 |                     |   |-> quake 4               \-> call of duty2                   |   |
+2006 |     call_of_duty3 <-|   |-> prey                      |                               |   \-> episodic
+2007 |                     |   |-> quake wars                \-> modern warfare              |       \-> orange box
+2008 |                     |   |                  world at war <-|-> quantum of solace       |           \-> left4dead
+2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |               |-> left4dead2
+2010 |        quake_live <-/   |                  \-> blops          |                       |   vindictus <-|-> alien swarm
+2011 |                 brink <-|-> rage               |              \-> modern_warfare3     |               \-> portal2
+2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |                   |-> cs:go
+2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2          |
+2014 |               evil within <-|-> new order          |                  |                                   \-> titanfall
+2015 |                             |-> old blood          \-> blops3         |                                       |
+2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite_warfare        \-> titanfall2
+     |                  dishonored 2 <-|                      |                              |                           |
+2017 | death outsider <-|   doom VFR <-|-> new colossus       |                              |                           |
+2018 |                  |              |                      |-> blops4                     |                           |
+2019 |                  | youngblood <-|-> cyber pilot        |                              |-> modern warfare          \-> apex legends
+2020 |                  |              \-> doom eternal       \-> blops cold war & warzone <-/   |
+2021 |      deathloop <-/                                                                        \-> vanguard
+```
+
+
+```
+1992 |  IdTech 0
+1993 |  \-> IdTech 1
+1994 |      |-> IdTech 1.333
+1995 |      |-> IdTech 1.666
+1996 |      \-> IdTech 2
+1997 |          |-> IdTech 2.5
+1998 |          \---|-------------------------------> GoldSrc
+1999 |              \-> IdTech 3                      |
+2000 |                  |                             |
+2001 |                  |                             |
+2002 |                  |                             |
+2003 |                  |-----------> IW 1            \-> Source Engine
+2004 |                  |-> IdTech 4  |                   |
+2005 |                  |   |         \-> IW 2            |
+2006 |   Treyarch NGL <-/   |             |               \-> Source SDK 2006
+2007 |                      |             |-> IW 3            \-> Source SDK 2007
+2008 |                      |             |   |                   |
+2009 |                      |             |   \----> IW 4         \-> Left4Dead branch
+2010 |                      |             \-> BlOps  |                |
+2011 |                      \-> IdTech 5      |      \---> IW 5       |
+2012 |                          |             \-> BlOps 2  |          |
+2013 |                          |                 |        \-> IW 6   |-> Source SDK 2013
+2014 |                          |                 |            |      |------------> Titanfall Engine
+2015 |                          |                 |-> BlOps 3  |      \-> Source 2   |
+2016 |            Void Engine <-^-> IdTech 6      |   |        \-> IW 7              \-> Titanfall 2 Engine
+2017 |            |                 |             |   |            |                     |
+2018 |            |                 |             |   \-> BlOps 4  |                     |
+2019 |            |                 |             |                \----> IW 8           \-> Apex Legends Engine
+2020 |            |                 \-> IdTech 7  \-> ColdWar / WarZone <-|
+2021 |            |                                                       |
+```
+
 
 Sabre 3D, Unreal & Tim Willits will come up if we talk about Quake Champions
 https://en.wikipedia.org/wiki/Quake_Champions
@@ -11,11 +80,20 @@ https://en.wikipedia.org/wiki/Saber_Interactive
 Sabre built their own engine (sabre 3d) and made a UE4 hybrid in the Halo MCC
 Explaining that is way off scope
 
-Doom / IdTech 1 -> Quake / Quake II / Half-Life / IdTech 2 -> IdTech Lineage
-GoldSrc -> Source Engine -> Respawn's Source Engine Fork / Source 2
-(Can discuss engine limitations via Apex Legends & CS-GO:DangerZone level design
-QuakeWorld -> Call of Duty Series [citation needed]
+https://en.wikipedia.org/wiki/Source_(game_engine)
 
+(Can discuss engine limitations via Apex Legends & CS-GO:DangerZone level design
+
+https://callofduty.fandom.com/wiki/Game_Engine
+https://en.wikipedia.org/wiki/Call_of_Duty
+IdTech 3 -> Call of Duty Series (CoD 1 & 2)
+Id Tech 3 -> Treyarch NGL (CoD3)
+https://www.gameinformer.com/2019/08/26/the-impressive-new-tech-behind-call-of-duty-modern-warfare
+CoD: AW -> CoD: WWII (Sledgehammer Games engine rewrite)
+https://en.wikipedia.org/wiki/Nerve_Software (CoD porting & support)
+
+
+https://hardcoregamer.com/features/interviews/e3-2016-respawn-talks-content-variety-reworked-engine-in-titanfall-2/212196/
 
 format relationships
  .ase files can pass ascii models from Id Tech/IW Engine .map files to UDK (Unreal Development Kit)
@@ -45,3 +123,10 @@ https://www.moddb.com/mods/thunders-leaves
 
 https://doomwiki.org/wiki/Timeline
 https://doomwiki.org/wiki/Commercial_games
+
+https://www.gdcvault.com/play/1023765/The-Early-Days-of-id
+
+https://en.wikipedia.org/wiki/Id_Tech_6
+"On June 24, 2009, id Software was acquired by ZeniMax Media.
+ It was later announced in 2010 that id Software's technology would be available only to other companies also belonging to ZeniMax Media."
+https://www.gamasutra.com/view/news/29886/id_Tech_5_Rage_Engine_No_Longer_Up_For_External_Licensing.php
