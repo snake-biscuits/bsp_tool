@@ -8,7 +8,7 @@ from . import base
 from . import lumps
 
 
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length"])
+IdTechLumpHeader = collections.namedtuple("IdTechLumpHeader", ["offset", "length"])
 
 
 class IdTechBsp(base.Bsp):
@@ -58,8 +58,8 @@ class IdTechBsp(base.Bsp):
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP_name, BspLump)
 
-    def _read_header(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
+    def _read_header(self, LUMP: enum.Enum) -> (IdTechLumpHeader, bytes):
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length = struct.unpack("2i", self.file.read(8))
-        header = LumpHeader(offset, length)
+        header = IdTechLumpHeader(offset, length)
         return header

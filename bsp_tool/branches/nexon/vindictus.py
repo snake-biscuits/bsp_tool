@@ -79,14 +79,14 @@ class LUMP(enum.Enum):
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-LumpHeader = collections.namedtuple("LumpHeader", ["id", "flags", "version", "offset", "length"])
+VindictusLumpHeader = collections.namedtuple("VindictusLumpHeader", ["id", "flags", "version", "offset", "length"])
 # since vindictus has a unique header format, valve .bsp have a header reading function in here
 
 
 def read_lump_header(file, LUMP_ID: enum.Enum):
     file.seek(lump_header_address[LUMP_ID])
     id, flags, version, offset, length = struct.unpack("5i", file.read(20))
-    header = LumpHeader(id, flags, version, offset, length)
+    header = VindictusLumpHeader(id, flags, version, offset, length)
     return header
 
 
