@@ -190,7 +190,7 @@ class LUMP(enum.Enum):
 # TRICOLL_BEVEL_STARTS
 
 # Rough map of the relationships between lumps:
-# Model -> Mesh -> MaterialSort -> TextureData -> Surface Name
+# Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
 #                              |-> VertexReservedX
 #                              |-> MeshIndex?
 #
@@ -245,10 +245,12 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 class Model(base.Struct):  # LUMP 14 (000E)
     mins: List[float]  # AABB mins
     maxs: List[float]  # AABB maxs
+    first_mesh: int
+    num_meshes: int
     unknown: List[int]  # \_(;/)_/
-    __slots__ = ["mins", "maxs", "unknown"]
-    _format = "6f10i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 10}
+    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "unknown"]
+    _format = "6f2I8i"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 8}
 
 
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
@@ -326,7 +328,16 @@ GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_
                               48: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
                               49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
 
+
 # branch exclusive methods, in alphabetical order:
+def get_mesh_texture(bsp, mesh_index: int) -> str:
+    """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
+    mesh = bsp.MESHES[mesh_index]
+    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+    texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+    return bsp.SURFACE_NAMES[texture_data.name_index]
+
+
 methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
-           titanfall.search_all_entities, shared.worldspawn_volume]
-# NOTE: other titanfall methods break, since there is no TEXTURE_DATA_STRING_DATA
+           titanfall.search_all_entities, shared.worldspawn_volume,
+           get_mesh_texture]

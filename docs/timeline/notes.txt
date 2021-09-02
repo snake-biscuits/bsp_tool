@@ -130,3 +130,6 @@ https://en.wikipedia.org/wiki/Id_Tech_6
 "On June 24, 2009, id Software was acquired by ZeniMax Media.
  It was later announced in 2010 that id Software's technology would be available only to other companies also belonging to ZeniMax Media."
 https://www.gamasutra.com/view/news/29886/id_Tech_5_Rage_Engine_No_Longer_Up_For_External_Licensing.php
+
+Nexuiz (2005) & Xonotic (2011) Quake Engine Mod teams have made some handy tools for blender
+https://gitlab.com/xonotic/xonotic/

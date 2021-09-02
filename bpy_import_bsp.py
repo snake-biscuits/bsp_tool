@@ -112,10 +112,14 @@ ent_object_data = {"light": ent_to_light, "light_spot": ent_to_light, "light_env
 def load_entities(bsp):
     all_entities = (bsp.ENTITIES, bsp.ENTITIES_env, bsp.ENTITIES_fx,
                     bsp.ENTITIES_script, bsp.ENTITIES_snd, bsp.ENTITIES_spawn)
-    block_names = ("Internal", "Environment", "Effects", "Script", "Sound", "Spawn")
+    block_names = ("bsp", "env", "fx", "script", "sound", "spawn")
+    master_collection = bpy.data.collections[bsp.filename]
+    geometry_collection = master_collection.children["geometry"]
+    entities_collection = bpy.data.collections.new("entities")
+    master_collection.children.link(entities_collection)
     for entity_block, block_name in zip(all_entities, block_names):
-        entity_collection = bpy.data.collections.new(f"{bsp.filename} {block_name} Entities")
-        bpy.context.scene.collection.children.link(entity_collection)
+        entity_collection = bpy.data.collections.new(block_name)
+        entities_collection.children.link(entity_collection)
         for entity in entity_block:
             object_data = ent_object_data.get(entity["classname"], lambda e: None)(entity)
             name = entity.get("targetname", entity["classname"])
@@ -129,9 +133,11 @@ def load_entities(bsp):
             position = [*map(float, entity.get("origin", "0 0 0").split())]
             entity_object.location = position
             if entity.get("model", "").startswith("*"):
-                model_collection = bpy.data.collections[f"{bsp.filename} Model #{entity['model'][1:]}"]
-                for o in model_collection.objects:
-                    o.location = position
+                model_collection = bpy.data.collections.get(f"model #{entity['model'][1:]}")
+                if model_collection is not None:
+                    # TODO: rename collection to targetname
+                    for o in model_collection.objects:
+                        o.location = position
             # NOTE: default source orientation is facing east (+X)
             angles = [*map(lambda x: math.radians(float(x)), entity.get("angles", "0 0 0").split())]
             angles[0] = math.radians(-float(entity.get("pitch", -math.degrees(angles[0]))))
@@ -145,35 +151,46 @@ def load_entities(bsp):
 
 
 def load_static_props(bsp):
-    """Titanfall 1 Only"""
-    model_dir = os.path.join(game_dir, "models")
+    """Requires all models to be extracted beforehand"""
+    master_collection = bpy.data.collections[bsp.filename]
+    prop_collection = bpy.data.collections.new("static props")
+    master_collection.children.link(prop_collection)
+    # model_dir = os.path.join(game_dir, "models")
     # TODO: hook into SourceIO to import .mdl files
     # TODO: make a collection for static props
-    try:
-        bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": "error.mdl"}])
-        # ^ doesn't return the modelname!? /;
-    except Exception as exc:
-        print("Source IO not installed!", exc)
-    else:
-        for mdl_name in bsp.GAME_LUMP.sprp.mdl_names:
-            bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": mdl_name}])
-            # now find it..., each model creates a collection...
-            # this is gonna be real memory intensive...
-            # TODO: instance each prop at listed location & rotation etc. (preserve object data)
+    for prop in bsp.GAME_LUMP.sprp.props:
+        prop_object = bpy.data.objects.new(bsp.GAME_LUMP.sprp.mdl_names[prop.mdl_name], None)
+        prop_object.empty_display_type = "SPHERE"
+        prop_object.empty_display_size = 64
+        prop_object.location = [*prop.origin]
+        prop_object.rotation_euler = mathutils.Euler((prop.angles[2], prop.angles[0], 90 + prop.angles[1]))
+        prop_collection.objects.link(prop_object)
+    # try:
+    #     bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": "error.mdl"}])
+    # except Exception as exc:
+    #     print("Source IO not installed!", exc)
+    # else:
+    #     for mdl_name in bsp.GAME_LUMP.sprp.mdl_names:
+    #         bpy.ops.source_io.mdl(filepath=model_dir, files=[{"name": mdl_name}])
+    # now find it..., each model creates a collection...
+    # this is gonna be real memory intensive...
+    # TODO: instance each prop at listed location & rotation etc. (preserve object data)
 
 
 def load_rbsp(rbsp):
-    """RespawnBsp import (except Apex)"""
+    """Titanfall 1 / 2 -> Blender"""
     materials = load_materials(rbsp)
-    # TODO: master collection for map
+    # TODO: master collection for map, and one master collection for models
+    # auto-hide tool texture models
+    master_collection = bpy.data.collections.new(rbsp.filename)
+    bpy.context.scene.collection.children.link(master_collection)
     for model_index, model in enumerate(rbsp.MODELS):
-        model_collection = bpy.data.collections.new(f"{rbsp.filename} Model #{model_index}")
-        bpy.context.scene.collection.children.link(model_collection)
-        # model_center = (mathutils.Vector(model.mins) + mathutils.Vector(model.maxs)) / 2
+        model_collection = bpy.data.collections.new(f"model #{model_index}")
+        master_collection.children.link(model_collection)
         for mesh_index in range(model.first_mesh, model.first_mesh + model.num_meshes):
             mesh = rbsp.MESHES[mesh_index]
             # blender mesh assembly
-            blender_mesh = bpy.data.meshes.new(f"{rbsp.filename} Mesh #{mesh_index}")  # mesh object
+            blender_mesh = bpy.data.meshes.new(f"mesh #{mesh_index}")  # mesh object
             blender_bmesh = bmesh.new()  # mesh data
             mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
             bmesh_vertices = dict()
@@ -206,9 +223,12 @@ def load_rbsp(rbsp):
             blender_bmesh.free()
             texture_data = rbsp.TEXTURE_DATA[rbsp.MATERIAL_SORT[mesh.material_sort].texture_data]
             blender_mesh.materials.append(materials[texture_data.name_index])
+            # TODO: isolate the worldspawn skybox in it's own layer
             blender_mesh.update()
             blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
             model_collection.objects.link(blender_object)
+        if len(model_collection.objects) == 0:
+            bpy.data.collections.remove(model_collection)
 
 
 # load a mesh by selecting the vertex lump manually
@@ -251,51 +271,60 @@ def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
 
 def load_apex_rbsp(rbsp):
     """Apex mapping of TEXTURE_DATA & MODEL lumps is incomplete"""
-    master_collection = bpy.data.collections.new(f"{rbsp.filename}")
+    master_collection = bpy.data.collections.new(rbsp.filename)
     bpy.context.scene.collection.children.link(master_collection)
+    geo_collection = bpy.data.collections.new("geometry")
+    master_collection.children.link(geo_collection)
     # TODO: parse models
-    for mesh_index, mesh in enumerate(rbsp.MESHES):
-        blender_mesh = bpy.data.meshes.new(f"{rbsp.filename} Mesh #{mesh_index}")  # mesh object
-        blender_bmesh = bmesh.new()  # mesh data
-        mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
-        bmesh_vertices = dict()
-        # ^ {rbsp_vertex.position_index: BMVert}
-        face_uvs = list()
-        # ^ [{vertex_position_index: (u, v)}]
-        for triangle_index in range(0, len(mesh_vertices), 3):
-            face_indices = list()
-            uvs = dict()
-            for vert_index in reversed(range(3)):
-                rbsp_vertex = mesh_vertices[triangle_index + vert_index]
-                vertex = rbsp.VERTICES[rbsp_vertex.position_index]
-                if rbsp_vertex.position_index not in bmesh_vertices:
-                    bmesh_vertices[rbsp_vertex.position_index] = blender_bmesh.verts.new(vertex)
-                face_indices.append(rbsp_vertex.position_index)
-                uvs[tuple(vertex)] = rbsp_vertex.uv
-            try:
-                blender_bmesh.faces.new([bmesh_vertices[vpi] for vpi in face_indices])
-                face_uvs.append(uvs)  # index must match bmesh.faces index
-            except ValueError:  # "face already exists"
-                pass
-        del bmesh_vertices
-        # apply uv
-        uv_layer = blender_bmesh.loops.layers.uv.new()
-        blender_bmesh.faces.ensure_lookup_table()
-        for face, uv_dict in zip(blender_bmesh.faces, face_uvs):
-            for loop in face.loops:  # loops correspond to verts
-                loop[uv_layer].uv = uv_dict[tuple(loop.vert.co)]
-        blender_bmesh.to_mesh(blender_mesh)
-        blender_bmesh.free()
-        # TODO: parse texture_data to match materials
-        blender_mesh.update()
-        blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
-        master_collection.objects.link(blender_object)
+    for model_index, model in enumerate(rbsp.MODELS):
+        model_collection = bpy.data.collections.new(f"model #{model_index}")
+        geo_collection.children.link(model_collection)
+        for mesh_index in range(model.first_mesh, model.first_mesh + model.num_meshes):
+            blender_mesh = bpy.data.meshes.new(f"mesh #{mesh_index}")  # mesh object
+            blender_bmesh = bmesh.new()  # mesh data
+            mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
+            bmesh_vertices = dict()
+            # ^ {rbsp_vertex.position_index: BMVert}
+            face_uvs = list()
+            # ^ [{vertex_position_index: (u, v)}]
+            for triangle_index in range(0, len(mesh_vertices), 3):
+                face_indices = list()
+                uvs = dict()
+                for vert_index in reversed(range(3)):
+                    rbsp_vertex = mesh_vertices[triangle_index + vert_index]
+                    vertex = rbsp.VERTICES[rbsp_vertex.position_index]
+                    if rbsp_vertex.position_index not in bmesh_vertices:
+                        bmesh_vertices[rbsp_vertex.position_index] = blender_bmesh.verts.new(vertex)
+                    face_indices.append(rbsp_vertex.position_index)
+                    uvs[tuple(vertex)] = rbsp_vertex.uv
+                try:
+                    blender_bmesh.faces.new([bmesh_vertices[vpi] for vpi in face_indices])
+                    face_uvs.append(uvs)  # index must match bmesh.faces index
+                except ValueError:  # "face already exists"
+                    pass
+            del bmesh_vertices
+            # apply uv
+            uv_layer = blender_bmesh.loops.layers.uv.new()
+            blender_bmesh.faces.ensure_lookup_table()
+            for face, uv_dict in zip(blender_bmesh.faces, face_uvs):
+                for loop in face.loops:  # loops correspond to verts
+                    loop[uv_layer].uv = uv_dict[tuple(loop.vert.co)]
+            blender_bmesh.to_mesh(blender_mesh)
+            blender_bmesh.free()
+            # TODO: parse texture_data to match materials
+            blender_mesh.update()
+            blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
+            model_collection.objects.link(blender_object)
+        if len(model_collection.objects) == 0:
+            bpy.data.collections.remove(model_collection)
+        
 
 
 TITANFALL = "E:/Mod/Titanfall/maps/"
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")    # odd model flags for breakable glass
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_colony.bsp")  # smallest map after lobby
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_switchback.bsp")  # DLC: Export
 
 TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
@@ -309,15 +338,17 @@ S2 = "season2/maps/"
 S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
 # bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
-bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
-# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_desertlands_mu2.bsp")
+# bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
+bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
-# NOTE: mp_rr_party_crasher.bsp is the smallest map after lobby
-
+# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
 load_apex_rbsp(bsp)
 
 load_entities(bsp)
-# NOTE: Apex entity models are breaking
+
+# load_static_props(bsp)
+
+del bsp
 
 # NOTE: remember to delete the previous import manually & purge orphans
 
