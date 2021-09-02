@@ -40,6 +40,7 @@ goldsrc_dirs = {
 source_dirs = {
          "Alien Swarm": ["swarm/maps"],  # 9 maps | 299 MB
          "Alien Swarm Reactive Drop": ["reactivedrop/maps"],  # 53 maps | 1.3 GB
+         "Blade Symphony": ["berimbau/maps"],  # 21 maps | 1.0 GB
          "Counter-Strike Global Offensive": ["csgo/maps"],  # 38 maps | 5.9 GB
          "counter-strike source": ["cstrike/maps",  # 20 maps | 237 MB
                                    # "cstrike/download/maps"
