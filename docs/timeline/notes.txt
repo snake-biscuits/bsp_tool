@@ -14,7 +14,7 @@ not everything needs a write up, should have a bare skeleton with optional deepe
 1998 |                 |---------------------------------------------------------------> half-life
 1999 |                 \-> quake3                                                        |
 2000 |                     |                                                             |
-2001 |                     |                                                             |
+2001 |                     |                                                             |-> half-life:blue shift
 2002 |                     |                                                             |
 2003 |                     |---------------------------> call of duty                    \-> cs:source
 2004 |                     |-> doom3                     |                                   |-> half-life2
