@@ -658,7 +658,7 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
     out = dict()
     for LUMP_name in ("ENTITIES", *(f"ENTITIES_{s}" for s in ("env", "fx", "script", "snd", "spawn"))):
         entity_lump = getattr(bsp, LUMP_name, shared.Entities(b""))
-        results = entity_lump.find(**search)
+        results = entity_lump.search(**search)
         if len(results) != 0:
             out[LUMP_name] = results
     return out
