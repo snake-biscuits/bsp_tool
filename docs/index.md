@@ -54,7 +54,8 @@ The primary goal of `bsp_tool` is to extend community mapping tools
   * [Valve Software](./valve/SUPPORTED.html)
 
 ## .bsp Format Reference
-  [Timeline of the .bsp format (WIP)](./timeline/index.html)
+  [Timeline of "relevant" games](./timeline/games.html)  
+  [Game engine bloodline](./timeline/engines.html)
 
 ## [Changelog](./CHANGELOG.html)
 You can see a list of all changes in the [changelog](./CHANGELOG.html)
