@@ -13,30 +13,30 @@
 1994 | doom2 <-|-> heretic
 1995 |         |-> hexen
 1996 |         \-> quake
-1997 |             \-> quake2
-1998 |                 |---------------------------------------------------------------> half-life
+1997 |             |-> quake2
+1998 |             \---|---------------------------------------------------------------> half-life
 1999 |                 \-> quake3                                                        |
 2000 |                     |                                                             |
 2001 |                     |                                                             |-> half-life:blue shift
 2002 |                     |                                                             |
-2003 |                     |---------------------------> call of duty                    \-> cs:source
-2004 |                     |-> doom3                     |                                   |-> half-life2
-2005 |                     |   |-> quake 4               \-> call of duty2                   |   |
-2006 |     call of duty3 <-|   |-> prey                      |                               |   \-> episodic
-2007 |                     |   |-> quake wars                \-> modern warfare              |       \-> orange box
-2008 |                     |   |                  world at war <-|-> quantum of solace       |           \-> left4dead
-2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |               |-> left4dead2
-2010 |        quake:live <-/   |                  \-> blops          |                       |   vindictus <-|-> alien swarm
-2011 |                 brink <-|-> rage               |              \-> modern warfare3     |               \-> portal2
-2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |                   |-> cs:go
-2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2          |
-2014 |               evil within <-|-> new order          |                  |                                   \-> titanfall
-2015 |                             |-> old blood          \-> blops3         |                                       |
-2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare        \-> titanfall2
-     |                  dishonored 2 <-|                      |                              |                           |
-2017 | death outsider <-|   doom VFR <-|-> new colossus       |                              |                           |
-2018 |                  |              |                      |-> blops4                     |                           |
-2019 |                  | youngblood <-|-> cyber pilot        |                              |-> modern warfare          \-> apex legends
+2003 |                     |---------------------------> call of duty                    \-> half-life2
+2004 |                     |-> doom3                     |                                   |-> cs:source
+2005 |                     |   |-> quake 4               \-> call of duty2                   |
+2006 |     call of duty3 <-|   |-> prey                      |                               |----> episodic
+2007 |                     |   |-> quake wars                \-> modern warfare              |      \-----> orange box
+2008 |                     |   |                  world at war <-|-> quantum of solace       |              |-> left4dead
+2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |              |   \-> left4dead2
+2010 |        quake:live <-/   |                  \-> blops          |                       |  vindictus <-|-> alien swarm
+2011 |                 brink <-|-> rage               |              \-> modern warfare3     |              |-> portal2
+2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |              \---|-> cs:go
+2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2         |
+2014 |               evil within <-|-> new order          |                  |                                  \-> titanfall
+2015 |                             |-> old blood          \-> blops3         |                                      |
+2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare       \-> titanfall2
+     |                  dishonored 2 <-|                      |                              |                          |
+2017 | death outsider <-|   doom VFR <-|-> new colossus       |                              |                          |
+2018 |                  |              |                      |-> blops4                     |                          |
+2019 |                  | youngblood <-|-> cyber pilot        |                              |-> modern warfare         \-> apex legends
 2020 |                  |              \-> doom eternal       \-> blops cold war & warzone <-/   |
 2021 |      deathloop <-/                                                                        \-> vanguard
 ```
@@ -62,4 +62,3 @@
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
  - [Nerve Software](https://en.wikipedia.org/wiki/Nerve_Software)
- 
