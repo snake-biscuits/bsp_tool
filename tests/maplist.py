@@ -108,11 +108,15 @@ extracted_dirs = {
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
         # -- could eventually create an archive of all map related patches
         "ApexLegends": ["maps",  # 9 maps | 3.3 GB
+                        # season1:  Wild Frontier [19th Mar 2019]
+                        # season2:  Battle Charge [2nd Jul 2019]
                         "season2/maps",  # 1 map | 16.9 MB
-                        # season3: Meltdown - patch 5  [3rd Dec 2019]
-                        "season3/maps",  # 8 maps | 4.9 GB
-                        "season3/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB
-                        "season3/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB
+                        # season3:  Meltdown - patch 5  [1st Oct 2019]
+                        "season3_30oct19/maps",  # 8 maps | 4.9 GB
+                        "season3_30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB
+                        "season3_30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB
+                        "season3_3dec19/maps",  # 8 maps | 4.9 GB
+                        # season4:  Assimilation [4th Feb 2020]
                         # season5:  Fortune's Favour  [12th May 2020]
                         "season5/maps",  # 3 maps | 1.2 GB
                         # season6:  Boosted  [18th Aug 2020]
