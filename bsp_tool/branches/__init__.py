@@ -52,17 +52,15 @@ by_name = {
     "titanfall2": respawn.titanfall2,
     # NOTE: "tf|2" (Titanfall 2) is converted to "tf2" (Team Fortress 2)
     # Valve Software - Source Engine
-    "csgo": valve.cs_go,  # untested
-    "css": valve.cs_source,  # untested
+    "alienswarm": valve.alien_swarm,
+    "alienswarmreactivedrop": valve.alien_swarm,
+    "bladesymphony": valve.orange_box,
+    "csgo": valve.cs_go,
+    "css": valve.cs_source,
     "cssource": valve.cs_source,
-    "globaloffensive": valve.cs_go,
-    # Valve Software - Source Engine: Orange Box
-    "orangebox": valve.orange_box,
-    "teamfortress2": valve.orange_box,
-    "tf2": valve.orange_box,
-    # TODO: test the following: (+ more mods @ https://half-life.fandom.com/wiki/Mods)
     "episode1": valve.orange_box,
     "episode2": valve.orange_box,
+    "globaloffensive": valve.cs_go,
     "halflife2": valve.orange_box,
     "halflife2ep1": valve.orange_box,
     "halflife2ep2": valve.orange_box,
@@ -71,18 +69,22 @@ by_name = {
     "hl2": valve.orange_box,
     "hl2ep1": valve.orange_box,
     "hl2ep2": valve.orange_box,
+    "l4d": valve.left4dead,
+    "l4d2": valve.left4dead,
+    "left4dead": valve.left4dead,
+    "left4dead2": valve.left4dead,
+    "orangebox": valve.orange_box,
     "portal": valve.orange_box,
-    # NOTE: probably not orange_box:
-    "l4d": valve.orange_box,
-    "l4d2": valve.orange_box,
-    "left4dead": valve.orange_box,
-    "left4dead2": valve.orange_box,
     "portal2": valve.orange_box,
+    "teamfortress2": valve.orange_box,
+    "tf2": valve.orange_box,
     # Valve Software - GoldSrc Engine
     "goldsrc": valve.goldsrc,
     "halflife": valve.goldsrc,
+    "halfquaketrilogy": valve.goldsrc,
     # TODO: test the following: (+ more mods @ https://half-life.fandom.com/wiki/Mods)
     "007nightfire": valve.goldsrc,
+    "bshift": valve.goldsrc,
     "blueshift": valve.goldsrc,
     "counterstrike": valve.goldsrc,  # CS 1.6
     "counterstrikeconditionzero": valve.goldsrc,

@@ -58,6 +58,7 @@ class GoldSrcBsp(IdTechBsp):
             except Exception as exc:
                 self.loading_errors[LUMP_NAME] = exc
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                # NOTE: doesn't decompress LZMA, fix that
             setattr(self, LUMP_NAME, BspLump)
 
 

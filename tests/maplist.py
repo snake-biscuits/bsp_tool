@@ -80,6 +80,7 @@ extracted_dirs = {
         # IdTechBsp
         # TODO: American McGee's Alice
         # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
+        # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 doesn't use .bsp? just raw .map?
         # -- DOOM 2016? DOOM Eternal? RAGE? RAGE 2?
         # TODO: Hexen 2  # .pak (http://fileformats.archiveteam.org/wiki/Quake_PAK)
         # TODO: Quake  # .pak
@@ -96,7 +97,7 @@ extracted_dirs = {
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
         "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
                         "multi-player/maps"],  # 11 maps | 564 MB | .vpk
-        "TacInt": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
+        "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
         # NEXON
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
@@ -134,6 +135,7 @@ extracted_dirs = {
 # https://www.moddb.com/mods/riot-act
 # https://www.moddb.com/mods/map-labs
 # TODO: https://tf2classic.com
+# TODO: https://github.com/mapbase-source/source-sdk-2013
 sourcemod_dirs = {mod: ["maps"] for mod in [
                       "gesource",  # 26 maps | 775 MB | GoldenEye: Source
                       "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act

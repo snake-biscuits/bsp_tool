@@ -15,13 +15,13 @@
 1996 |         \-> quake
 1997 |             |-> quake2
 1998 |             \---|---------------------------------------------------------------> half-life
-1999 |                 \-> quake3                                                        |
+1999 |                 \-> quake3                                                        |-> half-life:opposing force
 2000 |                     |                                                             |
 2001 |                     |                                                             |-> half-life:blue shift
 2002 |                     |                                                             |
 2003 |                     |---------------------------> call of duty                    \-> half-life2
 2004 |                     |-> doom3                     |                                   |-> cs:source
-2005 |                     |   |-> quake 4               \-> call of duty2                   |
+2005 |                     |   |-> quake 4               \-> call of duty2                   |-> dod:source
 2006 |     call of duty3 <-|   |-> prey                      |                               |----> episodic
 2007 |                     |   |-> quake wars                \-> modern warfare              |      \-----> orange box
 2008 |                     |   |                  world at war <-|-> quantum of solace       |              |-> left4dead
@@ -30,7 +30,7 @@
 2011 |                 brink <-|-> rage               |              \-> modern warfare3     |              |-> portal2
 2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |              \---|-> cs:go
 2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2         |
-2014 |               evil within <-|-> new order          |                  |                                  \-> titanfall
+2014 |               evil within <-|-> new order          | advanced warfare |                                  \-> titanfall
 2015 |                             |-> old blood          \-> blops3         |                                      |
 2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare       \-> titanfall2
      |                  dishonored 2 <-|                      |                              |                          |

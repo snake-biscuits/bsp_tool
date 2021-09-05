@@ -31,10 +31,11 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     bsp = load_bsp(bsp_filename, branch)
                     # NOTE: RAM usage skyrockets around ApexLegends
                     # -- do broken RespawnBsps leave their external lumps open in memory?
-                    assert len(bsp.loading_errors) == 0, f"Bad formats: {', '.join(bsp.loading_errors.keys())}"
-                except Exception as exc:
+                    failed_lumps = ', '.join(bsp.loading_errors.keys())
+                    assert len(bsp.loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
+                except AssertionError as ae:
                     print(bsp)
-                    errors[f"{map_dir}:{m}"] = exc
+                    errors[f"{map_dir}:{m}"] = ae
                     del bsp
     assert errors == dict(), f"failed on {len(errors)} out of {total} .bsps"
 

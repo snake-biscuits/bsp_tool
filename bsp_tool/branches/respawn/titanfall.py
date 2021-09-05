@@ -254,7 +254,7 @@ class LightmapHeader(base.Struct):  # LUMP 83 (0053)
 
 
 class LightProbeRef(base.Struct):  # LUMP 104 (0068)
-    origin: List[float]  # coords of lightprobe
+    origin: List[float]  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
     __slots__ = ["origin", "lightprobe"]
     _format = "3fI"

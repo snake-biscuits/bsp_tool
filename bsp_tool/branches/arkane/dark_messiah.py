@@ -3,6 +3,7 @@ from .valve import orange_box
 
 
 BSP_VERSION = 20
+# NOTE: bsp version is stored as a short
 
 GAMES = ["Dark Messiah of Might and Magic"]
 

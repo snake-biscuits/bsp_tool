@@ -206,6 +206,9 @@ class LightmapPage(base.Struct):
     __slots__ = ["data"]
 
 
+# TODO: LightProbeRef
+
+
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll
@@ -243,9 +246,9 @@ class GameLump_SPRP:
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
-        mdl_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        mdl_names = struct.iter_unpack("128s", sprp_lump.read(128 * mdl_name_count))
-        setattr(self, "mdl_names", [t[0].replace(b"\0", b"").decode() for t in mdl_names])
+        model_names_count = int.from_bytes(sprp_lump.read(4), "little")
+        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_names_count))
+        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
         prop_size = struct.calcsize(StaticPropClass._format)
@@ -256,8 +259,8 @@ class GameLump_SPRP:
     def as_bytes(self) -> bytes:
         # NOTE: additions to .props must be of the correct type,
         #  GameLump_SPRP does not perform conversions of any kind!
-        return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.prop_names],
+        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.model_names],
                          *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
@@ -267,6 +270,7 @@ BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
 LUMP_CLASSES["LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE"] = {0: LightmapPage}
+LUMP_CLASSES.pop("LIGHTPROBE_REFS")  # size doesn't match
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 

@@ -16,6 +16,8 @@ Contents = goldsrc.Contents
 
 BASIC_LUMP_CLASSES = goldsrc.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = goldsrc.LUMP_CLASSES.copy()
+# PLANES lump failing
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
+# ENTITIES lump failing
 
 methods = [*goldsrc.methods]
