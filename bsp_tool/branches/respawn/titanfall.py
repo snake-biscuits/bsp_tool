@@ -498,12 +498,12 @@ class GameLump_SPRP:  # unique to Titanfall
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
-        mdl_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        mdl_names = struct.iter_unpack("128s", sprp_lump.read(128 * mdl_name_count))
-        setattr(self, "mdl_names", [t[0].replace(b"\0", b"").decode() for t in mdl_names])
+        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
+        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
         leaf_count = int.from_bytes(sprp_lump.read(4), "little")  # usually 0
-        leafs = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leafs", leafs)
+        leaves = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
+        setattr(self, "leaves", leaves)
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
         prop_size = struct.calcsize(StaticPropClass._format)
@@ -511,10 +511,10 @@ class GameLump_SPRP:  # unique to Titanfall
         setattr(self, "props", list(map(StaticPropClass, props)))
 
     def as_bytes(self) -> bytes:
-        return b"".join([int.to_bytes(len(self.prop_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.prop_names],
-                         int.to_bytes(len(self.leafs), 4, "little"),
-                         *[struct.pack("H", L) for L in self.leafs],
+        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.model_names],
+                         int.to_bytes(len(self.leaves), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leaves],
                          *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
@@ -548,7 +548,7 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "CUBEMAPS":                  {0: Cubemap},
                 "LEAF_WATER_DATA":           {0: LeafWaterData},
                 "LIGHTMAP_HEADERS":          {1: LightmapHeader},
-                "LightProbeRef":             {0: LightProbeRef},
+                "LIGHTPROBE_REFS":           {0: LightProbeRef},
                 "MATERIAL_SORT":             {0: MaterialSort},
                 "MESHES":                    {0: Mesh},
                 "MESH_BOUNDS":               {0: MeshBounds},
