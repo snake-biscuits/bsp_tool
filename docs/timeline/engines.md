@@ -17,7 +17,7 @@
 1997 |          |-> IdTech 2.5
 1998 |          \---|-------------------------------------> GoldSrc
 1999 |              \-> IdTech 3                            |
-2000 |                  |                                   |
+2000 |                  |-> Übertools                       |
 2001 |                  |                                   |
 2002 |                  |                                   |
 2003 |                  |-----------> IW 1                  \-> Source Engine
@@ -55,9 +55,11 @@
  - [Gamasutra: Zenimax makes idTech 5 Closed Source](https://www.gamasutra.com/view/news/29886/id_Tech_5_Rage_Engine_No_Longer_Up_For_External_Licensing.php)
  - [Moby Games: Void Engine](https://www.mobygames.com/game-group/3d-engine-void-engine)
  - [ModDB: Void Engine](https://www.moddb.com/engines/void-engine)
+ - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
 
 ### Wikipedia
 
+ - [IdTech 3](https://en.wikipedia.org/wiki/Id_Tech_3#Games_using_the_engine)
  - [Source Engine](https://en.wikipedia.org/wiki/Source_(game_engine)#Games_using_Source)
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)

@@ -16,9 +16,9 @@
 1997 |             |-> quake2
 1998 |             \---|---------------------------------------------------------------> half-life
 1999 |                 \-> quake3                                                        |-> half-life:opposing force
-2000 |                     |                                                             |
-2001 |                     |                                                             |-> half-life:blue shift
-2002 |                     |                                                             |
+2000 |                     |-> heavy metal:f.a.k.k. 2                                    |
+2001 |                     |   |                                                         |-> half-life:blue shift
+2002 |                     |   \->medal of honor:allied assault                          |
 2003 |                     |---------------------------> call of duty                    \-> half-life2
 2004 |                     |-> doom3                     |                                   |-> cs:source
 2005 |                     |   |-> quake 4               \-> call of duty2                   |-> dod:source
@@ -55,9 +55,11 @@
  - [Gamasutra: Zenimax makes idTech 5 Closed Source](https://www.gamasutra.com/view/news/29886/id_Tech_5_Rage_Engine_No_Longer_Up_For_External_Licensing.php)
  - [Moby Games: Void Engine](https://www.mobygames.com/game-group/3d-engine-void-engine)
  - [ModDB: Void Engine](https://www.moddb.com/engines/void-engine)
+ - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
 
 ### Wikipedia
 
+ - [IdTech 3](https://en.wikipedia.org/wiki/Id_Tech_3#Games_using_the_engine)
  - [Source Engine](https://en.wikipedia.org/wiki/Source_(game_engine)#Games_using_Source)
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
