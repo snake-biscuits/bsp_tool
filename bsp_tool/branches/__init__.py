@@ -28,6 +28,8 @@ def simplify_name(name: str) -> str:
 by_name = {
     # Id Software - Id Tech 2
     "quake": id_software.quake,
+    # TODO: Quake II
+    # TODO: Team Fortress Quake
     # Id Software - Id Tech 3
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,
@@ -35,6 +37,7 @@ by_name = {
     # Infinity Ward - IW Engine(s)
     "callofduty": infinity_ward.call_of_duty1,
     "cod": infinity_ward.call_of_duty1,
+    # TODO: Call of Duty 2 & 4
     # NEXON - Source Engine
     "counterstrikeonline2": nexon.cso2,
     "cso2": nexon.cso2,
@@ -50,7 +53,6 @@ by_name = {
     "r5": respawn.apex_legends,
     "titanfall": respawn.titanfall,
     "titanfall2": respawn.titanfall2,
-    # NOTE: "tf|2" (Titanfall 2) is converted to "tf2" (Team Fortress 2)
     # Valve Software - Source Engine
     "alienswarm": valve.alien_swarm,
     "alienswarmreactivedrop": valve.alien_swarm,
@@ -60,7 +62,11 @@ by_name = {
     "cssource": valve.cs_source,
     "episode1": valve.orange_box,
     "episode2": valve.orange_box,
+    "garrysmod": valve.orange_box,
     "globaloffensive": valve.cs_go,
+    "gmod": valve.orange_box,
+    "gstring": valve.orange_box,  # awesome sourcemod
+    "halflife1sourcedeathmatch": valve.orange_box,
     "halflife2": valve.orange_box,
     "halflife2ep1": valve.orange_box,
     "halflife2ep2": valve.orange_box,
@@ -73,23 +79,21 @@ by_name = {
     "l4d2": valve.left4dead,
     "left4dead": valve.left4dead,
     "left4dead2": valve.left4dead,
+    "neotokyo": valve.orange_box,
     "orangebox": valve.orange_box,
     "portal": valve.orange_box,
     "portal2": valve.orange_box,
+    "sourcefilmmaker": valve.orange_box,
     "teamfortress2": valve.orange_box,
     "tf2": valve.orange_box,
-    # Valve Software - GoldSrc Engine
-    "goldsrc": valve.goldsrc,
-    "halflife": valve.goldsrc,
-    "halfquaketrilogy": valve.goldsrc,
-    # TODO: test the following: (+ more mods @ https://half-life.fandom.com/wiki/Mods)
-    "007nightfire": valve.goldsrc,
-    "bshift": valve.goldsrc,
+    # Valve Software - GoldSrc Engine (more mods @ https://half-life.fandom.com/wiki/Mods)
+    "007nightfire": valve.goldsrc,  # untested
     "blueshift": valve.goldsrc,
+    "bshift": valve.goldsrc,
     "counterstrike": valve.goldsrc,  # CS 1.6
     "counterstrikeconditionzero": valve.goldsrc,
-    "counterstrikeneo": valve.goldsrc,  # obscure
-    "counterstrikeonline": valve.goldsrc,  # obscure
+    "counterstrikeneo": valve.goldsrc,  # obscure & untested
+    "counterstrikeonline": valve.goldsrc,  # obscure & untested
     "cs": valve.goldsrc,  # CS 1.6
     "cscz": valve.goldsrc,
     "csn": valve.goldsrc,  # obscure
@@ -98,15 +102,19 @@ by_name = {
     "deathmatchclassic": valve.goldsrc,
     "dmc": valve.goldsrc,
     "dod": valve.goldsrc,
+    "goldsrc": valve.goldsrc,
     "gunmanchronicles": valve.goldsrc,
+    "halflife": valve.goldsrc,
     "halflifeblueshift": valve.goldsrc,
     "halflifeopposingforce": valve.goldsrc,
+    "halfquaketrilogy": valve.goldsrc,
     "hlblueshift": valve.goldsrc,
     "hlopposingforce": valve.goldsrc,
-    "jamesbond007nightfire": valve.goldsrc,
+    "jamesbond007nightfire": valve.goldsrc,  # untested
     "nightfire": valve.goldsrc,
     "opposingforce": valve.goldsrc,
     "ricochet": valve.goldsrc,
+    "svencoop": valve.goldsrc,
     "teamfortressclassic": valve.goldsrc,
     "tfc": valve.goldsrc
           }

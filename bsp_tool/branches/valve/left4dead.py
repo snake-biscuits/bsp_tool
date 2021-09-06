@@ -1,4 +1,5 @@
-# https://developer.valvesoftware.com/wiki/Alien_Swarm_(engine_branch)
+# https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
+import collections
 import enum
 
 from . import orange_box
@@ -77,14 +78,22 @@ class LUMP(enum.Enum):
 
 # Known lump changes from Orange Box -> Alien Swarm:
 # New (L4D):
-# UNUSED_61 -> LUMP_OVERLAY_SYSTEM_LEVELS
+#   UNUSED_61 -> LUMP_OVERLAY_SYSTEM_LEVELS
 # New (L4D2):
-# UNUSED_22 -> PROP_COLLISION
-# UNUSED_23 -> PROP_HULLS
-# UNUSED_24 -> PROP_HULL_VERTS
-# UNUSED_25 -> PROP_HULL_TRIS
-# PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
-# UNUSED_62 -> LUMP_PHYSLEVEL
+#   UNUSED_22 -> PROP_COLLISION
+#   UNUSED_23 -> PROP_HULLS
+#   UNUSED_24 -> PROP_HULL_VERTS
+#   UNUSED_25 -> PROP_HULL_TRIS
+#   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
+#   UNUSED_62 -> LUMP_PHYSLEVEL
+
+
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", "offset", "version", "fourCC"])
+# length and offset are swapped for L4D2
+
+
+read_lump_header = orange_box.read_lump_header
 
 
 # classes for lumps (alphabetical order):

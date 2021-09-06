@@ -1,4 +1,6 @@
 """Counter-Strike: Source"""
+import enum
+import struct
 
 from . import orange_box
 
@@ -10,8 +12,13 @@ GAMES = ["Counter-Strike: Source"]
 LUMP = orange_box.LUMP
 lump_header_address = orange_box.lump_header_address
 
-LumpHeader = orange_box.LumpHeader
-read_lump_header = orange_box.read_lump_header
+
+def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
+    file.seek(lump_header_address[LUMP])
+    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
+    header = orange_box.OrangeBoxLumpHeader(offset, length, version, fourCC)
+    return header
+
 
 # classes for each lump, in alphabetical order:
 

@@ -231,13 +231,13 @@ class MAX_X360(enum.Enum):  # "force static arrays to be very small"
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
+OrangeBoxLumpHeader = collections.namedtuple("OrangeBoxLumpHeader", ["offset", "length", "version", "fourCC"])
 
 
-def read_lump_header(file, LUMP: enum.Enum):
+def read_lump_header(file, LUMP: enum.Enum) -> OrangeBoxLumpHeader:
     file.seek(lump_header_address[LUMP])
     offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = LumpHeader(offset, length, version, fourCC)
+    header = OrangeBoxLumpHeader(offset, length, version, fourCC)
     return header
 
 

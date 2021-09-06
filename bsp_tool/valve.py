@@ -61,6 +61,13 @@ class GoldSrcBsp(IdTechBsp):
                 # NOTE: doesn't decompress LZMA, fix that
             setattr(self, LUMP_NAME, BspLump)
 
+    def _read_header(self, LUMP: enum.Enum) -> GoldSrcLumpHeader:
+        """Reads bytes of lump"""
+        self.file.seek(self.branch.lump_header_address[LUMP])
+        offset, length = struct.unpack("2I", self.file.read(8))
+        header = GoldSrcLumpHeader(offset, length)
+        return header
+
 
 class ValveBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
