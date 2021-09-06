@@ -90,6 +90,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - Half-Life 2: Deathmatch :x:
     - Half-Life: Source :x:
     - Half-Life Deathmatch: Source :x:
+    - Synergy :x:
     - Half-Life 2: Episode 1 :x:
     - [Half-Life 2: Episode 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Half-Life 2: Lost Coast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)

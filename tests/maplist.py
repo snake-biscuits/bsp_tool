@@ -70,6 +70,7 @@ source_dirs = {
                       "portal2_dlc1/maps",  # 10 maps | 313 MB
                       "portal2_dlc2/maps"],  # 1 map | 687 KB
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
+         "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"]}  # 111 maps | 1.9 GB
 # ^ {"game_dir": ["map_dir"]}
