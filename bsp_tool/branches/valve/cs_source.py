@@ -26,5 +26,6 @@ def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 
 methods = [*orange_box.methods]
