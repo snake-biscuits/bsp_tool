@@ -1,8 +1,11 @@
-__all__ = ["quake", "quake3"]
+__all__ = ["quake", "quake2", "quake3"]
 
 from . import quake
+from . import quake2
 from . import quake3
-# TODO: Quake 2, 4, Live & Champions
+# TODO: Quake 4?
+# TODO: Quake Champions?
+# TODO: Hexen 2 (no file-magic)
 
 __doc__ = """Id Software's Quake Engine and it's predecessors have formed the basis for many modern engines."""
 

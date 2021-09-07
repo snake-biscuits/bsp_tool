@@ -32,19 +32,20 @@ class LUMP(enum.Enum):
     MODELS = 14
 
 # A rough map of the relationships between lumps:
+#                                      /-> LEAF_BRUSHES
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                   |-> CLIP_NODES -> PLANES
+#                   \-> CLIP_NODES -> PLANES
 
 # FACES -> SURFEDGES -> EDGES -> VERTICES
 #      |-> TEXTURE_INFO -> MIP_TEXTURES
 #      |-> LIGHTMAPS
-#      |-> PLANES
+#      \-> PLANES
 
 
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# Engine limits:
+# engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
     PLANES = 32767
@@ -92,7 +93,7 @@ class Contents(enum.IntFlag):
     CURRENT_DOWN = -14
 
 
-# classes for lumps (alphabetical order) [X / 15] + shared.Entities
+# classes for lumps, in alphabetical order:
 class ClipNode(base.Struct):  # LUMP 9
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
     # NOTE: bounded by associated model
@@ -125,7 +126,7 @@ class Face(base.Struct):  # LUMP 7
 
 
 class Leaf(base.Struct):  # LUMP 10
-    type: int
+    type: int  # see LeafType enum
     cluster: int  # index into the VISIBILITY lump
     bounds: List[int]
     first_leaf_face: int
@@ -246,6 +247,7 @@ class MipTextureLump:  # LUMP 2
         raise NotImplementedError("Haven't tested to locate texture data yet")
 
 
+# {"LUMP": LumpClass}
 BASIC_LUMP_CLASSES = {"EDGES":      Edge,  # TEST: does this work ok?
                       "LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Shorts}
