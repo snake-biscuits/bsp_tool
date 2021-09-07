@@ -56,6 +56,7 @@
  - [Moby Games: Void Engine](https://www.mobygames.com/game-group/3d-engine-void-engine)
  - [ModDB: Void Engine](https://www.moddb.com/engines/void-engine)
  - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
+ - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
 
 ### Wikipedia
 

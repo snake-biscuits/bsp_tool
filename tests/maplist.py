@@ -72,7 +72,7 @@ source_dirs = {
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
-                             "tf/download/maps"]}  # 111 maps | 1.9 GB
+                             "tf/download/maps"]}  # 203 maps | 4.9 GB
 # ^ {"game_dir": ["map_dir"]}
 
 # TODO: workshop_dirs
@@ -81,12 +81,26 @@ extracted_dirs = {
         # IdTechBsp
         # TODO: American McGee's Alice
         # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
-        # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 doesn't use .bsp? just raw .map?
-        # -- DOOM 2016? DOOM Eternal? RAGE? RAGE 2?
-        # TODO: Hexen 2  # .pak (http://fileformats.archiveteam.org/wiki/Quake_PAK)
-        # TODO: Quake  # .pak
+        # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 / IdTech 4 doesn't use .bsp? just raw .map?
+        # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4?
+        "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
+                   "pak1/maps"],  # 38 maps | 47 MB | .pak
+        "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
+                  "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
+                  "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
+                  "rogue/pak0/maps",  # 23 maps | 28 MB | .pak
+                  "rerelease/id1/pak0/maps",  # 55 maps | 49 MB | .pak
+                  "rerelease/id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
+                  "rerelease/dopa/maps",  # 13 maps | 25 MB | .pak
+                  "rerelease/hipnotic/pak0/maps",  # 18 maps | 30 MB
+                  "rerelease/mg1/maps",  # 20 maps | 240 MB | .pak
+                  "rerelease/rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
         # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)
+        "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
+                    "pak1/maps"],  # 8 maps | 10 MB | .pak
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
+        # TODO: quakechampions .pak (Saber3D)
+        "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # D3DBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
@@ -96,12 +110,12 @@ extracted_dirs = {
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
-        "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
-                        "multi-player/maps"],  # 11 maps | 564 MB | .vpk
-        "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
-        # NEXON
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
+        "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
+                        "multiplayer/maps"],  # 11 maps | 564 MB | .vpk
+        "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
+        # TODO: Vindictus .hfs (encrypted)
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps"],  # 26 maps | 3,5 GB | .vpk
         "Titanfall2": ["maps"],  # 36 maps | 6.6 GB | .vpk
@@ -128,8 +142,9 @@ extracted_dirs = {
                         # season9:  Legacy  [4th May 2021]
                         "season9/maps",  # 4 maps | 226 MB
                         # season10:  Emergence  [3rd Aug 2021]
-                        "season10/maps",  # 1 map | 1.8 MB
-                        ]}
+                        "season10_3aug21/maps",  # 2 maps | 813 MB
+                        "season10_3aug21/maps",  # 8 maps | 2.8 GB
+                        "season10_3aug21/depot/r5-100/game/r2/maps"]}  # 8 maps | 2.8 GB
 # ^ {"game_dir": ["map_dir"]}
 
 # https://geshl2.com

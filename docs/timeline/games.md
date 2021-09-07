@@ -13,28 +13,28 @@
 1994 | doom2 <-|-> heretic
 1995 |         |-> hexen
 1996 |         \-> quake
-1997 |             |-> quake2
+1997 |    hexen2 <-|-> quake2
 1998 |             \---|---------------------------------------------------------------> half-life
-1999 |                 \-> quake3                                                        |-> half-life:opposing force
-2000 |                     |-> heavy metal:f.a.k.k. 2                                    |
+1999 |                 |-> quake3                                                        |-> half-life:opposing force
+2000 |     daikatana <-/   |-> heavy metal:f.a.k.k.2                                     |
 2001 |                     |   |                                                         |-> half-life:blue shift
 2002 |                     |   \->medal of honor:allied assault                          |
 2003 |                     |---------------------------> call of duty                    \-> half-life2
 2004 |                     |-> doom3                     |                                   |-> cs:source
-2005 |                     |   |-> quake 4               \-> call of duty2                   |-> dod:source
+2005 |                     |   |-> quake4                \-> call of duty2                   |-> dod:source
 2006 |     call of duty3 <-|   |-> prey                      |                               |----> episodic
 2007 |                     |   |-> quake wars                \-> modern warfare              |      \-----> orange box
 2008 |                     |   |                  world at war <-|-> quantum of solace       |              |-> left4dead
 2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |              |   \-> left4dead2
 2010 |        quake:live <-/   |                  \-> blops          |                       |  vindictus <-|-> alien swarm
 2011 |                 brink <-|-> rage               |              \-> modern warfare3     |              |-> portal2
-2012 |            doom 3 bfg <-|   |                  \-> blops2         |                   |              \---|-> cs:go
-2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o 2         |
+2012 |              doom3bfg <-|   |                  \-> blops2         |                   |              \---|-> cs:go
+2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o2          |
 2014 |               evil within <-|-> new order          | advanced warfare |                                  \-> titanfall
 2015 |                             |-> old blood          \-> blops3         |                                      |
 2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare       \-> titanfall2
-     |                  dishonored 2 <-|                      |                              |                          |
-2017 | death outsider <-|   doom VFR <-|-> new colossus       |                              |                          |
+     |                  dishonored2 <--|                      |                              |                          |
+2017 |       outsider <-|   doom VFR <-|-> new colossus       |                              |                          |
 2018 |                  |              |                      |-> blops4                     |                          |
 2019 |                  | youngblood <-|-> cyber pilot        |                              |-> modern warfare         \-> apex legends
 2020 |                  |              \-> doom eternal       \-> blops cold war & warzone <-/   |
@@ -56,6 +56,7 @@
  - [Moby Games: Void Engine](https://www.mobygames.com/game-group/3d-engine-void-engine)
  - [ModDB: Void Engine](https://www.moddb.com/engines/void-engine)
  - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
+ - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
 
 ### Wikipedia
 

@@ -26,18 +26,21 @@ def simplify_name(name: str) -> str:
 
 
 by_name = {
-    # Id Software - Id Tech 2
+    # Id Software - Id Tech
+    "hexen2": id_software.quake,
     "quake": id_software.quake,
     # TODO: Quake II
     # TODO: Team Fortress Quake
-    # Id Software - Id Tech 3
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,
-    # TODO: Quake Live
+    # TODO: Quake 4
+    # TODO: Quake Champions
+    "quakelive": id_software.quake3,
     # Infinity Ward - IW Engine(s)
     "callofduty": infinity_ward.call_of_duty1,
     "cod": infinity_ward.call_of_duty1,
-    # TODO: Call of Duty 2 & 4
+    # TODO: Call of Duty 2
+    # TODO: Call of Duty 4
     # NEXON - Source Engine
     "counterstrikeonline2": nexon.cso2,
     "cso2": nexon.cso2,
