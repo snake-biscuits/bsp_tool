@@ -27,15 +27,13 @@ def test_load_bsp(group_path, game_name, map_dirs):
                 try:
                     bsp_filename = os.path.join(full_path, m)
                     if os.path.getsize(bsp_filename) == 0:
-                        continue  # HL2/ d2_coast_02
+                        continue  # HL2/ d2_coast_02 is 0 bytes
                     bsp = load_bsp(bsp_filename, branch)
-                    # NOTE: RAM usage skyrockets around ApexLegends
-                    # -- do broken RespawnBsps leave their external lumps open in memory?
                     failed_lumps = ', '.join(bsp.loading_errors.keys())
                     assert len(bsp.loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
                 except AssertionError as ae:
                     print(bsp)
-                    errors[f"{map_dir}:{m}"] = ae
+                    errors[f"{map_dir}/{m}"] = ae
                     del bsp
     assert errors == dict(), f"failed on {len(errors)} out of {total} .bsps"
 

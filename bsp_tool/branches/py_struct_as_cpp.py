@@ -6,13 +6,12 @@ import re
 from typing import Any, Dict, List, Union
 
 from .base import mapping_length, MappedArray, Struct
-# bsp_tool.branches.base Types Quick Reference
 # class base.Struct:
 #   __slots__: List[str]     # top-level attr name
 #   _format: str             # types
 #   _arrays: Dict[str, any]  # child mapping
 #   # ^ {"attr": _mapping}
-#
+
 # class base.MappedArray:
 #     _mapping: int             # list of len _mapping
 #     _mapping: List[str]       # list of named children
@@ -22,7 +21,7 @@ from .base import mapping_length, MappedArray, Struct
 #     # e.g. {"id": None, "position": [*"xy"]}
 
 # type aliases
-Mapping = Union[Dict[str, Any], List[str], int, None]  # _arrays or _mapping
+StructMapping = Union[Dict[str, Any], List[str], int, None]  # _arrays or _mapping
 CType = str
 TypeMap = Dict[CType, str]
 # ^ {"type": "member"}
@@ -48,7 +47,7 @@ def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
 
 
 # TODO: revise
-def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: Mapping = dict()) -> Dict[str, TypeMap]:
+def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: StructMapping = dict()) -> Dict[str, TypeMap]:
     members = list()
     i = 0
     for attr in attrs:
@@ -91,7 +90,7 @@ type_LUT = {"c": "char",  "?": "bool",
             "f": "float", "g": "double"}
 
 
-def c_type_of(attr: str, formats: List[str], mapping: Mapping) -> (CType, str):
+def c_type_of(attr: str, formats: List[str], mapping: StructMapping) -> (CType, str):
     if not isinstance(mapping, (dict, list, int, None)):
         raise TypeError(f"Invalid mapping: {type(mapping)}")
     if isinstance(mapping, None):  # one object
@@ -105,7 +104,7 @@ def c_type_of(attr: str, formats: List[str], mapping: Mapping) -> (CType, str):
         else:  # mixed types
             if mapping > 26:  # ("attr", "2ih", 4) -> ("struct { int A[2]; short B; }", "attr")
                 raise NotImplementedError("Cannot convert list of mixed type")
-            mapping = [chr(97 + i) for i in range(mapping)]
+            mapping = [chr(97 + i) for i in range(mapping)]  # i=0: a, i=25: z
             return c_type_of(attr, formats, mapping)  # use list mapping instead
             # ^ {"attr": {"child_A": Type, "child_B": Type}}
     elif isinstance(mapping, (list, dict)):  # basic / nested struct

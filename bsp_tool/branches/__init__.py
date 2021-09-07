@@ -59,7 +59,7 @@ by_name = {
     # Valve Software - Source Engine
     "alienswarm": valve.alien_swarm,
     "alienswarmreactivedrop": valve.alien_swarm,
-    "bladesymphony": valve.orange_box,
+    "bladesymphony": valve.cs_go,
     "counterstrikeglobaloffensive": valve.cs_go,
     "counterstrikesource": valve.source,
     "csgo": valve.cs_go,
@@ -119,6 +119,8 @@ by_name = {
     "halflife": valve.goldsrc,
     "halflifeblueshift": valve.goldsrc,
     "halflifebshift": valve.goldsrc,
+    "halflifericochet": valve.goldsrc,
+    "halflifecstrike": valve.goldsrc,
     "halflifeopposingforce": valve.goldsrc,
     "halfquaketrilogy": valve.goldsrc,
     "hlblueshift": valve.goldsrc,

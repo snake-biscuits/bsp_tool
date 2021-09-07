@@ -86,7 +86,7 @@ class Entities(list):  # would https://github.com/ValvePython/vdf do this better
                 entities.append(ent)
             elif line == b"\x00".decode():  # ignore null bytes
                 continue
-            elif line.startswith(b"//"):  # ignore comments
+            elif line.startswith("//"):  # ignore comments
                 continue
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
