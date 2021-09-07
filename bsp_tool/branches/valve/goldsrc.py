@@ -37,12 +37,9 @@ class LUMP(enum.Enum):
     EDGES = 12
     MODELS = 14
 
-# Known lump changes from Quake -> GoldSrc:
+# Known lump changes from Quake II -> GoldSrc:
 # New:
 #   MARK_SURFACES
-# Deprecated:
-#   LEAF_FACES
-#   SURFEDGES
 
 
 lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
