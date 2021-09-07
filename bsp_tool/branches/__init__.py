@@ -165,7 +165,7 @@ by_version = {
     valve.orange_box.BSP_VERSION: valve.orange_box,  # 20 (many sub-variants)
     valve.source.BSP_VERSION: valve.source,  # 19 & 20
     # Other
-    arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20.4 ?
+    # arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20.4 ?
     gearbox.bshift.BSP_VERSION: gearbox.bshift  # 30
              }
 
