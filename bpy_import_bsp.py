@@ -159,7 +159,8 @@ def load_static_props(bsp):
     # TODO: hook into SourceIO to import .mdl files
     # TODO: make a collection for static props
     for prop in bsp.GAME_LUMP.sprp.props:
-        prop_object = bpy.data.objects.new(bsp.GAME_LUMP.sprp.mdl_names[prop.mdl_name], None)
+        prop_object = bpy.data.objects.new(bsp.GAME_LUMP.sprp.model_names[prop.model_name], None)
+        # TODO: link mesh data by model_name
         prop_object.empty_display_type = "SPHERE"
         prop_object.empty_display_size = 64
         prop_object.location = [*prop.origin]
@@ -339,9 +340,9 @@ S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
 # bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
-bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
+# bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
-# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
+bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
 load_apex_rbsp(bsp)
 
 load_entities(bsp)

@@ -118,11 +118,11 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
     - Black Mesa :x:
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/cs_go.py) :x:
-    - Brink :x:
+    - Brink :o:
     - Daikatana :o:
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
-    - Halfquake Trilogy :x:
+    - [Halfquake Trilogy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - Heavy Metal F.A.K.K. 2 :o:
     - Medal of Honor: Allied Assault :o:
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
