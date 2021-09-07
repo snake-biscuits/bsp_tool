@@ -1,9 +1,9 @@
-__all__ = ["FILE_MAGIC", "alien_swarm", "branches", "cs_go", "cs_source",
+__all__ = ["FILE_MAGIC", "alien_swarm", "branches", "cs_go", "source",
            "goldsrc", "left4dead", "orange_box"]
 
 from . import alien_swarm
 from . import cs_go
-from . import cs_source
+from . import source
 from . import goldsrc  # Most GoldSrc Games
 from . import left4dead
 from . import orange_box  # Most Source Engine Games
@@ -17,4 +17,4 @@ This variant powered Half-Life & CS:1.6. Valve went on to develop the Source Eng
 FILE_MAGIC = b"VBSP"
 # NOTE: GoldSrcBsp has no FILE_MAGIC
 
-branches = [alien_swarm, cs_go, cs_source, goldsrc, orange_box, left4dead]
+branches = [alien_swarm, cs_go, source, goldsrc, orange_box, left4dead]

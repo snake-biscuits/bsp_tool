@@ -323,7 +323,7 @@ class Surface(enum.IntFlag):
     HITBOX = 0x8000  # surface is part of a hitbox
 
 
-# classes for each lump, in alphabetical order: [22 / 64]
+# classes for each lump, in alphabetical order:
 class Area(base.MappedArray):  # LUMP 20
     num_area_portals: int   # number of AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index of first AreaPortal
@@ -518,16 +518,6 @@ class Plane(base.Struct):  # LUMP 1
     _arrays = {"normal": [*"xyz"]}
 
 
-class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "dx_level", "flags", "lightmap"]
-    _format = "6f3HBi6f2Hi2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
-               "lightmap": ["width", "height"]}
-
-
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
@@ -593,7 +583,7 @@ class WorldLight(base.Struct):  # LUMP 15
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
 
-# classes for special lumps (alphabetical order)
+# classes for special lumps, in alphabetical order:
 class PhysicsDisplacement(list):  # LUMP 28
     def __init__(self, raw_lump: bytes):
         lump = io.BytesIO(raw_lump)
@@ -608,6 +598,29 @@ class PhysicsDisplacement(list):  # LUMP 28
         count = len(self).to_bytes(2, "little")
         sizes = map(lambda s: s.to_bytes(2, "little"), [len(d) for d in self])
         return b"".join(count, *sizes, *self)
+
+
+class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    name_index: int  # index into AME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
+    solid_mode: int  # collision flags enum
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    dx_level: List[int]  # supported directX level, will not render depending on settings
+    flags: int  # other flags
+    lightmap: List[int]  # dimensions of this StaticProp's lightmap (GAME_LUMP.static prop lighting?)
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "dx_level", "flags", "lightmap"]
+    _format = "6f3HBi6f2Hi2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
+               "lightmap": ["width", "height"]}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -644,7 +657,7 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}}
 
-GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),
+GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
                               10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}
 
 
