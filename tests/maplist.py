@@ -72,7 +72,9 @@ source_dirs = {
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
-                             "tf/download/maps"]}  # 203 maps | 4.9 GB
+                             "tf/download/maps"],  # 203 maps | 4.9 GB
+         # TODO: Vamprire: The Masquerade - Bloodlines
+              }
 # ^ {"game_dir": ["map_dir"]}
 
 # TODO: workshop_dirs
@@ -82,7 +84,7 @@ extracted_dirs = {
         # TODO: American McGee's Alice
         # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
         # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 / IdTech 4 doesn't use .bsp? just raw .map?
-        # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4?
+        # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4? Brink?
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
         "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
@@ -99,7 +101,7 @@ extracted_dirs = {
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps"],  # 8 maps | 10 MB | .pak
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
-        # TODO: quakechampions .pak (Saber3D)
+        # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # D3DBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3

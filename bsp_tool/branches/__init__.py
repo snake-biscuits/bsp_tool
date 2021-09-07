@@ -27,7 +27,7 @@ def simplify_name(name: str) -> str:
 
 by_name = {
     # Id Software - Id Tech
-    "hexen2": id_software.quake,
+    # TODO: Hexen II (no file-magic)
     "quake": id_software.quake,
     # TODO: Quake II
     # TODO: Team Fortress Quake
@@ -61,10 +61,12 @@ by_name = {
     "alienswarmreactivedrop": valve.alien_swarm,
     "bladesymphony": valve.orange_box,
     "counterstrikeglobaloffensive": valve.cs_go,
-    "counterstrikesource": valve.cs_source,
+    "counterstrikesource": valve.source,
     "csgo": valve.cs_go,
-    "css": valve.cs_source,
-    "cssource": valve.cs_source,
+    "css": valve.source,
+    "cssource": valve.source,
+    "dayofdefeatsource": valve.orange_box,
+    "dods": valve.orange_box,
     "episode1": valve.orange_box,
     "episode2": valve.orange_box,
     "episodic": valve.orange_box,
@@ -72,15 +74,19 @@ by_name = {
     "globaloffensive": valve.cs_go,
     "gmod": valve.orange_box,
     "gstring": valve.orange_box,  # awesome sourcemod
-    "halflife1sourcedeathmatch": valve.orange_box,
-    "halflife2": valve.orange_box,
-    "halflife2ep1": valve.orange_box,
+    "halflife1sourcedeathmatch": valve.source,
+    "halflife2": valve.source,
+    "halflife2ep1": valve.source,
     "halflife2ep2": valve.orange_box,
-    "halflife2episode1": valve.orange_box,
+    "halflife2episode1": valve.source,
     "halflife2episode2": valve.orange_box,
-    "hl2": valve.orange_box,
-    "hl2ep1": valve.orange_box,
+    "halflife2episodic": valve.source,
+    "halflifesource": valve.source,
+    "hl2": valve.source,
+    "hl2ep1": valve.source,
     "hl2ep2": valve.orange_box,
+    "hls": valve.source,
+    "hlsource": valve.source,
     "l4d": valve.left4dead,
     "l4d2": valve.left4dead,
     "left4dead": valve.left4dead,
@@ -89,7 +95,7 @@ by_name = {
     "orangebox": valve.orange_box,
     "portal": valve.orange_box,
     "portal2": valve.orange_box,
-    "sourcefilmmaker": valve.orange_box,
+    "sourcefilmmaker": valve.source,
     "teamfortress2": valve.orange_box,
     "tf2": valve.orange_box,
     # Valve Software - GoldSrc Engine (more mods @ https://half-life.fandom.com/wiki/Mods)
@@ -112,6 +118,7 @@ by_name = {
     "gunmanchronicles": valve.goldsrc,
     "halflife": valve.goldsrc,
     "halflifeblueshift": valve.goldsrc,
+    "halflifebshift": valve.goldsrc,
     "halflifeopposingforce": valve.goldsrc,
     "halfquaketrilogy": valve.goldsrc,
     "hlblueshift": valve.goldsrc,
@@ -127,13 +134,14 @@ by_name = {
 
 by_version = {
     # Id Software
-    id_software.quake3.BSP_VERSION: id_software.quake,  # 23
+    id_software.quake.BSP_VERSION: id_software.quake,  # 23
+    id_software.quake2.BSP_VERSION: id_software.quake2,  # 38
     id_software.quake3.BSP_VERSION: id_software.quake3,  # 46
     # Infinity Ward
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
     # Nexon
     nexon.cso2.BSP_VERSION: nexon.cso2,  # 100?
-    # skip vindictus, v20 defaults to orange_box
+    # NOTE: vindictus is v20 & defaults to orange_box
     # Respawn Entertainment
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
@@ -143,14 +151,12 @@ by_version = {
     # Valve Software - GoldSrc
     valve.goldsrc.BSP_VERSION: valve.goldsrc,
     # Valve Software - Source Engine
-    valve.cs_source.BSP_VERSION: valve.cs_source,
-    valve.cs_go.BSP_VERSION: valve.cs_go,
+    valve.source.BSP_VERSION: valve.source,  # 19 & 20
+    valve.cs_go.BSP_VERSION: valve.cs_go,  # 21
     valve.orange_box.BSP_VERSION: valve.orange_box  # 20 (many sub-variants)
     # TODO: test if any of the following games require new branch scripts
     # 17: troika.vtmb  # Vampire: The Masquerade - Bloodlines
-    # 17: valve.hl2_beta
     # 18: ritual.sin_emergence
-    # ??: ritual.cscz_sp  # Counter-Strike: Condition Zero - Deleted Scenes
     # ??: ritual.sin  # 1998 original, Quake 2 engine
     # ??: royal_rudius.hdtf  # Royal Rudius Entertaiment: Hunt Down the Freeman  # pls no
     # 18: valve.hl2_beta
@@ -184,3 +190,5 @@ by_version = {
     # 27: monochrome.contagion
     # ??: fix_korea.tactical_intervention  # good luck getting your hands on a copy
              }
+
+# NOTE: ata4's bspsrc uses unique entity classnames to identify branches

@@ -13,32 +13,32 @@
 1994 | doom2 <-|-> heretic
 1995 |         |-> hexen
 1996 |         \-> quake
-1997 |    hexen2 <-|-> quake2
-1998 |             \---|---------------------------------------------------------------> half-life
-1999 |                 |-> quake3                                                        |-> half-life:opposing force
-2000 |     daikatana <-/   |-> heavy metal:f.a.k.k.2                                     |
-2001 |                     |   |                                                         |-> half-life:blue shift
-2002 |                     |   \->medal of honor:allied assault                          |
-2003 |                     |---------------------------> call of duty                    \-> half-life2
-2004 |                     |-> doom3                     |                                   |-> cs:source
-2005 |                     |   |-> quake4                \-> call of duty2                   |-> dod:source
-2006 |     call of duty3 <-|   |-> prey                      |                               |----> episodic
-2007 |                     |   |-> quake wars                \-> modern warfare              |      \-----> orange box
-2008 |                     |   |                  world at war <-|-> quantum of solace       |              |-> left4dead
-2009 |                     |   |-> wolfenstein    |              \-> modern warfare2         |              |   \-> left4dead2
-2010 |        quake:live <-/   |                  \-> blops          |                       |  vindictus <-|-> alien swarm
-2011 |                 brink <-|-> rage               |              \-> modern warfare3     |              |-> portal2
-2012 |              doom3bfg <-|   |                  \-> blops2         |                   |              \---|-> cs:go
-2013 |          the dark mod <-/   |                      |              \-> ghosts          \-> cs:o2          |
-2014 |               evil within <-|-> new order          | advanced warfare |                                  \-> titanfall
-2015 |                             |-> old blood          \-> blops3         |                                      |
-2016 |      quadrilateral cowboy <-^-> doom                   |              \-------------> infinite warfare       \-> titanfall2
-     |                  dishonored2 <--|                      |                              |                          |
-2017 |       outsider <-|   doom VFR <-|-> new colossus       |                              |                          |
-2018 |                  |              |                      |-> blops4                     |                          |
-2019 |                  | youngblood <-|-> cyber pilot        |                              |-> modern warfare         \-> apex legends
-2020 |                  |              \-> doom eternal       \-> blops cold war & warzone <-/   |
-2021 |      deathloop <-/                                                                        \-> vanguard
+1997 |    hexen2 <-^-> quake2
+1998 |      heretic2 <-|-------------------------------------------------------------> half-life
+1999 |                 |-> quake3                                                      |-> half-life:opposing force
+2000 |     daikatana <-/   |-> heavy metal:f.a.k.k.2                                   |-> counter-strike
+2001 |                     |   |                                                       |-> half-life:blue shift
+2002 |                     |   \->medal of honor:allied assault                        |-> nightfire
+2003 |                     |---------------------------> call of duty  day of defeat <-|-> half-life2
+2004 |                     |-> doom3                     |                     cs:cz <-/   |-> cs:source
+2005 |                     |   |-> quake4                \-> call of duty2                 |-> dod:source
+2006 |                     |   |-> prey                      |                             |-> episode1
+2007 |                     |   |-> quake wars                \-> modern warfare            |   \--------> orange box
+2008 |                     |   |                  world at war <-|-> quantum of solace     |              |-> left4dead
+2009 |                     |   |-> wolfenstein    |              \-> modern warfare2       |              |   \-> left4dead2
+2010 |        quake:live <-/   |                  \-> blops          |                     |  vindictus <-|-> alien swarm
+2011 |                 brink <-|-> rage               |              \-> modern warfare3   |              |-> portal2
+2012 |              doom3bfg <-|   |                  \-> blops2         |                 |      cs:go <-/   |
+2013 |          the dark mod <-/   |                      |              \-> ghosts        \-> cs:o2          |
+2014 |               evil within <-|-> new order          | advanced warfare |                                \-> titanfall
+2015 |                             |-> old blood          \-> blops3         |                                    |
+2016 |      quadrilateral cowboy <-^-> doom                   |              \-> infinite warfare    titanfall2 <-/
+     |                  dishonored2 <--|                      |                  |                   |
+2017 |       outsider <-|   doom VFR <-|-> new colossus       |                  |                   |
+2018 |                  |              |                      |-> blops4         |                   |
+2019 |                  | youngblood <-|-> cyber pilot        |                  \-> modern warfare  \-> apex legends
+2020 |                  |              \-> doom eternal       \-> blops cold war     |-> cod:warzone
+2021 |      deathloop <-/                                                            \-> vanguard
 ```
 
 ## References
@@ -59,8 +59,10 @@
  - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
 
 ### Wikipedia
-
+ - [Quake Engine](https://en.wikipedia.org/wiki/Quake_engine#Games_using_the_Quake_engine)
+ - [Quake II Engine](https://en.wikipedia.org/wiki/Quake_II_engine#Games_using_the_Quake_II_engine)
  - [IdTech 3](https://en.wikipedia.org/wiki/Id_Tech_3#Games_using_the_engine)
+ - [GoldSrc](https://en.wikipedia.org/wiki/GoldSrc)
  - [Source Engine](https://en.wikipedia.org/wiki/Source_(game_engine)#Games_using_Source)
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
