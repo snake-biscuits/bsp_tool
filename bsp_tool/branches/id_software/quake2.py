@@ -75,7 +75,7 @@ class Model(base.Struct):  # LUMP 13
     first_face: int
     num_faces: int
     __slots__ = ["bounds", "origin", "first_node", "first_face", "num_faces"]
-    _format = "9f7i"
+    _format = "9f3i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
 
 

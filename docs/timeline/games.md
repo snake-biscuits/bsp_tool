@@ -22,7 +22,7 @@
 2003 |                     |---------------------------> call of duty  day of defeat <-|-> half-life2
 2004 |                     |-> doom3                     |                     cs:cz <-/   |-> cs:source
 2005 |                     |   |-> quake4                \-> call of duty2                 |-> dod:source
-2006 |                     |   |-> prey                      |                             |-> episode1
+2006 |                     |   |-> prey                      |              dark messiah <-|-> episode1
 2007 |                     |   |-> quake wars                \-> modern warfare            |   \--------> orange box
 2008 |                     |   |                  world at war <-|-> quantum of solace     |              |-> left4dead
 2009 |                     |   |-> wolfenstein    |              \-> modern warfare2       |              |   \-> left4dead2

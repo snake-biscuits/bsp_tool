@@ -1,6 +1,6 @@
 # https://valvedev.info/tools/bspfix/
 # https://developer.valvesoftware.com/wiki/Hl_bs.fgd
-from .valve import goldsrc  # fork
+from ..valve import goldsrc  # fork
 
 
 BSP_VERSION = 30

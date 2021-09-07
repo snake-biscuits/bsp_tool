@@ -1,16 +1,16 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
-from .valve import orange_box
+from ..valve import orange_box
 
 
 BSP_VERSION = 20
-# NOTE: bsp version is stored as a short
+# NOTE: BSP_VERSION is stored as 2 shorts?
 
 GAMES = ["Dark Messiah of Might and Magic"]
 
 LUMP = orange_box.LUMP
 lump_header_address = orange_box.lump_header_address
 
-LumpHeader = orange_box.LumpHeader
+LumpHeader = orange_box.OrangeBoxLumpHeader
 read_lump_header = orange_box.read_lump_header
 
 # classes for lumps, in alphabetical order:
@@ -25,7 +25,7 @@ LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
-# GAME_LUMP_CLASSES = {"sprp": ... StaticPropLumpv6}
+# GAME_LUMP_CLASSES = {"sprp": {6: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropLumpv6)}}
 
 
 methods = [*orange_box.methods]
