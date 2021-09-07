@@ -3,7 +3,7 @@ import struct
 from typing import List
 
 from .. import base
-from .. import shared
+# from .. import shared
 from . import orange_box
 
 

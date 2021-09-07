@@ -13,6 +13,8 @@ def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 64GB+ of .bsp files!"""
     branch_names = {*maplist.goldsrc_dirs, *maplist.source_dirs}
     branch = game_name if game_name in branch_names else "unknown"
+    # NOTE: this is ugly and results in quite a few errors
+    # auto-detection really shouldn't have to rely on precise strings
     errors = dict()
     # ^ {"game": ["errors"]}
     total = 0

@@ -221,7 +221,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order)
+# # classes for lumps, in alphabetical order:
 # NOTE: LightmapHeader.count doesn't look like a count, quite off in general
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)

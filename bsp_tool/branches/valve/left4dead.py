@@ -1,11 +1,12 @@
 # https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
 import collections
 import enum
+import struct
 
 from . import orange_box
 
 
-BSP_VERSION = 20  # L4D = 20, L4D2 = 21
+BSP_VERSION = 20
 
 GAMES = ["Left 4 Dead", "Left 4 Dead 2"]
 
@@ -33,10 +34,10 @@ class LUMP(enum.Enum):
     BRUSH_SIDES = 19
     AREAS = 20
     AREA_PORTALS = 21
-    PROP_COLLISION = 22
-    PROP_HULLS = 23
-    PROP_HULL_VERTS = 24
-    PROP_HULL_TRIS = 25
+    UNUSED_22 = 22
+    UNUSED_23 = 23
+    UNUSED_24 = 24
+    UNUSED_25 = 25
     DISPLACEMENT_INFO = 26
     ORIGINAL_FACES = 27
     PHYSICS_DISPLACEMENT = 28
@@ -60,7 +61,7 @@ class LUMP(enum.Enum):
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MACRO_TEXTURE_INFO = 47
     DISPLACEMENT_TRIS = 48
-    PROP_BLOB = 49
+    PHYSICS_COLLIDE_SURFACE = 49
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
@@ -73,19 +74,12 @@ class LUMP(enum.Enum):
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     LUMP_OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
-    LUMP_PHYSLEVEL = 62
+    UNUSED_62 = 62
     UNUSED_63 = 63
 
-# Known lump changes from Orange Box -> Alien Swarm:
-# New (L4D):
+# Known lump changes from Orange Box -> Left 4 Dead:
+# New:
 #   UNUSED_61 -> LUMP_OVERLAY_SYSTEM_LEVELS
-# New (L4D2):
-#   UNUSED_22 -> PROP_COLLISION
-#   UNUSED_23 -> PROP_HULLS
-#   UNUSED_24 -> PROP_HULL_VERTS
-#   UNUSED_25 -> PROP_HULL_TRIS
-#   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
-#   UNUSED_62 -> LUMP_PHYSLEVEL
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -93,20 +87,19 @@ Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", 
 # length and offset are swapped for L4D2
 
 
-read_lump_header = orange_box.read_lump_header
+def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
+    file.seek(lump_header_address[LUMP])
+    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
+    header = orange_box.OrangeBoxLumpHeader(offset, length, version, fourCC)
+    return header
 
 
-# classes for lumps (alphabetical order):
-# TODO: (L4D2) PropHull, PropHullTri
-
-# classes for special lumps (alphabetical order):
-# TODO: (L4D2) PropCollision, PropBlob
+# classes for lumps, in alphabetical order:
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"PROP_HULL_VERTS": orange_box.Vertex})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 

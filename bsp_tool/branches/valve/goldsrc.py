@@ -97,7 +97,7 @@ class Contents(enum.IntFlag):
     TRANSLUCENT = -15
 
 
-# classes for lumps (alphabetical order):
+# # classes for lumps, in alphabetical order::
 # TODO: Model, Node
 
 # classes for special lumps (alphabetical order):

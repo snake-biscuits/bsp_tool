@@ -1,13 +1,15 @@
-# https://developer.valvesoftware.com/wiki/Alien_Swarm_(engine_branch)
+# https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
+import collections
 import enum
 import struct
 
+from . import left4dead
 from . import orange_box
 
 
 BSP_VERSION = 21
 
-GAMES = ["Alien Swarm", "Alien Swarm Reactive Drop"]
+GAMES = ["Left 4 Dead", "Left 4 Dead 2"]
 
 
 class LUMP(enum.Enum):
@@ -33,10 +35,10 @@ class LUMP(enum.Enum):
     BRUSH_SIDES = 19
     AREAS = 20
     AREA_PORTALS = 21
-    UNUSED_22 = 22
-    UNUSED_23 = 23
-    UNUSED_24 = 24
-    UNUSED_25 = 25
+    PROP_COLLISION = 22
+    PROP_HULLS = 23
+    PROP_HULL_VERTS = 24
+    PROP_HULL_TRIS = 25
     DISPLACEMENT_INFO = 26
     ORIGINAL_FACES = 27
     PHYSICS_DISPLACEMENT = 28
@@ -60,7 +62,7 @@ class LUMP(enum.Enum):
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MACRO_TEXTURE_INFO = 47
     DISPLACEMENT_TRIS = 48
-    PHYSICS_COLLIDE_SURFACE = 49
+    PROP_BLOB = 49
     WATER_OVERLAYS = 50
     LEAF_AMBIENT_INDEX_HDR = 51
     LEAF_AMBIENT_INDEX = 52
@@ -72,40 +74,48 @@ class LUMP(enum.Enum):
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    UNUSED_61 = 61
-    UNUSED_62 = 62
-    DISPLACEMENT_MULTIBLEND = 63
+    LUMP_OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
+    LUMP_PHYSLEVEL = 62
+    UNUSED_63 = 63
 
-# Known lump changes from Orange Box -> Alien Swarm:
+# Known lump changes from Left 4 Dead -> Left 4 Dead 2:
 # New:
-#   UNUSED_63 -> DISPLACEMENT_MULTIBLEND
-# Deprecated:
-#   ???
+#   UNUSED_22 -> PROP_COLLISION
+#   UNUSED_23 -> PROP_HULLS
+#   UNUSED_24 -> PROP_HULL_VERTS
+#   UNUSED_25 -> PROP_HULL_TRIS
+#   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
+#   UNUSED_62 -> LUMP_PHYSLEVEL
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", "offset", "version", "fourCC"])
+# length and offset are swapped for L4D2
 
 
-def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
+def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
     file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = orange_box.OrangeBoxLumpHeader(offset, length, version, fourCC)
+    length, offset, version, fourCC = struct.unpack("4I", file.read(16))
+    header = Left4Dead2LumpHeader(length, offset, version, fourCC)
     return header
 
 
 # classes for lumps, in alphabetical order:
-# TODO: WorldLightHDR
+# TODO: PropHull, PropHullTri
 
 # classes for special lumps, in alphabetical order:
+# TODO: PropCollision, PropBlob
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = left4dead.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+LUMP_CLASSES = left4dead.LUMP_CLASSES.copy()
+LUMP_CLASSES.update({"PROP_HULL_VERTS": orange_box.Vertex})
 
-SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
+
+# TODO: GAME_LUMP_CLASSES = {"sprp": {8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8),
 
 
 # branch exclusive methods, in alphabetical order:
-methods = [*orange_box.methods]
+methods = [*left4dead.methods]

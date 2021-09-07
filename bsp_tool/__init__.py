@@ -16,6 +16,10 @@ from .respawn import RespawnBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
+# NOTE: Quake Live branch_script should be quake3, but auto-detect defaults to quake2 on BSP_VERSION
+# NOTE: CoD1 auto-detect by version defaults to ApexLegends
+
+
 developers_by_file_magic = {b"IBSP": IdTechBsp,  # also D3DBsp
                             b"rBSP": RespawnBsp,
                             b"VBSP": ValveBsp}

@@ -192,7 +192,7 @@ class MeshFlags(enum.IntFlag):
     # VERTS_BLINN_PHONG = 0x???  # VERTS_RESERVED_4
 
 
-# classes for lumps (alphabetical order)
+# # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     unknown: List[int]  # shorts seem to work best? doesn't look like AABB bounds?
     __slots__ = ["unknown"]

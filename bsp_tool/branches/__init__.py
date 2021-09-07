@@ -1,6 +1,8 @@
-__all__ = ["id_software", "infinity_ward", "nexon", "respawn", "valve",
+__all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "nexon", "respawn", "valve",
            "by_magic", "by_name", "by_version"]
 
+from . import arkane
+from . import gearbox
 from . import id_software
 from . import infinity_ward
 from . import nexon
@@ -18,6 +20,7 @@ FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
 # by_name is searched with a lowercase, numbers & letters only version of that string
 # NOTE: some (but not all!) games are listed here have multiple valid names (including internal mod names)
 # TODO: generate from branch.GAMES (folder names)
+# TODO: handle branchscripts with multiple bsp_versions elegantly
 
 
 def simplify_name(name: str) -> str:
@@ -81,6 +84,7 @@ by_name = {
     "halflife2episode1": valve.source,
     "halflife2episode2": valve.orange_box,
     "halflife2episodic": valve.source,
+    "halflife2hl1": valve.source,
     "halflifesource": valve.source,
     "hl2": valve.source,
     "hl2ep1": valve.source,
@@ -100,8 +104,8 @@ by_name = {
     "tf2": valve.orange_box,
     # Valve Software - GoldSrc Engine (more mods @ https://half-life.fandom.com/wiki/Mods)
     "007nightfire": valve.goldsrc,  # untested
-    "blueshift": valve.goldsrc,
-    "bshift": valve.goldsrc,
+    "blueshift": gearbox.bshift,
+    "bshift": gearbox.bshift,
     "counterstrike": valve.goldsrc,  # CS 1.6
     "counterstrikeconditionzero": valve.goldsrc,
     "counterstrikeneo": valve.goldsrc,  # obscure & untested
@@ -117,13 +121,13 @@ by_name = {
     "goldsrc": valve.goldsrc,
     "gunmanchronicles": valve.goldsrc,
     "halflife": valve.goldsrc,
-    "halflifeblueshift": valve.goldsrc,
-    "halflifebshift": valve.goldsrc,
+    "halflifeblueshift": gearbox.bshift,
+    "halflifebshift": gearbox.bshift,
     "halflifericochet": valve.goldsrc,
     "halflifecstrike": valve.goldsrc,
     "halflifeopposingforce": valve.goldsrc,
     "halfquaketrilogy": valve.goldsrc,
-    "hlblueshift": valve.goldsrc,
+    "hlblueshift": gearbox.bshift,
     "hlopposingforce": valve.goldsrc,
     "jamesbond007nightfire": valve.goldsrc,  # untested
     "nightfire": valve.goldsrc,
@@ -134,6 +138,8 @@ by_name = {
     "tfc": valve.goldsrc
           }
 
+# NOTE: limiting because many games share version numbers
+# could also be generated from loaded scripts
 by_version = {
     # Id Software
     id_software.quake.BSP_VERSION: id_software.quake,  # 23
@@ -143,54 +149,24 @@ by_version = {
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
     # Nexon
     nexon.cso2.BSP_VERSION: nexon.cso2,  # 100?
-    # NOTE: vindictus is v20 & defaults to orange_box
+    # nexon.vindictus.BSP_VERSION: nexon.vindictus, # 20
     # Respawn Entertainment
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
     respawn.apex_legends.BSP_VERSION: respawn.apex_legends,  # 47
     48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
-    # Valve Software - GoldSrc
-    valve.goldsrc.BSP_VERSION: valve.goldsrc,
-    # Valve Software - Source Engine
-    valve.source.BSP_VERSION: valve.source,  # 19 & 20
+    # Valve Software
+    # valve.alien_swarm.BSP_VERSION: valve.alien_swarm,  # 21
     valve.cs_go.BSP_VERSION: valve.cs_go,  # 21
-    valve.orange_box.BSP_VERSION: valve.orange_box  # 20 (many sub-variants)
-    # TODO: test if any of the following games require new branch scripts
-    # 17: troika.vtmb  # Vampire: The Masquerade - Bloodlines
-    # 18: ritual.sin_emergence
-    # ??: ritual.sin  # 1998 original, Quake 2 engine
-    # ??: royal_rudius.hdtf  # Royal Rudius Entertaiment: Hunt Down the Freeman  # pls no
-    # 18: valve.hl2_beta
-    # 19: valve.css  # Counter-Strike: Source
-    # 19: valve.dod_s  # Day of Defeat: Source
-    # 19: valve.hl2
-    # 19: valve.hl2_dm  # Half-Life 2: Deathmatch
-    # 20: ace.zeno_clash  # ACE Team: Zeno Clash (http://www.moddb.com/games/zeno-clash/downloads/zeno-clash-sdk/)
-    # 20: arkane.dark_messiah  # Arkane Studios: Dark Messiah of Might and Magic
-    # 20: crowbar.black_mesa  # Crowbar Collective: Black Mesa
-    # 20: nexon.vindictus
-    # 20: outerlight.bloody_good_time
-    # 20: outerlight.the_ship
-    # 20: valve.gmod
-    # 20: valve.hl2_ep1
-    # 20: valve.hl2_ep2
-    # 20: valve.hl2_lc  # Half-Life 2: Lost Coast
-    # 20: valve.l4d  # Left 4 Dead
-    # 20: valve.portal
-    # 20: valve.tf2  # Team Fortress 2
-    # 21: briscoe.dear_esther  # Robert Briscoe: Dear Esther
-    # 21: dwraden.beginner  # Davey Wraden: The Beginner's Guide
-    # 21: dwraden.stanley_parable  # 2013 SDK mod?
-    # 21: new_world.insurgency  # New World Interactive: Insurgency
-    # 21: valve.alien_swarm
-    # 21: valve.csgo
-    # 21: valve.l4d2  # Left 4 Dead 2
-    # 21: valve.portal_2
-    # 22: valve.dota_2  # early beta?
-    # 23: valve.dota_2  # ported to Source 2 now?
-    # 27: monochrome.contagion
-    # ??: fix_korea.tactical_intervention  # good luck getting your hands on a copy
+    valve.goldsrc.BSP_VERSION: valve.goldsrc,
+    # valve.left4dead.BSP_VERSION: valve.left4dead,  # 20
+    # valve.left4dead2.BSP_VERSION: valve.left4dead2,  # 21
+    valve.orange_box.BSP_VERSION: valve.orange_box,  # 20 (many sub-variants)
+    valve.source.BSP_VERSION: valve.source,  # 19 & 20
+    # Other
+    arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20.4 ?
+    gearbox.bshift.BSP_VERSION: gearbox.bshift  # 30
              }
 
 # NOTE: ata4's bspsrc uses unique entity classnames to identify branches

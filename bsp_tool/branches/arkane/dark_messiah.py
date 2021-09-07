@@ -13,10 +13,10 @@ lump_header_address = orange_box.lump_header_address
 LumpHeader = orange_box.LumpHeader
 read_lump_header = orange_box.read_lump_header
 
-# classes for lumps (alphabetical order):
+# classes for lumps, in alphabetical order:
 # TODO: dheader_t, StaticPropLumpv6, texinfo_t, dgamelump_t, dmodel_t
 
-# classes for special lumps (alphabetical order):
+# classes for special lumps, in alphabetical order:
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()

@@ -9,7 +9,7 @@ from .. import shared  # special lumps
 
 BSP_VERSION = 46
 
-GAMES = ["Quake 3 Arena"]
+GAMES = ["Quake 3 Arena", "Quake Live"]
 
 
 class LUMP(enum.Enum):
@@ -43,7 +43,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order) [16 / 17] + shared.Entities
+# classes for lumps, in alphabetical order:
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
@@ -177,7 +177,7 @@ class Vertex(base.Struct):  # LUMP 10
                "normal": [*"xyz"]}
 
 
-# special lump classes (alphabetical order):
+# special lump classes, in alphabetical order:
 class Visibility:
     """Cluster X is visible from Cluster Y if:
     bit (1 << Y % 8) of vecs[X * vector_size + Y // 8] is set

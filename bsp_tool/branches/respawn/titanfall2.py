@@ -199,7 +199,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order):
+# # classes for lumps, in alphabetical order::
 class LightmapPage(base.Struct):
     data: bytes
     _format = "128s"

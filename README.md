@@ -69,11 +69,13 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Half-Life: Opposing Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
   * [Id Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software)
     - [Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
-    - Quake II :x:
+    - [Quake II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Quake III Arena](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - Quake 4 :o:
+    - Quake Champions :o:
+    - Quake Live :x:
   * [Infinity Ward](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward)
-    - [Call of Duty (2003)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :x:
+    - [Call of Duty](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :x:
     - Call of Duty 2 :x:
     - Call of Duty 4: Modern Warfare :x:
   * [Nexon](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon)
@@ -89,20 +91,20 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Alien Swarm: Reactive Drop](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/alien_swarm.py)
     - [Counter-Strike: Condition Zero](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Counter-Strike: Condition Zero - Deleted Scenes](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
-    - [Counter-Strike: Global Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/cs_go.py) :x:
-    - [Counter-Strike: Source](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py) :x:
+    - [Counter-Strike: Global Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/cs_go.py)
+    - [Counter-Strike: Source](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Counter-Strike](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Day of Defeat](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
-    - [Day of Defeat: Source] :x:
+    - [Day of Defeat: Source](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Deathmatch Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Half-Life](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
-    - Half-Life 2 :x:
-    - Half-Life 2: Deathmatch :x:
-    - Half-Life 2: Episode 1 :x:
+    - [Half-Life 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
+    - [Half-Life 2: Deathmatch](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
+    - [Half-Life 2: Episode 1](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :x:
     - [Half-Life 2: Episode 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Half-Life 2: Lost Coast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
-    - Half-Life Deathmatch: Source :x:
-    - Half-Life: Source :x:
+    - [Half-Life Deathmatch: Source](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :x:
+    - [Half-Life: Source](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :x:
     - [Left 4 Dead](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/left4dead.py) :x:
     - [Left 4 Dead 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/left4dead.py) :x:
     - [Portal](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -110,36 +112,38 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Richochet](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - Source Filmmaker :x:
     - [Source SDK 2013](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
-    - Synergy :x:
     - [Team Fortress 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Team Fortress Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
   * Other
-    - Hexen 2 :x:
+    - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
     - Black Mesa :x:
-    - Blade Symphony :x:
-    - Call of Duty 3 :o:
+    - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/cs_go.py) :x:
+    - Brink :x:
     - Daikatana :o:
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - Halfquake Trilogy :x:
+    - Heavy Metal F.A.K.K. 2 :o:
+    - Medal of Honor: Allied Assault :o:
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
-    - Sven Co-op :x:
+    - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - Synergy :x:
     - Tactical Intervention :x:
+    - Vampire: The Masquerade - Bloodlines :o:
 
 <!--
-    - Call of Duty: World at War :x:
-    - Call of Duty: Modern Warfare 2 :x:
-    - Call of Duty: Black Ops :x:
-    - Call of Duty: Modern Warfare 3 :x:
-    - Call of Duty: Black Ops II :x:
-    - Call of Duty: Ghosts :x:
-    - Call of Duty: Black Ops III :x:
-    - Call of Duty: Advanced Warfare :x:
-    - Call of Duty: Infinite Warfare :x:
-    - Call of Duty: Black Ops 4 :x:
-    - Call of Duty: Modern Warfare (2019) :x:
-    - Call of Duty: Black Ops - Cold War :x:
-    - Call of Duty: Warzone :x:
-    - Call of Duty: Vanguard :x:
+    - Call of Duty: World at War :o:
+    - Call of Duty: Modern Warfare 2 :o:
+    - Call of Duty: Black Ops :o:
+    - Call of Duty: Modern Warfare 3 :o:
+    - Call of Duty: Black Ops II :o:
+    - Call of Duty: Ghosts :o:
+    - Call of Duty: Black Ops III :o:
+    - Call of Duty: Advanced Warfare :o:
+    - Call of Duty: Infinite Warfare :o:
+    - Call of Duty: Black Ops 4 :o:
+    - Call of Duty: Modern Warfare (2019) :o:
+    - Call of Duty: Black Ops - Cold War :o:
+    - Call of Duty: Warzone :o:
+    - Call of Duty: Vanguard :o:
 -->

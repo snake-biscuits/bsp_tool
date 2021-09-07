@@ -221,7 +221,7 @@ class Vertex(base.MappedArray):  # LUMP 3
     _format = "3f"
 
 
-# special lump classes (alphabetical order):
+# special lump classes, in alphabetical order:
 class MipTextureLump:  # LUMP 2
     """Lists MipTextures and handles lookups"""
     _bytes: bytes

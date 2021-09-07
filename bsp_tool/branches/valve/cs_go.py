@@ -7,7 +7,7 @@ from . import orange_box
 
 BSP_VERSION = 21
 
-GAMES = ["Counter-Strike: Global Offensive"]
+GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony"]
 
 LUMP = orange_box.LUMP
 lump_header_address = orange_box.lump_header_address

@@ -177,7 +177,7 @@ class Overlay(base.Struct):  # LUMP 45
                "uv_points": {P: [*"xyz"] for P in "ABCD"}}
 
 
-# classes for special lumps (alphabetical order)
+# classes for special lumps, in alphabetical order:
 # TODO: StaticPropv5, StaticPropv6
 # TODO: GameLump (alternate header format)
 # old: struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };

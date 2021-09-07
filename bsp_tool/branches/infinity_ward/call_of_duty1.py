@@ -53,7 +53,7 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
-# classes for lumps (alphabetical order): [31 / 32] + shared.Entities
+# classes for lumps, in alphabetical order:
 # all are incomplete guesses; only lump sizes are known
 class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     """AABB tree"""
