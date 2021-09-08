@@ -1,5 +1,8 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
-from ..valve import orange_box
+import enum
+import struct
+
+from ..valve import orange_box, source
 
 
 BSP_VERSION = 20
@@ -8,15 +11,21 @@ BSP_VERSION = 20
 GAMES = ["Dark Messiah of Might and Magic"]
 
 LUMP = orange_box.LUMP
-lump_header_address = orange_box.lump_header_address
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-LumpHeader = orange_box.OrangeBoxLumpHeader
-read_lump_header = orange_box.read_lump_header
+
+def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
+    file.seek(lump_header_address[LUMP])
+    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
+    header = source.SourceLumpHeader(offset, length, version, fourCC)
+    return header
 
 # classes for lumps, in alphabetical order:
-# TODO: dheader_t, StaticPropLumpv6, texinfo_t, dgamelump_t, dmodel_t
+# TODO: dheader_t, texinfo_t, dgamelump_t, dmodel_t
 
 # classes for special lumps, in alphabetical order:
+# TODO: StaticPropLumpv6
+
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()

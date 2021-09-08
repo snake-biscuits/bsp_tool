@@ -3,6 +3,7 @@ import enum
 import struct
 
 from . import orange_box
+from . import source
 
 
 BSP_VERSION = 21
@@ -10,13 +11,13 @@ BSP_VERSION = 21
 GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony"]
 
 LUMP = orange_box.LUMP
-lump_header_address = orange_box.lump_header_address
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
-def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
+def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
     file.seek(lump_header_address[LUMP])
     offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = orange_box.OrangeBoxLumpHeader(offset, length, version, fourCC)
+    header = source.SourceLumpHeader(offset, length, version, fourCC)
     return header
 
 
@@ -24,9 +25,12 @@ def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
+
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 
 methods = orange_box.methods

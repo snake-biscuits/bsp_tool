@@ -4,7 +4,7 @@ from typing import List
 import struct
 
 from .. import base
-from .. import shared  # special lumps
+from .. import shared
 
 
 BSP_VERSION = 46

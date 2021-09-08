@@ -42,7 +42,7 @@ class LUMP(enum.Enum):
 #      \-> PLANES
 
 
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # engine limits:

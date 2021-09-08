@@ -4,6 +4,7 @@ import enum
 import struct
 
 from . import orange_box
+from . import source
 
 
 BSP_VERSION = 20
@@ -87,10 +88,10 @@ Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", 
 # length and offset are swapped for L4D2
 
 
-def read_lump_header(file, LUMP: enum.Enum) -> orange_box.OrangeBoxLumpHeader:
+def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
     file.seek(lump_header_address[LUMP])
     offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = orange_box.OrangeBoxLumpHeader(offset, length, version, fourCC)
+    header = source.SourceLumpHeader(offset, length, version, fourCC)
     return header
 
 

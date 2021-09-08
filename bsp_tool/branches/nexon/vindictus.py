@@ -6,7 +6,7 @@ from typing import List
 
 from .. import base
 from .. import shared
-from ..valve import orange_box
+from ..valve import orange_box, source
 
 BSP_VERSION = 20
 
@@ -83,7 +83,7 @@ VindictusLumpHeader = collections.namedtuple("VindictusLumpHeader", ["id", "flag
 # since vindictus has a unique header format, valve .bsp have a header reading function in here
 
 
-def read_lump_header(file, LUMP_ID: enum.Enum):
+def read_lump_header(file, LUMP_ID: enum.Enum) -> VindictusLumpHeader:
     file.seek(lump_header_address[LUMP_ID])
     id, flags, version, offset, length = struct.unpack("5i", file.read(20))
     header = VindictusLumpHeader(id, flags, version, offset, length)
@@ -117,7 +117,7 @@ class BrushSide(base.Struct):  # LUMP 19
     _format = "I3i"
 
 
-class DisplacementInfo(orange_box.DisplacementInfo):  # LUMP 26
+class DisplacementInfo(source.DisplacementInfo):  # LUMP 26
     start_position: List[float]  # approximate XYZ of first point in face this DisplacementInfo is rotated around
     displacement_vertex_start: int  # index into DisplacementVertex lump
     displacement_triangle_start: int  # index into DisplacementTriangle lump
