@@ -8,7 +8,7 @@ from . import orange_box
 
 BSP_VERSION = 20
 
-GAMES = ["Left 4 Dead", "Left 4 Dead 2"]
+GAMES = ["Left 4 Dead"]
 
 
 class LUMP(enum.Enum):

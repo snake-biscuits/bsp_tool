@@ -1,4 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Left_4_Dead_2_.2F_Contagion
 import collections
 import enum
 import struct
@@ -9,7 +10,7 @@ from . import orange_box
 
 BSP_VERSION = 21
 
-GAMES = ["Left 4 Dead", "Left 4 Dead 2"]
+GAMES = ["Left 4 Dead 2"]
 
 
 class LUMP(enum.Enum):
@@ -89,14 +90,14 @@ class LUMP(enum.Enum):
 
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", "offset", "version", "fourCC"])
+Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["version", "offset", "length", "fourCC"])
 # length and offset are swapped for L4D2
 
 
 def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
     file.seek(lump_header_address[LUMP])
-    length, offset, version, fourCC = struct.unpack("4I", file.read(16))
-    header = Left4Dead2LumpHeader(length, offset, version, fourCC)
+    version, offset, length, fourCC = struct.unpack("4I", file.read(16))
+    header = Left4Dead2LumpHeader(version, offset, length, fourCC)
     return header
 
 
