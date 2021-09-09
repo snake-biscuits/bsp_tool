@@ -205,7 +205,13 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 # GAME_LUMP_CLASSES = {"sprp": {5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
 #                               6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
+
+
+# branch exclusive methods, in alphabetical order:
+
 
 methods = [*orange_box.methods]

@@ -62,11 +62,11 @@ by_name = {
     # Valve Software - Source Engine
     "alienswarm": valve.alien_swarm,
     "alienswarmreactivedrop": valve.alien_swarm,
-    "blackmesa": valve.cs_go,
-    "bladesymphony": valve.cs_go,
-    "counterstrikeglobaloffensive": valve.cs_go,
+    "blackmesa": valve.sdk_2013,
+    "bladesymphony": valve.sdk_2013,
+    "counterstrikeglobaloffensive": valve.sdk_2013,
     "counterstrikesource": valve.source,
-    "csgo": valve.cs_go,
+    "csgo": valve.sdk_2013,
     "css": valve.source,
     "cssource": valve.source,
     "dayofdefeatsource": valve.orange_box,
@@ -76,7 +76,7 @@ by_name = {
     "episodic": valve.orange_box,
     "fortressforever": valve.orange_box,
     "garrysmod": valve.orange_box,
-    "globaloffensive": valve.cs_go,
+    "globaloffensive": valve.sdk_2013,
     "gmod": valve.orange_box,
     "gstring": valve.orange_box,  # awesome sourcemod
     "halflife1sourcedeathmatch": valve.source,
@@ -100,9 +100,9 @@ by_name = {
     "neotokyo": valve.orange_box,
     "orangebox": valve.orange_box,
     "portal": valve.orange_box,
-    "portal2": valve.cs_go,
-    "portalreloaded": valve.cs_go,
-    "sourcefilmmaker": valve.cs_go,
+    "portal2": valve.sdk_2013,
+    "portalreloaded": valve.sdk_2013,
+    "sourcefilmmaker": valve.sdk_2013,
     "synergy": valve.source,
     "teamfortress2": valve.orange_box,
     "tf2": valve.orange_box,
@@ -162,7 +162,7 @@ by_version = {
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
     # Valve Software
     # valve.alien_swarm.BSP_VERSION: valve.alien_swarm,  # 21
-    valve.cs_go.BSP_VERSION: valve.cs_go,  # 21
+    valve.sdk_2013.BSP_VERSION: valve.sdk_2013,  # 21
     valve.goldsrc.BSP_VERSION: valve.goldsrc,
     # valve.left4dead.BSP_VERSION: valve.left4dead,  # 20
     # valve.left4dead2.BSP_VERSION: valve.left4dead2,  # 21

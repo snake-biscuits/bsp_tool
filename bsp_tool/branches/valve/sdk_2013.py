@@ -1,4 +1,3 @@
-"""Counter-Strike: Global Offensive"""
 import enum
 import struct
 
@@ -8,7 +7,8 @@ from . import source
 
 BSP_VERSION = 21
 
-GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony"]
+GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony", "Portal 2",
+         "Source Filmmaker"]
 
 LUMP = orange_box.LUMP
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
@@ -21,7 +21,7 @@ def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
     return header
 
 
-# classes for each lump, in alphabetical order: [XX / 64]
+# classes for each lump, in alphabetical order:
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
@@ -34,4 +34,4 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 
-methods = orange_box.methods
+methods = [*orange_box.methods]

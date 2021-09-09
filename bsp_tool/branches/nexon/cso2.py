@@ -6,7 +6,6 @@ import struct
 import zipfile
 
 from . import vindictus
-from .. import base
 
 
 # NOTE: there are two variants with identical version numbers
@@ -86,7 +85,7 @@ CSO2LumpHeader = collections.namedtuple("CSO2LumpHeader", ["offset", "length", "
 # NOTE: looking at headers, a half int of value 0x0001 seemed attached to version seemed to make sense
 
 
-def read_lump_header(file, LUMP: enum.Enum):
+def read_lump_header(file, LUMP: enum.Enum) -> CSO2LumpHeader:
     file.seek(lump_header_address[LUMP])
     offset, length, version, compressed = struct.unpack("2I2H", file.read(12))
     fourCC = int.from_bytes(file.read(4), "big")  # fourCC is big endian for some reason
@@ -95,16 +94,11 @@ def read_lump_header(file, LUMP: enum.Enum):
 # NOTE: lump header formats could easily be a:  LumpClass(base.Struct)
 
 
-# classes for each lump, in alphabetical order: [XX / 64]
-class DisplacementInfo(base.Struct):  # LUMP 26
-    __slots__ = [f"unknown{i + 1}" for i in range(61)]  # not yet used
-    _format = "60IH"  # 242 bytes, 10 bytes more than Vindictus
-
-# NOTE: dcubemap_t varies (160 bytes 2013era, 164 bytes 2017era)
-# NOTE: if lighting settings are not Medium, maps from 2013 era crash
+# classes for each lump, in alphabetical order:
+# NOTE: dcubemap_t: 160 bytes
 
 
-# special lump classes, in alphabetical order
+# special lump classes, in alphabetical order:
 class PakFile(zipfile.ZipFile):  # WIP
     """CSO2 PakFiles have a custom .zip format"""
     # b"CS" file magic & different header format?
@@ -125,13 +119,14 @@ class PakFile(zipfile.ZipFile):  # WIP
 BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
-# NOTE: 2013 maps use orange_box DisplacementInfo (176 byte)
-# NOTE: 2017era maps use the same version numbers etc as 2013era
-# -- this is a nightmare for autodetecting
-# however, since 2013 is no longer supported by CSO2, supporting just 2017 should work
-# supporting 2013era maps should only require a tweak of orange_box
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.update({"PAKFILE": {0: PakFile}})  # WIP
 
-methods = vindictus.methods
+GAME_LUMP_CLASSES = vindictus.GAME_LUMP_CLASSES.copy()
+
+
+# branch exclusive methods, in alphabetical order:
+
+
+methods = [*vindictus.methods]

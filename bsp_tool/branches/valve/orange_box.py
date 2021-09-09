@@ -6,7 +6,6 @@ from typing import List
 
 from .. import base
 from .. import shared
-from ..id_software import quake
 from . import source
 
 
@@ -378,40 +377,20 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: shared.UnsignedShorts},
-                      "LEAF_FACES":                {0: shared.UnsignedShorts},
-                      "SURFEDGES":                 {0: shared.Ints},
-                      "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts}}
+BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = {"AREAS":                 {0: source.Area},
-                "AREA_PORTALS":          {0: source.AreaPortal},
-                "BRUSHES":               {0: source.Brush},
-                "BRUSH_SIDES":           {0: source.BrushSide},
-                "CUBEMAPS":              {0: source.Cubemap},
-                "DISPLACEMENT_INFO":     {0: source.DisplacementInfo},
-                "DISPLACEMENT_VERTICES": {0: source.DisplacementVertex},
-                "EDGES":                 {0: quake.Edge},
-                "FACES":                 {1: source.Face},
-                "LEAF_WATER_DATA":       {0: source.LeafWaterData},
-                "LEAVES":                {1: Leaf},
-                "MODELS":                {0: source.Model},
-                "NODES":                 {0: source.Node},
-                "OVERLAY_FADES":         {0: source.OverlayFade},
-                "ORIGINAL_FACES":        {0: source.Face},
-                "PLANES":                {0: source.Plane},
-                "TEXTURE_DATA":          {0: source.TextureData},
-                "TEXTURE_INFO":          {0: source.TextureInfo},
-                "VERTICES":              {0: quake.Vertex},
-                "VERTEX_NORMALS":        {0: quake.Vertex},
-                "WORLD_LIGHTS":          {0: source.WorldLight},
-                "WORLD_LIGHTS_HDR":      {0: source.WorldLight}}
+LUMP_CLASSES = source.LUMP_CLASSES.copy()
+LUMP_CLASSES.update({"LEAVES": {1: Leaf}})
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
-                        "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}}
+SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_CLASSES = {"sprp": {7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
-                              10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)}}
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES["sprp"].update({7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
+                                 10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)})
 
-methods = [*source.methods, shared.worldspawn_volume]
+
+# branch exclusive methods, in alphabetical order:
+
+
+methods = [*source.methods]

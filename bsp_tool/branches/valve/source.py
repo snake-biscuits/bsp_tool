@@ -428,11 +428,10 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}}
 
-# GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
-# GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.update({
-#     4: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv4),
-#     5: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv5),
-#     6: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv6)})
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv4),
+                              5: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv5),
+                              6: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv6)}}
 # NOTE: having some errors with CS:S
 
 
@@ -606,4 +605,4 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
 # TODO: vertices_of_model: walk the node tree
 # TODO: vertices_of_node
 
-methods = [vertices_of_face, vertices_of_displacement]
+methods = [vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]

@@ -103,10 +103,12 @@ def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
+GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 
 # branch exclusive methods, in alphabetical order:
 methods = [*orange_box.methods]

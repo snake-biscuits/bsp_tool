@@ -46,7 +46,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
 
 # TODO: generate from documentation / branch_scripts
 expected_branch = {"ApexLegends": (RespawnBsp, 47, "respawn.apex_legends"),  # + 48 & 49
-                   "Counter-Strike Global Offensive": (ValveBsp, 21, "valve.cs_go"),
+                   "Counter-Strike Global Offensive": (ValveBsp, 21, "valve.sdk_2013"),
                    "counter-strike source": (ValveBsp, 19, "valve.cs_s"),
                    "CoD1": (D3DBsp, 59, "infinity_ward.call_of_duty1"),
                    "CoD2": (D3DBsp, 4, "infinity_ward.call_of_duty1"),

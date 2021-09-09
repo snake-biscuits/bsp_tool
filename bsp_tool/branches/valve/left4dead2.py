@@ -91,7 +91,6 @@ class LUMP(enum.Enum):
 
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["version", "offset", "length", "fourCC"])
-# length and offset are swapped for L4D2
 
 
 def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
@@ -104,8 +103,10 @@ def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
 # classes for lumps, in alphabetical order:
 # TODO: PropHull, PropHullTri
 
+
 # classes for special lumps, in alphabetical order:
 # TODO: PropCollision, PropBlob
+
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = left4dead.BASIC_LUMP_CLASSES.copy()
@@ -115,8 +116,11 @@ LUMP_CLASSES.update({"PROP_HULL_VERTS": quake.Vertex})
 
 SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 
-# TODO: GAME_LUMP_CLASSES = {"sprp": {8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8),
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = left4dead.GAME_LUMP_CLASSES.copy()
+# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
 # branch exclusive methods, in alphabetical order:
+
 methods = [*left4dead.methods]

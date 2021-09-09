@@ -1,8 +1,8 @@
-__all__ = ["FILE_MAGIC", "alien_swarm", "branches", "cs_go", "source",
+__all__ = ["FILE_MAGIC", "alien_swarm", "branches", "sdk_2013", "source",
            "goldsrc", "left4dead", "left4dead2", "orange_box"]
 
 from . import alien_swarm
-from . import cs_go
+from . import sdk_2013
 from . import source
 from . import goldsrc  # Most GoldSrc Games
 from . import left4dead

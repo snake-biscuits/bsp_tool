@@ -97,6 +97,11 @@ def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
 
 # classes for lumps, in alphabetical order:
 
+
+# classes for special lumps, in alphabetical order:
+# TODO: StaticPropv8
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
@@ -106,8 +111,12 @@ LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
-# TODO: GAME_LUMP_CLASSES = {"sprp": {8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8),
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
+# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
 # branch exclusive methods, in alphabetical order:
+
+
 methods = [*orange_box.methods]
