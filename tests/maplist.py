@@ -117,6 +117,10 @@ extracted_dirs = {
         "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
                         "multiplayer/maps"],  # 11 maps | 564 MB | .vpk
         "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
+        # https://www.moddb.com/mods/team-fortress/downloads
+        "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5
+                              "tf28/FORTRESS/maps",  # 1 map | 1.88 MB
+                              "tfbot080/MAPS"],  # 1 map | 212 KB
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
         # TODO: Vindictus .hfs (encrypted)
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
