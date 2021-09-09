@@ -11,8 +11,9 @@ from bsp_tool import IdTechBsp, D3DBsp, RespawnBsp, ValveBsp
 @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
 def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 64GB+ of .bsp files!"""
-    branch_names = {*maplist.goldsrc_dirs, *maplist.source_dirs}
-    branch = game_name if game_name in branch_names else "unknown"
+    sourcemod_names = {*maplist.goldsrc_dirs, *maplist.source_dirs,
+                       "Quake", "QuakeII", "QuakeIII", "QuakeLive"}
+    branch = game_name if game_name in sourcemod_names else "unknown"
     # NOTE: this is ugly and results in quite a few errors
     # auto-detection really shouldn't have to rely on precise strings
     errors = dict()

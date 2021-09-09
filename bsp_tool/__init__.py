@@ -20,11 +20,11 @@ from .valve import GoldSrcBsp, ValveBsp
 # NOTE: CoD1 auto-detect by version defaults to ApexLegends
 
 
-developers_by_file_magic = {b"IBSP": IdTechBsp,  # also D3DBsp
+developers_by_file_magic = {b"IBSP": IdTechBsp,  # or D3DBsp
                             b"rBSP": RespawnBsp,
                             b"VBSP": ValveBsp}
 # HACK: GoldSrcBsp has no file-magic, substituting BSP_VERSION
-goldsrc_versions = [branches.valve.goldsrc.BSP_VERSION]
+goldsrc_versions = [branches.valve.goldsrc.BSP_VERSION, branches.gearbox.bshift.BSP_VERSION]
 developers_by_file_magic.update({v.to_bytes(4, "little"): GoldSrcBsp for v in goldsrc_versions})
 
 developers_by_file_magic.update({branches.id_software.quake.BSP_VERSION.to_bytes(4, "little"): QuakeBsp})

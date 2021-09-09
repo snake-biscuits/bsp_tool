@@ -13,8 +13,9 @@ from . import valve
 __doc__ = """Index of developers of bsp format variants"""
 
 FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
-                        b"rBSP": respawn,
-                        b"VBSP": [nexon, valve]}
+                        b"rBSP": [respawn],
+                        b"VBSP": [arkane, nexon, valve]}
+# id_software.quake, valve.goldsrc & gearbox.bshift have no file_magic
 
 # NOTE: bsp_tool/__init__.py: load_bsp can be fed a string to select the relevant branch script
 # by_name is searched with a lowercase, numbers & letters only version of that string
@@ -32,8 +33,9 @@ by_name = {
     # Id Software - Id Tech
     # TODO: Hexen II (no file-magic)
     "quake": id_software.quake,
-    # TODO: Quake II
+    "quakeii": id_software.quake2,
     # TODO: Team Fortress Quake
+    "quake2": id_software.quake2,
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,
     # TODO: Quake 4
