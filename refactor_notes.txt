@@ -1,0 +1,37 @@
+make all lumps properties, loaded and unloaded dynamically
+save lzma decoded lumps to temp files w/ the length/fourCC in the filename
+
+move lumps.py to a folder
+
+move autodetect to it's own script
+
+
+branch script holds
+dheader_t & dlump_t
+this means less Bsp classes, potentially
+no more lump_header_address (calculate the formula from LumpHeader)
+can also be reused with C++ implementation
+
+# branches/branch_script.py
+class LumpHeader(base.MappedArray):
+    _mapping = ["offset", "length", "version", "fourCC"]
+    _format = "4I"
+
+
+class Header(base.BspBinary):
+    _slots = ["file_magic", "version", "headers", "revision"]
+    _format = f"2I{16 * 64}sI"
+    
+    
+# branches/base.py
+class BspBinary(Struct):
+    def __init__(self, file, branch_script):
+        LumpHeaderClass = branch_script.LumpHeader
+        raw_header = file.read(struct.calcsize(LumpHeaderClass._format))
+        super(BspBinary, self).__init__(raw_header)
+        self.headers = list(struct.iter_unpack(LumpHeaderClass, self.headers))
+    
+    def as_bytes(self):
+        self.headers = [struct.pack(h._format, *h) for h in self.headers]
+        _tuple = super(BspBinary, self).flat()
+        return struct.pack(self._format, _tuple)
