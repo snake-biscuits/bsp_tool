@@ -31,10 +31,10 @@ def simplify_name(name: str) -> str:
 
 by_name = {
     # Id Software - Id Tech
-    # TODO: Hexen II (no file-magic)
+    "fortress": id_software.quake,
+    "hexenii": id_software.quake,
     "quake": id_software.quake,
     "quakeii": id_software.quake2,
-    # TODO: Team Fortress Quake
     "quake2": id_software.quake2,
     "quake3": id_software.quake3,
     "quakeiii": id_software.quake3,
