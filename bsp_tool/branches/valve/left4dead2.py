@@ -4,8 +4,8 @@ import collections
 import enum
 import struct
 
+from .. id_software import quake
 from . import left4dead
-from . import orange_box
 
 
 BSP_VERSION = 21
@@ -111,7 +111,7 @@ def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
 BASIC_LUMP_CLASSES = left4dead.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = left4dead.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"PROP_HULL_VERTS": orange_box.Vertex})
+LUMP_CLASSES.update({"PROP_HULL_VERTS": quake.Vertex})
 
 SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 

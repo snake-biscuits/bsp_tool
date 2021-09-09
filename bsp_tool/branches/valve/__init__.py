@@ -1,11 +1,12 @@
 __all__ = ["FILE_MAGIC", "alien_swarm", "branches", "cs_go", "source",
-           "goldsrc", "left4dead", "orange_box"]
+           "goldsrc", "left4dead", "left4dead2", "orange_box"]
 
 from . import alien_swarm
 from . import cs_go
 from . import source
 from . import goldsrc  # Most GoldSrc Games
 from . import left4dead
+from . import left4dead2
 from . import orange_box  # Most Source Engine Games
 # TODO: Portal 2
 
@@ -16,5 +17,3 @@ This variant powered Half-Life & CS:1.6. Valve went on to develop the Source Eng
 # - this refers to the IdTech 2 FILE_MAGIC, pre-dating Half-Life 1!
 FILE_MAGIC = b"VBSP"
 # NOTE: GoldSrcBsp has no FILE_MAGIC
-
-branches = [alien_swarm, cs_go, source, goldsrc, orange_box, left4dead]

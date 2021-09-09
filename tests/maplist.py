@@ -46,6 +46,7 @@ source_dirs = {
                                    # "cstrike/download/maps"
                                    ],
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
+         "Fortress Forever": ["FortressForever/maps"],  # 22 maps | 618 MB
          "G String": ["gstringv2/maps"],  # 76 maps | 2.49 GB | Seriously Impressive
          "GarrysMod": ["garrysmod/maps"],  # 2 maps | 84 MB
          "Half-Life 1 Source Deathmatch": ["hl1mp/maps"],  # 11 maps | 53 MB

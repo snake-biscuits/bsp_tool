@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "GoldSrcBsp", "IdTechBsp", "D3DBsp", "ValveBsp", "RespawnBsp"]
+           "GoldSrcBsp", "ValveBsp", "QuakeBsp", "IdTechBsp", "D3DBsp", "RespawnBsp"]
 
 import difflib
 import os
@@ -10,7 +10,7 @@ from typing import Union
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps  # handles loading data dynamically
-from .id_software import IdTechBsp
+from .id_software import QuakeBsp, IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
 from .valve import GoldSrcBsp, ValveBsp
@@ -26,6 +26,8 @@ developers_by_file_magic = {b"IBSP": IdTechBsp,  # also D3DBsp
 # HACK: GoldSrcBsp has no file-magic, substituting BSP_VERSION
 goldsrc_versions = [branches.valve.goldsrc.BSP_VERSION]
 developers_by_file_magic.update({v.to_bytes(4, "little"): GoldSrcBsp for v in goldsrc_versions})
+
+developers_by_file_magic.update({branches.id_software.quake.BSP_VERSION.to_bytes(4, "little"): QuakeBsp})
 
 cod_ibsp_versions = [getattr(branches.infinity_ward, b).BSP_VERSION for b in branches.infinity_ward.__all__]
 

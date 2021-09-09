@@ -1,7 +1,7 @@
 import pytest
 
 from bsp_tool import load_bsp, lumps
-from bsp_tool.branches import quake
+from bsp_tool.branches.id_software import quake, quake3
 
 global bsps
 bsps = {"test2": load_bsp("tests/maps/test2.bsp"),
@@ -43,7 +43,7 @@ class TestBspLump:
     def test_indexing(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            LumpClass = quake.Vertex
+            LumpClass = quake.Vertex if map_name != "bigbox" else quake3.Vertex
             assert isinstance(lump[0], LumpClass), f"{map_name} failed"
             assert isinstance(lump[:1], list), f"{map_name} failed"
             assert len(lump[:1]) == 1, f"{map_name} failed"

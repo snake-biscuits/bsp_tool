@@ -29,12 +29,16 @@ def test_load_bsp(group_path, game_name, map_dirs):
                 try:
                     bsp_filename = os.path.join(full_path, m)
                     if os.path.getsize(bsp_filename) == 0:
-                        continue  # HL2/ d2_coast_02 is 0 bytes
+                        continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                    if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                        continue  # broken HL2:EP1 map (game crashes on load)
+                    elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                        continue  # broken HL:Source map (y is v18 and won't run, z is v19 and has broken IO)
                     bsp = load_bsp(bsp_filename, branch)
                     failed_lumps = ', '.join(bsp.loading_errors.keys())
                     assert len(bsp.loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
                 except AssertionError as ae:
-                    print(bsp)
+                    print(bsp)  # print filename, branch_script & version to stdout
                     errors[f"{map_dir}/{m}"] = ae
                     del bsp
     assert errors == dict(), f"failed on {len(errors)} out of {total} .bsps"
