@@ -473,7 +473,7 @@ class Plane(base.Struct):  # LUMP 1
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
-    name_index: int  # index of texture name (TEXTURE_DATA_STRING_TABLE)
+    name_index: int  # index of texture name in TEXTURE_DATA_STRING_TABLE / TABLE
     size: List[int]  # dimensions of full texture
     view: List[int]  # dimensions of visible section of texture
     __slots__ = ["reflectivity", "name_index", "size", "view"]

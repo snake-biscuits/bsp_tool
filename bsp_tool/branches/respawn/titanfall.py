@@ -409,15 +409,13 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     """Hybrid of Source TextureData & TextureInfo"""
     reflectivity: List[float]  # copy of .vtf reflectivity value, for bounce lighting
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
-    width: int
-    height: int
-    view_width: int
-    view_height: int
-    flags: int  # valve.source.Surface BitFlags
+    size: List[int]  # dimensions of full texture
+    view: List[int]  # dimensions of visible section of texture
+    flags: int  # from source.TextureInfo?  valve.source.Surface IntEnum
     __slots__ = ["reflectivity", "name_index", "width", "height",
                  "view_width", "view_height", "flags"]
     _format = "3f6i"
-    _arrays = {"reflectivity": [*"rgb"]}
+    _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
 
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
