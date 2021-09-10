@@ -71,9 +71,8 @@ class MAX(enum.Enum):
 
 
 # flag enums
-class Contents(enum.IntFlag):
+class Contents(enum.IntFlag):  # src/public/bspflags.h
     """Brush flags"""
-    # src/public/bspflags.h
     # NOTE: compiler gets these flags from a combination of all textures on the brush
     # e.g. any non opaque face means this brush is non-opaque, and will not block vis
     # visible
@@ -83,7 +82,7 @@ class Contents(enum.IntFlag):
     SLIME = -4
     LAVA = -5
     SKY = -6
-    ORIGIN = -7  # removed when compiling from .map to .bsp
+    ORIGIN = -7  # removed when compiling from .map / .vmf to .bsp
     CLIP = -8  # "changed to contents_solid"
     CURRENT_0 = -9
     CURRENT_90 = -10
@@ -94,7 +93,7 @@ class Contents(enum.IntFlag):
     TRANSLUCENT = -15
 
 
-# # classes for lumps, in alphabetical order::
+# classes for lumps, in alphabetical order::
 # TODO: Model, Node
 
 # classes for special lumps (alphabetical order):

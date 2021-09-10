@@ -5,6 +5,8 @@ from typing import Dict, List, Union
 
 from .. import base
 from .. import shared
+from ..id_software import quake
+from ..valve import source
 
 
 BSP_VERSION = 29
@@ -382,7 +384,7 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll
-    mdl_name: int  # index into GAME_LUMP.sprp.mdl_names
+    model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int
     num_leaves: int  # NOTE: Titanfall doesn't have visleaves?
     solid_mode: int  # bitflags
@@ -396,7 +398,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
     collision_flags: List[int]  # add, remove
-    __slots__ = ["origin", "angles", "mdl_name", "first_leaf", "num_leaves",
+    __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
                  "solid_mode", "flags", "skin", "cubemap", "fade_distance",
                  "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
                  "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
@@ -408,16 +410,17 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    reflectivity: List[int]  # copy of .vtf reflectivity value, for bounce lighting
+    """Hybrid of Source TextureData & TextureInfo"""
+    reflectivity: List[float]  # copy of .vtf reflectivity value, for bounce lighting
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     width: int
     height: int
     view_width: int
     view_height: int
-    flags: int
+    flags: int  # valve.source.Surface BitFlags
     __slots__ = ["reflectivity", "name_index", "width", "height",
                  "view_width", "view_height", "flags"]
-    _format = "9i"
+    _format = "3f6i"
     _arrays = {"reflectivity": [*"rgb"]}
 
 
@@ -425,15 +428,6 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
     __slots__ = ["s", "t"]
     __format = "8f"
     _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
-
-
-class Vertex(base.MappedArray):  # LUMP 3 (0003)
-    """3D position / normal vector"""
-    x: float
-    y: float
-    z: float
-    _mapping = [*"xyz"]
-    _format = "3f"
 
 
 # special vertices
@@ -498,6 +492,13 @@ class EntityPartition(list):
 
 
 class GameLump_SPRP:  # unique to Titanfall
+    _static_prop_format: str  # StaticPropClass._format
+    model_names: List[str]
+    leaves: List[int]
+    unknown_1: int
+    unknown_2: int
+    props: List[object]  # List[StaticPropClass]
+
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format
         sprp_lump = io.BytesIO(raw_sprp_lump)
@@ -557,21 +558,21 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "MESH_BOUNDS":               {0: MeshBounds},
                 "MODELS":                    {0: Model},
                 "OBJ_REF_BOUNDS":            {0: ObjRefBounds},
-                "OCCLUSION_MESH_VERTS":      {0: Vertex},
+                "OCCLUSION_MESH_VERTS":      {0: quake.Vertex},
                 "PLANES":                    {1: Plane},
                 "PORTALS":                   {0: Portal},
                 "PORTAL_EDGES":              {0: PortalEdge},
                 "PORTAL_EDGE_ISECT_AT_VERT": {0: PortalEdgeIntersect},
                 "PORTAL_EDGE_ISECT_AT_EDGE": {0: PortalEdgeIntersect},
                 "PORTAL_EDGE_ISECT_HEADER":  {0: PortalEdgeIntersectHeader},
-                "PORTAL_VERTS":              {0: Vertex},
+                "PORTAL_VERTS":              {0: quake.Vertex},
                 "PORTAL_VERT_EDGES":         {0: PortalEdgeIntersect},
                 "SHADOW_MESH_MESHES":        {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTS":   {0: ShadowMeshAlphaVertex},
-                "SHADOW_MESH_OPAQUE_VERTS":  {0: Vertex},
+                "SHADOW_MESH_OPAQUE_VERTS":  {0: quake.Vertex},
                 "TEXTURE_DATA":              {1: TextureData},
-                "VERTEX_NORMALS":            {0: Vertex},
-                "VERTICES":                  {0: Vertex},
+                "VERTEX_NORMALS":            {0: quake.Vertex},
+                "VERTICES":                  {0: quake.Vertex},
                 "VERTEX_BLINN_PHONG":         {0: VertexBlinnPhong},
                 "VERTEX_LIT_BUMP":            {1: VertexLitBump},
                 "VERTEX_LIT_FLAT":            {1: VertexLitFlat},
@@ -656,6 +657,35 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
     return out
 
 
+# "debug" methods for investigating the compile process
+def debug_TextureData(bsp):
+    print("# TD_index  TD.name  TextureData.flags")
+    for i, td in enumerate(bsp.TEXTURE_DATA):
+        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {source.Surface(td.flags)!r}")
+
+
+def debug_TextureData_unused(bsp):
+    used_texture_datas = {bsp.MATERIAL_SORT[m.material_sort].texture_data for m in bsp.MESHES}
+    return {*range(len(bsp.TEXTURE_DATA))}.difference(used_texture_datas)
+
+
+def debug_Mesh_stats(bsp):
+    print("# index  vertex_lump  texture_data_index  texture  mesh_indices_range")
+    for i, model in enumerate(bsp.MODELS):
+        print(f"# MODELS[{i}]")
+        for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
+            mesh = bsp.MESHES[j]
+            material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+            texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+            texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+            vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.VERTEX_MASK).name
+            indices = set(bsp.MESH_INDICES[mesh.start_index:mesh.start_index + mesh.num_triangles * 3])
+            _min, _max = min(indices), max(indices)
+            _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices
+            print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
+
+
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
-           search_all_entities, shared.worldspawn_volume]
+           search_all_entities, shared.worldspawn_volume,
+           debug_TextureData, debug_TextureData_unused, debug_Mesh_stats]

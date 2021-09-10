@@ -213,7 +213,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll
     unknown_1: List[int]
-    mdl_name: int  # index into GAME_LUMP.sprp.mdl_names
+    model_name: int  # index into GAME_LUMP.sprp.model_names
     solid_mode: int  # bitflags
     flags: int
     unknown_2: List[int]
@@ -224,7 +224,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
     collision_flags: List[int]  # add, remove
     # NOTE: no skin or cubemap
-    __slots__ = ["origin", "angles", "unknown_1", "mdl_name", "solid_mode", "flags",
+    __slots__ = ["origin", "angles", "unknown_1", "model_name", "solid_mode", "flags",
                  "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
     _format = "6f4bH2B4b4f8b2H"  # 64 bytes
@@ -238,7 +238,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
 class GameLump_SPRP:
     """New in Titanfall 2"""
     _static_prop_format: str  # StaticPropClass._format
-    mdl_names: List[str]
+    model_names: List[str]
     unknown_1: int
     unknown_2: int  # indexes?
     props: List[object]  # StaticPropClass

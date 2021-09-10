@@ -1,0 +1,151 @@
+# mp_box = ".../r1/maps/mp_box.bsp"
+>>> for i, model in enumerate(mp_box.MODELS):
+...     print(f"# MODELS[{i}]")
+...     for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
+...             mesh = mp_box.MESHES[j]
+...             material_sort= mp_box.MATERIAL_SORT[mesh.material_sort]
+...             texture_data = mp_box.TEXTURE_DATA[material_sort.texture_data]
+...             texture_name = mp_box.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+...             vertex_lump = (r1.MeshFlags(mesh.flags) & r1.MeshFlags.VERTEX_MASK).name
+...             indices = mp_box.MESH_INDICES[mesh.start_index:mesh.start_index + mesh.num_triangles * 3]
+...             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} ({min(indices)}->{max(indices)})")
+
+# index  vertex_lump  texture_data_index  texture  mesh_indices_range
+# MODELS[0]
+00 VERTEX_LIT_BUMP 07 WORLD\HAVEN\WALLS\RED_WALL_01                    (0->171)  #
+
+01 VERTEX_LIT_BUMP 06 WORLD\DEV\DEV_WHITE_512                          (172->529)
+02 VERTEX_LIT_BUMP 06 WORLD\DEV\DEV_WHITE_512                          (530->805)
+
+03 VERTEX_LIT_BUMP 05 WORLD\DEV\DEV_GROUND_512                         (806->1245)
+04 VERTEX_LIT_BUMP 05 WORLD\DEV\DEV_GROUND_512                         (1246->1349)
+
+05 VERTEX_LIT_BUMP 08 WORLD\PLASTIC\PLASTIC_BLUE                       (1350->1389)
+06 VERTEX_LIT_BUMP 08 WORLD\PLASTIC\PLASTIC_BLUE                       (1390->1555)
+07 VERTEX_LIT_BUMP 08 WORLD\PLASTIC\PLASTIC_BLUE                       (1556->1575)
+
+08 VERTEX_LIT_BUMP 10 WORLD\DEV\DEV_ORANGE_512                         (1576->1599)
+
+09 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1600->1603)
+10 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1604->1607)
+11 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1608->1611)
+12 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1612->1615)
+13 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1616->1619)
+14 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1620->1623)
+15 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1624->1627)
+16 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1628->1631)
+17 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1632->1635)
+18 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1636->1639)
+19 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1640->1643)
+20 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1644->1647)
+21 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1648->1651)
+22 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1652->1655)
+23 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1656->1659)
+24 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1660->1663)
+25 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1664->1667)
+26 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1668->1671)
+27 VERTEX_LIT_BUMP 11 WORLD\DEV\WEAPON_RANGE_TARGET                    (1672->1675)
+
+28 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1676->1691)
+29 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1692->1707)
+30 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1708->1723)
+31 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1724->1739)
+32 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1740->1751)
+33 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1752->1767)
+34 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1768->1783)
+35 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1784->1799)
+36 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1800->1815)
+37 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1816->1831)
+38 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1832->1847)
+39 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1848->1863)
+40 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1864->1879)
+41 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1880->1895)
+42 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1896->1911)
+43 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1912->1927)
+44 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1928->1943)
+45 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1944->1959)
+46 VERTEX_LIT_BUMP 12 world\signs\sign_numbers_yellow_plastic_gasoline (1960->1999)
+
+47 VERTEX_LIT_BUMP 07 WORLD\HAVEN\WALLS\RED_WALL_01                    (2000->2019)  #
+48 VERTEX_LIT_BUMP 07 WORLD\HAVEN\WALLS\RED_WALL_01                    (2020->2051)  #
+
+49 VERTEX_LIT_BUMP 09 WORLD\CONCRETE\CONCRETE_ALLEY_01                 (2052->2075)
+50 VERTEX_LIT_BUMP 09 WORLD\CONCRETE\CONCRETE_ALLEY_01                 (2076->2079)
+
+51 VERTEX_LIT_BUMP 04 WORLD\METAL\METAL_DIAMOND_PLATE_LARGE_CLEAN      (2080->2107)
+52 VERTEX_LIT_BUMP 04 WORLD\METAL\METAL_DIAMOND_PLATE_LARGE_CLEAN      (2108->2111)
+
+53 VERTEX_LIT_BUMP 14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              (2112->2127)
+54 VERTEX_LIT_BUMP 14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              (2128->2143)
+55 VERTEX_LIT_BUMP 14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              (2144->2159)
+56 VERTEX_LIT_BUMP 14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              (2160->2175)
+
+57 VERTEX_LIT_BUMP 03 WORLD\METAL\METAL_GREY_WALLPANEL_01              (2176->2191)
+58 VERTEX_LIT_BUMP 03 WORLD\METAL\METAL_GREY_WALLPANEL_01              (2192->2207)
+
+59 VERTEX_LIT_BUMP 02 WORLD\FLOORS\IMC_FLOOR_LARGE_PANEL_01            (2208->2211)
+60 VERTEX_LIT_BUMP 02 WORLD\FLOORS\IMC_FLOOR_LARGE_PANEL_01            (2212->2215)
+
+61 VERTEX_LIT_BUMP 15 world\decal\imc_logo_large                       (2216->2219)
+
+62 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (0->39)
+63 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (40->43)
+64 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (44->47)
+65 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (48->91)
+66 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (92->95)
+67 VERTEX_UNLIT    00 TOOLS\TOOLSSKYBOX                                (96->143)
+# MODELS[1]
+68 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (144->147)
+69 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (148->151)
+70 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (152->155)
+71 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (156->159)
+72 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (160->163)
+73 VERTEX_UNLIT    16 TOOLS\TOOLSTRIGGER                               (164->167)
+
+# Model -> Mesh -> MaterialSort -> MeshIndex -> VertexReservedX 
+# for model in MODELS:
+#   for mesh in MESHES[model.first_mesh:model.first_mesh + model.num_meshes]
+#     mesh_indices = MESH_INDICES[mesh.start_index:mesh.start_index + mesh.num_triangles * 3]
+#     VERTEX_LUMP = (r1.MeshFlags(mesh.flags) & r1.MeshFlags.VERTEX_MASK).name
+#     offset = MATERIAL_SORT[mesh.material_sort].vertex_offset
+#     vertices = [getattr(bsp, VERTEX_LUMP)[i + offset] for i in mesh_indices]
+
+
+>>> {mp_box.MATERIAL_SORT[m.material_sort].texture_data for m in mp_box.MESHES}
+{0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16}  # len(mp_box.TEXTURE_DATA) = 17  [1 & 13 missing]
+>>> mp_box.TEXTURE_DATA[1]
+<TextureData {'reflectivity': <MappedArray (r: 1063831589, g: 1059799404, b: 1011090222)>, 'name_index': 1, 'width': 128, 'height': 128, 'view_width': 128, 'view_height': 128, 'flags': 1152}>
+>>> mp_box.TEXTURE_DATA_STRING_DATA[_.name_index]
+'TOOLS\\TOOLSNODRAW'
+
+>>> for i, td in enumerate(mp_box.TEXTURE_DATA):
+...     print(f"{i:02d} {mp_box.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {bsp_tool.branches.valve.orange_box.Surface(td.flags)!r}")
+00 TOOLS\TOOLSSKYBOX                                <Surface.NO_LIGHT|SKY: 1028>
+01 TOOLS\TOOLSNODRAW                                <Surface.NO_LIGHT|NODRAW: 1152>  # no meshes
+02 WORLD\FLOORS\IMC_FLOOR_LARGE_PANEL_01            <Surface.BUMPLIGHT|SKIP: 2560>
+03 WORLD\METAL\METAL_GREY_WALLPANEL_01              <Surface.BUMPLIGHT|SKIP: 2560>
+04 WORLD\METAL\METAL_DIAMOND_PLATE_LARGE_CLEAN      <Surface.BUMPLIGHT|SKIP: 2560>
+05 WORLD\DEV\DEV_GROUND_512                         <Surface.SKIP: 512>
+06 WORLD\DEV\DEV_WHITE_512                          <Surface.SKIP: 512>
+07 WORLD\HAVEN\WALLS\RED_WALL_01                    <Surface.BUMPLIGHT|SKIP|NO_PORTAL: 2592>  # ?
+08 WORLD\PLASTIC\PLASTIC_BLUE                       <Surface.SKIP: 512>
+09 WORLD\CONCRETE\CONCRETE_ALLEY_01                 <Surface.BUMPLIGHT|SKIP: 2560>
+10 WORLD\DEV\DEV_ORANGE_512                         <Surface.SKIP: 512>
+11 WORLD\DEV\WEAPON_RANGE_TARGET                    <Surface.SKIP: 512>
+12 world\signs\sign_numbers_yellow_plastic_gasoline <Surface.SKIP: 512>
+13 TOOLS\TOOLSCLIP_HUMAN_CLIMBABLE                  <Surface.NO_LIGHT|NODRAW: 1152>  # no meshes
+14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              <Surface.BUMPLIGHT|SKIP: 2560>
+15 world\decal\imc_logo_large                       <Surface.SKIP|NO_PORTAL|TRANSLUCENT: 560>
+16 TOOLS\TOOLSTRIGGER                               <Surface.262144|NO_LIGHT: 263168>
+# SKIP == PATCH?
+
+
+# in .map / .vmf / .blend / .bsp (VBSP)
+mesh_vertices: List[VertexReservedX]
+mesh_indices: List[int]  # all triangles
+# in .bsp (rBSP)
+VERTEX_LUMP.extend(mesh_vertices)
+mesh.flags |= MeshFlags.VERTEX_LUMP
+mesh.start_index = len(MATERIAL_SORT)
+num_triangles = len(mesh_indices) // 3
+MESH_INDICES.extend()
