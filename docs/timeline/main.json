@@ -1,4 +1,9 @@
 { "games": [
+
+    { "name": "Wolfenstein 3D"},
+
+    { "name": "Rise of the Triad"},
+
     { "name": "Doom",
       "releases": {
         "MS-DOS (North America)": "December 10 1993",
@@ -39,6 +44,7 @@
       "en.wikipedia.org/wiki/Quake_(video_game)",
       "store.steampowered.com/app/2310/QUAKE/" ]
     },
+
     { "name": "Quake 2",
       "developers": ["Id Software"],
       "links": ["en.wikipedia.org/wiki/Quake_II"] },
@@ -47,26 +53,31 @@
       "releases": {"PC": "1998"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Half-Life: Opposing Force",
       "developers": ["Gearbox Software"],
       "releases": {"PC": "1999"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Team Fortress Classic",
       "developers": ["Valve Software"],
       "releases": {"PC": "1999"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Counter-Strike",
       "developers": ["Valve Software"],
       "releases": {"PC": "2000"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Ricochet",
       "developers": ["Valve Software"],
       "releases": {"PC": "2000"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Gunman Chronicles",
       "developers": ["Rewolf Software"],
       "publishers": ["Sierra Studios"],
@@ -78,31 +89,37 @@
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"},
       "links": ["en.wikipedia.org/wiki/Gunman_Chronicles"]
     },
+
     { "name": "Deathmatch Classic",
       "developers": ["Valve Software"],
       "releases": {"PC": "2001"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Half-Life: Blue Shift",
       "developers": ["Gearbox Software"],
       "releases": {"PC": "2001"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "James Bond 007: Nightfire",
       "developers": ["Gearbox Software"],
       "releases": {"PC": "2002"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Day of Defeat",
       "developers": ["Valve Software"],
       "releases": {"PC": "2003"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Counter-Strike: Neo",
       "developers": ["Valve Software", "Namco"],
       "releases": {"PC": "2003"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Counter-Strike: Condition Zero",
       "developers": [
         "Valve Software",
@@ -112,13 +129,17 @@
       "releases": {"PC": "2004"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Counter-Strike: Online",
       "developers": ["Valve Software", "Nexon"],
       "releases": {"PC": "2008"},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
+
     { "name": "Half-Life 2"},
+
     { "name": "Portal 2"},
+
     { "name": "Titanfall",
       "developers": ["Respawn Entertainment"],
       "publishers": ["Electronic Arts"],
@@ -131,6 +152,7 @@
         "Xbox 360": "April 8 2014" },
       "links": ["en.wikipedia.org/wiki/Titanfall_(video_game)"]
     },
+
     { "name": "Titanfall 2",
       "developers": ["Respawn Entertainment"],
       "publishers": ["Electronic Arts"],
@@ -141,6 +163,7 @@
       "releases": {"PC": "October 28 2016"},
       "links": ["en.wikipedia.org/wiki/Titanfall_2"]
     },
+
     { "name": "Call of Duty: Infinite Warfare"
 
     },
@@ -261,6 +284,7 @@
   "developers": [
     { "name": "Id Software",
       "games": [
+        "Wolfenstein 3D",
         "Doom",
         "Doom II",
         "Quake",
@@ -269,13 +293,14 @@
         "John Carmack": "1991-2013",
         "John Romero": "1991-1996",
         "Michael Abrash": "1995-1996",
-        "Tim Willits": "1995-2001" },
+        "Tim Willits": "1995-2001",
+        "American McGee": "1993-1998"},
       "links": ["https://en.wikipedia.org/wiki/Id_Software"]
     },
 
     { "name": "Ion Storm",
       "games": ["Daikatana"],
-      "employees": {"John Romero"]
+      "employees": {"John Romero": ""}]
     },
 
     { "name": "Valve Software",
@@ -301,7 +326,9 @@
       "employees": {}
     },
 
-    { "name": "3D Realms",
+    { "names": {"Apogee": "1987-1996",
+                "3D Realms": "1997-2021"},
+      "founded": 1987,
       "games": ["Prey"],
       "employees": {}
     },
@@ -312,9 +339,15 @@
     },
 
     { "name": "Saber Interactive",
+      "founded": 2001,
       "games": ["Quake Champions"],
-      "employees": {"Tim Willits"}
+      "employees": {"Tim Willits": "2019-2021"}
     },
+
+    { "name": "Occulus"},
+
+    { "name": "Nightdive Studios",
+      "founded": 2012}
 
   ],
 
@@ -331,7 +364,15 @@
     { "name": "Microsoft",
       "children": {"Bethesda": "2020-2021"}},
 
-    { "name": "Square Enix"}
+    { "name": "Square Enix"},
+
+    { "name": "Facebook"},
+
+    { "name": "Apogee"},
+
+    { "name": "Sierra Entertainment"},
+
+    { "name": "Valve"}
   ],
 
   "connections": [

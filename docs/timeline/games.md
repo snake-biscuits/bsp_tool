@@ -5,7 +5,38 @@
 [Return to Home](../index.md)  
 [Engine Timeline](./engines.md)
 
-## Major Titles
+
+## Major Titles with .bsp
+
+```
+1996 | quake
+1997 | \-> quake 2
+1998 |     |------------------------> half-life
+1999 |     \-> quake 3                |
+2000 |        |                       |
+2001 |        |                       |
+2002 |        |                       |
+2003 |        \-> call of duty        \-> half-life 2
+2004 |            |                       |
+2005 |            \-> call of duty 2      |
+2006 |                |                   |
+2007 |                \-> modern warfare  \-> orange box
+2008 |                                        |-> left 4 dead
+2009 |                                        |   \-> left 4 dead 2
+2010 |                                        |
+2011 |                                        \-> portal 2
+2012 |                                            |
+2013 |                                            |
+2014 |                                            \-> titanfall
+2015 |                                                |
+2016 |                                                \-> titanfall 2
+2017 |                                                    |
+2018 |                                                    |
+2019 |                                                    \-> apex legends
+```
+
+
+## "Relevant" Titles
 
 ```
 1992 |      wolfenstein 3d
@@ -21,11 +52,11 @@
      |                      |-> american mcgees alice                                   |-> ricochet
 2001 |                      |   |                                                       |-> half-life:blue shift
 2002 |                      |   |-> medal of honor:allied assault                       |-> nightfire
-2003 |                      |   \-> star trek elite force 2             day of defeat <-|
+2003 |                      |   \-> star trek elite force 2                             |-> day of defeat
      |                      |---------------------------> call of duty                  |-> half-life 2
 2004 |                      |-> doom 3                    |                     cs:cz <-/   |-> cs:source
-2005 |                      |   |-> quake4                \-> call of duty 2                |-> dod:source
-2006 |                      |   |-> prey                      |              dark messiah <-|-> episode1
+2005 |                      |   |-> quake 4               \-> call of duty 2                |-> dod:source
+2006 |                      |   |-> prey                      |              dark messiah <-|-> episode 1
 2007 |                      |   |-> quake wars                \-> modern warfare            |   \--------> orange box
 2008 |                      |   |                  world at war <-|-> quantum of solace     |              |-> left 4 dead
 2009 |                      |   |-> wolfenstein    |              \-> modern warfare 2      |              |   \-> left 4 dead 2
@@ -43,6 +74,7 @@
 2020 |                  |               \-> doom eternal       \-> blops cold war     |-> cod:warzone
 2021 |      deathloop <-/                                                             \-> vanguard
 ```
+
 
 ## References
 

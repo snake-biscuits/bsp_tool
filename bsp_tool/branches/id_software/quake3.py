@@ -221,4 +221,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
     raise NotImplementedError()
 
 
-methods = []
+methods = [shared.worldspawn_volume]
