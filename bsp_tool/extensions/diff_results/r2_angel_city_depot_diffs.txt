@@ -62,13 +62,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -285,13 +285,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -508,13 +508,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -731,13 +731,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -954,13 +954,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -1177,13 +1177,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -1400,13 +1400,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -1623,13 +1623,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -1846,13 +1846,13 @@ ExternalLumpHeader(offset=12806848, length=8216256, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  YYYY  YES!
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
-VERTS_UNLIT_TS  YYYY  YES!
+VERTEX_UNLIT_TS  YYYY  YES!
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  YYYY  YES!
@@ -2069,13 +2069,13 @@ ExternalLumpHeader(offset=12997040, length=8215680, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  NNYY  NOPE
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21212720, length=401764, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401764)
-VERTS_UNLIT  NNYY  NOPE
+VERTEX_UNLIT  NNYY  NOPE
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32909612, length=31980, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=31980)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32941592, length=50374984, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50374984)
-VERTS_UNLIT_TS  NYYY  NOPE
+VERTEX_UNLIT_TS  NYYY  NOPE
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83316576, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  NNYY  NOPE
@@ -2292,13 +2292,13 @@ ExternalLumpHeader(offset=12898928, length=8215680, version=1, fourCC=0, filenam
 TRICOLL_HEADERS  NYYY  NOPE
 ExternalLumpHeader(offset=21023104, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
 ExternalLumpHeader(offset=21114608, length=401852, version=1, fourCC=0, filename='mp_angel_city.bsp.0045.bsp_lump', filesize=401852)
-VERTS_UNLIT  NNYY  NOPE
+VERTEX_UNLIT  NNYY  NOPE
 ExternalLumpHeader(offset=32710664, length=26280, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26280)
 ExternalLumpHeader(offset=32811596, length=26260, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=26260)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=32736944, length=50402748, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50402748)
 ExternalLumpHeader(offset=32837856, length=50379780, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=50379780)
-VERTS_UNLIT_TS  NYYY  NOPE
+VERTEX_UNLIT_TS  NYYY  NOPE
 ExternalLumpHeader(offset=83139692, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 ExternalLumpHeader(offset=83217636, length=217924, version=0, fourCC=0, filename='mp_angel_city.bsp.004a.bsp_lump', filesize=217924)
 MESH_INDICES  NNYY  NOPE

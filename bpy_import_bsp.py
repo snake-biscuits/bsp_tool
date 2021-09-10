@@ -114,7 +114,6 @@ def load_entities(bsp):
                     bsp.ENTITIES_script, bsp.ENTITIES_snd, bsp.ENTITIES_spawn)
     block_names = ("bsp", "env", "fx", "script", "sound", "spawn")
     master_collection = bpy.data.collections[bsp.filename]
-    geometry_collection = master_collection.children["geometry"]
     entities_collection = bpy.data.collections.new("entities")
     master_collection.children.link(entities_collection)
     for entity_block, block_name in zip(all_entities, block_names):
@@ -233,18 +232,18 @@ def load_rbsp(rbsp):
 
 
 # load a mesh by selecting the vertex lump manually
-def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTS_RESERVED: str):
+def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTEX_LUMP: str):
     # NOTE: skips UVs
     blender_mesh = bpy.data.meshes.new("TEST_MESH")
     blender_bmesh = bmesh.new()  # mesh data
     # vertices of mesh
     mesh = rbsp.MESHES[index]
     material_sort = rbsp.MATERIAL_SORT[mesh.material_sort]
-    # NOTE: forgot to apply material
+    # NOTE: not applying material
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in rbsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(rbsp, VERTS_RESERVED)  # force vertex lump
+    VERTEX_LUMP = getattr(rbsp, VERTEX_LUMP)
     mesh_vertices = [VERTEX_LUMP[i] for i in indices]
     # convert to bmesh
     bmesh_vertices = dict()
@@ -318,7 +317,7 @@ def load_apex_rbsp(rbsp):
             model_collection.objects.link(blender_object)
         if len(model_collection.objects) == 0:
             bpy.data.collections.remove(model_collection)
-        
+
 
 
 TITANFALL = "E:/Mod/Titanfall/maps/"

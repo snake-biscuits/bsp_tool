@@ -96,14 +96,14 @@ class LUMP(enum.Enum):
     UNUSED_68 = 0x0044
     UNUSED_69 = 0x0045
     UNUSED_70 = 0x0046
-    VERTS_UNLIT = 0x0047        # VERTS_RESERVED_0
-    VERTS_LIT_FLAT = 0x0048     # VERTS_RESERVED_1
-    VERTS_LIT_BUMP = 0x0049     # VERTS_RESERVED_2
-    VERTS_UNLIT_TS = 0x004A     # VERTS_RESERVED_3
-    VERTS_BLINN_PHONG = 0x004B  # VERTS_RESERVED_4
-    VERTS_RESERVED_5 = 0x004C
-    VERTS_RESERVED_6 = 0x004D
-    VERTS_RESERVED_7 = 0x004E
+    VERTEX_UNLIT = 0x0047        # VERTEX_RESERVED_0
+    VERTEX_LIT_FLAT = 0x0048     # VERTEX_RESERVED_1
+    VERTEX_LIT_BUMP = 0x0049     # VERTEX_RESERVED_2
+    VERTEX_UNLIT_TS = 0x004A     # VERTEX_RESERVED_3
+    VERTEX_BLINN_PHONG = 0x004B  # VERTEX_RESERVED_4
+    VERTEX_RESERVED_5 = 0x004C
+    VERTEX_RESERVED_6 = 0x004D
+    VERTEX_RESERVED_7 = 0x004E
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
@@ -228,7 +228,7 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_index: int  # index of this MaterialSort's LightmapHeader (can be -1)
     unknown: List[int]  # ({0?}, {??..??})
-    vertex_offset: int  # offset into appropriate VERTS_RESERVED_X lump
+    vertex_offset: int  # offset into appropriate VERTEX_RESERVED_X lump
     __slots__ = ["texture_data", "lightmap_index", "unknown", "vertex_offset"]
     _format = "4hI"  # 12 bytes
     _arrays = {"unknown": 2}
@@ -313,11 +313,11 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "MODELS":             {0: Model},
                      "PLANES":             {0: titanfall.Plane},
                      "TEXTURE_DATA":       {0: TextureData},
-                     "VERTS_BLINN_PHONG":  {0: VertexBlinnPhong},
-                     "VERTS_LIT_BUMP":     {0: VertexLitBump},
-                     "VERTS_LIT_FLAT":     {0: VertexLitFlat},
-                     "VERTS_UNLIT":        {0: VertexUnlit},
-                     "VERTS_UNLIT_TS":     {0: VertexUnlitTS}})
+                     "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
+                     "VERTEX_LIT_BUMP":     {0: VertexLitBump},
+                     "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
+                     "VERTEX_UNLIT":        {0: VertexUnlit},
+                     "VERTEX_UNLIT_TS":     {0: VertexUnlitTS}})
 LUMP_CLASSES.pop("CM_GRID")
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()

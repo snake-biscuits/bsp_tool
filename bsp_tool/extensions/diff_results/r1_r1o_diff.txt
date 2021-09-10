@@ -56,13 +56,13 @@ LumpHeader(offset=27585756, length=112904, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=29386516, length=942693, version=0, fourCC=0, filename='mp_airbase.bsp.0046.bsp_lump', filesize=942693)
 LumpHeader(offset=29337908, length=872744, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=35775720, length=90180, version=0, fourCC=0, filename='mp_airbase.bsp.0047.bsp_lump', filesize=90180)
 LumpHeader(offset=35616252, length=90180, version=0, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=35865900, length=21826068, version=1, fourCC=0, filename='mp_airbase.bsp.0049.bsp_lump', filesize=21826068)
 LumpHeader(offset=35706432, length=21725660, version=1, fourCC=0)
-VERTS_UNLIT_TS  NYYY  NOPE
+VERTEX_UNLIT_TS  NYYY  NOPE
 ExternalLumpHeader(offset=57691968, length=1288, version=0, fourCC=0, filename='mp_airbase.bsp.004a.bsp_lump', filesize=1288)
 LumpHeader(offset=57432092, length=1288, version=0, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -273,13 +273,13 @@ LumpHeader(offset=32896512, length=255464, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NYYY  NOPE
 ExternalLumpHeader(offset=37385160, length=1414872, version=0, fourCC=0, filename='mp_angel_city.bsp.0046.bsp_lump', filesize=1414872)
 LumpHeader(offset=37381760, length=1414872, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=47679260, length=54200, version=0, fourCC=0, filename='mp_angel_city.bsp.0047.bsp_lump', filesize=54200)
 LumpHeader(offset=47676000, length=54200, version=0, fourCC=0)
-VERTS_LIT_FLAT  NYYY  NOPE
+VERTEX_LIT_FLAT  NYYY  NOPE
 ExternalLumpHeader(offset=47733460, length=396, version=1, fourCC=0, filename='mp_angel_city.bsp.0048.bsp_lump', filesize=396)
 LumpHeader(offset=47730200, length=396, version=1, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=47733856, length=49511176, version=1, fourCC=0, filename='mp_angel_city.bsp.0049.bsp_lump', filesize=49511176)
 LumpHeader(offset=47730596, length=49519096, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -487,10 +487,10 @@ LumpHeader(offset=30636720, length=97680, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=36078312, length=962386, version=0, fourCC=0, filename='mp_boneyard.bsp.0046.bsp_lump', filesize=962386)
 LumpHeader(offset=35982964, length=960446, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=43697140, length=136400, version=0, fourCC=0, filename='mp_boneyard.bsp.0047.bsp_lump', filesize=136400)
 LumpHeader(offset=43566052, length=136400, version=0, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=43833540, length=30595092, version=1, fourCC=0, filename='mp_boneyard.bsp.0049.bsp_lump', filesize=30595092)
 LumpHeader(offset=43702452, length=30583168, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -698,10 +698,10 @@ LumpHeader(offset=23046636, length=211376, version=1, fourCC=0)
 PHYSICS_TRIANGLES  YYYY  YES!
 ExternalLumpHeader(offset=28337204, length=1173696, version=0, fourCC=0, filename='mp_fracture.bsp.0046.bsp_lump', filesize=1173696)
 LumpHeader(offset=28337204, length=1173696, version=0, fourCC=0)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=38410196, length=109120, version=0, fourCC=0, filename='mp_fracture.bsp.0047.bsp_lump', filesize=109120)
 LumpHeader(offset=38410196, length=109120, version=0, fourCC=0)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=38519316, length=45021680, version=1, fourCC=0, filename='mp_fracture.bsp.0049.bsp_lump', filesize=45021680)
 LumpHeader(offset=38519316, length=45021680, version=1, fourCC=0)
 MESH_INDICES  YYYY  YES!
@@ -912,13 +912,13 @@ LumpHeader(offset=17622888, length=230560, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=21671004, length=1197950, version=0, fourCC=0, filename='mp_haven.bsp.0046.bsp_lump', filesize=1197950)
 LumpHeader(offset=21652128, length=1197687, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=31362904, length=833520, version=0, fourCC=0, filename='mp_haven.bsp.0047.bsp_lump', filesize=833520)
 LumpHeader(offset=31343152, length=833520, version=0, fourCC=0)
-VERTS_LIT_FLAT  NYYY  NOPE
+VERTEX_LIT_FLAT  NYYY  NOPE
 ExternalLumpHeader(offset=32196424, length=288, version=1, fourCC=0, filename='mp_haven.bsp.0048.bsp_lump', filesize=288)
 LumpHeader(offset=32176672, length=288, version=1, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=32196712, length=38638028, version=1, fourCC=0, filename='mp_haven.bsp.0049.bsp_lump', filesize=38638028)
 LumpHeader(offset=32176960, length=38636400, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -1126,10 +1126,10 @@ LumpHeader(offset=31342596, length=98824, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NYYY  NOPE
 ExternalLumpHeader(offset=34154748, length=811106, version=0, fourCC=0, filename='mp_nexus.bsp.0046.bsp_lump', filesize=811106)
 LumpHeader(offset=34116896, length=811106, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=41300528, length=34280, version=0, fourCC=0, filename='mp_nexus.bsp.0047.bsp_lump', filesize=34280)
 LumpHeader(offset=41264136, length=34280, version=0, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=41334808, length=34431892, version=1, fourCC=0, filename='mp_nexus.bsp.0049.bsp_lump', filesize=34431892)
 LumpHeader(offset=41298416, length=34443772, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -1337,10 +1337,10 @@ LumpHeader(offset=39986228, length=131692, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NYYY  NOPE
 ExternalLumpHeader(offset=44433244, length=1192265, version=0, fourCC=0, filename='mp_outpost_207.bsp.0046.bsp_lump', filesize=1192265)
 LumpHeader(offset=44436236, length=1192265, version=0, fourCC=0)
-VERTS_UNLIT  NNYY  NOPE
+VERTEX_UNLIT  NNYY  NOPE
 ExternalLumpHeader(offset=53037876, length=105300, version=0, fourCC=0, filename='mp_outpost_207.bsp.0047.bsp_lump', filesize=105300)
 LumpHeader(offset=53042256, length=111020, version=0, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=53143176, length=31156356, version=1, fourCC=0, filename='mp_outpost_207.bsp.0049.bsp_lump', filesize=31156356)
 LumpHeader(offset=53153276, length=31157060, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -1548,10 +1548,10 @@ LumpHeader(offset=28222616, length=166100, version=1, fourCC=0)
 PHYSICS_TRIANGLES  YYYY  YES!
 ExternalLumpHeader(offset=33293196, length=1415144, version=0, fourCC=0, filename='mp_relic.bsp.0046.bsp_lump', filesize=1415144)
 LumpHeader(offset=33293196, length=1415144, version=0, fourCC=0)
-VERTS_UNLIT  YYYY  YES!
+VERTEX_UNLIT  YYYY  YES!
 ExternalLumpHeader(offset=43723164, length=80900, version=0, fourCC=0, filename='mp_relic.bsp.0047.bsp_lump', filesize=80900)
 LumpHeader(offset=43723164, length=80900, version=0, fourCC=0)
-VERTS_LIT_BUMP  YYYY  YES!
+VERTEX_LIT_BUMP  YYYY  YES!
 ExternalLumpHeader(offset=43804064, length=40122060, version=1, fourCC=0, filename='mp_relic.bsp.0049.bsp_lump', filesize=40122060)
 LumpHeader(offset=43804064, length=40122060, version=1, fourCC=0)
 MESH_INDICES  YYYY  YES!
@@ -1762,10 +1762,10 @@ LumpHeader(offset=23646712, length=339900, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=27086276, length=1362544, version=0, fourCC=0, filename='mp_runoff.bsp.0046.bsp_lump', filesize=1362544)
 LumpHeader(offset=27890700, length=1441092, version=0, fourCC=0)
-VERTS_UNLIT  NNYY  NOPE
+VERTEX_UNLIT  NNYY  NOPE
 ExternalLumpHeader(offset=38577032, length=103160, version=0, fourCC=0, filename='mp_runoff.bsp.0047.bsp_lump', filesize=103160)
 LumpHeader(offset=39608320, length=103180, version=0, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=38680192, length=54851324, version=1, fourCC=0, filename='mp_runoff.bsp.0049.bsp_lump', filesize=54851324)
 LumpHeader(offset=39711500, length=54852336, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -1973,10 +1973,10 @@ LumpHeader(offset=13467688, length=331980, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NYYY  NOPE
 ExternalLumpHeader(offset=15961736, length=941469, version=0, fourCC=0, filename='mp_sandtrap.bsp.0046.bsp_lump', filesize=941469)
 LumpHeader(offset=15942332, length=941469, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  YES!
+VERTEX_UNLIT  NYYY  YES!
 ExternalLumpHeader(offset=21617372, length=92280, version=0, fourCC=0, filename='mp_sandtrap.bsp.0047.bsp_lump', filesize=92280)
 LumpHeader(offset=21597968, length=92280, version=0, fourCC=0)
-VERTS_LIT_BUMP  NYYY  NOPE
+VERTEX_LIT_BUMP  NYYY  NOPE
 ExternalLumpHeader(offset=21709652, length=19494992, version=1, fourCC=0, filename='mp_sandtrap.bsp.0049.bsp_lump', filesize=19494992)
 LumpHeader(offset=21690248, length=19494992, version=1, fourCC=0)
 MESH_INDICES  NYYY  YES!
@@ -2187,13 +2187,13 @@ LumpHeader(offset=19138904, length=175560, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=22436172, length=1062857, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0046.bsp_lump', filesize=1062857)
 LumpHeader(offset=22432660, length=1062801, version=0, fourCC=0)
-VERTS_UNLIT  NYYY  NOPE
+VERTEX_UNLIT  NYYY  NOPE
 ExternalLumpHeader(offset=28825300, length=42940, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0047.bsp_lump', filesize=42940)
 LumpHeader(offset=28821524, length=42940, version=0, fourCC=0)
-VERTS_LIT_FLAT  NYYY  NOPE
+VERTEX_LIT_FLAT  NYYY  NOPE
 ExternalLumpHeader(offset=28868240, length=1836, version=1, fourCC=0, filename='mp_smugglers_cove.bsp.0048.bsp_lump', filesize=1836)
 LumpHeader(offset=28864464, length=1836, version=1, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=28870076, length=24408032, version=1, fourCC=0, filename='mp_smugglers_cove.bsp.0049.bsp_lump', filesize=24408032)
 LumpHeader(offset=28866300, length=24414060, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE
@@ -2404,13 +2404,13 @@ LumpHeader(offset=20404960, length=163988, version=1, fourCC=0)
 PHYSICS_TRIANGLES  NNYY  NOPE
 ExternalLumpHeader(offset=26714748, length=1285884, version=0, fourCC=0, filename='mp_swampland.bsp.0046.bsp_lump', filesize=1285884)
 LumpHeader(offset=26611640, length=1287924, version=0, fourCC=0)
-VERTS_UNLIT  NNYY  NOPE
+VERTEX_UNLIT  NNYY  NOPE
 ExternalLumpHeader(offset=35203336, length=140080, version=0, fourCC=0, filename='mp_swampland.bsp.0047.bsp_lump', filesize=140080)
 LumpHeader(offset=35104272, length=139880, version=0, fourCC=0)
-VERTS_LIT_FLAT  NYYY  NOPE
+VERTEX_LIT_FLAT  NYYY  NOPE
 ExternalLumpHeader(offset=35343416, length=2772, version=1, fourCC=0, filename='mp_swampland.bsp.0048.bsp_lump', filesize=2772)
 LumpHeader(offset=35244152, length=2772, version=1, fourCC=0)
-VERTS_LIT_BUMP  NNYY  NOPE
+VERTEX_LIT_BUMP  NNYY  NOPE
 ExternalLumpHeader(offset=35346188, length=25649668, version=1, fourCC=0, filename='mp_swampland.bsp.0049.bsp_lump', filesize=25649668)
 LumpHeader(offset=35246924, length=25648788, version=1, fourCC=0)
 MESH_INDICES  NNYY  NOPE

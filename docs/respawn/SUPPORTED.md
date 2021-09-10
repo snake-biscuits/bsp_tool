@@ -119,19 +119,19 @@
 | 69 | 0045 | 47 | `UNUSED_69` | 0 | | 0% |
 | 70 | 0046 | 29 | `PHYSICS_TRIANGLES` | 0 | | 0% |
 | 70 | 0046 | 37 | `UNUSED_70` | 0 | | 0% |
-| 71 | 0047 | 29 | `VERTS_UNLIT` | 0 | `respawn.titanfall.VertexUnlit` | 75% |
-| 71 | 0047 | 47 | `VERTS_UNLIT` | 0 | `respawn.apex_legends.VertexUnlit` | 75% |
-| 72 | 0048 | 29 | `VERTS_LIT_FLAT` | 1 | `respawn.titanfall.VertexLitFlat` | 75% |
-| 72 | 0048 | 47 | `VERTS_LIT_FLAT` | 0 | `respawn.apex_legends.VertexLitFlat` | 75% |
-| 73 | 0049 | 29 | `VERTS_LIT_BUMP` | 1 | `respawn.titanfall.VertexLitBump` | 83% |
-| 73 | 0049 | 47 | `VERTS_LIT_BUMP` | 0 | `respawn.apex_legends.VertexLitBump` | 80% |
-| 74 | 004A | 29 | `VERTS_UNLIT_TS` | 0 | `respawn.titanfall.VertexUnlitTS` | 75% |
-| 74 | 004A | 47 | `VERTS_UNLIT_TS` | 0 | `respawn.apex_legends.VertexUnlitTS` | 100% |
-| 75 | 004B | 29 | `VERTS_BLINN_PHONG` | 0 | `respawn.titanfall.VertexBlinnPhong` | 66% |
-| 75 | 004B | 47 | `VERTS_BLINN_PHONG` | 0 | `respawn.apex_legends.VertexBlinnPhong` | 100% |
-| 76 | 004C | 29 | `VERTS_RESERVED_5` | 0 | | 0% |
-| 77 | 004D | 29 | `VERTS_RESERVED_6` | 0 | | 0% |
-| 78 | 004E | 29 | `VERTS_RESERVED_7` | 0 | | 0% |
+| 71 | 0047 | 29 | `VERTEX_UNLIT` | 0 | `respawn.titanfall.VertexUnlit` | 75% |
+| 71 | 0047 | 47 | `VERTEX_UNLIT` | 0 | `respawn.apex_legends.VertexUnlit` | 75% |
+| 72 | 0048 | 29 | `VERTEX_LIT_FLAT` | 1 | `respawn.titanfall.VertexLitFlat` | 75% |
+| 72 | 0048 | 47 | `VERTEX_LIT_FLAT` | 0 | `respawn.apex_legends.VertexLitFlat` | 75% |
+| 73 | 0049 | 29 | `VERTEX_LIT_BUMP` | 1 | `respawn.titanfall.VertexLitBump` | 83% |
+| 73 | 0049 | 47 | `VERTEX_LIT_BUMP` | 0 | `respawn.apex_legends.VertexLitBump` | 80% |
+| 74 | 004A | 29 | `VERTEX_UNLIT_TS` | 0 | `respawn.titanfall.VertexUnlitTS` | 75% |
+| 74 | 004A | 47 | `VERTEX_UNLIT_TS` | 0 | `respawn.apex_legends.VertexUnlitTS` | 100% |
+| 75 | 004B | 29 | `VERTEX_BLINN_PHONG` | 0 | `respawn.titanfall.VertexBlinnPhong` | 66% |
+| 75 | 004B | 47 | `VERTEX_BLINN_PHONG` | 0 | `respawn.apex_legends.VertexBlinnPhong` | 100% |
+| 76 | 004C | 29 | `VERTEX_RESERVED_5` | 0 | | 0% |
+| 77 | 004D | 29 | `VERTEX_RESERVED_6` | 0 | | 0% |
+| 78 | 004E | 29 | `VERTEX_RESERVED_7` | 0 | | 0% |
 | 79 | 004F | 29 | `MESH_INDICES` | 0 | `shared.UnsignedShorts` | 100% |
 | 80 | 0050 | 29 | `MESHES` | 0 | `respawn.titanfall.Mesh` | 80% |
 | 80 | 0050 | 47 | `MESHES` | 0 | `respawn.apex_legends.Mesh` | 80% |

@@ -56,9 +56,9 @@ ExternalLumpHeader(offset=366607636, length=793184, version=0, fourCC=0, filenam
 WORLDLIGHTS_PARENT_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=352252004, length=6688, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\Season 5\\mp_rr_canyonlands_64k_x_64k.bsp.0037.bsp_lump', filesize=6688)
 ExternalLumpHeader(offset=367400820, length=6688, version=0, fourCC=0, filename='E:\\Mod\\ApexLegends\\maps\\mp_rr_canyonlands_64k_x_64k.bsp.0037.bsp_lump', filesize=6688)
-VERTS_UNLIT  NNYY  ????
-VERTS_LIT_BUMP  NNYY  ????
-VERTS_UNLIT_TS  NNYY  ????
+VERTEX_UNLIT  NNYY  ????
+VERTEX_LIT_BUMP  NNYY  ????
+VERTEX_UNLIT_TS  NNYY  ????
 MESH_INDICES  NNYY  ????
 MESHES  NNYY  ????
 MESH_BOUNDS  NNYY  NOPE
