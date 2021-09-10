@@ -485,6 +485,9 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "unknown": 3}
 
 
+VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
+
+
 # classes for special lumps (alphabetical order)
 class EntityPartition(list):
     def __init__(self, raw_lump: bytes):
@@ -586,26 +589,15 @@ GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, Stati
 
 
 # branch exclusive methods, in alphabetical order:
-# mesh.flags -> VertexReservedX
-mesh_types = {0x600: "VERTEX_UNLIT_TS",     # VERTEX_RESERVED_3
-              # 0x?: "VERTEX_BLINN_PHONG",  # VERTEX_RESERVED_4
-              0x400: "VERTEX_UNLIT",        # VERTEX_RESERVED_0
-              0x200: "VERTEX_LIT_BUMP",     # VERTEX_RESERVED_2
-              0x000: "VERTEX_LIT_FLAT"}     # VERTEX_RESERVED_1
-
-VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]
-
-
-# https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
 def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
     """gets the VertexReservedX linked to bsp.MESHES[mesh_index]"""
+    # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     start = mesh.start_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, mesh_types[mesh.flags & 0x600])
-    # NOTE: which vertex lump is used matters for shaders & buffer assembly
+    VERTEX_LUMP = getattr(bsp, (MeshFlags(mesh.flags) & MeshFlags.VERTEX_MASK).name)
     return [VERTEX_LUMP[i] for i in indices]
 
 
