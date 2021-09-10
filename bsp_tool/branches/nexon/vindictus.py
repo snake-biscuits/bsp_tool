@@ -110,10 +110,10 @@ class AreaPortal(base.Struct):  # LUMP 21
 
 class BrushSide(base.Struct):  # LUMP 19
     plane: int      # index into Plane lump
-    tex_info: int   # index into TextureInfo lump
+    texture_info: int   # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
     bevel: int      # smoothing group?
-    __slots__ = ["plane_num", "tex_info", "displacement_info", "bevel"]
+    __slots__ = ["plane_num", "texture_info", "displacement_info", "bevel"]
     _format = "I3i"
 
 
@@ -142,7 +142,7 @@ class Edge(list):  # LUMP 12
 class Face(base.Struct):  # LUMP 7
     plane: int  # index into Plane lump
     __slots__ = ["plane", "side", "on_node", "unknown", "first_edge",
-                 "num_edges", "tex_info", "displacement_info", "surface_fog_volume_id",
+                 "num_edges", "texture_info", "displacement_info", "surface_fog_volume_id",
                  "styles", "light_offset", "area",
                  "lightmap_texture_mins_in_luxels",
                  "lightmap_texture_size_in_luxels",
@@ -169,7 +169,7 @@ class Node(base.Struct):  # LUMP 5
 
 
 class Overlay(base.Struct):  # LUMP 45
-    __slots__ = ["id", "tex_info", "face_count_and_render_order",
+    __slots__ = ["id", "texture_info", "face_count_and_render_order",
                  "faces", "u", "v", "uv_points", "origin", "normal"]
     _format = "2iIi4f18f"
     _arrays = {"faces": 64,  # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)

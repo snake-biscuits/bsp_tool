@@ -137,15 +137,18 @@
 14 WORLD\METAL\BEAM_IMC_METAL_GRAY_MAT              <Surface.BUMPLIGHT|SKIP: 2560>
 15 world\decal\imc_logo_large                       <Surface.SKIP|NO_PORTAL|TRANSLUCENT: 560>
 16 TOOLS\TOOLSTRIGGER                               <Surface.262144|NO_LIGHT: 263168>
-# SKIP == PATCH?
+# SKIP == PATCH?  NO_PORTAL == PATCH?
 
 
 # in .map / .vmf / .blend / .bsp (VBSP)
 mesh_vertices: List[VertexReservedX]
 mesh_indices: List[int]  # all triangles
 # in .bsp (rBSP)
+# pick VERTEX_LUMP
+index_offset = len(VERTEX_LUMP)
 VERTEX_LUMP.extend(mesh_vertices)
+mesh = r1.Mesh()
 mesh.flags |= MeshFlags.VERTEX_LUMP
 mesh.start_index = len(MATERIAL_SORT)
-num_triangles = len(mesh_indices) // 3
-MESH_INDICES.extend()
+mesh.num_triangles = len(mesh_indices) // 3
+MESH_INDICES.extend([i + index_offset for i in mesh_indices])

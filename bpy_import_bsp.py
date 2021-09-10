@@ -44,10 +44,16 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
     #             material = bpy.data.materials.new(vmt_name)
     #         materials.append(material)
     # else:
-    for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
-        materials.append(bpy.data.materials.new(vmt_name))
-        # TODO: have a light "build_material" function
-        # -- make tooltextures semitransparent in the viewport
+    for i, vmt_name in enumerate(bsp.TEXTURE_DATA_STRING_DATA):
+        material = bpy.data.materials.new(vmt_name)
+        colour = (.8, .8, .8)  # blender default
+        if bsp.branch == bsp_tool.branches.respawn.titanfall:
+            colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
+        alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
+        material.diffuse_color = (*colour, alpha)
+        if alpha != 1:
+            material.blend_method = "BLEND"
+        materials.append(material)
     return materials
 
 
@@ -180,8 +186,9 @@ def load_static_props(bsp):
 def load_rbsp(rbsp):
     """Titanfall 1 / 2 -> Blender"""
     materials = load_materials(rbsp)
-    # TODO: master collection for map, and one master collection for models
-    # auto-hide tool texture models
+    # TODO: master collection for geometry
+    # sub-collection in model[0] for skybox meshes
+    # auto-hide tool textures (optional)
     master_collection = bpy.data.collections.new(rbsp.filename)
     bpy.context.scene.collection.children.link(master_collection)
     for model_index, model in enumerate(rbsp.MODELS):
@@ -319,19 +326,19 @@ def load_apex_rbsp(rbsp):
             bpy.data.collections.remove(model_collection)
 
 
-
 TITANFALL = "E:/Mod/Titanfall/maps/"
-# bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")    # odd model flags for breakable glass
+TITANFALL_ONLINE = "E:/Mod/TitanfallOnline/maps/"
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")  # odd model flags for breakable glass
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_colony.bsp")  # smallest map after lobby
-# bsp = bsp_tool.load_bsp(TITANFALL + "mp_switchback.bsp")  # DLC: Export
+bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
 
 TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_boomtown.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_lobby.bsp")
-
-# load_rbsp(bsp)
+# bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_wargames.bsp")
+load_rbsp(bsp)
 
 APEX = "E:/Mod/ApexLegends/"
 S2 = "season2/maps/"
@@ -341,8 +348,8 @@ S10 = "season10_10aug21/maps/"
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
 # bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
-bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
-load_apex_rbsp(bsp)
+# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
+# load_apex_rbsp(bsp)
 
 load_entities(bsp)
 

@@ -182,16 +182,12 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # flag enums
 class MeshFlags(enum.IntFlag):
-    UNUSED_0 = 0x01  # 2 ^ (UNUSED | UNKNOWN)
-    UNUSED_1 = 0x02
-    UNKNOWN_2 = 0x04
-    UNKNOWN_3 = 0x08
-    VERTEX_MASK = 0x600
     VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
     VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2
     VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
     VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
     # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
+    VERTEX_MASK = 0x600
 
 
 # # classes for lumps, in alphabetical order:
@@ -213,6 +209,9 @@ class Brush(base.Struct):  # LUMP 92 (005C)
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
+    """BVH4? (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
+https://www.youtube.com/watch?v=6BIfqfC1i7U
+https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     a: int
     b: int
     c: int
@@ -277,10 +276,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     num_triangles: int  # number of triangles in VertexReservedX after start_index
     unknown: List[int]  # 16 bytes
     material_sort: int  # index of this Mesh's MaterialSort
-    flags: int  # specifies VertexReservedX to draw vertices from
-    # 0x4, 0x8, 0x10, 0x20  (0x10 MESHES?)
-    # 0x200, 0x400  (MESHES?)
-    # 0x800, 0x1000, 0x2000, 0x40000, 0x100000, 0x200000
+    flags: int  # see MeshFlags (selects VertexReservedX)
     __slots__ = ["start_index", "num_triangles", "unknown", "material_sort", "flags"]
     _format = "IH8hHI"  # 28 Bytes
     _arrays = {"unknown": 8}

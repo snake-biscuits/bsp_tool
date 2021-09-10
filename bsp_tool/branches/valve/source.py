@@ -229,9 +229,7 @@ class MAX_X360(enum.Enum):  # "force static arrays to be very small"
 
 # flag enums
 class Contents(enum.IntFlag):  # src/public/bspflags.h
-    """Brush flags"""
-    # NOTE: compiler gets these flags from a combination of all textures on the brush
-    # e.g. any non opaque face means this brush is non-opaque, and will not block vis
+    """Brush flags"""  # NOTE: vbsp sets these in src/utils/vbsp/textures.cpp
     # visible
     EMPTY = 0x00
     SOLID = 0x01
@@ -287,8 +285,7 @@ class DispTris(enum.IntFlag):
 
 
 class Surface(enum.IntFlag):  # src/public/bspflags.h
-    """TextureInfo flags"""
-    # NOTE: compiler gets these flags from the texture
+    """TextureInfo flags"""  # NOTE: vbsp sets these in src/utils/vbsp/textures.cpp
     LIGHT = 0x0001  # value will hold the light strength ???
     SKY_2D = 0x0002  # don't draw, indicates we should skylight + draw 2d sky but not draw the 3D skybox
     SKY = 0x0004  # don't draw, but add to skybox
@@ -337,10 +334,10 @@ class Brush(base.Struct):  # LUMP 18
 
 class BrushSide(base.Struct):  # LUMP 19
     plane: int      # index into Plane lump
-    tex_info: int   # index into TextureInfo lump
+    texture_info: int   # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
     bevel: int      # smoothing group?
-    __slots__ = ["plane", "tex_info", "displacement_info", "bevel"]
+    __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "H3h"
 
 
@@ -398,20 +395,21 @@ class Face(base.Struct):  # LUMP 7
     on_node: bool    # if False, face is in a leaf
     first_edge: int  # index into the SurfEdge lump
     num_edges: int   # number of SurfEdges after first_edge in this Face
-    tex_info: int    # index into the TextureInfo lump
+    texture_info: int    # index into the TextureInfo lump
     displacement_info: int   # index into the DisplacementInfo lump (None if -1)
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
     styles: int      # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
-    lightmap_texture_mins_in_luxels: List[int]  # dimensions of lightmap segment
-    lightmap_texture_size_in_luxels: List[int]  # scalars for lightmap segment
+    lightmap: List[float]
+    # lightmap.mins  # dimensions of lightmap segment
+    # lightmap.size  # scalars for lightmap segment
     original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
     num_primitives: int  # non-zero if t-juncts are present? number of Primitives
     first_primitive_id: int  # index of Primitive
     smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
-                 "tex_info", "displacement_info", "surface_fog_volume_id", "styles",
+                 "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face",
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
@@ -476,14 +474,11 @@ class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
     name_index: int  # index of texture name (TEXTURE_DATA_STRING_TABLE)
-    width: int  # width of full texture
-    height: int  # height of full texture
-    view_width: int  # width of visible section of texture
-    view_height: int  # height of visible section of texture
-    __slots__ = ["reflectivity", "name_index", "width", "height",
-                 "view_width", "view_height"]
+    size: List[int]  # dimensions of full texture
+    view: List[int]  # dimensions of visible section of texture
+    __slots__ = ["reflectivity", "name_index", "size", "view"]
     _format = "3f5i"
-    _arrays = {"reflectivity": [*"rgb"]}
+    _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -491,8 +486,8 @@ class TextureInfo(base.Struct):  # LUMP 6
     texture: List[List[float]]  # 2 texture projection vectors
     lightmap: List[List[float]]  # 2 lightmap projection vectors
     flags: int  # Surface flags
-    tex_data: int  # index of TextureData
-    __slots__ = ["texture", "lightmap", "flags", "tex_data"]
+    texture_data: int  # index of TextureData
+    __slots__ = ["texture", "lightmap", "flags", "texture_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
@@ -518,12 +513,12 @@ class WorldLight(base.Struct):  # LUMP 15
     quadratic: float
     # ^ these factor into some equation...
     flags: int  # bitflags?
-    tex_info: int  # index of TextureInfo
+    texture_info: int  # index of TextureInfo
     owner: int  # parent entity ID?
     __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
-                 "flags", "tex_info", "owner"]
+                 "flags", "texture_info", "owner"]
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
 
@@ -648,10 +643,10 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
             # ^ utils/vrad/trace.cpp:635
         edges.append(edge)
     positions = t_junction_fixer(bsp, face, positions, edges)
-    tex_info = bsp.TEXTURE_INFO[face.tex_info]
-    tex_data = bsp.TEXTURE_DATA[tex_info.tex_data]
-    texture = tex_info.texture
-    lightmap = tex_info.lightmap
+    texture_info = bsp.TEXTURE_INFO[face.texture_info]
+    texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
+    texture = texture_info.texture
+    lightmap = texture_info.lightmap
 
     def vector_of(P):
         """returns the normal of plane (P)"""
@@ -664,22 +659,22 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
         # texture UV
         uv = [vector.dot(P, vector_of(texture.s)) + texture.s.offset,
               vector.dot(P, vector_of(texture.t)) + texture.t.offset]
-        uv[0] /= tex_data.view_width if tex_data.view_width != 0 else 1
-        uv[1] /= tex_data.view_height if tex_data.view_height != 0 else 1
+        uv[0] /= texture_data.view.width if texture_data.view.width != 0 else 1
+        uv[1] /= texture_data.view.height if texture_data.view.height != 0 else 1
         uvs.append(vector.vec2(*uv))
         # lightmap UV
         uv2 = [vector.dot(P, vector_of(lightmap.s)) + lightmap.s.offset,
                vector.dot(P, vector_of(lightmap.t)) + lightmap.t.offset]
-        if any([(face.lightmap_texture_size_in_luxels.s == 0), (face.lightmap_texture_size_in_luxels.t == 0)]):
-            uv2 = [0, 0]
+        if any([(face.lightmap.mins.x == 0), (face.lightmap.mins.y == 0)]):
+            uv2 = [0, 0]  # invalid / no lighting
         else:
-            uv2[0] -= face.lightmap_texture_mins_in_luxels.s
-            uv2[1] -= face.lightmap_texture_mins_in_luxels.t
-            uv2[0] /= face.lightmap_texture_size_in_luxels.s
-            uv2[1] /= face.lightmap_texture_size_in_luxels.t
+            uv2[0] -= face.lightmap.mins.x
+            uv2[1] -= face.lightmap.mins.y
+            uv2[0] /= face.lightmap.size.x
+            uv2[1] /= face.lightmap.size.y
         uv2s.append(uv2)
     normal = [bsp.PLANES[face.plane].normal] * len(positions)  # X Y Z
-    colour = [tex_data.reflectivity] * len(positions)  # R G B
+    colour = [texture_data.reflectivity] * len(positions)  # R G B
     return list(zip(positions, normal, uvs, uv2s, colour))
 
 

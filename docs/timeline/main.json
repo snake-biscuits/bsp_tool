@@ -316,6 +316,29 @@
       "employees": {}
     },
 
+    { "name": "2015, Inc.",
+      "founded": 1997,
+      "games": ["SiN: Wages of Sin",
+                "Medal of Honor: Allied Assault"],
+      "employees": {
+          "Earl Hammon": "????-2002"}
+    },
+
+    { "name": "Infinity Ward",
+      "founded": 2002,
+      "games": ["Call of Duty"],
+      "employees": {
+        "Earl Hammon": "2001-2010"},
+      "links": ["https://en.wikipedia.org/wiki/Infinity_Ward",
+                "https://venturebeat.com/2010/03/07/the-making-and-unmaking-of-infinity-ward/"]
+    },
+
+    { "name": "Respawn Entertainment",
+      "founded": 2010,
+      "games": ["Titanfall", "Titanfall 2", "Apex Legends"],
+      "employees": {"Earl Hammon": "2010-2021"}
+    },
+
     { "name": "Turtle Rock Studios",
       "games": ["Counter-Strike",
                 "Counter-Strike: Condition Zero"]
@@ -357,7 +380,7 @@
     { "name": "Bethesda"},
 
     { "name": "Electronic Arts",
-      "children": {"Respawn Entertainment": ""}},
+      "children": {"Respawn Entertainment": "2017-2021"}},
 
     { "name": "Activision"},
 
