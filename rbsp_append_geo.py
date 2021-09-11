@@ -4,7 +4,6 @@ import bsp_tool
 
 
 r1 = bsp_tool.branches.respawn.titanfall
-Surface = bsp_tool.branches.valve.source.Surface
 
 TITANFALL = "E:/Mod/Titanfall/maps/"
 TITANFALL_ONLINE = "E:/Mod/TitanfallOnline/maps/"
@@ -14,7 +13,7 @@ bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
 obj = bpy.context.selected_objects[0]
 entity = dict(classname="func_brush",
            model=f"*{len(bsp.MODELS)}",
-           targetname = "orange_tower",
+           targetname="orange_tower",
            origin=f"{obj.location.x} {obj.location.y} {obj.location.z}",
            # loose defaults:
            solidbsp=0, shadowdepthnocache=0,
@@ -44,7 +43,7 @@ for obj in bpy.context.selected_objects:
     texture_data = r1.TextureData(reflectivity=obj.material_slots[0].material.diffuse_color[:3],
                                   name_index=len(bsp.TEXTURE_DATA_STRING_DATA) - 1,
                                   size=[128, 128], view=[128, 128],
-                                  flags=Surface.SKIP)
+                                  flags=Flags.VERTEX_UNLIT)
     # hl2/hl2_misc_dir.vpk/materials/dev/dev_measure_generic01.vmt
     # hl2/hl2_misc_dir.vpk/materials/dev/dev_measure_generic01b.vmt
     # hl2/hl2_textures_dir.vpk/materials/dev/dev_measure_generic01.vtf
@@ -95,7 +94,7 @@ for obj in bpy.context.selected_objects:
     mesh = (len(bsp.MESH_INDICES), len(mesh_indices) // 3,  # first_mesh_index, num_triangles
             len(bsp.VERTEX_UNLIT), len(special_vertices),  # first_vertex, num_vertices
             0, -1, -1, -1, -1, -1,  # unknown
-            len(bsp.MATERIAL_SORT) - 1, r1.Surface.VERTEX_UNLIT)  # material_sort, flags
+            len(bsp.MATERIAL_SORT) - 1, r1.Flags.VERTEX_UNLIT)  # material_sort, flags
     bsp.MESHES.append(r1.Mesh(mesh))
     
     bsp.MESH_INDICES.extend(mesh_indices)
