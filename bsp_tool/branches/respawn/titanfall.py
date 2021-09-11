@@ -292,9 +292,10 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
-    __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
-    _format = "IH2h 6h HI"  # 28 Bytes
-    _arrays = {"unknown": 8}
+    __slots__ = ["first_mesh_index", "num_triangles", "start_vertices",
+                 "num_vertices", "unknown", "material_sort", "flags"]
+    _format = "IH8hHI"  # 28 Bytes
+    _arrays = {"unknown": 6}
 
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)

@@ -235,8 +235,16 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    __slots__ = ["start_index", "num_triangles", "unknown",
-                 "material_sort", "flags"]
+    first_mesh_index: int  # index into this Mesh's VertexReservedX
+    num_triangles: int  # number of triangles in VertexReservedX after first_mesh_index
+    # start_vertices: int  # index to this Mesh's first VertexReservedX
+    # num_vertices: int
+    unknown: List[int]
+    # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
+    # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
+    material_sort: int  # index of this Mesh's MaterialSort
+    flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    __slots__ = ["start_index", "num_triangles", "unknown", "material_sort", "flags"]
     # vertex type stored in flags
     _format = "IH3I2HI"  # 28 bytes
     _arrays = {"unknown": 4}

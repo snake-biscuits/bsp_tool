@@ -25,6 +25,10 @@ importlib.reload(bsp_tool.branches.respawn.apex_legends)
 # TODO: log errors to a bpy.data.texts["{bsp.filename}_log"]
 game_dir = "E:/Mod/TitanfallOnline/TitanFallOnline/assets_dump"
 
+r1 = bsp_tool.branches.respawn.titanfall
+r2 = bsp_tool.branches.respawn.titanfall2
+r5 = bsp_tool.branches.respawn.apex_legends
+
 
 def load_materials(bsp):  # -> List[BlenderMaterial]
     materials = list()
@@ -46,9 +50,10 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
     # else:
     for i, vmt_name in enumerate(bsp.TEXTURE_DATA_STRING_DATA):
         material = bpy.data.materials.new(vmt_name)
-        colour = (.8, .8, .8)  # blender default
-        if bsp.branch == bsp_tool.branches.respawn.titanfall:
+        if bsp.branch == r1:
             colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
+        else:
+            colour = (1, 0, 1) if vmt_name.startswith("TOOLS") else (.8, .8, .8)  # blender default
         alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
         material.diffuse_color = (*colour, alpha)
         if alpha != 1:
@@ -331,10 +336,10 @@ TITANFALL_ONLINE = "E:/Mod/TitanfallOnline/maps/"
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")  # odd model flags for breakable glass
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_colony.bsp")  # smallest map after lobby
-bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
+# bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
 
 TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
-# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
+bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_boomtown.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_wargames.bsp")
