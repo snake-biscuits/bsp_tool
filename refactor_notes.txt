@@ -45,6 +45,7 @@ class BspBinary(Struct):
 
 # _tuple -> *args
 # warnings on bad *args length
+# warnings if there are any annotations not in __slots__
 
 # **kwargs  # e.g. Vertex(z=128)
 # default args from type  ("bBhHiIlLefg": 0, "s": b"")
