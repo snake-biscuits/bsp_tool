@@ -234,7 +234,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     EMPTY = 0x00
     SOLID = 0x01
     WINDOW = 0x02
-    AUX = 0x04
+    AUX = 0x04  # unused?
     GRATE = 0x08  # allows bullets & vis
     SLIME = 0x10
     WATER = 0x20
@@ -245,7 +245,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     UNUSED_2 = 0x400  # titanfall vertex lump flags?
     TEAM1 = 0x0800
     TEAM2 = 0x1000
-    IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NODRAW
+    IGNORE_NO_DRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
     MOVEABLE = 0x4000  # pushables
     # not visible
     AREAPORTAL = 0x8000
@@ -286,17 +286,17 @@ class DispTris(enum.IntFlag):
 
 class Surface(enum.IntFlag):  # src/public/bspflags.h
     """TextureInfo flags"""  # NOTE: vbsp sets these in src/utils/vbsp/textures.cpp
-    LIGHT = 0x0001  # value will hold the light strength ???
+    LIGHT = 0x0001  # "value will hold the light strength"
     SKY_2D = 0x0002  # don't draw, indicates we should skylight + draw 2d sky but not draw the 3D skybox
     SKY = 0x0004  # don't draw, but add to skybox
     WARP = 0x0008  # turbulent water warp
     TRANSLUCENT = 0x0010
     NO_PORTAL = 0x0020  # the surface can not have a portal placed on it
     TRIGGER = 0x0040  # xbox hack to work around elimination of trigger surfaces, which breaks occluders
-    NODRAW = 0x0080
+    NO_DRAW = 0x0080
     HINT = 0x0100  # make a bsp split on this face
     SKIP = 0x0200  # don't split on this face, allows for non-closed brushes
-    NO_LIGHT = 0x0400  # fon't calculate light
+    NO_LIGHT = 0x0400  # don't calculate light
     BUMPLIGHT = 0x0800  # calculate three lightmaps for the surface for bumpmapping (ssbump?)
     NO_SHADOWS = 0x1000
     NO_DECALS = 0x2000

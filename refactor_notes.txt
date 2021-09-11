@@ -21,8 +21,8 @@ class LumpHeader(base.MappedArray):
 class Header(base.BspBinary):
     _slots = ["file_magic", "version", "headers", "revision"]
     _format = f"2I{16 * 64}sI"
-    
-    
+
+
 # branches/base.py
 class BspBinary(Struct):
     def __init__(self, file, branch_script):
@@ -30,8 +30,34 @@ class BspBinary(Struct):
         raw_header = file.read(struct.calcsize(LumpHeaderClass._format))
         super(BspBinary, self).__init__(raw_header)
         self.headers = list(struct.iter_unpack(LumpHeaderClass, self.headers))
-    
+
     def as_bytes(self):
         self.headers = [struct.pack(h._format, *h) for h in self.headers]
         _tuple = super(BspBinary, self).flat()
         return struct.pack(self._format, _tuple)
+
+
+# struct refactor
+# look into @dataclass, can we use it on the baseclass?
+# C/C++ struct __repr__
+# Class.__repr__ = "struct { int a; } Class;"
+# instance.__repr__ = "Class(a=...)"
+
+# _tuple -> *args
+# warnings on bad *args length
+
+# **kwargs  # e.g. Vertex(z=128)
+# default args from type  ("bBhHiIlLefg": 0, "s": b"")
+# how will children be indexed? . in kwargs will break unless:
+# Class("attr"=0, **{"child.attr": 1})
+
+# _subclasses = {"attr": SubClass}  # e.g. "uv": "Vec2"
+# ^ accept static methods, e.g. Class.from_bytes as alternate __init__ ?
+# must also have .to_bytes() or __iter__ must "flatten"
+# also need more errors & warnings to ensure implementations are correct
+
+# class quake.Vertex(base.Struct, vector.Vec3)
+
+# LumpClass_from_C_struct(_struct: str) -> str: ...
+
+# vector.swizzle(cls, attr_string)

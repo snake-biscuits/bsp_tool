@@ -19,7 +19,7 @@ mesh.start_index = len(bsp.MESH_INDICES)
 mesh.num_triangles = len(new_indices) // 3
 mesh.unknown = (0,) * 8  # try copying if that doesn't work
 mesh.material_sort = len(bsp.MATERIAL_SORT)
-mesh.flags |= MeshFlags.VERTEX_UNLIT
+mesh.flags |= Flags.VERTEX_UNLIT
 bsp.MESHES.append(mesh)
 
 material_sort = r1.MaterialSort()

@@ -145,11 +145,13 @@ class LUMP(enum.Enum):
     SHADOW_MESH_MESHES = 0x007F
 
 # Rough map of the relationships between lumps:
-# Model -> Mesh -> MaterialSort -> TextureData
-#                              |-> VertexReservedX
-#                              |-> MeshIndex
-#
-# MeshBounds & Mesh (must have equal number of each)
+
+#              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
+# Model -> Mesh -> MeshIndices -\-> VertexReservedX -> Vertex
+#              \-> .flags (VertexReservedX)       \--> VertexNormal
+#                                                  \-> .uv
+
+# MeshBounds & Mesh are indexed in paralell?
 #
 # TextureData -> TextureDataStringTable -> TextureDataStringTable
 # VertexReservedX -> Vertex
@@ -181,13 +183,22 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # flag enums
-class MeshFlags(enum.IntFlag):
+class Flags(enum.IntFlag):
+    # source.Surface (source.TextureInfo / titanfall.TextureData ?)
+    SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
+    SKY = 0x0004
+    WARP = 0x0008  # water surface?
+    TRANSLUCENT = 0x0010  # VERTEX_UNLIT_TS ?
+    # titanfall.Mesh.flags
     VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
     VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2
     VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
     VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
     # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
-    VERTEX_MASK = 0x600
+    # guesses
+    TRIGGER = 0x40000
+    # masks
+    MASK_VERTEX = 0x600
 
 
 # # classes for lumps, in alphabetical order:
@@ -272,25 +283,29 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    start_index: int  # index into this Mesh's VertexReservedX
-    num_triangles: int  # number of triangles in VertexReservedX after start_index
-    unknown: List[int]  # 16 bytes
+    first_mesh_index: int  # index into this Mesh's VertexReservedX
+    num_triangles: int  # number of triangles in VertexReservedX after first_mesh_index
+    start_vertices: int  # index to this Mesh's first VertexReservedX
+    num_vertices: int
+    unknown: List[int]
+    # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
+    # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
-    flags: int  # see MeshFlags (selects VertexReservedX)
-    __slots__ = ["start_index", "num_triangles", "unknown", "material_sort", "flags"]
-    _format = "IH8hHI"  # 28 Bytes
+    flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
+    _format = "IH2h 6h HI"  # 28 Bytes
     _arrays = {"unknown": 8}
 
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)
-    # NOTE: these are all guesses
-    mins: List[float]
-    flags_1: int  # is this finally the extreme SIMD AABB?
+    # NOTE: these are all guesses based on GDC 2018 - Extreme SIMD
+    mins: List[float]  # TODO: verify
+    flags_1: int  # unsure
     maxs: List[float]
     flags_2: int
     __slots__ = ["mins", "flags_1", "maxs", "flags_2"]
     _format = "3fI3fI"
-    _arrays = {"unknown": 8}
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
@@ -360,7 +375,7 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    start_index: int  # unsure what lump is indexed
+    start_index: int  # assuming to be like Mesh; unsure what lump is indexed
     num_triangles: int
     # unknown.one: int  # usually one
     # unknown.negative_one: int  # usually negative one
@@ -407,11 +422,11 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
     """Hybrid of Source TextureData & TextureInfo"""
-    reflectivity: List[float]  # copy of .vtf reflectivity value, for bounce lighting
+    reflectivity: List[float]  # matches .vtf reflectivity.rgb (always? black in r2)
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     size: List[int]  # dimensions of full texture
     view: List[int]  # dimensions of visible section of texture
-    flags: int  # from source.TextureInfo?  valve.source.Surface IntEnum
+    flags: int  # matches Mesh's .flags; probably from source.TextureInfo
     __slots__ = ["reflectivity", "name_index", "width", "height",
                  "view_width", "view_height", "flags"]
     _format = "3f6i"
@@ -432,18 +447,23 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
+    """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv: List[float]  # albedo / normal / gloss / specular uv
-    uv2: List[float]  # secondary uv? any target?
-    uv3: List[float]  # lightmap uv
-    unknown: List[int]  # unknown
-    __slots__ = ["position_index", "normal_index", "uv", "uv2", "uv3", "unknown"]
-    _format = "2I6f3I"  # 44 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "uv3": [*"uv"], "unknown": 3}
+    unused: int  # -1
+    uv2: List[float]  # small 0-1 floats, lightmap uv?
+    unknown: List[int]  # (0, 0, ?, ?)
+    # {v[-2:] for v in mp_box.VERTEX_LIT_BUMP}}
+    # {x[0] for x in _}.union({x[1] for x in _})  # all numbers
+    # for "mp_box": {*range(27)} - {0, 1, 6, 17, 19, 22, 25}
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2I2fi2f4i"  # 44 bytes
+    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "unknown": 4}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+    """Uncommon Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv: List[float]  # uv coords
@@ -454,16 +474,18 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+    """Tool Brushes"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv: List[float]  # uv coords
-    unknown: int
+    unknown: int  # usually -1
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
-    _format = "2I2fI"  # 20 bytes
+    _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
+    """Glass"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv: List[float]  # uv coords
@@ -567,18 +589,18 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "TEXTURE_DATA":              {1: TextureData},
                 "VERTEX_NORMALS":            {0: quake.Vertex},
                 "VERTICES":                  {0: quake.Vertex},
-                "VERTEX_BLINN_PHONG":         {0: VertexBlinnPhong},
-                "VERTEX_LIT_BUMP":            {1: VertexLitBump},
-                "VERTEX_LIT_FLAT":            {1: VertexLitFlat},
-                "VERTEX_UNLIT":               {0: VertexUnlit},
-                "VERTEX_UNLIT_TS":            {0: VertexUnlitTS}}
+                "VERTEX_BLINN_PHONG":        {0: VertexBlinnPhong},
+                "VERTEX_LIT_BUMP":           {1: VertexLitBump},
+                "VERTEX_LIT_FLAT":           {1: VertexLitFlat},
+                "VERTEX_UNLIT":              {0: VertexUnlit},
+                "VERTEX_UNLIT_TS":           {0: VertexUnlitTS}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":        {0: EntityPartition},
                         "ENTITIES":                 {0: shared.Entities},
+                        # NOTE: .ent files are handled directly by the RespawnBsp class
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
-# NOTE: .ent files are handled by the RespawnBsp class directly
 
 GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}
 
@@ -589,10 +611,10 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
-    start = mesh.start_index
+    start = mesh.first_mesh_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, (MeshFlags(mesh.flags) & MeshFlags.VERTEX_MASK).name)
+    VERTEX_LUMP = getattr(bsp, (Flags(mesh.flags) & Flags.MASK_VERTEX).name)
     return [VERTEX_LUMP[i] for i in indices]
 
 
@@ -672,8 +694,8 @@ def debug_Mesh_stats(bsp):
             material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
             texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
             texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
-            vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.VERTEX_MASK).name
-            indices = set(bsp.MESH_INDICES[mesh.start_index:mesh.start_index + mesh.num_triangles * 3])
+            vertex_lump = (Flags(mesh.flags) & Flags.MASK_VERTEX).name
+            indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
             _min, _max = min(indices), max(indices)
             _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices
             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")

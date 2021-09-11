@@ -250,7 +250,7 @@ class TextureDataStringData(list):
     #     return fnmatch.filter(map(str.lower, self), f"*{pattern}*")
 
     def as_bytes(self) -> bytes:
-        return b"\0".join([t.encode("ascii") for t in self]) + b"\x00"
+        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
 
 
 class Visiblity:
