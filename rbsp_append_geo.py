@@ -50,7 +50,7 @@ for obj in bpy.context.selected_objects:
     # hl2/hl2_textures_dir.vpk/materials/dev/dev_measure_generic01b.vtf
     bsp.TEXTURE_DATA.append(texture_data)
     
-    material_sort = (texture_data=len(bsp.TEXTURE_DATA) - 1,
+    material_sort = dict(texture_data=len(bsp.TEXTURE_DATA) - 1,
                      lightmap_header=0, cubemap=-1, vertex_offset=0)
     bsp.MATERIAL_SORT.append(r1.MaterialSort(material_sort))
     # NOTE: expecting one mesh per material, but we could split it ourselves
