@@ -44,3 +44,6 @@ bsp.MESH_INDICES.extend([i + mesh_index_offset for i in mesh_indices])
 # TODO: func_brush using the model in bsp.ENTITIES
 
 # not even complete but I think I know enough to put in some dummy values for the rest
+
+# NOTE: trigger brushes are defined with "colN" keys in entities?
+# -- looks like 64bit text encoded physics bytes?
