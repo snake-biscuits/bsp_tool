@@ -162,6 +162,7 @@ by_version = {
     respawn.apex_legends.BSP_VERSION: respawn.apex_legends,  # 47
     48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
+    50: respawn.apex_legends,  # Introduced in Season 10 with Arena Skygarden
     # Valve Software
     # valve.alien_swarm.BSP_VERSION: valve.alien_swarm,  # 21
     valve.sdk_2013.BSP_VERSION: valve.sdk_2013,  # 21

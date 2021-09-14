@@ -6,7 +6,10 @@ from .. import shared
 from . import titanfall, titanfall2
 
 
-BSP_VERSION = 47  # Olympus is v48 & canyonlands_staging is v49
+BSP_VERSION = 47
+# v48  Season 7   Olympus
+# v49  Season 8   King's Canyon mu3
+# v50  Season 10  Arena Skygarden
 
 GAMES = ["Apex Legends"]
 

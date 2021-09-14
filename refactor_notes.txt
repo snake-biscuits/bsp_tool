@@ -62,3 +62,11 @@ class BspBinary(Struct):
 # LumpClass_from_C_struct(_struct: str) -> str: ...
 
 # vector.swizzle(cls, attr_string)
+
+
+{b"IBSP": ["id_software", "infinity_ward"],
+ b"rBSP": ["respawn"],
+ b"VBSP": ["arkane", "nexon", "valve"]}
+ # NOTE: Quake & Goldsrc have no file-magic (Gearbox/bshift included?)
+ # NOTE: Übertools has a file magic for each game
+ # b"FAKK", b"EF2!"

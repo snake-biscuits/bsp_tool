@@ -151,7 +151,10 @@ extracted_dirs = {
                         # season10:  Emergence  [3rd Aug 2021]
                         "season10_3aug21/maps",  # 2 maps | 813 MB
                         "season10_3aug21/maps",  # 8 maps | 2.8 GB
-                        "season10_3aug21/depot/r5-100/game/r2/maps"]}  # 8 maps | 2.8 GB
+                        "season10_3aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
+                        "season10_14sep21/maps"  # 2 maps | 962 MB
+                        "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB
+                        "season10_14sep21/depot/r5-101/game/r2/maps"]}  # 2 maps | 949 MB
 # ^ {"game_dir": ["map_dir"]}
 
 # https://geshl2.com
