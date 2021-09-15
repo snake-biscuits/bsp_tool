@@ -282,6 +282,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     _arrays = {"size": ["width", "height"]}
 
 
+# special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     __slots__ = ["position_index", "normal_index", "uv", "uv2"]
     _format = "2I4f"  # 24 bytes
@@ -289,7 +290,12 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
-    __slots__ = ["position_index", "normal_index", "uv", "negative_one", "unknown"]
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
+    uv: List[float]  # albedo / normal / gloss / specular uv
+    unused: int  # -1
+    unknown: List[float]  # vertex colour for _bm materials?
+    __slots__ = ["position_index", "normal_index", "uv", "unused", "unknown"]
     _format = "2I2fi3f"  # 32 bytes
     _arrays = {"uv": [*"uv"], "unknown": 3}
 
@@ -316,7 +322,12 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv": [*"uv"], "unknown": 2}
 
 
-# NOTE: all Apex lumps are version 0
+# special lump classes, in alphabetical order:
+def ApexSPRP(raw_lump):
+    return titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)
+
+
+# NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
@@ -338,10 +349,8 @@ SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
-# NOTE: Apex GAME_LUMP.sprp versions are the same as BSP_VERSION
-GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
-                              48: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13),
-                              49: lambda raw_lump: titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)}}
+
+GAME_LUMP_CLASSES = {"sprp": {bsp_version: ApexSPRP for bsp_version in (47, 48, 49, 50)}}
 
 
 # branch exclusive methods, in alphabetical order:
