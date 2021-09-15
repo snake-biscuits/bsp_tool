@@ -3,6 +3,7 @@ from typing import List
 
 from .. import base
 from .. import shared
+from ..valve import source
 from . import titanfall, titanfall2
 
 
@@ -247,7 +248,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
-    __slots__ = ["start_index", "num_triangles", "unknown", "material_sort", "flags"]
+    __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
     # vertex type stored in flags
     _format = "IH3I2HI"  # 28 bytes
     _arrays = {"unknown": 4}
@@ -308,9 +309,13 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
-    _format = "2I4f"  # 24 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
+    position_index: int  # index into VERTICES
+    normal_index: int  # index into VERTEX_NORMALS
+    uv: List[float]  # texture coordinates
+    unknown: List[int]  # 8 bytes
+    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    _format = "2I2f2i"  # 24 bytes
+    _arrays = {"uv": [*"uv"], "unknown": 2}
 
 
 # NOTE: all Apex lumps are version 0
@@ -318,12 +323,12 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
-                     "MATERIAL_SORT":      {0: MaterialSort},
-                     "MESHES":             {0: Mesh},
-                     "MODELS":             {0: Model},
-                     "PLANES":             {0: titanfall.Plane},
-                     "TEXTURE_DATA":       {0: TextureData},
+LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
+                     "MATERIAL_SORT":       {0: MaterialSort},
+                     "MESHES":              {0: Mesh},
+                     "MODELS":              {0: Model},
+                     "PLANES":              {0: titanfall.Plane},
+                     "TEXTURE_DATA":        {0: TextureData},
                      "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
                      "VERTEX_LIT_BUMP":     {0: VertexLitBump},
                      "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
@@ -350,6 +355,30 @@ def get_mesh_texture(bsp, mesh_index: int) -> str:
     return bsp.SURFACE_NAMES[texture_data.name_index]
 
 
+# "debug" methods for investigating the compile process
+def debug_TextureData(bsp):
+    print("# TD_index  TD.name  TextureData.flags")
+    for i, td in enumerate(bsp.TEXTURE_DATA):
+        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {source.Surface(td.flags)!r}")
+
+
+def debug_Mesh_stats(bsp):
+    print("# index  vertex_lump  texture_data_index  texture  mesh_indices_range")
+    for i, model in enumerate(bsp.MODELS):
+        print(f"# MODELS[{i}]")
+        for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
+            mesh = bsp.MESHES[j]
+            material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+            texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+            texture_name = bsp.SURFACE_NAMES[texture_data.name_index]
+            vertex_lump = (titanfall.Flags(mesh.flags) & titanfall.Flags.MASK_VERTEX).name
+            indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
+            _min, _max = min(indices), max(indices)
+            _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices
+            print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
+
+
 methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
            titanfall.search_all_entities, shared.worldspawn_volume,
-           get_mesh_texture]
+           get_mesh_texture,
+           debug_TextureData, titanfall.debug_TextureData_unused, debug_Mesh_stats]

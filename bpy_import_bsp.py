@@ -339,22 +339,24 @@ TITANFALL_ONLINE = "E:/Mod/TitanfallOnline/maps/"
 # bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
 
 TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
-bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
+# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_boomtown.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_wargames.bsp")
-load_rbsp(bsp)
+# load_rbsp(bsp)
 
 APEX = "E:/Mod/ApexLegends/"
 S2 = "season2/maps/"
 S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
+S10_PATCH = "season10_14sep21/maps/"
 # bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
 # bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
-# load_apex_rbsp(bsp)
+bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
+load_apex_rbsp(bsp)
 
 load_entities(bsp)
 
