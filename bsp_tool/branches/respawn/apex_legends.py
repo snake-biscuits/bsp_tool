@@ -387,4 +387,4 @@ def debug_Mesh_stats(bsp):
 methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
            titanfall.search_all_entities, shared.worldspawn_volume,
            get_TextureData_SurfaceName, get_Mesh_SurfaceName,
-           debug_TextureData, titanfall.debug_unused_TextureData, debug_Mesh_stats]
+           debug_TextureData, debug_unused_SurfaceNames, debug_Mesh_stats]
