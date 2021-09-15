@@ -111,8 +111,9 @@ def ent_to_light(entity: Dict[str, str]) -> bpy.types.PointLight:
         light = bpy.data.lights.new(light_name, "POINT")
     elif entity["classname"] == "light_spot":
         light = bpy.data.lights.new(light_name, "SPOT")
-        light.spot_size = math.radians(float(entity["_cone"]))
-        # spot_blend = _inner_cone / _cone
+        outer_angle, inner_angle = map(lambda x: math.radians(float(entity[x])), ("_cone", "_inner_cone"))
+        light.spot_size = math.radians(outer_angle)
+        light.spot_blend = 1 - inner_angle / outer_angle
     elif entity["classname"] == "light_environment":
         light = bpy.data.lights.new(light_name, "SUN")
         light.angle = math.radians(float(entity.get("SunSpreadAngle", "0")))
