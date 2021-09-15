@@ -275,13 +275,15 @@ class ShadowMesh(base.Struct):  # LUMP 7F (0127)
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
-    # very unsure
-    name_index: int  # index of this TextureData's surface name
-    width: int  # powers of 2?
-    height: int  # powers of 2?
-    flags: int  # OR'd powers of 2?
-    __slots__ = ["name_index", "width", "height", "flags"]
-    _format = "4i"
+    """Name indices get out of range errors?"""
+    name_index: int  # index of this TextureData's SurfaceName
+    # NOTE: indexes the starting char of the SurfaceName, skipping TextureDataStringTable
+    size: List[int]  # texture dimensions
+    # view?
+    flags: int
+    __slots__ = ["name_index", "size", "flags"]
+    _format = "4i"  # 16 bytes?
+    _arrays = {"size": ["width", "height"]}
 
 
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
@@ -352,25 +354,26 @@ def get_mesh_texture(bsp, mesh_index: int) -> str:
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
     texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-    return bsp.SURFACE_NAMES[texture_data.name_index]
+    return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].partition("\0")[0]
 
 
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
-    print("# TD_index  TD.name  TextureData.flags")
+    print("# TextureData_index  TextureData.name_index  SURFACE_NAMES[name_index]  TextureData.flags")
     for i, td in enumerate(bsp.TEXTURE_DATA):
-        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {source.Surface(td.flags)!r}")
+        texture_name = bsp.SURFACE_NAMES.as_bytes()[td.name_index:].partition("\0")[0]
+        print(f"{i:02d} {td.name_index:03d} {texture_name:<48s} {source.Surface(td.flags)!r}")
 
 
 def debug_Mesh_stats(bsp):
-    print("# index  vertex_lump  texture_data_index  texture  mesh_indices_range")
+    print("# index  VERTEX_LUMP  texture_data_index  texture  mesh_indices_range")
     for i, model in enumerate(bsp.MODELS):
         print(f"# MODELS[{i}]")
         for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
             mesh = bsp.MESHES[j]
             material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
             texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-            texture_name = bsp.SURFACE_NAMES[texture_data.name_index]
+            texture_name = bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].partition("\0")[0]
             vertex_lump = (titanfall.Flags(mesh.flags) & titanfall.Flags.MASK_VERTEX).name
             indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
             _min, _max = min(indices), max(indices)

@@ -1,6 +1,7 @@
 import importlib
 import math
 import os
+import re
 import sys
 from typing import Dict, List
 
@@ -31,12 +32,12 @@ r5 = bsp_tool.branches.respawn.apex_legends
 
 
 def load_materials(bsp):  # -> List[BlenderMaterial]
-    materials = list()
+    # TODO: OPTIONAL: load textures
     # material_dir = os.path.join(game_dir, "materials")
     # if game_dir is not "":
     #     for vmt_name in bsp.TEXTURE_DATA_STRING_DATA:
     #         try:
-    #             # NOTE: only Titanfall 1 uses vtfs
+    #             # NOTE: only Titanfall 1 uses vtfs?
     #             # - TF|2 & Apex stream textures from .rpak (also proprietary PBR probably)
     #             bpy.ops.import_texture.vmt(filepath=material_dir, files=[{"name": f"{vmt_name}.vmt"}])
     #             # NOTE: SourceIO will print FileNotFound errors to console
@@ -48,18 +49,40 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
     #             material = bpy.data.materials.new(vmt_name)
     #         materials.append(material)
     # else:
-    for i, vmt_name in enumerate(bsp.TEXTURE_DATA_STRING_DATA):
-        material = bpy.data.materials.new(vmt_name)
-        if bsp.branch == r1:
-            colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
-        else:
-            colour = (1, 0, 1) if vmt_name.startswith("TOOLS") else (.8, .8, .8)  # blender default
-        alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
-        material.diffuse_color = (*colour, alpha)
-        if alpha != 1:
-            material.blend_method = "BLEND"
-        materials.append(material)
-    return materials
+    if bsp.branch in (r1, r2):  # Titanfall 1 & 2
+        materials = list()
+        for i, vmt_name in enumerate(bsp.TEXTURE_DATA_STRING_DATA): 
+            material = bpy.data.materials.new(vmt_name)
+            if bsp.branch == r1:
+                colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
+            else:
+                colour = (1, 0, 1) if vmt_name.startswith("TOOLS") else (.8, .8, .8)  # blender default
+            alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
+            material.diffuse_color = (*colour, alpha)
+            if alpha != 1:
+                material.blend_method = "BLEND"
+            materials.append(material)
+        return materials
+    else:  # Apex Legends
+        materials = dict()
+        for i, vmt_name in enumerate(bsp.SURFACE_NAMES):
+            material = bpy.data.materials.new(vmt_name)
+            colour = (1, 0, 1) if vmt_name.startswith("TOOLS") else (.8, .8, .8)
+            alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
+            material.diffuse_color = (*colour, alpha)
+            if alpha != 1:
+                material.blend_method = "BLEND"
+            materials[vmt_name] = material
+        # debug
+        with open(os.path.join(blend_dir, f"{bsp.filename}_surface_names.txt"), "w") as f:
+            for i, s in enumerate(materials.keys()):
+                f.write(f"{i:03d}  {s}\n")
+        print(*[f"{i:03d}  {s}" for i, s in enumerate(materials.keys())], sep="\n")
+        # end debug
+        return materials
+        
+        
+    
 
 
 # colourspace translation (for light entities)
@@ -283,15 +306,20 @@ def load_mesh(rbsp: bsp_tool.RespawnBsp, index: int, VERTEX_LUMP: str):
 
 def load_apex_rbsp(rbsp):
     """Apex mapping of TEXTURE_DATA & MODEL lumps is incomplete"""
+    # materials
+    materials = load_materials(rbsp)
+    materials = dict()
+    raw_surface_names = rbsp.SURFACE_NAMES.as_bytes()
+    # collections setup
     master_collection = bpy.data.collections.new(rbsp.filename)
     bpy.context.scene.collection.children.link(master_collection)
     geo_collection = bpy.data.collections.new("geometry")
     master_collection.children.link(geo_collection)
-    # TODO: parse models
     for model_index, model in enumerate(rbsp.MODELS):
         model_collection = bpy.data.collections.new(f"model #{model_index}")
         geo_collection.children.link(model_collection)
         for mesh_index in range(model.first_mesh, model.first_mesh + model.num_meshes):
+            mesh = bsp.MESHES[mesh_index]
             blender_mesh = bpy.data.meshes.new(f"mesh #{mesh_index}")  # mesh object
             blender_bmesh = bmesh.new()  # mesh data
             mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
@@ -323,7 +351,11 @@ def load_apex_rbsp(rbsp):
                     loop[uv_layer].uv = uv_dict[tuple(loop.vert.co)]
             blender_bmesh.to_mesh(blender_mesh)
             blender_bmesh.free()
-            # TODO: parse texture_data to match materials
+            # apply material
+            # texture_data = rbsp.TEXTURE_DATA[rbsp.MATERIAL_SORT[mesh.material_sort].texture_data]
+            # material_name = raw_surface_names[texture_data.name_index:].partition(b"\0")[0].decode()
+            # blender_mesh.materials.append(materials[material_name])  # KeyError
+            # push to collection
             blender_mesh.update()
             blender_object = bpy.data.objects.new(blender_mesh.name, blender_mesh)
             model_collection.objects.link(blender_object)
