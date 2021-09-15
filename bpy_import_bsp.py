@@ -319,7 +319,7 @@ def load_apex_rbsp(rbsp):
         model_collection = bpy.data.collections.new(f"model #{model_index}")
         geo_collection.children.link(model_collection)
         for mesh_index in range(model.first_mesh, model.first_mesh + model.num_meshes):
-            mesh = bsp.MESHES[mesh_index]
+            # mesh = rbsp.MESHES[mesh_index]
             blender_mesh = bpy.data.meshes.new(f"mesh #{mesh_index}")  # mesh object
             blender_bmesh = bmesh.new()  # mesh data
             mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
