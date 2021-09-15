@@ -66,6 +66,7 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
     else:  # Apex Legends
         materials = dict()
         for i, vmt_name in enumerate(bsp.SURFACE_NAMES):
+            vmt_name = vmt_name.replace("\\", "/")
             material = bpy.data.materials.new(vmt_name)
             colour = (1, 0, 1) if vmt_name.startswith("TOOLS") else (.8, .8, .8)
             alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
@@ -74,10 +75,11 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
                 material.blend_method = "BLEND"
             materials[vmt_name] = material
         # debug
-        with open(os.path.join(blend_dir, f"{bsp.filename}_surface_names.txt"), "w") as f:
-            for i, s in enumerate(materials.keys()):
-                f.write(f"{i:03d}  {s}\n")
-        print(*[f"{i:03d}  {s}" for i, s in enumerate(materials.keys())], sep="\n")
+        # with open(os.path.join(blend_dir, f"{bsp.filename}_surface_names.txt"), "w") as f:
+        #     for i, s in enumerate(materials.keys()):
+        #         f.write(f"{i:03d}  {s}\n")
+        # print(*[f"{i:03d}  {s}" for i, s in enumerate(materials.keys())], sep="\n")
+        # print(set(bsp.SURFACE_NAMES).difference({bsp.get_TextureData_SurfaceName(i) for i in range(len(bsp.TEXTURE_DATA))}))
         # end debug
         return materials
         
@@ -319,7 +321,7 @@ def load_apex_rbsp(rbsp):
         model_collection = bpy.data.collections.new(f"model #{model_index}")
         geo_collection.children.link(model_collection)
         for mesh_index in range(model.first_mesh, model.first_mesh + model.num_meshes):
-            # mesh = rbsp.MESHES[mesh_index]
+            mesh = bsp.MESHES[mesh_index]
             blender_mesh = bpy.data.meshes.new(f"mesh #{mesh_index}")  # mesh object
             blender_bmesh = bmesh.new()  # mesh data
             mesh_vertices = rbsp.vertices_of_mesh(mesh_index)
@@ -352,8 +354,7 @@ def load_apex_rbsp(rbsp):
             blender_bmesh.to_mesh(blender_mesh)
             blender_bmesh.free()
             # apply material
-            # texture_data = rbsp.TEXTURE_DATA[rbsp.MATERIAL_SORT[mesh.material_sort].texture_data]
-            # material_name = raw_surface_names[texture_data.name_index:].partition(b"\0")[0].decode()
+            # material_name = rbsp.get_Mesh_SurfaceName(mesh_index).replace("\\", "/")
             # blender_mesh.materials.append(materials[material_name])  # KeyError
             # push to collection
             blender_mesh.update()
@@ -382,12 +383,13 @@ S2 = "season2/maps/"
 S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
 S10_PATCH = "season10_14sep21/maps/"
+bsp = bsp_tool.load_bsp("D:/Respawn/r5/maps/mp_lobby_s2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
 # bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
-bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
+# bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
 load_apex_rbsp(bsp)
 
 load_entities(bsp)

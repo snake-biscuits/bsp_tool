@@ -244,13 +244,10 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # start_vertices: int  # index to this Mesh's first VertexReservedX
     # num_vertices: int
     unknown: List[int]
-    # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
-    # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
-    # vertex type stored in flags
-    _format = "IH3I2HI"  # 28 bytes
+    _format = "IH3ihHI"  # 28 bytes
     _arrays = {"unknown": 4}
 
 
@@ -279,7 +276,6 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     name_index: int  # index of this TextureData's SurfaceName
     # NOTE: indexes the starting char of the SurfaceName, skipping TextureDataStringTable
     size: List[int]  # texture dimensions
-    # view?
     flags: int
     __slots__ = ["name_index", "size", "flags"]
     _format = "4i"  # 16 bytes?
@@ -349,19 +345,23 @@ GAME_LUMP_CLASSES = {"sprp": {47: lambda raw_lump: titanfall2.GameLump_SPRP(raw_
 
 
 # branch exclusive methods, in alphabetical order:
-def get_mesh_texture(bsp, mesh_index: int) -> str:
+def get_TextureData_SurfaceName(bsp, texture_data_index: int) -> str:
+    texture_data = bsp.TEXTURE_DATA[texture_data_index]
+    return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].lstrip(b"\0").partition(b"\0")[0].decode()
+
+
+def get_Mesh_SurfaceName(bsp, mesh_index: int) -> str:
     """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
-    texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-    return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].partition("\0")[0]
+    return bsp.get_TextureData_SurfaceName(material_sort.texture_data)
 
 
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
     print("# TextureData_index  TextureData.name_index  SURFACE_NAMES[name_index]  TextureData.flags")
     for i, td in enumerate(bsp.TEXTURE_DATA):
-        texture_name = bsp.SURFACE_NAMES.as_bytes()[td.name_index:].partition("\0")[0]
+        texture_name = bsp.get_TextureData_SurfaceName(i)
         print(f"{i:02d} {td.name_index:03d} {texture_name:<48s} {source.Surface(td.flags)!r}")
 
 
@@ -372,8 +372,7 @@ def debug_Mesh_stats(bsp):
         for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
             mesh = bsp.MESHES[j]
             material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
-            texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-            texture_name = bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].partition("\0")[0]
+            texture_name = bsp.get_TextureData_SurfaceName(material_sort.texture_data)
             vertex_lump = (titanfall.Flags(mesh.flags) & titanfall.Flags.MASK_VERTEX).name
             indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
             _min, _max = min(indices), max(indices)
@@ -383,5 +382,5 @@ def debug_Mesh_stats(bsp):
 
 methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
            titanfall.search_all_entities, shared.worldspawn_volume,
-           get_mesh_texture,
+           get_TextureData_SurfaceName, get_Mesh_SurfaceName,
            debug_TextureData, titanfall.debug_TextureData_unused, debug_Mesh_stats]
