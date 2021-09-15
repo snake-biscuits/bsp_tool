@@ -292,7 +292,7 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # albedo / normal / gloss / specular uv
+    uv: List[float]  # texture coordindates
     unused: int  # -1
     unknown: List[float]  # vertex colour for _bm materials?
     __slots__ = ["position_index", "normal_index", "uv", "unused", "unknown"]
@@ -301,12 +301,18 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
+    uv: List[float]  # texture coordindates
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
+    uv: List[float]  # texture coordindates
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2i2fi"  # 20 bytes
     _arrays = {"uv": [*"uv"]}

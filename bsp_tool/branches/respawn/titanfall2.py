@@ -234,14 +234,14 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
                "collision_flags": ["add", "remove"]}
 
 
-# classes for special lumps (alphabetical order):
+# classes for special lumps, in alphabetical order:
 class GameLump_SPRP:
     """New in Titanfall 2"""
     _static_prop_format: str  # StaticPropClass._format
     model_names: List[str]
     unknown_1: int
-    unknown_2: int  # indexes?
-    props: List[object]  # StaticPropClass
+    unknown_2: int  # indices?
+    props: List[object]  # List[StaticPropClass]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self._static_prop_format = StaticPropClass._format

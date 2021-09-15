@@ -96,7 +96,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
 # classes for lumps, in alphabetical order::
 # TODO: Model, Node
 
-# classes for special lumps (alphabetical order):
+# classes for special lumps, in alphabetical order:
 # TODO: make a special LumpCLass for MipTextures
 # -- any lump containing offsets needs it's own BspLump subclass
 # {"TEXTURES": lambda raw_lump: lump.MipTextures(quake.MipTexture, raw_lump)}

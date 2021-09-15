@@ -442,6 +442,9 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
 
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
+    """Not used?"""
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
     __slots__ = ["position_index", "normal_index", "unknown"]
     _format = "4I"  # 16 bytes
     _arrays = {"unknown": 2}
@@ -499,8 +502,9 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
 
 
-# classes for special lumps (alphabetical order)
+# classes for special lumps, in alphabetical order:
 class EntityPartition(list):
+    """name of each used .ent file"""
     def __init__(self, raw_lump: bytes):
         super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
 
@@ -508,7 +512,8 @@ class EntityPartition(list):
         return b" ".join([*self, b"\x00"])
 
 
-class GameLump_SPRP:  # unique to Titanfall
+class GameLump_SPRP:
+    """unique to TitanFall"""
     _static_prop_format: str  # StaticPropClass._format
     model_names: List[str]
     leaves: List[int]
