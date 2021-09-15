@@ -681,9 +681,9 @@ def debug_TextureData(bsp):
         print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {source.Surface(td.flags)!r}")
 
 
-def debug_TextureData_unused(bsp):
+def debug_unused_TextureData(bsp):
     used_texture_datas = {bsp.MATERIAL_SORT[m.material_sort].texture_data for m in bsp.MESHES}
-    return {*range(len(bsp.TEXTURE_DATA))}.difference(used_texture_datas)
+    return used_texture_datas.difference({*range(len(bsp.TEXTURE_DATA))})
 
 
 def debug_Mesh_stats(bsp):
@@ -705,4 +705,4 @@ def debug_Mesh_stats(bsp):
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
            search_all_entities, shared.worldspawn_volume,
-           debug_TextureData, debug_TextureData_unused, debug_Mesh_stats]
+           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
