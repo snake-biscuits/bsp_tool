@@ -30,11 +30,14 @@ r2 = titanfall2 = bsp_tool.branches.respawn.titanfall2
 r5 = apex = bsp_tool.branches.respawn.apex_legends
 
 
-tool_texture_colours = {"TOOLS\\TOOLSBLACK": (0, 0, 0),
-                        "TOOLS\\TOOLSOUT_OF_BOUNDS": (0.913, 0.39, 0.003),
-                        "TOOLS\\TOOLSSKYBOX": (0.441, 0.742, 0.967),
-                        "TOOLS\\TOOLSTRIGGER": (0.944, 0.048, 0.004),
-                        "TOOLS\\TOOLSTRIGGER_CAPTUREPOINT": (0.273, 0.104, 0.409)}
+tool_texture_colours = {"TOOLS\\TOOLSBLACK": (0, 0, 0, 1),
+                        "TOOLS\\TOOLSENVMAPVOLUME": (0.752, 0.0, 0.972, .25),
+                        "TOOLS\\TOOLSFOGVOLUME": (0.752, 0.0, 0.972, .25),
+                        "TOOLS\\TOOLSLIGHTPROBEVOLUME": (0.752, 0.0, 0.972, .25),
+                        "TOOLS\\TOOLSOUT_OF_BOUNDS": (0.913, 0.39, 0.003, .25),
+                        "TOOLS\\TOOLSSKYBOX": (0.441, 0.742, 0.967, .25),
+                        "TOOLS\\TOOLSTRIGGER": (0.944, 0.048, 0.004, .25),
+                        "TOOLS\\TOOLSTRIGGER_CAPTUREPOINT": (0.273, 0.104, 0.409, .25)}
 
 
 def load_materials(bsp):  # -> List[BlenderMaterial]
@@ -56,29 +59,19 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
     #         materials.append(material)
     # else:
     materials = list()
-    if bsp.branch in (r1, r2):  # Titanfall 1 & 2
-        for i, vmt_name in enumerate(bsp.TEXTURE_DATA_STRING_DATA):
-            material = bpy.data.materials.new(vmt_name)
-            if bsp.branch == r1:
-                colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
-            else:
-                colour = tool_texture_colours.get(vmt_name, (.8, .8, .8))
+    texture_names = bsp.TEXTURE_DATA_STRING_DATA if bsp.branch in (r1, r2) else bsp.SURFACE_NAMES
+    for i, vmt_name in enumerate(texture_names):
+        material = bpy.data.materials.new(vmt_name)
+        if bsp.branch == r1:
+            colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
             alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
-            material.diffuse_color = (*colour, alpha)
-            if alpha != 1:
-                material.blend_method = "BLEND"
-            materials.append(material)
-        return materials
-    else:  # Apex Legends
-        for i, vmt_name in enumerate(bsp.SURFACE_NAMES):
-            material = bpy.data.materials.new(vmt_name)
-            colour = tool_texture_colours.get(vmt_name, (.8, .8, .8))
-            alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
-            material.diffuse_color = (*colour, alpha)
-            if alpha != 1:
-                material.blend_method = "BLEND"
-            materials.append(material)
-        return materials
+        else:
+            *colour, alpha = tool_texture_colours.get(vmt_name, (.8, .8, .8, 1))
+        material.diffuse_color = (*colour, alpha)
+        if alpha != 1:
+            material.blend_method = "BLEND"
+        materials.append(material)
+    return materials
 
 
 # colourspace translation (for light entities)
@@ -238,7 +231,7 @@ def load_rbsp(rbsp):
                     if rbsp_vertex.position_index not in bmesh_vertices:
                         bmesh_vertices[rbsp_vertex.position_index] = blender_bmesh.verts.new(vertex)
                     face_indices.append(rbsp_vertex.position_index)
-                    uvs[tuple(vertex)] = rbsp_vertex.uv
+                    uvs[tuple(vertex)] = (rbsp_vertex.uv.u, -rbsp_vertex.uv.v)  # uv Y-axis is inverted
                 try:
                     blender_bmesh.faces.new([bmesh_vertices[vpi] for vpi in face_indices])
                     face_uvs.append(uvs)  # index must match bmesh.faces index
@@ -330,7 +323,7 @@ def load_apex_rbsp(rbsp):
                     if rbsp_vertex.position_index not in bmesh_vertices:
                         bmesh_vertices[rbsp_vertex.position_index] = blender_bmesh.verts.new(vertex)
                     face_indices.append(rbsp_vertex.position_index)
-                    uvs[tuple(vertex)] = rbsp_vertex.uv
+                    uvs[tuple(vertex)] = (rbsp_vertex.uv.u, -rbsp_vertex.uv.v)  # uv Y-axis is inverted
                 try:
                     blender_bmesh.faces.new([bmesh_vertices[vpi] for vpi in face_indices])
                     face_uvs.append(uvs)  # index must match bmesh.faces index
@@ -375,12 +368,12 @@ S2 = "season2/maps/"
 S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
 S10_PATCH = "season10_14sep21/maps/"
-# bsp = bsp_tool.load_bsp(APEX + S2 + "mp_lobby.bsp")
+bsp = bsp_tool.load_bsp(APEX + S10 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
 # bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
-bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
+# bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
 load_apex_rbsp(bsp)
 
 load_entities(bsp)
