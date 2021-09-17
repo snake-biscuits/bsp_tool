@@ -1,3 +1,4 @@
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
 import enum
 import io
 import struct
@@ -11,7 +12,8 @@ from ..valve import source
 
 BSP_VERSION = 29
 
-GAMES = ["Titanfall", "TitanfallOnline"]
+GAMES = ["Titanfall", "Titanfall: Online"]
+GAME_VERSIONS = {"Titanfall": 29, "Titanfall: Online": 29}
 
 
 class LUMP(enum.Enum):

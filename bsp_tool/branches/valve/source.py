@@ -15,6 +15,7 @@ GAMES = ["Counter-Strike: Source",  # counter-strike source/cstrike
          "Half-Life 1: Source - Deathmatch",  # Half-Life 1 Source Deathmatch/hl1mp
          "Half-Life 2",  # Half-Life 2/hl2
          "Half-Life 2: Episode 1"]  # Half-Life 2/episodic
+GAME_VERSIONS = {game: BSP_VERSION for game in GAMES}
 
 
 class LUMP(enum.Enum):

@@ -8,24 +8,12 @@ from . import titanfall, titanfall2
 
 
 BSP_VERSION = 47
-# v48  Season 7   Olympus
-# v49  Season 8   King's Canyon mu3
-# v50  Season 10  Arena Skygarden
 
 GAMES = ["Apex Legends"]
-
-# Apex Legends has b"rBSP" file-magic and 128 lumps
-# ~72 of the 128 lumps appear in .bsp_lump files
-# the naming convention for these files is: "<bsp.filename>.<LUMP_HEX_ID>.bsp_lump"
-# where <LUMP_HEX_ID> is a lowercase four digit hexadecimal string
-# e.g. mp_rr_canyonlands.004a.bsp_lump (Lump #74: VertexUnlitTS)
-# entities are stored across 5 different .ent files per .bsp
-# the 5 files are: env, fx, script, snd, spawn
-# NOTE: the ENTITY_PARTITIONS lump may define which of these a .bsp is to use
-# e.g. mp_rr_canyonlands_env.ent  # kings canyon lighting, fog etc.
-# presumably all this file splitting has to do with streaming data into memory
-# each .ent file has a header similar to: ENTITIES02 model_count=28
-# model_count appears to be the same across all .ent files for a given .bsp
+GAME_VERSIONS = {"Apex Legends": 47,
+                 "Apex Legends: Season 7 - Ascension": 48,  # Olympus
+                 "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
+                 "Apex Legends: Season 10 - Emergence": 50}  # Arenas: Encore / SkyGarden
 
 
 class LUMP(enum.Enum):

@@ -1,3 +1,4 @@
+# https://github.com/ValveSoftware/source-sdk-2013/
 import enum
 import struct
 
@@ -9,6 +10,7 @@ BSP_VERSION = 21
 
 GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony", "Portal 2",
          "Source Filmmaker"]
+GAME_VERSIONS = {game: BSP_VERSION for game in GAMES}
 
 LUMP = orange_box.LUMP
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}

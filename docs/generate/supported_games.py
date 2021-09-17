@@ -49,6 +49,7 @@ def gen_rbsp():
     print("| -: | -: | -: | - | -: | - | -:|")
     # TODO: break out this iterator into it's own set of functions
     for i in range(max([len(v.LUMP) for v in game_scripts.values()])):
+        # looping over multiple game's lumps at once
         lumps = [(n, g.BSP_VERSION, g.LUMP(i)) for n, g in game_scripts.items()]
         for game, bsp_version, lump in lumps:
             if lump.name.startswith("UNUSED_"):

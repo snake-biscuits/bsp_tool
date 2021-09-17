@@ -10,17 +10,7 @@ from . import titanfall
 BSP_VERSION = 37
 
 GAMES = ["Titanfall 2"]
-
-# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
-# TitanFall|2 has b"rBSP" file-magic and 128 lumps
-# ~72 of the 128 lumps appear in .bsp_lump files
-# the naming convention for these files is: "<bsp.filename>.<LUMP_HEX_ID>.bsp_lump"
-# where <LUMP_HEX_ID> is a lowercase four digit hexadecimal string
-# e.g. mp_drydock.004a.bsp_lump (Lump #74: VertexUnlitTS)
-# entities are stored across 5 different .ent files per .bsp
-# the 5 files are: env, fx, script, snd, spawn
-# e.g. mp_drydock_env.ent
-# presumably all this file splitting has to do with streaming data into memory
+GAME_VERSIONS = {"Titanfall 2": 37}
 
 
 class LUMP(enum.Enum):

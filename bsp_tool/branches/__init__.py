@@ -53,15 +53,19 @@ by_name = {
     "mabinogi": nexon.vindictus,
     "mabinogiheroes": nexon.vindictus,
     "vindictus": nexon.vindictus,
-    # Respawn Entertainment - Source Engine
-    "apex": respawn.apex_legends,
-    "apexlegends": respawn.apex_legends,
-    "r1": respawn.titanfall,
-    "r2": respawn.titanfall2,
-    "r5": respawn.apex_legends,
+    # Respawn Entertainment - Titanfall Engine
     "titanfall": respawn.titanfall,
     "titanfall2": respawn.titanfall2,
+    "apexlegends": respawn.apex_legends,
+    "apex": respawn.apex_legends,
+    "r1": respawn.titanfall,  # internal names
+    "r2": respawn.titanfall2,
+    "r5": respawn.apex_legends,
     # Valve Software - Source Engine
+    "source": valve.source,
+    "orangebox": valve.orange_box,
+    "2013sdk": valve.sdk_2013,
+    "sourcemods": valve.sdk_2013,
     "alienswarm": valve.alien_swarm,
     "alienswarmreactivedrop": valve.alien_swarm,
     "blackmesa": valve.sdk_2013,
@@ -100,7 +104,6 @@ by_name = {
     "left4dead": valve.left4dead,
     "left4dead2": valve.left4dead2,
     "neotokyo": valve.orange_box,
-    "orangebox": valve.orange_box,
     "portal": valve.orange_box,
     "portal2": valve.sdk_2013,
     "portalreloaded": valve.sdk_2013,
@@ -109,6 +112,7 @@ by_name = {
     "teamfortress2": valve.orange_box,
     "tf2": valve.orange_box,
     # Valve Software - GoldSrc Engine (more mods @ https://half-life.fandom.com/wiki/Mods)
+    "goldsrc": valve.goldsrc,
     "007nightfire": valve.goldsrc,  # untested
     "blueshift": gearbox.bshift,
     "bshift": gearbox.bshift,
@@ -118,13 +122,12 @@ by_name = {
     "counterstrikeonline": valve.goldsrc,  # obscure & untested
     "cs": valve.goldsrc,  # CS 1.6
     "cscz": valve.goldsrc,
-    "csn": valve.goldsrc,  # obscure
-    "cso": valve.goldsrc,  # obscure
+    "csn": valve.goldsrc,  # obscure & untested
+    "cso": valve.goldsrc,  # obscure & untested
     "dayofdefeat": valve.goldsrc,
     "deathmatchclassic": valve.goldsrc,
     "dmc": valve.goldsrc,
     "dod": valve.goldsrc,
-    "goldsrc": valve.goldsrc,
     "gunmanchronicles": valve.goldsrc,
     "halflife": valve.goldsrc,
     "halflifeblueshift": gearbox.bshift,
@@ -154,8 +157,7 @@ by_version = {
     # Infinity Ward
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
     # Nexon
-    nexon.cso2.BSP_VERSION: nexon.cso2,  # 100?
-    # nexon.vindictus.BSP_VERSION: nexon.vindictus, # 20
+    nexon.cso2.BSP_VERSION: nexon.cso2,  # 1.00?
     # Respawn Entertainment
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
@@ -164,16 +166,14 @@ by_version = {
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
     50: respawn.apex_legends,  # Introduced in Season 10 with Arena Skygarden
     # Valve Software
-    # valve.alien_swarm.BSP_VERSION: valve.alien_swarm,  # 21
-    valve.sdk_2013.BSP_VERSION: valve.sdk_2013,  # 21
-    valve.goldsrc.BSP_VERSION: valve.goldsrc,
-    # valve.left4dead.BSP_VERSION: valve.left4dead,  # 20
-    # valve.left4dead2.BSP_VERSION: valve.left4dead2,  # 21
+    valve.goldsrc.BSP_VERSION: valve.goldsrc,  # can't really use this system for GoldSrc
+    valve.source.BSP_VERSION: valve.source,  # 19 (and sometimes 20?)
     valve.orange_box.BSP_VERSION: valve.orange_box,  # 20 (many sub-variants)
-    valve.source.BSP_VERSION: valve.source,  # 19 & 20
+    valve.sdk_2013.BSP_VERSION: valve.sdk_2013,  # 21
     # Other
     # arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20.4 ?
     gearbox.bshift.BSP_VERSION: gearbox.bshift  # 30
              }
 
 # NOTE: ata4's bspsrc uses unique entity classnames to identify branches
+# -- might be an idea to copy this for an autodetect refactor
