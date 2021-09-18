@@ -32,7 +32,7 @@ def test_quake_branch_script(branch_script):
 
 branch_scripts = [arkane.dark_messiah, gearbox.bshift,
                   id_software.quake, id_software.quake, id_software.quake,
-                  infinity_ward.call_of_duty_1,
+                  infinity_ward.call_of_duty1,
                   nexon.cso2, nexon.cso2_2018, nexon.vindictus,
                   respawn.titanfall, respawn.titanfall2, respawn.apex_legends]
 # TODO: Ritual Entertainment - Übertools
