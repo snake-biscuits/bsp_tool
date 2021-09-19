@@ -111,7 +111,7 @@ class RawBspLump:
         self._length = lump_header.length
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}: {self.LumpClass.__name__}[{len(self)}] at 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__}; {len(self)} bytes at 0x{id(self):016X}>"
 
     def __getitem__(self, index: Union[int, slice]) -> bytes:
         """Reads bytes from the start of the lump"""
@@ -158,9 +158,11 @@ class BspLump(RawBspLump):
     """Dynamically reads LumpClasses from a binary file"""
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
+    self.LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
     # NOTE: there are no checks to ensure changes are the correct type or size
+    _entry_size: int  # sizeof(LumpClass)
     _length: int  # number of indexable entries
 
     def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple, LumpClass: object):
@@ -172,6 +174,9 @@ class BspLump(RawBspLump):
             raise RuntimeError(f"LumpClass does not divide lump evenly! ({lump_header.length} / {self._entry_size})")
         self._length = lump_header.length // self._entry_size
         self.LumpClass = LumpClass
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: {self.LumpClass.__name__}[{len(self)}] at 0x{id(self):016X}>"
 
     def __delitem__(self, index: Union[int, slice]):
         if isinstance(index, int):
@@ -238,8 +243,11 @@ class BasicBspLump(BspLump):
     """Dynamically reads LumpClasses from a binary file"""
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
+    self.LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
+    # NOTE: there are no checks to ensure changes are the correct type or size
+    _entry_size: int  # sizeof(LumpClass)
     _length: int  # number of indexable entries
 
     def __getitem__(self, index: Union[int, slice]):
@@ -283,8 +291,11 @@ class ExternalBspLump(BspLump):
     # NOTE: this class does not handle compressed lumps
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
+    self.LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
+    # NOTE: there are no checks to ensure changes are the correct type or size
+    _entry_size: int  # sizeof(LumpClass)
     _length: int  # number of indexable entries
 
     def __init__(self, lump_header: collections.namedtuple, LumpClass: object):
