@@ -12,7 +12,7 @@ from bsp_tool import IdTechBsp, D3DBsp, RespawnBsp, ValveBsp
 def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 64GB+ of .bsp files!"""
     sourcemod_names = {*maplist.goldsrc_dirs, *maplist.source_dirs,
-                       "Quake", "QuakeII", "QuakeIII", "QuakeLive"}
+                       "Quake", "QuakeII", "QuakeIII", "QuakeLive", "BlackMesa"}
     branch = game_name if game_name in sourcemod_names else "unknown"
     # NOTE: this is ugly and results in quite a few errors
     # auto-detection really shouldn't have to rely on precise strings
