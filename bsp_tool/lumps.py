@@ -212,7 +212,7 @@ class BspLump(RawBspLump):
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
     def append(self, entry):
-        self.length += 1
+        self._length += 1
         self[-1] = entry
 
     def extend(self, entries: bytes):
@@ -229,7 +229,7 @@ class BspLump(RawBspLump):
         return out
 
     def insert(self, index: int, entry: Any):
-        self.length += 1
+        self._length += 1
         self[index + 1:] = self[index:]
         self[index] = entry
 
