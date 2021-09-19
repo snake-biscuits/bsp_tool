@@ -250,6 +250,15 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 8}
 
 
+class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
+    """a point in 3D space"""
+    x: int
+    y: int
+    z: int
+    _mapping = [*"xyz"]
+    _format = "3h"
+
+
 class ShadowMesh(base.Struct):  # LUMP 7F (0127)
     start_index: int  # assumed
     num_triangles: int  # assumed
@@ -330,6 +339,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
                      "MATERIAL_SORT":       {0: MaterialSort},
                      "MESHES":              {0: Mesh},
                      "MODELS":              {0: Model},
+                     "PACKED_VERTICES":     {0: PackedVertex},
                      "PLANES":              {0: titanfall.Plane},
                      "TEXTURE_DATA":        {0: TextureData},
                      "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
