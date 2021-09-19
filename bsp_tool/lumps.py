@@ -158,7 +158,7 @@ class BspLump(RawBspLump):
     """Dynamically reads LumpClasses from a binary file"""
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
-    self.LumpClass: object
+    LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
     # NOTE: there are no checks to ensure changes are the correct type or size
@@ -243,7 +243,7 @@ class BasicBspLump(BspLump):
     """Dynamically reads LumpClasses from a binary file"""
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
-    self.LumpClass: object
+    LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
     # NOTE: there are no checks to ensure changes are the correct type or size
@@ -291,7 +291,7 @@ class ExternalBspLump(BspLump):
     # NOTE: this class does not handle compressed lumps
     file: io.BufferedReader  # file opened in "rb" (read-bytes) mode
     offset: int  # position in file where lump begins
-    self.LumpClass: object
+    LumpClass: object
     _changes: Dict[int, Any]
     # ^ {index: LumpClass(new_entry)}
     # NOTE: there are no checks to ensure changes are the correct type or size
