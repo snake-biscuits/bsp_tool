@@ -6,12 +6,12 @@
 | 37 | Titanfall 2 | `respawn.titanfall2` | 56 / 78 | 50 |
 | 47 | Apex Legends | `respawn.apex_legends` | 55 / 69 | 59 |
 
-> No differences in Apex' formats have been found, yet.
-> For now, we are assuming the `apex_legends` script covers all seasons
+> No differences in Apex' formats have been found, yet.  
+> For now, we are assuming the `apex_legends` script covers all seasons  
 
-> bsp_tool.load_bsp() will load all Apex maps, regardless of season
+> bsp_tool.load_bsp() will load all Apex maps, regardless of season  
 
-> All Apex Legends GameLump.sprp lump versions are the same as the BSP version
+> All Apex Legends GameLump.sprp lump versions are the same as the BSP version  
 
 | Lump index | Hex index | Bsp version | Lump name | Lump version | LumpClass | % of struct mapped |
 | -: | -: | -: | - | -: | - | -:|
@@ -25,8 +25,9 @@
 |  6 | 0006 | 37 | `LIGHTPROBE_BSP_NODES` | 0 | | 0% |
 |  7 | 0007 | 37 | `LIGHTPROBE_BSP_REF_IDS` | 0 | | 0% |
 | 14 | 000E | 29 | `MODELS` | 0 | [respawn.titanfall.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L300) | 100% |
-|    |      | 47 | `MODELS` | 0 | [respawn.apex_legends.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L245) | 80% |
-| 15 | 000F | 47 | `SURFACE_NAMES` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L243) | 100% |
+|    |      | 47 |          | 0 | [respawn.apex_legends.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L245) | 80% |
+| 15 | 000F | 29 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L243) | 100% |
+|    |      | 47 | `SURFACE_NAMES` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L243) | 100% |
 | 16 | 0010 | 47 | `CONTENT_MASKS` | 0 | | 0% |
 | 17 | 0011 | 47 | `SURFACE_PROPERTIES` | 0 | | 0% |
 | 18 | 0012 | 47 | `BVH_NODES` | 0 | | 0% |
@@ -76,7 +77,7 @@
 |    |      | 47 |                 | 0 | [respawn.apex_legends.MaterialSort](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L227) | 75% |
 | 83 | 0053 | 29 | `LIGHTMAP_HEADERS` | 1 | [respawn.titanfall.LightmapHeader](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L249) | 100% |
 | 85 | 0055 | 29 | `CM_GRID` | 0 | [respawn.titanfall.Grid](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L233) | 50% |
-|    | 0055 | 47 | `CM_GRID` | 0 | | 0% |
+|    | 0055 | 47 |           | 0 | | 0% |
 | 86 | 0056 | 29 | `CM_GRID_CELLS` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
 | 87 | 0057 | 29 | `CM_GEO_SETS` | 0 | | 0% |
 | 88 | 0058 | 29 | `CM_GEO_SET_BOUNDS` | 0 | [respawn.titanfall.Bounds](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L198) | 0% |
@@ -89,7 +90,7 @@
 | 95 | 005F | 29 | `CM_BRUSH_TEX_VECS` | 0 | | 0% |
 | 96 | 0060 | 29 | `TRICOLL_BEVEL_STARTS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
 | 97 | 0061 | 29 | `TRICOLL_BEVEL_INDICES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-|    | 0061 | 47 | `UNKNOWN_97` | 0 | | 0% |
+|    |      | 47 | `UNKNOWN_97` | 0 | | 0% |
 | 98 | 0062 | 29 | `LIGHTMAP_DATA_SKY` | 0 | | 0% |
 | 99 | 0063 | 29 | `CSM_AABB_NODES` | 0 | [respawn.titanfall.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L311) | 50% |
 | 100 | 0064 | 29 | `CSM_OBJ_REFS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
