@@ -1,6 +1,7 @@
-__all__ = ["FILE_MAGIC", "cso2", "vindictus"]
+__all__ = ["FILE_MAGIC", "cso2", "cso2_2018", "vindictus"]
 
 from . import cso2  # CounterStrike Online 2
+from . import cso2_2018
 from . import vindictus
 
 __doc__ = """Nexon is a South Korean / Japanese developer
