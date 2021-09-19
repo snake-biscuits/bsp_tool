@@ -24,7 +24,7 @@ class LUMP(enum.Enum):
     DRAW_INDICES = 8
     CULL_GROUPS = 9  # visibility
     CULL_GROUP_INDICES = 10
-    PORTAL_VERTS = 11  # areaportals; doors & windows
+    PORTAL_VERTICES = 11  # areaportals; doors & windows
     OCCLUDERS = 12
     OCCLUDER_PLANES = 13
     OCCLUDER_EDGES = 14

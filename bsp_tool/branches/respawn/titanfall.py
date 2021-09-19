@@ -117,32 +117,32 @@ class LUMP(enum.Enum):
     TRICOLL_BEVEL_INDICES = 0x0061
     LIGHTMAP_DATA_SKY = 0x0062
     CSM_AABB_NODES = 0x0063
-    CSM_OBJ_REFS = 0x0064
+    CSM_OBJ_REFERENCES = 0x0064
     LIGHTPROBES = 0x0065
     STATIC_PROP_LIGHTPROBE_INDEX = 0x0066
     LIGHTPROBE_TREE = 0x0067
-    LIGHTPROBE_REFS = 0x0068
+    LIGHTPROBE_REFERENCES = 0x0068
     LIGHTMAP_DATA_REAL_TIME_LIGHTS = 0x0069
     CELL_BSP_NODES = 0x006A
     CELLS = 0x006B
     PORTALS = 0x006C
-    PORTAL_VERTS = 0x006D
+    PORTAL_VERTICES = 0x006D
     PORTAL_EDGES = 0x006E
-    PORTAL_VERT_EDGES = 0x006F
-    PORTAL_VERT_REFS = 0x0070
-    PORTAL_EDGE_REFS = 0x0071
-    PORTAL_EDGE_ISECT_AT_EDGE = 0x0072
-    PORTAL_EDGE_ISECT_AT_VERT = 0x0073
-    PORTAL_EDGE_ISECT_HEADER = 0x0074
-    OCCLUSION_MESH_VERTS = 0x0075
+    PORTAL_VERTEX_EDGES = 0x006F
+    PORTAL_VERTEX_REFERENCES = 0x0070
+    PORTAL_EDGE_REFERENCES = 0x0071
+    PORTAL_EDGE_INTERSECT_AT_EDGE = 0x0072
+    PORTAL_EDGE_INTERSECT_AT_VERTEX = 0x0073
+    PORTAL_EDGE_INTERSECT_HEADER = 0x0074
+    OCCLUSION_MESH_VERTICES = 0x0075
     OCCLUSION_MESH_INDICES = 0x0076
     CELL_AABB_NODES = 0x0077
-    OBJ_REFS = 0x0078
-    OBJ_REF_BOUNDS = 0x0079
+    OBJ_REFERENCES = 0x0078
+    OBJ_REFERENCE_BOUNDS = 0x0079
     UNUSED_122 = 0x007A
     LEVEL_INFO = 0x007B
-    SHADOW_MESH_OPAQUE_VERTS = 0x007C
-    SHADOW_MESH_ALPHA_VERTS = 0x007D
+    SHADOW_MESH_OPAQUE_VERTICES = 0x007C
+    SHADOW_MESH_ALPHA_VERTICES = 0x007D
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
@@ -553,12 +553,12 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_GRID_CELLS":               {0: shared.UnsignedInts},
                       "CM_PRIMITIVES":               {0: shared.UnsignedInts},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # flags?
-                      "CSM_OBJ_REFS":                {0: shared.UnsignedShorts},
+                      "CSM_OBJ_REFERENCES":                {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
-                      "OBJ_REFS":                    {0: shared.UnsignedShorts},
+                      "OBJ_REFERENCES":                    {0: shared.UnsignedShorts},
                       "OCCLUSION_MESH_INDICES":      {0: shared.Shorts},
-                      "PORTAL_EDGE_REFS":            {0: shared.UnsignedShorts},
-                      "PORTAL_VERT_REFS":            {0: shared.UnsignedShorts},
+                      "PORTAL_EDGE_REFERENCES":            {0: shared.UnsignedShorts},
+                      "PORTAL_VERTEX_REFERENCES":            {0: shared.UnsignedShorts},
                       "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
                       "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts},
                       "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
@@ -576,24 +576,24 @@ LUMP_CLASSES = {"CELLS":                     {0: Cell},
                 "CUBEMAPS":                  {0: Cubemap},
                 "LEAF_WATER_DATA":           {0: LeafWaterData},
                 "LIGHTMAP_HEADERS":          {1: LightmapHeader},
-                "LIGHTPROBE_REFS":           {0: LightProbeRef},
+                "LIGHTPROBE_REFERENCES":           {0: LightProbeRef},
                 "MATERIAL_SORT":             {0: MaterialSort},
                 "MESHES":                    {0: Mesh},
                 "MESH_BOUNDS":               {0: MeshBounds},
                 "MODELS":                    {0: Model},
-                "OBJ_REF_BOUNDS":            {0: ObjRefBounds},
-                "OCCLUSION_MESH_VERTS":      {0: quake.Vertex},
+                "OBJ_REFERENCE_BOUNDS":            {0: ObjRefBounds},
+                "OCCLUSION_MESH_VERTICES":      {0: quake.Vertex},
                 "PLANES":                    {1: Plane},
                 "PORTALS":                   {0: Portal},
                 "PORTAL_EDGES":              {0: PortalEdge},
-                "PORTAL_EDGE_ISECT_AT_VERT": {0: PortalEdgeIntersect},
-                "PORTAL_EDGE_ISECT_AT_EDGE": {0: PortalEdgeIntersect},
-                "PORTAL_EDGE_ISECT_HEADER":  {0: PortalEdgeIntersectHeader},
-                "PORTAL_VERTS":              {0: quake.Vertex},
-                "PORTAL_VERT_EDGES":         {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_AT_VERTEX": {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_AT_EDGE": {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_HEADER":  {0: PortalEdgeIntersectHeader},
+                "PORTAL_VERTICES":              {0: quake.Vertex},
+                "PORTAL_VERTEX_EDGES":         {0: PortalEdgeIntersect},
                 "SHADOW_MESH_MESHES":        {0: ShadowMesh},
-                "SHADOW_MESH_ALPHA_VERTS":   {0: ShadowMeshAlphaVertex},
-                "SHADOW_MESH_OPAQUE_VERTS":  {0: quake.Vertex},
+                "SHADOW_MESH_ALPHA_VERTICES":   {0: ShadowMeshAlphaVertex},
+                "SHADOW_MESH_OPAQUE_VERTICES":  {0: quake.Vertex},
                 "TEXTURE_DATA":              {1: TextureData},
                 "VERTEX_NORMALS":            {0: quake.Vertex},
                 "VERTICES":                  {0: quake.Vertex},

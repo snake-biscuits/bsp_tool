@@ -93,33 +93,33 @@
 |    |      | 47 | `UNKNOWN_97` | 0 | | 0% |
 | 98 | 0062 | 29 | `LIGHTMAP_DATA_SKY` | 0 | | 0% |
 | 99 | 0063 | 29 | `CSM_AABB_NODES` | 0 | [respawn.titanfall.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L311) | 50% |
-| 100 | 0064 | 29 | `CSM_OBJ_REFS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
+| 100 | 0064 | 29 | `CSM_OBJ_REFERENCES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
 | 101 | 0065 | 29 | `LIGHTPROBES` | 0 | | 0% |
 | 102 | 0066 | 29 | `STATIC_PROP_LIGHTPROBE_INDEX` | 0 | | 0% |
 | 103 | 0067 | 29 | `LIGHTPROBE_TREE` | 0 | | 0% |
-| 104 | 0068 | 29 | `LIGHTPROBE_REFS` | 0 | [respawn.titanfall.LightProbeRef](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L258) | 100% |
+| 104 | 0068 | 29 | `LIGHTPROBE_REFERENCES` | 0 | [respawn.titanfall.LightProbeRef](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L258) | 100% |
 |     |      | 37 |                   | 0 | | 0% |
 | 105 | 0069 | 29 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | | 0% |
 | 106 | 006A | 29 | `CELL_BSP_NODES` | 0 | | 0% |
 | 107 | 006B | 29 | `CELLS` | 0 | [respawn.titanfall.Cell](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L215) | 100% |
 | 108 | 006C | 29 | `PORTALS` | 0 | [respawn.titanfall.Portal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L340) | 50% |
-| 109 | 006D | 29 | `PORTAL_VERTS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
+| 109 | 006D | 29 | `PORTAL_VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
 | 110 | 006E | 29 | `PORTAL_EDGES` | 0 | [respawn.titanfall.PortalEdge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L348) | 100% |
-| 111 | 006F | 29 | `PORTAL_VERT_EDGES` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
-| 112 | 0070 | 29 | `PORTAL_VERT_REFS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
-| 113 | 0071 | 29 | `PORTAL_EDGE_REFS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
-| 114 | 0072 | 29 | `PORTAL_EDGE_ISECT_AT_EDGE` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
-|     |      | 37 | `PORTAL_EDGE_ISECT_EDGE` | 0 | | 0% |
-| 115 | 0073 | 29 | `PORTAL_EDGE_ISECT_AT_VERT` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
-| 116 | 0074 | 29 | `PORTAL_EDGE_ISECT_HEADER` | 0 | [respawn.titanfall.PortalEdgeIntersectHeader](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L359) | 100% |
-| 117 | 0075 | 29 | `OCCLUSION_MESH_VERTS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
+| 111 | 006F | 29 | `PORTAL_VERTEX_EDGES` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
+| 112 | 0070 | 29 | `PORTAL_VERTEX_REFERENCES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
+| 113 | 0071 | 29 | `PORTAL_EDGE_REFERENCES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
+| 114 | 0072 | 29 | `PORTAL_EDGE_INTERSECT_AT_EDGE` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
+|     |      | 37 | `PORTAL_EDGE_INTERSECT_EDGE` | 0 | | 0% |
+| 115 | 0073 | 29 | `PORTAL_EDGE_INTERSECT_AT_VERTEX` | 0 | [respawn.titanfall.PortalEdgeIntersect](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L352) | 0% |
+| 116 | 0074 | 29 | `PORTAL_EDGE_INTERSECT_HEADER` | 0 | [respawn.titanfall.PortalEdgeIntersectHeader](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L359) | 100% |
+| 117 | 0075 | 29 | `OCCLUSION_MESH_VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
 | 118 | 0076 | 29 | `OCCLUSION_MESH_INDICES` | 0 | [shared.Shorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L45) | 100% |
 | 119 | 0077 | 29 | `CELL_AABB_NODES` | 0 | [respawn.titanfall.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L311) | 50% |
-| 120 | 0078 | 29 | `OBJ_REFS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
-| 121 | 0079 | 29 | `OBJ_REF_BOUNDS` | 0 | [respawn.titanfall.ObjRefBounds](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L321) | 100% |
+| 120 | 0078 | 29 | `OBJ_REFERENCES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
+| 121 | 0079 | 29 | `OBJ_REFERENCE_BOUNDS` | 0 | [respawn.titanfall.ObjRefBounds](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L321) | 100% |
 | 122 | 007A | 37 | `LIGHTMAP_DATA_RTL_PAGE` | 0 | | 0% |
 | 123 | 007B | 29 | `LEVEL_INFO` | 0 | | 0% |
-| 124 | 007C | 29 | `SHADOW_MESH_OPAQUE_VERTS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
-| 125 | 007D | 29 | `SHADOW_MESH_ALPHA_VERTS` | 0 | [respawn.titanfall.ShadowMeshAlphaVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L376) | 50% |
+| 124 | 007C | 29 | `SHADOW_MESH_OPAQUE_VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
+| 125 | 007D | 29 | `SHADOW_MESH_ALPHA_VERTICES` | 0 | [respawn.titanfall.ShadowMeshAlphaVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L376) | 50% |
 | 126 | 007E | 29 | `SHADOW_MESH_INDICES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L53) | 100% |
 | 127 | 007F | 29 | `SHADOW_MESH_MESHES` | 0 | [respawn.titanfall.ShadowMesh](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L366) | 66% |

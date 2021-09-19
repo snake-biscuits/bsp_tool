@@ -131,7 +131,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -143,7 +143,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -158,31 +158,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -191,10 +191,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -203,10 +203,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -354,7 +354,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -366,7 +366,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -381,31 +381,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -414,10 +414,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -426,10 +426,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -577,7 +577,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -589,7 +589,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -604,31 +604,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -637,10 +637,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -649,10 +649,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -800,7 +800,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -812,7 +812,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -827,31 +827,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -860,10 +860,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -872,10 +872,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1023,7 +1023,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -1035,7 +1035,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1050,31 +1050,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1083,10 +1083,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -1095,10 +1095,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1246,7 +1246,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -1258,7 +1258,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1273,31 +1273,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1306,10 +1306,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -1318,10 +1318,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1469,7 +1469,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -1481,7 +1481,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1496,31 +1496,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1529,10 +1529,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -1541,10 +1541,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1692,7 +1692,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -1704,7 +1704,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1719,31 +1719,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1752,10 +1752,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -1764,10 +1764,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1915,7 +1915,7 @@ ExternalLumpHeader(offset=88794544, length=34603008, version=0, fourCC=0, filena
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 LIGHTPROBES  YYYY  YES!
@@ -1927,7 +1927,7 @@ ExternalLumpHeader(offset=170300660, length=77832, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1942,31 +1942,31 @@ ExternalLumpHeader(offset=4663228, length=592, version=0, fourCC=0, filename='mp
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1975,10 +1975,10 @@ ExternalLumpHeader(offset=4727996, length=5460, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  YYYY  YES!
@@ -1987,10 +1987,10 @@ ExternalLumpHeader(offset=162325936, length=2394, version=0, fourCC=0, filename=
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -2138,7 +2138,7 @@ ExternalLumpHeader(offset=88971812, length=35651584, version=0, fourCC=0, filena
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9532632, length=224224, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=224224)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9756856, length=21894, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21894)
 LIGHTPROBES  NNYY  NOPE
@@ -2150,7 +2150,7 @@ ExternalLumpHeader(offset=172710932, length=79176, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=169048964, length=277864, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=277864)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=169326828, length=1296200, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1296200)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -2165,31 +2165,31 @@ ExternalLumpHeader(offset=4674488, length=1224, version=0, fourCC=0, filename='m
 PORTALS  NNYY  NOPE
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4675712, length=17064, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=17064)
-PORTAL_VERTS  NNYY  NOPE
+PORTAL_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4692776, length=12372, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=12372)
 PORTAL_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4705148, length=2848, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=2848)
-PORTAL_VERT_EDGES  NNYY  NOPE
+PORTAL_VERTEX_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4707996, length=16496, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=16496)
-PORTAL_VERT_REFS  NNYY  NOPE
+PORTAL_VERTEX_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4724492, length=5688, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=5688)
-PORTAL_EDGE_REFS  NNYY  NOPE
+PORTAL_EDGE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4730180, length=5688, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=5688)
-PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_EDGE  NNYY  NOPE
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4735868, length=13600, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=13600)
-PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NNYY  NOPE
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4749468, length=13600, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=13600)
-PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_HEADER  NNYY  NOPE
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4763068, length=5696, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=5696)
-OCCLUSION_MESH_VERTS  NNYY  NOPE
+OCCLUSION_MESH_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4768764, length=5424, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5424)
 OCCLUSION_MESH_INDICES  NNYY  NOPE
@@ -2198,10 +2198,10 @@ ExternalLumpHeader(offset=4774188, length=11184, version=0, fourCC=0, filename='
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4785372, length=806912, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=806912)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5592284, length=81070, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=81070)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5673356, length=1297120, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1297120)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  NNYY  NOPE
@@ -2210,10 +2210,10 @@ ExternalLumpHeader(offset=164731428, length=2646, version=0, fourCC=0, filename=
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6970476, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6970504, length=1600260, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1600260)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8570764, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -2361,7 +2361,7 @@ ExternalLumpHeader(offset=88871840, length=35651584, version=0, fourCC=0, filena
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=9361836, length=205312, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=205312)
 ExternalLumpHeader(offset=9434716, length=224032, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=224032)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=9567148, length=21210, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21210)
 ExternalLumpHeader(offset=9658748, length=21890, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=21890)
 LIGHTPROBES  NNYY  NOPE
@@ -2373,7 +2373,7 @@ ExternalLumpHeader(offset=172596992, length=79168, version=0, fourCC=0, filename
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=166643616, length=279400, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=279400)
 ExternalLumpHeader(offset=168948444, length=274744, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=274744)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=166923016, length=1304140, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1304140)
 ExternalLumpHeader(offset=169223188, length=1290700, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1290700)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -2388,31 +2388,31 @@ ExternalLumpHeader(offset=4670348, length=640, version=0, fourCC=0, filename='mp
 PORTALS  NNYY  NOPE
 ExternalLumpHeader(offset=4663820, length=9504, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=9504)
 ExternalLumpHeader(offset=4670988, length=10176, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=10176)
-PORTAL_VERTS  NNYY  NOPE
+PORTAL_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4673324, length=8232, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8232)
 ExternalLumpHeader(offset=4681164, length=8544, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=8544)
 PORTAL_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=4681556, length=1896, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1896)
 ExternalLumpHeader(offset=4689708, length=1968, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=1968)
-PORTAL_VERT_EDGES  NNYY  NOPE
+PORTAL_VERTEX_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=4683452, length=10976, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=10976)
 ExternalLumpHeader(offset=4691676, length=11392, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=11392)
-PORTAL_VERT_REFS  NNYY  NOPE
+PORTAL_VERTEX_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4694428, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4703068, length=3704, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=3704)
-PORTAL_EDGE_REFS  NNYY  NOPE
+PORTAL_EDGE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4697916, length=3488, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3488)
 ExternalLumpHeader(offset=4706772, length=3704, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=3704)
-PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_EDGE  NNYY  NOPE
 ExternalLumpHeader(offset=4701404, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4710476, length=9168, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=9168)
-PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NNYY  NOPE
 ExternalLumpHeader(offset=4710188, length=8784, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=8784)
 ExternalLumpHeader(offset=4719644, length=9168, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=9168)
-PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_HEADER  NNYY  NOPE
 ExternalLumpHeader(offset=4718972, length=3792, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3792)
 ExternalLumpHeader(offset=4728812, length=3936, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=3936)
-OCCLUSION_MESH_VERTS  NNYY  NOPE
+OCCLUSION_MESH_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4722764, length=5232, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5232)
 ExternalLumpHeader(offset=4732748, length=5400, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=5400)
 OCCLUSION_MESH_INDICES  NNYY  NOPE
@@ -2421,10 +2421,10 @@ ExternalLumpHeader(offset=4738148, length=5628, version=0, fourCC=0, filename='m
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=4733456, length=748256, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=748256)
 ExternalLumpHeader(offset=4743776, length=777440, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=777440)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=5481712, length=77550, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=77550)
 ExternalLumpHeader(offset=5521216, length=79478, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=79478)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=5559264, length=1240800, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1240800)
 ExternalLumpHeader(offset=5600696, length=1271648, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1271648)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE  NNYY  NOPE
@@ -2433,10 +2433,10 @@ ExternalLumpHeader(offset=164631456, length=2268, version=0, fourCC=0, filename=
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=6800064, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 ExternalLumpHeader(offset=6872344, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=6800092, length=1599984, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1599984)
 ExternalLumpHeader(offset=6872372, length=1600404, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1600404)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=8400076, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 ExternalLumpHeader(offset=8472776, length=17660, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=17660)
 SHADOW_MESH_INDICES  NNYY  NOPE

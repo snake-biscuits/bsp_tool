@@ -125,7 +125,7 @@ LumpHeader(offset=60321944, length=33030144, version=0, fourCC=0)
 CSM_AABB_NODES  NYYY  YES!
 ExternalLumpHeader(offset=12443700, length=121248, version=0, fourCC=0, filename='mp_airbase.bsp.0063.bsp_lump', filesize=121248)
 LumpHeader(offset=12453432, length=121248, version=0, fourCC=0)
-CSM_OBJ_REFS  NYYY  YES!
+CSM_OBJ_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=12564948, length=8952, version=0, fourCC=0, filename='mp_airbase.bsp.0064.bsp_lump', filesize=8952)
 LumpHeader(offset=12574680, length=8952, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -137,7 +137,7 @@ LumpHeader(offset=119196248, length=59896, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=116974344, length=305592, version=0, fourCC=0, filename='mp_airbase.bsp.0067.bsp_lump', filesize=305592)
 LumpHeader(offset=115825808, length=303928, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=117279936, length=1142800, version=0, fourCC=0, filename='mp_airbase.bsp.0068.bsp_lump', filesize=1142800)
 LumpHeader(offset=116129736, length=1141856, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -152,31 +152,31 @@ LumpHeader(offset=8877932, length=1088, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=8868260, length=16572, version=0, fourCC=0, filename='mp_airbase.bsp.006c.bsp_lump', filesize=16572)
 LumpHeader(offset=8879020, length=16572, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=8884832, length=14136, version=0, fourCC=0, filename='mp_airbase.bsp.006d.bsp_lump', filesize=14136)
 LumpHeader(offset=8895592, length=14136, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=8898968, length=3064, version=0, fourCC=0, filename='mp_airbase.bsp.006e.bsp_lump', filesize=3064)
 LumpHeader(offset=8909728, length=3064, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=8902032, length=18848, version=0, fourCC=0, filename='mp_airbase.bsp.006f.bsp_lump', filesize=18848)
 LumpHeader(offset=8912792, length=18848, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=8920880, length=6262, version=0, fourCC=0, filename='mp_airbase.bsp.0070.bsp_lump', filesize=6262)
 LumpHeader(offset=8931640, length=6262, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=8927144, length=6262, version=0, fourCC=0, filename='mp_airbase.bsp.0071.bsp_lump', filesize=6262)
 LumpHeader(offset=8937904, length=6262, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=8933408, length=14704, version=0, fourCC=0, filename='mp_airbase.bsp.0072.bsp_lump', filesize=14704)
 LumpHeader(offset=8944168, length=14704, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=8948112, length=14704, version=0, fourCC=0, filename='mp_airbase.bsp.0073.bsp_lump', filesize=14704)
 LumpHeader(offset=8958872, length=14704, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=8962816, length=6128, version=0, fourCC=0, filename='mp_airbase.bsp.0074.bsp_lump', filesize=6128)
 LumpHeader(offset=8973576, length=6128, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=8968944, length=9252, version=0, fourCC=0, filename='mp_airbase.bsp.0075.bsp_lump', filesize=9252)
 LumpHeader(offset=8979704, length=9252, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -185,19 +185,19 @@ LumpHeader(offset=8988956, length=9048, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=8987244, length=747456, version=0, fourCC=0, filename='mp_airbase.bsp.0077.bsp_lump', filesize=747456)
 LumpHeader(offset=8998004, length=746496, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=9734700, length=53334, version=0, fourCC=0, filename='mp_airbase.bsp.0078.bsp_lump', filesize=53334)
 LumpHeader(offset=9744500, length=53340, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=9788036, length=853344, version=0, fourCC=0, filename='mp_airbase.bsp.0079.bsp_lump', filesize=853344)
 LumpHeader(offset=9797840, length=853440, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=10641380, length=28, version=0, fourCC=0, filename='mp_airbase.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=10651280, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=10641408, length=1073076, version=0, fourCC=0, filename='mp_airbase.bsp.007c.bsp_lump', filesize=1073076)
 LumpHeader(offset=10651308, length=1072884, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=11714484, length=26020, version=0, fourCC=0, filename='mp_airbase.bsp.007d.bsp_lump', filesize=26020)
 LumpHeader(offset=11724192, length=26020, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -342,7 +342,7 @@ LumpHeader(offset=102938456, length=39321600, version=0, fourCC=0)
 CSM_AABB_NODES  NYYY  NOPE
 ExternalLumpHeader(offset=15189376, length=180800, version=0, fourCC=0, filename='mp_angel_city.bsp.0063.bsp_lump', filesize=180800)
 LumpHeader(offset=15190660, length=180800, version=0, fourCC=0)
-CSM_OBJ_REFS  NYYY  NOPE
+CSM_OBJ_REFERENCES  NYYY  NOPE
 ExternalLumpHeader(offset=15370176, length=17578, version=0, fourCC=0, filename='mp_angel_city.bsp.0064.bsp_lump', filesize=17578)
 LumpHeader(offset=15371460, length=17578, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -354,7 +354,7 @@ LumpHeader(offset=174475116, length=73456, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=169937420, length=357080, version=0, fourCC=0, filename='mp_angel_city.bsp.0067.bsp_lump', filesize=357080)
 LumpHeader(offset=170737748, length=369096, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=170294500, length=1322224, version=0, fourCC=0, filename='mp_angel_city.bsp.0068.bsp_lump', filesize=1322224)
 LumpHeader(offset=171106844, length=1347808, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -369,31 +369,31 @@ LumpHeader(offset=9370908, length=3824, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=9373048, length=47952, version=0, fourCC=0, filename='mp_angel_city.bsp.006c.bsp_lump', filesize=47952)
 LumpHeader(offset=9374732, length=47952, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=9421000, length=39168, version=0, fourCC=0, filename='mp_angel_city.bsp.006d.bsp_lump', filesize=39168)
 LumpHeader(offset=9422684, length=39168, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=9460168, length=8732, version=0, fourCC=0, filename='mp_angel_city.bsp.006e.bsp_lump', filesize=8732)
 LumpHeader(offset=9461852, length=8732, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=9468900, length=52224, version=0, fourCC=0, filename='mp_angel_city.bsp.006f.bsp_lump', filesize=52224)
 LumpHeader(offset=9470584, length=52224, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=9521124, length=15990, version=0, fourCC=0, filename='mp_angel_city.bsp.0070.bsp_lump', filesize=15990)
 LumpHeader(offset=9522808, length=15990, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=9537116, length=15990, version=0, fourCC=0, filename='mp_angel_city.bsp.0071.bsp_lump', filesize=15990)
 LumpHeader(offset=9538800, length=15990, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=9553108, length=42704, version=0, fourCC=0, filename='mp_angel_city.bsp.0072.bsp_lump', filesize=42704)
 LumpHeader(offset=9554792, length=42704, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=9595812, length=42704, version=0, fourCC=0, filename='mp_angel_city.bsp.0073.bsp_lump', filesize=42704)
 LumpHeader(offset=9597496, length=42704, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=9638516, length=17464, version=0, fourCC=0, filename='mp_angel_city.bsp.0074.bsp_lump', filesize=17464)
 LumpHeader(offset=9640200, length=17464, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=9655980, length=29760, version=0, fourCC=0, filename='mp_angel_city.bsp.0075.bsp_lump', filesize=29760)
 LumpHeader(offset=9657664, length=29760, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -402,19 +402,19 @@ LumpHeader(offset=9687424, length=62184, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=9747924, length=1133376, version=0, fourCC=0, filename='mp_angel_city.bsp.0077.bsp_lump', filesize=1133376)
 LumpHeader(offset=9749608, length=1133664, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=10881300, length=85242, version=0, fourCC=0, filename='mp_angel_city.bsp.0078.bsp_lump', filesize=85242)
 LumpHeader(offset=10883272, length=85212, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=10966544, length=1363872, version=0, fourCC=0, filename='mp_angel_city.bsp.0079.bsp_lump', filesize=1363872)
 LumpHeader(offset=10968484, length=1363392, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=12330416, length=28, version=0, fourCC=0, filename='mp_angel_city.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=12331876, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=12330444, length=1801380, version=0, fourCC=0, filename='mp_angel_city.bsp.007c.bsp_lump', filesize=1801380)
 LumpHeader(offset=12331904, length=1801248, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=14131824, length=20780, version=0, fourCC=0, filename='mp_angel_city.bsp.007d.bsp_lump', filesize=20780)
 LumpHeader(offset=14133152, length=20780, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -553,7 +553,7 @@ LumpHeader(offset=78939472, length=36175872, version=0, fourCC=0)
 CSM_AABB_NODES  NYYY  NOPE
 ExternalLumpHeader(offset=15493004, length=50592, version=0, fourCC=0, filename='mp_boneyard.bsp.0063.bsp_lump', filesize=50592)
 LumpHeader(offset=15490152, length=50592, version=0, fourCC=0)
-CSM_OBJ_REFS  NYYY  NOPE
+CSM_OBJ_REFERENCES  NYYY  NOPE
 ExternalLumpHeader(offset=15543596, length=3892, version=0, fourCC=0, filename='mp_boneyard.bsp.0064.bsp_lump', filesize=3892)
 LumpHeader(offset=15540744, length=3892, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -565,7 +565,7 @@ LumpHeader(offset=151137628, length=38020, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=147886144, length=272344, version=0, fourCC=0, filename='mp_boneyard.bsp.0067.bsp_lump', filesize=272344)
 LumpHeader(offset=148501540, length=268168, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=148158488, length=1066176, version=0, fourCC=0, filename='mp_boneyard.bsp.0068.bsp_lump', filesize=1066176)
 LumpHeader(offset=148769708, length=1056560, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -580,31 +580,31 @@ LumpHeader(offset=11662528, length=1904, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=11664636, length=26136, version=0, fourCC=0, filename='mp_boneyard.bsp.006c.bsp_lump', filesize=26136)
 LumpHeader(offset=11664432, length=26136, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=11690772, length=18360, version=0, fourCC=0, filename='mp_boneyard.bsp.006d.bsp_lump', filesize=18360)
 LumpHeader(offset=11690568, length=18360, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=11709132, length=4172, version=0, fourCC=0, filename='mp_boneyard.bsp.006e.bsp_lump', filesize=4172)
 LumpHeader(offset=11708928, length=4172, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=11713304, length=24480, version=0, fourCC=0, filename='mp_boneyard.bsp.006f.bsp_lump', filesize=24480)
 LumpHeader(offset=11713100, length=24480, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=11737784, length=8732, version=0, fourCC=0, filename='mp_boneyard.bsp.0070.bsp_lump', filesize=8732)
 LumpHeader(offset=11737580, length=8732, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=11746516, length=8732, version=0, fourCC=0, filename='mp_boneyard.bsp.0071.bsp_lump', filesize=8732)
 LumpHeader(offset=11746312, length=8732, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=11755248, length=20720, version=0, fourCC=0, filename='mp_boneyard.bsp.0072.bsp_lump', filesize=20720)
 LumpHeader(offset=11755044, length=20720, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=11775968, length=20720, version=0, fourCC=0, filename='mp_boneyard.bsp.0073.bsp_lump', filesize=20720)
 LumpHeader(offset=11775764, length=20720, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=11796688, length=8344, version=0, fourCC=0, filename='mp_boneyard.bsp.0074.bsp_lump', filesize=8344)
 LumpHeader(offset=11796484, length=8344, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=11805032, length=6768, version=0, fourCC=0, filename='mp_boneyard.bsp.0075.bsp_lump', filesize=6768)
 LumpHeader(offset=11804828, length=6768, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -613,19 +613,19 @@ LumpHeader(offset=11811596, length=13704, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=11825504, length=550592, version=0, fourCC=0, filename='mp_boneyard.bsp.0077.bsp_lump', filesize=550592)
 LumpHeader(offset=11825300, length=549408, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=12376096, length=35028, version=0, fourCC=0, filename='mp_boneyard.bsp.0078.bsp_lump', filesize=35028)
 LumpHeader(offset=12374708, length=34990, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=12411124, length=560448, version=0, fourCC=0, filename='mp_boneyard.bsp.0079.bsp_lump', filesize=560448)
 LumpHeader(offset=12409700, length=559840, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=12971572, length=28, version=0, fourCC=0, filename='mp_boneyard.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=12969540, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=12971600, length=1477068, version=0, fourCC=0, filename='mp_boneyard.bsp.007c.bsp_lump', filesize=1477068)
 LumpHeader(offset=12969568, length=1476648, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=14448668, length=8580, version=0, fourCC=0, filename='mp_boneyard.bsp.007d.bsp_lump', filesize=8580)
 LumpHeader(offset=14446216, length=8580, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -764,7 +764,7 @@ LumpHeader(offset=88921604, length=46137344, version=0, fourCC=0)
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=8579364, length=157280, version=0, fourCC=0, filename='mp_fracture.bsp.0063.bsp_lump', filesize=157280)
 LumpHeader(offset=8579364, length=157280, version=0, fourCC=0)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=8736644, length=14952, version=0, fourCC=0, filename='mp_fracture.bsp.0064.bsp_lump', filesize=14952)
 LumpHeader(offset=8736644, length=14952, version=0, fourCC=0)
 LIGHTPROBES  YYYY  YES!
@@ -776,7 +776,7 @@ LumpHeader(offset=186005000, length=90676, version=0, fourCC=0)
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=181895600, length=390616, version=0, fourCC=0, filename='mp_fracture.bsp.0067.bsp_lump', filesize=390616)
 LumpHeader(offset=181895600, length=390616, version=0, fourCC=0)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=182286216, length=1535120, version=0, fourCC=0, filename='mp_fracture.bsp.0068.bsp_lump', filesize=1535120)
 LumpHeader(offset=182286216, length=1535120, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -791,31 +791,31 @@ LumpHeader(offset=3876772, length=1584, version=0, fourCC=0)
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=3878356, length=20760, version=0, fourCC=0, filename='mp_fracture.bsp.006c.bsp_lump', filesize=20760)
 LumpHeader(offset=3878356, length=20760, version=0, fourCC=0)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=3899116, length=18756, version=0, fourCC=0, filename='mp_fracture.bsp.006d.bsp_lump', filesize=18756)
 LumpHeader(offset=3899116, length=18756, version=0, fourCC=0)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=3917872, length=4620, version=0, fourCC=0, filename='mp_fracture.bsp.006e.bsp_lump', filesize=4620)
 LumpHeader(offset=3917872, length=4620, version=0, fourCC=0)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=3922492, length=25008, version=0, fourCC=0, filename='mp_fracture.bsp.006f.bsp_lump', filesize=25008)
 LumpHeader(offset=3922492, length=25008, version=0, fourCC=0)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=3947500, length=7090, version=0, fourCC=0, filename='mp_fracture.bsp.0070.bsp_lump', filesize=7090)
 LumpHeader(offset=3947500, length=7090, version=0, fourCC=0)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=3954592, length=7090, version=0, fourCC=0, filename='mp_fracture.bsp.0071.bsp_lump', filesize=7090)
 LumpHeader(offset=3954592, length=7090, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=3961684, length=20544, version=0, fourCC=0, filename='mp_fracture.bsp.0072.bsp_lump', filesize=20544)
 LumpHeader(offset=3961684, length=20544, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=3982228, length=20544, version=0, fourCC=0, filename='mp_fracture.bsp.0073.bsp_lump', filesize=20544)
 LumpHeader(offset=3982228, length=20544, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=4002772, length=9240, version=0, fourCC=0, filename='mp_fracture.bsp.0074.bsp_lump', filesize=9240)
 LumpHeader(offset=4002772, length=9240, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4012012, length=16236, version=0, fourCC=0, filename='mp_fracture.bsp.0075.bsp_lump', filesize=16236)
 LumpHeader(offset=4012012, length=16236, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -824,19 +824,19 @@ LumpHeader(offset=4028248, length=16968, version=0, fourCC=0)
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=4045216, length=999392, version=0, fourCC=0, filename='mp_fracture.bsp.0077.bsp_lump', filesize=999392)
 LumpHeader(offset=4045216, length=999392, version=0, fourCC=0)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5044608, length=69154, version=0, fourCC=0, filename='mp_fracture.bsp.0078.bsp_lump', filesize=69154)
 LumpHeader(offset=5044608, length=69154, version=0, fourCC=0)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=5113764, length=1106464, version=0, fourCC=0, filename='mp_fracture.bsp.0079.bsp_lump', filesize=1106464)
 LumpHeader(offset=5113764, length=1106464, version=0, fourCC=0)
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=6220228, length=28, version=0, fourCC=0, filename='mp_fracture.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=6220228, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=6220256, length=1425708, version=0, fourCC=0, filename='mp_fracture.bsp.007c.bsp_lump', filesize=1425708)
 LumpHeader(offset=6220256, length=1425708, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=7645964, length=55600, version=0, fourCC=0, filename='mp_fracture.bsp.007d.bsp_lump', filesize=55600)
 LumpHeader(offset=7645964, length=55600, version=0, fourCC=0)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -981,7 +981,7 @@ LumpHeader(offset=76153048, length=36175872, version=0, fourCC=0)
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=5464260, length=92320, version=0, fourCC=0, filename='mp_haven.bsp.0063.bsp_lump', filesize=92320)
 LumpHeader(offset=5463808, length=75232, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=5556580, length=7810, version=0, fourCC=0, filename='mp_haven.bsp.0064.bsp_lump', filesize=7810)
 LumpHeader(offset=5539040, length=6670, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -993,7 +993,7 @@ LumpHeader(offset=153539380, length=55728, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=152196064, length=345464, version=0, fourCC=0, filename='mp_haven.bsp.0067.bsp_lump', filesize=345464)
 LumpHeader(offset=149813644, length=341752, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=152541528, length=1265872, version=0, fourCC=0, filename='mp_haven.bsp.0068.bsp_lump', filesize=1265872)
 LumpHeader(offset=150155396, length=1260224, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -1008,31 +1008,31 @@ LumpHeader(offset=2314604, length=608, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=2315356, length=9972, version=0, fourCC=0, filename='mp_haven.bsp.006c.bsp_lump', filesize=9972)
 LumpHeader(offset=2315212, length=9972, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=2325328, length=8256, version=0, fourCC=0, filename='mp_haven.bsp.006d.bsp_lump', filesize=8256)
 LumpHeader(offset=2325184, length=8256, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=2333584, length=1848, version=0, fourCC=0, filename='mp_haven.bsp.006e.bsp_lump', filesize=1848)
 LumpHeader(offset=2333440, length=1848, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=2335432, length=11008, version=0, fourCC=0, filename='mp_haven.bsp.006f.bsp_lump', filesize=11008)
 LumpHeader(offset=2335288, length=11008, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=2346440, length=3490, version=0, fourCC=0, filename='mp_haven.bsp.0070.bsp_lump', filesize=3490)
 LumpHeader(offset=2346296, length=3490, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=2349932, length=3490, version=0, fourCC=0, filename='mp_haven.bsp.0071.bsp_lump', filesize=3490)
 LumpHeader(offset=2349788, length=3490, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=2353424, length=8656, version=0, fourCC=0, filename='mp_haven.bsp.0072.bsp_lump', filesize=8656)
 LumpHeader(offset=2353280, length=8656, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=2362080, length=8656, version=0, fourCC=0, filename='mp_haven.bsp.0073.bsp_lump', filesize=8656)
 LumpHeader(offset=2361936, length=8656, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=2370736, length=3696, version=0, fourCC=0, filename='mp_haven.bsp.0074.bsp_lump', filesize=3696)
 LumpHeader(offset=2370592, length=3696, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=2374432, length=5736, version=0, fourCC=0, filename='mp_haven.bsp.0075.bsp_lump', filesize=5736)
 LumpHeader(offset=2374288, length=5736, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -1041,19 +1041,19 @@ LumpHeader(offset=2380024, length=5814, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=2385984, length=604224, version=0, fourCC=0, filename='mp_haven.bsp.0077.bsp_lump', filesize=604224)
 LumpHeader(offset=2385840, length=604256, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=2990208, length=51226, version=0, fourCC=0, filename='mp_haven.bsp.0078.bsp_lump', filesize=51226)
 LumpHeader(offset=2990096, length=51206, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=3041436, length=819616, version=0, fourCC=0, filename='mp_haven.bsp.0079.bsp_lump', filesize=819616)
 LumpHeader(offset=3041304, length=819296, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=3861052, length=28, version=0, fourCC=0, filename='mp_haven.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=3860600, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NYYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=3861080, length=968160, version=0, fourCC=0, filename='mp_haven.bsp.007c.bsp_lump', filesize=968160)
 LumpHeader(offset=3860628, length=968160, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=4829240, length=1100, version=0, fourCC=0, filename='mp_haven.bsp.007d.bsp_lump', filesize=1100)
 LumpHeader(offset=4828788, length=1100, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NYYY  NOPE
@@ -1192,7 +1192,7 @@ LumpHeader(offset=79947244, length=31457280, version=0, fourCC=0)
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=15270864, length=271264, version=0, fourCC=0, filename='mp_nexus.bsp.0063.bsp_lump', filesize=271264)
 LumpHeader(offset=15251304, length=271392, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=15542128, length=25274, version=0, fourCC=0, filename='mp_nexus.bsp.0064.bsp_lump', filesize=25274)
 LumpHeader(offset=15522696, length=25248, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -1204,7 +1204,7 @@ LumpHeader(offset=139241984, length=142372, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=137893648, length=237832, version=0, fourCC=0, filename='mp_nexus.bsp.0067.bsp_lump', filesize=237832)
 LumpHeader(offset=135515560, length=239016, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=138131480, length=882256, version=0, fourCC=0, filename='mp_nexus.bsp.0068.bsp_lump', filesize=882256)
 LumpHeader(offset=135754576, length=884752, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -1219,31 +1219,31 @@ LumpHeader(offset=9279588, length=2504, version=0, fourCC=0)
 PORTALS  NNYY  NOPE
 ExternalLumpHeader(offset=9291864, length=31248, version=0, fourCC=0, filename='mp_nexus.bsp.006c.bsp_lump', filesize=31248)
 LumpHeader(offset=9282092, length=30720, version=0, fourCC=0)
-PORTAL_VERTS  NNYY  NOPE
+PORTAL_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=9323112, length=25140, version=0, fourCC=0, filename='mp_nexus.bsp.006d.bsp_lump', filesize=25140)
 LumpHeader(offset=9312812, length=24816, version=0, fourCC=0)
 PORTAL_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=9348252, length=5876, version=0, fourCC=0, filename='mp_nexus.bsp.006e.bsp_lump', filesize=5876)
 LumpHeader(offset=9337628, length=5804, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NNYY  NOPE
+PORTAL_VERTEX_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=9354128, length=33520, version=0, fourCC=0, filename='mp_nexus.bsp.006f.bsp_lump', filesize=33520)
 LumpHeader(offset=9343432, length=33088, version=0, fourCC=0)
-PORTAL_VERT_REFS  NNYY  NOPE
+PORTAL_VERTEX_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=9387648, length=10718, version=0, fourCC=0, filename='mp_nexus.bsp.0070.bsp_lump', filesize=10718)
 LumpHeader(offset=9376520, length=10542, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NNYY  NOPE
+PORTAL_EDGE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=9398368, length=10718, version=0, fourCC=0, filename='mp_nexus.bsp.0071.bsp_lump', filesize=10718)
 LumpHeader(offset=9387064, length=10542, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_EDGE  NNYY  NOPE
 ExternalLumpHeader(offset=9409088, length=27952, version=0, fourCC=0, filename='mp_nexus.bsp.0072.bsp_lump', filesize=27952)
 LumpHeader(offset=9397608, length=27664, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NNYY  NOPE
 ExternalLumpHeader(offset=9437040, length=27952, version=0, fourCC=0, filename='mp_nexus.bsp.0073.bsp_lump', filesize=27952)
 LumpHeader(offset=9425272, length=27664, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_HEADER  NNYY  NOPE
 ExternalLumpHeader(offset=9464992, length=11752, version=0, fourCC=0, filename='mp_nexus.bsp.0074.bsp_lump', filesize=11752)
 LumpHeader(offset=9452936, length=11608, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NNYY  NOPE
+OCCLUSION_MESH_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=9476744, length=13188, version=0, fourCC=0, filename='mp_nexus.bsp.0075.bsp_lump', filesize=13188)
 LumpHeader(offset=9464544, length=13164, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NNYY  NOPE
@@ -1252,19 +1252,19 @@ LumpHeader(offset=9477708, length=26664, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=9516668, length=923744, version=0, fourCC=0, filename='mp_nexus.bsp.0077.bsp_lump', filesize=923744)
 LumpHeader(offset=9504372, length=919616, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=10440412, length=109830, version=0, fourCC=0, filename='mp_nexus.bsp.0078.bsp_lump', filesize=109830)
 LumpHeader(offset=10423988, length=109612, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=10550244, length=1757280, version=0, fourCC=0, filename='mp_nexus.bsp.0079.bsp_lump', filesize=1757280)
 LumpHeader(offset=10533600, length=1753792, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=12307524, length=28, version=0, fourCC=0, filename='mp_nexus.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=12287392, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=12307552, length=1771464, version=0, fourCC=0, filename='mp_nexus.bsp.007c.bsp_lump', filesize=1771464)
 LumpHeader(offset=12287420, length=1771836, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NNYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=14079016, length=36300, version=0, fourCC=0, filename='mp_nexus.bsp.007d.bsp_lump', filesize=36300)
 LumpHeader(offset=14059256, length=36260, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -1403,7 +1403,7 @@ LumpHeader(offset=88466036, length=27787264, version=0, fourCC=0)
 CSM_AABB_NODES  NYYY  NOPE
 ExternalLumpHeader(offset=17171240, length=102976, version=0, fourCC=0, filename='mp_outpost_207.bsp.0063.bsp_lump', filesize=102976)
 LumpHeader(offset=17172188, length=102976, version=0, fourCC=0)
-CSM_OBJ_REFS  NYYY  NOPE
+CSM_OBJ_REFERENCES  NYYY  NOPE
 ExternalLumpHeader(offset=17274216, length=9540, version=0, fourCC=0, filename='mp_outpost_207.bsp.0064.bsp_lump', filesize=9540)
 LumpHeader(offset=17275164, length=9540, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -1415,7 +1415,7 @@ LumpHeader(offset=142869456, length=56448, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=139682936, length=182648, version=0, fourCC=0, filename='mp_outpost_207.bsp.0067.bsp_lump', filesize=182648)
 LumpHeader(offset=140490488, length=183944, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=139865584, length=672944, version=0, fourCC=0, filename='mp_outpost_207.bsp.0068.bsp_lump', filesize=672944)
 LumpHeader(offset=140674432, length=674192, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -1430,31 +1430,31 @@ LumpHeader(offset=13778552, length=944, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=13776884, length=15444, version=0, fourCC=0, filename='mp_outpost_207.bsp.006c.bsp_lump', filesize=15444)
 LumpHeader(offset=13779496, length=15444, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=13792328, length=12732, version=0, fourCC=0, filename='mp_outpost_207.bsp.006d.bsp_lump', filesize=12732)
 LumpHeader(offset=13794940, length=12732, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=13805060, length=2796, version=0, fourCC=0, filename='mp_outpost_207.bsp.006e.bsp_lump', filesize=2796)
 LumpHeader(offset=13807672, length=2796, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=13807856, length=16976, version=0, fourCC=0, filename='mp_outpost_207.bsp.006f.bsp_lump', filesize=16976)
 LumpHeader(offset=13810468, length=16976, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=13824832, length=5468, version=0, fourCC=0, filename='mp_outpost_207.bsp.0070.bsp_lump', filesize=5468)
 LumpHeader(offset=13827444, length=5468, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=13830300, length=5468, version=0, fourCC=0, filename='mp_outpost_207.bsp.0071.bsp_lump', filesize=5468)
 LumpHeader(offset=13832912, length=5468, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=13835768, length=12944, version=0, fourCC=0, filename='mp_outpost_207.bsp.0072.bsp_lump', filesize=12944)
 LumpHeader(offset=13838380, length=12944, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=13848712, length=12944, version=0, fourCC=0, filename='mp_outpost_207.bsp.0073.bsp_lump', filesize=12944)
 LumpHeader(offset=13851324, length=12944, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=13861656, length=5592, version=0, fourCC=0, filename='mp_outpost_207.bsp.0074.bsp_lump', filesize=5592)
 LumpHeader(offset=13864268, length=5592, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=13867248, length=8484, version=0, fourCC=0, filename='mp_outpost_207.bsp.0075.bsp_lump', filesize=8484)
 LumpHeader(offset=13869860, length=8484, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -1463,19 +1463,19 @@ LumpHeader(offset=13878344, length=8436, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=13884168, length=683200, version=0, fourCC=0, filename='mp_outpost_207.bsp.0077.bsp_lump', filesize=683200)
 LumpHeader(offset=13886780, length=682208, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=14567368, length=51298, version=0, fourCC=0, filename='mp_outpost_207.bsp.0078.bsp_lump', filesize=51298)
 LumpHeader(offset=14568988, length=51252, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=14618668, length=820768, version=0, fourCC=0, filename='mp_outpost_207.bsp.0079.bsp_lump', filesize=820768)
 LumpHeader(offset=14620240, length=820032, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=15439436, length=28, version=0, fourCC=0, filename='mp_outpost_207.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=15440272, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=15439464, length=1065000, version=0, fourCC=0, filename='mp_outpost_207.bsp.007c.bsp_lump', filesize=1065000)
 LumpHeader(offset=15440300, length=1065072, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=16504464, length=29220, version=0, fourCC=0, filename='mp_outpost_207.bsp.007d.bsp_lump', filesize=29220)
 LumpHeader(offset=16505372, length=29220, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -1614,7 +1614,7 @@ LumpHeader(offset=89389832, length=38273024, version=0, fourCC=0)
 CSM_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=9933508, length=110368, version=0, fourCC=0, filename='mp_relic.bsp.0063.bsp_lump', filesize=110368)
 LumpHeader(offset=9933508, length=110368, version=0, fourCC=0)
-CSM_OBJ_REFS  YYYY  YES!
+CSM_OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=10043876, length=8270, version=0, fourCC=0, filename='mp_relic.bsp.0064.bsp_lump', filesize=8270)
 LumpHeader(offset=10043876, length=8270, version=0, fourCC=0)
 LIGHTPROBES  YYYY  YES!
@@ -1626,7 +1626,7 @@ LumpHeader(offset=170471180, length=80676, version=0, fourCC=0)
 LIGHTPROBE_TREE  YYYY  YES!
 ExternalLumpHeader(offset=166642964, length=365368, version=0, fourCC=0, filename='mp_relic.bsp.0067.bsp_lump', filesize=365368)
 LumpHeader(offset=166642964, length=365368, version=0, fourCC=0)
-LIGHTPROBE_REFS  YYYY  YES!
+LIGHTPROBE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=167008332, length=1401440, version=0, fourCC=0, filename='mp_relic.bsp.0068.bsp_lump', filesize=1401440)
 LumpHeader(offset=167008332, length=1401440, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  YYYY  YES!
@@ -1641,31 +1641,31 @@ LumpHeader(offset=5445876, length=2648, version=0, fourCC=0)
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=5448524, length=34824, version=0, fourCC=0, filename='mp_relic.bsp.006c.bsp_lump', filesize=34824)
 LumpHeader(offset=5448524, length=34824, version=0, fourCC=0)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=5483348, length=25344, version=0, fourCC=0, filename='mp_relic.bsp.006d.bsp_lump', filesize=25344)
 LumpHeader(offset=5483348, length=25344, version=0, fourCC=0)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=5508692, length=5952, version=0, fourCC=0, filename='mp_relic.bsp.006e.bsp_lump', filesize=5952)
 LumpHeader(offset=5508692, length=5952, version=0, fourCC=0)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=5514644, length=33792, version=0, fourCC=0, filename='mp_relic.bsp.006f.bsp_lump', filesize=33792)
 LumpHeader(offset=5514644, length=33792, version=0, fourCC=0)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5548436, length=11592, version=0, fourCC=0, filename='mp_relic.bsp.0070.bsp_lump', filesize=11592)
 LumpHeader(offset=5548436, length=11592, version=0, fourCC=0)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=5560028, length=11592, version=0, fourCC=0, filename='mp_relic.bsp.0071.bsp_lump', filesize=11592)
 LumpHeader(offset=5560028, length=11592, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=5571620, length=28928, version=0, fourCC=0, filename='mp_relic.bsp.0072.bsp_lump', filesize=28928)
 LumpHeader(offset=5571620, length=28928, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=5600548, length=28928, version=0, fourCC=0, filename='mp_relic.bsp.0073.bsp_lump', filesize=28928)
 LumpHeader(offset=5600548, length=28928, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=5629476, length=11904, version=0, fourCC=0, filename='mp_relic.bsp.0074.bsp_lump', filesize=11904)
 LumpHeader(offset=5629476, length=11904, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=5641380, length=11172, version=0, fourCC=0, filename='mp_relic.bsp.0075.bsp_lump', filesize=11172)
 LumpHeader(offset=5641380, length=11172, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -1674,19 +1674,19 @@ LumpHeader(offset=5652552, length=23388, version=0, fourCC=0)
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=5675940, length=831744, version=0, fourCC=0, filename='mp_relic.bsp.0077.bsp_lump', filesize=831744)
 LumpHeader(offset=5675940, length=831744, version=0, fourCC=0)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=6507684, length=64380, version=0, fourCC=0, filename='mp_relic.bsp.0078.bsp_lump', filesize=64380)
 LumpHeader(offset=6507684, length=64380, version=0, fourCC=0)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=6572064, length=1030080, version=0, fourCC=0, filename='mp_relic.bsp.0079.bsp_lump', filesize=1030080)
 LumpHeader(offset=6572064, length=1030080, version=0, fourCC=0)
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=7602144, length=28, version=0, fourCC=0, filename='mp_relic.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=7602144, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=7602172, length=1393524, version=0, fourCC=0, filename='mp_relic.bsp.007c.bsp_lump', filesize=1393524)
 LumpHeader(offset=7602172, length=1393524, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=8995696, length=12460, version=0, fourCC=0, filename='mp_relic.bsp.007d.bsp_lump', filesize=12460)
 LumpHeader(offset=8995696, length=12460, version=0, fourCC=0)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -1828,7 +1828,7 @@ LumpHeader(offset=101441268, length=55574528, version=0, fourCC=0)
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=8754988, length=82112, version=0, fourCC=0, filename='mp_runoff.bsp.0063.bsp_lump', filesize=82112)
 LumpHeader(offset=8919128, length=82144, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=8837100, length=7854, version=0, fourCC=0, filename='mp_runoff.bsp.0064.bsp_lump', filesize=7854)
 LumpHeader(offset=9001272, length=7568, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -1840,7 +1840,7 @@ LumpHeader(offset=211329272, length=44016, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=203406800, length=541720, version=0, fourCC=0, filename='mp_runoff.bsp.0067.bsp_lump', filesize=541720)
 LumpHeader(offset=206015280, length=543528, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=203948520, length=2124080, version=0, fourCC=0, filename='mp_runoff.bsp.0068.bsp_lump', filesize=2124080)
 LumpHeader(offset=206558808, length=2121392, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -1855,31 +1855,31 @@ LumpHeader(offset=3961144, length=1328, version=0, fourCC=0)
 PORTALS  NNYY  NOPE
 ExternalLumpHeader(offset=3961800, length=18708, version=0, fourCC=0, filename='mp_runoff.bsp.006c.bsp_lump', filesize=18708)
 LumpHeader(offset=3962472, length=18780, version=0, fourCC=0)
-PORTAL_VERTS  NNYY  NOPE
+PORTAL_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=3980508, length=16176, version=0, fourCC=0, filename='mp_runoff.bsp.006d.bsp_lump', filesize=16176)
 LumpHeader(offset=3981252, length=16332, version=0, fourCC=0)
 PORTAL_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=3996684, length=3308, version=0, fourCC=0, filename='mp_runoff.bsp.006e.bsp_lump', filesize=3308)
 LumpHeader(offset=3997584, length=3328, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NNYY  NOPE
+PORTAL_VERTEX_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=3999992, length=21568, version=0, fourCC=0, filename='mp_runoff.bsp.006f.bsp_lump', filesize=21568)
 LumpHeader(offset=4000912, length=21776, version=0, fourCC=0)
-PORTAL_VERT_REFS  NNYY  NOPE
+PORTAL_VERTEX_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4021560, length=6642, version=0, fourCC=0, filename='mp_runoff.bsp.0070.bsp_lump', filesize=6642)
 LumpHeader(offset=4022688, length=6656, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NNYY  NOPE
+PORTAL_EDGE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4028204, length=6642, version=0, fourCC=0, filename='mp_runoff.bsp.0071.bsp_lump', filesize=6642)
 LumpHeader(offset=4029344, length=6656, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_EDGE  NNYY  NOPE
 ExternalLumpHeader(offset=4034848, length=16080, version=0, fourCC=0, filename='mp_runoff.bsp.0072.bsp_lump', filesize=16080)
 LumpHeader(offset=4036000, length=16240, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NNYY  NOPE
 ExternalLumpHeader(offset=4050928, length=16080, version=0, fourCC=0, filename='mp_runoff.bsp.0073.bsp_lump', filesize=16080)
 LumpHeader(offset=4052240, length=16240, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_HEADER  NNYY  NOPE
 ExternalLumpHeader(offset=4067008, length=6616, version=0, fourCC=0, filename='mp_runoff.bsp.0074.bsp_lump', filesize=6616)
 LumpHeader(offset=4068480, length=6656, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NNYY  NOPE
+OCCLUSION_MESH_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4073624, length=11124, version=0, fourCC=0, filename='mp_runoff.bsp.0075.bsp_lump', filesize=11124)
 LumpHeader(offset=4075136, length=11424, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NNYY  NOPE
@@ -1888,19 +1888,19 @@ LumpHeader(offset=4086560, length=11808, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=4096268, length=669120, version=0, fourCC=0, filename='mp_runoff.bsp.0077.bsp_lump', filesize=669120)
 LumpHeader(offset=4098368, length=751488, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=4765388, length=52960, version=0, fourCC=0, filename='mp_runoff.bsp.0078.bsp_lump', filesize=52960)
 LumpHeader(offset=4849856, length=57662, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=4818348, length=847360, version=0, fourCC=0, filename='mp_runoff.bsp.0079.bsp_lump', filesize=847360)
 LumpHeader(offset=4907520, length=922592, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=5665708, length=28, version=0, fourCC=0, filename='mp_runoff.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=5830112, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=5665736, length=1913652, version=0, fourCC=0, filename='mp_runoff.bsp.007c.bsp_lump', filesize=1913652)
 LumpHeader(offset=5830140, length=1913424, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=7579388, length=52320, version=0, fourCC=0, filename='mp_runoff.bsp.007d.bsp_lump', filesize=52320)
 LumpHeader(offset=7743564, length=52320, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -2039,7 +2039,7 @@ LumpHeader(offset=43954844, length=35651584, version=0, fourCC=0)
 CSM_AABB_NODES  YNYY  NOPE
 ExternalLumpHeader(offset=5060100, length=79776, version=0, fourCC=0, filename='mp_sandtrap.bsp.0063.bsp_lump', filesize=79776)
 LumpHeader(offset=5060100, length=61664, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=5139876, length=5352, version=0, fourCC=0, filename='mp_sandtrap.bsp.0064.bsp_lump', filesize=5352)
 LumpHeader(offset=5121764, length=4056, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -2051,7 +2051,7 @@ LumpHeader(offset=108908360, length=37840, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=104842364, length=414824, version=0, fourCC=0, filename='mp_sandtrap.bsp.0067.bsp_lump', filesize=414824)
 LumpHeader(offset=104822960, length=414984, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=105257188, length=1622608, version=0, fourCC=0, filename='mp_sandtrap.bsp.0068.bsp_lump', filesize=1622608)
 LumpHeader(offset=105237944, length=1623648, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NYYY  NOPE
@@ -2066,31 +2066,31 @@ LumpHeader(offset=2187368, length=1864, version=0, fourCC=0)
 PORTALS  YYYY  YES!
 ExternalLumpHeader(offset=2189232, length=24864, version=0, fourCC=0, filename='mp_sandtrap.bsp.006c.bsp_lump', filesize=24864)
 LumpHeader(offset=2189232, length=24864, version=0, fourCC=0)
-PORTAL_VERTS  YYYY  YES!
+PORTAL_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=2214096, length=19380, version=0, fourCC=0, filename='mp_sandtrap.bsp.006d.bsp_lump', filesize=19380)
 LumpHeader(offset=2214096, length=19380, version=0, fourCC=0)
 PORTAL_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=2233476, length=4420, version=0, fourCC=0, filename='mp_sandtrap.bsp.006e.bsp_lump', filesize=4420)
 LumpHeader(offset=2233476, length=4420, version=0, fourCC=0)
-PORTAL_VERT_EDGES  YYYY  YES!
+PORTAL_VERTEX_EDGES  YYYY  YES!
 ExternalLumpHeader(offset=2237896, length=25840, version=0, fourCC=0, filename='mp_sandtrap.bsp.006f.bsp_lump', filesize=25840)
 LumpHeader(offset=2237896, length=25840, version=0, fourCC=0)
-PORTAL_VERT_REFS  YYYY  YES!
+PORTAL_VERTEX_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=2263736, length=8280, version=0, fourCC=0, filename='mp_sandtrap.bsp.0070.bsp_lump', filesize=8280)
 LumpHeader(offset=2263736, length=8280, version=0, fourCC=0)
-PORTAL_EDGE_REFS  YYYY  YES!
+PORTAL_EDGE_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=2272016, length=8280, version=0, fourCC=0, filename='mp_sandtrap.bsp.0071.bsp_lump', filesize=8280)
 LumpHeader(offset=2272016, length=8280, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  YYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  YYYY  YES!
 ExternalLumpHeader(offset=2280296, length=21328, version=0, fourCC=0, filename='mp_sandtrap.bsp.0072.bsp_lump', filesize=21328)
 LumpHeader(offset=2280296, length=21328, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  YYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  YYYY  YES!
 ExternalLumpHeader(offset=2301624, length=21328, version=0, fourCC=0, filename='mp_sandtrap.bsp.0073.bsp_lump', filesize=21328)
 LumpHeader(offset=2301624, length=21328, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  YYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  YYYY  YES!
 ExternalLumpHeader(offset=2322952, length=8840, version=0, fourCC=0, filename='mp_sandtrap.bsp.0074.bsp_lump', filesize=8840)
 LumpHeader(offset=2322952, length=8840, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  YYYY  YES!
+OCCLUSION_MESH_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=2331792, length=9636, version=0, fourCC=0, filename='mp_sandtrap.bsp.0075.bsp_lump', filesize=9636)
 LumpHeader(offset=2331792, length=9636, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  YYYY  YES!
@@ -2099,19 +2099,19 @@ LumpHeader(offset=2341428, length=20328, version=0, fourCC=0)
 CELL_AABB_NODES  YYYY  YES!
 ExternalLumpHeader(offset=2361756, length=566208, version=0, fourCC=0, filename='mp_sandtrap.bsp.0077.bsp_lump', filesize=566208)
 LumpHeader(offset=2361756, length=566208, version=0, fourCC=0)
-OBJ_REFS  YYYY  YES!
+OBJ_REFERENCES  YYYY  YES!
 ExternalLumpHeader(offset=2927964, length=41958, version=0, fourCC=0, filename='mp_sandtrap.bsp.0078.bsp_lump', filesize=41958)
 LumpHeader(offset=2927964, length=41958, version=0, fourCC=0)
-OBJ_REF_BOUNDS  YYYY  YES!
+OBJ_REFERENCE_BOUNDS  YYYY  YES!
 ExternalLumpHeader(offset=2969924, length=671328, version=0, fourCC=0, filename='mp_sandtrap.bsp.0079.bsp_lump', filesize=671328)
 LumpHeader(offset=2969924, length=671328, version=0, fourCC=0)
 LEVEL_INFO  YYYY  YES!
 ExternalLumpHeader(offset=3641252, length=28, version=0, fourCC=0, filename='mp_sandtrap.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=3641252, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  YYYY  YES!
+SHADOW_MESH_OPAQUE_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=3641280, length=825972, version=0, fourCC=0, filename='mp_sandtrap.bsp.007c.bsp_lump', filesize=825972)
 LumpHeader(offset=3641280, length=825972, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  YYYY  YES!
+SHADOW_MESH_ALPHA_VERTICES  YYYY  YES!
 ExternalLumpHeader(offset=4467252, length=28840, version=0, fourCC=0, filename='mp_sandtrap.bsp.007d.bsp_lump', filesize=28840)
 LumpHeader(offset=4467252, length=28840, version=0, fourCC=0)
 SHADOW_MESH_INDICES  YYYY  YES!
@@ -2256,7 +2256,7 @@ LumpHeader(offset=56543740, length=34078720, version=0, fourCC=0)
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=7996316, length=82720, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0063.bsp_lump', filesize=82720)
 LumpHeader(offset=7994192, length=82784, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=8079036, length=6360, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0064.bsp_lump', filesize=6360)
 LumpHeader(offset=8076976, length=6350, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -2268,7 +2268,7 @@ LumpHeader(offset=121196652, length=45324, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=118082816, length=399720, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0067.bsp_lump', filesize=399720)
 LumpHeader(offset=117302308, length=405720, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=118482536, length=1513600, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0068.bsp_lump', filesize=1513600)
 LumpHeader(offset=117708028, length=1511360, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NNYY  NOPE
@@ -2283,31 +2283,31 @@ LumpHeader(offset=5063888, length=520, version=0, fourCC=0)
 PORTALS  NYYY  YES!
 ExternalLumpHeader(offset=5064172, length=5028, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.006c.bsp_lump', filesize=5028)
 LumpHeader(offset=5064408, length=5028, version=0, fourCC=0)
-PORTAL_VERTS  NYYY  YES!
+PORTAL_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=5069200, length=3876, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.006d.bsp_lump', filesize=3876)
 LumpHeader(offset=5069436, length=3876, version=0, fourCC=0)
 PORTAL_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=5073076, length=928, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.006e.bsp_lump', filesize=928)
 LumpHeader(offset=5073312, length=928, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NYYY  YES!
+PORTAL_VERTEX_EDGES  NYYY  YES!
 ExternalLumpHeader(offset=5074004, length=5168, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.006f.bsp_lump', filesize=5168)
 LumpHeader(offset=5074240, length=5168, version=0, fourCC=0)
-PORTAL_VERT_REFS  NYYY  YES!
+PORTAL_VERTEX_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=5079172, length=1812, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0070.bsp_lump', filesize=1812)
 LumpHeader(offset=5079408, length=1812, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NYYY  YES!
+PORTAL_EDGE_REFERENCES  NYYY  YES!
 ExternalLumpHeader(offset=5080984, length=1812, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0071.bsp_lump', filesize=1812)
 LumpHeader(offset=5081220, length=1812, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NYYY  YES!
+PORTAL_EDGE_INTERSECT_EDGE  NYYY  YES!
 ExternalLumpHeader(offset=5082796, length=4208, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0072.bsp_lump', filesize=4208)
 LumpHeader(offset=5083032, length=4208, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NYYY  YES!
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NYYY  YES!
 ExternalLumpHeader(offset=5087004, length=4208, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0073.bsp_lump', filesize=4208)
 LumpHeader(offset=5087240, length=4208, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NYYY  YES!
+PORTAL_EDGE_INTERSECT_HEADER  NYYY  YES!
 ExternalLumpHeader(offset=5091212, length=1856, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0074.bsp_lump', filesize=1856)
 LumpHeader(offset=5091448, length=1856, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  YES!
+OCCLUSION_MESH_VERTICES  NYYY  YES!
 ExternalLumpHeader(offset=5093068, length=1656, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0075.bsp_lump', filesize=1656)
 LumpHeader(offset=5093304, length=1656, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  YES!
@@ -2316,19 +2316,19 @@ LumpHeader(offset=5094960, length=1572, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=5096296, length=327520, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0077.bsp_lump', filesize=327520)
 LumpHeader(offset=5096532, length=327584, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=5423816, length=41498, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0078.bsp_lump', filesize=41498)
 LumpHeader(offset=5424116, length=41478, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=5465316, length=663968, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.0079.bsp_lump', filesize=663968)
 LumpHeader(offset=5465596, length=663648, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=6129284, length=28, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=6129244, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=6129312, length=1168308, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.007c.bsp_lump', filesize=1168308)
 LumpHeader(offset=6129272, length=1167144, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NNYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=7297620, length=7020, version=0, fourCC=0, filename='mp_smugglers_cove.bsp.007d.bsp_lump', filesize=7020)
 LumpHeader(offset=7296416, length=6540, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE
@@ -2473,7 +2473,7 @@ LumpHeader(offset=65368476, length=28311552, version=0, fourCC=0)
 CSM_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=6982216, length=226464, version=0, fourCC=0, filename='mp_swampland.bsp.0063.bsp_lump', filesize=226464)
 LumpHeader(offset=6920152, length=187968, version=0, fourCC=0)
-CSM_OBJ_REFS  NNYY  NOPE
+CSM_OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=7208680, length=23252, version=0, fourCC=0, filename='mp_swampland.bsp.0064.bsp_lump', filesize=23252)
 LumpHeader(offset=7108120, length=19626, version=0, fourCC=0)
 LIGHTPROBES  NNYY  NOPE
@@ -2485,7 +2485,7 @@ LumpHeader(offset=128622316, length=81556, version=0, fourCC=0)
 LIGHTPROBE_TREE  NNYY  NOPE
 ExternalLumpHeader(offset=123399292, length=471240, version=0, fourCC=0, filename='mp_swampland.bsp.0067.bsp_lump', filesize=471240)
 LumpHeader(offset=123299172, length=471864, version=0, fourCC=0)
-LIGHTPROBE_REFS  NNYY  NOPE
+LIGHTPROBE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=123870532, length=1741312, version=0, fourCC=0, filename='mp_swampland.bsp.0068.bsp_lump', filesize=1741312)
 LumpHeader(offset=123771036, length=1747744, version=0, fourCC=0)
 LIGHTMAP_DATA_REAL_TIME_LIGHTS  NYYY  NOPE
@@ -2500,31 +2500,31 @@ LumpHeader(offset=2348240, length=888, version=0, fourCC=0)
 PORTALS  NNYY  NOPE
 ExternalLumpHeader(offset=2349344, length=9552, version=0, fourCC=0, filename='mp_swampland.bsp.006c.bsp_lump', filesize=9552)
 LumpHeader(offset=2349128, length=9276, version=0, fourCC=0)
-PORTAL_VERTS  NNYY  NOPE
+PORTAL_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=2358896, length=7884, version=0, fourCC=0, filename='mp_swampland.bsp.006d.bsp_lump', filesize=7884)
 LumpHeader(offset=2358404, length=7872, version=0, fourCC=0)
 PORTAL_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=2366780, length=1992, version=0, fourCC=0, filename='mp_swampland.bsp.006e.bsp_lump', filesize=1992)
 LumpHeader(offset=2366276, length=1920, version=0, fourCC=0)
-PORTAL_VERT_EDGES  NNYY  NOPE
+PORTAL_VERTEX_EDGES  NNYY  NOPE
 ExternalLumpHeader(offset=2368772, length=10512, version=0, fourCC=0, filename='mp_swampland.bsp.006f.bsp_lump', filesize=10512)
 LumpHeader(offset=2368196, length=10496, version=0, fourCC=0)
-PORTAL_VERT_REFS  NNYY  NOPE
+PORTAL_VERTEX_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=2379284, length=3304, version=0, fourCC=0, filename='mp_swampland.bsp.0070.bsp_lump', filesize=3304)
 LumpHeader(offset=2378692, length=3224, version=0, fourCC=0)
-PORTAL_EDGE_REFS  NNYY  NOPE
+PORTAL_EDGE_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=2382588, length=3304, version=0, fourCC=0, filename='mp_swampland.bsp.0071.bsp_lump', filesize=3304)
 LumpHeader(offset=2381916, length=3224, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_EDGE  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_EDGE  NNYY  NOPE
 ExternalLumpHeader(offset=2385892, length=8880, version=0, fourCC=0, filename='mp_swampland.bsp.0072.bsp_lump', filesize=8880)
 LumpHeader(offset=2385140, length=8576, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_AT_VERT  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_AT_VERTEX  NNYY  NOPE
 ExternalLumpHeader(offset=2394772, length=8880, version=0, fourCC=0, filename='mp_swampland.bsp.0073.bsp_lump', filesize=8880)
 LumpHeader(offset=2393716, length=8576, version=0, fourCC=0)
-PORTAL_EDGE_ISECT_HEADER  NNYY  NOPE
+PORTAL_EDGE_INTERSECT_HEADER  NNYY  NOPE
 ExternalLumpHeader(offset=2403652, length=3984, version=0, fourCC=0, filename='mp_swampland.bsp.0074.bsp_lump', filesize=3984)
 LumpHeader(offset=2402292, length=3840, version=0, fourCC=0)
-OCCLUSION_MESH_VERTS  NYYY  NOPE
+OCCLUSION_MESH_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=2407636, length=7260, version=0, fourCC=0, filename='mp_swampland.bsp.0075.bsp_lump', filesize=7260)
 LumpHeader(offset=2406132, length=7260, version=0, fourCC=0)
 OCCLUSION_MESH_INDICES  NYYY  NOPE
@@ -2533,19 +2533,19 @@ LumpHeader(offset=2413392, length=7428, version=0, fourCC=0)
 CELL_AABB_NODES  NNYY  NOPE
 ExternalLumpHeader(offset=2422324, length=685408, version=0, fourCC=0, filename='mp_swampland.bsp.0077.bsp_lump', filesize=685408)
 LumpHeader(offset=2420820, length=652736, version=0, fourCC=0)
-OBJ_REFS  NNYY  NOPE
+OBJ_REFERENCES  NNYY  NOPE
 ExternalLumpHeader(offset=3107732, length=66150, version=0, fourCC=0, filename='mp_swampland.bsp.0078.bsp_lump', filesize=66150)
 LumpHeader(offset=3073556, length=64508, version=0, fourCC=0)
-OBJ_REF_BOUNDS  NNYY  NOPE
+OBJ_REFERENCE_BOUNDS  NNYY  NOPE
 ExternalLumpHeader(offset=3173884, length=1058400, version=0, fourCC=0, filename='mp_swampland.bsp.0079.bsp_lump', filesize=1058400)
 LumpHeader(offset=3138064, length=1032128, version=0, fourCC=0)
 LEVEL_INFO  NYYY  NOPE
 ExternalLumpHeader(offset=4232284, length=28, version=0, fourCC=0, filename='mp_swampland.bsp.007b.bsp_lump', filesize=28)
 LumpHeader(offset=4170192, length=28, version=0, fourCC=0)
-SHADOW_MESH_OPAQUE_VERTS  NNYY  NOPE
+SHADOW_MESH_OPAQUE_VERTICES  NNYY  NOPE
 ExternalLumpHeader(offset=4232312, length=1592328, version=0, fourCC=0, filename='mp_swampland.bsp.007c.bsp_lump', filesize=1592328)
 LumpHeader(offset=4170220, length=1592340, version=0, fourCC=0)
-SHADOW_MESH_ALPHA_VERTS  NYYY  NOPE
+SHADOW_MESH_ALPHA_VERTICES  NYYY  NOPE
 ExternalLumpHeader(offset=5824640, length=26280, version=0, fourCC=0, filename='mp_swampland.bsp.007d.bsp_lump', filesize=26280)
 LumpHeader(offset=5762560, length=26280, version=0, fourCC=0)
 SHADOW_MESH_INDICES  NNYY  NOPE

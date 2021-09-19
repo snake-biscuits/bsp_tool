@@ -15,7 +15,7 @@
 |  7 | 20 | `DRAW_INDICES`       |  0 | `infinity_ward.call_of_duty1.DrawIndex`              | 100% |
 |  9 | 20 | `CULL_GROUPS`        |  0 | `infinity_ward.call_of_duty1.CullGroup`              |  10% |
 | 10 | 20 | `CULL_GROUP_INDICES` |  0 | `infinity_ward.call_of_duty1.CullGroupIndex`         | 100% |
-| 11 | 20 | `PORTAL_VERTS`       |  0 | :x:                                                  |   0% |
+| 11 | 20 | `PORTAL_VERTICES`       |  0 | :x:                                                  |   0% |
 | 12 | 20 | `OCCLUDERS`          |  0 | `infinity_ward.call_of_duty1.Occluder`               | 100% |
 | 13 | 20 | `OCCLUDER_PLANES`    |  0 | `infinity_ward.call_of_duty1.OccluderPlane`          | 100% |
 | 14 | 20 | `OCCLUDER_EDGES`     |  0 | `infinity_ward.call_of_duty1.OccluderEdge`           | 100% |
