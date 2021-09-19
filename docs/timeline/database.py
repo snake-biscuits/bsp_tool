@@ -1,6 +1,3 @@
-import json
-
-
 timeline_csv = """1992, Wolfenstein 3D
 1993, Doom
 1994, Doom II
