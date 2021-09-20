@@ -251,11 +251,11 @@ class MipTextureLump:  # LUMP 2
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = {"EDGES":      Edge,  # TEST: does this work ok?
-                      "LEAF_FACES": shared.Shorts,
+BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Shorts}
 
 LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
+                "EDGES":        Edge,
                 "FACES":        Face,
                 "LEAVES":       Leaf,
                 "MODELS":       Model,

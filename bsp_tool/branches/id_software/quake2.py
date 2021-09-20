@@ -105,11 +105,11 @@ class TextureInfo(base.Struct):  # LUMP 5
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = {"EDGES":      quake.Edge,
-                      "LEAF_FACES": shared.Shorts,
+BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Ints}
 
-LUMP_CLASSES = {"FACES":        quake.Face,
+LUMP_CLASSES = {"EDGES":        quake.Edge,
+                "FACES":        quake.Face,
                 "LEAVES":       Leaf,
                 "MODELS":       Model,
                 "NODES":        Node,
