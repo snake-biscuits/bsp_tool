@@ -145,19 +145,24 @@ class Bsp:
         # NOTE: does not remove methods from former branch
         # could we also attach static methods?
 
-    def lump_as_bytes(self, LUMP_name: str) -> bytes:
+    def lump_as_bytes(self, lump_name: str) -> bytes:
         # NOTE: if a lump failed to read correctly, converting to bytes will fail
         # -- this is because LumpClasses are expected
-        if not hasattr(self, LUMP_name):
+        # -- even though the bytes are saved directly to a RawBspLump... FIXME
+        if not hasattr(self, lump_name):
             return b""  # lump is empty / deleted
-        lump_entries = getattr(self, LUMP_name)
-        if LUMP_name in self.branch.BASIC_LUMP_CLASSES:
-            _format = self.branch.BASIC_LUMP_CLASSES[LUMP_name]._format
+        lump_entries = getattr(self, lump_name)
+        lump_version = self.headers[lump_name].version
+        # NOTE: IBSP & GoldSrcBsp don't have lump versions
+        if lump_name in self.branch.BASIC_LUMP_CLASSES:
+            _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format
             raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)
-        elif LUMP_name in self.branch.LUMP_CLASSES:
-            _format = self.branch.LUMP_CLASSES[LUMP_name]._format
+        elif lump_name in self.branch.LUMP_CLASSES:
+            _format = self.branch.LUMP_CLASSES[lump_name][lump_version]._format
             raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_entries])
-        elif LUMP_name in self.branch.SPECIAL_LUMP_CLASSES:
+        elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+            raw_lump = lump_entries.as_bytes()
+        elif lump_name == "GAME_LUMP":
             raw_lump = lump_entries.as_bytes()
         else:  # assume lump_entries is RawBspLump
             raw_lump = bytes(lump_entries)

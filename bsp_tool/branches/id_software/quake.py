@@ -108,6 +108,9 @@ class ClipNode(base.Struct):  # LUMP 9
 class Edge(list):  # LUMP 12
     _format = "2H"  # List[int]
 
+    def flat(self):
+        return self  # HACK
+
 
 class Face(base.Struct):  # LUMP 7
     plane: int

@@ -373,8 +373,9 @@ class GameLump:
             out.append(child_lump_bytes)
             # calculate header
             _id, flags, version, offset, length = child_header
+            _id = _id.encode("ascii")[::-1]  # "sprp" -> b"prps"
             offset, length = cursor_offset, len(child_lump_bytes)
             cursor_offset += length
-            headers.append(GameLumpHeader(_id, flags, version, offset, length))
+            headers.append(struct.pack("4s2H2i", _id, flags, version, offset, length))
         out[1:1] = headers  # insert headers after calculating
         return b"".join(out)

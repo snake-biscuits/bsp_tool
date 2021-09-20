@@ -55,11 +55,11 @@ class UnsignedShorts(int):
 
 
 # Special Lump Classes
-class Entities(list):  # would https://github.com/ValvePython/vdf do this better?
-    # NOTE: are the bytes decompressed first!?
+class Entities(list):
+    # TODO: match "classname" to python classes (optional)
+    # -- use fgd-tools?
+    # TODO: use a true __init__ & .from_bytes() @staticmethod
     def __init__(self, raw_entities: bytes):
-        # TODO: use fgd-tools to fully unstringify entities
-        # TODO: split into a true init method & a load method
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
         # TODO: handle newlines in keys / values
@@ -110,8 +110,10 @@ class Entities(list):  # would https://github.com/ValvePython/vdf do this better
             for key, value in entity_dict.items():
                 if isinstance(value, str):
                     entity.append(f'"{key}" "{value}"')
-                else:  # multiple entries
+                elif isinstance(value, list):  # multiple entries
                     entity.extend([f'"{key}" "{v}"' for v in value])
+                else:
+                    raise RuntimeError("Entity values must be")
             entity.append("}")
             entities.append("\n".join(entity))
         return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"

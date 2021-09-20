@@ -218,7 +218,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     unknown: int  # almost always 0
     __slots__ = ["mins", "flags", "maxs", "unknown"]
     _format = "3fi3fi"
-    _arrays = {"mins": [*"xyz"], "maxs:": [*"xyz"]}
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
@@ -279,9 +279,10 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
+    unknown: int
     vertex_offset: int  # offset into appropriate VERTEX_RESERVED_X lump
-    _mapping = ["texture_data", "lightmap_header", "cubemap", "vertex_offset"]
-    _format = "2h2I"  # 12 bytes
+    _mapping = ["texture_data", "lightmap_header", "cubemap", "unknown", "vertex_offset"]
+    _format = "4hi"  # 12 bytes
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
@@ -357,10 +358,6 @@ class Portal(base.Struct):  # LUMP 108 (006C)
     __slots__ = ["unknown", "index"]
     _format = "3I"
     _arrays = {"unknown": 2}
-
-
-class PortalEdge(list):  # LUMP 110 (006E)
-    _format = "2h"
 
 
 class PortalEdgeIntersect(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
@@ -465,7 +462,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     # for "mp_box": {*range(27)} - {0, 1, 6, 17, 19, 22, 25}
     __slots__ = ["position_index", "normal_index", "uv", "unknown"]
     _format = "2I2fi2f4i"  # 44 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"], "unknown": 4}
+    _arrays = {"uv": [*"uv"], "unknown": 7}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
@@ -511,7 +508,7 @@ class EntityPartition(list):
         super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
 
     def as_bytes(self) -> bytes:
-        return b" ".join([*self, b"\x00"])
+        return " ".join([*self, "\0"]).encode("ascii")
 
 
 class GameLump_SPRP:
@@ -539,11 +536,11 @@ class GameLump_SPRP:
         setattr(self, "props", list(map(StaticPropClass, props)))
 
     def as_bytes(self) -> bytes:
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "little"),
+        return b"".join([len(self.model_names).to_bytes(4, "little"),
+                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
+                         len(self.leaves).to_bytes(4, "little"),
                          *[struct.pack("H", L) for L in self.leaves],
-                         *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
+                         struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
@@ -585,7 +582,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "OCCLUSION_MESH_VERTICES":           {0: quake.Vertex},
                 "PLANES":                            {1: Plane},
                 "PORTALS":                           {0: Portal},
-                "PORTAL_EDGES":                      {0: PortalEdge},
+                "PORTAL_EDGES":                      {0: quake.Edge},
                 "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalEdgeIntersect},
                 "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalEdgeIntersect},
                 "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
