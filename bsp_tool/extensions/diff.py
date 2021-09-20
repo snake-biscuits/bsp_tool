@@ -24,9 +24,6 @@ def diff_bsps(bsp1, bsp2, full=False):
         bsp1_header = bsp1.headers[lump1]
         bsp2_header = bsp2.headers[lump2]
 
-        if bsp1_header.length == 0 and bsp2_header.length == 0:
-            continue  # skip empty lumps
-
         print(f"{lump1}", end="  ")
         print("Y" if bsp1_header.offset == bsp2_header.offset else "N", end="")
         print("Y" if bsp1_header.length == bsp2_header.length else "N", end="")
@@ -34,12 +31,11 @@ def diff_bsps(bsp1, bsp2, full=False):
         print("Y" if bsp1_header.fourCC == bsp2_header.fourCC else "N", end="  ")
 
         # TODO: compare compressed lumps to uncompressed
-
         try:
             lump_1_contents = bsp1.lump_as_bytes(lump1)
             lump_2_contents = bsp2.lump_as_bytes(lump2)
-        except Exception:
-            print("????")  # couldn't load a lump, unsure which
+        except Exception as exc:
+            print("????", exc)  # couldn't load a lump, unsure which
             # TODO: handle edge case where one bsp has the lump, and the other does not
             continue  # skip this lump
 
@@ -58,7 +54,7 @@ def diff_bsps(bsp1, bsp2, full=False):
                 elif lump1 == "PAKFILE":
                     diff_pakfiles(bsp1, bsp2)
                 else:
-                    diff = difflib.diff_bytes(difflib.unified_diff,
+                    diff = difflib.diff_bytes(difflib.context_diff,
                                               [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
                                               f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
                     print(*diff, sep="\n")

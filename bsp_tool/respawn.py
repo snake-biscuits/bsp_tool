@@ -108,8 +108,10 @@ class RespawnBsp(base.Bsp):
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename: str, single_file: bool = False):
+        # NOTE: this method is innacurate and inconvenient
         lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.headers[L.name].offset)
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
+        # NOTE: messes up on empty lumps, so we can't get an exact 1:1 copy /;
         external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.headers[L.name], ExternalLumpHeader)}
         if single_file:
             external_lumps = set()
@@ -120,20 +122,20 @@ class RespawnBsp(base.Bsp):
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
         # recalculate headers
-        current_offset = 16 + (16 * 128)  # first byte after headers
+        current_offset = 0
         headers = dict()
         for LUMP in lump_order:
-            if LUMP.name not in raw_lumps:
-                version = self.headers[LUMP.name].version  # PHYSICSLEVEL needs version preserved
-                headers[LUMP.name] = LumpHeader(0, 0, version, 0)
+            if LUMP.name not in raw_lumps:  # lump is not present
+                version = self.headers[LUMP.name].version  # PHYSICS_LEVEL needs version preserved
+                headers[LUMP.name] = LumpHeader(current_offset, 0, version, 0)
                 continue
-            if current_offset % 4 != 0:  # pad to start at the next multiple of 4 bytes
-                current_offset += 4 - current_offset % 4
+            # wierd hack to align unused lump offsets correctly
+            if current_offset == 0:
+                current_offset = 16 + (16 * 128)  # first byte after headers
             offset = current_offset
             length = len(raw_lumps[LUMP.name])
             version = self.headers[LUMP.name].version
-            # ^ this will change when multi-version support is added
-            fourCC = 0  # fourCC is 0 because we aren't encoding
+            fourCC = 0  # fourCC is always 0 because we aren't encoding
             if LUMP.name in external_lumps:
                 external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
                 header = ExternalLumpHeader(offset, 0, version, fourCC, external_lump_filename, length)
@@ -142,6 +144,9 @@ class RespawnBsp(base.Bsp):
                 header = LumpHeader(offset, length, version, fourCC)
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
+            # pad to start at the next multiple of 4 bytes
+            if current_offset % 4 != 0:
+                current_offset += 4 - current_offset % 4
         del current_offset
         if "GAME_LUMP" in raw_lumps and "GAME_LUMP" not in external_lumps:
             raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)

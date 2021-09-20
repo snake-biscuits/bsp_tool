@@ -363,7 +363,7 @@ class GameLump:
         out = []
         out.append(len(self.headers).to_bytes(4, "little"))
         headers = []
-        cursor_offset = lump_offset + 4 + len(self.headers) * 12
+        cursor_offset = lump_offset + 4 + len(self.headers) * 16
         for child_name, child_header in self.headers.items():
             child_lump = getattr(self, child_name)
             if isinstance(child_lump, RawBspLump):
