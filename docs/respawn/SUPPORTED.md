@@ -33,7 +33,7 @@
 | 18 | 0012 | 47 | `BVH_NODES` | 0 | | 0% |
 | 19 | 0013 | 47 | `BVH_LEAF_DATA` | 0 | | 0% |
 | 20 | 0014 | 47 | `PACKED_VERTICES` | 0 | | 0% |
-| 24 | 0018 | 29 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartition](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L486) | 100% |
+| 24 | 0018 | 29 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartitions](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L486) | 100% |
 | 29 | 001D | 29 | `PHYSICS_COLLIDE` | 0 | [shared.PhysicsCollide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L208) | 100% |
 | 30 | 001E | 29 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L215) | 100% |
 | 35 | 0023 | -- | `GAME_LUMP`            |    | [lumps.GameLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps.py#L316)  | ---- |

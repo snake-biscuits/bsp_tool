@@ -502,13 +502,13 @@ VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUn
 
 
 # classes for special lumps, in alphabetical order:
-class EntityPartition(list):
+class EntityPartitions(list):
     """name of each used .ent file"""
     def __init__(self, raw_lump: bytes):
         super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
 
     def as_bytes(self) -> bytes:
-        return " ".join([*self, "\0"]).encode("ascii")
+        return " ".join(self).encode("ascii") + b"\0"
 
 
 class GameLump_SPRP:
@@ -600,7 +600,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "VERTEX_UNLIT":                      {0: VertexUnlit},
                 "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":         {0: EntityPartition},
+SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":         {0: EntityPartitions},
                         "ENTITIES":                  {0: shared.Entities},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
                         "PAKFILE":                   {0: shared.PakFile},
