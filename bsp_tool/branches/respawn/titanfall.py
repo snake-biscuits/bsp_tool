@@ -402,20 +402,20 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     flags: int
     skin: int
     cubemap: int  # index of this StaticProp's Cubemap
+    unknown: int
     fade_distance: float
-    lighting_origin: List[float]  # x, y, z
-    forced_fade_scale: float  # two fade distances?
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
+    scale: float
+    disable_x360: int
     collision_flags: List[int]  # add, remove
     __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
-                 "solid_mode", "flags", "skin", "cubemap", "fade_distance",
-                 "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
-                 "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
-    _format = "6f3H2BiI6f4b4B?f2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
-               "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
+                 "solid_mode", "flags", "skin", "cubemap", "unknown",
+                 "forced_fade_scale", "cpu_level", "gpu_level",
+                 "diffuse_modulation", "scale", "disable_x360", "collision_flags"]
+    _format = "6f3H2Bi2h4i2f8bfi2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
                "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
 

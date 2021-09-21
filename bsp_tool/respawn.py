@@ -109,7 +109,8 @@ class RespawnBsp(base.Bsp):
 
     def save_as(self, filename: str, single_file: bool = False):
         # NOTE: this method is innacurate and inconvenient
-        lump_order = sorted([L for L in self.branch.LUMP], key=lambda L: self.headers[L.name].offset)
+        lump_order = sorted([L for L in self.branch.LUMP],
+                            key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
         # NOTE: messes up on empty lumps, so we can't get an exact 1:1 copy /;
         external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.headers[L.name], ExternalLumpHeader)}
@@ -167,12 +168,17 @@ class RespawnBsp(base.Bsp):
                 external_lump = f"{filename}.{LUMP.value:04x}.bsp_lump"
                 with open(external_lump, "wb") as out_lumpfile:
                     out_lumpfile.write(raw_lumps[LUMP.name])
-            # write lump to file
-            else:
+            else:  # write lump to file
                 padding_length = headers[LUMP.name].offset - outfile.tell()
                 if padding_length > 0:  # NOTE: padding_length should not exceed 3
-                    outfile.write(b"\x00" * padding_length)
+                    outfile.write(b"\0" * padding_length)
                 outfile.write(raw_lumps[LUMP.name])
+        # final padding
+        end = outfile.tell()
+        padding_length = 0
+        if end % 4 != 0:
+            padding_length = 4 - end % 4
+        outfile.write(b"\0" * padding_length)
         outfile.close()  # main .bsp is written
         # write .ent lumps
         for ent_variant in ("env", "fx", "script", "snd", "spawn"):
