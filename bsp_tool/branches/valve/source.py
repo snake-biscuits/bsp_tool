@@ -616,7 +616,8 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}}
+                        # "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}
+                        }
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv4),

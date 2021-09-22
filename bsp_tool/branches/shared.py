@@ -228,6 +228,7 @@ class PhysicsCollide(list):
         super().__init__(collision_models)
 
     def as_bytes(self) -> bytes:
+        # NOTE: consistently missing 16 bytes
         def phy_bytes(collision_model):
             model, solids, script = collision_model
             solid_count = len(solids)
