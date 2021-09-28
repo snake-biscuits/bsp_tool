@@ -1,24 +1,4 @@
 { "games": [
-
-    { "name": "Wolfenstein 3D"},
-
-    { "name": "Rise of the Triad"},
-
-    { "name": "Doom",
-      "releases": {
-        "MS-DOS (North America)": "December 10 1993",
-        "MS-DOS (Europe)": "December 1993" },
-      "links": [
-        "en.wikipedia.org/wiki/Doom_(1993_video_game)",
-        "doom.fandom.com/wiki/WAD",
-        "doomwiki.org/wiki/Masters_of_Doom" ]
-    },
-
-    { "name": "Doom II",
-      "releases": {"MS-DOS": "October 10 1994"},
-      "links": ["en.wikipedia.org/wiki/Doom_II"]
-    },
-
     { "name": "Quake",
       "developers": ["Id Software"],
       "publishers": ["GT Interactive"],
@@ -30,14 +10,12 @@
         "John Carmack",
         "Micheal Abrash" ],
       "releases": {
-        "Linux": "July 5 1996",
-        "Mac OS": "August 28 1997",
-        "Nintendo 64 (North America)": "March 24 1998",
-        "Nintendo 64 (Europe)": "May 24 1998",
-        "PC (full)": "July 22 1996",
-        "PC (shareware)": "June 22 1996",
-        "Sega Saturn": "October 31 1997",
-        "Steam": "May 31 2007" },
+        "Linux": 1996,
+        "Mac OS": 1997,
+        "Nintendo 64": 1998,
+        "PC": 1996,
+        "Sega Saturn": 1997,
+        "Steam": 2007 },
     "singleplayer": true,
     "multiplayer": true,
     "links": [
@@ -50,13 +28,13 @@
       "links": ["en.wikipedia.org/wiki/Quake_II"] },
     { "name": "Half-Life",
       "developers": ["Valve Software"],
-      "releases": {"PC": "1998"},
+      "releases": {"PC": 1998},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Half-Life: Opposing Force",
       "developers": ["Gearbox Software"],
-      "releases": {"PC": "1999"},
+      "releases": {"PC": 1999},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
@@ -68,13 +46,13 @@
 
     { "name": "Counter-Strike",
       "developers": ["Valve Software"],
-      "releases": {"PC": "2000"},
+      "releases": {PC": "2000},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Ricochet",
       "developers": ["Valve Software"],
-      "releases": {"PC": "2000"},
+      "releases": {"PC": 2000},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
@@ -83,41 +61,48 @@
       "publishers": ["Sierra Studios"],
       "designers": ["Stefan Baier"],
       "programmers": ["Brian Legge"],
-      "releases": {
-        "PC (North America)": "November 21 2000",
-        "PC (Europe)": "December 8 2000"},
+      "releases": {"PC": 2000},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"},
       "links": ["en.wikipedia.org/wiki/Gunman_Chronicles"]
     },
 
     { "name": "Deathmatch Classic",
       "developers": ["Valve Software"],
-      "releases": {"PC": "2001"},
+      "releases": {"PC": 2001},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Half-Life: Blue Shift",
       "developers": ["Gearbox Software"],
-      "releases": {"PC": "2001"},
+      "releases": {"PC": 2001},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "James Bond 007: Nightfire",
       "developers": ["Gearbox Software"],
-      "releases": {"PC": "2002"},
-      "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
-    },
-
-    { "name": "Day of Defeat",
-      "developers": ["Valve Software"],
-      "releases": {"PC": "2003"},
+      "releases": {"PC": 2002},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Counter-Strike: Neo",
       "developers": ["Valve Software", "Namco"],
-      "releases": {"PC": "2003"},
+      "releases": {"PC": 2003},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
+    },
+
+    { "name": "Day of Defeat",
+      "developers": ["Valve Software"],
+      "releases": {"PC": 2003},
+      "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
+    },
+
+    { "name": "Star Wars Jedi Knight: Jedi Academy",
+      "developers": ["Raven Software"],
+      "releases": {
+        "PC": 2003,
+        "PS4": 2020,
+        "Switch": 2020},
+      "citations": {"releases.PC": "en.wikipedia.org/wiki/Star_Wars_Jedi_Knight:_Jedi_Academy"}
     },
 
     { "name": "Counter-Strike: Condition Zero",
@@ -126,19 +111,23 @@
         "Ritual Entertainment",
         "Gearbox Software",
         "Turtle Rock Studios"],
-      "releases": {"PC": "2004"},
+      "releases": {"PC": 2004},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Counter-Strike: Online",
       "developers": ["Valve Software", "Nexon"],
-      "releases": {"PC": "2008"},
+      "releases": {"PC": 2008},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
-    { "name": "Half-Life 2"},
+    { "name": "Half-Life 2",
+      "developers": ["Valve Software"],
+      "releases": {"PC": 2004}},
 
-    { "name": "Portal 2"},
+    { "name": "Portal 2"
+      "developers": ["Valve Software"],
+      "releases": {"PC": 2011}},
 
     { "name": "Titanfall",
       "developers": ["Respawn Entertainment"],
@@ -148,8 +137,8 @@
         "Richard Baker",
         "Earl Hammon Jr" ],
       "releases": {
-        "PC": "March 11 2014",
-        "Xbox 360": "April 8 2014" },
+        "PC": 2014,
+        "Xbox 360": 2014},
       "links": ["en.wikipedia.org/wiki/Titanfall_(video_game)"]
     },
 
@@ -164,9 +153,7 @@
       "links": ["en.wikipedia.org/wiki/Titanfall_2"]
     },
 
-    { "name": "Call of Duty: Infinite Warfare"
-
-    },
+    { "name": "Call of Duty: Modern Warfare" },
 
   ],
 
@@ -190,6 +177,7 @@
       "games": [
         "Quake III Arena",
         "Quake Live",
+        "Medal of Honor: Allied Assault",
         "Call of Duty (2003)"]
     },
 
@@ -299,11 +287,13 @@
     },
 
     { "name": "Ion Storm",
+      "founded": 1996,
       "games": ["Daikatana"],
-      "employees": {"John Romero": ""}]
+      "employees": {"John Romero": "1996-2001"}]
     },
 
     { "name": "Valve Software",
+      "founded": 1996,
       "games": [],
       "employees": {"Micheal Abrash": "????-2014"},
       "links": ["https://www.theverge.com/2014/3/28/5558286/oculus-vr-hires-michael-abrash-as-its-new-chief-scientist"]
@@ -321,7 +311,10 @@
       "games": ["SiN: Wages of Sin",
                 "Medal of Honor: Allied Assault"],
       "employees": {
-          "Earl Hammon": "????-2002"}
+          "Earl Hammon": "????-2002",
+          "Jason West": "",
+          "Vince Zampella": ""},
+      "fate": "became Infinity Ward"
     },
 
     { "name": "Infinity Ward",

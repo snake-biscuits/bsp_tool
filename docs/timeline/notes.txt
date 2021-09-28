@@ -29,10 +29,15 @@ https://hardcoregamer.com/features/interviews/e3-2016-respawn-talks-content-vari
 
 format relationships
  .ase files can pass ascii models from Id Tech/IW Engine .map files to UDK (Unreal Development Kit)
+ Id Tech compilers accept misc_model entities to add geometry to maps
  .map (Id Tech) -> .rmf (GoldSrc) -> .vmf (Source Engine)
  ^ all 3 can be compiled into .bsp for their respective engines
  and then there's .wad
- Garry's Mod / S&box shall consume all
+ Garry's Mod / S&Box shall consume all
+
+ quake3 used .ent for entities (as does the Titanfall Engine), does CoD?
+
+ IdTech
 
  https://kotaku.com/ancient-90s-code-from-quake-still-controls-lights-in-h-1847105972
 
@@ -48,7 +53,7 @@ Old Quake Games:
 https://archive.org/details/classicpcgames?query=quake&sin=
 https://www.amazon.com/Tremor-Quake-Combined-Levels-C-patches-Pc/dp/B000JIJJXW
 
-honorable mentions for popular mods?
+honourable mentions for popular mods?
 John Romero's SIGIL MegaWad (Unity)
 https://www.moddb.com/mods/thunders-leaves
 
@@ -65,3 +70,8 @@ https://www.gamasutra.com/view/news/29886/id_Tech_5_Rage_Engine_No_Longer_Up_For
 
 Nexuiz (2005) & Xonotic (2011) Quake Engine Mod teams have made some handy tools for blender
 https://gitlab.com/xonotic/xonotic/
+
+https://en.wikipedia.org/wiki/Unreleased_Half-Life_games#Half-Life:_Hostile_Takeover
+2015. Inc is rumoured to have been working on a Half-Life expansion at one point
+
+https://en.wikipedia.org/wiki/Ryan_C._Gordon

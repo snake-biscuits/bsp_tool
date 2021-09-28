@@ -178,7 +178,10 @@ class LUMP(enum.Enum):
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
 #
-# Grid probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
+# CM_GRID probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
+#
+# Grid -?> Brush -?> BrushSidePlaneOffset -?> Plane
+# (? * ? + ?) * 4 -> GridCell
 
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
