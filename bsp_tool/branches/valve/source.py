@@ -681,6 +681,9 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
 
 
 def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[List[float]]) -> List[List[float]]:
+    # TODO: look at primitives system
+    # https://github.com/magcius/noclip.website/blob/master/src/SourceEngine/BSPFile.ts#L1052
+    # https://github.com/magcius/noclip.website/blob/master/src/SourceEngine/BSPFile.ts#L1537
     # report to bsp.log rather than printing
     # bsp may need a method wrapper to give a warning to check the logs
     # face_index = bsp.FACES.index(face)

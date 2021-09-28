@@ -1,0 +1,3 @@
+Quake 3 introduced misc_model & .ent files
+https://openarena.fandom.com/wiki/Mapping_manual/Mapmodels#misc_model
+http://icculus.org/gtkradiant/documentation/q3radiant_manual/appndx/appn_b_6.htm
