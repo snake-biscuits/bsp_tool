@@ -1,6 +1,0 @@
-{
-	"origin" "-4928 2480 640"
-	"target" "cam_lookat"
-	"targetname" "info_intermission_1"
-	"classname" "info_intermission"
-}

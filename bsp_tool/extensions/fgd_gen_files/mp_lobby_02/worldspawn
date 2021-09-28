@@ -1,9 +1,0 @@
-{
-	"world_maxs" "3584 768 512"
-	"world_mins" "-4736 -1120 -256"
-	"spawnclass" "idWorldspawn"
-	"name" "world"
-	"classname" "worldspawn"
-	"musicpostfix" "Waterfront"
-	"mapversion" "30"
-}

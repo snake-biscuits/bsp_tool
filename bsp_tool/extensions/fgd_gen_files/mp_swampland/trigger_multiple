@@ -1,9 +1,0 @@
-{
-	"model" "*31"
-	"origin" "-2304 384 2432"
-	"wait" "1"
-	"StartDisabled" "0"
-	"spawnflags" "4097"
-	"targetname" "BirdScareTrigger"
-	"classname" "trigger_multiple"
-}

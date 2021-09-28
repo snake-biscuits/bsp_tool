@@ -1,6 +1,0 @@
-{
-	"origin" "10464 -7232 2848"
-	"target" "intermission_target"
-	"targetname" "info_intermission_1"
-	"classname" "info_intermission"
-}

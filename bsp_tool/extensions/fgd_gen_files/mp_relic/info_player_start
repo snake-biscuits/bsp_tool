@@ -1,8 +1,0 @@
-{
-	"scale" "1"
-	"angles" "-0 90 0"
-	"origin" "6208 -4976 256"
-	"spawnflags" "0"
-	"targetname" "info_player_start_1"
-	"classname" "info_player_start"
-}
