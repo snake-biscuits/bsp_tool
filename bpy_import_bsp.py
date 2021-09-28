@@ -64,9 +64,10 @@ def load_materials(bsp):  # -> List[BlenderMaterial]
         material = bpy.data.materials.new(vmt_name)
         if bsp.branch == r1:
             colour = [td.reflectivity for td in bsp.TEXTURE_DATA if td.name_index == i][0]
-            alpha = 1 if not vmt_name.startswith("TOOLS") else 0.25
+            alpha = 1.0 if not vmt_name.startswith("TOOLS") else 0.25
         else:
-            *colour, alpha = tool_texture_colours.get(vmt_name, (.8, .8, .8, 1))
+            *colour, alpha = tool_texture_colours.get(vmt_name, (0.8, 0.8, 0.8, 1.0))
+            alpha = 0.25 if vmt_name.startswith("world\\atmosphere") else alpha
         material.diffuse_color = (*colour, alpha)
         if alpha != 1:
             material.blend_method = "BLEND"
@@ -351,30 +352,29 @@ def load_apex_rbsp(rbsp):
 
 TITANFALL = "E:/Mod/Titanfall/maps/"
 TITANFALL_ONLINE = "E:/Mod/TitanfallOnline/maps/"
-# bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")  # odd model flags for breakable glass
+# bsp = bsp_tool.load_bsp(TITANFALL + "mp_corporate.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL + "mp_colony.bsp")  # smallest map after lobby
 # bsp = bsp_tool.load_bsp(TITANFALL_ONLINE + "mp_box.bsp")
 
 TITANFALL_2 = "E:/Mod/Titanfall2/maps/"
-# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_training.bsp")
-# bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_boomtown.bsp")
+bsp = bsp_tool.load_bsp(TITANFALL_2 + "sp_s2s.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(TITANFALL_2 + "mp_wargames.bsp")
-# load_rbsp(bsp)
+load_rbsp(bsp)
 
 APEX = "E:/Mod/ApexLegends/"
 S2 = "season2/maps/"
 S3 = "season3_3dec19/maps/"
 S10 = "season10_10aug21/maps/"
 S10_PATCH = "season10_14sep21/maps/"
-bsp = bsp_tool.load_bsp(APEX + S10 + "mp_lobby.bsp")
+# bsp = bsp_tool.load_bsp(APEX + S10 + "mp_lobby.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S3 + "mp_rr_canyonlands_64k_x_64k.bsp")
 # bsp = bsp_tool.load_bsp(APEX + "maps/mp_rr_desertlands_mu2.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_aqueduct.bsp")
 # bsp = bsp_tool.load_bsp(APEX + S10 + "mp_rr_party_crasher.bsp")  # smallest map after lobby
 # bsp = bsp_tool.load_bsp(APEX + S10_PATCH + "mp_rr_arena_skygarden.bsp")  # new map, who dis?
-load_apex_rbsp(bsp)
+# load_apex_rbsp(bsp)
 
 load_entities(bsp)
 
