@@ -76,3 +76,5 @@ https://en.wikipedia.org/wiki/Unreleased_Half-Life_games#Half-Life:_Hostile_Take
 
 https://en.wikipedia.org/wiki/Ryan_C._Gordon
 https://quake.fandom.com/wiki/American_McGee
+
+should probably track mass layoffs and acquisitions

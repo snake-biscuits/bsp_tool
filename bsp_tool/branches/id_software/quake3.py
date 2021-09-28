@@ -32,12 +32,13 @@ class LUMP(enum.Enum):
     VISIBILITY = 16
 
 
-# a rough map of the relationships between lumps
+# a rough map of the relationships between lumps:
+#
+#               /-> Texture
 # Model -> Brush -> BrushSide
-#      |        |-> Texture
-#      |-> Face -> MeshVertex
-#              |-> Texture
-#              |-> Vertex
+#      \-> Face -> MeshVertex
+#             \--> Texture
+#              \-> Vertex
 
 
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}

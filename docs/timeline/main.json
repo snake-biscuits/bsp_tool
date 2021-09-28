@@ -153,8 +153,9 @@
       "links": ["en.wikipedia.org/wiki/Titanfall_2"]
     },
 
-    { "name": "Call of Duty: Modern Warfare" },
+    { "name": "Call of Duty 4: Modern Warfare" },
 
+    { "name": "Call of Duty: Modern Warfare Remastered" },
   ],
 
   "engines": [
@@ -270,7 +271,28 @@
   ],
 
   "developers": [
+    { "name": "Raven Software",
+      "founded": 1990,
+      "games": ["ShadowCaster",
+                "Heretic",
+                "Hexen: Beyond Heretic",
+                "Hexen II",
+                "Quake 4",
+                "Wolfenstein (2009)",
+                "Star Wars Jedi Knight: Jedi Academy",
+                "Star Wars Jedi Knight II: Jedi Outcast",
+                "Call of Duty: Ghosts",
+                "Call of Duty: Online",
+                "Call of Duty: Warzone",
+                "Call of Duty: Moden Warfare Remastered"],
+      "employees": {"Chris Rhinehart": "1994-1997"},
+      "links": ["https://en.wikipedia.org/wiki/Raven_Software",
+                "https://en.wikipedia.org/wiki/List_of_Raven_Software_games",
+                "https://en.wikipedia.org/wiki/Chris_Rhinehart"]
+    },
+
     { "name": "Id Software",
+      "founded": 1991,
       "games": [
         "Wolfenstein 3D",
         "Doom",
@@ -282,27 +304,47 @@
         "John Romero": "1991-1996",
         "Michael Abrash": "1995-1996",
         "Tim Willits": "1995-2001",
-        "American McGee": "1993-1998"},
+        "American McGee": "1993-1998",
+        "Shawn Green": "????-????"},
       "links": ["https://en.wikipedia.org/wiki/Id_Software"]
+    },
+
+    { "name": "Rogue Entertainment",
+      "founded": 1994,
+      "closed": 2001,
+      "games": ["Strife",
+                "Quake Mission Pack No. 2: Dissolution of Eternity (1997)",
+                "Quake II Mission Pack: Ground Zero (1998)",
+                "Quake II - Nintendo 64 Port",
+                "American McGee's Alice",
+                "Counter-Strike Condition Zero - Unreleased Alpha"],
+      "links": ["https://en.wikipedia.org/wiki/Rogue_Entertainment"]
     },
 
     { "name": "Ion Storm",
       "founded": 1996,
       "games": ["Daikatana"],
-      "employees": {"John Romero": "1996-2001"}]
+      "employees": {"John Romero": "1996-2001",
+                    "Tom Hall": "1996-???"
+                    "Shawn Green": "????-????"}]
     },
 
     { "name": "Valve Software",
       "founded": 1996,
-      "games": [],
+      "games": ["Half-Life", "Half-Life 2", "Team Fortress 2", "Portal 2", "Counter-Strike"],
       "employees": {"Micheal Abrash": "????-2014"},
       "links": ["https://www.theverge.com/2014/3/28/5558286/oculus-vr-hires-michael-abrash-as-its-new-chief-scientist"]
     },
 
     { "name": "Ritual Entertainment",
+      "founded": 1996,
+      "closed": 2007,
       "games": ["Quake: Scourge of Armagon",
                 "SiN",
-                "Counter-Strike: Condition Zero - Deleted Scenes"],
+                "Heavy Metal: F.A.K.K. 2",
+                "Star Trek: Elite Force II",
+                "Counter-Strike: Condition Zero - Deleted Scenes",
+                "SiN Episodes"],
       "employees": {}
     },
 
@@ -312,9 +354,20 @@
                 "Medal of Honor: Allied Assault"],
       "employees": {
           "Earl Hammon": "????-2002",
-          "Jason West": "",
-          "Vince Zampella": ""},
+          "Jason West": "????-2002",
+          "Vince Zampella": "????-2002"},
       "fate": "became Infinity Ward"
+    },
+
+    { "name": "Gearbox Software",
+      "founded": 1999,
+      "games": ["Half-Life - PlayStation2 Port"
+                "Half-Life: Opposing Force",
+                "Half-Life: Blue Shift",
+                "Half-Life: Decay",
+                "Counter-Strike",
+                "Counter-Strike: Condition Zero",
+                "James Bond 007: Nightfire"]
     },
 
     { "name": "Infinity Ward",
@@ -324,6 +377,14 @@
         "Earl Hammon": "2001-2010"},
       "links": ["https://en.wikipedia.org/wiki/Infinity_Ward",
                 "https://venturebeat.com/2010/03/07/the-making-and-unmaking-of-infinity-ward/"]
+    },
+
+    { "name": "Escalation Studios",
+      "founded": 2007,
+      "games": ["Rage - Multiplayer", "Doom 2016 - Snapmap", "Team Fortress 2 - PASS Time"],
+      "employees": {"Shawn Green": "????-????"},
+      "links": ["https://en.wikipedia.org/wiki/Bethesda_Game_Studios_Dallas",
+                "https://en.wikipedia.org/wiki/Severity_(video_game)"]
     },
 
     { "name": "Respawn Entertainment",
@@ -338,20 +399,26 @@
     },
 
     { "name": "Splash Damage",
-      "games": [],
-      "employees": {}
+      "founded": 1997,
+      "closed": 2019,
+      "games": ["Brink"],
+      "employees": {"Chris Rinehart": "2012"},
+      "links": ["https://en.wikipedia.org/wiki/Human_Head_Studios",
+                "https://developer.valvesoftware.com/wiki/Brink_Dedicated_Server",
+                "https://www.mobygames.com/developer/sheet/view/developerId,5949/"]
     },
 
     { "names": {"Apogee": "1987-1996",
                 "3D Realms": "1997-2021"},
       "founded": 1987,
-      "games": ["Prey"],
-      "employees": {}
+      "games": ["Rise of the Triad: Dark War", "Prey (2006)"],
+      "employees": {"Tom Hall": "199?-????"}
     },
 
     { "name": "Human Head Studios",
-      "games": ["Prey", "Brink"],
-      "employees": {}
+      "games": ["Prey (2006)", "Brink"],
+      "employees": {"Chris Rhinehart": "1996-20??"},
+      "links": ["https://en.wikipedia.org/wiki/Human_Head_Studios"]
     },
 
     { "name": "Saber Interactive",

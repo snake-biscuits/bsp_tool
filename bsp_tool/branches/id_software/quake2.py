@@ -41,8 +41,8 @@ class LUMP(enum.Enum):
 #                                      \-> LEAF_BRUSHES
 
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#      |-> TEXTURE_INFO -> MIP_TEXTURES
-#      |-> LIGHTMAPS
+#    \--> TEXTURE_INFO -> MIP_TEXTURES
+#     \--> LIGHTMAPS
 #      \-> PLANES
 
 # LEAF_FACES -> FACES

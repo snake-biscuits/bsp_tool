@@ -99,22 +99,12 @@ def read_lump_header(file, LUMP: enum.Enum) -> SourceLumpHeader:
 # MipTexture.flags -> TextureInfo.flags (Surface enum)
 
 # a rough map of the relationships between lumps:
-# Node -> Face -> Plane
-#             |-> DisplacementInfo -> DisplacementVertex
-#             |-> SurfEdge -> Edge -> Vertex
 #
-# PRIMITIVES or "water indices" are a leftover from Quake.
-# In the Source Engine they are used to correct for "t-junctions".
-# "t-junctions" are a type of innacuracy which arises in BSP construction.
-# In brush-based .bsp, Constructive Solid Geometry (CSG) operations occur.
-# CSG "slices" & can potentially merges brushes, this also helps define visleaves
-# (CSG operations are the same as the Boolen Modifier in Blender).
-# These "slices" must be applied to brush faces,
-# which are stored as a clockwise series of 3D points.
-# Some slices create erroneous edges, especially where func_detail meets world.
-# The PRIMITIVES lump forces a specific shape to compensate for these errors.
+#                     /-> SurfEdge -> Edge -> Vertex
+# Leaf -> Node -> Face -> Plane
+#                     \-> DisplacementInfo -> DisplacementVertex
 #
-# ClipPortalVertices are AreaPortal geometry
+# ClipPortalVertices are AreaPortal geometry [citation neeeded]
 
 
 # engine limits: (2013 SDK bspfile.h)

@@ -37,8 +37,8 @@ class LUMP(enum.Enum):
 #                   \-> CLIP_NODES -> PLANES
 
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#      |-> TEXTURE_INFO -> MIP_TEXTURES
-#      |-> LIGHTMAPS
+#    \---> TEXTURE_INFO -> MIP_TEXTURES
+#     \--> LIGHTMAPS
 #      \-> PLANES
 
 

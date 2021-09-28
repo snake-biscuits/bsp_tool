@@ -157,7 +157,7 @@ class LUMP(enum.Enum):
 #
 # TextureData -> TextureDataStringTable -> TextureDataStringTable
 # VertexReservedX -> Vertex
-#                |-> VertexNormal
+#                \-> VertexNormal
 #
 # LeafWaterData -> TextureData -> water material
 # NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
@@ -166,13 +166,13 @@ class LUMP(enum.Enum):
 # ??? -> Brush -?> Plane
 #
 # LightmapHeader -> LIGHTMAP_DATA_SKY
-#               |-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
+#               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 #
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
-#                    |-> PortalVertex
+#                    \-> PortalVertex
 #
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges

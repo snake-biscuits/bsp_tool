@@ -183,31 +183,29 @@ class LUMP(enum.Enum):
 
 # Rough map of the relationships between lumps:
 # Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
-#                              |-> VertexReservedX
-#                              |-> MeshIndex?
+#                             \--> VertexReservedX
+#                              \-> MeshIndex?
 #
 # MeshBounds & Mesh (must have equal number of each)
 #
 # VertexReservedX -> Vertex
-#                |-> VertexNormal
+#                \-> VertexNormal
 #
 # ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
 # ??? -> Brush -?> Plane
 #
 # LightmapHeader -> LIGHTMAP_DATA_SKY
-#               |-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
+#               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 #
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
-#                    |-> PortalVertex
+#                    \-> PortalVertex
 #
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
-#
-# Grid probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
 
 
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
