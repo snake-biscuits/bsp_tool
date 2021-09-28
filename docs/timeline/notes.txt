@@ -9,7 +9,7 @@ Sabre 3D, Unreal & Tim Willits will come up if we talk about Quake Champions
 https://en.wikipedia.org/wiki/Quake_Champions
 Id Tech 6 / Sabre3D hybrid [FORK]
 https://en.wikipedia.org/wiki/Saber_Interactive
-Sabre built their own engine (sabre 3d) and made a UE4 hybrid in the Halo MCC
+Sabre built their own engine (Sabre3D) and made a UE4 hybrid in the Halo MCC
 Explaining that is way off scope
 
 https://en.wikipedia.org/wiki/Source_(game_engine)
@@ -75,3 +75,4 @@ https://en.wikipedia.org/wiki/Unreleased_Half-Life_games#Half-Life:_Hostile_Take
 2015. Inc is rumoured to have been working on a Half-Life expansion at one point
 
 https://en.wikipedia.org/wiki/Ryan_C._Gordon
+https://quake.fandom.com/wiki/American_McGee
