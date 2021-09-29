@@ -16,9 +16,6 @@ Or to use the latest stable release, install via [pip](https://pypi.org/project/
 pip install bsp_tool
 ```
 
-> NOTE: The last PyPi release (v0.2.2) is close to a year old  
-> v0.3.0 has made many [changes](./CHANGELOG.md) and is the recommended version
-
 
 ## Fair Use
 **Please do not use `bsp_tool` to copy or steal another creator's work**  
