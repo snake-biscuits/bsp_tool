@@ -1,6 +1,6 @@
 # Changelog
 
-# v0.3.0 (~2021)
+# v0.3.0 (29th September 2021)
 
 ## New
  * Added `load_bsp` function to identify bsp type  
