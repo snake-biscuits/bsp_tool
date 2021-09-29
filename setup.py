@@ -9,7 +9,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where=".", include=("bsp_tool*",)),
     version="0.3.0",
     license="gpl-3.0",
-    description="A library for .bsp file analysis & modification",
+    description="Python library for analysing .bsp files ",
     author="Jared Ketterer",
     author_email="haveanotherbiscuit@gmail.com",
     long_description=readme_text,
