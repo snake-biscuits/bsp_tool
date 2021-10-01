@@ -20,7 +20,6 @@ GAMES = [*[f"Half-Life/{mod}" for mod in [
          "Halfquake Trilogy", "Sven Co-op"]
 
 
-# lump names & indices:
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
