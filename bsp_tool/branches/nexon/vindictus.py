@@ -204,7 +204,8 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
                      # NOTE: LeafBrush also differs from orange_box (not implemented)
                      "LEAVES":            {0: Leaf},
                      "NODES":             {0: Node},
-                     "ORIGINAL_FACES":    {0: Face}})
+                     "ORIGINAL_FACES":    {0: Face},
+                     "OVERLAYS":          {0: Overlay}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
@@ -215,6 +216,4 @@ GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 
 
 # branch exclusive methods, in alphabetical order:
-
-
 methods = [*orange_box.methods]

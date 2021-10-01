@@ -451,16 +451,6 @@ class OverlayFade(base.MappedArray):  # LUMP 60
     _format = "2f"
 
 
-class Plane(base.Struct):  # LUMP 1
-    """3D Plane defining shape, used for physics & BSP/CSG calculations?"""
-    normal: List[float]
-    distance: float
-    type: int  # flags for axis alignment, appears to be unused
-    __slots__ = ["normal", "distance", "type"]
-    _format = "4fi"
-    _arrays = {"normal": [*"xyz"]}
-
-
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]
@@ -595,7 +585,7 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
                 "NODES":                 {0: Node},
                 "OVERLAY_FADES":         {0: OverlayFade},
                 "ORIGINAL_FACES":        {0: Face},
-                "PLANES":                {0: Plane},
+                "PLANES":                {0: quake.Plane},
                 "TEXTURE_DATA":          {0: TextureData},
                 "TEXTURE_INFO":          {0: TextureInfo},
                 "VERTICES":              {0: quake.Vertex},
