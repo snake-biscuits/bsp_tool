@@ -606,7 +606,7 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
-                        # "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}
+                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}
                         }
 
 # {"lump": {version: SpecialLumpClass}}

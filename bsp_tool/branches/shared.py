@@ -220,7 +220,7 @@ class PhysicsCollide(list):
                 # CPhysCollisionEntry->WriteCollisionBinary
                 cb_size = int.from_bytes(lump.read(4), "little")
                 solids.append(PhysicsBlock(lump.read(cb_size)))
-            # NOTE: should have read as many bytes as header.data_size
+            # TODO: assert header.data_size bytes were read
             script = lump.read(header.script_size)  # ascii
             collision_models.append([header.model, solids, script])
             header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
@@ -228,19 +228,18 @@ class PhysicsCollide(list):
         super().__init__(collision_models)
 
     def as_bytes(self) -> bytes:
-        # NOTE: consistently missing 16 bytes
         def phy_bytes(collision_model):
-            model, solids, script = collision_model
-            solid_count = len(solids)
-            data_size = len([s for s in solids]) + solid_count * 4
-            header = struct.pack("4i", model, data_size, len(script), solid_count)
-            solid_binaries = list()
+            model_index, solids, script = collision_model
+            phy_blocks = list()
             for phy_block in solids:
                 collision_data = phy_block.as_bytes()
-                solid_binaries.append(len(collision_data).to_bytes(4, "little"))
-                solid_binaries.append(collision_data)
-            return b"".join([header, *solid_binaries, script])
-        return b"".join(map(phy_bytes, self))
+                phy_blocks.append(len(collision_data).to_bytes(4, "little"))
+                phy_blocks.append(collision_data)
+            phy_block_bytes = b"".join(phy_blocks)
+            header = struct.pack("4i", model_index, len(phy_block_bytes), len(script), len(solids))
+            return b"".join([header, phy_block_bytes, script])
+        tail = struct.pack("4i", -1, -1, 0, 0)
+        return b"".join([*map(phy_bytes, self), tail])
 
 
 class TextureDataStringData(list):
