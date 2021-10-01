@@ -53,7 +53,6 @@ namespace bsp_tool {
             };
     };
 
-
     namespace id_software {
         const int FILE_MAGIC = ('I' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length; };
@@ -75,24 +74,7 @@ namespace bsp_tool {
 
                 ~IdTechBsp() {};
         };
-
-        namespace quake3 {
-            const int BSP_VERSION = 46;
-            namespace LUMP {
-                int ENTITIES     = 0,  VERTICES      = 10,
-                    TEXTURES     = 1,  MESH_VERTICES = 11,
-                    PLANES       = 2,  EFFECTS       = 12,
-                    NODES        = 3,  FACES         = 13,
-                    LEAVES       = 4,  LIGHTMAPS     = 14,
-                    LEAF_FACES   = 5,  LIGHT_VOLUMES = 15,
-                    LEAF_BRUSHES = 6,  VISIBILITY    = 16,
-                    MODELS       = 7,
-                    BRUSHES      = 8,
-                    BRUSH_SIDES  = 9;
-            }
-        }
     }
-
 
     namespace valve_software {
         const int FILE_MAGIC = ('V' + ('B' << 8) + ('S' << 16) + ('P' << 24));
