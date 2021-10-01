@@ -191,7 +191,7 @@ class Node(base.Struct):  # LUMP 5
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int
     num_faces: int
-    _format = "I8h"
+    _format = "I10h"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 
@@ -206,13 +206,13 @@ class Plane(base.Struct):  # LUMP 1
 
 
 class TextureInfo(base.Struct):  # LUMP 6
-    U: List[float]
-    V: List[float]
+    u: List[float]
+    v: List[float]
     mip_texture_index: int
     animated: int  # 0 or 1
-    __slots__ = ["U", "V", "mip_texture_index", "animated"]
+    __slots__ = ["u", "v", "mip_texture_index", "animated"]
     _format = "8f2I"
-    _arrays = {"U": [*"xyzw"], "V": [*"xyzw"]}
+    _arrays = {"u": [*"xyzw"], "v": [*"xyzw"]}
 
 
 class Vertex(base.MappedArray):  # LUMP 3
