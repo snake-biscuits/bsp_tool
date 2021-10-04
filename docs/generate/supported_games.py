@@ -1,14 +1,14 @@
 import inspect
 import sys
 
-# HACK: load ../../bsp_tool from docs/generators/
+# HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
 from bsp_tool.branches import base  # noqa: E402
 from bsp_tool.branches import respawn  # noqa: E402
 
-
-# TODO: copy generated files to docs & branches
+# TODO: save to file
 # TODO: generate fresh docs with GitHub actions
+
 
 def gen_rbsp():
     # TODO: provide links for relevant specifications
@@ -87,8 +87,8 @@ def gen_rbsp():
                 print(f"| {i} | {i:04X} | {bsp_version} | {lump_name} | 0 | | 0% |")
         # TODO: skip unused lines / duplicate LumpClasses
         # TODO: blank repeated LUMP_NAMES & lump_indices for trailing lines
-        # TODO: include lump relationship maps (use timeline .html nodes?)
-        # TODO: include summaries of changes between sequels
+        # TODO: include lump relationship maps
+        # TODO: include summaries of changes from predecessor
         # -- (LUMP_NAME_A -> LUMP_NAME_B) [DEPRECATED / NEW if either is UNUSED]
         # TODO: GAME_LUMP special case
         # -- lumps.GameLump -> dev.game.GameLump_SPRP -> StaticPropvX
@@ -96,6 +96,4 @@ def gen_rbsp():
 
 if __name__ == "__main__":
     pass
-    # build each SUPPORTED.md
-    # copy to docs/{dev}/ & bsp_tool/branches/{dev}/
     gen_rbsp()
