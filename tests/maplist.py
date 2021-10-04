@@ -122,7 +122,7 @@ extracted_dirs = {
                               "tf28/FORTRESS/maps",  # 1 map | 1.88 MB
                               "tfbot080/MAPS"],  # 1 map | 212 KB
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
-        # TODO: Vindictus .hfs (encrypted)
+        "Vindictus": ["maps"],  # 474 maps | 8.8 GB | .hfs
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps"],  # 26 maps | 3,5 GB | .vpk
         "Titanfall2": ["maps"],  # 36 maps | 6.6 GB | .vpk
