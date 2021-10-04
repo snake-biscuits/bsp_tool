@@ -15,7 +15,7 @@ setuptools.setup(
     long_description=readme_text,
     long_description_content_type="text/markdown",
     url="https://github.com/snake-biscuits/bsp_tool",
-    download_url="https://github.com/snake-biscuits/bsp_tool/archive/v0.4.0.tar.gz",
+    download_url="https://github.com/snake-biscuits/bsp_tool/archive/v0.3.1.tar.gz",
     keywords=["source", "bsp", "valve"],
     classifiers=[
         "Development Status :: 4 - Beta",

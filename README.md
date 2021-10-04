@@ -1,7 +1,7 @@
 # bsp_tool
 Python library for analysing .bsp files  
 
-`bsp_tool` provides a Command Line Interface for exploring & editing .bsp files  
+`bsp_tool` provides a Command Line Interface for analysing .bsp files  
 Current development is focused on bringing new maps to Counter-Strike: Online 2 & the Titanfall Engine
 
 
