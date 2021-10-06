@@ -57,7 +57,20 @@ namespace bsp_tool {
         const int FILE_MAGIC = ('I' + ('B' << 8) + ('S' << 16) + ('P' << 24));
         struct LumpHeader { int offset, length; };
 
-        // NOTE: Q3A .bsps have 17 lumps, Quake .bsps have 15
+        namespace quake {
+            struct BSPHeader {
+                int         version;
+                LumpHeader  headers[15];
+            };
+        }
+
+        namespace quake3 {
+            struct BSPHeader {
+                int         version;
+                LumpHeader  headers[17];
+            };
+        }
+
         template<int lump_count>
         class IdTechBsp : public Bsp<LumpHeader, lump_count> {
             public:

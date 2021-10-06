@@ -167,6 +167,9 @@ SurfaceHeader = collections.namedtuple("swapcompactsurfaceheader_t", ["size", "d
 # struct swapcompactsurfaceheader_t { int surfaceSize; Vector dragAxisAreas; int axisMapSize; };
 MoppHeader = collections.namedtuple("swapmoppsurfaceheader_t", ["size"])
 # struct swapmoppsurfaceheader_t { int moppSize; };
+# NOTE: the "swap" in the names refers to the format differing across byte-orders
+# -- Source swaps byte order for selected fields when compiled for consoles
+# -- PC is primarily little-endian, while the Xbox 360 has more big-endian fields
 
 
 class PhysicsBlock:  # TODO: actually process this data
@@ -181,8 +184,25 @@ class PhysicsBlock:  # TODO: actually process this data
         if header.model_type == 0:
             size, *drag_axis_areas, axis_map_size = struct.unpack("i3fi", lump.read(20))
             surface_header = SurfaceHeader(size, drag_axis_areas, axis_map_size)
+            # self.data = CollisionModel()
+
+            # - CollisionModel
+            #   - TreeNode (recursive) <- CollisionModel.tree_offset
+            #   - TreeNode (left)  <- TreeNode<parent>._offset + sizeof(TreeNode)
+            #   - TreeNode (right) <- TreeNode<parent>.right_node_offset
+            #   if (TreeNode<parent>.right_node_offset == 0)
+            #   - ConvexLeaf <- TreeNode<parent>.convex_offset
+            #     - ConvexTriangle[ConvexLeaf.triangle_count]
+            #     - Vertex[max(*ConvexTriangle<s>.edges[::])]
+
+            # struct CollisionModel { float unknown[7]; int surface, tree_offset, padding[2]; };
+            # struct TreeNode { int right_node_offset, convex_offset; float unknown[5]; };
+            # struct ConvexLeaf { int vertex_offset, padding[2]; short triangle_count, unused; };
+            # struct ConvexTriange { int padding; short edges[3][2]; };
+            # struct Vertex { float x, y, z, w };
         elif header.model_type == 1:
             surface_header = MoppHeader(*struct.unpack("i", lump.read(4)))
+            # yeah, no idea what this does
         else:
             raise RuntimeError("Invalid model type")
         self.header = (header, surface_header)
@@ -191,10 +211,10 @@ class PhysicsBlock:  # TODO: actually process this data
 
     def as_bytes(self) -> bytes:
         header, surface_header = self.header
-        if header.model_type == 0:
+        if header.model_type == 0:  # SurfaceHeader (swapcompactsurfaceheader_t)
             size, drag_axis_areas, axis_map_size = surface_header
             surface_header = struct.pack("i3fi", len(self.data), *drag_axis_areas, axis_map_size)
-        elif header.model_type == 1:
+        elif header.model_type == 1:  # MoppHeader (swapmoppsurfaceheader_t)
             surface_header = struct.pack("i", len(self.data))
         else:
             raise RuntimeError("Invalid model type")
@@ -225,7 +245,7 @@ class PhysicsCollide(list):
             collision_models.append([header.model, solids, script])
             header = PhysicsHeader(*struct.unpack("4i", lump.read(16)))
         assert header == PhysicsHeader(-1, -1, 0, 0), "PhysicsCollide ended incorrectly"
-        super().__init__(collision_models)
+        super().__init__(collision_models)  # TODO: this is a terrible interface
 
     def as_bytes(self) -> bytes:
         def phy_bytes(collision_model):
