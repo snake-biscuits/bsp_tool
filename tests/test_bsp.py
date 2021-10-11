@@ -34,10 +34,13 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
                         continue  # broken HL2:EP1 map (game crashes on load)
                     elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                        continue  # broken HL:Source map (y is v18 and won't run, z is v19 and has broken IO)
+                        continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                     bsp = load_bsp(bsp_filename, branch)
-                    failed_lumps = ', '.join(bsp.loading_errors.keys())
-                    assert len(bsp.loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
+                    loading_errors = {**bsp.loading_errors}
+                    if hasattr(bsp, "GAME_LUMP"):
+                        loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                    failed_lumps = ', '.join(loading_errors.keys())
+                    assert len(loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
                 except AssertionError as ae:
                     print(bsp)  # print filename, branch_script & version to stdout
                     errors[f"{map_dir}/{m}"] = ae

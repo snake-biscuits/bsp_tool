@@ -524,7 +524,7 @@ class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35)
                "lighting_origin": [*"xyz"]}
 
 
-class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35)
+class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L168"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -538,29 +538,31 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35)
     lighting_origin: List[float]  # xyz position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "fade_distance", "lighting_origin",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale"]
-    _format = "6f3HBi6f2Hi2H"
+    _format = "6f3H2Bi6f"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"]}
 
 
-class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35)
+class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
+    """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     name_index: int  # index into AME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
     solid_mode: int  # collision flags enum
+    flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
     lighting_origin: List[float]  # xyz position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "fade_distance", "lighting_origin",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "dx_level"]
-    _format = "6f3HBi6f2Hi2H"
+    _format = "6f3HBi6f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
 
@@ -596,8 +598,7 @@ LUMP_CLASSES = {"AREAS":                 {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.PhysicsCollide}
-                        }
+                        "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump}}
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv4),
