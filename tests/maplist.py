@@ -117,6 +117,7 @@ extracted_dirs = {
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
+        # https://github.com/L-Leite/UnCSO2
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
                         "multiplayer/maps"],  # 11 maps | 564 MB | .vpk
@@ -126,6 +127,7 @@ extracted_dirs = {
                               "tf28/FORTRESS/maps",  # 1 map | 1.88 MB
                               "tfbot080/MAPS"],  # 1 map | 212 KB
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
+        # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.8 GB | .hfs
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps"],  # 26 maps | 3,5 GB | .vpk
