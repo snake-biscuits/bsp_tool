@@ -5,8 +5,7 @@
 [Return to Home](../index.md)  
 [Game Timeline](./games.md)
 
-## Major Titles
-
+## Major Branches
 
 ```
 1992 |  IdTech 0
@@ -15,30 +14,30 @@
 1995 |      |-> IdTech 1.666
 1996 |      \-> IdTech 2
 1997 |          \-> IdTech 2.5
-1998 |              |-------------------------------------> GoldSrc
-1999 |              \-> IdTech 3                            |
-2000 |      Übertools <-|                                   |
-2001 |      |           |                                   |
-2002 |      |           |                                   |
-2003 |      |           |-----------> IW 1                  \-> Source Engine
-2004 |      |           \-> IdTech 4  |                         |
-2005 |                      |         \-> IW 2                  |
-2006 |                      |             |                     \-> Source SDK 2006
-2007 |                      |             |-> IW 3                  \-> Source SDK 2007
-2008 |                      |             |   |                         |
-2009 |                      |             |   \----> IW 4               |
-2010 |                      |             \-> BlOps  |                  |
-2011 |                      \-> IdTech 5      |      \---> IW 5         |
-2012 |                          |             \-> BlOps 2  |            |
-2013 |                          |                 |        \-> IW 6     |-> Source SDK 2013
-2014 |                          |                 |            |        |------------> Titanfall Engine
-2015 |                          |                 \-> BlOps 3  |        \-> Source 2   |
-2016 |            Void Engine <-^-> IdTech 6          |        \-> IW 7                |-> Titanfall 2 Engine
-2017 |            |                 |                 |            |                   |   |
-2018 |            |                 |                 |-> BlOps 4  |                   |   |
-2019 |            |                 |                 |            \--------> IW 8         \-> Apex Legends Engine
-2020 |            |                 \-> IdTech 7      \-> ColdWar   WarZone <-|                |
-2021 |            |                                                           |                |
+1998 |              |---------------------> GoldSrc
+1999 |              \-> IdTech 3            |
+2000 |                  |-> Übertools       |
+2001 |                  |   |               |
+2002 |                  |   |               |
+2003 |                  |   |-------> IW 1  \-------------> Source Engine
+2004 |       IdTech 4 <-/   |         |                     |
+2005 |       |                        \-> IW 2              |
+2006 |       |                            |                 \-> Source SDK 2006
+2007 |       |                            |-> IW 3              \-> Source SDK 2007
+2008 |       |                            |   |                     |
+2009 |       |                            |   \---> IW 4            |
+2010 |       |                            \-> BlOps |               |
+2011 |       \---> IdTech 5                   |     \---> IW 5      |
+2012 |             |                          \-> BlOps 2 |         |
+2013 |             |                              |       \-> IW 6  |-> Source SDK 2013
+2014 |             |                              |           |     |------------> Titanfall Engine
+2015 |             |                              \-> BlOps 3 |     \-> Source 2   |
+2016 |  IdTech 6 <-^-> Void Engine                    |       \-> IW 7             |-> Titanfall 2 Engine
+2017 |  |              |                              |           |                |   |
+2018 |  |              |                              |-> BlOps 4 |                |   |
+2019 |  |              |                              |           \---------> IW 8     \-> Apex Legends Engine
+2020 |  \-> IdTech 7   |                              \-> ColdWar & WarZone <-|            |
+2021 |                 |                                                      |            |
 ```
 
 ## References
