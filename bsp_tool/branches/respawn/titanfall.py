@@ -438,7 +438,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
     __slots__ = ["s", "t"]
-    __format = "8f"
+    _format = "8f"
     _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
 
 
@@ -566,9 +566,9 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
 
 LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CELL_AABB_NODES":                   {0: Node},
-                # "CELL_BSP_NODES":                  {0: Node},
+                # "CELL_BSP_NODES":                    {0: Node},
                 "CM_BRUSHES":                        {0: Brush},
-                # "CM_BRUSH_TEX_VECS":               {0: TextureVector},
+                "CM_BRUSH_TEX_VECS":                 {0: TextureVector},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
                 "CM_GRID":                           {0: Grid},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
