@@ -10,6 +10,7 @@ __all__ = []
 # https://www.gog.com/game/sin_gold  AU$13.59
 # TODO: star_trek_elite_force2
 # https://www.gog.com/game/star_trek_elite_force_ii  AU$13.59
+# ef2GameSource3/Shared/qcommon/qfiles.h
 
 
 __doc__ = """Ritual Entertainment developed Übertools for Quake III"""

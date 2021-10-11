@@ -75,15 +75,23 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Call of Duty](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :x:
     - Call of Duty 2 :x:
     - Call of Duty 4: Modern Warfare :x:
+    - Call of Duty: Modern Warfare 2 :o:
   * [Nexon](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon)
     - [Counter-Strike: Online 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/cso2.py) :x:
     - [Titanfall: Online](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
     - [Vindictus](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus.py) :x:
+  * Raven Software
+    - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
+    - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py) :o:
+    - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
+    - [Star Trek: Voyager - Elite Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
+    - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
+    - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
   * [Respawn Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn)
-    - [Apex Legends](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/apex_legends.py)
-    - [Titanfall 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall2.py)
     - [Titanfall](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
-  * Ritual Entertainment
+    - [Titanfall 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall2.py)
+    - [Apex Legends](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/apex_legends.py)
+  * [Ritual Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual)
     - American McGee's Alice :o:
     - Heavy Metal F.A.K.K. 2 :o:
     - Medal of Honor: Allied Assault :o:
@@ -120,7 +128,6 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Team Fortress 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Team Fortress Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
   * Other
-    - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - Brink :o:
@@ -141,7 +148,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
 
 <!--
     - Call of Duty: World at War :o:
-    - Call of Duty: Modern Warfare 2 :o:
+
     - Call of Duty: Black Ops :o:
     - Call of Duty: Modern Warfare 3 :o:
     - Call of Duty: Black Ops II :o:

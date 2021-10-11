@@ -132,6 +132,7 @@ class GameLump_SPRP:  # Mostly for Source
         leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leaves", list(leaves))
         prop_count = int.from_bytes(sprp_lump.read(4), "little")
+        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
         read_size = struct.calcsize(StaticPropClass._format) * prop_count
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
         setattr(self, "props", list(map(StaticPropClass, props)))

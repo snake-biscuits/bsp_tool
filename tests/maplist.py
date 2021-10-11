@@ -86,8 +86,12 @@ extracted_dirs = {
         # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
         # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 / IdTech 4 doesn't use .bsp? just raw .map?
         # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4? Brink?
+        # http://ritualistic.chrissstrahl.de/downloads/Elite-Force-II/
+        "EliteForceII": ["maps"],  # 188 maps | 886 MB | .zip
+        "FAKK2": ["maps"],  # 6 maps | 25 MB | .zip
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
+        "SiN": ["maps"],  # 45 maps | 64 MB | .zip
         "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
                   "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
                   "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
@@ -104,7 +108,7 @@ extracted_dirs = {
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
-        # D3DBsp
+        # CoDBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
         "CoD2": ["maps",  # 39 maps | 1.5 GB | .d3dbsp

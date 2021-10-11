@@ -34,7 +34,7 @@ class LUMP(enum.Enum):
     AREAS = 17
     AREA_PORTALS = 18
 
-# TODO: new MAX & Contets enums
+# TODO: MAX & Contents enums
 
 # A rough map of the relationships between lumps:
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES

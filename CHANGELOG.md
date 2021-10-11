@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.0 (???)
+
+## New
+
+## Changed
+ * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
+ * Fixed up `GAME_LUMP.sprp` errors across `source`, `left4dead` & `source_2013`
+
+### Newly Supported
+ * Source Engine
+   - Tactical Intervention
+
+### Updated Support
+ * Source Engine
+ * Titanfall Engine
+
 ## v0.3.1 (4th October 2021)
 
 ### New
@@ -68,7 +84,7 @@
     - Call of Duty
   * Source Engine
     - Dark Messiah of Might and Magic
-    - Vindictus (cannot extract files)
+    - Vindictus
 
 ### Updated Support
  * Source Engine

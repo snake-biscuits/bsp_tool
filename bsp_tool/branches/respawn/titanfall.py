@@ -534,8 +534,9 @@ class GameLump_SPRP:
         setattr(self, "leaves", leaves)
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
-        prop_size = struct.calcsize(StaticPropClass._format)
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
+        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
+        read_size = struct.calcsize(StaticPropClass._format) * prop_count
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
 
     def as_bytes(self) -> bytes:

@@ -49,10 +49,10 @@
      |      heretic 2 <-|-------------------------------------------------------------> half-life
 1999 |                  |-> quake 3 arena                                               |-> half-life:opposing force
 2000 |      daikatana <-/   |-> heavy metal:f.a.k.k.2                                   |-> counter-strike
-     |                      |-> american mcgees alice                                   |-> ricochet
-2001 |                      |   |                                                       |-> half-life:blue shift
-2002 |                      |   |-> medal of honor:allied assault                       |-> nightfire
-2003 |                      |   |                               \-> call of duty        |-> day of defeat
+     |                sof <-|-> american mcgees alice                                   |-> ricochet
+2001 |                  |   |   |                                                       |-> half-life:blue shift
+2002 |           sof2 <-|   |   |-> medal of honor:allied assault                       |-> nightfire
+2003 |        swjk:ja <-/   |   |                               \-> call of duty        |-> day of defeat
      |                      |   \-> star trek elite force 2         |                   |--> half-life 2
 2004 |                      |-> doom 3                              |           cs:cz <-/    |-> cs:source
 2005 |                      |   |-> quake 4        call of duty 2 <-/                        |-> dod:source
@@ -93,6 +93,7 @@
  - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
  - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
  - [Ritual Entertainment: Ubertools](http://ritualistic.chrissstrahl.de/games/ef2/gdkdocs/)
+ - [Murder of Raven Software](https://steemit.com/gaming/@vladalexan/the-murder-of-raven-software)
 
 ### Wikipedia
  - [Quake Engine](https://en.wikipedia.org/wiki/Quake_engine#Games_using_the_Quake_engine)
@@ -103,3 +104,4 @@
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
  - [Nerve Software](https://en.wikipedia.org/wiki/Nerve_Software)
+ - [List of Raven Software games](https://en.wikipedia.org/wiki/List_of_Raven_Software_games)

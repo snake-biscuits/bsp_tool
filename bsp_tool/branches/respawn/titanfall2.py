@@ -239,8 +239,9 @@ class GameLump_SPRP:
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
-        prop_size = struct.calcsize(StaticPropClass._format)
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(prop_count * prop_size))
+        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
+        read_size = struct.calcsize(StaticPropClass._format) * prop_count
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
         setattr(self, "props", list(map(StaticPropClass, props)))
         # TODO: check if are there any leftover bytes at the end?
 
