@@ -35,5 +35,6 @@ LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES["sprp"].pop(10)
 
 methods = [*orange_box.methods]

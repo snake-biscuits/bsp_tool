@@ -113,6 +113,7 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES["sprp"].pop(7)
 # TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
