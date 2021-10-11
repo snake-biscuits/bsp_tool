@@ -53,24 +53,24 @@
 2001 |                      |   |                                                       |-> half-life:blue shift
 2002 |                      |   |-> medal of honor:allied assault                       |-> nightfire
 2003 |                      |   |                               \-> call of duty        |-> day of defeat
-     |                      |   \-> star trek elite force 2         |                   |-> half-life 2
-2004 |                      |-> doom 3                              |           cs:cz <-/   |-> cs:source
-2005 |                      |   |-> quake 4        call of duty 2 <-/                       |-> dod:source
-2006 |                      |   |-> prey           |                         dark messiah <-|-> episode 1
-2007 |                      |   |-> quake wars     \----------> modern warfare              |   \--------> orange box
-2008 |                      |   |                world at war <-|-> quantum of solace       |              |-> left 4 dead
-2009 |                      |   |-> wolfenstein  |              \-> modern warfare 2        |              |   \-> left 4 dead 2
-2010 |         quake:live <-/   |                \-> blops          |                       |  vindictus <-|-> alien swarm
-2011 |                  brink <-|-> rage             |              \-> modern warfare 3    |              |-> portal 2
-2012 |             doom 3 bfg <-|   |                \-> blops 2        |                   |      cs:go <-/   |
-2013 |           the dark mod <-/   |                    |              \-> ghosts          \-> cs:online 2    |
-2014 |                evil within <-|-> new order        | advanced warfare |                                  \-> titanfall
-2015 |                              |-> old blood        \-> blops 3        |                                      |
-2016 |       quadrilateral cowboy <-^-> doom                 |              \-> infinite warfare     titanfall 2 <-|
-     |                  dishonored 2 <--|                    |                  |                    |             |
-2017 |       outsider <-|    doom VFR <-|-> new colossus     |                  |                    | tf:online <-/
-2018 |                  |               |                    |-> blops 4        |                    |
-2019 |                  |  youngblood <-|-> cyber pilot      |                  \-> modern warfare   \-> apex legends
+     |                      |   \-> star trek elite force 2         |                   |--> half-life 2
+2004 |                      |-> doom 3                              |           cs:cz <-/    |-> cs:source
+2005 |                      |   |-> quake 4        call of duty 2 <-/                        |-> dod:source
+2006 |                      |   |-> prey           |                          dark messiah <-|-> episode 1
+2007 |                      |   |-> quake wars     \----------> modern warfare               |   \--------> orange box
+2008 |                      |   |                world at war <-|-> quantum of solace        |              |-> left 4 dead
+2009 |                      |   |-> wolfenstein  |              \-> modern warfare 2         |              |   \-> left 4 dead 2
+2010 |         quake:live <-/   |                \-> blops          |                        |  vindictus <-|-> alien swarm
+2011 |                  brink <-|-> rage             |              \-> modern warfare 3     |   portal 2 <-|
+2012 |             doom 3 bfg <-|   |                \-> blops 2        |                    |   |          |-> cs:go
+2013 |           the dark mod <-/   |                    |              \-> ghosts  cs:o 2 <-/   |          \-> tactical intervention
+2014 |                evil within <-|-> new order        | advanced warfare |                    \-> titanfall
+2015 |                              |-> old blood        \-> blops 3        |                        |
+2016 |       quadrilateral cowboy <-^-> doom                 |              \-> infinite warfare     |-> titanfall 2
+     |                  dishonored 2 <--|                    |                  |                    |   |
+2017 |       outsider <-|    doom VFR <-|-> new colossus     |                  |        tf:online <-/   |
+2018 |                  |               |                    |-> blops 4        |                        |
+2019 |                  |  youngblood <-|-> cyber pilot      |                  \-> modern warfare       \-> apex legends
 2020 |                  |               \-> doom eternal     \-> blops cold war     |-> cod:warzone
 2021 |      deathloop <-/                                                           \-> vanguard
 ```
