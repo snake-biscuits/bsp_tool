@@ -1,4 +1,6 @@
 """Base classes for defining .bsp lump structs"""
+from __future__ import annotations
+import struct
 from typing import Any, Dict, Iterable, List, Union
 
 
@@ -65,6 +67,22 @@ class Struct:
             else:
                 _tuple.append(value)
         return _tuple
+
+    # convertors
+    @classmethod
+    def from_bytes(cls, _bytes: bytes) -> Struct:
+        assert len(_bytes) == struct.calcsize(cls.format)
+        _tuple = struct.unpack(cls._format, _bytes)
+        # TODO: get mapping_length of __slots__ (convert to dict, None is special case so using get is messy)
+        return cls.from_tuple(_tuple)
+
+    @classmethod
+    def from_tuple(cls, _tuple: List[Any]) -> Struct:
+        # TODO: move __init__ here
+        raise NotImplementedError()
+
+    def as_bytes(self) -> bytes:
+        return struct.pack(self._format, *self.flat())
 
 
 def mapping_length(mapping: Dict[str, Any]) -> int:
