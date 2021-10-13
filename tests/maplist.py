@@ -32,8 +32,8 @@ goldsrc_dirs = {
                         "valve"]},   # 115 maps | 188 MB | Half-Life
         "Halfquake Trilogy": ["valve/maps"],  # 152 maps | 207 MB
         "Sven Co-op": ["svencoop/maps",  # 107 maps | 521 MB
-                       # "svencoop_addon/maps",
-                       # "svencoop_downloads/maps",
+                       # "svencoop_addon/maps",  # 0 maps | 0 MB
+                       # "svencoop_downloads/maps",  # 0 maps | 0 MB
                        "svencoop_event_april/maps"]}  # 4 maps | 31 MB
 # ^ {"game_dir": ["map_dir"]}
 
@@ -179,7 +179,7 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "eyecandy",   # 41 maps | 652 MB | Test Tube #8
                       "tworooms"]}  # 39 maps | 496 MB | Test Tube #9
 
-# every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}  # ~64GB
+# every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}
 
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,

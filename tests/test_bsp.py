@@ -41,6 +41,8 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         loading_errors.update(bsp.GAME_LUMP.loading_errors)
                     failed_lumps = ', '.join(loading_errors.keys())
                     assert len(loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
+                except AttributeError:
+                    raise RuntimeError("Could not read filepath correctly")
                 except AssertionError as ae:
                     print(bsp)  # print filename, branch_script & version to stdout
                     errors[f"{map_dir}/{m}"] = ae

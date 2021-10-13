@@ -19,8 +19,10 @@ def LumpClasses_of(module: ModuleType) -> List[object]:
                 yield LumpClass
 
 
+# IdTech + IW + GoldSrc (no lump versions)
 basic_branch_scripts = [id_software.quake, id_software.quake2, id_software.quake3,
                         infinity_ward.call_of_duty1, gearbox.bshift, valve.goldsrc]
+# TODO: Ritual Entertainment - Übertools
 
 
 @pytest.mark.parametrize("branch_script", basic_branch_scripts)
@@ -33,10 +35,10 @@ def test_quake_branch_script(branch_script):
         warnings.warn(UserWarning(warning_text))
 
 
+# Source + Titanfall (lump versions)
 branch_scripts = [arkane.dark_messiah,
                   nexon.cso2, nexon.cso2_2018, nexon.vindictus,
                   respawn.titanfall, respawn.titanfall2, respawn.apex_legends]
-# TODO: Ritual Entertainment - Übertools
 
 
 @pytest.mark.parametrize("branch_script", branch_scripts)
@@ -47,6 +49,7 @@ def test_branch_script(branch_script):
         used_LumpClasses.update(version_dict.values())
     # ignore StaticPropClass
     used_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), used_LumpClasses))
+    # NOTE: ^ not working? need to check for use somehow anyway
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
