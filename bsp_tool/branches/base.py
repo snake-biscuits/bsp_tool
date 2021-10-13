@@ -13,7 +13,11 @@ class Struct:
     # each value in _arrays is a mapping to generate a MappedArray from
 
     def __init__(self, _tuple: Iterable):
-        # _tuple comes from: struct.unpack(self._format, bytes)
+        """_tuple comes from: struct.unpack(self._format, bytes)"""
+        # TODO: get defaults (nested values in tuples?)
+        # *args = [a, b, (c, d)]  # etc. [not .from_tuple()]
+        # **kwargs = {"attr": 0}  # use defaults for absent attrs
+        # warn if missing defaults when using kwargs
         _tuple_index = 0
         for attr in self.__slots__:
             if attr not in self._arrays:
@@ -74,6 +78,9 @@ class Struct:
         assert len(_bytes) == struct.calcsize(cls.format)
         _tuple = struct.unpack(cls._format, _bytes)
         # TODO: get mapping_length of __slots__ (convert to dict, None is special case so using get is messy)
+        # _arrays = getattr(cls, _arrays, dict())
+        # expected_length = len(__slots__) + mapping_length(_arrays) - len(_arrays)
+        # TODO: ^ test
         return cls.from_tuple(_tuple)
 
     @classmethod
@@ -84,7 +91,13 @@ class Struct:
     def as_bytes(self) -> bytes:
         return struct.pack(self._format, *self.flat())
 
+    @classmethod
+    def as_cpp(self) -> str:  # C++ struct definition
+        # TODO: move py_struct_as_cpp here, or import & map
+        raise NotImplementedError()
 
+
+# TODO: mapping_length of Struct
 def mapping_length(mapping: Dict[str, Any]) -> int:
     length = 0
     for sub_mapping in mapping.values():
@@ -109,6 +122,10 @@ class MappedArray:
     # this second form is difficult to express as a type hint
 
     def __init__(self, array: Iterable, mapping: Any = None):
+        # TODO: get defaults (nested values in tuples?)
+        # *args = [a, b, (c, d)]  # etc. [not .from_tuple()]
+        # **kwargs = {"attr": 0}  # use defaults for absent attrs
+        # warn if missing defaults when using kwargs
         if mapping is None:
             mapping = self._mapping  # hack to use a default
         if isinstance(mapping, dict):
@@ -159,3 +176,24 @@ class MappedArray:
             else:
                 array.append(value)
         return array
+
+    # convertors
+    @classmethod
+    def from_bytes(cls, _bytes: bytes) -> MappedArray:
+        assert len(_bytes) == struct.calcsize(cls.format)
+        _tuple = struct.unpack(cls._format, _bytes)
+        assert len(_tuple) == mapping_length(cls._mapping)
+        return cls.from_tuple(_tuple)
+
+    @classmethod
+    def from_tuple(cls, _tuple: List[Any]) -> MappedArray:
+        # TODO: move __init__ here
+        raise NotImplementedError()
+
+    def as_bytes(self) -> bytes:
+        return struct.pack(self._format, *self.flat())
+
+    @classmethod
+    def as_cpp(self) -> str:  # C++ struct definition
+        # TODO: move py_struct_as_cpp here, or import & map
+        raise NotImplementedError()
