@@ -3,6 +3,7 @@ import pytest
 from bsp_tool import load_bsp, lumps
 from bsp_tool.branches.id_software import quake, quake3
 
+# TODO: use maplist.installed_games + tests/maps/*.bsp
 global bsps
 bsps = {"test2": load_bsp("tests/maps/test2.bsp"),
         "upward": load_bsp("tests/maps/pl_upward.bsp"),
@@ -68,11 +69,13 @@ class TestBspLump:
     def test_setitem(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            empty_entry = lump.LumpClass([0] * 20)
+            empty_entry = lump.LumpClass()
+            # ^ __init__ doesn't populate with dummy entries, breaking tests
             lump[0] = empty_entry
             assert lump[0] == empty_entry, f"{map_name} failed"
             lump[:2] = [empty_entry, empty_entry]
             assert lump[:2] == [empty_entry, empty_entry], f"{map_name} failed"
+            # TODO: allow for insert via slice & test for this
 
 
 class TestExternalBspLump:  # TODO: get external lumps to sample

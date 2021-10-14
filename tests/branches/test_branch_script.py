@@ -29,6 +29,8 @@ basic_branch_scripts = [id_software.quake, id_software.quake2, id_software.quake
 def test_quake_branch_script(branch_script):
     used_LumpClasses = set(branch_script.LUMP_CLASSES.values())
     # ^ {"LUMP": LumpClass}
+    # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
+    # -- this includes missing bytes (since single byte alignment gets wierd)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
@@ -49,7 +51,9 @@ def test_branch_script(branch_script):
         used_LumpClasses.update(version_dict.values())
     # ignore StaticPropClass
     used_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), used_LumpClasses))
-    # NOTE: ^ not working? need to check for use somehow anyway
+    # NOTE: ^ filter isn't working? need to actually check StaticProps are used anyway
+    # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
+    # -- this includes missing bytes (since single byte alignment gets wierd)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])

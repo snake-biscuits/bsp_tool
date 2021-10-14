@@ -23,7 +23,7 @@ class Struct:
                 ...
                 mapping = self._arrays[attr]
                 # NOTE: if mapping found is None, things will break
-                MappedArray.from_tuple(value, mapping=mapping)
+                MappedArray.from_tuple(value, _mapping=mapping)
                 # create a mapped array for this slot
         # TODO: do kwargs as a second pass
         # -- warn / error if kwargs overlap args?
@@ -82,11 +82,11 @@ class Struct:
                 if isinstance(array_map, list):  # array_map: List[str]
                     length = len(array_map)
                     array = _tuple[_tuple_index:_tuple_index + length]
-                    value = MappedArray.from_tuple(array, mapping=array_map)
+                    value = MappedArray.from_tuple(array, _mapping=array_map)
                 elif isinstance(array_map, dict):  # array_map: Dict[str, List[str]]
                     length = mapping_length(array_map)
                     array = _tuple[_tuple_index:_tuple_index + length]
-                    value = MappedArray.from_tuple(array, mapping=array_map)  # nested
+                    value = MappedArray.from_tuple(array, _mapping=array_map)  # nested
                 elif isinstance(array_map, int):
                     length = array_map
                     value = _tuple[_tuple_index:_tuple_index + length]
@@ -149,6 +149,8 @@ class MappedArray:
     def __eq__(self, other: Iterable) -> bool:
         return all([(a == b) for a, b in zip(self, other)])
 
+    # TODO: __getattr__ swizzle detection (if and only if mapping is a list of single chars)
+
     def __getitem__(self, index: str) -> Any:
         return getattr(self, self._mapping[index])
 
@@ -177,39 +179,42 @@ class MappedArray:
 
     # convertors
     @classmethod
-    def from_bytes(cls, _bytes: bytes) -> MappedArray:
-        assert len(_bytes) == struct.calcsize(cls.format)
+    def from_bytes(cls, _bytes: bytes, _mapping: Any = None, _format: str = None) -> MappedArray:
+        if _mapping is None:  # HACK: use class' default _mapping
+            _mapping = cls._mapping
+        if _format is None:  # HACK: use class' default _format
+            _format = cls._format
+        assert len(_bytes) == struct.calcsize(_format)
         _tuple = struct.unpack(cls._format, _bytes)
         assert len(_tuple) == mapping_length(cls._mapping)
         return cls.from_tuple(_tuple)
 
     @classmethod
-    def from_tuple(cls, array: Iterable, mapping: Any = None) -> MappedArray:
-        if mapping is None:
-            # HACK: use class' default mapping
-            mapping = cls._mapping
-        assert len(array) == mapping_length(mapping), f"{cls.__name__}({array}, {mapping})"
+    def from_tuple(cls, array: Iterable, _mapping: Any = None) -> MappedArray:
+        if _mapping is None:  # HACK: use class' default _mapping
+            _mapping = cls._mapping
+        assert len(array) == mapping_length(_mapping), f"{cls.__name__}({array}, {_mapping})"
         out = cls()  # new instance
-        if not isinstance(mapping, (dict, list)):
-            raise RuntimeError(f"Unexpected mapping: {type(mapping)}")
-        elif isinstance(mapping, dict):
-            out._mapping = list(mapping.keys())
+        if not isinstance(_mapping, (dict, list)):
+            raise RuntimeError(f"Unexpected mapping: {type(_mapping)}")
+        elif isinstance(_mapping, dict):
+            out._mapping = list(_mapping.keys())
             array_index = 0
-            for attr, child_mapping in mapping.items():
+            for attr, child_mapping in _mapping.items():
                 # TODO: child_mapping of type int takes a slice, storing a mutable list
                 if child_mapping is not None:
                     segment = array[array_index:array_index + mapping_length({None: child_mapping})]
                     array_index += len(child_mapping)
-                    child = MappedArray(segment, mapping=child_mapping)
+                    child = MappedArray.from_tuple(segment, _mapping=child_mapping)
                     # NOTE: ^ will recurse again if child_mapping is a dict
                 else:  # if {"attr": None}
                     array_index += 1
                     child = array[array_index]  # take a single item, not a slice
                 setattr(out, attr, child)
-        elif isinstance(mapping, list):  # List[str]
-            for attr, value in zip(mapping, array):
+        elif isinstance(_mapping, list):  # List[str]
+            for attr, value in zip(_mapping, array):
                 setattr(out, attr, value)
-            out._mapping = mapping
+            out._mapping = _mapping
         return out
 
     def as_bytes(self) -> bytes:

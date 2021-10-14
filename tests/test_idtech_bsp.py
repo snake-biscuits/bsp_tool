@@ -16,16 +16,19 @@ def test_entities_loaded():
     assert bigbox.ENTITIES[0]["classname"] == "worldspawn"
 
 
+# TODO: @pytest.mark.parametrize("LumpClass", ...)
 def test_face_struct():  # most complex branches.base.MappedArray
     # TODO: add some asserts, be thorough
     header = bigbox.headers["FACES"]
+    assert header.length % struct.calcsize(quake3.Face._format) == 0
     with open(bigbox.file.name, "rb") as file:
         file.seek(header.offset)
         raw_faces = file.read(header.length)
 
-    faces = [*map(quake3.Face, struct.iter_unpack(quake3.Face._format, raw_faces))]
+    faces = [*map(quake3.Face.from_tuple, struct.iter_unpack(quake3.Face._format, raw_faces))]
     print(*faces, sep="\n")  # error in __repr__?
     return faces
+    # ^ what?
 
 
 # def test_save_as():  # Not implemented
