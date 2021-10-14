@@ -185,7 +185,7 @@ class MappedArray:
         if _format is None:  # HACK: use class' default _format
             _format = cls._format
         assert len(_bytes) == struct.calcsize(_format)
-        _tuple = struct.unpack(cls._format, _bytes)
+        _tuple = struct.unpack(_format, _bytes)
         assert len(_tuple) == mapping_length(cls._mapping)
         return cls.from_tuple(_tuple)
 

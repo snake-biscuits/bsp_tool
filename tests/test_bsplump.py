@@ -78,7 +78,7 @@ class TestBspLump:
             # TODO: allow for insert via slice & test for this
 
 
-class TestExternalBspLump:  # TODO: get external lumps to sample
+class TestExternalBspLump:  # TODO: ship some ORIGINAL RespawnBsp external lumps in tests/maps
     pass  # ensure data is external, not internal
 
 
