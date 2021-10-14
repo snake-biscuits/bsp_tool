@@ -188,7 +188,7 @@ class MappedArray:
         if mapping is None:
             # HACK: use class' default mapping
             mapping = cls._mapping
-        assert len(array) == mapping_length(mapping)
+        assert len(array) == mapping_length(mapping), f"{cls.__name__}({array}, {mapping})"
         out = cls()  # new instance
         if not isinstance(mapping, (dict, list)):
             raise RuntimeError(f"Unexpected mapping: {type(mapping)}")

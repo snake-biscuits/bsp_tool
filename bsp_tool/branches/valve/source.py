@@ -562,7 +562,7 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "dx_level"]
-    _format = "6f3HBi6f2H"
+    _format = "6f3H2Bi6f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
 
