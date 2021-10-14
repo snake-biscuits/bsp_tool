@@ -7,6 +7,11 @@
 ## Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
  * Fixed up `GAME_LUMP.sprp` errors across `source`, `left4dead` & `source_2013`
+ * Updated both `base.Struct` & `base.MappedArray`
+   - `from_tuple` method added (this is used for loading from file)
+   - `from_bytes` method added
+   - built in asserts to verify accurate definitions (TODO: move to tests)
+   - `as_bytes` method added
 
 ### Newly Supported
  * Source Engine
