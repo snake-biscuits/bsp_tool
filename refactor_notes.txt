@@ -67,6 +67,7 @@ class BspBinary(Struct):
 {b"IBSP": ["id_software", "infinity_ward"],
  b"rBSP": ["respawn"],
  b"VBSP": ["arkane", "nexon", "valve"]}
- # NOTE: Quake & Goldsrc have no file-magic (Gearbox/bshift included?)
+ # NOTE: Quake & Goldsrc have no file-magic [just the version int]
  # NOTE: Übertools has a file magic for each game
  # b"FAKK", b"EF2!"
+ # Tactical Intervention .bsps are encoded, but decoding is easy
