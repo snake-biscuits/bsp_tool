@@ -49,15 +49,16 @@ def test_branch_script(branch_script):
     for version_dict in branch_script.LUMP_CLASSES.values():
         # ^ {"LUMP": {version: LumpClass}}
         used_LumpClasses.update(version_dict.values())
-    # ignore StaticPropClass
-    used_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), used_LumpClasses))
-    # NOTE: ^ filter isn't working? need to actually check StaticProps are used anyway
-    # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
-    # -- this includes missing bytes (since single byte alignment gets wierd)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
+    unused_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), unused_LumpClasses))
+    # HACK: need to actually check StaticProps are actually used, but not right now...
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
 
 
 # TODO: use maplist to look at all lump headers and ensure unused lumps are correctly marked
+
+# TODO: verify __slots__, _format, _arrays & _mapping line up correctly
+# -- all LumpClasses must coherently translate to and from bytes
+# -- no skipped bytes! (single byte alignment gets wierd)

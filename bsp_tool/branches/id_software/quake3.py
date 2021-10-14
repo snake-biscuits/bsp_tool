@@ -44,6 +44,16 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
+# flag enums
+class SurfaceType(enum.Enum):
+    BAD = 0
+    PLANAR = 1
+    PATCH = 2  # displacement-like
+    TRIANGLE_SOUP = 3  # mesh (dynamic LoD?)
+    FLARE = 4  # billboard sprite?
+    FOLIAGE = 5
+
+
 # classes for lumps, in alphabetical order:
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
@@ -71,7 +81,7 @@ class Effect(base.Struct):  # LUMP 12
 class Face(base.Struct):  # LUMP 13
     texture: int  # index into Texture lump
     effect: int  # index into Effect lump; -1 for no effect
-    type: int  # polygon, patch, mesh, billboard (env_sprite)
+    surface_type: int  # see SurfaceType enum
     first_vertex: int  # index into Vertex lump
     num_vertices: int  # number of Vertices after first_vertex in this face
     first_mesh_vertex: int  # index into MeshVertex lump
@@ -82,13 +92,13 @@ class Face(base.Struct):  # LUMP 13
     # lightmap.origin: List[float]  # world space lightmap origin
     # lightmap.vector: List[List[float]]  # lightmap texture projection vectors
     normal: List[float]
-    size: List[float]  # texture patch dimensions
-    __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
+    patch: List[float]  # for patches (displacement-like)
+    __slots__ = ["texture", "effect", "surface_type", "first_vertex", "num_vertices",
                  "first_mesh_vertex", "num_mesh_vertices", "lightmap", "normal", "size"]
     _format = "12i12f2i"
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
-               "normal": [*"xyz"], "size": ["width", "height"]}
+               "normal": [*"xyz"], "patch": ["width", "height"]}
 
 
 class Leaf(base.Struct):  # LUMP 4
@@ -98,7 +108,10 @@ class Leaf(base.Struct):  # LUMP 4
     maxs: List[float]
     first_leaf_face: int  # index into LeafFace lump
     num_leaf_faces: int  # number of LeafFaces in this Leaf
-    __slots__ = ["cluster", "area", "mins", "maxs", "first_leaf_face", "num_leaf_faces"]
+    first_leaf_brush: int  # index into LeafBrush lump
+    num_leaf_brushes: int  # number of LeafBrushes in this Leaf
+    __slots__ = ["cluster", "area", "mins", "maxs", "first_leaf_face",
+                 "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes"]
     _format = "12i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
@@ -160,10 +173,10 @@ class Plane(base.Struct):  # LUMP 2
 
 class Texture(base.Struct):  # LUMP 1
     name: str  # 64 char texture name; stored in WAD (Where's All the Data)?
-    flags: int  # rendering bit flags?
-    contents: int  # SOLID, AIR etc.
-    __slots__ = ["name", "flags", "contents"]
+    flags: List[int]
+    __slots__ = ["name", "flags"]
     _format = "64s2i"
+    _arrays = {"flags": ["surface", "contents"]}
 
 
 class Vertex(base.Struct):  # LUMP 10
@@ -175,11 +188,11 @@ class Vertex(base.Struct):  # LUMP 10
     __slots__ = ["position", "uv", "normal", "colour"]
     _format = "10f4B"
     _arrays = {"position": [*"xyz"], "uv": {"texture": [*"uv"], "lightmap": [*"uv"]},
-               "normal": [*"xyz"]}
+               "normal": [*"xyz"], "colour": [*"rgba"]}
 
 
 # special lump classes, in alphabetical order:
-class Visibility:
+class Visibility:  # same as Quake / QuakeII?
     """Cluster X is visible from Cluster Y if:
     bit (1 << Y % 8) of vecs[X * vector_size + Y // 8] is set
     NOTE: Clusters are associated with Leaves"""

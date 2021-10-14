@@ -13,15 +13,15 @@ class TestStruct:
     def test_unpack(self):
         raw_struct = b"\x00\x00\x00\x00" b"\xDE\xAD\xBE\xEF" \
                      b"\xDE\xAD\xBE\xEF" b"\xDE\xAD\xBE\xEF" \
-                     b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
-                     b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
+                     b"\x04\x00\x00\x00" b"\x05\x00\x00\x00" \
+                     b"\x06\x00\x00\x00" b"\x07\x00\x00\x00"
         raw_tuple = struct.unpack(Example._format, raw_struct)
         test_struct = Example.from_tuple(raw_tuple)
         assert test_struct.id == 0
         assert test_struct.position == base.MappedArray.from_bytes(b"\xDE\xAD\xBE\xEF" * 3,
                                                                    _mapping=[*"xyz"],
                                                                    _format="3f")
-        assert test_struct.data == [4, 5, 6, 7]
+        assert test_struct.data == (4, 5, 6, 7)
 
     def test_pack(self):
         raw_struct = b"\x00\x00\x00\x00" b"\x00\x00\x00\x01" \

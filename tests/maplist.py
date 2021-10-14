@@ -86,12 +86,15 @@ extracted_dirs = {
         # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
         # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 / IdTech 4 doesn't use .bsp? just raw .map?
         # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4? Brink?
+        # https://www.moddb.com/games/american-mcgees-alice/downloads/american-mcgees-alice-demo-windows
+        # https://www.humblebundle.com/store/alice-madness-returns-the-complete-collection
+        "Alice": ["maps"],  # 7 maps | 25 MB | .pk3
         # http://ritualistic.chrissstrahl.de/downloads/Elite-Force-II/
-        "EliteForceII": ["maps"],  # 188 maps | 886 MB | .zip
-        "FAKK2": ["maps"],  # 6 maps | 25 MB | .zip
+        "EliteForceII": ["maps"],  # 188 maps | 886 MB | .pk3
+        "FAKK2": ["maps"],  # 6 maps | 25 MB | .pk3
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
-        "SiN": ["maps"],  # 45 maps | 64 MB | .zip
+        "SiN": ["maps"],  # 45 maps | 64 MB | .pak
         "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
                   "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
                   "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
@@ -144,7 +147,9 @@ extracted_dirs = {
                         "season3_30oct19/maps",  # 8 maps | 4.9 GB
                         "season3_30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB
                         "season3_30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB
-                        "season3_3dec19/maps",  # 8 maps | 4.9 GB
+                        "season3_3dec19/maps",  # 8 maps | 4.6 GB
+                        "season3_3dec19/maps/r5launch/game/r2/maps",  # 8 maps | 4.6 GB
+                        "season3_3dec19/maps/r5staging/game/r2/maps",  # 8 maps | 3.0 GB
                         # season4:  Assimilation [4th Feb 2020]
                         # season5:  Fortune's Favour  [12th May 2020]
                         "season5/maps",  # 3 maps | 1.2 GB

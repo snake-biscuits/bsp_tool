@@ -6,14 +6,14 @@ from types import ModuleType
 from typing import Dict
 
 from . import base
+from . import id_software
 from . import lumps
-from .id_software import IdTechBsp
 
 
 GoldSrcLumpHeader = namedtuple("GoldSrcLumpHeader", ["offset", "length"])
 
 
-class GoldSrcBsp(IdTechBsp):  # TODO: subclass QuakeBsp?
+class GoldSrcBsp(id_software.IdTechBsp):  # TODO: subclass QuakeBsp?
     # https://github.com/ValveSoftware/halflife/blob/master/utils/common/bspfile.h
     # http://hlbsp.sourceforge.net/index.php?content=bspdef
     # NOTE: GoldSrcBsp has no file_magic!

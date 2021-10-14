@@ -1,5 +1,5 @@
-__all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "nexon", "respawn", "valve",
-           "by_magic", "by_name", "by_version"]
+__all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "nexon",
+           "respawn", "ritual", "valve", "by_magic", "by_name", "by_version"]
 
 from . import arkane
 from . import gearbox
@@ -7,12 +7,14 @@ from . import id_software
 from . import infinity_ward
 from . import nexon
 from . import respawn
+from . import ritual
 from . import valve
 
 
 __doc__ = """Index of developers of bsp format variants"""
 
-FILE_MAGIC_developer = {b"IBSP": [id_software, infinity_ward],
+FILE_MAGIC_developer = {b"FAKK": [ritual],
+                        b"IBSP": [id_software, infinity_ward],
                         b"rBSP": [respawn],
                         b"VBSP": [arkane, nexon, valve]}
 # id_software.quake, valve.goldsrc & gearbox.bshift have no file_magic
@@ -61,6 +63,9 @@ by_name = {
     "r1": respawn.titanfall,  # internal names
     "r2": respawn.titanfall2,
     "r5": respawn.apex_legends,
+    # Ritual Entertainment - Ubertools
+    "fakk2": ritual.fakk2,
+    "heavy_metal": ritual.fakk2,
     # Valve Software - Source Engine
     "source": valve.source,
     "orangebox": valve.orange_box,
@@ -148,7 +153,11 @@ by_name = {
           }
 
 # NOTE: limiting because many games share version numbers
-# could also be generated from loaded scripts
+# -- could also be generated from loaded scripts
+# TODO: link Bsp classes to groups of branch scripts for the autodetect process
+# e.g. {Bsp: {version: branch.GAME_VERSIONS}}
+# NOTE: ata4's bspsrc uses unique entity classnames to identify branches
+# -- might be an idea to copy this for an auto-detect refactor
 by_version = {
     # Id Software
     id_software.quake.BSP_VERSION: id_software.quake,  # 23
@@ -157,7 +166,7 @@ by_version = {
     # Infinity Ward
     infinity_ward.call_of_duty1.BSP_VERSION: infinity_ward.call_of_duty1,  # 59
     # Nexon
-    nexon.cso2.BSP_VERSION: nexon.cso2,  # 1.00?
+    nexon.cso2.BSP_VERSION: nexon.cso2,  # 100
     # Respawn Entertainment
     respawn.titanfall.BSP_VERSION: respawn.titanfall,  # 29
     respawn.titanfall2.BSP_VERSION: respawn.titanfall2,  # 37
@@ -165,15 +174,15 @@ by_version = {
     48: respawn.apex_legends,  # Introduced in Season 7 with Olympus
     49: respawn.apex_legends,  # Introduced in Season 8 with Canyonlands Staging
     50: respawn.apex_legends,  # Introduced in Season 10 with Arena Skygarden
+    # Ritual Entertainment
+    ritual.fakk2.GAME_VERSIONS["Heavy Metal: F.A.K.K. 2"]: ritual.fakk2,  # 12
+    ritual.fakk2.GAME_VERSIONS["American McGee's Alice"]: ritual.fakk2,  # 42
     # Valve Software
     valve.goldsrc.BSP_VERSION: valve.goldsrc,  # can't really use this system for GoldSrc
     valve.source.BSP_VERSION: valve.source,  # 19 (and sometimes 20?)
     valve.orange_box.BSP_VERSION: valve.orange_box,  # 20 (many sub-variants)
     valve.sdk_2013.BSP_VERSION: valve.sdk_2013,  # 21
     # Other
-    # arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20.4 ?
+    # arkane.dark_messiah.BSP_VERSION: arkane.dark_messiah,  # 20 (.4?)
     gearbox.bshift.BSP_VERSION: gearbox.bshift  # 30
              }
-
-# NOTE: ata4's bspsrc uses unique entity classnames to identify branches
-# -- might be an idea to copy this for an autodetect refactor

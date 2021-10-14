@@ -1,6 +1,7 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "GoldSrcBsp", "ValveBsp", "QuakeBsp", "IdTechBsp", "D3DBsp", "RespawnBsp"]
+           "GoldSrcBsp", "ValveBsp", "QuakeBsp", "IdTechBsp",
+           "D3DBsp", "RespawnBsp", "UberBsp"]
 
 import difflib
 import os
@@ -13,6 +14,7 @@ from . import lumps  # handles loading data dynamically
 from .id_software import QuakeBsp, IdTechBsp
 from .infinity_ward import D3DBsp
 from .respawn import RespawnBsp
+from .ritual import UberBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
@@ -20,7 +22,8 @@ from .valve import GoldSrcBsp, ValveBsp
 # NOTE: CoD1 auto-detect by version defaults to ApexLegends
 
 
-developers_by_file_magic = {b"IBSP": IdTechBsp,  # or D3DBsp
+developers_by_file_magic = {b"FAKK": UberBsp,
+                            b"IBSP": IdTechBsp,  # or D3DBsp
                             b"rBSP": RespawnBsp,
                             b"VBSP": ValveBsp}
 # HACK: GoldSrcBsp has no file-magic, substituting BSP_VERSION

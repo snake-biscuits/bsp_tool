@@ -16,6 +16,7 @@
 ### Newly Supported
  * Source Engine
    - Tactical Intervention
+ * Ubertools
 
 ### Updated Support
  * Source Engine

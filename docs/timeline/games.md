@@ -49,7 +49,7 @@
      |      heretic 2 <-|-------------------------------------------------------------> half-life
 1999 |                  |-> quake 3 arena                                               |-> half-life:opposing force
 2000 |      daikatana <-/   |-> heavy metal:f.a.k.k.2                                   |-> counter-strike
-     |                sof <-|-> american mcgees alice                                   |-> ricochet
+     |                sof <-|   |-> american mcgees alice                               |-> ricochet
 2001 |                  |   |   |                                                       |-> half-life:blue shift
 2002 |           sof2 <-|   |   |-> medal of honor:allied assault                       |-> nightfire
 2003 |        swjk:ja <-/   |   |                               \-> call of duty        |-> day of defeat

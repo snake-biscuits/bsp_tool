@@ -92,8 +92,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Titanfall 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall2.py)
     - [Apex Legends](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/apex_legends.py)
   * [Ritual Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual)
-    - American McGee's Alice :o:
-    - Heavy Metal F.A.K.K. 2 :o:
+    - [American McGee's Alice](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritualfakk2.py)
+    - [Heavy Metal F.A.K.K. 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
     - Medal of Honor: Allied Assault :o:
     - SiN :o:
     - SiN: Gold :o:
@@ -131,12 +131,14 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - Brink :o:
+    - Call of Duty: Black Ops III :o:
+    - Call of Duty: World at War :o:
     - Daikatana :o:
     - [Fortress Forever](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Halfquake Trilogy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
-    - Medal of Honor: Allied Assault :o:
+    - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual) :o:
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Synergy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
@@ -146,19 +148,17 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [The Stanley Parable](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - Vampire: The Masquerade - Bloodlines :o:
 
-<!--
-    - Call of Duty: World at War :o:
 
-    - Call of Duty: Black Ops :o:
-    - Call of Duty: Modern Warfare 3 :o:
-    - Call of Duty: Black Ops II :o:
-    - Call of Duty: Ghosts :o:
-    - Call of Duty: Black Ops III :o:
-    - Call of Duty: Advanced Warfare :o:
-    - Call of Duty: Infinite Warfare :o:
-    - Call of Duty: Black Ops 4 :o:
-    - Call of Duty: Modern Warfare (2019) :o:
-    - Call of Duty: Black Ops - Cold War :o:
-    - Call of Duty: Warzone :o:
-    - Call of Duty: Vanguard :o:
--->
+## Thanks
+ * [Chris Strahl](https://github.com/Chrissstrahl)
+   - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
+ * [Ficool2](https://github.com/ficool2)
+   - Providing lots of current and detailed info on Source & helping track down some rarer titles
+ * [Maxime Dupuis](https://github.com/maxdup)
+   - Helping me identify multiple lumps in Source Engine .bsps
+ * [REDxEYE](https://github.com/REDxEYE)
+   - Being very open and actively collaborating on SourceIO & Titanfall .bsps
+ * [Taskinoz](https://github.com/taskinoz)
+   - Helping me find people that can actively use my research & tools
+ * All of the Wiki Editors
+   - Except the uncited `Id Tech 3 -> Treyarch NGL` on CoDWiki, that was a massive pain to verify

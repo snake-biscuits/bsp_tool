@@ -44,11 +44,11 @@ The primary goal of `bsp_tool` is to extend community mapping tools
 [Extensions](./extensions.md)
 
 ## Supported Games
-  * [Id Software](./id_software/SUPPORTED.html)
-  * [Infinity Ward](./infinity_ward/SUPPORTED.html)
-  * [Nexon](./nexon/SUPPORTED.html)
-  * [Respawn Entertainment](./respawn/SUPPORTED.html)
-  * [Valve Software](./valve/SUPPORTED.html)
+  * [Id Software](./supported/idtech.html)
+  * [Infinity Ward](./supported/infinity_ward.html)
+  * [Nexon](./supported/nexon.html)
+  * [Respawn Entertainment](./supported/respawn.html)
+  * [Valve Software](./supported/valve.html)
 
 ## .bsp Format Reference
   [Timeline of "relevant" games](./timeline/games.html)  
@@ -57,7 +57,38 @@ The primary goal of `bsp_tool` is to extend community mapping tools
 ## [Changelog](./CHANGELOG.html)
 You can see a list of all changes in the [changelog](./CHANGELOG.html)
 
+
+## Thanks
+ * [Chris Strahl](https://github.com/Chrissstrahl)
+   - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
+ * [Ficool2](https://github.com/ficool2)
+   - Providing lots of current and detailed info on Source & helping track down some rarer titles
+ * [Maxime Dupuis](https://github.com/maxdup)
+   - Helping me identify multiple lumps in Source Engine .bsps
+ * [REDxEYE](https://github.com/REDxEYE)
+   - Being very open and actively collaborating on SourceIO & Titanfall .bsps
+ * [Taskinoz](https://github.com/taskinoz)
+   - Helping me find people that can actively use my research & tools
+ * All of the Wiki Editors
+   - Except the uncited `Id Tech 3 -> Treyarch NGL` on CoDWiki, that was a massive pain to verify
+
+
 ## Other tools
+
+### Blender
+ * [io_import_rbsp](https://github.com/snake-biscuits/io_import_rbsp)
+   - Titanfall / Apex `.bsp` importer
+ * [SourceIO](https://github.com/REDxEYE/SourceIO)
+   - GoldSrc & Source Engine importer (`.bsp`, `.vmt`, `.vtf`, `.mdl`)
+ * [SourceOps](https://github.com/bonjorno7/SourceOps)
+   - Source Engine `.mdl` exporter
+ * [PyD3DBSP](https://github.com/mauserzjeh/PyD3DBSP) (Archived)
+   - Call of Duty 2 `.bsp` importer
+ * [blender_io_mesh_bsp](https://github.com/andyp123/blender_io_mesh_bsp)
+   - Quake 1 `.bsp` importer
+ * [Blender_BSP_Importer](https://github.com/QuakeTools/Blender_BSP_Importer)
+   - Quake 3 `.bsp` importer
+
 
 ## Contributing
 At present the easiest way to contribute to the project is to add or extend a "branch script" for a game `bsp_tool` doesn't yet fully support  

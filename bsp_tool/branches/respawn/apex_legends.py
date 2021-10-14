@@ -181,7 +181,7 @@ class LUMP(enum.Enum):
 #   CM_BRUSH_TEX_VECS
 #   TRICOLL_BEVEL_STARTS
 
-# Rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
 # Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
 #                             \--> VertexReservedX
 #                              \-> MeshIndex?
