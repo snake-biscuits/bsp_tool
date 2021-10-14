@@ -44,8 +44,7 @@ class RespawnBsp(base.Bsp):
         self.associated_files = [f for f in local_files if is_related(f)]
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
-        if file_magic != self.file_magic:
-            raise RuntimeError(f"{self.file} is not a valid .bsp!")
+        assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.revision = int.from_bytes(self.file.read(4), "little")  # just for rBSP
         assert int.from_bytes(self.file.read(4), "little") == 127

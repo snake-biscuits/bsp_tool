@@ -74,8 +74,7 @@ class Bsp:
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
-        if file_magic != self.file_magic:
-            raise RuntimeError(f"{self.file} is not a valid .bsp!")
+        assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
