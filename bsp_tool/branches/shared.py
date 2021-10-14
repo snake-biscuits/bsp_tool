@@ -135,7 +135,7 @@ class GameLump_SPRP:  # Mostly for Source
         # TODO: if StaticPropClass is None: split into appropriate groups of bytes
         read_size = struct.calcsize(StaticPropClass._format) * prop_count
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-        setattr(self, "props", list(map(StaticPropClass, props)))
+        setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
         here = sprp_lump.tell()
         end = sprp_lump.seek(0, 2)
         assert here == end, "Had some leftover bytes, bad format"

@@ -176,7 +176,7 @@ class BspLump(RawBspLump):
         self.LumpClass = LumpClass
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}: {self.LumpClass.__name__}[{len(self)}] at 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__}({len(self)} {self.LumpClass.__name__}) at 0x{id(self):016X}>"
 
     def __delitem__(self, index: Union[int, slice]):
         if isinstance(index, int):
@@ -200,9 +200,9 @@ class BspLump(RawBspLump):
                 return self._changes[index]
             else:
                 self.file.seek(self.offset + (index * self._entry_size))
-                raw_entry = struct.unpack(self.LumpClass._format, self.file.read(self._entry_size))
-                return self.LumpClass(raw_entry)
-        elif isinstance(index, slice):
+                _tuple = struct.unpack(self.LumpClass._format, self.file.read(self._entry_size))
+                return self.LumpClass.from_tuple(_tuple)
+        elif isinstance(index, slice):  # LAZY HACK
             _slice = _remap_slice(index, self._length)
             out = list()
             for i in range(_slice.start, _slice.stop, _slice.step):
