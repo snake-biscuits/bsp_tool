@@ -120,7 +120,7 @@ BASIC_LUMP_CLASSES = fakk2.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = fakk2.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
                      "LEAVES":      Leaf,
-                     "SHADER":      Shader})
+                     "SHADERS":     Shader})
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()
 
