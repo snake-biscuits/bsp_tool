@@ -5,8 +5,8 @@ from . import id_software
 from . import lumps
 
 
-class UberBsp(id_software.IdTechBsp):
-    file_magic = b"FAKK"  # Ubertools 1.0.0; FAKK2 -> Alice
+class RitualBsp(id_software.IdTechBsp):
+    _file_magics = (b"RBSP", b"FAKK", b"2015", b"EF2!")
     checksum: int  # how is this calculated / checked?
 
     def _preload(self):  # big copy-paste, should use super + dheader_t
@@ -17,13 +17,15 @@ class UberBsp(id_software.IdTechBsp):
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         # struct { int file_magic, bsp_version, checksum; lump_t lumps[20] };
-        file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
+        self.file_magic = self.file.read(4)
+        assert self.file_magic in self._file_magics, f"{self.file} is not a valid .bsp!"
+        assert self.file_magic == self.branch.FILE_MAGIC, f"{self.file} is not from {self.branch.GAME_PATHS[0]}!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.checksum = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
+        # NOTE: this section should be it's own method
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP_enum in self.branch.LUMP:

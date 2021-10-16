@@ -20,7 +20,7 @@ installed_games: Dict[Tuple[str], List[str]]
 # TODO: generate by searching for gameinfo.txt files
 goldsrc_dirs = {
         **{f"Half-Life/{mod}": ["maps"] for mod in [
-                        "bshift",    # 37 maps | 54 MB | Half-Life: Blue Shift
+                        "blue_shift",    # 37 maps | 54 MB | Half-Life: Blue Shift
                         "cstrike",   # 25 maps | 81 MB | Counter-Strike
                         "czero",     # 22 maps | 83 MB | Counter-Strike: Condition Zero
                         "czeror",    # 73 maps | 177 MB | Counter-Strike: Condition Zero - Deleted Scenes
@@ -74,7 +74,7 @@ source_dirs = {
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 203 maps | 4.9 GB
-         # TODO: Vamprire: The Masquerade - Bloodlines
+         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]  # 101 maps | 430 MB
               }
 # ^ {"game_dir": ["map_dir"]}
 
@@ -82,19 +82,20 @@ source_dirs = {
 
 extracted_dirs = {
         # IdTechBsp
-        # TODO: American McGee's Alice
-        # TODO: DOOM 3 BFG Edition  # .resources .pk4 (https://forum.xentax.com/viewtopic.php?t=9752)
-        # https://modwiki.dhewm3.org/Maps_(folder) states that DOOM 3 / IdTech 4 doesn't use .bsp? just raw .map?
-        # what about DOOM 2016? DOOM Eternal? RAGE? RAGE 2? Quake 4? Brink?
-        # https://www.moddb.com/games/american-mcgees-alice/downloads/american-mcgees-alice-demo-windows
-        # https://www.humblebundle.com/store/alice-madness-returns-the-complete-collection
-        "Alice": ["maps"],  # 7 maps | 25 MB | .pk3
-        # http://ritualistic.chrissstrahl.de/downloads/Elite-Force-II/
-        "EliteForceII": ["maps"],  # 188 maps | 886 MB | .pk3
-        "FAKK2": ["maps"],  # 6 maps | 25 MB | .pk3
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
-        "SiN": ["maps"],  # 45 maps | 64 MB | .pak
+        # NOTE: "SiN/maps" is from SiN: Gold; unsure if this differs from initial release
+        "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak)
+                "download/maps"],  # 45 maps | 64 MB | .sin (.pak)
+        "SoF": ["pak0/maps"],  # 32 maps | 131 MB | .pak
+        "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
+                 "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
+                 "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
+                 "update102.pk3/maps",  # 5 maps | 51 MB | .pk3
+                 "update103.pk3/maps"],  # 4 maps | 31 MB | .pk3
+        "StarTrekEliteForce": ["pak0/maps",  # 67 maps | 334 MB | .pak
+                               "pak1/maps",  # 4 maps | 20 MB | .pak
+                               "pak3/maps"],  # 22 maps | 107 MB | .pak
         "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
                   "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
                   "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
@@ -165,7 +166,22 @@ extracted_dirs = {
                         "season10_3aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
                         "season10_14sep21/maps"  # 2 maps | 962 MB
                         "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB
-                        "season10_14sep21/depot/r5-101/game/r2/maps"]}  # 2 maps | 949 MB
+                        "season10_14sep21/depot/r5-101/game/r2/maps"],  # 2 maps | 949 MB
+        # RitualBsp
+        "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
+                  "download/maps"],  # 6 maps | 25 MB | .pk3
+        "Alice": ["maps",  # 42 maps | 196 MB | .pk3
+                  "download/maps"],  # 1 map | 61 KB | .pk3
+        "MoHAA": ["maps",  # 37 maps | 293 MB | .pk3
+                  "maps/briefing",  # 6 maps | 319 KB | .pk3
+                  "maps/DM",  # 7 maps | 48 MB | .pk3
+                  "maps/obj"],  # 4 maps | 36 MB | .pk3
+        "StarTrekEliteForceII": ["download/maps",  # 188 maps | 886 MB | .pk3
+                                 "maps"],  # 88 maps | 607 MB | .pk3
+        "StarWarsJediKnight": ["assets0.pk3/maps",  # 34 maps | 348 MB | .pk3
+                               "assets0.pk3/maps/mp",  # 23 maps | 154 MB | .pk3
+                               "assets3.pk3/maps/mp"],  # 4 maps | 32 MB | .pk3
+        "StarWarsJediKnightII": ["maps"]}  # 45 maps | 361 MB | .pk3
 # ^ {"game_dir": ["map_dir"]}
 
 # https://geshl2.com

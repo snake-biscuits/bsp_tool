@@ -6,9 +6,12 @@ from .. import base
 from .. import shared
 from ..id_software import quake3
 
+FILE_MAGIC = b"FAKK"
+
 BSP_VERSION = 12
 
-GAMES = ["Heavy Metal: F.A.K.K. 2", "American McGee's Alice"]
+GAME_PATHS = ["Heavy Metal: F.A.K.K. 2", "American McGee's Alice"]
+
 GAME_VERSIONS = {"Heavy Metal: F.A.K.K. 2": 12, "American McGee's Alice": 42}
 
 
@@ -30,11 +33,15 @@ class LUMP(enum.Enum):
     ENTITIES = 14
     VISIBILITY = 15
     LIGHT_GRID = 16
-    ENT_LIGHTS = 17
-    ENT_LIGHTS_VIS = 18
+    ENTITY_LIGHTS = 17
+    ENTITY_LIGHTS_VISIBILITY = 18
     LIGHT_DEFINITIONS = 19
 
-# Known lump changes from Titanfall 2 -> Apex Legends:
+
+# RitualBspHeader { char file_magic[4]; int version, checksum; QuakeLumpHeader headers[20]; };
+lump_header_address = {LUMP_ID: (12 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
+# Known lump changes from Quake 3 -> Ubertools:
 # New:
 #   FACES -> SURFACES
 #   LEAF_FACES -> LEAF_SURFACES
@@ -49,9 +56,6 @@ class LUMP(enum.Enum):
 #      \-> Face -> MeshVertex
 #             \--> Texture
 #              \-> Vertex
-
-
-lump_header_address = {LUMP_ID: (12 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps, in alphabetical order:
@@ -83,14 +87,14 @@ class Surface(base.Struct):  # LUMP 3
     subdivisions: float  # ??? new
     __slots__ = ["texture", "fog", "surface_type", "first_vertex", "num_vertices",
                  "first_index", "num_indices", "lightmap", "normal", "size", "subdivisions"]
-    _format = "12i12f2i"
+    _format = "12i12f2if"
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
                "normal": [*"xyz"], "patch": ["width", "height"]}
 
 
 BASIC_LUMP_CLASSES = {"LEAF_BRUSHES": shared.Ints,
-                      "LEAF_FACES":   shared.Ints,
+                      "LEAF_SURFACES":   shared.Ints,
                       "DRAW_INDICES": shared.Ints}
 
 LUMP_CLASSES = {"BRUSH_SIDES":   quake3.BrushSide,
@@ -99,7 +103,8 @@ LUMP_CLASSES = {"BRUSH_SIDES":   quake3.BrushSide,
                 "MODELS":        quake3.Model,
                 "NODES":         quake3.Node,
                 "PLANES":        quake3.Plane,
-                "SHADERS":       Shader}
+                "SHADERS":       Shader,
+                "SURFACES":      Surface}
 
 SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 

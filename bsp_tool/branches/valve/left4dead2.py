@@ -4,13 +4,17 @@ import collections
 import enum
 import struct
 
-from .. id_software import quake
+from ..id_software import quake
 from . import left4dead
 
 
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 21
 
-GAMES = ["Left 4 Dead 2"]
+GAME_PATHS = ["Left 4 Dead 2"]
+
+GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -79,6 +83,10 @@ class LUMP(enum.Enum):
     LUMP_PHYSLEVEL = 62
     UNUSED_63 = 63
 
+
+# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
+lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 # Known lump changes from Left 4 Dead -> Left 4 Dead 2:
 # New:
 #   UNUSED_22 -> PROP_COLLISION
@@ -88,8 +96,6 @@ class LUMP(enum.Enum):
 #   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
 #   UNUSED_62 -> LUMP_PHYSLEVEL
 
-
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["version", "offset", "length", "fourCC"])
 
 

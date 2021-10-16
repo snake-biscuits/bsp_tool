@@ -1,90 +1,80 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "GoldSrcBsp", "ValveBsp", "QuakeBsp", "IdTechBsp",
-           "D3DBsp", "RespawnBsp", "UberBsp"]
+           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp",
+           "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
-import difflib
 import os
 from types import ModuleType
-from typing import Union
 
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
-from . import lumps  # handles loading data dynamically
+from . import lumps
 from .id_software import QuakeBsp, IdTechBsp
-from .infinity_ward import D3DBsp
+from .infinity_ward import InfinityWardBsp
+from .raven import RavenBsp
 from .respawn import RespawnBsp
-from .ritual import UberBsp
+from .ritual import RitualBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
-# NOTE: Quake Live branch_script should be quake3, but auto-detect defaults to quake2 on BSP_VERSION
-# NOTE: CoD1 auto-detect by version defaults to ApexLegends
+BspVariant_from_file_magic = {b"2015": RitualBsp,
+                              b"EF2!": RitualBsp,
+                              b"FAKK": RitualBsp,
+                              b"IBSP": IdTechBsp,  # or InfinityWardBsp
+                              b"rBSP": RespawnBsp,
+                              b"RBSP": RavenBsp,
+                              b"VBSP": ValveBsp}
+# NOTE: if no file_magic is present, options are:
+# - GoldSrcBsp
+# - QuakeBsp
+# - 256-bit XOR encoded Tactical Intervention .bsp
+
+GoldSrc_versions = {*branches.valve.goldsrc.GAME_VERSIONS.values(),
+                    *branches.gearbox.blue_shift.GAME_VERSIONS.values()}
+InfinityWard_versions = {v for s in branches.infinity_ward.scripts for v in s.GAME_VERSIONS.values()}
+Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 
 
-developers_by_file_magic = {b"FAKK": UberBsp,
-                            b"IBSP": IdTechBsp,  # or D3DBsp
-                            b"rBSP": RespawnBsp,
-                            b"VBSP": ValveBsp}
-# HACK: GoldSrcBsp has no file-magic, substituting BSP_VERSION
-goldsrc_versions = [branches.valve.goldsrc.BSP_VERSION, branches.gearbox.bshift.BSP_VERSION]
-developers_by_file_magic.update({v.to_bytes(4, "little"): GoldSrcBsp for v in goldsrc_versions})
-
-developers_by_file_magic.update({branches.id_software.quake.BSP_VERSION.to_bytes(4, "little"): QuakeBsp})
-
-cod_ibsp_versions = [getattr(branches.infinity_ward, b).BSP_VERSION for b in branches.infinity_ward.__all__]
-
-
-def guess_by_file_magic(filename: str) -> (base.Bsp, int):
-    """returns BspVariant & version"""
-    if os.path.getsize(filename) == 0:  # HL2/ d2_coast_02.bsp
-        raise RuntimeError(f"{filename} is an empty file")
-    BspVariant = None
-    if filename.endswith(".d3dbsp"):
-        BspVariant = D3DBsp
-    elif filename.endswith(".bsp"):
-        with open(filename, "rb") as bsp_file:
-            file_magic = bsp_file.read(4)
-            if file_magic not in developers_by_file_magic:
-                raise RuntimeError(f"'{filename}' does not resemble a .bsp file")
-            bsp_version = int.from_bytes(bsp_file.read(4), "little")
-        BspVariant = developers_by_file_magic[file_magic]
-        if BspVariant == GoldSrcBsp:
-            bsp_version = int.from_bytes(file_magic, "little")
-        # D3DBsp has b"IBSP" file_magic
-        if file_magic == b"IBSP" and bsp_version in cod_ibsp_versions:
-            BspVariant = D3DBsp
-    else:  # invalid extension
-        raise RuntimeError(f"{filename} is not a .bsp file!")
-    return BspVariant, bsp_version
-
-
-def load_bsp(filename: str, branch: Union[str, ModuleType] = "Unknown"):
+def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     """Calculate and return the correct base.Bsp sub-class for the given .bsp"""
+    # TODO: OPTION: use filepath to guess game / branch
+    # is filename real?
     if not os.path.exists(filename):
         raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
-    BspVariant, bsp_version = guess_by_file_magic(filename)
-    if isinstance(branch, ModuleType):
-        return BspVariant(branch, filename, autoload=True)
-    elif isinstance(branch, str):
-        # TODO: default to other methods on fail
-        branch: str = branches.simplify_name(branch)
-        if branch != "unknown":  # not default
-            if branch not in branches.by_name:
-                close_matches = difflib.get_close_matches(branch, branches.by_name)
-                if len(close_matches) == 0:
-                    raise NotImplementedError(f"'{branch}' .bsp format is not supported, yet.")
-                else:
-                    print(f"'{branch}'.bsp format is not supported. Assumed branches:",
-                          "\n".join(close_matches),
-                          f"Trying '{close_matches[0]}'...", sep="\n")
-                    branch: str = close_matches[0]
-            branch: ModuleType = branches.by_name[branch]  # "name" -> branch_script
-        # guess branch by format version
+    elif os.path.getsize(filename) == 0:  # HL2/ d2_coast_02.bsp
+        raise RuntimeError(f"{filename} is an empty file")
+    # parse header
+    with open(filename, "rb") as bsp_file:
+        file_magic = bsp_file.read(4)
+        version = int.from_bytes(bsp_file.read(4), "little")
+        # NOTE: not every version is this format
+        # -- DarkMessiahBspHeader { char file_magic[4]; short version[2]; ... };
+    # identify BspVariant
+    if filename.lower().endswith(".d3dbsp"):  # CoD2
+        assert file_magic == b"IBSP", "Mystery .d3dbsp!"
+        assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
+        BspVariant = InfinityWardBsp
+    elif filename.lower().endswith(".bsp"):
+        if file_magic not in BspVariant_from_file_magic:
+            version = int.from_bytes(file_magic, "little")
+            file_magic = None
+            if version in Quake_versions:
+                BspVariant = QuakeBsp
+            elif version in GoldSrc_versions:
+                BspVariant = GoldSrcBsp
+            else:
+                raise NotImplementedError("TODO: Check if encrypted Tactical Intervention .bsp")
         else:
-            if bsp_version not in branches.by_version:
-                raise NotImplementedError(f"{BspVariant} v{bsp_version} is not supported!")
-            branch: ModuleType = branches.by_version[bsp_version]
-        return BspVariant(branch, filename, autoload=True)
-    else:
-        raise TypeError(f"Cannot use branch of type `{branch.__class__.__name__}`")
+            if file_magic == b"IBSP" and version in InfinityWard_versions:
+                BspVariant = InfinityWardBsp
+            else:
+                BspVariant = BspVariant_from_file_magic[file_magic]
+    else:  # invalid extension
+        raise RuntimeError(f"{filename} is not a .bsp file!")
+    # identify branch script
+    # TODO: ata4's bspsrc uses unique entity classnames to identify branches
+    # -- need this for identifying variants with overlapping versions
+    # -- e.g. (b"VBSP", 20) & (b"VBSP", 21)
+    if branch_script is None:
+        branch_script = branches.script_from_file_magic_and_version[(file_magic, version)]
+    return BspVariant(branch_script, filename, autoload=True)  # might raise errors

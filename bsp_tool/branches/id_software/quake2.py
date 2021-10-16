@@ -8,9 +8,13 @@ from .. import base
 from .. import shared
 
 
+FILE_MAGIC = b"IBSP"
+
 BSP_VERSION = 38
 
-GAMES = ["Quake II", "Heretic II", "SiN", "Daikatana"]
+GAME_PATHS = ["Quake II", "Heretic II", "Daikatana"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -34,6 +38,10 @@ class LUMP(enum.Enum):
     AREAS = 17
     AREA_PORTALS = 18
 
+
+# struct Quake2BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[19]; };
+lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
 # TODO: MAX & Contents enums
 
 # A rough map of the relationships between lumps:
@@ -47,9 +55,6 @@ class LUMP(enum.Enum):
 
 # LEAF_FACES -> FACES
 # LEAF_BRUSHES -> BRUSHES
-
-
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps, in alphabetical order:

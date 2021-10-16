@@ -1,3 +1,4 @@
+"""handles dynamically loading entries from lumps of all kinds"""
 from __future__ import annotations
 
 import collections

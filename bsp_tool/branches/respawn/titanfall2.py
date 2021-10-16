@@ -7,9 +7,12 @@ from .. import base
 from . import titanfall
 
 
+FILE_MAGIC = b"rBSP"
+
 BSP_VERSION = 37
 
-GAMES = ["Titanfall 2"]
+GAME_PATHS = ["Titanfall 2"]
+
 GAME_VERSIONS = {"Titanfall 2": 37}
 
 
@@ -143,6 +146,10 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+
+# struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count; SourceLumpHeader headers[128]; };
+lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 # Known lump changes from Titanfall -> Titanfall 2:
 # New:
 # UNUSED_4 -> LIGHTPROBE_PARENT_INFOS
@@ -182,9 +189,6 @@ class LUMP(enum.Enum):
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
-
-
-lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # # classes for lumps, in alphabetical order::

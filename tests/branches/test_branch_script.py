@@ -5,9 +5,7 @@ import warnings
 
 import pytest
 
-from bsp_tool.branches import base
-from bsp_tool.branches import arkane, gearbox, id_software, infinity_ward
-from bsp_tool.branches import nexon, respawn, valve
+from bsp_tool import branches
 
 
 def LumpClasses_of(module: ModuleType) -> List[object]:
@@ -15,18 +13,21 @@ def LumpClasses_of(module: ModuleType) -> List[object]:
     for a in attrs:
         LumpClass = getattr(module, a)
         if inspect.isclass(LumpClass):
-            if issubclass(LumpClass, (base.Struct, base.MappedArray)):
+            if issubclass(LumpClass, (branches.base.Struct, branches.base.MappedArray)):
                 yield LumpClass
 
 
-# IdTech + IW + GoldSrc (no lump versions)
-basic_branch_scripts = [id_software.quake, id_software.quake2, id_software.quake3,
-                        infinity_ward.call_of_duty1, gearbox.bshift, valve.goldsrc]
-# TODO: Ritual Entertainment - Übertools
+# IdTech + IW + GoldSrc Engines (no lump versions)
+basic_branch_scripts = [*branches.id_software.scripts,
+                        *branches.infinity_ward.scripts,
+                        branches.gearbox.blue_shift,
+                        *branches.raven.scripts,
+                        *branches.ritual.scripts,
+                        branches.valve.goldsrc]
 
 
 @pytest.mark.parametrize("branch_script", basic_branch_scripts)
-def test_quake_branch_script(branch_script):
+def test_basic_branch_script(branch_script):
     used_LumpClasses = set(branch_script.LUMP_CLASSES.values())
     # ^ {"LUMP": LumpClass}
     # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
@@ -37,10 +38,11 @@ def test_quake_branch_script(branch_script):
         warnings.warn(UserWarning(warning_text))
 
 
-# Source + Titanfall (lump versions)
-branch_scripts = [arkane.dark_messiah,
-                  nexon.cso2, nexon.cso2_2018, nexon.vindictus,
-                  respawn.titanfall, respawn.titanfall2, respawn.apex_legends]
+# Source + Titanfall Engines (lump versions)
+branch_scripts = [*branches.arkane.scripts,
+                  *branches.nexon.scripts,
+                  *branches.respawn.scripts,
+                  *[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)]]
 
 
 @pytest.mark.parametrize("branch_script", branch_scripts)
@@ -55,9 +57,11 @@ def test_branch_script(branch_script):
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
+    # TODO: warn if a lump version isn't supported
+    # e.g. FACES v1 is supported, but not v2
 
 
-# TODO: use maplist to look at all lump headers and ensure unused lumps are correctly marked
+# TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked
 
 # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
 # -- all LumpClasses must coherently translate to and from bytes

@@ -3,6 +3,8 @@
 ## v0.4.0 (???)
 
 ## New
+ * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
+ * If `autoload` cannot find the specified `.bsp` file a UserWarning is issued
 
 ## Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
@@ -12,6 +14,8 @@
    - `from_bytes` method added
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
+ * Completely refactored `branch_script` detection
+ * `load_bsp` now only accepts `branch_script`s in it's optional argument
 
 ### Newly Supported
  * Source Engine
@@ -19,8 +23,14 @@
  * Ubertools
 
 ### Updated Support
+ * Quake Engine
+   - Hexen 2
+ * Id Tech 3
+   - Quake III Arena
+   - Raven Software Titles
  * Source Engine
  * Titanfall Engine
+
 
 ## v0.3.1 (4th October 2021)
 
@@ -44,7 +54,7 @@
 
 ### New
  * Added `load_bsp` function to identify bsp type  
- * Added `D3DBsp`, `IdTechBsp`, `RespawnBsp` & `ValveBsp` classes
+ * Added `InfinityWardBsp`, `IdTechBsp`, `RespawnBsp` & `ValveBsp` classes
  * Added general support for the PakFile lump
  * Added general support for the GameLump lump
  * Extension scripts

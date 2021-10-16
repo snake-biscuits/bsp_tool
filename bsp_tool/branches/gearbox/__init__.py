@@ -1,5 +1,5 @@
-__all__ = ["bshift"]
+"""Gearbox's second Half-Life expansion: Blue Shift made a few changes to the GoldSrc engine."""
+from . import blue_shift
 
-from . import bshift
 
-__doc__ = """Gearbox's second Half-Life expansion: Blue Shift made a few changes to the GoldSrc engine."""
+scripts = [blue_shift]

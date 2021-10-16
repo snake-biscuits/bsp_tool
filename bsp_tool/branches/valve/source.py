@@ -9,13 +9,16 @@ from .. import vector
 from ..id_software import quake
 
 
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 19  # & 20
 
-GAMES = ["Counter-Strike: Source",  # counter-strike source/cstrike
-         "Half-Life 1: Source - Deathmatch",  # Half-Life 1 Source Deathmatch/hl1mp
-         "Half-Life 2",  # Half-Life 2/hl2
-         "Half-Life 2: Episode 1"]  # Half-Life 2/episodic
-GAME_VERSIONS = {game: BSP_VERSION for game in GAMES}
+GAME_PATHS = ["counter-strike source/cstrike",  # Counter-Strike: Source
+              "Half-Life 1 Source Deathmatch/hl1mp",  # Half-Life 1: Source - Deathmatch
+              "Half-Life 2/hl2",  # Half-Life 2
+              "Half-Life 2/episodic"]  # Half-Life 2: Episode 1
+
+GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -85,7 +88,9 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
+# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 SourceLumpHeader = collections.namedtuple("SourceLumpHeader", ["offset", "length", "version", "fourCC"])
 
 

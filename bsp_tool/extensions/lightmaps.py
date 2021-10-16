@@ -69,7 +69,7 @@ class LightmapPage:
 
 
 def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
-    """for IdTechBsp / D3DBsp only"""
+    """for IdTechBsp / InfinityWardBsp only"""
     lightmap_images = list()
     for lightmap_bytes in ibsp.LIGHTMAPS:
         lightmap = Image.frombytes("RGB", (128, 128), lightmap_bytes, "raw")

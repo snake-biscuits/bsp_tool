@@ -62,13 +62,12 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * [Arkane Studios](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/arkane)
     - [Dark Messiah of Might & Magic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/arkane/dark_messiah.py) :x:
   * [Gearbox Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox)
-    - [Half-Life: Blue Shift](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox/bshift.py)
+    - [Half-Life: Blue Shift](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox/blue_shift.py)
     - [Half-Life: Opposing Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
   * [Id Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software)
-    - [Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
+    - [Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py)
     - [Quake II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Quake III Arena](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
-    - Quake 4 :o:
     - Quake Champions :o:
     - [Quake Live](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
   * [Infinity Ward](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward)
@@ -80,25 +79,25 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Counter-Strike: Online 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/cso2.py) :x:
     - [Titanfall: Online](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
     - [Vindictus](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus.py) :x:
-  * Raven Software
-    - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
-    - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py) :o:
-    - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
-    - [Star Trek: Voyager - Elite Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
-    - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
-    - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :o:
+  * [Raven Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven)
+    - Heretic II :o:
+    - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/hexen2.py)
+    - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :x:
+    - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
+    - [Star Trek: Voyager - Elite Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
+    - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
+    - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
   * [Respawn Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn)
     - [Titanfall](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
     - [Titanfall 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall2.py)
     - [Apex Legends](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/apex_legends.py)
   * [Ritual Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual)
-    - [American McGee's Alice](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritualfakk2.py)
+    - [American McGee's Alice](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
     - [Heavy Metal F.A.K.K. 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
-    - Medal of Honor: Allied Assault :o:
-    - SiN :o:
-    - SiN: Gold :o:
-    - SiN Episodes: Emergence :o:
-    - Star Trek: Elite Force II :o:
+    - [SiN](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py) :x:
+    - [SiN: Gold](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py) :x:
+    - [SiN Episodes: Emergence](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :o:
+    - [Star Trek: Elite Force II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/star_trek_elite_force2.py)
   * [Valve Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve)
     - [Alien Swarm](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/alien_swarm.py)
     - [Alien Swarm: Reactive Drop](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/alien_swarm.py)
@@ -130,7 +129,6 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * Other
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
-    - Brink :o:
     - Call of Duty: Black Ops III :o:
     - Call of Duty: World at War :o:
     - Daikatana :o:
@@ -138,7 +136,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Halfquake Trilogy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
-    - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual) :o:
+    - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/moh_allied_assault.py) :x:
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Synergy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
@@ -146,16 +144,22 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Team Fortress Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py) :x:
     - [The Beginner's Guide](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [The Stanley Parable](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
-    - Vampire: The Masquerade - Bloodlines :o:
+    - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
 
 
 ## Thanks
+ * [BobTheBob](https://github.com/BobTheBob9)
+   - Identified loads of Titanfall lumps (90% of static props + more)
  * [Chris Strahl](https://github.com/Chrissstrahl)
    - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
  * [Ficool2](https://github.com/ficool2)
    - Providing lots of current and detailed info on Source & helping track down some rarer titles
  * [Maxime Dupuis](https://github.com/maxdup)
    - Helping me identify multiple lumps in Source Engine .bsps
+ * [MobyGames](https://www.mobygames.com/)
+   - Keeping records of the credits on so many games, helping to pin down engine origins
+ * [pakextract](https://github.com/yquake2/pakextract)
+   - Super useful tool for `.pak` files
  * [REDxEYE](https://github.com/REDxEYE)
    - Being very open and actively collaborating on SourceIO & Titanfall .bsps
  * [Taskinoz](https://github.com/taskinoz)

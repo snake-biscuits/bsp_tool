@@ -8,9 +8,13 @@ from .. import base
 from .. import shared  # special lumps
 
 
+FILE_MAGIC = None
+
 BSP_VERSION = 29
 
-GAMES = ["Quake"]
+GAME_PATHS = ["Quake", "Team Fortress Quake"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 # lump names & indices:
@@ -31,21 +35,22 @@ class LUMP(enum.Enum):
     SURFEDGES = 13  # indices into EDGES (-ve indices reverse edge direction)
     MODELS = 14
 
+
+# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
+lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
+
 # A rough map of the relationships between lumps:
-#                                      /-> LEAF_BRUSHES
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
 #                   \-> CLIP_NODES -> PLANES
 
+#      /-> TEXTURE_INFO -> MIP_TEXTURES
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#    \---> TEXTURE_INFO -> MIP_TEXTURES
 #     \--> LIGHTMAPS
 #      \-> PLANES
 
 
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
-
-
-# engine limits:
+# Engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
     PLANES = 32767
@@ -264,8 +269,8 @@ LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "TEXTURE_INFO": TextureInfo,
                 "VERTICES":     Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
-                        "MIP_TEXTURES": MipTextureLump}
+SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities}
+# TODO: "MIP_TEXTURES": MipTextureLump
 
 
 # branch exclusive methods, in alphabetical order:

@@ -8,7 +8,14 @@ from .. import base
 from .. import shared
 from ..valve import orange_box, source
 
+
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 20
+
+GAME_PATHS = ["Vindictus"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -78,9 +85,10 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
+# struct VindictusBspHeader { char file_magic[4]; int version; VindictusLumpHeader headers[64]; int revision; };
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 VindictusLumpHeader = collections.namedtuple("VindictusLumpHeader", ["id", "flags", "version", "offset", "length"])
-# since vindictus has a unique header format, valve .bsp have a header reading function in here
 
 
 def read_lump_header(file, LUMP_ID: enum.Enum) -> VindictusLumpHeader:
@@ -215,5 +223,4 @@ GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 #                               6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
 
 
-# branch exclusive methods, in alphabetical order:
 methods = [*orange_box.methods]

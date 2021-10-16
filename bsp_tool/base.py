@@ -6,6 +6,7 @@ import os
 import struct
 from types import MethodType, ModuleType
 from typing import Dict, List
+import warnings
 
 from . import lumps
 
@@ -32,7 +33,7 @@ class Bsp:
     # ^ {"LUMP_NAME": Exception encountered}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        if not filename.endswith(".bsp"):
+        if not filename.lower().endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
         filename = os.path.realpath(filename)
         self.folder, self.filename = os.path.split(filename)
@@ -42,7 +43,7 @@ class Bsp:
             if os.path.exists(filename):
                 self._preload()
             else:
-                print(f"{filename} not found, creating a new .bsp")
+                warnings.warn(UserWarning(f"{filename} not found, creating a new .bsp"))
                 self.headers = {L.name: LumpHeader(0, 0, 0, 0) for L in self.branch.LUMP}
 
     def __enter__(self):

@@ -133,17 +133,19 @@ class MappedArray:
 
     def __init__(self, *args, _mapping: Any = None, **kwargs):
         # TODO: use class defaults and generate attrs; including nesting
+        # -- how would defaults & type hints for nested values be defined?
         if _mapping is None:
             _mapping = self._mapping
-        if len(args) + len(kwargs) == 0:
-            pass  # create an empty object for .from_* classmethods
-        elif len(args) == mapping_length(_mapping):
-            # TODO: *args = [a, b, (c, d)]  # etc. [not .from_tuple()]
-            self = self.from_tuple(args)
-        else:
-            # TODO: **kwargs = {"attr": 0}  # use defaults for absent attrs
-            # TODO: get defaults (nested values in tuples?) generate?
-            # warn if missing defaults when using kwargs
+        if len(args) == 0:
+            # NOTE: must create an empty object for .from_* classmethods
+            # TODO: populate attrs defined in self._mapping with default values
+            if hasattr(self, "_format"):
+                ...
+            pass  # HACK: ensures classmethods work, will be replaced
+        elif len(args) == mapping_length(_mapping):  # *args = [a, b, (c, d)]
+            # NOTE: not the same as .from_tuple()!
+            raise NotImplementedError()
+        else:  # **kwargs = {"attr": 0}
             raise NotImplementedError()
 
     def __eq__(self, other: Iterable) -> bool:

@@ -1,17 +1,11 @@
-__all__ = ["FILE_MAGIC", "cso2", "cso2_2018", "vindictus"]
-
+"""Nexon is a South Korean / Japanese developer
+They have worked with both Valve & Respawn's Source Engine (CS:O & TF:O [cancelled])"""
 from . import cso2  # CounterStrike Online 2
 from . import cso2_2018
 from . import vindictus
 
-__doc__ = """Nexon is a South Korean / Japanese developer
-They have worked with both Valve & Respawn's Source Engine (CS:O & TF:O [cancelled])"""
 
-# NOTE: Nexon games are build on source, and use it's FILE_MAGIC
-FILE_MAGIC = b"VBSP"
-
-branches = [cso2, vindictus]
-
+scripts = [cso2, cso2_2018, vindictus]
 
 titanfall_online = """Titanfall: Online was a planned F2P Titanfall spin-off developed by Respawn Entertainment & Nexon.
 An open beta was held in August & September of 2017[1][2], the game was later cancelled in 2018[3].

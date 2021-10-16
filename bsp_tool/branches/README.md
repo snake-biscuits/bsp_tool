@@ -1,22 +1,26 @@
 # How bsp_tool loads .bsps
-If you're using `bsp_tool.load_bsp("reallycool.bsp")` to load a `.bsp` a few things happen behind the scenes to figure out the format  
+If you're using `bsp_tool.load_bsp("reallycoolmap.bsp")` to load a `.bsp` a few things happen behind the scenes to figure out the format  
 Since bsp_tool supports a range of `.bsp` variants, a single script to handle the rough format wasn't going to cut it  
 To narrow down the exact format of a bsp file `load_bsp` looks at some key information in each file:
 
 
 ### Developer variants
 First, `load_bsp` tries to determine the developer behind the chosen .bsp  
-If the file extension is `.d3dbsp`, it's a Call of Duty 2 or 4 `D3DBsp`  
+If the file extension is `.d3dbsp`, it's a Call of Duty 2 `InfinityWardBsp`  
 Other bsps use the `.bsp` extension (Call of Duty 1 included)  
 The developer is identified from the "file-magic", the first four bytes of any .bsp are:
-  - `b"IBSP"` for `IdTechBsp`   Id Software
-  - `b"IBSP"` for `D3DBsp`      Infinity Ward
-  - `b"rBSP"` for `RespawnBsp`  Respawn
-  - `b"VBSP"` for `ValveBsp`    Valve
+  - `b"2015"` for `RitualBsp`
+  - `b"EF2!"` for `RitualBsp`
+  - `b"FAKK"` for `RitualBsp`
+  - `b"IBSP"` for `IdTechBsp`
+  - `b"IBSP"` for `InfinityWardBsp`
+  - `b"RBSP"` for `RavenBsp`
+  - `b"rBSP"` for `RespawnBsp`
+  - `b"VBSP"` for `ValveBsp`
 
 > This rule isn't perfect! most mods out there are Source Engine forks with b"VBSP"  
 
-> GoldSrc .bsp files don't have any file magic!  
+> Quake & GoldSrc .bsp files don't have any file magic!  
 
 Most of the major differences between each developer's format are the number of lumps & bsp header  
 They also use some lumps which are unique to each developer's Quake based engine  

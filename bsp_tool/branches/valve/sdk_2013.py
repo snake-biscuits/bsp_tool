@@ -6,13 +6,20 @@ from . import orange_box
 from . import source
 
 
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 21
 
-GAMES = ["Counter-Strike: Global Offensive", "Blade Symphony", "Portal 2",
-         "Source Filmmaker"]
-GAME_VERSIONS = {game: BSP_VERSION for game in GAMES}
+GAME_PATHS = ["Blade Symphony", "Counter-Strike: Global Offensive", "Portal 2",
+              "Source Filmmaker"]
+
+GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+
 
 LUMP = orange_box.LUMP
+
+
+# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
@@ -22,8 +29,6 @@ def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
     header = source.SourceLumpHeader(offset, length, version, fourCC)
     return header
 
-
-# classes for each lump, in alphabetical order:
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()

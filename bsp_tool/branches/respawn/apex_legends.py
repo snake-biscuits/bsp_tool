@@ -7,9 +7,12 @@ from ..valve import source
 from . import titanfall, titanfall2
 
 
+FILE_MAGIC = b"rBSP"
+
 BSP_VERSION = 47
 
-GAMES = ["Apex Legends"]
+GAME_PATHS = ["Apex Legends"]
+
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
@@ -146,6 +149,10 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+
+# struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count; SourceLumpHeader headers[128]; };
+lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 # Known lump changes from Titanfall 2 -> Apex Legends:
 # New:
 #   UNUSED_15 -> SURFACE_NAMES
@@ -206,9 +213,6 @@ class LUMP(enum.Enum):
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
-
-
-lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # # classes for lumps, in alphabetical order:

@@ -8,9 +8,13 @@ from .. import base
 from .. import shared  # special lumps
 
 
+FILE_MAGIC = b"IBSP"
+
 BSP_VERSION = 59
 
-GAMES = ["Call of Duty"]
+GAME_PATHS = ["Call of Duty"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -50,11 +54,12 @@ class LUMP(enum.Enum):
     # checking for file-magic would confirm this
 
 
+# struct InfinityWardBspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[32]; };
 lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps, in alphabetical order:
-# all are incomplete guesses; only lump sizes are known
+# NOTE: all are incomplete guesses
 class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     """AABB tree"""
     # too small to be mins & maxs of an AABB; probably indices (hence: AABB_TREE)

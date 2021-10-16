@@ -13,13 +13,10 @@ from . import lumps
 GoldSrcLumpHeader = namedtuple("GoldSrcLumpHeader", ["offset", "length"])
 
 
-class GoldSrcBsp(id_software.IdTechBsp):  # TODO: subclass QuakeBsp?
+class GoldSrcBsp(id_software.IdTechBsp):  # TODO: QuakeBsp subclass?
     # https://github.com/ValveSoftware/halflife/blob/master/utils/common/bspfile.h
     # http://hlbsp.sourceforge.net/index.php?content=bspdef
     # NOTE: GoldSrcBsp has no file_magic!
-
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        super(GoldSrcBsp, self).__init__(branch, filename, autoload)
 
     def __repr__(self):
         version = f"(version {self.bsp_version})"  # no file_magic

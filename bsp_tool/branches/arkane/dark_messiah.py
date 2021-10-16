@@ -2,15 +2,22 @@
 import enum
 import struct
 
-from ..valve import orange_box, source
+from ..valve import orange_box
+from ..valve import source
 
 
-BSP_VERSION = 20
-# NOTE: BSP_VERSION is stored as 2 shorts?
+FILE_MAGIC = b"VBSP"
 
-GAMES = ["Dark Messiah of Might and Magic"]
+BSP_VERSION = 20  # NOTE: BSP_VERSION is stored as 2 shorts?
+
+GAME_PATHS = ["Dark Messiah of Might and Magic"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+
 
 LUMP = orange_box.LUMP
+
+# struct DarkMessiahBspHeader { char file_magic[4]; short version[2]; SourceLumpHeader headers[64]; int revision;};
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 

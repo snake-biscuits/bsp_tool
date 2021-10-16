@@ -11,7 +11,7 @@ from . import lumps
 LumpHeader = collections.namedtuple("LumpHeader", ["length", "offset"])
 
 
-class D3DBsp(base.Bsp):
+class InfinityWardBsp(base.Bsp):
     file_magic = b"IBSP"
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_2:_d3dbsp

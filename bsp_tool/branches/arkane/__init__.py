@@ -1,7 +1,6 @@
-__all__ = ["dark_messiah"]
-
+"""Arkane Studios made a number of Source Engine powered projects.
+Few made it to release."""
 from . import dark_messiah
 
-__doc__ = """Arkane Studios made a number of Source Engine powered projects. Few released."""
 
-FILE_MAGIC = "VBSP"
+scripts = [dark_messiah]

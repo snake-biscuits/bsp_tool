@@ -10,9 +10,12 @@ from ..id_software import quake
 from ..valve import source
 
 
+FILE_MAGIC = b"rBSP"
+
 BSP_VERSION = 29
 
-GAMES = ["Titanfall", "Titanfall: Online"]
+GAME_PATHS = ["Titanfall", "Titanfall: Online"]
+
 GAME_VERSIONS = {"Titanfall": 29, "Titanfall: Online": 29}
 
 
@@ -146,6 +149,10 @@ class LUMP(enum.Enum):
     SHADOW_MESH_INDICES = 0x007E
     SHADOW_MESH_MESHES = 0x007F
 
+
+# struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count; SourceLumpHeader headers[128]; };
+lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 # Rough map of the relationships between lumps:
 
 #              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
@@ -184,9 +191,6 @@ class LUMP(enum.Enum):
 # (? * ? + ?) * 4 -> GridCell
 
 
-lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-
 # flag enums
 class Flags(enum.IntFlag):
     # source.Surface (source.TextureInfo / titanfall.TextureData ?)
@@ -200,8 +204,7 @@ class Flags(enum.IntFlag):
     VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
     VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
     # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
-    # guesses
-    TRIGGER = 0x40000
+    TRIGGER = 0x40000  # guessing
     # masks
     MASK_VERTEX = 0x600
 

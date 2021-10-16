@@ -48,7 +48,7 @@
 [io_mesh_bsp](https://github.com/andyp123/blender_io_mesh_bsp)  
 [io_mesh_qmap](https://github.com/andyp123/blender_io_mesh_qmap)  
 [io_scene_rmf](https://github.com/cmbasnett/io_scene_rmf)  
-[PyD3DBsp](https://github.com/mauserzjeh/PyD3DBSP)  
+[PyInfinityWardBsp](https://github.com/mauserzjeh/PyD3DBSP)  
 
 # Other
 

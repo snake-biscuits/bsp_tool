@@ -1,3 +1,4 @@
+"""2013-2017 format"""
 # https://git.sr.ht/~leite/cso2-bsp-converter/tree/master/item/src/bsptypes.hpp
 import collections
 import enum
@@ -8,9 +9,13 @@ import zipfile
 from . import vindictus
 
 
-# NOTE: there are two variants with identical version numbers
-# -- 2013-2017 & 2017-present
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 100  # 1.00?
+
+GAME_PATHS = ["Counter-Strike: Online 2"]
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -80,7 +85,9 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
+# struct CSO2BspHeader { char file_magic[4]; int version; CSO2LumpHeader headers[64]; int revision; };
 lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+
 CSO2LumpHeader = collections.namedtuple("CSO2LumpHeader", ["offset", "length", "version", "compressed", "fourCC"])
 # NOTE: looking at headers, a half int of value 0x0001 seemed attached to version seemed to make sense
 
@@ -101,6 +108,8 @@ def read_lump_header(file, LUMP: enum.Enum) -> CSO2LumpHeader:
 # special lump classes, in alphabetical order:
 class PakFile(zipfile.ZipFile):  # WIP
     """CSO2 PakFiles have a custom .zip format"""
+    # NOTE: it's not as simple as changing the FILE_MAGIC
+    # -- this appears to be a unique implementation of .zip
     # b"CS" file magic & different header format?
     def __init__(self, raw_zip: bytes):
         # TODO: translate header to b"PK\x03\x04..."
@@ -124,9 +133,6 @@ SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.update({"PAKFILE": {0: PakFile}})  # WIP
 
 GAME_LUMP_CLASSES = vindictus.GAME_LUMP_CLASSES.copy()
-
-
-# branch exclusive methods, in alphabetical order:
 
 
 methods = [*vindictus.methods]

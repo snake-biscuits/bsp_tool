@@ -1,4 +1,5 @@
 # https://www.mralligator.com/q3/
+# https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_q3.c
 import enum
 from typing import List
 import struct
@@ -7,9 +8,18 @@ from .. import base
 from .. import shared
 
 
+FILE_MAGIC = b"IBSP"
+
 BSP_VERSION = 46
 
-GAMES = ["Quake 3 Arena", "Quake Live"]
+GAME_PATHS = ["Quake 3 Arena", "Quake Live", "Soldier of Fortune",
+              "Return to Castle Wolfenstein", "Wolfenstein Enemy Territory",  # Splash Damage
+              "Dark Salvation"]  # https://mangledeyestudios.itch.io/dark-salvation
+
+GAME_VERSIONS = {"Quake 3 Arena": 46, "Quake Live": 46, "Soldier of Fortune": 46,
+                 "Return to Castle Wolfenstein": 47,
+                 "Wolfenstein Enemy Territory": 47,
+                 "Dark Salvation": 666}
 
 
 class LUMP(enum.Enum):
@@ -32,6 +42,9 @@ class LUMP(enum.Enum):
     VISIBILITY = 16
 
 
+# struct Quake3BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[17]; };
+lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
 # a rough map of the relationships between lumps:
 #
 #               /-> Texture
@@ -39,9 +52,6 @@ class LUMP(enum.Enum):
 #      \-> Face -> MeshVertex
 #             \--> Texture
 #              \-> Vertex
-
-
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # flag enums
@@ -222,7 +232,7 @@ LUMP_CLASSES = {"BRUSHES":       Brush,
                 "TEXTURES":      Texture,
                 "VERTICES":      Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities,
+SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": Visibility}
 
 

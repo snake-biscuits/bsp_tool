@@ -4,9 +4,13 @@ import enum
 from ..valve import goldsrc
 
 
+FILE_MAGIC = None
+
 BSP_VERSION = 30
 
-GAMES = ["Half-Life/bshift"]  # Half-Life: Blue Shift
+GAME_PATHS = ["Half-Life/blue_shift"]  # Half-Life: Blue Shift
+
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -25,21 +29,20 @@ class LUMP(enum.Enum):
     EDGES = 12
     MODELS = 14
 
+
+# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
+lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
 # Known lump changes from Quake II -> GoldSrc:
 # ENTITIES -> PLANES
 # PLANES -> ENTITIES
 
 
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
-
-
 BASIC_LUMP_CLASSES = goldsrc.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = goldsrc.LUMP_CLASSES.copy()
-# PLANES lump failing
 
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
-# ENTITIES lump failing
 
 
 methods = [*goldsrc.methods]
