@@ -118,7 +118,7 @@ def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
 BASIC_LUMP_CLASSES = left4dead.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = left4dead.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"PROP_HULL_VERTS": quake.Vertex})
+LUMP_CLASSES.update({"PROP_HULL_VERTS": {0: quake.Vertex}})
 
 SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 
