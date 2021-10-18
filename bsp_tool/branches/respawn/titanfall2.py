@@ -4,6 +4,7 @@ import struct
 from typing import List
 
 from .. import base
+from ..valve import source
 from . import titanfall
 
 
@@ -266,6 +267,8 @@ LUMP_CLASSES["LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE"] = {0: LightmapPage}
 LUMP_CLASSES.pop("LIGHTPROBE_REFERENCES")  # size doesn't match
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
+
+GAME_LUMP_HEADER = source.GameLumpHeader
 
 GAME_LUMP_CLASSES = {"sprp": {13: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv13)}}
 

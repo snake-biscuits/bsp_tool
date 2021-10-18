@@ -1,4 +1,7 @@
-# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vampire_The_Masquerade_-_Bloodlines
+from typing import List
+
+from .. import base
 from ..valve import source
 
 
@@ -21,18 +24,48 @@ read_lump_header = source.read_lump_header
 
 
 # classes for lumps, in alphabetical order:
-# TODO: dface_t
+class Face(base.Struct):  # LUMP 7
+    """makes up Models (including worldspawn), also referenced by LeafFaces"""
+    light_colours: List[List[int]]  # 8x RGBExp32
+    plane: int       # index into Plane lump
+    side: int        # "faces opposite to the node's plane direction"
+    on_node: bool    # if False, face is in a leaf
+    first_edge: int  # index into the SurfEdge lump
+    num_edges: int   # number of SurfEdges after first_edge in this Face
+    texture_info: int    # index into the TextureInfo lump
+    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    styles: List[List[int]]  # 4 different lighting states? "switchable lighting info"
+    light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
+    area: float  # surface area of this face
+    lightmap: List[float]
+    # lightmap.mins  # dimensions of lightmap segment
+    # lightmap.size  # scalars for lightmap segment
+    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
+    first_primitive_id: int  # index of Primitive
+    smoothing_groups: int    # lightmap smoothing group
+    __slots__ = ["light_colours", "plane", "side", "on_node", "first_edge", "num_edges",
+                 "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
+                 "light_offset", "area", "lightmap", "original_face",
+                 "num_primitives", "first_primitive_id", "smoothing_groups"]
+    _format = "32BHb?i4h8b8b8bif5i2HI"
+    _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},
+               "styles": {"base": 8, "day": 8, "night": 8},
+               "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("FACES")
-LUMP_CLASSES.pop("ORIGINAL_FACES")
+LUMP_CLASSES.update({"FACES":          {0: Face},
+                     "ORIGINAL_FACES": {0: Face}})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")
+
+GAME_LUMP_HEADER = source.GameLumpHeader
 
 GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
 

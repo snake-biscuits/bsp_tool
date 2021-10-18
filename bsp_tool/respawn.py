@@ -70,7 +70,7 @@ class RespawnBsp(base.Bsp):
             try:
                 if LUMP.name == "GAME_LUMP":
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses)
+                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP.name in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)

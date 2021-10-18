@@ -4,7 +4,8 @@ from typing import List
 from .. import base
 from .. import shared
 from ..valve import source
-from . import titanfall, titanfall2
+from . import titanfall
+from . import titanfall2
 
 
 FILE_MAGIC = b"rBSP"
@@ -356,6 +357,8 @@ SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
+
+GAME_LUMP_HEADER = source.GameLumpHeader
 
 GAME_LUMP_CLASSES = {"sprp": {bsp_version: ApexSPRP for bsp_version in (47, 48, 49, 50)}}
 

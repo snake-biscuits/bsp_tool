@@ -15,7 +15,7 @@ BSP_VERSION = 20
 
 GAME_PATHS = ["Star Trek: Elite Force II"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

@@ -614,6 +614,8 @@ SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":         {0: EntityPartitions},
                         "PHYSICS_COLLIDE":           {0: shared.physics.CollideLump},
                         "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}
 
+GAME_LUMP_HEADER = source.GameLumpHeader
+
 GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}
 
 

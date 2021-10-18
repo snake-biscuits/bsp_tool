@@ -47,10 +47,13 @@ branch_scripts = [*branches.arkane.scripts,
 
 @pytest.mark.parametrize("branch_script", branch_scripts)
 def test_branch_script(branch_script):
+    """Versioned lump headers & Game Lumps"""
     used_LumpClasses = set()
     for version_dict in branch_script.LUMP_CLASSES.values():
         # ^ {"LUMP": {version: LumpClass}}
         used_LumpClasses.update(version_dict.values())
+    if hasattr(branch_script, "GAME_LUMP_HEADER"):
+        used_LumpClasses.add(branch_script.GAME_LUMP_HEADER)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     unused_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), unused_LumpClasses))
     # HACK: need to actually check StaticProps are actually used, but not right now...

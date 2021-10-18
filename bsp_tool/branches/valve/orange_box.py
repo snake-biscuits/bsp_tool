@@ -5,7 +5,6 @@ import struct
 from typing import List
 
 from .. import base
-from .. import shared
 from . import source
 
 
@@ -22,7 +21,7 @@ GAME_PATHS = ["Day of Defeat: Source",  # TODO: full path
               "Portal",
               "Team Fortress 2"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -185,10 +184,13 @@ LUMP_CLASSES.update({"LEAVES": {1: Leaf}})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 
+
+GAME_LUMP_HEADER = source.GAME_LUMP_HEADER
+
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
-GAME_LUMP_CLASSES["sprp"].update({7: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
-                                 10: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv10)})
+GAME_LUMP_CLASSES["sprp"].update({7: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
+                                 10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10)})
 
 
 methods = [*source.methods]

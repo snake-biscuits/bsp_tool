@@ -322,15 +322,14 @@ class ExternalBasicBspLump(BasicBspLump):
         self._changes = dict()  # changes must be applied externally
 
 
-GameLumpHeader = collections.namedtuple("GameLumpHeader", ["id", "flags", "version", "offset", "length"])
-
-
 class GameLump:
     is_external = False
     loading_errors: Dict[str, Any]
     # ^ {"child_lump": Exception}
 
-    def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple, LumpClasses: Dict[str, object]):
+    def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple,
+                 LumpClasses: Dict[str, object], GameLumpHeaderClass: object):
+        self.GameLumpHeaderClass = GameLumpHeaderClass
         self.loading_errors = dict()
         if not hasattr(lump_header, "filename"):
             file.seek(lump_header.offset)
@@ -339,13 +338,15 @@ class GameLump:
             file = open(lump_header.filename, "rb")
         game_lumps_count = int.from_bytes(file.read(4), "little")
         self.headers = dict()
+        # {"child_name": child_header}
         for i in range(game_lumps_count):
-            _id, flags, version, offset, length = struct.unpack("4s2H2i", file.read(16))
-            _id = _id.decode("ascii")[::-1]  # b"prps" -> "sprp"
-            if self.is_external:
+            child_header = GameLumpHeaderClass.from_bytes(file.read(struct.calcsize(GameLumpHeaderClass._format)))
+            # ^ this is why we need a .from_stream() method for SpecialLumpClasses
+            _id, flags, version, offset, length = child_header.flat()
+            if self.is_external:  # HACK
                 offset = offset - lump_header.offset
-            child_header = GameLumpHeader(_id, flags, version, offset, length)
-            self.headers[_id] = child_header
+            child_header = GameLumpHeaderClass.from_tuple((_id, flags, version, offset, length))
+            self.headers[_id.decode("ascii")[::-1]] = child_header  # b"prps" -> "sprp"
         for child_name, child_header in self.headers.items():
             child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
             if child_LumpClass is None:
@@ -364,6 +365,7 @@ class GameLump:
         out = []
         out.append(len(self.headers).to_bytes(4, "little"))
         headers = []
+        # HACK: "write" lump contents before headers
         cursor_offset = lump_offset + 4 + len(self.headers) * 16
         for child_name, child_header in self.headers.items():
             child_lump = getattr(self, child_name)
@@ -373,10 +375,9 @@ class GameLump:
                 child_lump_bytes = child_lump.as_bytes()  # SpecialLumpClass method
             out.append(child_lump_bytes)
             # calculate header
-            _id, flags, version, offset, length = child_header
-            _id = _id.encode("ascii")[::-1]  # "sprp" -> b"prps"
+            _id, flags, version, offset, length = child_header.flat()
             offset, length = cursor_offset, len(child_lump_bytes)
             cursor_offset += length
-            headers.append(struct.pack("4s2H2i", _id, flags, version, offset, length))
+            self.GameLumpHeaderClass.from_tuple((_id, flags, version, offset, length))
         out[1:1] = headers  # insert headers after calculating
         return b"".join(out)

@@ -13,7 +13,7 @@ BSP_VERSION = 20
 
 GAME_PATHS = ["Left 4 Dead"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -118,10 +118,12 @@ LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
+GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
+
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 GAME_LUMP_CLASSES["sprp"].pop(7)
-# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8)})
+# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
 # branch exclusive methods, in alphabetical order:

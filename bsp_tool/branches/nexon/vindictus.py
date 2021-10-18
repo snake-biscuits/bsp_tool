@@ -1,6 +1,9 @@
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
 """Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
 import collections
 import enum
+import io
+import itertools
 import struct
 from typing import List
 
@@ -151,17 +154,62 @@ class Edge(list):  # LUMP 12
 
 
 class Face(base.Struct):  # LUMP 7
-    plane: int  # index into Plane lump
+    plane: int       # index into Plane lump
+    side: int        # "faces opposite to the node's plane direction"
+    on_node: bool    # if False, face is in a leaf
+    unknown: int
+    first_edge: int  # index into the SurfEdge lump
+    num_edges: int   # number of SurfEdges after first_edge in this Face
+    texture_info: int    # index into the TextureInfo lump
+    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    styles: int      # 4 different lighting states? "switchable lighting info"
+    light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
+    area: float  # surface area of this face
+    lightmap: List[float]
+    # lightmap.mins  # dimensions of lightmap segment
+    # lightmap.size  # scalars for lightmap segment
+    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
+    first_primitive_id: int  # index of Primitive
+    smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "unknown", "first_edge",
-                 "num_edges", "texture_info", "displacement_info", "surface_fog_volume_id",
-                 "styles", "light_offset", "area",
-                 "lightmap_texture_mins_in_luxels",
-                 "lightmap_texture_size_in_luxels",
-                 "original_face", "num_primitives", "first_primitive_id",
-                 "smoothing_groups"]
+                 "num_edges", "texture_info", "displacement_info",
+                 "surface_fog_volume_id", "styles", "light_offset", "area",
+                 "lightmap", "original_face", "num_primitives",
+                 "first_primitive_id", "smoothing_groups"]
     _format = "I2bh5i4bif4i4I"
-    _arrays = {"styles": 4, "lightmap_texture_mins_in_luxels": [*"st"],
-               "lightmap_texture_size_in_luxels": [*"st"]}
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+
+
+class Facev2(base.Struct):  # LUMP 7 (v2)
+    plane: int       # index into Plane lump
+    side: int        # "faces opposite to the node's plane direction"
+    on_node: bool    # if False, face is in a leaf
+    unknown_1: int
+    first_edge: int  # index into the SurfEdge lump
+    num_edges: int   # number of SurfEdges after first_edge in this Face
+    texture_info: int    # index into the TextureInfo lump
+    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    unknown_2: int
+    styles: List[int]  # 4 different lighting states? "switchable lighting info"
+    light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
+    area: float  # surface area of this face
+    lightmap: List[float]
+    # lightmap.mins  # dimensions of lightmap segment
+    # lightmap.size  # scalars for lightmap segment
+    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
+    first_primitive_id: int  # index of Primitive
+    smoothing_groups: int    # lightmap smoothing group
+    __slots__ = ["plane", "side", "on_node", "unknown_1", "first_edge",
+                 "num_edges", "texture_info", "displacement_info",
+                 "surface_fog_volume_id", "unknown_2", "styles",
+                 "light_offset", "area", "lightmap", "original_face",
+                 "num_primitives", "first_primitive_id", "smoothing_groups"]
+    _format = "I2bh6i4bif4i4I"
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
 class Leaf(base.Struct):  # LUMP 10
@@ -189,18 +237,68 @@ class Overlay(base.Struct):  # LUMP 45
 
 
 # classes for special lumps, in alphabetical order:
-# TODO: StaticPropv5, StaticPropv6
-# TODO: GameLump (alternate header format)
-# old: struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };
-# new: struct GameLumpHeader { char id[4]; int flags, version, offset, length; };
-# also the sprp lump includes a "scales" sub-lump after leaves
-# struct StaticPropScale { int static_prop; Vector scales; };  // Different scalar for each axis
-# struct StaticPropScalesLump { int count; StaticPropScales scales[count]; };
+class GameLumpHeader(base.MappedArray):
+    id: str
+    flags: int
+    version: int
+    offset: int
+    length: int
+    _mapping = ["id", "flags", "version", "offset", "length"]
+    _format = "4s4i"
+
+
+class GameLump_SPRP:
+    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
+        """Get StaticPropClass from GameLump version"""
+        # lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)
+        sprp_lump = io.BytesIO(raw_sprp_lump)
+        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
+        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
+        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
+        setattr(self, "leaves", list(leaves))
+        prop_count = int.from_bytes(sprp_lump.read(4), "little")
+        scale_count = int.from_bytes(sprp_lump.read(4), "little")
+        read_size = struct.calcsize(StaticPropScale._format) * scale_count
+        scales = struct.iter_unpack(StaticPropScale._format, sprp_lump.read(read_size))
+        setattr(self, "scales", list(scales))
+        if StaticPropClass is not None:
+            read_size = struct.calcsize(StaticPropClass._format) * prop_count
+            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
+        else:
+            prop_bytes = sprp_lump.read()
+            prop_size = len(prop_bytes) // prop_count
+            setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
+        here = sprp_lump.tell()
+        end = sprp_lump.seek(0, 2)
+        assert here == end, "Had some leftover bytes, bad format"
+
+    def as_bytes(self) -> bytes:
+        if len(self.props) > 0:
+            prop_format = self.props[0]._format
+        else:
+            prop_format = ""
+        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.model_names],
+                         int.to_bytes(len(self.leaves), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leaves],
+                         int.to_bytes(len(self.scales), 4, "little"),
+                         *[struct.pack(StaticPropScale._format, s) for s in self.scales],
+                         int.to_bytes(len(self.props), 4, "little"),
+                         *[struct.pack(prop_format, *p.flat()) for p in self.props]])
+
+
+class StaticPropScale(base.MappedArray):
+    _mapping = ["index", *"xyz"]
+    _format = "i3f"
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES["LEAF_FACES"] = {0: shared.UnsignedInts}
+BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES": {0: shared.UnsignedInts},
+                           "LEAF_FACES":   {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS":             {0: Area},
@@ -208,19 +306,21 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
                      "BRUSH_SIDES":       {0: BrushSide},
                      "DISPLACEMENT_INFO": {0: DisplacementInfo},
                      "EDGES":             {0: Edge},
-                     "FACES":             {0: Face},
-                     # NOTE: LeafBrush also differs from orange_box (not implemented)
+                     "FACES":             {1: Face,
+                                           2: Facev2},
                      "LEAVES":            {0: Leaf},
                      "NODES":             {0: Node},
-                     "ORIGINAL_FACES":    {0: Face},
+                     "ORIGINAL_FACES":    {1: Face,
+                                           2: Facev2},
                      "OVERLAYS":          {0: Overlay}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
+GAME_LUMP_HEADER = source.GameLumpHeader
+
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
-# GAME_LUMP_CLASSES = {"sprp": {5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
-#                               6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
+GAME_LUMP_CLASSES.update({"sprp": {6: lambda raw_lump: GameLump_SPRP(raw_lump, source.StaticPropv6)}})
 
 
 methods = [*orange_box.methods]

@@ -14,7 +14,7 @@ BSP_VERSION = 21
 
 GAME_PATHS = ["Left 4 Dead 2"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -109,12 +109,12 @@ def read_lump_header(file, LUMP: enum.Enum) -> Left4Dead2LumpHeader:
 # classes for lumps, in alphabetical order:
 # TODO: PropHull
 # TODO: PropHullTri
-# TODO: StaticPropv8
 
 
 # classes for special lumps, in alphabetical order:
 # TODO: PropCollision
 # TODO: PropBlob
+# TODO: StaticPropv8
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -125,9 +125,11 @@ LUMP_CLASSES.update({"PROP_HULL_VERTS": {0: quake.Vertex}})
 
 SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 
+GAME_LUMP_HEADER = left4dead.GAME_LUMP_HEADER
+
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = left4dead.GAME_LUMP_CLASSES.copy()
-# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: shared.GameLump_SPRP(raw_lump, StaticPropv8)})
+# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
 methods = [*left4dead.methods]

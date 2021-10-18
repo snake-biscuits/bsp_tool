@@ -3,7 +3,8 @@
 # http://ritualistic.chrissstrahl.de/games/ef2/gdkdocs/
 from . import fakk2
 from . import moh_allied_assault
+from . import sin
 from . import star_trek_elite_force2
 
 
-scripts = [fakk2, moh_allied_assault, star_trek_elite_force2]
+scripts = [fakk2, moh_allied_assault, sin, star_trek_elite_force2]

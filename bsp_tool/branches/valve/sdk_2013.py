@@ -13,7 +13,7 @@ BSP_VERSION = 21
 GAME_PATHS = ["Blade Symphony", "Counter-Strike: Global Offensive", "Portal 2",
               "Source Filmmaker"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 LUMP = orange_box.LUMP
@@ -38,6 +38,8 @@ LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+
+GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
 GAME_LUMP_CLASSES["sprp"].pop(10)

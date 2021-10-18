@@ -11,6 +11,8 @@ import warnings
 from . import lumps
 
 
+# TODO: align base.Bsp closer to Quake than Source
+
 # NOTE: LumpHeaders must have these attrs, but how they are read / order will vary
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 ExternalLumpHeader = collections.namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC",
@@ -92,15 +94,15 @@ class Bsp:
             try:
                 if LUMP_NAME == "GAME_LUMP":
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses)
+                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP_NAME in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME][lump_header.version]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
                 elif LUMP_NAME in self.branch.SPECIAL_LUMP_CLASSES:
                     SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP_NAME][lump_header.version]
-                    d_file, d_header = lumps.decompressed(self.file, lump_header)
-                    d_file.seek(d_header.offset)
-                    lump_data = d_file.read(d_header.length)
+                    decompressed_file, decompressed_header = lumps.decompressed(self.file, lump_header)
+                    decompressed_file.seek(decompressed_header.offset)
+                    lump_data = decompressed_file.read(decompressed_header.length)
                     BspLump = SpecialLumpClass(lump_data)
                 elif LUMP_NAME in self.branch.BASIC_LUMP_CLASSES:
                     LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP_NAME][lump_header.version]

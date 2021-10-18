@@ -1,6 +1,3 @@
-"""Technically SiN was developed by Ritual Entertainment, but there's a lot of overlap.
-All three creditted programmers worked on Heavy Metal F.A.K.K. 2
-Some also worked on MoH:AA expansions & some Valve titles"""
 # https://github.com/TTimo/GtkRadiant/blob/master/tools/quake3/q3map2/game_sof2.h
 # https://github.com/TTimo/GtkRadiant/blob/master/tools/urt/tools/quake3/q3map2/bspfile_rbsp.c
 import enum
@@ -13,11 +10,11 @@ FILE_MAGIC = b"RBSP"
 
 BSP_VERSION = 1
 
-GAME_PATHS = ["SiN", "SiN Gold", "Soldier of Fortune 2",
+GAME_PATHS = ["Soldier of Fortune 2",
               "Star Wars Jedi Knight - Jedi Academy",
               "Star Wars Jedi Knight II - Jedi Outcast"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

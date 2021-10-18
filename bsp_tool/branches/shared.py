@@ -1,4 +1,3 @@
-import enum
 import io
 import itertools
 import math
@@ -20,22 +19,6 @@ from . import physics  # noqa F401
 # -- use the lumps system to dynamically index a file:
 # -- do an initial scan for where each entry begins & have a .read_entry() method
 # TODO: consider using __repr__ methods, as SpecialLumpClasses can get large
-
-
-# flag enums
-class SPRP_flags(enum.IntFlag):
-    FADES = 0x1  # use fade distances
-    USE_LIGHTING_ORIGIN = 0x2
-    NO_DRAW = 0x4    # computed at run time based on dx level
-    # the following are set in a level editor:
-    IGNORE_NORMALS = 0x8
-    NO_SHADOW = 0x10
-    SCREEN_SPACE_FADE = 0x20
-    # next 3 are for lighting compiler
-    NO_PER_VERTEX_LIGHTING = 0x40
-    NO_SELF_SHADOWING = 0x80
-    NO_PER_TEXEL_LIGHTING = 0x100
-    EDITOR_MASK = 0x1D8
 
 
 # Basic Lump Classes
@@ -118,39 +101,6 @@ class Entities(list):
             entity.append("}")
             entities.append("\n".join(entity))
         return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
-
-
-class GameLump_SPRP:  # Mostly for Source
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        """Get StaticPropClass from GameLump version"""
-        # lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)
-        sprp_lump = io.BytesIO(raw_sprp_lump)
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
-        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
-        leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leaves", list(leaves))
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
-        read_size = struct.calcsize(StaticPropClass._format) * prop_count
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-        setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes, bad format"
-
-    def as_bytes(self) -> bytes:
-        if len(self.props) > 0:
-            prop_format = self.props[0]._format
-        else:
-            prop_format = ""
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "little"),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.props), 4, "little"),
-                         *[struct.pack(prop_format, *p.flat()) for p in self.props]])
 
 
 class PakFile(zipfile.ZipFile):

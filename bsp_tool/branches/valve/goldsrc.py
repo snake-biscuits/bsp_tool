@@ -24,7 +24,7 @@ GAME_PATHS = [*[f"Half-Life/{mod}" for mod in [
                             "valve"]],   # Half-Life
               "Halfquake Trilogy", "Sven Co-op"]
 
-GAME_VERSIONS = {game: BSP_VERSION for game in GAME_PATHS}
+GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

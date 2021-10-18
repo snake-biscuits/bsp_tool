@@ -5,17 +5,20 @@ import pytest
 
 from . import maplist
 from bsp_tool import branches
-from bsp_tool import load_bsp
-from bsp_tool import IdTechBsp, InfinityWardBsp, RespawnBsp, ValveBsp
+from bsp_tool import lumps
+from bsp_tool import load_bsp, IdTechBsp, InfinityWardBsp, RespawnBsp, ValveBsp
 
 
 # helper for harder to detect games
-game_scripts = {**{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
+game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
+                **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
                 "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
                 "Half-Life/blue_shift": branches.gearbox.blue_shift,
                 "Hexen2": branches.raven.hexen2,
                 "left 4 dead": branches.valve.left4dead,
                 "Left 4 Dead 2": branches.valve.left4dead2,
+                "SoF2": branches.raven.soldier_of_fortune2,
+                "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,
                 "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
                 "Vindictus": branches.nexon.vindictus}
 # ^ {"game_name": branch_script}
@@ -31,12 +34,14 @@ def test_load_bsp(group_path, game_name, map_dirs):
     # auto-detection really shouldn't have to rely on precise strings
     errors = dict()
     # ^ {"game": ["errors"]}
+    types = set()
+    # ^ {(BspClass, branch, version)}
     total = 0
     for map_dir in map_dirs:
         full_path = os.path.join(group_path, game_name, map_dir)
         if os.path.exists(full_path):
             files = os.listdir(full_path)
-            maps = fnmatch.filter(files, "*bsp")  # .bsp & CoD2 .d3dbsp
+            maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
             total += len(maps)
             assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
             for m in maps:  # load every .bsp
@@ -51,14 +56,15 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     bsp = load_bsp(bsp_filename, branch_script)
                     loading_errors = {**bsp.loading_errors}
                     if hasattr(bsp, "GAME_LUMP"):
-                        loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
+                            loading_errors.update(bsp.GAME_LUMP.loading_errors)
                     failed_lumps = ', '.join(loading_errors.keys())
                     assert len(loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
                 except AssertionError as ae:
-                    print(bsp)  # print filename, branch_script & version to stdout
                     errors[f"{map_dir}/{m}"] = ae
+                    types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                     del bsp
-    assert errors == dict(), f"failed on {len(errors)} out of {total} .bsps"
+    assert errors == dict(), "\n".join([f"failed on {len(errors)} out of {total} .bsps", *map(str, types)])
 
 
 # TODO: generate from documentation / branch_scripts

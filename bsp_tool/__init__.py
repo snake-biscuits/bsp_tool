@@ -1,7 +1,7 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp",
-           "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+           "ArkaneBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
+           "QuakeBsp", "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
@@ -9,6 +9,7 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
+from .arkane import ArkaneBsp
 from .id_software import QuakeBsp, IdTechBsp
 from .infinity_ward import InfinityWardBsp
 from .raven import RavenBsp
@@ -23,7 +24,7 @@ BspVariant_from_file_magic = {b"2015": RitualBsp,
                               b"IBSP": IdTechBsp,  # or InfinityWardBsp
                               b"rBSP": RespawnBsp,
                               b"RBSP": RavenBsp,
-                              b"VBSP": ValveBsp}
+                              b"VBSP": ValveBsp}  # and ArkaneBsp
 # NOTE: if no file_magic is present, options are:
 # - GoldSrcBsp
 # - QuakeBsp
@@ -55,7 +56,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
         BspVariant = InfinityWardBsp
     elif filename.lower().endswith(".bsp"):
-        if file_magic not in BspVariant_from_file_magic:
+        if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
             version = int.from_bytes(file_magic, "little")
             file_magic = None
             if version in Quake_versions:
@@ -65,8 +66,11 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
             else:
                 raise NotImplementedError("TODO: Check if encrypted Tactical Intervention .bsp")
         else:
-            if file_magic == b"IBSP" and version in InfinityWard_versions:
+            if file_magic == b"IBSP" and version in InfinityWard_versions:  # CoD
                 BspVariant = InfinityWardBsp
+            elif file_magic == b"VBSP" and version > 0xFFFF:  # Dark Messiah
+                version = (version & 0xFFFF, version >> 16)  # major, minor
+                BspVariant = ArkaneBsp
             else:
                 BspVariant = BspVariant_from_file_magic[file_magic]
     else:  # invalid extension
