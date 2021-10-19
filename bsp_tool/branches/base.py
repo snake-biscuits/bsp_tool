@@ -1,5 +1,6 @@
 """Base classes for defining .bsp lump structs"""
 from __future__ import annotations
+import re
 import struct
 from typing import Any, Dict, Iterable, List, Union
 
@@ -223,6 +224,48 @@ class MappedArray:
         return struct.pack(self._format, *self.flat())
 
     @classmethod
-    def as_cpp(self) -> str:  # C++ struct definition
-        # TODO: move py_struct_as_cpp here, or import & map
+    def as_cpp(cls, _format: str = "") -> str:  # C++ struct definition
         raise NotImplementedError()
+        # out = list()
+        # out.append("struct {cls.__name__}" + "{\n")
+        # if _format == "":
+        #     _format = self._format  # can break, parents must pass on _format sliver
+        # types = 
+        # if isinstance(cls._mapping, dict):
+        #     type_tuple = split_format(_format)
+        #     i = 0
+        #     for attr, attr_mapping in cls._mapping.item():
+        #         if child_mapping is None:
+        #             type_char = type_tuple[i]
+        #             i += 1
+        # elif isinstance(cls._mapping, list):
+        #     for type_char, attr in zip(split_format(_format), cls._mapping):
+        #         out.append(f"\t{type_LUT[type_char]} {attr}\n")
+        # else:
+        #     raise RuntimeError(f"Invalid _mapping type: {type(cls._mapping)}")
+        # out.append("};\n")
+
+
+def split_format(_format: str) -> List[str]:
+    """split a struct format string to zip with tuple"""
+    _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefdspP]", _format.replace(" ", ""))
+    out = list()
+    for f in _format:
+        match_numbered = re.match(r"([0-9]+)([xcbB\?hHiIlLqQnNefdpP])", f)
+        # NOTE: does not decompress strings
+        if match_numbered is not None:
+            count, f = match_numbered.groups()
+            out.extend(f * int(count))
+        else:
+            out.append(f)
+    return out
+
+
+type_LUT = {"c": "char",  "?": "bool",
+            "b": "char",  "B": "unsigned char",
+            "h": "short", "H": "unsigned short",
+            "i": "int",   "I": "unsigned int",
+            "f": "float", "g": "double"}
+
+type_defaults = {"c": 0, "?": False, "b": 0, "B": 0, "h": 0, "H": 0,
+                 "i": 0, "I": 0, "f": 0.0, "g": 0.0}

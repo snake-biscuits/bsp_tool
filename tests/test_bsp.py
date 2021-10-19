@@ -54,6 +54,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                         continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                     bsp = load_bsp(bsp_filename, branch_script)
+                    # TODO: assert game_name, bsp_version and BspVariant match
                     loading_errors = {**bsp.loading_errors}
                     if hasattr(bsp, "GAME_LUMP"):
                         if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
@@ -65,22 +66,3 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     del bsp
     assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
 
-
-# TODO: generate from documentation / branch_scripts
-expected_branch = {"ApexLegends": (RespawnBsp, 47, "respawn.apex_legends"),  # + 48 & 49
-                   "Counter-Strike Global Offensive": (ValveBsp, 21, "valve.sdk_2013"),
-                   "counter-strike source": (ValveBsp, 19, "valve.cs_s"),
-                   "CoD1": (InfinityWardBsp, 59, "infinity_ward.call_of_duty1"),
-                   "CoD2": (InfinityWardBsp, 4, "infinity_ward.call_of_duty1"),
-                   "CSO2": (ValveBsp, 100, "nexon.cso2"),
-                   "half-life 2": (ValveBsp, 19, "valve.cs_s"),
-                   "Left 4 Dead 2": (ValveBsp, 20, "valve.orange_box"),
-                   "SourceFilmmaker": (ValveBsp, 20, "valve.orange_box"),
-                   "Team Fortress 2": (ValveBsp, 20, "valve.orange_box"),
-                   "Titanfall": (RespawnBsp, 29, "respawn.titanfall"),
-                   "TitanfallOnline": (RespawnBsp, 29, "respawn.titanfall"),
-                   "Titanfall2": (RespawnBsp, 37, "respawn.titanfall2"),
-                   "QuakeIII": (IdTechBsp, 46, "id_software.quake3")}
-# ^ {"game": (type(bsp), bsp_version, "branch")}
-
-# TODO: test_guess_by_file_magic

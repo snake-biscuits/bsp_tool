@@ -24,7 +24,9 @@ from .base import mapping_length, MappedArray, Struct
 StructMapping = Union[Dict[str, Any], List[str], int, None]  # _arrays or _mapping
 CType = str
 TypeMap = Dict[CType, str]
-# ^ {"type": "member"}
+# ^ {"c_type": "member"}
+StructMap = Dict[str, TypeMap]
+# ^ {"name": {"c_type": "member"}}
 
 
 def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
@@ -47,7 +49,7 @@ def lump_class_as_c(lump_class: Union[MappedArray, Struct]) -> str:
 
 
 # TODO: revise
-def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: StructMapping = dict()) -> Dict[str, TypeMap]:
+def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: StructMapping = dict()) -> StructMap:
     members = list()
     i = 0
     for attr in attrs:
@@ -70,6 +72,7 @@ def make_c_struct(name: str, attrs: List[str], formats: List[str], mappings: Str
 
 
 def split_format(_format: str) -> List[str]:
+    """split a struct format string to zip with tuple"""
     _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefdspP]", _format.replace(" ", ""))
     out = list()
     for f in _format:
