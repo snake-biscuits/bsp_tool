@@ -35,21 +35,18 @@ class Face(base.Struct):  # LUMP 7
     texture_info: int    # index into the TextureInfo lump
     displacement_info: int   # index into the DisplacementInfo lump (None if -1)
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
-    styles: List[List[int]]  # 4 different lighting states? "switchable lighting info"
+    styles: List[List[int]]  # "switchable lighting info"; selects an additional lightmap
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
     lightmap: List[float]
     # lightmap.mins  # dimensions of lightmap segment
     # lightmap.size  # scalars for lightmap segment
     original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
-    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
-    first_primitive_id: int  # index of Primitive
     smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["light_colours", "plane", "side", "on_node", "first_edge", "num_edges",
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
-                 "light_offset", "area", "lightmap", "original_face",
-                 "num_primitives", "first_primitive_id", "smoothing_groups"]
-    _format = "32BHb?i4h8b8b8bif5i2HI"
+                 "light_offset", "area", "lightmap", "original_face", "smoothing_groups"]
+    _format = "32BHb?i4h8b8b8bif5iI"
     _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},
                "styles": {"base": 8, "day": 8, "night": 8},
                "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}

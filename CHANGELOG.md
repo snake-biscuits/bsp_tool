@@ -15,11 +15,12 @@
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
  * Completely refactored `branch_script` detection
- * `load_bsp` now only accepts `branch_script`s in it's optional argument
+ * `load_bsp` now only accepts a `branch_script` as it's optional argument
 
 ### Newly Supported
  * Source Engine
    - Tactical Intervention
+   - Vampire the Masquerade: Bloodlines
  * Ubertools
 
 ### Updated Support
