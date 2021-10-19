@@ -58,13 +58,12 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     if hasattr(bsp, "GAME_LUMP"):
                         if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
                             loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                    failed_lumps = ', '.join(loading_errors.keys())
-                    assert len(loading_errors) == 0, f"Failed to load the following lumps: {failed_lumps}"
+                    assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                 except AssertionError as ae:
                     errors[f"{map_dir}/{m}"] = ae
                     types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                     del bsp
-    assert errors == dict(), "\n".join([f"failed on {len(errors)} out of {total} .bsps", *map(str, types)])
+    assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
 
 
 # TODO: generate from documentation / branch_scripts

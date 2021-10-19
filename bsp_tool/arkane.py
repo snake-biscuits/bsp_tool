@@ -16,7 +16,7 @@ class ArkaneBsp(valve.ValveBsp):
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
-        self.bsp_version = struct.iter_unpack("2h", self.file.read(4))  # ONLY CHANGE
+        self.bsp_version = tuple(struct.iter_unpack("2h", self.file.read(4)))
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 

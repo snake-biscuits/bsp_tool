@@ -39,7 +39,7 @@ Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     """Calculate and return the correct base.Bsp sub-class for the given .bsp"""
     # TODO: OPTION: use filepath to guess game / branch
-    # is filename real?
+    # verify path
     if not os.path.exists(filename):
         raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
     elif os.path.getsize(filename) == 0:  # HL2/ d2_coast_02.bsp
@@ -48,8 +48,6 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
         version = int.from_bytes(bsp_file.read(4), "little")
-        # NOTE: not every version is this format
-        # -- DarkMessiahBspHeader { char file_magic[4]; short version[2]; ... };
     # identify BspVariant
     if filename.lower().endswith(".d3dbsp"):  # CoD2
         assert file_magic == b"IBSP", "Mystery .d3dbsp!"
