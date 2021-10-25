@@ -7,6 +7,12 @@ from . import valve
 
 
 class ArkaneBsp(valve.ValveBsp):
+    def __repr__(self):
+        major, minor = self.bsp_version
+        version = f"({self.file_magic.decode('ascii', 'ignore')} version {major}.{minor})"
+        game = self.branch.__name__[len(self.branch.__package__) + 1:]
+        return f"<{self.__class__.__name__} '{self.filename}' {game} {version} at 0x{id(self):016X}>"
+
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
@@ -16,7 +22,7 @@ class ArkaneBsp(valve.ValveBsp):
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
-        self.bsp_version = tuple(struct.iter_unpack("2h", self.file.read(4)))
+        self.bsp_version = tuple(*struct.iter_unpack("2h", self.file.read(4)))
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 

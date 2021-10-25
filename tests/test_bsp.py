@@ -6,17 +6,20 @@ import pytest
 from . import maplist
 from bsp_tool import branches
 from bsp_tool import lumps
-from bsp_tool import load_bsp, IdTechBsp, InfinityWardBsp, RespawnBsp, ValveBsp
+from bsp_tool import load_bsp
 
 
-# helper for harder to detect games
+# helper for games with shared identifiers
 game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
                 **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
                 "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
+                "DarkMessiah/multiplayer": branches.arkane.dark_messiah_multiplayer,
                 "Half-Life/blue_shift": branches.gearbox.blue_shift,
                 "Hexen2": branches.raven.hexen2,
                 "left 4 dead": branches.valve.left4dead,
                 "Left 4 Dead 2": branches.valve.left4dead2,
+                "SiN": branches.ritual.sin,
+                "SoF": branches.raven.soldier_of_fortune,
                 "SoF2": branches.raven.soldier_of_fortune2,
                 "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,
                 "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
@@ -65,4 +68,3 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                     del bsp
     assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-

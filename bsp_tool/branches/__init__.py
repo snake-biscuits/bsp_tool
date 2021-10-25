@@ -24,6 +24,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"IBSP": [id_software.quake2,
                                      id_software.quake3,
                                      *infinity_ward.scripts,
+                                     raven.soldier_of_fortune,
                                      ritual.sin],
                            b"rBSP": [*respawn.scripts],
                            b"RBSP": [raven.soldier_of_fortune2,
@@ -40,7 +41,17 @@ for file_magic, branch_scripts in scripts_from_file_magic.items():
     for branch_script in branch_scripts:
         for version in branch_script.GAME_VERSIONS.values():
             script_from_file_magic_and_version[(file_magic, version)] = branch_script
-# NOTE: multiple branch_scripts exist for (b"VBSP", 20) & (b"VBSP", 21)
+# forcing defaults for overlaps
+script_from_file_magic_and_version[(b"IBSP", 46)] = id_software.quake3
+# ^ overlaps raven.soldier_of_fortune
+script_from_file_magic_and_version[(b"VBSP", 20)] = valve.orange_box
+# ^ overlaps nexon.vindictus & valve.left4dead
+script_from_file_magic_and_version[(b"VBSP", 21)] = valve.sdk_2013
+# ^ overlaps valve.alien_swarm & valve.left4dead2
+script_from_file_magic_and_version[(b"VBSP", 100)] = nexon.cso2
+# ^ overlaps nexon.cso2_2018
+script_from_file_magic_and_version[(b"RBSP", 1)] = raven.soldier_of_fortune2
+# ^ overlaps ritual.sin
 
 
 game_path_table = dict()

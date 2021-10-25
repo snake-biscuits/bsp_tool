@@ -123,8 +123,8 @@ extracted_dirs = {
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
         # https://github.com/L-Leite/UnCSO2
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
-        "DarkMessiah": ["singleplayer/maps",  # 35 maps | 1.4 GB | .vpk
-                        "multiplayer/maps"],  # 11 maps | 564 MB | .vpk
+        "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
+        "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
         "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
         # https://www.moddb.com/mods/team-fortress/downloads
         "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5

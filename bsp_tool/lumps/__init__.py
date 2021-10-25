@@ -342,11 +342,9 @@ class GameLump:
         for i in range(game_lumps_count):
             child_header = GameLumpHeaderClass.from_bytes(file.read(struct.calcsize(GameLumpHeaderClass._format)))
             # ^ this is why we need a .from_stream() method for SpecialLumpClasses
-            _id, flags, version, offset, length = child_header.flat()
-            if self.is_external:  # HACK
-                offset = offset - lump_header.offset
-            child_header = GameLumpHeaderClass.from_tuple((_id, flags, version, offset, length))
-            self.headers[_id.decode("ascii")[::-1]] = child_header  # b"prps" -> "sprp"
+            if self.is_external:  # HACK (does this ever happen?)
+                child_header.offset = child_header.offset - lump_header.offset
+            self.headers[child_header.id.decode("ascii")[::-1]] = child_header  # b"prps" -> "sprp"
         for child_name, child_header in self.headers.items():
             child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
             if child_LumpClass is None:
@@ -365,8 +363,9 @@ class GameLump:
         out = []
         out.append(len(self.headers).to_bytes(4, "little"))
         headers = []
-        # HACK: "write" lump contents before headers
-        cursor_offset = lump_offset + 4 + len(self.headers) * 16
+        # skip the headers
+        cursor_offset = lump_offset + 4 + len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)
+        # write child lumps
         for child_name, child_header in self.headers.items():
             child_lump = getattr(self, child_name)
             if isinstance(child_lump, RawBspLump):
@@ -374,10 +373,11 @@ class GameLump:
             else:
                 child_lump_bytes = child_lump.as_bytes()  # SpecialLumpClass method
             out.append(child_lump_bytes)
-            # calculate header
-            _id, flags, version, offset, length = child_header.flat()
-            offset, length = cursor_offset, len(child_lump_bytes)
-            cursor_offset += length
-            self.GameLumpHeaderClass.from_tuple((_id, flags, version, offset, length))
-        out[1:1] = headers  # insert headers after calculating
+            # recalculate header
+            child_header.offset = cursor_offset
+            child_header.length = len(child_lump_bytes)
+            cursor_offset += child_header.length
+            headers.append(child_header)
+        # and finally inject the headers back in before "writing"
+        out[1:1] = headers
         return b"".join(out)
