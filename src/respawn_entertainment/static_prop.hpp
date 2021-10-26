@@ -1,13 +1,11 @@
-namespace bsp_tool {
-    /* Common base types */
-    // TODO: replace with an import from a common types header
-    struct Vector { float x, y, z; };
-    struct QAngle { float pitch, yaw, roll; };
-    struct Colour32 { unsigned char r, g, b, a; };
+#pragma once
 
+#include "../common.hpp"
+
+
+namespace bsp_tool {
     namespace respawn_entertainment {
-        // mostly identified by BobTheBob
-        struct StaticPropv12 {
+        struct StaticPropv12 {  // mostly identified by BobTheBob
             struct Vector    origin;
             struct QAngle    angles;
             unsigned short   mdl_name;
@@ -32,8 +30,7 @@ namespace bsp_tool {
             unsigned short   collision_flags_remove;  // new!
         };
 
-        // mostly identified by BobTheBob
-        struct StaticPropv13 {
+        struct StaticPropv13 {  // mostly identified by BobTheBob
             struct Vector    origin;
             struct QAngle    angles;
             char             unknown_1[4];

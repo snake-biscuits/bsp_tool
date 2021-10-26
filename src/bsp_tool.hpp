@@ -19,7 +19,7 @@ namespace bsp_tool {
 
             // NOTE: _read requires x to be initialised; as a result, x cannot be initialised with _read.
             template<typename T>
-            void _read(T* x) { this->_file.read((char*) x, sizeof(*x)); };
+            void _read(T* x) { this->_file.read((char*) x, sizeof(x)); };
 
             Bsp(const char filename[]) {
                 this->filename = filename;

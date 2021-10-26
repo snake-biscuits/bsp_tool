@@ -63,8 +63,10 @@ namespace bsp_tool {
 
 
 
-/* Print the headers of each .bsp for the given developer */
-void print_usage(char* argv_0) { printf("Usage: $ %s [DEVELOPER] [FILE]...\n", argv_0); }
+void print_usage(char* argv_0) {
+    printf("%s DEVELOPER FILE1 [FILE2 ...]\n", argv_0);
+    printf("Print the headers of each .bsp for the given developer");
+}
 
 
 int main(int argc, char* argv[]) {
@@ -74,7 +76,7 @@ int main(int argc, char* argv[]) {
     if (developer == std::string("idsoft") || developer == std::string("idtech")) {
         using namespace bsp_tool::id_software;
         for (i=2; i<argc; i++) {
-            IdTechBsp bsp (argv[i]);
+            IdTechBsp<17>  bsp = (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
             for (j=0; j<17; j++) {
                 LumpHeader header = bsp.headers[j];
