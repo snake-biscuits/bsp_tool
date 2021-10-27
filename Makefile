@@ -13,14 +13,15 @@ LDLIBS   := -lstdc++fs
 
 SDLFLAGS := -lGL `sdl2-config --cflags --libs`
 
-.PHONY: all make_build_dir
+DUMMY != mkdir -p $(BIN_DIR)
+
+.PHONY: all run
 
 
 all: make_build_dir $(BIN_DIR)/test.exe $(BIN_DIR)/glview.exe
 
-make_build_dir:
-	mkdir -p build
-
+run: $(BIN_DIR)/glview.exe
+	$(BIN_DIR)/glview.exe
 
 # TODO: .o builds
 # TODO: clean

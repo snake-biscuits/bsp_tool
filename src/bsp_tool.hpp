@@ -1,5 +1,7 @@
+#pragma once
+
 #include <cstdio>
-#include <filesystem>  // -std=c++17
+#include <filesystem>  // -std=c++17 -lstdc++fs
 #include <fstream>
 #include <string>
 

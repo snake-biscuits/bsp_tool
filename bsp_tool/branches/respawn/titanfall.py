@@ -156,15 +156,11 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # Rough map of the relationships between lumps:
 
 #              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
-# Model -> Mesh -> MeshIndices -\-> VertexReservedX -> Vertex
-#              \-> .flags (VertexReservedX)       \--> VertexNormal
-#                                                  \-> .uv
+# Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
+#              \-> .flags (VertexReservedX)     \--> VertexNormal
+#                                                \-> .uv
 
 # MeshBounds & Mesh are indexed in paralell?
-#
-# TextureData -> TextureDataStringTable -> TextureDataStringTable
-# VertexReservedX -> Vertex
-#                \-> VertexNormal
 #
 # LeafWaterData -> TextureData -> water material
 # NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
@@ -196,8 +192,8 @@ class Flags(enum.IntFlag):
     # source.Surface (source.TextureInfo / titanfall.TextureData ?)
     SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
     SKY = 0x0004
-    WARP = 0x0008  # water surface?
-    TRANSLUCENT = 0x0010  # VERTEX_UNLIT_TS ?
+    WARP = 0x0008  # Quake water surface?
+    TRANSLUCENT = 0x0010
     # titanfall.Mesh.flags
     VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
     VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2

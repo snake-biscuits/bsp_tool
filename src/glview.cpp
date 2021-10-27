@@ -1,16 +1,34 @@
 #include <chrono>
 #include <cstdio>
 
+#include <GL/glew.h>
 #include <GL/gl.h>  // -lGL
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
 
-// #include "bsp_tool.hpp"
-// #include "camera.hpp"
+#include "bsp_tool.hpp"
+#include "camera.hpp"
+#include "respawn_entertainment/meshes.hpp"
 
 
 #define WIDTH   960
 #define HEIGHT  544
+
+
+struct RenderVertex {
+    int       position;
+    int       normal;
+    float     colour[3];
+    Vector2D  uv;
+};
+
+
+// TODO: shader init, buffer init, libsm64 init
+
+using namespace bsp_tool::respawn_entertainment;
+void load_bsp(RespawnBsp bsp, GLuint vertex_buffer, GLuint index_buffer) {
+    // TODO
+};
 
 
 uint64_t time_ms() {
@@ -58,23 +76,36 @@ int main(int argc, char* argv[]) {
         return 1; }
     SDL_GL_SetSwapInterval(0);
 
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_CaptureMouse(SDL_TRUE);
+
     // SETUP OpenGL
     glClearColor(0.25, 0.25, 0.25, 0.0);
     glEnable(GL_DEPTH_TEST);
-    // NOTE: gluPerspective 3; GLEW?
     // TODO: load shaders
     // TODO: vertex & index buffers
 
+    // TODO: libsm64
+
     // SIMULATION VARIABLES
     // bsp_tool::respawn_entertainment::RespawnBsp  bsp = (argv[1]);
-    // Camera  free_cam;
-    float  speed = 0.01;
-    float  position[3] = {0, 0, 0.5};
+    camera::FirstPerson fp_camera;
+    memset(fp_camera.motion, false, 6);
+    fp_camera.position = {0, 0, 0.5};
+    fp_camera.rotation = {0, 0, 0};
+    fp_camera.sensitivity = 0.25;
+    fp_camera.speed = 0.001;
+
+    camera::Lens lens;
+    lens.fov = 90;
+    lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
+    lens.clip.near = 0.1;
+    lens.clip.far = 4096;
 
     // INPUTS
     SDL_Keycode  key;
     bool         keys[36] = {false};  // [0-9] SDLK_0-9, [10-35] SDLK_a-z
-    int          mouse_x, mouse_y;
+    Vector2D     mouse;
 
     // TICKS
     uint64_t last_tick = time_ms();
@@ -110,9 +141,12 @@ int main(int argc, char* argv[]) {
                         keys[key - 48] = false; }        // keys[0-9]
                     else if (97 <= key && key <= 122) {  // SDLK_a-z
                         keys[key - 87] = false; }        // keys[10-35]
+                    break;
                 case SDL_MOUSEMOTION:
-                    mouse_x = event.motion.x;
-                    mouse_y = event.motion.y;
+                    mouse.x += event.motion.xrel;
+                    mouse.y += event.motion.yrel;
+                    SDL_WarpMouseInWindow(window, width / 2, height / 2);
+                    break;
             }
         }
 
@@ -120,30 +154,41 @@ int main(int argc, char* argv[]) {
         tick_delta = (time_ms() - last_tick) + tick_accumulator;  // may be used in draw
         while (tick_delta >= tick_length) {  // 1 tick for each tick elapsed
             // UPDATE
+            // imagine a hashmap matching keys to functions
+            using namespace camera::MOVE;
+            memset(fp_camera.motion, false, 6);
             if (keys[SDLK_w - 87]) {
-                position[1] -= speed; }
-            else if (keys[SDLK_s - 87]) {
-                position[1] += speed; }
-            else if (keys[SDLK_a - 87]) {
-                position[0] += speed; }
-            else if (keys[SDLK_d - 87]) {
-                position[0] -= speed; }
-            else if (keys[SDLK_r - 87]) {
-                glLoadIdentity();
+                fp_camera.motion[DOLLY_IN] = true;
             }
+            else if (keys[SDLK_s - 87]) {
+                fp_camera.motion[DOLLY_OUT] = true;
+            }
+            else if (keys[SDLK_a - 87]) {
+                fp_camera.motion[PAN_LEFT] = true;
+            }
+            else if (keys[SDLK_d - 87]) {
+                fp_camera.motion[PAN_RIGHT] = true;
+            }
+            else if (keys[SDLK_q - 87]) {
+                fp_camera.motion[PAN_UP] = true;
+            }
+            else if (keys[SDLK_e - 87]) {
+                fp_camera.motion[PAN_DOWN] = true;
+            }
+            fp_camera.update(mouse, tick_delta);
+            mouse = {0, 0};  // zero the mouse to eliminate drift
             tick_delta -= tick_length; }
         tick_accumulator = tick_delta;
         last_tick = time_ms();
 
         // DRAW
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glLoadIdentity();  // NOTE: misbehaving
         // CAMERA
-        glRotatef(-90, 1, 0, 0);
-        glRotatef(mouse_y, 1, 0, 0);
-        glRotatef(mouse_x, 0, -1, 0);
+        glPushMatrix();
+        lens.use();
+        fp_camera.rotate();  // BUGGY
         // TODO: SKYBOX
-        glTranslated(-position[0], -position[1], -position[2]);
+        fp_camera.translate();
         // WORLD
         glColor3f(1, 1, 1);
         glBegin(GL_TRIANGLES);
@@ -157,6 +202,7 @@ int main(int argc, char* argv[]) {
           glVertex3d( 0.0,  0.1, -0.1);
           glVertex3d(-0.1, -0.1, -0.1);
         glEnd();
+        glPopMatrix();
         // PRESENT FRAME
         SDL_GL_SwapWindow(window);
     }
