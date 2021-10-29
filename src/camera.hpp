@@ -56,6 +56,7 @@ namespace camera {
             // METHODS
             // NOTE: no blending between ticks
             void update(Vector2D mouse, uint64_t delta_time_ms) {
+                // controls break sometimes? gimball lock?
                 rotation.z += mouse.x * sensitivity;
                 rotation.x += mouse.y * sensitivity;
                 rotation.x = rotation.x > 90 ? 90 : rotation.x < -90 ? -90 : rotation.x;
@@ -64,6 +65,7 @@ namespace camera {
                 wish.x = -(motion[PAN_LEFT] - motion[PAN_RIGHT]);
                 wish.y = -(motion[DOLLY_OUT] - motion[DOLLY_IN]);
                 wish.z = -(motion[PAN_DOWN] - motion[PAN_UP]);
+                // TODO: rotate wish with a quaternion
                 position += wish.rotate(rotation) * speed * delta_time_ms;
             };
 

@@ -1,15 +1,14 @@
-#include "bsp_tool.hpp"
+#pragma once
 
 
 namespace bsp_tool {
-    // NOTE: Quake III Arena lump names
-    namespace id_software {
+    namespace id_software::quake3 {
         char lump_names[17][64] = {"Entities", "Textures", "Planes", "Nodes", "Leaves",
                                    "LeafFaces", "LeafBrushes", "Models", "Brushes",
                                    "BrushSides", "Vertices", "MeshVertices", "Effects",
                                    "Faces", "Lightmaps", "LightVolumes", "Visibility"};
     }
-    namespace valve_software {
+    namespace valve_software::source {
         char lump_names[64][64] = {"Entities", "Planes", "TextureData", "Vertices", "Visibility",
                                    "Nodes", "TexInfo", "Faces", "Lighting", "Occlusion",
                                    "Leaves", "FaceIDs", "Edges", "SurfEdges", "Models",
@@ -28,7 +27,7 @@ namespace bsp_tool {
                                    "LeafAmbientLightingHDR", "LeafAmbientLighting", "XZipPakFile",
                                    "FacesHDR", "MapFlags", "OverlayFades", "Unused61", "Unused62", "Unused63"};
     }
-    namespace respawn_entertainment {
+    namespace respawn_entertainment::titanfall {
         char lump_names[128][64] = {"Entities", "Planes", "TextureData", "Vertices", "Unused04", "Unused05",
                                     "Unused06", "Unused07", "Unused08", "Unused09", "Unused10", "Unused11",
                                     "Unused12", "Unused13", "Models", "Unused15", "Unused16", "Unused17",
@@ -60,60 +59,3 @@ namespace bsp_tool {
     }
 }
 
-
-
-
-void print_help(char* argv_0) {
-    printf("%s DEVELOPER FILE1 [FILE2 ...]\n", argv_0);
-    printf("Print the headers of each .bsp for the given developer\n");
-    printf("    DEVELOPER  one of the following: idsoft valve respawn\n");
-}
-
-
-int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        print_help(argv[0]);
-        return 0;
-    }
-
-    std::string developer (argv[1]);
-
-    int i, j;
-    if (developer == std::string("idsoft") || developer == std::string("idtech")) {
-        using namespace bsp_tool::id_software;
-        for (i = 2; i < argc; i++) {
-            // NOTE: Quake 3 Only
-            IdTechBsp<17>  bsp = (argv[i]);
-            printf("Loaded: %s\n", bsp.filename.c_str());
-            for (j = 0; j < 17; j++) {
-                LumpHeader header = bsp.headers[j];
-                printf("%s:\n\toffset = %i\n\tlength = %i\n", lump_names[j], header.offset, header.length);
-            }
-        }
-    } else if (developer == std::string("valve")) {
-        using namespace bsp_tool::valve_software;
-        for (i = 2; i < argc; i++) {
-            ValveBsp bsp (argv[i]);
-            printf("Loaded: %s\n", bsp.filename.c_str());
-            for (j = 0; j < 64; j++) {
-                LumpHeader header = bsp.headers[j];
-                printf("%s:\n\toffset  = %i\n\tlength  = %i\n\tversion = %i\n\tfourCC  = %i\n", lump_names[j],
-                       header.offset, header.length, header.version, header.uncompressed_size);
-            }
-        }
-    } else if (developer == std::string("respawn")) {
-        using namespace bsp_tool::respawn_entertainment;
-        for (i = 2; i<argc; i++) {
-            RespawnBsp bsp (argv[i]);
-            printf("Loaded: %s\n", bsp.filename.c_str());
-            for (j = 0; j < 128; j++) {
-                LumpHeader header = bsp.headers[j];
-                printf("%s:\n\toffset  = %i\n\tlength  = %i\n\tversion = %i\n\tfourCC  = %i\n", lump_names[j],
-                       header.offset, header.length, header.version, header.uncompressed_size);
-            }
-        }
-    } else {
-        print_help(argv[0]);
-    }
-    return 0;
-}

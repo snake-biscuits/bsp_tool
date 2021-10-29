@@ -16,18 +16,103 @@
 
 
 struct RenderVertex {
-    int       position;
-    int       normal;
+    Vector    position;
+    Vector    normal;
     float     colour[3];
     Vector2D  uv;
 };
 
 
-// TODO: shader init, buffer init, libsm64 init
+struct RenderObject {
+    // Buffer data
+    int           vertex_count;
+    RenderVertex *vertices;
+    // GL object handles
+    GLuint        vertex_buffer;
+    GLuint        index_buffer;
+    GLuint        shader;
+};
+
+
+// TODO: libsm64 init & physics triangles
 
 using namespace bsp_tool::respawn_entertainment;
-void load_bsp(RespawnBsp bsp, GLuint vertex_buffer, GLuint index_buffer) {
-    // TODO
+RenderObject bsp_gl_init(const char* filename) {
+    // TODO: init shaders and buffers
+    RespawnBsp    bsp = (filename);
+
+    // return objects
+    RenderObject out;
+    memset(&out, 0, sizeof(RenderObject));
+
+    using namespace titanfall;
+    int total_vertices;
+    total_vertices  = bsp.header[LUMP::VERTEX_UNLIT   ].length / sizeof(VertexUnlit  );
+    total_vertices += bsp.header[LUMP::VERTEX_LIT_FLAT].length / sizeof(VertexLitFlat);
+    total_vertices += bsp.header[LUMP::VERTEX_LIT_BUMP].length / sizeof(VertexLitBump);
+    total_vertices += bsp.header[LUMP::VERTEX_UNLIT_TS].length / sizeof(VertexUnlitTS);
+    out.vertices = (RenderVertex*) malloc(sizeof(RenderVertex) * total_vertices);
+
+    // titanfall lump types
+    MaterialSort  material_sort;
+    Mesh          mesh;
+    TextureData   texture_data;
+
+    printf("MeshIndices:   %d\n", bsp.header[LUMP::MESH_INDICES   ].length);
+    printf("Vertices:      %d\n", bsp.header[LUMP::VERTICES       ].length);
+    printf("VertexNormals: %d\n", bsp.header[LUMP::VERTEX_NORMALS ].length);
+    printf("VertexUnlit:   %d\n", bsp.header[LUMP::VERTEX_UNLIT   ].length);
+    printf("VertexLitFlat: %d\n", bsp.header[LUMP::VERTEX_LIT_FLAT].length);
+    printf("VertexLitBump: %d\n", bsp.header[LUMP::VERTEX_LIT_BUMP].length);
+    printf("VertexUnlitTS: %d\n", bsp.header[LUMP::VERTEX_UNLIT_TS].length);
+    // TODO: getLump causes "stack smashing" / buffer overflow (too big?)
+    #define getLump(Type, name, ENUM)  Type *name = bsp.getLump<Type>(ENUM)
+    getLump(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   );
+    getLump(Vector,          VERTICES,         LUMP::VERTICES       );
+    getLump(Vector,          VERTEX_NORMALS,   LUMP::VERTEX_NORMALS );
+    // VERTEX_RESERVED_0-4
+    getLump(VertexUnlit,     VERTEX_UNLIT,     LUMP::VERTEX_UNLIT   );
+    getLump(VertexLitFlat,   VERTEX_LIT_FLAT,  LUMP::VERTEX_LIT_FLAT);
+    getLump(VertexLitBump,   VERTEX_LIT_BUMP,  LUMP::VERTEX_LIT_BUMP);
+    getLump(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS);
+    #undef getLump
+
+    VertexUnlit    vertex_unlit;
+    VertexLitFlat  vertex_lit_flat;
+    VertexLitBump  vertex_lit_bump;
+    VertexUnlitTS  vertex_unlit_ts;
+
+    RenderVertex render_vertex;
+    // convert geo  // TODO: SM64Triangles
+    #define getRenderVertices(VERTEX_LUMP, mesh_vertex) \
+        for (int i = 0; i < mesh.num_vertices; i++) { \
+            mesh_vertex = VERTEX_LUMP[MESH_INDICES[mesh.first_vertex + i] + material_sort.vertex_offset]; \
+            render_vertex.position = VERTICES[mesh_vertex.position]; \
+            render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
+            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
+            render_vertex.uv = mesh_vertex.uv; \
+            out.vertices[out.vertex_count] = render_vertex; \
+            out.vertex_count++; }
+    Model worldspawn = bsp.getLumpEntry<Model>(LUMP::MODELS, 0);
+    for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
+        mesh = bsp.getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
+        material_sort = bsp.getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
+        texture_data = bsp.getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
+        switch (mesh.flags & FLAG::MASK_VERTEX) {
+            case FLAG::VERTEX_UNLIT:  // VERTEX_RESERVED_0
+                getRenderVertices(VERTEX_UNLIT, vertex_unlit) break;
+            case FLAG::VERTEX_LIT_FLAT:  // VERTEX_RESERVED_1
+                getRenderVertices(VERTEX_LIT_FLAT, vertex_lit_flat) break;
+            case FLAG::VERTEX_LIT_BUMP:  // VERTEX_RESERVED_2
+                getRenderVertices(VERTEX_LIT_BUMP, vertex_lit_bump) break;
+            case FLAG::VERTEX_UNLIT_TS:  // VERTEX_RESERVED_3
+                getRenderVertices(VERTEX_UNLIT_TS, vertex_unlit_ts) break;
+        }
+        // TODO: append vertex
+    #undef getRenderVertices
+    }
+    // TODO: grab all models + parent entity origins
+    return out;
 };
 
 
@@ -49,16 +134,13 @@ void print_help(char* argv_0) {
 int main(int argc, char* argv[]) {
     int width  = WIDTH;
     int height = HEIGHT;
-    if (argc <= 1) { // a.out
-        print_help(argv[0]);  // NOTE: print usage and render the window
-    }
-    else if (argc == 4) {  // a.out MAPNAME.bsp WIDTH HEIGHT
+    if (argc == 4) {  // a.out MAPNAME.bsp WIDTH HEIGHT
         width  = atoi(argv[2]);
         height = atoi(argv[3]);
     }
-    else if (argc != 2) { // a.out MAPNAME.bsp
+    else if (argc != 2 || argc <= 1) { // invalid input
         print_help(argv[0]);
-        return 0;
+        // return 0;
     }
 
     // SETUP SDL
@@ -88,7 +170,10 @@ int main(int argc, char* argv[]) {
     // TODO: libsm64
 
     // SIMULATION VARIABLES
-    // bsp_tool::respawn_entertainment::RespawnBsp  bsp = (argv[1]);
+    // RenderObject bsp = bsp_gl_init(argv[1]);
+    RenderObject bsp = bsp_gl_init("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
+    printf("%d, %lu\n", bsp.vertex_count, sizeof(bsp.vertices[0]) / sizeof(bsp.vertices));
+
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
     fp_camera.position = {0, 0, 0.5};
@@ -177,6 +262,7 @@ int main(int argc, char* argv[]) {
             }
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
+            // END TICK
             tick_delta -= tick_length; }
         tick_accumulator = tick_delta;
         last_tick = time_ms();

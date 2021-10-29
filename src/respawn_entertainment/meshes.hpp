@@ -9,7 +9,7 @@
 //                                                \-> .uv
 
 
-namespace bsp_tool::respawn_entertainment::Titanfall {
+namespace bsp_tool::respawn_entertainment::titanfall {
     namespace FLAG {
         const int SKY_2D          = 0x00002;
         const int SKY             = 0x00004;
@@ -39,7 +39,7 @@ namespace bsp_tool::respawn_entertainment::Titanfall {
     struct Mesh {
         int             first_mesh_index;
         unsigned short  num_triangles;
-        short           start_vertices;
+        short           first_vertex;
         short           num_vertices;
         short           unknown[6];
         unsigned short  material_sort;

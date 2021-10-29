@@ -42,7 +42,7 @@ class Vector {
         }
 
         // METHODS
-        Vector rotate(Vector angle) {
+        Vector rotate(Vector angle) {  // broken?
             Vector out;
             // ROTATE X
             float cos_x = cos(RADIANS(angle.x));

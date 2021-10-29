@@ -17,11 +17,12 @@ namespace bsp_tool {
             std::fstream      _file;
             std::string       filename;
             int               format_version;
-            LumpHeaderStruct  headers[lump_count];
+            LumpHeaderStruct  header[lump_count];
 
-            // NOTE: _read requires x to be initialised; as a result, x cannot be initialised with _read.
-            template<typename T>
-            void _read(T* x) { this->_file.read((char*) x, sizeof(x)); };
+            template<typename Type>
+            void _read(Type* x) {
+                this->_file.read((char*) x, sizeof(Type));
+            };
 
             Bsp(const char filename[]) {
                 this->filename = filename;
@@ -34,22 +35,36 @@ namespace bsp_tool {
 
             // Vertex vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
             // char raw_lump[] = some_bsp::getLump<char>(LUMP::VERTICES);
-            template<typename T>
-            T* getLump(int LUMP_index) {
-                T* lump_entries;
-                LumpHeaderStruct header = this->headers[LUMP_index];
+            template<typename Type>
+            Type* getLump(int LUMP_index) {
+                LumpHeaderStruct header = this->header[LUMP_index];
+                if (header.length % sizeof(Type) != 0) {
+                    // TODO: clearer error string via -D DEBUG compile flag
+                    throw std::runtime_error("Type does not evenly divide lump");
+                }
+                Type *lump_entries; // = static_cast<Type>(malloc(header.length));
                 this->_file.seekg(header.offset, std::ios::beg);
                 this->_file.read((char*) &lump_entries, header.length);
                 return lump_entries;
             };
 
+            template <typename Type>
+            Type* getLumpSlice(int LUMP_index, int start_index, int length) {
+                // TODO: ensure slice is in memory bounds
+                Type *lump_entries; // = static_cast<Type>(malloc(length * sizeof(Type)));
+                LumpHeaderStruct header = this->header[LUMP_index];
+                this->_file.seekg(header.offset + (sizeof(Type) * start_index), std::ios::beg);
+                this->_read(&lump_entries);
+                return lump_entries;
+            };
+
             // Vertex v; v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
             // char raw_snippet[1024]; raw_snippet = some_bsp::getLumpEntry<char>(LUMP::VERTICES, 0);
-            template <typename T>
-            T getLumpEntry(int LUMP_index, int entry_index) {
-                T lump_entry;
-                LumpHeaderStruct header = this->headers[LUMP_index];
-                this->_file.seekg(header.offset + (sizeof(T) * entry_index), std::ios::beg);
+            template <typename Type>
+            Type getLumpEntry(int LUMP_index, int entry_index) {
+                Type lump_entry;
+                LumpHeaderStruct header = this->header[LUMP_index];
+                this->_file.seekg(header.offset + (sizeof(Type) * entry_index), std::ios::beg);
                 this->_read(&lump_entry);
                 return lump_entry;
             };
@@ -62,14 +77,14 @@ namespace bsp_tool {
         namespace quake {
             struct BSPHeader {
                 int         version;
-                LumpHeader  headers[15];
+                LumpHeader  header[15];
             };
         }
 
         namespace quake3 {
             struct BSPHeader {
                 int         version;
-                LumpHeader  headers[17];
+                LumpHeader  header[17];
             };
         }
 
@@ -84,7 +99,7 @@ namespace bsp_tool {
                     if (file_magic != FILE_MAGIC) {
                         throw std::runtime_error("unexpected file magic for IBSP"); }
                     this->_read(&this->format_version);
-                    this->_read(&this->headers);
+                    this->_read(&this->header);
                 };
 
                 ~IdTechBsp() {};
@@ -110,7 +125,7 @@ namespace bsp_tool {
                     if (file_magic != FILE_MAGIC) {
                         throw std::runtime_error("unexpected file magic for VBSP"); }
                     this->_read(&this->format_version);
-                    this->_read(&this->headers);
+                    this->_read(&this->header);
                     this->_read(&this->revision);
                 };
 
@@ -118,7 +133,7 @@ namespace bsp_tool {
         };
 
 
-        namespace orange_box {
+        namespace source {
             const int BSP_VERSION = 20;
             namespace LUMP {
                 int ENTITIES              =  0,  DISPLACEMENT_LIGHTMAP_ALPHAS           = 32,
@@ -164,15 +179,18 @@ namespace bsp_tool {
 
         class RespawnBsp : public Bsp<LumpHeader, 128> {
             public:
-                std::fstream _external[128];
-                int revision;
-                int lump_count;
+                int                revision;
+                int                lump_count;
+                std::fstream       _external[128];
+                long unsigned int  _external_size[128];
+                // NOTE: RespawnBsp doesn't actually use all 128 entries, a std::map might be better here
 
                 using BspBaseClass = Bsp<LumpHeader, 128>;
 
                 RespawnBsp(const char filename[]) : BspBaseClass(filename) {
                     this->_file.seekg(0, std::ios::beg);
-                    int file_magic; this->_read(&file_magic);
+                    int file_magic;
+                    this->_read(&file_magic);
                     if (file_magic != FILE_MAGIC) {
                         throw std::runtime_error("unexpected file magic for rBSP"); }
                     this->_read(&this->format_version);
@@ -183,7 +201,7 @@ namespace bsp_tool {
                     // Properly handling lump_count would mean we can't subclass ;\/__\/.
                     if (lump_count != 127) {
                         throw std::runtime_error("rBSP header does not contain '127'"); }
-                    this->_read(&this->headers);
+                    this->_read(&this->header);
                     /* load external .bsp_lump files */
                     fs::path bsp_lump(".bsp_lump"), bsp_path(filename), current_file;
                     int LUMP_index; std::string LUMP_hex_index;
@@ -194,6 +212,8 @@ namespace bsp_tool {
                                 LUMP_hex_index = current_file.stem().extension().string();
                                 LUMP_index = std::stoi(LUMP_hex_index.substr(1, std::string::npos), 0, 16);
                                 this->_external[LUMP_index] = std::fstream(current_file.string());
+                                this->_external[LUMP_index].seekg(0, std::ios::end);
+                                this->_external_size[LUMP_index] = this->_external[LUMP_index].tellg();
                             }
                         }
                     }
@@ -201,25 +221,41 @@ namespace bsp_tool {
 
                 ~RespawnBsp() {};
 
-                // Vertex v[] = some_bsp::getExternalLump<Vertex>(LUMP::VERTICES);
-                // char raw_lump[] = some_bsp::getExternalLump<char>(LUMP::VERTICES);
-                template<typename T>
-                T* getExternalLump(int LUMP_index) {
-                    T* lump_entries;
+                // Vertex vertices[] = some_bsp::getExternalLump<Vertex>(LUMP::VERTICES);
+                // char   raw_lump[] = some_bsp::getExternalLump<char>(LUMP::VERTICES);
+                template<typename Type>
+                Type* getExternalLump(int LUMP_index) {
+                    unsigned long int external_size = this->_external_size[LUMP_index];
+                    if (external_size % sizeof(Type) != 0) {
+                        throw std::runtime_error("Type does not evenly divide external lump");
+                    }
+                    Type *lump_entries; // = static_cast<Type>(malloc(external_size));
                     std::fstream external_lump = this->_external[LUMP_index];
                     external_lump.seekg(0, std::ios::beg);
-                    external_lump >> lump_entries;
+                    external_lump.read((char*) &lump_entries, external_size);
+                    return lump_entries;
+                };
+
+                // Vertex v[3] = some_bsp::getExternalLumpSlice<Vertex>(LUMP::VERTICES, 0, 3);
+                // char raw_lump[12] = some_bsp::getExternalLump<char>(LUMP::VERTICES, 12, 24);
+                template <typename Type>
+                Type* getExternalLumpSlice(int LUMP_index, int start_index, int length) {
+                    // TODO: ensure slice is in memory bounds
+                    Type *lump_entries; // = static_cast<Type>(malloc(length * sizeof(Type)));
+                    std::fstream external_lump = this->_external[LUMP_index];
+                    external_lump.seekg(sizeof(Type) * start_index, std::ios::beg);
+                    external_lump.read((char*) &lump_entries, sizeof(lump_entries));
                     return lump_entries;
                 };
 
                 // Vertex v = some_bsp::getExternalLumpEntry<Vertex>(LUMP::VERTICES, 0);
-                // char raw_snippet[1024] = some_bsp::getExternalLumpEntry<char>(LUMP::VERTICES, 0);
-                template <typename T>
-                T getExternalLumpEntry(int LUMP_index, int entry_index) {
-                    T lump_entry;
+                // char raw_snippet[1024] = some_bsp::getExternalLumpEntry<char[1024]>(LUMP::VERTICES, 0);
+                template <typename Type>
+                Type getExternalLumpEntry(int LUMP_index, int entry_index) {
+                    Type lump_entry;
                     std::fstream external_lump = this->_external[LUMP_index];
-                    external_lump.seekg(sizeof(T) * entry_index, std::ios::beg);
-                    external_lump.read((char*) &lump_entry, sizeof(T));
+                    external_lump.seekg(sizeof(Type) * entry_index, std::ios::beg);
+                    external_lump.read((char*) &lump_entry, sizeof(Type));
                     return lump_entry;
                 };
         };
@@ -306,7 +342,7 @@ namespace bsp_tool {
     // returns the number of headers in the GameLump & mutates "headers"
     template<typename BSPVariant>
     int getGameLumpHeaders(struct GameLumpHeader* headers, BSPVariant bsp) {
-        bsp._file.seekg(bsp.headers[35].offset);
+        bsp._file.seekg(bsp.header[35].offset);
         int game_lump_count;
         bsp._read(&game_lump_count);
         bsp._file.read((char*) &headers, sizeof(GameLumpHeader) * game_lump_count);
@@ -314,7 +350,7 @@ namespace bsp_tool {
     };
 
     // Gets the sub-headers in the external game lump of a RespawnBsp file (0023.bsp_lump)
-    // returns the number of headers in the GameLump & mutates "headers"
+    // returns the number of headers in the GameLump & mutates "header"
     int getExternalGameLumpHeaders(struct GameLumpHeader* headers, respawn_entertainment::RespawnBsp bsp) {
         int game_lump_count;
         bsp._external[35].seekg(0, std::ios::beg);
