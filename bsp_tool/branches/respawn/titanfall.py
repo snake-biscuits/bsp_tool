@@ -288,8 +288,8 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    first_mesh_index: int  # index into this Mesh's VertexReservedX
-    num_triangles: int  # number of triangles in VertexReservedX after first_mesh_index
+    first_mesh_index: int  # index into MeshIndices
+    num_triangles: int  # number of triangles in MeshIndices after first_mesh_index
     first_vertex: int  # index to this Mesh's first VertexReservedX
     num_vertices: int
     unknown: List[int]

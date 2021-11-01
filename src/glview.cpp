@@ -6,7 +6,7 @@
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
 
-#include "bsp_tool.hpp"
+#include "bsp_tool.hpp"  // <filesystem> --std=c++17 -lstdc++fs
 #include "camera.hpp"
 #include "respawn_entertainment/meshes.hpp"
 
@@ -27,92 +27,93 @@ struct RenderObject {
     // Buffer data
     int           vertex_count;
     RenderVertex *vertices;
+    // int           index_count;
+    // int          *indices;
     // GL object handles
-    GLuint        vertex_buffer;
-    GLuint        index_buffer;
-    GLuint        shader;
+    // GLuint        vertex_buffer;
+    // GLuint        index_buffer;
+    // GLuint        shader;
+
+    // Methods
+    RenderObject() {}
+    ~RenderObject() { delete[] vertices; }
 };
 
 
 // TODO: libsm64 init & physics triangles
 
 using namespace bsp_tool::respawn_entertainment;
-RenderObject bsp_gl_init(const char* filename) {
-    // TODO: init shaders and buffers
-    RespawnBsp    bsp = (filename);
-
-    // return objects
-    RenderObject out;
-    memset(&out, 0, sizeof(RenderObject));
-
+void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     using namespace titanfall;
-    int total_vertices;
-    total_vertices  = bsp.header[LUMP::VERTEX_UNLIT   ].length / sizeof(VertexUnlit  );
-    total_vertices += bsp.header[LUMP::VERTEX_LIT_FLAT].length / sizeof(VertexLitFlat);
-    total_vertices += bsp.header[LUMP::VERTEX_LIT_BUMP].length / sizeof(VertexLitBump);
-    total_vertices += bsp.header[LUMP::VERTEX_UNLIT_TS].length / sizeof(VertexUnlitTS);
-    out.vertices = (RenderVertex*) malloc(sizeof(RenderVertex) * total_vertices);
-
-    // titanfall lump types
     MaterialSort  material_sort;
     Mesh          mesh;
     TextureData   texture_data;
 
-    printf("MeshIndices:   %d\n", bsp.header[LUMP::MESH_INDICES   ].length);
-    printf("Vertices:      %d\n", bsp.header[LUMP::VERTICES       ].length);
-    printf("VertexNormals: %d\n", bsp.header[LUMP::VERTEX_NORMALS ].length);
-    printf("VertexUnlit:   %d\n", bsp.header[LUMP::VERTEX_UNLIT   ].length);
-    printf("VertexLitFlat: %d\n", bsp.header[LUMP::VERTEX_LIT_FLAT].length);
-    printf("VertexLitBump: %d\n", bsp.header[LUMP::VERTEX_LIT_BUMP].length);
-    printf("VertexUnlitTS: %d\n", bsp.header[LUMP::VERTEX_UNLIT_TS].length);
-    // TODO: getLump causes "stack smashing" / buffer overflow (too big?)
-    #define getLump(Type, name, ENUM)  Type *name = bsp.getLump<Type>(ENUM)
-    getLump(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   );
-    getLump(Vector,          VERTICES,         LUMP::VERTICES       );
-    getLump(Vector,          VERTEX_NORMALS,   LUMP::VERTEX_NORMALS );
-    // VERTEX_RESERVED_0-4
-    getLump(VertexUnlit,     VERTEX_UNLIT,     LUMP::VERTEX_UNLIT   );
-    getLump(VertexLitFlat,   VERTEX_LIT_FLAT,  LUMP::VERTEX_LIT_FLAT);
-    getLump(VertexLitBump,   VERTEX_LIT_BUMP,  LUMP::VERTEX_LIT_BUMP);
-    getLump(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS);
-    #undef getLump
+    int total_vertices;
+    total_vertices  = bsp->header[LUMP::VERTEX_UNLIT   ].length / sizeof(VertexUnlit  );
+    total_vertices += bsp->header[LUMP::VERTEX_LIT_FLAT].length / sizeof(VertexLitFlat);
+    total_vertices += bsp->header[LUMP::VERTEX_LIT_BUMP].length / sizeof(VertexLitBump);
+    total_vertices += bsp->header[LUMP::VERTEX_UNLIT_TS].length / sizeof(VertexUnlitTS);
+    out->vertices = new RenderVertex[total_vertices];
+    int vertex_count = 0;
+
+    #define GET_LUMP(Type, name, ENUM) \
+        Type *name = new Type[bsp->header[ENUM].length / sizeof(Type)]; \
+        bsp->getLump<Type>(ENUM, name);
+    GET_LUMP(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   )
+    GET_LUMP(Vector,          VERTICES,         LUMP::VERTICES       )
+    GET_LUMP(Vector,          VERTEX_NORMALS,   LUMP::VERTEX_NORMALS )
+    GET_LUMP(VertexUnlit,     VERTEX_UNLIT,     LUMP::VERTEX_UNLIT   )
+    GET_LUMP(VertexLitFlat,   VERTEX_LIT_FLAT,  LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(VertexLitBump,   VERTEX_LIT_BUMP,  LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS)
+    #undef GET_LUMP
 
     VertexUnlit    vertex_unlit;
     VertexLitFlat  vertex_lit_flat;
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
 
+    // convert geo
+    // TODO: SM64Triangles
     RenderVertex render_vertex;
-    // convert geo  // TODO: SM64Triangles
-    #define getRenderVertices(VERTEX_LUMP, mesh_vertex) \
-        for (int i = 0; i < mesh.num_vertices; i++) { \
+    #define GET_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
+        for (int i = 0; i < mesh.num_vertices - 1; i++) { \
+            /* TODO: indexing unique vertices */ \
             mesh_vertex = VERTEX_LUMP[MESH_INDICES[mesh.first_vertex + i] + material_sort.vertex_offset]; \
             render_vertex.position = VERTICES[mesh_vertex.position]; \
             render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
             memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
             render_vertex.uv = mesh_vertex.uv; \
-            out.vertices[out.vertex_count] = render_vertex; \
-            out.vertex_count++; }
-    Model worldspawn = bsp.getLumpEntry<Model>(LUMP::MODELS, 0);
+            out->vertices[vertex_count] = render_vertex; \
+            vertex_count++; } break;
+    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        mesh = bsp.getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
-        material_sort = bsp.getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
-        texture_data = bsp.getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
+        mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
+        material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
+        texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
         switch (mesh.flags & FLAG::MASK_VERTEX) {
             case FLAG::VERTEX_UNLIT:  // VERTEX_RESERVED_0
-                getRenderVertices(VERTEX_UNLIT, vertex_unlit) break;
+                GET_RENDER_VERTICES(VERTEX_UNLIT, vertex_unlit)
             case FLAG::VERTEX_LIT_FLAT:  // VERTEX_RESERVED_1
-                getRenderVertices(VERTEX_LIT_FLAT, vertex_lit_flat) break;
+                GET_RENDER_VERTICES(VERTEX_LIT_FLAT, vertex_lit_flat)
             case FLAG::VERTEX_LIT_BUMP:  // VERTEX_RESERVED_2
-                getRenderVertices(VERTEX_LIT_BUMP, vertex_lit_bump) break;
+                GET_RENDER_VERTICES(VERTEX_LIT_BUMP, vertex_lit_bump)
             case FLAG::VERTEX_UNLIT_TS:  // VERTEX_RESERVED_3
-                getRenderVertices(VERTEX_UNLIT_TS, vertex_unlit_ts) break;
+                GET_RENDER_VERTICES(VERTEX_UNLIT_TS, vertex_unlit_ts)
         }
-        // TODO: append vertex
-    #undef getRenderVertices
     }
+    #undef GET_RENDER_VERTICES
     // TODO: grab all models + parent entity origins
-    return out;
+    delete[] MESH_INDICES;
+    delete[] VERTICES;
+    delete[] VERTEX_NORMALS;
+    delete[] VERTEX_UNLIT;
+    delete[] VERTEX_LIT_FLAT;
+    delete[] VERTEX_LIT_BUMP;
+    delete[] VERTEX_UNLIT_TS;
+    // TODO: indices
+    out->vertex_count = vertex_count;
 };
 
 
@@ -164,28 +165,32 @@ int main(int argc, char* argv[]) {
     // SETUP OpenGL
     glClearColor(0.25, 0.25, 0.25, 0.0);
     glEnable(GL_DEPTH_TEST);
+    glPointSize(4);
     // TODO: load shaders
     // TODO: vertex & index buffers
 
     // TODO: libsm64
 
     // SIMULATION VARIABLES
-    // RenderObject bsp = bsp_gl_init(argv[1]);
-    RenderObject bsp = bsp_gl_init("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
-    printf("%d, %lu\n", bsp.vertex_count, sizeof(bsp.vertices[0]) / sizeof(bsp.vertices));
+    using namespace bsp_tool::respawn_entertainment;
+    // RenderBsp bsp = (argv[1]);
+    RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
+    RenderObject bsp;
+    bsp_geo_init(&bsp_file, &bsp);
+    // TODO: bind to buffers and use RenderObject w/ shaders
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
     fp_camera.position = {0, 0, 0.5};
     fp_camera.rotation = {0, 0, 0};
     fp_camera.sensitivity = 0.25;
-    fp_camera.speed = 0.001;
+    fp_camera.speed = 1;
 
     camera::Lens lens;
     lens.fov = 90;
     lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
-    lens.clip.near = 0.1;
-    lens.clip.far = 4096;
+    lens.clip.near = 16;
+    lens.clip.far = 102400;
 
     // INPUTS
     SDL_Keycode  key;
@@ -274,7 +279,7 @@ int main(int argc, char* argv[]) {
         lens.use();
         fp_camera.rotate();  // BUGGY
         // TODO: SKYBOX
-        fp_camera.translate();
+        fp_camera.translate();  // BUGGY?
         // WORLD
         glColor3f(1, 1, 1);
         glBegin(GL_TRIANGLES);
@@ -282,11 +287,19 @@ int main(int argc, char* argv[]) {
           glVertex2d( 0.0,  0.1);
           glVertex2d(-0.1, -0.1);
         glEnd();
+
         glColor3f(1, 0, 1);
         glBegin(GL_TRIANGLES);
           glVertex3d( 0.1, -0.1, -0.1);
           glVertex3d( 0.0,  0.1, -0.1);
           glVertex3d(-0.1, -0.1, -0.1);
+        glEnd();
+        // bsp geo
+        glBegin(GL_POINTS);
+        for (int i = 0; i < bsp.vertex_count; i++) {
+            glColor3f(bsp.vertices[i].colour[0], bsp.vertices[i].colour[1], bsp.vertices[i].colour[2]);
+            glVertex3d(bsp.vertices[i].position.x, bsp.vertices[i].position.y, bsp.vertices[i].position.z);
+        }
         glEnd();
         glPopMatrix();
         // PRESENT FRAME

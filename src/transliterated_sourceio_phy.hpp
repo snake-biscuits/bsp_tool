@@ -4,14 +4,14 @@
 
 namespace PHY {
 
-    struct Header { int size, id, solid_count, checksum };
+    struct Header { int size, id, solid_count, checksum; };
 
 
     struct TreeNode {
         int    right_node_offset;
         int    convex_offset;
         float  unknown[5];
-    }
+    };
     
     
     void read_TreeNode(int offset, TreeNode *out) {  // navigates the tree
@@ -33,7 +33,7 @@ namespace PHY {
     struct ConvexTriangle {
         int    padding;  // should be 0
         short  edges[3][2];  // should list each index twice
-    }
+    };
     
     
     struct ConvexLeaf {
@@ -41,7 +41,7 @@ namespace PHY {
         int    padding[2];
         short  triangle_count;
         short  unused;
-    }
+    };
     
     
     struct Vertex { float x, y, z, w };
@@ -69,11 +69,11 @@ namespace PHY {
         float  rotational_inertia[3];
         float  upper_limit_radius;
         // surface bitfield
-        int	   max_deviation : 8;
-        int	   byte_size : 24;
+        int    max_deviation : 8;
+        int    byte_size : 24;
         int    tree_offset;
         int    padding[2];  // legacy
-    }
+    };
     // immediately followed by IVPS...
     
     
@@ -82,7 +82,7 @@ namespace PHY {
         TreeNode tree;
         read_TreeNode(offset + out.tree_offset, &tree);
         return tree;
-    }
+    };
     
     
     struct SolidHeader {
@@ -93,7 +93,7 @@ namespace PHY {
         int    size;  // of ???
         float  areas[3];
         int    axis_map_size;
-    }
+    };
     // immediately followed by collision model
 }
 

@@ -33,33 +33,24 @@ namespace bsp_tool {
 
             ~Bsp() {};
 
-            // Vertex vertices[] = some_bsp::getLump<Vertex>(LUMP::VERTICES);
-            // char raw_lump[] = some_bsp::getLump<char>(LUMP::VERTICES);
             template<typename Type>
-            Type* getLump(int LUMP_index) {
+            void getLump(int LUMP_index, Type* lump_entries) {
                 LumpHeaderStruct header = this->header[LUMP_index];
                 if (header.length % sizeof(Type) != 0) {
                     // TODO: clearer error string via -D DEBUG compile flag
                     throw std::runtime_error("Type does not evenly divide lump");
                 }
-                Type *lump_entries; // = static_cast<Type>(malloc(header.length));
                 this->_file.seekg(header.offset, std::ios::beg);
-                this->_file.read((char*) &lump_entries, header.length);
-                return lump_entries;
+                this->_file.read((char*) lump_entries, header.length);
             };
 
             template <typename Type>
-            Type* getLumpSlice(int LUMP_index, int start_index, int length) {
-                // TODO: ensure slice is in memory bounds
-                Type *lump_entries; // = static_cast<Type>(malloc(length * sizeof(Type)));
+            void getLumpSlice(int LUMP_index, int start_index, int length, Type* slice) {
                 LumpHeaderStruct header = this->header[LUMP_index];
                 this->_file.seekg(header.offset + (sizeof(Type) * start_index), std::ios::beg);
-                this->_read(&lump_entries);
-                return lump_entries;
+                this->_read(&slice);
             };
 
-            // Vertex v; v = some_bsp::getLumpEntry<Vertex>(LUMP::VERTICES, 0);
-            // char raw_snippet[1024]; raw_snippet = some_bsp::getLumpEntry<char>(LUMP::VERTICES, 0);
             template <typename Type>
             Type getLumpEntry(int LUMP_index, int entry_index) {
                 Type lump_entry;
@@ -221,37 +212,34 @@ namespace bsp_tool {
 
                 ~RespawnBsp() {};
 
-                // Vertex vertices[] = some_bsp::getExternalLump<Vertex>(LUMP::VERTICES);
-                // char   raw_lump[] = some_bsp::getExternalLump<char>(LUMP::VERTICES);
                 template<typename Type>
-                Type* getExternalLump(int LUMP_index) {
+                void getExternalLump(int LUMP_index, Type* lump_entries) {
                     unsigned long int external_size = this->_external_size[LUMP_index];
+                    #ifdef DEBUG
                     if (external_size % sizeof(Type) != 0) {
                         throw std::runtime_error("Type does not evenly divide external lump");
                     }
-                    Type *lump_entries; // = static_cast<Type>(malloc(external_size));
+                    #endif
                     std::fstream external_lump = this->_external[LUMP_index];
                     external_lump.seekg(0, std::ios::beg);
                     external_lump.read((char*) &lump_entries, external_size);
-                    return lump_entries;
                 };
 
-                // Vertex v[3] = some_bsp::getExternalLumpSlice<Vertex>(LUMP::VERTICES, 0, 3);
-                // char raw_lump[12] = some_bsp::getExternalLump<char>(LUMP::VERTICES, 12, 24);
                 template <typename Type>
-                Type* getExternalLumpSlice(int LUMP_index, int start_index, int length) {
-                    // TODO: ensure slice is in memory bounds
-                    Type *lump_entries; // = static_cast<Type>(malloc(length * sizeof(Type)));
+                void getExternalLumpSlice(int LUMP_index, int start_index, int length, Type* slice) {
+                    #ifdef DEBUG
+                    // TODO: assert start_index + length does not overshoot
+                    #endif
                     std::fstream external_lump = this->_external[LUMP_index];
                     external_lump.seekg(sizeof(Type) * start_index, std::ios::beg);
-                    external_lump.read((char*) &lump_entries, sizeof(lump_entries));
-                    return lump_entries;
+                    external_lump.read((char*) &slice, sizeof(Type) * length);
                 };
 
-                // Vertex v = some_bsp::getExternalLumpEntry<Vertex>(LUMP::VERTICES, 0);
-                // char raw_snippet[1024] = some_bsp::getExternalLumpEntry<char[1024]>(LUMP::VERTICES, 0);
                 template <typename Type>
                 Type getExternalLumpEntry(int LUMP_index, int entry_index) {
+                    #ifdef DEBUG
+                    // TODO: assert entry_index is in this lump & Type divides the lump evenly
+                    #endif
                     Type lump_entry;
                     std::fstream external_lump = this->_external[LUMP_index];
                     external_lump.seekg(sizeof(Type) * entry_index, std::ios::beg);
@@ -336,12 +324,13 @@ namespace bsp_tool {
     /* Common Methods */
 
     /* Game Lump */
+    // NOTE: Source / Titanfall GameLumpHeader only
     struct GameLumpHeader { char id[4]; unsigned short flags, version; int offset, length; };
 
     // Gets the sub-headers in the internal game lumps of a bsp file
     // returns the number of headers in the GameLump & mutates "headers"
     template<typename BSPVariant>
-    int getGameLumpHeaders(struct GameLumpHeader* headers, BSPVariant bsp) {
+    int getGameLumpHeaders(BSPVariant bsp, struct GameLumpHeader* headers) {
         bsp._file.seekg(bsp.header[35].offset);
         int game_lump_count;
         bsp._read(&game_lump_count);
@@ -350,12 +339,14 @@ namespace bsp_tool {
     };
 
     // Gets the sub-headers in the external game lump of a RespawnBsp file (0023.bsp_lump)
-    // returns the number of headers in the GameLump & mutates "header"
-    int getExternalGameLumpHeaders(struct GameLumpHeader* headers, respawn_entertainment::RespawnBsp bsp) {
+    // returns the number of headers in the GameLump & mutates "headers"
+    int getExternalGameLumpHeaders(respawn_entertainment::RespawnBsp bsp, struct GameLumpHeader* headers) {
         int game_lump_count;
         bsp._external[35].seekg(0, std::ios::beg);
         bsp._external[35].read((char*) &game_lump_count, sizeof(game_lump_count));
         bsp._external[35].read((char*) &headers, sizeof(GameLumpHeader) * game_lump_count);
         return game_lump_count;
     };
+
+    // TODO: Entities -> std::vector<std::map<std::string, std::string>>
 }

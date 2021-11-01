@@ -40,7 +40,7 @@ namespace camera {
             mat4[4 * 2 + 2] = (clip.near + clip.far) * clip_fraction;
             mat4[4 * 2 + 3] = -1.0f;
             mat4[4 * 3 + 2] = 2.0f * clip.near * clip.far * clip_fraction;
-            glLoadMatrixf(mat4);  // NOTE: could return instead for shaders
+            glMultMatrixf(mat4);  // NOTE: could return instead for shaders
         }
     };
 
