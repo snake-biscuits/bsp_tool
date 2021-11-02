@@ -5,8 +5,8 @@ LDLIBS   := -lstdc++fs
 SDLFLAGS := -lGL `sdl2-config --cflags --libs`
 
 ifeq ($(OS),Windows_NT)
-    CC   := x86_64-w64-mingw32-g++
-    # NOTE: may need alternate SDLFLAGS here too
+    CC       := x86_64-w64-mingw32-g++
+    SDLFLAGS := -lm -lopengl32 `sdl2-config --cflags --libs`
 endif
 
 DUMMY != mkdir -p build

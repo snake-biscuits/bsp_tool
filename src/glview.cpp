@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>  // -lGL
+#define SDL_MAIN_HANDLED
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
 
@@ -173,8 +174,8 @@ int main(int argc, char* argv[]) {
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
-    // RenderBsp bsp = (argv[1]);
-    RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
+    RespawnBsp bsp_file = (argv[1]);
+    // RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
     // TODO: bind to buffers and use RenderObject w/ shaders
