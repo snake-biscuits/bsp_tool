@@ -6,7 +6,8 @@ SDLFLAGS := -lGL `sdl2-config --cflags --libs`
 
 ifeq ($(OS),Windows_NT)
     CC       := x86_64-w64-mingw32-g++
-    SDLFLAGS := -lm -lopengl32 `sdl2-config --cflags --libs`
+    SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
+	# runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
 endif
 
 DUMMY != mkdir -p build
