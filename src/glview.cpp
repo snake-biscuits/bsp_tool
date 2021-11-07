@@ -3,8 +3,8 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>  // -lGL
-#include <SDL.h>  // `sdl2-config --cflags --libs`
-#include <SDL_opengl.h>
+#include <SDL2/SDL.h>  // `sdl2-config --cflags --libs`
+#include <SDL2/SDL_opengl.h>
 
 #include "bsp_tool.hpp"  // <filesystem> --std=c++17 -lstdc++fs
 #include "camera.hpp"
@@ -186,6 +186,8 @@ int main(int argc, char* argv[]) {
     fp_camera.sensitivity = 0.25;
     fp_camera.speed = 1;
 
+    Vector wish;
+
     camera::Lens lens;
     lens.fov = 90;
     lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
@@ -250,20 +252,35 @@ int main(int argc, char* argv[]) {
             if (keys[SDLK_w - 87]) {
                 fp_camera.motion[DOLLY_IN] = true;
             }
-            else if (keys[SDLK_s - 87]) {
+            if (keys[SDLK_s - 87]) {
                 fp_camera.motion[DOLLY_OUT] = true;
             }
-            else if (keys[SDLK_a - 87]) {
+            if (keys[SDLK_a - 87]) {
                 fp_camera.motion[PAN_LEFT] = true;
             }
-            else if (keys[SDLK_d - 87]) {
+            if (keys[SDLK_d - 87]) {
                 fp_camera.motion[PAN_RIGHT] = true;
             }
-            else if (keys[SDLK_q - 87]) {
+            if (keys[SDLK_q - 87]) {
                 fp_camera.motion[PAN_UP] = true;
             }
-            else if (keys[SDLK_e - 87]) {
+            if (keys[SDLK_e - 87]) {
                 fp_camera.motion[PAN_DOWN] = true;
+            }
+            if (keys[SDLK_f - 87]) {
+                // debugging janky camera motion
+                printf("angles: %.3f %.3f %.3f\n", fp_camera.rotation.x, fp_camera.rotation.y, fp_camera.rotation.z);
+                printf("input: %d %d %d %d %d %d\n", fp_camera.motion[0] ? 1 : 0, fp_camera.motion[1] ? 1 : 0,
+                                                     fp_camera.motion[2] ? 1 : 0, fp_camera.motion[3] ? 1 : 0,
+                                                     fp_camera.motion[4] ? 1 : 0, fp_camera.motion[5] ? 1 : 0);
+                wish.x = -(fp_camera.motion[camera::MOVE::PAN_LEFT] - fp_camera.motion[camera::MOVE::PAN_RIGHT]);
+                wish.y = -(fp_camera.motion[camera::MOVE::DOLLY_OUT] - fp_camera.motion[camera::MOVE::DOLLY_IN]);
+                wish.z = -(fp_camera.motion[camera::MOVE::PAN_DOWN] - fp_camera.motion[camera::MOVE::PAN_UP]);
+                printf("wish: %.3f %.3f %.3f\n", wish.x, wish.y, wish.z);
+                wish = wish.rotate(fp_camera.rotation);
+                printf("wish (rotated): %.3f %.3f %.3f\n", wish.x, wish.y, wish.z);
+                printf("sqrmag: %.6f\n\n", wish.x + wish.y + wish.z);
+                keys[SDLK_f - 87] = false;
             }
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
@@ -283,16 +300,38 @@ int main(int argc, char* argv[]) {
         // WORLD
         glColor3f(1, 1, 1);
         glBegin(GL_TRIANGLES);
-          glVertex2d( 0.1, -0.1);
-          glVertex2d( 0.0,  0.1);
-          glVertex2d(-0.1, -0.1);
+          glVertex2d( 100, -100);
+          glVertex2d(   0,  100);
+          glVertex2d(-100, -100);
         glEnd();
 
         glColor3f(1, 0, 1);
         glBegin(GL_TRIANGLES);
-          glVertex3d( 0.1, -0.1, -0.1);
-          glVertex3d( 0.0,  0.1, -0.1);
-          glVertex3d(-0.1, -0.1, -0.1);
+          glVertex3d( 100, -100, -100);
+          glVertex3d(   0,  100, -100);
+          glVertex3d(-100, -100, -100);
+        glEnd();
+        // grid
+        glLineWidth(2);
+        glBegin(GL_LINES);
+        for (int i = -16; i < 17; i++) {
+            // X
+            glColor3f(.25, .25, .25);
+            glVertex3d(i * 64, -1024, 0);
+            glColor3f(1, 0, 0);
+            glVertex3d(i * 64, 0, 0);
+            glVertex3d(i * 64, 0, 0);
+            glColor3f(.25, .25, .25);
+            glVertex3d(i * 64, 1024, 0);
+            // Y
+            glColor3f(.25, .25, .25);
+            glVertex3d(-1024, i * 64, 0);
+            glColor3f(0, 1, 0);
+            glVertex3d(0, i * 64, 0);
+            glVertex3d(0, i * 64, 0);
+            glColor3f(.25, .25, .25);
+            glVertex3d(1024, i * 64, 0);
+        }
         glEnd();
         // bsp geo
         glBegin(GL_POINTS);

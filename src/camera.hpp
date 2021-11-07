@@ -66,7 +66,7 @@ namespace camera {
                 wish.y = -(motion[DOLLY_OUT] - motion[DOLLY_IN]);
                 wish.z = -(motion[PAN_DOWN] - motion[PAN_UP]);
                 // TODO: rotate wish with a quaternion
-                position += wish.rotate(rotation) * speed * delta_time_ms;
+                position += wish.rotate(-rotation) * speed * delta_time_ms;
             };
 
             void rotate() {

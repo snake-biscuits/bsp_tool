@@ -27,5 +27,5 @@ build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 
 # OpenGL .bsp viewer
 # NOTE: untested on Windows
-build/glview.exe: src/glview.cpp src/bsp_tool.hpp src/respawn_entertainment/meshes.hpp
+build/glview.exe: src/glview.cpp src/bsp_tool.hpp src/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
