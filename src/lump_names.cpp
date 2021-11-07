@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
             IdTechBsp<17>  bsp = (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
             for (j = 0; j < 17; j++) {
-                LumpHeader header = bsp.headers[j];
+                LumpHeader header = bsp.header[j];
                 printf("%s:\n\toffset = %i\n\tlength = %i\n", quake3::lump_names[j], header.offset, header.length);
             }
         }
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
             ValveBsp bsp (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
             for (j = 0; j < 64; j++) {
-                LumpHeader header = bsp.headers[j];
+                LumpHeader header = bsp.header[j];
                 printf("%s:\n\toffset  = %i\n\tlength  = %i\n\tversion = %i\n\tfourCC  = %i\n", source::lump_names[j],
                        header.offset, header.length, header.version, header.uncompressed_size);
             }
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
             RespawnBsp bsp (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
             for (j = 0; j < 128; j++) {
-                LumpHeader header = bsp.headers[j];
+                LumpHeader header = bsp.header[j];
                 printf("%s:\n\toffset  = %i\n\tlength  = %i\n\tversion = %i\n\tfourCC  = %i\n", titanfall::lump_names[j],
                        header.offset, header.length, header.version, header.uncompressed_size);
             }
