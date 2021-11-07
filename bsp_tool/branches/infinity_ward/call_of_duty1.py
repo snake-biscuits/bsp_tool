@@ -150,14 +150,14 @@ class Model(base.Struct):  # LUMP 27
     num_brushes: int  # number of Brushes after first_brush included in this Model
     unknown: List[bytes]
     __slots__ = ["mins", "maxs", "first_face", "num_faces", "first_brush", "num_brushes", "unknown"]
-    _format = "6f4i4c4c"
+    _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
 
 
 class Node(base.Struct):  # LUMP 20
     data: bytes
     __slots__ = ["data"]
-    _format = "36c"
+    _format = "36s"
 
 
 class Occluder(base.Struct):  # LUMP 12
@@ -165,6 +165,7 @@ class Occluder(base.Struct):  # LUMP 12
     num_occluder_planes: int   # number of OccluderPlanes after first_occluder_plane in this Occluder
     first_occluder_edges: int  # index into the OccluderEdge lump
     num_occluder_edges: int    # number of OccluderEdges after first_occluder_edge in this Occluder
+    # first, num? isn't it usually the opposite? interesting
     __slots__ = ["first_occluder_plane", "num_occluder_planes", "first_occluder_edge", "num_occluder_edges"]
     _format = "4i"
 
