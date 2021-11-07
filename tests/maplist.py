@@ -193,13 +193,14 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "gesource",  # 26 maps | 775 MB | GoldenEye: Source
                       "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
                       # Map Labs
-                      "episodeone",  # 15 maps | 268 MB | Map Labs #2 + Test Tube # 15
-                      "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs #3
-                      "cromulentville2",  # 21 maps | 342 MB | Test Tube #7
-                      "companionpiece2",  # 18 maps | 429 MB | Map Labs #8
-                      "eyecandy",   # 41 maps | 652 MB | Test Tube #8
-                      "tworooms",  # 39 maps | 496 MB | Test Tube #9
-                      "thewrapuptwo"]}  # 27 maps | 226 MB | Test Tube # 15
+                      "episodeone",  # 15 maps | 268 MB | Map Labs # 2 + Test Tube # 15
+                      "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs # 3
+                      "cromulentville2",  # 21 maps | 342 MB | Test Tube # 7
+                      "companionpiece2",  # 18 maps | 429 MB | Map Labs # 8
+                      "eyecandy",   # 41 maps | 652 MB | Test Tube # 8
+                      "tworooms",  # 39 maps | 496 MB | Test Tube # 9
+                      "thewrapuptwo",  # 27 maps | 226 MB | Test Tube # 15
+                      "halloweenhorror4"]}  # 25 maps | 274 MB | Map Labs # 16
 
 # every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}
 
