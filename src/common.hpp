@@ -86,8 +86,8 @@ class Vector {
             float cos_z = cos(RADIANS(angle.z));
             float sin_z = sin(RADIANS(angle.z));
             temp = {out.x, out.y, out.z};
-            out.x = out.x * cos_z - temp.y * sin_z;
-            out.y = out.x * sin_z + temp.y * cos_z;
+            out.x = temp.x * cos_z - temp.y * sin_z;
+            out.y = temp.x * sin_z + temp.y * cos_z;
             return out;
         }
 };

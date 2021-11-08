@@ -174,8 +174,8 @@ int main(int argc, char* argv[]) {
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
-    RespawnBsp bsp_file = (argv[1]);
-    // RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
+    // RespawnBsp bsp_file = (argv[1]);
+    RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
     // TODO: bind to buffers and use RenderObject w/ shaders
@@ -187,8 +187,6 @@ int main(int argc, char* argv[]) {
     fp_camera.sensitivity = 0.25;
     fp_camera.speed = 1;
 
-    Vector wish;
-
     camera::Lens lens;
     lens.fov = 90;
     lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
@@ -197,13 +195,13 @@ int main(int argc, char* argv[]) {
 
     // INPUTS
     SDL_Keycode  key;
-    bool         keys[36] = {false};  // [0-9] SDLK_0-9, [10-35] SDLK_a-z
+    bool         keys[36] = {false};  // [0-9] SDLK_0-9; [10-35] SDLK_a-z
     Vector2D     mouse;
 
     // TICKS
     uint64_t last_tick = time_ms();
     uint64_t tick_delta;
-    uint64_t tick_length = 15; // ~66.67 fps
+    uint64_t tick_length = 15; // ms per frame | ~66.67 fps
     uint64_t tick_accumulator = 0;
 
     // MAIN LOOP
@@ -211,6 +209,7 @@ int main(int argc, char* argv[]) {
     bool running = true;
     while (running) {
         // PROCESS INPUT
+        // TODO: move to a function called by the main while loop
         while(SDL_PollEvent(&event) != 0) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -226,7 +225,7 @@ int main(int argc, char* argv[]) {
                         keys[key - 48] = true; }        // keys[0-9]
                     else if (97 <= key && key <= 122) {  // SDLK_a-z
                         keys[key - 87] = true; }        // keys[10-35]
-                    break;  // without this a false keyup occurs immediately?
+                    break;
                 case SDL_KEYUP:
                     if (event.key.repeat) { break; }
                     key = event.key.keysym.sym;
@@ -269,19 +268,7 @@ int main(int argc, char* argv[]) {
                 fp_camera.motion[PAN_DOWN] = true;
             }
             if (keys[SDLK_f - 87]) {
-                // debugging janky camera motion
-                printf("angles: %.3f %.3f %.3f\n", fp_camera.rotation.x, fp_camera.rotation.y, fp_camera.rotation.z);
-                printf("input: %d %d %d %d %d %d\n", fp_camera.motion[0] ? 1 : 0, fp_camera.motion[1] ? 1 : 0,
-                                                     fp_camera.motion[2] ? 1 : 0, fp_camera.motion[3] ? 1 : 0,
-                                                     fp_camera.motion[4] ? 1 : 0, fp_camera.motion[5] ? 1 : 0);
-                wish.x = -(fp_camera.motion[camera::MOVE::PAN_LEFT] - fp_camera.motion[camera::MOVE::PAN_RIGHT]);
-                wish.y = -(fp_camera.motion[camera::MOVE::DOLLY_OUT] - fp_camera.motion[camera::MOVE::DOLLY_IN]);
-                wish.z = -(fp_camera.motion[camera::MOVE::PAN_DOWN] - fp_camera.motion[camera::MOVE::PAN_UP]);
-                printf("wish: %.3f %.3f %.3f\n", wish.x, wish.y, wish.z);
-                wish = wish.rotate(fp_camera.rotation);
-                printf("wish (rotated): %.3f %.3f %.3f\n", wish.x, wish.y, wish.z);
-                printf("sqrmag: %.6f\n\n", wish.x + wish.y + wish.z);
-                keys[SDLK_f - 87] = false;
+                // print some debug info here
             }
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
