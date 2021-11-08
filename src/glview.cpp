@@ -3,7 +3,7 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>  // -lGL
-#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED  // for Windows
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
 
@@ -25,19 +25,22 @@ struct RenderVertex {
 
 
 struct RenderObject {
-    // Buffer data
+    /* Buffer data */
     int           vertex_count;
     RenderVertex *vertices;
-    // int           index_count;
-    // int          *indices;
-    // GL object handles
+    int           index_count;
+    int          *indices;
+    /* Shader & Buffer handles */
     // GLuint        vertex_buffer;
     // GLuint        index_buffer;
     // GLuint        shader;
 
-    // Methods
+    /* Methods */
     RenderObject() {}
-    ~RenderObject() { delete[] vertices; }
+    ~RenderObject() {
+        delete[] vertices;
+        delete[] indices;
+    }
 };
 
 
@@ -75,24 +78,29 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
 
-    // convert geo
-    // TODO: SM64Triangles
+    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
+    int total_indices = 0;
     RenderVertex render_vertex;
     #define GET_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
-        for (int i = 0; i < mesh.num_vertices - 1; i++) { \
-            /* TODO: indexing unique vertices */ \
-            mesh_vertex = VERTEX_LUMP[MESH_INDICES[mesh.first_vertex + i] + material_sort.vertex_offset]; \
+        for (int j = 0; j < mesh.num_vertices + 1; j++) { \
+            mesh_vertex = VERTEX_LUMP[mesh.first_vertex + j]; \
             render_vertex.position = VERTICES[mesh_vertex.position]; \
             render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
             memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
             render_vertex.uv = mesh_vertex.uv; \
             out->vertices[vertex_count] = render_vertex; \
-            vertex_count++; } break;
-    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+            vertex_count++; \
+        } \
+        break;
+    // convert geo
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
         material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
         texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
+        // indices
+        index_offset[i] = vertex_count + material_sort.vertex_offset - mesh.first_vertex;
+        total_indices += mesh.num_triangles * 3;
         switch (mesh.flags & FLAG::MASK_VERTEX) {
             case FLAG::VERTEX_UNLIT:  // VERTEX_RESERVED_0
                 GET_RENDER_VERTICES(VERTEX_UNLIT, vertex_unlit)
@@ -105,6 +113,20 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
         }
     }
     #undef GET_RENDER_VERTICES
+    out->index_count = total_indices;
+    out->indices = new int[total_indices];
+    int index = 0;
+    // NOTE: out->vertices blends all VERTEX_LUMPs
+    // VERTEX_LUMP[min({index for index in mesh[I]})] is @ index_offset[I]
+    for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
+        mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
+        for (int j = 0; j < mesh.num_triangles * 3; j++) {
+            // TODO: libsm64 SM64Triangles for each Mesh, precalculated for physics
+            // NOTE: using PhysicsCollide Triangles would be even better
+            out->indices[index] = MESH_INDICES[mesh.first_mesh_index + j] + index_offset[i];
+            index++;
+        }
+    }
     // TODO: grab all models + parent entity origins
     delete[] MESH_INDICES;
     delete[] VERTICES;
@@ -164,7 +186,7 @@ int main(int argc, char* argv[]) {
     SDL_CaptureMouse(SDL_TRUE);
 
     // SETUP OpenGL
-    glClearColor(0.25, 0.25, 0.25, 0.0);
+    glClearColor(0.5, 0.0, 0.5, 0.0);
     glEnable(GL_DEPTH_TEST);
     glPointSize(4);
     // TODO: load shaders
@@ -179,6 +201,8 @@ int main(int argc, char* argv[]) {
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
     // TODO: bind to buffers and use RenderObject w/ shaders
+
+    int index;
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
@@ -282,50 +306,24 @@ int main(int argc, char* argv[]) {
         // CAMERA
         glPushMatrix();
         lens.use();
-        fp_camera.rotate();  // BUGGY
+        fp_camera.rotate();
         // TODO: SKYBOX
-        fp_camera.translate();  // BUGGY?
+        fp_camera.translate();
         // WORLD
-        glColor3f(1, 1, 1);
-        glBegin(GL_TRIANGLES);
-          glVertex2d( 100, -100);
-          glVertex2d(   0,  100);
-          glVertex2d(-100, -100);
-        glEnd();
-
-        glColor3f(1, 0, 1);
-        glBegin(GL_TRIANGLES);
-          glVertex3d( 100, -100, -100);
-          glVertex3d(   0,  100, -100);
-          glVertex3d(-100, -100, -100);
-        glEnd();
-        // grid
-        glLineWidth(2);
-        glBegin(GL_LINES);
-        for (int i = -16; i < 17; i++) {
-            // X
-            glColor3f(.25, .25, .25);
-            glVertex3d(i * 64, -1024, 0);
-            glColor3f(1, 0, 0);
-            glVertex3d(i * 64, 0, 0);
-            glVertex3d(i * 64, 0, 0);
-            glColor3f(.25, .25, .25);
-            glVertex3d(i * 64, 1024, 0);
-            // Y
-            glColor3f(.25, .25, .25);
-            glVertex3d(-1024, i * 64, 0);
-            glColor3f(0, 1, 0);
-            glVertex3d(0, i * 64, 0);
-            glVertex3d(0, i * 64, 0);
-            glColor3f(.25, .25, .25);
-            glVertex3d(1024, i * 64, 0);
-        }
-        glEnd();
-        // bsp geo
+        /* // bsp vertices
         glBegin(GL_POINTS);
         for (int i = 0; i < bsp.vertex_count; i++) {
             glColor3f(bsp.vertices[i].colour[0], bsp.vertices[i].colour[1], bsp.vertices[i].colour[2]);
             glVertex3d(bsp.vertices[i].position.x, bsp.vertices[i].position.y, bsp.vertices[i].position.z);
+        }
+        glEnd(); */
+        // indexed bsp vertices
+        glBegin(GL_TRIANGLES);
+        for (int i = 0; i < bsp.index_count; i++) {
+            index = bsp.indices[i];
+            glColor3f(bsp.vertices[index].colour[0], bsp.vertices[index].colour[1], bsp.vertices[index].colour[2]);
+            // glColor3f(bsp.vertices[index].normal.x, bsp.vertices[index].normal.y, bsp.vertices[index].normal.z);
+            glVertex3d(bsp.vertices[index].position.x, bsp.vertices[index].position.y, bsp.vertices[index].position.z);
         }
         glEnd();
         glPopMatrix();
