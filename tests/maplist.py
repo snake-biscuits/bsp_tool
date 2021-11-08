@@ -166,7 +166,12 @@ extracted_dirs = {
                         "season10_3aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
                         "season10_14sep21/maps"  # 2 maps | 962 MB
                         "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB
-                        "season10_14sep21/depot/r5-101/game/r2/maps"],  # 2 maps | 949 MB
+                        "season10_14sep21/depot/r5-101/game/r2/maps",  # 2 maps | 949 MB
+                        # season11:  Escape  [2nd Nov 2021]
+                        "season11/maps",  # 1 map | 10 MB
+                        "season11/depot/r5-110/game/r2/maps"  # 1 map | 9 MB
+                        "season11_6nov21/maps",  # 1 map | 760 MB
+                        "season11_6nov21/depot/r5-110/game/r2/maps"],  # 1 map | 749 MB
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
