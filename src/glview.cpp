@@ -14,6 +14,7 @@
 
 #define WIDTH   960
 #define HEIGHT  544
+// NOTE: 960x544 is the screen dimensions of a PSVita
 
 
 struct RenderVertex {
@@ -26,10 +27,10 @@ struct RenderVertex {
 
 struct RenderObject {
     /* Buffer data */
-    int           vertex_count;
+    unsigned int  vertex_count;
     RenderVertex *vertices;
-    int           index_count;
-    int          *indices;
+    unsigned int  index_count;
+    unsigned int *indices;
     /* Shader & Buffer handles */
     // GLuint        vertex_buffer;
     // GLuint        index_buffer;
@@ -53,13 +54,13 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     Mesh          mesh;
     TextureData   texture_data;
 
-    int total_vertices;
+    unsigned int total_vertices;
     total_vertices  = bsp->header[LUMP::VERTEX_UNLIT   ].length / sizeof(VertexUnlit  );
     total_vertices += bsp->header[LUMP::VERTEX_LIT_FLAT].length / sizeof(VertexLitFlat);
     total_vertices += bsp->header[LUMP::VERTEX_LIT_BUMP].length / sizeof(VertexLitBump);
     total_vertices += bsp->header[LUMP::VERTEX_UNLIT_TS].length / sizeof(VertexUnlitTS);
     out->vertices = new RenderVertex[total_vertices];
-    int vertex_count = 0;
+    unsigned int vertex_count = 0;
 
     #define GET_LUMP(Type, name, ENUM) \
         Type *name = new Type[bsp->header[ENUM].length / sizeof(Type)]; \
@@ -79,8 +80,8 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexUnlitTS  vertex_unlit_ts;
 
     Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
-    int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
-    int total_indices = 0;
+    unsigned int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
+    unsigned int total_indices = 0;
     RenderVertex render_vertex;
     #define GET_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
         for (int j = 0; j < mesh.num_vertices + 1; j++) { \
@@ -114,8 +115,8 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     }
     #undef GET_RENDER_VERTICES
     out->index_count = total_indices;
-    out->indices = new int[total_indices];
-    int index = 0;
+    out->indices = new unsigned int[total_indices];
+    unsigned int index = 0;
     // NOTE: out->vertices blends all VERTEX_LUMPs
     // VERTEX_LUMP[min({index for index in mesh[I]})] is @ index_offset[I]
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
@@ -198,11 +199,13 @@ int main(int argc, char* argv[]) {
     using namespace bsp_tool::respawn_entertainment;
     // RespawnBsp bsp_file = (argv[1]);
     RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
+    // NOTE: getting segfaults on all other maps, too big?
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
+    printf("LOADED OK\n");
     // TODO: bind to buffers and use RenderObject w/ shaders
 
-    int index;
+    unsigned int index;
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
@@ -312,14 +315,14 @@ int main(int argc, char* argv[]) {
         // WORLD
         /* // bsp vertices
         glBegin(GL_POINTS);
-        for (int i = 0; i < bsp.vertex_count; i++) {
+        for (unsigned int i = 0; i < bsp.vertex_count; i++) {
             glColor3f(bsp.vertices[i].colour[0], bsp.vertices[i].colour[1], bsp.vertices[i].colour[2]);
             glVertex3d(bsp.vertices[i].position.x, bsp.vertices[i].position.y, bsp.vertices[i].position.z);
         }
         glEnd(); */
         // indexed bsp vertices
         glBegin(GL_TRIANGLES);
-        for (int i = 0; i < bsp.index_count; i++) {
+        for (unsigned int i = 0; i < bsp.index_count; i++) {
             index = bsp.indices[i];
             glColor3f(bsp.vertices[index].colour[0], bsp.vertices[index].colour[1], bsp.vertices[index].colour[2]);
             // glColor3f(bsp.vertices[index].normal.x, bsp.vertices[index].normal.y, bsp.vertices[index].normal.z);
