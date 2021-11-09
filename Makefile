@@ -3,11 +3,13 @@ CXXFLAGS := --std=c++17 -Wall
 LDLIBS   := -lstdc++fs
 
 SDLFLAGS := -lGL `sdl2-config --cflags --libs`
+TESTMAP  := /media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp
 
 ifeq ($(OS),Windows_NT)
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
-	# runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
+    # runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
+    TESTMAP  := E:/Mod/TitanfallOnline/maps/mp_box.bsp
 endif
 
 DUMMY != mkdir -p build
@@ -18,7 +20,7 @@ DUMMY != mkdir -p build
 all: build/lump_names.exe build/glview.exe
 
 run: build/glview.exe
-	build/glview.exe
+	build/glview.exe $(TESTMAP)
 
 # TODO: .o builds
 # TODO: clean

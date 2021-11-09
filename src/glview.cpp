@@ -163,9 +163,9 @@ int main(int argc, char* argv[]) {
         width  = atoi(argv[2]);
         height = atoi(argv[3]);
     }
-    else if (argc != 2 || argc <= 1) { // invalid input
+    else if (argc != 2) { // invalid input
         print_help(argv[0]);
-        // return 0;
+        return 0;
     }
 
     // SETUP SDL
@@ -197,19 +197,17 @@ int main(int argc, char* argv[]) {
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
-    // RespawnBsp bsp_file = (argv[1]);
-    RespawnBsp bsp_file = ("/media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp");
-    // NOTE: getting segfaults on all other maps, too big?
+    RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
-    printf("LOADED OK\n");
+    printf("%d triangles; %lu KB\n", bsp.index_count / 3, sizeof(RenderVertex) * bsp.vertex_count / 1024);
     // TODO: bind to buffers and use RenderObject w/ shaders
 
     unsigned int index;
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
-    fp_camera.position = {0, 0, 0.5};
+    fp_camera.position = {0, 0, 64};
     fp_camera.rotation = {0, 0, 0};
     fp_camera.sensitivity = 0.25;
     fp_camera.speed = 1;

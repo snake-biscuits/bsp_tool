@@ -124,8 +124,8 @@ class Vector2D {
         }
 
         // METHODS
-        Vector rotate(float degrees) {
-            static Vector out;
+        Vector2D rotate(float degrees) {
+            static Vector2D out;
             float cos_theta = cos(RADIANS(degrees));
             float sin_theta = sin(RADIANS(degrees));
             out.x = x * cos_theta + y * sin_theta;
