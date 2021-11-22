@@ -6,6 +6,7 @@ from . import arkane
 from . import gearbox
 from . import id_software
 from . import infinity_ward
+from . import ion_storm
 from . import nexon
 from . import raven
 from . import respawn
@@ -16,6 +17,7 @@ from . import valve
 
 # NOTE: this dict can be generated from branch_scripts, but listing it here is more convenient
 scripts_from_file_magic = {None: [id_software.quake,
+                                  *gearbox.scripts,
                                   raven.hexen2,
                                   valve.goldsrc],
                            b"2015": [ritual.moh_allied_assault],
@@ -24,6 +26,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"IBSP": [id_software.quake2,
                                      id_software.quake3,
                                      *infinity_ward.scripts,
+                                     ion_storm.daikatana,
                                      raven.soldier_of_fortune,
                                      ritual.sin],
                            b"rBSP": [*respawn.scripts],
@@ -41,17 +44,18 @@ for file_magic, branch_scripts in scripts_from_file_magic.items():
     for branch_script in branch_scripts:
         for version in branch_script.GAME_VERSIONS.values():
             script_from_file_magic_and_version[(file_magic, version)] = branch_script
-# forcing defaults for overlaps
+
+# FORCED DEFAULTS:
 script_from_file_magic_and_version[(b"IBSP", 46)] = id_software.quake3
-# ^ overlaps raven.soldier_of_fortune
+# ^ NOT raven.soldier_of_fortune
 script_from_file_magic_and_version[(b"VBSP", 20)] = valve.orange_box
-# ^ overlaps nexon.vindictus & valve.left4dead
+# ^ NOT nexon.vindictus OR valve.left4dead
 script_from_file_magic_and_version[(b"VBSP", 21)] = valve.sdk_2013
-# ^ overlaps valve.alien_swarm & valve.left4dead2
+# ^ NOT valve.alien_swarm OR valve.left4dead2
 script_from_file_magic_and_version[(b"VBSP", 100)] = nexon.cso2
-# ^ overlaps nexon.cso2_2018
+# ^ NOT nexon.cso2_2018
 script_from_file_magic_and_version[(b"RBSP", 1)] = raven.soldier_of_fortune2
-# ^ overlaps ritual.sin
+# ^ NOT ritual.sin
 
 
 game_path_table = dict()

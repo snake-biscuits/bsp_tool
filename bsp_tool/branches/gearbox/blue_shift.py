@@ -27,13 +27,14 @@ class LUMP(enum.Enum):
     LEAVES = 10
     MARK_SURFACES = 11
     EDGES = 12
+    SURFEDGES = 13
     MODELS = 14
 
 
 # struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
 lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
-# Known lump changes from Quake II -> GoldSrc:
+# Known lump changes from GoldSrc -> Blue Shift:
 # ENTITIES -> PLANES
 # PLANES -> ENTITIES
 

@@ -65,6 +65,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * [Gearbox Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox)
     - [Half-Life: Blue Shift](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox/blue_shift.py)
     - [Half-Life: Opposing Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
+    - [James Bond 007: Nightfire](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/gearbox/nightfire.py)
   * [Id Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software)
     - [Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py)
     - [Quake II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
@@ -76,12 +77,15 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - Call of Duty 2 :x:
     - Call of Duty 4: Modern Warfare :o:
     - Call of Duty: Modern Warfare 2 :o:
+  * [Ion Storm](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm)
+    - [Anachronox](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
+    - [Daikatana](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm/daikatana.py) :x:
   * [Nexon](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon)
     - [Counter-Strike: Online 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/cso2.py) :x:
     - [Titanfall: Online](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
     - [Vindictus](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus.py) :x:
   * [Raven Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven)
-    - Heretic II :o:
+    - [Heretic II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/hexen2.py)
     - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :x:
     - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
@@ -95,8 +99,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * [Ritual Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual)
     - [American McGee's Alice](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
     - [Heavy Metal F.A.K.K. 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
-    - [SiN](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py) :x:
-    - [SiN: Gold](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py) :x:
+    - [SiN](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py)
+    - [SiN: Gold](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py)
     - [SiN Episodes: Emergence](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :o:
     - [Star Trek: Elite Force II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/star_trek_elite_force2.py)
   * [Valve Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve)
@@ -132,7 +136,6 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - Call of Duty: Black Ops III :o:
     - Call of Duty: World at War :o:
-    - Daikatana :o:
     - [Fortress Forever](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -145,7 +148,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Team Fortress Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py)
     - [The Beginner's Guide](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [The Stanley Parable](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
-    - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
+    - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :x:
 
 
 ## Thanks

@@ -31,7 +31,8 @@ BspVariant_from_file_magic = {b"2015": RitualBsp,
 # - 256-bit XOR encoded Tactical Intervention .bsp
 
 GoldSrc_versions = {*branches.valve.goldsrc.GAME_VERSIONS.values(),
-                    *branches.gearbox.blue_shift.GAME_VERSIONS.values()}
+                    *branches.gearbox.blue_shift.GAME_VERSIONS.values(),
+                    *branches.gearbox.nightfire.GAME_VERSIONS.values()}
 InfinityWard_versions = {v for s in branches.infinity_ward.scripts for v in s.GAME_VERSIONS.values()}
 Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 

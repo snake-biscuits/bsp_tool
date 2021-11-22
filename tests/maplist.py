@@ -64,16 +64,18 @@ source_dirs = {
                            "left4dead2_dlc1/maps",  # 3 maps | 60 MB
                            "left4dead2_dlc2/maps",  # 8 maps | 186 MB
                            "left4dead2_dlc3/maps"],  # 21 maps | 481 MB
-         "SourceFilmmaker": ["game/tf/maps"],  # 71 maps | 3.3 GB
+         "MINERVA": ["metastasis/maps"],  # 6 maps | 201 MB
          "NEOTOKYO": ["neotokyosource/maps"],  # 24 maps | 303 MB
          "Portal": ["portal/maps"],  # 26 maps | 426 MB
          "Portal 2": ["portal2/maps",  # 106 maps | 2.7 GB
                       "portal2_dlc1/maps",  # 10 maps | 313 MB
                       "portal2_dlc2/maps"],  # 1 map | 687 KB
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
+         "SourceFilmmaker": ["game/tf/maps"],  # 71 maps | 3.3 GB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
-                             "tf/download/maps"],  # 203 maps | 4.9 GB
+                             "tf/download/maps"],  # 187 maps | 2.6 GB
+         "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
          "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]  # 101 maps | 430 MB
               }
 # ^ {"game_dir": ["map_dir"]}
@@ -82,11 +84,14 @@ source_dirs = {
 
 extracted_dirs = {
         # IdTechBsp
+        "Anachronox": ["maps",  # 98 maps | 377 MB | .dat
+                       "anox1.zip/maps"],  # 3 maps | 4 MB | .zip
+        "Daikatana": ["pak2/maps"],  # 83 maps | 291 MB | .pak
+        "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
-        # NOTE: "SiN/maps" is from SiN: Gold; unsure if this differs from initial release
-        "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak)
-                "download/maps"],  # 45 maps | 64 MB | .sin (.pak)
+        "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
+                "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
         "SoF": ["pak0/maps"],  # 32 maps | 131 MB | .pak
         "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
                  "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
@@ -125,6 +130,8 @@ extracted_dirs = {
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
         "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
+        # https://www.moddb.com/games/james-bond-007-nightfire/downloads/alura-zoe
+        "Nightfire": ["ROOT/maps"],  # 53 maps | 405 MB | .007
         "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
         # https://www.moddb.com/mods/team-fortress/downloads
         "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5
@@ -197,6 +204,8 @@ extracted_dirs = {
 sourcemod_dirs = {mod: ["maps"] for mod in [
                       "gesource",  # 26 maps | 775 MB | GoldenEye: Source
                       "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
+                      # Run Think Shoot Live
+                      "TFTS",  # 3 maps | 8 MB | Tales from the Source
                       # Map Labs
                       "episodeone",  # 15 maps | 268 MB | Map Labs # 2 + Test Tube # 15
                       "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs # 3
@@ -204,6 +213,8 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "companionpiece2",  # 18 maps | 429 MB | Map Labs # 8
                       "eyecandy",   # 41 maps | 652 MB | Test Tube # 8
                       "tworooms",  # 39 maps | 496 MB | Test Tube # 9
+                      "fusionville2",  # 21 maps | 391 MB | Map Labs # 10
+                      "lvl2",  # 14 maps | 461 MB | Map Labs # 15
                       "thewrapuptwo",  # 27 maps | 226 MB | Test Tube # 15
                       "halloweenhorror4"]}  # 25 maps | 274 MB | Map Labs # 16
 

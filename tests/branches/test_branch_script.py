@@ -20,7 +20,8 @@ def LumpClasses_of(module: ModuleType) -> List[object]:
 # IdTech + IW + GoldSrc Engines (no lump versions)
 basic_branch_scripts = [*branches.id_software.scripts,
                         *branches.infinity_ward.scripts,
-                        branches.gearbox.blue_shift,
+                        branches.ion_storm.daikatana,
+                        *branches.gearbox.scripts,
                         *branches.raven.scripts,
                         *branches.ritual.scripts,
                         branches.valve.goldsrc]
@@ -42,6 +43,7 @@ def test_basic_branch_script(branch_script):
 branch_scripts = [*branches.arkane.scripts,
                   *branches.nexon.scripts,
                   *branches.respawn.scripts,
+                  branches.troika.vampire,
                   *[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)]]
 
 

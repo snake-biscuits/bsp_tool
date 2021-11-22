@@ -12,7 +12,7 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 38
 
-GAME_PATHS = ["Quake II", "Heretic II", "Daikatana"]
+GAME_PATHS = ["Anachronox", "Quake II", "Heretic II"]
 
 GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 
@@ -33,7 +33,7 @@ class LUMP(enum.Enum):
     SURFEDGES = 12
     MODELS = 13
     BRUSHES = 14
-    BRUSHSIDES = 15
+    BRUSH_SIDES = 15
     POP = 16  # ?
     AREAS = 17
     AREA_PORTALS = 18
@@ -58,6 +58,20 @@ lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # classes for lumps, in alphabetical order:
+class Brush(base.MappedArray):  # LUMP 14
+    first_side: int
+    num_sides: int
+    contents: int
+    _mapping = ["first_side", "num_sides", "contents"]
+    _format = "3i"
+
+
+class BrushSide(base.MappedArray):  # LUMP 15
+    plane: int
+    texture_info: int
+    _format = "Hh"
+
+
 class Leaf(base.Struct):  # LUMP 10
     type: int  # see LeafType enum
     cluster: int  # index into the VISIBILITY lump
@@ -113,7 +127,9 @@ class TextureInfo(base.Struct):  # LUMP 5
 BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Ints}
 
-LUMP_CLASSES = {"EDGES":        quake.Edge,
+LUMP_CLASSES = {"BRUSHES":      Brush,
+                "BRUSH_SIDES":  BrushSide,
+                "EDGES":        quake.Edge,
                 "FACES":        quake.Face,
                 "LEAVES":       Leaf,
                 "MODELS":       Model,

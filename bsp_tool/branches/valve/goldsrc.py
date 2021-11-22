@@ -41,6 +41,7 @@ class LUMP(enum.Enum):
     LEAVES = 10
     MARK_SURFACES = 11
     EDGES = 12
+    SURFEDGES = 13
     MODELS = 14
 
 # Known lump changes from Quake II -> GoldSrc:
@@ -100,7 +101,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     TRANSLUCENT = -15
 
 
-# classes for lumps, in alphabetical order::
+# classes for lumps, in alphabetical order:
 # TODO: Model
 # TODO: Node
 
