@@ -6,73 +6,38 @@
 [Engine Timeline](./engines.md)
 
 
-## Major Titles with .bsp
+## Relevant Titles
 
 ```
-1996 | quake
-1997 | \-> quake 2
-1998 |     |------------------------> half-life
-1999 |     \-> quake 3                |
-2000 |        |                       |
-2001 |        |                       |
-2002 |        |                       |
-2003 |        \-> call of duty        \-> half-life 2
-2004 |            |                       |
-2005 |            \-> call of duty 2      |
-2006 |                |                   |
-2007 |                \-> modern warfare  \-> orange box
-2008 |                                        |-> left 4 dead
-2009 |                                        |   \-> left 4 dead 2
-2010 |                                        |
-2011 |                                        \-> portal 2
-2012 |                                            |
-2013 |                                            |
-2014 |                                            \-> titanfall
-2015 |                                                |
-2016 |                                                \-> titanfall 2
-2017 |                                                    |
-2018 |                                                    |
-2019 |                                                    \-> apex legends
-```
-
-
-## "Relevant" Titles
-
-```
-1992 |      wolfenstein 3d
-1993 |      \-> doom
-1994 | doom 2 <-|-> heretic
-1995 |          |-> hexen
-1996 |          \-> quake
-1997 |    hexen 2 <-^-> quake 2
-1998 |            sin <-|
-     |      heretic 2 <-|-------------------------------------------------------------> half-life
-1999 |                  |-> quake 3 arena                                               |-> half-life:opposing force
-2000 |      daikatana <-/   |-> heavy metal:f.a.k.k.2                                   |-> counter-strike
-     |                sof <-|   |-> american mcgees alice                               |-> ricochet
-2001 |                  |   |   |                                                       |-> half-life:blue shift
-2002 |           sof2 <-|   |   |-> medal of honor:allied assault                       |-> nightfire
-2003 |        swjk:ja <-/   |   |                               \-> call of duty        |-> day of defeat
-     |                      |   \-> star trek elite force 2         |                   |--> half-life 2
-2004 |                      |-> doom 3                              |           cs:cz <-/    |-> cs:source
-2005 |                      |   |-> quake 4        call of duty 2 <-/                        |-> dod:source
-2006 |                      |   |-> prey           |                          dark messiah <-|-> episode 1
-2007 |                      |   |-> quake wars     \----------> modern warfare               |   \--------> orange box
-2008 |                      |   |                world at war <-|-> quantum of solace        |              |-> left 4 dead
-2009 |                      |   |-> wolfenstein  |              \-> modern warfare 2         |              |   \-> left 4 dead 2
-2010 |         quake:live <-/   |                \-> blops          |                        |  vindictus <-|-> alien swarm
-2011 |                  brink <-|-> rage             |              \-> modern warfare 3     |   portal 2 <-|
-2012 |             doom 3 bfg <-|   |                \-> blops 2        |                    |   |          |-> cs:go
-2013 |           the dark mod <-/   |                    |              \-> ghosts  cs:o 2 <-/   |          \-> tactical intervention
-2014 |                evil within <-|-> new order        | advanced warfare |                    \-> titanfall
-2015 |                              |-> old blood        \-> blops 3        |                        |
-2016 |       quadrilateral cowboy <-^-> doom                 |              \-> infinite warfare     |-> titanfall 2
-     |                  dishonored 2 <--|                    |                  |                    |   |
-2017 |       outsider <-|    doom VFR <-|-> new colossus     |                  |        tf:online <-/   |
-2018 |                  |               |                    |-> blops 4        |                        |
-2019 |                  |  youngblood <-|-> cyber pilot      |                  \-> modern warfare       \-> apex legends
-2020 |                  |               \-> doom eternal     \-> blops cold war     |-> cod:warzone
-2021 |      deathloop <-/                                                           \-> vanguard
+1996 |            quake
+1997 |  hexen 2 <-^-> quake 2
+1998 |          sin <-|
+     |    heretic 2 <-|-------------------------------------------> half-life
+1999 |      kingpin <-|-> quake 3 arena                             |-> half-life:opposing force
+2000 |    daikatana <-|   |------------------------> f.a.k.k.2      |-> counter-strike
+     |                |   |----------> sof           |-> alice      |-> ricochet
+2001 |   anachronox <-/   |-> rtcw     |-> stv:ef    |              |-> half-life:blue shift
+2002 |                    |   |        |-> sof 2     |-> moh:aa     |-> 007:nightfire
+2003 |                    |   \-> cod  \-> sw jk:ja  \-> stef 2     |-> day of defeat
+     |                    |       |                                 |--> half-life 2
+2004 |                    |       |                         cs:cz <-/    |-> cs:source
+2005 |                    |       \-> cod 2                              |-> dod:source
+2006 |                    |           |                   dark messiah <-|-> episode 1
+2007 |                    |           \--> modern warfare                |   \--------> orange box
+2008 |                    | world at war <-|-> quantum of solace         |              |-> left 4 dead
+2009 |                    |  |              \-> modern warfare 2         |              |   \-> left 4 dead 2
+2010 |       quake:live <-/  \-> blops          |                        |  vindictus <-|-> alien swarm
+2011 |                           |              \-> modern warfare 3     |   portal 2 <-|
+2012 |                           \-> blops 2        |                    |   |          |-> cs:go
+2013 |                               |              \-> ghosts  cs:o 2 <-/   |          \-> tactical intervention
+2014 |                               | advanced warfare |                    \-> titanfall
+2015 |                               \-> blops 3        |                        |
+2016 |                                   |              \-> infinite warfare     |-> titanfall 2
+2017 |                                   |                  |        tf:online <-/   |
+2018 |                                   |-> blops 4        |                        |
+2019 |                                   |                  \-> modern warfare       \-> apex legends
+2020 |                                   \-> blops cold war     |-> cod:warzone
+2021 |                                                          \-> vanguard
 ```
 
 
@@ -94,6 +59,7 @@
  - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
  - [Ritual Entertainment: Ubertools](http://ritualistic.chrissstrahl.de/games/ef2/gdkdocs/)
  - [Murder of Raven Software](https://steemit.com/gaming/@vladalexan/the-murder-of-raven-software)
+ - [Steve Lee: Why Making Titanfall was Hard - Interview with 2 design leads at Respawn](https://youtu.be/ZT9yVUDDUJg?t=560)
 
 ### Wikipedia
  - [Quake Engine](https://en.wikipedia.org/wiki/Quake_engine#Games_using_the_Quake_engine)
@@ -105,3 +71,4 @@
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
  - [Nerve Software](https://en.wikipedia.org/wiki/Nerve_Software)
  - [List of Raven Software games](https://en.wikipedia.org/wiki/List_of_Raven_Software_games)
+ - [Viktor Antonov](https://en.wikipedia.org/wiki/Viktor_Antonov_(art_director))

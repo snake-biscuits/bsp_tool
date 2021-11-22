@@ -26,6 +26,7 @@
     { "name": "Quake 2",
       "developers": ["Id Software"],
       "links": ["en.wikipedia.org/wiki/Quake_II"] },
+
     { "name": "Half-Life",
       "developers": ["Valve Software"],
       "releases": {"PC": 1998},
@@ -38,15 +39,26 @@
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
+    { "name": "Kingpin: Life of Crime",
+      "developers": ["Xatrix Entertainment"],
+      "publishers": ["Interplay Entertainment"],
+      "releases": {"PC": 1999,
+                   "Linux": 2000},
+      "artists": ["Viktor Antonov"],
+      "links": [
+        "en.wikipedia.org/wiki/Kingpin:_Life_of_Crime",
+        "www.bluesnews.com/s/11584" ]
+    },
+
     { "name": "Team Fortress Classic",
       "developers": ["Valve Software"],
-      "releases": {"PC": "1999"},
+      "releases": {"PC": 1999},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 
     { "name": "Counter-Strike",
       "developers": ["Valve Software"],
-      "releases": {PC": "2000},
+      "releases": {"PC": 2000},
       "citations": {"releases.PC": "combineoverwiki.net/wiki/GoldSrc"}
     },
 

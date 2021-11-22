@@ -90,6 +90,16 @@ extracted_dirs = {
         "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
+        "RTCW": ["mp_pak0.pak3/maps",  # 8 maps | 89 MB | .pk3
+                 "mp_pakmaps0.pak3/maps",  # 1 map | 8 MB | .pk3
+                 "mp_pakmaps1.pak3/maps",  # 1 map | 11 MB | .pk3
+                 "mp_pakmaps2.pak3/maps",  # 1 map | 10 MB | .pk3
+                 "mp_pakmaps3.pak3/maps",  # 1 map | 14 MB | .pk3
+                 "mp_pakmaps4.pak3/maps",  # 1 map | 16 MB | .pk3
+                 "mp_pakmaps5.pak3/maps",  # 1 map | 12 MB | .pk3
+                 "mp_pakmaps6.pak3/maps",  # 1 map | 11 MB | .pk3
+                 "pak0.pak3/maps",  # 32 maps | 234 MB | .pk3
+                 "sp_pak4.pak3/maps"],  # 3 maps | 24 MB | .pk3
         "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
                 "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
         "SoF": ["pak0/maps"],  # 32 maps | 131 MB | .pak
@@ -199,8 +209,7 @@ extracted_dirs = {
 # https://geshl2.com
 # https://www.moddb.com/mods/riot-act
 # https://www.moddb.com/mods/map-labs
-# TODO: https://tf2classic.com
-# TODO: https://github.com/mapbase-source/source-sdk-2013
+# TODO: https://openfortress.fun, https://prefortress.ml & https://tf2classic.com  (all currently unavailable)
 sourcemod_dirs = {mod: ["maps"] for mod in [
                       "gesource",  # 26 maps | 775 MB | GoldenEye: Source
                       "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
@@ -223,7 +232,7 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
               "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
-              "E:/Mod": extracted_dirs,  # Id Software, Respawn Entertainment & Nexon
+              "E:/Mod": extracted_dirs,  # Id Software, Respawn Entertainment, Nexon & More
               # "F:/bsps": every_bsp_dir,
               # "/media/bikkie/GAMES/bsps": every_bsp_dir
               }

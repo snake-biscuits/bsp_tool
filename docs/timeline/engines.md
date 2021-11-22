@@ -19,7 +19,7 @@
 2000 |                  |-> Übertools       |
 2001 |                  |   |               |
 2002 |                  |   |               |
-2003 |                  |   |-------> IW 1  \-------------> Source Engine
+2003 |                  |---|-------> IW 1  \-------------> Source Engine
 2004 |       IdTech 4 <-/   |         |                     |
 2005 |       |                        \-> IW 2              |
 2006 |       |                            |                 \-> Source SDK 2006
@@ -57,6 +57,8 @@
  - [Moby Games: Übertools](https://www.mobygames.com/game-group/3d-engine-id-tech-3-with-bertools)
  - [Gamers.org: Quake Documentation](https://www.gamers.org/dEngine/quake/)
  - [Ritual Entertainment: Ubertools](http://ritualistic.chrissstrahl.de/games/ef2/gdkdocs/)
+ - [Murder of Raven Software](https://steemit.com/gaming/@vladalexan/the-murder-of-raven-software)
+ - [Steve Lee: Why Making Titanfall was Hard - Interview with 2 design leads at Respawn](https://youtu.be/ZT9yVUDDUJg?t=560)
 
 ### Wikipedia
  - [Quake Engine](https://en.wikipedia.org/wiki/Quake_engine#Games_using_the_Quake_engine)
@@ -67,3 +69,4 @@
  - [IW Engine](https://en.wikipedia.org/wiki/IW_(game_engine)#Games_using_IW_engine)
  - [Call of Duty](https://en.wikipedia.org/wiki/Call_of_Duty)
  - [Nerve Software](https://en.wikipedia.org/wiki/Nerve_Software)
+ - [Viktor Antonov](https://en.wikipedia.org/wiki/Viktor_Antonov_(art_director))
