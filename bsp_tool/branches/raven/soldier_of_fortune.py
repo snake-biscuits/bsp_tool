@@ -5,7 +5,7 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 46
 
-GAME_PATHS = ["Soldier of Fortune "]
+GAME_PATHS = ["Soldier of Fortune"]
 
 GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 

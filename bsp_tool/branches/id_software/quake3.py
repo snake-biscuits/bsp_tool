@@ -12,11 +12,10 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 46
 
-GAME_PATHS = ["Quake 3 Arena", "Quake Live", "Soldier of Fortune",
-              "Return to Castle Wolfenstein", "Wolfenstein Enemy Territory",  # Splash Damage
-              "Dark Salvation"]  # https://mangledeyestudios.itch.io/dark-salvation
+GAME_PATHS = ["Quake 3 Arena", "Quake Live", "Return to Castle Wolfenstein",
+              "Wolfenstein Enemy Territory", "Dark Salvation"]  # https://mangledeyestudios.itch.io/dark-salvation
 
-GAME_VERSIONS = {"Quake 3 Arena": 46, "Quake Live": 46, "Soldier of Fortune": 46,
+GAME_VERSIONS = {"Quake 3 Arena": 46, "Quake Live": 46,
                  "Return to Castle Wolfenstein": 47,
                  "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}

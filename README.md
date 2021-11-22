@@ -73,13 +73,13 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - Quake Champions :o:
     - [Quake Live](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
   * [Infinity Ward](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward)
-    - [Call of Duty](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :x:
+    - [Call of Duty](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py)
     - Call of Duty 2 :x:
     - Call of Duty 4: Modern Warfare :o:
     - Call of Duty: Modern Warfare 2 :o:
   * [Ion Storm](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm)
     - [Anachronox](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
-    - [Daikatana](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm/daikatana.py) :x:
+    - [Daikatana](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm/daikatana.py)
   * [Nexon](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon)
     - [Counter-Strike: Online 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/cso2.py) :x:
     - [Titanfall: Online](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
@@ -87,8 +87,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * [Raven Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven)
     - [Heretic II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Hexen 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/hexen2.py)
-    - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py) :x:
-    - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
+    - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune.py)
+    - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune2.py)
     - [Star Trek: Voyager - Elite Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
     - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)

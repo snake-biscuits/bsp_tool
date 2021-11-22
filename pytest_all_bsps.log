@@ -72,7 +72,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs63] PASSED         [ 47%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs64] PASSED       [ 47%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs65] PASSED      [ 48%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs66] PASSED     [ 49%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs67] FAILED          [ 50%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs67] PASSED          [ 50%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs68] FAILED          [ 50%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs69] PASSED     [ 51%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs70] PASSED    [ 52%]
@@ -207,157 +207,6 @@ ERROR LOADING ENTITIES: Line 04307:  "message" "Players can get rid of their jit
 ERROR LOADING ENTITIES: Line 04308:  in return for a slight increase in move speed, by shooting the Anti-Jitter button."
 ERROR LOADING ENTITIES: Line 04326:  "message" "Players in Anti-Jitter Mode will retain their increased jump height.
 ERROR LOADING ENTITIES: Line 04327:  This option is per-player; your setting does not affect other players."
-____________________ test_load_bsp[E:/Mod-CoD1-map_dirs67] ____________________
-
-group_path = 'E:/Mod', game_name = 'CoD1', map_dirs = ['maps', 'maps/MP']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 49 out of 49 .bsps failed
-E         ('InfinityWardBsp', 'bsp_tool.branches.infinity_ward.call_of_duty1', 59)
-E       assert {'maps/MP/mp_bocage.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/MP/mp_brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_carentan.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),\n 'maps/MP/mp_chateau.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_dawnville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/MP/mp_depot.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 11 == 0\n  +11\n  -0'),\n 'maps/MP/mp_harbor.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_hurtgen.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_neuville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_powcamp.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/MP/mp_railyard.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/MP/mp_rocket.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/MP/mp_ship.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES\nassert 7 == 0\n  +7\n  -0'),\n 'maps/MP/mp_stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/MP/mp_tigertown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/airfield.bsp': AssertionError('CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/allied_start.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),\n 'maps/berlin.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),\n 'maps/brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/burnville.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, COLLISION_VERTICES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/carride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/chateau.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/credits.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/dam.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/dawnville.bsp': AssertionError('BRUSHES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/factory.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/hurtgen.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/pathfinder.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/pegasusday.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/pegasusnight.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/powcamp.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/railyard.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/redsquare.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/rocket.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/ru_stalingrad.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),\n 'maps/sewer.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/ship.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),\n 'maps/tankdrivecountry.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),\n 'maps/tankdrivetown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/training.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/trainstation.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),\n 'maps/truckride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/uk_6ab.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),\n 'maps/uk_sas.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),\n 'maps/us_intro.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),\n 'maps/us_mid.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0')} == {}
-E         Left contains 49 more items:
-E         {'maps/MP/mp_bocage.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/MP/mp_brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_carentan.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E          'maps/MP/mp_chateau.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_dawnville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/MP/mp_depot.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E          'maps/MP/mp_harbor.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_hurtgen.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_neuville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_powcamp.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/MP/mp_railyard.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/MP/mp_rocket.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/MP/mp_ship.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/MP/mp_stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/MP/mp_tigertown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/airfield.bsp': AssertionError('CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/allied_start.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/berlin.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E          'maps/brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/burnville.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, COLLISION_VERTICES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/carride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/chateau.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/credits.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/dam.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/dawnville.bsp': AssertionError('BRUSHES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/factory.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/hurtgen.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/pathfinder.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/pegasusday.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/pegasusnight.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/powcamp.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/railyard.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/redsquare.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/rocket.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/ru_stalingrad.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/sewer.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/ship.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E          'maps/tankdrivecountry.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E          'maps/tankdrivetown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/training.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/trainstation.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E          'maps/truckride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/uk_6ab.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/uk_sas.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/us_intro.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/us_mid.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'maps/MP/mp_bocage.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/MP/mp_brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_carentan.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E         +  'maps/MP/mp_chateau.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_dawnville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/MP/mp_depot.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E         +  'maps/MP/mp_harbor.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_hurtgen.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_neuville.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_powcamp.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/MP/mp_railyard.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/MP/mp_rocket.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/MP/mp_ship.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, NODES, COLLISION_VERTICES\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/MP/mp_stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/MP/mp_tigertown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/airfield.bsp': AssertionError('CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/allied_start.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/berlin.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E         +  'maps/brecourt.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/burnville.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, CELLS, COLLISION_VERTICES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/carride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/chateau.bsp': AssertionError('BRUSHES, DRAW_VERTICES, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/credits.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/dam.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/dawnville.bsp': AssertionError('BRUSHES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/factory.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/hurtgen.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/pathfinder.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/pavlov.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/pegasusday.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/pegasusnight.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/powcamp.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, PATCH_COLLISION, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/railyard.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/redsquare.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/rocket.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/ru_stalingrad.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/sewer.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, MODELS, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/ship.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, AABB_TREES, CELLS, PORTALS, NODES, LIGHTS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/stalingrad.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 10 == 0\n  +10\n  -0'),
-E         +  'maps/tankdrivecountry.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, PATCH_COLLISION, COLLISION_VERTICES, MODELS, LIGHTS\nassert 9 == 0\n  +9\n  -0'),
-E         +  'maps/tankdrivetown.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/training.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, CELLS, NODES, COLLISION_VERTICES, MODELS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/trainstation.bsp': AssertionError('BRUSHES, DRAW_VERTICES, CULL_GROUPS, OCCLUDERS, AABB_TREES, CELLS, PORTALS, NODES, COLLISION_VERTICES, MODELS, LIGHTS\nassert 11 == 0\n  +11\n  -0'),
-E         +  'maps/truckride.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, NODES, PATCH_COLLISION, MODELS, LIGHTS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/uk_6ab.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/uk_sas.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/us_intro.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/us_mid.bsp': AssertionError('DRAW_VERTICES, CULL_GROUPS, CELLS, PORTALS, LIGHTS\nassert 5 == 0\n  +5\n  -0'),
-E           }
-
-tests\test_bsp.py:70: AssertionError
 ____________________ test_load_bsp[E:/Mod-CoD2-map_dirs68] ____________________
 
 group_path = 'E:/Mod', game_name = 'CoD2', map_dirs = ['maps', 'maps/mp']
@@ -1912,7 +1761,7 @@ tests\test_bsp.py:70: AssertionError
 ERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00p\t\x02"\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00T"\x02_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00\x00a"\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00\x18"\x00Y\x14\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00001:  \x04\x00\x00A\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00(]\x03\x00@\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\u033a\x01\x004\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00P\x02\x00`9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00`\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00d\x01\x00\x02\x00\x00\x00\x00\x00\x00\x00\x1f\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00"\x00]\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00001:  \x04\x00\x00p\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00L \x02\x00`\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x007\x01\x00\x18<\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00s\x01\x00 C\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00 \x13\x00"m\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00
 __________________________ TestBspLump.test_setitem ___________________________
 
-self = <tests.test_bsplump.TestBspLump object at 0x0000012EF7CF48B0>
+self = <tests.test_bsplump.TestBspLump object at 0x000001E5DB7C1F40>
 
     def test_setitem(self):
         for map_name in bsps:
@@ -1929,7 +1778,7 @@ bsp_tool\branches\base.py:164: in __iter__
     return iter([getattr(self, attr) for attr in self._mapping])
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-.0 = <list_iterator object at 0x0000012EF375DCD0>
+.0 = <list_iterator object at 0x000001E5DB7C1670>
 
 >   return iter([getattr(self, attr) for attr in self._mapping])
 E   AttributeError: 'Vertex' object has no attribute 'x'
@@ -1939,6 +1788,22 @@ bsp_tool\branches\base.py:164: AttributeError
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:39: UserWarning: Unused LumpClasses in branch script:
   MipTexture
+    warnings.warn(UserWarning(warning_text))
+
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:39: UserWarning: Unused LumpClasses in branch script:
+  Light
+  Brush
+  DrawVertex
+  CullGroup
+  Cell
+  CollisionVertex
+  Occluder
+  AxisAlignedBoundingBox
+  PatchCollision
+  Portal
+  Node
+  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.vindictus]
@@ -1954,7 +1819,7 @@ Name                                                   Stmts   Miss  Cover
 bsp_tool\__init__.py                                      48      5    90%
 bsp_tool\arkane.py                                        53      6    89%
 bsp_tool\base.py                                         114     30    74%
-bsp_tool\branches\__init__.py                             28     10    64%
+bsp_tool\branches\__init__.py                             28      0   100%
 bsp_tool\branches\arkane\__init__.py                       3      0   100%
 bsp_tool\branches\arkane\dark_messiah.py                  54      4    93%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py      23      0   100%
@@ -1965,9 +1830,9 @@ bsp_tool\branches\gearbox\nightfire.py                    72      0   100%
 bsp_tool\branches\id_software\__init__.py                  4      0   100%
 bsp_tool\branches\id_software\quake.py                   175     13    93%
 bsp_tool\branches\id_software\quake2.py                   83      0   100%
-bsp_tool\branches\id_software\quake3.py                  140      8    94%
-bsp_tool\branches\infinity_ward\__init__.py                2      1    50%
-bsp_tool\branches\infinity_ward\call_of_duty1.py         140     49    65%
+bsp_tool\branches\id_software\quake3.py                  140     32    77%
+bsp_tool\branches\infinity_ward\__init__.py                2      0   100%
+bsp_tool\branches\infinity_ward\call_of_duty1.py         140      4    97%
 bsp_tool\branches\ion_storm\__init__.py                    2      0   100%
 bsp_tool\branches\ion_storm\daikatana.py                  12      0   100%
 bsp_tool\branches\nexon\__init__.py                        5      0   100%
@@ -2007,22 +1872,21 @@ bsp_tool\extensions\decrypt_xor.py                        11     11     0%
 bsp_tool\extensions\diff.py                              106    106     0%
 bsp_tool\extensions\lightmaps.py                         133    133     0%
 bsp_tool\id_software.py                                   94     13    86%
-bsp_tool\infinity_ward.py                                 50      0   100%
+bsp_tool\infinity_ward.py                                 50      3    94%
 bsp_tool\lumps\__init__.py                               272     49    82%
 bsp_tool\raven.py                                          3      0   100%
 bsp_tool\respawn.py                                      144     69    52%
 bsp_tool\ritual.py                                        44      3    93%
 bsp_tool\valve.py                                         57     10    82%
 --------------------------------------------------------------------------
-TOTAL                                                   5289   1167    78%
+TOTAL                                                   5289   1138    78%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs51]
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs67] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs68] - UnboundLoca...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs71] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs72]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs73]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs78] - Assert...
 FAILED tests/test_bsplump.py::TestBspLump::test_setitem - AttributeError: 'Ve...
-=========== 8 failed, 128 passed, 2 warnings in 2019.40s (0:33:39) ============
+=========== 7 failed, 129 passed, 3 warnings in 2015.62s (0:33:35) ============

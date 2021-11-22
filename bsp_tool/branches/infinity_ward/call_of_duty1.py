@@ -1,6 +1,4 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
-# NOTE: Call of Duty 1 has .bsp files in .pk3 archives
-# -- later games instead use .d3dbsp in .iwd archives
 import enum
 from typing import List
 
@@ -216,22 +214,23 @@ BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  shared.UnsignedShorts,
                       "OCCLUDER_INDICES":   shared.UnsignedShorts,
                       "OCCLUDER_PLANES":    shared.UnsignedInts}
 
-LUMP_CLASSES = {"AABB_TREES":         AxisAlignedBoundingBox,
-                "BRUSHES":            Brush,
+LUMP_CLASSES = {
+                # "AABB_TREES":         AxisAlignedBoundingBox,
+                # "BRUSHES":            Brush,
                 "BRUSH_SIDES":        BrushSide,
-                "CELLS":              Cell,
-                "COLLISION_VERTICES": CollisionVertex,
-                "CULL_GROUPS":        CullGroup,
-                "DRAW_VERTICES":      DrawVertex,
+                # "CELLS":              Cell,
+                # "COLLISION_VERTICES": CollisionVertex,
+                # "CULL_GROUPS":        CullGroup,
+                # "DRAW_VERTICES":      DrawVertex,
                 "LEAVES":             Leaf,
-                "LIGHTS":             Light,
+                # "LIGHTS":             Light,
                 "LIGHTMAPS":          Lightmap,
-                "MODELS":             Model,
-                "NODES":              Node,
-                "OCCLUDERS":          Occluder,
-                "PATCH_COLLISION":    PatchCollision,
+                # "MODELS":             Model,
+                # "NODES":              Node,
+                # "OCCLUDERS":          Occluder,
+                # "PATCH_COLLISION":    PatchCollision,
                 "PLANES":             Plane,
-                "PORTALS":            Portal,
+                # "PORTALS":            Portal,
                 "SHADERS":            Shader,
                 "TRIANGLE_SOUPS":     TriangleSoup}
 
