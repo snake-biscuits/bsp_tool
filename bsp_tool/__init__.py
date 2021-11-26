@@ -11,7 +11,7 @@ from . import branches  # all known .bsp variant definitions
 from . import lumps
 from .arkane import ArkaneBsp
 from .id_software import QuakeBsp, IdTechBsp
-from .infinity_ward import InfinityWardBsp
+from .infinity_ward import InfinityWardBsp, D3DBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
 from .ritual import RitualBsp
@@ -50,10 +50,13 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         file_magic = bsp_file.read(4)
         version = int.from_bytes(bsp_file.read(4), "little")
     # identify BspVariant
-    if filename.lower().endswith(".d3dbsp"):  # CoD2
+    if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
         assert file_magic == b"IBSP", "Mystery .d3dbsp!"
         assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-        BspVariant = InfinityWardBsp
+        if version >= branches.infinity_ward.call_of_duty4.BSP_VERSION:
+            BspVariant = D3DBsp
+        else:
+            BspVariant = InfinityWardBsp
     elif filename.lower().endswith(".bsp"):
         if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
             version = int.from_bytes(file_magic, "little")

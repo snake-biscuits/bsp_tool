@@ -130,9 +130,13 @@ extracted_dirs = {
         # CoDBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
-        "CoD2": ["maps",  # 39 maps | 1.5 GB | .d3dbsp
-                 "maps/mp"],  # 15 maps | 395 MB | .d3dbsp
+        "CoD2": ["maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
+                 "maps/mp"],  # 15 maps | 395 MB | .iwd  | .d3dbsp
         # TODO: CoD4  # .ff
+        # "CoD4": ["devraw/maps",  # 1 map | 17 MB | .d3dbsp  (v17 InfinityWardBsp; not a CoD4 .d3dbsp?)
+        "CoD4": ["maps",  # 3 maps | 7 MB | .d3dbsp
+                 "maps/mp"],  # 1 map | 4 MB | .d3dbsp
+        # NOTE: ^ from CoD4ModTools only, still haven't extracted any *.d3dbsp from *.ff (yet)
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas

@@ -74,7 +74,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Quake Live](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
   * [Infinity Ward](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward)
     - [Call of Duty](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py)
-    - Call of Duty 2 :x:
+    - [Call of Duty 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty2.py)
     - Call of Duty 4: Modern Warfare :o:
     - Call of Duty: Modern Warfare 2 :o:
   * [Ion Storm](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ion_storm)
@@ -135,7 +135,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - Call of Duty: Black Ops III :o:
-    - Call of Duty: United Offensive :o:
+    - [Call of Duty: United Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :o:
     - Call of Duty: World at War :o:
     - [Fortress Forever](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -166,6 +166,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Keeping records of the credits on so many games, helping to pin down engine origins
  * [pakextract](https://github.com/yquake2/pakextract)
    - Super useful tool for `.pak` files
+ * [PCGamingWiki](https://community.pcgamingwiki.com/files/category/16-official-patches/)
+   - Archiving old patches to help install old modding tools
  * [REDxEYE](https://github.com/REDxEYE)
    - Being very open and actively collaborating on SourceIO & Titanfall .bsps
  * [Taskinoz](https://github.com/taskinoz)

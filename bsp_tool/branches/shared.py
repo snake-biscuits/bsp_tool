@@ -21,12 +21,20 @@ from . import physics  # noqa F401
 
 
 # Basic Lump Classes
+class Bytes(int):
+    _format = "b"
+
+
 class Ints(int):
     _format = "i"
 
 
 class Shorts(int):
     _format = "h"
+
+
+class UnsignedBytes(int):
+    _format = "b"
 
 
 class UnsignedInts(int):
