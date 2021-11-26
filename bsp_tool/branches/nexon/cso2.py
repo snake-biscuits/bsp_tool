@@ -113,14 +113,14 @@ class PakFile(zipfile.ZipFile):  # WIP
     # b"CS" file magic & different header format?
     def __init__(self, raw_zip: bytes):
         # TODO: translate header to b"PK\x03\x04..."
-        raw_zip = b"".join([b"PK", raw_zip[2:]])
+        raw_zip = b"".join([b"PK", raw_zip[2:]])  # not that easy
         self._buffer = io.BytesIO(raw_zip)
         super(PakFile, self).__init__(self._buffer)
 
     def as_bytes(self) -> bytes:
         # TODO: translate header to b"CS\x03\x04..."
         raw_zip = self._buffer.getvalue()
-        raw_zip = b"".join([b"CS", raw_zip[2:]])
+        raw_zip = b"".join([b"CS", raw_zip[2:]])  # not that easy
         return raw_zip
 
 
@@ -128,10 +128,18 @@ class PakFile(zipfile.ZipFile):  # WIP
 BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("BRUSH_SIDES")
+LUMP_CLASSES.pop("CUBEMAPS")
+LUMP_CLASSES.pop("DISPLACEMENT_INFO")
+LUMP_CLASSES.pop("LEAVES")
+LUMP_CLASSES.pop("ORIGINAL_FACES")
+LUMP_CLASSES.pop("OVERLAYS")
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.update({"PAKFILE": {0: PakFile}})  # WIP
+SPECIAL_LUMP_CLASSES.pop("PAKFILE")
 
+
+# NOTE: GameLump is busted atm?
 GAME_LUMP_CLASSES = vindictus.GAME_LUMP_CLASSES.copy()
 
 
