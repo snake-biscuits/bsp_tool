@@ -18,7 +18,7 @@ def all_maps(game_dirs: maplist.GameDirList = maplist.installed_games):
             errors = dict()
             for map_dir in map_dirs:
                 full_path = os.path.join(group_path, game_name, map_dir)
-                maps = fnmatch.filter(os.listdir(full_path), "*bsp")  # .bsp & CoD2 .d3dbsp
+                maps = fnmatch.filter(os.listdir(full_path), "*[bB][sS][pP]")  # .bsp & .d3dbsp
                 assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
                 for bsp_filename in maps:
                     try:

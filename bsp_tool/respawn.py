@@ -18,6 +18,7 @@ class RespawnBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     file_magic = b"rBSP"
+    lump_count: int
     # NOTE: respawn .bsp files are usually stored in .vpk files
     # -- Respawn's .vpk format is different to Valve's
     # -- You'll need the Titanfall specific .vpk tool to extract maps
@@ -27,7 +28,7 @@ class RespawnBsp(base.Bsp):
         super(RespawnBsp, self).__init__(branch, filename, autoload)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
-    def _read_header(self, LUMP: enum.Enum) -> (LumpHeader, bytes):
+    def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
         """Read a lump from self.file, while it is open (during __init__ only)"""
         self.file.seek(self.branch.lump_header_address[LUMP])
         offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
@@ -46,8 +47,9 @@ class RespawnBsp(base.Bsp):
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
-        self.revision = int.from_bytes(self.file.read(4), "little")  # just for rBSP
-        assert int.from_bytes(self.file.read(4), "little") == 127
+        self.revision = int.from_bytes(self.file.read(4), "little")
+        self.lump_count = int.from_bytes(self.file.read(4), "little")
+        assert self.lump_count == 127, "irregular RespawnBsp lump_count"
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 

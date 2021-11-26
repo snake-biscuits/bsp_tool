@@ -9,7 +9,8 @@ from bsp_tool import lumps
 from bsp_tool import load_bsp
 
 
-# helper for games with shared identifiers
+# auto-detect helper for games with shared identifiers
+# TODO: use unique entity values & lump sizes to identify tricky maps
 game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
                 **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
                 "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs

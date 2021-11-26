@@ -143,7 +143,7 @@ class Lightmap(list):  # LUMP 14
 
 
 class LightVolume(base.Struct):  # LUMP 15
-    # LightVolumess make up a 3D grid whose dimensions are:
+    # LightVolumes make up a 3D grid whose dimensions are:
     # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
     # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
     # z = floor(MODELS[0].maxs.z / 128) - ceil(MODELS[0].mins.z / 128) + 1

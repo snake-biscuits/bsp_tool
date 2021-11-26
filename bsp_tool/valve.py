@@ -14,9 +14,9 @@ GoldSrcLumpHeader = namedtuple("GoldSrcLumpHeader", ["offset", "length"])
 
 
 class GoldSrcBsp(id_software.IdTechBsp):  # TODO: QuakeBsp subclass?
+    file_magic = None
     # https://github.com/ValveSoftware/halflife/blob/master/utils/common/bspfile.h
     # http://hlbsp.sourceforge.net/index.php?content=bspdef
-    # NOTE: GoldSrcBsp has no file_magic!
 
     def __repr__(self):
         version = f"(version {self.bsp_version})"  # no file_magic
@@ -73,7 +73,9 @@ class ValveBsp(base.Bsp):
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(ValveBsp, self).__init__(branch, filename, autoload)
 
-    def _read_header(self, LUMP: enum.Enum) -> namedtuple:  # LumpHeader
+    # TODO: migrate Source specific functionality from base.Bsp to ValveBsp
+
+    def _read_header(self, LUMP: enum.Enum) -> namedtuple:  # any LumpHeader
         """Get LUMP from self.branch.LUMP; e.g. self.branch.LUMP.ENTITIES"""
         # NOTE: each branch of VBSP has unique headers,
         # -- so branch.read_lump_header function is used

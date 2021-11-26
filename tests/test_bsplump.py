@@ -12,6 +12,9 @@ bsps = {"test2": load_bsp("tests/maps/test2.bsp"),
 
 
 class TestRawBspLump:
+    # NOTE: Quake3 has implemented a rough Visibility SpecialLumpClass
+    # TODO: generate raw lumps, since the end goal is to have none
+    # -- or maybe target lightmaps here instead
     raw_lumps = [bsps["test2"].VISIBILITY,
                  bsps["upward"].VISIBILITY]
 
@@ -77,8 +80,8 @@ class TestBspLump:
             # TODO: allow for insert via slice & test for this
 
 
-class TestExternalBspLump:  # TODO: ship some ORIGINAL RespawnBsp external lumps in tests/maps
-    pass  # ensure data is external, not internal
+class TestExternalBspLump:  # TODO: ship bespoke RespawnBsp .bsp_lump files with tests
+    pass  # ensure data is being loaded from the .bsp_lump, not the .bsp
 
 
 class TestBasicBspLump:

@@ -18,9 +18,10 @@
      |                |   |----------> sof           |-> alice      |-> ricochet
 2001 |   anachronox <-/   |-> rtcw     |-> stv:ef    |              |-> half-life:blue shift
 2002 |                    |   |        |-> sof 2     |-> moh:aa     |-> 007:nightfire
+     |                    |   |        |-> sw jk:jo  |              |
 2003 |                    |   \-> cod  \-> sw jk:ja  \-> stef 2     |-> day of defeat
      |                    |       |                                 |--> half-life 2
-2004 |                    |       |                         cs:cz <-/    |-> cs:source
+2004 |                    |       |-> united offensive      cs:cz <-/    |-> cs:source
 2005 |                    |       \-> cod 2                              |-> dod:source
 2006 |                    |           |                   dark messiah <-|-> episode 1
 2007 |                    |           \--> modern warfare                |   \--------> orange box

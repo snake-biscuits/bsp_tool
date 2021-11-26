@@ -29,6 +29,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"IBSP": [id_software.quake2,
                                      id_software.quake3,
                                      *infinity_ward.scripts,
+                                     # NOTE: most of infinity_ward.scripts will be *.d3dbsp
                                      ion_storm.daikatana,
                                      raven.soldier_of_fortune,
                                      ritual.sin],

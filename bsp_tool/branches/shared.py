@@ -1,5 +1,4 @@
 import io
-import itertools
 import math
 import re
 import struct
@@ -55,6 +54,7 @@ class Entities(list):
             elif '"' in line:
                 key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
                 if not key_value_pair:
+                    # TODO: catch multi-lines (tf/download/maps/af_tf2_party_a11.bsp)
                     print(f"ERROR LOADING ENTITIES: Line {line_no:05d}:  {line}")
                     continue
                 key, value = key_value_pair.groups()

@@ -12,7 +12,9 @@ FILE_MAGIC = b"2015"
 
 BSP_VERSION = 19
 
-GAME_PATHS = ["Medal of Honor: Allied Assault"]
+GAME_PATHS = ["Medal of Honor: Allied Assault",
+              "Medal of Honor: Allied Assault - Breakthrough",
+              "Medal of Honor: Allied Assault - Spearhead"]
 
 GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
 

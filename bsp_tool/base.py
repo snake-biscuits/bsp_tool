@@ -11,9 +11,9 @@ import warnings
 from . import lumps
 
 
-# TODO: align base.Bsp closer to Quake than Source
+# TODO: align base.Bsp closer to Quake, rather than Source
 
-# NOTE: LumpHeaders must have these attrs, but how they are read / order will vary
+# NOTE: these LumpHeader defintions are not universal! many branches differ
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
 ExternalLumpHeader = collections.namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC",
                                                                    "filename", "filesize"])
@@ -47,6 +47,7 @@ class Bsp:
             else:
                 warnings.warn(UserWarning(f"{filename} not found, creating a new .bsp"))
                 self.headers = {L.name: LumpHeader(0, 0, 0, 0) for L in self.branch.LUMP}
+                # NOTE: ^ this doesn't acount for some branches' alternate LumpHeader structs
 
     def __enter__(self):
         return self
@@ -65,7 +66,7 @@ class Bsp:
         offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
         # TODO: use a read & write function / struct.iter_unpack
         # -- this could potentially allow for simplified subclasses
-        # -- e.g. LumpHeader(*struct.unpack("4I", self.file.read(16)))  ->  self.LumpHeader(self.file)
+        # -- e.g. LumpHeader(*struct.unpack("4I", self.file.read(16)))  ->  self.LumpHeader.from_file(self.file)
         header = LumpHeader(offset, length, version, fourCC)
         return header
 

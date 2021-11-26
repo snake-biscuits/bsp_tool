@@ -1,3 +1,5 @@
+"""These tests cannot fail, but they will provide warnings for unused LumpClasses"""
+# TODO: identify SubLumpClasses used in some way
 import inspect
 from types import ModuleType
 from typing import List
