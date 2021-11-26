@@ -1,0 +1,110 @@
+
+
+
+materialPath: D:\SteamLibrary\steamapps\common\Team Fortress 2\tf\materials
+Loading e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.vmf
+fixing up env_cubemap materials on brush sides...
+0...1...2...3...4...5...6...7...8...9...10**** leaked ****
+Processing areas...done (0)
+Building Faces...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+*** Error: Skybox vtf files for skybox/sky_tf2_04 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_tf2_04 to build the default cubemap!
+*** Error: Skybox vtf files for skybox/sky_tf2_04 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_tf2_04 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (2288 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 8 texinfos to 3
+Reduced 3 texdatas to 2 (57 bytes to 39)
+Writing e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.bsp
+MSG_FILEWRITE - Filesystem was asked to write to 'e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.bsp', but we don't own that location. Allowing.
+ZIP Output overshot buffer estimate: Estimated 0, actual 54
+0 seconds elapsed
+
+
+
+8 threads
+reading e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.bsp
+reading e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.prt
+LoadPortals: couldn't read e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.prt
+
+
+
+[Reading texlights from 'lights.rad']
+[56 texlights parsed from 'lights.rad']
+
+Loading e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.bsp
+No vis information, direct lighting only.
+2195 faces
+44870320 square feet [6461325824.00 square inches]
+3 Displacements
+1251 Square Feet [180223.98 Square Inches]
+0 direct lights
+0...1...2...3...4...5...6...7...8...9...10Build Patch/Sample Hash Table(s).....Done<0.0000 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/1024           48/49152    ( 0.1%) 
+brushes                  6/8192           72/98304    ( 0.1%) 
+brushsides              36/65536         288/524288   ( 0.1%) 
+planes                 168/65536        3360/1310720  ( 0.3%) 
+vertexes              2223/65536       26676/786432   ( 3.4%) 
+nodes                 5379/65536      172128/2097152  ( 8.2%) 
+texinfos                 3/12288         216/884736   ( 0.0%) 
+texdata                  2/2048           64/65536    ( 0.1%) 
+dispinfos                3/0             528/0        ( 0.0%) 
+disp_verts              75/0            1500/0        ( 0.0%) 
+disp_tris               96/0             192/0        ( 0.0%) 
+disp_lmsamples        3600/0            3600/0        ( 0.0%) 
+faces                 2195/65536      122920/3670016  ( 3.3%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces               21/65536        1176/3670016  ( 0.0%) 
+leaves                5381/65536      172192/2097152  ( 8.2%) 
+leaffaces             2192/65536        4384/131072   ( 3.3%) 
+leafbrushes           3068/65536        6136/131072   ( 4.7%) 
+areas                    1/256             8/2048     ( 0.4%) 
+surfedges             8864/512000      35456/2048000  ( 1.7%) 
+edges                 4459/256000      17836/1024000  ( 1.7%) 
+LDR worldlights          0/8192            0/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips              0/32768           0/327680   ( 0.0%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices             0/65536           0/131072   ( 0.0%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]        3612/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]           0/16777216 ( 0.0%) 
+entdata               [variable]         246/393216   ( 0.1%) 
+LDR ambient table     5381/65536       21524/262144   ( 8.2%) 
+HDR ambient table     5381/65536       21524/262144   ( 8.2%) 
+LDR leaf ambient      2312/65536       64736/1835008  ( 3.5%) 
+HDR leaf ambient      5381/65536      150668/1835008  ( 8.2%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]          54/0        ( 0.0%) 
+physics               [variable]        2288/4194304  ( 0.1%) 
+physics terrain       [variable]         161/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 4390
+Writing e:\mod\tf2\mapsrc\_test_maps\test_displacement_decompile.bsp
+ZIP Output overshot buffer estimate: Estimated 0, actual 54
+19 seconds elapsed

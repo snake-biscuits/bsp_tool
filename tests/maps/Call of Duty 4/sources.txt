@@ -1,0 +1,9 @@
+mp/mp_lobby.d3dbsp       - made by @snake-biscuits (Titanfall mp_lobby.bsp recreation)
+# NOTE: partial compile, need to patch PunkBuster in Steam version to create grid
+# NOTENOTE: PunkBuster can be patched using this repo: https://github.com/promod/CoD-PunkBuster-Files
+# -- don't forget to add the code in the readme to the appropriate .htm file (PB/pbgame.htm
+# NOTENOTENOTE: PunkBuster also requires the latest versions of pbsetup.exe & pbsvc.exe
+# -- promod's direct links set off my antivirus to I went to https://www.evenbalance.com/pbsetup.php and followed their links
+mp/mp_test.d3dbsp     - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)
+test.d3dbsp           - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)
+test_traverses.d3dbsp - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)

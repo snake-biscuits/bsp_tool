@@ -1,0 +1,4 @@
+mp_lobby.map       - made by @snake-biscuits (Titanfall mp_lobby.bsp recreation)
+mp_test.map        - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)
+test.map           - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)
+test_traverses.map - CoD4ModTools (https://github.com/promod/CoD4-Mod-Tools)

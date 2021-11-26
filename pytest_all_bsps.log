@@ -3,9 +3,9 @@ platform win32 -- Python 3.9.9, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\use
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
-collecting ... collected 136 items
+collecting ... collected 139 items
 
-tests/test_bsp.py::test_load_bsp[./-tests-map_dirs0] PASSED              [  0%]
+tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] PASSED         [  0%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] PASSED [  1%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-half-life 2 riot act-map_dirs2] PASSED [  2%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-TFTS-map_dirs3] PASSED [  2%]
@@ -15,121 +15,124 @@ tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemo
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-companionpiece2-map_dirs7] PASSED [  5%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-eyecandy-map_dirs8] PASSED [  6%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tworooms-map_dirs9] PASSED [  7%]
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs10] PASSED [  8%]
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs10] PASSED [  7%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs11] PASSED [  8%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs12] PASSED [  9%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs13] PASSED [ 10%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs14] PASSED [ 11%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs14] PASSED [ 10%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs15] PASSED [ 11%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs16] PASSED [ 12%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs17] PASSED [ 13%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs17] PASSED [ 12%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs18] PASSED [ 13%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs19] PASSED [ 14%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs20] PASSED [ 15%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs21] PASSED [ 16%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs21] PASSED [ 15%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs22] PASSED [ 16%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs23] PASSED [ 17%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs24] PASSED [ 18%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs25] PASSED [ 19%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs24] PASSED [ 17%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs25] PASSED [ 18%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs26] PASSED [ 19%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs27] PASSED [ 20%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs28] PASSED [ 21%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs29] PASSED [ 22%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs28] PASSED [ 20%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs29] PASSED [ 21%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs30] PASSED [ 22%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs31] PASSED [ 23%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs32] PASSED [ 24%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs33] PASSED [ 25%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs32] PASSED [ 23%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs33] PASSED [ 24%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs34] PASSED [ 25%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs35] PASSED [ 26%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs36] PASSED [ 27%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs35] PASSED [ 25%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs36] PASSED [ 26%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs37] PASSED [ 27%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs38] PASSED [ 28%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs39] PASSED [ 29%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs40] PASSED [ 30%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs39] PASSED [ 28%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs40] PASSED [ 29%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs41] PASSED [ 30%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs42] PASSED [ 31%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs43] PASSED [ 32%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs44] PASSED [ 33%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs42] PASSED [ 30%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs43] PASSED [ 31%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs44] PASSED [ 32%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs45] PASSED [ 33%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs46] PASSED [ 34%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs47] PASSED [ 35%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs48] PASSED [ 36%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs49] PASSED [ 36%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs50] PASSED [ 37%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs51] FAILED [ 38%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs46] PASSED [ 33%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs47] PASSED [ 34%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs48] PASSED [ 35%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs49] PASSED [ 35%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs50] PASSED [ 36%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs51] FAILED [ 37%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs52] PASSED [ 38%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs53] PASSED [ 39%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs54] PASSED    [ 40%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs55] PASSED     [ 41%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs53] PASSED [ 38%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs54] PASSED    [ 39%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs55] PASSED     [ 40%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs56] PASSED     [ 41%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs57] PASSED        [ 42%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs58] PASSED          [ 43%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs59] PASSED           [ 44%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs60] PASSED           [ 44%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs61] PASSED          [ 45%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs62] PASSED [ 46%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs63] PASSED         [ 47%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs64] PASSED       [ 47%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs65] PASSED      [ 48%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs66] PASSED     [ 49%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs67] PASSED          [ 50%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs68] FAILED          [ 50%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs69] PASSED     [ 51%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs70] PASSED    [ 52%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs71] FAILED          [ 52%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs72] FAILED [ 53%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs73] FAILED [ 54%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs74] PASSED     [ 55%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs75] PASSED [ 55%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs76] PASSED [ 56%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs77] PASSED [ 57%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs78] FAILED     [ 58%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs79] PASSED     [ 58%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs80] PASSED    [ 59%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs81] PASSED   [ 60%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs82] PASSED         [ 61%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs83] PASSED         [ 61%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs84] PASSED         [ 62%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs85] PASSED [ 63%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs86] PASSED [ 63%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs87] PASSED [ 64%]
-tests/test_bsplump.py::TestRawBspLump::test_its_raw PASSED               [ 65%]
-tests/test_bsplump.py::TestRawBspLump::test_list_conversion PASSED       [ 66%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs57] PASSED        [ 41%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs58] PASSED          [ 42%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs59] PASSED           [ 43%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs60] PASSED           [ 43%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs61] PASSED          [ 44%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs62] PASSED [ 45%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs63] PASSED         [ 46%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs64] PASSED       [ 46%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs65] PASSED      [ 47%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs66] PASSED     [ 48%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs67] PASSED          [ 48%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs68] PASSED          [ 49%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs69] PASSED          [ 50%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs70] PASSED     [ 51%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs71] PASSED    [ 51%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs72] FAILED          [ 52%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs73] FAILED [ 53%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs74] FAILED [ 53%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs75] PASSED     [ 54%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs76] PASSED [ 55%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs77] PASSED [ 56%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs78] PASSED [ 56%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs79] FAILED     [ 57%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs80] PASSED     [ 58%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs81] PASSED    [ 58%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs82] PASSED   [ 59%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs83] PASSED         [ 60%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs84] PASSED         [ 61%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs85] PASSED         [ 61%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs86] PASSED [ 62%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs87] PASSED [ 63%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs88] PASSED [ 64%]
+tests/test_bsplump.py::TestRawBspLump::test_its_raw PASSED               [ 64%]
+tests/test_bsplump.py::TestRawBspLump::test_list_conversion PASSED       [ 65%]
 tests/test_bsplump.py::TestRawBspLump::test_indexing PASSED              [ 66%]
-tests/test_bsplump.py::TestBspLump::test_list_conversion PASSED          [ 67%]
-tests/test_bsplump.py::TestBspLump::test_indexing PASSED                 [ 68%]
-tests/test_bsplump.py::TestBspLump::test_del PASSED                      [ 69%]
+tests/test_bsplump.py::TestBspLump::test_list_conversion PASSED          [ 66%]
+tests/test_bsplump.py::TestBspLump::test_indexing PASSED                 [ 67%]
+tests/test_bsplump.py::TestBspLump::test_del PASSED                      [ 68%]
 tests/test_bsplump.py::TestBspLump::test_setitem FAILED                  [ 69%]
-tests/test_bsplump.py::TestBasicBspLump::test_its_basic PASSED           [ 70%]
-tests/test_bsplump.py::TestBasicBspLump::test_list_conversion PASSED     [ 71%]
-tests/test_bsplump.py::TestBasicBspLump::test_indexing PASSED            [ 72%]
-tests/test_idtech_bsp.py::test_no_errors PASSED                          [ 72%]
-tests/test_idtech_bsp.py::test_entities_loaded PASSED                    [ 73%]
-tests/test_idtech_bsp.py::test_face_struct PASSED                        [ 74%]
-tests/test_valve_bsp.py::test_no_errors PASSED                           [ 75%]
-tests/test_valve_bsp.py::test_entites_loaded PASSED                      [ 75%]
-tests/branches/test_base.py::TestStruct::test_unpack PASSED              [ 76%]
-tests/branches/test_base.py::TestStruct::test_pack PASSED                [ 77%]
-tests/branches/test_base.py::TestMappedArray::test_init PASSED           [ 77%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] PASSED [ 78%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] PASSED [ 79%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] PASSED [ 80%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] PASSED [ 80%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] PASSED [ 81%]
+tests/test_bsplump.py::TestBasicBspLump::test_its_basic PASSED           [ 69%]
+tests/test_bsplump.py::TestBasicBspLump::test_list_conversion PASSED     [ 70%]
+tests/test_bsplump.py::TestBasicBspLump::test_indexing PASSED            [ 71%]
+tests/test_idtech_bsp.py::test_no_errors PASSED                          [ 71%]
+tests/test_idtech_bsp.py::test_entities_loaded PASSED                    [ 72%]
+tests/test_idtech_bsp.py::test_face_struct PASSED                        [ 73%]
+tests/test_valve_bsp.py::test_no_errors PASSED                           [ 74%]
+tests/test_valve_bsp.py::test_entites_loaded PASSED                      [ 74%]
+tests/branches/test_base.py::TestStruct::test_unpack PASSED              [ 75%]
+tests/branches/test_base.py::TestStruct::test_pack PASSED                [ 76%]
+tests/branches/test_base.py::TestMappedArray::test_init PASSED           [ 76%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] PASSED [ 77%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] PASSED [ 78%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] PASSED [ 79%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] PASSED [ 79%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] PASSED [ 80%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty4] PASSED [ 81%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] PASSED [ 82%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] PASSED [ 82%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] PASSED [ 83%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] PASSED [ 83%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] PASSED [ 84%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] PASSED [ 84%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] PASSED [ 85%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] PASSED [ 86%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.moh_allied_assault] PASSED [ 86%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.moh_allied_assault] PASSED [ 87%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] PASSED [ 87%]
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] PASSED [ 88%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] PASSED [ 88%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah] PASSED [ 89%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_multiplayer] PASSED [ 90%]
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] PASSED [ 89%]
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_multiplayer] PASSED [ 89%]
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer] PASSED [ 90%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.cso2] PASSED [ 91%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] PASSED [ 91%]
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] PASSED [ 92%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.vindictus] PASSED [ 92%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] PASSED [ 93%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.titanfall] PASSED [ 94%]
@@ -187,7 +190,7 @@ map_dirs = ['tf/maps', 'tf/download/maps']
                         types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                         del bsp
 >       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 1 out of 397 .bsps failed
+E       AssertionError: 1 out of 405 .bsps failed
 E         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)
 E       assert {'tf/download/maps/af_tf2_party_a11.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')} == {}
 E         Left contains 1 more item:
@@ -196,7 +199,7 @@ E         Full diff:
 E         - {}
 E         + {'tf/download/maps/af_tf2_party_a11.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')}
 
-tests\test_bsp.py:70: AssertionError
+tests\test_bsp.py:71: AssertionError
 ---------------------------- Captured stdout call -----------------------------
 ERROR LOADING ENTITIES: Line 10205:  "OnEntitySpawned" "text_minigame_info,AddOutput,message Demoman Only - Use Stickybombs 
 ERROR LOADING ENTITIES: Line 10206:   Detonate bombs at the bottom.,0,-1"
@@ -207,109 +210,7 @@ ERROR LOADING ENTITIES: Line 04307:  "message" "Players can get rid of their jit
 ERROR LOADING ENTITIES: Line 04308:  in return for a slight increase in move speed, by shooting the Anti-Jitter button."
 ERROR LOADING ENTITIES: Line 04326:  "message" "Players in Anti-Jitter Mode will retain their increased jump height.
 ERROR LOADING ENTITIES: Line 04327:  This option is per-player; your setting does not affect other players."
-____________________ test_load_bsp[E:/Mod-CoD2-map_dirs68] ____________________
-
-group_path = 'E:/Mod', game_name = 'CoD2', map_dirs = ['maps', 'maps/mp']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
->                       bsp = load_bsp(bsp_filename, branch_script)
-
-tests\test_bsp.py:59: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-filename = 'E:/Mod\\CoD2\\maps\\88ridge.d3dbsp', branch_script = None
-
-    def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
-        """Calculate and return the correct base.Bsp sub-class for the given .bsp"""
-        # TODO: OPTION: use filepath to guess game / branch
-        # verify path
-        if not os.path.exists(filename):
-            raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
-        elif os.path.getsize(filename) == 0:  # HL2/ d2_coast_02.bsp
-            raise RuntimeError(f"{filename} is an empty file")
-        # parse header
-        with open(filename, "rb") as bsp_file:
-            file_magic = bsp_file.read(4)
-            version = int.from_bytes(bsp_file.read(4), "little")
-        # identify BspVariant
-        if filename.lower().endswith(".d3dbsp"):  # CoD2
-            assert file_magic == b"IBSP", "Mystery .d3dbsp!"
->           assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-E           AssertionError: Unexpected .d3dbsp format version!
-
-bsp_tool\__init__.py:55: AssertionError
-
-During handling of the above exception, another exception occurred:
-
-group_path = 'E:/Mod', game_name = 'CoD2', map_dirs = ['maps', 'maps/mp']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
->                       types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-E                       UnboundLocalError: local variable 'bsp' referenced before assignment
-
-tests\test_bsp.py:68: UnboundLocalError
-____________________ test_load_bsp[E:/Mod-CSO2-map_dirs71] ____________________
+____________________ test_load_bsp[E:/Mod-CSO2-map_dirs72] ____________________
 
 group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
 
@@ -354,209 +255,209 @@ group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
 >       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
 E       AssertionError: 97 out of 97 .bsps failed
 E         ('ValveBsp', 'bsp_tool.branches.nexon.cso2', 100)
-E       assert {'maps/aim_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),\n 'maps/awp_metro.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/awp_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),\n 'maps/bigcity_main.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/bigcity_pvp.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/campaign_05.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/cs_aquarium.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/cs_assault.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/cs_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/cs_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/cs_italy_night.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/cs_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/cs_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/cs_office_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_cbble.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_centered.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_cornerwork.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_cornerwork2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_dust2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_dust2_decompressed.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_headquarter.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_inferno.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/de_nuke.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_sa02.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/de_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_storage.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_survivor.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_tides.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_tosca.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_train.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/de_vantage.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/de_vertigo.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),\n 'maps/dm_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/dm_dustrush.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/dm_killhouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/dm_mboss.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),\n 'maps/dm_playground.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/dm_sa01.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/dm_sewer.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/dm_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/dm_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/duel_diner.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/ew_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/gb_varena.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),\n 'maps/gm_giant.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hm_multi01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs2_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs2_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs2_estate.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_italy2_xmas.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/hs2_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_sa01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_sa02.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs2_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs2_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs_aqua.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs_dust2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/hs_festival.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/hs_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs_italy2_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/hs_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/mad_city.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/mad_city_big.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/testzone_transition1.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/testzone_transition2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/tuto_walk.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/uc_aztec.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/uc_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),\n 'maps/uc_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),\n 'maps/zc_laboratory.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/zc_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),\n 'maps/zd_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zd_boss.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zd_internal.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zd_italy.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),\n 'maps/zd_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zd_nuke.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zd_park.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zd_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zp_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zp_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zp_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zp_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zp_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zp_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zp_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),\n 'maps/zz_festival.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zz_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),\n 'maps/zz_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0')} == {}
+E       assert {'maps/aim_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/awp_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bigcity_main.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bigcity_pvp.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/campaign_05.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_aquarium.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_italy_night.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_office_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_cbble.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_centered.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_cornerwork.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_cornerwork2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_headquarter.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_inferno.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_storage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_survivor.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_tides.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_tosca.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_train.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_vantage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_vertigo.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_dustrush.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_killhouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_mboss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_playground.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_sewer.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/duel_diner.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ew_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/gb_varena.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/gm_giant.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hm_multi01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs2_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_aqua.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hs_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mad_city.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mad_city_big.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/testzone_transition1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/testzone_transition2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/tuto_walk.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/uc_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/uc_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/uc_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zc_laboratory.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zc_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_boss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_internal.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_park.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zd_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zp_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zz_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zz_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')} == {}
 E         Left contains 97 more items:
-E         {'maps/aim_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/awp_metro.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/awp_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/bigcity_main.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/bigcity_pvp.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/campaign_05.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/cs_aquarium.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/cs_assault.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/cs_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/cs_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/cs_italy_night.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/cs_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/cs_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/cs_office_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_cbble.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_centered.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_cornerwork.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_cornerwork2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_dust2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_dust2_decompressed.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_headquarter.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_inferno.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/de_nuke.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_sa02.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/de_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_storage.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_survivor.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_tides.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_tosca.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_train.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/de_vantage.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/de_vertigo.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/dm_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/dm_dustrush.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/dm_killhouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/dm_mboss.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/dm_playground.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/dm_sa01.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/dm_sewer.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/dm_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/dm_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/duel_diner.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/ew_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/gb_varena.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/gm_giant.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hm_multi01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs2_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs2_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs2_estate.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_italy2_xmas.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/hs2_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_sa01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_sa02.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs2_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs2_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs_aqua.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs_dust2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/hs_festival.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/hs_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs_italy2_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/hs_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/mad_city.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/mad_city_big.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/testzone_transition1.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/testzone_transition2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/tuto_walk.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/uc_aztec.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/uc_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/uc_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/zc_laboratory.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/zc_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E          'maps/zd_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zd_boss.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zd_internal.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zd_italy.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E          'maps/zd_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zd_nuke.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zd_park.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zd_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zp_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zp_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zp_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zp_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zp_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zp_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zp_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E          'maps/zz_festival.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zz_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E          'maps/zz_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0')}
+E         {'maps/aim_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/awp_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/bigcity_main.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/bigcity_pvp.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/campaign_05.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_aquarium.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_italy_night.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_office_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_cbble.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_centered.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_cornerwork.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_cornerwork2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_headquarter.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_inferno.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_storage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_survivor.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_tides.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_tosca.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_train.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_vantage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_vertigo.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_dustrush.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_killhouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_mboss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_playground.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_sewer.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dm_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/duel_diner.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ew_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/gb_varena.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/gm_giant.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hm_multi01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs2_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_aqua.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/hs_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/mad_city.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/mad_city_big.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/testzone_transition1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/testzone_transition2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/tuto_walk.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/uc_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/uc_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/uc_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zc_laboratory.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zc_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_boss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_internal.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_park.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zd_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zp_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zz_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zz_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')}
 E         Full diff:
 E           {
 E         -  ,
-E         +  'maps/aim_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/awp_metro.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/awp_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/bigcity_main.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/bigcity_pvp.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/campaign_05.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/cs_aquarium.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/cs_assault.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/cs_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/cs_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/cs_italy_night.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/cs_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/cs_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/cs_office_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_cbble.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_centered.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_cornerwork.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_cornerwork2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_dust.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_dust2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_dust2_decompressed.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_headquarter.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_inferno.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/de_nuke.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_sa02.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/de_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_storage.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_survivor.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_tides.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_tosca.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_train.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/de_vantage.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/de_vertigo.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/dm_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/dm_dustrush.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/dm_killhouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/dm_mboss.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/dm_playground.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/dm_sa01.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/dm_sewer.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/dm_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/dm_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/duel_diner.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/ew_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/gb_varena.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/gm_giant.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hm_multi01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs2_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs2_cargoship.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs2_estate.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_italy2_xmas.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/hs2_office.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_sa01.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_sa02.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs2_sa03.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs2_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs_aqua.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs_dust2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/hs_festival.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/hs_highland.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs_italy2.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs_italy2_xmas.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/hs_studio.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/mad_city.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/mad_city_big.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/testzone_transition1.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/testzone_transition2.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/tuto_walk.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/uc_aztec.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/uc_museum.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/uc_shutdown.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/zc_laboratory.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/zc_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 6 == 0\n  +6\n  -0'),
-E         +  'maps/zd_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zd_boss.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zd_internal.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zd_italy.bsp': AssertionError('LEAVES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE\nassert 5 == 0\n  +5\n  -0'),
-E         +  'maps/zd_lasttrain.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zd_nuke.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zd_park.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zd_trainyard.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zp_assault.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zp_aztec.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zp_estate.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zp_italy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zp_militia.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zp_storm.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zp_uprising.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
-E         +  'maps/zz_festival.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zz_phouse.bsp': AssertionError('LEAVES, BRUSH_SIDES, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 7 == 0\n  +7\n  -0'),
-E         +  'maps/zz_prodigy.bsp': AssertionError('LEAVES, BRUSH_SIDES, DISPLACEMENT_INFO, ORIGINAL_FACES, GAME_LUMP, PAKFILE, CUBEMAPS, OVERLAYS\nassert 8 == 0\n  +8\n  -0'),
+E         +  'maps/aim_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/awp_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/bigcity_main.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/bigcity_pvp.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/campaign_05.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_aquarium.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_italy_night.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_office_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_cbble.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_centered.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_cornerwork.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_cornerwork2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_dust.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_headquarter.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_inferno.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_storage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_survivor.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_tides.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_tosca.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_train.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_vantage.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_vertigo.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_dustrush.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_killhouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_mboss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_playground.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_sewer.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dm_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/duel_diner.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ew_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/gb_varena.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/gm_giant.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hm_multi01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_cargoship.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_office.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_sa01.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_sa02.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_sa03.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs2_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_aqua.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_dust2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_highland.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_italy2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_italy2_xmas.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/hs_studio.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/mad_city.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/mad_city_big.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/testzone_transition1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/testzone_transition2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/tuto_walk.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/uc_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/uc_museum.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/uc_shutdown.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zc_laboratory.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zc_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_boss.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_internal.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_lasttrain.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_nuke.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_park.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zd_trainyard.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_assault.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_aztec.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_estate.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_italy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_militia.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_storm.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zp_uprising.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zz_festival.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zz_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:70: AssertionError
-__________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs72] __________
+tests\test_bsp.py:71: AssertionError
+__________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs73] __________
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/singleplayer'
 map_dirs = ['maps']
@@ -601,86 +502,86 @@ map_dirs = ['maps']
                         del bsp
 >       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
 E       AssertionError: 35 out of 35 .bsps failed
-E         ('ArkaneBsp', 'bsp_tool.branches.arkane.dark_messiah_multiplayer', (20, 4))
-E       assert {'maps/e3_l06_l09.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l00.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l01_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l02_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l02_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l02_b2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l03_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l03_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l04_b.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l05_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l05_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l05_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l06_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l06_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l06_c.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l06_d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l07_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l07_b.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l08_a1.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l08_a2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l08_b.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l09_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l09_d.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l10_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l10_b.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l11_b2.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l11_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/l12_a.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/l12_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/menu_3d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'maps/menu_3d_credits.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0')} == {}
+E         ('ArkaneBsp', 'bsp_tool.branches.arkane.dark_messiah_singleplayer', (20, 4))
+E       assert {'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')} == {}
 E         Left contains 35 more items:
-E         {'maps/e3_l06_l09.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l00.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l01_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l02_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l02_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l02_b2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l03_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l03_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l04_b.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l05_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l05_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l05_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l06_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l06_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l06_c.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l06_d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l07_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l07_b.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l08_a1.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l08_a2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l08_b.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l09_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l09_d.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l10_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l10_b.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/l10_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
+E         {'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E          'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/l11_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l11_b2.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l11_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/l12_a.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/l12_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/l12_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E          'maps/menu_3d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E          'maps/menu_3d_credits.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0')}
+E          'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')}
 E         Full diff:
 E           {
 E         -  ,
-E         +  'maps/e3_l06_l09.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l00.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l01_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l02_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l02_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l02_b2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l03_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l03_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l04_b.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l05_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l05_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l05_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l06_a.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l06_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l06_c.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l06_d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l07_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l07_b.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l08_a1.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l08_a2.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l08_b.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l09_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l09_d.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l10_a.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l10_b.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/l10_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
+E         +  'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E         +  'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/l11_b1.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l11_b2.bsp': AssertionError('MODELS, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l11_c.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/l12_a.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/l12_b.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/l12_c.bsp': AssertionError('TEXTURE_INFO, MODELS, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),
-E         +  'maps/menu_3d.bsp': AssertionError('TEXTURE_INFO, MODELS\nassert 2 == 0\n  +2\n  -0'),
-E         +  'maps/menu_3d_credits.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:70: AssertionError
-__________ test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs73] ___________
+tests\test_bsp.py:71: AssertionError
+__________ test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs74] ___________
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/multiplayer'
 map_dirs = ['maps']
@@ -755,8 +656,8 @@ E         +  'maps/l_mp4.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')
 E         +  'maps/l_mp5.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:70: AssertionError
-_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs78] __________________
+tests\test_bsp.py:71: AssertionError
+_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs79] __________________
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 
@@ -1756,12 +1657,12 @@ E         +  'maps/w_boss04.bsp': AssertionError('ENTITIES, PLANES, TEXTURE_DATA
 E         +  'maps/w_boss04_story.bsp': AssertionError('ENTITIES, PLANES, TEXTURE_DATA, VERTICES, NODES, TEXTURE_INFO, FACES, EDGES, MODELS, WORLD_LIGHTS, DISPLACEMENT_INFO, PHYSICS_COLLIDE, VERTEX_NORMALS, DISPLACEMENT_VERTICES, GAME_LUMP, LEAF_WATER_DATA, PAKFILE, OVERLAYS, WORLD_LIGHTS_HDR\nassert 19 == 0\n  +19\n  -0'),
 E           }
 
-tests\test_bsp.py:70: AssertionError
+tests\test_bsp.py:71: AssertionError
 ---------------------------- Captured stdout call -----------------------------
 ERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00p\t\x02"\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00T"\x02_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00\x00a"\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00\x18"\x00Y\x14\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00001:  \x04\x00\x00A\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00(]\x03\x00@\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\u033a\x01\x004\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00P\x02\x00`9\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00`\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00d\x01\x00\x02\x00\x00\x00\x00\x00\x00\x00\x1f\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00"\x00]\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00001:  \x04\x00\x00p\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00L \x02\x00`\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x007\x01\x00\x18<\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"\x00\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00s\x01\x00 C\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\nERROR LOADING ENTITIES: Line 00000:  VBSP\x14\x00\x00\x00 \x13\x00"m\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00
 __________________________ TestBspLump.test_setitem ___________________________
 
-self = <tests.test_bsplump.TestBspLump object at 0x000001E5DB7C1F40>
+self = <tests.test_bsplump.TestBspLump object at 0x0000022762E60C40>
 
     def test_setitem(self):
         for map_name in bsps:
@@ -1770,123 +1671,138 @@ self = <tests.test_bsplump.TestBspLump object at 0x000001E5DB7C1F40>
             lump[0] = empty_entry
 >           assert lump[0] == empty_entry, f"{map_name} failed"
 
-tests\test_bsplump.py:74: 
+tests\test_bsplump.py:78: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-bsp_tool\branches\base.py:153: in __eq__
-    return all([(a == b) for a, b in zip(self, other)])
-bsp_tool\branches\base.py:164: in __iter__
-    return iter([getattr(self, attr) for attr in self._mapping])
+bsp_tool\branches\base.py:37: in __eq__
+    return self.flat() == other.flat()
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-.0 = <list_iterator object at 0x000001E5DB7C1670>
+self = <[AttributeError('position') raised in repr()] Vertex object at 0x227676acf80>
 
->   return iter([getattr(self, attr) for attr in self._mapping])
-E   AttributeError: 'Vertex' object has no attribute 'x'
+    def flat(self) -> list:
+        """recreates the _tuple this instance was initialised from"""
+        _tuple = []
+        for slot in self.__slots__:
+>           value = getattr(self, slot)
+E           AttributeError: position
 
-bsp_tool\branches\base.py:164: AttributeError
+bsp_tool\branches\base.py:53: AttributeError
 ============================== warnings summary ===============================
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:39: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:41: UserWarning: Unused LumpClasses in branch script:
   MipTexture
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:39: UserWarning: Unused LumpClasses in branch script:
-  Light
-  Brush
-  DrawVertex
-  CullGroup
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:41: UserWarning: Unused LumpClasses in branch script:
   Cell
-  CollisionVertex
+  Node
   Occluder
   AxisAlignedBoundingBox
   PatchCollision
-  Portal
-  Node
   Model
+  Light
+  DrawVertex
+  Portal
+  CullGroup
+  Brush
+    warnings.warn(UserWarning(warning_text))
+
+tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:41: UserWarning: Unused LumpClasses in branch script:
+  CollisionEdge
+  Model
+  CollisionTriangle
+    warnings.warn(UserWarning(warning_text))
+
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:66: UserWarning: Unused LumpClasses in branch script:
+  Model
+  TextureInfo
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.vindictus]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:64: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:66: UserWarning: Unused LumpClasses in branch script:
   GameLumpHeader
     warnings.warn(UserWarning(warning_text))
 
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
 
 ----------- coverage: platform win32, python 3.9.9-final-0 -----------
-Name                                                   Stmts   Miss  Cover
---------------------------------------------------------------------------
-bsp_tool\__init__.py                                      48      5    90%
-bsp_tool\arkane.py                                        53      6    89%
-bsp_tool\base.py                                         114     30    74%
-bsp_tool\branches\__init__.py                             28      0   100%
-bsp_tool\branches\arkane\__init__.py                       3      0   100%
-bsp_tool\branches\arkane\dark_messiah.py                  54      4    93%
-bsp_tool\branches\arkane\dark_messiah_multiplayer.py      23      0   100%
-bsp_tool\branches\base.py                                170     34    80%
-bsp_tool\branches\gearbox\__init__.py                      3      0   100%
-bsp_tool\branches\gearbox\blue_shift.py                   27      0   100%
-bsp_tool\branches\gearbox\nightfire.py                    72      0   100%
-bsp_tool\branches\id_software\__init__.py                  4      0   100%
-bsp_tool\branches\id_software\quake.py                   175     13    93%
-bsp_tool\branches\id_software\quake2.py                   83      0   100%
-bsp_tool\branches\id_software\quake3.py                  140     32    77%
-bsp_tool\branches\infinity_ward\__init__.py                2      0   100%
-bsp_tool\branches\infinity_ward\call_of_duty1.py         140      4    97%
-bsp_tool\branches\ion_storm\__init__.py                    2      0   100%
-bsp_tool\branches\ion_storm\daikatana.py                  12      0   100%
-bsp_tool\branches\nexon\__init__.py                        5      0   100%
-bsp_tool\branches\nexon\cso2.py                           98      3    97%
-bsp_tool\branches\nexon\cso2_2018.py                      19      0   100%
-bsp_tool\branches\nexon\vindictus.py                     225     27    88%
-bsp_tool\branches\physics.py                              92     24    74%
-bsp_tool\branches\py_struct_as_cpp.py                    171    171     0%
-bsp_tool\branches\raven\__init__.py                        4      0   100%
-bsp_tool\branches\raven\hexen2.py                         12      0   100%
-bsp_tool\branches\raven\soldier_of_fortune.py             13      0   100%
-bsp_tool\branches\raven\soldier_of_fortune2.py            31      0   100%
-bsp_tool\branches\respawn\__init__.py                      4      0   100%
-bsp_tool\branches\respawn\apex_legends.py                261     22    92%
-bsp_tool\branches\respawn\titanfall.py                   463     61    87%
-bsp_tool\branches\respawn\titanfall2.py                  189      1    99%
-bsp_tool\branches\ritual\__init__.py                       5      0   100%
-bsp_tool\branches\ritual\fakk2.py                         56      0   100%
-bsp_tool\branches\ritual\moh_allied_assault.py            73      0   100%
-bsp_tool\branches\ritual\sin.py                           13      0   100%
-bsp_tool\branches\ritual\star_trek_elite_force2.py        71      0   100%
-bsp_tool\branches\shared.py                               85     27    68%
-bsp_tool\branches\troika\__init__.py                       2      0   100%
-bsp_tool\branches\troika\vampire.py                       37      0   100%
-bsp_tool\branches\valve\__init__.py                        8      0   100%
-bsp_tool\branches\valve\alien_swarm.py                    87      0   100%
-bsp_tool\branches\valve\goldsrc.py                        67      0   100%
-bsp_tool\branches\valve\left4dead.py                      90      0   100%
-bsp_tool\branches\valve\left4dead2.py                     88      0   100%
-bsp_tool\branches\valve\orange_box.py                    134     10    93%
-bsp_tool\branches\valve\sdk_2013.py                       24      0   100%
-bsp_tool\branches\valve\source.py                        585    111    81%
-bsp_tool\branches\vector.py                              175    121    31%
-bsp_tool\extensions\__init__.py                            0      0   100%
-bsp_tool\extensions\archive.py                            35     35     0%
-bsp_tool\extensions\decrypt_xor.py                        11     11     0%
-bsp_tool\extensions\diff.py                              106    106     0%
-bsp_tool\extensions\lightmaps.py                         133    133     0%
-bsp_tool\id_software.py                                   94     13    86%
-bsp_tool\infinity_ward.py                                 50      3    94%
-bsp_tool\lumps\__init__.py                               272     49    82%
-bsp_tool\raven.py                                          3      0   100%
-bsp_tool\respawn.py                                      144     69    52%
-bsp_tool\ritual.py                                        44      3    93%
-bsp_tool\valve.py                                         57     10    82%
---------------------------------------------------------------------------
-TOTAL                                                   5289   1138    78%
+Name                                                    Stmts   Miss  Cover
+---------------------------------------------------------------------------
+bsp_tool\__init__.py                                       50      4    92%
+bsp_tool\arkane.py                                         53      6    89%
+bsp_tool\base.py                                          114     32    72%
+bsp_tool\branches\__init__.py                              28      0   100%
+bsp_tool\branches\arkane\__init__.py                        3      0   100%
+bsp_tool\branches\arkane\dark_messiah_multiplayer.py       23      0   100%
+bsp_tool\branches\arkane\dark_messiah_singleplayer.py      55      0   100%
+bsp_tool\branches\base.py                                 170     34    80%
+bsp_tool\branches\gearbox\__init__.py                       3      0   100%
+bsp_tool\branches\gearbox\blue_shift.py                    27      0   100%
+bsp_tool\branches\gearbox\nightfire.py                     72      0   100%
+bsp_tool\branches\id_software\__init__.py                   4      0   100%
+bsp_tool\branches\id_software\quake.py                    175     13    93%
+bsp_tool\branches\id_software\quake2.py                    83      0   100%
+bsp_tool\branches\id_software\quake3.py                   140      8    94%
+bsp_tool\branches\infinity_ward\__init__.py                 4      0   100%
+bsp_tool\branches\infinity_ward\call_of_duty1.py          141      4    97%
+bsp_tool\branches\infinity_ward\call_of_duty2.py          133      1    99%
+bsp_tool\branches\infinity_ward\call_of_duty4.py           52      0   100%
+bsp_tool\branches\ion_storm\__init__.py                     2      0   100%
+bsp_tool\branches\ion_storm\daikatana.py                   12      0   100%
+bsp_tool\branches\nexon\__init__.py                         5      0   100%
+bsp_tool\branches\nexon\cso2.py                           104      6    94%
+bsp_tool\branches\nexon\cso2_2018.py                       19      0   100%
+bsp_tool\branches\nexon\vindictus.py                      225     27    88%
+bsp_tool\branches\physics.py                               92     24    74%
+bsp_tool\branches\py_struct_as_cpp.py                     171    171     0%
+bsp_tool\branches\raven\__init__.py                         4      0   100%
+bsp_tool\branches\raven\hexen2.py                          12      0   100%
+bsp_tool\branches\raven\soldier_of_fortune.py              13      0   100%
+bsp_tool\branches\raven\soldier_of_fortune2.py             31      0   100%
+bsp_tool\branches\respawn\__init__.py                       4      0   100%
+bsp_tool\branches\respawn\apex_legends.py                 261     22    92%
+bsp_tool\branches\respawn\titanfall.py                    463     61    87%
+bsp_tool\branches\respawn\titanfall2.py                   189      1    99%
+bsp_tool\branches\ritual\__init__.py                        5      0   100%
+bsp_tool\branches\ritual\fakk2.py                          56      0   100%
+bsp_tool\branches\ritual\moh_allied_assault.py             73      0   100%
+bsp_tool\branches\ritual\sin.py                            13      0   100%
+bsp_tool\branches\ritual\star_trek_elite_force2.py         71      0   100%
+bsp_tool\branches\shared.py                                88     27    69%
+bsp_tool\branches\troika\__init__.py                        2      0   100%
+bsp_tool\branches\troika\vampire.py                        37      0   100%
+bsp_tool\branches\valve\__init__.py                         8      0   100%
+bsp_tool\branches\valve\alien_swarm.py                     87      0   100%
+bsp_tool\branches\valve\goldsrc.py                         67      0   100%
+bsp_tool\branches\valve\left4dead.py                       90      0   100%
+bsp_tool\branches\valve\left4dead2.py                      88      0   100%
+bsp_tool\branches\valve\orange_box.py                     134     10    93%
+bsp_tool\branches\valve\sdk_2013.py                        24      0   100%
+bsp_tool\branches\valve\source.py                         585    111    81%
+bsp_tool\branches\vector.py                               175    121    31%
+bsp_tool\extensions\__init__.py                             0      0   100%
+bsp_tool\extensions\archive.py                             70     70     0%
+bsp_tool\extensions\decrypt_xor.py                         11     11     0%
+bsp_tool\extensions\diff.py                               106    106     0%
+bsp_tool\extensions\lightmaps.py                          133    133     0%
+bsp_tool\id_software.py                                    95     13    86%
+bsp_tool\infinity_ward.py                                 123     19    85%
+bsp_tool\lumps\__init__.py                                272     49    82%
+bsp_tool\raven.py                                           3      0   100%
+bsp_tool\respawn.py                                       146     69    53%
+bsp_tool\ritual.py                                         44      3    93%
+bsp_tool\valve.py                                          58     10    83%
+---------------------------------------------------------------------------
+TOTAL                                                    5601   1166    79%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs51]
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs68] - UnboundLoca...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs71] - AssertionEr...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs72]
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs73]
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs78] - Assert...
-FAILED tests/test_bsplump.py::TestBspLump::test_setitem - AttributeError: 'Ve...
-=========== 7 failed, 129 passed, 3 warnings in 2015.62s (0:33:35) ============
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs72] - AssertionEr...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs73]
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs74]
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs79] - Assert...
+FAILED tests/test_bsplump.py::TestBspLump::test_setitem - AttributeError: pos...
+=========== 6 failed, 133 passed, 5 warnings in 2203.57s (0:36:43) ============

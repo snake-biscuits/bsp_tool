@@ -163,3 +163,7 @@ dmypy.json
 *.exe
 *.out
 *.app
+
+# Hammer / Raidant Autosaves
+*.vmx
+*.bak

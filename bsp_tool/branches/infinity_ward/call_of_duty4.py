@@ -91,7 +91,7 @@ BASIC_LUMP_CLASSES = {"LIGHT_GRID_POINTS": shared.UnsignedInts,
 
 LUMP_CLASSES = {}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
+SPECIAL_LUMP_CLASSES = {}  # "ENTITIES": shared.Entities
 
 
 methods = [shared.worldspawn_volume]

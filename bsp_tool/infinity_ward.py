@@ -97,9 +97,9 @@ class D3DBsp(base.Bsp):
     # -- lumps are possibly divided into multiple files, quake3 map compilation generates many files
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        if filename.lower().endswith(".d3dbsp"):
+        if not filename.lower().endswith(".d3dbsp"):
             # ^ slight alteration to allow .d3dbsp extension
-            raise RuntimeError("Not a .bsp")
+            raise RuntimeError("Not a .d3dbsp")
         filename = os.path.realpath(filename)
         self.folder, self.filename = os.path.split(filename)
         self.set_branch(branch)
@@ -122,7 +122,6 @@ class D3DBsp(base.Bsp):
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.lump_count = int.from_bytes(self.file.read(4), "little")
-        assert self.lump_count == 39, "irregular CoD4Bsp lump_count"
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
@@ -136,11 +135,13 @@ class D3DBsp(base.Bsp):
             assert length != 0, "cursed, idk how you got this error"
             offset = cursor + (4 - cursor % 4) if cursor % 4 != 0 else cursor
             cursor += length
-            lump_header = LumpHeader(_id, length, offset)
+            lump_header = CoD4LumpHeader(_id, length, offset)
+            # NOTE: offset finding could be very incorrect
             self.headers.append(lump_header)
             # identify lump
             LUMP_enum = self.branch.LUMP(lump_header.id)
             LUMP_NAME = LUMP_enum.name
+            # NOTE: very new to this format, may be collecting the wrong data
             try:
                 if LUMP_NAME in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]

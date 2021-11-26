@@ -1,0 +1,44 @@
+default
+{
+	castShadows 1
+	receiveShadows 1
+	sampleSize 16
+	longestCurve 0.000000
+}
+
+0 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( -1.000000 0.000000 0.000000 )
+}
+
+1 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( 0.000000 -1.000000 0.000000 )
+}
+
+2 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( 0.000000 0.000000 -1.000000 )
+}
+
+3 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( 1.000000 0.000000 0.000000 )
+}
+
+4 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( 0.000000 1.000000 0.000000 )
+}
+
+5 // SURFACE_META V: 4 I: 6 planar
+{
+	shader textures/base_floor/clang_floor2
+	lightmapAxis ( 0.000000 0.000000 1.000000 )
+}
+

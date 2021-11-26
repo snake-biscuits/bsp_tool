@@ -1,0 +1,58 @@
+...\Team Fortress 2> bin/vbspinfo.exe tf/maps/test_physcollide.bsp
+Command line: "...\Team Fortress 2\bin\vbspinfo.exe" ".../Team Fortress 2/tf/maps/test_physcollide.bsp"
+
+---------------------
+reading .../Team Fortress 2/tf/maps/test_physcollide.bsp (34308)
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness
+------------       ---------------  ---------------  --------
+models                   3/1024          144/49152    ( 0.3%)
+brushes                  9/8192          108/98304    ( 0.1%)
+brushsides              54/65536         432/524288   ( 0.1%)
+planes                 176/65536        3520/1310720  ( 0.3%)
+vertexes                69/65536         828/786432   ( 0.1%)
+nodes                   83/65536        2656/2097152  ( 0.1%)
+texinfos                10/12288         720/884736   ( 0.1%)
+texdata                  4/2048          128/65536    ( 0.2%)
+dispinfos                0/0               0/0        ( 0.0%)
+disp_verts               0/0               0/0        ( 0.0%)
+disp_tris                0/0               0/0        ( 0.0%)
+disp_lmsamples           0/0               0/0        ( 0.0%)
+faces                   44/65536        2464/3670016  ( 0.1%)
+hdr faces                0/65536           0/3670016  ( 0.0%)
+origfaces               24/65536        1344/3670016  ( 0.0%)
+leaves                  87/65536        2784/2097152  ( 0.1%)
+leaffaces               64/65536         128/131072   ( 0.1%)
+leafbrushes            148/65536         296/131072   ( 0.2%)
+areas                    2/256            16/2048     ( 0.8%)
+surfedges              272/512000       1088/2048000  ( 0.1%)
+edges                  149/256000        596/1024000  ( 0.1%)
+LDR worldlights          0/8192            0/720896   ( 0.0%)
+HDR worldlights          0/8192            0/720896   ( 0.0%)
+leafwaterdata            0/32768           0/393216   ( 0.0%)
+waterstrips              0/32768           0/327680   ( 0.0%)
+waterverts               0/65536           0/786432   ( 0.0%)
+waterindices             0/65536           0/131072   ( 0.0%)
+cubemapsamples           0/1024            0/16384    ( 0.0%)
+overlays                 0/512             0/180224   ( 0.0%)
+LDR lightdata         [variable]        6240/0        ( 0.0%)
+HDR lightdata         [variable]           0/0        ( 0.0%)
+visdata               [variable]         196/16777216 ( 0.0%)
+entdata               [variable]         796/393216   ( 0.2%)
+LDR ambient table       87/65536         348/262144   ( 0.1%)
+HDR ambient table       87/65536         348/262144   ( 0.1%)
+LDR leaf ambient        28/65536         784/1835008  ( 0.0%)
+HDR leaf ambient        87/65536        2436/1835008  ( 0.1%)
+occluders                0/0               0/0        ( 0.0%)
+occluder polygons        0/0               0/0        ( 0.0%)
+occluder vert ind        0/0               0/0        ( 0.0%)
+detail props          [variable]           1/12       ( 8.3%)
+static props          [variable]           1/12       ( 8.3%)
+pakfile               [variable]          54/0        ( 0.0%)
+physics               [variable]        3807/4194304  ( 0.1%)
+physics terrain       [variable]           2/1048576  ( 0.0%)
+
+Level flags = 0
+
+Total triangle count: 88
+---------------------

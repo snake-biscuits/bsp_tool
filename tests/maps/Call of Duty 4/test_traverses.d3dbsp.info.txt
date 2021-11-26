@@ -1,0 +1,52 @@
+.../Call of Duty 4> bin/cod4map.exe -info ../raw/maps/test_traverses.d3dbsp
+CoD4Map v1.1 (c) 2002 Id Software Inc. / Infinity Ward
+---------------------
+../raw/maps/test_traverses.d3dbsp: 3616264
+
+ Limit%  Count Lump                    Bytes Kilobytes   BSP%
+------------------------------------------------------------
+  0.29%     12 models                  576 B      1 KB   0.0%
+  1.23%     15 materials              1080 B      1 KB   0.0%
+  0.19%     61 brushes                 244 B      0 KB   0.0%
+  0.06%    386 brushsides             3088 B      3 KB   0.1%
+  0.07%     47 planes                  752 B      1 KB   0.0%
+  0.08%    136 entdata               13224 B     13 KB   0.4%
+
+  0.32%    106 nodes                  3816 B      4 KB   0.1%
+  0.36%    119 leafs                  2856 B      3 KB   0.1%
+  0.09%    243 leafbrushes             972 B      1 KB   0.0%
+  0.00%      0 leafsurfaces              0 B      0 KB   0.0%
+  0.00%      0 collisionverts            0 B      0 KB   0.0%
+  0.00%      0 collisiontris             0 B      0 KB   0.0%
+  0.00%      0 collisionedgewalk         0 B      0 KB   0.0%
+  0.00%      0 collisionborders          0 B      0 KB   0.0%
+  0.00%      0 collisionparts            0 B      0 KB   0.0%
+  0.00%      0 collisionaabbs            0 B      0 KB   0.0%
+  0.05%    287 layered verts         19516 B     19 KB   0.5%
+  0.00%    287 layered data              0 B      0 KB   0.0%
+  0.05%    287 simple verts          19516 B     19 KB   0.5%
+  0.05%    492 layered indexes         984 B      1 KB   0.0%
+  0.04%    492 simple indexes          984 B      1 KB   0.0%
+  0.03%     11 layered tri soups       264 B      0 KB   0.0%
+  0.03%     11 simple tri soups        264 B      0 KB   0.0%
+  3.23%      1 lightmaps           3145728 B   3072 KB  87.0%
+  0.00%      1 light grid header        24 B      0 KB   0.0%
+  0.02%      2 light grid rows          40 B      0 KB   0.0%
+  0.00%     16 light grid points        64 B      0 KB   0.0%
+  0.00%      3 light grid colors       504 B      0 KB   0.0%
+  0.00%        visibility                0 B      0 KB   0.0%
+  0.00%      0 portalverts               0 B      0 KB   0.0%
+  0.00%      1 layered aabbtrees        12 B      0 KB   0.0%
+  0.00%      1 simple aabbtrees         12 B      0 KB   0.0%
+  0.10%      1 cells                   112 B      0 KB   0.0%
+  0.00%      0 portals                   0 B      0 KB   0.0%
+  0.00%      0 cullgroups                0 B      0 KB   0.0%
+  0.00%      0 cullgroupindexes          0 B      0 KB   0.0%
+  1.18%      3 reflection_probes    393420 B    384 KB  10.9%
+  0.78%      2 primary lights          256 B      0 KB   0.0%
+  0.78%      2 light regions             2 B      0 KB   0.0%
+  0.00%      0 light region hulls        0 B      0 KB   0.0%
+  0.00%      0 light region axes         0 B      0 KB   0.0%
+
+  0.32%      1 paths                  6614 B      6 KB   0.2%
+---------------------

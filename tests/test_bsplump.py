@@ -3,12 +3,12 @@ import pytest
 from bsp_tool import load_bsp, lumps
 from bsp_tool.branches.id_software import quake, quake3
 
-# TODO: use maplist.installed_games + tests/maps/*.bsp
 global bsps
-bsps = {"test2": load_bsp("tests/maps/test2.bsp"),
-        "upward": load_bsp("tests/maps/pl_upward.bsp"),
-        "bigbox": load_bsp("tests/maps/test_bigbox.bsp")}
-# NOTE: only orange_box ValveBsp & quake3 IdTechBsp available to test
+# TODO: use maplist.installed_games to grab .bsps to test
+bsps = {"mp_lobby": load_bsp("tests/maps/Quake 3 Arena/mp_lobby.bsp"),
+        "test2": load_bsp("tests/maps/Team Fortress 2/test2.bsp"),
+        "test_displacement_decompile": load_bsp("tests/maps/Team Fortress 2/test_displacement_decompile.bsp"),
+        "test_physcollide": load_bsp("tests/maps/Team Fortress 2/test_physcollide.bsp")}
 
 
 class TestRawBspLump:
@@ -16,7 +16,8 @@ class TestRawBspLump:
     # TODO: generate raw lumps, since the end goal is to have none
     # -- or maybe target lightmaps here instead
     raw_lumps = [bsps["test2"].VISIBILITY,
-                 bsps["upward"].VISIBILITY]
+                 # NOTE: test_displacement_decompile has a leak (no VISIBILITY lump)
+                 bsps["test_physcollide"].VISIBILITY]
 
     def test_its_raw(self):
         for lump in self.raw_lumps:
@@ -47,7 +48,7 @@ class TestBspLump:
     def test_indexing(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            LumpClass = quake.Vertex if map_name != "bigbox" else quake3.Vertex
+            LumpClass = quake.Vertex if map_name != "mp_lobby" else quake3.Vertex
             assert isinstance(lump[0], LumpClass), f"{map_name} failed"
             assert isinstance(lump[:1], list), f"{map_name} failed"
             assert len(lump[:1]) == 1, f"{map_name} failed"

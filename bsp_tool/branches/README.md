@@ -39,20 +39,20 @@ This is where `load_bsp`'s second (optional!) argument comes in, `branch`
 ```python
 >>> import bsp_tool
 
->>> bsp_tool.load_bsp("tests/maps/pl_upward.bsp", branch=bsp_tool.branches.valve.orange_box)
+>>> bsp_tool.load_bsp("tests/maps/Call of Duty 4/mp/mp_lobby.bsp")
+Loading mp_lobby.bsp (IBSP version 22)...
+Loaded  mp_lobby.bsp
+<D3DBsp mp_lobby.bsp at 0x000001FB329F7640>
+
+>>> bsp_tool.load_bsp("tests/maps/Quake 3 Arena/mp_lobby.bsp", branch="Quake3")
+Loading mp_lobby.bsp (IBSP version 46)...
+Loaded  mp_lobby.bsp
+<IdTechBsp mp_lobby.bsp at 0x000001FB329F78E0>
+
+>>> bsp_tool.load_bsp("tests/maps/Team Fortress 2/test2.bsp", branch=bsp_tool.branches.valve.orange_box)
 Loading pl_upward.bsp (VBSP version 20)...
 Loaded  pl_upward.bsp
-<ValveBsp pl_upward.bsp at 0x000001FB329F7640>
-
->>> bsp_tool.load_bsp("tests/maps/test_bigbox.bsp", branch="Quake3")
-Loading test_bigbox.bsp (IBSP version 46)...
-Loaded  test_bigbox.bsp
-<IdTechBsp test_bigbox.bsp at 0x000001FB329F78E0>
-
->>> bsp_tool.load_bsp("tests/maps/test2.bsp")
-Loading test2.bsp (VBSP version 20)...
-Loaded  test2.bsp
-<ValveBsp test2.bsp at 0x000001FB329F7940>
+<ValveBsp pl_upward.bsp at 0x000001FB329F7940>
 ```
 In the above example `bsp_tool.branches.valve.orange_box` points to [`bsp_tool/branches/valve/orange_box.py`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py)  
 This branch script is used to intialise the `Bsp` subclass chosen when `load_bsp` works out the developer  
