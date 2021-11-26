@@ -78,10 +78,12 @@ class GameLumpHeader(base.MappedArray):
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("MODELS")
+LUMP_CLASSES.pop("TEXTURE_INFO")
 LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
-LUMP_CLASSES.update({"MODELS":       {0: Model},
-                     "TEXTURE_INFO": {0: TextureInfo}})
+# LUMP_CLASSES.update({"MODELS":       {0: Model},
+#                      "TEXTURE_INFO": {0: TextureInfo}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
