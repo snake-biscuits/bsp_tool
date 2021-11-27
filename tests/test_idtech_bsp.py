@@ -1,41 +1,53 @@
-# import os
+# TODO: more in-depth tests
+import fnmatch
+import os
+import pytest
 import struct
 
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake3
 
-
-mp_lobby = IdTechBsp(quake3, "tests/maps/Quake 3 Arena/mp_lobby.bsp")
-
-
-def test_no_errors():
-    assert len(mp_lobby.loading_errors) == 0
-
-
-def test_entities_loaded():
-    assert mp_lobby.ENTITIES[0]["classname"] == "worldspawn"
+bsps = []
+map_dir = "./tests/maps/Quake 3 Arena"
+# TODO: add more Quake 3 Arena dirs from maplist.installed_games & make it optional
+for map_name in fnmatch.filter(os.listdir(map_dir), ".d3dbsp"):
+    bsps.append(IdTechBsp(quake3, os.path.join(map_dir, map_name)))
 
 
-# TODO: @pytest.mark.parametrize("LumpClass", ...)
-def test_face_struct():  # most complex branches.base.MappedArray
-    # TODO: add some asserts, be thorough
-    header = mp_lobby.headers["FACES"]
+@pytest.mark.parametrize("bsp", bsps)
+def test_no_errors(bsp: IdTechBsp):
+    assert len(bsp.loading_errors) == 0
+
+
+@pytest.mark.parametrize("bsp", bsps)
+def test_entities_loaded(bsp: IdTechBsp):
+    assert bsp.ENTITIES[0]["classname"] == "worldspawn"
+
+
+# NOTE: WIP
+@pytest.mark.parametrize("bsp", bsps)
+def test_face_struct(bsp: IdTechBsp):  # the most complex MappedArray
+    # TODO: add more asserts, be thorough
+    header = bsp.headers["FACES"]
     assert header.length % struct.calcsize(quake3.Face._format) == 0
-    with open(mp_lobby.file.name, "rb") as file:
+    with open(bsp.file.name, "rb") as file:
         file.seek(header.offset)
         raw_faces = file.read(header.length)
 
+    # TODO: figure out what I was testing for here:
     faces = [*map(quake3.Face.from_tuple, struct.iter_unpack(quake3.Face._format, raw_faces))]
     print(*faces, sep="\n")  # error in __repr__?
     return faces
     # ^ what?
 
 
-# def test_save_as():  # NotImplemented
-#     with open("tests/maps/Quake 3 Arena/mp_lobby.bsp", "rb") as file:
+# TODO: implement .save_as method and test that uneditted saves match EXACTLY
+# @pytest.mark.parametrize("bsp", d3dbsps)
+# def test_save_as(bsp):  # NotImplemented
+#     with open(bsp.filename, "rb") as file:
 #         original = file.read()
-#     bigbox.save_as("tests/maps/Quake 3 Arena/mp_lobby_save_test.bsp")
-#     with open("tests/maps/Quake 3 Arena/mp_lobby_save_test.bsp", "rb") as file:
+#     test2.save_as(f"{bsp.filename}.copy")
+#     with open(f"{bsp.filename}.copy", "rb") as file:
 #         saved = file.read()
-#     os.remove("tests/maps/Quake 3 Arena/mp_lobby_save_test.bsp")
+#     os.remove(f"{bsp.filename}.copy")
 #     assert original == saved

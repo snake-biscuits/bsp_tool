@@ -137,6 +137,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - Call of Duty: Black Ops III :o:
     - [Call of Duty: United Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :o:
     - Call of Duty: World at War :o:
+    - [Cry of Fear](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Fortress Forever](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -156,6 +157,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
 ## Thanks
  * [BobTheBob](https://github.com/BobTheBob9)
    - Identified loads of Titanfall lumps (90% of static props + more)
+ * [Call of Duty Promod Team](https://github.com/promod)
+   - For distributing safe links to Call of Duty 4 Mod Tools
  * [Chris Strahl](https://github.com/Chrissstrahl)
    - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
  * [Ficool2](https://github.com/ficool2)
@@ -173,4 +176,4 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
  * [Taskinoz](https://github.com/taskinoz)
    - Helping me find people that can actively use my research & tools
  * All of the Wiki Editors
-   - Except the uncited `Id Tech 3 -> Treyarch NGL` on CoDWiki, that was a massive pain to verify
+   - Except for the uncited `Id Tech 3 -> Treyarch NGL` on CoDWiki **[citation needed]**

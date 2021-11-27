@@ -4,21 +4,24 @@ from typing import Dict, List, Tuple
 
 DirList = Dict[str, List[str]]
 # ^ {"Game": ["maps_dir"]}
+
 GameDirList = Dict[str, DirList]
 # ^ {"SteamFolder": {**DirList_1, **DirList_2}}
+# ^ {"External/Backup": {**DirList_1, **DirList_2}}
 
 goldsrc_dirs: DirList  # GoldSrc titles
 source_dirs: DirList  # Source Engine titles
-extracted_dirs: DirList  # .bsps from archives (.ff, .pak, .pak3, .pkg, .vpk) & non-steam games
+extracted_dirs: DirList  # .bsps from archives (.007, .hfs, .iwd, .ff, .pak, .pk3, .pkg, .sin, .vpk) & non-steam games
 sourcemod_dirs: DirList  # Source SDK games @ Steam/steamapps/sourcemods
 every_bsp_dir: DirList  # all of the above in one dict (used with external HDD)
-group_dirs: GameDirList
+group_dirs: GameDirList  # groups folders to install dirs (steam installs, external HDDs etc.)
 installed_games: Dict[Tuple[str], List[str]]
 # ^ {("SteamFolder", "Game"): ["maps_dir"]}
 
 
 # TODO: generate by searching for gameinfo.txt files
 goldsrc_dirs = {
+        "Cry of Fear": ["cryoffear/maps"],  # 235 maps | 1.9 GB | Cry of Fear
         **{f"Half-Life/{mod}": ["maps"] for mod in [
                         "blue_shift",    # 37 maps | 54 MB | Half-Life: Blue Shift
                         "cstrike",   # 25 maps | 81 MB | Counter-Strike
@@ -37,6 +40,7 @@ goldsrc_dirs = {
                        "svencoop_event_april/maps"]}  # 4 maps | 31 MB
 # ^ {"game_dir": ["map_dir"]}
 
+# TODO: generate by searching for gameinfo.txt files
 source_dirs = {
          "Alien Swarm": ["swarm/maps"],  # 9 maps | 299 MB
          "Alien Swarm Reactive Drop": ["reactivedrop/maps"],  # 53 maps | 1.3 GB
@@ -127,16 +131,20 @@ extracted_dirs = {
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
-        # CoDBsp
+        # InfinityWardBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
         "CoD2": ["maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
                  "maps/mp"],  # 15 maps | 395 MB | .iwd  | .d3dbsp
-        # TODO: CoD4  # .ff
+        # D3DBsp
+        # TODO: Extract CoD4 maps from .ff archives
+        # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_FastFile_Format
+        # https://github.com/Scobalula/Greyhound
+        # https://github.com/ZoneTool/zonetool
+        # https://github.com/promod/CoD4-Mod-Tools
         # "CoD4": ["devraw/maps",  # 1 map | 17 MB | .d3dbsp  (v17 InfinityWardBsp; not a CoD4 .d3dbsp?)
         "CoD4": ["maps",  # 3 maps | 7 MB | .d3dbsp
                  "maps/mp"],  # 1 map | 4 MB | .d3dbsp
-        # NOTE: ^ from CoD4ModTools only, still haven't extracted any *.d3dbsp from *.ff (yet)
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
@@ -151,11 +159,11 @@ extracted_dirs = {
         "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5
                               "tf28/FORTRESS/maps",  # 1 map | 1.88 MB
                               "tfbot080/MAPS"],  # 1 map | 212 KB
-        "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.8 GB | .hfs
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps"],  # 26 maps | 3,5 GB | .vpk
+        "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
         "Titanfall2": ["maps"],  # 36 maps | 6.6 GB | .vpk
         # Thanks to https://apexlegends.fandom.com/wiki/Version_History
         # see also: https://github.com/Syampuuh/TitanfallApexLegends

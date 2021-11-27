@@ -1,31 +1,37 @@
+# TODO: more in-depth tests
+import fnmatch
+import os
+import pytest
+
 from bsp_tool import ValveBsp
 from bsp_tool.branches.valve import orange_box
 
 
-# TODO: use maplist to test all Source & GoldSrc dirs (of those installed)
-test2 = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test2.bsp")
-test_displacement_decompile = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test_displacement_decompile.bsp")
-test_physcollide = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test_physcollide.bsp")
+bsps = []
+map_dir = "./tests/maps/Team Fortress 2"
+# TODO: add more Team Fortress 2 dirs from maplist.installed_games & make it optional
+for map_name in fnmatch.filter(os.listdir(map_dir), ".d3dbsp"):
+    bsps.append(ValveBsp(orange_box, os.path.join(map_dir, map_name)))
 
 
-# NOTE: this is incredibly limited
-def test_no_errors():
-    assert len(test2.loading_errors) == 0
-    assert len(test_displacement_decompile.loading_errors) == 0
-    assert len(test_physcollide.loading_errors) == 0
+@pytest.mark.parametrize("bsp", bsps)
+def test_no_errors(bsp: ValveBsp):  # NOTE: covered by test_bsp.py
+    assert len(bsp.loading_errors) == 0
+    assert len(bsp.GAME_LUMP.loading_errors) == 0
 
 
-def test_entites_loaded():
-    assert test2.ENTITIES[0]["classname"] == "worldspawn"
-    assert test_displacement_decompile.ENTITIES[0]["classname"] == "worldspawn"
-    assert test_physcollide.ENTITIES[0]["classname"] == "worldspawn"
+@pytest.mark.parametrize("bsp", bsps)
+def test_entities_loaded(bsp: ValveBsp):
+    assert bsp.ENTITIES[0]["classname"] == "worldspawn"
 
 
-# def test_save_as():  # NotImplemented
-#     with open("tests/maps/Team Fortress 2/test2.bsp", "rb") as file:
+# TODO: implement .save_as method and test that uneditted saves match EXACTLY
+# @pytest.mark.parametrize("bsp", d3dbsps)
+# def test_save_as(bsp):  # NotImplemented
+#     with open(bsp.filename, "rb") as file:
 #         original = file.read()
-#     test2.save_as("tests/maps/Team Fortress 2/test2_save_test.bsp")
-#     with open("tests/maps/Team Fortress 2/test2_save_test.bsp", "rb") as file:
+#     test2.save_as(f"{bsp.filename}.copy")
+#     with open(f"{bsp.filename}.copy", "rb") as file:
 #         saved = file.read()
-#     os.remove("tests/maps/Team Fortress 2/test2_save_test.bsp")
+#     os.remove(f"{bsp.filename}.copy")
 #     assert original == saved
