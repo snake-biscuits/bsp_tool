@@ -35,3 +35,6 @@ def test_entites_loaded(d3dbsp):
 #         saved = file.read()
 #     os.remove(f"{d3dbsp.filename}.copy")
 #     assert original == saved
+
+# TODO: assert UNUSED lump names are accurate
+# -- warn if a lump is unexpectedly empty across all maps (test_deprecated?)

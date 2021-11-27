@@ -51,3 +51,6 @@ def test_face_struct(bsp: IdTechBsp):  # the most complex MappedArray
 #         saved = file.read()
 #     os.remove(f"{bsp.filename}.copy")
 #     assert original == saved
+
+# TODO: assert UNUSED lump names are accurate
+# -- warn if a lump is unexpectedly empty across all maps (test_deprecated?)
