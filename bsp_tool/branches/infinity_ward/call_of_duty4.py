@@ -35,7 +35,7 @@ class LUMP(enum.Enum):
     NODES = 0x1B
     LEAVES = 0x1C
     LEAF_BRUSHES = 0x1D
-    LEAF_SURFACES = 0x1E  # unused?
+    LEAF_SURFACES = 0x1E
     COLLISION_VERTICES = 0x1F
     COLLISION_TRIANGLES = 0x20
     COLLISION_EDGE_WALK = 0x21
@@ -91,7 +91,7 @@ BASIC_LUMP_CLASSES = {"LIGHT_GRID_POINTS": shared.UnsignedInts,
 
 LUMP_CLASSES = {}
 
-SPECIAL_LUMP_CLASSES = {}  # "ENTITIES": shared.Entities
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
 methods = [shared.worldspawn_volume]

@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "ArkaneBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
+           "ArkaneBsp", "D3DBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
            "QuakeBsp", "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
@@ -21,19 +21,22 @@ from .valve import GoldSrcBsp, ValveBsp
 BspVariant_from_file_magic = {b"2015": RitualBsp,
                               b"EF2!": RitualBsp,
                               b"FAKK": RitualBsp,
-                              b"IBSP": IdTechBsp,  # or InfinityWardBsp
+                              b"IBSP": IdTechBsp,  # + InfinityWardBsp + D3DBsp
                               b"rBSP": RespawnBsp,
                               b"RBSP": RavenBsp,
-                              b"VBSP": ValveBsp}  # and ArkaneBsp
-# NOTE: if no file_magic is present, options are:
-# - GoldSrcBsp
+                              b"VBSP": ValveBsp}  # + ArkaneBsp
+# NOTE: if no file_magic is present:
 # - QuakeBsp
+# - GoldSrcBsp
 # - 256-bit XOR encoded Tactical Intervention .bsp
 
+# detect GoldSrcBsp
 GoldSrc_versions = {*branches.valve.goldsrc.GAME_VERSIONS.values(),
                     *branches.gearbox.blue_shift.GAME_VERSIONS.values(),
                     *branches.gearbox.nightfire.GAME_VERSIONS.values()}
+# detect InfinityWardBsp / D3DBsp
 InfinityWard_versions = {v for s in branches.infinity_ward.scripts for v in s.GAME_VERSIONS.values()}
+# detect QuakeBsp
 Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 
 

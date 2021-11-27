@@ -83,8 +83,9 @@ class InfinityWardBsp(base.Bsp):
         return header
 
 
-CoD4LumpHeader = collections.namedtuple("LumpHeader", ["id", "length", "offset"])
+CoD4LumpHeader = collections.namedtuple("LumpHeader", ["id", "length", "offset", "name"])
 # NOTE: offset is calculated from the sum of preceding lump's lengths (+ padding)
+# NOTE: name is calculated from id, just for human-readability
 
 
 class D3DBsp(base.Bsp):
@@ -124,24 +125,24 @@ class D3DBsp(base.Bsp):
         self.lump_count = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
-
+        # load headers & lumps
         self.headers = list()  # order matters
         self.loading_errors: Dict[str, Exception] = dict()
-        cursor, offset = 0, 0
+        cursor = 12 + (self.lump_count * 8)  # end of headers; for "reading" lumps
         for i in range(self.lump_count):
             # read header
             self.file.seek(12 + 8 * i)
             _id, length = struct.unpack("2i", self.file.read(8))
             assert length != 0, "cursed, idk how you got this error"
-            offset = cursor + (4 - cursor % 4) if cursor % 4 != 0 else cursor
+            if _id != 0x07:  # UNKNOWN_7 is padded to every 2nd byte?
+                cursor = cursor + (4 - cursor & 3)
+            offset = cursor
+            # NOTE: could be wrong
             cursor += length
-            lump_header = CoD4LumpHeader(_id, length, offset)
-            # NOTE: offset finding could be very incorrect
-            self.headers.append(lump_header)
-            # identify lump
-            LUMP_enum = self.branch.LUMP(lump_header.id)
+            LUMP_enum = self.branch.LUMP(_id)
             LUMP_NAME = LUMP_enum.name
-            # NOTE: very new to this format, may be collecting the wrong data
+            lump_header = CoD4LumpHeader(_id, length, offset, LUMP_NAME)
+            self.headers.append(lump_header)
             try:
                 if LUMP_NAME in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP_NAME]
@@ -163,6 +164,12 @@ class D3DBsp(base.Bsp):
 
     def _read_header(self, LUMP: enum.Enum) -> CoD4LumpHeader:
         raise NotImplementedError("CoD4LumpHeaders aren't ordered")
+
+    def print_headers(self):
+        print("LUMP_NAME", " " * 14, "OFFSET", "LENGTH")
+        print("-" * 38)
+        for header in self.headers:
+            print(f"{header.name:<24} {header.offset:06X} {header.length:06X}")
 
 
 # NOTE: XenonBsp also exists (named after the XBox360 processor)
