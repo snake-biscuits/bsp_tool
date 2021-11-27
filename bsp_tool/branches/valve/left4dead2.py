@@ -14,7 +14,7 @@ BSP_VERSION = 21
 
 GAME_PATHS = ["Left 4 Dead 2"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -80,7 +80,7 @@ class LUMP(enum.Enum):
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     LUMP_OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
-    LUMP_PHYSLEVEL = 62
+    LUMP_PHYSICS_LEVEL = 62
     UNUSED_63 = 63
 
 
@@ -94,7 +94,7 @@ lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 #   UNUSED_24 -> PROP_HULL_VERTS
 #   UNUSED_25 -> PROP_HULL_TRIS
 #   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
-#   UNUSED_62 -> LUMP_PHYSLEVEL
+#   UNUSED_62 -> LUMP_PHYSICS_LEVEL
 
 Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["version", "offset", "length", "fourCC"])
 

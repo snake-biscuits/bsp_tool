@@ -142,9 +142,11 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [G-String](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Halfquake Trilogy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
+    - [INFRA](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - Kingpin: Life of Crime :o:
     - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/moh_allied_assault.py)
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
+    - [Return to Castle Wolfenstein](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Synergy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Tactical Intervention](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -152,6 +154,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [The Beginner's Guide](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [The Stanley Parable](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
+    - [Wolfenstein: Enemy Territory](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
 
 
 ## Thanks
@@ -163,6 +166,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
  * [Ficool2](https://github.com/ficool2)
    - Providing lots of current and detailed info on Source & helping track down some rarer titles
+ * [GCFScape](https://nemstools.github.io/pages/GCFScape-Download.html)
+   - Super handy `.vpk` (Valve format) browser; VTFLib / VTFEdit is also from Nem's Tools
  * [Maxime Dupuis](https://github.com/maxdup)
    - Helping me identify multiple lumps in Source Engine .bsps
  * [MobyGames](https://www.mobygames.com/)

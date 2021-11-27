@@ -10,7 +10,7 @@ BSP_VERSION = 30
 
 GAME_PATHS = ["Half-Life/blue_shift"]  # Half-Life: Blue Shift
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

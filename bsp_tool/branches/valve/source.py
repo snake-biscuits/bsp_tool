@@ -20,7 +20,7 @@ GAME_PATHS = ["counter-strike source/cstrike",  # Counter-Strike: Source
               "Half-Life 2/hl2",  # Half-Life 2
               "Half-Life 2/episodic"]  # Half-Life 2: Episode 1
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

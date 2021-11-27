@@ -12,7 +12,7 @@ BSP_VERSION = 21
 
 GAME_PATHS = ["Alien Swarm", "Alien Swarm Reactive Drop"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

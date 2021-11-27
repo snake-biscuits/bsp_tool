@@ -11,7 +11,7 @@ BSP_VERSION = 17  # technically older than HL2's Source Engine branch
 
 GAME_PATHS = ["Vampire The Masquerade - Bloodlines"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 LUMP = source.LUMP

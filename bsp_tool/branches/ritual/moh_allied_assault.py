@@ -16,7 +16,7 @@ GAME_PATHS = ["Medal of Honor: Allied Assault",
               "Medal of Honor: Allied Assault - Breakthrough",
               "Medal of Honor: Allied Assault - Spearhead"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

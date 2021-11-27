@@ -14,7 +14,7 @@ BSP_VERSION = 29
 
 GAME_PATHS = ["Quake", "Team Fortress Quake"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 # lump names & indices:

@@ -14,7 +14,7 @@ GAME_PATHS = ["Soldier of Fortune 2",
               "Star Wars Jedi Knight - Jedi Academy",
               "Star Wars Jedi Knight II - Jedi Outcast"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

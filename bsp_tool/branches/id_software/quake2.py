@@ -14,7 +14,7 @@ BSP_VERSION = 38
 
 GAME_PATHS = ["Anachronox", "Quake II", "Heretic II"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

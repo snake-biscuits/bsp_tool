@@ -131,6 +131,8 @@ extracted_dirs = {
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
+        # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
+        "WolfET": ["pak0.pk3/maps"],  # 6 maps | 86 MB | .pk3
         # InfinityWardBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
@@ -145,6 +147,9 @@ extracted_dirs = {
         # "CoD4": ["devraw/maps",  # 1 map | 17 MB | .d3dbsp  (v17 InfinityWardBsp; not a CoD4 .d3dbsp?)
         "CoD4": ["maps",  # 3 maps | 7 MB | .d3dbsp
                  "maps/mp"],  # 1 map | 4 MB | .d3dbsp
+        # GoldSrcBsp
+        # https://www.moddb.com/games/james-bond-007-nightfire/downloads/alura-zoe
+        "Nightfire": ["ROOT/maps"],  # 53 maps | 405 MB | .007
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
@@ -152,8 +157,7 @@ extracted_dirs = {
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
         "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
-        # https://www.moddb.com/games/james-bond-007-nightfire/downloads/alura-zoe
-        "Nightfire": ["ROOT/maps"],  # 53 maps | 405 MB | .007
+        "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
         "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
         # https://www.moddb.com/mods/team-fortress/downloads
         "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5

@@ -82,7 +82,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E
+    PHYSICS_LEVEL = 0x003E  # from L4D2 / INFRA ?
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041

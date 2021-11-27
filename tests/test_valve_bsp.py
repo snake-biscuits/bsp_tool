@@ -8,21 +8,21 @@ from bsp_tool.branches.valve import orange_box
 
 
 bsps = []
-map_dir = "./tests/maps/Team Fortress 2"
+map_dir = os.path.join(os.getcwd(), "tests/maps/Team Fortress 2")
 # TODO: add more Team Fortress 2 dirs from maplist.installed_games & make it optional
-for map_name in fnmatch.filter(os.listdir(map_dir), ".d3dbsp"):
+for map_name in fnmatch.filter(os.listdir(map_dir), "*[Bb][Ss][Pp]"):
     bsps.append(ValveBsp(orange_box, os.path.join(map_dir, map_name)))
 
 
 @pytest.mark.parametrize("bsp", bsps)
 def test_no_errors(bsp: ValveBsp):  # NOTE: covered by test_bsp.py
-    assert len(bsp.loading_errors) == 0
-    assert len(bsp.GAME_LUMP.loading_errors) == 0
+    assert len(bsp.loading_errors) == 0, bsp.filename
+    assert len(bsp.GAME_LUMP.loading_errors) == 0, bsp.filename
 
 
 @pytest.mark.parametrize("bsp", bsps)
 def test_entities_loaded(bsp: ValveBsp):
-    assert bsp.ENTITIES[0]["classname"] == "worldspawn"
+    assert bsp.ENTITIES[0]["classname"] == "worldspawn", bsp.filename
 
 
 # TODO: implement .save_as method and test that uneditted saves match EXACTLY

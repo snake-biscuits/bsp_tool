@@ -21,7 +21,7 @@ GAME_PATHS = ["Day of Defeat: Source",  # TODO: full path
               "Portal",
               "Team Fortress 2"]
 
-GAME_VERSIONS = {GAME: BSP_VERSION for GAME in GAME_PATHS}
+GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
