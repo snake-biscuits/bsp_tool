@@ -197,6 +197,7 @@ int main(int argc, char* argv[]) {
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
+    // NOTE: encounters a segfault on any map other than r1o/mp_box or r1/mp_lobby
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);

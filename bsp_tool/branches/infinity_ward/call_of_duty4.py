@@ -1,8 +1,10 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
-# TODO: see modding tools: cod2map.exe -info
 import enum
 
 from .. import shared
+from ..id_software import quake
+from . import call_of_duty1
+from . import call_of_duty2
 
 
 FILE_MAGIC = b"IBSP"
@@ -80,18 +82,26 @@ class LUMP(enum.Enum):
 #   LIGHT_REGION_AXES
 # Deprecated:
 #   CULL_GROUPS
-#   CULL_GROUP_INDICES  # NOTE: func_cull_group is still present...
+#   CULL_GROUP_INDICES
+# NOTE: func_cull_group is still present in CoD4Radiant
 
 # TODO: a rough map of the relationships between lumps:
 
 
 # {"LUMP_NAME": LumpClass}
-BASIC_LUMP_CLASSES = {"LIGHT_GRID_POINTS": shared.UnsignedInts,
-                      "LIGHT_REGIONS":     shared.UnsignedBytes}
+BASIC_LUMP_CLASSES = {"LAYERED_INDICES":   shared.UnsignedShorts,
+                      "LIGHT_GRID_POINTS": shared.UnsignedInts,
+                      "LIGHT_REGIONS":     shared.UnsignedBytes,
+                      "SIMPLE_INDICES":    shared.UnsignedShorts}
 
-LUMP_CLASSES = {}
+LUMP_CLASSES = {"COLLISION_TRIANGLES": call_of_duty2.Triangle,
+                "COLLISION_VERTICES":  quake.Vertex,
+                "LAYERED_VERTICES":    call_of_duty2.Vertex,
+                "SHADERS":             call_of_duty1.Shader,
+                "SIMPLE_VERTICES":     call_of_duty2.Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
-methods = [shared.worldspawn_volume]
+# NOTE: no mins & maxs in worldspawn?
+methods = []
