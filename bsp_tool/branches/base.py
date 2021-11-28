@@ -9,26 +9,49 @@ class Struct:
     """base class for tuple <-> class conversion
     bytes <-> tuple conversion is handled by the struct module"""
     __slots__: List[str] = list()  # names of atributes, in order
+    # NOTE: since we are using __slots__, defaults cannot be set as class variables
+    # -- override the _defaults() classmethod instead (use super & modify the returned dict)
     _format: str = str()  # struct module format string
     _arrays: Dict[str, Any] = dict()  # slots to be mapped into MappedArrays
     # each value in _arrays is a mapping to generate a MappedArray from
 
     def __init__(self, *args, **kwargs):
-        if len(args) + len(kwargs) == 0:
-            pass  # create an empty object for .from_* classmethods
-        for attr, value in zip(self.__slots__, args):  # zip longest? requires defaults
-            # NOTE: as_cpp stuff could be handy for zipping a list of types...
+        # LumpClass(attr1, [attr2_1, attr2_2])
+        # LumpClass(attr1, attr2=[attr2_1, attr2_2])
+        # NOTE: can only set top-level value, no partial init of nested attr via kwargs (yet)
+        # UNLESS: LumpClass(attr3=MappedArray(attr3_x=value, _mapping=LumpClass._arrays["attr3"])
+        # BETTER: LumpClass(attr3_x=value)  # parse kwarg as attr3.x & generate attr3 MappedArray (expensive!)
+        # BEST: LumpClass(**{"attr3.x": value})  # no chance of overlapping attr names
+        assert len(args) <= len(self.__slots__), "Too many arguments! Should match top level attributes!"
+        invalid_kwargs = set(kwargs).difference(set(self.__slots__))
+        # TODO: could branch here and check for subattr kwargs
+        assert len(invalid_kwargs) == 0, f"Invalid kwargs: {invalid_kwargs}"
+        if len(args) == len(self.__slots__):  # cheeky recursion avoider
+            default_values = dict()
+        # NOTE: could also skip generating defaults if arg + kwargs defines the whole struct
+        # -- however that's probably more work to detect than could be saved so \_(0.0)_/
+        else:
+            default_values = self._defaults()
+            # ^ {"attr": value}
+        default_values.update(dict(zip(self.__slots__, args)))
+        default_values.update(kwargs)
+        for attr, value in default_values.items():
             if attr not in self._arrays:
                 setattr(self, attr, value)
+                continue
+            mapping = self._arrays[attr]
+            if isinstance(value, MappedArray):
+                # TODO: the mappings don't quite match?
+                # value._mapping seems to only be the top level? so == wont work on nested MappedArrays...
+                assert value._mapping == mapping
+                setattr(self, attr, value)
+            elif isinstance(mapping, int):
+                assert len(value) == mapping
+                setattr(self, attr, value)
+            elif isinstance(mapping, (list, dict)):
+                setattr(self, attr, MappedArray.from_tuple(value, _mapping=mapping))
             else:
-                ...
-                mapping = self._arrays[attr]
-                # NOTE: if mapping found is None, things will break
-                MappedArray.from_tuple(value, _mapping=mapping)
-                # create a mapped array for this slot
-        # TODO: do kwargs as a second pass
-        # -- warn / error if kwargs overlap args?
-        # TODO: warn on invalid values (NaN, unencoded strings etc.)
+                raise RuntimeError(f"{self.__class__.__name__} has bad _arrays!")
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
@@ -59,6 +82,13 @@ class Struct:
                 _tuple.append(value)
         return _tuple
 
+    @classmethod
+    def _defaults(cls) -> Dict[str, Any]:
+        types = split_format(cls._format)
+        global type_defaults
+        defaults = cls.from_tuple([type_defaults[t] if not t.endswith("s") else "" for t in types])
+        return dict(zip(cls.__slots__, defaults))
+
     # convertors
     @classmethod
     def from_bytes(cls, _bytes: bytes) -> Struct:
@@ -72,13 +102,14 @@ class Struct:
     @classmethod
     def from_tuple(cls, _tuple: Iterable) -> Struct:
         """_tuple comes from: struct.unpack(self._format, bytes)"""
-        out = cls()  # new blank instance to populate
+        out_args = list()
         _tuple_index = 0
         for attr in cls.__slots__:
             if attr not in cls._arrays:
                 value = _tuple[_tuple_index]
                 length = 1
             else:
+                # partition up children
                 array_map = cls._arrays[attr]
                 if isinstance(array_map, list):  # array_map: List[str]
                     length = len(array_map)
@@ -93,9 +124,9 @@ class Struct:
                     value = _tuple[_tuple_index:_tuple_index + length]
                 else:
                     raise RuntimeError(f"{type(array_map)} {array_map} in {cls.__class__.__name__}._arrays")
-            setattr(out, attr, value)
+            out_args.append(value)
             _tuple_index += length
-        return out
+        return cls(*out_args)
 
     def as_bytes(self) -> bytes:
         return struct.pack(self._format, *self.flat())
@@ -131,23 +162,42 @@ class MappedArray:
     # _mapping cane be either a list of attr names to map a given array to,
     # or, a dict containing a list of attr names, or another dict
     # this second form is difficult to express as a type hint
+    # TODO: _format inheritace (slicing from parents)
 
     def __init__(self, *args, _mapping: Any = None, **kwargs):
-        # TODO: use class defaults and generate attrs; including nesting
-        # -- how would defaults & type hints for nested values be defined?
         if _mapping is None:
             _mapping = self._mapping
-        if len(args) == 0:
-            # NOTE: must create an empty object for .from_* classmethods
-            # TODO: populate attrs defined in self._mapping with default values
-            if hasattr(self, "_format"):
-                ...
-            pass  # HACK: ensures classmethods work, will be replaced
-        elif len(args) == mapping_length(_mapping):  # *args = [a, b, (c, d)]
-            # NOTE: not the same as .from_tuple()!
-            raise NotImplementedError()
-        else:  # **kwargs = {"attr": 0}
-            raise NotImplementedError()
+        assert len(args) <= len(_mapping), "Too many arguments! Should match top level attributes!"
+        invalid_kwargs = set(kwargs).difference(set(_mapping))
+        # TODO: could branch here and check for subattr kwargs
+        assert len(invalid_kwargs) == 0, f"Invalid kwargs: {invalid_kwargs}"
+        # if len(args) == len(_mapping):  # cheeky recursion avoider
+        #     default_values = dict()
+        # # NOTE: could also skip generating defaults if arg + kwargs defines the whole struct
+        # # -- however that's probably more work to detect than could be saved so \_(0.0)_/
+        # else:
+        #     # TODO: _format as a kwarg for inheritance
+        #     default_values = self._defaults(_mapping)
+        #     # ^ {"attr": value}
+        # default_values.update(dict(zip(_mapping, args)))
+        # default_values.update(kwargs)
+        # if isinstance(_mapping, list):
+        #     for attr, value in default_values.items():
+        #         setattr(self, attr, value)
+        #         return
+        # for attr, value in default_values.items():
+        #     sub_mapping = _mapping[attr]
+        #     if isinstance(value, MappedArray):
+        #         assert isinstance(sub_mapping, (list, dict)), f"Invalid sub_mapping for {attr}: {sub_mapping}"
+        #         assert value._mapping == sub_mapping  # depth doesn't match?
+        #         setattr(self, attr, value)
+        #     elif isinstance(sub_mapping, int):
+        #         assert len(value) == sub_mapping
+        #         setattr(self, attr, value)
+        #     elif isinstance(sub_mapping, (list, dict)):
+        #         setattr(self, attr, MappedArray.from_tuple(value, _mapping=sub_mapping))
+        #     else:
+        #         raise RuntimeError(f"{self.__class__.__name__} has bad _arrays!")
 
     def __eq__(self, other: Iterable) -> bool:
         return all([(a == b) for a, b in zip(self, other)])
@@ -180,6 +230,18 @@ class MappedArray:
                 array.append(value)
         return array
 
+    @classmethod
+    def _defaults(cls, _mapping: None) -> Dict[str, Any]:
+        # TODO: _format kwarg
+        if _mapping is None:
+            _mapping = cls._mapping
+        if not hasattr(cls._format):
+            raise RuntimeError("format unknown, cannot generate defaults")
+        types = split_format(cls._format)
+        global type_defaults
+        defaults = cls.from_tuple([type_defaults[t] if not t.endswith("s") else "" for t in types])
+        return dict(zip(list(_mapping), defaults))
+
     # convertors
     @classmethod
     def from_bytes(cls, _bytes: bytes, _mapping: Any = None, _format: str = None) -> MappedArray:
@@ -201,7 +263,6 @@ class MappedArray:
         if not isinstance(_mapping, (dict, list)):
             raise RuntimeError(f"Unexpected mapping: {type(_mapping)}")
         elif isinstance(_mapping, dict):
-            out._mapping = list(_mapping.keys())
             array_index = 0
             for attr, child_mapping in _mapping.items():
                 # TODO: child_mapping of type int takes a slice, storing a mutable list
@@ -217,7 +278,7 @@ class MappedArray:
         elif isinstance(_mapping, list):  # List[str]
             for attr, value in zip(_mapping, array):
                 setattr(out, attr, value)
-            out._mapping = _mapping
+        out._mapping = _mapping
         return out
 
     def as_bytes(self) -> bytes:
@@ -230,7 +291,7 @@ class MappedArray:
         # out.append("struct {cls.__name__}" + "{\n")
         # if _format == "":
         #     _format = self._format  # can break, parents must pass on _format sliver
-        # types = 
+        # types =
         # if isinstance(cls._mapping, dict):
         #     type_tuple = split_format(_format)
         #     i = 0
@@ -248,6 +309,7 @@ class MappedArray:
 
 def split_format(_format: str) -> List[str]:
     """split a struct format string to zip with tuple"""
+    # NOTE: srrings returned as r"/d+s"
     _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefdspP]", _format.replace(" ", ""))
     out = list()
     for f in _format:
@@ -268,4 +330,4 @@ type_LUT = {"c": "char",  "?": "bool",
             "f": "float", "g": "double"}
 
 type_defaults = {"c": 0, "?": False, "b": 0, "B": 0, "h": 0, "H": 0,
-                 "i": 0, "I": 0, "f": 0.0, "g": 0.0}
+                 "i": 0, "I": 0, "f": 0.0, "g": 0.0, "s": ""}
