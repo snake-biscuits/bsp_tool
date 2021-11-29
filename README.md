@@ -90,8 +90,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Soldier of Fortune](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune.py)
     - [Soldier of Fortune II: Double Helix](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune2.py)
     - [Star Trek: Voyager - Elite Force](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
-    - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
-    - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/sin.py)
+    - [Star Wars Jedi Knight: Jedi Academy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune2.py)
+    - [Star Wars Jedi Knight II: Jedi Outcast](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/soldier_of_fortune2.py)
   * [Respawn Entertainment](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn)
     - [Titanfall](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
     - [Titanfall 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall2.py)
@@ -144,7 +144,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Garry's Mod](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Halfquake Trilogy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [INFRA](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
-    - Kingpin: Life of Crime :o:
+    - [Kingpin: Life of Crime](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py) :o:
     - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/moh_allied_assault.py)
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [No More Room in Hell](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -182,5 +182,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Being very open and actively collaborating on SourceIO & Titanfall .bsps
  * [Taskinoz](https://github.com/taskinoz)
    - Helping me find people that can actively use my research & tools
+ * [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format)
+   - For starting me on this path however many years ago
  * All of the Wiki Editors
    - Except for the uncited `Id Tech 3 -> Treyarch NGL` on CoDWiki **[citation needed]**
