@@ -73,7 +73,7 @@ class TestBspLump:
     def test_setitem(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            empty_entry = lump.LumpClass()  # NOTE: __init__ doesn't populate with dummy entries, breaking tests
+            empty_entry = lump.LumpClass()
             lump[0] = empty_entry
             assert lump[0] == empty_entry, f"{map_name} failed"
             lump[:2] = [empty_entry, empty_entry]

@@ -37,10 +37,56 @@ class TestStruct:
 
 class TestMappedArray:
     def test_init(self):
-        sample_A = base.MappedArray.from_tuple([0, 1, 2])
-        sample_B = base.MappedArray.from_tuple([3, 4, 5],
-                                               ["a", "b", "c"])
-        sample_C = base.MappedArray.from_tuple([6, 7, 8, 9],
-                                               {"D": ["i", "ii"],
-                                                "E": ["iii", " iv"]})
-        assert all([sample_A, sample_B, sample_C])
+        # TODO: test invalid inputs are caught
+        # no args; MappedArray defaults
+        test_MappedArray = base.MappedArray()
+        # basic __init__
+        test_MappedArray = base.MappedArray(0, 1, 2, _mapping=[*"xyz"])
+        assert test_MappedArray.x == 0
+        assert test_MappedArray.y == 1
+        assert test_MappedArray.z == 2
+        # nesting
+        test_MappedArray = base.MappedArray([3, 4], [5, 6],
+                                            _mapping={"C": ["i", "ii"], "D": ["iii", "iv"]})
+        assert test_MappedArray.C.i == 3
+        assert test_MappedArray.C.ii == 4
+        assert test_MappedArray.D.iii == 5
+        assert test_MappedArray.D.iv == 6
+        # _format & _defaults
+        # NOTE: _format should match "".join(base.type_LUT.keys()) + "1s"
+        # -- subsititing "byte" for "char" with "b" & "B"
+        # NOTE: _mapping should match [t.replace(" ", "_") for t in base.type_LUT.keys()]
+        test_MappedArray = base.MappedArray(_format="c?bBhHiIfg1s",
+                                            _mapping=["char", "bool",
+                                                      "byte", "unsigned_byte",
+                                                      "short", "unsigned_short",
+                                                      "int", "unsigned_int",
+                                                      "float", "double",
+                                                      "string"])
+        assert isinstance(test_MappedArray.char, bytes)
+        assert test_MappedArray.char == base.type_defaults["c"]
+        assert isinstance(test_MappedArray.bool, bool)
+        assert test_MappedArray.bool == base.type_defaults["?"]
+        assert isinstance(test_MappedArray.byte, int)
+        assert test_MappedArray.byte == base.type_defaults["b"]
+        assert isinstance(test_MappedArray.unsigned_byte, int)
+        assert test_MappedArray.unsigned_byte == base.type_defaults["B"]
+        assert isinstance(test_MappedArray.byte, int)
+        assert test_MappedArray.short == base.type_defaults["h"]
+        assert isinstance(test_MappedArray.unsigned_byte, int)
+        assert test_MappedArray.unsigned_short == base.type_defaults["H"]
+        assert isinstance(test_MappedArray.byte, int)
+        assert test_MappedArray.int == base.type_defaults["i"]
+        assert isinstance(test_MappedArray.unsigned_byte, int)
+        assert test_MappedArray.unsigned_int == base.type_defaults["I"]
+        assert isinstance(test_MappedArray.float, float)
+        assert test_MappedArray.float == base.type_defaults["f"]
+        assert isinstance(test_MappedArray.double, float)
+        assert test_MappedArray.double == base.type_defaults["g"]
+        assert isinstance(test_MappedArray.string, (str, bytes))  # can be a decoded string
+        assert test_MappedArray.string == base.type_defaults["s"]
+        # kwargs only
+        test_MappedArray = base.MappedArray(z=1.0, _mapping=[*"xyz"], _format="3f")
+        assert test_MappedArray.x == base.type_defaults["f"]
+        assert test_MappedArray.y == base.type_defaults["f"]
+        assert test_MappedArray.z == 1.0

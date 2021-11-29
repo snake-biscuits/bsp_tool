@@ -5,6 +5,15 @@ import struct
 from typing import Any, Dict, Iterable, List, Union
 
 
+# TODO: _decode: Dict[str, BytesDecodeArgs] class variable for both Struct & MappedArray
+# ^ BytesDecodeArgs = Dict[str, str]
+# ^^ {"encoding": "utf-8", "errors": "strict"} -> bytes(...).decode(encoding="utf-8", errors="strict")
+# TODO: LumpClass(**{"attr.sub": value}) & MappedArray(**{"attr.sub": value})
+# TODO: _subclass: Dict[str, Any] class variable for both Struct & MappedArray
+# ^ {"attr": SubClass, "attr2.sub": SubClass}
+# child_MappedArray = ...; SubClass.__init__(child_MappedArray)
+# allows for nesting vector.Vec3 in Structs
+
 class Struct:
     """base class for tuple <-> class conversion
     bytes <-> tuple conversion is handled by the struct module"""
@@ -165,7 +174,7 @@ def mapping_length(mapping: Union[List[str], Dict[str, Any], None]) -> int:
 class MappedArray:
     """Maps a given iterable to a series of names, can even be a nested mapping"""
     _format: str = ""
-    _mapping: Union[List[str], Dict[str, Any]] = [*"xyz"]
+    _mapping: Union[List[str], Dict[str, Any]] = []
     # _mapping cane be either a list of attr names to map a given array to,
     # or, a dict containing a list of attr names, or another dict
     # this second form is difficult to express as a type hint
@@ -180,9 +189,10 @@ class MappedArray:
             _mapping = self._mapping
         self._mapping = _mapping
         assert len(args) <= len(_mapping), "Too many arguments! Should match top level attributes!"
-        # NOTE: _mapping & _format might be based without
+        # NOTE: _mapping & _format might be passed in as regular args
+        # TODO: check to see if _mapping or _mapping, _format are on the tail of args
         invalid_kwargs = set(kwargs).difference(set(_mapping))
-        # TODO: could branch here and check for subattr kwargs
+        # TODO: could branch here and check for subattr kwargs; e.g. "x.i"
         assert len(invalid_kwargs) == 0, f"Invalid kwargs: {invalid_kwargs}"
         if len(args) == len(_mapping):  # cheeky recursion avoider
             default_values = dict()
@@ -193,7 +203,6 @@ class MappedArray:
             # ^ {"attr": value}
         default_values.update(dict(zip(_mapping, args)))
         default_values.update(kwargs)
-        print(default_values)
         if isinstance(_mapping, list):
             for attr, value in default_values.items():
                 setattr(self, attr, value)
@@ -254,7 +263,10 @@ class MappedArray:
         types = split_format(_format)
         assert mapping_length(_mapping) == len(types), "Invalid mapping for format!"
         global type_defaults
-        defaults = cls.from_tuple([type_defaults[t] if not t.endswith("s") else "" for t in types])
+        # TODO: allow defautlt strings (requires a type_defaults function (see below))
+        # -- pass down type_defaults _string_mode (warn / trim / fail) ?
+        defaults = cls.from_tuple([type_defaults[t] if not t.endswith("s") else "" for t in types],
+                                  _mapping=_mapping, _format=_format)
         return dict(zip(list(_mapping), defaults))
 
     # convertors
@@ -266,8 +278,8 @@ class MappedArray:
             _mapping = cls._mapping
         assert len(_bytes) == struct.calcsize(_format)
         _tuple = struct.unpack(_format, _bytes)
-        assert len(_tuple) == mapping_length(cls._mapping)
-        return cls.from_tuple(_tuple)
+        assert len(_tuple) == mapping_length(_mapping), f"{_tuple}"
+        return cls.from_tuple(_tuple, _mapping=_mapping, _format=_format)
 
     @classmethod
     def from_tuple(cls, array: Iterable, _mapping: Any = None, _format: str = None) -> MappedArray:
@@ -275,7 +287,7 @@ class MappedArray:
             _format = cls._format
         if _mapping is None:
             _mapping = cls._mapping
-        assert len(array) == mapping_length(_mapping), f"{cls.__name__}({array}, {_mapping})"
+        assert len(array) == mapping_length(_mapping), f"{cls.__name__}({array}, _mapping={_mapping})"
         out_args = list()
         if not isinstance(_mapping, (dict, list)):
             raise RuntimeError(f"Unexpected mapping: {type(_mapping)}")
@@ -304,19 +316,21 @@ class MappedArray:
         return struct.pack(self._format, *self.flat())
 
     @classmethod
-    def as_cpp(cls, _format: str = "") -> str:  # C++ struct definition
+    def as_cpp(cls, _mapping: Any = None, _format: str = None) -> str:  # C++ struct definition
+        if _format is None:
+            _format = cls._format
+        if _mapping is None:
+            _mapping = cls._mapping
+        types = split_format(_format)
+        assert mapping_length(_mapping) == len(types), "Invalid mapping for format!"
         raise NotImplementedError()
         # out = list()
         # out.append("struct {cls.__name__}" + "{\n")
-        # if _format == "":
-        #     _format = self._format  # can break, parents must pass on _format sliver
-        # types =
         # if isinstance(cls._mapping, dict):
-        #     type_tuple = split_format(_format)
         #     i = 0
         #     for attr, attr_mapping in cls._mapping.item():
         #         if child_mapping is None:
-        #             type_char = type_tuple[i]
+        #             type_char = types[i]
         #             i += 1
         # elif isinstance(cls._mapping, list):
         #     for type_char, attr in zip(split_format(_format), cls._mapping):
@@ -328,11 +342,12 @@ class MappedArray:
 
 def split_format(_format: str) -> List[str]:
     """split a struct format string to zip with tuple"""
-    # NOTE: srrings returned as r"/d+s"
-    _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefdspP]", _format.replace(" ", ""))
+    # NOTE: strings returned as r"/d+s"
+    # FIXME: does not check to see if format is valid! invalid chars are thrown out silently
+    _format = re.findall(r"[0-9]*[xcbB\?hHiIlLqQnNefgdspP]", _format.replace(" ", ""))
     out = list()
     for f in _format:
-        match_numbered = re.match(r"([0-9]+)([xcbB\?hHiIlLqQnNefdpP])", f)
+        match_numbered = re.match(r"([0-9]+)([xcbB\?hHiIlLqQnNefgdpP])", f)
         # NOTE: does not decompress strings
         if match_numbered is not None:
             count, f = match_numbered.groups()
@@ -347,6 +362,14 @@ type_LUT = {"c": "char",  "?": "bool",
             "h": "short", "H": "unsigned short",
             "i": "int",   "I": "unsigned int",
             "f": "float", "g": "double"}
+# NOTE: can't detect strings with a dict
+# -- to catch strings: type_defaults[t] if not t.endswith("s") else ""
+# TODO: make a function to lookup type and check / trim string sizes
+# -- a trim / warn / fail setting would be ideal
 
-type_defaults = {"c": 0, "?": False, "b": 0, "B": 0, "h": 0, "H": 0,
-                 "i": 0, "I": 0, "f": 0.0, "g": 0.0, "s": ""}
+type_defaults = {"c": b"", "?": False,
+                 "b": 0, "B": 0,
+                 "h": 0, "H": 0,
+                 "i": 0, "I": 0,
+                 "f": 0.0, "g": 0.0,
+                 "s": ""}
