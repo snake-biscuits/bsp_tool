@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0 (???)
+## v0.4.0 (??? 2022)
 
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
@@ -15,19 +15,28 @@
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
  * Completely refactored `branch_script` detection
- * `load_bsp` now only accepts `branch_script`s in it's optional argument
+ * `load_bsp` now only accepts a `branch_script` as it's optional argument
 
 ### Newly Supported
+ * Infinity Ward Engine
+   - Call of Duty 2
+   - Call of Duty 4: Modern Warfare
+ * Ion Storm IdTech
+   - Daikatana
+ * Raven IdTech
  * Source Engine
    - Tactical Intervention
+   - Vampire the Masquerade: Bloodlines
  * Ubertools
 
 ### Updated Support
- * Quake Engine
-   - Hexen 2
  * Id Tech 3
    - Quake III Arena
    - Raven Software Titles
+ * Infinity Ward Engine
+   - Call of Duty
+ * Quake Engine
+   - Hexen 2
  * Source Engine
  * Titanfall Engine
 

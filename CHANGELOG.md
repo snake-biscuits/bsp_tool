@@ -19,10 +19,10 @@
 
 ### Newly Supported
  * Infinity Ward Engine
-  - IW 2.0
-  - IW 3.0
+   - Call of Duty 2
+   - Call of Duty 4: Modern Warfare
  * Ion Storm IdTech
-  - Daikatana
+   - Daikatana
  * Raven IdTech
  * Source Engine
    - Tactical Intervention

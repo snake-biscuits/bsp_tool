@@ -12,7 +12,7 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20  # NOTE: v20 Source BSPs differ widely, since many forks are of this version
 
-GAME_PATHS = ["Day of Defeat: Source",  # TODO: full path
+GAME_PATHS = ["Day of Defeat: Source",  # TODO: full paths
               "G String",
               "Garry's Mod",
               "Half-Life 2: Episode 2",

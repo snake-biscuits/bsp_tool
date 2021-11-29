@@ -70,6 +70,7 @@ source_dirs = {
                            "left4dead2_dlc3/maps"],  # 21 maps | 481 MB
          "MINERVA": ["metastasis/maps"],  # 6 maps | 201 MB
          "NEOTOKYO": ["neotokyosource/maps"],  # 24 maps | 303 MB
+         "nmrih": ["nmrih/maps"],  # 31 maps | 1.1 GB
          "Portal": ["portal/maps"],  # 26 maps | 426 MB
          "Portal 2": ["portal2/maps",  # 106 maps | 2.7 GB
                       "portal2_dlc1/maps",  # 10 maps | 313 MB
@@ -103,7 +104,10 @@ extracted_dirs = {
                  "mp_pakmaps5.pak3/maps",  # 1 map | 12 MB | .pk3
                  "mp_pakmaps6.pak3/maps",  # 1 map | 11 MB | .pk3
                  "pak0.pak3/maps",  # 32 maps | 234 MB | .pk3
-                 "sp_pak4.pak3/maps"],  # 3 maps | 24 MB | .pk3
+                 "sp_pak4.pak3/maps",  # 3 maps | 24 MB | .pk3
+                 # https://www.moddb.com/mods/realrtcw-realism-mod
+                 # https://store.steampowered.com/app/1379630/RealRTCW/
+                 "realRTCW/maps"],  # 11 maps | 85 MB
         "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
                 "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
         "SoF": ["pak0/maps"],  # 32 maps | 131 MB | .pak
@@ -124,7 +128,11 @@ extracted_dirs = {
                   "rerelease/dopa/maps",  # 13 maps | 25 MB | .pak
                   "rerelease/hipnotic/pak0/maps",  # 18 maps | 30 MB
                   "rerelease/mg1/maps",  # 20 maps | 240 MB | .pak
-                  "rerelease/rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+                  "rerelease/rogue/pak0/maps",  # 23 maps | 28 MB | .pak
+                  # http://quake.great-site.net/
+                  "alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
+                  "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
+                  "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
         # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps"],  # 8 maps | 10 MB | .pak
@@ -132,7 +140,11 @@ extracted_dirs = {
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
-        "WolfET": ["pak0.pk3/maps"],  # 6 maps | 86 MB | .pk3
+        "WolfET": ["pak0.pk3/maps",  # 6 maps | 86 MB | .pk
+                   # https://www.moddb.com/mods/et/downloads/etsp
+                   "singleplayer",  # 32 maps | 288 MB | .pk3
+                   # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
+                   "realRTCW_singleplayer"],  # 2 maps | 31 MB | .pk3
         # InfinityWardBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
