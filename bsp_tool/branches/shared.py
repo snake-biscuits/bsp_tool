@@ -54,7 +54,8 @@ class Entities(list):
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
         # TODO: handle newlines in keys / values
-        for line_no, line in enumerate(raw_entities.decode(errors="ignore").splitlines()):
+        enumerated_lines = enumerate(raw_entities.decode(errors="ignore").splitlines())
+        for line_no, line in enumerated_lines:
             if re.match(r"^\s*$", line):  # line is blank / whitespace
                 continue
             if "{" in line:  # new entity
@@ -62,8 +63,20 @@ class Entities(list):
             elif '"' in line:
                 key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
                 if not key_value_pair:
-                    # TODO: catch multi-lines (tf/download/maps/af_tf2_party_a11.bsp)
-                    print(f"ERROR LOADING ENTITIES: Line {line_no:05d}:  {line}")
+                    open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
+                    if not open_key_value_pair:
+                        RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+                    key, value = open_key_value_pair.groups()
+                    # TODO: use regex to catch CRLF line endings & unexpected whitespace
+                    tail = re.search(r'([^"]*)"\s*$', line)
+                    while not tail:
+                        if "{" in line or "}" in line:
+                            RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+                        line_no, line = next(enumerated_lines)
+                        # NOTE: ^ might've broken line numbers?
+                        value += line
+                        tail = re.search(r'([^"]*)"\s*$', line)
+                    value += tail.groups()[0]
                     continue
                 key, value = key_value_pair.groups()
                 if key not in ent:
