@@ -13,15 +13,15 @@ ifeq ($(OS),Windows_NT)
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
     # runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
-    R1_MAPS_DIR  := E:/Mod/Titanfall/maps
-    R1O_MAPS_DIR := E:/Mod/TitanfallOnline/maps
-    R2_MAPS_DIR  := E:/Mod/Titanfall2/maps
-    # R5_DIR       := E:/Mod/ApexLegends
+    R1_MAPS_DIR  := /e/Mod/Titanfall/maps
+    R1O_MAPS_DIR := /e/Mod/TitanfallOnline/maps
+    R2_MAPS_DIR  := /e/Mod/Titanfall2/maps
+    # R5_DIR       := /e/Mod/ApexLegends
     # TODO: Seasons
 endif
 
-TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp
-# TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
+# TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp
+TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
 # TESTMAP := $(R1O_MAPS_DIR)/mp_npe.bsp
 
 DUMMY != mkdir -p build

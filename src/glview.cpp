@@ -81,7 +81,7 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexUnlitTS  vertex_unlit_ts;
 
     Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
-    worldspawn.num_meshes = 768;  // override
+    // worldspawn.num_meshes = 768;  // override
     unsigned int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
     unsigned int total_indices = 0;
     RenderVertex render_vertex;
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]) {
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
-    printf("%d triangles; %lu KB\n", bsp.index_count / 3, sizeof(RenderVertex) * bsp.vertex_count / 1024);
+    printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
     // TODO: bind to buffers and use RenderObject w/ shaders
 
     unsigned int index;
