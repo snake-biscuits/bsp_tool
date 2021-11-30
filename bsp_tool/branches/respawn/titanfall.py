@@ -299,7 +299,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "first_vertex",
                  "num_vertices", "unknown", "material_sort", "flags"]
-    _format = "IH8hHI"  # 28 Bytes
+    _format = "I3H6hHI"  # 28 Bytes
     _arrays = {"unknown": 6}
 
 

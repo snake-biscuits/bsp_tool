@@ -63,7 +63,8 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     unsigned int vertex_count = 0;
 
     #define GET_LUMP(Type, name, ENUM) \
-        Type *name = new Type[bsp->header[ENUM].length / sizeof(Type)]; \
+        int name##_MAX = bsp->header[ENUM].length / sizeof(Type); \
+        Type *name = new Type[name##_MAX]; \
         bsp->getLump<Type>(ENUM, name);
     GET_LUMP(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   )
     GET_LUMP(Vector,          VERTICES,         LUMP::VERTICES       )
@@ -80,6 +81,7 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexUnlitTS  vertex_unlit_ts;
 
     Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    worldspawn.num_meshes = 768;  // override
     unsigned int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
     unsigned int total_indices = 0;
     RenderVertex render_vertex;
@@ -198,6 +200,7 @@ int main(int argc, char* argv[]) {
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
     // NOTE: encounters a segfault on any map other than r1o/mp_box or r1/mp_lobby
+    // note r1o/mp_npe Mesh #1194 uses VERTEX_LIT_BUMP (empty) w/ negative indices???
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);

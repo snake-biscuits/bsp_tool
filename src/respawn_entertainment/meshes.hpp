@@ -39,8 +39,8 @@ namespace bsp_tool::respawn_entertainment::titanfall {
     struct Mesh {
         int             first_mesh_index;
         unsigned short  num_triangles;
-        short           first_vertex;
-        short           num_vertices;
+        unsigned short  first_vertex;
+        unsigned short  num_vertices;
         short           unknown[6];
         unsigned short  material_sort;
         unsigned int    flags;

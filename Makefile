@@ -3,24 +3,40 @@ CXXFLAGS := --std=c++17 -Wall
 LDLIBS   := -lstdc++fs
 
 SDLFLAGS := -lGL `sdl2-config --cflags --libs`
-TESTMAP  := /media/bikkie/Sandisk/Respawn/r1o/maps/mp_box.bsp
+R1_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r1/maps
+R1O_MAPS_DIR := /media/bikkie/Sandisk/Respawn/r1o/maps
+R2_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r2/maps
+# R5_DIR       := /media/bikkie/Sandisk/Respawn/r5
+# TODO: seasons
 
 ifeq ($(OS),Windows_NT)
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
     # runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
-    TESTMAP  := E:/Mod/TitanfallOnline/maps/mp_box.bsp
+    R1_MAPS_DIR  := E:/Mod/Titanfall/maps
+    R1O_MAPS_DIR := E:/Mod/TitanfallOnline/maps
+    R2_MAPS_DIR  := E:/Mod/Titanfall2/maps
+    # R5_DIR       := E:/Mod/ApexLegends
+    # TODO: Seasons
 endif
+
+TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp
+# TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
+# TESTMAP := $(R1O_MAPS_DIR)/mp_npe.bsp
 
 DUMMY != mkdir -p build
 
-.PHONY: all run
+.PHONY: all run debug
 
 
 all: build/lump_names.exe build/glview.exe
 
 run: build/glview.exe
 	build/glview.exe $(TESTMAP)
+
+debug:
+	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/glview.cpp -o build/glview.exe $(SDLFLAGS)
+	gdb --args build/glview.exe $(TESTMAP)
 
 # TODO: .o builds
 # TODO: clean
@@ -29,6 +45,6 @@ build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@
 
 # OpenGL .bsp viewer
-# NOTE: untested on Windows
+# NOTE: untested on Windows (not compiling)
 build/glview.exe: src/glview.cpp src/bsp_tool.hpp src/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
