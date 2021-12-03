@@ -310,6 +310,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+    # NOTE: identical to VertexLitFlat?
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv: List[float]  # texture coordindates
@@ -338,6 +339,7 @@ def ApexSPRP(raw_lump):
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("CM_GRID")
 LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
                      "MATERIAL_SORT":       {0: MaterialSort},
                      "MESHES":              {0: Mesh},
@@ -351,7 +353,6 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
                      "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
                      "VERTEX_UNLIT":        {0: VertexUnlit},
                      "VERTEX_UNLIT_TS":     {0: VertexUnlitTS}})
-LUMP_CLASSES.pop("CM_GRID")
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
