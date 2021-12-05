@@ -189,17 +189,18 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # flag enums
 class Flags(enum.IntFlag):
-    # source.Surface (source.TextureInfo / titanfall.TextureData ?)
+    # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
     SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
     SKY = 0x0004
     WARP = 0x0008  # Quake water surface?
-    TRANSLUCENT = 0x0010
+    TRANSLUCENT = 0x0010  # decals & atmo?
     # titanfall.Mesh.flags
     VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
     VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2
     VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
     VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
     # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
+    SKIP = 0x20000  # 0x200 in valve.source.Surface (<< 8?)
     TRIGGER = 0x40000  # guessing
     # masks
     MASK_VERTEX = 0x600
