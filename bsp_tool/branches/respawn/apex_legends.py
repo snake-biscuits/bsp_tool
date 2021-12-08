@@ -17,7 +17,9 @@ GAME_PATHS = ["Apex Legends"]
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
-                 "Apex Legends: Season 10 - Emergence": 50}  # Arenas: Encore / SkyGarden
+                 "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
+                 "Apex Legends: Season 11 - Escape": 65586}  # Nov19th patch version(50, 1) & all data in .bsp_lump
+# NOTE: ^ (maps in depot/ still contain many lumps in the .bsp, as before)
 
 
 class LUMP(enum.Enum):
