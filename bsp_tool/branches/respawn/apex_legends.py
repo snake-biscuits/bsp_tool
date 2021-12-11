@@ -286,49 +286,50 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    __slots__ = ["position_index", "normal_index", "uv", "uv2"]
+    __slots__ = ["position_index", "normal_index", "uv0", "uv1"]
     _format = "2I4f"  # 24 bytes
-    _arrays = {"uv": [*"uv"], "uv2": [*"uv"]}
+    _arrays = {"uv0": [*"uv"], "uv1": [*"uv"]}
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # texture coordindates
-    unused: int  # -1
-    unknown: List[float]  # vertex colour for _bm materials?
-    __slots__ = ["position_index", "normal_index", "uv", "unused", "unknown"]
+    uv0: List[float]  # texture coordindates
+    negative_one: int  # -1
+    uv1: List[float]  # lightmap coords
+    colour: list[int]
+    __slots__ = ["position_index", "normal_index", "uv0", "negative_one", "uv1"]
     _format = "2I2fi3f"  # 32 bytes
-    _arrays = {"uv": [*"uv"], "unknown": 3}
+    _arrays = {"uv0": [*"uv"], "colour": [*"rgba"]}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # texture coordindates
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    uv0: List[float]  # texture coordindates
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
+    _arrays = {"uv0": [*"uv"]}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     # NOTE: identical to VertexLitFlat?
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # texture coordindates
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    uv0: List[float]  # texture coordindates
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2i2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
+    _arrays = {"uv0": [*"uv"]}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     position_index: int  # index into VERTICES
     normal_index: int  # index into VERTEX_NORMALS
-    uv: List[float]  # texture coordinates
+    uv0: List[float]  # texture coordinates
     unknown: List[int]  # 8 bytes
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2f2i"  # 24 bytes
-    _arrays = {"uv": [*"uv"], "unknown": 2}
+    _arrays = {"uv0": [*"uv"], "unknown": 2}
 
 
 # special lump classes, in alphabetical order:
