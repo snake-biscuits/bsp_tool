@@ -216,7 +216,10 @@ extracted_dirs = {
                         "season11/maps",  # 1 map | 10 MB
                         "season11/depot/r5-110/game/r2/maps"  # 1 map | 9 MB
                         "season11_6nov21/maps",  # 1 map | 760 MB
-                        "season11_6nov21/depot/r5-110/game/r2/maps"],  # 1 map | 749 MB
+                        "season11_6nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB
+                        "season11_19nov21/maps",  # 10 maps | 1.5 GB
+                        "season11_19nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB
+                        "season11_19nov21/depot/r5-111/game/r2/maps"],  # 10 maps | 1.4 GB
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
@@ -254,7 +257,8 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "tunetwo",  # 12 maps | 114 MB | Test Tube 13
                       "lvl2",  # 14 maps | 461 MB | Map Labs 15
                       "thewrapuptwo",  # 27 maps | 226 MB | Test Tube 15
-                      "halloweenhorror4"]}  # 25 maps | 274 MB | Map Labs 16
+                      "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
+                      "halflifeeternal"]}  # 13 maps | 123 MB | Test Tube 16
 
 # every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}
 

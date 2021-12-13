@@ -456,49 +456,49 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # albedo / normal / gloss / specular uv
-    unused: int  # -1
-    uv2: List[float]  # small 0-1 floats, lightmap uv?
+    uv0: List[float]  # albedo / normal / gloss / specular uv
+    negative_one: int  # -1
+    uv1: List[float]  # small 0-1 floats, lightmap uv?
     unknown: List[int]  # (0, 0, ?, ?)
     # {v[-2:] for v in mp_box.VERTEX_LIT_BUMP}}
     # {x[0] for x in _}.union({x[1] for x in _})  # all numbers
     # for "mp_box": {*range(27)} - {0, 1, 6, 17, 19, 22, 25}
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2fi2f4i"  # 44 bytes
-    _arrays = {"uv": [*"uv"], "unknown": 7}
+    _arrays = {"uv0": [*"uv"], "unknown": 7}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     """Uncommon Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # uv coords
+    uv0: List[float]  # uv coords
     unknown: List[int]
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2f5I"
-    _arrays = {"uv": [*"uv"], "unknown": 5}
+    _arrays = {"uv0": [*"uv"], "unknown": 5}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     """Tool Brushes"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # uv coords
+    uv0: List[float]  # uv coords
     unknown: int  # usually -1
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv": [*"uv"]}
+    _arrays = {"uv0": [*"uv"]}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     """Glass"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # uv coords
+    uv0: List[float]  # uv coords
     unknown: List[int]
-    __slots__ = ["position_index", "normal_index", "uv", "unknown"]
+    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2f3I"  # 28 bytes
-    _arrays = {"uv": [*"uv"], "unknown": 3}
+    _arrays = {"uv0": [*"uv"], "unknown": 3}
 
 
 VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
