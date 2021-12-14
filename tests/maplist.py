@@ -142,7 +142,7 @@ extracted_dirs = {
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
         "WolfET": ["pak0.pk3/maps",  # 6 maps | 86 MB | .pk
                    # https://www.moddb.com/mods/et/downloads/etsp
-                   "singleplayer",  # 32 maps | 288 MB | .pk3
+                   "singleplayer/maps",  # 32 maps | 288 MB | .pk3
                    # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
                    "realRTCW_singleplayer"],  # 2 maps | 31 MB | .pk3
         # InfinityWardBsp
