@@ -1,6 +1,8 @@
 """Index of all known .bsp format variants"""
 __all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "nexon",
-           "raven", "respawn", "ritual", "scripts_from_file_magic", "game_path_table"]
+           "raven", "respawn", "ritual",
+           "scripts_from_file_magic", "script_from_file_magic_and_version",
+           "game_name_table"]
 
 from . import arkane
 from . import gearbox
@@ -62,9 +64,9 @@ script_from_file_magic_and_version[(b"RBSP", 1)] = raven.soldier_of_fortune2
 # ^ NOT ritual.sin
 
 
-game_path_table = dict()
+game_name_table = dict()
 # ^ {"game": (script, version)}
 for developer in (arkane, gearbox, id_software, infinity_ward, nexon, raven, respawn, ritual, valve):
     for script in developer.scripts:
-        for game_path in script.GAME_PATHS:
-            game_path_table[game_path] = (script, script.GAME_VERSIONS[game_path])
+        for game_name in script.GAME_VERSIONS:
+            game_name_table[game_name] = (script, script.GAME_VERSIONS[game_name])

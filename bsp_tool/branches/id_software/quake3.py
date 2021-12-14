@@ -127,10 +127,8 @@ class Leaf(base.Struct):  # LUMP 4
 
 class Lightmap(list):  # LUMP 14
     """Raw pixel bytes, 128x128 RGB_888 image"""
+    _pixels: List[bytes] = [b"\0" * 3] * 128 * 128
     _format = "3s" * 128 * 128  # 128x128 RGB_888
-
-    def __init__(self, _tuple):
-        self._pixels: List[bytes] = _tuple  # RGB_888
 
     def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
         # Lightmap[row][column] returns self.__getitem__(row)[column]
@@ -140,6 +138,12 @@ class Lightmap(list):  # LUMP 14
 
     def flat(self) -> bytes:
         return b"".join(self._pixels)
+
+    @classmethod
+    def from_tuple(cls, _tuple):
+        out = cls()
+        out._pixels = _tuple  # RGB_888
+        return out
 
 
 class LightVolume(base.Struct):  # LUMP 15

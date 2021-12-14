@@ -116,6 +116,10 @@ class Edge(list):  # LUMP 12
     def flat(self):
         return self  # HACK
 
+    @classmethod
+    def from_tuple(cls, _tuple):
+        return cls(_tuple)
+
 
 class Face(base.Struct):  # LUMP 7
     plane: int

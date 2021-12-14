@@ -37,8 +37,17 @@ def test_basic_branch_script(branch_script):
     # -- this includes missing bytes (since single byte alignment gets wierd)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     if len(unused_LumpClasses) > 0:
-        warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
+        warning_text = "\n".join(["Unused LumpClasses in branch script:",
+                                  *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
+    incorrect_lump_classes = set()
+    for lump_class in used_LumpClasses:
+        try:
+            lump_class()
+        except Exception:
+            incorrect_lump_classes.add(lump_class.__name__)
+    assert incorrect_lump_classes == set(), "some LumpClasses failed to __init__"
+    # TODO: warn if any annotations are missnamed
 
 
 # Source + Titanfall Engines (lump versions)
@@ -64,8 +73,18 @@ def test_branch_script(branch_script):
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
+    incorrect_lump_classes = set()
+    for lump_class in used_LumpClasses:
+        try:
+            lump_class()
+        except Exception:
+            incorrect_lump_classes.add(lump_class.__name__)
+    assert incorrect_lump_classes == set(), "some LumpClasses failed to __init__"
     # TODO: warn if a lump version isn't supported
-    # e.g. FACES v1 is supported, but not v2
+    # -- e.g. FACES v1 is supported, but not v2
+    # NOTE: this should only matter if the lump version is found in a .bsp for the target branch (map installed_games)
+    # TODO: SpecialLumpClasses
+    # TODO: warn if any annotations are missnamed
 
 
 # TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked

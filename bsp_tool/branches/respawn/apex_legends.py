@@ -12,13 +12,21 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 47
 
-GAME_PATHS = ["Apex Legends"]
+GAME_PATHS = [f"Apex Legends/{subdir}" for subdir in ("maps",
+                                                      "depot/r5launch/game/r2/maps",
+                                                      "depot/r5staging/game/r2/maps",
+                                                      "depot/r5-100/game/r2/maps",
+                                                      "depot/r5-101/game/r2/maps",
+                                                      "depot/r5-110/game/r2/maps",
+                                                      "depot/r5-111/game/r2/maps")]
 
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
                  "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
-                 "Apex Legends: Season 11 - Escape": 65586}  # Nov19th patch version(50, 1) & all data in .bsp_lump
+                 # Post 2021-11-19 Patch (Legion list this as `struct { short version, streamed; }`)
+                 "Apex Legends: Season 11 - Escape": 65585,  # Nov19th patch version(49, 1) (mp_rr_aqueduct & others?)
+                 "Apex Legends: Season 11 - Escape (2)": 65586}  # Nov19th patch version(50, 1) & all data in .bsp_lump
 # NOTE: ^ (maps in depot/ still contain many lumps in the .bsp, as before)
 
 

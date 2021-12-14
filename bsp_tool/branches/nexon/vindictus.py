@@ -152,6 +152,10 @@ class Edge(list):  # LUMP 12
     def flat(self):
         return self  # HACK
 
+    @classmethod
+    def from_tuple(cls, _tuple):
+        return cls(_tuple)
+
 
 class Face(base.Struct):  # LUMP 7
     plane: int       # index into Plane lump
@@ -228,12 +232,22 @@ class Node(base.Struct):  # LUMP 5
 
 
 class Overlay(base.Struct):  # LUMP 45
+    id: int
+    texture_info: int  # index to this Overlay's TextureInfo
+    face_count_and_render_order: int  # render order uses the top 2 bits
+    faces: List[int]  # face indices this overlay is tied to (need face_count to read accurately)
+    u: List[float]  # mins & maxs?
+    v: List[float]  # mins & maxs?
+    uv_points: List[List[float]]  # Vector[4]; 3D corners of the overlay?
+    origin: List[float]
+    normal: List[float]
     __slots__ = ["id", "texture_info", "face_count_and_render_order",
                  "faces", "u", "v", "uv_points", "origin", "normal"]
-    _format = "2iIi4f18f"
-    _arrays = {"faces": 64,  # OVERLAY_BSP_FACE_COUNT (bspfile.h:998)
+    _format = "2iI64i22f"
+    _arrays = {"faces": 64,  # OVERLAY_BSP_FACE_COUNT (src/public/bspfile.h:998)
                "u": 2, "v": 2,
-               "uv_points": {P: [*"xyz"] for P in "ABCD"}}
+               "uv_points": {P: [*"xyz"] for P in "ABCD"},
+               "origin": [*"xyz"], "normal": [*"xyz"]}
 
 
 # classes for special lumps, in alphabetical order:

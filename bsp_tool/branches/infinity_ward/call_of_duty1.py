@@ -120,12 +120,11 @@ class Light(base.Struct):  # LUMP 30
 
 class Lightmap(list):  # LUMP 1
     """Raw pixel bytes, 512x512 RGB_888 image"""
+    _pixels: List[bytes] = [b"\0" * 3] * 512 * 512
     _format = "3s" * 512 * 512  # 512x512 RGB_888
 
-    def __init__(self, _tuple):
-        self._pixels: List[bytes] = _tuple  # RGB_888
-
-    def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
+    def __getitem__(self, row) -> bytes:
+        r"""returns 3 bytes: b'\xRR\xGG\xBB'"""
         # Lightmap[row][column] returns self.__getitem__(row)[column]
         # to get a specific pixel: self._pixels[index]
         row_start = row * 512
@@ -133,6 +132,12 @@ class Lightmap(list):  # LUMP 1
 
     def flat(self) -> bytes:
         return b"".join(self._pixels)
+
+    @classmethod
+    def from_tuple(cls, _tuple):
+        out = cls()
+        out._pixels = _tuple  # RGB_888
+        return out
 
 
 class Model(base.Struct):  # LUMP 27
