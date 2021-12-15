@@ -12,8 +12,11 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 46
 
-GAME_PATHS = ["Quake 3 Arena", "Quake Live", "Return to Castle Wolfenstein",
-              "Wolfenstein Enemy Territory", "Dark Salvation"]  # https://mangledeyestudios.itch.io/dark-salvation
+GAME_PATHS = {"Quake 3 Arena": "Quake 3 Arena",
+              "Quake Live": "Quake Live",
+              "Return to Castle Wolfenstein": "realRTCW",  # steam release
+              "Wolfenstein: Enemy Territory": "Wolfenstein - Enemy Territory",
+              "Dark Salvation": "Dark Salvation"}  # https://mangledeyestudios.itch.io/dark-salvation
 
 GAME_VERSIONS = {"Quake 3 Arena": 46, "Quake Live": 46,
                  "Return to Castle Wolfenstein": 47,
@@ -54,6 +57,33 @@ lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # flag enums
+class Contents(enum.IntEnum):
+    """https://github.com/xonotic/darkplaces/blob/master/bspfile.h"""
+    SOLID = 0x00000001  # opaque & transparent
+    LAVA = 0x00000008
+    SLIME = 0x00000010
+    WATER = 0x00000020
+    FOG = 0x00000040  # possibly unused
+    AREA_PORTAL = 0x00008000
+    PLAYER_CLIP = 0x00010000
+    MONSTER_CLIP = 0x00020000
+    # bot hints
+    TELEPORTER = 0x00040000
+    JUMP_PAD = 0x00080000
+    CLUSTER_PORTAL = 0x00100000
+    DO_NOT_ENTER = 0x00200000
+    BOTCLIP = 0x00400000
+    # end bot hints
+    ORIGIN = 0x01000000  # removed during compile
+    BODY = 0x02000000  # bound box collision only; never bsp
+    CORPSE = 0x04000000
+    DETAIL = 0x08000000
+    STRUCTURAL = 0x10000000  # vis splitting brushes
+    TRANSLUCENT = 0x20000000
+    TRIGGER = 0x40000000
+    NO_DROP = 0x80000000  # deletes drops
+
+
 class SurfaceType(enum.Enum):
     BAD = 0
     PLANAR = 1

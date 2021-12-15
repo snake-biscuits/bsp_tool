@@ -3,14 +3,14 @@ Some also went on to work on MoH:AA expansions & some Valve titles"""
 from ..id_software import quake2
 
 
-FILE_MAGIC = b"RBSP"  # Ubertools?
-# NOTE: 1 b"IBSP" map exists, will it play?
+FILE_MAGIC = b"RBSP"  # Raven's Ubertools?
+# NOTE: 1x b"IBSP" map exists in map collection, will SiN play it?
 
 BSP_VERSION = 1
 
-GAME_PATHS = ["SiN", "SiN Gold"]
+GAME_PATHS = {"SiN": "SiN", "SiN Gold": "SiN"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 LUMP = quake2.LUMP

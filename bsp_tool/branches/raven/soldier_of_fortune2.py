@@ -10,11 +10,11 @@ FILE_MAGIC = b"RBSP"
 
 BSP_VERSION = 1
 
-GAME_PATHS = ["Soldier of Fortune 2",
-              "Star Wars Jedi Knight - Jedi Academy",
-              "Star Wars Jedi Knight II - Jedi Outcast"]
+GAME_PATHS = {"Soldier of Fortune 2": "SoF2",  # .pk3 extractions
+              "Star Wars Jedi Knight - Jedi Academy": "StarWarsJediKnight",
+              "Star Wars Jedi Knight II - Jedi Outcast": "StarWarsJediKnightII"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

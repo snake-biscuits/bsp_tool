@@ -12,11 +12,11 @@ FILE_MAGIC = b"2015"
 
 BSP_VERSION = 19
 
-GAME_PATHS = ["Medal of Honor: Allied Assault",
-              "Medal of Honor: Allied Assault - Breakthrough",
-              "Medal of Honor: Allied Assault - Spearhead"]
+GAME_PATHS = {"Medal of Honor: Allied Assault": "MoHAA",
+              "Medal of Honor: Allied Assault - Breakthrough": "MoHAA",
+              "Medal of Honor: Allied Assault - Spearhead": "MoHAA"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

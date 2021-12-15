@@ -14,7 +14,7 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 29
 
-GAME_PATHS = ["Titanfall", "Titanfall: Online"]
+GAME_PATHS = {"Titanfall": "Titanfall", "Titanfall: Online": "TitanfallOnline"}
 
 GAME_VERSIONS = {"Titanfall": 29, "Titanfall: Online": 29}
 
@@ -82,7 +82,7 @@ class LUMP(enum.Enum):
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
     UNUSED_61 = 0x003D
-    PHYSICS_LEVEL = 0x003E  # from L4D2 / INFRA ?
+    PHYSICS_LEVEL = 0x003E  # from L4D2 / 2013 Source SDK? (2011: Portal 2)
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
@@ -154,35 +154,34 @@ class LUMP(enum.Enum):
 lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # Rough map of the relationships between lumps:
-
 #              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
 # Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
-#              \-> .flags (VertexReservedX)     \--> VertexNormal
-#                                                \-> .uv
+#             \--> .flags (VertexReservedX)     \--> VertexNormal
+#              \-> VertexReservedX               \-> .uv
 
 # MeshBounds & Mesh are indexed in paralell?
-#
+
 # LeafWaterData -> TextureData -> water material
 # NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
-#
+
 # ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
 # ??? -> Brush -?> Plane
-#
+
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
-#
+
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
-#
+
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
-#
+
 # CM_GRID probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
-#
+
 # Grid -?> Brush -?> BrushSidePlaneOffset -?> Plane
 # (? * ? + ?) * 4 -> GridCell
 

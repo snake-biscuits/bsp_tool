@@ -10,9 +10,10 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 21
 
-GAME_PATHS = ["Alien Swarm", "Alien Swarm Reactive Drop"]
+GAME_PATHS = {"Alien Swarm": "Alien Swarm/swarm",
+              "Alien Swarm: Reactive Drop": "Alien Swarm Reactive Drop/reactivedrop"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

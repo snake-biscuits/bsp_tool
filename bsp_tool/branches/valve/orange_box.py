@@ -12,16 +12,16 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20  # NOTE: v20 Source BSPs differ widely, since many forks are of this version
 
-GAME_PATHS = ["Day of Defeat: Source",  # TODO: full paths
-              "G String",
-              "Garry's Mod",
-              "Half-Life 2: Episode 2",
-              "Half-Life 2 Update",
-              "NEOTOKYO",
-              "Portal",
-              "Team Fortress 2"]
+GAME_PATHS = {"Day of Defeat: Source": "day of defeat source/dod",
+              "G-String": "G String/gstringv2",
+              "Garry's Mod": "GarrysMod/garrysmod",
+              "Half-Life 2: Episode 2": "half-life 2/ep2",
+              "Half-Life 2 Update": "Half-Life 2 Update/hl2",
+              "NEOTOKYO": "NEOTOKYO/neotokyosource",
+              "Portal": "Portal/portal",
+              "Team Fortress 2": "Team Fortress 2/tf"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

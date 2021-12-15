@@ -12,9 +12,9 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = (20, 4)  # int.from_bytes(struct.pack("2H", 20, 4), "little")
 
-GAME_PATHS = ["Dark Messiah of Might and Magic Single Player"]
+GAME_PATHS = {"Dark Messiah of Might and Magic Multi-Player": "Dark Messiah of Might and Magic Multi-Player"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 LUMP = orange_box.LUMP

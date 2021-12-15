@@ -15,12 +15,12 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 19  # & 20
 
-GAME_PATHS = ["counter-strike source/cstrike",  # Counter-Strike: Source
-              "Half-Life 1 Source Deathmatch/hl1mp",  # Half-Life 1: Source - Deathmatch
-              "Half-Life 2/hl2",  # Half-Life 2
-              "Half-Life 2/episodic"]  # Half-Life 2: Episode 1
+GAME_PATHS = {"Counter-Strike: Source": "counter-strike source/cstrike",
+              "Half-Life 1: Source - Deathmatch": "Half-Life 1 Source Deathmatch/hl1mp",
+              "Half-Life 2": "Half-Life 2/hl2",
+              "Half-Life 2: Episode 1": "half-life 2/episodic"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

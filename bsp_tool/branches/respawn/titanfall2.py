@@ -12,7 +12,7 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 37
 
-GAME_PATHS = ["Titanfall 2"]
+GAME_PATHS = {"Titanfall 2": "Titanfall2"}
 
 GAME_VERSIONS = {"Titanfall 2": 37}
 
@@ -165,29 +165,26 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # PHYSICS_TRIANGLES
 
 # Rough map of the relationships between lumps:
-# Model -> Mesh -> MaterialSort -> TextureData
-#                             \--> VertexReservedX
-#                              \-> MeshIndex
-#
-# MeshBounds & Mesh (must have equal number of each)
-#
-# TextureData -> TextureDataStringTable -> TextureDataStringTable
-# VertexReservedX -> Vertex
-#                \-> VertexNormal
-#
+#              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
+# Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
+#             \--> .flags (VertexReservedX)     \--> VertexNormal
+#              \-> VertexReservedX               \-> .uv
+
+# MeshBounds & Mesh are indexed in paralell?
+
 # ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
 # ??? -> Brush -?> Plane
-#
+
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
-#
+
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
-#
-# PortalEdgeIntersectHeader -> ???
+
+# PortalEdgeIntersectHeader -?> PortalEdgeIntersect ? (parallel indices?)
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
 

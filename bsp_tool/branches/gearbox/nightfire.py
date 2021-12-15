@@ -11,9 +11,9 @@ FILE_MAGIC = None
 
 BSP_VERSION = 42
 
-GAME_PATHS = ["James Bond 007: Nightfire"]
+GAME_PATHS = {"James Bond 007: Nightfire": "James Bond 007 Nightfire"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

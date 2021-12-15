@@ -36,7 +36,7 @@
  * Infinity Ward Engine
    - Call of Duty
  * Quake Engine
-   - Hexen 2
+   - Hexen II
  * Source Engine
  * Titanfall Engine
 

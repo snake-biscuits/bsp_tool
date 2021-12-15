@@ -10,7 +10,7 @@ FILE_MAGIC = b"FAKK"
 
 BSP_VERSION = 12
 
-GAME_PATHS = ["Heavy Metal: F.A.K.K. 2", "American McGee's Alice"]
+GAME_PATHS = {"Heavy Metal: F.A.K.K. 2": "FAKK2", "American McGee's Alice": "Alice"}
 
 GAME_VERSIONS = {"Heavy Metal: F.A.K.K. 2": 12, "American McGee's Alice": 42}
 

@@ -9,9 +9,9 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 17  # technically older than HL2's Source Engine branch
 
-GAME_PATHS = ["Vampire The Masquerade - Bloodlines"]
+GAME_PATHS = {"Vampire The Masquerade - Bloodlines": "Vampire The Masquerade - Bloodlines/Vampire"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 LUMP = source.LUMP
@@ -47,6 +47,8 @@ class Face(base.Struct):  # LUMP 7
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face", "smoothing_groups"]
     _format = "32BHb?i4h8b8b8bif5iI"
+    # NOTE: integer keys in _arrays / MappedArray._mapping is not yet supported
+    # -- intended result: light_colour = [MappedArray(_mapping=[*"rgbe"])] * 8
     _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},
                "styles": {"base": 8, "day": 8, "night": 8},
                "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
@@ -56,11 +58,13 @@ class Face(base.Struct):  # LUMP 7
 BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"FACES":          {0: Face},
-                     "ORIGINAL_FACES": {0: Face}})
+LUMP_CLASSES.pop("FACES")
+LUMP_CLASSES.pop("ORIGINAL_FACES")
+# LUMP_CLASSES.update({"FACES":          {0: Face},
+#                      "ORIGINAL_FACES": {0: Face}})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")
+SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 

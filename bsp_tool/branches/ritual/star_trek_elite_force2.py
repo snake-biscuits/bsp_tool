@@ -13,9 +13,9 @@ FILE_MAGIC = b"EF2!"
 
 BSP_VERSION = 20
 
-GAME_PATHS = ["Star Trek: Elite Force II"]
+GAME_PATHS = {"Star Trek: Elite Force II": "StarTrekEliteForceII"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

@@ -8,9 +8,9 @@ FILE_MAGIC = None
 
 BSP_VERSION = 30
 
-GAME_PATHS = ["Half-Life/blue_shift"]  # Half-Life: Blue Shift
+GAME_PATHS = {"Half-Life: Blue Shift": "Half-Life/blue_shift"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

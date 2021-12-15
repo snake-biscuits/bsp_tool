@@ -13,15 +13,15 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 21
 
-GAME_PATHS = ["Blade Symphony/berimbau",
-              "Counter-Strike Global Offensive/csgo",
-              "infra/infra",
-              "Portal 2/portal2",
-              "Source Filmmaker/game/tf"]
-# also sourcemods / mapbase
+GAME_PATHS = {"Blade Symphony": "Blade Symphony/berimbau",
+              "Counter-Strike: Global Offensive": "Counter-Strike Global Offensive/csgo",
+              "INFRA": "infra/infra",
+              "Portal 2": "Portal 2/portal2",
+              "Source Filmmaker": "Source Filmmaker/game/tf"}
+# NOTE: also most sourcemods & mapbase
 
-GAME_VERSIONS = {"infra/infra": 22,
-                 **{GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS if GAME_PATH != "infra/infra"}}
+GAME_VERSIONS = {"INFRA": 22,
+                 **{GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS if GAME_NAME != "INFRA"}}
 
 
 # Counter-Strike Global Offensive/bin/bsppack.dll

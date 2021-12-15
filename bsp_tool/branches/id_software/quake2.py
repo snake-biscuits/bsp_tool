@@ -12,9 +12,9 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 38
 
-GAME_PATHS = ["Anachronox", "Quake II", "Heretic II"]
+GAME_PATHS = {"Anachronox": "Anachronox", "Quake II": "Quake 2", "Heretic II": "Heretic II"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -46,15 +46,41 @@ lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 # A rough map of the relationships between lumps:
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                                      \-> LEAF_BRUSHES
+#                                      \-> LEAF_BRUSHES -> BRUSHES
 
+#      /-> PLANES
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#    \--> TEXTURE_INFO -> MIP_TEXTURES
-#     \--> LIGHTMAPS
-#      \-> PLANES
+#     \--> TEXTURE_INFO -> MIP_TEXTURES
+#      \-> LIGHTMAPS
 
-# LEAF_FACES -> FACES
-# LEAF_BRUSHES -> BRUSHES
+
+# flag enums
+class Contents(enum.IntEnum):
+    """https://github.com/xonotic/darkplaces/blob/master/bspfile.h"""
+    SOLID = 0x00000001  # opaque & transparent
+    WINDOW = 0x00000002
+    AUX = 0x00000004
+    LAVA = 0x00000008
+    SLIME = 0x00000010
+    WATER = 0x00000020
+    MIST = 0x00000040  # FOG?
+    AREA_PORTAL = 0x00008000
+    PLAYER_CLIP = 0x00010000
+    MONSTER_CLIP = 0x00020000
+    # bot hints
+    CURRENT_0 = 0x00040000
+    CURRENT_90 = 0x00080000
+    CURRENT_180 = 0x00100000
+    CURRENT_270 = 0x00200000
+    CURRENT_UP = 0x00400000
+    CURRENT_DOWN = 0x00800000
+    # end bot hints
+    ORIGIN = 0x01000000  # removed during compile
+    MONSTER = 0x02000000
+    DEAD_MONSTER = 0x04000000
+    DETAIL = 0x08000000
+    TRANSLUCENT = 0x10000000  # vis splitting brushes
+    LADDER = 0x20000000
 
 
 # classes for lumps, in alphabetical order:

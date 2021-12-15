@@ -12,7 +12,7 @@ from . import lumps
 IdTechLumpHeader = collections.namedtuple("IdTechLumpHeader", ["offset", "length"])
 
 
-class QuakeBsp(base.Bsp):  # Quake 1 only?
+class QuakeBsp(base.Bsp):
     file_magic = None
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
@@ -64,6 +64,18 @@ class QuakeBsp(base.Bsp):  # Quake 1 only?
         offset, length = struct.unpack("2I", self.file.read(8))
         header = IdTechLumpHeader(offset, length)
         return header
+
+
+# TODO: BSP2 (Darkplaces / Alkaline)
+# https://ericwa.github.io/ericw-tools/doc/qbsp.html
+# https://github.com/ericwa/ericw-tools
+# https://quakewiki.org/wiki/BSP2
+# https://github.com/xonotic/darkplaces/blob/master/model_brush.c
+# https://github.com/xonotic/darkplaces/
+
+
+# TODO: FBSP (Warsow)
+# https://quakewiki.org/wiki/FTEQW_Modding#FBSP_map_support
 
 
 class IdTechBsp(base.Bsp):

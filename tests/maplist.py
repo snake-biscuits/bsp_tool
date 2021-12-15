@@ -144,7 +144,7 @@ extracted_dirs = {
                    # https://www.moddb.com/mods/et/downloads/etsp
                    "singleplayer/maps",  # 32 maps | 288 MB | .pk3
                    # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
-                   "realRTCW_singleplayer"],  # 2 maps | 31 MB | .pk3
+                   "realRTCW_singleplayer/maps"],  # 2 maps | 31 MB | .pk3
         # InfinityWardBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3

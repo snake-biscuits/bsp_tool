@@ -40,13 +40,13 @@ def test_basic_branch_script(branch_script):
         warning_text = "\n".join(["Unused LumpClasses in branch script:",
                                   *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
-    incorrect_lump_classes = set()
+    incorrect_lump_classes = dict()
     for lump_class in used_LumpClasses:
         try:
             lump_class()
-        except Exception:
-            incorrect_lump_classes.add(lump_class.__name__)
-    assert incorrect_lump_classes == set(), "some LumpClasses failed to __init__"
+        except Exception as exc:
+            incorrect_lump_classes[lump_class.__name__] = exc
+    assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
     # TODO: warn if any annotations are missnamed
 
 
@@ -73,13 +73,13 @@ def test_branch_script(branch_script):
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
-    incorrect_lump_classes = set()
+    incorrect_lump_classes = dict()
     for lump_class in used_LumpClasses:
         try:
             lump_class()
-        except Exception:
-            incorrect_lump_classes.add(lump_class.__name__)
-    assert incorrect_lump_classes == set(), "some LumpClasses failed to __init__"
+        except Exception as exc:
+            incorrect_lump_classes[lump_class.__name__] = exc
+    assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
     # TODO: warn if a lump version isn't supported
     # -- e.g. FACES v1 is supported, but not v2
     # NOTE: this should only matter if the lump version is found in a .bsp for the target branch (map installed_games)

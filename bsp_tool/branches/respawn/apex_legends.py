@@ -12,21 +12,53 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 47
 
-GAME_PATHS = [f"Apex Legends/{subdir}" for subdir in ("maps",
-                                                      "depot/r5launch/game/r2/maps",
-                                                      "depot/r5staging/game/r2/maps",
-                                                      "depot/r5-100/game/r2/maps",
-                                                      "depot/r5-101/game/r2/maps",
-                                                      "depot/r5-110/game/r2/maps",
-                                                      "depot/r5-111/game/r2/maps")]
+launch = "depot/r5launch/game/r2/maps"
+staging = "depot/r5staging/game/r2/maps"
+r5100 = "depot/r5-100/game/r2/maps"
+r5101 = "depot/r5-101/game/r2/maps"
+r5110 = "depot/r5-110/game/r2/maps"
+r5111 = "depot/r5-111/game/r2/maps"
+
+GAME_PATHS = {"Apex Legends": "ApexLegends/maps",
+              "Apex Legends: Season 2 - Battle Charge": "ApexLegends/season2/maps",
+              "Apex Legends: Season 3 - Meltdown": "ApexLegends/season3/maps",
+              "Apex Legends: Season 3 - Meltdown (launch)": f"ApexLegends/season3/{launch}",
+              "Apex Legends: Season 3 - Meltdown (staging)": f"ApexLegends/season3/{staging}",
+              "Apex Legends: Season 3 - Meltdown [30 Oct Patch]": "ApexLegends/season3_30oct19/maps",
+              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (launch)": f"ApexLegends/season3_30oct19/{launch}",
+              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (staging)": f"ApexLegends/season3_30oct19/{staging}",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch]": "ApexLegends/season3_3dec19/maps",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (launch)": f"ApexLegends/season3_3dec19/{launch}",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (staging)": f"ApexLegends/season3_3dec19/{staging}",
+              "Apex Legends: Season 5 - Fortune's Favor": "ApexLegends/season5/maps",
+              "Apex Legends: Season 8 - Mayhem": "ApexLegends/season8/maps",
+              "Apex Legends: Season 9 - Legacy": "ApexLegends/season9/maps",
+              "Apex Legends: Season 10 - Emergence [3 Aug Patch]": "ApexLegends/season10_3aug21/maps/",
+              "Apex Legends: Season 10 - Emergence [10 Aug Patch]": "ApexLegends/season10_10aug21/maps/",
+              "Apex Legends: Season 10 - Emergence [10 Aug Patch] (100)": f"ApexLegends/season10_10aug21/{r5100}",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch]": "ApexLegends/season10_14sep21/maps/",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (100)": f"ApexLegends/season10_14sep21/{r5100}",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (101)": f"ApexLegends/season10_14sep21/{r5101}",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch]": "ApexLegends/season10_24sep21/maps/",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (100)": f"ApexLegends/season10_24sep21/{r5100}",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (101)": f"ApexLegends/season10_24sep21/{r5101}",
+              "Apex Legends: Season 11 - Escape": "ApexLegends/season11/maps",
+              "Apex Legends: Season 11 - Escape (110)": f"ApexLegends/season11/{r5110}",
+              "Apex Legends: Season 11 - Escape [6 Nov Patch]": "ApexLegends/season11_6nov21/maps",
+              "Apex Legends: Season 11 - Escape [6 Nov Patch] (110)": f"ApexLegends/season11_6nov21/{r5110}",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch]": "ApexLegends/season11_19nov21/maps",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": f"ApexLegends/season11_19nov21/{r5110}",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": f"ApexLegends/season11_19nov21/{r5111}"}
 
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
                  "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
-                 # Post 2021-11-19 Patch (Legion list this as `struct { short version, streamed; }`)
-                 "Apex Legends: Season 11 - Escape": 65585,  # Nov19th patch version(49, 1) (mp_rr_aqueduct & others?)
-                 "Apex Legends: Season 11 - Escape (2)": 65586}  # Nov19th patch version(50, 1) & all data in .bsp_lump
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": 65585,  # (49, 1)
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": 65586}  # (50, 1)
+# NOTE: Legion considers the second short to be a flag for streaming
+# Likely because the other change to come with the new version numbers is all lumps leaving the .bsp
 # NOTE: ^ (maps in depot/ still contain many lumps in the .bsp, as before)
 
 

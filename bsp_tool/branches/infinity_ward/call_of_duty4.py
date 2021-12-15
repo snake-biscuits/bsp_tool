@@ -11,9 +11,9 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 22
 
-GAME_PATHS = ["Call of Duty 4: Modern Warfare"]
+GAME_PATHS = {"Call of Duty 4: Modern Warfare": "Call of Duty 4"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 # NOTE: lumps are given ids and headers reference these ids in order

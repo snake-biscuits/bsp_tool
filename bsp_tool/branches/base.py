@@ -67,6 +67,22 @@ class Struct:
                 start = mapping_length(parsed)
                 length = mapping_length({None: self._arrays.get(attr)})
                 child_format = "".join(types[start:start + length])
+                if isinstance(mapping, dict):
+                    if all([isinstance(k, int) for k in mapping]) and [*mapping] == [*range(max(mapping) + 1)]:
+                        setattr(self, attr, list())
+                        sub_start = start
+                        sub_start_0 = 0
+                        for index in mapping:
+                            sub_mapping = mapping[index]
+                            sub_length = mapping_length({None: sub_mapping})
+                            sub_format = "".join(types[sub_start:sub_start + sub_length])
+                            sub_end = sub_start_0 + sub_length
+                            getattr(self, attr)[index] = MappedArray.from_tuple(value[sub_start_0:sub_end],
+                                                                                _format=sub_format,
+                                                                                _mapping=sub_mapping)
+                            sub_start += sub_length
+                            sub_start_0 += sub_length
+                        continue
                 setattr(self, attr, MappedArray.from_tuple(value, _format=child_format, _mapping=mapping))
             else:
                 raise RuntimeError(f"{self.__class__.__name__} has bad _arrays!")

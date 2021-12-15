@@ -12,9 +12,9 @@ FILE_MAGIC = None
 
 BSP_VERSION = 29
 
-GAME_PATHS = ["Quake", "Team Fortress Quake"]
+GAME_PATHS = {"Quake": "Quake", "Team Fortress Quake": "QUAKE/FORTRESS"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 # lump names & indices:

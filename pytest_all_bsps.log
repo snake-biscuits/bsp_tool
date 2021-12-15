@@ -76,7 +76,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs67] FAILED         [ 43%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs68] PASSED       [ 43%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs69] PASSED      [ 44%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs70] PASSED     [ 45%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs71] FAILED        [ 45%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs71] PASSED        [ 45%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs72] PASSED          [ 46%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs73] PASSED          [ 47%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs74] PASSED          [ 47%]
@@ -155,7 +155,7 @@ tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] PASSED [ 94%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.titanfall] PASSED [ 94%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] PASSED [ 95%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire] FAILED [ 96%]
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire] PASSED [ 96%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] PASSED [ 96%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.left4dead] PASSED [ 97%]
 tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.left4dead2] PASSED [ 98%]
@@ -237,34 +237,6 @@ branch_script = None
 E                   NotImplementedError: TODO: Check if encrypted Tactical Intervention .bsp
 
 bsp_tool\__init__.py:72: NotImplementedError
-___________________ test_load_bsp[E:/Mod-WolfET-map_dirs71] ___________________
-
-group_path = 'E:/Mod', game_name = 'WolfET'
-map_dirs = ['pak0.pk3/maps', 'singleplayer', 'realRTCW_singleplayer']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
->               assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-E               AssertionError: couldn't find any maps for WolfET in singleplayer
-E               assert 0 != 0
-E                +  where 0 = len([])
-
-tests\test_bsp.py:50: AssertionError
 ____________________ test_load_bsp[E:/Mod-CSO2-map_dirs78] ____________________
 
 group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
@@ -1713,41 +1685,6 @@ E         +  'maps/w_boss04_story.bsp': AssertionError('ENTITIES, PLANES, TEXTUR
 E           }
 
 tests\test_bsp.py:71: AssertionError
-____________ test_branch_script[bsp_tool.branches.troika.vampire] _____________
-
-branch_script = <module 'bsp_tool.branches.troika.vampire' from 'C:\\Users\\Jared\\Documents\\GitHub\\bsp_tool\\bsp_tool\\branches\\troika\\vampire.py'>
-
-    @pytest.mark.parametrize("branch_script", branch_scripts)
-    def test_branch_script(branch_script):
-        """Versioned lump headers & Game Lumps"""
-        used_LumpClasses = set()
-        for version_dict in branch_script.LUMP_CLASSES.values():
-            # ^ {"LUMP": {version: LumpClass}}
-            used_LumpClasses.update(version_dict.values())
-        if hasattr(branch_script, "GAME_LUMP_HEADER"):
-            used_LumpClasses.add(branch_script.GAME_LUMP_HEADER)
-        unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
-        unused_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), unused_LumpClasses))
-        # HACK: need to actually check StaticProps are actually used, but not right now...
-        if len(unused_LumpClasses) > 0:
-            warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
-            warnings.warn(UserWarning(warning_text))
-        incorrect_lump_classes = set()
-        for lump_class in used_LumpClasses:
-            try:
-                lump_class()
-            except Exception:
-                incorrect_lump_classes.add(lump_class.__name__)
->       assert incorrect_lump_classes == set(), "some LumpClasses failed to __init__"
-E       AssertionError: some LumpClasses failed to __init__
-E       assert {'Face'} == set()
-E         Extra items in the left set:
-E         'Face'
-E         Full diff:
-E         - set()
-E         + {'Face'}
-
-tests\branches\test_branch_script.py:82: AssertionError
 ============================== warnings summary ===============================
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
@@ -1756,23 +1693,23 @@ tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches
 
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
-  DrawVertex
-  Model
   AxisAlignedBoundingBox
-  Occluder
-  Brush
-  Portal
   PatchCollision
   Node
-  CullGroup
   Light
+  Portal
+  Model
+  Brush
   Cell
+  DrawVertex
+  CullGroup
+  Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
-  Model
   CollisionEdge
+  Model
   CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
@@ -1787,6 +1724,11 @@ tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon
   GameLumpHeader
     warnings.warn(UserWarning(warning_text))
 
+tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:75: UserWarning: Unused LumpClasses in branch script:
+  Face
+    warnings.warn(UserWarning(warning_text))
+
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
 
 ----------- coverage: platform win32, python 3.9.9-final-0 -----------
@@ -1799,14 +1741,14 @@ bsp_tool\branches\__init__.py                              28      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       23      0   100%
 bsp_tool\branches\arkane\dark_messiah_singleplayer.py      55      0   100%
-bsp_tool\branches\base.py                                 241     31    87%
+bsp_tool\branches\base.py                                 255     45    82%
 bsp_tool\branches\gearbox\__init__.py                       3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                    27      0   100%
 bsp_tool\branches\gearbox\nightfire.py                     72      0   100%
 bsp_tool\branches\id_software\__init__.py                   4      0   100%
 bsp_tool\branches\id_software\quake.py                    178     14    92%
-bsp_tool\branches\id_software\quake2.py                    83      0   100%
-bsp_tool\branches\id_software\quake3.py                   144     10    93%
+bsp_tool\branches\id_software\quake2.py                   106      0   100%
+bsp_tool\branches\id_software\quake3.py                   166     10    94%
 bsp_tool\branches\infinity_ward\__init__.py                 4      0   100%
 bsp_tool\branches\infinity_ward\call_of_duty1.py          145      6    96%
 bsp_tool\branches\infinity_ward\call_of_duty2.py          133      1    99%
@@ -1824,7 +1766,7 @@ bsp_tool\branches\raven\hexen2.py                          12      0   100%
 bsp_tool\branches\raven\soldier_of_fortune.py              13      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py             31      0   100%
 bsp_tool\branches\respawn\__init__.py                       4      0   100%
-bsp_tool\branches\respawn\apex_legends.py                 262     22    92%
+bsp_tool\branches\respawn\apex_legends.py                 268     22    92%
 bsp_tool\branches\respawn\titanfall.py                    464     61    87%
 bsp_tool\branches\respawn\titanfall2.py                   189      1    99%
 bsp_tool\branches\ritual\__init__.py                        5      0   100%
@@ -1834,7 +1776,7 @@ bsp_tool\branches\ritual\sin.py                            13      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2.py         71      0   100%
 bsp_tool\branches\shared.py                               100     28    72%
 bsp_tool\branches\troika\__init__.py                        2      0   100%
-bsp_tool\branches\troika\vampire.py                        37      0   100%
+bsp_tool\branches\troika\vampire.py                        38      0   100%
 bsp_tool\branches\valve\__init__.py                         8      0   100%
 bsp_tool\branches\valve\alien_swarm.py                     87      0   100%
 bsp_tool\branches\valve\goldsrc.py                         67      0   100%
@@ -1857,14 +1799,12 @@ bsp_tool\respawn.py                                       146     69    53%
 bsp_tool\ritual.py                                         44      3    93%
 bsp_tool\valve.py                                          58     10    83%
 ---------------------------------------------------------------------------
-TOTAL                                                    5783   1167    80%
+TOTAL                                                    5849   1181    80%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs67] - NotImpleme...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs71] - Assertion...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs78] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs79]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs80]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs84] - Assert...
-FAILED tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire]
-=========== 7 failed, 150 passed, 5 warnings in 4151.60s (1:09:11) ============
+=========== 5 failed, 152 passed, 6 warnings in 4143.70s (1:09:03) ============

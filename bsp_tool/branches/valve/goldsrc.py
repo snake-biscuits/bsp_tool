@@ -12,19 +12,20 @@ FILE_MAGIC = None
 
 BSP_VERSION = 30
 
-GAME_PATHS = [*[f"Half-Life/{mod}" for mod in [
-                            "cstrike",   # Counter-Strike
-                            "czero",     # Counter-Strike: Condition Zero
-                            "czeror",    # Counter-Strike: Condition Zero - Deleted Scenes
-                            "dmc",       # Deathmatch Classic
-                            "dod",       # Day of Defeat
-                            "gearbox",   # Half-Life: Opposing Force
-                            "ricochet",  # Ricochet
-                            "tfc",       # Team Fortress Classic
-                            "valve"]],   # Half-Life
-              "Halfquake Trilogy", "Sven Co-op"]
+GAME_PATHS = {"Counter Strike": "Half-Life/cstrike",
+              "Counter-Strike: Condition Zero": "Half-Life/czero",
+              "Counter-Strike: Condition Zero - Deleted Scenes": "Half-Life/czeror",
+              "Cry of Fear": "Cry of Fear/cryoffear",
+              "Day of Defeat": "Half-Life/dod",
+              "Deathmatch Classic": "Half-Life/dmc",
+              "Half-Life": "Half-Life/valve",
+              "Half-Life: Opposing Force": "Half-Life/gearbox",
+              "Halfquake Trilogy": "Halfquake Trilogy/valve",
+              "Ricochet": "Half-Life/ricochet",
+              "Sven Co-op": "Sven Co-op/svencoop",
+              "Team Fortress Classic": "Half-Life/tfc"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):

@@ -5,16 +5,17 @@ from typing import List
 from .. import base
 from .. import shared
 from ..id_software import quake
-# from ..id_software import quake3
+# from ..id_software import quake3  # RTCW based
 
 
 FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 59
 
-GAME_PATHS = ["Call of Duty", "Call of Duty: United Offensive"]
+GAME_PATHS = {"Call of Duty": "Call of Duty",
+              "Call of Duty: United Offensive": "Call of Duty"}
 
-GAME_VERSIONS = {GAME_PATH: BSP_VERSION for GAME_PATH in GAME_PATHS}
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
