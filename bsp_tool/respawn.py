@@ -147,6 +147,7 @@ class RespawnBsp(base.Bsp):
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
             # pad to start at the next multiple of 4 bytes
+            # TODO: note the padding so we can remove it when writing .bsp_lump
             if current_offset % 4 != 0:
                 current_offset += 4 - current_offset % 4
         del current_offset
@@ -167,6 +168,8 @@ class RespawnBsp(base.Bsp):
             # write external lump
             if LUMP.name in external_lumps:
                 external_lump = f"{filename}.{LUMP.value:04x}.bsp_lump"
+                # TODO: recalc the GameLump offset & length
+                # TODO: cut any padding from the tail
                 with open(external_lump, "wb") as out_lumpfile:
                     out_lumpfile.write(raw_lumps[LUMP.name])
             else:  # write lump to file
