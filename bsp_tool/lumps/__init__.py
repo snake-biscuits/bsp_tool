@@ -379,5 +379,6 @@ class GameLump:
             cursor_offset += child_header.length
             headers.append(child_header)
         # and finally inject the headers back in before "writing"
+        headers = [h.as_bytes() for h in headers]
         out[1:1] = headers
         return b"".join(out)
