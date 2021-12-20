@@ -347,7 +347,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     negative_one: int  # -1
     uv1: List[float]  # lightmap coords
     colour: List[int]
-    __slots__ = ["position_index", "normal_index", "uv0", "negative_one", "uv1"]
+    __slots__ = ["position_index", "normal_index", "uv0", "negative_one", "uv1", "colour"]
     _format = "2I2fi2f4B"  # 32 bytes
     _arrays = {"uv0": [*"uv"], "uv1": [*"uv"], "colour": [*"rgba"]}
 
