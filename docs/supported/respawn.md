@@ -28,7 +28,7 @@
 |    |      | 47 |          | 0 | [respawn.apex_legends.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L245) | 80% |
 | 15 | 000F | 29 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L243) | 100% |
 |    |      | 47 | `SURFACE_NAMES` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L243) | 100% |
-| 16 | 0010 | 47 | `CONTENT_MASKS` | 0 | | 0% |
+| 16 | 0010 | 47 | `CONTENTS_MASKS` | 0 | | 0% |
 | 17 | 0011 | 47 | `SURFACE_PROPERTIES` | 0 | | 0% |
 | 18 | 0012 | 47 | `BVH_NODES` | 0 | | 0% |
 | 19 | 0013 | 47 | `BVH_LEAF_DATA` | 0 | | 0% |

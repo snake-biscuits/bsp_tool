@@ -79,7 +79,7 @@ class LUMP(enum.Enum):
     UNUSED_13 = 0x000D
     MODELS = 0x000E
     SURFACE_NAMES = 0x000F
-    CONTENT_MASKS = 0x0010
+    CONTENTS_MASKS = 0x0010
     SURFACE_PROPERTIES = 0x0011
     BVH_NODES = 0x0012
     BVH_LEAF_DATA = 0x0013
@@ -199,7 +199,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # Known lump changes from Titanfall 2 -> Apex Legends:
 # New:
 #   UNUSED_15 -> SURFACE_NAMES
-#   UNUSED_16 -> CONTENT_MASKS
+#   UNUSED_16 -> CONTENTS_MASKS
 #   UNUSED_17 -> SURFACE_PROPERTIES
 #   UNUSED_18 -> BVH_NODES
 #   UNUSED_19 -> BVH_LEAF_DATA
@@ -235,30 +235,31 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
 #                             \--> VertexReservedX
 #                              \-> MeshIndex?
-#
+
 # MeshBounds & Mesh (must have equal number of each)
-#
+# CM_GRID is linked to mesh bounds?
+
 # VertexReservedX -> Vertex
 #                \-> VertexNormal
-#
+
 # ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
 # ??? -> Brush -?> Plane
-#
+
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
-#
+
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
-#
+
 # PortalEdgeIntersectHeader -> ???
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
 
 # collision: ???
-#   CONTENT_MASKS  # Extreme SIMD?
+#   CONTENTS_MASKS  # Extreme SIMD?
 #   SURFACE_PROPERTIES  # $surfaceprop etc.
 #   BVH_NODES = 0x0012  # BVH4 collision tree
 #   BVH_LEAF_DATA = 0x0013  # parallel w/ content masks & nodes?
@@ -288,8 +289,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
-    _format = "IH3ihHI"  # 28 bytes
-    _arrays = {"unknown": 4}
+    _format = "IHh3ihHI"  # 28 bytes
+    _arrays = {"unknown": 5}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
