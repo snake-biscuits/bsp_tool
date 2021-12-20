@@ -10,6 +10,8 @@ import pytest
 from bsp_tool import branches
 
 
+# TODO: check all attrs in type hints and _arrays appear in __slots__ / list(*_mapping)
+
 def LumpClasses_of(module: ModuleType) -> List[object]:
     attrs = dir(module)
     for a in attrs:
