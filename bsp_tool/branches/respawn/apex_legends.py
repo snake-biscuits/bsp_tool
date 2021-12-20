@@ -257,6 +257,14 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
 
+# collision: ???
+#   CONTENT_MASKS  # Extreme SIMD?
+#   SURFACE_PROPERTIES  # $surfaceprop etc.
+#   BVH_NODES = 0x0012  # BVH4 collision tree
+#   BVH_LEAF_DATA = 0x0013  # parallel w/ content masks & nodes?
+
+# PACKED_VERTICES is parallel with VERTICES?
+
 
 # classes for lumps, in alphabetical order:
 # NOTE: LightmapHeader.count doesn't look like a count, quite off in general

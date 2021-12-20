@@ -14,9 +14,11 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 29
 
-GAME_PATHS = {"Titanfall": "Titanfall", "Titanfall: Online": "TitanfallOnline"}
+GAME_PATHS = {"Titanfall": "Titanfall",
+              "Titanfall: Online": "TitanfallOnline"}
 
-GAME_VERSIONS = {"Titanfall": 29, "Titanfall: Online": 29}
+GAME_VERSIONS = {"Titanfall": 29,
+                 "Titanfall: Online": 29}  # NOTE: no .bsp_lump; only .bsp
 
 
 class LUMP(enum.Enum):

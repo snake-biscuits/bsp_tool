@@ -250,10 +250,10 @@ class GameLump_SPRP:
     def as_bytes(self) -> bytes:
         # NOTE: additions to .props must be of the correct type,
         #  GameLump_SPRP does not perform conversions of any kind!
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         *struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
-                         *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
+        return b"".join([len(self.model_names).to_bytes(4, "little"),
+                        *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
+                        struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
+                        *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
