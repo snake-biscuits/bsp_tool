@@ -49,7 +49,7 @@ class Face(base.Struct):  # LUMP 7
     _format = "32BHb?i4h8b8b8bif5iI"
     # NOTE: integer keys in _arrays / MappedArray._mapping is not yet supported
     # -- intended result: light_colour = [MappedArray(_mapping=[*"rgbe"])] * 8
-    _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},
+    _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},  # <-- this bit isn't supported yet!
                "styles": {"base": 8, "day": 8, "night": 8},
                "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 

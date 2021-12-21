@@ -327,6 +327,13 @@ class GameLump:
     loading_errors: Dict[str, Any]
     # ^ {"child_lump": Exception}
 
+    # NOTE: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
+    # -- ^ lists a few possible child lumps:
+    # -- dplt: Detail Prop Lighting HDR
+    # -- dplt: Detail Prop Lighting
+    # -- dprp: Detail Props (procedural grass)
+    # -- sprp: Static Props
+
     def __init__(self, file: io.BufferedReader, lump_header: collections.namedtuple,
                  LumpClasses: Dict[str, object], GameLumpHeaderClass: object):
         self.GameLumpHeaderClass = GameLumpHeaderClass

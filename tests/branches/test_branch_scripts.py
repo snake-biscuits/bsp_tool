@@ -37,7 +37,10 @@ def test_basic_branch_script(branch_script):
     # ^ {"LUMP": LumpClass}
     # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
     # -- this includes missing bytes (since single byte alignment gets wierd)
+    # -- also type hints
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
+    # TODO: trace what happens to imported LumpClasses
+    # -- do they count as unused, because they are defined elsewhere?
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:",
                                   *[lc.__name__ for lc in unused_LumpClasses]])
@@ -49,7 +52,7 @@ def test_basic_branch_script(branch_script):
         except Exception as exc:
             incorrect_lump_classes[lump_class.__name__] = exc
     assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
-    # TODO: warn if any annotations are missnamed
+    # TODO: catch misnamed attrs
 
 
 # Source + Titanfall Engines (lump versions)
@@ -85,8 +88,9 @@ def test_branch_script(branch_script):
     # TODO: warn if a lump version isn't supported
     # -- e.g. FACES v1 is supported, but not v2
     # NOTE: this should only matter if the lump version is found in a .bsp for the target branch (map installed_games)
-    # TODO: SpecialLumpClasses
-    # TODO: warn if any annotations are missnamed
+    # TODO: SpecialLumpClasses; many use other classes too
+    # need to somehow detect `GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4)}}`
+    # TODO: catch misnamed attrs
 
 
 # TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked

@@ -673,6 +673,8 @@ GAME_LUMP_HEADER = GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4),
                               5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
                               6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
+# TODO: more GameLump definitions:
+# -- https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
 
 
 # branch exclusive methods, in alphabetical order:
