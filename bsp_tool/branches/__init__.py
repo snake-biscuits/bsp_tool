@@ -40,7 +40,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                                      ritual.sin],
                            b"VBSP": [*arkane.scripts,
                                      *nexon.scripts,
-                                     *troika.scripts,
+                                     troika.vampire,
                                      *[s for s in valve.scripts if (s is not valve.goldsrc)]]}
 
 

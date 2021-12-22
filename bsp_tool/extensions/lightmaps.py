@@ -70,6 +70,7 @@ class LightmapPage:
 
 def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
     """for IdTechBsp / InfinityWardBsp only"""
+    # TODO: detect dimensions; iirc this is quake3 specific
     lightmap_images = list()
     for lightmap_bytes in ibsp.LIGHTMAPS:
         lightmap = Image.frombytes("RGB", (128, 128), lightmap_bytes, "raw")

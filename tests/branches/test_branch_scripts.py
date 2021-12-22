@@ -90,6 +90,13 @@ def test_branch_script(branch_script):
     # NOTE: this should only matter if the lump version is found in a .bsp for the target branch (map installed_games)
     # TODO: SpecialLumpClasses; many use other classes too
     # need to somehow detect `GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4)}}`
+    # GameLumpClass = GAME_LUMP_CLASSES[game_lump][version]
+    # if isinstance(GameLumpClass, types.FunctionType):
+    #     lump_class = re.search(r"raw_lump, (.*)\)", inspect.getsource(GameLumpClass)).groups()[0]
+    #     # NOTE: ^ lazy solution
+    #     subclass = branch_script
+    #     for attr in lump_class.split("."):
+    #         subclass = getattr(subclass, attr)
     # TODO: catch misnamed attrs
 
 

@@ -3,12 +3,10 @@ This variant powered Half-Life & CS:1.6. Valve went on to develop the Source Eng
 from . import alien_swarm
 from . import sdk_2013
 from . import source
-from . import goldsrc  # Most GoldSrc Games
+from . import goldsrc
 from . import left4dead
 from . import left4dead2
-from . import orange_box  # Most Source Engine Games
-# TODO: portal2
-# TODO: vampire
+from . import orange_box
 
 
 scripts = [alien_swarm, goldsrc, left4dead, left4dead2, orange_box, sdk_2013, source]

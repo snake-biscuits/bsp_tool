@@ -1,3 +1,6 @@
+# https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h
 import collections
 import enum
 import io
@@ -16,7 +19,7 @@ FILE_MAGIC = b"VBSP"
 BSP_VERSION = 19  # & 20
 
 GAME_PATHS = {"Counter-Strike: Source": "counter-strike source/cstrike",
-              "Half-Life 1: Source - Deathmatch": "Half-Life 1 Source Deathmatch/hl1mp",
+              "Half-Life Deathmatch: Source": "Half-Life 1 Source Deathmatch/hl1mp",
               "Half-Life 2": "Half-Life 2/hl2",
               "Half-Life 2: Episode 1": "half-life 2/episodic"}
 

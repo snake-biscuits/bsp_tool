@@ -94,6 +94,7 @@ class Bsp:
                 continue
             try:
                 if LUMP_NAME == "GAME_LUMP":
+                    # NOTE: lump_header.version is ignored in this case
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                     BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP_NAME in self.branch.LUMP_CLASSES:

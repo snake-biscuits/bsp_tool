@@ -405,6 +405,8 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
     solid_mode: int  # bitflags
     flags: int
     skin: int
+    # NOTE: BobTheBob's definition varies here:
+    # int skin; float fade_min, fade_max; Vector lighting_origin;
     cubemap: int  # index of this StaticProp's Cubemap
     unknown: int
     fade_distance: float

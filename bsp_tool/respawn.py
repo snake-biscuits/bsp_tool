@@ -15,14 +15,11 @@ ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "vers
 
 
 class RespawnBsp(base.Bsp):
+    """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 50.1)"""
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     file_magic = b"rBSP"
     lump_count: int
-    # NOTE: respawn .bsp files are usually stored in .vpk files
-    # -- Respawn's .vpk format is different to Valve's
-    # -- You'll need the Titanfall specific .vpk tool to extract maps
-    # -- https://noskill.gitbook.io/titanfall2/how-to-start-modding/modding-introduction/modding-tools
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(RespawnBsp, self).__init__(branch, filename, autoload)
@@ -71,6 +68,7 @@ class RespawnBsp(base.Bsp):
                 continue  # skip empty lumps
             try:
                 if LUMP.name == "GAME_LUMP":
+                    # NOTE: lump_header.version is ignored in this case
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                     BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP.name in self.branch.LUMP_CLASSES:

@@ -200,13 +200,14 @@ class LightmapPage(base.Struct):
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
+    """Identified w/ BobTheBob"""
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll
-    unknown_1: List[int]
+    scale: float  # indentified by Legion dev DTZxPorter
     model_name: int  # index into GAME_LUMP.sprp.model_names
     solid_mode: int  # bitflags
     flags: int
-    unknown_2: List[int]
+    unknown: List[int]
     forced_fade_scale: float
     lighting_origin: List[float]  # x, y, z
     cpu_level: List[int]  # min, max (-1 = any)
@@ -214,11 +215,11 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
     collision_flags: List[int]  # add, remove
     # NOTE: no skin or cubemap
-    __slots__ = ["origin", "angles", "unknown_1", "model_name", "solid_mode", "flags",
-                 "unknown_2", "forced_fade_scale", "lighting_origin", "cpu_level",
+    __slots__ = ["origin", "angles", "scale", "model_name", "solid_mode", "flags",
+                 "unknown", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
-    _format = "6f4bH2B4b4f8b2H"  # 64 bytes
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown_1": 4, "unknown_2": 4,
+    _format = "7fH2B4b4f8b2H"  # 64 bytes
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 4,
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
                "collision_flags": ["add", "remove"]}
@@ -228,7 +229,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
 class GameLump_SPRP:
     """New in Titanfall 2"""
     _static_prop_format: str  # StaticPropClass._format
-    model_names: List[str]
+    model_names: List[str]  # filenames of all .mdl / .rmdl used
     unknown_1: int
     unknown_2: int  # indices?
     props: List[object]  # List[StaticPropClass]
@@ -248,8 +249,8 @@ class GameLump_SPRP:
         # TODO: check if are there any leftover bytes at the end?
 
     def as_bytes(self) -> bytes:
-        # NOTE: additions to .props must be of the correct type,
-        #  GameLump_SPRP does not perform conversions of any kind!
+        # NOTE: additions to .props must be of the correct type (StaticPropClass given to __init__)
+        # -- GameLump_SPRP does not perform conversions of any kind!
         return b"".join([len(self.model_names).to_bytes(4, "little"),
                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                         struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
