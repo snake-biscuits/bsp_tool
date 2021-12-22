@@ -37,6 +37,7 @@ inserts_path = "inserts"
 
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
 SpecialLumpClass_confidence.update({"ENTITIES": 100,
+                                    "ENTITY_PARTITIONS": 100,
                                     "TEXTURE_DATA_STRING_DATA": 100,
                                     "SURFACE_NAMES": 100})
 
@@ -74,7 +75,8 @@ def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
             bsp_class = f"[`{bsp_class_name}`]({url_of_BspClass(BspClass)})"
             script_name = branch_script.__name__[len("bsp_tool.branches."):]
             script = f"[`{script_name}`]({branches_url}{script_name.replace('.', '/')}.py)"
-            unused = sum([L.name.startswith("UNUSED_") for L in branch_script.LUMP])
+            unused = sum([L.name.startswith("UNUSED_") or L.name.startswith("VERTEX_RESERVED_")
+                          for L in branch_script.LUMP])
             total = len(branch_script.LUMP) - unused
             supported = len(coverage[branch_script])
             percent = 0
@@ -198,7 +200,7 @@ def versioned_lump_table(group: ScriptGroup, coverage: CoverageMap, titanfall_en
             # NOTE: no tracking on what lumps are unique to which version
             head = f"| {lump_index(i)} | {bsp_version} |"
             tails = list()
-            if lump_name.startswith("UNUSED_"):
+            if lump_name.startswith("UNUSED_") or lump_name.startswith("VERTEX_RESERVED_"):
                 continue  # skip unused lumps
             elif lump_name == "GAME_LUMP":
                 # TODO: skip if branch_script.GAME_LUMP_CLASSES is the same as previous
@@ -209,6 +211,7 @@ def versioned_lump_table(group: ScriptGroup, coverage: CoverageMap, titanfall_en
             elif lump_name not in lumpclasses[branch_script]:
                 tails.append(f"`{lump_name}` | 0 | | 0% |")
             else:
+                # TODO: some non-100% LumpClasses are being skipped why?
                 for lump_version in sorted(lumpclasses[branch_script][lump_name]):
                     LumpClass = lumpclasses[branch_script][lump_name][lump_version]
                     lump_class_module = LumpClass.__module__[len('bsp_tool.branches.'):]
@@ -238,10 +241,11 @@ def supported_md(group: ScriptGroup) -> List[str]:
                 LumpClass_dict = {None: LumpClass_dict}
             for lump_version, LumpClass in LumpClass_dict.items():
                 if lump_name in branch_script.LUMP_CLASSES:
+                    # TODO: calculate unknowns as % of bytes mapped
                     if issubclass(LumpClass, branches.base.Struct):
                         attrs = len(LumpClass.__slots__)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass.__slots__])
-                        # TODO: calculate as a count of unknown bytes
+                        # TODO: nested attrs
                     elif issubclass(LumpClass, branches.base.MappedArray):
                         attrs = len(LumpClass._mapping)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass._mapping])
@@ -249,7 +253,7 @@ def supported_md(group: ScriptGroup) -> List[str]:
                         attrs, unknowns = 1, 0
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
                 if lump_name in branch_script.SPECIAL_LUMP_CLASSES:
-                    percent = 90
+                    percent = SpecialLumpClass_confidence[lump_name]
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
                 coverage[branch_script][lump_name][lump_version] = percent

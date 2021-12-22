@@ -3,9 +3,9 @@ Developers: Respawn Entertainment
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 29 | Titanfall | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 57 / 75 | 53 | 75.33% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 29 | Titanfall: Online | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 57 / 75 | 53 | 75.33% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 57 / 78 | 50 | 72.44% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 29 | Titanfall | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 57 / 72 | 56 | 78.89% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 29 | Titanfall: Online | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 57 / 72 | 56 | 78.89% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/respawn.py#L17) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 57 / 75 | 53 | 75.73% |
 
 
 ### References
@@ -45,8 +45,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | Lump version | LumpClass | Coverage |
 | ---------: | ----------: | --------- | -----------: | --------- | :------- |
-| 0 | 29 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 90% |
-| 0 | 37 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 90% |
+| 0 | 29 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
+| 0 | 37 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
 | 1 | 29 | `PLANES` | 1 | [respawn.titanfall.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L351) | 100% |
 | 1 | 37 | `PLANES` | 1 | [respawn.titanfall.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L351) | 100% |
 | 2 | 29 | `TEXTURE_DATA` | 1 | [respawn.titanfall.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L429) | 100% |
@@ -55,8 +55,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 3 | 37 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
 | 4 | 37 | `LIGHTPROBE_PARENT_INFOS` | 0 | | 0% || 5 | 37 | `SHADOW_ENVIRONMENTS` | 0 | | 0% || 6 | 37 | `LIGHTPROBE_BSP_NODES` | 0 | | 0% || 7 | 37 | `LIGHTPROBE_BSP_REF_IDS` | 0 | | 0% || 14 | 29 | `MODELS` | 0 | [respawn.titanfall.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L319) | 100% |
 | 14 | 37 | `MODELS` | 0 | [respawn.titanfall.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L319) | 100% |
-| 24 | 29 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartitions](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L511) | 90% |
-| 24 | 37 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartitions](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L511) | 90% |
+| 24 | 29 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartitions](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L511) | 100% |
+| 24 | 37 | `ENTITY_PARTITIONS` | 0 | [respawn.titanfall.EntityPartitions](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L511) | 100% |
 | 29 | 29 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
 | 29 | 37 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
 | 30 | 29 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
@@ -66,8 +66,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 40 | 37 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
 | 42 | 29 | `CUBEMAPS` | 0 | [respawn.titanfall.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L240) | 100% |
 | 42 | 37 | `CUBEMAPS` | 0 | [respawn.titanfall.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L240) | 100% |
-| 43 | 29 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 90% |
-| 43 | 37 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 90% |
+| 43 | 29 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
+| 43 | 37 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
 | 44 | 29 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 44 | 37 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 54 | 29 | `WORLDLIGHTS` | 0 | | 0% || 54 | 37 | `WORLDLIGHTS` | 0 | | 0% || 55 | 37 | `WORLDLIGHTS_PARENT_INFO` | 0 | | 0% || 62 | 29 | `PHYSICS_LEVEL` | 0 | | 0% || 66 | 29 | `TRICOLL_TRIS` | 0 | | 0% || 66 | 37 | `TRICOLL_TRIS` | 0 | | 0% || 68 | 29 | `TRICOLL_NODES` | 0 | | 0% || 68 | 37 | `TRICOLL_NODES` | 0 | | 0% || 69 | 29 | `TRICOLL_HEADERS` | 0 | | 0% || 69 | 37 | `TRICOLL_HEADERS` | 0 | | 0% || 70 | 29 | `PHYSICS_TRIANGLES` | 0 | | 0% || 71 | 29 | `VERTEX_UNLIT` | 0 | [respawn.titanfall.VertexUnlit](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L485) | 100% |
@@ -80,7 +80,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 74 | 37 | `VERTEX_UNLIT_TS` | 0 | [respawn.titanfall.VertexUnlitTS](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L496) | 100% |
 | 75 | 29 | `VERTEX_BLINN_PHONG` | 0 | [respawn.titanfall.VertexBlinnPhong](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L449) | 100% |
 | 75 | 37 | `VERTEX_BLINN_PHONG` | 0 | [respawn.titanfall.VertexBlinnPhong](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L449) | 100% |
-| 76 | 29 | `VERTEX_RESERVED_5` | 0 | | 0% || 76 | 37 | `VERTEX_RESERVED_5` | 0 | | 0% || 77 | 29 | `VERTEX_RESERVED_6` | 0 | | 0% || 77 | 37 | `VERTEX_RESERVED_6` | 0 | | 0% || 78 | 29 | `VERTEX_RESERVED_7` | 0 | | 0% || 78 | 37 | `VERTEX_RESERVED_7` | 0 | | 0% || 79 | 29 | `MESH_INDICES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 79 | 29 | `MESH_INDICES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 79 | 37 | `MESH_INDICES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 80 | 29 | `MESHES` | 0 | [respawn.titanfall.Mesh](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L292) | 100% |
 | 80 | 37 | `MESHES` | 0 | [respawn.titanfall.Mesh](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L292) | 100% |
