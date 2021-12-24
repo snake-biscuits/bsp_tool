@@ -31,8 +31,19 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                                   *branches.nexon.scripts, branches.troika.vampire],
                        ArkaneBsp: [branches.arkane.dark_messiah_multiplayer,
                                    branches.arkane.dark_messiah_singleplayer]})]
+# TODO: IdTech
+# TODO: IW Engine
+# TODO: Split up Source
+# -- Nexon
+# -- L4D Branch (inserts on VScript, Portal 2 & other 2013 SDK features)
+# -- Alien Swarm
 out_path = "../supported"
 inserts_path = "inserts"
+# TODO: rethink inserts
+# -- order could be more dynamic
+# -- lump relationship maps from branch_script comments
+# deprecated lump lists
+# engine map w/ links to other tables?
 
 
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
@@ -99,7 +110,10 @@ def url_of_LumpClass(LumpClass: object) -> str:
 
 
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
-vbsp_branch_scripts = chain(*[g for g in groups if g.name == "Source Engine"][0].branch_scripts.values())
+vbsp_branch_scripts = chain(*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
+                            *branches.nexon.scripts,
+                            branches.troika.vampire,
+                            *branches.arkane.scripts)
 lightmap_mappings = {**{bs: lightmaps.save_vbsp for bs in vbsp_branch_scripts},
                      branches.respawn.titanfall: lightmaps.save_rbsp_r1,
                      branches.respawn.titanfall2: lightmaps.save_rbsp_r2}  # also covers Apex? unsure
@@ -107,44 +121,18 @@ lightmap_mappings = {**{bs: lightmaps.save_vbsp for bs in vbsp_branch_scripts},
 del vbsp_branch_scripts
 
 
-def unversioned_lump_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
-    lines = ["| Lump index | Bsp version | Lump name | LumpClass | Coverage |\n",
-             "| ---------: | ----------: | --------- | --------- | :------- |\n"]
-    branch_scripts = list(chain(*group.branch_scripts.values()))
-    lumpclasses = {bs: LumpClasses_of(bs) for bs in branch_scripts}
-    max_lumps = max([len(bs.LUMP) for bs in branch_scripts])
-    for i in range(max_lumps):
-        for branch_script in branch_scripts:
-            if i >= len(branch_script.LUMP):
-                continue  # this branch_script is done
-            lump_name = branch_script.LUMP(i).name
-            bsp_version = branch_script.BSP_VERSION
-            # NOTE: no tracking on what lumps are unique to which version
-            if lump_name.startswith("UNUSED_"):
-                continue  # skip unused lumps
-            # TODO: Lightmap data might be covered by extensions.lightmaps
-            elif lump_name not in lumpclasses[branch_script]:
-                lines.append(f"| {i} | {bsp_version} | `{lump_name}` | | 0% |")
-            else:
-                LumpClass = lumpclasses[branch_script][lump_name]
-                lump_class_module = LumpClass.__module__[len('bsp_tool.branches.'):]
-                lump_class = f"[{lump_class_module}.{LumpClass.__name__}]({url_of_LumpClass(LumpClass)})"
-                percent = coverage[branch_script][lump_name][None]
-                # HACK: ^ coverage expects all lumpclasses to be versioned
-                # -- so unversioned LumpClasses are version None; if it works, it works
-                lines.append(f"| {i} | {bsp_version} | `{lump_name}` | {lump_class} | {percent}% |")
-    return lines
+TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_version", "LumpClass", "coverage"])
 
 
-def game_lump_table(branch_script: ModuleType, head: str) -> List[str]:
-    lines, tails = list(), list()
-    return lines, tails  # HACK: muting for now
+def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> List[str]:
+    table_block = set()
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(GameLump)[1]}"
     game_lump_handler = f"[`lumps.GameLump`]({game_lump_handler_url})"
-    # NOTE: GAME_LUMP version doesn't seem to matter atm, might affect Apex & ArkaneBsp though...
+    # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex & ArkaneBsp though...
     # TODO: actually calculate ~{coverage - 10} in the coverage dict
     # -- would probably require putting this GameLump iterator thing in a generator of some kind
-    lines.append(" ".join([head, f"| `GAME_LUMP` | - | {game_lump_handler} | 90% |"]))
+    row_header = (branch_script.LUMP.GAME_LUMP.value, branch_script.bsp_version)
+    head_line = row_as_string(TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90))
     for lump_name in branch_script.GAME_LUMP_CLASSES:
         for lump_version in branch_script.GAME_LUMP_CLASSES[lump_name]:
             GameLumpClass = branch_script.GAME_LUMP_CLASSES[lump_name][lump_version]
@@ -167,59 +155,70 @@ def game_lump_table(branch_script: ModuleType, head: str) -> List[str]:
             # TODO: cover GameLumpClass child classes
             # percent = coverage[branch_script][lump_name][lump_version]
             percent = 90
-            tails.append(f"| {game_lump_name} | {lump_version} | {lump_class} | {percent}% |\n")
+            table_block.add(TableRow(*row_header, game_lump_name, lump_version, lump_class, percent))
             # NOTE: GameLumpClasses are generally SpecialLumpClasses
             # -- this means coverage cannot be measured accurately
-    return lines, tails
+    return head_line, table_block
 
 
-def versioned_lump_table(group: ScriptGroup, coverage: CoverageMap, titanfall_engine=False) -> List[str]:
-    if not titanfall_engine:
+def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False, titanfall_engine=False) -> List[str]:
+    row_head = lambda r: f"| {r.i} | {r.bsp_version} | `{lump_name}` |"  # noqa E731
+    row_as_string = lambda r: " ".join((row_head(r), f"{r.lump_version} | {r.LumpClass} | {r.coverage}% |\n"))  # noqa E731
+    if not versioned_lumps:  # IdTech / GoldSrc / IW Engine
+        lines = ["| Lump index | Bsp version | Lump name | LumpClass | Coverage |\n",
+                 "| ---------: | ----------: | --------- | --------- | :------- |\n"]
+        row_as_string = lambda r: " ".join((row_head(r), f"{r.LumpClass} | {r.coverage}% |\n"))  # noqa E731
+    elif not titanfall_engine:  # Source
         lines = ["| Lump index | Bsp version | Lump name | Lump version | LumpClass | Coverage |\n",
                  "| ---------: | ----------: | --------- | -----------: | --------- | :------- |\n"]
-        lump_index = lambda i: f"{i}"  # noqa: E731
-    else:
+    else:  # Titanfall Engine
         lines = ["| Lump index | Hex index | Bsp version | Lump name | Lump version | LumpClass | Coverage |\n",
                  "| ---------: | --------: | ----------: | --------- | -----------: | --------- | :------- |\n"]
-        lump_index = lambda i: f"{i} | {i:04X}"  # noqa: E731
+        row_head = lambda r: f"| {r.i} | {i:04X} | {r.bsp_version} | `{lump_name}` |"  # noqa E731
     # lines for each lump; sorted by lump_index, then bsp_version
     branch_scripts = list(chain(*group.branch_scripts.values()))
-    lumpclasses = {bs: LumpClasses_of(bs) for bs in branch_scripts}
+    lump_classes = {bs: LumpClasses_of(bs) for bs in branch_scripts}
+    if not versioned_lumps:
+        lump_classes = {bs: {ln: {0: lc} for ln, lc in ld.items()} for bs, ld in lump_classes.items()}
     max_lumps = max([len(bs.LUMP) for bs in branch_scripts])
+    # TODO: find a way to make the blue shift lump swap clearer
+    # -- same bsp_version!
+    # NOTE: CoD4Bsp uses IDs for each lump, so we have to iterate over the present values, not just a range
+    # -- for i in sorted({L.value for bs in branch_scripts for L in bs.LUMP}):
+    # if i not in {L.value for L in branch_script.LUMP}
     for i in range(max_lumps):
-        # TODO: sort lines generated per lump by version number
-        # TODO: remove redundant info between lines, leaving only deltas
-        # -- this will probably require tracking the last entry per chunk
-        # -- processing each lump index as a chunk makes a lot of sense actually; do that
+        table_block = set()
         for branch_script in branch_scripts:
-            if i > len(branch_script.LUMP):
+            if i >= len(branch_script.LUMP):
                 continue  # this branch_script is done
             lump_name = branch_script.LUMP(i).name
             bsp_version = branch_script.BSP_VERSION
-            bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else bsp_version
-            # NOTE: no tracking on what lumps are unique to which version
-            head = f"| {lump_index(i)} | {bsp_version} |"
-            tails = list()
-            if lump_name.startswith("UNUSED_") or lump_name.startswith("VERTEX_RESERVED_"):
-                continue  # skip unused lumps
-            elif lump_name == "GAME_LUMP":
-                # TODO: skip if branch_script.GAME_LUMP_CLASSES is the same as previous
-                game_lump_lines, game_lump_tails = game_lump_table(branch_script, head)
-                lines.extend(game_lump_lines)
-                tails.extend(game_lump_tails)
+            bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
+            # NOTE: likely won't play nice with sorting
+            # might be easier to write the whole block?
+            # elif lump_name == "GAME_LUMP":
+            #     # TODO: skip if branch_script.GAME_LUMP_CLASSES is the same as previous
+            #     line, block = game_lump_table(branch_script, row_as_string)
+            #     lines.append(line)
+            #     table_block.update(block)
             # TODO: Lightmap data might be covered by extensions.lightmaps
-            elif lump_name not in lumpclasses[branch_script]:
-                tails.append(f"`{lump_name}` | 0 | | 0% |")
+            if lump_name not in lump_classes[branch_script]:
+                table_block.add(TableRow(i, bsp_version, lump_name, 0, "", 0))
             else:
                 # TODO: some non-100% LumpClasses are being skipped why?
-                for lump_version in sorted(lumpclasses[branch_script][lump_name]):
-                    LumpClass = lumpclasses[branch_script][lump_name][lump_version]
-                    lump_class_module = LumpClass.__module__[len('bsp_tool.branches.'):]
-                    lump_class = f"[{lump_class_module}.{LumpClass.__name__}]({url_of_LumpClass(LumpClass)})"
+                for lump_version in lump_classes[branch_script][lump_name]:
                     percent = coverage[branch_script][lump_name][lump_version]
-                    tails.append(f"`{lump_name}` | {lump_version} | {lump_class} | {percent}% |\n")
-            lines.extend([" ".join([head, tail]) for tail in tails])
-    # print(*lines, sep="\n")
+                    LumpClass = lump_classes[branch_script][lump_name][lump_version]
+                    lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
+                    lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
+                    table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
+        sorted_block = list(sorted(table_block, key=lambda r: float(r.bsp_version) * 2 + r.lump_version))
+        final_block = [sorted_block[0]]
+        for row in sorted_block[1:]:
+            if row.LumpClass == final_block[-1].LumpClass:
+                continue  # no repeats
+            final_block.append(TableRow(i, row.bsp_version, lump_name, row.lump_version, row.LumpClass, row.coverage))
+        lines.extend(map(row_as_string, final_block))
     return lines
 
 
@@ -238,14 +237,14 @@ def supported_md(group: ScriptGroup) -> List[str]:
         coverage[branch_script] = defaultdict(dict)
         for lump_name, LumpClass_dict in LumpClasses_of(branch_script).items():
             if not versioned_lumps:
-                LumpClass_dict = {None: LumpClass_dict}
+                LumpClass_dict = {0: LumpClass_dict}
             for lump_version, LumpClass in LumpClass_dict.items():
                 if lump_name in branch_script.LUMP_CLASSES:
                     # TODO: calculate unknowns as % of bytes mapped
                     if issubclass(LumpClass, branches.base.Struct):
                         attrs = len(LumpClass.__slots__)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass.__slots__])
-                        # TODO: nested attrs
+                        # TODO: nested attrs (get format of unknown & divide by struct.calcsize()
                     elif issubclass(LumpClass, branches.base.MappedArray):
                         attrs = len(LumpClass._mapping)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass._mapping])
@@ -257,26 +256,21 @@ def supported_md(group: ScriptGroup) -> List[str]:
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
                 coverage[branch_script][lump_name][lump_version] = percent
-        # TODO: GAME_LUMP_CLASSES
+        # TODO: GAME_LUMP_CLASSES (StaticPropvX etc.)
     # END COVERAGE CALCULATIONS
     lines.extend(games_table(group, coverage))
     lines.append("\n\n")
     # TODO: insert notes from branch_scripts:
     # -- changes from X -> Y
     # -- rough lump relationships
+    # -- inspect.getmodule() + inspect.getcomments() + regex?
     if group.insert is not None:
         with open(os.path.join(inserts_path, group.insert)) as insert:
             lines.extend(insert.readlines())
             lines.append("\n\n")
     lines.append("## Supported Lumps\n")
-    if versioned_lumps:
-        lines.extend(versioned_lump_table(group, coverage, group.name in ("Titanfall Engine", "Apex Legends")))
-    else:
-        lines.extend(unversioned_lump_table(group, coverage))
+    lines.extend(lump_table(group, coverage, versioned_lumps, group.name in ("Titanfall Engine", "Apex Legends")))
     lines.append("\n\n")
-    # TODO: post-processing:
-    # -- blank repeated LUMP_NAMES & lump_indices for trailing lines
-    # -- ^ let a blank indicate a ditto
     return lines
 
 

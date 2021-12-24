@@ -42,353 +42,126 @@ Developers: Valve Software, NEXON, Troika Games, Arkane Studios
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | Lump version | LumpClass | Coverage |
 | ---------: | ----------: | --------- | -----------: | --------- | :------- |
-| 0 | 21 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 20 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 21 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 20 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 21 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 19 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 100 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 100 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 20 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 17 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 20.4 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 20.4 | `ENTITIES` | 0 | [shared.Entities](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 1 | 21 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 20 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 21 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 20 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 21 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 19 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 100 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 100 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 20 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 17 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 20.4 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 1 | 20.4 | `PLANES` | 0 | [id_software.quake.Plane](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
-| 2 | 21 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 20 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 21 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 20 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 21 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 19 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 100 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 100 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 20 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 17 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 20.4 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 2 | 20.4 | `TEXTURE_DATA` | 0 | [valve.source.TextureData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
-| 3 | 21 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 20 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 21 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 20 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 21 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 19 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 100 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 100 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 20 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 17 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 20.4 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 3 | 20.4 | `VERTICES` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 4 | 21 | `VISIBILITY` | 0 | | 0% || 4 | 20 | `VISIBILITY` | 0 | | 0% || 4 | 21 | `VISIBILITY` | 0 | | 0% || 4 | 20 | `VISIBILITY` | 0 | | 0% || 4 | 21 | `VISIBILITY` | 0 | | 0% || 4 | 19 | `VISIBILITY` | 0 | | 0% || 4 | 100 | `VISIBILITY` | 0 | | 0% || 4 | 100 | `VISIBILITY` | 0 | | 0% || 4 | 20 | `VISIBILITY` | 0 | | 0% || 4 | 17 | `VISIBILITY` | 0 | | 0% || 4 | 20.4 | `VISIBILITY` | 0 | | 0% || 4 | 20.4 | `VISIBILITY` | 0 | | 0% || 5 | 21 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 20 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 21 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 20 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 21 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 19 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 100 | `NODES` | 0 | [nexon.vindictus.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
-| 5 | 100 | `NODES` | 0 | [nexon.vindictus.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
-| 5 | 20 | `NODES` | 0 | [nexon.vindictus.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
-| 5 | 17 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 20.4 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 20.4 | `NODES` | 0 | [valve.source.Node](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 6 | 21 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 20 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 21 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 20 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 21 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 19 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 100 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 100 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 20 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 17 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 20.4 | `TEXTURE_INFO` | 0 | [valve.source.TextureInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
-| 6 | 20.4 | `TEXTURE_INFO` | 0 | | 0% || 7 | 21 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 20 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 21 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 20 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 21 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 19 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 100 | `FACES` | 1 | [nexon.vindictus.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 7 | 100 | `FACES` | 2 | [nexon.vindictus.Facev2](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 7 | 100 | `FACES` | 1 | [nexon.vindictus.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 7 | 100 | `FACES` | 2 | [nexon.vindictus.Facev2](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 7 | 20 | `FACES` | 1 | [nexon.vindictus.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 7 | 20 | `FACES` | 2 | [nexon.vindictus.Facev2](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 7 | 17 | `FACES` | 0 | | 0% || 7 | 20.4 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 20.4 | `FACES` | 1 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 8 | 21 | `LIGHTING` | 0 | | 0% || 8 | 20 | `LIGHTING` | 0 | | 0% || 8 | 21 | `LIGHTING` | 0 | | 0% || 8 | 20 | `LIGHTING` | 0 | | 0% || 8 | 21 | `LIGHTING` | 0 | | 0% || 8 | 19 | `LIGHTING` | 0 | | 0% || 8 | 100 | `LIGHTING` | 0 | | 0% || 8 | 100 | `LIGHTING` | 0 | | 0% || 8 | 20 | `LIGHTING` | 0 | | 0% || 8 | 17 | `LIGHTING` | 0 | | 0% || 8 | 20.4 | `LIGHTING` | 0 | | 0% || 8 | 20.4 | `LIGHTING` | 0 | | 0% || 9 | 21 | `OCCLUSION` | 0 | | 0% || 9 | 20 | `OCCLUSION` | 0 | | 0% || 9 | 21 | `OCCLUSION` | 0 | | 0% || 9 | 20 | `OCCLUSION` | 0 | | 0% || 9 | 21 | `OCCLUSION` | 0 | | 0% || 9 | 19 | `OCCLUSION` | 0 | | 0% || 9 | 100 | `OCCLUSION` | 0 | | 0% || 9 | 100 | `OCCLUSION` | 0 | | 0% || 9 | 20 | `OCCLUSION` | 0 | | 0% || 9 | 17 | `OCCLUSION` | 0 | | 0% || 9 | 20.4 | `OCCLUSION` | 0 | | 0% || 9 | 20.4 | `OCCLUSION` | 0 | | 0% || 10 | 21 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 20 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 21 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 20 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 21 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 19 | `LEAVES` | 0 | | 0% || 10 | 100 | `LEAVES` | 0 | | 0% || 10 | 100 | `LEAVES` | 0 | | 0% || 10 | 20 | `LEAVES` | 0 | [nexon.vindictus.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L219) | 100% |
-| 10 | 17 | `LEAVES` | 0 | | 0% || 10 | 20.4 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 20.4 | `LEAVES` | 1 | [valve.orange_box.Leaf](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 11 | 21 | `FACE_IDS` | 0 | | 0% || 11 | 20 | `FACE_IDS` | 0 | | 0% || 11 | 21 | `FACE_IDS` | 0 | | 0% || 11 | 20 | `FACE_IDS` | 0 | | 0% || 11 | 21 | `FACE_IDS` | 0 | | 0% || 11 | 19 | `FACE_IDS` | 0 | | 0% || 11 | 100 | `FACEIDS` | 0 | | 0% || 11 | 100 | `FACEIDS` | 0 | | 0% || 11 | 20 | `FACEIDS` | 0 | | 0% || 11 | 17 | `FACE_IDS` | 0 | | 0% || 11 | 20.4 | `FACE_IDS` | 0 | | 0% || 11 | 20.4 | `FACE_IDS` | 0 | | 0% || 12 | 21 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 20 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 21 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 20 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 21 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 19 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 100 | `EDGES` | 0 | [nexon.vindictus.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
-| 12 | 100 | `EDGES` | 0 | [nexon.vindictus.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
-| 12 | 20 | `EDGES` | 0 | [nexon.vindictus.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
-| 12 | 17 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 20.4 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 20.4 | `EDGES` | 0 | [id_software.quake.Edge](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 13 | 21 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 20 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 21 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 20 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 21 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 19 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 100 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 100 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 20 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 17 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 20.4 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 13 | 20.4 | `SURFEDGES` | 0 | [shared.Ints](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
-| 14 | 21 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 20 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 21 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 20 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 21 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 19 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 100 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 100 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 20 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 17 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 20.4 | `MODELS` | 0 | [valve.source.Model](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
-| 14 | 20.4 | `MODELS` | 0 | | 0% || 15 | 21 | `WORLD_LIGHTS` | 0 | | 0% || 15 | 20 | `WORLD_LIGHTS` | 0 | | 0% || 15 | 21 | `WORLD_LIGHTS` | 0 | | 0% || 15 | 20 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 21 | `WORLD_LIGHTS` | 0 | | 0% || 15 | 19 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 100 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 100 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 20 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 17 | `WORLD_LIGHTS` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 20.4 | `WORLD_LIGHTS` | 0 | | 0% || 15 | 20.4 | `WORLD_LIGHTS` | 0 | | 0% || 16 | 21 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 20 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 21 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 20 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 21 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 19 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 100 | `LEAF_FACES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 16 | 100 | `LEAF_FACES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 16 | 20 | `LEAF_FACES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 16 | 17 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 20.4 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 20.4 | `LEAF_FACES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 21 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 20 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 21 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 20 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 21 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 19 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 100 | `LEAF_BRUSHES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 17 | 100 | `LEAF_BRUSHES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 17 | 20 | `LEAF_BRUSHES` | 0 | [shared.UnsignedInts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 17 | 17 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 20.4 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 20.4 | `LEAF_BRUSHES` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 18 | 21 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 20 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 21 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 20 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 21 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 19 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 100 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 100 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 20 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 17 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 20.4 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 18 | 20.4 | `BRUSHES` | 0 | [valve.source.Brush](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
-| 19 | 21 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 20 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 21 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 20 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 21 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 19 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 100 | `BRUSH_SIDES` | 0 | | 0% || 19 | 100 | `BRUSH_SIDES` | 0 | | 0% || 19 | 20 | `BRUSH_SIDES` | 0 | [nexon.vindictus.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L122) | 100% |
-| 19 | 17 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 20.4 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 20.4 | `BRUSH_SIDES` | 0 | [valve.source.BrushSide](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 20 | 21 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 20 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 21 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 20 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 21 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 19 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 100 | `AREAS` | 0 | [nexon.vindictus.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
-| 20 | 100 | `AREAS` | 0 | [nexon.vindictus.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
-| 20 | 20 | `AREAS` | 0 | [nexon.vindictus.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
-| 20 | 17 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 20.4 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 20.4 | `AREAS` | 0 | [valve.source.Area](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 21 | 21 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 20 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 21 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 20 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 21 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 19 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 100 | `AREA_PORTALS` | 0 | [nexon.vindictus.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
-| 21 | 100 | `AREA_PORTALS` | 0 | [nexon.vindictus.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
-| 21 | 20 | `AREA_PORTALS` | 0 | [nexon.vindictus.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
-| 21 | 17 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 20.4 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 20.4 | `AREA_PORTALS` | 0 | [valve.source.AreaPortal](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 22 | 21 | `PROP_COLLISION` | 0 | | 0% || 22 | 21 | `FACE_BRUSHES` | 0 | | 0% || 22 | 19 | `PORTALS` | 0 | | 0% || 22 | 17 | `PORTALS` | 0 | | 0% || 23 | 21 | `PROP_HULLS` | 0 | | 0% || 23 | 21 | `FACE_BRUSH_LIST` | 0 | | 0% || 23 | 19 | `CLUSTERS` | 0 | | 0% || 23 | 17 | `CLUSTERS` | 0 | | 0% || 24 | 21 | `PROP_HULL_VERTS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 24 | 19 | `PORTAL_VERTICES` | 0 | | 0% || 24 | 17 | `PORTAL_VERTICES` | 0 | | 0% || 25 | 21 | `PROP_HULL_TRIS` | 0 | | 0% || 25 | 19 | `CLUSTER_PORTALS` | 0 | | 0% || 25 | 17 | `CLUSTER_PORTALS` | 0 | | 0% || 26 | 21 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 21 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 21 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 19 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 | | 0% || 26 | 100 | `DISPLACEMENT_INFO` | 0 | [nexon.cso2_2018.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L26) | 100% |
-| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [nexon.vindictus.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L131) | 100% |
-| 26 | 17 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 20.4 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 20.4 | `DISPLACEMENT_INFO` | 0 | [valve.source.DisplacementInfo](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 27 | 21 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 20 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 21 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 20 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 21 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 19 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 100 | `ORIGINAL_FACES` | 0 | | 0% || 27 | 100 | `ORIGINAL_FACES` | 0 | | 0% || 27 | 20 | `ORIGINAL_FACES` | 1 | [nexon.vindictus.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 27 | 20 | `ORIGINAL_FACES` | 2 | [nexon.vindictus.Facev2](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 27 | 17 | `ORIGINAL_FACES` | 0 | | 0% || 27 | 20.4 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 20.4 | `ORIGINAL_FACES` | 0 | [valve.source.Face](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 28 | 21 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 20 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 21 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 20 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 21 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 19 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 100 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 100 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 20 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 17 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 20.4 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 28 | 20.4 | `PHYSICS_DISPLACEMENT` | 0 | | 0% || 29 | 21 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 20 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 21 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 20 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 21 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 19 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 100 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 100 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 20 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 17 | `PHYSICS_COLLIDE` | 0 | | 0% || 29 | 20.4 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 29 | 20.4 | `PHYSICS_COLLIDE` | 0 | [physics.CollideLump](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
-| 30 | 21 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 20 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 21 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 20 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 21 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 19 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 100 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 100 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 20 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 17 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 20.4 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 30 | 20.4 | `VERTEX_NORMALS` | 0 | [id_software.quake.Vertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 31 | 21 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 20 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 21 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 20 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 21 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 19 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 100 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 100 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 20 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 17 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 20.4 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 31 | 20.4 | `VERTEX_NORMAL_INDICES` | 0 | | 0% || 32 | 21 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 20 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 21 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 20 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 21 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 19 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 100 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 100 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 20 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 17 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 20.4 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 32 | 20.4 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 | | 0% || 33 | 21 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 21 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 21 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 19 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 100 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 100 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 20.4 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 33 | 20.4 | `DISPLACEMENT_VERTICES` | 0 | [valve.source.DisplacementVertex](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 34 | 21 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 21 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 21 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 19 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 100 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 100 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 20.4 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 34 | 20.4 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 | | 0% || 36 | 21 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 20 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 21 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 20 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 21 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 19 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 100 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 100 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 20 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 17 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 20.4 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 36 | 20.4 | `LEAF_WATER_DATA` | 0 | [valve.source.LeafWaterData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
-| 37 | 21 | `PRIMITIVES` | 0 | | 0% || 37 | 20 | `PRIMITIVES` | 0 | | 0% || 37 | 21 | `PRIMITIVES` | 0 | | 0% || 37 | 20 | `PRIMITIVES` | 0 | | 0% || 37 | 21 | `PRIMITIVES` | 0 | | 0% || 37 | 19 | `PRIMITIVES` | 0 | | 0% || 37 | 100 | `PRIMITIVES` | 0 | | 0% || 37 | 100 | `PRIMITIVES` | 0 | | 0% || 37 | 20 | `PRIMITIVES` | 0 | | 0% || 37 | 17 | `PRIMITIVES` | 0 | | 0% || 37 | 20.4 | `PRIMITIVES` | 0 | | 0% || 37 | 20.4 | `PRIMITIVES` | 0 | | 0% || 38 | 21 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 20 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 21 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 20 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 21 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 19 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 100 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 100 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 20 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 17 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 20.4 | `PRIMITIVE_VERTICES` | 0 | | 0% || 38 | 20.4 | `PRIMITIVE_VERTICES` | 0 | | 0% || 39 | 21 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 20 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 21 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 20 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 21 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 19 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 100 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 100 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 20 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 17 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 20.4 | `PRIMITIVE_INDICES` | 0 | | 0% || 39 | 20.4 | `PRIMITIVE_INDICES` | 0 | | 0% || 40 | 21 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 20 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 21 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 20 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 21 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 19 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 100 | `PAKFILE` | 0 | | 0% || 40 | 100 | `PAKFILE` | 0 | | 0% || 40 | 20 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 17 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 20.4 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 20.4 | `PAKFILE` | 0 | [shared.PakFile](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 41 | 21 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 20 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 21 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 20 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 21 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 19 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 100 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 100 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 20 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 17 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 20.4 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 41 | 20.4 | `CLIP_PORTAL_VERTICES` | 0 | | 0% || 42 | 21 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 20 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 21 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 20 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 21 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 19 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 100 | `CUBEMAPS` | 0 | | 0% || 42 | 100 | `CUBEMAPS` | 0 | | 0% || 42 | 20 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 17 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 20.4 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 20.4 | `CUBEMAPS` | 0 | [valve.source.Cubemap](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 43 | 21 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 20 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 21 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 20 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 21 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 19 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 100 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 100 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 20 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 17 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 20.4 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 43 | 20.4 | `TEXTURE_DATA_STRING_DATA` | 0 | [shared.TextureDataStringData](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
-| 44 | 21 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 20 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 21 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 20 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 21 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 19 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 100 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 100 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 20 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 17 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 20.4 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 44 | 20.4 | `TEXTURE_DATA_STRING_TABLE` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 45 | 21 | `OVERLAYS` | 0 | | 0% || 45 | 20 | `OVERLAYS` | 0 | | 0% || 45 | 21 | `OVERLAYS` | 0 | | 0% || 45 | 20 | `OVERLAYS` | 0 | | 0% || 45 | 21 | `OVERLAYS` | 0 | | 0% || 45 | 19 | `OVERLAYS` | 0 | | 0% || 45 | 100 | `OVERLAYS` | 0 | | 0% || 45 | 100 | `OVERLAYS` | 0 | | 0% || 45 | 20 | `OVERLAYS` | 0 | [nexon.vindictus.Overlay](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L234) | 100% |
-| 45 | 17 | `OVERLAYS` | 0 | | 0% || 45 | 20.4 | `OVERLAYS` | 0 | | 0% || 45 | 20.4 | `OVERLAYS` | 0 | | 0% || 46 | 21 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 20 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 21 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 20 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 21 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 19 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 100 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 100 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 20 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 17 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 20.4 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 46 | 20.4 | `LEAF_MIN_DIST_TO_WATER` | 0 | | 0% || 47 | 21 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 20 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 21 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 20 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 21 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 19 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 100 | `FACE_MARCO_TEXTURE_INFO` | 0 | | 0% || 47 | 100 | `FACE_MARCO_TEXTURE_INFO` | 0 | | 0% || 47 | 20 | `FACE_MARCO_TEXTURE_INFO` | 0 | | 0% || 47 | 17 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 20.4 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 47 | 20.4 | `FACE_MACRO_TEXTURE_INFO` | 0 | | 0% || 48 | 21 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 20 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 21 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 20 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 21 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 19 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 100 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 100 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 20 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 17 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 20.4 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 48 | 20.4 | `DISPLACEMENT_TRIS` | 0 | [shared.UnsignedShorts](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 49 | 21 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 20 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 21 | `PROP_BLOB` | 0 | | 0% || 49 | 20 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 21 | `PROP_BLOB` | 0 | | 0% || 49 | 19 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 100 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 100 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 20 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 17 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 20.4 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 49 | 20.4 | `PHYSICS_COLLIDE_SURFACE` | 0 | | 0% || 50 | 21 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 20 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 21 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 20 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 21 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 19 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 100 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 100 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 20 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 17 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 20.4 | `WATER_OVERLAYS` | 0 | | 0% || 50 | 20.4 | `WATER_OVERLAYS` | 0 | | 0% || 51 | 21 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 21 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 21 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 19 | `LIGHTMAP_PAGES` | 0 | | 0% || 51 | 100 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 100 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 17 | `LIGHTMAP_PAGES` | 0 | | 0% || 51 | 20.4 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 51 | 20.4 | `LEAF_AMBIENT_INDEX_HDR` | 0 | | 0% || 52 | 21 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 21 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 21 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 19 | `LIGHTMAP_PAGE_INFOS` | 0 | | 0% || 52 | 100 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 100 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 17 | `LIGHTMAP_PAGE_INFOS` | 0 | | 0% || 52 | 20.4 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 52 | 20.4 | `LEAF_AMBIENT_INDEX` | 0 | | 0% || 53 | 21 | `LIGHTING_HDR` | 0 | | 0% || 53 | 20 | `LIGHTING_HDR` | 0 | | 0% || 53 | 21 | `LIGHTING_HDR` | 0 | | 0% || 53 | 20 | `LIGHTING_HDR` | 0 | | 0% || 53 | 21 | `LIGHTING_HDR` | 0 | | 0% || 53 | 19 | `LIGHTING_HDR` | 0 | | 0% || 53 | 100 | `LIGHTING_HDR` | 0 | | 0% || 53 | 100 | `LIGHTING_HDR` | 0 | | 0% || 53 | 20 | `LIGHTING_HDR` | 0 | | 0% || 53 | 17 | `LIGHTING_HDR` | 0 | | 0% || 53 | 20.4 | `LIGHTING_HDR` | 0 | | 0% || 53 | 20.4 | `LIGHTING_HDR` | 0 | | 0% || 54 | 21 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 54 | 21 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 21 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 54 | 19 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 100 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 100 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [valve.source.WorldLight](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 20.4 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 54 | 20.4 | `WORLD_LIGHTS_HDR` | 0 | | 0% || 55 | 21 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 21 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 21 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 19 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 100 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 100 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 17 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 20.4 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 55 | 20.4 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 | | 0% || 56 | 21 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 20 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 21 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 20 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 21 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 19 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 100 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 100 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 20 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 17 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 20.4 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 56 | 20.4 | `LEAF_AMBIENT_LIGHTING` | 0 | | 0% || 57 | 21 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 20 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 21 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 20 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 21 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 19 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 100 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 100 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 20 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 17 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 20.4 | `XZIP_PAKFILE` | 0 | | 0% || 57 | 20.4 | `XZIP_PAKFILE` | 0 | | 0% || 58 | 21 | `FACES_HDR` | 0 | | 0% || 58 | 20 | `FACES_HDR` | 0 | | 0% || 58 | 21 | `FACES_HDR` | 0 | | 0% || 58 | 20 | `FACES_HDR` | 0 | | 0% || 58 | 21 | `FACES_HDR` | 0 | | 0% || 58 | 19 | `FACES_HDR` | 0 | | 0% || 58 | 100 | `FACES_HDR` | 0 | | 0% || 58 | 100 | `FACES_HDR` | 0 | | 0% || 58 | 20 | `FACES_HDR` | 0 | | 0% || 58 | 17 | `FACES_HDR` | 0 | | 0% || 58 | 20.4 | `FACES_HDR` | 0 | | 0% || 58 | 20.4 | `FACES_HDR` | 0 | | 0% || 59 | 21 | `MAP_FLAGS` | 0 | | 0% || 59 | 20 | `MAP_FLAGS` | 0 | | 0% || 59 | 21 | `MAP_FLAGS` | 0 | | 0% || 59 | 20 | `MAP_FLAGS` | 0 | | 0% || 59 | 21 | `MAP_FLAGS` | 0 | | 0% || 59 | 19 | `MAP_FLAGS` | 0 | | 0% || 59 | 100 | `MAP_FLAGS` | 0 | | 0% || 59 | 100 | `MAP_FLAGS` | 0 | | 0% || 59 | 20 | `MAP_FLAGS` | 0 | | 0% || 59 | 17 | `MAP_FLAGS` | 0 | | 0% || 59 | 20.4 | `MAP_FLAGS` | 0 | | 0% || 59 | 20.4 | `MAP_FLAGS` | 0 | | 0% || 60 | 21 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 20 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 21 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 20 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 21 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 19 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 100 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 100 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 20 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 17 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 20.4 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 60 | 20.4 | `OVERLAY_FADES` | 0 | [valve.source.OverlayFade](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
-| 61 | 20 | `LUMP_OVERLAY_SYSTEM_LEVELS` | 0 | | 0% || 61 | 21 | `LUMP_OVERLAY_SYSTEM_LEVELS` | 0 | | 0% || 61 | 21 | `OVERLAY_SYSTEM_LEVELS` | 0 | | 0% || 61 | 100 | `UNKNOWN_61` | 0 | | 0% || 61 | 100 | `UNKNOWN_61` | 0 | | 0% || 62 | 21 | `LUMP_PHYSICS_LEVEL` | 0 | | 0% || 62 | 21 | `PHYSICS_LEVEL` | 0 | | 0% || 63 | 21 | `DISPLACEMENT_MULTIBLEND` | 0 | | 0% || 63 | 21 | `DISPLACEMENT_MULTIBLEND` | 0 | | 0% |
+| 0 | 17 | `ENTITIES` | 0 | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
+| 1 | 17 | `PLANES` | 0 | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L208) | 100% |
+| 2 | 17 | `TEXTURE_DATA` | 0 | [`valve.source.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L479) | 100% |
+| 3 | 17 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
+| 4 | 17 | `VISIBILITY` | 0 |  | 0% |
+| 5 | 17 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
+| 5 | 20 | `NODES` | 0 | [`nexon.vindictus.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
+| 5 | 20 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
+| 5 | 100 | `NODES` | 0 | [`nexon.vindictus.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
+| 6 | 17 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
+| 6 | 20.4 | `TEXTURE_INFO` | 0 |  | 0% |
+| 6 | 21 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
+| 7 | 17 | `FACES` | 0 |  | 0% |
+| 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
+| 7 | 20 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
+| 7 | 20.4 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
+| 7 | 20 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
+| 7 | 21 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
+| 7 | 100 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
+| 7 | 100 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
+| 8 | 17 | `LIGHTING` | 0 |  | 0% |
+| 9 | 17 | `OCCLUSION` | 0 |  | 0% |
+| 10 | 17 | `LEAVES` | 0 |  | 0% |
+| 10 | 20 | `LEAVES` | 0 | [`nexon.vindictus.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L219) | 100% |
+| 10 | 20 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
+| 10 | 100 | `LEAVES` | 0 |  | 0% |
+| 11 | 17 | `FACE_IDS` | 0 |  | 0% |
+| 12 | 17 | `EDGES` | 0 | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
+| 12 | 20 | `EDGES` | 0 | [`nexon.vindictus.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
+| 12 | 20.4 | `EDGES` | 0 | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
+| 12 | 100 | `EDGES` | 0 | [`nexon.vindictus.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
+| 13 | 17 | `SURFEDGES` | 0 | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
+| 14 | 17 | `MODELS` | 0 | [`valve.source.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
+| 14 | 20.4 | `MODELS` | 0 |  | 0% |
+| 14 | 21 | `MODELS` | 0 | [`valve.source.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
+| 15 | 17 | `WORLD_LIGHTS` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 15 | 20 | `WORLD_LIGHTS` | 0 |  | 0% |
+| 15 | 100 | `WORLD_LIGHTS` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 16 | 17 | `LEAF_FACES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 16 | 20 | `LEAF_FACES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
+| 16 | 20.4 | `LEAF_FACES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 16 | 100 | `LEAF_FACES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
+| 17 | 17 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 17 | 20 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
+| 17 | 20.4 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 17 | 100 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
+| 18 | 17 | `BRUSHES` | 0 | [`valve.source.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
+| 19 | 17 | `BRUSH_SIDES` | 0 | [`valve.source.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
+| 19 | 20 | `BRUSH_SIDES` | 0 | [`nexon.vindictus.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L122) | 100% |
+| 19 | 20 | `BRUSH_SIDES` | 0 | [`valve.source.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
+| 19 | 100 | `BRUSH_SIDES` | 0 |  | 0% |
+| 20 | 17 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
+| 20 | 20 | `AREAS` | 0 | [`nexon.vindictus.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
+| 20 | 20.4 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
+| 20 | 100 | `AREAS` | 0 | [`nexon.vindictus.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
+| 21 | 17 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
+| 21 | 20 | `AREA_PORTALS` | 0 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
+| 21 | 20.4 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
+| 21 | 100 | `AREA_PORTALS` | 0 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
+| 22 | 17 | `UNUSED_22` | 0 |  | 0% |
+| 23 | 17 | `UNUSED_23` | 0 |  | 0% |
+| 24 | 17 | `UNUSED_24` | 0 |  | 0% |
+| 24 | 21 | `UNUSED_24` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
+| 24 | 21 | `UNUSED_24` | 0 |  | 0% |
+| 25 | 17 | `UNUSED_25` | 0 |  | 0% |
+| 26 | 17 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
+| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L131) | 100% |
+| 26 | 20.4 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
+| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L26) | 100% |
+| 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
+| 27 | 17 | `ORIGINAL_FACES` | 0 |  | 0% |
+| 27 | 19 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
+| 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
+| 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
+| 27 | 21 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
+| 27 | 100 | `ORIGINAL_FACES` | 0 |  | 0% |
+| 28 | 17 | `PHYSICS_DISPLACEMENT` | 0 |  | 0% |
+| 29 | 17 | `PHYSICS_COLLIDE` | 0 |  | 0% |
+| 29 | 19 | `PHYSICS_COLLIDE` | 0 | [`physics.CollideLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
+| 30 | 17 | `VERTEX_NORMALS` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
+| 31 | 17 | `VERTEX_NORMAL_INDICES` | 0 |  | 0% |
+| 32 | 17 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
+| 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
+| 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
+| 35 | 17 | `GAME_LUMP` | 0 |  | 0% |
+| 36 | 17 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
+| 37 | 17 | `PRIMITIVES` | 0 |  | 0% |
+| 38 | 17 | `PRIMITIVE_VERTICES` | 0 |  | 0% |
+| 39 | 17 | `PRIMITIVE_INDICES` | 0 |  | 0% |
+| 40 | 17 | `PAKFILE` | 0 | [`shared.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
+| 40 | 100 | `PAKFILE` | 0 |  | 0% |
+| 41 | 17 | `CLIP_PORTAL_VERTICES` | 0 |  | 0% |
+| 42 | 17 | `CUBEMAPS` | 0 | [`valve.source.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
+| 42 | 100 | `CUBEMAPS` | 0 |  | 0% |
+| 43 | 17 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
+| 44 | 17 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 45 | 17 | `OVERLAYS` | 0 |  | 0% |
+| 45 | 20 | `OVERLAYS` | 0 | [`nexon.vindictus.Overlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L234) | 100% |
+| 45 | 20.4 | `OVERLAYS` | 0 |  | 0% |
+| 46 | 17 | `LEAF_MIN_DIST_TO_WATER` | 0 |  | 0% |
+| 47 | 17 | `FACE_MACRO_TEXTURE_INFO` | 0 |  | 0% |
+| 48 | 17 | `DISPLACEMENT_TRIS` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 49 | 17 | `PHYSICS_COLLIDE_SURFACE` | 0 |  | 0% |
+| 50 | 17 | `WATER_OVERLAYS` | 0 |  | 0% |
+| 51 | 17 | `LEAF_AMBIENT_INDEX_HDR` | 0 |  | 0% |
+| 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 |  | 0% |
+| 53 | 17 | `LIGHTING_HDR` | 0 |  | 0% |
+| 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 54 | 20 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
+| 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 54 | 20.4 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
+| 54 | 100 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 55 | 17 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
+| 56 | 17 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |
+| 57 | 17 | `XZIP_PAKFILE` | 0 |  | 0% |
+| 58 | 17 | `FACES_HDR` | 0 |  | 0% |
+| 59 | 17 | `MAP_FLAGS` | 0 |  | 0% |
+| 60 | 17 | `OVERLAY_FADES` | 0 | [`valve.source.OverlayFade`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
+| 61 | 17 | `UNUSED_61` | 0 |  | 0% |
+| 62 | 17 | `UNUSED_62` | 0 |  | 0% |
+| 63 | 17 | `UNUSED_63` | 0 |  | 0% |
+
 

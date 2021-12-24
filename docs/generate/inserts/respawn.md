@@ -22,7 +22,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 
 
 ### Extraction Tools
- * [Titanfall_VPKTool3.4_Portable](https://github.com/Wanty5883/Titanfall2/blob/master/tools/Titanfall_VPKTool3.4_Portable.zip) (GUI only)
+ * [Titanfall VPKTool3.4 Portable](https://github.com/Wanty5883/Titanfall2/blob/master/tools/Titanfall_VPKTool3.4_Portable.zip) (GUI only)
    - by `Cra0kalo` (currently Closed Source) **recommended**
  * [TitanfallVPKTool](https://github.com/p0358/TitanfallVPKTool) (GUI & CLI)
    - by `P0358`
@@ -30,3 +30,5 @@ Once you have chosen your [extraction tool](Extraction-tools):
    - Fork of `MrSteyk`'s Tool
  * [UnoVPKTool](https://github.com/Unordinal/UnoVPKTool) (CLI only)
    - by `Unordinal`
+
+> NOTE: Apex's `GAME_LUMP` lump version should be the same as the version of the `.bsp` it is in
