@@ -130,38 +130,38 @@ tests/test_valve_bsp.py::test_entities_loaded[bsp2] PASSED               [ 77%]
 tests/branches/test_base.py::TestStruct::test_unpack PASSED              [ 78%]
 tests/branches/test_base.py::TestStruct::test_pack PASSED                [ 78%]
 tests/branches/test_base.py::TestMappedArray::test_init PASSED           [ 79%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] PASSED [ 80%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] PASSED [ 80%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] PASSED [ 81%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] PASSED [ 82%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] PASSED [ 82%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty4] PASSED [ 83%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] PASSED [ 84%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] PASSED [ 84%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] PASSED [ 85%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] PASSED [ 85%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] PASSED [ 86%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] PASSED [ 87%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] PASSED [ 87%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.moh_allied_assault] PASSED [ 88%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] PASSED [ 89%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] PASSED [ 89%]
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] PASSED [ 90%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_multiplayer] PASSED [ 91%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer] PASSED [ 91%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.cso2] PASSED [ 92%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] PASSED [ 92%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.vindictus] PASSED [ 93%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] PASSED [ 94%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.titanfall] PASSED [ 94%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] PASSED [ 95%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire] PASSED [ 96%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] PASSED [ 96%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.left4dead] PASSED [ 97%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.left4dead2] PASSED [ 98%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.orange_box] PASSED [ 98%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] PASSED [ 99%]
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.valve.source] PASSED [100%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] PASSED [ 80%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] PASSED [ 80%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] PASSED [ 81%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] PASSED [ 82%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] PASSED [ 82%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty4] PASSED [ 83%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] PASSED [ 84%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] PASSED [ 84%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] PASSED [ 85%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] PASSED [ 85%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] PASSED [ 86%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] PASSED [ 87%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] PASSED [ 87%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.moh_allied_assault] PASSED [ 88%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] PASSED [ 89%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] PASSED [ 89%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] PASSED [ 90%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_multiplayer] PASSED [ 91%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer] PASSED [ 91%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] PASSED [ 92%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] PASSED [ 92%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] PASSED [ 93%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] PASSED [ 94%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] PASSED [ 94%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] PASSED [ 95%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] PASSED [ 96%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] PASSED [ 96%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] PASSED [ 97%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] PASSED [ 98%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] PASSED [ 98%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] PASSED [ 99%]
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] PASSED [100%]
 
 ================================== FAILURES ===================================
 ___________________ test_load_bsp[E:/Mod-Quake-map_dirs67] ____________________
@@ -1686,46 +1686,46 @@ E           }
 
 tests\test_bsp.py:71: AssertionError
 ============================== warnings summary ===============================
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
   MipTexture
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
   AxisAlignedBoundingBox
+  Light
+  Brush
+  Occluder
   PatchCollision
   Node
-  Light
-  Portal
-  Model
-  Brush
-  Cell
   DrawVertex
+  Model
+  Cell
   CullGroup
-  Occluder
+  Portal
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_script.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:42: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
   CollisionEdge
   Model
   CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:75: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:80: UserWarning: Unused LumpClasses in branch script:
   Model
   TextureInfo
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.nexon.vindictus]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:75: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:80: UserWarning: Unused LumpClasses in branch script:
   GameLumpHeader
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troika.vampire]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_script.py:75: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:80: UserWarning: Unused LumpClasses in branch script:
   Face
     warnings.warn(UserWarning(warning_text))
 
@@ -1734,7 +1734,7 @@ tests/branches/test_branch_script.py::test_branch_script[bsp_tool.branches.troik
 ----------- coverage: platform win32, python 3.9.9-final-0 -----------
 Name                                                    Stmts   Miss  Cover
 ---------------------------------------------------------------------------
-bsp_tool\__init__.py                                       50      3    94%
+bsp_tool\__init__.py                                       52      3    94%
 bsp_tool\arkane.py                                         53      6    89%
 bsp_tool\base.py                                          114     32    72%
 bsp_tool\branches\__init__.py                              28      0   100%
@@ -1790,16 +1790,16 @@ bsp_tool\extensions\__init__.py                             0      0   100%
 bsp_tool\extensions\archive.py                             70     70     0%
 bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               106    106     0%
-bsp_tool\extensions\lightmaps.py                          133    133     0%
+bsp_tool\extensions\lightmaps.py                          134    134     0%
 bsp_tool\id_software.py                                    95     13    86%
 bsp_tool\infinity_ward.py                                 130     17    87%
-bsp_tool\lumps\__init__.py                                272     49    82%
+bsp_tool\lumps\__init__.py                                273     50    82%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       146     69    53%
+bsp_tool\respawn.py                                       151     72    52%
 bsp_tool\ritual.py                                         44      3    93%
 bsp_tool\valve.py                                          58     10    83%
 ---------------------------------------------------------------------------
-TOTAL                                                    5849   1181    80%
+TOTAL                                                    5858   1186    80%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs67] - NotImpleme...
@@ -1807,4 +1807,4 @@ FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs78] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs79]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs80]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs84] - Assert...
-=========== 5 failed, 152 passed, 6 warnings in 4143.70s (1:09:03) ============
+=========== 5 failed, 152 passed, 6 warnings in 4219.08s (1:10:19) ============
