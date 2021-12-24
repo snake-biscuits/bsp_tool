@@ -134,7 +134,7 @@ def save_rbsp_r1(rbsp, folder="./"):
 
 
 # NOTE: Titanfall2 Internal Lightmap Data lumps only
-# TODO: Figure out why external LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel
+# TODO: Figure out why internal LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel (RTL_C)
 # -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
 def save_rbsp_r2(rbsp, folder="./"):
     """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
@@ -156,7 +156,7 @@ def save_rbsp_r2(rbsp, folder="./"):
             rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
             rtl_lightmaps.append(rtl_lightmap)
             rtl_start = rtl_end
-        # RTL_C
+        # RTL_C (Internal Only!)
         rtl_end = rtl_start + (header.width * header.height)
         rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
         rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
