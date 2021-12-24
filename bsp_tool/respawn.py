@@ -44,6 +44,11 @@ class RespawnBsp(base.Bsp):
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        if self.bsp_version > 0xFFFF:  # Apex Legends Season 11+
+            self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
+        # NOTE: Legion considers the second short to be a flag for streaming
+        # Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
+        # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
         self.revision = int.from_bytes(self.file.read(4), "little")
         self.lump_count = int.from_bytes(self.file.read(4), "little")
         assert self.lump_count == 127, "irregular RespawnBsp lump_count"
@@ -154,7 +159,10 @@ class RespawnBsp(base.Bsp):
         # make file
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")
-        outfile.write(struct.pack("4s3I", self.file_magic, self.bsp_version, self.revision, 127))
+        bsp_version = self.bsp_version
+        if isinstance(self.bsp_version, tuple):
+            bsp_version = bsp_version[0] + bsp_version[1] << 16
+        outfile.write(struct.pack("4s3I", self.file_magic, bsp_version, self.revision, 127))
         # write headers
         for LUMP in self.branch.LUMP:
             header = headers[LUMP.name]

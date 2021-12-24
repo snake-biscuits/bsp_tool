@@ -55,11 +55,8 @@ GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
                  "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
                  "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": 65585,  # (49, 1)
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": 65586}  # (50, 1)
-# NOTE: Legion considers the second short to be a flag for streaming
-# Likely because the other change to come with the new version numbers is all lumps leaving the .bsp
-# NOTE: ^ (maps in depot/ still contain many lumps in the .bsp, as before)
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1),
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1)}
 
 
 class LUMP(enum.Enum):

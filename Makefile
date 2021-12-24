@@ -6,18 +6,17 @@ SDLFLAGS := -lGL `sdl2-config --cflags --libs`
 R1_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r1/maps
 R1O_MAPS_DIR := /media/bikkie/Sandisk/Respawn/r1o/maps
 R2_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r2/maps
-# R5_DIR       := /media/bikkie/Sandisk/Respawn/r5
-# TODO: seasons
+R5_DIR       := /media/bikkie/Sandisk/Respawn/r5/maps
 
 ifeq ($(OS),Windows_NT)
+    # NOTE: if compiling for Windows, use MSYS2 / MINGW64
+    # -- you will need to copy some .dlls to /build; ntldd is helpful for this
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
-    # runs in MSYS2 MINGW64 when compiled via make in MSYS2 MINGW64, but not from Powershell...
     R1_MAPS_DIR  := /e/Mod/Titanfall/maps
     R1O_MAPS_DIR := /e/Mod/TitanfallOnline/maps
     R2_MAPS_DIR  := /e/Mod/Titanfall2/maps
-    # R5_DIR       := /e/Mod/ApexLegends
-    # TODO: Seasons
+    R5_DIR       := /e/Mod/ApexLegends/maps
 endif
 
 # TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp

@@ -77,6 +77,8 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
                 version = (version & 0xFFFF, version >> 16)  # major, minor
                 BspVariant = ArkaneBsp
             else:
+                if version > 0xFFFF:  # Apex Legends Season 11+
+                    version = (version & 0xFFFF, version >> 16)  # major, minor
                 BspVariant = BspVariant_from_file_magic[file_magic]
     else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")
