@@ -23,7 +23,7 @@
 | 5 | 20 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
 | 6 | 20 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
 | 7 | 20 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 8 | 20 | `LIGHTING` | 0 | [`save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
+| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
 | 9 | 20 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 20 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
 | 11 | 20 | `FACE_IDS` | 0 |  | 0% |
@@ -37,11 +37,14 @@
 | 19 | 20 | `BRUSH_SIDES` | 0 | [`valve.source.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
 | 20 | 20 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
 | 21 | 20 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 22 | 20 | `PROP_COLLISION` | 0 |  | 0% |
-| 23 | 20 | `PROP_HULLS` | 0 |  | 0% |
-| 24 | 20 | `PROP_HULL_VERTS` | 0 |  | 0% |
+| 22 | 20 | `UNUSED_22` | 0 |  | 0% |
+| 22 | 21 | `PROP_COLLISION` | 0 |  | 0% |
+| 23 | 20 | `UNUSED_23` | 0 |  | 0% |
+| 23 | 21 | `PROP_HULLS` | 0 |  | 0% |
+| 24 | 20 | `UNUSED_24` | 0 |  | 0% |
 | 24 | 21 | `PROP_HULL_VERTS` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 25 | 20 | `PROP_HULL_TRIS` | 0 |  | 0% |
+| 25 | 20 | `UNUSED_25` | 0 |  | 0% |
+| 25 | 21 | `PROP_HULL_TRIS` | 0 |  | 0% |
 | 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
 | 27 | 20 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
 | 28 | 20 | `PHYSICS_DISPLACEMENT` | 0 |  | 0% |
@@ -65,11 +68,11 @@
 | 46 | 20 | `LEAF_MIN_DIST_TO_WATER` | 0 |  | 0% |
 | 47 | 20 | `FACE_MACRO_TEXTURE_INFO` | 0 |  | 0% |
 | 48 | 20 | `DISPLACEMENT_TRIS` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 49 | 20 | `PROP_BLOB` | 0 |  | 0% |
+| 49 | 20 | `PHYSICS_COLLIDE_SURFACE` | 0 |  | 0% |
 | 50 | 20 | `WATER_OVERLAYS` | 0 |  | 0% |
 | 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 |  | 0% |
 | 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 |  | 0% |
-| 53 | 20 | `LIGHTING_HDR` | 0 | [`save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
+| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
 | 54 | 20 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
 | 56 | 20 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |
@@ -78,7 +81,8 @@
 | 59 | 20 | `MAP_FLAGS` | 0 |  | 0% |
 | 60 | 20 | `OVERLAY_FADES` | 0 | [`valve.source.OverlayFade`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L473) | 100% |
 | 61 | 20 | `LUMP_OVERLAY_SYSTEM_LEVELS` | 0 |  | 0% |
-| 62 | 20 | `LUMP_PHYSICS_LEVEL` | 0 |  | 0% |
+| 62 | 20 | `UNUSED_62` | 0 |  | 0% |
+| 62 | 21 | `LUMP_PHYSICS_LEVEL` | 0 |  | 0% |
 | 63 | 20 | `UNUSED_63` | 0 |  | 0% |
 
 

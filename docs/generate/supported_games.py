@@ -9,7 +9,7 @@ from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
-from bsp_tool import ArkaneBsp, GoldSrcBsp, RespawnBsp, ValveBsp  # noqa: E402
+from bsp_tool import ArkaneBsp, GoldSrcBsp, RespawnBsp, ValveBsp, QuakeBsp  # noqa: E402
 from bsp_tool import branches  # noqa: E402
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import GameLump  # noqa: E402
@@ -20,29 +20,40 @@ branches_url = f"{repo_url}/branches/"
 
 # Each group gets a .md; lots of formats pretty close, so sharing a table isn't a big deal
 ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "insert", "branch_scripts"])
-source_exclude = (branches.valve.goldsrc, branches.valve.left4dead, branches.valve.left4dead2)
+source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
+                  branches.valve.left4dead, branches.valve.left4dead2)
 # NOTE: per BspClass fils could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
+# -- confirming all the BspClasses line up is pretty important though
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
                       {RespawnBsp: [branches.respawn.apex_legends]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
-          ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games & Arkane Studios", "source.md",
+          ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.troika.vampire],
-                       ArkaneBsp: [branches.arkane.dark_messiah_multiplayer,
-                                   branches.arkane.dark_messiah_singleplayer]}),
-          ScriptGroup("NEXON Source", "nexon.md", "NEXON", None,
+                                  branches.troika.vampire]}),
+          ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
+                      {ValveBsp: [branches.valve.alien_swarm]}),
+          ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "source.md",
+                      {ArkaneBsp: [branches.arkane.dark_messiah_singleplayer]}),
+          ScriptGroup("Dark Messiah MP", "darkmessiah_mp.md", "Arkane Studios", "source.md",
+                      {ArkaneBsp: [branches.arkane.dark_messiah_multiplayer]}),
+          ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
-                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]})]
+                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
+          ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
+                      {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2]}),
+          ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
+                      {QuakeBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
+                                  branches.raven.soldier_of_fortune, branches.ritual.sin]}),
+          ScriptGroup("Quake III Engine", "quake3.md", "Id Software", None,
+                      {QuakeBsp: [branches.id_software.quake3, branches.raven.soldier_of_fortune2,
+                                  *[bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]]})]
 del source_exclude
-# TODO: IdTech
 # TODO: IW Engine
-# TODO: Split up Source
-# -- Alien Swarm
 out_path = "../supported"
 inserts_path = "inserts"
 # TODO: rethink inserts
@@ -176,7 +187,7 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
 
 
 def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False, titanfall_engine=False) -> List[str]:
-    row_head = lambda r: f"| {r.i} | {r.bsp_version} | `{lump_name}` |"  # noqa E731
+    row_head = lambda r: f"| {r.i} | {r.bsp_version} | `{r.lump_name}` |"  # noqa E731
     row_as_string = lambda r: " ".join((row_head(r), f"{r.lump_version} | {r.LumpClass} | {r.coverage}% |\n"))  # noqa E731
     if not versioned_lumps:  # IdTech / GoldSrc / IW Engine
         lines = ["| Lump index | Bsp version | Lump name | LumpClass | Coverage |\n",
@@ -188,7 +199,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
     else:  # Titanfall Engine
         lines = ["| Lump index | Hex index | Bsp version | Lump name | Lump version | LumpClass | Coverage |\n",
                  "| ---------: | --------: | ----------: | --------- | -----------: | --------- | :------- |\n"]
-        row_head = lambda r: f"| {r.i} | {i:04X} | {r.bsp_version} | `{lump_name}` |"  # noqa E731
+        row_head = lambda r: f"| {r.i} | {i:04X} | {r.bsp_version} | `{r.lump_name}` |"  # noqa E731
     # lines for each lump; sorted by lump_index, then bsp_version
     branch_scripts = list(chain(*group.branch_scripts.values()))
     lump_classes = {bs: LumpClasses_of(bs) for bs in branch_scripts}
@@ -204,36 +215,47 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
         table_block = set()
         for branch_script in branch_scripts:
             if i >= len(branch_script.LUMP):
-                continue  # this branch_script is done
+                continue  # this branch_script does not have this lump
             lump_name = branch_script.LUMP(i).name
             bsp_version = branch_script.BSP_VERSION
             bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
-            # NOTE: likely won't play nice with sorting
-            # might be easier to write the whole block?
+            # TODO: move special cases (Lightmaps, GameLump etc.) to coverage to be counted in branch_script total
             # if lump_name == "GAME_LUMP":
+            #     # NOTE: likely won't play nice with sorting
+            #     # might be easier to write the whole block?
             #     game_lump_block = game_lump_table(branch_script, row_as_string)
             #     table_block.update(game_lump_block)
             if (branch_script, lump_name) in lightmap_mappings:
                 LumpClass = lightmap_mappings[(branch_script, lump_name)]
-                lump_class = f"[`{LumpClass.__name__}`]({url_of_BspClass(LumpClass)})"
+                lump_class = f"[`extensions.lightmaps.{LumpClass.__name__}`]({url_of_BspClass(LumpClass)})"
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, lump_class, 100))
             elif lump_name not in lump_classes[branch_script]:
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, "", 0))
             else:
-                # TODO: some non-100% LumpClasses are being skipped why?
                 for lump_version in lump_classes[branch_script][lump_name]:
                     percent = coverage[branch_script][lump_name][lump_version]
                     LumpClass = lump_classes[branch_script][lump_name][lump_version]
                     lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
                     lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                     table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
+        # TODO: sort differently if GAME_LUMP
         sorted_block = list(sorted(table_block, key=lambda r: float(r.bsp_version) * 2 + r.lump_version))
-        # NOTE: game lumps should eliminate repeated lump_versions
         final_block = [sorted_block[0]]
+        lump_names = {r.lump_name for r in sorted_block}
+        unused_lumps = {ln.startswith("UNUSED_") for ln in lump_names}
+        partially_unused = any(unused_lumps) and not all(unused_lumps)
         for row in sorted_block[1:]:
-            if row.LumpClass == final_block[-1].LumpClass:
+            # TODO: remove redundant text between lines
+            # -- cannot simply remove lump_index if titanfall_engine /;
+            if partially_unused and not row.lump_name.startswith("UNUSED_"):
+                # NOTE: assumes sorted_block[0] starts with "UNUSED_"
+                # NOTE: might still have duplicate lump classes in this scenario!
+                # -- mostly trying to catch lump_name changes when there is no LumpClass
+                final_block.append(row)
+                continue
+            elif row.LumpClass == final_block[-1].LumpClass:
                 continue  # no repeats
-            final_block.append(TableRow(i, row.bsp_version, lump_name, row.lump_version, row.LumpClass, row.coverage))
+            final_block.append(row)
         lines.extend(map(row_as_string, final_block))
     return lines
 
