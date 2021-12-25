@@ -30,6 +30,8 @@ goldsrc_dirs = {
                         "dmc",       # 7 maps | 9 MB | Deathmatch: Classic
                         "dod",       # 22 maps | 91 MB | Day of Defeat
                         "gearbox",   # 68 maps | 137 MB | Half-Life: Opposing Force
+                        # https://www.moddb.com/mods/natural-selection
+                        "ns",        # 27 maps | 124 MB | Natural Selection
                         "ricochet",  # 3 maps | 2 MB | Ricochet
                         "tfc",       # 15 maps | 41 MB | Team Fortress: Classic
                         "valve"]},   # 115 maps | 188 MB | Half-Life
