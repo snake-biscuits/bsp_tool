@@ -18,24 +18,30 @@ from bsp_tool.lumps import GameLump  # noqa: E402
 repo_url = "https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool"
 branches_url = f"{repo_url}/branches/"
 
-# detailing groups, some formats have enough overlap to be grouped
-ScriptGroup = namedtuple("ScriptGroup", ["name", "filename", "developers", "insert", "branch_scripts"])
-groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment", "respawn.md",
+# Each group gets a .md; lots of formats pretty close, so sharing a table isn't a big deal
+ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "insert", "branch_scripts"])
+source_exclude = (branches.valve.goldsrc, branches.valve.left4dead, branches.valve.left4dead2)
+# NOTE: per BspClass fils could probably be generated: (would be quite messy though)
+# -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
+groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
                       {RespawnBsp: [branches.respawn.apex_legends]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
-          ScriptGroup("Source Engine", "source.md", "Valve Software, NEXON, Troika Games, Arkane Studios", "source.md",
-                      {ValveBsp: [*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
-                                  *branches.nexon.scripts, branches.troika.vampire],
+          ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games & Arkane Studios", "source.md",
+                      {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
+                                  branches.troika.vampire],
                        ArkaneBsp: [branches.arkane.dark_messiah_multiplayer,
-                                   branches.arkane.dark_messiah_singleplayer]})]
+                                   branches.arkane.dark_messiah_singleplayer]}),
+          ScriptGroup("NEXON Source", "nexon.md", "NEXON", None,
+                      {ValveBsp: branches.nexon.scripts}),
+          ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
+                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]})]
+del source_exclude
 # TODO: IdTech
 # TODO: IW Engine
 # TODO: Split up Source
-# -- Nexon
-# -- L4D Branch (inserts on VScript, Portal 2 & other 2013 SDK features)
 # -- Alien Swarm
 out_path = "../supported"
 inserts_path = "inserts"
@@ -46,11 +52,13 @@ inserts_path = "inserts"
 # engine map w/ links to other tables?
 
 
+# TODO: declare confidence by SpecialLumpClass, not LUMP_NAME
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
 SpecialLumpClass_confidence.update({"ENTITIES": 100,
                                     "ENTITY_PARTITIONS": 100,
-                                    "TEXTURE_DATA_STRING_DATA": 100,
-                                    "SURFACE_NAMES": 100})
+                                    "PAKFILE": 100,  # 0 for CSO2!
+                                    "SURFACE_NAMES": 100,
+                                    "TEXTURE_DATA_STRING_DATA": 100})
 
 
 def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
@@ -79,11 +87,10 @@ def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
             bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else bsp_version
             games[str(bsp_version)].append((game_name, branch_script))
     bsp_classes = {bs: bc for bc, bss in group.branch_scripts.items() for bs in bss}
-    for version in sorted(games):
+    for version in sorted(games, key=lambda v: float(v)):
         for game, branch_script in games[version]:
             BspClass = bsp_classes[branch_script]
-            bsp_class_name = BspClass.__name__
-            bsp_class = f"[`{bsp_class_name}`]({url_of_BspClass(BspClass)})"
+            bsp_class = f"[`{BspClass.__name__}`]({url_of_BspClass(BspClass)})"
             script_name = branch_script.__name__[len("bsp_tool.branches."):]
             script = f"[`{script_name}`]({branches_url}{script_name.replace('.', '/')}.py)"
             unused = sum([L.name.startswith("UNUSED_") or L.name.startswith("VERTEX_RESERVED_")
@@ -103,21 +110,22 @@ def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
 
 def url_of_LumpClass(LumpClass: object) -> str:
     """gets a url to the definition of LumpClass in the GitHub repo"""
-    script_url = LumpClass.__module__[len('bsp_tool.branches.'):].replace(".", "/")
+    script_url = LumpClass.__module__[len("bsp_tool.branches."):].replace(".", "/")
     line_number = inspect.getsourcelines(LumpClass)[1]
     lumpclass_url = f"{branches_url}{script_url}.py#L{line_number}"
     return lumpclass_url
 
 
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
-vbsp_branch_scripts = chain(*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
-                            *branches.nexon.scripts,
-                            branches.troika.vampire,
-                            *branches.arkane.scripts)
-lightmap_mappings = {**{bs: lightmaps.save_vbsp for bs in vbsp_branch_scripts},
-                     branches.respawn.titanfall: lightmaps.save_rbsp_r1,
-                     branches.respawn.titanfall2: lightmaps.save_rbsp_r2}  # also covers Apex? unsure
-# TODO: IdTechBsp & InfinityWardBsp
+vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
+                       *branches.nexon.scripts, branches.troika.vampire, *branches.arkane.scripts]
+lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
+                        for L in ("LIGHTING", "LIGHTING_HDR")},
+                     **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
+                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
+                     **{(branches.respawn.titanfall2, L): lightmaps.save_rbsp_r2
+                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
+# TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 del vbsp_branch_scripts
 
 
@@ -125,14 +133,16 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 
 
 def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> List[str]:
-    table_block = set()
+    # NOTE: breaking & hard to sort adequately
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(GameLump)[1]}"
     game_lump_handler = f"[`lumps.GameLump`]({game_lump_handler_url})"
     # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex & ArkaneBsp though...
     # TODO: actually calculate ~{coverage - 10} in the coverage dict
     # -- would probably require putting this GameLump iterator thing in a generator of some kind
-    row_header = (branch_script.LUMP.GAME_LUMP.value, branch_script.bsp_version)
-    head_line = row_as_string(TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90))
+    bsp_version = branch_script.BSP_VERSION
+    bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
+    row_header = (branch_script.LUMP.GAME_LUMP.value, bsp_version)
+    table_block = {row_as_string(TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90))}
     for lump_name in branch_script.GAME_LUMP_CLASSES:
         for lump_version in branch_script.GAME_LUMP_CLASSES[lump_name]:
             GameLumpClass = branch_script.GAME_LUMP_CLASSES[lump_name][lump_version]
@@ -141,6 +151,10 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
             if isinstance(GameLumpClass, FunctionType):
                 lump_class = re.search(r"raw_lump, (.*)\)", inspect.getsource(GameLumpClass)).groups()[0]  # noqa
                 # NOTE: ^ lazy solution
+                print(lump_class)
+                if lump_class == "None":
+                    table_block.add(TableRow(*row_header, game_lump_name, lump_version, "", 0))
+                    continue
                 # tracking down an object from a string is insane
                 # maybe GameLumpClasses should use "decorators" instead?
                 # this would create a class object with a traceable StaticPropClass attr?
@@ -158,7 +172,7 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
             table_block.add(TableRow(*row_header, game_lump_name, lump_version, lump_class, percent))
             # NOTE: GameLumpClasses are generally SpecialLumpClasses
             # -- this means coverage cannot be measured accurately
-    return head_line, table_block
+    return table_block
 
 
 def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False, titanfall_engine=False) -> List[str]:
@@ -196,13 +210,14 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
             bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
             # NOTE: likely won't play nice with sorting
             # might be easier to write the whole block?
-            # elif lump_name == "GAME_LUMP":
-            #     # TODO: skip if branch_script.GAME_LUMP_CLASSES is the same as previous
-            #     line, block = game_lump_table(branch_script, row_as_string)
-            #     lines.append(line)
-            #     table_block.update(block)
-            # TODO: Lightmap data might be covered by extensions.lightmaps
-            if lump_name not in lump_classes[branch_script]:
+            # if lump_name == "GAME_LUMP":
+            #     game_lump_block = game_lump_table(branch_script, row_as_string)
+            #     table_block.update(game_lump_block)
+            if (branch_script, lump_name) in lightmap_mappings:
+                LumpClass = lightmap_mappings[(branch_script, lump_name)]
+                lump_class = f"[`{LumpClass.__name__}`]({url_of_BspClass(LumpClass)})"
+                table_block.add(TableRow(i, bsp_version, lump_name, 0, lump_class, 100))
+            elif lump_name not in lump_classes[branch_script]:
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, "", 0))
             else:
                 # TODO: some non-100% LumpClasses are being skipped why?
@@ -213,6 +228,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                     lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                     table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
         sorted_block = list(sorted(table_block, key=lambda r: float(r.bsp_version) * 2 + r.lump_version))
+        # NOTE: game lumps should eliminate repeated lump_versions
         final_block = [sorted_block[0]]
         for row in sorted_block[1:]:
             if row.LumpClass == final_block[-1].LumpClass:
@@ -223,16 +239,18 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
 
 
 def supported_md(group: ScriptGroup) -> List[str]:
-    lines = [f"# Supported {group.name} Games\n",
-             f"Developers: {group.developers}\n\n"]
+    lines = [f"# {group.headline}\n",
+             f"## Developers: {group.developers}\n\n"]
     versioned_lumps: bool = any([k in (ArkaneBsp, ValveBsp, RespawnBsp) for k in group.branch_scripts.keys()])
     # COVERAGE CALCULATIONS
     coverage = dict()
     # ^ {branch_script: {"LUMP_NAME": {lump_version: percent_covered}}}
     # TODO: some .bsp may contain lump versions that haven't been supported yet
-    # -- would be worth mapping such lumps with tests/maplist.installed_games
+    # -- would be worth mapping such lumps with tests.maplist.installed_games
     # -- since this still constitutes unmapped lumps (a non-present version 0 would not, however)
     # -- only known .bsp files matter, no need for hypotheticals (don't really care about leaked betas either)
+    # TODO: include lightmap coverage via lightmap_mappings
+    # TODO: have some override list for edge cases (e.g. LEVEL_INFO & PHYSICS_LEVEL)
     for branch_script in chain(*group.branch_scripts.values()):
         coverage[branch_script] = defaultdict(dict)
         for lump_name, LumpClass_dict in LumpClasses_of(branch_script).items():
@@ -251,7 +269,7 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     elif issubclass(LumpClass, list):  # quake.Edge / vindictus.Edge etc.
                         attrs, unknowns = 1, 0
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
-                if lump_name in branch_script.SPECIAL_LUMP_CLASSES:
+                elif lump_name in branch_script.SPECIAL_LUMP_CLASSES:
                     percent = SpecialLumpClass_confidence[lump_name]
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
@@ -269,7 +287,8 @@ def supported_md(group: ScriptGroup) -> List[str]:
             lines.extend(insert.readlines())
             lines.append("\n\n")
     lines.append("## Supported Lumps\n")
-    lines.extend(lump_table(group, coverage, versioned_lumps, group.name in ("Titanfall Engine", "Apex Legends")))
+    has_titanfall_engine = any([bs.FILE_MAGIC == b"rBSP" for bs in chain(*group.branch_scripts.values())])
+    lines.extend(lump_table(group, coverage, versioned_lumps, has_titanfall_engine))
     lines.append("\n\n")
     return lines
 

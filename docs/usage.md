@@ -7,6 +7,7 @@
 
 > Note: Respawn .bsp files should have .bsp_lump & .ent files in the same folder
 
+
 ## Game Detection
 `bsp_tool.load_bsp()` does it's best to detect the format branch of the give file  
 However, some .bsp formats share identifiers with very different games  
@@ -18,10 +19,22 @@ When loading maps from the following games, you must specify the branch with:
 ```python
 bsp_tool.load_bsp("filename", bsp_tool.branches.developer.game)
 ```
+
+
 ### Blind Spots
-| Game | **incorrecty** detected branch | correct branch script |
-| - | - | - |
-| Vindictus | `valve.orange_box` | `nexon.vindictus` |
+| Game               | Detected                    | Correct                    |
+| ------------------ | --------------------------- | -------------------------- |
+| Alien Swarm        | `valve.sdk_2013`            | `valve.alien_swarm`        |
+| CS:O 2 (2018+)     | `nexon.cso2`                | `nexon.cso2_2018`          |
+| Dark Messiah: MP   | `arkane.dark_messiah_singleplayer` | `arkane.dark_messiah_multiplayer` |
+| Left 4 Dead        | `valve.orange_box`          | `valve.left4dead`          |
+| Left 4 Dead 2      | `valve.sdk_2013`            | `valve.left4dead2`         |
+| SiN                | `raven.soldier_of_fortune2` | `ritual.sin`               |
+| Soldier of Fortune | `id_software.quake3`        | `raven.soldier_of_fortune` |
+| Vindictus          | `valve.orange_box`          | `nexon.vindictus`          |
+
+Any suggestions on how to better detect these titles are welcome in [Issue #17](https://github.com/snake-biscuits/bsp_tool/issues/17)
+
 
 ## Browsing .bsp contents
 `bsp_tool.load_bsp(filename)` returns a `Bsp` object

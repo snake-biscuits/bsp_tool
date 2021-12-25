@@ -21,6 +21,7 @@ GAME_PATHS = {"Counter Strike": "Half-Life/cstrike",
               "Half-Life": "Half-Life/valve",
               "Half-Life: Opposing Force": "Half-Life/gearbox",
               "Halfquake Trilogy": "Halfquake Trilogy/valve",
+              "Natural Selection": "Half-Life/ns",
               "Ricochet": "Half-Life/ricochet",
               "Sven Co-op": "Sven Co-op/svencoop",
               "Team Fortress Classic": "Half-Life/tfc"}

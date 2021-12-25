@@ -1,5 +1,5 @@
-# Supported Gold Source Games
-Developers: Valve Software, Gearbox Software
+# Gold Source
+## Developers: Valve Software, Gearbox Software
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
@@ -12,15 +12,24 @@ Developers: Valve Software, Gearbox Software
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Half-Life | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Half-Life: Opposing Force | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Halfquake Trilogy | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Natural Selection | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Ricochet | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Sven Co-op | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Team Fortress Classic | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 10 / 15 | 0 | 66.67% |
 | [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 30 | Half-Life: Blue Shift | [`gearbox.blue_shift`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/blue_shift.py) | 10 / 15 | 0 | 66.67% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 42 | James Bond 007: Nightfire | [`gearbox.nightfire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py) | 12 / 18 | 0 | 66.67% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L16) | 42 | James Bond 007: Nightfire | [`gearbox.nightfire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py) | 12 / 18 | 0 | 60.61% |
+
+
+### Blue Shift's Lump Shift
+Half-Life: Blue Shift's format is identical to GoldSrc, except for one small change:  
+  **The order of the first 2 lump headers is reversed**
+<!-- Complain about Randy here-->
 
 
 > TODO: mention Xash3D & other GoldSrc modding / Indie efforts
-> Admer456, Cry of Fear, Paranoia etc.
+> Admer456, Cry of Fear, Paranoia etc
+
+[TWHL](https://twhl.info)
 
 
 ## Supported Lumps
@@ -42,11 +51,11 @@ Developers: Valve Software, Gearbox Software
 | 7 | 42 | `VISIBILITY` |  | 0% |
 | 8 | 30 | `NODES` |  | 0% |
 | 9 | 30 | `FACES` | [`id_software.quake.ClipNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L102) | 100% |
-| 9 | 42 | `FACES` | [`gearbox.nightfire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L52) | 100% |
+| 9 | 42 | `FACES` | [`gearbox.nightfire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L52) | 91% |
 | 10 | 30 | `LIGHTMAPS` | [`id_software.quake.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L140) | 100% |
 | 10 | 42 | `LIGHTMAPS` |  | 0% |
 | 11 | 30 | `LEAVES` |  | 0% |
-| 11 | 42 | `LEAVES` | [`gearbox.nightfire.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L71) | 100% |
+| 11 | 42 | `LEAVES` | [`gearbox.nightfire.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L71) | 0% |
 | 12 | 30 | `MARK_SURFACES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
 | 12 | 42 | `MARK_SURFACES` |  | 0% |
 | 13 | 30 | `MARK_BRUSHES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L32) | 100% |

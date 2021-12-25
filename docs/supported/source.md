@@ -1,35 +1,30 @@
-# Supported Source Engine Games
-Developers: Valve Software, NEXON, Troika Games, Arkane Studios
+# Source Engine
+## Developers: Valve Software, Troika Games & Arkane Studios
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 100 | Counter-Strike: Online 2 | [`nexon.cso2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2.py) | 25 / 58 | 6 | 42.93% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 100 | Counter-Strike: Online 2 | [`nexon.cso2_2018`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py) | 26 / 58 | 6 | 44.66% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 17 | Vampire The Masquerade - Bloodlines | [`troika.vampire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/troika/vampire.py) | 27 / 61 | 3 | 44.10% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Counter-Strike: Source | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 48.85% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life Deathmatch: Source | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 48.85% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life 2 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 48.85% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life 2: Episode 1 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 48.85% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Left 4 Dead | [`valve.left4dead`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead.py) | 29 / 58 | 6 | 49.66% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Day of Defeat: Source | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | G-String | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Garry's Mod | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Half-Life 2: Episode 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Half-Life 2 Update | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | NEOTOKYO | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Portal | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Team Fortress 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 54.04% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Vindictus | [`nexon.vindictus`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py) | 32 / 57 | 7 | 55.79% |
-| [`ArkaneBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/arkane.py#L9) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_multiplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_multiplayer.py) | 29 / 57 | 7 | 50.53% |
-| [`ArkaneBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/arkane.py#L9) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_singleplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_singleplayer.py) | 27 / 57 | 7 | 47.02% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Alien Swarm | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 29 / 58 | 6 | 49.66% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Alien Swarm: Reactive Drop | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 29 / 58 | 6 | 49.66% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Left 4 Dead 2 | [`valve.left4dead2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py) | 30 / 63 | 1 | 47.30% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Blade Symphony | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 46.45% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Counter-Strike: Global Offensive | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 46.45% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Portal 2 | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 46.45% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Source Filmmaker | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 46.45% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 22 | INFRA | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 46.45% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 17 | Vampire The Masquerade - Bloodlines | [`troika.vampire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/troika/vampire.py) | 27 / 61 | 3 | 42.62% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Counter-Strike: Source | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 47.38% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life Deathmatch: Source | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 47.38% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life 2 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 47.38% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 19 | Half-Life 2: Episode 1 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 30 / 61 | 3 | 47.38% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Day of Defeat: Source | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | G-String | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Garry's Mod | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Half-Life 2: Episode 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Half-Life 2 Update | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | NEOTOKYO | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Portal | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 20 | Team Fortress 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 31 / 57 | 7 | 52.46% |
+| [`ArkaneBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/arkane.py#L9) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_multiplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_multiplayer.py) | 29 / 57 | 7 | 48.95% |
+| [`ArkaneBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/arkane.py#L9) | 20.4 | Dark Messiah of Might and Magic Single Player | [`arkane.dark_messiah_singleplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_singleplayer.py) | 27 / 57 | 7 | 45.44% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Alien Swarm | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 29 / 58 | 6 | 48.10% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Alien Swarm: Reactive Drop | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 29 / 58 | 6 | 48.10% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Blade Symphony | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 45.00% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Counter-Strike: Global Offensive | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 45.00% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Portal 2 | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 45.00% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 21 | Source Filmmaker | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 45.00% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L69) | 22 | INFRA | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 29 / 62 | 2 | 45.00% |
 
 
 ### References
@@ -48,76 +43,36 @@ Developers: Valve Software, NEXON, Troika Games, Arkane Studios
 | 3 | 17 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
 | 4 | 17 | `VISIBILITY` | 0 |  | 0% |
 | 5 | 17 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 20 | `NODES` | 0 | [`nexon.vindictus.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
-| 5 | 20 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L456) | 100% |
-| 5 | 100 | `NODES` | 0 | [`nexon.vindictus.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L227) | 100% |
 | 6 | 17 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
 | 6 | 20.4 | `TEXTURE_INFO` | 0 |  | 0% |
 | 6 | 21 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L490) | 100% |
 | 7 | 17 | `FACES` | 0 |  | 0% |
 | 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 20 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 7 | 20.4 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 20 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 7 | 21 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 7 | 100 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 7 | 100 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 8 | 17 | `LIGHTING` | 0 |  | 0% |
+| 8 | 17 | `LIGHTING` | 0 | [`save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
-| 10 | 20 | `LEAVES` | 0 | [`nexon.vindictus.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L219) | 100% |
 | 10 | 20 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L114) | 100% |
-| 10 | 100 | `LEAVES` | 0 |  | 0% |
 | 11 | 17 | `FACE_IDS` | 0 |  | 0% |
 | 12 | 17 | `EDGES` | 0 | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 20 | `EDGES` | 0 | [`nexon.vindictus.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
-| 12 | 20.4 | `EDGES` | 0 | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L113) | 100% |
-| 12 | 100 | `EDGES` | 0 | [`nexon.vindictus.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L149) | 100% |
 | 13 | 17 | `SURFEDGES` | 0 | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L28) | 100% |
 | 14 | 17 | `MODELS` | 0 | [`valve.source.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
 | 14 | 20.4 | `MODELS` | 0 |  | 0% |
 | 14 | 21 | `MODELS` | 0 | [`valve.source.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L443) | 100% |
 | 15 | 17 | `WORLD_LIGHTS` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 15 | 20 | `WORLD_LIGHTS` | 0 |  | 0% |
-| 15 | 100 | `WORLD_LIGHTS` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
+| 15 | 20.4 | `WORLD_LIGHTS` | 0 |  | 0% |
 | 16 | 17 | `LEAF_FACES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 20 | `LEAF_FACES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 16 | 20.4 | `LEAF_FACES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 16 | 100 | `LEAF_FACES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
 | 17 | 17 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 20 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
-| 17 | 20.4 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
-| 17 | 100 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L40) | 100% |
 | 18 | 17 | `BRUSHES` | 0 | [`valve.source.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L342) | 100% |
 | 19 | 17 | `BRUSH_SIDES` | 0 | [`valve.source.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 20 | `BRUSH_SIDES` | 0 | [`nexon.vindictus.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L122) | 100% |
-| 19 | 20 | `BRUSH_SIDES` | 0 | [`valve.source.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L351) | 100% |
-| 19 | 100 | `BRUSH_SIDES` | 0 |  | 0% |
 | 20 | 17 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 20 | `AREAS` | 0 | [`nexon.vindictus.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
-| 20 | 20.4 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
-| 20 | 100 | `AREAS` | 0 | [`nexon.vindictus.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L105) | 100% |
 | 21 | 17 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 20 | `AREA_PORTALS` | 0 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
-| 21 | 20.4 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
-| 21 | 100 | `AREA_PORTALS` | 0 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L112) | 100% |
 | 22 | 17 | `UNUSED_22` | 0 |  | 0% |
 | 23 | 17 | `UNUSED_23` | 0 |  | 0% |
 | 24 | 17 | `UNUSED_24` | 0 |  | 0% |
-| 24 | 21 | `UNUSED_24` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L227) | 100% |
-| 24 | 21 | `UNUSED_24` | 0 |  | 0% |
 | 25 | 17 | `UNUSED_25` | 0 |  | 0% |
 | 26 | 17 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L131) | 100% |
-| 26 | 20.4 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L26) | 100% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
 | 27 | 17 | `ORIGINAL_FACES` | 0 |  | 0% |
 | 27 | 19 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L160) | 100% |
-| 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L189) | 100% |
-| 27 | 21 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |
-| 27 | 100 | `ORIGINAL_FACES` | 0 |  | 0% |
 | 28 | 17 | `PHYSICS_DISPLACEMENT` | 0 |  | 0% |
 | 29 | 17 | `PHYSICS_COLLIDE` | 0 |  | 0% |
 | 29 | 19 | `PHYSICS_COLLIDE` | 0 | [`physics.CollideLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/physics.py#L17) | 90% |
@@ -127,20 +82,16 @@ Developers: Valve Software, NEXON, Troika Games, Arkane Studios
 | 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
 | 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
 | 35 | 17 | `GAME_LUMP` | 0 |  | 0% |
-| 36 | 17 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 100% |
+| 36 | 17 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 0% |
 | 37 | 17 | `PRIMITIVES` | 0 |  | 0% |
 | 38 | 17 | `PRIMITIVE_VERTICES` | 0 |  | 0% |
 | 39 | 17 | `PRIMITIVE_INDICES` | 0 |  | 0% |
-| 40 | 17 | `PAKFILE` | 0 | [`shared.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 90% |
-| 40 | 100 | `PAKFILE` | 0 |  | 0% |
+| 40 | 17 | `PAKFILE` | 0 | [`shared.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L127) | 100% |
 | 41 | 17 | `CLIP_PORTAL_VERTICES` | 0 |  | 0% |
 | 42 | 17 | `CUBEMAPS` | 0 | [`valve.source.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L360) | 100% |
-| 42 | 100 | `CUBEMAPS` | 0 |  | 0% |
 | 43 | 17 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L136) | 100% |
 | 44 | 17 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 45 | 17 | `OVERLAYS` | 0 |  | 0% |
-| 45 | 20 | `OVERLAYS` | 0 | [`nexon.vindictus.Overlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L234) | 100% |
-| 45 | 20.4 | `OVERLAYS` | 0 |  | 0% |
 | 46 | 17 | `LEAF_MIN_DIST_TO_WATER` | 0 |  | 0% |
 | 47 | 17 | `FACE_MACRO_TEXTURE_INFO` | 0 |  | 0% |
 | 48 | 17 | `DISPLACEMENT_TRIS` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
@@ -148,12 +99,9 @@ Developers: Valve Software, NEXON, Troika Games, Arkane Studios
 | 50 | 17 | `WATER_OVERLAYS` | 0 |  | 0% |
 | 51 | 17 | `LEAF_AMBIENT_INDEX_HDR` | 0 |  | 0% |
 | 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 |  | 0% |
-| 53 | 17 | `LIGHTING_HDR` | 0 |  | 0% |
+| 53 | 17 | `LIGHTING_HDR` | 0 | [`save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L83) | 100% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
-| 54 | 20 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
-| 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
 | 54 | 20.4 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
-| 54 | 100 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L503) | 100% |
 | 55 | 17 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
 | 56 | 17 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |
 | 57 | 17 | `XZIP_PAKFILE` | 0 |  | 0% |
