@@ -127,7 +127,7 @@ class Struct:
     # convertors
     @classmethod
     def from_bytes(cls, _bytes: bytes) -> Struct:
-        assert len(_bytes) == struct.calcsize(cls.format)
+        assert len(_bytes) == struct.calcsize(cls._format)
         _tuple = struct.unpack(cls._format, _bytes)
         expected_length = len(cls.__slots__) + mapping_length(cls._arrays) - len(cls._arrays)
         assert len(_tuple) == expected_length

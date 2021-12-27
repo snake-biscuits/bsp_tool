@@ -156,7 +156,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 99 | 0063 | 29 | `CSM_AABB_NODES` | 0 | [`respawn.titanfall.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L330) | 50% |
 | 100 | 0064 | 29 | `CSM_OBJ_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 101 | 0065 | 29 | `LIGHTPROBES` | 0 |  | 0% |
-| 102 | 0066 | 29 | `STATIC_PROP_LIGHTPROBE_INDEX` | 0 |  | 0% |
+| 102 | 0066 | 29 | `STATIC_PROP_LIGHTPROBE_INDICES` | 0 |  | 0% |
 | 103 | 0067 | 29 | `LIGHTPROBE_TREE` | 0 |  | 0% |
 | 104 | 0068 | 29 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L274) | 100% |
 | 104 | 0068 | 37 | `LIGHTPROBE_REFERENCES` | 0 |  | 0% |

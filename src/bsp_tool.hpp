@@ -249,7 +249,7 @@ namespace bsp_tool {
         };
 
 
-        namespace titanfall {
+        namespace  {
             const int BSP_VERSION = 29;
             namespace LUMP {
                 int ENTITIES                  = 0x00,  UNUSED_64                           = 0x40,
@@ -290,7 +290,7 @@ namespace bsp_tool {
                     GAME_LUMP                 = 0x23,  CSM_AABB_NODES                      = 0x63,
                     LEAF_WATER_DATA           = 0x24,  CSM_OBJ_REFERENCES                  = 0x64,
                     UNUSED_37                 = 0x25,  LIGHTPROBES                         = 0x65,
-                    UNUSED_38                 = 0x26,  STATIC_PROP_LIGHTPROBE_INDEX        = 0x66,
+                    UNUSED_38                 = 0x26,  STATIC_PROP_LIGHTPROBE_INDICES      = 0x66,
                     UNUSED_39                 = 0x27,  LIGHTPROBE_TREE                     = 0x67,
                     PAKFILE                   = 0x28,  LIGHTPROBE_REFERENCES               = 0x68,
                     UNUSED_41                 = 0x29,  LIGHTMAP_DATA_REAL_TIME_LIGHTS      = 0x69,

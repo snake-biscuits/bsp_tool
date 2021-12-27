@@ -196,8 +196,8 @@ extracted_dirs = {
                         "season3_30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB
                         "season3_30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB
                         "season3_3dec19/maps",  # 8 maps | 4.6 GB
-                        "season3_3dec19/maps/r5launch/game/r2/maps",  # 8 maps | 4.6 GB
-                        "season3_3dec19/maps/r5staging/game/r2/maps",  # 8 maps | 3.0 GB
+                        "season3_3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB
+                        "season3_3dec19/depot/r5staging/game/r2/maps",  # 8 maps | 3.0 GB
                         # season4:  Assimilation [4th Feb 2020]
                         # season5:  Fortune's Favour  [12th May 2020]
                         "season5/maps",  # 3 maps | 1.2 GB
@@ -209,14 +209,14 @@ extracted_dirs = {
                         "season9/maps",  # 4 maps | 226 MB
                         # season10:  Emergence  [3rd Aug 2021]
                         "season10_3aug21/maps",  # 2 maps | 813 MB
-                        "season10_3aug21/maps",  # 8 maps | 2.8 GB
-                        "season10_3aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
-                        "season10_14sep21/maps"  # 2 maps | 962 MB
+                        "season10_10aug21/maps",  # 8 maps | 2.8 GB
+                        "season10_10aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
+                        "season10_14sep21/maps",  # 2 maps | 962 MB
                         "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB
                         "season10_14sep21/depot/r5-101/game/r2/maps",  # 2 maps | 949 MB
                         # season11:  Escape  [2nd Nov 2021]
                         "season11/maps",  # 1 map | 10 MB
-                        "season11/depot/r5-110/game/r2/maps"  # 1 map | 9 MB
+                        "season11/depot/r5-110/game/r2/maps",  # 1 map | 9 MB
                         "season11_6nov21/maps",  # 1 map | 760 MB
                         "season11_6nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB
                         "season11_19nov21/maps",  # 10 maps | 1.5 GB

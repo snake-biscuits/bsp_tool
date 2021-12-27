@@ -124,7 +124,7 @@ class LUMP(enum.Enum):
     CSM_AABB_NODES = 0x0063
     CSM_OBJ_REFERENCES = 0x0064
     LIGHTPROBES = 0x0065
-    STATIC_PROP_LIGHTPROBE_INDEX = 0x0066
+    STATIC_PROP_LIGHTPROBE_INDICES = 0x0066
     LIGHTPROBE_TREE = 0x0067
     LIGHTPROBE_REFERENCES = 0x0068
     LIGHTMAP_DATA_REAL_TIME_LIGHTS = 0x0069
@@ -145,7 +145,7 @@ class LUMP(enum.Enum):
     OBJ_REFERENCES = 0x0078
     OBJ_REFERENCE_BOUNDS = 0x0079
     UNUSED_122 = 0x007A
-    LEVEL_INFO = 0x007B
+    LEVEL_INFO = 0x007B  # PVS related? tied to portals & cells
     SHADOW_MESH_OPAQUE_VERTICES = 0x007C
     SHADOW_MESH_ALPHA_VERTICES = 0x007D
     SHADOW_MESH_INDICES = 0x007E
@@ -183,9 +183,20 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # NOTE: there are also always as many vert refs as edge refs
 
 # CM_GRID probably defines the bounds of CM_GRID_CELLS, with CM_GRID_CELLS indexing other objects?
+# GM_GRID is always 1x 28 byte entry???
 
 # Grid -?> Brush -?> BrushSidePlaneOffset -?> Plane
 # (? * ? + ?) * 4 -> GridCell
+
+
+# engine limits:
+class MAX(enum.Enum):
+    MODELS = 1024
+    TEXTURE_DATA = 2048
+    WORLDLIGHTS = 4064
+    STATIC_PROPS = 40960
+
+# NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
 
 
 # flag enums
@@ -248,10 +259,12 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
     scale: float  # scaled against some global vector in engine, I think
+    min_x: int  # close to (world_mins * scale) + scale
+    min_y: int  # close to (world_mins * scale) + scale
     unknown: List[int]
-    __slots__ = ["scale", "unknown"]
+    __slots__ = ["scale", "min_x", "min_y", "unknown"]
     _format = "f6i"
-    _arrays = {"unknown": 6}
+    _arrays = {"unknown": 4}
 
 
 class LeafWaterData(base.Struct):
@@ -574,7 +587,6 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CM_BRUSHES":                        {0: Brush},
                 "CM_BRUSH_TEX_VECS":                 {0: TextureVector},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
-                "CM_GRID":                           {0: Grid},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},
                 "CUBEMAPS":                          {0: Cubemap},
@@ -607,7 +619,8 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "VERTEX_UNLIT":                      {0: VertexUnlit},
                 "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITY_PARTITIONS":         {0: EntityPartitions},
+SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
+                        "ENTITY_PARTITIONS":         {0: EntityPartitions},
                         "ENTITIES":                  {0: shared.Entities},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
                         "PAKFILE":                   {0: shared.PakFile},

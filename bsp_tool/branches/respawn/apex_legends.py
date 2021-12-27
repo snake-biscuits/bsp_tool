@@ -98,7 +98,7 @@ class LUMP(enum.Enum):
     GAME_LUMP = 0x0023
     UNUSED_36 = 0x0024
     UNKNOWN_37 = 0x0025  # connected to VIS lumps
-    UNKNOWN_38 = 0x0026
+    UNKNOWN_38 = 0x0026  # connected to CSM lumps
     UNKNOWN_39 = 0x0027  # connected to VIS lumps
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
@@ -145,7 +145,7 @@ class LUMP(enum.Enum):
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
     UNUSED_84 = 0x0054
-    CM_GRID = 0x0055
+    CM_GRID = 0x0055  # Tweaklights?
     UNUSED_86 = 0x0056
     UNUSED_87 = 0x0057
     UNUSED_88 = 0x0058
@@ -162,7 +162,7 @@ class LUMP(enum.Enum):
     CSM_AABB_NODES = 0x0063
     CSM_OBJ_REFERENCES = 0x0064
     LIGHTPROBES = 0x0065
-    STATIC_PROP_LIGHTPROBE_INDEX = 0x0066
+    STATIC_PROP_LIGHTPROBE_INDICES = 0x0066
     LIGHTPROBE_TREE = 0x0067
     LIGHTPROBE_REFERENCES = 0x0068
     LIGHTMAP_DATA_REAL_TIME_LIGHTS = 0x0069
@@ -388,7 +388,6 @@ def ApexSPRP(raw_lump):
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("CM_GRID")
 LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
                      "MATERIAL_SORT":       {0: MaterialSort},
                      "MESHES":              {0: Mesh},
@@ -404,6 +403,7 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
                      "VERTEX_UNLIT_TS":     {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.pop("CM_GRID")
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
