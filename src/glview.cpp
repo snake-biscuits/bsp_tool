@@ -103,6 +103,7 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
         texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
         // indices
         index_offset[i] = vertex_count + material_sort.vertex_offset - mesh.first_vertex;
+        // NOTE: indexing seems to break once we switch vertex lump
         total_indices += mesh.num_triangles * 3;
         switch (mesh.flags & FLAG::MASK_VERTEX) {
             case FLAG::VERTEX_UNLIT:  // VERTEX_RESERVED_0
