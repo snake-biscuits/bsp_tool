@@ -1,4 +1,5 @@
 """PhysicsCollide SpecialLumpClasses"""
+# SourceIO/.../source1/phy/phy.py
 from __future__ import annotations
 import collections
 import io
@@ -77,14 +78,14 @@ class Block:  # TODO: actually process this data
             size, *drag_axis_areas, axis_map_size = struct.unpack("i3fi", lump.read(20))
             surface_header = SurfaceHeader(size, drag_axis_areas, axis_map_size)
             # self.data = CollisionModel(lump)
-            # - CollisionModel
+            # - CollisionModel (44 bytes)
             #   - TreeNode (recursive) <- CollisionModel.tree_offset
             #   - TreeNode (left)  <- TreeNode<parent>._offset + sizeof(TreeNode)
             #   - TreeNode (right) <- TreeNode<parent>.right_node_offset
             #   if (TreeNode<parent>.right_node_offset == 0)
-            #   - ConvexLeaf <- TreeNode<parent>.convex_offset
+            #   - ConvexLeaf <- TreeNode<parent>.convex_offset (indexes relative [backwards])
             #     - ConvexTriangle[ConvexLeaf.triangle_count]
-            #     - Vertex[max(*ConvexTriangle<s>.edges[::])]
+            #     - Vertex[len(set([i for ct in triangles for e in ct.edges for i in e]))]
         elif header.model_type == 1:
             surface_header = MoppHeader(*struct.unpack("i", lump.read(4)))
             # yeah, no idea what this does
@@ -133,12 +134,13 @@ class CollisionModel(base.Struct):
 
 
 class TreeNode(base.Struct):
-    """struct TreeNode { int node_size[2]; float unknown[5]; };"""
-    __slots__ = ["node_size", "unknown"]
+    """struct TreeNode { int right_node_offset, convex_leaf_offset; float unknown[5]; };"""
+    __slots__ = ["right_node_offset", "convex_leaf_offset", "unknown"]
     _format = "2i5f"
-    _arrays = {"node_size": 2, "unknown": 5}
+    _arrays = {"unknown": 5}
 
     # TODO: children
+    # left node comes next, the we skip to the right node, relative to our current position
     # 2x TreeNode if node_size[0] != 0
     # else b"IDST" (IDSTUDIOHEADER), ConvexLeaf
     # src/utils/motionmapper/motionmapper.h
@@ -150,6 +152,8 @@ class ConvexLeaf(base.Struct):
     __slots__ = ["vertex_offset", "padding", "triangle_count", "unused"]
     _format = "3i2h"
     _arrays = {"padding": 2}
+    # immediately followed by triangles
+    # need to read triangles to find vertex count
 
 
 class ConvexTriangle(base.Struct):
@@ -163,3 +167,4 @@ class Vertex(base.MappedArray):
     """struct Vertex { float x, y, z, w };"""
     _mapping = [*"xyzw"]
     _format = "4f"
+    # appear to be 1/72 the expected size (roughly)
