@@ -1,4 +1,5 @@
 import collections
+import json
 import math
 import os
 from typing import Dict, List
@@ -156,16 +157,21 @@ def save_rbsp_r2(rbsp, folder="./"):
             rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
             rtl_lightmaps.append(rtl_lightmap)
             rtl_start = rtl_end
-        # RTL_C (Internal Only!)
-        rtl_end = rtl_start + (header.width * header.height)
-        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
-        rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
-        rtl_lightmaps.append(rtl_lightmap)
-        rtl_start = rtl_end
+        if not hasattr(rbsp.headers["LIGHTMAP_DATA_REAL_TIME_LIGHTS"], "filename"):  # internal only (not .bsp_lump)
+            # RTL_C
+            rtl_end = rtl_start + (header.width * header.height)
+            rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+            rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
+            rtl_lightmaps.append(rtl_lightmap)
+            rtl_start = rtl_end
     os.makedirs(folder, exist_ok=True)
     sky_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2  # SKY_A | SKY_B
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=sky_width))
-    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
+    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky.png"))
+    with open(f"{rbsp.filename}.sky.json", "w") as sky_json:
+        json.dump([dict(zip(AllocatedSpace._fields, c)) for c in sky_lightmap_page.children], sky_json)
     rtl_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 3  # RTL_A | RTL_B | RTL_C
     rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=rtl_width))
-    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl_lightmaps.png"))
+    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl.png"))
+    with open(f"{rbsp.filename}.rtl.json", "w") as rtl_json:
+        json.dump([dict(zip(AllocatedSpace._fields, c)) for c in rtl_lightmap_page.children], rtl_json)
