@@ -81,3 +81,68 @@ class ValveBsp(base.Bsp):
         # -- so branch.read_lump_header function is used
         # TODO: move to a system of using header LumpClasses instead of the above
         return self.branch.read_lump_header(self.file, LUMP)
+
+    def save_as(self, filename: str = None):
+        raise NotImplementedError()
+        # # TODO: get LumpHeaderClass from branch
+        # lump_order = sorted([L for L in self.branch.LUMP],
+        #                     key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
+        # # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
+        # # NOTE: messes up on empty lumps, so we can't get an exact 1:1 copy /;
+        # raw_lumps: Dict[str, bytes] = dict()
+        # # ^ {"LUMP.name": b"raw lump data]"}
+        # for LUMP in self.branch.LUMP:
+        #     lump_bytes = self.lump_as_bytes(LUMP.name)
+        #     if lump_bytes != b"":  # don't write empty lumps
+        #         raw_lumps[LUMP.name] = lump_bytes
+        # # recalculate headers
+        # current_offset = 0
+        # headers = dict()
+        # for LUMP in lump_order:
+        #     if LUMP.name not in raw_lumps:  # lump is not present
+        #          version = self.headers[LUMP.name].version  # PHYSICS_LEVEL needs version preserved
+        #          headers[LUMP.name] = LumpHeader(current_offset, 0, version, 0)
+        #          continue
+        #     # wierd hack to align unused lump offsets correctly
+        #     if current_offset == 0:
+        #         current_offset = 16 + (16 * 128)  # first byte after headers
+        #     offset = current_offset
+        #     length = len(raw_lumps[LUMP.name])
+        #     version = self.headers[LUMP.name].version
+        #     fourCC = 0  # fourCC is always 0 because we aren't encoding
+        #     header = LumpHeader(offset, length, version, fourCC)
+        #     headers[LUMP.name] = header  # recorded for noting padding
+        #     current_offset += length
+        #     # pad to start at the next multiple of 4 bytes
+        #     # TODO: note the padding so we can remove it when writing .bsp_lump
+        #     if current_offset % 4 != 0:
+        #         current_offset += 4 - current_offset % 4
+        # del current_offset
+        # if "GAME_LUMP" in raw_lumps:
+        #     raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
+        # # make file
+        # os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
+        # outfile = open(filename, "wb")
+        # bsp_version = self.bsp_version
+        # if isinstance(self.bsp_version, tuple):
+        #     bsp_version = bsp_version[0] + bsp_version[1] << 16
+        # outfile.write(struct.pack("4s2I", self.file_magic, bsp_version, self.revision))
+        # # write headers
+        # for LUMP in self.branch.LUMP:
+        #     header = headers[LUMP.name]
+        #     outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
+        # # write lump contents (cannot be done until headers allocate padding)
+        # for LUMP in lump_order:
+        #    if LUMP.name not in raw_lumps:
+        #        continue
+        #    padding_length = headers[LUMP.name].offset - outfile.tell()
+        #    if padding_length > 0:  # NOTE: padding_length should not exceed 3
+        #        outfile.write(b"\0" * padding_length)
+        #    outfile.write(raw_lumps[LUMP.name])
+        # # final padding
+        # end = outfile.tell()
+        # padding_length = 0
+        # if end % 4 != 0:
+        #     padding_length = 4 - end % 4
+        # outfile.write(b"\0" * padding_length)
+        # outfile.close()  # main .bsp is written
