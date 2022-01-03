@@ -182,21 +182,64 @@ def save_rbsp_r2(rbsp, image_dir="./"):
 def write_rbsp_r2(rbsp, image_dir="./"):
     files = fnmatch.filter(os.listdir(image_dir), f"{rbsp.filename}*")
     write_rtl = bool(f"{rbsp.filename}.rtl.png" in files and f"{rbsp.filename}.rtl.json" in files)
+    write_rtl_c = False
     write_sky = bool(f"{rbsp.filename}.sky.png" in files and f"{rbsp.filename}.sky.json" in files)
     if write_rtl:
+        rtl_index = 0
+        rtl_bytes = list()
+        rtl_png = Image.open(os.path.join(image_dir, f"{rbsp.filename}.rtl.png"))
         print("Loading Real Time Lights .json...")
         with open(os.path.join(image_dir, f"{rbsp.filename}.rtl.json")) as rtl_json_file:
             rtl_json = json.load(rtl_json_file)
-            assert len(rtl_json) == len(rbsp.LIGHTMAP_HEADERS) * 2
-            # TODO: if *3, write to internal lump
+            if len(rtl_json) != len(rbsp.LIGHTMAP_HEADERS) * 2:
+                assert len(rtl_json) == len(rbsp.LIGHTMAP_HEADERS) * 3, ".rtl.json doesn't match .bsp"
+                # NOTE: must write to internal lump
+                write_rtl_c = True
     if write_sky:
+        sky_index = 0
+        sky_bytes = list()
+        sky_png = Image.open(os.path.join(image_dir, f"{rbsp.filename}.sky.png"))
         print("Loading Sky .json...")
         with open(os.path.join(image_dir, f"{rbsp.filename}.sky.json")) as sky_json_file:
             sky_json = json.load(sky_json_file)
-            assert len(sky_json) == len(rbsp.LIGHTMAP_HEADERS) * 2
+            assert len(sky_json) == len(rbsp.LIGHTMAP_HEADERS) * 2, ".sky.json doesn't match .bsp"
+    if not (write_rtl or write_sky):
+        raise RuntimeError("Couldn't find any .png/.json data to write!")
     # TODO: all these steps:
+
+    def box_tuple(_dict):
+        return (_dict["x"], _dict["y"], _dict["x"] + _dict["width"], _dict["y"] + _dict["height"])
+
     print("Converting .png(s) to bytes...")
-    # split each image in order and add it to a list of bytes
+    # crop out each lightmap and convert to bytes
+    for header in rbsp.LIGHTMAP_HEADERS:
+        for i in range(header.count * 2):  # unsure about header.count tbh
+            if write_rtl:  # RTL_A + RTL_B
+                rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])))
+                rtl_index += 1
+            if write_sky:  # SKY_A + SKY_B
+                sky_bytes.append(sky_png.crop(box_tuple(sky_json[sky_index])))
+                sky_index += 1
+        if write_rtl_c:  # RTL_C
+            rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])))
+            rtl_index += 1
     print("Making backups...")
-    print("Writing .bsp & .bsp_lump(s)...")
+    # NOTE: will override older backups
+    # TODO: another function to revert the backups
+    if write_rtl_c:
+        with open(os.path.join(rbsp.folder, f"{rbsp.filename}.rtl.bak"), "wb") as rtl_backup:
+            rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS.as_bytes())
+    elif write_rtl:
+        with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0069.bsp_lump.bak"), "wb") as rtl_backup:
+            rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS.as_bytes())
+    if write_sky:
+        with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0062.bsp_lump.bak"), "wb") as sky_backup:
+            sky_backup.write(rbsp.LIGHTMAP_DATA_SKY.as_bytes())
+    rbsp.save_as(os.path.join(rbsp.folder, f"{rbsp.filename}.bak"))
+    print("Writing to .bsp & .bsp_lump(s)...")
+    if write_rtl:
+        rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::] = b"".join(rtl_bytes)
+    if write_sky:
+        rbsp.LIGHTMAP_DATA_SKY[::] = b"".join(sky_bytes)
+    rbsp.save()
     print("Done!")

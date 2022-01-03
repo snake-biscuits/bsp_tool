@@ -113,6 +113,7 @@ class RespawnBsp(base.Bsp):
 
     def save_as(self, filename: str, single_file: bool = False):
         # NOTE: this method is innacurate and inconvenient
+        # TODO: catch titanfall2 LIGHTMAP_DATA_REAL_TIME_LIGHTS (9x / 8x)
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
         # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
