@@ -1,4 +1,5 @@
 import collections
+import fnmatch
 import json
 import math
 import os
@@ -69,7 +70,7 @@ class LightmapPage:
         return page
 
 
-def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
+def save_ibsp(ibsp, image_dir="./"):  # saves to a file in image_dir
     """for IdTechBsp / InfinityWardBsp only"""
     # TODO: detect dimensions; iirc this is quake3 specific
     lightmap_images = list()
@@ -77,12 +78,12 @@ def save_ibsp(ibsp, folder="./"):  # saves to a file in folder
         lightmap = Image.frombytes("RGB", (128, 128), lightmap_bytes, "raw")
         lightmap_images.append(lightmap)
     tiled_lightmaps = sum(lightmap_images, start=LightmapPage(max_width=128 * 5))
-    os.makedirs(folder, exist_ok=True)
-    tiled_lightmaps.image.save(os.path.join(folder, f"{ibsp.filename}.lightmaps.png"))
+    os.makedirs(image_dir, exist_ok=True)
+    tiled_lightmaps.image.save(os.path.join(image_dir, f"{ibsp.filename}.lightmaps.png"))
 
 
-def save_vbsp(vbsp, folder="./"):
-    """Saves to '<folder>/<vbsp.filename>.lightmaps.png'"""
+def save_vbsp(vbsp, image_dir="./"):
+    """Saves to '<image_dir>/<vbsp.filename>.lightmaps.png'"""
     if not hasattr(vbsp, "LIGHTING"):
         if not hasattr(vbsp, "LIGHTING_HDR"):  # HDR only
             raise RuntimeError(f"{vbsp.filename} has no lighting data")
@@ -90,6 +91,7 @@ def save_vbsp(vbsp, folder="./"):
             lightmap_texels = vbsp.LIGHTING_HDR
     else:
         lightmap_texels = vbsp.LIGHTING
+    # TODO: extract both LDR & HDR if available, & name outputs to match
     lightmaps = list()
     for face in vbsp.FACES:
         if face.light_offset == -1 or face.styles == -1:
@@ -102,12 +104,12 @@ def save_vbsp(vbsp, folder="./"):
         lightmaps.append(face_lightmap)
     sorted_lightmaps = sorted(lightmaps, key=lambda i: -(i.size[0] * i.size[1]))
     page = sum(sorted_lightmaps, start=LightmapPage())
-    os.makedirs(folder, exist_ok=True)
-    page.image.save(os.path.join(folder, f"{vbsp.filename}.lightmaps.png"))
+    os.makedirs(image_dir, exist_ok=True)
+    page.image.save(os.path.join(image_dir, f"{vbsp.filename}.lightmaps.png"))
 
 
-def save_rbsp_r1(rbsp, folder="./"):
-    """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
+def save_rbsp_r1(rbsp, image_dir="./"):
+    """Saves to '<image_dir>/<rbsp.filename>.sky.lightmaps.png'"""
     sky_lightmaps = list()
     sky_start, sky_end = 0, 0
     rtl_lightmaps = list()
@@ -126,19 +128,19 @@ def save_rbsp_r1(rbsp, folder="./"):
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
             sky_start = sky_end
-    os.makedirs(folder, exist_ok=True)
+    os.makedirs(image_dir, exist_ok=True)
     max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
-    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky_lightmaps.png"))
+    sky_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.sky_lightmaps.png"))
     rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=max_width))
-    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl_lightmaps.png"))
+    rtl_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.rtl_lightmaps.png"))
 
 
 # NOTE: Titanfall2 Internal Lightmap Data lumps only
 # TODO: Figure out why internal LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel (RTL_C)
 # -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
-def save_rbsp_r2(rbsp, folder="./"):
-    """Saves to '<folder>/<rbsp.filename>.sky.lightmaps.png'"""
+def save_rbsp_r2(rbsp, image_dir="./"):
+    """Saves to '<image_dir>/<rbsp.filename>.sky.lightmaps.png'"""
     sky_lightmaps = list()
     sky_start, sky_end = 0, 0
     rtl_lightmaps = list()
@@ -164,14 +166,37 @@ def save_rbsp_r2(rbsp, folder="./"):
             rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
             rtl_lightmaps.append(rtl_lightmap)
             rtl_start = rtl_end
-    os.makedirs(folder, exist_ok=True)
+    os.makedirs(image_dir, exist_ok=True)
     sky_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2  # SKY_A | SKY_B
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=sky_width))
-    sky_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.sky.png"))
-    with open(f"{rbsp.filename}.sky.json", "w") as sky_json:
+    sky_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.sky.png"))
+    with open(os.path.join(image_dir, f"{rbsp.filename}.sky.json"), "w") as sky_json:
         json.dump([dict(zip(AllocatedSpace._fields, c)) for c in sky_lightmap_page.children], sky_json)
     rtl_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 3  # RTL_A | RTL_B | RTL_C
     rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=rtl_width))
-    rtl_lightmap_page.image.save(os.path.join(folder, f"{rbsp.filename}.rtl.png"))
-    with open(f"{rbsp.filename}.rtl.json", "w") as rtl_json:
+    rtl_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.rtl.png"))
+    with open(os.path.join(image_dir, f"{rbsp.filename}.rtl.json"), "w") as rtl_json:
         json.dump([dict(zip(AllocatedSpace._fields, c)) for c in rtl_lightmap_page.children], rtl_json)
+
+
+def write_rbsp_r2(rbsp, image_dir="./"):
+    files = fnmatch.filter(os.listdir(image_dir), f"{rbsp.filename}*")
+    write_rtl = bool(f"{rbsp.filename}.rtl.png" in files and f"{rbsp.filename}.rtl.json" in files)
+    write_sky = bool(f"{rbsp.filename}.sky.png" in files and f"{rbsp.filename}.sky.json" in files)
+    if write_rtl:
+        print("Loading Real Time Lights .json...")
+        with open(os.path.join(image_dir, f"{rbsp.filename}.rtl.json")) as rtl_json_file:
+            rtl_json = json.load(rtl_json_file)
+            assert len(rtl_json) == len(rbsp.LIGHTMAP_HEADERS) * 2
+            # TODO: if *3, write to internal lump
+    if write_sky:
+        print("Loading Sky .json...")
+        with open(os.path.join(image_dir, f"{rbsp.filename}.sky.json")) as sky_json_file:
+            sky_json = json.load(sky_json_file)
+            assert len(sky_json) == len(rbsp.LIGHTMAP_HEADERS) * 2
+    # TODO: all these steps:
+    print("Converting .png(s) to bytes...")
+    # split each image in order and add it to a list of bytes
+    print("Making backups...")
+    print("Writing .bsp & .bsp_lump(s)...")
+    print("Done!")
