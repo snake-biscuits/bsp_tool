@@ -105,11 +105,12 @@ def save_vbsp(vbsp, image_dir="./"):
     sorted_lightmaps = sorted(lightmaps, key=lambda i: -(i.size[0] * i.size[1]))
     page = sum(sorted_lightmaps, start=LightmapPage())
     os.makedirs(image_dir, exist_ok=True)
+    # TODO: .ldr.png & .hdr.png
     page.image.save(os.path.join(image_dir, f"{vbsp.filename}.lightmaps.png"))
 
 
 def save_rbsp_r1(rbsp, image_dir="./"):
-    """Saves to '<image_dir>/<rbsp.filename>.sky.lightmaps.png'"""
+    """Saves to '<image_dir>/<rbsp.filename>.sky/rtl.png'"""
     sky_lightmaps = list()
     sky_start, sky_end = 0, 0
     rtl_lightmaps = list()
@@ -131,9 +132,9 @@ def save_rbsp_r1(rbsp, image_dir="./"):
     os.makedirs(image_dir, exist_ok=True)
     max_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2
     sky_lightmap_page = sum(sky_lightmaps, start=LightmapPage(max_width=max_width))
-    sky_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.sky_lightmaps.png"))
+    sky_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.sky.png"))
     rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=max_width))
-    rtl_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.rtl_lightmaps.png"))
+    rtl_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.rtl.png"))
 
 
 # NOTE: Titanfall2 Internal Lightmap Data lumps only
@@ -215,27 +216,31 @@ def write_rbsp_r2(rbsp, image_dir="./"):
     for header in rbsp.LIGHTMAP_HEADERS:
         for i in range(header.count * 2):  # unsure about header.count tbh
             if write_rtl:  # RTL_A + RTL_B
-                rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])))
+                rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])).tobytes())
                 rtl_index += 1
             if write_sky:  # SKY_A + SKY_B
-                sky_bytes.append(sky_png.crop(box_tuple(sky_json[sky_index])))
+                sky_bytes.append(sky_png.crop(box_tuple(sky_json[sky_index])).tobytes())
                 sky_index += 1
         if write_rtl_c:  # RTL_C
-            rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])))
+            rtl_bytes.append(rtl_png.crop(box_tuple(rtl_json[rtl_index])).tobytes())
             rtl_index += 1
     print("Making backups...")
     # NOTE: will override older backups
     # TODO: another function to revert the backups
     if write_rtl_c:
         with open(os.path.join(rbsp.folder, f"{rbsp.filename}.rtl.bak"), "wb") as rtl_backup:
-            rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS.as_bytes())
-    elif write_rtl:
-        with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0069.bsp_lump.bak"), "wb") as rtl_backup:
-            rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS.as_bytes())
-    if write_sky:
-        with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0062.bsp_lump.bak"), "wb") as sky_backup:
-            sky_backup.write(rbsp.LIGHTMAP_DATA_SKY.as_bytes())
+            rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::])
+    # NOTE: rbsp.save_as duplicates every .bsp_lump
+    # -- there should be an option to disable that, other than "one_file"
+    # -- since we don't want to override the internal RTL, as that would cause the map to crash
+    # elif write_rtl:
+    #     with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0069.bsp_lump.bak"), "wb") as rtl_backup:
+    #         rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::])
+    # if write_sky:
+    #     with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0062.bsp_lump.bak"), "wb") as sky_backup:
+    #         sky_backup.write(rbsp.LIGHTMAP_DATA_SKY[::])
     rbsp.save_as(os.path.join(rbsp.folder, f"{rbsp.filename}.bak"))
+    # TODO: don't save every .bsp_lump as a part of the backup, only the changed lumps
     print("Writing to .bsp & .bsp_lump(s)...")
     if write_rtl:
         rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::] = b"".join(rtl_bytes)
