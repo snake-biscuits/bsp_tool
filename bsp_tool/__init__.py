@@ -68,6 +68,10 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
                 BspVariant = QuakeBsp
             elif version in GoldSrc_versions:
                 BspVariant = GoldSrcBsp
+            elif file_magic == b"BSP2":
+                raise NotImplementedError("BSP2 format is not yet supported")
+            elif file_magic == b"FBSP":
+                raise NotImplementedError("FBSP format is not yet supported")
             else:
                 raise NotImplementedError("TODO: Check if encrypted Tactical Intervention .bsp")
         else:

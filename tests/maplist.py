@@ -52,6 +52,8 @@ source_dirs = {
                                    # "cstrike/download/maps"
                                    ],
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
+         "Double Action": ["dab/maps"],  # 10 maps | 255 MB
+         "Fistful of Frags": ["fof/maps"],  # 39 maps | 1.68 GB
          "Fortress Forever": ["FortressForever/maps"],  # 22 maps | 618 MB
          "G String": ["gstringv2/maps"],  # 76 maps | 2.49 GB | Seriously Impressive
          "GarrysMod": ["garrysmod/maps"],  # 2 maps | 84 MB
@@ -83,8 +85,7 @@ source_dirs = {
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 187 maps | 2.6 GB
          "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
-         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]  # 101 maps | 430 MB
-              }
+         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]}  # 101 maps | 430 MB
 # ^ {"game_dir": ["map_dir"]}
 
 # TODO: workshop_dirs
@@ -141,6 +142,7 @@ extracted_dirs = {
         "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
+        "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
         "WolfET": ["pak0.pk3/maps",  # 6 maps | 86 MB | .pk
                    # https://www.moddb.com/mods/et/downloads/etsp
