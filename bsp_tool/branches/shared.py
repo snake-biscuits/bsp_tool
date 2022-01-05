@@ -89,7 +89,7 @@ class Entities(list):
                         ent[key] = [ent[key], value]
             elif "}" in line:  # close entity
                 entities.append(ent)
-            elif line == b"\x00".decode():  # ignore null bytes
+            elif line.strip() == b"\x00".decode():  # ignore null bytes
                 continue
             elif line.startswith("//"):  # ignore comments
                 continue
