@@ -172,7 +172,9 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # MeshBounds & Mesh are indexed in paralell?
 
-# ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
+# ShadowEnvironment -> ShadowMesh -?> ShadowMeshIndices -?> ShadowMeshAlphaVertex
+#                                                      \-?> ShadowMeshOpaqueVertex
+
 # ??? -> Brush -?> Plane
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
@@ -197,6 +199,19 @@ class LightmapPage(base.Struct):
 
 
 # TODO: LightProbeRef
+
+
+class ShadowEnvironment(base.Struct):
+    """Identified w/ BobTheBob; appears linked to dynamic shadows and optimisation"""
+    # making modifications caused severe framerate drops (2fps)
+    unknown_1: List[int]  # likely indices into other lumps
+    first_shadow_mesh: int  # first ShadowMesh in this ShadowEnvironment
+    unknown_2: List[int]  # likely indices into other lumps
+    num_shadow_meshes: int  # number of ShadowMeshes in this ShadowEnvironment after first_shadow_mesh
+    unknown_3: List[int]  # no clue
+    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "unknown_3"]
+    _format = "6i6H"
+    _arrays = {"unknown_1": 2, "unknown_2": 2, "unknown_3": 6}
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
