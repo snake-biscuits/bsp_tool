@@ -27,12 +27,13 @@ class Bsp:
     branch: ModuleType  # soft copy of "branch script"
     bsp_file_size: int = 0  # size of .bsp in bytes
     file_magic: bytes = b"XBSP"
+    # NOTE: XBSP is not a real bsp variant! this is just a placeholder
     filename: str
     folder: str
     headers: Dict[str, LumpHeader]
     # ^ {"LUMP_NAME": LumpHeader}
     loading_errors: Dict[str, Exception]
-    # ^ {"LUMP_NAME": Exception encountered}
+    # ^ {"LUMP_NAME": Exception("details")}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         if not filename.lower().endswith(".bsp"):

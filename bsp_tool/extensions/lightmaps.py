@@ -232,13 +232,7 @@ def write_rbsp_r2(rbsp, image_dir="./"):
             rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::])
     # NOTE: rbsp.save_as duplicates every .bsp_lump
     # -- there should be an option to disable that, other than "one_file"
-    # -- since we don't want to override the internal RTL, as that would cause the map to crash
-    # elif write_rtl:
-    #     with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0069.bsp_lump.bak"), "wb") as rtl_backup:
-    #         rtl_backup.write(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[::])
-    # if write_sky:
-    #     with open(os.path.join(rbsp.folder, f"{rbsp.filename}.0062.bsp_lump.bak"), "wb") as sky_backup:
-    #         sky_backup.write(rbsp.LIGHTMAP_DATA_SKY[::])
+    # -- since we don't want to override the internal RTL, as that would cause the map to crash (9 bytes per texel)
     rbsp.save_as(os.path.join(rbsp.folder, f"{rbsp.filename}.bak"))
     # TODO: don't save every .bsp_lump as a part of the backup, only the changed lumps
     print("Writing to .bsp & .bsp_lump(s)...")

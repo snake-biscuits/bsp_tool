@@ -1,4 +1,5 @@
 # https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_fakk.c
+# https://github.com/zturtleman/bsp-sekai
 import enum
 from typing import List
 
