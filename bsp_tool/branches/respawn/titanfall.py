@@ -394,18 +394,13 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    """Presumably similar to Mesh"""
-    opaque: List[int]  # indexes ShadowMeshIndices -> ShadowMeshOpaqueVertices ?
-    # opaque.first_mesh_index: int
-    # opaque.num_triangles: int
-    # NOTE: probably not actually pointing at SHADOW_MESH_ALPHA_VERTICES
-    alpha: List[int]  # indexes ShadowMeshIndices -> ShadowMeshAlphaVertices ?
-    # alpha.first_mesh_index: int  # usually 1
-    # alpha.num_triangles: int  # usually -1
-    __slots__ = ["opaque", "alpha"]
+    """SHADOW_MESH_INDICES offset is end of previous ShadowMesh"""
+    vertex_offset: int  # add each index in SHADOW_MESH_INDICES[prev_end:prev_end + num_triangles * 3]
+    num_triangles: int  # number of triangles in SHADOW_MESH_INDICES
+    unknown: List[int]  # [1, -1] or [0, small_int]
+    __slots__ = ["vertex_offset", "num_triangles", "unknown"]
     _format = "2I2h"
-    _arrays = {"opaque": ["first_mesh_index", "num_triangles"],
-               "alpha": ["first_mesh_index", "num_triangles"]}  # unsure
+    _arrays = {"unknown": 2}
 
 
 class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
@@ -710,39 +705,28 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
 
 
 def shadow_meshes_as_obj(bsp) -> str:
-    """not working as expected"""
-    # NOTE: looks scrambled, might be using SHADOW_MESH_INDICES incorrectly?
-    # r2/maps/mp_coliseum.bsp SHADOW_MESH_MESHES[1].opaque.first_mesh_index =
-    # max(SHADOW_MESH_INDICES[:SHADOW_MESH_MESHES[0].opaque.num_triangles * 3]) + 1
-    # NOTE: have yet to find a formula which covers all SHADOW_MESH_INDICES / VERTICES
-    # maybe each mesh starts after the end of the previous & first_mesh_index is actually vertex_offset?
+    """almost working"""
+    # TODO: figure out how SHADOW_MESH_ALPHA_VERTICES are indexed
+    # TODO: what does ShadowMesh.unknown relate to? alpha indexing?
     out = [f"# generated with bsp_tool from {bsp.filename}",
            "# SHADOW_MESH_OPAQUE_VERTICES"]
     for v in bsp.SHADOW_MESH_OPAQUE_VERTICES:
         out.append(f"v {v.x} {v.y} {v.z}")
-    out.append("# SHADOW_MESH_ALPHA_VERTICES")
-    for v in bsp.SHADOW_MESH_ALPHA_VERTICES:
-        out.append(f"v {v.x} {v.y} {v.z}\nvt {v.unknown[0]} {v.unknown[1]}")
+    if hasattr(bsp, "SHADOW_MESH_ALPHA_VERTICES"):
+        out.append("# SHADOW_MESH_ALPHA_VERTICES")
+        for v in bsp.SHADOW_MESH_ALPHA_VERTICES:
+            out.append(f"v {v.x} {v.y} {v.z}\nvt {v.unknown[0]} {v.unknown[1]}")
     # TODO: group by ShadowEnvironment if titanfall2
+    end = 0
     for i, mesh in enumerate(bsp.SHADOW_MESH_MESHES):
         out.append(f"o mesh_{i}")
-        for j in range(mesh.opaque.num_triangles):
-            start = mesh.opaque.first_mesh_index + j * 3
+        for j in range(mesh.num_triangles):
+            start = end + j * 3
             tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
             assert max(tri) < len(bsp.SHADOW_MESH_OPAQUE_VERTICES)
-            v_tri = [x + 1 for x in tri]
+            v_tri = [x + 1 + mesh.vertex_offset for x in tri]
             out.append(f"f {v_tri[0]} {v_tri[1]} {v_tri[2]}")
-        # doesn't look correct
-        if not mesh.alpha.flat() == [1, -1]:
-            out.append(f"o mesh_{i}_alpha")
-            for j in range(mesh.alpha.num_triangles):
-                start = mesh.alpha.first_mesh_index + j * 3
-                tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
-                assert max(tri) < len(bsp.SHADOW_MESH_ALPHA_VERTICES)
-                vt_tri = [x + 1 for x in tri]
-                v_tri = [x + len(bsp.SHADOW_MESH_OPAQUE_VERTICES) for x in tri]
-                # f v/vn/vt ...
-                out.append(f"f {v_tri[0]}//{vt_tri[0]} {v_tri[1]}//{vt_tri[1]} {v_tri[2]}//{vt_tri[2]}")
+        end = start + 3
     return "\n".join(out)
 
 
