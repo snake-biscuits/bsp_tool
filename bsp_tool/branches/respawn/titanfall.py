@@ -76,7 +76,7 @@ class LUMP(enum.Enum):
     UNUSED_51 = 0x0033
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
-    WORLDLIGHTS = 0x0036
+    WORLD_LIGHTS = 0x0036
     UNUSED_55 = 0x0037
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
@@ -195,7 +195,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 class MAX(enum.Enum):
     MODELS = 1024
     TEXTURE_DATA = 2048
-    WORLDLIGHTS = 4064
+    WORLD_LIGHTS = 4064
     STATIC_PROPS = 40960
 
 # NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
@@ -220,7 +220,7 @@ class Flags(enum.IntFlag):
     MASK_VERTEX = 0x600
 
 
-# # classes for lumps, in alphabetical order:
+# classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     unknown: List[int]  # shorts seem to work best? doesn't look like AABB bounds?
     __slots__ = ["unknown"]
@@ -457,9 +457,17 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
+    s: List[float]  # S vector
+    t: List[float]  # T vector
     __slots__ = ["s", "t"]
     _format = "8f"
     _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
+
+
+class TricollHeader(base.Struct):  # LUMP 69 (0045)
+    __slots__ = ["unknown"]
+    _format = "11i"
+    _arrays = {"unknown": 11}
 
 
 # special vertices

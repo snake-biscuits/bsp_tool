@@ -25,7 +25,7 @@ class LUMP(enum.Enum):
     LIGHTPROBE_PARENT_INFOS = 0x0004
     SHADOW_ENVIRONMENTS = 0x0005
     LIGHTPROBE_BSP_NODES = 0x0006
-    LIGHTPROBE_BSP_REF_IDS = 0x0007
+    LIGHTPROBE_BSP_REF_IDS = 0x0007  # indexes? (Mod_LoadLightProbeBSPRefIdxs)
     UNUSED_8 = 0x0008
     UNUSED_9 = 0x0009
     UNUSED_10 = 0x000A
@@ -54,7 +54,7 @@ class LUMP(enum.Enum):
     UNUSED_33 = 0x0021
     UNUSED_34 = 0x0022
     GAME_LUMP = 0x0023
-    UNUSED_36 = 0x0024
+    LEAF_WATER_DATA = 0x0024
     UNUSED_37 = 0x0025
     UNUSED_38 = 0x0026
     UNUSED_39 = 0x0027
@@ -72,8 +72,8 @@ class LUMP(enum.Enum):
     UNUSED_51 = 0x0033
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
-    WORLDLIGHTS = 0x0036
-    WORLDLIGHTS_PARENT_INFO = 0x0037
+    WORLD_LIGHTS = 0x0036  # versions 1 - 3 supported (0 might cause a crash, idk)
+    WORLD_LIGHTS_PARENT_INFO = 0x0037
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
     UNUSED_58 = 0x003A
@@ -157,7 +157,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # UNUSED_5 -> SHADOW_ENVIRONMENTS
 # UNUSED_6 -> LIGHTPROBE_BSP_NODES
 # UNUSED_7 -> LIGHTPROBE_BSP_REF_IDS
-# UNUSED_55 -> WORLDLIGHTS_PARENT_INFO
+# UNUSED_55 -> WORLD_LIGHTS_PARENT_INFO
 # UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
 # Deprecated:
 # LEAF_WATER_DATA
@@ -191,7 +191,12 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # NOTE: there are also always as many vert refs as edge refs
 
 
-# # classes for lumps, in alphabetical order::
+# engine limits:
+class MAX(enum.Enum):
+    MODELS = 1024
+
+
+# classes for lumps, in alphabetical order::
 class LightmapPage(base.Struct):
     data: bytes
     _format = "128s"

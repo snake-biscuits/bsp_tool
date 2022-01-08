@@ -306,7 +306,7 @@ namespace bsp_tool {
                           UNUSED_51                 = 0x33,  PORTAL_EDGE_INTERSECT_AT_VERTEX     = 0x73,
                           UNUSED_52                 = 0x34,  PORTAL_EDGE_INTERSECT_HEADER        = 0x74,
                           UNUSED_53                 = 0x35,  OCCLUSION_MESH_VERTICES             = 0x75,
-                          WORLDLIGHTS               = 0x36,  OCCLUSION_MESH_INDICES              = 0x76,
+                          WORLD_LIGHTS              = 0x36,  OCCLUSION_MESH_INDICES              = 0x76,
                           WORLDLIGHT_PARENT_INFO    = 0x37,  CELL_AABB_NODES                     = 0x77,
                           UNUSED_56                 = 0x38,  OBJ_REFERENCES                      = 0x78,
                           UNUSED_57                 = 0x39,  OBJ_REFERENCE_BOUNDS                = 0x79,

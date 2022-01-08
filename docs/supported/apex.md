@@ -105,8 +105,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 51 | 0033 | 47 | `UNUSED_51` | 0 |  | 0% |
 | 52 | 0034 | 47 | `UNUSED_52` | 0 |  | 0% |
 | 53 | 0035 | 47 | `UNUSED_53` | 0 |  | 0% |
-| 54 | 0036 | 47 | `WORLDLIGHTS` | 0 |  | 0% |
-| 55 | 0037 | 47 | `WORLDLIGHTS_PARENT_INFO` | 0 |  | 0% |
+| 54 | 0036 | 47 | `WORLD_LIGHTS` | 0 |  | 0% |
+| 55 | 0037 | 47 | `WORLD_LIGHTS_PARENT_INFO` | 0 |  | 0% |
 | 56 | 0038 | 47 | `UNUSED_56` | 0 |  | 0% |
 | 57 | 0039 | 47 | `UNUSED_57` | 0 |  | 0% |
 | 58 | 003A | 47 | `UNUSED_58` | 0 |  | 0% |

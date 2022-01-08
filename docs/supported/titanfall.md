@@ -106,9 +106,9 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 51 | 0033 | 29 | `UNUSED_51` | 0 |  | 0% |
 | 52 | 0034 | 29 | `UNUSED_52` | 0 |  | 0% |
 | 53 | 0035 | 29 | `UNUSED_53` | 0 |  | 0% |
-| 54 | 0036 | 29 | `WORLDLIGHTS` | 0 |  | 0% |
+| 54 | 0036 | 29 | `WORLD_LIGHTS` | 0 |  | 0% |
 | 55 | 0037 | 29 | `UNUSED_55` | 0 |  | 0% |
-| 55 | 0037 | 37 | `WORLDLIGHTS_PARENT_INFO` | 0 |  | 0% |
+| 55 | 0037 | 37 | `WORLD_LIGHTS_PARENT_INFO` | 0 |  | 0% |
 | 56 | 0038 | 29 | `UNUSED_56` | 0 |  | 0% |
 | 57 | 0039 | 29 | `UNUSED_57` | 0 |  | 0% |
 | 58 | 003A | 29 | `UNUSED_58` | 0 |  | 0% |
