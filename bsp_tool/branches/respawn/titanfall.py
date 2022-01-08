@@ -166,7 +166,9 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # LeafWaterData -> TextureData -> water material
 # NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
 
-# ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
+# ??? ShadowMesh -?> ShadowMeshIndices -?> ShadowMeshAlphaVertex
+#                                     \-?> ShadowMeshOpaqueVertex
+
 # ??? -> Brush -?> Plane
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
@@ -244,8 +246,8 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     b: int
     c: int
     d: int  # always -1?
-    _format = "4h"
     __slots__ = [*"abcd"]
+    _format = "4h"
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
@@ -259,8 +261,8 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
     scale: float  # scaled against some global vector in engine, I think
-    min_x: int  # close to (world_mins * scale) + scale
-    min_y: int  # close to (world_mins * scale) + scale
+    min_x: int  # *close* to (world_mins * scale) + scale
+    min_y: int  # *close* to (world_mins * scale) + scale
     unknown: List[int]
     __slots__ = ["scale", "min_x", "min_y", "unknown"]
     _format = "f6i"
@@ -392,21 +394,28 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    start_index: int  # assuming to be like Mesh; unsure what lump is indexed
-    num_triangles: int
-    # unknown.one: int  # usually one
-    # unknown.negative_one: int  # usually negative one
-    __slots__ = ["start_index", "num_triangles", "unknown"]
-    _format = "2I2h"  # assuming 12 bytes
-    _arrays = {"unknown": ["one", "negative_one"]}
+    """Presumably similar to Mesh"""
+    opaque: List[int]  # indexes ShadowMeshIndices -> ShadowMeshOpaqueVertices ?
+    # opaque.first_mesh_index: int
+    # opaque.num_triangles: int
+    # NOTE: probably not actually pointing at SHADOW_MESH_ALPHA_VERTICES
+    alpha: List[int]  # indexes ShadowMeshIndices -> ShadowMeshAlphaVertices ?
+    # alpha.first_mesh_index: int  # usually 1
+    # alpha.num_triangles: int  # usually -1
+    __slots__ = ["opaque", "alpha"]
+    _format = "2I2h"
+    _arrays = {"opaque": ["first_mesh_index", "num_triangles"],
+               "alpha": ["first_mesh_index", "num_triangles"]}  # unsure
 
 
 class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
-    origin: List[float]
-    unknown: List[int]  # unknown[1] might be a float
-    _format = "3f2i"
-    __slots__ = ["origin", "unknown"]
-    _arrays = {"origin": [*"xyz"], "unknown": 2}
+    x: float
+    y: float
+    z: float
+    unknown: List[float]  # both are always from 0.0 -> 1.0 (uvs?)
+    _format = "5f"
+    __slots__ = [*"xyz", "unknown"]
+    _arrays = {"unknown": 2}
 
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
@@ -700,6 +709,43 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
     return out
 
 
+def shadow_meshes_as_obj(bsp) -> str:
+    """not working as expected"""
+    # NOTE: looks scrambled, might be using SHADOW_MESH_INDICES incorrectly?
+    # r2/maps/mp_coliseum.bsp SHADOW_MESH_MESHES[1].opaque.first_mesh_index =
+    # max(SHADOW_MESH_INDICES[:SHADOW_MESH_MESHES[0].opaque.num_triangles * 3]) + 1
+    # NOTE: have yet to find a formula which covers all SHADOW_MESH_INDICES / VERTICES
+    # maybe each mesh starts after the end of the previous & first_mesh_index is actually vertex_offset?
+    out = [f"# generated with bsp_tool from {bsp.filename}",
+           "# SHADOW_MESH_OPAQUE_VERTICES"]
+    for v in bsp.SHADOW_MESH_OPAQUE_VERTICES:
+        out.append(f"v {v.x} {v.y} {v.z}")
+    out.append("# SHADOW_MESH_ALPHA_VERTICES")
+    for v in bsp.SHADOW_MESH_ALPHA_VERTICES:
+        out.append(f"v {v.x} {v.y} {v.z}\nvt {v.unknown[0]} {v.unknown[1]}")
+    # TODO: group by ShadowEnvironment if titanfall2
+    for i, mesh in enumerate(bsp.SHADOW_MESH_MESHES):
+        out.append(f"o mesh_{i}")
+        for j in range(mesh.opaque.num_triangles):
+            start = mesh.opaque.first_mesh_index + j * 3
+            tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
+            assert max(tri) < len(bsp.SHADOW_MESH_OPAQUE_VERTICES)
+            v_tri = [x + 1 for x in tri]
+            out.append(f"f {v_tri[0]} {v_tri[1]} {v_tri[2]}")
+        # doesn't look correct
+        if not mesh.alpha.flat() == [1, -1]:
+            out.append(f"o mesh_{i}_alpha")
+            for j in range(mesh.alpha.num_triangles):
+                start = mesh.alpha.first_mesh_index + j * 3
+                tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
+                assert max(tri) < len(bsp.SHADOW_MESH_ALPHA_VERTICES)
+                vt_tri = [x + 1 for x in tri]
+                v_tri = [x + len(bsp.SHADOW_MESH_OPAQUE_VERTICES) for x in tri]
+                # f v/vn/vt ...
+                out.append(f"f {v_tri[0]}//{vt_tri[0]} {v_tri[1]}//{vt_tri[1]} {v_tri[2]}//{vt_tri[2]}")
+    return "\n".join(out)
+
+
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
     print("# TD_index  TD.name  TextureData.flags")
@@ -730,5 +776,5 @@ def debug_Mesh_stats(bsp):
 
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
-           search_all_entities, shared.worldspawn_volume,
+           search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj,
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
