@@ -172,8 +172,8 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
 # MeshBounds & Mesh are indexed in paralell?
 
-# ShadowEnvironment -> ShadowMesh -?> ShadowMeshIndices -?> ShadowMeshAlphaVertex
-#                                                      \-?> ShadowMeshOpaqueVertex
+# ShadowEnvironment -> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
+#                                                    \-?> ShadowMeshAlphaVertex
 
 # ??? -> Brush -?> Plane
 
@@ -204,6 +204,7 @@ class LightmapPage(base.Struct):
 
 
 # TODO: LightProbeRef
+# TODO: WorldLightv3 (r2/engine.dll + 1800CC245)
 
 
 class ShadowEnvironment(base.Struct):
@@ -281,8 +282,9 @@ class GameLump_SPRP:
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES["LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE"] = {0: LightmapPage}
 LUMP_CLASSES.pop("LIGHTPROBE_REFERENCES")  # size doesn't match
+LUMP_CLASSES.update({"LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
+                     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 

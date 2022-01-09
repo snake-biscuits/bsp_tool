@@ -198,8 +198,8 @@ extracted_dirs = {
                        "depot/r2dlc9/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
                        "depot/r2dlc10/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
                        "depot/r2dlc11/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2pcprecert",  # 4 maps | 1.1 GB | .vpk
-                       "depot/r2staging"],  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2pcprecert/game/r2/maps",  # 4 maps | 1.1 GB | .vpk
+                       "depot/r2staging/game/r2/maps"],  # 5 maps | 1.1 GB | .vpk
         # Thanks to https://apexlegends.fandom.com/wiki/Version_History
         # see also: https://github.com/Syampuuh/TitanfallApexLegends
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
