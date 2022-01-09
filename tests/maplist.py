@@ -182,9 +182,24 @@ extracted_dirs = {
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.8 GB | .hfs
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
-        "Titanfall": ["maps"],  # 26 maps | 3,5 GB | .vpk
+        "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk
+                      "depot/r1dev/game/r1/maps",  # 16 maps | 4.2 GB | .vpk
+                      "depot/r1pcgold/game/r1/maps",  # 1 map | 1.7 GB | .vpk
+                      "depot/r1pcstaging/game/r1/maps",  # 23 maps | 5.8 GB | .vpk
+                      "depot/r1pcstaging/game/r1_dlc1/maps"],  # 3 maps | 796 MB | .vpk
         "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
-        "Titanfall2": ["maps"],  # 36 maps | 6.6 GB | .vpk
+        "Titanfall2": ["maps",  # 36 maps | 12.4 GB | .vpk
+                       "depot/r2dlc3/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc4/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc5/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc6/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc7/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc8/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc9/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc10/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2dlc11/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
+                       "depot/r2pcprecert",  # 4 maps | 1.1 GB | .vpk
+                       "depot/r2staging"],  # 5 maps | 1.1 GB | .vpk
         # Thanks to https://apexlegends.fandom.com/wiki/Version_History
         # see also: https://github.com/Syampuuh/TitanfallApexLegends
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
