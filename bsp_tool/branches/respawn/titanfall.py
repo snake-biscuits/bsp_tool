@@ -470,6 +470,12 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
     _arrays = {"unknown": 11}
 
 
+class WorldLight(base.Struct):  # LUMP 54 (0036)
+    __slots__ = ["unknown"]
+    _format = "25I"  # 100 bytes
+    _arrays = {"unknown": 25}
+
+
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     """Not used?"""
@@ -630,7 +636,8 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "VERTEX_LIT_BUMP":                   {1: VertexLitBump},
                 "VERTEX_LIT_FLAT":                   {1: VertexLitFlat},
                 "VERTEX_UNLIT":                      {0: VertexUnlit},
-                "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS}}
+                "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS},
+                "WORLD_LIGHTS":                      {1: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
                         "ENTITY_PARTITIONS":         {0: EntityPartitions},

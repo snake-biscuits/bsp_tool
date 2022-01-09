@@ -73,7 +73,7 @@ class LUMP(enum.Enum):
     UNUSED_52 = 0x0034
     UNUSED_53 = 0x0035
     WORLD_LIGHTS = 0x0036  # versions 1 - 3 supported (0 might cause a crash, idk)
-    WORLD_LIGHTS_PARENT_INFO = 0x0037
+    WORLD_LIGHT_PARENT_INFOS = 0x0037
     UNUSED_56 = 0x0038
     UNUSED_57 = 0x0039
     UNUSED_58 = 0x003A
@@ -157,7 +157,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # UNUSED_5 -> SHADOW_ENVIRONMENTS
 # UNUSED_6 -> LIGHTPROBE_BSP_NODES
 # UNUSED_7 -> LIGHTPROBE_BSP_REF_IDS
-# UNUSED_55 -> WORLD_LIGHTS_PARENT_INFO
+# UNUSED_55 -> WORLD_LIGHT_PARENT_INFOS
 # UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
 # Deprecated:
 # LEAF_WATER_DATA
@@ -190,6 +190,8 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # NOTE: there are always as many intersect headers as edges
 # NOTE: there are also always as many vert refs as edge refs
 
+# ??? WorldLight <-?-> WorldLightParentInfo -?> Model
+
 
 # engine limits:
 class MAX(enum.Enum):
@@ -197,14 +199,25 @@ class MAX(enum.Enum):
 
 
 # classes for lumps, in alphabetical order::
-class LightmapPage(base.Struct):
+class LightmapPage(base.Struct):  # LUMP 122 (007A)
     data: bytes
     _format = "128s"
     __slots__ = ["data"]
 
 
 # TODO: LightProbeRef
-# TODO: WorldLightv3 (r2/engine.dll + 1800CC245)
+
+
+class WorldLightv2(base.Struct):  # LUMP 54 (0036)
+    __slots__ = ["unknown"]
+    _format = "27I"  # 108 bytes
+    _arrays = {"unknown": 27}
+
+
+class WorldLightv3(base.Struct):  # LUMP 54 (0036)
+    __slots__ = ["unknown"]
+    _format = "28I"  # 112 bytes
+    _arrays = {"unknown": 28}
 
 
 class ShadowEnvironment(base.Struct):
@@ -284,7 +297,10 @@ BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LIGHTPROBE_REFERENCES")  # size doesn't match
 LUMP_CLASSES.update({"LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
-                     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment}})
+                     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
+                     "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
+                                                             2: WorldLightv2,
+                                                             3: WorldLightv3}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
