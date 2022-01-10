@@ -1776,24 +1776,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
-  DrawVertex
+  Node
   Light
+  Portal
+  CullGroup
+  DrawVertex
+  Model
   Cell
   AxisAlignedBoundingBox
   Brush
-  CullGroup
-  Occluder
-  Portal
-  Model
   PatchCollision
-  Node
+  Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -1855,8 +1855,8 @@ bsp_tool\branches\raven\soldier_of_fortune.py              13      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py             31      0   100%
 bsp_tool\branches\respawn\__init__.py                       4      0   100%
 bsp_tool\branches\respawn\apex_legends.py                 268     22    92%
-bsp_tool\branches\respawn\titanfall.py                    499     79    84%
-bsp_tool\branches\respawn\titanfall2.py                   200      1    99%
+bsp_tool\branches\respawn\titanfall.py                    503     79    84%
+bsp_tool\branches\respawn\titanfall2.py                   208      1    99%
 bsp_tool\branches\ritual\__init__.py                        5      0   100%
 bsp_tool\branches\ritual\fakk2.py                          56      0   100%
 bsp_tool\branches\ritual\moh_allied_assault.py             73      0   100%
@@ -1887,7 +1887,7 @@ bsp_tool\respawn.py                                       151     72    52%
 bsp_tool\ritual.py                                         44      3    93%
 bsp_tool\valve.py                                          60     11    82%
 ---------------------------------------------------------------------------
-TOTAL                                                    5966   1259    79%
+TOTAL                                                    5978   1259    79%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs70] - NotImpleme...
@@ -1896,4 +1896,4 @@ FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs82] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs83]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs84]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs88] - Assert...
-=========== 6 failed, 155 passed, 7 warnings in 5519.81s (1:31:59) ============
+=========== 6 failed, 155 passed, 7 warnings in 6820.67s (1:53:40) ============
