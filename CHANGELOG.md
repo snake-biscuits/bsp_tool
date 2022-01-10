@@ -5,6 +5,7 @@
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
  * If `autoload` cannot find the specified `.bsp` file a UserWarning is issued
+ * RespawnBsp: `.ent` file headers moved to `bsp.entity_headers`
 
 ## Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`

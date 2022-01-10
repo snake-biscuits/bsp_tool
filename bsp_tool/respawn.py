@@ -20,8 +20,11 @@ class RespawnBsp(base.Bsp):
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     file_magic = b"rBSP"
     lump_count: int
+    entity_headers: Dict[str, str]
+    # {"LUMP_NAME": "header text"}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
+        self.entity_headers = dict()
         super(RespawnBsp, self).__init__(branch, filename, autoload)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
@@ -100,14 +103,16 @@ class RespawnBsp(base.Bsp):
             setattr(self, LUMP.name, BspLump)
 
         # .ent files
+        # TODO: give a warning if available .ent files do not match ENTITY_PARTITIONS
+        # NOTE: ENTITY_PARTITIONS contains "01*" as the first entry, does this mean the entity lump?
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
             entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
             if entity_file in self.associated_files:
                 with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
                     LUMP_name = f"ENTITIES_{ent_filetype}"
-                    self.headers[LUMP_name] = ent_file.readline().decode().rstrip("\n")
+                    self.entity_headers[LUMP_name] = ent_file.readline().decode().rstrip("\n")
                     # Titanfall:  ENTITIES01
-                    # Apex Legends:  ENTITIES02 model_count=0
+                    # Apex Legends:  ENTITIES02 num_models=0
                     setattr(self, LUMP_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
 
@@ -192,15 +197,21 @@ class RespawnBsp(base.Bsp):
         outfile.write(b"\0" * padding_length)
         outfile.close()  # main .bsp is written
         # write .ent lumps
+        # NOTE: the ENTITY_PARTITIONS lump should list all used .ent lumps
         for ent_variant in ("env", "fx", "script", "snd", "spawn"):
             if not hasattr(self, f"ENTITIES_{ent_variant}"):
                 continue
             ent_filename = f"{os.path.splitext(filename)[0]}_{ent_variant}.ent"
             with open(ent_filename, "wb") as ent_file:
-                # TODO: generate header if none exists
-                ent_file.write(self.headers[f"ENTITIES_{ent_variant}"].encode("ascii"))
+                LUMP_name = f"ENTITIES_{ent_variant}"
+                # NOTE: the default .ent header given here only work for titanfall & titanfall2
+                # -- apex_legends branch requires a model count f"ENTITIES02 {num_models=}"
+                # -- the `num_models` value appears to be for entities across all .ent files
+                # NOTE: so far `prop_*` entities have only been observed in `*_script.ent`
+                header = self.entity_headers.get(LUMP_name, "ENTITIES01").encode("ascii")
+                ent_file.write()
                 ent_file.write(b"\n")
-                ent_file.write(getattr(self, f"ENTITIES_{ent_variant}").as_bytes())
+                ent_file.write(getattr(self, LUMP_name).as_bytes())
 
     def save(self, single_file: bool = False):
         self.save_as(os.path.join(self.folder, self.filename), single_file)
