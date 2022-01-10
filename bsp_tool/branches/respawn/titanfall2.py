@@ -196,6 +196,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 # engine limits:
 class MAX(enum.Enum):
     MODELS = 1024
+    TEXTURES = 2048
 
 
 # classes for lumps, in alphabetical order::
