@@ -158,6 +158,12 @@ class Bsp:
             return b""  # lump is empty / deleted
         lump_entries = getattr(self, lump_name)
         lump_version = self.headers[lump_name].version
+        all_lump_classes = {**self.branch.BASIC_LUMP_CLASSES,
+                            **self.branch.LUMP_CLASSES,
+                            **self.branch.SPECIAL_LUMP_CLASSES}
+        if lump_name in all_lump_classes and lump_name != "GAME_LUMP":
+            if lump_version not in all_lump_classes[lump_name]:
+                return bytes(lump_entries)
         # NOTE: IBSP & GoldSrcBsp don't have lump versions
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
             _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format

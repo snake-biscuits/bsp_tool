@@ -97,7 +97,7 @@ def test_branch_script(branch_script):
     #     subclass = branch_script
     #     for attr in lump_class.split("."):
     #         subclass = getattr(subclass, attr)
-    # TODO: catch misnamed attrs
+    # TODO: catch misnamed/unused attrs/type hints
 
 
 # TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked

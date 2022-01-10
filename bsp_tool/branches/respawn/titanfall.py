@@ -450,10 +450,10 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     size: List[int]  # dimensions of full texture
     view: List[int]  # dimensions of visible section of texture
     flags: int  # matches Mesh's .flags; probably from source.TextureInfo
-    __slots__ = ["reflectivity", "name_index", "width", "height",
-                 "view_width", "view_height", "flags"]
+    __slots__ = ["reflectivity", "name_index", "size", "view", "flags"]
     _format = "3f6i"
-    _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
+    _arrays = {"reflectivity": [*"rgb"],
+               "size": ["width", "height"], "view": ["width", "height"]}
 
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
