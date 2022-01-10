@@ -204,41 +204,47 @@ extracted_dirs = {
         # see also: https://github.com/Syampuuh/TitanfallApexLegends
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
         # -- could eventually create an archive of all map related patches
-        "ApexLegends": ["maps",  # 9 maps | 3.3 GB
+        "ApexLegends": ["maps",  # 9 maps | 3.3 GB | .vpk
                         # season1:  Wild Frontier [19th Mar 2019]
                         # season2:  Battle Charge [2nd Jul 2019]
-                        "season2/maps",  # 1 map | 16.9 MB
+                        "season2/maps",  # 1 map | 16.9 MB | .vpk
                         # season3:  Meltdown - patch 5  [1st Oct 2019]
-                        "season3_30oct19/maps",  # 8 maps | 4.9 GB
-                        "season3_30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB
-                        "season3_30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB
-                        "season3_3dec19/maps",  # 8 maps | 4.6 GB
-                        "season3_3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB
-                        "season3_3dec19/depot/r5staging/game/r2/maps",  # 8 maps | 3.0 GB
+                        "season3_30oct19/maps",  # 8 maps | 4.9 GB | .vpk
+                        "season3_30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB | .vpk
+                        "season3_30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB | .vpk
+                        "season3_3dec19/maps",  # 8 maps | 4.6 GB | .vpk
+                        "season3_3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
+                        "season3_3dec19/depot/r5staging/game/r2/maps",  # 8 maps | 3.0 GB | .vpk
                         # season4:  Assimilation [4th Feb 2020]
+                        "season4/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
+                        "season4/depot/r5staging/game/r2/maps",  # 6 maps | 3.0 GB | .vpk
+                        "season4/maps",  # 8 maps | 4.6 GB | .vpk
                         # season5:  Fortune's Favour  [12th May 2020]
-                        "season5/maps",  # 3 maps | 1.2 GB
+                        "season5/maps",  # 3 maps | 1.2 GB | .vpk
                         # season6:  Boosted  [18th Aug 2020]
                         # season7:  Ascension  [4th Nov 2020]
                         # season8:  Mayhem  [2nd Feb 2021]
-                        "season8/maps",  # 1 map | 1.9 MB
+                        "season8/maps",  # 1 map | 1.9 MB | .vpk
                         # season9:  Legacy  [4th May 2021]
-                        "season9/maps",  # 4 maps | 226 MB
+                        "season9/maps",  # 4 maps | 226 MB | .vpk
                         # season10:  Emergence  [3rd Aug 2021]
-                        "season10_3aug21/maps",  # 2 maps | 813 MB
-                        "season10_10aug21/maps",  # 8 maps | 2.8 GB
-                        "season10_10aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB
-                        "season10_14sep21/maps",  # 2 maps | 962 MB
-                        "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB
-                        "season10_14sep21/depot/r5-101/game/r2/maps",  # 2 maps | 949 MB
+                        "season10_3aug21/maps",  # 2 maps | 813 MB | .vpk
+                        "season10_10aug21/maps",  # 8 maps | 2.8 GB | .vpk
+                        "season10_10aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB | .vpk
+                        "season10_14sep21/maps",  # 2 maps | 962 MB | .vpk
+                        "season10_14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB | .vpk
+                        "season10_14sep21/depot/r5-101/game/r2/maps",  # 2 maps | 949 MB | .vpk
                         # season11:  Escape  [2nd Nov 2021]
-                        "season11/maps",  # 1 map | 10 MB
-                        "season11/depot/r5-110/game/r2/maps",  # 1 map | 9 MB
-                        "season11_6nov21/maps",  # 1 map | 760 MB
-                        "season11_6nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB
-                        "season11_19nov21/maps",  # 10 maps | 1.5 GB
-                        "season11_19nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB
-                        "season11_19nov21/depot/r5-111/game/r2/maps"],  # 10 maps | 1.4 GB
+                        "season11/maps",  # 1 map | 10 MB | .vpk
+                        "season11/depot/r5-110/game/r2/maps",  # 1 map | 9 MB | .vpk
+                        "season11_6nov21/maps",  # 1 map | 760 MB | .vpk
+                        "season11_6nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB | .vpk
+                        "season11_19nov21/maps",  # 10 maps | 1.5 GB | .vpk
+                        "season11_19nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB | .vpk
+                        "season11_19nov21/depot/r5-111/game/r2/maps",  # 10 maps | 1.4 GB | .vpk
+                        # Nintendo Switch versions
+                        "switch_season9/depot/r5-90/game/r2/maps",  # 7 maps | 2.3 GB | .vpk
+                        "switch_season9/maps"],  # 7 maps | 2.4 GB | .vpk
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
