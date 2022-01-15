@@ -14,8 +14,10 @@ from typing import Any, Dict, Iterable, List, Union
 # ^ {"attr": SubClass, "attr2.sub": SubClass}
 # child_MappedArray = ...; SubClass.__init__(child_MappedArray)
 # allows for nesting vector.Vec3 in Structs
+# would need to be reversable into bytes in a standardised way; struct.pack(_format, *subclass_instance) ?
 # TODO: bitfields (split & rejoin)
 # TODO: {int: Mapping} mappings (list of MappedArray)
+# -- e.g. {"triangle": {3: Vertex}}
 
 class Struct:
     """base class for tuple <-> class conversion
@@ -33,7 +35,7 @@ class Struct:
         # LumpClass(attr1, [attr2_1, attr2_2])
         # LumpClass(attr1, attr2=[attr2_1, attr2_2])
         # NOTE: can only set top-level value, no partial init of nested attr via kwargs (yet)
-        # UNLESS: LumpClass(attr3=MappedArray(attr3_x=value, _mapping=LumpClass._arrays["attr3"])
+        # UNLESS: LumpClass(attr3=MappedArray(x=value, _mapping=LumpClass._arrays["attr3"])
         # BETTER: LumpClass(attr3_x=value)  # parse kwarg as attr3.x & generate attr3 MappedArray (expensive!)
         # BEST: LumpClass(**{"attr3.x": value})  # no chance of overlapping attr names
         assert len(args) <= len(self.__slots__), "Too many arguments! Should match top level attributes!"
@@ -132,7 +134,6 @@ class Struct:
         _tuple = struct.unpack(cls._format, _bytes)
         expected_length = len(cls.__slots__) + mapping_length(cls._arrays) - len(cls._arrays)
         assert len(_tuple) == expected_length
-        # TODO: ^ test
         return cls.from_tuple(_tuple)
 
     @classmethod
@@ -332,8 +333,8 @@ class MappedArray:
                     child = MappedArray.from_tuple(segment, _mapping=child_mapping, _format=child_format)
                     # NOTE: ^ will recurse again if child_mapping is a dict
                 else:  # if {"attr": None}
-                    array_index += 1
                     child = array[array_index]  # take a single item, not a slice
+                    array_index += 1
                 out_args.append(child)
         elif isinstance(_mapping, list):  # List[str]
             out_args = array

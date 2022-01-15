@@ -77,9 +77,10 @@ class Block:
         if header.model_type == 0:
             size, *drag_axis_areas, axis_map_size = struct.unpack("i3fi", lump.read(20))
             surface_header = SurfaceHeader(size, drag_axis_areas, axis_map_size)
-            data_start = lump.tell()
-            self.collision_model = CollisionModel.from_stream(lump)
-            lump.seek(data_start)
+            # data_start = lump.tell()
+            # NOTE: the tree reads are breaking
+            # self.collision_model = CollisionModel.from_stream(lump)
+            # lump.seek(data_start)
         elif header.model_type == 1:
             surface_header = MoppHeader(*struct.unpack("i", lump.read(4)))
             # yeah, no idea what this does
@@ -116,16 +117,15 @@ class Vertex(base.MappedArray):
     # appear to be 1/72 vs. expected size (roughly)
 
 
-class ConvexTriangle(base.Struct):
+class ConvexTriangle(base.MappedArray):
     """struct ConvexTriange { int padding; short edges[3][2]; };"""
     padding: int  # is it really padding? check for non-zeroes
     edges: List[int]  # 3 pairs of indices
-    __slots__ = ["padding", "edges"]
+    _mapping = {"padding": None, "edges": {"AB": 2, "BC": 2, "CA": 2}}
     _format = "i6h"
-    _arrays = {"edges": {"AB": 2, "BC": 2, "CA": 2}}
 
 
-class ConvexLeaf(base.Struct):
+class ConvexLeaf(base.MappedArray):
     """struct ConvexLeaf { int vertex_offset, padding[2]; short triangle_count, unused; };"""
     # preceded by b"IDST" (IDSTUDIOHEADER) ?
     # -- src/utils/motionmapper/motionmapper.h
@@ -134,9 +134,8 @@ class ConvexLeaf(base.Struct):
     padding: List[int]  # might have non-zeros?
     triange_count: int  # number of ConvexTriangles in this ConvexLeaf
     unused: int
-    __slots__ = ["vertex_offset", "padding", "triangle_count", "unused"]
+    _mapping = {"vertex_offset": None, "padding": 2, "triangle_count": None, "unused": None}
     _format = "3i2h"
-    _arrays = {"padding": 2}
 
     # NOTE: must load with .from_stream to get these
     triangles: List[ConvexTriangle]
@@ -155,16 +154,15 @@ class ConvexLeaf(base.Struct):
         return convex_leaf
 
 
-class TreeNode(base.Struct):
+class TreeNode(base.MappedArray):
     """struct TreeNode { int right_node_offset, convex_leaf_offset; float unknown[5]; };"""
     right_node_offset: int  # has no child nodes if 0
     convex_leaf_offset: int  # index to child ConvexLeaf
     unknown: List[float]
-    __slots__ = ["right_node_offset", "convex_leaf_offset", "unknown"]
+    _mapping = {"right_node_offset": None, "convex_leaf_offset": None, "unknown": 5}
     _format = "2i5f"
-    _arrays = {"unknown": 5}
 
-    # NOTE: only 2 child nodes or 1 convex leaf
+    # NOTE: must load with .from_stream(); may only have 1 or the other
     children: (TreeNode, TreeNode)
     leaf: ConvexLeaf
 
@@ -172,6 +170,7 @@ class TreeNode(base.Struct):
     def from_stream(cls, stream: io.BytesIO) -> TreeNode:
         base_offset = stream.tell()
         tree_node = super().from_stream(stream)
+        print(base_offset, tree_node)
         if tree_node.right_node_offset == 0:
             stream.seek(base_offset + tree_node.convex_leaf_offset)
             tree_node.leaf = ConvexLeaf.from_stream(stream)
@@ -201,6 +200,7 @@ class CollisionModel(base.Struct):
         base_offset = stream.tell()
         collision_model = super().from_stream(stream)
         stream.seek(base_offset + collision_model.tree_offset)
+        # NOTE: we can't stop a bad tree from reading past the end of the block
         collision_model.tree = TreeNode.from_stream(stream)
         stream.seek(base_offset + struct.calcsize(cls._format))
         return collision_model
