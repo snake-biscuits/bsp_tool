@@ -1,5 +1,6 @@
 """Base classes for defining .bsp lump structs"""
 from __future__ import annotations
+import io
 import re
 import struct
 from typing import Any, Dict, Iterable, List, Union
@@ -133,6 +134,10 @@ class Struct:
         assert len(_tuple) == expected_length
         # TODO: ^ test
         return cls.from_tuple(_tuple)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Struct:
+        return cls.from_bytes(stream.read(struct.calcsize(cls._format)))
 
     @classmethod
     def from_tuple(cls, _tuple: Iterable) -> Struct:
@@ -299,6 +304,10 @@ class MappedArray:
         _tuple = struct.unpack(_format, _bytes)
         assert len(_tuple) == mapping_length(_mapping), f"{_tuple}"
         return cls.from_tuple(_tuple, _mapping=_mapping, _format=_format)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, _mapping: Any = None, _format: str = None) -> MappedArray:
+        return cls.from_bytes(stream.read(struct.calcsize(cls._format)), _mapping, _format)
 
     @classmethod
     def from_tuple(cls, array: Iterable, _mapping: Any = None, _format: str = None) -> MappedArray:
