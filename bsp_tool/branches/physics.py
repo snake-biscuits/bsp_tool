@@ -1,5 +1,5 @@
 """PhysicsCollide SpecialLumpClasses"""
-# SourceIO/.../source1/phy/phy.py
+# SourceIO/library/source1/phy/phy.py
 from __future__ import annotations
 import collections
 import io
@@ -65,7 +65,7 @@ MoppHeader = collections.namedtuple("swapmoppsurfaceheader_t", ["size"])
 # -- PC is primarily little-endian, while the Xbox 360 has more big-endian fields
 
 
-class Block:  # TODO: actually process this data
+class Block:
     # byte swapper: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/utils/common/bsplib.cpp#L1677
     def __init__(self, raw_lump: bytes):
         """Editting not yet supported"""
@@ -77,15 +77,9 @@ class Block:  # TODO: actually process this data
         if header.model_type == 0:
             size, *drag_axis_areas, axis_map_size = struct.unpack("i3fi", lump.read(20))
             surface_header = SurfaceHeader(size, drag_axis_areas, axis_map_size)
-            # self.data = CollisionModel(lump)
-            # - CollisionModel (44 bytes)
-            #   - TreeNode (recursive) <- CollisionModel.tree_offset
-            #   - TreeNode (left)  <- TreeNode<parent>._offset + sizeof(TreeNode)
-            #   - TreeNode (right) <- TreeNode<parent>.right_node_offset
-            #   if (TreeNode<parent>.right_node_offset == 0)
-            #   - ConvexLeaf <- TreeNode<parent>.convex_offset (indexes relative [backwards])
-            #     - ConvexTriangle[ConvexLeaf.triangle_count]
-            #     - Vertex[len(set([i for ct in triangles for e in ct.edges for i in e]))]
+            data_start = lump.tell()
+            self.collision_model = CollisionModel.from_stream(lump)
+            lump.seek(data_start)
         elif header.model_type == 1:
             surface_header = MoppHeader(*struct.unpack("i", lump.read(4)))
             # yeah, no idea what this does
@@ -108,63 +102,122 @@ class Block:  # TODO: actually process this data
         return b"".join([header, surface_header, self.data])
 
 
-# TODO: child / recursive __init__(s)
-# -- ...
-# TODO: reverting nested structure to bytes
 # TODO: create a structure that makes navigating the tree optional
 # -- ideally just get all the triangles and make a mesh
 # -- however using the tree could be useful for reverse engineering
+# TODO: find what isn't mapped by these interwoven structures
+# -- a linear read might be possible
 
-class CollisionModel(base.Struct):
-    """struct CollisionModel { float unknown[7]; int surface, tree_offset, padding[2]; };"""
-    unknown: List[float]
-    __slots__ = ["unknown", "surface", "tree_offset", "padding"]
-    _format = "7f4i"
-    _arrays = {"unknown": 7, "padding": 2}
-
-    @classmethod
-    def from_stream(cls, bytestream: io.RawIOBase) -> CollisionModel:
-        # TODO: load "header" w/ cls.from_bytes, then allocate children
-        raise NotImplementedError()
-
-    def as_bytes(self) -> bytes:
-        # header = super(self, CollisionModel).as_bytes()
-        # TODO: handle children
-        raise NotImplementedError()
-
-
-class TreeNode(base.Struct):
-    """struct TreeNode { int right_node_offset, convex_leaf_offset; float unknown[5]; };"""
-    __slots__ = ["right_node_offset", "convex_leaf_offset", "unknown"]
-    _format = "2i5f"
-    _arrays = {"unknown": 5}
-
-    # TODO: children
-    # left node comes next, the we skip to the right node, relative to our current position
-    # 2x TreeNode if node_size[0] != 0
-    # else b"IDST" (IDSTUDIOHEADER), ConvexLeaf
-    # src/utils/motionmapper/motionmapper.h
-    # src/utils/vbsp/staticprop.cpp
-
-
-class ConvexLeaf(base.Struct):
-    """struct ConvexLeaf { int vertex_offset, padding[2]; short triangle_count, unused; };"""
-    __slots__ = ["vertex_offset", "padding", "triangle_count", "unused"]
-    _format = "3i2h"
-    _arrays = {"padding": 2}
-    # immediately followed by triangles
-    # need to read triangles to find vertex count
-
-
-class ConvexTriangle(base.Struct):
-    """struct ConvexTriange { int padding; short edges[3][2]; };"""
-    __slots__ = ["padding", "edge"]
-    _format = "i6h"
-    _arrays = {"edge": {"AB": 2, "BC": 2, "CA": 2}}
-
-
+# NOTE: the order of class definition matters here, since each contains the previous
 class Vertex(base.MappedArray):
     """struct Vertex { float x, y, z, w };"""
     _mapping = [*"xyzw"]
     _format = "4f"
-    # appear to be 1/72 the expected size (roughly)
+    # appear to be 1/72 vs. expected size (roughly)
+
+
+class ConvexTriangle(base.Struct):
+    """struct ConvexTriange { int padding; short edges[3][2]; };"""
+    padding: int  # is it really padding? check for non-zeroes
+    edges: List[int]  # 3 pairs of indices
+    __slots__ = ["padding", "edges"]
+    _format = "i6h"
+    _arrays = {"edges": {"AB": 2, "BC": 2, "CA": 2}}
+
+
+class ConvexLeaf(base.Struct):
+    """struct ConvexLeaf { int vertex_offset, padding[2]; short triangle_count, unused; };"""
+    # preceded by b"IDST" (IDSTUDIOHEADER) ?
+    # -- src/utils/motionmapper/motionmapper.h
+    # -- src/utils/vbsp/staticprop.cpp
+    vertex_offset: int  # need to calculate vertex count from triangles
+    padding: List[int]  # might have non-zeros?
+    triange_count: int  # number of ConvexTriangles in this ConvexLeaf
+    unused: int
+    __slots__ = ["vertex_offset", "padding", "triangle_count", "unused"]
+    _format = "3i2h"
+    _arrays = {"padding": 2}
+
+    # NOTE: must load with .from_stream to get these
+    triangles: List[ConvexTriangle]
+    vertices: List[Vertex]
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> ConvexLeaf:
+        base_offset = stream.tell()
+        convex_leaf = super().from_stream(stream)
+        convex_leaf.triangles = [ConvexTriangle.from_stream(stream) for i in range(convex_leaf.triangle_count)]
+        # NOTE: uncertain if this is the best way to gather vertices
+        stream.seek(base_offset + convex_leaf.vertex_offset)
+        vertex_count = len({v for tri in convex_leaf.triangles for e in tri.edges for v in e})
+        convex_leaf.vertices = [Vertex.from_stream(stream) for i in range(vertex_count)]
+        stream.seek(base_offset + struct.calcsize(cls._format))
+        return convex_leaf
+
+
+class TreeNode(base.Struct):
+    """struct TreeNode { int right_node_offset, convex_leaf_offset; float unknown[5]; };"""
+    right_node_offset: int  # has no child nodes if 0
+    convex_leaf_offset: int  # index to child ConvexLeaf
+    unknown: List[float]
+    __slots__ = ["right_node_offset", "convex_leaf_offset", "unknown"]
+    _format = "2i5f"
+    _arrays = {"unknown": 5}
+
+    # NOTE: only 2 child nodes or 1 convex leaf
+    children: (TreeNode, TreeNode)
+    leaf: ConvexLeaf
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> TreeNode:
+        base_offset = stream.tell()
+        tree_node = super().from_stream(stream)
+        if tree_node.right_node_offset == 0:
+            stream.seek(base_offset + tree_node.convex_leaf_offset)
+            tree_node.leaf = ConvexLeaf.from_stream(stream)
+        else:
+            tree_node.children = list()
+            tree_node.children.append(TreeNode.from_stream(stream))
+            stream.seek(tree_node.right_node_offset)
+            tree_node.children.append(TreeNode.from_stream(stream))
+        stream.seek(base_offset + struct.calcsize(cls._format))
+        return tree_node
+
+
+class CollisionModel(base.Struct):
+    """struct CollisionModel { float unknown[7]; int surface, tree_offset, padding[2]; };"""
+    unknown: List[float]
+    surface: int  # surface type? matches script?
+    tree_offset: int  # index into "IVPS" to where the tree starts
+    padding: List[int]  # doesn't look like padding, got some non-zeroes in there
+    __slots__ = ["unknown", "surface", "tree_offset", "padding"]
+    _format = "7f4i"
+    _arrays = {"unknown": 7, "padding": 2}
+
+    tree: TreeNode  # must use .from_stream to get the tree
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> CollisionModel:
+        base_offset = stream.tell()
+        collision_model = super().from_stream(stream)
+        stream.seek(base_offset + collision_model.tree_offset)
+        collision_model.tree = TreeNode.from_stream(stream)
+        stream.seek(base_offset + struct.calcsize(cls._format))
+        return collision_model
+
+    def as_bytes(self) -> bytes:
+        # header = super(self, CollisionModel).as_bytes()
+        # TODO: handle children
+        # b"IVPS"
+        # regenerate tree (indexes backwards, prefill?)
+        # index tree -> leaves -> tris -> verts
+        raise NotImplementedError()
+
+    # TODO: a way to navigate the tree
+
+    def as_obj(self) -> str:
+        out = ["# generated from IVPS data with bsp_tool"]
+        # TODO: navigate the tree and build each leaf
+        # -- vertices and triangles, make each leaf an object? how to communicate lineage?
+        raise NotImplementedError()
+        return "\n".join(out)
