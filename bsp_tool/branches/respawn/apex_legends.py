@@ -145,7 +145,7 @@ class LUMP(enum.Enum):
     MATERIAL_SORT = 0x0052
     LIGHTMAP_HEADERS = 0x0053
     UNUSED_84 = 0x0054
-    CM_GRID = 0x0055  # Tweaklights?
+    TWEAK_LIGHTS = 0x0055
     UNUSED_86 = 0x0056
     UNUSED_87 = 0x0057
     UNUSED_88 = 0x0058
@@ -204,6 +204,7 @@ lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 #   UNUSED_37 -> UNKNOWN_37
 #   UNUSED_38 -> UNKNOWN_38
 #   UNUSED_39 -> UNKNOWN_39
+#   CM_GRID -> TWEAK_LIGHTS
 #   TEXTURE_DATA_STRING_DATA -> UNKNOWN_43
 #   TRICOLL_BEVEL_INDICES -> UNKNOWN_97
 # Deprecated:
