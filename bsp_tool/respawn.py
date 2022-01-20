@@ -20,7 +20,7 @@ class RespawnBsp(base.Bsp):
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     file_magic = b"rBSP"
     lump_count: int
-    entity_headers: Dict[str, str]
+    entity_headers: Dict[str, str]g
     # {"LUMP_NAME": "header text"}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
@@ -209,7 +209,7 @@ class RespawnBsp(base.Bsp):
                 # -- the `num_models` value appears to be for entities across all .ent files
                 # NOTE: so far `prop_*` entities have only been observed in `*_script.ent`
                 header = self.entity_headers.get(LUMP_name, "ENTITIES01").encode("ascii")
-                ent_file.write()
+                ent_file.write(header)
                 ent_file.write(b"\n")
                 ent_file.write(getattr(self, LUMP_name).as_bytes())
 
