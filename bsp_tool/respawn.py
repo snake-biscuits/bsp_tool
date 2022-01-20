@@ -20,7 +20,7 @@ class RespawnBsp(base.Bsp):
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     file_magic = b"rBSP"
     lump_count: int
-    entity_headers: Dict[str, str]g
+    entity_headers: Dict[str, str]
     # {"LUMP_NAME": "header text"}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
