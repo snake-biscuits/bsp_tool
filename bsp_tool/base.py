@@ -12,11 +12,8 @@ from . import lumps
 
 
 # TODO: align base.Bsp closer to Quake, rather than Source
-
-# NOTE: these LumpHeader defintions are not universal! many branches differ
+# -- move all versioned lumps etc. to valve.py
 LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version", "fourCC"])
-ExternalLumpHeader = collections.namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC",
-                                                                   "filename", "filesize"])
 # NOTE: if fourCC != 0: lump is compressed  (fourCC value == uncompressed size)
 
 
@@ -58,8 +55,8 @@ class Bsp:
 
     def __repr__(self):
         version = f"({self.file_magic.decode('ascii', 'ignore')} version {self.bsp_version})"
-        game = self.branch.__name__[len(self.branch.__package__) + 1:]
-        return f"<{self.__class__.__name__} '{self.filename}' {game} {version} at 0x{id(self):016X}>"
+        branch_script = ".".join(self.branch.__name__.split(".")[-2:])
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version} at 0x{id(self):016X}>"
 
     def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
         """Reads bytes of lump"""
@@ -142,14 +139,16 @@ class Bsp:
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
         # branch is a "branch script" that has been imported into python
         # if writing your own "branch script", see branches/README.md for a guide
+        # TODO: remove old methods first
         self.branch = branch
         # attach methods
         for method in getattr(branch, "methods", list()):
             method = MethodType(method, self)
             setattr(self, method.__name__, method)
-        # NOTE: does not remove methods from former branch
-        # could we also attach static methods?
+        # could we also attach static methods? class methods?
 
+    # NOTE: IBSP & GoldSrcBsp don't have lump versions;
+    # -- this method definition belongs with valve.ValveBsp
     def lump_as_bytes(self, lump_name: str) -> bytes:
         # NOTE: if a lump failed to read correctly, converting to bytes will fail
         # -- this is because LumpClasses are expected
@@ -164,7 +163,6 @@ class Bsp:
         if lump_name in all_lump_classes and lump_name != "GAME_LUMP":
             if lump_version not in all_lump_classes[lump_name]:
                 return bytes(lump_entries)
-        # NOTE: IBSP & GoldSrcBsp don't have lump versions
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
             _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format
             raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)

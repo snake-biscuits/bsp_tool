@@ -1,5 +1,5 @@
 ============================= test session starts =============================
-platform win32 -- Python 3.9.9, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\users\jared\documents\github\bsp_tool\venv\scripts\python.exe
+platform win32 -- Python 3.9.10, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\users\jared\documents\github\bsp_tool\venv\scripts\python.exe
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
@@ -202,7 +202,7 @@ map_dirs = ['Id1/pak0/maps', 'Id1/pak1/maps', 'hipnotic/pak0/maps', 'rogue/pak0/
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
 >                       bsp = load_bsp(bsp_filename, branch_script)
 
-tests\test_bsp.py:60: 
+tests\test_bsp.py:63: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 filename = 'E:/Mod\\Quake\\alkaline/pak0/maps\\alk_corrupt.bsp'
@@ -278,7 +278,7 @@ group_path = 'E:/Mod', game_name = 'Warsow', map_dirs = ['maps']
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
 >                       bsp = load_bsp(bsp_filename, branch_script)
 
-tests\test_bsp.py:60: 
+tests\test_bsp.py:63: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 filename = 'E:/Mod\\Warsow\\maps\\ui.bsp', branch_script = None
@@ -352,10 +352,13 @@ group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
                         elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                         bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
@@ -566,7 +569,7 @@ E         +  'maps/zz_phouse.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +
 E         +  'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:71: AssertionError
+tests\test_bsp.py:77: AssertionError
 __________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs83] __________
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/singleplayer'
@@ -600,10 +603,13 @@ map_dirs = ['maps']
                         elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                         bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
@@ -690,7 +696,7 @@ E         +  'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\
 E         +  'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:71: AssertionError
+tests\test_bsp.py:77: AssertionError
 __________ test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs84] ___________
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/multiplayer'
@@ -724,10 +730,13 @@ map_dirs = ['maps']
                         elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                         bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
@@ -766,7 +775,7 @@ E         +  'maps/l_mp4.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')
 E         +  'maps/l_mp5.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:71: AssertionError
+tests\test_bsp.py:77: AssertionError
 _________________ test_load_bsp[E:/Mod-Vindictus-map_dirs88] __________________
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
@@ -799,10 +808,13 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
                         elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                             continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                         bsp = load_bsp(bsp_filename, branch_script)
-                        # TODO: assert game_name, bsp_version and BspVariant match
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: incomplete Vindictus GameLump
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
@@ -1767,7 +1779,7 @@ E         +  'maps/w_boss04.bsp': AssertionError('ENTITIES, PLANES, TEXTURE_DATA
 E         +  'maps/w_boss04_story.bsp': AssertionError('ENTITIES, PLANES, TEXTURE_DATA, VERTICES, NODES, TEXTURE_INFO, FACES, EDGES, MODELS, WORLD_LIGHTS, DISPLACEMENT_INFO, PHYSICS_COLLIDE, VERTEX_NORMALS, DISPLACEMENT_VERTICES, GAME_LUMP, LEAF_WATER_DATA, PAKFILE, OVERLAYS, WORLD_LIGHTS_HDR\nassert 19 == 0\n  +19\n  -0'),
 E           }
 
-tests\test_bsp.py:71: AssertionError
+tests\test_bsp.py:77: AssertionError
 ============================== warnings summary ===============================
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
@@ -1777,22 +1789,22 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
   Node
-  Light
-  Portal
-  CullGroup
-  DrawVertex
   Model
+  Portal
+  PatchCollision
+  Light
+  DrawVertex
   Cell
+  Occluder
   AxisAlignedBoundingBox
   Brush
-  PatchCollision
-  Occluder
+  CullGroup
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
-  CollisionEdge
   Model
+  CollisionEdge
   CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
@@ -1819,17 +1831,17 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troi
 
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
 
------------ coverage: platform win32, python 3.9.9-final-0 -----------
+---------- coverage: platform win32, python 3.9.10-final-0 -----------
 Name                                                    Stmts   Miss  Cover
 ---------------------------------------------------------------------------
 bsp_tool\__init__.py                                       56      5    91%
 bsp_tool\arkane.py                                         53      6    89%
-bsp_tool\base.py                                          114     32    72%
+bsp_tool\base.py                                          117     36    69%
 bsp_tool\branches\__init__.py                              28      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       23      0   100%
 bsp_tool\branches\arkane\dark_messiah_singleplayer.py      55      0   100%
-bsp_tool\branches\base.py                                 255     40    84%
+bsp_tool\branches\base.py                                 262     41    84%
 bsp_tool\branches\gearbox\__init__.py                       3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                    27      0   100%
 bsp_tool\branches\gearbox\nightfire.py                     72      0   100%
@@ -1847,7 +1859,7 @@ bsp_tool\branches\nexon\__init__.py                         4      0   100%
 bsp_tool\branches\nexon\cso2.py                           104      6    94%
 bsp_tool\branches\nexon\cso2_2018.py                       19      0   100%
 bsp_tool\branches\nexon\vindictus.py                      237     28    88%
-bsp_tool\branches\physics.py                               92     24    74%
+bsp_tool\branches\physics.py                              139     52    63%
 bsp_tool\branches\py_struct_as_cpp.py                     171    171     0%
 bsp_tool\branches\raven\__init__.py                         4      0   100%
 bsp_tool\branches\raven\hexen2.py                          12      0   100%
@@ -1856,7 +1868,7 @@ bsp_tool\branches\raven\soldier_of_fortune2.py             31      0   100%
 bsp_tool\branches\respawn\__init__.py                       4      0   100%
 bsp_tool\branches\respawn\apex_legends.py                 268     22    92%
 bsp_tool\branches\respawn\titanfall.py                    503     79    84%
-bsp_tool\branches\respawn\titanfall2.py                   208      1    99%
+bsp_tool\branches\respawn\titanfall2.py                   209      1    99%
 bsp_tool\branches\ritual\__init__.py                        5      0   100%
 bsp_tool\branches\ritual\fakk2.py                          56      0   100%
 bsp_tool\branches\ritual\moh_allied_assault.py             73      0   100%
@@ -1877,17 +1889,17 @@ bsp_tool\branches\vector.py                               175    121    31%
 bsp_tool\extensions\__init__.py                             0      0   100%
 bsp_tool\extensions\archive.py                             70     70     0%
 bsp_tool\extensions\decrypt_xor.py                         11     11     0%
-bsp_tool\extensions\diff.py                               106    106     0%
+bsp_tool\extensions\diff.py                               108    108     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\id_software.py                                    95     13    86%
 bsp_tool\infinity_ward.py                                 130     17    87%
-bsp_tool\lumps\__init__.py                                273     50    82%
+bsp_tool\lumps\__init__.py                                279     69    75%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       151     72    52%
+bsp_tool\respawn.py                                       233    155    33%
 bsp_tool\ritual.py                                         44      3    93%
 bsp_tool\valve.py                                          60     11    82%
 ---------------------------------------------------------------------------
-TOTAL                                                    5978   1259    79%
+TOTAL                                                    6126   1396    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs70] - NotImpleme...
@@ -1896,4 +1908,4 @@ FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs82] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs83]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs84]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs88] - Assert...
-=========== 6 failed, 155 passed, 7 warnings in 6820.67s (1:53:40) ============
+=========== 6 failed, 155 passed, 7 warnings in 6246.58s (1:44:06) ============

@@ -64,11 +64,15 @@ def diff_bsps(bsp1, bsp2, full=False):
             print(bsp2_header)
 
 
-def diff_rbsps(rbsp1, rbsp2, full=False):
+def diff_rbsps(rbsp1, rbsp2, external=True, full=False):
+    """compare internal to external lumps with diff_rbsps(bsp, bsp.external, external=False)"""
     diff_bsps(rbsp1, rbsp2, full)
     for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
         print(ent_file, end="  ")
         print("YES!" if getattr(rbsp1, ent_file) == getattr(rbsp1, ent_file) else "NOPE")
+    if external:
+        diff_bsps(rbsp1.external, rbsp2.external, full)
+        # TODO: close each lump after reading to save memory & avoid the "Too many open files" OSError
 
 
 def diff_entities(bsp1: RespawnBsp, bsp2: RespawnBsp):

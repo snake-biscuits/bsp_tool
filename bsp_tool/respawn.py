@@ -1,8 +1,10 @@
+from __future__ import annotations
 from collections import namedtuple
 import enum
 import os
+import shutil
 import struct
-from types import ModuleType
+from types import MethodType, ModuleType
 from typing import Dict
 
 from . import base
@@ -12,6 +14,114 @@ from .branches import shared
 
 
 ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "version", "fourCC", "filename", "filesize"])
+
+
+class ExternalLumpManager:
+    """Looks mostly like a .bsp, but only uses external lumps"""
+    # copied from bsp on __init__
+    filename: str
+    branch: ModuleType
+    bsp_version: int | (int, int)
+    file_magic: bytes
+    # unique to external lumps
+    headers: Dict[str, ExternalLumpHeader]
+    # ^ {"LUMP_NAME": ExternalLumpHeader}
+    loading_errors: Dict[str, Exception]
+    # ^ {"LUMP_NAME": Error}
+
+    def __init__(self, bsp: RespawnBsp):
+        self.filename = bsp.filename
+        self.branch = bsp.branch
+        self.bsp_version = bsp.bsp_version
+        self.file_magic = bsp.file_magic
+        # generate headers
+        self.headers = dict()
+        self.loading_errors = dict()
+        for LUMP in bsp.branch.LUMP:
+            lump_filename = f"{bsp.filename}.{LUMP.value:04x}.bsp_lump"
+            if lump_filename not in bsp.associated_files:
+                continue
+            lump_filename = os.path.join(bsp.folder, lump_filename)
+            lump_filesize = os.path.getsize(lump_filename)
+            lump_header = ExternalLumpHeader(*bsp.headers[LUMP.name], lump_filename, lump_filesize)
+            self.headers[LUMP.name] = lump_header
+        # attach methods
+        for method in getattr(self.branch, "methods", list()):
+            method = MethodType(method, self)
+            setattr(self, method.__name__, method)
+
+    def __repr__(self):  # copied from base.Bsp
+        version = f"({self.file_magic.decode('ascii', 'ignore')} version {self.bsp_version}"
+        branch_script = ".".join(self.branch.__name__.split(".")[-2:])
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version} at 0x{id(self):016X}>"
+
+    def __getattr__(self, lump_name: str):
+        """initialises lumps when created"""
+        if lump_name not in self.headers:
+            raise AttributeError(f"External {lump_name} lump not found!")
+        lump_header = self.headers[lump_name]
+        if lump_header.filesize == 0:
+            raise RuntimeError(f"{lump_name} lump's .bsp_lump is empty!")
+        try:
+            if lump_name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
+                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
+                lump_file = open(lump_header.filename, "rb")
+                ExternalBspLump = lumps.GameLump(lump_file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+                # TODO: test we didn't break this with the new ExternalLumpHeader
+            elif lump_name in self.branch.LUMP_CLASSES:
+                LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
+                ExternalBspLump = lumps.BspLump(self.file, lump_header, LumpClass)
+            elif lump_name in self.branch.BASIC_LUMP_CLASSES:
+                LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
+                ExternalBspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)
+            elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+                SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name][lump_header.version]
+                with open(lump_header.filename, "rb") as bsp_lump_file:
+                    ExternalBspLump = SpecialLumpClass(bsp_lump_file.read())
+            else:
+                ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+        except KeyError:  # lump version not supported
+            ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+        except Exception as exc:
+            self.loading_errors[lump_name] = exc
+            ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+        setattr(self, lump_name, ExternalBspLump)
+        return getattr(self, lump_name)  # uses __getattribute__
+
+    # NOTE: hasattr won't list available external lumps, but self.headers will
+
+    def lump_as_bytes(self, lump_name: str) -> bytes:
+        """based on base.Bsp.lump_as_bytes()"""
+        if lump_name in self.loading_errors:
+            # opened file, but failed to parse
+            assert isinstance(getattr(self, lump_name), lumps.ExternalRawBspLump), "idk how this happened"
+            return bytes(getattr(self, lump_name))
+        if lump_name in self.headers and not hasattr(self, lump_name):
+            # found file, but haven't opened
+            with open(self.headers[lump_name].filename, "rb") as bsp_lump_file:
+                return bsp_lump_file.read()
+        lump_entries = getattr(self, lump_name)
+        # NOTE: changing the version won't convert the format, but we respect the header version
+        lump_version = self.headers[lump_name].version
+        all_lump_classes = {**self.branch.BASIC_LUMP_CLASSES,
+                            **self.branch.LUMP_CLASSES,
+                            **self.branch.SPECIAL_LUMP_CLASSES}
+        if lump_name in all_lump_classes and lump_name != "GAME_LUMP":
+            if lump_version not in all_lump_classes[lump_name]:
+                return bytes(lump_entries)
+        if lump_name in self.branch.BASIC_LUMP_CLASSES:
+            _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format
+            raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)
+        elif lump_name in self.branch.LUMP_CLASSES:
+            _format = self.branch.LUMP_CLASSES[lump_name][lump_version]._format
+            raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_entries])
+        elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+            raw_lump = lump_entries.as_bytes()
+        elif lump_name == "GAME_LUMP":
+            raw_lump = lump_entries.as_bytes()
+        else:  # assume lump_entries is RawBspLump
+            raw_lump = bytes(lump_entries)
+        return raw_lump
 
 
 class RespawnBsp(base.Bsp):
@@ -59,48 +169,35 @@ class RespawnBsp(base.Bsp):
         self.bsp_file_size = self.file.tell()
 
         self.loading_errors: Dict[str, Exception] = dict()
-        # internal & external lumps
-        # TODO: store both internal & external lumps
-        # TODO: break down into a _load_lump method, allowing reloading per lump
-        for LUMP in self.branch.LUMP:  # external .bsp.00XX.bsp_lump lump
-            external = False
-            lump_filename = f"{self.filename}.{LUMP.value:04x}.bsp_lump"
+        for LUMP in self.branch.LUMP:
             lump_header = self._read_header(LUMP)
-            if lump_filename in self.associated_files:  # .bsp_lump file exists
-                external = True
-                lump_filename = os.path.join(self.folder, lump_filename)
-                lump_filesize = os.path.getsize(os.path.join(self.folder, lump_filename))
-                lump_header = ExternalLumpHeader(*lump_header, lump_filename, lump_filesize)
             self.headers[LUMP.name] = lump_header
-            if lump_header.length == 0:
+            if lump_header.length == 0 or lump_header.offset >= self.bsp_file_size:
                 continue  # skip empty lumps
             try:
-                if LUMP.name == "GAME_LUMP":
-                    # NOTE: lump_header.version is ignored in this case
+                if LUMP.name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                     BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP.name in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
-                    BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+                    BspLump = lumps.BspLump(self.file, lump_header, LumpClass)
                 elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
                     LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name][lump_header.version]
-                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                    BspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)
                 elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
                     SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name][lump_header.version]
-                    if not external:
-                        self.file.seek(lump_header.offset)
-                        lump_data = self.file.read(lump_header.length)
-                    else:
-                        lump_data = open(lump_header.filename, "rb").read()
-                    BspLump = SpecialLumpClass(lump_data)
+                    self.file.seek(lump_header.offset)
+                    BspLump = SpecialLumpClass(self.file.read(lump_header.length))
                 else:
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                    BspLump = lumps.RawBspLump(self.file, lump_header)
             except KeyError:  # lump version not supported
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                BspLump = lumps.RawBspLump(self.file, lump_header)
             except Exception as exc:
                 self.loading_errors[LUMP.name] = exc
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                BspLump = lumps.RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
+
+        self.external = ExternalLumpManager(self)
 
         # .ent files
         # TODO: give a warning if available .ent files do not match ENTITY_PARTITIONS
@@ -116,16 +213,11 @@ class RespawnBsp(base.Bsp):
                     setattr(self, LUMP_name, shared.Entities(ent_file.read()))
                     # each .ent file also has a null byte at the very end
 
-    def save_as(self, filename: str, single_file: bool = False):
-        # NOTE: this method is innacurate and inconvenient
-        # TODO: catch titanfall2 LIGHTMAP_DATA_REAL_TIME_LIGHTS (9x / 8x)
+    def save_as(self, filename: str):
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
-        # ^ {"lump.name": LumpHeader / ExternalLumpHeader}
-        # NOTE: messes up on empty lumps, so we can't get an exact 1:1 copy /;
-        external_lumps = {L.name for L in self.branch.LUMP if isinstance(self.headers[L.name], ExternalLumpHeader)}
-        if single_file:
-            external_lumps = set()
+        # ^ {"lump.name": LumpHeader}
+        # NOTE: messes up a little on empty lumps, so we can't get an exact 1:1 copy /;
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
@@ -147,12 +239,14 @@ class RespawnBsp(base.Bsp):
             length = len(raw_lumps[LUMP.name])
             version = self.headers[LUMP.name].version
             fourCC = 0  # fourCC is always 0 because we aren't encoding
-            if LUMP.name in external_lumps:
+            header = LumpHeader(offset, length, version, fourCC)
+            if LUMP.name in self.external.headers:
                 external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
-                header = ExternalLumpHeader(offset, 0, version, fourCC, external_lump_filename, length)
-                # ^ offset, length, version, fourCC
-            else:
-                header = LumpHeader(offset, length, version, fourCC)
+                if not hasattr(self.external, LUMP.name):  # unopened, no changes
+                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
+                else:
+                    with open(external_lump_filename, "wb") as bsp_lump_file:
+                        bsp_lump_file.write(self.external.lump_as_bytes(LUMP.name))
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
             # pad to start at the next multiple of 4 bytes
@@ -160,7 +254,8 @@ class RespawnBsp(base.Bsp):
             if current_offset % 4 != 0:
                 current_offset += 4 - current_offset % 4
         del current_offset
-        if "GAME_LUMP" in raw_lumps and "GAME_LUMP" not in external_lumps:
+        # set GAME_LUMP offsets
+        if "GAME_LUMP" in raw_lumps:
             raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
         # make file
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
@@ -178,10 +273,10 @@ class RespawnBsp(base.Bsp):
             if LUMP.name not in raw_lumps:
                 continue
             # write external lump
-            if LUMP.name in external_lumps:
+            if LUMP.name in self.external.headers:
                 external_lump = f"{filename}.{LUMP.value:04x}.bsp_lump"
-                # TODO: recalc the GameLump offset & length
-                # TODO: cut any padding from the tail
+                if not hasattr(self.external, LUMP.name):
+                    shutil.copy()
                 with open(external_lump, "wb") as out_lumpfile:
                     out_lumpfile.write(raw_lumps[LUMP.name])
             else:  # write lump to file

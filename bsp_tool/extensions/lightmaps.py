@@ -142,6 +142,7 @@ def save_rbsp_r1(rbsp, image_dir="./"):
 # -- 2x RGBA32 @ header defined dimensions + 1x RGBA32 @ 1/4 dimensions (width/2, height/2) ???
 def save_rbsp_r2(rbsp, image_dir="./"):
     """Saves to '<image_dir>/<rbsp.filename>.sky.lightmaps.png'"""
+    # NOTE: pass rbsp.external to extract from .bsp_lumps
     sky_lightmaps = list()
     sky_start, sky_end = 0, 0
     rtl_lightmaps = list()

@@ -323,13 +323,16 @@ class ExternalBasicBspLump(BasicBspLump):
 
 
 class GameLump:
+    GameLumpHeaderClass: Any  # used for reads / writes
+    headers: Dict[str, Any]
+    # ^ {"child_lump": GameLumpHeader}
     is_external = False
     loading_errors: Dict[str, Any]
-    # ^ {"child_lump": Exception}
+    # ^ {"child_lump": Error}
 
     # NOTE: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
     # -- ^ lists a few possible child lumps:
-    # -- dplt: Detail Prop Lighting HDR
+    # -- dplh: Detail Prop Lighting HDR
     # -- dplt: Detail Prop Lighting
     # -- dprp: Detail Props (procedural grass)
     # -- sprp: Static Props
@@ -338,20 +341,24 @@ class GameLump:
                  LumpClasses: Dict[str, object], GameLumpHeaderClass: object):
         self.GameLumpHeaderClass = GameLumpHeaderClass
         self.loading_errors = dict()
+        lump_offset = 0
         if not hasattr(lump_header, "filename"):
-            file.seek(lump_header.offset)
+            lump_offset = lump_header.offset
+            file.seek(lump_offset)
         else:
             self.is_external = True
-            file = open(lump_header.filename, "rb")
         game_lumps_count = int.from_bytes(file.read(4), "little")
         self.headers = dict()
         # {"child_name": child_header}
         for i in range(game_lumps_count):
-            child_header = GameLumpHeaderClass.from_bytes(file.read(struct.calcsize(GameLumpHeaderClass._format)))
-            # ^ this is why we need a .from_stream() method for SpecialLumpClasses
+            child_header = GameLumpHeaderClass.from_stream(file)
             if self.is_external:  # HACK (does this ever happen?)
                 child_header.offset = child_header.offset - lump_header.offset
-            self.headers[child_header.id.decode("ascii")[::-1]] = child_header  # b"prps" -> "sprp"
+            child_name = child_header.id.decode("ascii")[::-1]  # b"prps" -> "sprp"
+            self.headers[child_name] = child_header
+        # load child lumps (SpecialLumpClasses)
+        # TODO: check for skipped bytes / padding
+        # TODO: defer loading to __getattr__ ?
         for child_name, child_header in self.headers.items():
             child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
             if child_LumpClass is None:
@@ -364,9 +371,13 @@ class GameLump:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
                 setattr(self, child_name, child_lump)
+        if self.is_external:
+            file.close()
 
     def as_bytes(self, lump_offset=0):
         """lump_offset makes headers relative to the file"""
+        # NOTE: ValveBsp .lmp external lumps have a 16 byte header
+        # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
         out = []
         out.append(len(self.headers).to_bytes(4, "little"))
         headers = []

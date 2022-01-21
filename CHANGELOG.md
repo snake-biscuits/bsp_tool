@@ -16,7 +16,11 @@
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
  * Completely refactored `branch_script` detection
- * `load_bsp` now only accepts a `branch_script` as it's optional argument
+   - only `file_magic` & `bsp_version` matter (unless `.d3dbsp`)
+   - `load_bsp` now only accepts a `branch_script` as it's optional argument
+ * `RespawnBsp` external lumps are now managed by `ExternalLumpManager`
+   - `.bsp_lump` files are only opened when accessed
+ * "MegaTest" RAM usage significantly reduced
 
 ### Newly Supported
  * Infinity Ward Engine
