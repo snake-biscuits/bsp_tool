@@ -128,9 +128,9 @@ extracted_dirs = {
                   "rogue/pak0/maps",  # 23 maps | 28 MB | .pak
                   "rerelease/id1/pak0/maps",  # 55 maps | 49 MB | .pak
                   "rerelease/id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
-                  "rerelease/dopa/maps",  # 13 maps | 25 MB | .pak
+                  "rerelease/dopa/pak0/maps",  # 13 maps | 25 MB | .pak
                   "rerelease/hipnotic/pak0/maps",  # 18 maps | 30 MB
-                  "rerelease/mg1/maps",  # 20 maps | 240 MB | .pak
+                  "rerelease/mg1/pak0/maps",  # 20 maps | 240 MB | .pak
                   "rerelease/rogue/pak0/maps",  # 23 maps | 28 MB | .pak
                   # http://quake.great-site.net/
                   "alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
