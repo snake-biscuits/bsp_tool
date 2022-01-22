@@ -218,6 +218,7 @@ class RespawnBsp(base.Bsp):
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
         # ^ {"lump.name": LumpHeader}
         # NOTE: messes up a little on empty lumps, so we can't get an exact 1:1 copy /;
+        # -- the engine works just fine though
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
@@ -227,8 +228,21 @@ class RespawnBsp(base.Bsp):
         # recalculate headers
         current_offset = 0
         headers = dict()
+        # NOTE: 50.1 / 49.1 rBSP (apex_legends) still have lump offsets, just only headers in the .bsp
         for LUMP in lump_order:
-            if LUMP.name not in raw_lumps:  # lump is not present
+            if LUMP.name in self.external.headers:
+                external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
+                if LUMP.name == "GAME_LUMP":
+                    with open(external_lump_filename, "wb") as bsp_lump_file:
+                        raw_external_lump = self.external.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
+                        bsp_lump_file.write(raw_external_lump)
+                elif not hasattr(self.external, LUMP.name):  # unopened, no changes
+                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
+                else:
+                    with open(external_lump_filename, "wb") as bsp_lump_file:
+                        raw_external_lump = self.external.lump_as_bytes(LUMP.name)
+                        bsp_lump_file.write(raw_external_lump)
+            if LUMP.name not in raw_lumps:  # lump is not present in bsp
                 version = self.headers[LUMP.name].version  # PHYSICS_LEVEL needs version preserved
                 headers[LUMP.name] = LumpHeader(current_offset, 0, version, 0)
                 continue
@@ -238,15 +252,8 @@ class RespawnBsp(base.Bsp):
             offset = current_offset
             length = len(raw_lumps[LUMP.name])
             version = self.headers[LUMP.name].version
-            fourCC = 0  # fourCC is always 0 because we aren't encoding
+            fourCC = 0  # fourCC is always 0 because we aren't compressing
             header = LumpHeader(offset, length, version, fourCC)
-            if LUMP.name in self.external.headers:
-                external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
-                if not hasattr(self.external, LUMP.name):  # unopened, no changes
-                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
-                else:
-                    with open(external_lump_filename, "wb") as bsp_lump_file:
-                        bsp_lump_file.write(self.external.lump_as_bytes(LUMP.name))
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
             # pad to start at the next multiple of 4 bytes
