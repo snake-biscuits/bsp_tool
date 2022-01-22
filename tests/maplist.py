@@ -98,16 +98,16 @@ extracted_dirs = {
         "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak
-        "RTCW": ["mp_pak0.pak3/maps",  # 8 maps | 89 MB | .pk3
-                 "mp_pakmaps0.pak3/maps",  # 1 map | 8 MB | .pk3
-                 "mp_pakmaps1.pak3/maps",  # 1 map | 11 MB | .pk3
-                 "mp_pakmaps2.pak3/maps",  # 1 map | 10 MB | .pk3
-                 "mp_pakmaps3.pak3/maps",  # 1 map | 14 MB | .pk3
-                 "mp_pakmaps4.pak3/maps",  # 1 map | 16 MB | .pk3
-                 "mp_pakmaps5.pak3/maps",  # 1 map | 12 MB | .pk3
-                 "mp_pakmaps6.pak3/maps",  # 1 map | 11 MB | .pk3
-                 "pak0.pak3/maps",  # 32 maps | 234 MB | .pk3
-                 "sp_pak4.pak3/maps",  # 3 maps | 24 MB | .pk3
+        "RTCW": ["mp_pak0.pk3/maps",  # 8 maps | 89 MB | .pk3
+                 "mp_pakmaps0.pk3/maps",  # 1 map | 8 MB | .pk3
+                 "mp_pakmaps1.pk3/maps",  # 1 map | 11 MB | .pk3
+                 "mp_pakmaps2.pk3/maps",  # 1 map | 10 MB | .pk3
+                 "mp_pakmaps3.pk3/maps",  # 1 map | 14 MB | .pk3
+                 "mp_pakmaps4.pk3/maps",  # 1 map | 16 MB | .pk3
+                 "mp_pakmaps5.pk3/maps",  # 1 map | 12 MB | .pk3
+                 "mp_pakmaps6.pk3/maps",  # 1 map | 11 MB | .pk3
+                 "pak0.pk3/maps",  # 32 maps | 234 MB | .pk3
+                 "sp_pak4.pk3/maps",  # 3 maps | 24 MB | .pk3
                  # https://www.moddb.com/mods/realrtcw-realism-mod
                  # https://store.steampowered.com/app/1379630/RealRTCW/
                  "realRTCW/maps"],  # 11 maps | 85 MB
@@ -187,7 +187,10 @@ extracted_dirs = {
                       "depot/r1pcgold/game/r1/maps",  # 1 map | 1.7 GB | .vpk
                       "depot/r1pcstaging/game/r1/maps",  # 23 maps | 5.8 GB | .vpk
                       "depot/r1pcstaging/game/r1_dlc1/maps"],  # 3 maps | 796 MB | .vpk
-        "TitanfallOnline": ["maps"],  # 18 maps | 2.2 GB | .pkg
+        # donated by p0358
+        "TitanfallOnline": ["maps",  # 17 maps | 2.0 GB | .pkg
+                            "v2905-dated-2017-04-08/maps",  # 13 maps | 1.3 GB | .7z
+                            "v4050-datarevision-17228-dated-2017-08-17/maps"],  # 13 maps | 1.3 GB | .7z
         "Titanfall2": ["maps",  # 36 maps | 12.4 GB | .vpk
                        "depot/r2dlc3/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
                        "depot/r2dlc4/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
@@ -277,6 +280,7 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "cromulentville2",  # 21 maps | 342 MB | Test Tube 7
                       "companionpiece2",  # 18 maps | 429 MB | Map Labs 8
                       "eyecandy",   # 41 maps | 652 MB | Test Tube 8
+                      "backontrack",  # 32 maps | 787 MB | Map Labs 9
                       "tworooms",  # 39 maps | 496 MB | Test Tube 9
                       "fusionville2",  # 21 maps | 391 MB | Map Labs 10
                       "tunetwo",  # 12 maps | 114 MB | Test Tube 13
