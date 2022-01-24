@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdio>
-#include <filesystem>  // -std=c++17 -lstdc++fs
+#include <filesystem>  // --std=c++17 -lstdc++fs
 #include <fstream>
 #include <string>
 
@@ -249,7 +249,7 @@ namespace bsp_tool {
         };
 
 
-        namespace  {
+        namespace titanfall {
             const int BSP_VERSION = 29;
             namespace LUMP {
                 const int ENTITIES                  = 0x00,  UNUSED_64                           = 0x40,
