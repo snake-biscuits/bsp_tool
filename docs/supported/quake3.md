@@ -23,9 +23,9 @@
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
 | 0 | 1 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
-| 0 | 12 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L62) | 100% |
+| 0 | 12 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L63) | 100% |
 | 0 | 19 | `SHADERS` | [`ritual.moh_allied_assault.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/moh_allied_assault.py#L110) | 100% |
-| 0 | 20 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L62) | 100% |
+| 0 | 20 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L63) | 100% |
 | 0 | 46 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L49) | 100% |
 | 1 | 1 | `SHADERS` |  | 0% |
 | 1 | 12 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
@@ -34,7 +34,7 @@
 | 2 | 12 | `LIGHTMAPS` |  | 0% |
 | 2 | 46 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
 | 3 | 1 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L201) | 100% |
-| 3 | 12 | `SURFACES` | [`ritual.fakk2.Surface`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L71) | 100% |
+| 3 | 12 | `SURFACES` | [`ritual.fakk2.Surface`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L72) | 100% |
 | 3 | 20 | `BASE_LIGHTMAPS` |  | 0% |
 | 3 | 46 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L201) | 100% |
 | 4 | 1 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L143) | 100% |

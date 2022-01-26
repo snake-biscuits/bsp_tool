@@ -291,7 +291,7 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     elif issubclass(LumpClass, list):  # quake.Edge / vindictus.Edge etc.
                         attrs, unknowns = 1, 0
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
-                elif lump_name in branch_script.SPECIAL_LUMP_CLASSES:
+                elif lump_name in branch_script.SPECIAL_LUMP_CLASSES or lump_name == "GAME_LUMP":
                     percent = SpecialLumpClass_confidence[lump_name]
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
