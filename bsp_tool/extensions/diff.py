@@ -2,12 +2,8 @@
 # TODO: write to log file
 import difflib
 import itertools
-import os
 import re
-from typing import Iterable
-
-from .. import RespawnBsp
-from ..branches.respawn import titanfall, titanfall2
+from typing import Dict, Iterable, List
 
 
 r1_dir = "E:/Mod/Titanfall/maps"
@@ -22,137 +18,134 @@ shared_maps = [("mp_angel_city", "mp_angel_city"),
 # ^ r1 map name, r2 map name
 
 
-def diff_bsps(bsp1, bsp2, full=False):
+def diff_bsps(bsp1, bsp2, full=False) -> str:
+    out = []
+    if bsp1.folder == bsp2.folder:
+        out.append(f"Comparing {bsp1} -> {bsp2}...")
+    else:
+        out.append(f"Comparing {bsp1.folder}/{bsp1} -> {bsp2.folder}/{bsp2}...")
+    # NOTE: comparing lumps by index, same number of lumps expected
     for lump1, lump2 in zip(bsp1.branch.LUMP, bsp2.branch.LUMP):
         lump1 = lump1.name
         lump2 = lump2.name
-
+        # diff headers
         if lump1 not in bsp1.headers or lump2 not in bsp2.headers:
             continue  # lazy fix for rbsp externals
             # TODO: note absent headers (not just for respawn.ExternalLumpManager!)
-
         bsp1_header = bsp1.headers[lump1]
         bsp2_header = bsp2.headers[lump2]
-
-        print(f"{lump1}", end="  ")
-        print("Y" if bsp1_header.offset == bsp2_header.offset else "N", end="")
-        print("Y" if bsp1_header.length == bsp2_header.length else "N", end="")
-        print("Y" if bsp1_header.version == bsp2_header.version else "N", end="")
-        print("Y" if bsp1_header.fourCC == bsp2_header.fourCC else "N", end="  ")
-
+        lump_name = lump1 if lump1 == lump2 else f"{lump1} -> {lump2}"
+        header_diff = "".join(["Y" if bsp1_header.offset == bsp2_header.offset else "N",
+                               "Y" if bsp1_header.length == bsp2_header.length else "N",
+                               "Y" if bsp1_header.version == bsp2_header.version else "N",
+                               "Y" if bsp1_header.fourCC == bsp2_header.fourCC else "N"])
+        # diff lump contents
         # TODO: compare compressed lumps to uncompressed
         try:
             lump_1_contents = bsp1.lump_as_bytes(lump1)
             lump_2_contents = bsp2.lump_as_bytes(lump2)
         except Exception as exc:
-            print("????", exc)  # couldn't load a lump, unsure which
-            # TODO: handle edge case where one bsp has the lump, and the other does not
+            out.append(f"{lump_name}  {header_diff} ???? {exc}")
             continue  # skip this lump
-
-        lumps_match = (lump_1_contents == lump_2_contents)
-        print("YES!" if lumps_match else "NOPE")
-        if full:
-            # diff lumps
+        lumps_match = bool(lump_1_contents == lump_2_contents)
+        contents_diff = "YES!" if lumps_match else "NOPE"
+        out.append(f"{lump_name}  {header_diff} {contents_diff}")
+        # more detailled diff
+        # TODO: switch from prints to string output (out.extend)
+        if (len(lump_1_contents) == 0 or len(lump_2_contents) == 0) and not lumps_match:
+            out.append(" ".join(["+" if hasattr(bsp1, lump1) else "-", f"{bsp1.filename}.{lump1}"]))
+            out.append(" ".join(["+" if hasattr(bsp2, lump2) else "-", f"{bsp2.filename}.{lump2}"]))
+        elif full:
             if not lumps_match:
                 # TODO: measure the scale of the differences
                 if lump1 in bsp1.branch.LUMP_CLASSES and lump2 in bsp2.branch.LUMP_CLASSES:
-                    difflib.unified_diff([lc.__repr__() for lc in getattr(bsp1, lump1)],
-                                         [lc.__repr__() for lc in getattr(bsp2, lump2)],
-                                         f"{bsp1.filename}.{lump1}", f"{bsp1.filename}.{lump1}")
-                elif lump1 == "ENTIITES":
-                    diff_entities(bsp1, bsp2)
-                elif lump1 == "PAKFILE":
-                    diff_pakfiles(bsp1, bsp2)
-                else:
-                    diff = difflib.diff_bytes(difflib.context_diff,
-                                              [*split(lump_1_contents, 32)], [*split(lump_2_contents, 32)],
-                                              f"{bsp1.filename}.{lump1}".encode(), f"{bsp1.filename}.{lump1}".encode())
-                    print(*diff, sep="\n")
-                    pass
+                    diff = difflib.unified_diff([lc.__repr__() for lc in getattr(bsp1, lump1)],
+                                                [lc.__repr__() for lc in getattr(bsp2, lump2)],
+                                                f"{bsp1.filename}.{lump1}",
+                                                f"{bsp1.filename}.{lump1}")
+                    out.extend(diff)
+                # SPECIAL_LUMP_CLASSES
+                elif all([ln == "ENTITIES" for ln in (lump1, lump2)]):
+                    out.append(diff_entities(bsp1.ENTITIES, bsp2.ENTITIES))
+                elif lump1 == "PAKFILE" and lump2 == "PAKFILE":
+                    out.append(diff_pakfiles(bsp1, bsp2))
+                # TODO: GAME_LUMP diff model_names
+                else:  # BASIC_LUMP_CLASSES / general raw bytes
+                    diff = difflib.context_diff([*xxd(lump_1_contents, 32)],
+                                                [*xxd(lump_2_contents, 32)],
+                                                f"{bsp1.filename}.{lump1}",
+                                                f"{bsp1.filename}.{lump1}")
+                    out.extend(diff)
         else:
-            print(bsp1_header)
-            print(bsp2_header)
+            out.extend([str(bsp1_header), str(bsp2_header)])
+    return "\n".join(out)
 
 
-def diff_rbsps(rbsp1, rbsp2, external=True, full=False):
+def diff_rbsps(rbsp1, rbsp2, external=True, full=False) -> str:
     """compare internal to external lumps with diff_rbsps(bsp, bsp.external, external=False)"""
-    diff_bsps(rbsp1, rbsp2, full)
-    for ent_file in ["ENTITIES_env", "ENTITIES_fx", "ENTITIES_script", "ENTITIES_snd", "ENTITIES_spawn"]:
-        print(ent_file, end="  ")
-        print("YES!" if getattr(rbsp1, ent_file) == getattr(rbsp1, ent_file) else "NOPE")
+    out = ["*** .bsp files ***", diff_bsps(rbsp1, rbsp2, full)]
+    # TODO: confirm ent_types against ENTITY_PARTITION lump
+    out.append("*** .ent files ***")
+    for ent_type in ("env", "fx", "script", "snd", "spawn"):
+        ent_lump = f"ENTITIES_{ent_type}"
+        lump1 = getattr(rbsp1, ent_lump, list())
+        lump2 = getattr(rbsp2, ent_lump, list())
+        ents_match = "YES!" if lump1 == lump2 else "NOPE"
+        out.append(f"{ent_lump}  {ents_match}")
+        if full and ents_match == "NOPE":
+            out.append(diff_entities(lump1, lump2))
     if external:
-        diff_bsps(rbsp1.external, rbsp2.external, full)
+        out.append("*** .bsp_lump files ***")
+        out.append(diff_bsps(rbsp1.external, rbsp2.external, full))
         # TODO: close each lump after reading to save memory & avoid the "Too many open files" OSError
+    return "\n".join(out)
 
 
-def diff_entities(bsp1: RespawnBsp, bsp2: RespawnBsp):
-    for i, e1, e2 in zip(itertools.count(), bsp1.ENTITIES, bsp2.ENTITIES):
-        # TODO: rather than print statments, generate the text & use difflib on it
+EntityLump = List[Dict[str, str]]
+# ^ [{"key": "value"}]
+
+
+def diff_entities(lump1: EntityLump, lump2: EntityLump) -> str:
+    out = []
+    for i, e1, e2 in zip(itertools.count(), lump1, lump2):
         if e1 != e2:
-            print(f"Entity #{i}")
-            print("  {")
+            out.extend([f"Entity #{i}", "  {"])
+            # TODO: be a little dynamic to make sure keys align
+            # -- otherwise many false negatives might appear in a relatively simple diff
             for k1, k2, v1, v2 in zip(e1.keys(), e2.keys(), e1.values(), e2.values()):
                 if v1 != v2:
-                    print(f'-     "{k1}" "{v1}"')
-                    print(f'+     "{k2}" "{v2}"')
+                    out.extend([f'-   "{k1}" "{v1}"'
+                                '+   "{k2}" "{v2}"'])
                 else:
-                    print(f'      "{k1}" "{v1}"')
-            print("  }")
+                    out.append(f'    "{k1}" "{v1}"')
+            out.append("  }")
+    return "\n".join(out)
 
 
-def diff_pakfiles(bsp1: RespawnBsp, bsp2: RespawnBsp):
+def diff_pakfiles(bsp1, bsp2) -> str:
+    """Works on any ValveBsp based .bsp (excluding CSO2)"""
+    out = []
     pak1_files = bsp1.PAKFILE.namelist()
     pak2_files = bsp2.PAKFILE.namelist()
     for filename in pak1_files:
-        if filename not in pak2_files:
-            print(f"- {filename}")
-        else:
-            print(f"  {filename}")
-            # compare sizes with .PAKFILE.getinfo("filename").file_size
-            # compare file hashes?
-    for filename in pak2_files:
-        if filename not in pak1_files:
-            print(f"+ {filename}")
+        absent = filename not in pak2_files
+        out.append(f"- {filename}" if absent else f"  {filename}")
+        if not absent:
+            file1 = bsp1.PAKFILE.read(filename)
+            file2 = bsp2.PAKFILE.read(filename)
+            if file1 == file2:
+                continue
+            out[-1] = f"~ {filename}"
+            diff = difflib.context_diff([*xxd(file1, 32)],
+                                        [*xxd(file2, 32)],
+                                        f"{bsp1.filename}.PAKFILE.{filename}",
+                                        f"{bsp1.filename}.PAKFILE.{filename}")
+            out.extend(diff)
+    out.extend([f"+ {f}" for f in pak2_files if f not in pak1_files])
+    return "\n".join(out)
 
 
-def dump_headers(maplist):  # just for r1 / r1o / r2  (Titanfall Games)
-    for r1_filename, r2_filename in maplist:
-        print(r1_filename.upper())
-
-        r1o_map_exists = os.path.exists(os.path.join(r1o_dir, f"{r1_filename}.bsp"))
-        # TODO: do close matches exist?
-
-        r1_map = RespawnBsp(titanfall, os.path.join(r1_dir, f"{r1_filename}.bsp"))
-        if r1o_map_exists:
-            r1o_map = RespawnBsp(titanfall, os.path.join(r1o_dir, f"{r1_filename}.bsp"))
-        r2_map = RespawnBsp(titanfall2, os.path.join(r2_dir, f"{r2_filename}.bsp"))
-
-        for i in range(128):
-            r1_lump = titanfall.LUMP(i)
-            r2_lump = titanfall2.LUMP(i)
-
-            r1_header = r1_map.headers[r1_lump.name]
-            if r1o_map_exists:
-                r1o_header = r1o_map.headers[r1_lump.name]
-                r1o_header_length = r1o_header.length
-            else:
-                r1o_header_length = 0
-            r2_header = r2_map.headers[r2_lump.name]
-            if (r1_header.length, r1o_header_length, r2_header.length) == (0, 0, 0):
-                continue  # skip empty lumps
-            print(r1_lump.name, "/", r2_lump.name)
-            print(f"{r1_lump.value:04X}  {r1_lump.name}")
-            print(f"{'r1':<8}", r1_header)
-            if r1o_map_exists:
-                print(f"{'r1o':<8}", r1o_header)
-            print(f"{'r2':<8}", r2_header)
-
-        del r1_map, r2_map
-        if r1o_map_exists:
-            del r1o_map
-        print("=" * 80)
-
-
+# binary diff helpers
 def split(iterable: Iterable, chunk_size: int) -> Iterable:
     for i, _ in enumerate(iterable[::chunk_size]):
         yield iterable[i * chunk_size:(i + 1) * chunk_size]
@@ -161,8 +154,21 @@ def split(iterable: Iterable, chunk_size: int) -> Iterable:
 def xxd(data: bytes, width: int = 32) -> str:
     """based on the linux hex editor"""
     # TODO: start index and length to read
-    for i, _bytes in split(data, width):
+    for i, _bytes in enumerate(split(data, width)):
         address = f"0x{i * width:08X}"
         hex = " ".join([f"{b:02X}" for b in _bytes])
         ascii = "".join([chr(b) if re.match(r"[a-zA-Z0-9/\\]", chr(b)) else "." for b in _bytes])
         yield f"{address}:  {hex}  {ascii}"
+
+
+if __name__ == "__main__":
+    import os, sys
+    sys.path.insert(0, r"C:\Users\Jared\Documents\GitHub\bsp_tool")
+    import bsp_tool  # run from top-level
+
+    for r1_map, r2_map in shared_maps:
+        with open(f"{r1_map}.diff", "w") as log_file:
+            print(f"Writing {r1_map}.diff ...")
+            r1_bsp = bsp_tool.load_bsp(os.path.join(r1_dir, f"{r1_map}.bsp"))
+            r2_bsp = bsp_tool.load_bsp(os.path.join(r2_dir, f"{r2_map}.bsp"))
+            log_file.write(diff_rbsps(r1_bsp, r2_bsp))

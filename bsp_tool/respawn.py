@@ -19,10 +19,11 @@ ExternalLumpHeader = namedtuple("ExternalLumpHeader", ["offset", "length", "vers
 class ExternalLumpManager:
     """Looks mostly like a .bsp, but only uses external lumps"""
     # copied from bsp on __init__
-    filename: str
     branch: ModuleType
     bsp_version: int | (int, int)
     file_magic: bytes
+    filename: str
+    folder: str
     # unique to external lumps
     headers: Dict[str, ExternalLumpHeader]
     # ^ {"LUMP_NAME": ExternalLumpHeader}
@@ -31,6 +32,7 @@ class ExternalLumpManager:
 
     def __init__(self, bsp: RespawnBsp):
         self.filename = bsp.filename
+        self.folder = bsp.folder
         self.branch = bsp.branch
         self.bsp_version = bsp.bsp_version
         self.file_magic = bsp.file_magic
