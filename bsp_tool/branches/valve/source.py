@@ -432,7 +432,7 @@ class Face(base.Struct):  # LUMP 7
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
-class LeafWaterData(base.Struct):
+class LeafWaterData(base.MappedArray):
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_data: int  # index to this LeafWaterData's TextureData

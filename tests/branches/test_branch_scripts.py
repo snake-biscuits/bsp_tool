@@ -105,3 +105,6 @@ def test_branch_script(branch_script):
 # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
 # -- all LumpClasses must coherently translate to and from bytes
 # -- no skipped bytes! (single byte alignment gets wierd)
+
+# TODO: ensure base.Struct is not using _mapping
+# -- also ensure base.MappedArray is not using __slots__ or _arrays
