@@ -59,15 +59,11 @@
 | 20 | 17 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L324) | 100% |
 | 21 | 17 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L331) | 100% |
 | 22 | 17 | `PORTALS` | 0 |  | 0% |
-| 22 | 19 | `PORTALS` | 0 |  | 0% |
 | 22 | 21 | `FACE_BRUSHES` | 0 |  | 0% |
 | 23 | 17 | `CLUSTERS` | 0 |  | 0% |
-| 23 | 19 | `CLUSTERS` | 0 |  | 0% |
 | 23 | 21 | `FACE_BRUSH_LIST` | 0 |  | 0% |
 | 24 | 17 | `PORTAL_VERTICES` | 0 |  | 0% |
-| 24 | 19 | `PORTAL_VERTICES` | 0 |  | 0% |
 | 25 | 17 | `CLUSTER_PORTALS` | 0 |  | 0% |
-| 25 | 19 | `CLUSTER_PORTALS` | 0 |  | 0% |
 | 26 | 17 | `DISPLACEMENT_INFO` | 0 | [`valve.source.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L369) | 100% |
 | 27 | 17 | `ORIGINAL_FACES` | 0 |  | 0% |
 | 27 | 19 | `ORIGINAL_FACES` | 0 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L407) | 100% |

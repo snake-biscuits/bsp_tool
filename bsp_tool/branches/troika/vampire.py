@@ -46,10 +46,10 @@ class Face(base.Struct):  # LUMP 7
     __slots__ = ["light_colours", "plane", "side", "on_node", "first_edge", "num_edges",
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face", "smoothing_groups"]
-    _format = "32BHb?i4h8b8b8bif5iI"
+    _format = "32BHb?i4h8b8b8bif5iI"  # 104 bytes
     # NOTE: integer keys in _arrays / MappedArray._mapping is not yet supported
     # -- intended result: light_colour = [MappedArray(_mapping=[*"rgbe"])] * 8
-    _arrays = {"light_colours": {i: [*"rgbe"] for i in range(8)},  # <-- this bit isn't supported yet!
+    _arrays = {"light_colours": {x: [*"rgbe"] for x in "abcdefgh"},
                "styles": {"base": 8, "day": 8, "night": 8},
                "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
@@ -58,10 +58,8 @@ class Face(base.Struct):  # LUMP 7
 BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("FACES")
-LUMP_CLASSES.pop("ORIGINAL_FACES")
-# LUMP_CLASSES.update({"FACES":          {0: Face},
-#                      "ORIGINAL_FACES": {0: Face}})
+LUMP_CLASSES.update({"FACES":          {0: Face},
+                     "ORIGINAL_FACES": {0: Face}})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?
