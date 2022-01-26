@@ -86,7 +86,9 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 32 | 0020 | 47 | `UNUSED_32` | 0 |  | 0% |
 | 33 | 0021 | 47 | `UNUSED_33` | 0 |  | 0% |
 | 34 | 0022 | 47 | `UNUSED_34` | 0 |  | 0% |
-| 35 | 0023 | 47 | `GAME_LUMP` | 0 |  | 0% |
+| 35 | 0023 | 47 | `GAME_LUMP` | 0 |  | 91% |
+| 35 | 0023 | 47 | `GAME_LUMP.sprp` | 47-50 | [`respawn.titanfall2.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L264) | 90% |
+| 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 47-50 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L237) | 92% |
 | 36 | 0024 | 47 | `UNUSED_36` | 0 |  | 0% |
 | 37 | 0025 | 47 | `UNKNOWN_37` | 0 |  | 0% |
 | 38 | 0026 | 47 | `UNKNOWN_38` | 0 |  | 0% |
@@ -181,5 +183,3 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 125 | 007D | 47 | `SHADOW_MESH_ALPHA_VERTICES` | 0 | [`respawn.titanfall.ShadowMeshAlphaVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L406) | 75% |
 | 126 | 007E | 47 | `SHADOW_MESH_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 127 | 007F | 47 | `SHADOW_MESH_MESHES` | 0 | [`respawn.titanfall.ShadowMesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L396) | 66% |
-
-

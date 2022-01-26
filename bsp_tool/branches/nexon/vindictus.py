@@ -272,11 +272,11 @@ class GameLump_SPRP:
         leaf_count = int.from_bytes(sprp_lump.read(4), "little")
         leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leaves", list(leaves))
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
         scale_count = int.from_bytes(sprp_lump.read(4), "little")
         read_size = struct.calcsize(StaticPropScale._format) * scale_count
         scales = struct.iter_unpack(StaticPropScale._format, sprp_lump.read(read_size))
         setattr(self, "scales", list(scales))
+        prop_count = int.from_bytes(sprp_lump.read(4), "little")
         if StaticPropClass is not None:
             read_size = struct.calcsize(StaticPropClass._format) * prop_count
             props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
@@ -284,6 +284,7 @@ class GameLump_SPRP:
         else:
             prop_bytes = sprp_lump.read()
             prop_size = len(prop_bytes) // prop_count
+            # NOTE: will break if prop_size does not divide evenly by prop_count
             setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
         here = sprp_lump.tell()
         end = sprp_lump.seek(0, 2)

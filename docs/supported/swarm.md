@@ -52,7 +52,13 @@
 | 32 | 21 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 21 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
 | 34 | 21 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 21 | `GAME_LUMP` | 0 |  | 0% |
+| 35 | 21 | `GAME_LUMP` | 0 |  | 100% |
+| 35 | 21 | `GAME_LUMP.sprp` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L543) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L576) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L595) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L616) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 10 | [`valve.source.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
 | 36 | 21 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 0% |
 | 37 | 21 | `PRIMITIVES` | 0 |  | 0% |
 | 38 | 21 | `PRIMITIVE_VERTICES` | 0 |  | 0% |
@@ -81,5 +87,3 @@
 | 61 | 21 | `UNUSED_61` | 0 |  | 0% |
 | 62 | 21 | `UNUSED_62` | 0 |  | 0% |
 | 63 | 21 | `DISPLACEMENT_MULTIBLEND` | 0 |  | 0% |
-
-

@@ -86,7 +86,12 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 32 | 0020 | 29 | `UNUSED_32` | 0 |  | 0% |
 | 33 | 0021 | 29 | `UNUSED_33` | 0 |  | 0% |
 | 34 | 0022 | 29 | `UNUSED_34` | 0 |  | 0% |
-| 35 | 0023 | 29 | `GAME_LUMP` | 0 |  | 0% |
+| 35 | 0023 | 29 | `GAME_LUMP` | 0 |  | 92% |
+| 35 | 0023 | 29 | `GAME_LUMP.sprp` | 12 | [`respawn.titanfall.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L551) | 90% |
+| 35 | 0023 | 29 | `GAME_LUMP.sprp.props` | 12 | [`respawn.titanfall.StaticPropv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L416) | 94% |
+| 35 | 0023 | 37 | `GAME_LUMP` | 0 |  | 91% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L264) | 90% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L237) | 92% |
 | 36 | 0024 | 29 | `LEAF_WATER_DATA` | 0 | [`respawn.titanfall.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L272) | 0% |
 | 37 | 0025 | 29 | `UNUSED_37` | 0 |  | 0% |
 | 38 | 0026 | 29 | `UNUSED_38` | 0 |  | 0% |
@@ -187,5 +192,3 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 125 | 007D | 29 | `SHADOW_MESH_ALPHA_VERTICES` | 0 | [`respawn.titanfall.ShadowMeshAlphaVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L406) | 75% |
 | 126 | 007E | 29 | `SHADOW_MESH_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 127 | 007F | 29 | `SHADOW_MESH_MESHES` | 0 | [`respawn.titanfall.ShadowMesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L396) | 66% |
-
-

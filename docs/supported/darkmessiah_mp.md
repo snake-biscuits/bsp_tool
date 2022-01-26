@@ -51,7 +51,9 @@
 | 32 | 20.4 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 20.4 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
 | 34 | 20.4 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 20.4 | `GAME_LUMP` | 0 |  | 0% |
+| 35 | 20.4 | `GAME_LUMP` | 0 |  | 50% |
+| 35 | 20.4 | `GAME_LUMP.sprp` | 6 | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L543) | 100% |
+| 35 | 20.4 | `GAME_LUMP.sprp.props` | 6 | | 0% |
 | 36 | 20.4 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L435) | 0% |
 | 37 | 20.4 | `PRIMITIVES` | 0 |  | 0% |
 | 38 | 20.4 | `PRIMITIVE_VERTICES` | 0 |  | 0% |
@@ -80,5 +82,3 @@
 | 61 | 20.4 | `UNUSED_61` | 0 |  | 0% |
 | 62 | 20.4 | `UNUSED_62` | 0 |  | 0% |
 | 63 | 20.4 | `UNUSED_63` | 0 |  | 0% |
-
-
