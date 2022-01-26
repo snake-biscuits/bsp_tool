@@ -1,6 +1,7 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bsplib.cpp
 import collections
 import enum
 import io
@@ -16,7 +17,7 @@ from ..id_software import quake
 
 FILE_MAGIC = b"VBSP"
 
-BSP_VERSION = 19  # & 20
+BSP_VERSION = 19
 
 GAME_PATHS = {"Counter-Strike: Source": "counter-strike source/cstrike",
               "Half-Life Deathmatch: Source": "Half-Life 1 Source Deathmatch/hl1mp",
@@ -78,8 +79,8 @@ class LUMP(enum.Enum):
     DISPLACEMENT_TRIS = 48
     PHYSICS_COLLIDE_SURFACE = 49  # deprecated / X360 ?
     WATER_OVERLAYS = 50  # deprecated / X360 ?
-    LIGHTMAP_PAGES = 51
-    LIGHTMAP_PAGE_INFOS = 52
+    LEAF_AMBIENT_INDEX_HDR = 51
+    LEAF_AMBIENT_INDEX = 52
     LIGHTING_HDR = 53  # version 1
     WORLD_LIGHTS_HDR = 54
     LEAF_AMBIENT_LIGHTING_HDR = 55  # version 1
@@ -108,12 +109,16 @@ def read_lump_header(file, LUMP: enum.Enum) -> SourceLumpHeader:
 # TODO: changes from GoldSrc -> Source
 # MipTexture.flags -> TextureInfo.flags (Surface enum)
 
-# a rough map of the relationships between lumps:
-#
+# A rough map of the relationships between lumps:
+
 #                     /-> SurfEdge -> Edge -> Vertex
 # Leaf -> Node -> Face -> Plane
 #                     \-> DisplacementInfo -> DisplacementVertex
-#
+
+# Leaf is Parallel with LeafAmbientIndex
+
+# LeafAmbientIndex -> LeafAmbientSample
+
 # ClipPortalVertices are AreaPortal geometry [citation neeeded]
 
 
@@ -432,7 +437,25 @@ class Face(base.Struct):  # LUMP 7
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
-class LeafWaterData(base.MappedArray):
+class LeafAmbientIndex(base.MappedArray):  # LUMP 52
+    num_samples: int
+    first_sample: int
+    _format = "2h"
+    _mapping = ["num_samples", "first_sample"]
+
+
+class LeafAmbientSample(base.MappedArray):  # LUMP 56
+    """cube of lighting samples"""
+    cube: List[List[int]]  # unsure about orientation / face order
+    vector: List[int]
+    padding: int
+    __slots__ = ["cube", "vector", "padding"]
+    _format = "28B"
+    _arrays = {"cube": {f: [*"rgbe"] for f in "ABCDEF"},  # integer keys in _mapping would be nicer
+               "vector": [*"xyz"]}
+
+
+class LeafWaterData(base.MappedArray):  # LUMP 36
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_data: int  # index to this LeafWaterData's TextureData
@@ -470,10 +493,36 @@ class Node(base.Struct):  # LUMP 5
     _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
+class Overlay(base.Struct):  # LUMP 45
+    id: int
+    texture_info: int
+    face_count: int  # render order in top 2 bits
+    faces: List[int]
+    uv: List[float]  # uncertain of order
+    points: List[List[float]]
+    origin: List[float]
+    normal: List[float]
+    __slots__ = ["id", "texture_info", "face_count", "faces",
+                 "uv", "points", "origin", "normal"]
+    _format = "i2h64i22f"
+    _arrays = {"faces": 64, "uv": ["left", "right", "top", "bottom"],
+               "points": {P: [*"xyz"] for P in "ABCD"}}
+
+
 class OverlayFade(base.MappedArray):  # LUMP 60
     """Holds fade distances for the overlay of the same index"""
     _mapping = ["min", "max"]
     _format = "2f"
+
+
+class Primitive(base.MappedArray):  # LUMP 37
+    type: int
+    first_index: int  # index into PrimitiveIndex lump
+    num_indices: int
+    first_vertex: int  # index into PrimitiveVertices lump
+    num_vertices: int
+    _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
+    _format = "B4H"
 
 
 class TextureData(base.Struct):  # LUMP 2
@@ -498,6 +547,22 @@ class TextureInfo(base.Struct):  # LUMP 6
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
     # ^ nested MappedArrays; texture.s.x, texture.t.x
+
+
+class WaterOverlay(base.Struct):  # LUMP 50
+    id: int
+    texture_info: int
+    face_count: int  # render order in top 2 bits
+    faces: List[int]
+    uv: List[float]  # uncertain of order
+    points: List[List[float]]
+    origin: List[float]
+    normal: List[float]
+    __slots__ = ["id", "texture_info", "face_count", "faces",
+                 "uv", "points", "origin", "normal"]
+    _format = "i2h256i22f"
+    _arrays = {"faces": 256, "uv": ["left", "right", "top", "bottom"],
+               "points": {P: [*"xyz"] for P in "ABCD"}}
 
 
 class WorldLight(base.Struct):  # LUMP 15
@@ -637,32 +702,44 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: shared.UnsignedShorts},
+                      "FACE_MACRO_TEXTURE_INFO":   {0: shared.Shorts},
                       "LEAF_BRUSHES":              {0: shared.UnsignedShorts},
                       "LEAF_FACES":                {0: shared.UnsignedShorts},
+                      "PRIMITIVE_INDICES":         {0: shared.UnsignedShorts},
                       "SURFEDGES":                 {0: shared.Ints},
-                      "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts}}
+                      "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts},
+                      "VERTEX_NORMAL_INDICES":     {0: shared.UnsignedShorts}}
 
-LUMP_CLASSES = {"AREAS":                 {0: Area},
-                "AREA_PORTALS":          {0: AreaPortal},
-                "BRUSHES":               {0: Brush},
-                "BRUSH_SIDES":           {0: BrushSide},
-                "CUBEMAPS":              {0: Cubemap},
-                "DISPLACEMENT_INFO":     {0: DisplacementInfo},
-                "DISPLACEMENT_VERTICES": {0: DisplacementVertex},
-                "EDGES":                 {0: quake.Edge},
-                "FACES":                 {1: Face},
-                "LEAF_WATER_DATA":       {0: LeafWaterData},
-                "MODELS":                {0: Model},
-                "NODES":                 {0: Node},
-                "OVERLAY_FADES":         {0: OverlayFade},
-                "ORIGINAL_FACES":        {0: Face},
-                "PLANES":                {0: quake.Plane},
-                "TEXTURE_DATA":          {0: TextureData},
-                "TEXTURE_INFO":          {0: TextureInfo},
-                "VERTICES":              {0: quake.Vertex},
-                "VERTEX_NORMALS":        {0: quake.Vertex},
-                "WORLD_LIGHTS":          {0: WorldLight},
-                "WORLD_LIGHTS_HDR":      {0: WorldLight}}
+LUMP_CLASSES = {"AREAS":                     {0: Area},
+                "AREA_PORTALS":              {0: AreaPortal},
+                "BRUSHES":                   {0: Brush},
+                "BRUSH_SIDES":               {0: BrushSide},
+                "CLIP_PORTAL_VERTICES":      {0: quake.Vertex},
+                "CUBEMAPS":                  {0: Cubemap},
+                "DISPLACEMENT_INFO":         {0: DisplacementInfo},
+                "DISPLACEMENT_VERTICES":     {0: DisplacementVertex},
+                "EDGES":                     {0: quake.Edge},
+                "FACES":                     {1: Face},
+                "LEAF_AMBIENT_INDEX":        {0: LeafAmbientIndex},
+                "LEAF_AMBIENT_INDEX_HDR":    {0: LeafAmbientIndex},
+                "LEAF_AMBIENT_LIGHTING":     {1: LeafAmbientSample},
+                "LEAF_AMBIENT_LIGHTING_HDR": {1: LeafAmbientSample},
+                "LEAF_WATER_DATA":           {0: LeafWaterData},
+                "MODELS":                    {0: Model},
+                "NODES":                     {0: Node},
+                "OVERLAY":                   {0: Overlay},
+                "OVERLAY_FADES":             {0: OverlayFade},
+                "ORIGINAL_FACES":            {0: Face},
+                "PLANES":                    {0: quake.Plane},
+                "PRIMITIVES":                {0: Primitive},
+                "PRIMITIVE_VERTICES":        {0: quake.Vertex},
+                "TEXTURE_DATA":              {0: TextureData},
+                "TEXTURE_INFO":              {0: TextureInfo},
+                "VERTICES":                  {0: quake.Vertex},
+                "VERTEX_NORMALS":            {0: quake.Vertex},
+                "WATER_OVERLAYS":            {0: WaterOverlay},
+                "WORLD_LIGHTS":              {0: WorldLight},
+                "WORLD_LIGHTS_HDR":          {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
