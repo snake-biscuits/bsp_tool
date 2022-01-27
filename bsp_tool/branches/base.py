@@ -150,8 +150,7 @@ class Struct:
             if attr not in cls._arrays:
                 value = _tuple[_tuple_index]
                 length = 1
-            else:
-                # partition up children
+            else:  # partition up children
                 child_mapping = cls._arrays[attr]
                 if isinstance(child_mapping, (list, dict)):  # child_mapping: List[str]
                     length = mapping_length({None: child_mapping})

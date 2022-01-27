@@ -151,14 +151,14 @@ def compact_members(members: Dict[str, str]) -> List[str]:
     return out
 
 
-pattern_thc = re.compile(r"([\w\.]+):\s[\w\[\]]+  # ([\w ]+)")
+pattern_type_hint_commented = re.compile(r"([\w\.]+):\s[\w\[\]]+  # ([\w ]+)")
 # NOTE: also catches commented type hints to allow labelling of inner members
 
 
 def get_type_hint_comments(cls: object) -> Dict[str, str]:
     out = dict()  # {"member": "comment"}
     for line in inspect.getsource(cls):
-        match = pattern_thc.seach(line)
+        match = pattern_type_hint_commented.seach(line)
         if match is None:
             continue
         member, comment = match.groups()
