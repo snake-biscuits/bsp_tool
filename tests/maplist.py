@@ -125,17 +125,18 @@ extracted_dirs = {
         "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
                   "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
                   "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
-                  "rogue/pak0/maps",  # 23 maps | 28 MB | .pak
-                  "rerelease/id1/pak0/maps",  # 55 maps | 49 MB | .pak
-                  "rerelease/id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
-                  "rerelease/dopa/pak0/maps",  # 13 maps | 25 MB | .pak
-                  "rerelease/hipnotic/pak0/maps",  # 18 maps | 30 MB
-                  "rerelease/mg1/pak0/maps",  # 20 maps | 240 MB | .pak
-                  "rerelease/rogue/pak0/maps",  # 23 maps | 28 MB | .pak
-                  # http://quake.great-site.net/
-                  "alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
-                  "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
-                  "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
+                  "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        # includes BSP2:
+        "Quake/rerelease": ["id1/pak0/maps",  # 55 maps | 49 MB | .pak
+                            "id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
+                            "dopa/pak0/maps",  # 13 maps | 25 MB | .pak
+                            "hipnotic/pak0/maps",  # 18 maps | 30 MB
+                            "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
+                            "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        # http://quake.great-site.net/
+        "Alkaline": ["alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
+                     "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
+                     "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
         # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps"],  # 8 maps | 10 MB | .pak
