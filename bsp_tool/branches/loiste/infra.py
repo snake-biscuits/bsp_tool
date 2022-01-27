@@ -1,28 +1,17 @@
-# https://github.com/ValveSoftware/source-sdk-2013/
 import enum
 import struct
 
-# from . import alien_swarm
-# from . import left4dead
-# from . import left4dead2
-from . import orange_box
-from . import source
+from ..valve import sdk_2013
+from ..valve import source
 
 
-FILE_MAGIC = b"VBSP"
+BSP_VERSION = 22
 
-BSP_VERSION = 21
-
-GAME_PATHS = {"Blade Symphony": "Blade Symphony/berimbau",
-              "Counter-Strike: Global Offensive": "Counter-Strike Global Offensive/csgo",
-              "Portal 2": "Portal 2/portal2",
-              "Source Filmmaker": "Source Filmmaker/game/tf"}
-# NOTE: also most sourcemods & mapbase
+GAME_PATHS = {"INFRA": "infra/infra"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
-# Counter-Strike Global Offensive/bin/bsppack.dll
 class LUMP(enum.Enum):
     ENTITIES = 0
     PLANES = 1
@@ -89,7 +78,10 @@ class LUMP(enum.Enum):
     PHYSICS_LEVEL = 62  # left4dead2
     DISPLACEMENT_MULTIBLEND = 63  # alienswarm
 
-# TODO: Known lump changes from Orange Box -> Source SDK 2013:
+# Known lump changes from SDK 2013 -> Infra
+# New:
+#   FACE_BRUSHES
+#   FACE_BRUSHES_LIST
 
 
 # struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
@@ -104,17 +96,15 @@ def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = sdk_2013.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("WORLD_LIGHTS")
-LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("PRIMITIVES")
 
-SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
+GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
-GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
-GAME_LUMP_CLASSES["sprp"].pop(10)
+GAME_LUMP_CLASSES = sdk_2013.GAME_LUMP_CLASSES.copy()
 
-methods = [*orange_box.methods]
+methods = [*sdk_2013.methods]
