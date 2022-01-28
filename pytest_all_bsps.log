@@ -93,7 +93,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs84] PASSED    [ 51%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs85] FAILED          [ 52%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs86] FAILED [ 53%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs87] FAILED [ 53%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs88] FAILED         [ 54%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs88] PASSED         [ 54%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs89] PASSED [ 54%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs90] PASSED [ 55%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs91] FAILED     [ 56%]
@@ -853,144 +853,6 @@ E         +  'maps/l_mp2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')
 E         +  'maps/l_mp3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
 E         +  'maps/l_mp4.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
 E         +  'maps/l_mp5.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E           }
-
-tests\test_bsp.py:77: AssertionError
-___________________ test_load_bsp[E:/Mod-Infra-map_dirs88] ____________________
-
-group_path = 'E:/Mod', game_name = 'Infra', map_dirs = ['maps']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  # avoid OSError "Too many open files"
-                        # TODO: check external lumps (RespawnBsp only)
-                        # -- mostly filesize checks
-                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 41 out of 49 .bsps failed
-E         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013', 22)
-E       assert {'maps/infra_c10_m1_npp.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c10_m2_reactor.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c11_ending_2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c11_ending_3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c1_m1_office.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c2_m1_reserve1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c2_m2_reserve2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c2_m3_reserve3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c3_m2_tunnel2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c3_m3_tunnel3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c3_m4_tunnel4.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c4_m2_furnace.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c4_m3_tower.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c5_m1_watertreatment.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c5_m2_sewer.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c5_m2b_sewer2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c6_m1_sewer3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c6_m2_metro.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c6_m3_metroride.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c6_m4_waterplant.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c6_m5_minitrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m1_servicetunnel.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m1b_skyscraper.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m2_bunker.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m3_stormdrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m4_cistern.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c7_m5_powerstation.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m1_powerstation2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m3_isle1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m4_isle2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m5_isle3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m6_business.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m7_business2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c8_m8_officeblackout.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c9_m1_rails.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c9_m3_river.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_c9_m5_field.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_ee_city_gates.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_ee_hallway.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/infra_ee_wasteland.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/main_menu.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0')} == {}
-E         Left contains 41 more items:
-E         {'maps/infra_c10_m1_npp.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c10_m2_reactor.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c11_ending_2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c11_ending_3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c1_m1_office.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c2_m1_reserve1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c2_m2_reserve2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c2_m3_reserve3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c3_m2_tunnel2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c3_m3_tunnel3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c3_m4_tunnel4.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c4_m2_furnace.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c4_m3_tower.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c5_m1_watertreatment.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c5_m2_sewer.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c5_m2b_sewer2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c6_m1_sewer3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c6_m2_metro.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c6_m3_metroride.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c6_m4_waterplant.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c6_m5_minitrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m1_servicetunnel.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m1b_skyscraper.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m2_bunker.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m3_stormdrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m4_cistern.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c7_m5_powerstation.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m1_powerstation2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m3_isle1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m4_isle2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m5_isle3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m6_business.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m7_business2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c8_m8_officeblackout.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c9_m1_rails.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c9_m3_river.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_c9_m5_field.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_ee_city_gates.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_ee_hallway.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/infra_ee_wasteland.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/main_menu.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'maps/infra_c10_m1_npp.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c10_m2_reactor.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c11_ending_2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c11_ending_3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c1_m1_office.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c2_m1_reserve1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c2_m2_reserve2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c2_m3_reserve3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c3_m2_tunnel2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c3_m3_tunnel3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c3_m4_tunnel4.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c4_m2_furnace.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c4_m3_tower.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c5_m1_watertreatment.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c5_m2_sewer.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c5_m2b_sewer2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c6_m1_sewer3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c6_m2_metro.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c6_m3_metroride.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c6_m4_waterplant.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c6_m5_minitrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m1_servicetunnel.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m1b_skyscraper.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m2_bunker.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m3_stormdrain.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m4_cistern.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c7_m5_powerstation.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m1_powerstation2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m3_isle1.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m4_isle2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m5_isle3.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m6_business.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m7_business2.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c8_m8_officeblackout.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c9_m1_rails.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c9_m3_river.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_c9_m5_field.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_ee_city_gates.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_ee_hallway.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/infra_ee_wasteland.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/main_menu.bsp': AssertionError('PRIMITIVES\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
 tests\test_bsp.py:77: AssertionError
@@ -2006,24 +1868,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
-  DrawVertex
   Model
+  CullGroup
+  Cell
+  Brush
+  Occluder
   PatchCollision
   Node
-  Portal
-  Cell
-  AxisAlignedBoundingBox
-  Brush
-  CullGroup
+  DrawVertex
   Light
-  Occluder
+  Portal
+  AxisAlignedBoundingBox
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:47: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -2050,7 +1912,7 @@ Name                                                    Stmts   Miss  Cover
 bsp_tool\__init__.py                                       56      5    91%
 bsp_tool\arkane.py                                         53      6    89%
 bsp_tool\base.py                                          117     34    71%
-bsp_tool\branches\__init__.py                              28      0   100%
+bsp_tool\branches\__init__.py                              29      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       23      0   100%
 bsp_tool\branches\arkane\dark_messiah_singleplayer.py      55      0   100%
@@ -2068,6 +1930,8 @@ bsp_tool\branches\infinity_ward\call_of_duty2.py          133      1    99%
 bsp_tool\branches\infinity_ward\call_of_duty4.py           55      0   100%
 bsp_tool\branches\ion_storm\__init__.py                     2      0   100%
 bsp_tool\branches\ion_storm\daikatana.py                   12      0   100%
+bsp_tool\branches\loiste\__init__.py                        2      0   100%
+bsp_tool\branches\loiste\infra.py                          85      0   100%
 bsp_tool\branches\nexon\__init__.py                         4      0   100%
 bsp_tool\branches\nexon\cso2.py                           104      6    94%
 bsp_tool\branches\nexon\cso2_2018.py                       19      0   100%
@@ -2112,7 +1976,7 @@ bsp_tool\respawn.py                                       240    136    43%
 bsp_tool\ritual.py                                         44      3    93%
 bsp_tool\valve.py                                          60     11    82%
 ---------------------------------------------------------------------------
-TOTAL                                                    6180   1377    78%
+TOTAL                                                    6268   1377    78%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs72] - ...
@@ -2121,6 +1985,5 @@ FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs77] - NotImplem...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs85] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs86]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs87]
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs88] - AssertionE...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs91] - Assert...
-=========== 8 failed, 156 passed, 6 warnings in 6418.72s (1:46:58) ============
+=========== 7 failed, 157 passed, 6 warnings in 6422.74s (1:47:02) ============
