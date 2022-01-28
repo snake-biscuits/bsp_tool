@@ -9,6 +9,7 @@ from . import gearbox
 from . import id_software
 from . import infinity_ward
 from . import ion_storm
+from . import loiste
 from . import nexon
 from . import raven
 from . import respawn
@@ -39,6 +40,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"RBSP": [raven.soldier_of_fortune2,
                                      ritual.sin],
                            b"VBSP": [*arkane.scripts,
+                                     loiste.infra,
                                      *nexon.scripts,
                                      troika.vampire,
                                      *[s for s in valve.scripts if (s is not valve.goldsrc)]]}
