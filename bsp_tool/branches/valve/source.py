@@ -617,13 +617,20 @@ class GameLump_SPRP:
         leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leaves", list(leaves))
         prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
-        read_size = struct.calcsize(StaticPropClass._format) * prop_count
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-        setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
+        if StaticPropClass is None:
+            raw_props = sprp_lump.read()
+            prop_size = len(raw_props) // prop_count
+            props = list()
+            for i in range(prop_count):
+                props.append(raw_props[i * prop_size:(i + 1) * prop_size])
+            setattr(self, "props", props)
+        else:
+            read_size = struct.calcsize(StaticPropClass._format) * prop_count
+            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
         here = sprp_lump.tell()
         end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes, bad format"
+        assert here == end, "Had some leftover bytes; StaticPropClass._format is incorrect!"
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:

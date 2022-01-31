@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "ArkaneBsp", "D3DBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
+           "D3DBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
            "QuakeBsp", "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
@@ -9,7 +9,6 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
-from .arkane import ArkaneBsp
 from .id_software import QuakeBsp, IdTechBsp
 from .infinity_ward import InfinityWardBsp, D3DBsp
 from .raven import RavenBsp
@@ -24,7 +23,7 @@ BspVariant_from_file_magic = {b"2015": RitualBsp,
                               b"IBSP": IdTechBsp,  # + InfinityWardBsp + D3DBsp
                               b"rBSP": RespawnBsp,
                               b"RBSP": RavenBsp,
-                              b"VBSP": ValveBsp}  # + ArkaneBsp
+                              b"VBSP": ValveBsp}
 # NOTE: if no file_magic is present:
 # - QuakeBsp
 # - GoldSrcBsp
@@ -52,6 +51,8 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
         version = int.from_bytes(bsp_file.read(4), "little")
+        if version > 0xFFFF:
+            version = (version & 0xFFFF, version >> 16)  # major, minor
     # identify BspVariant
     if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
         assert file_magic == b"IBSP", "Mystery .d3dbsp!"
@@ -77,12 +78,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         else:
             if file_magic == b"IBSP" and version in InfinityWard_versions:  # CoD
                 BspVariant = InfinityWardBsp
-            elif file_magic == b"VBSP" and version > 0xFFFF:  # Dark Messiah
-                version = (version & 0xFFFF, version >> 16)  # major, minor
-                BspVariant = ArkaneBsp
             else:
-                if version > 0xFFFF:  # Apex Legends Season 11+
-                    version = (version & 0xFFFF, version >> 16)  # major, minor
                 BspVariant = BspVariant_from_file_magic[file_magic]
     else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")

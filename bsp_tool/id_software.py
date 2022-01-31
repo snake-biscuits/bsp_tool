@@ -19,9 +19,9 @@ class QuakeBsp(base.Bsp):
         super(QuakeBsp, self).__init__(branch, filename, autoload)
 
     def __repr__(self):
+        branch_script = ".".join(self.branch.__name__.split(".")[-2:])
         version = f"(version {self.bsp_version})"  # no file_magic
-        game = self.branch.__name__[len(self.branch.__package__) + 1:]
-        return f"<{self.__class__.__name__} '{self.filename}' {game} {version} at 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
     def _preload(self):
         self.file = open(os.path.join(self.folder, self.filename), "rb")

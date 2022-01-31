@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import collections
 import enum  # for type hints
 import os
@@ -19,7 +18,7 @@ LumpHeader = collections.namedtuple("LumpHeader", ["offset", "length", "version"
 
 class Bsp:
     """Bsp base class"""
-    bsp_version: int = 0  # .bsp format version
+    bsp_version: int | (int, int) = 0  # .bsp format version
     associated_files: List[str]  # files in the folder of loaded file with similar names
     branch: ModuleType  # soft copy of "branch script"
     bsp_file_size: int = 0  # size of .bsp in bytes
@@ -54,9 +53,14 @@ class Bsp:
         self.file.close()
 
     def __repr__(self):
-        version = f"({self.file_magic.decode('ascii', 'ignore')} version {self.bsp_version})"
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
-        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version} at 0x{id(self):016X}>"
+        if isinstance(self.bsp_version, tuple):
+            major, minor = self.bsp_version
+            version_number = f"{major}.{minor}"
+        else:
+            version_number = self.bsp_version
+        version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
     def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
         """Reads bytes of lump"""
@@ -78,6 +82,8 @@ class Bsp:
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        if self.bsp_version > 0xFFFF:  # major.minor bsp_version
+            self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 

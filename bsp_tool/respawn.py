@@ -7,8 +7,8 @@ import struct
 from types import MethodType, ModuleType
 from typing import Dict
 
-from . import base
 from . import lumps
+from . import valve
 from .base import LumpHeader
 from .branches import shared
 
@@ -53,9 +53,14 @@ class ExternalLumpManager:
             setattr(self, method.__name__, method)
 
     def __repr__(self):  # copied from base.Bsp
-        version = f"({self.file_magic.decode('ascii', 'ignore')} version {self.bsp_version}"
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
-        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version} at 0x{id(self):016X}>"
+        if isinstance(self.bsp_version, tuple):
+            major, minor = self.bsp_version
+            version_number = f"{major}.{minor}"
+        else:
+            version_number = self.bsp_version
+        version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
     def __getattr__(self, lump_name: str):
         """initialises lumps when created"""
@@ -126,7 +131,7 @@ class ExternalLumpManager:
         return raw_lump
 
 
-class RespawnBsp(base.Bsp):
+class RespawnBsp(valve.ValveBsp):
     """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 50.1)"""
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
