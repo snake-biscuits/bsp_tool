@@ -53,8 +53,7 @@ class LUMP(enum.Enum):
     # big "32nd lump" at end of file, not in header?
 
 
-# struct InfinityWardBspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[32]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:

@@ -39,8 +39,7 @@ class LUMP(enum.Enum):
     AREA_PORTALS = 18
 
 
-# struct Quake2BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[19]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 # TODO: MAX & Contents enums
 

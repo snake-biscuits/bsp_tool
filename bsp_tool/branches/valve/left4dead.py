@@ -1,7 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
-import collections
 import enum
-import struct
 
 from . import orange_box
 from . import source
@@ -83,23 +81,11 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = source.LumpHeader
 
 # Known lump changes from Orange Box -> Left 4 Dead:
 # New:
 #   UNUSED_61 -> LUMP_OVERLAY_SYSTEM_LEVELS
-
-
-Left4Dead2LumpHeader = collections.namedtuple("Left4DeadLumpHeader", ["length", "offset", "version", "fourCC"])
-# length and offset are swapped for L4D2
-
-
-def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = source.SourceLumpHeader(offset, length, version, fourCC)
-    return header
 
 
 # classes for lumps, in alphabetical order:

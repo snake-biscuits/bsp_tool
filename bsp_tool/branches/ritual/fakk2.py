@@ -5,6 +5,7 @@ from typing import List
 
 from .. import base
 from .. import shared
+from ..id_software import quake
 from ..id_software import quake3
 
 FILE_MAGIC = b"FAKK"
@@ -39,8 +40,7 @@ class LUMP(enum.Enum):
     LIGHT_DEFINITIONS = 19
 
 
-# RitualBspHeader { char file_magic[4]; int version, checksum; QuakeLumpHeader headers[20]; };
-lump_header_address = {LUMP_ID: (12 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 # Known lump changes from Quake 3 -> Ubertools:
 # New:

@@ -1,6 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Alien_Swarm_(engine_branch)
 import enum
-import struct
 
 from . import orange_box
 from . import source
@@ -83,21 +82,13 @@ class LUMP(enum.Enum):
     DISPLACEMENT_MULTIBLEND = 63
 
 
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = source.LumpHeader
 
 # Known lump changes from Orange Box -> Alien Swarm:
 # New:
 #   UNUSED_63 -> DISPLACEMENT_MULTIBLEND
 # Deprecated:
 #   ???
-
-
-def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = source.SourceLumpHeader(offset, length, version, fourCC)
-    return header
 
 
 # classes for lumps, in alphabetical order:

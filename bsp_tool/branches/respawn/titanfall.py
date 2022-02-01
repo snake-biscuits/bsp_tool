@@ -152,8 +152,7 @@ class LUMP(enum.Enum):
     SHADOW_MESH_MESHES = 0x007F
 
 
-# struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count; SourceLumpHeader headers[128]; };
-lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = source.LumpHeader
 
 # Rough map of the relationships between lumps:
 #              /-> MaterialSort -> TextureData -> TextureDataStringTable -> TextureDataStringData
@@ -540,7 +539,7 @@ VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUn
 
 # classes for special lumps, in alphabetical order:
 class EntityPartitions(list):
-    """name of each used .ent file"""
+    """name of each used .ent file"""  # [0] = "01*"; .0000.bsp_lump?
     def __init__(self, raw_lump: bytes):
         super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
 

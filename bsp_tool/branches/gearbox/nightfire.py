@@ -4,6 +4,7 @@ from typing import List
 
 from .. import base
 from .. import shared
+from ..id_software import quake
 from ..valve import goldsrc
 
 
@@ -37,8 +38,7 @@ class LUMP(enum.Enum):
     TEXTURE_INFO = 17
 
 
-# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:

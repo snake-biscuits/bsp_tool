@@ -62,8 +62,7 @@ class LUMP(enum.Enum):
     LIGHTS = 39
 
 
-# struct InfinityWardBspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[32]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 # Known lump changes from Call of Duty -> Call of Duty 2:
 # New:

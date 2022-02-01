@@ -5,7 +5,6 @@
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
  * If `autoload` cannot find the specified `.bsp` file a UserWarning is issued
- * RespawnBsp: `.ent` file headers moved to `bsp.entity_headers`
 
 ## Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
@@ -15,12 +14,18 @@
    - `from_bytes` method added
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
+   - `from_stream` method added
  * Completely refactored `branch_script` detection
    - only `file_magic` & `bsp_version` matter (unless `.d3dbsp`)
    - `load_bsp` now only accepts a `branch_script` as it's optional argument
- * `RespawnBsp` external lumps are now managed by `ExternalLumpManager`
-   - `.bsp_lump` files are only opened when accessed
+ * RespawnBsp `.ent` file headers moved to `bsp.entity_headers`
+ * RespawnBsp `.bsp_lump` moved to `bsp.external`
+   - Uses the `respawn.ExternalLumpManager`
+   - `.bsp_lump` are only opened when accesed via `bsp.external.LUMP_NAME`
  * "MegaTest" RAM usage significantly reduced
+ * `ArkaneBsp` has been rolled into `ValveBsp` & deleted
+ * `LumpHeader` now use `bsp.branch.LumpHeader` instead of `collections.namedtuple`
+ * Preparing to support `ValveBsp` & `RespawnBsp` x360 (big/mixed-endian) formats
 
 ### Newly Supported
  * Infinity Ward Engine

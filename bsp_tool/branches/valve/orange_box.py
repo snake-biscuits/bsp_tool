@@ -10,7 +10,7 @@ from . import source
 
 FILE_MAGIC = b"VBSP"
 
-BSP_VERSION = 20  # NOTE: v20 Source BSPs differ widely, since many forks are of this version
+BSP_VERSION = 20
 
 GAME_PATHS = {"Day of Defeat: Source": "day of defeat source/dod",
               "G-String": "G String/gstringv2",
@@ -91,15 +91,7 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-
-def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = source.SourceLumpHeader(offset, length, version, fourCC)
-    return header
+LumpHeader = source.LumpHeader
 
 # a rough map of the relationships between lumps:
 #

@@ -1,6 +1,5 @@
 from __future__ import annotations
 from collections import namedtuple
-import enum
 import os
 import shutil
 import struct
@@ -9,7 +8,6 @@ from typing import Dict
 
 from . import lumps
 from . import valve
-from .base import LumpHeader
 from .branches import shared
 
 
@@ -135,7 +133,8 @@ class RespawnBsp(valve.ValveBsp):
     """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 50.1)"""
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-    file_magic = b"rBSP"
+    endianess: str = "little"
+    file_magic: bytes = b"rBSP"
     lump_count: int
     entity_headers: Dict[str, str]
     # {"LUMP_NAME": "header text"}
@@ -145,39 +144,39 @@ class RespawnBsp(valve.ValveBsp):
         super(RespawnBsp, self).__init__(branch, filename, autoload)
         # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
 
-    def _read_header(self, LUMP: enum.Enum) -> LumpHeader:
-        """Read a lump from self.file, while it is open (during __init__ only)"""
-        self.file.seek(self.branch.lump_header_address[LUMP])
-        offset, length, version, fourCC = struct.unpack("4I", self.file.read(16))
-        # TODO: use a read & write function / struct.iter_unpack
-        # -- this could potentially allow for simplified subclasses
-        # -- e.g. LumpHeader(*struct.unpack("4I", self.file.read(16)))  ->  self.LumpHeader(self.file)
-        header = LumpHeader(offset, length, version, fourCC)
-        return header
-
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
         self.associated_files = [f for f in local_files if is_related(f)]
         self.file = open(os.path.join(self.folder, self.filename), "rb")
+        # struct SourceLumpHeader { int offset, length, version, fourCC; };
+        # struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count;
+        #                           SourceLumpHeader headers[128]; };
         file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
-        self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        if file_magic == self.file_magic:
+            self.endianness = "little"
+        elif file_magic == reversed(self.file_magic):
+            self.endianness = "big"
+            self.file_magic = file_magic
+        else:
+            raise RuntimeError(f"{self.file} is not a RespawnBsp! file_magic is incorrect")
+        self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
         if self.bsp_version > 0xFFFF:  # Apex Legends Season 11+
             self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
         # NOTE: Legion considers the second short to be a flag for streaming
         # Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
         # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
-        self.revision = int.from_bytes(self.file.read(4), "little")
-        self.lump_count = int.from_bytes(self.file.read(4), "little")
+        self.revision = int.from_bytes(self.file.read(4), self.endianness)
+        self.lump_count = int.from_bytes(self.file.read(4), self.endianness)
         assert self.lump_count == 127, "irregular RespawnBsp lump_count"
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
 
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP in self.branch.LUMP:
-            lump_header = self._read_header(LUMP)
+            self.file.seek(16 + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
+            lump_header = self.branch.LumpHeader.from_stream(self.file)
             self.headers[LUMP.name] = lump_header
             if lump_header.length == 0 or lump_header.offset >= self.bsp_file_size:
                 continue  # skip empty lumps
@@ -251,7 +250,7 @@ class RespawnBsp(valve.ValveBsp):
                         bsp_lump_file.write(raw_external_lump)
             if LUMP.name not in raw_lumps:  # lump is not present in bsp
                 version = self.headers[LUMP.name].version  # PHYSICS_LEVEL needs version preserved
-                headers[LUMP.name] = LumpHeader(current_offset, 0, version, 0)
+                headers[LUMP.name] = self.branch.LumpHeader(current_offset, 0, version, 0)
                 continue
             # wierd hack to align unused lump offsets correctly
             if current_offset == 0:
@@ -260,7 +259,7 @@ class RespawnBsp(valve.ValveBsp):
             length = len(raw_lumps[LUMP.name])
             version = self.headers[LUMP.name].version
             fourCC = 0  # fourCC is always 0 because we aren't compressing
-            header = LumpHeader(offset, length, version, fourCC)
+            header = self.branch.LumpHeader(offset, length, version, fourCC)
             headers[LUMP.name] = header  # recorded for noting padding
             current_offset += length
             # pad to start at the next multiple of 4 bytes
@@ -277,7 +276,8 @@ class RespawnBsp(valve.ValveBsp):
         bsp_version = self.bsp_version
         if isinstance(self.bsp_version, tuple):
             bsp_version = bsp_version[0] + bsp_version[1] << 16
-        outfile.write(struct.pack("4s3I", self.file_magic, bsp_version, self.revision, 127))
+        _format = "4s3I" if self.endianness == "little" else ">4s3I"
+        outfile.write(struct.pack(_format, self.file_magic, bsp_version, self.revision, 127))
         # write headers
         for LUMP in self.branch.LUMP:
             header = headers[LUMP.name]

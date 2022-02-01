@@ -38,6 +38,7 @@ def test_basic_branch_script(branch_script):
     # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
     # -- this includes missing bytes (since single byte alignment gets wierd)
     # -- also type hints
+    used_LumpClasses.add(branch_script.LumpHeader)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     # TODO: trace what happens to imported LumpClasses
     # -- do they count as unused, because they are defined elsewhere?
@@ -66,10 +67,13 @@ branch_scripts = [*branches.arkane.scripts,
 @pytest.mark.parametrize("branch_script", branch_scripts)
 def test_branch_script(branch_script):
     """Versioned lump headers & Game Lumps"""
-    used_LumpClasses = set()
+    used_LumpClasses = {branch_script.LumpHeader}
     for version_dict in branch_script.LUMP_CLASSES.values():
         # ^ {"LUMP": {version: LumpClass}}
         used_LumpClasses.update(version_dict.values())
+    # TODO: find classes used by GameLumps / SpecialLumpClasses via the inspect module
+    # -- would also be handy for automated documentation
+    # NOTE: respawn.titanfall uses Grid's .from_bytes method as a SpecialLumpClass
     if hasattr(branch_script, "GAME_LUMP_HEADER"):
         used_LumpClasses.add(branch_script.GAME_LUMP_HEADER)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)

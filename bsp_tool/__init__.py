@@ -21,6 +21,8 @@ BspVariant_from_file_magic = {b"2015": RitualBsp,
                               b"EF2!": RitualBsp,
                               b"FAKK": RitualBsp,
                               b"IBSP": IdTechBsp,  # + InfinityWardBsp + D3DBsp
+                              b"PSBr": RespawnBsp,  # Xbox360
+                              b"PSBV": ValveBsp,  # Xbox360
                               b"rBSP": RespawnBsp,
                               b"RBSP": RavenBsp,
                               b"VBSP": ValveBsp}
@@ -50,7 +52,10 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     # parse header
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
-        version = int.from_bytes(bsp_file.read(4), "little")
+        if file_magic in (b"PSBr", b"PSBV"):
+            version = int.from_bytes(bsp_file.read(4), "big")
+        else:
+            version = int.from_bytes(bsp_file.read(4), "little")
         if version > 0xFFFF:
             version = (version & 0xFFFF, version >> 16)  # major, minor
     # identify BspVariant
@@ -74,18 +79,18 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
             elif file_magic == b"FBSP":
                 raise NotImplementedError("FBSP format is not yet supported")
             else:
-                raise NotImplementedError("TODO: Check if encrypted Tactical Intervention .bsp")
-        else:
-            if file_magic == b"IBSP" and version in InfinityWard_versions:  # CoD
+                # TODO: check for encrypted Tactical Intervention .bsp
+                raise NotImplementedError(f"Unknown file_magic: {file_magic}")
+        else:  # Call of Duty
+            if file_magic == b"IBSP" and version in InfinityWard_versions:
                 BspVariant = InfinityWardBsp
             else:
                 BspVariant = BspVariant_from_file_magic[file_magic]
     else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    # identify branch script
     # TODO: ata4's bspsrc uses unique entity classnames to identify branches
-    # -- need this for identifying variants with overlapping versions
-    # -- e.g. (b"VBSP", 20) & (b"VBSP", 21)
+    # -- need this for identifying variants with overlapping identifiers
+    # identify branch script
     if branch_script is None:
         branch_script = branches.script_from_file_magic_and_version[(file_magic, version)]
     return BspVariant(branch_script, filename, autoload=True)  # might raise errors

@@ -1,14 +1,11 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
-import enum
-import struct
-
 from ..valve import orange_box
 from ..valve import source
 
 
 FILE_MAGIC = b"VBSP"
 
-BSP_VERSION = (20, 4)  # int.from_bytes(struct.pack("2H", 20, 4), "little")
+BSP_VERSION = (20, 4)
 
 GAME_PATHS = {"Dark Messiah of Might and Magic Multi-Player": "Dark Messiah of Might and Magic Multi-Player"}
 
@@ -17,15 +14,8 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 LUMP = orange_box.LUMP
 
-# struct DarkMessiahBspHeader { char file_magic[4]; short version[2]; SourceLumpHeader headers[64]; int revision;};
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
 
-
-def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = source.SourceLumpHeader(offset, length, version, fourCC)
-    return header
+LumpHeader = source.LumpHeader
 
 
 # TODO: StaticPropLumpv6

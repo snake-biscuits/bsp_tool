@@ -46,13 +46,12 @@ class LUMP(enum.Enum):
     SURFEDGES = 13
     MODELS = 14
 
+
+LumpHeader = quake.LumpHeader
+
 # Known lump changes from Quake II -> GoldSrc:
 # New:
 #   MARK_SURFACES
-
-
-# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
 
 
 # Engine limits:

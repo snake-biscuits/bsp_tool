@@ -16,11 +16,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 LUMP = source.LUMP
 
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-
-read_lump_header = source.read_lump_header
+LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:

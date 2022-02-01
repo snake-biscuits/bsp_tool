@@ -1,4 +1,5 @@
 # https://bitbucket.org/daikatana13/daikatana
+from ..id_software import quake
 from ..id_software import quake2
 
 
@@ -11,10 +12,10 @@ GAME_PATHS = {"Daikatana": "Daikatana"}
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
-LUMP = quake2.LUMP  # NOTE: ASSUMED
+LUMP = quake2.LUMP  # NOTE: this is an assumption
 
-# struct Quake2BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[19]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+
+LumpHeader = quake.LumpHeader
 
 # A rough map of the relationships between lumps:
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES

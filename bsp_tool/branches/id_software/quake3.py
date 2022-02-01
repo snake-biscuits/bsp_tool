@@ -6,6 +6,7 @@ import struct
 
 from .. import base
 from .. import shared
+from .. id_software import quake
 
 
 FILE_MAGIC = b"IBSP"
@@ -44,8 +45,7 @@ class LUMP(enum.Enum):
     VISIBILITY = 16
 
 
-# struct Quake3BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[17]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 # a rough map of the relationships between lumps:
 #

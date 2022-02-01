@@ -3,6 +3,7 @@
 import enum
 
 from .. import shared
+from ..id_software import quake
 from ..id_software import quake3
 
 
@@ -38,8 +39,7 @@ class LUMP(enum.Enum):
     LIGHT_ARRAY = 17
 
 
-# struct RavenBspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[18]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 # Known lump changes from Quake 3 -> Raven:
 # New:

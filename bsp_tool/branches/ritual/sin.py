@@ -1,5 +1,6 @@
 """All three creditted programmers worked on Heavy Metal F.A.K.K. 2
 Some also went on to work on MoH:AA expansions & some Valve titles"""
+from ..id_software import quake
 from ..id_software import quake2
 
 
@@ -15,9 +16,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 LUMP = quake2.LUMP
 
-
-# struct Quake2BspHeader { char file_magic[4]; int version; QuakeLumpHeader headers[19]; };
-lump_header_address = {LUMP_ID: (8 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 
 # {"LUMP": LumpClass}

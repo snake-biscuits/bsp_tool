@@ -190,8 +190,8 @@ class LUMP(enum.Enum):
     SHADOW_MESH_MESHES = 0x007F
 
 
-# struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count; SourceLumpHeader headers[128]; };
-lump_header_address = {LUMP_ID: (16 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = source.LumpHeader
+
 
 # Known lump changes from Titanfall 2 -> Apex Legends:
 # New:

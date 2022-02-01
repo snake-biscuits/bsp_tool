@@ -1,6 +1,5 @@
 # https://github.com/ValveSoftware/source-sdk-2013/
 import enum
-import struct
 
 # from . import alien_swarm
 # from . import left4dead
@@ -89,18 +88,10 @@ class LUMP(enum.Enum):
     PHYSICS_LEVEL = 62  # left4dead2
     DISPLACEMENT_MULTIBLEND = 63  # alienswarm
 
+
+LumpHeader = source.LumpHeader
+
 # TODO: Known lump changes from Orange Box -> Source SDK 2013:
-
-
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-
-def read_lump_header(file, LUMP: enum.Enum) -> source.SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = source.SourceLumpHeader(offset, length, version, fourCC)
-    return header
 
 
 # {"LUMP_NAME": {version: LumpClass}}

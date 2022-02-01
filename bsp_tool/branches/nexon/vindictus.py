@@ -1,6 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
 """Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
-import collections
 import enum
 import io
 import itertools
@@ -88,17 +87,14 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-# struct VindictusBspHeader { char file_magic[4]; int version; VindictusLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-VindictusLumpHeader = collections.namedtuple("VindictusLumpHeader", ["id", "flags", "version", "offset", "length"])
-
-
-def read_lump_header(file, LUMP_ID: enum.Enum) -> VindictusLumpHeader:
-    file.seek(lump_header_address[LUMP_ID])
-    id, flags, version, offset, length = struct.unpack("5i", file.read(20))
-    header = VindictusLumpHeader(id, flags, version, offset, length)
-    return header
+class LumpHeader(base.MappedArray):
+    id: int  # lump index?
+    offset: int  # index in .bsp file where lump begins
+    length: int
+    version: int
+    fourCC: int  # uncompressed size (big endian for some reason)
+    _mapping = ["id", "flags", "version", "offset", "length"]
+    _format = "5I"
 
 
 # class for each lump in alphabetical order: [10 / 64] + orange_box.LUMP_CLASSES

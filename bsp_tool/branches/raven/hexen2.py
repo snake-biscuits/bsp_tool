@@ -13,8 +13,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 LUMP = quake.LUMP
 
 
-# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+LumpHeader = quake.LumpHeader
 
 
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()

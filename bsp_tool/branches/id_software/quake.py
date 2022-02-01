@@ -36,8 +36,9 @@ class LUMP(enum.Enum):
     MODELS = 14
 
 
-# struct QuakeBspHeader { int version; QuakeLumpHeader headers[15]; };
-lump_header_address = {LUMP_ID: (4 + i * 8) for i, LUMP_ID in enumerate(LUMP)}
+class LumpHeader(base.MappedArray):
+    _mapping = ["offset", "length"]
+    _format = "2I"
 
 
 # A rough map of the relationships between lumps:

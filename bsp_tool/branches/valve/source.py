@@ -2,7 +2,6 @@
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bsplib.cpp
-import collections
 import enum
 import io
 import itertools
@@ -94,17 +93,9 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-# struct SourceBspHeader { char file_magic[4]; int version; SourceLumpHeader headers[64]; int revision; };
-lump_header_address = {LUMP_ID: (8 + i * 16) for i, LUMP_ID in enumerate(LUMP)}
-
-SourceLumpHeader = collections.namedtuple("SourceLumpHeader", ["offset", "length", "version", "fourCC"])
-
-
-def read_lump_header(file, LUMP: enum.Enum) -> SourceLumpHeader:
-    file.seek(lump_header_address[LUMP])
-    offset, length, version, fourCC = struct.unpack("4I", file.read(16))
-    header = SourceLumpHeader(offset, length, version, fourCC)
-    return header
+class LumpHeader(base.MappedArray):
+    _mapping = ["offset", "length", "version", "fourCC"]
+    _format = "4I"
 
 # TODO: changes from GoldSrc -> Source
 # MipTexture.flags -> TextureInfo.flags (Surface enum)
