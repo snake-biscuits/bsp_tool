@@ -53,7 +53,9 @@ class LUMP(enum.Enum):
     # big "32nd lump" at end of file, not in header?
 
 
-LumpHeader = quake.LumpHeader
+class LumpHeader(base.MappedArray):
+    _mapping = ["offset", "length"]
+    _format = "2I"
 
 
 # classes for lumps, in alphabetical order:

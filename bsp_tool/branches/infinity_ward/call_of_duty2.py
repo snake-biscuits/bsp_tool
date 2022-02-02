@@ -62,7 +62,7 @@ class LUMP(enum.Enum):
     LIGHTS = 39
 
 
-LumpHeader = quake.LumpHeader
+LumpHeader = call_of_duty1.LumpHeader
 
 # Known lump changes from Call of Duty -> Call of Duty 2:
 # New:
