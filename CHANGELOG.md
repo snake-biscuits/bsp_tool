@@ -5,6 +5,7 @@
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
  * If `autoload` cannot find the specified `.bsp` file a UserWarning is issued
+ * Support for `ValveBsp` & `RespawnBsp` Xbox360 formats (`.360.bsp`)
 
 ## Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
@@ -34,7 +35,12 @@
  * Ion Storm IdTech
    - Daikatana
  * Raven IdTech
+ * Respawn Engine
+   - Titanfall (Xbox360)
  * Source Engine
+   - Infra
+   - Orange Box (Xbox360)
+   - Portal 2 (Xbox360)
    - Tactical Intervention
    - Vampire the Masquerade: Bloodlines
  * Ubertools
