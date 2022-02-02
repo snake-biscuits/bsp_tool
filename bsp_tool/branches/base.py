@@ -30,6 +30,7 @@ class Struct:
     # each value in _arrays is a mapping to generate a MappedArray from
     # TODO: _child_subclasses: dict[str, Any]
     # e.g. {"plane.normal": vector.Vec3}
+    # source.DisplacementInfo desperately needs this
 
     def __init__(self, *args, **kwargs):
         # LumpClass(attr1, [attr2_1, attr2_2])

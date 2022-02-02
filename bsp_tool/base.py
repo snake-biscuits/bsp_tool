@@ -13,7 +13,7 @@ class Bsp:
     # TODO: include subfolder files (e.g. graphs/<mapname>.ain)
     branch: ModuleType  # soft copy of "branch script"
     bsp_file_size: int = 0  # size of .bsp in bytes
-    endianess: str = "little"
+    endianness: str = "little"
     file_magic: bytes = b"XBSP"
     # NOTE: XBSP is not a real bsp variant! this is just a placeholder
     filename: str

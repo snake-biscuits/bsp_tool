@@ -17,8 +17,7 @@ BSP_VERSION = 29
 GAME_PATHS = {"Titanfall": "Titanfall",
               "Titanfall: Online": "TitanfallOnline"}
 
-GAME_VERSIONS = {"Titanfall": 29,
-                 "Titanfall: Online": 29}  # NOTE: no .bsp_lump; only .bsp
+GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
@@ -548,7 +547,7 @@ class EntityPartitions(list):
 
 
 class GameLump_SPRP:
-    """unique to TitanFall"""
+    """unique to Titanfall"""
     _static_prop_format: str  # StaticPropClass._format
     model_names: List[str]
     leaves: List[int]

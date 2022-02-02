@@ -94,11 +94,11 @@ class LUMP(enum.Enum):
 LumpHeader = source.LumpHeader
 
 # a rough map of the relationships between lumps:
-#
+
 #                     /-> SurfEdge -> Edge -> Vertex
 # Leaf -> Node -> Face -> Plane
 #                     \-> DisplacementInfo -> DisplacementVertex
-#
+
 # ClipPortalVertices are AreaPortal geometry [citation neeeded]
 
 

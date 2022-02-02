@@ -32,18 +32,27 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"IBSP": [id_software.quake2,
                                      id_software.quake3,
                                      *infinity_ward.scripts,
-                                     # NOTE: most of infinity_ward.scripts will be *.d3dbsp
                                      ion_storm.daikatana,
                                      raven.soldier_of_fortune,
                                      ritual.sin],
-                           b"rBSP": [*respawn.scripts],
+                           b"PSBr": [respawn.titanfall_x360],
+                           b"PSBV": [valve.orange_box_x360,
+                                     valve.sdk_2013_x360],
+                           b"rBSP": [respawn.apex_legends,
+                                     respawn.titanfall,
+                                     respawn.titanfall2],
                            b"RBSP": [raven.soldier_of_fortune2,
                                      ritual.sin],
                            b"VBSP": [*arkane.scripts,
                                      loiste.infra,
                                      *nexon.scripts,
                                      troika.vampire,
-                                     *[s for s in valve.scripts if (s is not valve.goldsrc)]]}
+                                     valve.alien_swarm,
+                                     valve.left4dead,
+                                     valve.left4dead2,
+                                     valve.orange_box,
+                                     valve.sdk_2013,
+                                     valve.source]}
 
 
 script_from_file_magic_and_version = dict()

@@ -26,16 +26,16 @@ class ValveBsp(base.Bsp):
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
+        def is_related(f): return f.startswith(self.filename.partition(".")[0])
         self.associated_files = [f for f in local_files if is_related(f)]
         # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         file_magic = self.file.read(4)
         if file_magic == self.file_magic:
             self.endianness = "little"
-        elif file_magic == reversed(self.file_magic):
+        elif file_magic == bytes(reversed(self.file_magic)):
             self.endianness = "big"
-            self.file_magic = file_magic
+            self.file_magic = file_magic  # b"PSBV"
         else:
             raise RuntimeError(f"{self.file} is not a ValveBsp! file_magic is incorrect")
         self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
@@ -56,7 +56,8 @@ class ValveBsp(base.Bsp):
                 if LUMP.name == "GAME_LUMP":
                     # NOTE: lump_header.version is ignored in this case
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+                    BspLump = lumps.GameLump(self.file, lump_header, self.endianness,
+                                             GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP.name in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
                     BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)

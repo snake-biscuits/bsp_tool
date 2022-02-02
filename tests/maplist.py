@@ -188,6 +188,9 @@ extracted_dirs = {
                       "depot/r1pcgold/game/r1/maps",  # 1 map | 1.7 GB | .vpk
                       "depot/r1pcstaging/game/r1/maps",  # 23 maps | 5.8 GB | .vpk
                       "depot/r1pcstaging/game/r1_dlc1/maps"],  # 3 maps | 796 MB | .vpk
+        # Xbox 360 maps loosely extracted from BluePoint .bpk
+        # -- .bpk filenames are unknown, so .bsp, .bsp_lump & .ent
+        "Titanfall/x360": ["maps"],  # 17 maps | 349 MB
         # donated by p0358
         "TitanfallOnline": ["maps",  # 17 maps | 2.0 GB | .pkg
                             "v2905-dated-2017-04-08/maps",  # 13 maps | 1.3 GB | .7z
@@ -290,17 +293,40 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
                       "halflifeeternal"]}  # 13 maps | 123 MB | Test Tube 16
 
-# every_bsp_dir = {**sourcemod_dirs, **extracted_dirs, **goldsrc_dirs, **source_dirs}
+# extracted from xisos; a very painful process
+x360_dirs = {"OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
+                           "episodic/maps",  # 18 maps | 121 MB
+                           "hl2/maps",  # 76 maps | 376 MB
+                           "portal/maps",  # 26 maps | 99 MB
+                           "tf/maps"],  # 7 maps | 88 MB
+             "Portal2": ["portal2/maps"]}  # 105 maps | 532 MB
+
+# extracted with the help of Taskinoz
+ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
+                           "depot/r2dlc3/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc4/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc5/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc6/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc7/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc8/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc9/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc10/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2dlc11/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2pcprecert/game/r2/maps",  # 1 map | 764 MB | .vpk
+                           "depot/r2ps4precert/game/r2/maps",  # 24 maps | 10.5 GB | .vpk
+                           "depot/r2staging/game/r2/maps"]}  # 1 map | 764 MB | .vpk
 
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
               "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
+              "D:/Emulators/Microsoft/Xbox360": x360_dirs,
+              "D:/Emulators/Sony/PS4": ps4_dirs,
               "E:/Mod": extracted_dirs,  # Id Software, Respawn Entertainment, Nexon & More
               # "F:/bsps": every_bsp_dir,
               # "/media/bikkie/GAMES/bsps": every_bsp_dir
               }
 
-# NOTE: registering test maps
+# registering tests/maps first
 installed_games = {("./", "tests/maps"): ["Call of Duty 4", "Call of Duty 4/mp",
                                           "Quake 3 Arena",
                                           "Team Fortress 2"]}

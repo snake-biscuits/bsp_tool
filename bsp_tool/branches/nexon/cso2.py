@@ -10,7 +10,7 @@ from . import vindictus
 
 FILE_MAGIC = b"VBSP"
 
-BSP_VERSION = 100  # 1.00?
+BSP_VERSION = 100
 
 GAME_PATHS = {"Counter-Strike: Online 2": "CSO2"}
 

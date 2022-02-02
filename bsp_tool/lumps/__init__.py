@@ -319,6 +319,7 @@ class ExternalBasicBspLump(BasicBspLump):
 
 
 class GameLump:
+    endianness: str = "little"
     GameLumpHeaderClass: Any  # used for reads / writes
     headers: Dict[str, Any]
     # ^ {"child_lump": GameLumpHeader}
@@ -333,8 +334,9 @@ class GameLump:
     # -- dprp: Detail Props (procedural grass)
     # -- sprp: Static Props
 
-    def __init__(self, file: io.BufferedReader, lump_header: Any,
+    def __init__(self, file: io.BufferedReader, lump_header: Any, endianness: str,
                  LumpClasses: Dict[str, object], GameLumpHeaderClass: object):
+        self.endianness = endianness
         self.GameLumpHeaderClass = GameLumpHeaderClass
         self.loading_errors = dict()
         lump_offset = 0
@@ -343,7 +345,7 @@ class GameLump:
             file.seek(lump_offset)
         else:
             self.is_external = True
-        game_lumps_count = int.from_bytes(file.read(4), "little")
+        game_lumps_count = int.from_bytes(file.read(4), self.endianness)
         self.headers = dict()
         # {"child_name": child_header}
         for i in range(game_lumps_count):
@@ -375,7 +377,7 @@ class GameLump:
         # NOTE: ValveBsp .lmp external lumps have a 16 byte header
         # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
         out = []
-        out.append(len(self.headers).to_bytes(4, "little"))
+        out.append(len(self.headers).to_bytes(4, self.endianness))
         headers = []
         # skip the headers
         cursor_offset = lump_offset + 4 + len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)

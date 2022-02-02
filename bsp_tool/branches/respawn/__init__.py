@@ -24,10 +24,11 @@ presumably all this file splitting has to do with streaming data into memory"""
 # -- Likely forked from Left 4 Dead / Left 4 Dead 2
 from . import apex_legends
 from . import titanfall
+from . import titanfall_x360
 from . import titanfall2
 
 
-scripts = [apex_legends, titanfall, titanfall2]
+scripts = [apex_legends, titanfall, titanfall_x360, titanfall2]
 
 # Trivia:
 # All Respawn's games give the error "Not an IBSP file" when FILE_MAGIC is incorrect

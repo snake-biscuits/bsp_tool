@@ -19,6 +19,7 @@ class ExternalLumpManager:
     # copied from bsp on __init__
     branch: ModuleType
     bsp_version: int | (int, int)
+    endianness: str = "little"
     file_magic: bytes
     filename: str
     folder: str
@@ -29,6 +30,7 @@ class ExternalLumpManager:
     # ^ {"LUMP_NAME": Error}
 
     def __init__(self, bsp: RespawnBsp):
+        self.endianness = bsp.endianness
         self.filename = bsp.filename
         self.folder = bsp.folder
         self.branch = bsp.branch
@@ -71,7 +73,8 @@ class ExternalLumpManager:
             if lump_name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                 GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                 lump_file = open(lump_header.filename, "rb")
-                ExternalBspLump = lumps.GameLump(lump_file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+                ExternalBspLump = lumps.GameLump(lump_file, lump_header, self.endianness,
+                                                 GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 # TODO: test we didn't break this with the new ExternalLumpHeader
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
@@ -133,7 +136,7 @@ class RespawnBsp(valve.ValveBsp):
     """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 50.1)"""
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
-    endianess: str = "little"
+    endianness: str = "little"
     file_magic: bytes = b"rBSP"
     lump_count: int
     entity_headers: Dict[str, str]
@@ -147,25 +150,25 @@ class RespawnBsp(valve.ValveBsp):
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
         local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
+        def is_related(f): return f.startswith(self.filename.partition(".")[0])
         self.associated_files = [f for f in local_files if is_related(f)]
         self.file = open(os.path.join(self.folder, self.filename), "rb")
-        # struct SourceLumpHeader { int offset, length, version, fourCC; };
-        # struct RespawnBspHeader { char file_magic[4]; int version, revision, lump_count;
-        #                           SourceLumpHeader headers[128]; };
+        # struct LumpHeader { int offset, length, version, fourCC; };
+        # struct BspHeader { char file_magic[4]; int version, revision, lump_count;
+        #                    LumpHeader headers[128]; };
         file_magic = self.file.read(4)
         if file_magic == self.file_magic:
             self.endianness = "little"
-        elif file_magic == reversed(self.file_magic):
+        elif file_magic == bytes(reversed(self.file_magic)):
             self.endianness = "big"
-            self.file_magic = file_magic
+            self.file_magic = file_magic  # b"PSBr"
         else:
             raise RuntimeError(f"{self.file} is not a RespawnBsp! file_magic is incorrect")
         self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
         if self.bsp_version > 0xFFFF:  # Apex Legends Season 11+
             self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
-        # NOTE: Legion considers the second short to be a flag for streaming
-        # Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
+        # NOTE: Legion considers the second half to be a flag for streaming
+        # -- Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
         # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
         self.revision = int.from_bytes(self.file.read(4), self.endianness)
         self.lump_count = int.from_bytes(self.file.read(4), self.endianness)
@@ -183,7 +186,8 @@ class RespawnBsp(valve.ValveBsp):
             try:
                 if LUMP.name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                    BspLump = lumps.GameLump(self.file, lump_header, GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+                    BspLump = lumps.GameLump(self.file, lump_header, self.endianness,
+                                             GameLumpClasses, self.branch.GAME_LUMP_HEADER)
                 elif LUMP.name in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
                     BspLump = lumps.BspLump(self.file, lump_header, LumpClass)
@@ -209,7 +213,7 @@ class RespawnBsp(valve.ValveBsp):
         # TODO: give a warning if available .ent files do not match ENTITY_PARTITIONS
         # NOTE: ENTITY_PARTITIONS contains "01*" as the first entry, does this mean the entity lump?
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
-            entity_file = f"{self.filename[:-4]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
+            entity_file = f"{self.filename.partition('.')[0]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
             if entity_file in self.associated_files:
                 with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
                     LUMP_name = f"ENTITIES_{ent_filetype}"
