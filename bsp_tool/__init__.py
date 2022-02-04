@@ -69,11 +69,12 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     elif filename.lower().endswith(".bsp"):
         if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
             version = int.from_bytes(file_magic, "little")
-            file_magic = None
             if version in Quake_versions:
                 BspVariant = QuakeBsp
+                file_magic = None
             elif version in GoldSrc_versions:
                 BspVariant = GoldSrcBsp
+                file_magic = None
             elif file_magic == b"BSP2":
                 raise NotImplementedError("BSP2 format is not yet supported")
             elif file_magic == b"FBSP":
