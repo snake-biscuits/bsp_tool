@@ -269,6 +269,7 @@ class GameLump_SPRP:
     unknown_1: int
     unknown_2: int  # indices?
     props: List[object] | List[bytes]  # List[StaticPropClass]
+    unknown_3: bytes
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self.StaticPropClass = StaticPropClass
@@ -278,18 +279,10 @@ class GameLump_SPRP:
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
-        if StaticPropClass is not None:
-            read_size = struct.calcsize(StaticPropClass._format) * prop_count
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        else:
-            prop_bytes = sprp_lump.read()
-            prop_size = len(prop_bytes) // prop_count
-            # NOTE: will break if prop_size does not divide evenly by prop_count
-            setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes, bad format"
+        read_size = struct.calcsize(StaticPropClass._format) * prop_count
+        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+        setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
+        self.unknown_3 = sprp_lump.read()
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
@@ -299,7 +292,8 @@ class GameLump_SPRP:
         return b"".join([len(self.model_names).to_bytes(4, "little"),
                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                         struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
-                        *prop_bytes])
+                        *prop_bytes,
+                        self.unknown_3])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
