@@ -47,8 +47,8 @@ class LUMP(enum.Enum):
     COLLISION_INDICES = 26
     MODELS = 27
     VISIBILITY = 28
-    LIGHTS = 29
-    ENTITIES = 30
+    ENTITIES = 29
+    LIGHTS = 30
     UNKNOWN_31 = 31  # FOGS ?
     # big "32nd lump" at end of file, not in header?
 
