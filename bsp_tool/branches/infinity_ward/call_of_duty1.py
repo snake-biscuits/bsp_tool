@@ -54,7 +54,7 @@ class LUMP(enum.Enum):
 
 
 class LumpHeader(base.MappedArray):
-    _mapping = ["offset", "length"]
+    _mapping = ["length", "offset"]
     _format = "2I"
 
 
