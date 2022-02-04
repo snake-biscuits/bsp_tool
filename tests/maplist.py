@@ -189,7 +189,9 @@ extracted_dirs = {
                       "depot/r1pcstaging/game/r1/maps",  # 23 maps | 5.8 GB | .vpk
                       "depot/r1pcstaging/game/r1_dlc1/maps"],  # 3 maps | 796 MB | .vpk
         # Xbox 360 maps loosely extracted from BluePoint .bpk
-        # -- .bpk filenames are unknown, so .bsp, .bsp_lump & .ent
+        # -- .bpk filenames are unknown, so .bsp, .bsp_lump & .ent may all be incorrect
+        # NOTE: working to better extract files from .bpk with p0358
+        # -- all files become null bytes after 131207 bytes (2 ** 17)
         "Titanfall/x360": ["maps"],  # 17 maps | 349 MB
         # donated by p0358
         "TitanfallOnline": ["maps",  # 17 maps | 2.0 GB | .pkg
@@ -294,6 +296,7 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halflifeeternal"]}  # 13 maps | 123 MB | Test Tube 16
 
 # extracted from xisos; a very painful process
+# TODO: Left4Dead, Left4Dead2, DarkMessiah of Might & Magic Elements, CS:GO
 x360_dirs = {"OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
                            "episodic/maps",  # 18 maps | 121 MB
                            "hl2/maps",  # 76 maps | 376 MB
