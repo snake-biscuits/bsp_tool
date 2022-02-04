@@ -3,10 +3,8 @@ from types import ModuleType
 from typing import Dict
 import warnings
 
-from . import base
 from . import id_software
 from . import lumps
-from .branches.id_software.quake import LumpHeader
 
 
 class InfinityWardBsp(id_software.IdTechBsp):
@@ -35,7 +33,7 @@ class InfinityWardBsp(id_software.IdTechBsp):
                 self.headers = {L.name: self.branch.LumpHeader() for L in self.branch.LUMP}
 
 
-class D3DBsp(base.Bsp):
+class D3DBsp(InfinityWardBsp):
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
     # https://github.com/SE2Dev/D3DBSP_Converter/blob/master/D3DBSP_Lib/D3DBSP.cpp
     file_magic = b"IBSP"
@@ -43,22 +41,7 @@ class D3DBsp(base.Bsp):
     # NOTE: Call of Duty 2 [InfinityWardBsp] uses the .d3dbsp extension, but are not D3DBsp
     # NOTE: Call of Duty 4 .d3dbsp are stored in .ff archives (see extensions.archive.FastFile)
     # -- cod3map.exe creates .d3dbsp, but extracting these from fastfiles may prove difficult
-    # -- lumps are possibly divided into multiple files, quake3 map compilation generates many files
-
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        if not filename.lower().endswith(".d3dbsp"):
-            # ^ slight alteration to allow .d3dbsp extension
-            raise RuntimeError("Not a .d3dbsp")
-        filename = os.path.realpath(filename)
-        self.folder, self.filename = os.path.split(filename)
-        self.set_branch(branch)
-        self.headers = dict()
-        if autoload:
-            if os.path.exists(filename):
-                self._preload()
-            else:
-                warnings.warn(UserWarning(f"{filename} not found, creating a new .bsp"))
-                self.headers = {L.name: LumpHeader(0, 0) for L in self.branch.LUMP}
+    # -- lumps are possibly divided into multiple files throughout the fastfile (*.ff)
 
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
