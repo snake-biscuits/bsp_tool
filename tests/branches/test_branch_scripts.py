@@ -47,13 +47,12 @@ def test_basic_branch_script(branch_script):
                                   *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
     incorrect_lump_classes = dict()
-    for lump_class in used_LumpClasses:
+    for LumpClass in used_LumpClasses:
         try:
-            lump_class()
+            LumpClass()
         except Exception as exc:
-            incorrect_lump_classes[lump_class.__name__] = exc
+            incorrect_lump_classes[LumpClass.__name__] = exc
     assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
-    # TODO: catch misnamed attrs
 
 
 # Source + Titanfall Engines (lump versions)
@@ -83,11 +82,11 @@ def test_branch_script(branch_script):
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
     incorrect_lump_classes = dict()
-    for lump_class in used_LumpClasses:
+    for LumpClass in used_LumpClasses:
         try:
-            lump_class()
+            LumpClass()
         except Exception as exc:
-            incorrect_lump_classes[lump_class.__name__] = exc
+            incorrect_lump_classes[LumpClass.__name__] = exc
     assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
     # TODO: warn if a lump version isn't supported
     # -- e.g. FACES v1 is supported, but not v2
@@ -105,10 +104,13 @@ def test_branch_script(branch_script):
 
 
 # TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked
+# -- generally scanning for unused lumps & unmapped lump versions would also be helpful
 
 # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
 # -- all LumpClasses must coherently translate to and from bytes
 # -- no skipped bytes! (single byte alignment gets wierd)
+# -- incomplete / mismatched / outdated type-hints should also be checked
+# -- this may require scanning comments for "deep" type-hints `# attr.sub: type  # desc`
 
 # TODO: ensure base.Struct is not using _mapping
 # -- also ensure base.MappedArray is not using __slots__ or _arrays

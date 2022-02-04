@@ -8,16 +8,10 @@ from typing import Dict, List
 from . import physics  # noqa F401
 
 
-# TODO: adapt SpecialLumpClasses to be more in-line with lumps.BspLump subclasses
-# TODO: make special classes __init__ method create an empty mutable object
 # TODO: move current special class __init__ to a .from_bytes() method
-# TODO: prototype the system for saving game lumps to file
-# -- need to know filesize, but modify the headers of each lump to have file relative offsets
-# -- NOTE: fully implemented in RespawnBsp.save_as
-# TODO: make a base class for SpecialLumpClasses the facilitates dynamic indexing
-# -- use the lumps system to dynamically index a file:
-# -- do an initial scan for where each entry begins & have a .read_entry() method
-# TODO: consider using __repr__ methods, as SpecialLumpClasses can get large
+# TODO: all SpecialLumpClass __init__ methods should create an empty mutable object
+# -- this empty object should be able to be populated and saved to a file
+# -- end goal is to create a .bsp without touching any bytes / files
 
 
 # Basic Lump Classes
@@ -49,7 +43,7 @@ class UnsignedShorts(int):
 class Entities(list):
     # TODO: match "classname" to python classes (optional)
     # -- use fgd-tools?
-    # TODO: use a true __init__ & .from_bytes() @staticmethod
+    # TODO: use a true __init__ & .from_bytes() @classmethod
     def __init__(self, raw_entities: bytes):
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
@@ -98,15 +92,15 @@ class Entities(list):
             super().__init__(entities)
 
     def search(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
-        """.search(classname="light_environment") -> [{"classname": "light_environment", ...}]"""
-        # NOTE: exact matches only!
+        """Search for entities by key-values; e.g. .search(key=value) -> [{"key": value, ...}, ...]"""
+        # NOTE: all conditions must be satisfied
         return [e for e in self if all([e.get(k, "") == v for k, v in search.items()])]
 
-    # TODO: find_regex
+    # TODO: search_regex
 
-    # TODO: find_any  (any k == v, not all)
+    # TODO: search_any  (any k == v, not all)
 
-    # TODO: find_any_regex
+    # TODO: search_any_regex
 
     def as_bytes(self) -> bytes:
         entities = []

@@ -1,6 +1,8 @@
+from __future__ import annotations
 import io
 import itertools
 import struct
+from typing import List
 
 from .. import shared
 from .. import x360
@@ -36,9 +38,14 @@ LumpHeader = x360.make_big_endian(source.LumpHeader)
 
 # special lump classes, in alphabetical order:
 class GameLump_SPRP_x360:
+    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
+    StaticPropClass: object
+    model_names: List[str]
+    leaves: List[int]
+    props: List[object] | List[bytes]  # List[StaticPropClass]
+
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        """Get StaticPropClass from GameLump version"""
-        # lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)
+        self.StaticPropClass = StaticPropClass
         sprp_lump = io.BytesIO(raw_sprp_lump)
         model_name_count = int.from_bytes(sprp_lump.read(4), "big")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
@@ -64,15 +71,15 @@ class GameLump_SPRP_x360:
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
-            prop_format = self.props[0]._format
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
         else:
-            prop_format = ""
+            prop_bytes = []
         return b"".join([int.to_bytes(len(self.model_names), 4, "big"),
                          *[struct.pack("128s", n) for n in self.model_names],
                          int.to_bytes(len(self.leaves), 4, "big"),
                          *[struct.pack("H", L) for L in self.leaves],
                          int.to_bytes(len(self.props), 4, "big"),
-                         *[struct.pack(prop_format, *p.flat()) for p in self.props]])
+                         *prop_bytes])
 
 
 StaticPropv4_x360 = x360.make_big_endian(source.StaticPropv4)
@@ -98,8 +105,9 @@ del LumpClass_name, LumpClass
 
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
+                        # "PAKFILE":                  {0: PakFile_x360},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
-# TODO: big-endian versions of PakFile & PhysicsCollide
+# TODO: converted PhysicsCollide
 
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 

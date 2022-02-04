@@ -547,16 +547,16 @@ class EntityPartitions(list):
 
 
 class GameLump_SPRP:
-    """unique to Titanfall"""
-    _static_prop_format: str  # StaticPropClass._format
+    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
+    StaticPropClass: object  # StaticPropv12
     model_names: List[str]
     leaves: List[int]
     unknown_1: int
     unknown_2: int
-    props: List[object]  # List[StaticPropClass]
+    props: List[object] | List[bytes]  # List[StaticPropClass]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        self._static_prop_format = StaticPropClass._format
+        self.StaticPropClass = StaticPropClass
         sprp_lump = io.BytesIO(raw_sprp_lump)
         model_name_count = int.from_bytes(sprp_lump.read(4), "little")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
@@ -566,18 +566,30 @@ class GameLump_SPRP:
         setattr(self, "leaves", leaves)
         prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
         self.unknown_1, self.unknown_2 = unknown_1, unknown_2
-        # TODO: if StaticPropClass is None: split into appropriate groups of bytes
-        read_size = struct.calcsize(StaticPropClass._format) * prop_count
-        props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-        setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
+        if StaticPropClass is not None:
+            read_size = struct.calcsize(StaticPropClass._format) * prop_count
+            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
+        else:
+            prop_bytes = sprp_lump.read()
+            prop_size = len(prop_bytes) // prop_count
+            # NOTE: will break if prop_size does not divide evenly by prop_count
+            setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
+        here = sprp_lump.tell()
+        end = sprp_lump.seek(0, 2)
+        assert here == end, "Had some leftover bytes, bad format"
 
     def as_bytes(self) -> bytes:
+        if len(self.props) > 0:
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
+        else:
+            prop_bytes = []
         return b"".join([len(self.model_names).to_bytes(4, "little"),
                          *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                          len(self.leaves).to_bytes(4, "little"),
                          *[struct.pack("H", L) for L in self.leaves],
                          struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
-                         *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
+                         *prop_bytes])
 
 
 # {"LUMP_NAME": {version: LumpClass}}

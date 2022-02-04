@@ -28,16 +28,16 @@ Grid_x360 = x360.make_big_endian(titanfall.Grid)
 
 # classes for special lumps, in alphabetical order:
 class GameLump_SPRP_x360:
-    """unique to Titanfall"""
-    _static_prop_format: str  # StaticPropClass._format
+    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
+    StaticPropClass: object
     model_names: List[str]
     leaves: List[int]
     unknown_1: int
     unknown_2: int
-    props: List[object]  # List[StaticPropClass]
+    props: List[object] | List[bytes]  # List[StaticPropClass]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        self._static_prop_format = StaticPropClass._format
+        self.StaticPropClass = StaticPropClass
         sprp_lump = io.BytesIO(raw_sprp_lump)
         model_name_count = int.from_bytes(sprp_lump.read(4), "big")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
@@ -53,12 +53,16 @@ class GameLump_SPRP_x360:
         setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
 
     def as_bytes(self) -> bytes:
+        if len(self.props) > 0:
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
+        else:
+            prop_bytes = []
         return b"".join([len(self.model_names).to_bytes(4, "big"),
                          *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                          len(self.leaves).to_bytes(4, "big"),
                          *[struct.pack("H", L) for L in self.leaves],
                          struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
-                         *[struct.pack(self._static_prop_format, *p.flat()) for p in self.props]])
+                         *prop_bytes])
 
 
 StaticPropv12_x360 = x360.make_big_endian(titanfall.StaticPropv12)

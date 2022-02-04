@@ -331,7 +331,7 @@ class GameLump:
     # -- ^ lists a few possible child lumps:
     # -- dplh: Detail Prop Lighting HDR
     # -- dplt: Detail Prop Lighting
-    # -- dprp: Detail Props (procedural grass)
+    # -- dprp: Detail Props (procedural grass on displacements)
     # -- sprp: Static Props
 
     def __init__(self, file: io.BufferedReader, lump_header: Any, endianness: str,

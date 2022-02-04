@@ -1,5 +1,6 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
 """Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
+from __future__ import annotations
 import enum
 import io
 import itertools
@@ -258,9 +259,14 @@ class GameLumpHeader(base.MappedArray):
 
 
 class GameLump_SPRP:
+    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
+    StaticPropClass: object
+    model_names: List[str]
+    leaves: List[int]
+    scales: List[StaticPropScale]
+    props: List[object]  # List[StaticPropClass]
+
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        """Get StaticPropClass from GameLump version"""
-        # lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)
         sprp_lump = io.BytesIO(raw_sprp_lump)
         model_name_count = int.from_bytes(sprp_lump.read(4), "little")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
@@ -288,9 +294,9 @@ class GameLump_SPRP:
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
-            prop_format = self.props[0]._format
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
         else:
-            prop_format = ""
+            prop_bytes = []
         return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
                          *[struct.pack("128s", n) for n in self.model_names],
                          int.to_bytes(len(self.leaves), 4, "little"),
@@ -298,7 +304,7 @@ class GameLump_SPRP:
                          int.to_bytes(len(self.scales), 4, "little"),
                          *[struct.pack(StaticPropScale._format, s) for s in self.scales],
                          int.to_bytes(len(self.props), 4, "little"),
-                         *[struct.pack(prop_format, *p.flat()) for p in self.props]])
+                         *prop_bytes])
 
 
 class StaticPropScale(base.MappedArray):
