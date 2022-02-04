@@ -2,6 +2,7 @@
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h
 # https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bsplib.cpp
+from __future__ import annotations
 import enum
 import io
 import itertools

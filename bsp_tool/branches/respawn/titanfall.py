@@ -1,4 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
+from __future__ import annotations
 import enum
 import io
 import struct
