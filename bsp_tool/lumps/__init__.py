@@ -352,7 +352,9 @@ class GameLump:
             child_header = GameLumpHeaderClass.from_stream(file)
             if self.is_external:  # HACK (does this ever happen?)
                 child_header.offset = child_header.offset - lump_header.offset
-            child_name = child_header.id.decode("ascii")[::-1]  # b"prps" -> "sprp"
+            child_name = child_header.id.decode("ascii")
+            if self.endianness == "little":
+                child_name = child_name[::-1]  # "prps" -> "sprp"
             self.headers[child_name] = child_header
         # load child lumps (SpecialLumpClasses)
         # TODO: check for skipped bytes / padding
@@ -382,6 +384,8 @@ class GameLump:
         # skip the headers
         cursor_offset = lump_offset + 4 + len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)
         # write child lumps
+        # TODO: generate absent headers from lump names
+        # -- this will require an endianness check for header.id
         for child_name, child_header in self.headers.items():
             child_lump = getattr(self, child_name)
             if isinstance(child_lump, RawBspLump):
