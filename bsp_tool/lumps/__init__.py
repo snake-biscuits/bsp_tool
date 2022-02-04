@@ -34,28 +34,26 @@ def _remap_slice(_slice: slice, length: int) -> slice:
     return slice(start, stop, step)
 
 
+def decompress_valve_LZMA(data: bytes) -> bytes:
+    """valve LZMA header adapter"""
+    magic, true_size, compressed_size, properties = struct.unpack("4s2I5s", data[:17])
+    _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
+    decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
+    decompressed_data = decompressor.decompress(data[17:17 + compressed_size])
+    return decompressed_data[:true_size]  # trim any excess bytes
+
+
 def decompressed(file: io.BufferedReader, lump_header: Any) -> (io.BytesIO, Any):
     """Takes a lump and decompresses it if nessecary. Also corrects lump_header offset & length"""
     if getattr(lump_header, "fourCC", 0) != 0:
+        # get lump bytes
         if not hasattr(lump_header, "filename"):  # internal compressed lump
             file.seek(lump_header.offset)
             data = file.read(lump_header.length)
         else:  # external compressed lump is unlikely, but possible
             data = open(lump_header.filename, "rb").read()
-        # have to remap lzma header format slightly
-        lzma_header = struct.unpack("4s2I5c", data[:17])
-        # b"LZMA" = lzma_header[0]
-        actual_size = lzma_header[1]
-        assert actual_size == lump_header.fourCC
-        # compressed_size = lzma_header[2]
-        properties = b"".join(lzma_header[3:])
-        _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
-        decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
-        decoded_data = decompressor.decompress(data[17:])
-        decoded_data = decoded_data[:actual_size]  # trim any excess bytes
-        assert len(decoded_data) == actual_size
-        file = io.BytesIO(decoded_data)
-        # modify lump header to point into the decompressed lump
+        file = io.BytesIO(decompress_valve_LZMA(data))
+        # modify lump header to point at the decompressed lump (fake file, data starts at offset=0)
         lump_header.offset = 0
         lump_header.length = lump_header.fourCC
     return file, lump_header
@@ -350,7 +348,7 @@ class GameLump:
         # {"child_name": child_header}
         for i in range(game_lumps_count):
             child_header = GameLumpHeaderClass.from_stream(file)
-            if self.is_external:  # HACK (does this ever happen?)
+            if self.is_external:
                 child_header.offset = child_header.offset - lump_header.offset
             child_name = child_header.id.decode("ascii")
             if self.endianness == "little":
@@ -366,10 +364,16 @@ class GameLump:
             else:
                 file.seek(child_header.offset)
                 try:
-                    child_lump = child_LumpClass(file.read(child_header.length))
+                    child_lump_bytes = file.read(child_header.length)
+                    # check if GameLump child is LZMA compressed (Xbox360)
+                    # -- GameLumpHeader.flags does not appear to inidicate compression
+                    if child_lump_bytes[:4] == b"LZMA":
+                        child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
+                    child_lump = child_LumpClass(child_lump_bytes)
                 except Exception as exc:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
+                    # NOTE: RawBspLumps do not decompress
                 setattr(self, child_name, child_lump)
         if self.is_external:
             file.close()
@@ -378,6 +382,7 @@ class GameLump:
         """lump_offset makes headers relative to the file"""
         # NOTE: ValveBsp .lmp external lumps have a 16 byte header
         # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
+        # NOTE: Xbox360 child lumps will not be recompressed
         out = []
         out.append(len(self.headers).to_bytes(4, self.endianness))
         headers = []
