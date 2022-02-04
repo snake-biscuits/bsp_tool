@@ -1,17 +1,24 @@
 from typing import Any, Dict
 
 
-def make_big_endian(cls):
-    class cls_x360(cls):
-        __name__ = f"{cls.__name__}_x360"
-        _format = f">{cls._format}"
-    return cls_x360
+def make_big_endian(cls) -> object:
+    """forces cls._format to big endian"""
+    # NOTE: using exec is silly, but it renames the class, other approaches do not
+    # altertives tried:
+    # -- subclass w/ __name__: only applied on creation
+    # -- copying class in locals() to a new name: original name persisted
+    exec("\n".join([f"class {cls.__name__}_x360(cls):",
+                    f'    _format = ">{cls._format}"']))
+    # NOTE: trying to use the `inspect` module on a LumpClass_x360 will raise an OSError
+    return locals()[f"{cls.__name__}_x360"]
 
 
 LumpClassDict = Dict[str, Dict[int, Any]]
+# ^ {"LUMP_NAME": {lump_version: LumpClass}}
 
 
 def convert_versioned(LumpClass_dict: LumpClassDict) -> (LumpClassDict, Dict[str, Any]):
+    """flip the endians on a dict of versioned LumpClasses & returns a list of global names"""
     out = dict()
     _globals = dict()
     for LUMP_NAME, version_dict in LumpClass_dict.items():
