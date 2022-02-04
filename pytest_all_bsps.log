@@ -69,7 +69,7 @@ tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions 
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs61] PASSED [ 36%]
 tests/test_bsp.py::test_load_bsp[D:/Emulators/Microsoft/Xbox360-OrangeBox-map_dirs62] PASSED [ 36%]
 tests/test_bsp.py::test_load_bsp[D:/Emulators/Microsoft/Xbox360-Portal2-map_dirs63] PASSED [ 37%]
-tests/test_bsp.py::test_load_bsp[D:/Emulators/Sony/PS4-Titanfall2-map_dirs64] FAILED [ 38%]
+tests/test_bsp.py::test_load_bsp[D:/Emulators/Sony/PS4-Titanfall2-map_dirs64] PASSED [ 38%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs65] PASSED    [ 38%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs66] PASSED     [ 39%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs67] PASSED     [ 39%]
@@ -87,7 +87,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs78] PASSED      [ 46%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs79] PASSED     [ 46%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs80] FAILED        [ 47%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs81] PASSED        [ 47%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs82] FAILED          [ 48%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs82] PASSED          [ 48%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs83] PASSED          [ 49%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs84] PASSED          [ 49%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs85] PASSED     [ 50%]
@@ -103,8 +103,8 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs94] FAILED     [ 55%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs95] PASSED     [ 56%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs96] FAILED [ 56%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs97] PASSED [ 57%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs98] FAILED    [ 57%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs99] FAILED   [ 58%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs98] PASSED    [ 57%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs99] PASSED   [ 58%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs100] PASSED        [ 59%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs101] PASSED        [ 59%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs102] PASSED        [ 60%]
@@ -178,181 +178,6 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] PASSED [100%]
 
 ================================== FAILURES ===================================
-_________ test_load_bsp[D:/Emulators/Sony/PS4-Titanfall2-map_dirs64] __________
-
-group_path = 'D:/Emulators/Sony/PS4', game_name = 'Titanfall2'
-map_dirs = ['maps', 'depot/r2dlc3/game/r2/maps', 'depot/r2dlc4/game/r2/maps', 'depot/r2dlc5/game/r2/maps', 'depot/r2dlc6/game/r2/maps', 'depot/r2dlc7/game/r2/maps', ...]
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  # avoid OSError "Too many open files"
-                        # TODO: check external lumps (RespawnBsp only)
-                        # -- mostly filesize checks
-                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 59 out of 59 .bsps failed
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.titanfall2', 37)
-E       assert {'depot/r2dlc10/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2pcprecert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2ps4precert/game/r2/maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}
-E         Left contains 59 more items:
-E         {'depot/r2dlc10/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2pcprecert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2ps4precert/game/r2/maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'depot/r2dlc10/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2pcprecert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2ps4precert/game/r2/maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_complex3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E           }
-
-tests\test_bsp.py:77: AssertionError
 ______________ test_load_bsp[E:/Mod-Quake/rerelease-map_dirs75] _______________
 
 group_path = 'E:/Mod', game_name = 'Quake/rerelease'
@@ -421,21 +246,17 @@ branch_script = None
         elif filename.lower().endswith(".bsp"):
             if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
                 version = int.from_bytes(file_magic, "little")
-                file_magic = None
                 if version in Quake_versions:
                     BspVariant = QuakeBsp
+                    file_magic = None
                 elif version in GoldSrc_versions:
                     BspVariant = GoldSrcBsp
+                    file_magic = None
                 elif file_magic == b"BSP2":
-                    raise NotImplementedError("BSP2 format is not yet supported")
-                elif file_magic == b"FBSP":
-                    raise NotImplementedError("FBSP format is not yet supported")
-                else:
-                    # TODO: check for encrypted Tactical Intervention .bsp
->                   raise NotImplementedError(f"Unknown file_magic: {file_magic}")
-E                   NotImplementedError: Unknown file_magic: None
+>                   raise NotImplementedError("BSP2 format is not yet supported")
+E                   NotImplementedError: BSP2 format is not yet supported
 
-bsp_tool\__init__.py:83: NotImplementedError
+bsp_tool\__init__.py:79: NotImplementedError
 __________________ test_load_bsp[E:/Mod-Alkaline-map_dirs76] __________________
 
 group_path = 'E:/Mod', game_name = 'Alkaline'
@@ -504,21 +325,17 @@ branch_script = None
         elif filename.lower().endswith(".bsp"):
             if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
                 version = int.from_bytes(file_magic, "little")
-                file_magic = None
                 if version in Quake_versions:
                     BspVariant = QuakeBsp
+                    file_magic = None
                 elif version in GoldSrc_versions:
                     BspVariant = GoldSrcBsp
+                    file_magic = None
                 elif file_magic == b"BSP2":
-                    raise NotImplementedError("BSP2 format is not yet supported")
-                elif file_magic == b"FBSP":
-                    raise NotImplementedError("FBSP format is not yet supported")
-                else:
-                    # TODO: check for encrypted Tactical Intervention .bsp
->                   raise NotImplementedError(f"Unknown file_magic: {file_magic}")
-E                   NotImplementedError: Unknown file_magic: None
+>                   raise NotImplementedError("BSP2 format is not yet supported")
+E                   NotImplementedError: BSP2 format is not yet supported
 
-bsp_tool\__init__.py:83: NotImplementedError
+bsp_tool\__init__.py:79: NotImplementedError
 ___________________ test_load_bsp[E:/Mod-Warsow-map_dirs80] ___________________
 
 group_path = 'E:/Mod', game_name = 'Warsow', map_dirs = ['maps']
@@ -585,161 +402,19 @@ filename = 'E:/Mod\\Warsow\\maps\\ui.bsp', branch_script = None
         elif filename.lower().endswith(".bsp"):
             if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
                 version = int.from_bytes(file_magic, "little")
-                file_magic = None
                 if version in Quake_versions:
                     BspVariant = QuakeBsp
+                    file_magic = None
                 elif version in GoldSrc_versions:
                     BspVariant = GoldSrcBsp
+                    file_magic = None
                 elif file_magic == b"BSP2":
                     raise NotImplementedError("BSP2 format is not yet supported")
                 elif file_magic == b"FBSP":
-                    raise NotImplementedError("FBSP format is not yet supported")
-                else:
-                    # TODO: check for encrypted Tactical Intervention .bsp
->                   raise NotImplementedError(f"Unknown file_magic: {file_magic}")
-E                   NotImplementedError: Unknown file_magic: None
+>                   raise NotImplementedError("FBSP format is not yet supported")
+E                   NotImplementedError: FBSP format is not yet supported
 
-bsp_tool\__init__.py:83: NotImplementedError
-____________________ test_load_bsp[E:/Mod-CoD1-map_dirs82] ____________________
-
-group_path = 'E:/Mod', game_name = 'CoD1', map_dirs = ['maps', 'maps/MP']
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  # avoid OSError "Too many open files"
-                        # TODO: check external lumps (RespawnBsp only)
-                        # -- mostly filesize checks
-                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 42 out of 49 .bsps failed
-E         ('InfinityWardBsp', 'bsp_tool.branches.infinity_ward.call_of_duty1', 59)
-E       assert {'maps/MP/mp_bocage.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_carentan.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_depot.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_harbor.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_neuville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/MP/mp_tigertown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/airfield.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/berlin.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/burnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/carride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/credits.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dam.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/factory.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/pathfinder.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/pegasusday.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/pegasusnight.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/redsquare.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sewer.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/tankdrivetown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/training.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/trainstation.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/truckride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')} == {}
-E         Left contains 42 more items:
-E         {'maps/MP/mp_bocage.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_carentan.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_depot.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_harbor.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_neuville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/MP/mp_tigertown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/airfield.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/berlin.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/burnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/carride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/credits.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/dam.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/factory.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/pathfinder.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/pegasusday.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/pegasusnight.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/redsquare.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sewer.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/tankdrivetown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/training.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/trainstation.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/truckride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'maps/MP/mp_bocage.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_carentan.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_depot.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_harbor.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_neuville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/MP/mp_tigertown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/airfield.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/berlin.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/brecourt.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/burnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/carride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/chateau.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/credits.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/dam.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/dawnville.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/factory.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/hurtgen.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/pathfinder.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/pavlov.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/pegasusday.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/pegasusnight.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/powcamp.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/railyard.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/redsquare.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/rocket.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sewer.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/ship.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/stalingrad.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/tankdrivetown.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/training.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/trainstation.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/truckride.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0'),
-E           }
-
-tests\test_bsp.py:77: AssertionError
+bsp_tool\__init__.py:81: NotImplementedError
 ____________________ test_load_bsp[E:/Mod-CSO2-map_dirs88] ____________________
 
 group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
@@ -2156,7 +1831,7 @@ group_path = 'E:/Mod', game_name = 'Titanfall/x360', map_dirs = ['maps']
 
 tests\test_bsp.py:63: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-bsp_tool\__init__.py:96: in load_bsp
+bsp_tool\__init__.py:97: in load_bsp
     return BspVariant(branch_script, filename, autoload=True)  # might raise errors
 bsp_tool\respawn.py:147: in __init__
     super(RespawnBsp, self).__init__(branch, filename, autoload)
@@ -2197,561 +1872,6 @@ raw_entities = b'{\n"editorclass" "info_particle_system_clientside"\n"Visibility
 E                       StopIteration
 
 bsp_tool\branches\shared.py:69: StopIteration
-_________________ test_load_bsp[E:/Mod-Titanfall2-map_dirs98] _________________
-
-group_path = 'E:/Mod', game_name = 'Titanfall2'
-map_dirs = ['maps', 'depot/r2dlc3/game/r2/maps', 'depot/r2dlc4/game/r2/maps', 'depot/r2dlc5/game/r2/maps', 'depot/r2dlc6/game/r2/maps', 'depot/r2dlc7/game/r2/maps', ...]
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  # avoid OSError "Too many open files"
-                        # TODO: check external lumps (RespawnBsp only)
-                        # -- mostly filesize checks
-                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 90 out of 90 .bsps failed
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.titanfall2', 37)
-E       assert {'depot/r2dlc10/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc10/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc10/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc10/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc10/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc11/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc3/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc4/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc5/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc6/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc7/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc8/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2dlc9/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2pcprecert/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2pcprecert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2pcprecert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2pcprecert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'depot/r2staging/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_colony02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_glitch.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_deck.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_meadow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_stacks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_township.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_traffic.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lf_uma.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_relic02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rise.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_wargames.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}
-E         Left contains 90 more items:
-E         {'depot/r2dlc10/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc10/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc10/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc10/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc10/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc11/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc3/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc4/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc5/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc6/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc7/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc8/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2dlc9/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2pcprecert/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2pcprecert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2pcprecert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2pcprecert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'depot/r2staging/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_colony02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_glitch.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_deck.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_meadow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_stacks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_township.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_traffic.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lf_uma.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_relic02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rise.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_wargames.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'depot/r2dlc10/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc10/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc10/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc10/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc10/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc11/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc3/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc4/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc5/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc6/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc7/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc8/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2dlc9/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2pcprecert/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2pcprecert/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2pcprecert/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2pcprecert/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'depot/r2staging/game/r2/maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_angel_city.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_black_water_canal.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_coliseum.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_coliseum_column.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_colony02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_crashsite3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_drydock.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_eden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_forwardbase_kodai.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_glitch.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_grave.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_homestead.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_deck.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_meadow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_stacks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_township.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_traffic.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lf_uma.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_relic02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rise.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_thaw.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_wargames.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_beacon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_beacon_spoke0.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown_end.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_boomtown_start.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_crashsite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_hub_timeshift.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_s2s.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_sewers1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_skyway_v1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_tday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_timeshift_spoke02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/sp_training.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E           }
-
-tests\test_bsp.py:77: AssertionError
-________________ test_load_bsp[E:/Mod-ApexLegends-map_dirs99] _________________
-
-group_path = 'E:/Mod', game_name = 'ApexLegends'
-map_dirs = ['maps', 'season2/maps', 'season3_30oct19/maps', 'season3_30oct19/depot/r5launch/game/r2/maps', 'season3_30oct19/depot/r5staging/game/r2/maps', 'season3_3dec19/maps', ...]
-
-    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
-    def test_load_bsp(group_path, game_name, map_dirs):
-        """MEGATEST: 69GB+ of .bsp files!"""
-        branch_script = game_scripts.get(game_name)
-        # NOTE: this is ugly and results in quite a few errors
-        # auto-detection really shouldn't have to rely on precise strings
-        errors = dict()
-        # ^ {"game": ["errors"]}
-        types = set()
-        # ^ {(BspClass, branch, version)}
-        total = 0
-        for map_dir in map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            if os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
-                total += len(maps)
-                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
-                for m in maps:  # load every .bsp
-                    try:
-                        bsp_filename = os.path.join(full_path, m)
-                        if os.path.getsize(bsp_filename) == 0:
-                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
-                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
-                            continue  # broken HL2:EP1 map (game crashes on load)
-                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
-                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  # avoid OSError "Too many open files"
-                        # TODO: check external lumps (RespawnBsp only)
-                        # -- mostly filesize checks
-                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
-                        loading_errors = {**bsp.loading_errors}
-                        if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                    except AssertionError as ae:
-                        errors[f"{map_dir}/{m}"] = ae
-                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
-                        del bsp
->       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
-E       AssertionError: 129 out of 149 .bsps failed
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.apex_legends', 47)
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.apex_legends', 48)
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.apex_legends', 49)
-E         ('RespawnBsp', 'bsp_tool.branches.respawn.apex_legends', 50)
-E       assert {'maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_canyonlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_desertlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_olympus.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_10aug21/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_14sep21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_14sep21/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_14sep21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_3aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season10_3aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_6nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season11_6nov21/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_30oct19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season3_3dec19/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season4/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season5/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season5/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season5/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season8/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season9/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season9/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'season9/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/depot/r5-90/game/r2/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'switch_season9/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}
-E         Left contains 129 more items:
-E         {'maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_canyonlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_desertlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_olympus.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_10aug21/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_14sep21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_14sep21/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_14sep21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_3aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season10_3aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_6nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season11_6nov21/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_30oct19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season3_3dec19/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season4/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season5/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season5/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season5/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season8/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season9/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season9/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'season9/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/depot/r5-90/game/r2/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E          'switch_season9/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}
-E         Full diff:
-E           {
-E         -  ,
-E         +  'maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_canyonlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_desertlands_mu2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_olympus.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/depot/r5-100/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_canyonlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_olympus_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_10aug21/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_14sep21/depot/r5-100/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_14sep21/depot/r5-101/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_14sep21/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_14sep21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_3aug21/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season10_3aug21/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_arena_skygarden.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_desertlands_mu3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_19nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_6nov21/depot/r5-110/game/r2/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season11_6nov21/maps/mp_rr_tropic_island.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_30oct19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_desertlands_64k_x_64k_tt.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season3_3dec19/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5launch/game/r2/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/depot/r5staging/game/r2/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_canyonlands_staging.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_desertlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_desertlands_holiday.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season4/maps/mp_rr_desertlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season5/maps/mp_rr_canyonlands_64k_x_64k.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season5/maps/mp_rr_canyonlands_mu1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season5/maps/mp_rr_canyonlands_mu1_night.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season8/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season9/maps/mp_rr_aqueduct.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season9/maps/mp_rr_arena_phase_runner.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'season9/maps/mp_rr_party_crasher.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/depot/r5-90/game/r2/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_lobby.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_arena_phase_runner_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_canyonlands_mu3_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_canyonlands_staging_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_desertlands_mu2_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_olympus_mu1_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E         +  'switch_season9/maps/mp_rr_party_crasher_gen3.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
-E           }
-
-tests\test_bsp.py:77: AssertionError
 ============================== warnings summary ===============================
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:48: UserWarning: Unused LumpClasses in branch script:
@@ -2760,17 +1880,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:48: UserWarning: Unused LumpClasses in branch script:
-  Cell
-  Light
-  AxisAlignedBoundingBox
   Brush
-  Occluder
-  Model
   PatchCollision
   Portal
-  CullGroup
-  DrawVertex
+  Light
   Node
+  DrawVertex
+  Occluder
+  CullGroup
+  Model
+  Cell
+  AxisAlignedBoundingBox
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -2812,7 +1932,7 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 ---------- coverage: platform win32, python 3.9.10-final-0 -----------
 Name                                                    Stmts   Miss  Cover
 ---------------------------------------------------------------------------
-bsp_tool\__init__.py                                       54      5    91%
+bsp_tool\__init__.py                                       55      4    93%
 bsp_tool\base.py                                           66     29    56%
 bsp_tool\branches\__init__.py                              29      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
@@ -2847,7 +1967,7 @@ bsp_tool\branches\raven\soldier_of_fortune2.py             32      0   100%
 bsp_tool\branches\respawn\__init__.py                       5      0   100%
 bsp_tool\branches\respawn\apex_legends.py                 268     22    92%
 bsp_tool\branches\respawn\titanfall.py                    514     85    83%
-bsp_tool\branches\respawn\titanfall2.py                   220      7    97%
+bsp_tool\branches\respawn\titanfall2.py                   215      4    98%
 bsp_tool\branches\respawn\titanfall_x360.py                52     17    67%
 bsp_tool\branches\ritual\__init__.py                        5      0   100%
 bsp_tool\branches\ritual\fakk2.py                          57      0   100%
@@ -2874,26 +1994,22 @@ bsp_tool\extensions\archive.py                             70     70     0%
 bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               110    110     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
-bsp_tool\id_software.py                                    77      6    92%
-bsp_tool\infinity_ward.py                                  83     13    84%
-bsp_tool\lumps\__init__.py                                279     69    75%
+bsp_tool\id_software.py                                    77      9    88%
+bsp_tool\infinity_ward.py                                  69     10    86%
+bsp_tool\lumps\__init__.py                                279     72    74%
 bsp_tool\raven.py                                           3      0   100%
 bsp_tool\respawn.py                                       247    142    43%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         130     67    48%
 ---------------------------------------------------------------------------
-TOTAL                                                    6331   1456    77%
+TOTAL                                                    6313   1455    77%
 
 =========================== short test summary info ===========================
-FAILED tests/test_bsp.py::test_load_bsp[D:/Emulators/Sony/PS4-Titanfall2-map_dirs64]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs75] - ...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs76] - NotImpl...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs80] - NotImplem...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs82] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs88] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs89]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs94] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs96] - S...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs98] - Asser...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs99] - Asse...
-=========== 11 failed, 160 passed, 8 warnings in 6274.97s (1:44:34) ===========
+=========== 7 failed, 164 passed, 8 warnings in 6165.70s (1:42:45) ============
