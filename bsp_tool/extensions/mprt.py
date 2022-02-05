@@ -1,3 +1,6 @@
+import struct
+
+
 def generate(bsp):
     with open(f"{bsp.filename.split('.')[0]}.mprt", "wb") as mprt_file:
         mprt_file.write(b"mprtFAKE LOL")
