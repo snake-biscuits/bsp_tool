@@ -138,7 +138,7 @@ class RespawnBsp(valve.ValveBsp):
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     endianness: str = "little"
     file_magic: bytes = b"rBSP"
-    lump_count: int
+    lump_count: int = 127
     entity_headers: Dict[str, str]
     # {"LUMP_NAME": "header text"}
 
@@ -284,8 +284,7 @@ class RespawnBsp(valve.ValveBsp):
         outfile.write(struct.pack(_format, self.file_magic, bsp_version, self.revision, 127))
         # write headers
         for LUMP in self.branch.LUMP:
-            header = headers[LUMP.name]
-            outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
+            outfile.write(headers[LUMP.name].as_bytes())
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:

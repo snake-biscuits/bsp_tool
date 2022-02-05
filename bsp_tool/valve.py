@@ -17,7 +17,7 @@ class GoldSrcBsp(id_software.QuakeBsp):
 class ValveBsp(base.Bsp):
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format
     file_magic = b"VBSP"
-    # struct LumpHeader { int offset, length version, fourCC; };
+    revision: int = 0
     # struct SourceBspHeader { char file_magic[4]; int version; LumpHeader headers[64]; int revision; };
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
@@ -79,6 +79,8 @@ class ValveBsp(base.Bsp):
                 self.loading_errors[LUMP.name] = exc
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
+        self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * (LUMP.value + 1))
+        self.revision = int.from_bytes(self.file.read(4), self.endianness)
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """Converts the named (versioned) lump back into bytes"""
@@ -90,11 +92,13 @@ class ValveBsp(base.Bsp):
                             **self.branch.LUMP_CLASSES,
                             **self.branch.SPECIAL_LUMP_CLASSES}
         # RawBspLump -> byte
-        if lump_name not in all_lump_classes or lump_name in self.loading_errors:
-            return bytes(lump_entries)
-        elif lump_name in all_lump_classes and lump_name != "GAME_LUMP":
-            if lump_version not in all_lump_classes[lump_name]:
+        if lump_name != "GAME_LUMP":  # NOTE: will fail if GAME_LUMP failed to load
+            if lump_name not in all_lump_classes or lump_name in self.loading_errors:
                 return bytes(lump_entries)
+            elif lump_name in all_lump_classes:
+                if lump_version not in all_lump_classes[lump_name]:
+                    return bytes(lump_entries)
+                # NOTE: if the lump's version is mapped, it will be handled below
         # BasicBspLump -> bytes
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
             _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format
@@ -112,7 +116,6 @@ class ValveBsp(base.Bsp):
         return raw_lump
 
     def save_as(self, filename: str = None):
-        raise NotImplementedError()
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
         # ^ {"lump.name": LumpHeader}
@@ -127,6 +130,7 @@ class ValveBsp(base.Bsp):
         current_offset = 0
         headers = dict()
         for LUMP in lump_order:
+            # NOTE: fourCC should default to zero, we don't repack
             if LUMP.name not in raw_lumps:  # lump is not present
                 headers[LUMP.name] = self.branch.LumpHeader(offset=current_offset,
                                                             length=0,
@@ -134,7 +138,9 @@ class ValveBsp(base.Bsp):
                 continue
             # wierd hack to align unused lump offsets correctly
             if current_offset == 0:
-                current_offset = 16 + (16 * 128)  # first byte after headers
+                # shift to end of header section
+                # struct SourceBspHeader { char file_magic[4]; int version; LumpHeader headers[64]; int revision; };
+                current_offset = 8 + (struct.calcsize(self.branch.LumpHeader._format) * len(self.branch.LUMP)) + 4
             length = len(raw_lumps[LUMP.name])
             headers[LUMP.name] = self.branch.LumpHeader(offset=current_offset,
                                                         length=length,
@@ -148,14 +154,15 @@ class ValveBsp(base.Bsp):
         # make file
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")
+        outfile.write(self.file_magic)
         bsp_version = self.bsp_version
         if isinstance(self.bsp_version, tuple):
             bsp_version = bsp_version[0] + bsp_version[1] << 16
-        outfile.write(struct.pack("4s2I", self.file_magic, bsp_version, self.revision))
+        outfile.write(bsp_version.to_bytes(4, self.endianness))
         # write headers
         for LUMP in self.branch.LUMP:
-            header = headers[LUMP.name]
-            outfile.write(struct.pack("4I", header.offset, header.length, header.version, header.fourCC))
+            outfile.write(headers[LUMP.name].as_bytes())
+        outfile.write(self.revision.to_bytes(4, self.endianness))
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
