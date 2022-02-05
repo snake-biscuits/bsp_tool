@@ -148,7 +148,7 @@ class PhysicsDisplacement(list):  # LUMP 28
 class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
-    name_index: int  # index into AME_LUMP.sprp.model_names
+    model_name: int  # index into AME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
     solid_mode: int  # collision flags enum

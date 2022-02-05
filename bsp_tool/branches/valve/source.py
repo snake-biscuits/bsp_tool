@@ -651,7 +651,7 @@ class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35)
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L151"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
-    name_index: int  # index into GAME_LUMP.sprp.model_names
+    model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
     solid_mode: int  # collision flags enum
@@ -670,7 +670,7 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L168"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
-    name_index: int  # index into GAME_LUMP.sprp.model_names
+    model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
     solid_mode: int  # collision flags enum
@@ -691,7 +691,7 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
-    name_index: int  # index into GAME_LUMP.sprp.model_names
+    model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
     solid_mode: int  # collision flags enum

@@ -238,7 +238,7 @@ class ShadowEnvironment(base.Struct):
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
     """Identified w/ BobTheBob"""
     origin: List[float]  # x, y, z
-    angles: List[float]  # pitch, yaw, roll
+    angles: List[float]  # pitch, yaw, roll (Y Z X)
     scale: float  # indentified by Legion dev DTZxPorter
     model_name: int  # index into GAME_LUMP.sprp.model_names
     solid_mode: int  # bitflags
