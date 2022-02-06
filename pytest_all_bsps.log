@@ -146,7 +146,7 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] PASSED [ 81%]
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] PASSED [ 81%]
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] PASSED [ 82%]
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty4] PASSED [ 83%]
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] PASSED [ 83%]
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] PASSED [ 83%]
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] PASSED [ 84%]
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] PASSED [ 84%]
@@ -239,7 +239,7 @@ branch_script = None
         if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
             assert file_magic == b"IBSP", "Mystery .d3dbsp!"
             assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-            if version >= branches.infinity_ward.call_of_duty4.BSP_VERSION:
+            if version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
                 BspVariant = D3DBsp
             else:
                 BspVariant = InfinityWardBsp
@@ -318,7 +318,7 @@ branch_script = None
         if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
             assert file_magic == b"IBSP", "Mystery .d3dbsp!"
             assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-            if version >= branches.infinity_ward.call_of_duty4.BSP_VERSION:
+            if version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
                 BspVariant = D3DBsp
             else:
                 BspVariant = InfinityWardBsp
@@ -395,7 +395,7 @@ filename = 'E:/Mod\\Warsow\\maps\\ui.bsp', branch_script = None
         if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
             assert file_magic == b"IBSP", "Mystery .d3dbsp!"
             assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-            if version >= branches.infinity_ward.call_of_duty4.BSP_VERSION:
+            if version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
                 BspVariant = D3DBsp
             else:
                 BspVariant = InfinityWardBsp
@@ -1949,7 +1949,7 @@ bsp_tool\branches\id_software\quake3.py                   167     10    94%
 bsp_tool\branches\infinity_ward\__init__.py                 4      0   100%
 bsp_tool\branches\infinity_ward\call_of_duty1.py          147      6    96%
 bsp_tool\branches\infinity_ward\call_of_duty2.py          133      1    99%
-bsp_tool\branches\infinity_ward\call_of_duty4.py           63      0   100%
+bsp_tool\branches\infinity_ward\modern_warfare.py           63      0   100%
 bsp_tool\branches\ion_storm\__init__.py                     2      0   100%
 bsp_tool\branches\ion_storm\daikatana.py                   13      0   100%
 bsp_tool\branches\loiste\__init__.py                        2      0   100%

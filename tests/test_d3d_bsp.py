@@ -4,7 +4,7 @@ import os
 import pytest
 
 from bsp_tool import D3DBsp
-from bsp_tool.branches.infinity_ward import call_of_duty4
+from bsp_tool.branches.infinity_ward import modern_warfare
 
 
 d3dbsps = []
@@ -12,7 +12,7 @@ d3dbsps = []
 for map_dir in ["tests/maps/Call of Duty 4", "tests/maps/Call of Duty 4/mp"]:
     map_dir = os.path.join(os.getcwd(), map_dir)
     for map_name in fnmatch.filter(os.listdir(map_dir), "*[Bb][Ss][Pp]"):
-        d3dbsps.append(D3DBsp(call_of_duty4, os.path.join(map_dir, map_name)))
+        d3dbsps.append(D3DBsp(modern_warfare, os.path.join(map_dir, map_name)))
 
 
 @pytest.mark.parametrize("d3dbsp", d3dbsps)

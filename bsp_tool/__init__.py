@@ -62,7 +62,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
         assert file_magic == b"IBSP", "Mystery .d3dbsp!"
         assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
-        if version >= branches.infinity_ward.call_of_duty4.BSP_VERSION:
+        if version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
             BspVariant = D3DBsp
         else:
             BspVariant = InfinityWardBsp
