@@ -288,7 +288,7 @@ class MappedArray:
         types = split_format(_format)
         assert mapping_length(_mapping) == len(types), "Invalid mapping for format!"
         global type_defaults
-        # TODO: allow defautlt strings (requires a type_defaults function (see below))
+        # TODO: allow default strings (requires a type_defaults function (see below))
         # -- pass down type_defaults _string_mode (warn / trim / fail) ?
         defaults = cls.from_tuple([type_defaults[t] if not t.endswith("s") else "" for t in types],
                                   _mapping=_mapping, _format=_format)
