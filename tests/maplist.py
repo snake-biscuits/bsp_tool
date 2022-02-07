@@ -82,6 +82,8 @@ source_dirs = {
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
          "SourceFilmmaker": ["game/tf/maps"],  # 71 maps | 3.3 GB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
+         # TODO: compile test maps that ship with Tactical Intervention
+         "TacticalIntervention": ["maps"],  # 20 maps | 1.3 GB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 187 maps | 2.6 GB
          "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
@@ -175,11 +177,13 @@ extracted_dirs = {
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
         "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
-        "TacticalIntervention": ["maps"],  # 26 maps | 3.5 GB | Tactical Intervention
+        # Tactical Intervention release maps are 256-bit XOR encrypted
+        # -- see `bsp_tool/extensions/decrypt_xor.py`
+        "TacticalIntervention": ["maps"],  # 4 maps | 533 MB
         # https://www.moddb.com/mods/team-fortress/downloads
-        "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | v2.5
-                              "tf28/FORTRESS/maps",  # 1 map | 1.88 MB
-                              "tfbot080/MAPS"],  # 1 map | 212 KB
+        "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | .zip
+                              "tf28/FORTRESS/maps",  # 1 map | 1.88 MB | .zip
+                              "tfbot080/MAPS"],  # 1 map | 212 KB | .zip
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.1 GB | .hfs
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
