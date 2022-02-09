@@ -79,7 +79,7 @@ class LUMP(enum.Enum):
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    UNKNOWN_61 = 61  # version 1
+    UNKNOWN_61 = 61  # version 1; related to cubemaps?
     UNUSED_62 = 62
     UNUSED_63 = 63
 
