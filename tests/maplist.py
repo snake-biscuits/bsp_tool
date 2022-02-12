@@ -201,18 +201,18 @@ extracted_dirs = {
         "TitanfallOnline": ["maps",  # 17 maps | 2.0 GB | .pkg
                             "v2905-dated-2017-04-08/maps",  # 13 maps | 1.3 GB | .7z
                             "v4050-datarevision-17228-dated-2017-08-17/maps"],  # 13 maps | 1.3 GB | .7z
-        "Titanfall2": ["maps",  # 36 maps | 12.4 GB | .vpk
-                       "depot/r2dlc3/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc4/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc5/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc6/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc7/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc8/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc9/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc10/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2dlc11/game/r2/maps",  # 5 maps | 1.1 GB | .vpk
-                       "depot/r2pcprecert/game/r2/maps",  # 4 maps | 1.1 GB | .vpk
-                       "depot/r2staging/game/r2/maps"],  # 5 maps | 1.1 GB | .vpk
+        "Titanfall2": ["maps",  # 37 maps | 12.7 GB | .vpk
+                       "depot/r2dlc3/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc4/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc5/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc6/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc7/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc8/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc9/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc10/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc11/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2pcprecert/game/r2/maps",  # 5 maps | 1.4 GB | .vpk
+                       "depot/r2staging/game/r2/maps"],  # 6 maps | 1.4 GB | .vpk
         # Thanks to https://apexlegends.fandom.com/wiki/Version_History
         # see also: https://github.com/Syampuuh/TitanfallApexLegends
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
@@ -300,7 +300,9 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halflifeeternal"]}  # 13 maps | 123 MB | Test Tube 16
 
 # extracted from xisos; a very painful process
-# TODO: Left4Dead, Left4Dead2, DarkMessiah of Might & Magic Elements, CS:GO
+# TODO: Left4Dead, Left4Dead2, CS:GO
+# NOTE: DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
+# -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
 x360_dirs = {"OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
                            "episodic/maps",  # 18 maps | 121 MB
                            "hl2/maps",  # 76 maps | 376 MB
@@ -326,9 +328,10 @@ ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
               "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
-              "D:/Emulators/Microsoft/Xbox360": x360_dirs,
-              "D:/Emulators/Sony/PS4": ps4_dirs,
-              "E:/Mod": extracted_dirs,  # Id Software, Respawn Entertainment, Nexon & More
+              "E:/Mod": extracted_dirs,
+              "E:/Mod/PS4": ps4_dirs,
+              "E:/Mod/X360": x360_dirs,
+              # NOTE: the following are copies made of the above dirs; created with backup_bsps.py
               # "F:/bsps": every_bsp_dir,
               # "/media/bikkie/GAMES/bsps": every_bsp_dir
               }
