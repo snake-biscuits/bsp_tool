@@ -240,6 +240,9 @@ extracted_dirs = {
                         "season8/maps",  # 1 map | 1.9 MB | .vpk
                         # season9:  Legacy  [4th May 2021]
                         "season9/maps",  # 4 maps | 226 MB | .vpk
+                        # season9 - Nintendo Switch
+                        "switch_season9/maps",  # 7 maps | 2.4 GB | .vpk
+                        "switch_season9/depot/r5-90/game/r2/maps",  # 7 maps | 2.3 GB | .vpk
                         # season10:  Emergence  [3rd Aug 2021]
                         "season10_3aug21/maps",  # 2 maps | 813 MB | .vpk
                         "season10_10aug21/maps",  # 8 maps | 2.8 GB | .vpk
@@ -255,9 +258,9 @@ extracted_dirs = {
                         "season11_19nov21/maps",  # 10 maps | 1.5 GB | .vpk
                         "season11_19nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB | .vpk
                         "season11_19nov21/depot/r5-111/game/r2/maps",  # 10 maps | 1.4 GB | .vpk
-                        # Nintendo Switch versions
-                        "switch_season9/depot/r5-90/game/r2/maps",  # 7 maps | 2.3 GB | .vpk
-                        "switch_season9/maps"],  # 7 maps | 2.4 GB | .vpk
+                        # season12:  Defiance [9th Feb 2022]
+                        "season12/maps",  # 11 maps | 1.91 GB | .vpk
+                        "season12/depot/r5-120/game/r2/maps"],  # 11 maps | 1.86 GB | .vpk
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
