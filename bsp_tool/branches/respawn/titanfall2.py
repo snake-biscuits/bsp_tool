@@ -13,9 +13,11 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 37
 
-GAME_PATHS = {"Titanfall 2": "Titanfall2"}
+GAME_PATHS = {"Titanfall 2 Tech Test": "Titanfall2_tech_test",
+              "Titanfall 2": "Titanfall2"}
 
-GAME_VERSIONS = {"Titanfall 2": 37}
+GAME_VERSIONS = {"Titanfall 2 Tech Test": 36,
+                 "Titanfall 2": 37}
 
 
 class LUMP(enum.Enum):

@@ -326,7 +326,10 @@ ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
                            "depot/r2dlc11/game/r2/maps",  # 1 map | 764 MB | .vpk
                            "depot/r2pcprecert/game/r2/maps",  # 1 map | 764 MB | .vpk
                            "depot/r2ps4precert/game/r2/maps",  # 24 maps | 10.5 GB | .vpk
-                           "depot/r2staging/game/r2/maps"]}  # 1 map | 764 MB | .vpk
+                           "depot/r2staging/game/r2/maps"],  # 1 map | 764 MB | .vpk
+            # CUSA05988 R2PS4_TechTest_24 (v2.0.0.24)
+            "Titanfall2_tech_test": ["maps",  # 5 maps | 1.14 GB | .vpk
+                                     "depot/r2tt/game/r2/maps"]}  # 5 maps | 1.14 GB | .vpk
 
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
