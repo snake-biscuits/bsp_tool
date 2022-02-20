@@ -189,6 +189,9 @@ LumpHeader = source.LumpHeader
 # Grid -?> Brush -?> BrushSidePlaneOffset -?> Plane
 # (? * ? + ?) * 4 -> GridCell
 
+# Primitives & PrimitiveBounds are paralell (equal number of each "struct")
+# GeoSets & GeoSetBounds are also paralell (same bounds struct, loaded with the same function in engine.dll)
+
 
 # engine limits:
 class MAX(enum.Enum):
@@ -257,6 +260,12 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
     _arrays = {"origin": [*"xyz"]}
 
 
+class GeoSet(base.MappedArray):  # LUMP 87 (0057)
+    unknown: List[int]  # we know the size, but nothing else
+    _mapping = {"unknown": 4}
+    _format = "4h"  # definitely 8 bytes
+
+
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
     scale: float  # scaled against some global vector in engine, I think
@@ -268,7 +277,7 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     _arrays = {"unknown": 4}
 
 
-class LeafWaterData(base.Struct):
+class LeafWaterData(base.Struct):  # LUMP 46 (0024)
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_data: int  # index to this LeafWaterData's TextureData
@@ -615,6 +624,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 # "CELL_BSP_NODES":                    {0: Node},
                 "CM_BRUSHES":                        {0: Brush},
                 "CM_BRUSH_TEX_VECS":                 {0: TextureVector},
+                "CM_GEO_SETS":                       {0: GeoSet},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},
