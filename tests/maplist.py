@@ -176,6 +176,8 @@ extracted_dirs = {
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
         "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
+        # https://gamebanana.com/members/submissions/sublog/1762428
+        "HL2DM/patbytes": ["maps"],  # 46 maps | 895 MB | .7z
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
         # Tactical Intervention release maps are 256-bit XOR encrypted
         # -- see `bsp_tool/extensions/decrypt_xor.py`
