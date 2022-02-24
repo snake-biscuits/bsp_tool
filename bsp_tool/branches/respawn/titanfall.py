@@ -224,10 +224,14 @@ class Flags(enum.IntFlag):
 
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
-    unknown: List[int]  # shorts seem to work best? doesn't look like AABB bounds?
-    __slots__ = ["unknown"]
+    """Identified by warmist"""
+    mins: List[int]
+    unknown_1: int
+    maxs: List[int]
+    unknown_2: int
+    __slots__ = ["mins", "unknown_1", "maxs", "unknown_2"]
     _format = "8h"
-    _arrays = {"unknown": 8}
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class Brush(base.Struct):  # LUMP 92 (005C)
@@ -398,7 +402,14 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
     start: int  # 0 - 3170
     count: int  # 1 - 6
     _mapping = ["start", "count"]  # assumed
-    _format = "2i"
+    _format = "2I"
+
+
+class Primitive(base.MappedArray):  # LUMP 89 (0059)
+    start: int  # assuming indices
+    count: int  # should have a smaller range than start
+    _mapping = ["start", "count"]
+    _format = "2h"
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
@@ -606,7 +617,6 @@ class GameLump_SPRP:
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_BRUSH_SIDE_PROPS":         {0: shared.UnsignedShorts},
                       "CM_GRID_CELLS":               {0: shared.UnsignedInts},
-                      "CM_PRIMITIVES":               {0: shared.UnsignedInts},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # flags?
                       "CSM_OBJ_REFERENCES":          {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
@@ -626,6 +636,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CM_BRUSH_TEX_VECS":                 {0: TextureVector},
                 "CM_GEO_SETS":                       {0: GeoSet},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
+                "CM_PRIMITIVES":                     {0: Primitive},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},
                 "CUBEMAPS":                          {0: Cubemap},
