@@ -162,7 +162,8 @@ def xxd(data: bytes, width: int = 32) -> str:
 
 
 if __name__ == "__main__":
-    import os, sys
+    import os
+    import sys
     sys.path.insert(0, r"C:\Users\Jared\Documents\GitHub\bsp_tool")
     import bsp_tool  # run from top-level
 

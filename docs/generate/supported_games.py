@@ -9,7 +9,7 @@ from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
-from bsp_tool import ArkaneBsp, GoldSrcBsp, RespawnBsp, ValveBsp, QuakeBsp  # noqa: E402
+from bsp_tool import GoldSrcBsp, RespawnBsp, ValveBsp, QuakeBsp  # noqa: E402
 from bsp_tool import branches  # noqa: E402
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import GameLump  # noqa: E402
@@ -21,10 +21,14 @@ branches_url = f"{repo_url}/branches/"
 # Each group gets a .md; lots of formats pretty close, so sharing a table isn't a big deal
 ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "insert", "branch_scripts"])
 source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
-                  branches.valve.left4dead, branches.valve.left4dead2)
+                  branches.valve.left4dead, branches.valve.left4dead2,
+                  *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
 # NOTE: per BspClass fils could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
 # -- confirming all the BspClasses line up is pretty important though
+# NOTE: x360 branch scripts are generated almost entirely from existing branch scripts
+# -- this is incomplete however, as bitfields are also inverted somewhat
+# -- no support for bitfields of any order exists yet anyway, however
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
@@ -37,9 +41,9 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "source.md",
-                      {ArkaneBsp: [branches.arkane.dark_messiah_singleplayer]}),
+                      {ValveBsp: [branches.arkane.dark_messiah_singleplayer]}),
           ScriptGroup("Dark Messiah MP", "darkmessiah_mp.md", "Arkane Studios", "source.md",
-                      {ArkaneBsp: [branches.arkane.dark_messiah_multiplayer]}),
+                      {ValveBsp: [branches.arkane.dark_messiah_multiplayer]}),
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
@@ -122,7 +126,11 @@ def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
 def url_of_LumpClass(LumpClass: object) -> str:
     """gets a url to the definition of LumpClass in the GitHub repo"""
     script_url = LumpClass.__module__[len("bsp_tool.branches."):].replace(".", "/")
-    line_number = inspect.getsourcelines(LumpClass)[1]
+    try:
+        line_number = inspect.getsourcelines(LumpClass)[1]
+    except OSError as exc:  # cannot find definition (likely x360, generating via `eval` breaks inspect)
+        print(f"Could not find definition for: {LumpClass.__name__}")
+        raise exc
     lumpclass_url = f"{branches_url}{script_url}.py#L{line_number}"
     return lumpclass_url
 
@@ -147,7 +155,7 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
     # NOTE: breaking & hard to sort adequately
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(GameLump)[1]}"
     game_lump_handler = f"[`lumps.GameLump`]({game_lump_handler_url})"
-    # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex & ArkaneBsp though...
+    # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex though...
     # TODO: actually calculate ~{coverage - 10} in the coverage dict
     # -- would probably require putting this GameLump iterator thing in a generator of some kind
     bsp_version = branch_script.BSP_VERSION
@@ -263,7 +271,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
 def supported_md(group: ScriptGroup) -> List[str]:
     lines = [f"# {group.headline}\n",
              f"## Developers: {group.developers}\n\n"]
-    versioned_lumps: bool = any([k in (ArkaneBsp, ValveBsp, RespawnBsp) for k in group.branch_scripts.keys()])
+    versioned_lumps: bool = any([k in (ValveBsp, RespawnBsp) for k in group.branch_scripts.keys()])
     # COVERAGE CALCULATIONS
     coverage = dict()
     # ^ {branch_script: {"LUMP_NAME": {lump_version: percent_covered}}}
