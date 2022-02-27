@@ -8,9 +8,18 @@ import zlib
 
 
 # TODO: Nexon .pkg loader
+# TODO: Valve .vpk loader
+# -- BlackMesa, Infra, SinEpisodes, DarkMessiah all store maps in .vpk
 # TODO: Respawn .vpk loader  (make a pull request to ValvePython/vpk)
-# - copy functionality from mrsteyk/RSPNVPK (with permission ofc)
+# -- copy functionality from mrsteyk/RSPNVPK (with permission ofc)
+# TODO: Bluepoint .bpk loader (Titanfall for the Xbox360)
 # TODO: IdTech .pak loader  (https://quakewiki.org/wiki/.pak)
+# -- yquake2/pakextract or Slartibarty/PAKExtract are good tools
+
+# NOTE: you could access raw .bsp files with Zipfile.read("filename.bsp"), but bsp_tool doesn't accept open files
+# -- e1m1 = IdTechBsp(quake, "maps/e1m1.bsp")
+# -- e1m1.file = pak000.read("maps/e1m1.bsp")
+# -- e1m1._preload()
 
 class Pk3(zipfile.ZipFile):
     """Quake & Call of Duty 1 .bsps are stored in .pk3 files, which are basically .zip archives"""

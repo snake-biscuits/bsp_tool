@@ -15,6 +15,9 @@ from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import GameLump  # noqa: E402
 
 # NOTE: forks should substitute their own repo here
+# TODO: get the last commit hash from `git rev-parse HEAD` for permalinks
+# -- default to master if git cannot be run
+# -- gitpython might be a good library for this
 repo_url = "https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool"
 branches_url = f"{repo_url}/branches/"
 
@@ -88,6 +91,7 @@ def url_of_BspClass(BspClass: object) -> str:
     """gets a url to the definition of BspClass in the GitHub repo"""
     script_url = BspClass.__module__.replace(".", "/")
     line_number = inspect.getsourcelines(BspClass)[1]
+    # TODO: block link "#L{start}-L{start + length}"
     lumpclass_url = f"{repo_url}/{script_url}.py#L{line_number}"
     return lumpclass_url
 
@@ -151,8 +155,11 @@ del vbsp_branch_scripts
 TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_version", "LumpClass", "coverage"])
 
 
+# TODO: get functioning to level of hand crafted block
+# -- likely need a dict to map all subclasses
+# -- checking versions in dict against branch scripts should help ensure all is up to date
+# -- coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
 def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> List[str]:
-    # NOTE: breaking & hard to sort adequately
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(GameLump)[1]}"
     game_lump_handler = f"[`lumps.GameLump`]({game_lump_handler_url})"
     # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex though...
@@ -174,9 +181,8 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
                 if lump_class == "None":
                     table_block.add(TableRow(*row_header, game_lump_name, lump_version, "", 0))
                     continue
-                # tracking down an object from a string is insane
-                # maybe GameLumpClasses should use "decorators" instead?
-                # this would create a class object with a traceable StaticPropClass attr?
+                # NOTE: tracking down an object from a string is insane
+                # -- maybe don't bother?
                 child_class = inspect.getmodule(GameLumpClass)
                 for attr in lump_class.split("."):
                     child_class = getattr(child_class, attr)  # TODO: breaking here-ish

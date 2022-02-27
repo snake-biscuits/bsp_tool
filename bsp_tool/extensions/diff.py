@@ -1,5 +1,4 @@
 """Run with 64-bit python! Respawn .bsp files are large!"""
-# TODO: write to log file
 import difflib
 import itertools
 import re
@@ -19,6 +18,7 @@ shared_maps = [("mp_angel_city", "mp_angel_city"),
 
 
 def diff_bsps(bsp1, bsp2, full=False) -> str:
+    """WARNING: full diffs can be incredibly large!"""
     out = []
     if bsp1.folder == bsp2.folder:
         out.append(f"Comparing {bsp1} -> {bsp2}...")
@@ -35,12 +35,14 @@ def diff_bsps(bsp1, bsp2, full=False) -> str:
         bsp1_header = bsp1.headers[lump1]
         bsp2_header = bsp2.headers[lump2]
         lump_name = lump1 if lump1 == lump2 else f"{lump1} -> {lump2}"
+        # NOTE: fourCC (decompressed size) vs length is not calculated
+        # -- in fact, no check to check opposing compressed state (one compressed, one uncompressed)
+        # -- however, LZMA compressed lump contents are always decompressed before comparison
         header_diff = "".join(["Y" if bsp1_header.offset == bsp2_header.offset else "N",
                                "Y" if bsp1_header.length == bsp2_header.length else "N",
                                "Y" if bsp1_header.version == bsp2_header.version else "N",
                                "Y" if bsp1_header.fourCC == bsp2_header.fourCC else "N"])
         # diff lump contents
-        # TODO: compare compressed lumps to uncompressed
         try:
             lump_1_contents = bsp1.lump_as_bytes(lump1)
             lump_2_contents = bsp2.lump_as_bytes(lump2)
@@ -50,11 +52,11 @@ def diff_bsps(bsp1, bsp2, full=False) -> str:
         lumps_match = bool(lump_1_contents == lump_2_contents)
         contents_diff = "YES!" if lumps_match else "NOPE"
         out.append(f"{lump_name}  {header_diff} {contents_diff}")
-        # more detailled diff
-        # TODO: switch from prints to string output (out.extend)
+        # was a lump removed / added?
         if (len(lump_1_contents) == 0 or len(lump_2_contents) == 0) and not lumps_match:
             out.append(" ".join(["+" if hasattr(bsp1, lump1) else "-", f"{bsp1.filename}.{lump1}"]))
             out.append(" ".join(["+" if hasattr(bsp2, lump2) else "-", f"{bsp2.filename}.{lump2}"]))
+        # detailed comparisons
         elif full:
             if not lumps_match:
                 # TODO: measure the scale of the differences
@@ -67,14 +69,18 @@ def diff_bsps(bsp1, bsp2, full=False) -> str:
                 # SPECIAL_LUMP_CLASSES
                 elif all([ln == "ENTITIES" for ln in (lump1, lump2)]):
                     out.append(diff_entities(bsp1.ENTITIES, bsp2.ENTITIES))
-                elif lump1 == "PAKFILE" and lump2 == "PAKFILE":
-                    out.append(diff_pakfiles(bsp1, bsp2))
+                elif all([ln == "PAKFILE" for ln in (lump1, lump2)]):
+                    # NOTE: this will fail on nexon.cso2 bsps, as their pakfiles are unmapped
+                    out.append(diff_pakfiles(bsp1.PAKFILE, bsp2.PAKFILE))
                 # TODO: GAME_LUMP diff model_names
                 else:  # BASIC_LUMP_CLASSES / general raw bytes
-                    diff = difflib.context_diff([*xxd(lump_1_contents, 32)],
+                    # NOTE: xxd line numbers prevent accurately tracing insertions
+                    diff = difflib.context_diff([*xxd(lump_1_contents, 32)],  # 32 bytes per line looks nice
                                                 [*xxd(lump_2_contents, 32)],
                                                 f"{bsp1.filename}.{lump1}",
-                                                f"{bsp1.filename}.{lump1}")
+                                                f"{bsp2.filename}.{lump2}")
+                    # TODO: run xxd without creating line numbers
+                    # -- then, generate line numbers from diff & update diff with these line numbers
                     out.extend(diff)
         else:
             out.extend([str(bsp1_header), str(bsp2_header)])
@@ -84,7 +90,9 @@ def diff_bsps(bsp1, bsp2, full=False) -> str:
 def diff_rbsps(rbsp1, rbsp2, external=True, full=False) -> str:
     """compare internal to external lumps with diff_rbsps(bsp, bsp.external, external=False)"""
     out = ["*** .bsp files ***", diff_bsps(rbsp1, rbsp2, full)]
-    # TODO: confirm ent_types against ENTITY_PARTITION lump
+    # NOTE: could confirm ent_types against ENTITY_PARTITION lump
+    # -- however respawn seems to always use every .ent, leaving the script file empty if unused
+    # -- this makes ENTITY_PARTITION practically useless, as it never changes
     out.append("*** .ent files ***")
     for ent_type in ("env", "fx", "script", "snd", "spawn"):
         ent_lump = f"ENTITIES_{ent_type}"
@@ -122,24 +130,24 @@ def diff_entities(lump1: EntityLump, lump2: EntityLump) -> str:
     return "\n".join(out)
 
 
-def diff_pakfiles(bsp1, bsp2) -> str:
+def diff_pakfiles(bsp1_pakfile, bsp2_pakfile) -> str:
     """Works on any ValveBsp based .bsp (excluding CSO2)"""
     out = []
-    pak1_files = bsp1.PAKFILE.namelist()
-    pak2_files = bsp2.PAKFILE.namelist()
+    pak1_files = bsp1_pakfile.namelist()
+    pak2_files = bsp2_pakfile.namelist()
     for filename in pak1_files:
         absent = filename not in pak2_files
         out.append(f"- {filename}" if absent else f"  {filename}")
         if not absent:
-            file1 = bsp1.PAKFILE.read(filename)
-            file2 = bsp2.PAKFILE.read(filename)
+            file1 = bsp1_pakfile.read(filename)
+            file2 = bsp2_pakfile.read(filename)
             if file1 == file2:
                 continue
             out[-1] = f"~ {filename}"
             diff = difflib.context_diff([*xxd(file1, 32)],
                                         [*xxd(file2, 32)],
-                                        f"{bsp1.filename}.PAKFILE.{filename}",
-                                        f"{bsp1.filename}.PAKFILE.{filename}")
+                                        f"bsp1_pakfile.{filename}",
+                                        f"bsp2_pakfile.{filename}")
             out.extend(diff)
     out.extend([f"+ {f}" for f in pak2_files if f not in pak1_files])
     return "\n".join(out)
@@ -157,6 +165,7 @@ def xxd(data: bytes, width: int = 32) -> str:
     for i, _bytes in enumerate(split(data, width)):
         address = f"0x{i * width:08X}"
         hex = " ".join([f"{b:02X}" for b in _bytes])
+        # TODO: expand allowed ascii chars regex to include more punctuation and compile as a global!
         ascii = "".join([chr(b) if re.match(r"[a-zA-Z0-9/\\]", chr(b)) else "." for b in _bytes])
         yield f"{address}:  {hex}  {ascii}"
 
