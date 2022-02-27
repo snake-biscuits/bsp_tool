@@ -87,7 +87,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs78] PASSED        [ 45%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs79] PASSED          [ 46%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs80] PASSED          [ 46%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs81] PASSED          [ 47%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs82] PASSED     [ 47%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs82] FAILED     [ 47%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs83] PASSED     [ 48%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs84] PASSED    [ 49%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs85] FAILED          [ 49%]
@@ -417,6 +417,160 @@ filename = 'E:/Mod\\Warsow\\maps\\ui.bsp', branch_script = None
 E                   NotImplementedError: FBSP format is not yet supported
 
 bsp_tool\__init__.py:81: NotImplementedError
+_________________ test_load_bsp[E:/Mod-Nightfire-map_dirs82] __________________
+
+group_path = 'E:/Mod', game_name = 'Nightfire', map_dirs = ['ROOT/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 49 out of 53 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.gearbox.nightfire', 42)
+E       assert {'ROOT/maps/ctf_austria.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/ctf_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/ctf_jungle.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/ctf_knox.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/ctf_office.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/ctf_romania.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/ctf_tower.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/dm_casino.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/dm_caviar.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/dm_island.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/dm_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/dm_jungle.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/dm_knox.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/dm_maint.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/dm_office.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/dm_power.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m1_austria01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m1_austria02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m1_austria03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m1_austria04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m2_airfield01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m3_japan02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m3_japan03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m3_japan04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate02.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m4_infiltrate03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate06.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m4_infiltrate07.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m5_power01.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m5_power02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m6_escape01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m6_escape03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m6_escape04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m6_escape05.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m6_escape06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m6_escape07.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m7_island01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m7_island02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m7_island03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m7_island04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m7_island05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m7_island06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m8_missile01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),\n 'ROOT/maps/m8_missile02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m8_missile04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),\n 'ROOT/maps/m9_space01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 49 more items:
+E         {'ROOT/maps/ctf_austria.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/ctf_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/ctf_jungle.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/ctf_knox.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/ctf_office.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/ctf_romania.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/ctf_tower.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/dm_casino.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/dm_caviar.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/dm_island.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/dm_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/dm_jungle.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/dm_knox.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/dm_maint.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/dm_office.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/dm_power.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m1_austria01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m1_austria02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m1_austria03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m1_austria04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m2_airfield01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m3_japan02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m3_japan03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m3_japan04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate02.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m4_infiltrate03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate06.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m4_infiltrate07.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m5_power01.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m5_power02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m6_escape01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m6_escape03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m6_escape04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m6_escape05.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m6_escape06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m6_escape07.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m7_island01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m7_island02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m7_island03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m7_island04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m7_island05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m7_island06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m8_missile01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E          'ROOT/maps/m8_missile02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m8_missile04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E          'ROOT/maps/m9_space01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'ROOT/maps/ctf_austria.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/ctf_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/ctf_jungle.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/ctf_knox.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/ctf_office.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/ctf_romania.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/ctf_tower.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/dm_casino.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/dm_caviar.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/dm_island.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/dm_japan.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/dm_jungle.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/dm_knox.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/dm_maint.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/dm_office.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/dm_power.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m1_austria01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m1_austria02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m1_austria03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m1_austria04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m2_airfield01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m3_japan02.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m3_japan03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m3_japan04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate02.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate04.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate06.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m4_infiltrate07.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m5_power01.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m5_power02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m6_escape01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m6_escape03.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m6_escape04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m6_escape05.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m6_escape06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m6_escape07.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m7_island01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m7_island02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m7_island03.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m7_island04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m7_island05.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m7_island06.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m8_missile01.bsp': AssertionError('NODES, MODELS\nassert 2 == 0\n  +2\n  -0'),
+E         +  'ROOT/maps/m8_missile02.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m8_missile04.bsp': AssertionError('MODELS\nassert 1 == 0\n  +1\n  -0'),
+E         +  'ROOT/maps/m9_space01.bsp': AssertionError('NODES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:77: AssertionError
 ____________________ test_load_bsp[E:/Mod-CSO2-map_dirs85] ____________________
 
 group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
@@ -1882,24 +2036,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:48: UserWarning: Unused LumpClasses in branch script:
-  CullGroup
-  PatchCollision
-  Node
-  AxisAlignedBoundingBox
-  Cell
-  Occluder
-  Model
-  Light
-  Portal
   Brush
+  Occluder
+  Cell
+  PatchCollision
+  CullGroup
+  Model
+  Portal
+  AxisAlignedBoundingBox
+  Node
+  Light
   DrawVertex
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:48: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -1981,7 +2135,7 @@ bsp_tool\branches\troika\__init__.py                        2      0   100%
 bsp_tool\branches\troika\vampire.py                        36      0   100%
 bsp_tool\branches\valve\__init__.py                        10      0   100%
 bsp_tool\branches\valve\alien_swarm.py                     81      0   100%
-bsp_tool\branches\valve\goldsrc.py                         67      0   100%
+bsp_tool\branches\valve\goldsrc.py                         84      0   100%
 bsp_tool\branches\valve\left4dead.py                       82      0   100%
 bsp_tool\branches\valve\left4dead2.py                      83      0   100%
 bsp_tool\branches\valve\orange_box.py                     131     10    92%
@@ -1997,7 +2151,7 @@ bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               110    110     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
-bsp_tool\id_software.py                                    77      9    88%
+bsp_tool\id_software.py                                    77      6    92%
 bsp_tool\infinity_ward.py                                  69     10    86%
 bsp_tool\lumps\__init__.py                                279     72    74%
 bsp_tool\raven.py                                           3      0   100%
@@ -2005,14 +2159,15 @@ bsp_tool\respawn.py                                       246    141    43%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         134     68    49%
 ---------------------------------------------------------------------------
-TOTAL                                                    6343   1467    77%
+TOTAL                                                    6360   1464    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs72] - ...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs73] - NotImpl...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs77] - NotImplem...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs82] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs85] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs86]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs92] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs94] - S...
-=========== 7 failed, 166 passed, 8 warnings in 6623.34s (1:50:23) ============
+=========== 8 failed, 165 passed, 8 warnings in 6559.30s (1:49:19) ============
