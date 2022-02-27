@@ -303,7 +303,8 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "lvl2",  # 14 maps | 461 MB | Map Labs 15
                       "thewrapuptwo",  # 27 maps | 226 MB | Test Tube 15
                       "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
-                      "halflifeeternal"]}  # 13 maps | 123 MB | Test Tube 16
+                      "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
+                      "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
 
 # extracted from xisos; a very painful process
 # TODO: Left4Dead, Left4Dead2, CS:GO
