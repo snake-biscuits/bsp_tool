@@ -93,7 +93,6 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 35 | 0023 | 37 | `GAME_LUMP` | 0 |  | 91% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L267) | 90% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L240) | 92% |
-| 36 | 0024 | 29 | `LEAF_WATER_DATA` | 0 | [`respawn.titanfall.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L272) | 0% |
 | 36 | 0024 | 29 | `LEAF_WATER_DATA` | 0 | [`respawn.titanfall.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L284) | 0% |
 | 37 | 0025 | 29 | `UNUSED_37` | 0 |  | 0% |
 | 38 | 0026 | 29 | `UNUSED_38` | 0 |  | 0% |
