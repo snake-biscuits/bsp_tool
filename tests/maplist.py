@@ -179,6 +179,7 @@ extracted_dirs = {
         # https://gamebanana.com/members/submissions/sublog/1762428
         "HL2DM/patbytes": ["maps"],  # 46 maps | 895 MB | .7z
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
+        "SiNEpisodes": ["maps"],  # 32 maps | 345 MB | .vpk
         # Tactical Intervention release maps are 256-bit XOR encrypted
         # -- see `bsp_tool/extensions/decrypt_xor.py`
         "TacticalIntervention": ["maps"],  # 4 maps | 533 MB
