@@ -105,31 +105,22 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
 
 
 # classes for lumps, in alphabetical order:
-class Model(base.Struct):
+class Model(base.Struct):  # LUMP 14
     bounds: List[List[float]]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
     origin: List[float]  # xyz
     node: List[int]  # 4x node index? [MAX_MAP_HULLS]
     visleaves: int  # "not including the solid leaf 0"
-    first_face: int  # index to the first Face used by this Model
-    num_faces: int  # number of faces after first_face used by this Model
+    first_face: int  # index to the first Face in this Model
+    num_faces: int  # number of faces after first_face in this Model
     __slots__ = ["bounds", "origin", "node", "visleaves", "first_face", "num_faces"]
     _format = "9f7i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"], "node": 4}
 
 
-class Node(base.Struct):
-    plane: int  # index of the plane that splits this node
-    children: List[int]  # the 2 child nodes on either side of plane
-    # NOTE: negative children are contents (leaves?)
-    __slots__ = ["plane", "children"]
-    _format = "i2h"
-    _arrays = {"children": 2}
-
-
 # classes for special lumps, in alphabetical order:
-# TODO: make a special LumpCLass for MipTextures
+# TODO: make a special LumpClass for MipTextures
 # -- any lump containing offsets needs it's own BspLump subclass
 # {"TEXTURES": lambda raw_lump: lump.MipTextures(quake.MipTexture, raw_lump)}
 
@@ -138,7 +129,7 @@ BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"MODELS": Model,
-                     "NODES": Node})
+                     "NODES": quake.ClipNode})
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 

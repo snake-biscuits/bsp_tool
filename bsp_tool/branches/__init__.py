@@ -63,6 +63,8 @@ for file_magic, branch_scripts in scripts_from_file_magic.items():
             script_from_file_magic_and_version[(file_magic, version)] = branch_script
 
 # FORCED DEFAULTS:
+script_from_file_magic_and_version[(None, 29)] = id_software.quake
+# ^ NOT raven.hexen2
 script_from_file_magic_and_version[(b"IBSP", 46)] = id_software.quake3
 # ^ NOT raven.soldier_of_fortune
 script_from_file_magic_and_version[(b"VBSP", 20)] = valve.orange_box

@@ -164,7 +164,9 @@ class LeafType(enum.Enum):
 
 
 class Model(base.Struct):  # LUMP 14
-    bounds: List[float]  # mins & maxs
+    bounds: List[List[float]]
+    # bounds.mins: List[float]  # xyz
+    # bounds.maxs: List[float]  # xyz
     origin: List[float]
     first_node: int  # first node in NODES lumps
     clip_nodes: int  # 1st & second CLIP_NODES indices
@@ -181,8 +183,9 @@ class Model(base.Struct):  # LUMP 14
 
 class MipTexture(base.Struct):  # LUMP 2 (used in MipTextureLump)
     name: str  # texture name
-    # if name starts with "*" it scrolls
-    # if name starts with "+" it ...
+    # if name starts with "*" it scrolls like water / lava
+    # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
+    # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
     size: List[int]  # width & height
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "offsets"]
@@ -197,11 +200,11 @@ class Node(base.Struct):  # LUMP 5
     plane_index: int
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
-    bounds: List[int]
+    bounds: List[int]  # for sphere culling at runtime
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int
     num_faces: int
-    _format = "I10h"
+    _format = "I8h2H"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 

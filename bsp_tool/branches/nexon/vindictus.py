@@ -88,17 +88,10 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-class LumpHeader(base.MappedArray):
-    id: int  # lump index?
-    offset: int  # index in .bsp file where lump begins
-    length: int
-    version: int
-    fourCC: int  # uncompressed size (big endian for some reason)
-    _mapping = ["id", "flags", "version", "offset", "length"]
-    _format = "5I"
+LumpHeader = source.LumpHeader
 
 
-# class for each lump in alphabetical order: [10 / 64] + orange_box.LUMP_CLASSES
+# class for each lump in alphabetical order:
 class Area(base.Struct):  # LUMP 20
     num_area_portals: int  # number or AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index into AreaPortal lump
@@ -314,8 +307,8 @@ class StaticPropScale(base.MappedArray):
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES": {0: shared.UnsignedInts},
-                           "LEAF_FACES":   {0: shared.UnsignedInts}})
+BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES":              {0: shared.UnsignedInts},
+                           "LEAF_FACES":                {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS":             {0: Area},
@@ -325,7 +318,7 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
                      "EDGES":             {0: Edge},
                      "FACES":             {1: Face,
                                            2: Facev2},
-                     "LEAVES":            {0: Leaf},
+                     "LEAVES":            {1: Leaf},
                      "NODES":             {0: Node},
                      "ORIGINAL_FACES":    {1: Face,
                                            2: Facev2},
@@ -333,7 +326,7 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_HEADER = source.GameLumpHeader
+GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()

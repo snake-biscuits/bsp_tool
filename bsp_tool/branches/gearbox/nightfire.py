@@ -71,14 +71,45 @@ class Face(base.MappedArray):  # LUMP 9
 class Leaf(base.Struct):  # LUMP 11
     contents: int
     cluster: int
-    mins: List[float]
-    maxs: List[float]
+    bounds: List[List[float]]
+    # bounds.mins: List[float]  # xyz
+    # bounds.maxs: List[float]  # xyz
     first_mark_brush: int
     num_mark_brushes: int
     first_mark_face: int
     num_mark_faces: int
+    __slots__ = ["contents", "cluster", "bounds",
+                 "first_mark_brush", "num_mark_brushes", "first_mark_face", "num_mark_faces"]
     _format = "2i6f4i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+
+
+class Model(base.Struct):  # LUMP 14
+    bounds: List[List[float]]
+    # bounds.mins: List[float]  # xyz
+    # bounds.maxs: List[float]  # xyz
+    unknown: List[int]  # doesn't align with quake or goldsrc lump sizes afaik
+    first_leaf: int  # index to the first Leaf in this Model
+    num_leaves: int  # number of leaves after first_leaf in this Model
+    first_face: int  # index to the first Face in this Model
+    num_faces: int  # number of faces after first_face in this Model
+    __slots__ = ["bounds", "unknown", "first_leaf", "num_leaves", "first_face", "num_faces"]
+    _format = "6f8i"
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "unknown": 4}
+
+
+class Node(base.Struct):  # LUMP 8
+    # https://en.wikipedia.org/wiki/Half-space_(geometry)
+    # NOTE: bounded by associated model
+    # basic convex solid stuff
+    plane: int
+    children: List[int]  # +ve ClipNode, -1 outside model, -2 inside model
+    bounds: List[List[float]]
+    # bounds.mins: List[float]  # xyz
+    # bounds.maxs: List[float]  # xyz
+    __slots__ = ["plane", "children", "bounds"]
+    _format = "3i6f"
+    _arrays = {"children": ["front", "back"], "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 
 
 class TextureInfo(base.Struct):  # LUMP 17
@@ -96,6 +127,8 @@ LUMP_CLASSES = goldsrc.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES":  BrushSide,
                      "FACES":        Face,
                      "LEAVES":       Leaf,
+                     "MODELS":       Model,
+                     "NODES":        Node,
                      "TEXTURE_INFO": TextureInfo})
 
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
