@@ -1,6 +1,9 @@
 # `bsp_tool` Extensions
 `bsp_tool/extensions` holds various extension scripts that use bsp_tool to do various operations
 
+> NOTE: Extensions generally use external libraries, check requirements.txt for dependencies!
+
+> NOTE: Extensions are experimental and do not have tests
 
 ## archive.py
 This script requires no dependencies  
