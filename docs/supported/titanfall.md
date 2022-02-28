@@ -101,7 +101,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 41 | 0029 | 29 | `UNUSED_41` | 0 |  | 0% |
 | 42 | 002A | 29 | `CUBEMAPS` | 0 | [`respawn.titanfall.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L259) | 50% |
 | 43 | 002B | 29 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L130) | 100% |
-| 44 | 002C | 29 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L38) | 100% |
+| 44 | 002C | 29 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L34) | 100% |
 | 45 | 002D | 29 | `UNUSED_45` | 0 |  | 0% |
 | 46 | 002E | 29 | `UNUSED_46` | 0 |  | 0% |
 | 47 | 002F | 29 | `UNUSED_47` | 0 |  | 0% |

@@ -625,7 +625,7 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "PORTAL_EDGE_REFERENCES":      {0: shared.UnsignedShorts},
                       "PORTAL_VERTEX_REFERENCES":    {0: shared.UnsignedShorts},
                       "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
-                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedShorts},
+                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedInts},
                       "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
                       "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts}}
 
