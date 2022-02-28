@@ -13,13 +13,14 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 46
 
-GAME_PATHS = {"Quake 3 Arena": "Quake 3 Arena",
+GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: Team Arena"
               "Quake Live": "Quake Live",
-              "Return to Castle Wolfenstein": "realRTCW",  # steam release
+              "Return to Castle Wolfenstein": "realRTCW",  # Steam release (community made afaik)
               "Wolfenstein: Enemy Territory": "Wolfenstein - Enemy Territory",
+              "WRATH: Aeon of Ruin": "WRATH",
               "Dark Salvation": "Dark Salvation"}  # https://mangledeyestudios.itch.io/dark-salvation
 
-GAME_VERSIONS = {"Quake 3 Arena": 46, "Quake Live": 46,
+GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
                  "Return to Castle Wolfenstein": 47,
                  "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}

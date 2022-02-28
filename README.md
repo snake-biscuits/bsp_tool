@@ -70,6 +70,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Quake](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py)
     - [Quake II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Quake III Arena](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
+    - [Quake III: Team Arena](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - Quake Champions :o:
     - [Quake Live](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
   * [Infinity Ward](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward)
@@ -102,7 +103,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Heavy Metal F.A.K.K. 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/fakk2.py)
     - [SiN](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py)
     - [SiN: Gold](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/sin.py)
-    - [SiN Episodes: Emergence](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py) :o:
+    - [SiN Episodes: Emergence](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Star Trek: Elite Force II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/star_trek_elite_force2.py)
   * [Valve Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve)
     - [Alien Swarm](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/alien_swarm.py)
@@ -164,6 +165,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - Warsow :x:
     - [Wolfenstein: Enemy Territory](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
+    - [WRATH: Aeon of Ruin](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
 
 
 ## Thanks

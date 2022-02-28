@@ -90,7 +90,7 @@ source_dirs = {
          "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]}  # 101 maps | 430 MB
 # ^ {"game_dir": ["map_dir"]}
 
-# TODO: workshop_dirs
+# TODO: steam_workshop_dirs
 
 extracted_dirs = {
         # IdTechBsp
@@ -136,15 +136,21 @@ extracted_dirs = {
                             "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
                             "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
         # http://quake.great-site.net/
+        # NOTE: contains b"BSP2"
         "Alkaline": ["alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
                      "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
                      "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
         # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps"],  # 8 maps | 10 MB | .pak
-        "QuakeIII": ["maps"],  # 31 maps | 116 MB | .pk3
+        "QuakeIII": ["baseq3/pak0.pk3/maps",  # 31 maps | 110 MB | .pk3
+                     "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
+                     # "baseq3/pak4.pk3/maps",  # only .aas files
+                     "baseq3/pak6.pk3/maps",  # 4 maps | 14 MB | .pk3
+                     "missionpack/pak0.pk3/maps"],  # 21 maps | 150 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
+        # NOTE: contains b"FBSP"
         "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
         "WolfET": ["pak0.pk3/maps",  # 6 maps | 86 MB | .pk
@@ -152,6 +158,7 @@ extracted_dirs = {
                    "singleplayer/maps",  # 32 maps | 288 MB | .pk3
                    # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
                    "realRTCW_singleplayer/maps"],  # 2 maps | 31 MB | .pk3
+        "WRATH": ["pak002.pk3/maps"],  # 7 maps | 395 MB | .pk3
         # InfinityWardBsp
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
