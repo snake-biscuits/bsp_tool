@@ -373,6 +373,7 @@ class Face(base.Struct):  # LUMP 7
     # lightmap.mins  # dimensions of lightmap segment
     # lightmap.size  # scalars for lightmap segment
     original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    # NOTE: num_primitives top bit is a flag for shadows, this means a max of 32768 primitives are allowed
     num_primitives: int  # non-zero if t-juncts are present? number of Primitives
     first_primitive_id: int  # index of Primitive
     smoothing_groups: int    # lightmap smoothing group
