@@ -458,8 +458,13 @@ group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
                         # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
                         errors[f"{map_dir}/{m}"] = ae
@@ -669,7 +674,7 @@ E         +  'maps/zz_phouse.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\n
 E         +  'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),
 E           }
 
-tests\test_bsp.py:77: AssertionError
+tests\test_bsp.py:82: AssertionError
 __________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs88] __________
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/singleplayer'
@@ -709,8 +714,13 @@ map_dirs = ['maps']
                         # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
                         errors[f"{map_dir}/{m}"] = ae
@@ -796,7 +806,7 @@ E         +  'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\
 E         +  'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:77: AssertionError
+tests\test_bsp.py:82: AssertionError
 _________________ test_load_bsp[E:/Mod-Vindictus-map_dirs95] __________________
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
@@ -835,8 +845,13 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
                         # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                         loading_errors = {**bsp.loading_errors}
                         if hasattr(bsp, "GAME_LUMP"):
-                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
                         assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                     except AssertionError as ae:
                         errors[f"{map_dir}/{m}"] = ae
@@ -1484,7 +1499,7 @@ E         +  'maps/w_boss.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'
 E         +  'maps/w_boss02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
-tests\test_bsp.py:77: AssertionError
+tests\test_bsp.py:82: AssertionError
 _______________ test_load_bsp[E:/Mod-Titanfall/x360-map_dirs97] _______________
 
 group_path = 'E:/Mod', game_name = 'Titanfall/x360', map_dirs = ['maps']
@@ -1569,17 +1584,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:48: UserWarning: Unused LumpClasses in branch script:
-  PatchCollision
-  Cell
-  Brush
+  CullGroup
   Node
   Light
+  Brush
   Model
+  Cell
   Occluder
+  Portal
   DrawVertex
   AxisAlignedBoundingBox
-  Portal
-  CullGroup
+  PatchCollision
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -1670,7 +1685,7 @@ bsp_tool\branches\valve\orange_box.py                     131     10    92%
 bsp_tool\branches\valve\orange_box_x360.py                109     10    91%
 bsp_tool\branches\valve\sdk_2013.py                        82      0   100%
 bsp_tool\branches\valve\sdk_2013_x360.py                   17      0   100%
-bsp_tool\branches\valve\source.py                         595    111    81%
+bsp_tool\branches\valve\source.py                         595    136    77%
 bsp_tool\branches\vector.py                               175    121    31%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
@@ -1681,13 +1696,13 @@ bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
 bsp_tool\id_software.py                                    77      9    88%
 bsp_tool\infinity_ward.py                                  69     10    86%
-bsp_tool\lumps\__init__.py                                279     69    75%
+bsp_tool\lumps\__init__.py                                279     66    76%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       246    141    43%
+bsp_tool\respawn.py                                       246    130    47%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         134     68    49%
 ---------------------------------------------------------------------------
-TOTAL                                                    6366   1448    77%
+TOTAL                                                    6366   1459    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs73] - ...
@@ -1697,4 +1712,4 @@ FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs87] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs88]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs95] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs97] - S...
-=========== 7 failed, 169 passed, 7 warnings in 6734.28s (1:52:14) ============
+=========== 7 failed, 169 passed, 7 warnings in 12033.63s (3:20:33) ===========

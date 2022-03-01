@@ -67,8 +67,13 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                     loading_errors = {**bsp.loading_errors}
                     if hasattr(bsp, "GAME_LUMP"):
-                        if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # HACK: Vindictus GameLump not mapped
+                        if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                             loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                    if hasattr(bsp, "external"):
+                        loading_errors.update(bsp.external.loading_errors)
+                        if hasattr(bsp.external, "GAME_LUMP"):
+                            if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
                     assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                 except AssertionError as ae:
                     errors[f"{map_dir}/{m}"] = ae
