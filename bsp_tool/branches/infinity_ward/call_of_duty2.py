@@ -85,7 +85,10 @@ LumpHeader = call_of_duty1.LumpHeader
 #   LIGHT_INDICES
 #   COLLISION_INDICES
 
-# TODO: a rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
+#      /-> Brush
+# Model -> Mesh        /-> Vertex
+#      \-> TriangleSoup -> Triangle -?> Vertex
 
 
 # flag enums

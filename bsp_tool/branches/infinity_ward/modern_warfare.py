@@ -96,7 +96,10 @@ class LumpHeader(base.MappedArray):
 #   CULL_GROUP_INDICES
 # NOTE: func_cull_group is still present in CoD4Radiant
 
-# TODO: a rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
+#      /-> Brush
+# Model -> Mesh        /-> Vertex
+#      \-> TriangleSoup -> Triangle -?> Vertex
 
 
 # {"LUMP_NAME": LumpClass}
