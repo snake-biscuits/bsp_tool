@@ -2,9 +2,6 @@
 from . import quake
 from . import quake2
 from . import quake3
-# TODO: quake4 (IdTech4 == no .bsp?)
-# TODO: quake_champions (proprietary archives)
-# TODO: hexen2 (extends quake)
 
 
 scripts = [quake, quake2, quake3]
