@@ -161,11 +161,11 @@ class Lightmap(list):  # LUMP 14
     _pixels: List[bytes] = [b"\0" * 3] * 128 * 128
     _format = "3s" * 128 * 128  # 128x128 RGB_888
 
-    def __getitem__(self, row) -> List[bytes]:  # returns 3 bytes: b"\xRR\xGG\xBB"
+    def __getitem__(self, row) -> List[bytes]:
         # Lightmap[row][column] returns self.__getitem__(row)[column]
         # to get a specific pixel: self._pixels[index]
-        row_start = row * 512
-        return self._pixels[row_start:row_start + 512]  # TEST: does it work with negative indices?
+        row_start = row * 128
+        return self._pixels[row_start:row_start + 128]  # TEST: does it work with negative indices?
 
     def flat(self) -> bytes:
         return b"".join(self._pixels)

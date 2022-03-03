@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "D3DBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
+           "D3DBsp", "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
            "QuakeBsp", "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
@@ -9,8 +9,8 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
-from .id_software import QuakeBsp, IdTechBsp
-from .infinity_ward import InfinityWardBsp, D3DBsp
+from .id_software import FusionBsp, IdTechBsp, QuakeBsp
+from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
 from .ritual import RitualBsp
@@ -18,8 +18,10 @@ from .valve import GoldSrcBsp, ValveBsp
 
 
 BspVariant_from_file_magic = {b"2015": RitualBsp,
+                              # TODO: b"BSP2"
                               b"EF2!": RitualBsp,
                               b"FAKK": RitualBsp,
+                              b"FBSP": FusionBsp,
                               b"IBSP": IdTechBsp,  # + InfinityWardBsp + D3DBsp
                               b"PSBr": RespawnBsp,  # Xbox360
                               b"PSBV": ValveBsp,  # Xbox360
@@ -77,8 +79,6 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
                 file_magic = None
             elif file_magic == b"BSP2":
                 raise NotImplementedError("BSP2 format is not yet supported")
-            elif file_magic == b"FBSP":
-                raise NotImplementedError("FBSP format is not yet supported")
             else:
                 # TODO: check for encrypted Tactical Intervention .bsp
                 raise NotImplementedError(f"Unknown file_magic: {file_magic}")

@@ -58,10 +58,6 @@ class QuakeBsp(base.Bsp):
 # https://github.com/xonotic/darkplaces/
 
 
-# TODO: FBSP (Warsow)
-# https://quakewiki.org/wiki/FTEQW_Modding#FBSP_map_support
-
-
 class IdTechBsp(base.Bsp):
     file_magic = b"IBSP"
     # https://www.mralligator.com/q3/
@@ -77,7 +73,7 @@ class IdTechBsp(base.Bsp):
         # struct LumpHeader { int offset, length; };
         # struct BspHeader { char file_magic[4]; int version; LumpHeader headers[]; };
         file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.file} is not a valid .bsp!"
+        assert file_magic == self.file_magic, f"{self.file.name} file_magic is invalid: ({file_magic} != {self.file_magic})"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
@@ -108,3 +104,9 @@ class IdTechBsp(base.Bsp):
                 self.loading_errors[LUMP.name] = exc
                 BspLump = lumps.RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
+
+
+class FusionBsp(IdTechBsp):
+    file_magic = b"FBSP"
+    # https://quakewiki.org/wiki/FTEQW_Modding#FBSP_map_support
+    # https://github.com/Qfusion/qfusion/blob/master/source/qcommon/qfiles.h
