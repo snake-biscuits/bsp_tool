@@ -21,7 +21,6 @@ class QuakeBsp(base.Bsp):
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
-
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP in self.branch.LUMP:
@@ -33,29 +32,66 @@ class QuakeBsp(base.Bsp):
             try:
                 if LUMP.name in self.branch.LUMP_CLASSES:
                     LumpClass = self.branch.LUMP_CLASSES[LUMP.name]
-                    BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+                    BspLump = lumps.BspLump(self.file, lump_header, LumpClass)
                 elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
                     SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name]
                     self.file.seek(lump_header.offset)
                     BspLump = SpecialLumpClass(self.file.read(lump_header.length))
                 elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
                     LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
-                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                    BspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)
                 else:
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                    BspLump = lumps.RawBspLump(self.file, lump_header)
             except Exception as exc:
                 self.loading_errors[LUMP.name] = exc
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
-                # NOTE: doesn't decompress LZMA, fix that
+                BspLump = lumps.RawBspLump(self.file, lump_header)
             setattr(self, LUMP.name, BspLump)
 
 
-# TODO: BSP2 (Darkplaces / Alkaline / Dimensions of the Past)
-# https://ericwa.github.io/ericw-tools/doc/qbsp.html
-# https://github.com/ericwa/ericw-tools
-# https://quakewiki.org/wiki/BSP2
-# https://github.com/xonotic/darkplaces/blob/master/model_brush.c
-# https://github.com/xonotic/darkplaces/
+class ReMakeQuakeBsp(QuakeBsp):
+    """ReMakeQuake BSP2 Format"""
+    file_magic = b"BSP2"
+    bsp_version = None
+    # https://ericwa.github.io/ericw-tools/doc/qbsp.html
+    # https://github.com/ericwa/ericw-tools
+    # https://quakewiki.org/wiki/BSP2
+    # https://github.com/xonotic/darkplaces/blob/master/model_brush.c
+
+    def _preload(self):
+        self.file = open(os.path.join(self.folder, self.filename), "rb")
+        # struct LumpHeader { int offset, version; };
+        # struct BspHeader { char[4] file_magic; LumpHeader headers[]; };
+        file_magic = self.file.read(4)
+        assert file_magic == self.file_magic, f"{self.filename} is not a {self.__class__.__name__}"
+        self.file_magic = file_magic
+        self.version = None
+        self.file.seek(0, 2)  # move cursor to end of file
+        self.bsp_file_size = self.file.tell()
+        self.headers = dict()
+        self.loading_errors: Dict[str, Exception] = dict()
+        for LUMP in self.branch.LUMP:
+            self.file.seek(4 + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
+            lump_header = self.branch.LumpHeader.from_stream(self.file)
+            self.headers[LUMP.name] = lump_header
+            if lump_header.length == 0:
+                continue  # empty lump
+            try:
+                if LUMP.name in self.branch.LUMP_CLASSES:
+                    LumpClass = self.branch.LUMP_CLASSES[LUMP.name]
+                    BspLump = lumps.BspLump(self.file, lump_header, LumpClass)
+                elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
+                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name]
+                    self.file.seek(lump_header.offset)
+                    BspLump = SpecialLumpClass(self.file.read(lump_header.length))
+                elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
+                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name]
+                    BspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)
+                else:
+                    BspLump = lumps.RawBspLump(self.file, lump_header)
+            except Exception as exc:
+                self.loading_errors[LUMP.name] = exc
+                BspLump = lumps.RawBspLump(self.file, lump_header)
+            setattr(self, LUMP.name, BspLump)
 
 
 class IdTechBsp(base.Bsp):
@@ -107,6 +143,7 @@ class IdTechBsp(base.Bsp):
 
 
 class FusionBsp(IdTechBsp):
+    """QFusion FBSP Format"""
     file_magic = b"FBSP"
     # https://quakewiki.org/wiki/FTEQW_Modding#FBSP_map_support
     # https://github.com/Qfusion/qfusion/blob/master/source/qcommon/qfiles.h

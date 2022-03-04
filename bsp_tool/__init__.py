@@ -1,7 +1,7 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "lumps", "tools",
-           "D3DBsp", "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
-           "QuakeBsp", "RavenBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+__all__ = ["base", "branches", "load_bsp", "lumps", "tools", "D3DBsp",
+           "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp",
+           "RavenBsp", "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
@@ -9,7 +9,7 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
-from .id_software import FusionBsp, IdTechBsp, QuakeBsp
+from .id_software import FusionBsp, IdTechBsp, QuakeBsp, ReMakeQuakeBsp
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
@@ -18,7 +18,7 @@ from .valve import GoldSrcBsp, ValveBsp
 
 
 BspVariant_from_file_magic = {b"2015": RitualBsp,
-                              # TODO: b"BSP2"
+                              b"BSP2": ReMakeQuakeBsp,
                               b"EF2!": RitualBsp,
                               b"FAKK": RitualBsp,
                               b"FBSP": FusionBsp,
@@ -54,11 +54,14 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     # parse header
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
-        if file_magic in (b"PSBr", b"PSBV"):
+        if file_magic == b"BSP2":
+            return ReMakeQuakeBsp(branches.id_software.remake_quake, filename)
+        # endianness
+        if file_magic in (b"PSBr", b"PSBV"):  # big endian
             version = int.from_bytes(bsp_file.read(4), "big")
         else:
             version = int.from_bytes(bsp_file.read(4), "little")
-        if version > 0xFFFF:
+        if version > 0xFFFF:  # 2 part version
             version = (version & 0xFFFF, version >> 16)  # major, minor
     # identify BspVariant
     if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
@@ -77,8 +80,6 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
             elif version in GoldSrc_versions:
                 BspVariant = GoldSrcBsp
                 file_magic = None
-            elif file_magic == b"BSP2":
-                raise NotImplementedError("BSP2 format is not yet supported")
             else:
                 # TODO: check for encrypted Tactical Intervention .bsp
                 raise NotImplementedError(f"Unknown file_magic: {file_magic}")

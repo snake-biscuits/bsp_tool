@@ -17,7 +17,6 @@ GAME_PATHS = {"Quake": "Quake", "Team Fortress Quake": "QUAKE/FORTRESS"}
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
-# lump names & indices:
 class LUMP(enum.Enum):
     ENTITIES = 0  # one long string
     PLANES = 1
@@ -42,6 +41,7 @@ class LumpHeader(base.MappedArray):
 
 
 # A rough map of the relationships between lumps:
+
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
 #                   \-> CLIP_NODES -> PLANES
 
@@ -99,6 +99,17 @@ class Contents(enum.IntFlag):
     CURRENT_DOWN = -14
 
 
+class LeafType(enum.Enum):
+    # NOTE: other types exist, but are unknown
+    NORMAL = -1
+    SOLID = -2
+    WATER = -3
+    SLIME = -4
+    LAVA = -5
+    SKY = -6
+    # NOTE: types below 6 may not be implemented, but act like water
+
+
 # classes for lumps, in alphabetical order:
 class ClipNode(base.Struct):  # LUMP 9
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
@@ -127,40 +138,29 @@ class Face(base.Struct):  # LUMP 7
     side: int  # 0 or 1 for side of plane
     first_edge: int
     num_edges: int
-    texture_info_index: int  # index of this face's TextureInfo
+    texture_info: int  # index of this face's TextureInfo
     lighting_type: int  # 0x00=lightmap, 0xFF=no-lightmap, 0x01=fast-pulse, 0x02=slow-pulse, 0x03-0x10 other
     base_light: int  # 0x00 bright - 0xFF dark (lowest possible light level)
     light: int
     lightmap: int  # index into lightmap lump, or -1
-    __slots__ = ["plane", "side", "first_edge", "num_edges", "texture_info_index",
+    __slots__ = ["plane", "side", "first_edge", "num_edges", "texture_info",
                  "lighting_type", "base_light", "light", "lightmap"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
 
 
 class Leaf(base.Struct):  # LUMP 10
-    type: int  # see LeafType enum
+    leaf_type: int  # see LeafType enum
     cluster: int  # index into the VISIBILITY lump
     bounds: List[int]
     first_leaf_face: int
     num_leaf_faces: int
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-    __slots__ = ["type", "cluster", "bounds", "first_leaf_face",
+    __slots__ = ["leaf_type", "cluster", "bounds", "first_leaf_face",
                  "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "sound": ["water", "sky", "slime", "lava"]}
-
-
-class LeafType(enum.Enum):
-    # NOTE: other types exist, but are unknown
-    NORMAL = -1
-    SOLID = -2
-    WATER = -3
-    SLIME = -4
-    LAVA = -5
-    SKY = -6
-    # NOTE: types below 6 may not be implemented, but act like water
 
 
 class Model(base.Struct):  # LUMP 14
@@ -238,8 +238,9 @@ class Vertex(base.MappedArray):  # LUMP 3
 
 
 # special lump classes, in alphabetical order:
-class MipTextureLump:  # LUMP 2
+class MipTextureLump(list):  # LUMP 2
     """Lists MipTextures and handles lookups"""
+    # TODO: test & get offsets working
     _bytes: bytes
     _changes: Dict[int, MipTexture]
 
@@ -277,16 +278,18 @@ LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "TEXTURE_INFO": TextureInfo,
                 "VERTICES":     Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities}
+SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 # TODO: "MIP_TEXTURES": MipTextureLump
 
 
 # branch exclusive methods, in alphabetical order:
 def vertices_of_face(bsp, face_index: int) -> List[float]:
+    # TODO: create
     raise NotImplementedError()
 
 
 def vertices_of_model(bsp, model_index: int) -> List[float]:
+    # TODO: create
     raise NotImplementedError()
 
 
