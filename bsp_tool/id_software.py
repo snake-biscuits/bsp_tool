@@ -52,10 +52,12 @@ class ReMakeQuakeBsp(QuakeBsp):
     """ReMakeQuake BSP2 Format"""
     file_magic = b"BSP2"
     bsp_version = None
-    # https://ericwa.github.io/ericw-tools/doc/qbsp.html
-    # https://github.com/ericwa/ericw-tools
     # https://quakewiki.org/wiki/BSP2
     # https://github.com/xonotic/darkplaces/blob/master/model_brush.c
+
+    def __repr__(self):
+        branch_script = ".".join(self.branch.__name__.split(".")[-2:])
+        return f"<{self.__class__.__name__} '{self.filename}' {branch_script}>"
 
     def _preload(self):
         self.file = open(os.path.join(self.folder, self.filename), "rb")

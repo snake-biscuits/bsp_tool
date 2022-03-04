@@ -12,7 +12,8 @@ FILE_MAGIC = None
 
 BSP_VERSION = 29
 
-GAME_PATHS = {"Quake": "Quake", "Team Fortress Quake": "QUAKE/FORTRESS"}
+GAME_PATHS = {"DarkPlaces": "DarkPlaces", "Quake": "Quake",
+              "Team Fortress Quake": "QUAKE/FORTRESS"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -152,7 +153,9 @@ class Face(base.Struct):  # LUMP 7
 class Leaf(base.Struct):  # LUMP 10
     leaf_type: int  # see LeafType enum
     cluster: int  # index into the VISIBILITY lump
-    bounds: List[int]
+    bounds: List[List[int]]
+    # bounds.mins: List[int]
+    # bounds.maxs: List[int]
     first_leaf_face: int
     num_leaf_faces: int
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
@@ -165,8 +168,8 @@ class Leaf(base.Struct):  # LUMP 10
 
 class Model(base.Struct):  # LUMP 14
     bounds: List[List[float]]
-    # bounds.mins: List[float]  # xyz
-    # bounds.maxs: List[float]  # xyz
+    # bounds.mins: List[float]
+    # bounds.maxs: List[float]
     origin: List[float]
     first_node: int  # first node in NODES lumps
     clip_nodes: int  # 1st & second CLIP_NODES indices
@@ -197,13 +200,16 @@ class MipTexture(base.Struct):  # LUMP 2 (used in MipTextureLump)
 
 
 class Node(base.Struct):  # LUMP 5
-    plane_index: int
+    plane: int
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
     bounds: List[int]  # for sphere culling at runtime
+    # bounds.mins: List[int]
+    # bounds.maxs: List[int]
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int
     num_faces: int
+    __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I8h2H"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
@@ -219,13 +225,13 @@ class Plane(base.Struct):  # LUMP 1
 
 
 class TextureInfo(base.Struct):  # LUMP 6
-    u: List[float]
-    v: List[float]
-    mip_texture_index: int
+    s: List[float]  # S (U-Axis) texture vector
+    t: List[float]  # T (V-Axis) texure vector
+    mip_texture: int
     animated: int  # 0 or 1
-    __slots__ = ["u", "v", "mip_texture_index", "animated"]
+    __slots__ = ["s", "t", "mip_texture", "animated"]
     _format = "8f2I"
-    _arrays = {"u": [*"xyzw"], "v": [*"xyzw"]}
+    _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
 
 
 class Vertex(base.MappedArray):  # LUMP 3

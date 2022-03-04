@@ -19,10 +19,10 @@ GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: 
               "Wolfenstein: Enemy Territory": "Wolfenstein - Enemy Territory",
               "WRATH: Aeon of Ruin": "WRATH",
               "Dark Salvation": "Dark Salvation"}  # https://mangledeyestudios.itch.io/dark-salvation
+# TODO: see where Xonotic & Nexuiz Classic fit in
 
 GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
-                 "Return to Castle Wolfenstein": 47,
-                 "Wolfenstein Enemy Territory": 47,
+                 "Return to Castle Wolfenstein": 47, "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}
 
 

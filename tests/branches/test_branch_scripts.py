@@ -1,6 +1,6 @@
 """These tests cannot fail, but they will provide warnings for unused LumpClasses"""
-# TODO: identify SubLumpClasses used in some way
 import inspect
+import struct
 from types import ModuleType
 from typing import List
 import warnings
@@ -10,7 +10,8 @@ import pytest
 from bsp_tool import branches
 
 
-# TODO: check all attrs in type hints and _arrays appear in __slots__ / list(*_mapping)
+# TODO: Use "./tests/maps/*.bsp" to check each LumpClass matches byte for byte
+
 
 def LumpClasses_of(module: ModuleType) -> List[object]:
     attrs = dir(module)
@@ -19,6 +20,38 @@ def LumpClasses_of(module: ModuleType) -> List[object]:
         if inspect.isclass(LumpClass):
             if issubclass(LumpClass, (branches.base.Struct, branches.base.MappedArray)):
                 yield LumpClass
+
+
+def verify(LumpClass):
+    """checks LumpClass for anything irregular"""
+    # TODO: verify __slots__, _format, _arrays & _mapping line up correctly
+    # -- all LumpClasses must coherently translate to and from bytes
+    # -- no skipped bytes! (single byte alignment gets wierd)
+    # -- incomplete / mismatched / outdated type-hints should also be checked
+    # -- this may require scanning comments for "deep" type-hints `# attr.sub: type  # desc`
+    # Struct
+    if isinstance(LumpClass, branches.base.Struct):
+        if not hasattr(LumpClass, "__slots__"):
+            raise NotImplementedError(f"{LumpClass.__name__} has no .__slots__!")
+        # TODO: verify names in type annotations match __slots__
+        if hasattr(LumpClass, "_mapping"):
+            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using ._mapping!"))
+        if not hasattr(LumpClass, "_arrays"):
+            warnings.warn(UserWarning(f"{LumpClass.__name__} should be a base.MappedArray"))
+    # MappedArray
+    elif isinstance(LumpClass, branches.base.MappedArray):
+        if hasattr(LumpClass, "__slots__"):
+            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using .__slots__!"))
+        if hasattr(LumpClass, "_arrays"):
+            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using ._arrays!"))
+        if not hasattr(LumpClass, "_mapping"):
+            raise NotImplementedError(f"{LumpClass.__name__} has no ._mapping!")
+        # TODO: verify names in type annotations match _mapping
+    # Any
+    if not hasattr(LumpClass, "_format"):
+        raise NotImplementedError(f"{LumpClass.__name__} has no ._format!")
+    assert struct.calcsize(LumpClass._format) > 0, f"{LumpClass.__name__}._format is invalid!"
+    LumpClass()  # try __init__
 
 
 # IdTech + IW + GoldSrc Engines (no lump versions)
@@ -49,7 +82,7 @@ def test_basic_branch_script(branch_script):
     incorrect_lump_classes = dict()
     for LumpClass in used_LumpClasses:
         try:
-            LumpClass()
+            verify(LumpClass)
         except Exception as exc:
             incorrect_lump_classes[LumpClass.__name__] = exc
     assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
@@ -70,47 +103,32 @@ def test_branch_script(branch_script):
     for version_dict in branch_script.LUMP_CLASSES.values():
         # ^ {"LUMP": {version: LumpClass}}
         used_LumpClasses.update(version_dict.values())
-    # TODO: find classes used by GameLumps / SpecialLumpClasses via the inspect module
-    # -- would also be handy for automated documentation
-    # NOTE: respawn.titanfall uses Grid's .from_bytes method as a SpecialLumpClass
+    # NOTE: respawn.titanfall.Grid.from_bytes (classmethod) is used as a SpecialLumpClass
+    # TODO: SpecialLumpClasses often consume child classes defined in the same script
+    # need to somehow decode `GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4)}}`
+    # -- inspect + regex can pull the childclass passed to SpecialLumpClass.__init__, but it's far from ideal
+    # -- all GameLumpClasses seem to do this, should we treat them differently?
+    # -- e.g. GAME_LUMP_CLASSES = {"sprp": {4: (GameLump_SPRP, StaticPropv4)}}
+    # -- -->  SpecialLumpClass, *child_classes = branch.GAME_LUMP_CLASSES[_id][version]
+    # -- -->  SpecialLumpClass(raw_lump, *child_classes)
+    # TODO: Identify all other cases where a lump is broken down into SpecialLumpClass & children
+    # e.g. quake MipTextures
     if hasattr(branch_script, "GAME_LUMP_HEADER"):
         used_LumpClasses.add(branch_script.GAME_LUMP_HEADER)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     unused_LumpClasses = set(filter(lambda lc: not lc.__name__.startswith("StaticProp"), unused_LumpClasses))
-    # HACK: need to actually check StaticProps are actually used, but not right now...
+    # HACK: assume all StaticProp* classes are used by GAME_LUMP_CLASSES
     if len(unused_LumpClasses) > 0:
         warning_text = "\n".join(["Unused LumpClasses in branch script:", *[lc.__name__ for lc in unused_LumpClasses]])
         warnings.warn(UserWarning(warning_text))
     incorrect_lump_classes = dict()
     for LumpClass in used_LumpClasses:
         try:
-            LumpClass()
+            verify(LumpClass)
         except Exception as exc:
             incorrect_lump_classes[LumpClass.__name__] = exc
     assert incorrect_lump_classes == dict(), "some LumpClasses failed to __init__"
-    # TODO: warn if a lump version isn't supported
-    # -- e.g. FACES v1 is supported, but not v2
-    # NOTE: this should only matter if the lump version is found in a .bsp for the target branch (map installed_games)
-    # TODO: SpecialLumpClasses; many use other classes too
-    # need to somehow detect `GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4)}}`
-    # GameLumpClass = GAME_LUMP_CLASSES[game_lump][version]
-    # if isinstance(GameLumpClass, types.FunctionType):
-    #     lump_class = re.search(r"raw_lump, (.*)\)", inspect.getsource(GameLumpClass)).groups()[0]
-    #     # NOTE: ^ lazy solution
-    #     subclass = branch_script
-    #     for attr in lump_class.split("."):
-    #         subclass = getattr(subclass, attr)
-    # TODO: catch misnamed/unused attrs/type hints
 
 
-# TODO: use maplist to look at headers to ensure UNUSED_* lumps are correctly marked
-# -- generally scanning for unused lumps & unmapped lump versions would also be helpful
-
-# TODO: verify __slots__, _format, _arrays & _mapping line up correctly
-# -- all LumpClasses must coherently translate to and from bytes
-# -- no skipped bytes! (single byte alignment gets wierd)
-# -- incomplete / mismatched / outdated type-hints should also be checked
-# -- this may require scanning comments for "deep" type-hints `# attr.sub: type  # desc`
-
-# TODO: ensure base.Struct is not using _mapping
-# -- also ensure base.MappedArray is not using __slots__ or _arrays
+# TODO: use tests/maplist.py to look at headers to ensure UNUSED_* / UNKNOWN_* lumps are correctly marked
+# -- looking for unmapped lump versions in ValveBsp & RespawnBsp would be nice too

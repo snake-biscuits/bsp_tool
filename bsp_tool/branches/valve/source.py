@@ -725,6 +725,7 @@ GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, Static
 # branch exclusive methods, in alphabetical order:
 def vertices_of_face(bsp, face_index: int) -> List[float]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
+    # TODO: primitives
     face = bsp.FACES[face_index]
     uvs, uv2s = [], []
     first_edge = face.first_edge
