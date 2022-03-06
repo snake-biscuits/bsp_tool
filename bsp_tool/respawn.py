@@ -62,41 +62,54 @@ class ExternalLumpManager:
         version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
-    def __getattr__(self, lump_name: str):
+    def __getattr__(self, attr):
         """initialises lumps when created"""
-        if lump_name not in self.headers:
-            raise AttributeError(f"External {lump_name} lump not found!")
+        # NOTE: __getattr__ is only called if the attribute doesn't exist, so we load the lump when the user asks for it
+        # -- this has the added benefit that `del bsp.external.LUMP_NAME` unloads it from memory, while allowing reloads
+        # TODO: we could use the same deferred loading approach for all bsps for a performance boost
+        # -- this would remove the simple check of `assert len(bsp.loading_errors) == 0` to ensure read quality, however
+        # -- though if loading errors was a @property it could load all SpecialLumpClasses & the GameLump to verify
+        # -- all other lumps can be verified by length alone, though checking for invalid floats would be a neat feature
+        if attr not in self.headers:
+            raise AttributeError(f"type object '{self.__class__.__name__}' has no attribute '{attr}'")
+        lump_name = attr
         lump_header = self.headers[lump_name]
+        # NOTE: lump_header should always be an ExternalLumpHeader
+        # -- this is a copy of the internal header + filename & filesize for the external file
+        # -- if re-implementing for ValveBsp .lmp files, read the header from the start of the .lmp
         if lump_header.filesize == 0:
-            raise RuntimeError(f"{lump_name} lump's .bsp_lump is empty!")
+            raise RuntimeError(f"The .bsp_lump file for the {lump_name} lump is empty!")
+        if not os.path.exists(lump_header.filename):
+            raise FileNotFoundError(f"Couldn't find .bsp_lump file for {lump_name} lump!")
         try:
             if lump_name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                 GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                 lump_file = open(lump_header.filename, "rb")
                 ExternalBspLump = lumps.GameLump(lump_file, lump_header, self.endianness,
                                                  GameLumpClasses, self.branch.GAME_LUMP_HEADER)
-                # TODO: test we didn't break this with the new ExternalLumpHeader
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
-                ExternalBspLump = lumps.BspLump(self.file, lump_header, LumpClass)
+                ExternalBspLump = lumps.ExternalBspLump(lump_header, LumpClass)
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
-                ExternalBspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)
+                ExternalBspLump = lumps.ExternalBasicBspLump(lump_header, LumpClass)
             elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name][lump_header.version]
                 with open(lump_header.filename, "rb") as bsp_lump_file:
                     ExternalBspLump = SpecialLumpClass(bsp_lump_file.read())
             else:
-                ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+                ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
         except KeyError:  # lump version not supported
-            ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+            ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
         except Exception as exc:
             self.loading_errors[lump_name] = exc
-            ExternalBspLump = lumps.RawBspLump(self.file, lump_header)
+            ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
         setattr(self, lump_name, ExternalBspLump)
         return getattr(self, lump_name)  # uses __getattribute__
 
-    # NOTE: hasattr won't list available external lumps, but self.headers will
+    # NOTE: hasattr / dir won't list available external lumps, but self.headers will (if filtered)
+    # -- available_external_lumps = [L for L, h in bsp.external.headers.items() if h.length != 0]
+    # -- alternatively, filter by `os.path.exists(bsp.external.headers["LUMP_NAME"].filename)`
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """based on base.Bsp.lump_as_bytes()"""
