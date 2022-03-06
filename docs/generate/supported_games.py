@@ -32,6 +32,9 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # NOTE: x360 branch scripts are generated almost entirely from existing branch scripts
 # -- this is incomplete however, as bitfields are also inverted somewhat
 # -- no support for bitfields of any order exists yet anyway, however
+# TODO: sort alphabetically
+# TODO: IW Engine branches
+# TODO: check all base.Bsp subclasses & are covered, and all scripts
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
@@ -60,7 +63,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {QuakeBsp: [branches.id_software.quake3, branches.raven.soldier_of_fortune2,
                                   *[bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]]})]
 del source_exclude
-# TODO: IW Engine
+
 out_path = "../supported"
 inserts_path = "inserts"
 # TODO: rethink inserts
