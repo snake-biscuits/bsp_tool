@@ -98,20 +98,21 @@ class LumpHeader(base.MappedArray):
     _mapping = ["offset", "length", "version", "fourCC"]
     _format = "4I"
 
-# TODO: changes from GoldSrc -> Source
+# changes from GoldSrc -> Source:
 # MipTexture.flags -> TextureInfo.flags (Surface enum)
 
-# A rough map of the relationships between lumps:
 
+# a rough map of the relationships between lumps:
 #                     /-> SurfEdge -> Edge -> Vertex
 # Leaf -> Node -> Face -> Plane
 #                     \-> DisplacementInfo -> DisplacementVertex
 
-# Leaf is Parallel with LeafAmbientIndex
+# FaceID is paralell with Faces & lists Hammer ids per face
 
+# Leaf is Parallel with LeafAmbientIndex
 # LeafAmbientIndex -> LeafAmbientSample
 
-# ClipPortalVertices are AreaPortal geometry [citation neeeded]
+# ClipPortalVertices are AreaPortal geometry [unverified]
 
 
 # engine limits: (2013 SDK bspfile.h)
@@ -667,6 +668,7 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: shared.UnsignedShorts},
+                      "FACE_IDS":                  {0: shared.UnsignedShorts},
                       "FACE_MACRO_TEXTURE_INFO":   {0: shared.Shorts},
                       "LEAF_BRUSHES":              {0: shared.UnsignedShorts},
                       "LEAF_FACES":                {0: shared.UnsignedShorts},
@@ -736,7 +738,7 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
             edge = bsp.EDGES[surfedge]
             positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
             # ^ utils/vrad/trace.cpp:637
-        else:  # index is negatice
+        else:  # index is negative
             edge = bsp.EDGES[-surfedge][::-1]  # reverse
             positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
             # ^ utils/vrad/trace.cpp:635
@@ -747,23 +749,19 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
     texture = texture_info.texture
     lightmap = texture_info.lightmap
 
-    def vector_of(P):
-        """returns the normal of plane (P)"""
-        return (P.x, P.y, P.z)
-
     # texture vector -> uv calculation discovered in:
     # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
     # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
     for P in positions:
         # texture UV
-        uv = [vector.dot(P, vector_of(texture.s)) + texture.s.offset,
-              vector.dot(P, vector_of(texture.t)) + texture.t.offset]
+        uv = [vector.dot(P, texture.s[:3]) + texture.s.offset,
+              vector.dot(P, texture.t[:3]) + texture.t.offset]
         uv[0] /= texture_data.view.width if texture_data.view.width != 0 else 1
         uv[1] /= texture_data.view.height if texture_data.view.height != 0 else 1
         uvs.append(vector.vec2(*uv))
         # lightmap UV
-        uv2 = [vector.dot(P, vector_of(lightmap.s)) + lightmap.s.offset,
-               vector.dot(P, vector_of(lightmap.t)) + lightmap.t.offset]
+        uv2 = [vector.dot(P, lightmap.s[:3]) + lightmap.s.offset,
+               vector.dot(P, lightmap.t[:3]) + lightmap.t.offset]
         if any([(face.lightmap.mins.x == 0), (face.lightmap.mins.y == 0)]):
             uv2 = [0, 0]  # invalid / no lighting
         else:

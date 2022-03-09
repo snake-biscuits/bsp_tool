@@ -1,11 +1,17 @@
 # https://github.com/id-Software/Quake/blob/master/WinQuake/bspfile.h  (v29)
 # https://www.gamers.org/dEngine/quake/spec/quake-spec34/qkspec_4.htm  (v23)
+from __future__ import annotations
 import enum
-from typing import Dict, List
+import io
+import itertools
+import json
+import math
 import struct
+from typing import Any, Dict, List
 
 from .. import base
 from .. import shared  # special lumps
+from .. import vector  # methods
 
 
 FILE_MAGIC = None
@@ -56,6 +62,7 @@ class LumpHeader(base.MappedArray):
 class MAX(enum.Enum):
     ENTITIES = 1024
     PLANES = 32767
+    MIP_LEVELS = 4  # affects MipTexture LumpClass
     MIP_TEXTURES = 512
     MIP_TEXTURES_SIZE = 0x200000  # in bytes
     VERTICES = 65535
@@ -64,6 +71,7 @@ class MAX(enum.Enum):
     TEXTURE_INFO = 4096
     FACES = 65535
     LIGHTING_SIZE = 0x100000  # in bytes
+    LIGHTMAPS = 4  # affects Face LumpClass
     CLIP_NODES = 32767
     LEAVES = 8192
     MARK_SURFACES = 65535
@@ -142,10 +150,11 @@ class Face(base.Struct):  # LUMP 7
     texture_info: int  # index of this face's TextureInfo
     lighting_type: int  # 0x00=lightmap, 0xFF=no-lightmap, 0x01=fast-pulse, 0x02=slow-pulse, 0x03-0x10 other
     base_light: int  # 0x00 bright - 0xFF dark (lowest possible light level)
-    light: int
-    lightmap: int  # index into lightmap lump, or -1
+    light: int  # "additional light models"
+    lightmap_offset: int  # index to first byte in LIGHTING lump; -1 if not lightmapped
+    # NOTE: the number of texels used by the lightmap is determined by the uv bounds
     __slots__ = ["plane", "side", "first_edge", "num_edges", "texture_info",
-                 "lighting_type", "base_light", "light", "lightmap"]
+                 "lighting_type", "base_light", "light", "lightmap_offset"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
 
@@ -173,30 +182,15 @@ class Model(base.Struct):  # LUMP 14
     origin: List[float]
     first_node: int  # first node in NODES lumps
     clip_nodes: int  # 1st & second CLIP_NODES indices
-    node_id3: int  # usually 0, unsure of lump
+    unknown_node: int  # usually 0, unsure of lump / use
     num_leaves: int
     first_leaf_face: int
     num_leaf_faces: int
-    __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "node_id3",
+    __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unknown_node",
                  "num_leaves", "first_face", "num_faces"]
     _format = "9f7i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"],
                "clip_nodes": 2}
-
-
-class MipTexture(base.Struct):  # LUMP 2 (used in MipTextureLump)
-    name: str  # texture name
-    # if name starts with "*" it scrolls like water / lava
-    # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
-    # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
-    size: List[int]  # width & height
-    offsets: List[int]  # offset from entry start to texture
-    __slots__ = ["name", "size", "offsets"]
-    _format = "16s6I"
-    _arrays = {"size": ["width", "height"],
-               "offsets": ["full", "half", "quarter", "eighth"]}
-    # TODO: transparently access texture data with offsets
-    # -- this may require a lumps.BspLump subclass, like GameLump
 
 
 class Node(base.Struct):  # LUMP 5
@@ -218,8 +212,8 @@ class Node(base.Struct):  # LUMP 5
 class Plane(base.Struct):  # LUMP 1
     normal: List[float]
     distance: float
-    type: int  # 0-5 (Axial X-Z, Non-Axial X-Z)
-    __slots__ = ["normal", "distance", "type"]
+    plane_type: int  # 0-5 (Axial X-Z, Non-Axial X-Z)
+    __slots__ = ["normal", "distance", "plane_type"]
     _format = "4fI"
     _arrays = {"normal": [*"xyz"]}
 
@@ -227,11 +221,12 @@ class Plane(base.Struct):  # LUMP 1
 class TextureInfo(base.Struct):  # LUMP 6
     s: List[float]  # S (U-Axis) texture vector
     t: List[float]  # T (V-Axis) texure vector
-    mip_texture: int
+    mip_texture: int  # index to this TextureInfo's target MipTexture
     animated: int  # 0 or 1
     __slots__ = ["s", "t", "mip_texture", "animated"]
     _format = "8f2I"
-    _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
+    _arrays = {"s": [*"xyz", "offset"],
+               "t": [*"xyz", "offset"]}
 
 
 class Vertex(base.MappedArray):  # LUMP 3
@@ -246,28 +241,59 @@ class Vertex(base.MappedArray):  # LUMP 3
 # special lump classes, in alphabetical order:
 class MipTextureLump(list):  # LUMP 2
     """Lists MipTextures and handles lookups"""
-    # TODO: test & get offsets working
-    _bytes: bytes
-    _changes: Dict[int, MipTexture]
+    # TODO: test no data is lost between offsets & the full lump length is covered
+    # NOTE: all offsets present in this lump are relative to the start of the lump
+    _bytes: io.BytesIO
+    _changes: Dict[int, (MipTexture, List[bytes])]
+    # ^ {index: (MipTexture, [mip0, ...])}
+    _offsets = List[int]
 
     def __init__(self, raw_lump: bytes):
-        self._bytes = raw_lump
-        mip_texture_count = int.from_bytes(raw_lump[:4], "little")
-        self.offsets = struct.iter_unpack(f"{mip_texture_count}I")
+        self._bytes = io.BytesIO(raw_lump)
+        count = int.from_bytes(self._bytes.read(4), "little")
+        # TODO: just make a list instead of dynamically indexing
+        # -- would drastically simplify this class
+        self._offsets = list(struct.unpack(f"{count}I"), self._bytes.read(4 * count))
 
-    def __getitem__(self, index):
+    def __getitem__(self, index) -> (MipTexture, List[bytes]):
         if index in self._changes:
-            entry = self._changes[index]
+            miptex, mips = self._changes[index]
         else:
-            start = self.offsets[index]
-            entry_bytes = self._bytes[start: start + struct.calcsize(MipTexture._format)]
-            entry = MipTexture(struct.unpack(MipTexture._format, entry_bytes))
+            self._bytes.seek(self._offsets[index])
+            miptex = MipTexture.from_stream(self._bytes)
+            mips = list()
+            for i, offset in enumerate(miptex.offsets):
+                self._bytes.seek(offset)
+                length = (miptex.size.width >> i) * (miptex.size.height >> i) * 4  # 4 bytes per texel?
+                mip = self._bytes.read(length)
+                assert len(mip) == length, "Incorrect offsets / MipTexture lump is too short!"
+                mips.append(mip)
             # TODO: map MipTexture offsets to texture data in lump
-        return entry
+        return miptex, mips
 
     def as_bytes(self):
-        # NOTE: this lump seems really complex, need to test on actual .bsps
-        raise NotImplementedError("Haven't tested to locate texture data yet")
+        if len(self._changes) == 0:
+            self._bytes.seek(0)
+            return self._bytes.read()
+        else:
+            # TODO: recalculate offsets for each MipTexture & offsets to their mips
+            # -- calc total mip size & internal offsets to it's group
+            # is the Lump structure [(MipTexture[i], mips[i][0], ...), ...] or something else?
+            # alternate structures should be allowed but idk
+            raise NotImplementedError("Haven't tested to locate texture data yet")
+
+
+class MipTexture(base.Struct):  # LUMP 2
+    name: str  # texture name
+    # if name starts with "*" it scrolls like water / lava
+    # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
+    # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
+    size: List[int]  # width & height
+    offsets: List[int]  # offset from entry start to texture
+    __slots__ = ["name", "size", "offsets"]
+    _format = "16s6I"
+    _arrays = {"size": ["width", "height"],
+               "offsets": ["full", "half", "quarter", "eighth"]}
 
 
 # {"LUMP": LumpClass}
@@ -284,19 +310,104 @@ LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "TEXTURE_INFO": TextureInfo,
                 "VERTICES":     Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
-# TODO: "MIP_TEXTURES": MipTextureLump
+SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
+                        "MIP_TEXTURES": MipTextureLump}
 
 
 # branch exclusive methods, in alphabetical order:
-def vertices_of_face(bsp, face_index: int) -> List[float]:
-    # TODO: create
-    raise NotImplementedError()
+def as_lightmapped_obj(bsp):
+    obj_file = open(f"{bsp.filename}.lightmapped.obj", "w")
+    obj_file.write(f"# generated with bsp_tool from {bsp.filename}\n")
+    obj_file.write("\n".join(f"v {v.x} {v.y} {v.z}" for v in bsp.VERTICES))
+    obj_file.write("\n".join(f"vn {p.normal.x} {p.normal.y} {p.normal.z}" for p in bsp.PLANES))
+    # TODO: unique plane normals for smoothing groups; need to blend neighbouring edges
+    faces = list()
+    # [[(v, vt, vn)]]
+    lightmap_dicts = list()
+    for i, face in enumerate(bsp.FACES):
+        lightmap_dicts.append(bsp.lightmap_of_face(i))
+        face_vertices = bsp.vertices_of_face(i)
+        # TODO: triangle fan vertices
+        # TODO: remap vertex_position & vertex_normal to indices into bsp.VERTICES & [p.normal for p in bsp.PLANES]
+        faces.append(face_vertices)
+        # TODO: write & index LIGHTMAP uvs; f"vt {uv.x} {uv.y}"
+        # TODO: write face; "f " + " ".join([f"{vi}/{vti}/{vni}" for vi, vti, vni in face_indices])
+    obj_file.close()
+    print(f"Wrote {bsp.filename}.lightmapped.obj")
+    # store lightmap data in json
+    json_file = open(f"{bsp.filename}.lightmap_uvs.json")
+    json_file.write(json.dumps(lightmap_dicts))
+    # NOTE: contains raw bytes of each lightmapped face, this .json will need a second pass
+    # -- lightmap_bytes -> extentions.lightmaps.LightmapPage
+    # -- map uvs onto faces
+    json_file.close()
+    print(f"Wrote {bsp.filename}.lightmap_uvs.json")
+    # TODO: write a QuakeBsp / GoldSrcBsp function in extensions/lightmaps.py
+    # -- should use & remap <bsp filename>.lightmap_uvs.json to work with exported lightmap page
+
+
+def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
+    # NOTE: if mapping onto a lightmap page you'll need to calculate a X&Y offset to fit this face into
+    # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions/lightmaps.py
+    out = dict()
+    # ^ {"uvs": List[vector.vec2], "lightmap_offset": int, "width": int, "height": int, "lightmap_bytes": bytes}
+    face = bsp.FACES[face_index]
+    out["uvs"] = [uv for position, uv, normal in bsp.vertices_of_face(face_index)]
+    # NOTE: to create a lightmap page you'll need to reposition these uvs onto that sheet
+    # -- forcing the top-left of the uv's bounds to (0, 0) might help with that
+    out["lightmap_offset"] = face.lightmap_offset
+    if face.lightmap_offset == -1:
+        out["width"], out["height"] = 0, 0
+        out["lightmap_bytes"] = []
+    # calculate uv bounds
+    minU, minV = math.inf, math.inf
+    maxU, maxV = -math.inf, -math.inf
+    for uv in out["uvs"]:
+        minU = min(uv.x, minU)
+        minV = min(uv.y, minV)
+        maxU = max(uv.x, maxU)
+        maxV = max(uv.y, maxV)
+    # TODO: use -minUV as an offset to reposition the UV bounds top-left to (0, 0)
+    out["width"] = (maxU - minU) // 16  # 16 units per texel, always
+    out["height"] = (maxV - minV) // 16
+    # collect lightmap bytes
+    start = out["lightmap_offset"]
+    length = out["width"] * out["height"] * 4  # 4 bytes per texel, RGBA_8888?
+    # what about lighting styles? how many copies do we need to load in sequence?
+    out["lightmap_bytes"] = bsp.LIGHTING[start:start + length]
+    return out
+
+
+def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2, vector.vec3)]:
+    """output is [(position.xyz, uv.xy, normal.xyz, colour.rgba)] """
+    face = bsp.FACES[face_index]
+    uv0 = list()  # texture uv
+    first_edge = face.first_edge
+    positions = list()
+    for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
+        if surfedge >= 0:  # index is positive
+            positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
+            # ^ utils/vrad/trace.cpp:637
+        else:  # index is negative
+            positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
+            # ^ utils/vrad/trace.cpp:635
+    texture_info = bsp.TEXTURE_INFO[face.texture_info]
+    # generate uvs
+    for P in positions:
+        uv = [vector.dot(P, texture_info.s[:3]) + texture_info.s.offset,
+              vector.dot(P, texture_info.t[:3]) + texture_info.t.offset]
+        # TODO: scale uv against MipTexture width & height
+        uv0.append(vector.vec2(*uv))
+    # NOTE: vertex normal can be found via bsp.PLANES[face.planes].normal
+    # -- however, the normal may be inverted, depending on face.side, haven't tested
+    return list(zip(positions, uv0))
 
 
 def vertices_of_model(bsp, model_index: int) -> List[float]:
-    # TODO: create
-    raise NotImplementedError()
+    model = bsp.MODELS[model_index]
+    # TODO: do we need to walk the leaf/node tree?
+    leaf_faces = bsp.LEAF_FACES[model.first_leaf_face:model.first_leaf_face + model.num_leaf_faces]
+    return list(itertools.chain(*[bsp.vertices_of_face(i) for i in leaf_faces]))
 
 
-methods = [shared.worldspawn_volume]
+methods = [shared.worldspawn_volume, vertices_of_face, lightmap_of_face, as_lightmapped_obj, vertices_of_model]
