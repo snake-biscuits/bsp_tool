@@ -240,51 +240,56 @@ class Vertex(base.MappedArray):  # LUMP 3
 
 # special lump classes, in alphabetical order:
 class MipTextureLump(list):  # LUMP 2
-    """Lists MipTextures and handles lookups"""
-    # TODO: test no data is lost between offsets & the full lump length is covered
-    # NOTE: all offsets present in this lump are relative to the start of the lump
-    _bytes: io.BytesIO
-    _changes: Dict[int, (MipTexture, List[bytes])]
-    # ^ {index: (MipTexture, [mip0, ...])}
-    _offsets = List[int]
+    """see github.com/id-Software/Quake-2/blob/master/ref_soft/r_image.c"""
+    # later superseded by TextureData in source
+    _buffer: io.BytesIO  # for debugging
 
     def __init__(self, raw_lump: bytes):
-        self._bytes = io.BytesIO(raw_lump)
-        count = int.from_bytes(self._bytes.read(4), "little")
-        # TODO: just make a list instead of dynamically indexing
-        # -- would drastically simplify this class
-        self._offsets = list(struct.unpack(f"{count}I"), self._bytes.read(4 * count))
-
-    def __getitem__(self, index) -> (MipTexture, List[bytes]):
-        if index in self._changes:
-            miptex, mips = self._changes[index]
-        else:
-            self._bytes.seek(self._offsets[index])
-            miptex = MipTexture.from_stream(self._bytes)
+        out = list()
+        self._buffer = io.BytesIO(raw_lump)
+        length = int.from_bytes(self._buffer.read(4), "little")
+        offsets = struct.unpack(f"{length}I", self._buffer.read(4 * length))
+        # ^ should be 40 bytes increments following the end of offsets
+        for offset in offsets:
+            self._buffer.seek(offset)
+            miptex = MipTexture.from_stream(self._buffer)
             mips = list()
-            for i, offset in enumerate(miptex.offsets):
-                self._bytes.seek(offset)
-                length = (miptex.size.width >> i) * (miptex.size.height >> i) * 4  # 4 bytes per texel?
-                mip = self._bytes.read(length)
-                assert len(mip) == length, "Incorrect offsets / MipTexture lump is too short!"
+            for i, mip_offset in enumerate(miptex.offsets):
+                if mip_offset == 0:  # gasworks has no mips
+                    mips.append(b"")
+                    continue
+                self._buffer.seek(offset + mip_offset)
+                length = (miptex.size.width >> i) * (miptex.size.height >> i)
+                mip = self._buffer.read(length)
+                assert len(mip) == length, f"incomplete mip @ {mip_offset}"
                 mips.append(mip)
-            # TODO: map MipTexture offsets to texture data in lump
-        return miptex, mips
+            out.append((miptex, mips))
+        assert len(raw_lump) == self._buffer.tell()
+        super().__init__(out)
 
     def as_bytes(self):
-        if len(self._changes) == 0:
-            self._bytes.seek(0)
-            return self._bytes.read()
-        else:
-            # TODO: recalculate offsets for each MipTexture & offsets to their mips
-            # -- calc total mip size & internal offsets to it's group
-            # is the Lump structure [(MipTexture[i], mips[i][0], ...), ...] or something else?
-            # alternate structures should be allowed but idk
-            raise NotImplementedError("Haven't tested to locate texture data yet")
+        # NOTE: works for GoldSrc, but not quake
+        out = [len(self).to_bytes(4, "little")]
+        offsets = list()
+        offset = 4 + len(self) * 4
+        for miptex, mips in self:
+            if b"".join(mips) != b"" or tuple(miptex.offsets) != (0, 0, 0, 0):
+                # TODO: pack mips & recalculate local offsets
+                # NOTE: full should always be struct.calcsize(MipTexture._format)
+                # -- embedded mips will shift the MipTexture offsets as well
+                # no padding afaik, regular power of 2 texture sizes should handle that
+                raise NotImplementedError("Unsure how to pack mips")
+            out.append(miptex.as_bytes())
+            offsets.append(offset)
+            offset += struct.calcsize(MipTexture._format)
+        out[1:1] = offsets
+        return b"".join(out)
 
 
 class MipTexture(base.Struct):  # LUMP 2
     name: str  # texture name
+    # NOTE: string may contain multiple values
+    # -- e.g. b"+buttontex\0\x03\0..."
     # if name starts with "*" it scrolls like water / lava
     # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
     # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
@@ -410,4 +415,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
     return list(itertools.chain(*[bsp.vertices_of_face(i) for i in leaf_faces]))
 
 
-methods = [shared.worldspawn_volume, vertices_of_face, lightmap_of_face, as_lightmapped_obj, vertices_of_model]
+methods = [vertices_of_face, lightmap_of_face, as_lightmapped_obj, vertices_of_model]

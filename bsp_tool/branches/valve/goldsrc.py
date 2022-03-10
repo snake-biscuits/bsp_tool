@@ -119,11 +119,6 @@ class Model(base.Struct):  # LUMP 14
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"], "node": 4}
 
 
-# classes for special lumps, in alphabetical order:
-# TODO: make a special LumpClass for MipTextures
-# -- any lump containing offsets needs it's own BspLump subclass
-# {"TEXTURES": lambda raw_lump: lump.MipTextures(quake.MipTexture, raw_lump)}
-
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 

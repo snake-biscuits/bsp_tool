@@ -119,6 +119,8 @@ class Entities(list):
 
 
 class PakFile(zipfile.ZipFile):
+    _buffer: io.BytesIO
+
     def __init__(self, raw_zip: bytes):
         self._buffer = io.BytesIO(raw_zip)
         super(PakFile, self).__init__(self._buffer)
