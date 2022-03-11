@@ -251,6 +251,9 @@ class MipTextureLump(list):  # LUMP 2
         offsets = struct.unpack(f"{length}I", self._buffer.read(4 * length))
         # ^ should be 40 bytes increments following the end of offsets
         for offset in offsets:
+            # TODO: pass everything we can out when it all breaks for whoever's debugging
+            # -- unless the python debugger could be used like gdb here? should learn how that works...
+            assert offset == self._buffer.tell(), "mips are not perfectly in sequence?"
             self._buffer.seek(offset)
             miptex = MipTexture.from_stream(self._buffer)
             mips = list()
@@ -260,6 +263,7 @@ class MipTextureLump(list):  # LUMP 2
                     continue
                 self._buffer.seek(offset + mip_offset)
                 length = (miptex.size.width >> i) * (miptex.size.height >> i)
+                # TODO: might there be multiple mips for animated textures? do we need to decode miptex.name?
                 mip = self._buffer.read(length)
                 assert len(mip) == length, f"incomplete mip @ {mip_offset}"
                 mips.append(mip)

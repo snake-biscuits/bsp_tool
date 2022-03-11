@@ -23,19 +23,19 @@ tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemo
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] PASSED [  8%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] PASSED [  9%]
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] PASSED [  9%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] PASSED [ 10%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] PASSED [ 10%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] PASSED [ 11%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] PASSED [ 12%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] PASSED [ 12%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] FAILED [ 10%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] FAILED [ 10%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] FAILED [ 11%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] FAILED [ 12%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] FAILED [ 12%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] PASSED [ 13%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] PASSED [ 13%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] PASSED [ 14%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] FAILED [ 13%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] FAILED [ 14%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] PASSED [ 14%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] PASSED [ 15%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] PASSED [ 15%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] PASSED [ 16%]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] PASSED [ 17%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] FAILED [ 15%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] FAILED [ 15%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] FAILED [ 16%]
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] FAILED [ 17%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] PASSED [ 17%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] PASSED [ 18%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] PASSED [ 18%]
@@ -69,14 +69,14 @@ tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs61] PASSED [ 34%]
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs62] PASSED [ 34%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs63] FAILED    [ 35%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs64] PASSED         [ 35%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs65] PASSED [ 36%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs66] PASSED      [ 36%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs64] FAILED         [ 35%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs65] FAILED [ 36%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs66] FAILED      [ 36%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs67] PASSED [ 37%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs68] PASSED    [ 37%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs69] PASSED     [ 38%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs70] PASSED     [ 39%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs71] PASSED        [ 39%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs71] FAILED        [ 39%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs72] PASSED        [ 40%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs73] PASSED          [ 40%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs74] PASSED           [ 41%]
@@ -103,7 +103,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs94] PASSED [ 52%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs95] PASSED         [ 52%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs96] PASSED   [ 53%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs97] PASSED [ 53%]
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs98] PASSED [ 54%]
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs98] FAILED [ 54%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs99] FAILED     [ 54%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs100] PASSED    [ 55%]
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs101] FAILED [ 56%]
@@ -189,6 +189,1390 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] PASSED [100%]
 
 ================================== FAILURES ===================================
+___ test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] ____
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Cry of Fear'
+map_dirs = ['cryoffear/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 232 out of 235 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'cryoffear/maps/c_apartment1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartment5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_apartmentsick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_aresaka.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_arvooti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_arvuti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylum1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylum2dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_asylumb.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_attic.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_avlopp.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_base.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_broscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_buscity2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_carnie1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_carnie2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_alley.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_cabin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_coopend.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_foresttrail1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_foresttrail2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_foresttrail3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_gasstation.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_hospital.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_street.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_subway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_truckride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_cof_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_collab_credits.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_college1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_college1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_college2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_difficulty_settings.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_appark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_hallo_aom_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_hallo_aom_2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_hallo_e3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_doc_swift.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_down.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_drean.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ec10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ec11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ec9bc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_egypt1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_egypt2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_egypt3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending3b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending3c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending4b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending5b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ending5c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_esewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_game_menu1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_garden.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_gards.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_genpat.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_carnc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_cofbrony.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_darkydude.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hallo_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hamn.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hamn2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hamn3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_her1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_her4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_her5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_hole_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_is_farm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_is_nm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_is_park1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ks.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_loadgame.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_lobby.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_lobbys.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_ls2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nightmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nightmare1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nightmare2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nightmare3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nightmare4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_nmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit12.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit8.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_outofit9.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_park3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_roofs.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_roofs2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_rumpel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_rumpel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sdkmap1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sdkmap2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sebcollab_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_start.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_start2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subtunnel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subtunnel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subwaysick1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_subwaysick2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_tazo.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_the_stairway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_the_stairway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_the_stairway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_the_stairway4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_the_stairway5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_theevinas.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_trainscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_tricky.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_unlockables.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_village3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_volcomator1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_volcomator2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_volcomator2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_volcomator2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_volcomator3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_vr_nalopex1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_vr_nalopex2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_vr_nalopex3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/c_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_campaign_01.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_campaign_01_p2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_campaign_01_p3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_campaign_01_p4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_manhunt_campaign.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_suicide1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_suicide2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_suicide3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'cryoffear/maps/cof_suicide4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 232 more items:
+E         {'cryoffear/maps/c_apartment1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartment5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_apartmentsick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_aresaka.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_arvooti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_arvuti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylum1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylum2dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_asylumb.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_attic.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_avlopp.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_base.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_broscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_buscity2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_carnie1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_carnie2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_alley.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_cabin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_coopend.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_foresttrail1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_foresttrail2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_foresttrail3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_gasstation.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_hospital.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_street.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_subway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_truckride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_cof_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_collab_credits.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_college1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_college1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_college2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_difficulty_settings.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_appark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_hallo_aom_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_hallo_aom_2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_hallo_e3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_doc_swift.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_down.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_drean.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ec10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ec11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ec9bc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_egypt1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_egypt2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_egypt3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending3b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending3c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending4b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending5b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ending5c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_esewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_game_menu1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_garden.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_gards.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_genpat.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_carnc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_cofbrony.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_darkydude.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hallo_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hamn.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hamn2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hamn3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_her1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_her4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_her5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_hole_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_is_farm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_is_nm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_is_park1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ks.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_loadgame.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_lobby.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_lobbys.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_ls2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nightmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nightmare1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nightmare2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nightmare3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nightmare4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_nmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit12.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit8.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_outofit9.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_park3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_roofs.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_roofs2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_rumpel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_rumpel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sdkmap1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sdkmap2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sebcollab_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_start.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_start2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subtunnel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subtunnel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subwaysick1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_subwaysick2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_tazo.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_the_stairway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_the_stairway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_the_stairway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_the_stairway4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_the_stairway5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_theevinas.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_trainscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_tricky.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_unlockables.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_village3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_volcomator1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_volcomator2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_volcomator2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_volcomator2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_volcomator3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_vr_nalopex1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_vr_nalopex2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_vr_nalopex3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/c_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_campaign_01.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_campaign_01_p2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_campaign_01_p3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_campaign_01_p4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_manhunt_campaign.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_suicide1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_suicide2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_suicide3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'cryoffear/maps/cof_suicide4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'cryoffear/maps/c_apartment1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartment5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_apartmentsick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_aresaka.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_arvooti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_arvuti.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylum1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylum2dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_asylumb.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_attic.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_avlopp.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_base.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_broscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_buscity2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_carnie1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_carnie2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_alley.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_asylum1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_asylum1day.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_asylum2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_bridge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_buscity.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_cabin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_city2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_coopend.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_foresttrail1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_foresttrail2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_foresttrail3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_gasstation.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_hospital.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_street.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_subway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_truckride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_cof_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_collab_credits.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_college1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_college1dark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_college2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_difficulty_settings.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_apartment3sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_apartment4sick.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_appark.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_basement.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_city.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_hallo_aom_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_hallo_aom_2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_hallo_e3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_doc_swift.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_down.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_drean.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ec10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ec11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ec9bc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_egypt1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_egypt2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_egypt3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending3b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending3c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending4b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending5b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ending5c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_esewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forest7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_forestday.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_fsewer1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_game_menu1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_garden.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_gards.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_genpat.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_carnc.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_cofbrony.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_darkydude.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hallo_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hamn.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hamn2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hamn3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_her1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_her4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_her5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_hole_ending.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_iambulletproof.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_is_farm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_is_nm1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_is_park1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ks.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_lake.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_loadgame.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_lobby.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_lobbys.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_ls2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nalopex.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nightmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nightmare1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nightmare2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nightmare3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nightmare4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_nmare.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit10.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit11.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit12.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit6.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit7.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit8.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_outofit9.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_park.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_park2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_park3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_roofs.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_roofs2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_rumpel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_rumpel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sdkmap1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sdkmap2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sebcollab_1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sewer.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sewer2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_sewer3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_stad.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_start.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_start2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subtunnel1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subtunnel2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subway1st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subway2st1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subway2st2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subway2st3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subwaysick1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_subwaysick2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_tazo.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_the_stairway1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_the_stairway2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_the_stairway3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_the_stairway4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_the_stairway5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_theevina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_theevinas.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_trainride.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_trainride2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_trainscene.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_tricky.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_unlockables.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_village1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_village2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_village3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_volcomator1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_volcomator2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_volcomator2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_volcomator2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_volcomator3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_vr_nalopex1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_vr_nalopex2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_vr_nalopex3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/c_zikshadow.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_campaign_01.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_campaign_01_p2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_campaign_01_p3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_campaign_01_p4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_manhunt_campaign.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_suicide1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_suicide2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_suicide3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'cryoffear/maps/cof_suicide4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] _
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/cstrike'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 9 out of 25 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/cs_estate.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_office.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cs_siege.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_airstrip.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_aztec.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_cbble.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_inferno.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_nuke.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_survivor.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 9 more items:
+E         {'maps/cs_estate.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_office.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cs_siege.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_airstrip.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_aztec.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_cbble.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_inferno.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_nuke.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_survivor.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/cs_estate.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_office.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cs_siege.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_airstrip.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_aztec.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_cbble.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_inferno.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_nuke.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_survivor.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] __
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/czero'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 3 out of 22 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/cs_italy_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_cbble_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_stadium_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 3 more items:
+E         {'maps/cs_italy_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_cbble_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/de_stadium_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/cs_italy_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_cbble_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/de_stadium_cz.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] _
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/czeror'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 13 out of 73 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/cz_alamo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_end.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_fastline1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_fastline3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_motor1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_motor2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_motor3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_recoil.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_recoil2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_sandstorm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_sandstorm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_turncrank.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/cz_worldmap.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 13 more items:
+E         {'maps/cz_alamo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_end.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_fastline1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_fastline3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_motor1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_motor2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_motor3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_recoil.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_recoil2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_sandstorm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_sandstorm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_turncrank.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/cz_worldmap.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/cz_alamo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_end.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_fastline1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_fastline3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_motor1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_motor2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_motor3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_recoil.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_recoil2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_sandstorm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_sandstorm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_turncrank.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/cz_worldmap.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+__ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] ___
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/dmc'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 2 out of 7 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/dcdm5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dmc_dm4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 2 more items:
+E         {'maps/dcdm5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/dmc_dm4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/dcdm5.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/dmc_dm4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] _
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/gearbox'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 2 out of 68 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/op4ctf_power.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/op4ctf_wonderland.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 2 more items:
+E         {'maps/op4ctf_power.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/op4ctf_wonderland.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/op4ctf_power.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/op4ctf_wonderland.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+___ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] ___
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/ns'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 11 out of 27 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/co_core.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/co_niveus.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/co_sava.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_ayumi.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_bast.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_caged.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_eon.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_hera.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_lost.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_machina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/ns_origin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 11 more items:
+E         {'maps/co_core.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/co_niveus.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/co_sava.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_ayumi.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_bast.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_caged.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_eon.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_hera.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_lost.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_machina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/ns_origin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/co_core.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/co_niveus.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/co_sava.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_ayumi.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_bast.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_caged.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_eon.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_hera.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_lost.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_machina.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/ns_origin.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+__ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] ___
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/tfc'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 1 out of 15 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/rock2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 1 more item:
+E         {'maps/rock2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E         - {}
+E         + {'maps/rock2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] __
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Half-Life/valve'
+map_dirs = ['maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 28 out of 115 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 28 more items:
+E         {'maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_ test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] _
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Halfquake Trilogy'
+map_dirs = ['valve/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 28 out of 152 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'valve/maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'valve/maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 28 more items:
+E         {'valve/maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'valve/maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'valve/maps/c0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c0a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a0e.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a1f.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a2a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a2b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/c1a3a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/rapidcore.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0a.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0b.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0b1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0b2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'valve/maps/t0a0d.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+____ test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] ____
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Sven Co-op'
+map_dirs = ['svencoop/maps', 'svencoop_event_april/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 23 out of 111 .bsps failed
+E         ('GoldSrcBsp', 'bsp_tool.branches.valve.goldsrc', 30)
+E       assert {'svencoop/maps/BlackMesaEPF.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/bm_sts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/crystal2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/ctf_warforts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/deadsimpleneo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/desertcircle.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/incoming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/intruder.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/last.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/last3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/last4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/osprey.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/polar_rescue.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/sc_persia.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/sc_psyko.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/sc_robination_revised.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/sc_tetris4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/tf_original.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/toonrun1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/toonrun2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/toonrun3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop/maps/uplink.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'svencoop_event_april/maps/hl_c00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 23 more items:
+E         {'svencoop/maps/BlackMesaEPF.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/bm_sts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/crystal2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/ctf_warforts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/deadsimpleneo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/desertcircle.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/incoming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/intruder.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/last.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/last3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/last4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/osprey.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/polar_rescue.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/sc_persia.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/sc_psyko.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/sc_robination_revised.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/sc_tetris4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/tf_original.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/toonrun1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/toonrun2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/toonrun3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop/maps/uplink.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'svencoop_event_april/maps/hl_c00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'svencoop/maps/BlackMesaEPF.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/bm_sts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/crystal2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/ctf_warforts.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/deadsimpleneo2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/desertcircle.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/incoming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/intruder.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/last.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/last3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/last4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/osprey.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/polar_rescue.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/sc_persia.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/sc_psyko.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/sc_robination_revised.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/sc_tetris4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/tf_original.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/toonrun1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/toonrun2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/toonrun3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop/maps/uplink.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'svencoop_event_april/maps/hl_c00.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
 _________________ test_load_bsp[E:/Mod-DarkPlaces-map_dirs63] _________________
 
 group_path = 'E:/Mod', game_name = 'DarkPlaces', map_dirs = ['maps']
@@ -270,6 +1654,301 @@ filename = 'E:/Mod\\DarkPlaces\\maps\\b_batt0.bsp', branch_script = None
 E                   NotImplementedError: Unknown file_magic: b'IDPO'
 
 bsp_tool\__init__.py:85: NotImplementedError
+___________________ test_load_bsp[E:/Mod-Quake-map_dirs64] ____________________
+
+group_path = 'E:/Mod', game_name = 'Quake'
+map_dirs = ['Id1/pak0/maps', 'Id1/pak1/maps', 'hipnotic/pak0/maps', 'rogue/pak0/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 2 out of 92 .bsps failed
+E         ('QuakeBsp', 'bsp_tool.branches.id_software.quake', 29)
+E       assert {'Id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'Id1/pak1/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 2 more items:
+E         {'Id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'Id1/pak1/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'Id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'Id1/pak1/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+______________ test_load_bsp[E:/Mod-Quake/rerelease-map_dirs65] _______________
+
+group_path = 'E:/Mod', game_name = 'Quake/rerelease'
+map_dirs = ['id1/pak0/maps', 'id1/pak0/maps/test', 'hipnotic/pak0/maps', 'mg1/pak0/maps', 'rogue/pak0/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 19 out of 130 .bsps failed
+E         ('QuakeBsp', 'bsp_tool.branches.id_software.quake', 29)
+E         ('ReMakeQuakeBsp', 'bsp_tool.branches.id_software.remake_quake', None)
+E       assert {'hipnotic/pak0/maps/hip2m4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/mals_combatbox.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_aiming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_barrierjump.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_button.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_characters.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_door.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_invis.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_laser.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_obstacles.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_powerup.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_rockets.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'id1/pak0/maps/test/test_walkoffledge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'mg1/pak0/maps/mgdm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'mg1/pak0/maps/mgdm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'mg1/pak0/maps/mge1m1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'mg1/pak0/maps/mge1m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 19 more items:
+E         {'hipnotic/pak0/maps/hip2m4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/mals_combatbox.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_aiming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_barrierjump.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_button.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_characters.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_door.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_invis.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_laser.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_obstacles.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_powerup.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_rockets.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'id1/pak0/maps/test/test_walkoffledge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'mg1/pak0/maps/mgdm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'mg1/pak0/maps/mgdm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'mg1/pak0/maps/mge1m1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'mg1/pak0/maps/mge1m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'hipnotic/pak0/maps/hip2m4.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/e1m2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/e2m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/mals_combatbox.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_aiming.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_barrierjump.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_button.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_characters.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_door.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_invis.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_laser.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_obstacles.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_powerup.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_rockets.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'id1/pak0/maps/test/test_walkoffledge.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'mg1/pak0/maps/mgdm2.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'mg1/pak0/maps/mgdm3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'mg1/pak0/maps/mge1m1.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'mg1/pak0/maps/mge1m3.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+__________________ test_load_bsp[E:/Mod-Alkaline-map_dirs66] __________________
+
+group_path = 'E:/Mod', game_name = 'Alkaline'
+map_dirs = ['alkaline/pak0/maps', 'alk1.1/pak0/maps', 'alkaline_dk/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 2 out of 63 .bsps failed
+E         ('QuakeBsp', 'bsp_tool.branches.id_software.quake', 29)
+E       assert {'alk1.1/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'alkaline/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 2 more items:
+E         {'alk1.1/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'alkaline/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'alk1.1/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'alkaline/pak0/maps/alk_sickness.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+___________________ test_load_bsp[E:/Mod-Hexen2-map_dirs71] ___________________
+
+group_path = 'E:/Mod', game_name = 'Hexen2'
+map_dirs = ['pak0/maps', 'pak1/maps']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 1 out of 42 .bsps failed
+E         ('QuakeBsp', 'bsp_tool.branches.raven.hexen2', 29)
+E       assert {'pak1/maps/rider2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 1 more item:
+E         {'pak1/maps/rider2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E         - {}
+E         + {'pak1/maps/rider2c.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+
+tests\test_bsp.py:82: AssertionError
 ____________________ test_load_bsp[E:/Mod-CSO2-map_dirs91] ____________________
 
 group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
@@ -654,6 +2333,74 @@ E         +  'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n 
 E         +  'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E         +  'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
 E         +  'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),
+E           }
+
+tests\test_bsp.py:82: AssertionError
+_____________ test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs98] ______________
+
+group_path = 'E:/Mod', game_name = 'TeamFortressQuake'
+map_dirs = ['tf25rel/maps', 'tf28/FORTRESS/maps', 'tfbot080/MAPS']
+
+    @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
+    def test_load_bsp(group_path, game_name, map_dirs):
+        """MEGATEST: 69GB+ of .bsp files!"""
+        branch_script = game_scripts.get(game_name)
+        # NOTE: this is ugly and results in quite a few errors
+        # auto-detection really shouldn't have to rely on precise strings
+        errors = dict()
+        # ^ {"game": ["errors"]}
+        types = set()
+        # ^ {(BspClass, branch, version)}
+        total = 0
+        for map_dir in map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            if os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+                total += len(maps)
+                assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
+                for m in maps:  # load every .bsp
+                    try:
+                        bsp_filename = os.path.join(full_path, m)
+                        if os.path.getsize(bsp_filename) == 0:
+                            continue  # hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped
+                        if game_name == "half-life 2/episodic" and m == "ep1_citadel_00_demo.bsp":
+                            continue  # broken HL2:EP1 map (game crashes on load)
+                        elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
+                            continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  # avoid OSError "Too many open files"
+                        # TODO: check external lumps (RespawnBsp only)
+                        # -- mostly filesize checks
+                        # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
+                        loading_errors = {**bsp.loading_errors}
+                        if hasattr(bsp, "GAME_LUMP"):
+                            if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        if hasattr(bsp, "external"):
+                            loading_errors.update(bsp.external.loading_errors)
+                            if hasattr(bsp.external, "GAME_LUMP"):
+                                if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    except AssertionError as ae:
+                        errors[f"{map_dir}/{m}"] = ae
+                        types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                        del bsp
+>       assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+E       AssertionError: 3 out of 3 .bsps failed
+E         ('QuakeBsp', 'bsp_tool.branches.id_software.quake', 29)
+E       assert {'tf25rel/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'tf28/FORTRESS/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),\n 'tfbot080/MAPS/THE_BOX.BSP': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')} == {}
+E         Left contains 3 more items:
+E         {'tf25rel/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'tf28/FORTRESS/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E          'tfbot080/MAPS/THE_BOX.BSP': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0')}
+E         Full diff:
+E           {
+E         -  ,
+E         +  'tf25rel/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'tf28/FORTRESS/maps/introseq.bsp': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
+E         +  'tfbot080/MAPS/THE_BOX.BSP': AssertionError('MIP_TEXTURES\nassert 1 == 0\n  +1\n  -0'),
 E           }
 
 tests\test_bsp.py:82: AssertionError
@@ -1387,13 +3134,13 @@ tests\test_bsp.py:63:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 bsp_tool\__init__.py:98: in load_bsp
     return BspVariant(branch_script, filename, autoload=True)  # might raise errors
-bsp_tool\respawn.py:147: in __init__
+bsp_tool\respawn.py:160: in __init__
     super(RespawnBsp, self).__init__(branch, filename, autoload)
 bsp_tool\valve.py:24: in __init__
     super(ValveBsp, self).__init__(branch, filename, autoload)
 bsp_tool\base.py:35: in __init__
     self._preload()
-bsp_tool\respawn.py:223: in _preload
+bsp_tool\respawn.py:236: in _preload
     setattr(self, LUMP_name, shared.Entities(ent_file.read()))
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
@@ -1434,17 +3181,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Node
-  Light
-  Cell
-  AxisAlignedBoundingBox
-  Model
   DrawVertex
-  Occluder
-  Portal
-  Brush
+  Light
   CullGroup
+  Model
+  AxisAlignedBoundingBox
+  Portal
+  Node
+  Cell
+  Brush
   PatchCollision
+  Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -1487,13 +3234,13 @@ bsp_tool\branches\__init__.py                              30      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       16      0   100%
 bsp_tool\branches\arkane\dark_messiah_singleplayer.py      48      0   100%
-bsp_tool\branches\base.py                                 262     41    84%
+bsp_tool\branches\base.py                                 262     40    85%
 bsp_tool\branches\gearbox\__init__.py                       3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                    28      0   100%
 bsp_tool\branches\gearbox\nightfire.py                     90      0   100%
 bsp_tool\branches\id_software\__init__.py                   6      0   100%
 bsp_tool\branches\id_software\qfusion.py                   89      6    93%
-bsp_tool\branches\id_software\quake.py                    181     14    92%
+bsp_tool\branches\id_software\quake.py                    261     76    71%
 bsp_tool\branches\id_software\quake2.py                   106      0   100%
 bsp_tool\branches\id_software\quake3.py                   167     10    94%
 bsp_tool\branches\id_software\remake_quake.py              25      0   100%
@@ -1525,7 +3272,7 @@ bsp_tool\branches\ritual\fakk2.py                          57      0   100%
 bsp_tool\branches\ritual\moh_allied_assault.py             74      0   100%
 bsp_tool\branches\ritual\sin.py                            14      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2.py         72      0   100%
-bsp_tool\branches\shared.py                               100     30    70%
+bsp_tool\branches\shared.py                               101     30    70%
 bsp_tool\branches\troika\__init__.py                        2      0   100%
 bsp_tool\branches\troika\vampire.py                        36      0   100%
 bsp_tool\branches\valve\__init__.py                        10      0   100%
@@ -1537,7 +3284,7 @@ bsp_tool\branches\valve\orange_box.py                     131     10    92%
 bsp_tool\branches\valve\orange_box_x360.py                109     10    91%
 bsp_tool\branches\valve\sdk_2013.py                        82      0   100%
 bsp_tool\branches\valve\sdk_2013_x360.py                   17      0   100%
-bsp_tool\branches\valve\source.py                         595    111    81%
+bsp_tool\branches\valve\source.py                         593    109    82%
 bsp_tool\branches\vector.py                               175    121    31%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
@@ -1546,20 +3293,36 @@ bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               111    111     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
-bsp_tool\id_software.py                                   117     15    87%
+bsp_tool\id_software.py                                   117      9    92%
 bsp_tool\infinity_ward.py                                  69     10    86%
 bsp_tool\lumps\__init__.py                                279     66    76%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       246    130    47%
+bsp_tool\respawn.py                                       249    131    47%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         134     68    49%
 ---------------------------------------------------------------------------
-TOTAL                                                    6521   1445    78%
+TOTAL                                                    6603   1499    77%
 
 =========================== short test summary info ===========================
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs63] - NotIm...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs64] - AssertionE...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs65] - ...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs66] - Asserti...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs71] - Assertion...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs91] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs92]
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs98]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs99] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs101] - ...
-=========== 5 failed, 177 passed, 7 warnings in 11911.19s (3:18:31) ===========
+========== 21 failed, 161 passed, 7 warnings in 11778.31s (3:16:18) ===========
