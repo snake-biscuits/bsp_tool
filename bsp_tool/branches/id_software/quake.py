@@ -263,6 +263,8 @@ class MipTextureLump(list):  # LUMP 2
                     continue
                 self._buffer.seek(offset + mip_offset)
                 length = (miptex.size.width >> i) * (miptex.size.height >> i)
+                # are textures always 1 byte per texel?
+                # would just grabbing bytes between offsets / eof be better?
                 # TODO: might there be multiple mips for animated textures? do we need to decode miptex.name?
                 mip = self._buffer.read(length)
                 assert len(mip) == length, f"incomplete mip @ {mip_offset}"
