@@ -249,46 +249,44 @@ class MipTextureLump(list):  # LUMP 2
         self._buffer = io.BytesIO(raw_lump)
         length = int.from_bytes(self._buffer.read(4), "little")
         offsets = struct.unpack(f"{length}I", self._buffer.read(4 * length))
-        # ^ should be 40 bytes increments following the end of offsets
-        for offset in offsets:
-            # TODO: pass everything we can out when it all breaks for whoever's debugging
-            # -- unless the python debugger could be used like gdb here? should learn how that works...
+        for i, offset in enumerate(offsets):
             assert offset == self._buffer.tell(), "mips are not perfectly in sequence?"
             self._buffer.seek(offset)
             miptex = MipTexture.from_stream(self._buffer)
             mips = list()
-            for i, mip_offset in enumerate(miptex.offsets):
-                if mip_offset == 0:  # gasworks has no mips
+            for j, mip_offset in enumerate(miptex.offsets):
+                if mip_offset == 0:  # Half-Life/valve/maps/gasworks.bsp has no embedded mips
                     mips.append(b"")
                     continue
                 self._buffer.seek(offset + mip_offset)
-                length = (miptex.size.width >> i) * (miptex.size.height >> i)
-                # are textures always 1 byte per texel?
-                # would just grabbing bytes between offsets / eof be better?
-                # TODO: might there be multiple mips for animated textures? do we need to decode miptex.name?
+                # don't bother accurately calculating & confirming mip sizes, just grab all the bytes
+                if j < len(miptex.offsets) - 1:
+                    end_offset = miptex.offsets[j + 1]
+                elif i < len(offsets) - 1:
+                    end_offset = offsets[i + 1]
+                else:
+                    end_offset = len(raw_lump)
+                length = end_offset - mip_offset
                 mip = self._buffer.read(length)
-                assert len(mip) == length, f"incomplete mip @ {mip_offset}"
                 mips.append(mip)
             out.append((miptex, mips))
         assert len(raw_lump) == self._buffer.tell()
         super().__init__(out)
 
     def as_bytes(self):
-        # NOTE: works for GoldSrc, but not quake
-        out = [len(self).to_bytes(4, "little")]
-        offsets = list()
-        offset = 4 + len(self) * 4
+        out = [len(self).to_bytes(4, "little")]  # miptex count
+        miptex_offsets = list()
+        miptex_offset = 4 + len(self) * 4
         for miptex, mips in self:
-            if b"".join(mips) != b"" or tuple(miptex.offsets) != (0, 0, 0, 0):
-                # TODO: pack mips & recalculate local offsets
-                # NOTE: full should always be struct.calcsize(MipTexture._format)
-                # -- embedded mips will shift the MipTexture offsets as well
-                # no padding afaik, regular power of 2 texture sizes should handle that
-                raise NotImplementedError("Unsure how to pack mips")
+            miptex_offsets.append(miptex_offset)
+            mip_offset = struct.calcsize(MipTexture._format)
+            for i, mip in enumerate(mips):
+                miptex.offsets[i] = mip_offset
+                mip_offset += len(mip)
             out.append(miptex.as_bytes())
-            offsets.append(offset)
-            offset += struct.calcsize(MipTexture._format)
-        out[1:1] = offsets
+            out.extend(mips)
+            miptex_offset += mip_offset
+        out[1:1] = miptex_offsets  # splice offsets to each miptex in after the miptex count
         return b"".join(out)
 
 
