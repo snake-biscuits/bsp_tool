@@ -34,7 +34,7 @@ class LUMP(enum.Enum):
     MODELS = 13
     BRUSHES = 14
     BRUSH_SIDES = 15
-    POP = 16  # ?
+    POP = 16  # QuakeII/pak1 only (multiplayer / deathmatch?)
     AREAS = 17
     AREA_PORTALS = 18
 
@@ -51,6 +51,8 @@ LumpHeader = quake.LumpHeader
 # FACES -> SURFEDGES -> EDGES -> VERTICES
 #     \--> TEXTURE_INFO -> MIP_TEXTURES
 #      \-> LIGHTMAPS
+
+# POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
 
 
 # flag enums

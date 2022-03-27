@@ -250,7 +250,6 @@ class MipTextureLump(list):  # LUMP 2
         length = int.from_bytes(self._buffer.read(4), "little")
         offsets = struct.unpack(f"{length}I", self._buffer.read(4 * length))
         for i, offset in enumerate(offsets):
-            assert offset == self._buffer.tell(), "mips are not perfectly in sequence?"
             self._buffer.seek(offset)
             miptex = MipTexture.from_stream(self._buffer)
             mips = list()
@@ -260,11 +259,11 @@ class MipTextureLump(list):  # LUMP 2
                     continue
                 self._buffer.seek(offset + mip_offset)
                 # don't bother accurately calculating & confirming mip sizes, just grab all the bytes
-                if j < len(miptex.offsets) - 1:
+                if j < 3:  # len(miptex.offsets) - 1
                     end_offset = miptex.offsets[j + 1]
                 elif i < len(offsets) - 1:
                     end_offset = offsets[i + 1]
-                else:
+                else:  # end of lump (j == 3 and offset == offsets[-1])
                     end_offset = len(raw_lump)
                 length = end_offset - mip_offset
                 mip = self._buffer.read(length)
