@@ -424,7 +424,7 @@ let D91 = @sum(D90:F90)
 goto G2
 movetosheet "Cheapest"
 offscr_sc_cols 0
-offscr_sc_rows 0
+offscr_sc_rows 12
 nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
@@ -480,21 +480,21 @@ leftstring B9 = "ion_storm.daikatana"
 leftstring C9 = "Daikatana"
 let D9 = 9.95
 leftstring E9 = "Steam"
-leftstring A10 = "InfinityWardBsp"
-leftstring B10 = "infinity_ward.call_of_duty2"
-leftstring C10 = "Call of Duty 2"
-let D10 = 29.95
-leftstring E10 = "Steam"
+leftstring A10 = "IdTechBsp"
+leftstring B10 = "raven.soldier_of_fortune"
+leftstring C10 = "Soldier of Fortune: Platinum Edition"
+let D10 = 13.59
+leftstring E10 = "GOG"
 leftstring A11 = "IdTechBsp"
-leftstring B11 = "raven.soldier_of_fortune"
-leftstring C11 = "Soldier of Fortune: Platinum Edition"
-let D11 = 13.59
+leftstring B11 = "ritual.sin"
+leftstring C11 = "SiN: Gold"
+let D11 = 13.95
 leftstring E11 = "GOG"
-leftstring A12 = "IdTechBsp"
-leftstring B12 = "ritual.sin"
-leftstring C12 = "SiN: Gold"
-let D12 = 13.95
-leftstring E12 = "GOG"
+leftstring A12 = "InfinityWardBsp"
+leftstring B12 = "infinity_ward.call_of_duty2"
+leftstring C12 = "Call of Duty 2"
+let D12 = 29.95
+leftstring E12 = "Steam"
 leftstring A13 = "QuakeBsp"
 leftstring B13 = "id_software.quake"
 leftstring C13 = "Quake"
@@ -611,4 +611,4 @@ leftstring E36 = "Steam"
 rightstring C38 = "TOTAL"
 leftstring D38 = "$"
 let D38 = @sum(D1:D33)
-goto B27
+goto A36
