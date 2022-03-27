@@ -131,10 +131,11 @@ class Struct:
     # convertors
     @classmethod
     def from_bytes(cls, _bytes: bytes) -> Struct:
-        assert len(_bytes) == struct.calcsize(cls._format)
+        expected_length = struct.calcsize(cls._format)
+        assert len(_bytes) == expected_length, f"Not enough bytes! Expected {expected_length} got {len(_bytes)}"
         _tuple = struct.unpack(cls._format, _bytes)
         expected_length = len(cls.__slots__) + mapping_length(cls._arrays) - len(cls._arrays)
-        assert len(_tuple) == expected_length
+        assert len(_tuple) == expected_length, f"{cls.__name__} mappings do not match _format"
         return cls.from_tuple(_tuple)
 
     @classmethod

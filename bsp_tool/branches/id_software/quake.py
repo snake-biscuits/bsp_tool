@@ -248,8 +248,11 @@ class MipTextureLump(list):  # LUMP 2
         out = list()
         self._buffer = io.BytesIO(raw_lump)
         length = int.from_bytes(self._buffer.read(4), "little")
-        offsets = struct.unpack(f"{length}I", self._buffer.read(4 * length))
+        offsets = struct.unpack(f"{length}i", self._buffer.read(4 * length))
         for i, offset in enumerate(offsets):
+            if offset == -1:
+                out.append((None, [b""] * 4))  # there is no mip
+                continue
             self._buffer.seek(offset)
             miptex = MipTexture.from_stream(self._buffer)
             mips = list()
