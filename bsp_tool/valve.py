@@ -73,7 +73,6 @@ class ValveBsp(base.Bsp):
                 else:
                     BspLump = lumps.create_RawBspLump(self.file, lump_header)
             except KeyError:  # lump VERSION not supported
-                self.loading_errors[LUMP.name] = KeyError(f"{LUMP.name} v{lump_header.version} is not supported")
                 BspLump = lumps.create_RawBspLump(self.file, lump_header)
             except Exception as exc:
                 self.loading_errors[LUMP.name] = exc

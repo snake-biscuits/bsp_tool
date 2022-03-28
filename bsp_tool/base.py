@@ -3,7 +3,6 @@ import os
 import struct
 from types import MethodType, ModuleType
 from typing import Any, Dict, List
-import warnings
 
 
 class Bsp:
@@ -20,8 +19,9 @@ class Bsp:
     folder: str
     headers: Dict[str, Any]
     # ^ {"LUMP.name": LumpHeader}
+    # NOTE: header type is self.branch.LumpHeader
     loading_errors: Dict[str, Exception]
-    # ^ {"LUMP.name": Exception("details")}
+    # ^ {"LUMP.name": Error("details")}
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         if not filename.lower().endswith(".bsp"):
@@ -34,7 +34,7 @@ class Bsp:
             if os.path.exists(filename):
                 self._preload()
             else:
-                warnings.warn(UserWarning(f"{filename} not found, creating a new .bsp"))
+                print(f"{filename} not found, creating a new .bsp")
                 self.headers = {L.name: self.branch.LumpHeader() for L in self.branch.LUMP}
 
     def __enter__(self):
