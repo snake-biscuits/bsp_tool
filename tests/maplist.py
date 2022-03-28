@@ -53,6 +53,7 @@ source_dirs = {
                                    ],
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
          "Double Action": ["dab/maps"],  # 10 maps | 255 MB
+         "EYE Divine Cybermancy Demo": ["EYE/maps"],  # 6 maps | 176 MB
          "Fistful of Frags": ["fof/maps"],  # 39 maps | 1.68 GB
          "Fortress Forever": ["FortressForever/maps"],  # 22 maps | 618 MB
          "G String": ["gstringv2/maps"],  # 76 maps | 2.49 GB | Seriously Impressive

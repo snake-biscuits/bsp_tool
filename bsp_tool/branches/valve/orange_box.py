@@ -13,6 +13,7 @@ FILE_MAGIC = b"VBSP"
 BSP_VERSION = 20
 
 GAME_PATHS = {"Day of Defeat: Source": "day of defeat source/dod",
+              "E.Y.E: Divine Cybermancy": "EYE Divine Cybermancy/EYE",
               "G-String": "G String/gstringv2",
               "Garry's Mod": "GarrysMod/garrysmod",
               "Half-Life 2: Episode 2": "half-life 2/ep2",
