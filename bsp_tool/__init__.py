@@ -96,3 +96,10 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     if branch_script is None:
         branch_script = branches.script_from_file_magic_and_version[(file_magic, version)]
     return BspVariant(branch_script, filename, autoload=True)  # might raise errors
+
+
+# TODO: write a generator that walks a path for .bsps, including inside .pk3, .bz2, .iwd & .zip
+# -- this should greatly simplify testing theories / support against whole games
+# TODO: allow loading .bsp files from bytestreams
+# -- base.Bsp @classmethod .from_stream(stream: bytes | io.BytesIO) alternate __init__?
+# -- requires faking both self.folder (need to hook to some ZipFile method) & overriding self.file
