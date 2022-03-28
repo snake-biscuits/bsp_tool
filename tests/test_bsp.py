@@ -36,12 +36,13 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
 @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
 def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 69GB+ of .bsp files!"""
-    branch_script = game_scripts.get(game_name)
-    # NOTE: this is ugly and results in quite a few errors
-    # auto-detection really shouldn't have to rely on precise strings
+    # TODO: clean up all the edge case conditions elsewhere
+    branch_script = game_scripts.get(game_name)  # forcing branch to test each branch_script
+    # TODO: move branch_script tests to another test and test auto-detect here instead
+    # -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...]
     errors = dict()
-    # ^ {"game": ["errors"]}
-    types = set()
+    # ^ {"map_dir/map_name.bsp": ["Error"]}
+    types = set()  # printed on failure to aid in debugging
     # ^ {(BspClass, branch, version)}
     total = 0
     for map_dir in map_dirs:
@@ -75,7 +76,14 @@ def test_load_bsp(group_path, game_name, map_dirs):
                             if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
                     assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
-                except AssertionError as ae:
+                except NotImplementedError as nie:
+                    # "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension
+                    # https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF
+                    # Quake stores pickup models as .bsp and renders them in a nested fashion
+                    # so this is probably fine in Quake, but they still aren't .bsp files
+                    if not (game_name == "DarkPlaces" and nie.args == ("Unknown file_magic: b'IDPO'",)):
+                        errors[f"{map_dir}/{m}"] = nie
+                except AssertionError as ae:  # should catch the `assert len(loading_errors) == ...` above
                     errors[f"{map_dir}/{m}"] = ae
                     types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                     del bsp
