@@ -231,10 +231,10 @@ class ShadowEnvironment(base.Struct):
     first_shadow_mesh: int  # first ShadowMesh in this ShadowEnvironment
     unknown_2: List[int]  # likely indices into other lumps
     num_shadow_meshes: int  # number of ShadowMeshes in this ShadowEnvironment after first_shadow_mesh
-    unknown_3: List[int]  # no clue
+    unknown_3: List[float]  # 3x floats from -1.0 to +1.0; not a unit vector!
     __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "unknown_3"]
-    _format = "6i6H"
-    _arrays = {"unknown_1": 2, "unknown_2": 2, "unknown_3": 6}
+    _format = "6i3f"
+    _arrays = {"unknown_1": 2, "unknown_2": 2, "unknown_3": 3}
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
