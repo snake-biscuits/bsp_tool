@@ -149,7 +149,7 @@ class LUMP(enum.Enum):
     SHADOW_MESH_OPAQUE_VERTICES = 0x007C
     SHADOW_MESH_ALPHA_VERTICES = 0x007D
     SHADOW_MESH_INDICES = 0x007E
-    SHADOW_MESH_MESHES = 0x007F
+    SHADOW_MESHES = 0x007F
 
 
 LumpHeader = source.LumpHeader
@@ -657,7 +657,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
                 "PORTAL_VERTICES":                   {0: quake.Vertex},
                 "PORTAL_VERTEX_EDGES":               {0: PortalEdgeIntersect},
-                "SHADOW_MESH_MESHES":                {0: ShadowMesh},
+                "SHADOW_MESHES":                     {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTICES":        {0: ShadowMeshAlphaVertex},
                 "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
                 "TEXTURE_DATA":                      {1: TextureData},
@@ -766,7 +766,7 @@ def shadow_meshes_as_obj(bsp) -> str:
             out.append(f"v {v.x} {v.y} {v.z}\nvt {v.unknown[0]} {v.unknown[1]}")
     # TODO: group by ShadowEnvironment if titanfall2
     end = 0
-    for i, mesh in enumerate(bsp.SHADOW_MESH_MESHES):
+    for i, mesh in enumerate(bsp.SHADOW_MESHES):
         out.append(f"o mesh_{i}")
         for j in range(mesh.num_triangles):
             start = end + j * 3
