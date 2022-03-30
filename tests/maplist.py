@@ -276,9 +276,10 @@ extracted_dirs = {
                                  "19nov21/depot/r5-111/game/r2/maps"],  # 10 maps | 1.4 GB | .vpk
         # season12:  Defiance [9th Feb 2022]
         "ApexLegends/season12": ["9feb22/maps",  # 11 maps | 1.91 GB | .vpk
-                                 "9feb22/depot/r5-120/game/r2/maps"],  # 11 maps | 1.86 GB | .vpk
-        # TODO: "29march22/maps",  # XX maps | X.XX GB | .vpk
-        # TODO: "29march22/depot/..."],  # XX maps | X.XX GB | .vpk
+                                 "9feb22/depot/r5-120/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
+                                 "29march22/maps",  # 11 maps | 1.89 GB | .vpk
+                                 "29march22/depot/r5-120/game/r2/maps",  # 10 maps | 1.77 GB | .vpk
+                                 "29march22/depot/r5-121/game/r2/maps"],  # 11 maps | 1.84 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
