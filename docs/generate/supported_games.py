@@ -9,10 +9,10 @@ from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
-from bsp_tool import GoldSrcBsp, RespawnBsp, ValveBsp, QuakeBsp  # noqa: E402
+from bsp_tool import GoldSrcBsp, RavenBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp  # noqa: E402
 from bsp_tool import branches  # noqa: E402
 from bsp_tool.extensions import lightmaps  # noqa: E402
-from bsp_tool.lumps import GameLump  # noqa: E402
+from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
 # NOTE: forks should substitute their own repo here
 # TODO: get the last commit hash from `git rev-parse HEAD` for permalinks
@@ -26,15 +26,54 @@ ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "
 source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
                   branches.valve.left4dead, branches.valve.left4dead2,
                   *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
-# NOTE: per BspClass fils could probably be generated: (would be quite messy though)
+# NOTE: per BspClass files that could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
 # -- confirming all the BspClasses line up is pretty important though
 # NOTE: x360 branch scripts are generated almost entirely from existing branch scripts
 # -- this is incomplete however, as bitfields are also inverted somewhat
 # -- no support for bitfields of any order exists yet anyway, however
-# TODO: sort alphabetically
-# TODO: IW Engine branches
-# TODO: check all base.Bsp subclasses & are covered, and all scripts
+# NOTE: list of all BspClass & associated branch_script + Y/N coverage column
+# -- loosely copied from games.sc
+# | BspClass        | branch_script                    | Y/N |
+# | :-------------- | :------------------------------- | --- |
+# | D3DBsp          | infinity_ward.modern_warfare     |  N  |
+# | FusionBsp       | id_software.qfusion              |  N  |
+# | GoldSrcBsp      | valve.goldsrc                    |  Y  |
+# | GoldSrcBsp      | gearbox.blue_shift               |  Y  |
+# | GoldSrcBsp      | gearbox.nightfire                |  Y  |
+# | IdTechBsp       | id_software.quake2               |  Y  |
+# | IdTechBsp       | id_software.quake3               |  Y  |
+# | IdTechBsp       | infinity_ware.call_of_duty1      |  N  |
+# | IdTechBsp       | ion_storm.daikatana              |  Y  |
+# | IdTechBsp       | raven.solder_of_fortune          |  Y  |
+# | IdTechBsp       | ritual.sin                       |  Y  |
+# | InfinityWardBsp | infinity_ware.call_of_duty2      |  N  |
+# | QuakeBsp        | id_software.quake                |  Y  |
+# | QuakeBsp        | raven.hexen2                     |  Y  |
+# | RavenBsp        | raven.soldier_of_fortune2        |  Y  |
+# | RavenBsp        | ritual.sin                       |  N  |  # ?
+# | ReMakeQuakeBsp  | id_software.remake_quake         |  N  |
+# | RespawnBsp      | respawn.apex_legends             |  Y  |
+# | RespawnBsp      | respawn.titanfall                |  Y  |
+# | RespawnBsp      | respawn.titanfall2               |  Y  |
+# | RitualBsp       | ritual.fakk2                     |  Y  |
+# | RitualBsp       | ritual.moh_allied_assault        |  Y  |
+# | RitualBsp       | ritual.start_trek_elite_force2   |  Y  |
+# | ValveBsp        | arkane.dark_messiah_singleplayer |  Y  |
+# | ValveBsp        | arkane.dark_messiah_multiplayer  |  Y  |
+# | ValveBsp        | loiste.infra                     |  N  |
+# | ValveBsp        | nexon.cso2                       |  Y  |
+# | ValveBsp        | nexon.cso2_2018                  |  Y  |
+# | ValveBsp        | nexon.vindictus                  |  Y  |
+# | ValveBsp        | troika.vampire                   |  Y  |
+# | ValveBsp        | valve.alien_swarm                |  Y  |
+# | ValveBsp        | valve.left4dead                  |  Y  |
+# | ValveBsp        | valve.left4dead2                 |  Y  |
+# | ValveBsp        | valve.orange_box                 |  Y  |
+# | ValveBsp        | valve.sdk_2013                   |  Y  |
+# | ValveBsp        | valve.source                     |  Y  |
+# 7 / 35 (20%) to go!
+
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
@@ -60,8 +99,9 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {QuakeBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
                                   branches.raven.soldier_of_fortune, branches.ritual.sin]}),
           ScriptGroup("Quake III Engine", "quake3.md", "Id Software", None,
-                      {QuakeBsp: [branches.id_software.quake3, branches.raven.soldier_of_fortune2,
-                                  *[bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]]})]
+                      {QuakeBsp: [branches.id_software.quake3],
+                       RavenBsp: [branches.raven.soldier_of_fortune2],
+                       RitualBsp: [bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]})]
 del source_exclude
 
 out_path = "../supported"

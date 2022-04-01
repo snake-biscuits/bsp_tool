@@ -98,7 +98,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs89] [32mPASSED[0m[3
 tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs90] [32mPASSED[0m[32m     [ 48%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs91] [32mPASSED[0m[32m    [ 48%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs92] [31mFAILED[0m[31m          [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs93] [31mFAILED[0m[31m [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs93] [32mPASSED[0m[31m [ 50%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs94] [32mPASSED[0m[31m [ 50%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs95] [32mPASSED[0m[31m [ 51%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs96] [32mPASSED[0m[31m         [ 51%][0m
@@ -111,88 +111,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs102] [31mFAILED
 tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs103] [32mPASSED[0m[31m [ 55%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs104] [32mPASSED[0m[31m   [ 55%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs105] [32mPASSED[0m[31m  [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs106] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs107] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs108] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs109] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs110] [32mPASSED[0m[31m [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs111] [32mPASSED[0m[31m        [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs112] [32mPASSED[0m[31m        [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs113] [32mPASSED[0m[31m        [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs114] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs115] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs116] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs117] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs118] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs119] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs120] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 64%][0m
-tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 65%][0m
-tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 65%][0m
-tests/test_bsplump.py::TestBspLump::test_list_conversion [32mPASSED[0m[31m          [ 66%][0m
-tests/test_bsplump.py::TestBspLump::test_indexing [32mPASSED[0m[31m                 [ 67%][0m
-tests/test_bsplump.py::TestBspLump::test_del [32mPASSED[0m[31m                      [ 67%][0m
-tests/test_bsplump.py::TestBspLump::test_setitem [32mPASSED[0m[31m                  [ 68%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_its_basic [32mPASSED[0m[31m           [ 68%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[31m     [ 69%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_indexing [32mPASSED[0m[31m            [ 69%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp0] [32mPASSED[0m[31m                    [ 70%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp1] [32mPASSED[0m[31m                    [ 70%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 71%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp3] [32mPASSED[0m[31m                    [ 71%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 72%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp1] [32mPASSED[0m[31m               [ 72%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 73%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp3] [32mPASSED[0m[31m               [ 73%][0m
-tests/test_idtech_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                    [ 74%][0m
-tests/test_idtech_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m              [ 75%][0m
-tests/test_idtech_bsp.py::test_face_struct[bsp0] [32mPASSED[0m[31m                  [ 75%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                     [ 76%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp1] [32mPASSED[0m[31m                     [ 76%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp2] [32mPASSED[0m[31m                     [ 77%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m               [ 77%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp1] [32mPASSED[0m[31m               [ 78%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp2] [32mPASSED[0m[31m               [ 78%][0m
-tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 79%][0m
-tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 79%][0m
-tests/branches/test_base.py::TestMappedArray::test_init [32mPASSED[0m[31m           [ 80%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 80%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 83%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.moh_allied_assault] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_multiplayer] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 99%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [100%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs106] 
 
 ================================== FAILURES ===================================
 [31m[1m____________________ test_load_bsp[E:/Mod-CSO2-map_dirs92] ____________________[0m
@@ -455,146 +374,6 @@ group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
 [1m[31mE         +  'maps/zz_festival.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
 [1m[31mE         +  'maps/zz_phouse.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
 [1m[31mE         +  'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE           }[0m
-
-[1m[31mtests\test_bsp.py[0m:90: AssertionError
-[31m[1m__________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs93] __________[0m
-
-group_path = 'E:/Mod', game_name = 'DarkMessiah/singleplayer'
-map_dirs = ['maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
-        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
-        errors = [96mdict[39;49;00m()
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m
-        total = [94m0[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            [94mif[39;49;00m os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
-                total += [96mlen[39;49;00m(maps)
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
-                    [94mtry[39;49;00m:
-                        bsp_filename = os.path.join(full_path, m)
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
-                        [90m# TODO: check external lumps (RespawnBsp only)[39;49;00m
-                        [90m# -- mostly filesize checks[39;49;00m
-                        [90m# -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors[39;49;00m
-                        loading_errors = {**bsp.loading_errors}
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
-                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
-                            loading_errors.update(bsp.external.loading_errors)
-                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
-                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
-                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
-                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
-                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
-                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
-                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
-                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
-                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
-                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
-                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
-                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
-                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
-                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
-                        [94mdel[39;49;00m bsp
->       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
-[1m[31mE       AssertionError: 35 out of 35 .bsps failed[0m
-[1m[31mE         ('ValveBsp', 'bsp_tool.branches.arkane.dark_messiah_singleplayer', (20, 4))[0m
-[1m[31mE       assert {'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')} == {}[0m
-[1m[31mE         Left contains 35 more items:[0m
-[1m[31mE         {'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0')}[0m
-[1m[31mE         Full diff:[0m
-[1m[31mE           {[0m
-[1m[31mE         -  ,[0m
-[1m[31mE         +  'maps/e3_l06_l09.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l00.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l01_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l02_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l02_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l02_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l03_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l03_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l04_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l05_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l05_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l05_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l06_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l06_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l06_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l06_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l07_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l07_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l08_a1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l08_a2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l08_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l09_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l09_d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l10_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l10_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l10_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l11_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l11_b1.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l11_b2.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l11_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l12_a.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l12_b.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/l12_c.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/menu_3d.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/menu_3d_credits.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
 [1m[31mE           }[0m
 
 [1m[31mtests\test_bsp.py[0m:90: AssertionError
@@ -1306,57 +1085,6 @@ raw_entities = b'{\n"editorclass" "info_particle_system_clientside"\n"Visibility
 [1m[31mE                       StopIteration[0m
 
 [1m[31mbsp_tool\branches\shared.py[0m:69: StopIteration
-[33m============================== warnings summary ===============================[0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  MipTexture
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Portal
-  Light
-  DrawVertex
-  CullGroup
-  Model
-  Brush
-  Occluder
-  Cell
-  AxisAlignedBoundingBox
-  PatchCollision
-  Node
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Model
-  CollisionEdge
-  CollisionTriangle
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  Model
-  TextureInfo
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  Grid
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  Grid_x360
-    warnings.warn(UserWarning(warning_text))
-
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  Primitive_x360
-  DisplacementInfo_x360
-    warnings.warn(UserWarning(warning_text))
-
--- Docs: https://docs.pytest.org/en/stable/warnings.html
 
 ---------- coverage: platform win32, python 3.9.12-final-0 -----------
 Name                                                    Stmts   Miss  Cover
@@ -1367,7 +1095,7 @@ bsp_tool\branches\__init__.py                              30      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       16      0   100%
 bsp_tool\branches\arkane\dark_messiah_singleplayer.py      48      0   100%
-bsp_tool\branches\base.py                                 263     39    85%
+bsp_tool\branches\base.py                                 263    110    58%
 bsp_tool\branches\gearbox\__init__.py                       3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                    28      0   100%
 bsp_tool\branches\gearbox\nightfire.py                     90      0   100%
@@ -1414,10 +1142,10 @@ bsp_tool\branches\valve\goldsrc.py                         78      0   100%
 bsp_tool\branches\valve\left4dead.py                       82      0   100%
 bsp_tool\branches\valve\left4dead2.py                      83      0   100%
 bsp_tool\branches\valve\orange_box.py                     131     10    92%
-bsp_tool\branches\valve\orange_box_x360.py                109     10    91%
+bsp_tool\branches\valve\orange_box_x360.py                109     26    76%
 bsp_tool\branches\valve\sdk_2013.py                        82      0   100%
 bsp_tool\branches\valve\sdk_2013_x360.py                   17      0   100%
-bsp_tool\branches\valve\source.py                         593    109    82%
+bsp_tool\branches\valve\source.py                         595    109    82%
 bsp_tool\branches\vector.py                               175    121    31%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
@@ -1428,17 +1156,19 @@ bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
 bsp_tool\id_software.py                                   117     15    87%
 bsp_tool\infinity_ward.py                                  69     10    86%
-bsp_tool\lumps\__init__.py                                279     66    76%
+bsp_tool\lumps\__init__.py                                341    159    53%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       249    131    47%
-bsp_tool\ritual.py                                         45      3    93%
-bsp_tool\valve.py                                         133     68    49%
+bsp_tool\respawn.py                                       249    130    48%
+bsp_tool\ritual.py                                         45     36    20%
+bsp_tool\valve.py                                         136     71    48%
 ---------------------------------------------------------------------------
-TOTAL                                                    6611   1496    77%
+TOTAL                                                    6678   1711    74%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs92] - AssertionEr...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs93]
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs100] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs102] - ...
-[31m=========== [31m[1m4 failed[0m, [32m184 passed[0m, [33m7 warnings[0m[31m in 13447.81s (3:44:07)[0m[31m ===========[0m
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[1m[31mC:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\base.py[0m:59: KeyboardInterrupt
+[33m(to show a full traceback on KeyboardInterrupt use --full-trace)[0m
+[31m================= [31m[1m3 failed[0m, [32m103 passed[0m[31m in 6614.12s (1:50:14)[0m[31m ==================[0m

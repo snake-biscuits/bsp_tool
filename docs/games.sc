@@ -5,25 +5,25 @@ newsheet "Complete"
 newsheet "Cheapest"
 movetosheet "Complete"
 offscr_sc_cols 0
-offscr_sc_rows 0
+offscr_sc_rows 52
 nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
 nb_frozen_screencols 0
 format A 16 2 0
-format B 32 2 0
+format B 33 2 0
 format C 50 2 0
 format D 7 2 0
 format E 7 2 0
-format F 6 2 0
-format G 17 0 0
-label A0 = "BspClass"
-label B0 = "branch_script"
-label C0 = "BspClass"
-label D0 = "Steam"
-label E0 = "GOG"
-label F0 = "Origin"
-label G0 = "Other"
+format F 7 2 0
+format G 19 2 0
+leftstring A0 = "BspClass"
+leftstring B0 = "branch_script"
+leftstring C0 = "Game"
+leftstring D0 = "Steam"
+leftstring E0 = "GOG"
+leftstring F0 = "Origin"
+leftstring G0 = "Other"
 leftstring A1 = "D3DBsp"
 leftstring B1 = "infinity_ward.modern_warfare"
 leftstring C1 = "Call of Duty 4: Modern Warfare"
@@ -31,7 +31,7 @@ let D1 = 29.95
 leftstring A2 = "FusionBsp"
 leftstring B2 = "id_software.qfusion"
 leftstring C2 = "Warsow"
-leftstring G2 = "moddb.com"
+leftstring G2 = "ModDB"
 leftstring A3 = "GoldSrcBsp"
 leftstring B3 = "gearbox.blue_shift"
 leftstring C3 = "Half-Life: Blue Shift"
@@ -72,12 +72,10 @@ leftstring A12 = "GoldSrcBsp"
 leftstring B12 = "valve.goldsrc"
 leftstring C12 = "Team Fortress Classic"
 let D12 = 7.5
-let G12 = 1
 leftstring A13 = "GoldSrcBsp"
 leftstring B13 = "valve.goldsrc"
 leftstring C13 = "Counter-Strike"
 let D13 = 14.5
-let G13 = 1
 leftstring A14 = "GoldSrcBsp"
 leftstring B14 = "valve.goldsrc"
 leftstring C14 = "Counter-Strike: Condition Zero"
@@ -89,10 +87,11 @@ let D15 = 14.5
 leftstring A16 = "GoldSrcBsp"
 leftstring B16 = "valve.goldsrc"
 leftstring C16 = "Counter-Strike: Condition Zero - Deleted Scenes"
+leftstring G16 = "bundled only"
 leftstring A17 = "IdTechBsp"
 leftstring B17 = "id_software.quake2"
 leftstring C17 = "Heretic II"
-let G17 = 1
+leftstring G17 = "myabandonware.com"
 leftstring A18 = "IdTechBsp"
 leftstring B18 = "id_software.quake2"
 leftstring C18 = "Quake II"
@@ -124,6 +123,7 @@ let E23 = 19.95
 leftstring A24 = "IdTechBsp"
 leftstring B24 = "id_software.quake3"
 leftstring C24 = "Quake III: Team Arena"
+leftstring G24 = "bundled only"
 leftstring A25 = "IdTechBsp"
 leftstring B25 = "id_software.quake3"
 leftstring C25 = "WRATH: Aeon of Ruin"
@@ -135,12 +135,11 @@ let E26 = 14.95
 leftstring A27 = "IdTechBsp"
 leftstring B27 = "id_software.quake3"
 leftstring C27 = "Wolfenstein: Enemy Territory"
-label G27 = "splash damage"
+leftstring G27 = "splashdamage.com"
 leftstring A28 = "IdTechBsp"
 leftstring B28 = "infinity_ward.call_of_duty1"
 leftstring C28 = "Call of Duty"
 let D28 = 29.95
-let G28 = 1
 leftstring A29 = "IdTechBsp"
 leftstring B29 = "infinity_ward.call_of_duty1"
 leftstring C29 = "Call of Duty: United Offensive"
@@ -150,7 +149,6 @@ leftstring B30 = "ion_storm.daikatana"
 leftstring C30 = "Daikatana"
 let D30 = 9.95
 let E30 = 9.95
-let G30 = 1
 leftstring A31 = "IdTechBsp"
 leftstring B31 = "raven.soldier_of_fortune"
 leftstring C31 = "Soldier of Fortune"
@@ -164,18 +162,15 @@ leftstring B33 = "id_software.quake"
 leftstring C33 = "Quake"
 let D33 = 14.95
 let E33 = 15.99
-let G33 = 1
 leftstring A34 = "QuakeBsp"
 leftstring B34 = "raven.hexen2"
 leftstring C34 = "Hexen II"
 let D34 = 7.45
 let E34 = 7.49
-let G34 = 1
 leftstring A35 = "RavenBsp"
 leftstring B35 = "raven.soldier_of_fortune2"
 leftstring C35 = "Soldier of Fortune II: Double Helix"
 let E35 = 13.59
-let G35 = 1
 leftstring A36 = "RavenBsp"
 leftstring B36 = "raven.soldier_of_fortune2"
 leftstring C36 = "Star Wars: Jedi Knight - Jedi Academy"
@@ -189,75 +184,69 @@ leftstring B38 = "ritual.sin"
 leftstring C38 = "SiN: Gold"
 let D38 = 14.5
 let E38 = 13.95
-let G38 = 1
 leftstring A39 = "RavenBsp"
 leftstring B39 = "ritual.sin"
 leftstring C39 = "SiN"
-let G39 = 1
+leftstring G39 = "Gold version only"
 leftstring A40 = "ReMakeQuakeBsp"
 leftstring B40 = "id_software.remake_quake"
 leftstring C40 = "Quake (Rerelease: Dimension of the Past)"
-let G40 = 1
+leftstring G40 = "bundled"
 leftstring A41 = "RespawnBsp"
 leftstring B41 = "respawn.apex_legends"
 leftstring C41 = "Apex Legends"
 let D41 = 0
 let F41 = 0
-let G41 = 1
 leftstring A42 = "RespawnBsp"
 leftstring B42 = "respawn.titanfall"
 leftstring C42 = "Titanfall"
-let G42 = 1
+leftstring G42 = "removed from stores"
 leftstring A43 = "RespawnBsp"
 leftstring B43 = "respawn.titanfall"
 leftstring C43 = "Titanfall: Online"
-let G43 = 1
+leftstring G43 = "archive.org"
 leftstring A44 = "RespawnBsp"
 leftstring B44 = "respawn.titanfall2"
 leftstring C44 = "Titanfall 2"
 let D44 = 39.95
 let F44 = 29.95
-let G44 = 1
 leftstring A45 = "RitualBsp"
 leftstring B45 = "ritual.fakk2"
 leftstring C45 = "American McGee's Alice"
 let D45 = 29.95
 let F45 = 19.99
-let G45 = 1
 leftstring A46 = "RitualBsp"
 leftstring B46 = "ritual.fakk2"
 leftstring C46 = "Heavy Metal: F.A.K.K. 2"
-let G46 = 1
+leftstring G46 = "chrissstrahl.de"
 leftstring A47 = "RitualBsp"
 leftstring B47 = "ritual.moh_allied_assault"
 leftstring C47 = "Medal of Honor: Allied Assault"
 let E47 = 13.59
-let G47 = 1
 leftstring A48 = "RitualBsp"
 leftstring B48 = "ritual.star_trek_elite_force2"
 leftstring C48 = "Star Trek: Elite Force II"
 let E48 = 14.95
 leftstring A49 = "ValveBsp"
-leftstring B49 = "arkane.dark_messiah"
+leftstring B49 = "arkane.dark_messiah_singleplayer"
 leftstring C49 = "Dark Messiah of Might & Magic"
 let D49 = 7.49
 leftstring A50 = "ValveBsp"
-label B50 = "arkane.dark_messiah_multiplayer"
+leftstring B50 = "arkane.dark_messiah_multiplayer"
 leftstring C50 = "Dark Messiah of Might & Magic"
-label G50 = "moddb"
+leftstring G50 = "bundled"
 leftstring A51 = "ValveBsp"
 leftstring B51 = "loiste.infra"
 leftstring C51 = "INFRA"
 let D51 = 42.95
-let G51 = 1
 leftstring A52 = "ValveBsp"
 leftstring B52 = "nexon.cso2"
 leftstring C52 = "Counter-Strike: Online 2"
-let G52 = 1
+leftstring G52 = "csonline2.net"
 leftstring A53 = "ValveBsp"
 leftstring B53 = "nexon.cso2_2018"
 leftstring C53 = "Counter-Strike: Online 2"
-let G53 = 1
+leftstring G53 = "csonline2.net"
 leftstring A54 = "ValveBsp"
 leftstring B54 = "nexon.vindictus"
 leftstring C54 = "Vindictus"
@@ -270,7 +259,6 @@ leftstring A56 = "ValveBsp"
 leftstring B56 = "valve.alien_swarm"
 leftstring C56 = "Alien Swarm"
 let D56 = 0
-let G56 = 1
 leftstring A57 = "ValveBsp"
 leftstring B57 = "valve.alien_swarm"
 leftstring C57 = "Alien Swarm: Reactive Drop"
@@ -299,7 +287,6 @@ leftstring A63 = "ValveBsp"
 leftstring B63 = "valve.orange_box"
 leftstring C63 = "NEOTOKYO"
 let D63 = 0
-let G63 = 1
 leftstring A64 = "ValveBsp"
 leftstring B64 = "valve.orange_box"
 leftstring C64 = "No More Room in Hell"
@@ -308,17 +295,14 @@ leftstring A65 = "ValveBsp"
 leftstring B65 = "valve.orange_box"
 leftstring C65 = "Source Filmmaker"
 let D65 = 0
-let G65 = 1
 leftstring A66 = "ValveBsp"
 leftstring B66 = "valve.orange_box"
 leftstring C66 = "Team Fortress 2"
 let D66 = 0
-let G66 = 1
 leftstring A67 = "ValveBsp"
 leftstring B67 = "valve.orange_box"
 leftstring C67 = "Half-Life 2: Episode Two "
 let D67 = 11.5
-let G67 = 1
 leftstring A68 = "ValveBsp"
 leftstring B68 = "valve.orange_box"
 leftstring C68 = "Garry's Mod"
@@ -334,12 +318,11 @@ let D70 = 23.95
 leftstring A71 = "ValveBsp"
 leftstring B71 = "valve.orange_box"
 leftstring C71 = "Half-Life 2: Lost Coast "
-label D71 = "???"
-let G71 = 1
+leftstring G71 = "bundled with SDK?"
 leftstring A72 = "ValveBsp"
 leftstring B72 = "valve.orange_box"
 leftstring C72 = "Tactical Intervention"
-let G72 = 1
+leftstring G72 = "abandonware"
 leftstring A73 = "ValveBsp"
 leftstring B73 = "valve.sdk_2013"
 leftstring C73 = "Blade Symphony"
@@ -352,12 +335,10 @@ leftstring A75 = "ValveBsp"
 leftstring B75 = "valve.sdk_2013"
 leftstring C75 = "Portal 2"
 let D75 = 14.5
-label G75 = "moddb"
 leftstring A76 = "ValveBsp"
 leftstring B76 = "valve.sdk_2013"
 leftstring C76 = "The Beginner's Guide"
 let D76 = 14.5
-label G76 = "moddb"
 leftstring A77 = "ValveBsp"
 leftstring B77 = "valve.sdk_2013"
 leftstring C77 = "Counter-Strike: Global Offensive (Prime)"
@@ -366,27 +347,22 @@ leftstring A78 = "ValveBsp"
 leftstring B78 = "valve.sdk_2013"
 leftstring C78 = "The Stanley Parable"
 let D78 = 21.5
-label G78 = "splash damage"
 leftstring A79 = "ValveBsp"
 leftstring B79 = "valve.sdk_2013"
 leftstring C79 = "Black Mesa"
 let D79 = 28.95
-label G79 = "splash damage"
 leftstring A80 = "ValveBsp"
 leftstring B80 = "valve.source"
 leftstring C80 = "Synergy"
 let D80 = 0
-label G80 = "splash damage"
 leftstring A81 = "ValveBsp"
 leftstring B81 = "valve.source"
 leftstring C81 = "Half-Life 2: Deathmatch"
 let D81 = 7.5
-let G81 = 1
 leftstring A82 = "ValveBsp"
 leftstring B82 = "valve.source"
 leftstring C82 = "Half-Life 2: Episode One"
 let D82 = 11.5
-let G82 = 1
 leftstring A83 = "ValveBsp"
 leftstring B83 = "valve.source"
 leftstring C83 = "Counter-Strike: Source"
@@ -395,22 +371,18 @@ leftstring A84 = "ValveBsp"
 leftstring B84 = "valve.source"
 leftstring C84 = "Day of Defeat: Source"
 let D84 = 14.5
-let G84 = 1
 leftstring A85 = "ValveBsp"
 leftstring B85 = "valve.source"
 leftstring C85 = "Half-Life 2"
 let D85 = 14.5
-label G85 = "splash damage"
 leftstring A86 = "ValveBsp"
 leftstring B86 = "valve.source"
 leftstring C86 = "Half-Life Deathmatch: Source"
 let D86 = 14.5
-label G86 = "moddb"
 leftstring A87 = "ValveBsp"
 leftstring B87 = "valve.source"
 leftstring C87 = "SiN Episodes: Emergence"
 let D87 = 14.5
-label G87 = "moddb"
 leftstring A88 = "ValveBsp"
 leftstring B88 = "valve.source"
 leftstring C88 = "Half-Life: Source"
@@ -421,16 +393,16 @@ let E90 = @sum(E1:E88)
 let F90 = @sum(F1:F88)
 rightstring C91 = "MAXIMUM PRICE"
 let D91 = @sum(D90:F90)
-goto G2
+goto G88
 movetosheet "Cheapest"
 offscr_sc_cols 0
-offscr_sc_rows 12
+offscr_sc_rows 0
 nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
 nb_frozen_screencols 0
-format A 15 2 0
-format B 31 2 0
+format A 16 2 0
+format B 33 2 0
 format C 50 2 0
 format D 7 2 0
 format E 27 2 0
@@ -547,12 +519,12 @@ leftstring C23 = "Star Trek: Elite Force II"
 let D23 = 14.95
 leftstring E23 = "GOG"
 leftstring A24 = "ValveBsp"
-leftstring B24 = "arkane.dark_messiah"
+leftstring B24 = "arkane.dark_messiah_singleplayer"
 leftstring C24 = "Dark Messiah of Might & Magic"
 let D24 = 7.49
 leftstring E24 = "Steam"
 leftstring A25 = "ValveBsp"
-label B25 = "arkane.dark_messiah_multiplayer"
+leftstring B25 = "arkane.dark_messiah_multiplayer"
 leftstring C25 = "Dark Messiah of Might & Magic"
 leftstring E25 = "Steam"
 leftstring A26 = "ValveBsp"
@@ -611,4 +583,4 @@ leftstring E36 = "Steam"
 rightstring C38 = "TOTAL"
 leftstring D38 = "$"
 let D38 = @sum(D1:D33)
-goto A36
+goto C19

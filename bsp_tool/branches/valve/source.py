@@ -578,11 +578,14 @@ class GameLump_SPRP:
         prop_count = int.from_bytes(sprp_lump.read(4), "little")
         if StaticPropClass is None:
             raw_props = sprp_lump.read()
-            prop_size = len(raw_props) // prop_count
-            props = list()
-            for i in range(prop_count):
-                props.append(raw_props[i * prop_size:(i + 1) * prop_size])
-            setattr(self, "props", props)
+            if len(raw_props) == 0:
+                setattr(self, "props", [])
+            else:
+                prop_size = len(raw_props) // prop_count
+                props = list()
+                for i in range(prop_count):
+                    props.append(raw_props[i * prop_size:(i + 1) * prop_size])
+                setattr(self, "props", props)
         else:
             read_size = struct.calcsize(StaticPropClass._format) * prop_count
             props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))

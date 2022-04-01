@@ -373,7 +373,7 @@ class GameLump:
                 except Exception as exc:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
-                    # NOTE: RawBspLumps do not decompress
+                    # NOTE: RawBspLumps are not decompressed
                 setattr(self, child_name, child_lump)
         if self.is_external:
             file.close()
@@ -385,6 +385,95 @@ class GameLump:
         # NOTE: Xbox360 child lumps will not be recompressed
         out = []
         out.append(len(self.headers).to_bytes(4, self.endianness))
+        headers = []
+        # skip the headers
+        cursor_offset = lump_offset + 4 + len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)
+        # write child lumps
+        # TODO: generate absent headers from lump names
+        # -- this will require an endianness check for header.id
+        for child_name, child_header in self.headers.items():
+            child_lump = getattr(self, child_name)
+            if isinstance(child_lump, RawBspLump):
+                child_lump_bytes = child_lump[::]
+            else:
+                child_lump_bytes = child_lump.as_bytes()  # SpecialLumpClass method
+            out.append(child_lump_bytes)
+            # recalculate header
+            child_header.offset = cursor_offset
+            child_header.length = len(child_lump_bytes)
+            cursor_offset += child_header.length
+            headers.append(child_header)
+        # and finally inject the headers back in before "writing"
+        headers = [h.as_bytes() for h in headers]
+        out[1:1] = headers
+        return b"".join(out)
+
+
+class DarkMessiahSPGameLump:
+    endianness: str = "little"
+    GameLumpHeaderClass: Any  # used for reads / writes
+    headers: Dict[str, Any]
+    # ^ {"child_lump": GameLumpHeader}
+    is_external = False
+    loading_errors: Dict[str, Any]
+    # ^ {"child_lump": Error}
+    unknown: int
+
+    def __init__(self, file: io.BufferedReader, lump_header: Any, endianness: str,
+                 LumpClasses: Dict[str, object], GameLumpHeaderClass: object):
+        self.endianness = endianness
+        self.GameLumpHeaderClass = GameLumpHeaderClass
+        self.loading_errors = dict()
+        lump_offset = 0
+        if not hasattr(lump_header, "filename"):
+            lump_offset = lump_header.offset
+            file.seek(lump_offset)
+        else:
+            self.is_external = True
+        game_lumps_count = int.from_bytes(file.read(4), self.endianness)
+        self.unknown = int.from_bytes(file.read(4), self.endianness)
+        self.headers = dict()
+        # {"child_name": child_header}
+        for i in range(game_lumps_count):
+            child_header = GameLumpHeaderClass.from_stream(file)
+            if self.is_external:
+                child_header.offset = child_header.offset - lump_header.offset
+            child_name = child_header.id.decode("ascii")
+            if self.endianness == "little":
+                child_name = child_name[::-1]  # "prps" -> "sprp"
+            self.headers[child_name] = child_header
+        # load child lumps (SpecialLumpClasses)
+        # TODO: check for skipped bytes / padding
+        # TODO: defer loading to __getattr__ ?
+        for child_name, child_header in self.headers.items():
+            child_LumpClass = LumpClasses.get(child_name, dict()).get(child_header.version, None)
+            if child_LumpClass is None:
+                setattr(self, child_name, create_RawBspLump(file, child_header))
+            else:
+                file.seek(child_header.offset)
+                try:
+                    child_lump_bytes = file.read(child_header.length)
+                    # check if GameLump child is LZMA compressed (Xbox360)
+                    # -- GameLumpHeader.flags does not appear to inidicate compression
+                    if child_lump_bytes[:4] == b"LZMA":
+                        child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
+                    child_lump = child_LumpClass(child_lump_bytes)
+                except Exception as exc:
+                    self.loading_errors[child_name] = exc
+                    child_lump = create_RawBspLump(file, child_header)
+                    # NOTE: RawBspLumps are not decompressed
+                setattr(self, child_name, child_lump)
+        if self.is_external:
+            file.close()
+
+    def as_bytes(self, lump_offset=0) -> bytes:
+        """lump_offset makes headers relative to the file"""
+        # NOTE: ValveBsp .lmp external lumps have a 16 byte header
+        # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
+        # NOTE: Xbox360 child lumps will not be recompressed
+        out = []
+        out.append(len(self.headers).to_bytes(4, self.endianness))
+        out.append(self.unknown)
         headers = []
         # skip the headers
         cursor_offset = lump_offset + 4 + len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)
