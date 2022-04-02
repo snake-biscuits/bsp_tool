@@ -2,20 +2,21 @@ from collections import defaultdict, namedtuple
 import inspect
 from itertools import chain
 import os
-import re
 import sys
 from types import FunctionType, ModuleType
 from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
-from bsp_tool import GoldSrcBsp, RavenBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp  # noqa: E402
 from bsp_tool import branches  # noqa: E402
+from bsp_tool import D3DBsp, FusionBsp, GoldSrcBsp, IdTechBsp, InfinityWardBsp  # noqa: E402
+from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp  # noqa: E402
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
+
 # NOTE: forks should substitute their own repo here
-# TODO: get the last commit hash from `git rev-parse HEAD` for permalinks
+# TODO: get the commit hash from `git rev-parse HEAD` for permalinks
 # -- default to master if git cannot be run
 # -- gitpython might be a good library for this
 repo_url = "https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool"
@@ -36,23 +37,23 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # -- loosely copied from games.sc
 # | BspClass        | branch_script                    | Y/N |
 # | :-------------- | :------------------------------- | --- |
-# | D3DBsp          | infinity_ward.modern_warfare     |  N  |
-# | FusionBsp       | id_software.qfusion              |  N  |
+# | D3DBsp          | infinity_ward.modern_warfare     |  Y  |
+# | FusionBsp       | id_software.qfusion              |  Y  |
 # | GoldSrcBsp      | valve.goldsrc                    |  Y  |
 # | GoldSrcBsp      | gearbox.blue_shift               |  Y  |
 # | GoldSrcBsp      | gearbox.nightfire                |  Y  |
 # | IdTechBsp       | id_software.quake2               |  Y  |
 # | IdTechBsp       | id_software.quake3               |  Y  |
-# | IdTechBsp       | infinity_ware.call_of_duty1      |  N  |
+# | IdTechBsp       | infinity_ware.call_of_duty1      |  Y  |
 # | IdTechBsp       | ion_storm.daikatana              |  Y  |
 # | IdTechBsp       | raven.solder_of_fortune          |  Y  |
 # | IdTechBsp       | ritual.sin                       |  Y  |
-# | InfinityWardBsp | infinity_ware.call_of_duty2      |  N  |
+# | InfinityWardBsp | infinity_ware.call_of_duty2      |  Y  |
 # | QuakeBsp        | id_software.quake                |  Y  |
 # | QuakeBsp        | raven.hexen2                     |  Y  |
 # | RavenBsp        | raven.soldier_of_fortune2        |  Y  |
-# | RavenBsp        | ritual.sin                       |  N  |  # ?
-# | ReMakeQuakeBsp  | id_software.remake_quake         |  N  |
+# | RavenBsp        | ritual.sin                       |  N  |  # investigate
+# | ReMakeQuakeBsp  | id_software.remake_quake         |  Y  |
 # | RespawnBsp      | respawn.apex_legends             |  Y  |
 # | RespawnBsp      | respawn.titanfall                |  Y  |
 # | RespawnBsp      | respawn.titanfall2               |  Y  |
@@ -61,7 +62,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | RitualBsp       | ritual.start_trek_elite_force2   |  Y  |
 # | ValveBsp        | arkane.dark_messiah_singleplayer |  Y  |
 # | ValveBsp        | arkane.dark_messiah_multiplayer  |  Y  |
-# | ValveBsp        | loiste.infra                     |  N  |
+# | ValveBsp        | loiste.infra                     |  Y  |
 # | ValveBsp        | nexon.cso2                       |  Y  |
 # | ValveBsp        | nexon.cso2_2018                  |  Y  |
 # | ValveBsp        | nexon.vindictus                  |  Y  |
@@ -72,8 +73,8 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.orange_box                 |  Y  |
 # | ValveBsp        | valve.sdk_2013                   |  Y  |
 # | ValveBsp        | valve.source                     |  Y  |
-# 7 / 35 (20%) to go!
 
+# TODO: more prefaces (insert .md)
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
@@ -82,7 +83,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
           ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.troika.vampire]}),
+                                  branches.troika.vampire, branches.loiste.infra]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "source.md",
@@ -94,29 +95,42 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
                       {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
-                      {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2]}),
+                      {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
+                       ReMakeQuakeBsp: [branches.id_software.remake_quake]}),
           ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
-                      {QuakeBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
-                                  branches.raven.soldier_of_fortune, branches.ritual.sin]}),
+                      {IdTechBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
+                                   branches.raven.soldier_of_fortune, branches.ritual.sin]}),
           ScriptGroup("Quake III Engine", "quake3.md", "Id Software", None,
-                      {QuakeBsp: [branches.id_software.quake3],
+                      {FusionBsp: [branches.id_software.qfusion],
+                       IdTechBsp: [branches.id_software.quake3],
                        RavenBsp: [branches.raven.soldier_of_fortune2],
-                       RitualBsp: [bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]})]
+                       RitualBsp: [bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]}),
+          ScriptGroup("Call of Duty", "cod.md", "Infinity Ward", None,
+                      {IdTechBsp: [branches.infinity_ward.call_of_duty1],
+                       InfinityWardBsp: [branches.infinity_ward.call_of_duty2]}),
+          ScriptGroup("Call of Duty: Modern Warfare", "cod_mw.md", "Infinity Ward", None,
+                      {D3DBsp: [branches.infinity_ward.modern_warfare]})]
 del source_exclude
 
 out_path = "../supported"
 inserts_path = "inserts"
 # TODO: rethink inserts
 # -- order could be more dynamic
-# -- lump relationship maps from branch_script comments
-# deprecated lump lists
-# engine map w/ links to other tables?
+# --- merging multiple .md files together
+# -- lump relationship maps from branch_script comments (requires much parsing & standardising)
+# --- html <svg/> Entity Relationship Diagrams w/ LumpClasses
+# listing new & deprecated lumps across version
+# -- currently manually generated, could be automated
+# timeline / engine map as a navigation pane through the documentation
 
 
 # TODO: declare confidence by SpecialLumpClass, not LUMP_NAME
+# -- not every branch_script.LUMP.name is linked to the same SpecialLumpClass!
+# -- and coverage quiality can also vary from mapping to mapping
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
 SpecialLumpClass_confidence.update({"ENTITIES": 100,
                                     "ENTITY_PARTITIONS": 100,
+                                    "GAME_LUMP": 100,  # 90 for DarkMessiahSP!
                                     "PAKFILE": 100,  # 0 for CSO2!
                                     "SURFACE_NAMES": 100,
                                     "TEXTURE_DATA_STRING_DATA": 100})
@@ -127,7 +141,7 @@ def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
 
 
 CoverageMap = Dict[ModuleType, Dict[str, int]]
-# ^ {branch_script: ["LUMP_NAME": known%]}
+# ^ {branch_script: ["LUMP_NAME": coverage%]}
 
 
 def url_of_BspClass(BspClass: object) -> str:
@@ -195,51 +209,70 @@ lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scrip
 del vbsp_branch_scripts
 
 
+# lump coverage table
 TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_version", "LumpClass", "coverage"])
 
 
+# NOTE: this is hard to sync with branch_scripts, but still easier than parsing GAME_LUMP_CLASSES
+# TODO: finish populating this dict with every ValveBsp & RespawnBsp branch_script (3/16)
+# NOTE: base wrapper class is `GameLump if lump != dark_messiah_singleplayer else DarkMessiahSPGameLump`
+# NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
+unmapped_gamelumps = {"dplh": None, "dplt": None, "dprp": None}
+gamelump_mappings = dict()
+# ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
+gamelump_mappings[branches.valve.source] = {**unmapped_gamelumps,
+                                            "sprp": branches.valve.source.GameLump_SPRP,
+                                            "sprp.props": {4: branches.valve.source.StaticPropv4,
+                                                           5: branches.valve.source.StaticPropv5,
+                                                           6: branches.valve.source.StaticPropv6}}
+gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.source].copy()
+gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
+                                                                   10: branches.valve.orange_box.StaticPropv10})
+gamelump_mappings[branches.valve.left4dead] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.orange_box]["sprp.props"].pop(7)
+gamelump_mappings[branches.valve.orange_box]["sprp.props"][8] = None
+gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
+gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {**unmapped_gamelumps,
+                                                                "sprp": branches.valve.source.GameLump_SPRP,
+                                                                "sprp.props": {6: None}}
+gamelump_coverage = dict()
+# ^ {LumpClass: percent, SpecialLumpClass: percent}
+gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100})
+# TODO: coverage on each GameLump.xxxx.subclass
+# -- GameLump / DarkMessiahSPGameLump confidence
+# -- GameLump_SPRP confidence (% unknown fields)
+# -- total up coverage "backwards" for overall branch coverage
+
+
 # TODO: get functioning to level of hand crafted block
-# -- likely need a dict to map all subclasses
-# -- checking versions in dict against branch scripts should help ensure all is up to date
-# -- coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
+# -- [x] likely need a dict to map all subclasses
+# -- [ ] checking versions in dict against branch scripts should help ensure all is up to date
+# -- [ ] coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
 def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> List[str]:
-    game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(GameLump)[1]}"
-    game_lump_handler = f"[`lumps.GameLump`]({game_lump_handler_url})"
+    base_GameLump = GameLump if branch_script is not branches.arkane.dark_messiah_singlplayer else DarkMessiahSPGameLump
+    game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(base_GameLump)[1]}"
+    game_lump_handler = f"[`lumps.{base_GameLump.name}`]({game_lump_handler_url})"
     # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex though...
-    # TODO: actually calculate ~{coverage - 10} in the coverage dict
-    # -- would probably require putting this GameLump iterator thing in a generator of some kind
+    # TODO: precalculate coverage for the game table's total coverage calculation
     bsp_version = branch_script.BSP_VERSION
     bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
     row_header = (branch_script.LUMP.GAME_LUMP.value, bsp_version)
+    # TODO: use a coverage total here rather than defaulting to 90
     table_block = {row_as_string(TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90))}
-    for lump_name in branch_script.GAME_LUMP_CLASSES:
-        for lump_version in branch_script.GAME_LUMP_CLASSES[lump_name]:
-            GameLumpClass = branch_script.GAME_LUMP_CLASSES[lump_name][lump_version]
-            GameLumpClass_url = url_of_LumpClass(GameLumpClass)
-            game_lump_name = f"[`GAME_LUMP.{lump_name}`]({GameLumpClass_url})"
-            if isinstance(GameLumpClass, FunctionType):
-                lump_class = re.search(r"raw_lump, (.*)\)", inspect.getsource(GameLumpClass)).groups()[0]  # noqa
-                # NOTE: ^ lazy solution
-                print(lump_class)
-                if lump_class == "None":
-                    table_block.add(TableRow(*row_header, game_lump_name, lump_version, "", 0))
-                    continue
-                # NOTE: tracking down an object from a string is insane
-                # -- maybe don't bother?
-                child_class = inspect.getmodule(GameLumpClass)
-                for attr in lump_class.split("."):
-                    child_class = getattr(child_class, attr)  # TODO: breaking here-ish
-                assert child_class.__module__.startswith("bsp_tool.branches.")
-                child_class_name = child_class.__name__[len("bsp_tool.branches."):]
-                lump_class = f"[`{child_class_name}`]({url_of_LumpClass(child_class)})"
+    for sub_lump, mapping in gamelump_mappings[branch_script].items():
+        game_lump_name = f"`GAME_LUMP.{sub_lump}`"
+        if not isinstance(mapping, dict):
+            mapping = {"-": mapping}
+        for lump_version, LumpClass in mapping.items():
+            if LumpClass is not None:
+                lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
+                lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
+                # TODO: get LumpClass / SpecialLumpClass coverage
+                percent = 90
             else:
-                lump_class = f"[`{GameLumpClass.__name__}`]({GameLumpClass_url})"
-            # TODO: cover GameLumpClass child classes
-            # percent = coverage[branch_script][lump_name][lump_version]
-            percent = 90
+                lump_class = ""
+                percent = 0
             table_block.add(TableRow(*row_header, game_lump_name, lump_version, lump_class, percent))
-            # NOTE: GameLumpClasses are generally SpecialLumpClasses
-            # -- this means coverage cannot be measured accurately
     return table_block
 
 
