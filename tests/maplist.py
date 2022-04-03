@@ -52,6 +52,7 @@ source_dirs = {
                                    # "cstrike/download/maps"
                                    ],
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
+         "dayofinfamy": ["doi/maps"],  # 16 maps | 1.09 GB
          "Double Action": ["dab/maps"],  # 10 maps | 255 MB
          "EYE Divine Cybermancy Demo": ["EYE/maps"],  # 6 maps | 176 MB
          "Fistful of Frags": ["fof/maps"],  # 39 maps | 1.68 GB
@@ -67,6 +68,7 @@ source_dirs = {
                          "lostcoast"]},  # HL2:LC  |   4 maps | 101 MB
          "half-life 2 deathmatch": ["hl2mp/maps"],  # 8 maps | 72 MB
          "Half-Life 2 Update": ["hl2/maps"],  # 76 maps | 2.9 GB
+         "insurgency2": ["insurgency/maps"],  # 49 maps | 2.54 GB
          "left 4 dead": ["left4dead/maps",   # 45 maps | 975 maps
                          "left4dead_dlc3/maps"],  # 3 maps | 67 MB
          "Left 4 Dead 2": ["left4dead2/maps",  # 8 maps | 186 MB
