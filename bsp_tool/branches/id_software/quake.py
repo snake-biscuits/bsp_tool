@@ -52,6 +52,9 @@ class LumpHeader(base.MappedArray):
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
 #                   \-> CLIP_NODES -> PLANES
 
+# VISIBILITY -> NODES -> LEAVES -> LEAF_FACES -> FACES
+#                    \-> PLANES
+
 #      /-> TEXTURE_INFO -> MIP_TEXTURES
 # FACES -> SURFEDGES -> EDGES -> VERTICES
 #     \--> LIGHTMAPS
@@ -83,6 +86,7 @@ class MAX(enum.Enum):
     ENTITY_VALUE = 1024
     PORTALS = 65536  # related to leaves
     SURFEDGES = 512000
+    MAP_HULLS = 4
 
 
 # flag enums
@@ -181,8 +185,9 @@ class Model(base.Struct):  # LUMP 14
     # bounds.maxs: List[float]
     origin: List[float]
     first_node: int  # first node in NODES lumps
-    clip_nodes: int  # 1st & second CLIP_NODES indices
+    clip_nodes: List[int]  # 1st & second CLIP_NODES indices
     unknown_node: int  # usually 0, unsure of lump / use
+    # TODO: ^ may never be used, confirm against test maps
     num_leaves: int
     first_leaf_face: int
     num_leaf_faces: int
