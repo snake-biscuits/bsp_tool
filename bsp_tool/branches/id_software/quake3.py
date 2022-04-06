@@ -167,6 +167,9 @@ class Lightmap(list):  # LUMP 14
         row_start = row * 128
         return self._pixels[row_start:row_start + 128]  # TEST: does it work with negative indices?
 
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__} 128x128px RGB_888>"
+
     def flat(self) -> bytes:
         return b"".join(self._pixels)
 
