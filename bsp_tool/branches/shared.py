@@ -142,22 +142,31 @@ class TextureDataStringData(list):
         return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
 
 
-class Visiblity:
-    # seems to be the same across Source & Quake engines
-    # is Titanfall (v29) the same?
+# seems to be the same across Source & Quake engines
+class Visibility:
+    """Developed with maxdup"""
+    # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
+    # NOTE: cluster index comes from Leaf.cluster
+    _bytes: bytes  # raw lump
+    _cluster_pvs: List[int]  # Potential Visible Set
+    _cluster_pas: List[int]  # Potential Audible Set
+    # _expanded_bits = List[bool]
+
     def __init__(self, raw_visibility: bytes):
-        visibility_data = [v[0] for v in struct.iter_unpack("i", raw_visibility)]
-        num_clusters = visibility_data
-        for i in range(num_clusters):
-            i = (2 * i) + 1
-            pvs_offset = visibility_data[i]  # noqa: F841
-            pas_offset = visibility_data[i + 1]  # noqa: F841
-            # ^ pointers into RLE encoded bits mapping the PVS tree
-            # from bytes inside the .bsp file?
-        raise NotImplementedError("Understanding of Visibility lump is incomplete")
+        self._bytes = raw_visibility
+        num_clusters = int.from_bytes(raw_visibility[:4], "little")
+        offsets = list(struct.iter_unpack("2I", raw_visibility[4:4 + (8 * num_clusters)]))
+        # ^ [(pvs_offset, pas_offset)]
+        self._cluster_pvs = list()
+        self._cluster_pas = list()
+        for pvs, pas in offsets:
+            self._cluster_pvs.append(pvs)
+            self._cluster_pas.append(pas)
+        # raise NotImplementedError("Understanding of Visibility lump is incomplete")
 
     def as_bytes(self) -> bytes:
-        raise NotImplementedError("Visibility lump hard")
+        return self._bytes
+        # raise NotImplementedError("Visibility lump hard")
 
 
 # methods

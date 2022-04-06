@@ -70,12 +70,13 @@ class LightmapPage:
         return page
 
 
-def save_ibsp(ibsp, image_dir="./"):  # saves to image_dir/<ibsp.filename>.lightmaps.png
+# TODO: quake lightmaps & darkplaces lightmaps
+def save_ibsp_q3(ibsp, image_dir="./"):  # saves to image_dir/<ibsp.filename>.lightmaps.png
     """for IdTechBsp / InfinityWardBsp only"""
     # TODO: detect dimensions; iirc this is quake3 specific
     lightmap_images = list()
-    for lightmap_bytes in ibsp.LIGHTMAPS:
-        lightmap = Image.frombytes("RGB", (128, 128), lightmap_bytes, "raw")
+    for lightmap_data in ibsp.LIGHTMAPS:
+        lightmap = Image.frombytes("RGB", (128, 128), lightmap_data.flat(), "raw")
         lightmap_images.append(lightmap)
     tiled_lightmaps = sum(lightmap_images, start=LightmapPage(max_width=128 * 5))
     os.makedirs(image_dir, exist_ok=True)
