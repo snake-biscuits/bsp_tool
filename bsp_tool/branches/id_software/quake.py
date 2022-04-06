@@ -327,7 +327,8 @@ LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "VERTICES":     Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
-                        "MIP_TEXTURES": MipTextureLump}
+                        "MIP_TEXTURES": MipTextureLump,
+                        "VISIBILITY":   shared.Visibility}
 
 
 # branch exclusive methods, in alphabetical order:

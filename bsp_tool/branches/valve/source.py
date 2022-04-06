@@ -386,6 +386,9 @@ class Face(base.Struct):  # LUMP 7
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
+# TODO: Leafv0 (orange_box Leafv1 + embedded CompressedLightCube & padding)
+
+
 class LeafAmbientIndex(base.MappedArray):  # LUMP 52
     num_samples: int
     first_sample: int
@@ -714,7 +717,8 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump}}
+                        "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},
+                        "VISIBILITY":               {0: shared.Visibility}}
 
 
 GAME_LUMP_HEADER = GameLumpHeader

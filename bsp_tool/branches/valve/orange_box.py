@@ -108,11 +108,12 @@ class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: int  # contents bitflags
     cluster: int   # index of this Leaf's cluster (parent node?) (visibility?)
-    area_flags: int  # area + flags (short area:9; short flags:7;)
+    area_flags: int  # area and flags combined (short area:9; short flags:7;)
     # area and flags are held in the same float
     # area = leaf[2] & 0xFF80 >> 7 # 9 bits
     # flags = leaf[2] & 0x007F # 7 bits
     # TODO: automatically split area & flags, merging back for flat()
+    # TODO: use @properties
     # why was this done when the struct is padded by one short anyway?
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
