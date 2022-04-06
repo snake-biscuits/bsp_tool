@@ -53,6 +53,7 @@
 # Other
 
 [Awesome Quake](https://github.com/dumptruckDS/awesome-quake)  
+[BSP Quake Editor](http://www.bspquakeeditor.com/)
 [Mapbase](https://www.moddb.com/mods/mapbase)  
 [Quake Engines](https://github.com/QuakeEngines?type=source)  
 
