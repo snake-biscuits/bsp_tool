@@ -239,7 +239,7 @@ class Vertex(base.Struct):  # LUMP 10
 
 
 # special lump classes, in alphabetical order:
-class Visibility:  # same as Quake / QuakeII?
+class Visibility:
     """Cluster X is visible from Cluster Y if:
     bit (1 << Y % 8) of vecs[X * vector_size + Y // 8] is set
     NOTE: Clusters are associated with Leaves"""

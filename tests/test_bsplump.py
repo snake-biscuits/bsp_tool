@@ -3,21 +3,26 @@ import pytest
 from bsp_tool import load_bsp, lumps
 from bsp_tool.branches.id_software import quake, quake3
 
+# TODO: collect valid lumps of desired type for each test, rather than hardcoded lump names
+
 global bsps
-# TODO: use maplist.installed_games to grab .bsps to test
-bsps = {"mp_lobby": load_bsp("tests/maps/Quake 3 Arena/mp_lobby.bsp"),
-        "test2": load_bsp("tests/maps/Team Fortress 2/test2.bsp"),
-        "test_displacement_decompile": load_bsp("tests/maps/Team Fortress 2/test_displacement_decompile.bsp"),
-        "test_physcollide": load_bsp("tests/maps/Team Fortress 2/test_physcollide.bsp")}
+bsps = {"q3_lobby": load_bsp("tests/maps/Quake 3 Arena/mp_lobby.bsp"),
+        "tf2_test2": load_bsp("tests/maps/Team Fortress 2/test2.bsp"),
+        "tf2_test_displacement_decompile": load_bsp("tests/maps/Team Fortress 2/test_displacement_decompile.bsp"),
+        "tf2_test_physcollide": load_bsp("tests/maps/Team Fortress 2/test_physcollide.bsp")}
+
+
+def raw_lump_of(bsp) -> lumps.RawBspLump:
+    for header in bsp.headers.values():
+        if header.length != 0:
+            break
+    else:
+        raise RuntimeError(f"test .bsp {bsp.filename} has no lumps!")
+    return lumps.create_RawBspLump(bsp.file, header)
 
 
 class TestRawBspLump:
-    # NOTE: Quake3 has implemented a rough Visibility SpecialLumpClass
-    # TODO: generate raw lumps, since the end goal is to have none
-    # -- or maybe target lightmaps here instead
-    raw_lumps = [bsps["test2"].VISIBILITY,
-                 # NOTE: test_displacement_decompile has a leak (no VISIBILITY lump)
-                 bsps["test_physcollide"].VISIBILITY]
+    raw_lumps = list(map(raw_lump_of, bsps.values()))
 
     def test_its_raw(self):
         for lump in self.raw_lumps:
@@ -25,7 +30,7 @@ class TestRawBspLump:
 
     def test_list_conversion(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
-            assert list(lump) == [int(b) for b in lump], f"{map_name}.VISIBILITY failed"
+            assert list(lump) == [int(b) for b in lump], f"{map_name} failed"
 
     def test_indexing(self):
         for map_name, lump in zip(bsps, self.raw_lumps):
@@ -48,7 +53,7 @@ class TestBspLump:
     def test_indexing(self):
         for map_name in bsps:
             lump = bsps[map_name].VERTICES
-            LumpClass = quake.Vertex if map_name != "mp_lobby" else quake3.Vertex
+            LumpClass = quake.Vertex if map_name != "q3_lobby" else quake3.Vertex
             assert isinstance(lump[0], LumpClass), f"{map_name} failed"
             assert isinstance(lump[:1], list), f"{map_name} failed"
             assert len(lump[:1]) == 1, f"{map_name} failed"
