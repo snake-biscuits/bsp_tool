@@ -312,6 +312,12 @@ class MipTexture(base.Struct):  # LUMP 2
                "offsets": ["full", "half", "quarter", "eighth"]}
 
 
+# TODO: Visibility
+# -- decode RLE
+# -- Leaf.vislist/cluster is -1 or byte index into compressed array
+# -- https://www.gamers.org/dEngine/quake/spec/quake-spec34/qkspec_4.htm#BL4
+
+
 # {"LUMP": LumpClass}
 BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Shorts}
@@ -327,8 +333,7 @@ LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "VERTICES":     Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
-                        "MIP_TEXTURES": MipTextureLump,
-                        "VISIBILITY":   shared.Visibility}
+                        "MIP_TEXTURES": MipTextureLump}
 
 
 # branch exclusive methods, in alphabetical order:
