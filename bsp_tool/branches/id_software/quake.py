@@ -165,14 +165,14 @@ class Face(base.Struct):  # LUMP 7
 
 class Leaf(base.Struct):  # LUMP 10
     leaf_type: int  # see LeafType enum
-    cluster: int  # index into the VISIBILITY lump
+    vis_offset: int  # index into the VISIBILITY lump
     bounds: List[List[int]]
     # bounds.mins: List[int]
     # bounds.maxs: List[int]
     first_leaf_face: int
     num_leaf_faces: int
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-    __slots__ = ["leaf_type", "cluster", "bounds", "first_leaf_face",
+    __slots__ = ["leaf_type", "vis_offset", "bounds", "first_leaf_face",
                  "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
