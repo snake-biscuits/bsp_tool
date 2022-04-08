@@ -2,36 +2,38 @@
 
 ### Level Editors
 
-| Tool          | Link                                                              | Games
-| :------------ | :---------------------------------------------------------------- | :----------------------------------- |
-| CoDRadiant    | moddb.com/downloads/cod-radiant                                   | CoD1                                 |
-| CoD2Radiant   | gamefront.com/games/call-of-duty-2/file/cod2-updated-map-mod-tool | CoD2                                 |
-| CoD4Radiant   | github.com/promod/CoD4-Mod-Tools                                  | COD4:MW                              |
-| CSO2Converter | git.sr.ht/~leite/cso2-bsp-converter                               | CS:S -> CS:O2                        |
-| GtkRadiant    | github.com/TTimo/GtkRadiant                                       | Q3/RtCW/W:ET/SoF2/JK2/JA/EF/HL/Q2/H2 |
-|               | svn.icculus.org/gtkradiant-gamepacks                              |                                      |
-| hammer.exe    | ships with associated game(s) or Source SDK                       | SOURCE ENGINE                        |
-| MapBase       | moddb.com/mods/mapbase/downloads/mapbase-release-build            | Source SDK 2013                      |
-| TrenchBroom   | github.com/TrenchBroom/TrenchBroom                                | Q/Q2/H2/D                            |
-| ÜbertoolsGDK  | moddb.com/downloads/stef2-bertools-game-devolopment-kit           | FAKK2/EF2/MOH:AA/AMA                 |
+| Tool            | Link                                                              | Games
+| :-------------- | :---------------------------------------------------------------- | :----------------------------------- |
+| CoDRadiant      | moddb.com/downloads/cod-radiant                                   | CoD1                                 |
+| CoD2Radiant     | gamefront.com/games/call-of-duty-2/file/cod2-updated-map-mod-tool | CoD2                                 |
+| CoD4Radiant     | github.com/promod/CoD4-Mod-Tools                                  | CoD4:MW                              |
+| CODWAWRadiant   | `TODO`                                                            |                                      |
+| CSO2Converter   | git.sr.ht/~leite/cso2-bsp-converter                               | CS:S -> CS:O2                        |
+| GtkRadiant      | github.com/TTimo/GtkRadiant                                       | Q3/RtCW/W:ET/SoF2/JK2/JA/EF/HL/Q2/H2 |
+|                 | svn.icculus.org/gtkradiant-gamepacks                              |                                      |
+| hammer.exe      | ships with associated game(s) or Source SDK                       | SOURCE ENGINE                        |
+| MapBase         | moddb.com/mods/mapbase/downloads/mapbase-release-build            | Source SDK 2013                      |
+| TrenchBroom     | github.com/TrenchBroom/TrenchBroom                                | Q/Q2/H2/D                            |
+| ÜbertoolsGDK    | moddb.com/downloads/stef2-bertools-game-devolopment-kit           | FAKK2/EF2/MOH:AA/AMA                 |
 
 > TODO: get a list of preferred compilers from Trenchbroom's default profiles
 
 
 ### Compilers
 
-| Tool          | Link                                                              | Games
-| :------------ | :---------------------------------------------------------------- | :----------------------------------- |
-| Q3Map3        | https://github.com/siliconemilk/q3map3                            | Q3                                   |
-| ericw-tools   | https://github.com/ericwa/ericw-tools                             | Q/H2                                 |
+| Tool            | Link                                                              | Games
+| :-------------- | :---------------------------------------------------------------- | :----------------------------------- |
+| Q3Map3          | github.com/siliconemilk/q3map3                                    | Q3                                   |
+| ericw-tools     | github.com/ericwa/ericw-tools                                     | Q/H2/HL/RMQ                          |
 
 
 ### Other
 
-| Tool          | Link                                                              | Games
-| :------------ | :---------------------------------------------------------------- | :----------------------------------- |
-| BSPFix        | valvedev.info/tools/bspfix                                        | HL -> HL:BS                          |
-| JBNTools      | code.google.com/archive/p/jbn-bsp-lump-tools                      | JB:N (cannot compile maps)           |
+| Tool            | Link                                                              | Games
+| :-------------- | :---------------------------------------------------------------- | :----------------------------------- |
+| BSPFix          | valvedev.info/tools/bspfix                                        | HL -> HL:BS                          |
+| JBNTools        | code.google.com/archive/p/jbn-bsp-lump-tools                      | JB:N (cannot compile maps)           |
+| D3DBspConverter | github.com/SE2Dev/D3DBSP_Converter                                | CoD:WaW <-> CoD:BO                   |
 
 
 
