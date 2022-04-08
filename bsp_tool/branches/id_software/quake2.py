@@ -1,6 +1,7 @@
 # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
 # https://github.com/id-Software/Quake-2/blob/master/qcommon/qfiles.h#L214
 import enum
+import struct
 from typing import List
 
 from . import quake
@@ -150,6 +151,37 @@ class TextureInfo(base.Struct):  # LUMP 5
     _arrays = {"U": [*"xyzw"], "V": [*"xyzw"]}
 
 
+# special lump classes, in alphabetical order:
+class Visibility:
+    """Developed with maxdup"""
+    # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
+    # NOTE: cluster index comes from Leaf.cluster
+    # TODO: RLE decode / encode
+    # -- https://github.com/ericwa/ericw-tools/blob/master/vis/vis.cc
+    # -- https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4378-L4439
+    # -- not RLE encoded in Source Engine branches?
+    _bytes: bytes  # raw lump
+    _cluster_pvs: List[int]  # Potential Visible Set
+    _cluster_pas: List[int]  # Potential Audible Set
+    # _expanded_bits = List[bool]
+
+    def __init__(self, raw_visibility: bytes):
+        self._bytes = raw_visibility
+        num_clusters = int.from_bytes(raw_visibility[:4], "little")
+        offsets = list(struct.iter_unpack("2I", raw_visibility[4:4 + (8 * num_clusters)]))
+        # ^ [(pvs_offset, pas_offset)]
+        self._cluster_pvs = list()
+        self._cluster_pas = list()
+        for pvs, pas in offsets:
+            self._cluster_pvs.append(pvs)
+            self._cluster_pas.append(pas)
+        # raise NotImplementedError("Understanding of Visibility lump is incomplete")
+
+    def as_bytes(self) -> bytes:
+        return self._bytes
+        # raise NotImplementedError("Visibility lump hard")
+
+
 # {"LUMP": LumpClass}
 BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Ints}
@@ -165,8 +197,8 @@ LUMP_CLASSES = {"BRUSHES":      Brush,
                 "TEXTURE_INFO": TextureInfo,
                 "VERTICES":     quake.Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
-# TODO: Visibility
+SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
+                        "VISIBILITY": Visibility}
 
 
 methods = [shared.worldspawn_volume]

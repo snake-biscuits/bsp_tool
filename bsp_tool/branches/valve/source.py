@@ -13,6 +13,7 @@ from .. import base
 from .. import shared
 from .. import vector
 from ..id_software import quake
+from ..id_software import quake2
 
 
 FILE_MAGIC = b"VBSP"
@@ -718,7 +719,7 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},
-                        "VISIBILITY":               {0: shared.Visibility}}
+                        "VISIBILITY":               {0: quake2.Visibility}}
 
 
 GAME_LUMP_HEADER = GameLumpHeader

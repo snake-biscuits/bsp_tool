@@ -142,33 +142,6 @@ class TextureDataStringData(list):
         return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
 
 
-# seems to be the same across Source & Quake engines
-class Visibility:
-    """Developed with maxdup"""
-    # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
-    # NOTE: cluster index comes from Leaf.cluster
-    _bytes: bytes  # raw lump
-    _cluster_pvs: List[int]  # Potential Visible Set
-    _cluster_pas: List[int]  # Potential Audible Set
-    # _expanded_bits = List[bool]
-
-    def __init__(self, raw_visibility: bytes):
-        self._bytes = raw_visibility
-        num_clusters = int.from_bytes(raw_visibility[:4], "little")
-        offsets = list(struct.iter_unpack("2I", raw_visibility[4:4 + (8 * num_clusters)]))
-        # ^ [(pvs_offset, pas_offset)]
-        self._cluster_pvs = list()
-        self._cluster_pas = list()
-        for pvs, pas in offsets:
-            self._cluster_pvs.append(pvs)
-            self._cluster_pas.append(pas)
-        # raise NotImplementedError("Understanding of Visibility lump is incomplete")
-
-    def as_bytes(self) -> bytes:
-        return self._bytes
-        # raise NotImplementedError("Visibility lump hard")
-
-
 # methods
 def worldspawn_volume(bsp):
     """allows for sorting maps by size"""
