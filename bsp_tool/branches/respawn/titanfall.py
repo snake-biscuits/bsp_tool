@@ -490,9 +490,10 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
 
 
 class WorldLight(base.Struct):  # LUMP 54 (0036)
-    __slots__ = ["unknown"]
-    _format = "25I"  # 100 bytes
-    _arrays = {"unknown": 25}
+    origin: List[float]
+    __slots__ = ["origin", "unknown"]
+    _format = "3f22I"  # 100 bytes
+    _arrays = {"origin": [*"xyz"], "unknown": 22}
 
 
 # special vertices

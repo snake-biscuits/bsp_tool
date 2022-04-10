@@ -1176,24 +1176,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
+  Portal
+  Brush
+  Occluder
+  AxisAlignedBoundingBox
+  PatchCollision
   Node
   Light
-  Occluder
-  Cell
   Model
   DrawVertex
-  AxisAlignedBoundingBox
   CullGroup
-  Brush
-  Portal
-  PatchCollision
+  Cell
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
+  CollisionTriangle
   Model
   CollisionEdge
-  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -1216,6 +1216,11 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
   Primitive_x360
   DisplacementInfo_x360
+    warnings.warn(UserWarning(warning_text))
+
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
+  Leaf
     warnings.warn(UserWarning(warning_text))
 
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
@@ -1259,8 +1264,8 @@ bsp_tool\branches\raven\soldier_of_fortune.py              14      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py             32      0   100%
 bsp_tool\branches\respawn\__init__.py                       5      0   100%
 bsp_tool\branches\respawn\apex_legends.py                 268     22    92%
-bsp_tool\branches\respawn\titanfall.py                    526     85    84%
-bsp_tool\branches\respawn\titanfall2.py                   215      4    98%
+bsp_tool\branches\respawn\titanfall.py                    527     85    84%
+bsp_tool\branches\respawn\titanfall2.py                   224      4    98%
 bsp_tool\branches\respawn\titanfall_x360.py                52     17    67%
 bsp_tool\branches\ritual\__init__.py                        5      0   100%
 bsp_tool\branches\ritual\fakk2.py                          57      0   100%
@@ -1269,7 +1274,7 @@ bsp_tool\branches\ritual\sin.py                            14      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2.py         72      0   100%
 bsp_tool\branches\shared.py                                90     22    76%
 bsp_tool\branches\troika\__init__.py                        2      0   100%
-bsp_tool\branches\troika\vampire.py                        36      0   100%
+bsp_tool\branches\troika\vampire.py                        37      0   100%
 bsp_tool\branches\valve\__init__.py                        10      0   100%
 bsp_tool\branches\valve\alien_swarm.py                     81      0   100%
 bsp_tool\branches\valve\goldsrc.py                         78      0   100%
@@ -1279,7 +1284,7 @@ bsp_tool\branches\valve\orange_box.py                     131     10    92%
 bsp_tool\branches\valve\orange_box_x360.py                109     10    91%
 bsp_tool\branches\valve\sdk_2013.py                        82      0   100%
 bsp_tool\branches\valve\sdk_2013_x360.py                   17      0   100%
-bsp_tool\branches\valve\source.py                         596    109    82%
+bsp_tool\branches\valve\source.py                         633    113    82%
 bsp_tool\branches\vector.py                               175    121    31%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
@@ -1296,10 +1301,10 @@ bsp_tool\respawn.py                                       249    131    47%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         136     68    50%
 ---------------------------------------------------------------------------
-TOTAL                                                    6725   1515    77%
+TOTAL                                                    6773   1519    78%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs94] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs102] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs104] - ...
-[31m=========== [31m[1m3 failed[0m, [32m187 passed[0m, [33m7 warnings[0m[31m in 15124.53s (4:12:04)[0m[31m ===========[0m
+[31m=========== [31m[1m3 failed[0m, [32m187 passed[0m, [33m8 warnings[0m[31m in 14038.55s (3:53:58)[0m[31m ===========[0m

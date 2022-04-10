@@ -209,19 +209,30 @@ class LightmapPage(base.Struct):  # LUMP 122 (007A)
     __slots__ = ["data"]
 
 
-# TODO: LightProbeRef
+class LightProbeRef(base.Struct):  # LUMP 104 (0068)
+    origin: List[float]  # coords of LightProbe
+    lightprobe: int  # index of this LightProbeRef's LightProbe
+    unknown: int
+    __slots__ = ["origin", "lightprobe", "unknown"]
+    _format = "3fIi"
+    _arrays = {"origin": [*"xyz"]}
 
 
 class WorldLightv2(base.Struct):  # LUMP 54 (0036)
-    __slots__ = ["unknown"]
-    _format = "27I"  # 108 bytes
-    _arrays = {"unknown": 27}
+    origin: List[float]
+    __slots__ = ["origin", "unknown"]
+    _format = "3f24I"  # 108 bytes
+    _arrays = {"origin": [*"xyz"], "unknown": 24}
 
 
 class WorldLightv3(base.Struct):  # LUMP 54 (0036)
-    __slots__ = ["unknown"]
-    _format = "28I"  # 112 bytes
-    _arrays = {"unknown": 28}
+    origin: List[float]
+    unknown: List[int]
+    # BobTheBob checked out the v1 -> v3 converter
+    # -- it appends (0, 0x3BA3D70A, 0x3F800000) to the tail
+    __slots__ = ["origin", "unknown"]
+    _format = "3f25I"  # 112 bytes
+    _arrays = {"origin": [*"xyz"], "unknown": 25}
 
 
 class ShadowEnvironment(base.Struct):
@@ -302,8 +313,8 @@ class GameLump_SPRP:
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("LIGHTPROBE_REFERENCES")  # size doesn't match
 LUMP_CLASSES.update({"LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
+                     "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
                      "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
                      "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
                                                              2: WorldLightv2,

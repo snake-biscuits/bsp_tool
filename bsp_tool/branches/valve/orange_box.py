@@ -104,16 +104,11 @@ LumpHeader = source.LumpHeader
 
 
 # classes for each lump, in alphabetical order:
-class Leaf(base.Struct):  # LUMP 10
+class Leaf(source.Leaf):  # LUMP 10  (v1)
     """Endpoint of a vis tree branch, a pocket of Faces"""
-    contents: int  # contents bitflags
-    cluster: int   # index of this Leaf's cluster (parent node?) (visibility?)
-    area_flags: int  # area and flags combined (short area:9; short flags:7;)
-    # area and flags are held in the same float
-    # area = leaf[2] & 0xFF80 >> 7 # 9 bits
-    # flags = leaf[2] & 0x007F # 7 bits
-    # TODO: automatically split area & flags, merging back for flat()
-    # TODO: use @properties
+    contents: int  # Contents flags
+    cluster: int   # index of this Leaf's viscluster (leaf group in VISIBILITY lump)
+    area_flags: int  # area & flags bitfield (short area:9; short flags:7;)
     # why was this done when the struct is padded by one short anyway?
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
@@ -176,7 +171,7 @@ BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LEAF_AMBIENT_LIGHTING")
 LUMP_CLASSES.pop("LEAF_AMBIENT_LIGHTING_HDR")
-LUMP_CLASSES.update({"LEAVES": {1: Leaf}})
+LUMP_CLASSES["LEAVES"].update({1: Leaf})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 

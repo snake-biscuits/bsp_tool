@@ -79,7 +79,7 @@ class MAX(enum.Enum):
     FACES_HDR = FACES
 
 # classes for each lump, in alphabetical order:
-# NOTE: Leaf_x360 bitfields are flipped
+# TODO: Leaf_x360 bitfields are flipped
 # TODO: DisplacementInfo_x360, Primitive_x360
 # -- see https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h
 # "#if !defined( BSP_USE_LESS_MEMORY )" & "#if defined( _X360 )" defines specifically

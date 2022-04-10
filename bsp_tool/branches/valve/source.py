@@ -127,7 +127,7 @@ class MAX(enum.Enum):
     DISPLACEMENT_POWER = 4
     DISPLACEMENT_CORNER_NEIGHBORS = 4
     ENTITY_KEY, ENTITY_VALUE = 32, 1024  # key value pair sizes
-    LIGHTMAPS = 4  # ? left over from Quake / GoldSrc lightmap format ?
+    LIGHTMAPS = 4  # max lightmap styles?
     LIGHTMAP_DIMENSION_WITH_BORDER_BRUSH = 35  # "vbsp cut limit" +1 (to account for rounding errors)
     LIGHTMAP_DIMENSION_WITHOUT_BORDER_BRUSH = 32
     LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT = 128
@@ -235,8 +235,17 @@ class DispTris(enum.IntFlag):
     SURFACE = 0x01
     WALKABLE = 0x02
     BUILDABLE = 0x04
-    SURFPROP1 = 0x08  # ?
-    SURFPROP2 = 0x10  # ?
+    SURFPROP1 = 0x08  # use surfaceprop of first material?
+    SURFPROP2 = 0x10  # use surfaceprop of second material?
+
+
+class EmitType(enum.Enum):
+    SURFACE = 0x00  # 90 degree spotlight
+    POINT = 0x01
+    SPOTLIGHT = 0x02  # spotlight w/ penumbra
+    SKY_LIGHT = 0x03  # directional light w/ no falloff (surface must trace to SKY texture)
+    QUAKE_LIGHT = 0x04  # linear falloff, non-lambertian
+    SKY_AMBIENT = 0x05  # spherical light w/ no falloff (surface must trace to SKY texture)
 
 
 class SPRP_flags(enum.IntFlag):
@@ -272,6 +281,10 @@ class Surface(enum.IntFlag):  # src/public/bspflags.h
     NO_DECALS = 0x2000
     NO_CHOP = 0x4000	 # don't subdivide patches on this surface
     HITBOX = 0x8000  # surface is part of a hitbox
+
+
+class WorldLightFlags(enum.IntFlag):  # DWL_FLAGS_* in src/public/bspfile.h
+    IN_AMBIENT_CUBE = 0x0001
 
 
 # classes for each lump, in alphabetical order:
@@ -387,7 +400,43 @@ class Face(base.Struct):  # LUMP 7
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
 
 
-# TODO: Leafv0 (orange_box Leafv1 + embedded CompressedLightCube & padding)
+class Leaf(base.Struct):  # LUMP 10
+    """Endpoint of a vis tree branch, a pocket of Faces"""
+    contents: int  # Contents flags
+    cluster: int   # index of this Leaf's cluster (leaf group in VISIBILITY lump)
+    area_flags: int  # area & flags bitfield (short area:9; short flags:7;)
+    # why was this done when the struct is padded by one short anyway?
+    mins: List[float]  # bounding box minimums along XYZ axes
+    maxs: List[float]  # bounding box maximums along XYZ axes
+    first_leaf_face: int   # index of first LeafFace
+    num_leaf_faces: int    # number of LeafFaces
+    first_leaf_brush: int  # index of first LeafBrush
+    num_leaf_brushes: int  # number of LeafBrushes
+    leaf_water_data_id: int  # -1 if this leaf isn't submerged
+    padding: int  # should be 0
+    cube: List[List[int]]  # CompressedLightCube; unsure about orientation / face order
+    __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
+                 "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
+                 "num_leaf_brushes", "leaf_water_data_id", "cube"]
+    _format = "i8h4H2h24B"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"],
+               "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
+
+    @property
+    def area(self):
+        return self.area_flags >> 7
+
+    @area.setter
+    def area(self, new_area: int):
+        self.area_flags = (new_area & 0x1FF) << 7 + self.flags
+
+    @property
+    def flags(self):
+        return self.area_flags & 0x7F
+
+    @flags.setter
+    def flags(self, new_flags: int):
+        self.area_flags = self.area << 7 + new_flags & 0x7F
 
 
 class LeafAmbientIndex(base.MappedArray):  # LUMP 52
@@ -404,7 +453,7 @@ class LeafAmbientSample(base.MappedArray):  # LUMP 56
     padding: int
     __slots__ = ["cube", "vector", "padding"]
     _format = "28B"
-    _arrays = {"cube": {f: [*"rgbe"] for f in "ABCDEF"},  # integer keys in _mapping would be nicer
+    _arrays = {"cube": {x: [*"rgbe"] for x in "ABCDEF"},  # integer keys in _mapping would be nicer
                "vector": [*"xyz"]}
 
 
@@ -522,24 +571,26 @@ class WorldLight(base.Struct):  # LUMP 15
     """A static light"""
     origin: List[float]  # origin point of this light source
     intensity: float     # light strength scalar
-    normal: List[float]  # light direction
-    cluster: int  # ?
-    type: int  # some enum?
-    style: int  # related to face styles?
+    normal: List[float]  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    cluster: int  # viscluster (leaf group)
+    emit_type: int  # EmitType
+    style: int  # lighting style
     # see base.fgd:
-    stop_dot: float  # ?
-    stop_dot2: float  # ?
-    exponent: float  # falloff?
+    stop_dot: float  # spotlight penumbra start
+    stop_dot2: float  # spotlight penumbra end
+    exponent: float
     radius: float
+    # falloff for EmitType.SPOTLIGHT & EmitType.POINT:
+    # 1 / (constant_attn + linear_attn * dist + quadratic_attn * dist**2)
     # attenuations:
     constant: float
     linear: float
     quadratic: float
     # ^ these factor into some equation...
-    flags: int  # bitflags?
+    flags: int  # WorldLightFlags
     texture_info: int  # index of TextureInfo
-    owner: int  # parent entity ID?
-    __slots__ = ["origin", "intensity", "normal", "cluster", "type", "style",
+    owner: int  # parent entity ID
+    __slots__ = ["origin", "intensity", "normal", "cluster", "emit_type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
                  "flags", "texture_info", "owner"]
@@ -694,6 +745,7 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
                 "DISPLACEMENT_VERTICES":     {0: DisplacementVertex},
                 "EDGES":                     {0: quake.Edge},
                 "FACES":                     {1: Face},
+                "LEAVES":                    {0: Leaf},
                 "LEAF_AMBIENT_INDEX":        {0: LeafAmbientIndex},
                 "LEAF_AMBIENT_INDEX_HDR":    {0: LeafAmbientIndex},
                 "LEAF_AMBIENT_LIGHTING":     {1: LeafAmbientSample},
