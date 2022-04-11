@@ -184,13 +184,14 @@ class Model(base.Struct):  # LUMP 14
     # bounds.mins: List[float]
     # bounds.maxs: List[float]
     origin: List[float]
+    # headnode[MAX_MAP_HULLS]:
     first_node: int  # first node in NODES lumps
     clip_nodes: List[int]  # 1st & second CLIP_NODES indices
     unknown_node: int  # usually 0, unsure of lump / use
     # TODO: ^ may never be used, confirm against test maps
-    num_leaves: int
-    first_leaf_face: int
-    num_leaf_faces: int
+    num_leaves: int  # "not counting the solid leaf 0"
+    first_face: int
+    num_faces: int
     __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unknown_node",
                  "num_leaves", "first_face", "num_faces"]
     _format = "9f7i"
