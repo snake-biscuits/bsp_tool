@@ -4,6 +4,8 @@ from ..valve import sdk_2013
 from ..valve import source
 
 
+FILE_MAGIC = b"VBSP"
+
 BSP_VERSION = 22
 
 GAME_PATHS = {"INFRA": "infra/infra"}

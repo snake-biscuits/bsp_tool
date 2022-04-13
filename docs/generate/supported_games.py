@@ -94,6 +94,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
                       {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
+          # TODO: present BSP2 (no version) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
                        ReMakeQuakeBsp: [branches.id_software.remake_quake]}),
@@ -160,10 +161,13 @@ def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
     games = defaultdict(list)
     for branch_script in chain(*group.branch_scripts.values()):
         for game_name, bsp_version in branch_script.GAME_VERSIONS.items():
-            bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else bsp_version
+            if bsp_version is None:
+                bsp_version = "0"
+            else:
+                bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else bsp_version
             games[str(bsp_version)].append((game_name, branch_script))
     bsp_classes = {bs: bc for bc, bss in group.branch_scripts.items() for bs in bss}
-    for version in sorted(games, key=lambda v: float(v)):
+    for version in sorted(games, key=float):
         for game, branch_script in games[version]:
             BspClass = bsp_classes[branch_script]
             bsp_class = f"[`{BspClass.__name__}`]({url_of_BspClass(BspClass)})"
@@ -295,20 +299,24 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
     lump_classes = {bs: LumpClasses_of(bs) for bs in branch_scripts}
     if not versioned_lumps:
         lump_classes = {bs: {ln: {0: lc} for ln, lc in ld.items()} for bs, ld in lump_classes.items()}
-    max_lumps = max([len(bs.LUMP) for bs in branch_scripts])
+    max_lumps = max([max([e.value for e in bs.LUMP]) for bs in branch_scripts])
     # TODO: find a way to make the blue shift lump swap clearer
     # -- same bsp_version!
+    # -- would also be nice to present more branch_script families in a single script
+    # --- maybe game icons instead of bsp versions?
     # NOTE: CoD4Bsp uses IDs for each lump, so we have to iterate over the present values, not just a range
-    # -- for i in sorted({L.value for bs in branch_scripts for L in bs.LUMP}):
-    # if i not in {L.value for L in branch_script.LUMP}
+    # TODO: replace CoD4 "lump index" label with "lump id"
     for i in range(max_lumps):
         table_block = set()
         for branch_script in branch_scripts:
-            if i >= len(branch_script.LUMP):
+            if i not in {L.value for L in branch_script.LUMP}:
                 continue  # this branch_script does not have this lump
             lump_name = branch_script.LUMP(i).name
             bsp_version = branch_script.BSP_VERSION
-            bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
+            if bsp_version is None:
+                bsp_version = "0"
+            else:
+                bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
             # TODO: move special cases (Lightmaps, GameLump etc.) to coverage to be counted in branch_script total
             # if lump_name == "GAME_LUMP":
             #     # NOTE: likely won't play nice with sorting
@@ -328,8 +336,9 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                     lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
                     lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                     table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
-        # TODO: sort differently if GAME_LUMP
         sorted_block = list(sorted(table_block, key=lambda r: float(r.bsp_version) * 2 + r.lump_version))
+        if len(sorted_block) == 0:  # TODO: check if this works as intended
+            continue
         final_block = [sorted_block[0]]
         lump_names = {r.lump_name for r in sorted_block}
         unused_lumps = {ln.startswith("UNUSED_") for ln in lump_names}
