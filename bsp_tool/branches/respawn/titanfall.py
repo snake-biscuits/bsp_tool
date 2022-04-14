@@ -432,36 +432,6 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
     _arrays = {"unknown": 2}
 
 
-class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
-    origin: List[float]  # x, y, z
-    angles: List[float]  # pitch, yaw, roll
-    model_name: int  # index into GAME_LUMP.sprp.model_names
-    first_leaf: int
-    num_leaves: int  # NOTE: Titanfall doesn't have visleaves?
-    solid_mode: int  # bitflags
-    flags: int
-    skin: int
-    # NOTE: BobTheBob's definition varies here:
-    # int skin; float fade_min, fade_max; Vector lighting_origin;
-    cubemap: int  # index of this StaticProp's Cubemap
-    unknown: int
-    fade_distance: float
-    cpu_level: List[int]  # min, max (-1 = any)
-    gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
-    scale: float
-    disable_x360: int
-    collision_flags: List[int]  # add, remove
-    __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
-                 "solid_mode", "flags", "skin", "cubemap", "unknown",
-                 "forced_fade_scale", "cpu_level", "gpu_level",
-                 "diffuse_modulation", "scale", "disable_x360", "collision_flags"]
-    _format = "6f3H2Bi2h4i2f8bfi2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
-               "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
-               "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
-
-
 class TextureData(base.Struct):  # LUMP 2 (0002)
     """Hybrid of Source TextureData & TextureInfo"""
     reflectivity: List[float]  # matches .vtf reflectivity.rgb (always? black in r2)
@@ -612,6 +582,36 @@ class GameLump_SPRP:
                          *[struct.pack("H", L) for L in self.leaves],
                          struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                          *prop_bytes])
+
+
+class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
+    origin: List[float]  # x, y, z
+    angles: List[float]  # pitch, yaw, roll
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int
+    num_leaves: int  # NOTE: Titanfall doesn't have visleaves?
+    solid_mode: int  # bitflags
+    flags: int
+    skin: int
+    # NOTE: BobTheBob's definition varies here:
+    # int skin; float fade_min, fade_max; Vector lighting_origin;
+    cubemap: int  # index of this StaticProp's Cubemap
+    unknown: int
+    fade_distance: float
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    scale: float
+    disable_x360: int
+    collision_flags: List[int]  # add, remove
+    __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
+                 "solid_mode", "flags", "skin", "cubemap", "unknown",
+                 "forced_fade_scale", "cpu_level", "gpu_level",
+                 "diffuse_modulation", "scale", "disable_x360", "collision_flags"]
+    _format = "6f3H2Bi2h4i2f8bfi2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
+               "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+               "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
 
 
 # {"LUMP_NAME": {version: LumpClass}}

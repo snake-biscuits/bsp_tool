@@ -44,11 +44,27 @@ The primary goal of `bsp_tool` is to extend community mapping tools
 [Extensions](./extensions.md)
 
 ## Supported Games
-  * [Id Software](./supported/idtech.html)
-  * [Infinity Ward](./supported/infinity_ward.html)
+  * Arkane Studios
+    - [Dark Messiah of Might & Magic Singleplayer](./supported/dark_messiah_sp.html)
+    - [Dark Messiah of Might & Magic Multiplayer](./supported/dark_messiah_mp.html)
+  * Id Software
+    - [Quake](./supported/quake.html)
+    - [Quake II](./supported/quake2.html)
+    - [Quake III](./supported/quake3.html)
+  * Infinity Ward
+    - [Call of Duty](./supported/cod.html)
+    - [Call of Duty 2](./supported/cod.html)
+    - [Call of Duty 4: Modern Warfare](./supported/cod_mw.html)
   * [Nexon](./supported/nexon.html)
-  * [Respawn Entertainment](./supported/respawn.html)
-  * [Valve Software](./supported/valve.html)
+  * Respawn Entertainment
+    - [Titanfall](./supported/titanfall.html)
+    - [Titanfall 2](./supported/titanfall.html)
+    - [Apex Legends](./supported/apex.html)
+  * Valve Software
+    - [GoldSrc](./supported/goldsrc.html)
+    - [Source Engine](./supported/source.html)
+    - [Left 4 Dead](./supported/left4dead.html)
+    - [Alien Swarm](./supported/swarm.html)
 
 ## .bsp Format Reference
   [Timeline of "relevant" games](./timeline/games.html)  

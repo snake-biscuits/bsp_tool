@@ -3,7 +3,7 @@ import inspect
 from itertools import chain
 import os
 import sys
-from types import FunctionType, ModuleType
+from types import ModuleType
 from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
@@ -224,45 +224,74 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 unmapped_gamelumps = {"dplh": None, "dplt": None, "dprp": None}
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
+# NOTE: `None` mappings are used by the branch, but not yet mapped
 gamelump_mappings[branches.valve.source] = {**unmapped_gamelumps,
                                             "sprp": branches.valve.source.GameLump_SPRP,
                                             "sprp.props": {4: branches.valve.source.StaticPropv4,
                                                            5: branches.valve.source.StaticPropv5,
                                                            6: branches.valve.source.StaticPropv6}}
+gamelump_mappings[branches.troika.vampire] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
                                                                    10: branches.valve.orange_box.StaticPropv10})
-gamelump_mappings[branches.valve.left4dead] = gamelump_mappings[branches.valve.orange_box].copy()
-gamelump_mappings[branches.valve.orange_box]["sprp.props"].pop(7)
-gamelump_mappings[branches.valve.orange_box]["sprp.props"][8] = None
-gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
 gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {**unmapped_gamelumps,
                                                                 "sprp": branches.valve.source.GameLump_SPRP,
                                                                 "sprp.props": {6: None}}
+gamelump_mappings[branches.arkane.dark_messiah_multiplayer] = gamelump_mappings[branches.arkane.dark_messiah_singleplayer].copy()  # noqa E501
+gamelump_mappings[branches.nexon.vindictus] = {"sprp": branches.nexon.vindictus.GameLump_SPRP,
+                                               "sprp.props": {6: branches.valve.source.StaticPropv6},
+                                               "sprp.scales": {6: branches.nexon.vindictus.StaticPropScale}}
+gamelump_mappings[branches.nexon.cso2] = gamelump_mappings[branches.nexon.vindictus].copy()
+gamelump_mappings[branches.nexon.cso2_2018] = gamelump_mappings[branches.nexon.cso2].copy()
+gamelump_mappings[branches.valve.left4dead] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.left4dead]["sprp.props"].pop(7)
+gamelump_mappings[branches.valve.left4dead]["sprp.props"][8] = None
+gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
+gamelump_mappings[branches.valve.alien_swarm] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.sdk_2013] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.sdk_2013]["sprp.props"][10] = None
+gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
+gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
+                                                 "sprp.props": {12: branches.respawn.titanfall.StaticPropv12}}
+gamelump_mappings[branches.respawn.titanfall2] = {"sprp": branches.respawn.titanfall2.GameLump_SPRP,
+                                                  "sprp.props": {13: branches.respawn.titanfall2.StaticPropv13}}
+gamelump_mappings[branches.respawn.apex_legends] = {"sprp": branches.respawn.titanfall2.GameLump_SPRP,
+                                                    "sprp.props": {47: branches.respawn.titanfall2.StaticPropv13,
+                                                                   48: branches.respawn.titanfall2.StaticPropv13,
+                                                                   49: branches.respawn.titanfall2.StaticPropv13,
+                                                                   50: branches.respawn.titanfall2.StaticPropv13}}
 gamelump_coverage = dict()
 # ^ {LumpClass: percent, SpecialLumpClass: percent}
-gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100})
-# TODO: coverage on each GameLump.xxxx.subclass
-# -- GameLump / DarkMessiahSPGameLump confidence
-# -- GameLump_SPRP confidence (% unknown fields)
-# -- total up coverage "backwards" for overall branch coverage
+# TODO: gather all the classes defined above and calculate their % unknown automatically
+gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
+                          branches.valve.source.StaticPropv4: 100,
+                          branches.valve.source.StaticPropv5: 100,
+                          branches.valve.source.StaticPropv6: 100,
+                          branches.valve.orange_box.StaticPropv10: 100,
+                          branches.nexon.vindictus.GameLump_SPRP: 100,
+                          branches.nexon.vindictus.StaticPropScale: 100,
+                          branches.respawn.titanfall.GameLump_SPRP: 60,
+                          branches.respawn.titanfall.StaticPropv12: 94,
+                          branches.respawn.titanfall2.GameLump_SPRP: 40,
+                          branches.respawn.titanfall2.StaticPropv13: 92})
+# TODO: work gamelump_coverage into total coverage
 
 
 # TODO: get functioning to level of hand crafted block
 # -- [x] likely need a dict to map all subclasses
 # -- [ ] checking versions in dict against branch scripts should help ensure all is up to date
 # -- [ ] coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
-def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> List[str]:
-    base_GameLump = GameLump if branch_script is not branches.arkane.dark_messiah_singlplayer else DarkMessiahSPGameLump
+def game_lump_table(branch_script: ModuleType) -> List[str]:
+    base_GameLump = GameLump if branch_script is not branches.arkane.dark_messiah_singleplayer else DarkMessiahSPGameLump  # noqa E501
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(base_GameLump)[1]}"
-    game_lump_handler = f"[`lumps.{base_GameLump.name}`]({game_lump_handler_url})"
+    game_lump_handler = f"[`lumps.{base_GameLump.__name__}`]({game_lump_handler_url})"
     # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex though...
     # TODO: precalculate coverage for the game table's total coverage calculation
     bsp_version = branch_script.BSP_VERSION
     bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
     row_header = (branch_script.LUMP.GAME_LUMP.value, bsp_version)
     # TODO: use a coverage total here rather than defaulting to 90
-    table_block = {row_as_string(TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90))}
+    table_block = {TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90)}
     for sub_lump, mapping in gamelump_mappings[branch_script].items():
         game_lump_name = f"`GAME_LUMP.{sub_lump}`"
         if not isinstance(mapping, dict):
@@ -272,12 +301,13 @@ def game_lump_table(branch_script: ModuleType, row_as_string: FunctionType) -> L
                 lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
                 lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                 # TODO: get LumpClass / SpecialLumpClass coverage
-                percent = 90
+                percent = gamelump_coverage.get(LumpClass, 90)
             else:
                 lump_class = ""
                 percent = 0
             table_block.add(TableRow(*row_header, game_lump_name, lump_version, lump_class, percent))
     return table_block
+    # TODO: sort & merge when called
 
 
 def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False, titanfall_engine=False) -> List[str]:
@@ -318,27 +348,31 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
             else:
                 bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
             # TODO: move special cases (Lightmaps, GameLump etc.) to coverage to be counted in branch_script total
-            # if lump_name == "GAME_LUMP":
-            #     # NOTE: likely won't play nice with sorting
-            #     # might be easier to write the whole block?
-            #     game_lump_block = game_lump_table(branch_script, row_as_string)
-            #     table_block.update(game_lump_block)
-            if (branch_script, lump_name) in lightmap_mappings:
+            if lump_name == "GAME_LUMP":
+                game_lump_block = game_lump_table(branch_script)
+                table_block.update(game_lump_block)
+            elif (branch_script, lump_name) in lightmap_mappings:
                 LumpClass = lightmap_mappings[(branch_script, lump_name)]
                 lump_class = f"[`extensions.lightmaps.{LumpClass.__name__}`]({url_of_BspClass(LumpClass)})"
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, lump_class, 100))
             elif lump_name not in lump_classes[branch_script]:
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, "", 0))
-            else:
+            else:  # standard lump
                 for lump_version in lump_classes[branch_script][lump_name]:
                     percent = coverage[branch_script][lump_name][lump_version]
                     LumpClass = lump_classes[branch_script][lump_name][lump_version]
                     lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
                     lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                     table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
-        sorted_block = list(sorted(table_block, key=lambda r: float(r.bsp_version) * 2 + r.lump_version))
+        # TODO: sort differently if GAME_LUMP (alphabetically by LUMP_NAME)
+        # -- GAME_LUMP also features "-" as a lump version for GameLump_SPRP SpecialLumpClasses
+        sorted_block = list(sorted(table_block,
+                                   key=lambda r: float(r.bsp_version) * 2 +
+                                   (r.lump_version if isinstance(r.lump_version, (int, float)) else 0)))
+        # TODO: secondary alphabetical sort
         if len(sorted_block) == 0:  # TODO: check if this works as intended
             continue
+        # start removing doubles
         final_block = [sorted_block[0]]
         lump_names = {r.lump_name for r in sorted_block}
         unused_lumps = {ln.startswith("UNUSED_") for ln in lump_names}
@@ -353,7 +387,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                 final_block.append(row)
                 continue
             elif row.LumpClass == final_block[-1].LumpClass:
-                continue  # no repeats
+                continue  # remove repeats
             final_block.append(row)
         lines.extend(map(row_as_string, final_block))
     return lines
