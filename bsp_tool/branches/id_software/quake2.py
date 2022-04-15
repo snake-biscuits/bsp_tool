@@ -163,7 +163,6 @@ class Visibility:
     _bytes: bytes  # raw lump
     _cluster_pvs: List[int]  # Potential Visible Set
     _cluster_pas: List[int]  # Potential Audible Set
-    # _expanded_bits = List[bool]
 
     def __init__(self, raw_visibility: bytes):
         self._bytes = raw_visibility
@@ -175,9 +174,19 @@ class Visibility:
         for pvs, pas in offsets:
             self._cluster_pvs.append(pvs)
             self._cluster_pas.append(pas)
-        # raise NotImplementedError("Understanding of Visibility lump is incomplete")
+
+    # might be worth create a child for looking up pvs & one for pas
+    # -- q2_bsp.Visibility.pvs[leaf_xx.cluster]
+    def __getitem__(self, cluster_index: int) -> bytes:
+        # TODO: adapt quake.parse_vis to work with cluster lists
+        # -- lookup offset & RLE decode, can determine num_clusters independantly
+        raise NotImplementedError()
+
+    def __setitem__(self, cluster_index: int, new_value: bytes):
+        raise NotImplementedError()
 
     def as_bytes(self) -> bytes:
+        # NOTE: changes are not applied, yet.
         return self._bytes
         # raise NotImplementedError("Visibility lump hard")
 

@@ -401,6 +401,29 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
     return out
 
 
+def parse_vis(bsp, leaf_index: int):
+    """grabs the vistree bytes for this leaf"""
+    # NOTE: likely maps against the leaf list generated below
+    # -- -1 .vis_offset leaves may only occur at the tail? unknown, further testing required
+    expected_length = len([L for L in bsp.LEAVES if L.vis_offset != -1]) + 7 >> 3
+    # ^ num_cluster_bytes = num_clusters + 7 >> 3
+    leaf = bsp.LEAVES[leaf_index]
+    if leaf.vis_offset == -1:
+        # render everything
+        return b"\xFF" * expected_length
+    out = []
+    i = 0
+    while len(out) < expected_length:
+        c = bsp.VISIBILITY[leaf.vis_offset + i]
+        if c == 0:  # RLE [0, num_0]
+            out.extend([0] * bsp.VISIBILITY[leaf.vis_offset + i + 1])
+            i += 2
+        else:
+            out.append(c)
+            i += 1
+    return bytes(out)
+
+
 def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2, vector.vec3)]:
     """output is [(position.xyz, uv.xy, normal.xyz, colour.rgba)] """
     face = bsp.FACES[face_index]
@@ -433,4 +456,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
     return list(itertools.chain(*[bsp.vertices_of_face(i) for i in leaf_faces]))
 
 
-methods = [vertices_of_face, lightmap_of_face, as_lightmapped_obj, vertices_of_model]
+methods = [vertices_of_face, lightmap_of_face, as_lightmapped_obj, parse_vis, vertices_of_model]
