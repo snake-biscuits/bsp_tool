@@ -54,17 +54,10 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     Mesh          mesh;
     TextureData   texture_data;
 
-    unsigned int total_vertices;
-    total_vertices  = bsp->header[LUMP::VERTEX_UNLIT   ].length / sizeof(VertexUnlit  );
-    total_vertices += bsp->header[LUMP::VERTEX_LIT_FLAT].length / sizeof(VertexLitFlat);
-    total_vertices += bsp->header[LUMP::VERTEX_LIT_BUMP].length / sizeof(VertexLitBump);
-    total_vertices += bsp->header[LUMP::VERTEX_UNLIT_TS].length / sizeof(VertexUnlitTS);
-    out->vertices = new RenderVertex[total_vertices];
-    unsigned int vertex_count = 0;
-
+    // assign array of type `Type` named `name` value of lump `ENUM` (calculate length)
     #define GET_LUMP(Type, name, ENUM) \
-        int name##_MAX = bsp->header[ENUM].length / sizeof(Type); \
-        Type *name = new Type[name##_MAX]; \
+        int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
+        Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
     GET_LUMP(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   )
     GET_LUMP(Vector,          VERTICES,         LUMP::VERTICES       )
@@ -75,62 +68,70 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     GET_LUMP(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
+    out->vertex_count = VERTEX_UNLIT_SIZE + VERTEX_LIT_FLAT_SIZE + VERTEX_LIT_BUMP_SIZE + VERTEX_UNLIT_TS_SIZE;
+    out->vertices = new RenderVertex[out->vertex_count];
+
+    unsigned int VERTEX_UNLIT_OFFSET = 0;
+    unsigned int VERTEX_LIT_FLAT_OFFSET = VERTEX_UNLIT_SIZE;
+    unsigned int VERTEX_LIT_BUMP_OFFSET = VERTEX_LIT_FLAT_OFFSET + VERTEX_LIT_FLAT_SIZE;
+    unsigned int VERTEX_UNLIT_TS_OFFSET = VERTEX_LIT_BUMP_OFFSET + VERTEX_LIT_BUMP_SIZE;
+
     VertexUnlit    vertex_unlit;
     VertexLitFlat  vertex_lit_flat;
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
-
-    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
-    // worldspawn.num_meshes = 768;  // override
-    unsigned int index_offset[worldspawn.num_meshes];  // MeshIndex -> Buffer Index
-    unsigned int total_indices = 0;
+    float default_colour[3] = {1.0f, 0.0f, 1.0f};
     RenderVertex render_vertex;
-    #define GET_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
-        for (int j = 0; j < mesh.num_vertices + 1; j++) { \
-            mesh_vertex = VERTEX_LUMP[mesh.first_vertex + j]; \
+    int vertex_count = 0;
+    #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
+        for (int i = 0; i < VERTEX_LUMP##_SIZE; i++) { \
+            mesh_vertex = VERTEX_LUMP[i]; \
             render_vertex.position = VERTICES[mesh_vertex.position]; \
             render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
-            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
+            memcpy(render_vertex.colour, default_colour, sizeof(float) * 3); \
             render_vertex.uv = mesh_vertex.uv; \
             out->vertices[vertex_count] = render_vertex; \
             vertex_count++; \
+        }
+    COPY_RENDER_VERTICES(VERTEX_UNLIT,    vertex_unlit   )
+    COPY_RENDER_VERTICES(VERTEX_LIT_FLAT, vertex_lit_flat)
+    COPY_RENDER_VERTICES(VERTEX_LIT_BUMP, vertex_lit_bump)
+    COPY_RENDER_VERTICES(VERTEX_UNLIT_TS, vertex_unlit_ts)
+    #undef GET_RENDER_VERTICES
+
+    out->indices = new unsigned int[MESH_INDICES_SIZE];
+    unsigned int total_indices = 0;
+    #define INDEX_TRIANGLES(VERTEX_LUMP) \
+        for (int j = 0; j < mesh.num_triangles * 3; j++) { \
+            unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j]; \
+            vertex_index += VERTEX_LUMP##_OFFSET; \
+            render_vertex = out->vertices[vertex_index]; \
+            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
+            out->vertices[vertex_index] = render_vertex; \
+            out->indices[total_indices] = vertex_index; \
+            total_indices += 1; \
         } \
         break;
-    // convert geo
+    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    // worldspawn.num_meshes = 256;  // DEBUG: override for focus
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
         material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
         texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
-        // indices
-        index_offset[i] = vertex_count + material_sort.vertex_offset - mesh.first_vertex;
-        // NOTE: indexing seems to break once we switch vertex lump
-        total_indices += mesh.num_triangles * 3;
         switch (mesh.flags & FLAG::MASK_VERTEX) {
-            case FLAG::VERTEX_UNLIT:  // VERTEX_RESERVED_0
-                GET_RENDER_VERTICES(VERTEX_UNLIT, vertex_unlit)
-            case FLAG::VERTEX_LIT_FLAT:  // VERTEX_RESERVED_1
-                GET_RENDER_VERTICES(VERTEX_LIT_FLAT, vertex_lit_flat)
-            case FLAG::VERTEX_LIT_BUMP:  // VERTEX_RESERVED_2
-                GET_RENDER_VERTICES(VERTEX_LIT_BUMP, vertex_lit_bump)
-            case FLAG::VERTEX_UNLIT_TS:  // VERTEX_RESERVED_3
-                GET_RENDER_VERTICES(VERTEX_UNLIT_TS, vertex_unlit_ts)
+            case FLAG::VERTEX_UNLIT:
+                INDEX_TRIANGLES(VERTEX_UNLIT)
+            case FLAG::VERTEX_LIT_FLAT:
+                INDEX_TRIANGLES(VERTEX_LIT_FLAT)
+            case FLAG::VERTEX_LIT_BUMP:
+                INDEX_TRIANGLES(VERTEX_LIT_BUMP)
+            case FLAG::VERTEX_UNLIT_TS:
+                INDEX_TRIANGLES(VERTEX_UNLIT_TS)
         }
     }
-    #undef GET_RENDER_VERTICES
+    #undef INDEX_TRIANGLES
     out->index_count = total_indices;
-    out->indices = new unsigned int[total_indices];
-    unsigned int index = 0;
-    // NOTE: out->vertices blends all VERTEX_LUMPs
-    // VERTEX_LUMP[min({index for index in mesh[I]})] is @ index_offset[I]
-    for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
-        for (int j = 0; j < mesh.num_triangles * 3; j++) {
-            // TODO: libsm64 SM64Triangles for each Mesh, precalculated for physics
-            // NOTE: using PhysicsCollide Triangles would be even better
-            out->indices[index] = MESH_INDICES[mesh.first_mesh_index + j] + index_offset[i];
-            index++;
-        }
-    }
+    printf("Using %d of %d potential indices\n", total_indices, MESH_INDICES_SIZE);
     // TODO: grab all models + parent entity origins
     delete[] MESH_INDICES;
     delete[] VERTICES;
@@ -139,8 +140,6 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     delete[] VERTEX_LIT_FLAT;
     delete[] VERTEX_LIT_BUMP;
     delete[] VERTEX_UNLIT_TS;
-    // TODO: indices
-    out->vertex_count = vertex_count;
 };
 
 

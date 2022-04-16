@@ -20,8 +20,9 @@ ifeq ($(OS),Windows_NT)
 endif
 
 # TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp
-TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
+# TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
 # TESTMAP := $(R1O_MAPS_DIR)/mp_npe.bsp
+TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
 
 DUMMY != mkdir -p build
 
