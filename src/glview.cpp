@@ -28,13 +28,13 @@ struct RenderVertex {
 struct RenderObject {
     /* Buffer data */
     unsigned int  vertex_count;
-    RenderVertex *vertices;
+    RenderVertex *vertices;  // always allocate w/ `new`
     unsigned int  index_count;
-    unsigned int *indices;
+    unsigned int *indices;  // always allocate w/ `new`
     /* Shader & Buffer handles */
-    // GLuint        vertex_buffer;
-    // GLuint        index_buffer;
-    // GLuint        shader;
+    GLuint        vertex_buffer;
+    GLuint        index_buffer;
+    GLuint        shader_program;
 
     /* Methods */
     RenderObject() {}
@@ -68,13 +68,12 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     GET_LUMP(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
-    out->vertex_count = VERTEX_UNLIT_SIZE + VERTEX_LIT_FLAT_SIZE + VERTEX_LIT_BUMP_SIZE + VERTEX_UNLIT_TS_SIZE;
-    out->vertices = new RenderVertex[out->vertex_count];
-
-    unsigned int VERTEX_UNLIT_OFFSET = 0;
+    unsigned int VERTEX_UNLIT_OFFSET    = 0;
     unsigned int VERTEX_LIT_FLAT_OFFSET = VERTEX_UNLIT_SIZE;
     unsigned int VERTEX_LIT_BUMP_OFFSET = VERTEX_LIT_FLAT_OFFSET + VERTEX_LIT_FLAT_SIZE;
     unsigned int VERTEX_UNLIT_TS_OFFSET = VERTEX_LIT_BUMP_OFFSET + VERTEX_LIT_BUMP_SIZE;
+    out->vertex_count = VERTEX_UNLIT_TS_OFFSET + VERTEX_UNLIT_TS_SIZE;
+    out->vertices = new RenderVertex[out->vertex_count];
 
     VertexUnlit    vertex_unlit;
     VertexLitFlat  vertex_lit_flat;
@@ -97,42 +96,39 @@ void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     COPY_RENDER_VERTICES(VERTEX_LIT_FLAT, vertex_lit_flat)
     COPY_RENDER_VERTICES(VERTEX_LIT_BUMP, vertex_lit_bump)
     COPY_RENDER_VERTICES(VERTEX_UNLIT_TS, vertex_unlit_ts)
-    #undef GET_RENDER_VERTICES
+    #undef COPY_RENDER_VERTICES
 
     out->indices = new unsigned int[MESH_INDICES_SIZE];
     unsigned int total_indices = 0;
-    #define INDEX_TRIANGLES(VERTEX_LUMP) \
-        for (int j = 0; j < mesh.num_triangles * 3; j++) { \
-            unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j]; \
-            vertex_index += VERTEX_LUMP##_OFFSET; \
-            render_vertex = out->vertices[vertex_index]; \
-            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3); \
-            out->vertices[vertex_index] = render_vertex; \
-            out->indices[total_indices] = vertex_index; \
-            total_indices += 1; \
-        } \
-        break;
+    unsigned int vertex_lump_offset;
     Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
-    // worldspawn.num_meshes = 256;  // DEBUG: override for focus
+    // TODO: create a render object for each Model (w/ shared vertex buffer)
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
         material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
         texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
         switch (mesh.flags & FLAG::MASK_VERTEX) {
             case FLAG::VERTEX_UNLIT:
-                INDEX_TRIANGLES(VERTEX_UNLIT)
+                vertex_lump_offset = VERTEX_UNLIT_OFFSET;    break;
             case FLAG::VERTEX_LIT_FLAT:
-                INDEX_TRIANGLES(VERTEX_LIT_FLAT)
+                vertex_lump_offset = VERTEX_LIT_FLAT_OFFSET; break;
             case FLAG::VERTEX_LIT_BUMP:
-                INDEX_TRIANGLES(VERTEX_LIT_BUMP)
+                vertex_lump_offset = VERTEX_LIT_BUMP_OFFSET; break;
             case FLAG::VERTEX_UNLIT_TS:
-                INDEX_TRIANGLES(VERTEX_UNLIT_TS)
+                vertex_lump_offset = VERTEX_UNLIT_TS_OFFSET; break;
+        }
+        for (int j = 0; j < mesh.num_triangles * 3; j++) {
+            unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j];
+            vertex_index += vertex_lump_offset;
+            render_vertex = out->vertices[vertex_index];
+            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3);
+            out->vertices[vertex_index] = render_vertex;
+            out->indices[total_indices] = vertex_index;
+            total_indices += 1;
         }
     }
-    #undef INDEX_TRIANGLES
     out->index_count = total_indices;
     printf("Using %d of %d potential indices\n", total_indices, MESH_INDICES_SIZE);
-    // TODO: grab all models + parent entity origins
     delete[] MESH_INDICES;
     delete[] VERTICES;
     delete[] VERTEX_NORMALS;
@@ -189,32 +185,46 @@ int main(int argc, char* argv[]) {
     SDL_CaptureMouse(SDL_TRUE);
 
     // SETUP OpenGL
+    glewInit();
     glClearColor(0.5, 0.0, 0.5, 0.0);
     glEnable(GL_DEPTH_TEST);
     glPointSize(4);
-    // TODO: load shaders
-    // TODO: vertex & index buffers
-
-    // TODO: libsm64
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
-    // NOTE: encounters a segfault on any map other than r1o/mp_box or r1/mp_lobby
-    // note r1o/mp_npe Mesh #1194 uses VERTEX_LIT_BUMP (empty) w/ negative indices???
+    // NOTE: r1o/mp_npe Mesh #1194 uses VERTEX_LIT_BUMP (empty) w/ negative indices???
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     bsp_geo_init(&bsp_file, &bsp);
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
-    // TODO: bind to buffers and use RenderObject w/ shaders
+    glGenBuffers(1, &bsp.vertex_buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, bsp.vertex_buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);  // vertex_position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), NULL);
+    glEnableVertexAttribArray(1);  // vertex_normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 3));
+    glEnableVertexAttribArray(3);  // vertex_colour
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 6));
+    glEnableVertexAttribArray(3);  // vertex_uv0
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 9));
+    glGenBuffers(1, &bsp.index_buffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
+    // TODO: shaders
 
-    unsigned int index;
+    // TODO: libsm64 init
+    // sm64_static_surfaces_load(bsp.worldspawn)  // need to dynamically update?
+    // sm64_surface_object_create(bsp.model[i])
+    // sm64_surface_object_move(bsp.model[i])
+    // sm64_mario_create(*bsp.spawnpoint[0].xyz)
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);
-    fp_camera.position = {0, 0, 64};
-    fp_camera.rotation = {0, 0, 0};
+    fp_camera.position = {0.0, 0.0, 64.0};
+    fp_camera.rotation = {0.0, 0.0, 0.0};
     fp_camera.sensitivity = 0.25;
-    fp_camera.speed = 1;
+    fp_camera.speed = 1.0;
 
     camera::Lens lens;
     lens.fov = 90;
@@ -253,7 +263,7 @@ int main(int argc, char* argv[]) {
                     else if (48 <= key && key <= 57) {  // SDLK_0-9
                         keys[key - 48] = true; }        // keys[0-9]
                     else if (97 <= key && key <= 122) {  // SDLK_a-z
-                        keys[key - 87] = true; }        // keys[10-35]
+                        keys[key - 87] = true; }         // keys[10-35]
                     break;
                 case SDL_KEYUP:
                     if (event.key.repeat) { break; }
@@ -291,13 +301,14 @@ int main(int argc, char* argv[]) {
                 fp_camera.motion[PAN_RIGHT] = true;
             }
             if (keys[SDLK_q - 87]) {
-                fp_camera.motion[PAN_UP] = true;
-            }
-            if (keys[SDLK_e - 87]) {
                 fp_camera.motion[PAN_DOWN] = true;
             }
-            if (keys[SDLK_f - 87]) {
-                // print some debug info here
+            if (keys[SDLK_e - 87]) {
+                fp_camera.motion[PAN_UP] = true;
+            }
+            if (keys[SDLK_f - 87]) {  // print some debug info here
+                printf("fp_camera @ (%.3f, %.3f, %.3f)\n",
+                       fp_camera.position.x, fp_camera.position.y, fp_camera.position.z);
             }
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
@@ -315,22 +326,7 @@ int main(int argc, char* argv[]) {
         // TODO: SKYBOX
         fp_camera.translate();
         // WORLD
-        /* // bsp vertices
-        glBegin(GL_POINTS);
-        for (unsigned int i = 0; i < bsp.vertex_count; i++) {
-            glColor3f(bsp.vertices[i].colour[0], bsp.vertices[i].colour[1], bsp.vertices[i].colour[2]);
-            glVertex3d(bsp.vertices[i].position.x, bsp.vertices[i].position.y, bsp.vertices[i].position.z);
-        }
-        glEnd(); */
-        // indexed bsp vertices
-        glBegin(GL_TRIANGLES);
-        for (unsigned int i = 0; i < bsp.index_count; i++) {
-            index = bsp.indices[i];
-            glColor3f(bsp.vertices[index].colour[0], bsp.vertices[index].colour[1], bsp.vertices[index].colour[2]);
-            // glColor3f(bsp.vertices[index].normal.x, bsp.vertices[index].normal.y, bsp.vertices[index].normal.z);
-            glVertex3d(bsp.vertices[index].position.x, bsp.vertices[index].position.y, bsp.vertices[index].position.z);
-        }
-        glEnd();
+        glDrawElements(GL_TRIANGLES, bsp.index_count, GL_UNSIGNED_INT, NULL);
         glPopMatrix();
         // PRESENT FRAME
         SDL_GL_SwapWindow(window);

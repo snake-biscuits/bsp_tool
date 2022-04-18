@@ -2,7 +2,7 @@ CC       := g++
 CXXFLAGS := --std=c++17 -Wall
 LDLIBS   := -lstdc++fs
 
-SDLFLAGS := -lGL `sdl2-config --cflags --libs`
+SDLFLAGS := -lGLEW -lGL `sdl2-config --cflags --libs`
 R1_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r1/maps
 R1O_MAPS_DIR := /media/bikkie/Sandisk/Respawn/r1o/maps
 R2_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r2/maps
