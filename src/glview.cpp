@@ -45,10 +45,54 @@ struct RenderObject {
 };
 
 
-// TODO: libsm64 init & physics triangles
+GLuint basic_shader_from(char* vert_filename, char* frag_filename) {
+    GLuint shaders[2];
+    char error_message[4096];  // should be enough, can't be bothered with accuracy
+    for (int i=0; i<2; i++) {
+        char *filename = i == 0 ? vert_filename : frag_filename;
+        std::fstream file;
+        file.open(filename, std::ios::in | std::ios::ate);
+        if (!file) {
+            sprintf(error_message, "Couldn't open '%s'", filename);
+            throw std::runtime_error(error_message);
+        }
+        int shader_length = file.tellg();
+        printf("shader_length = %d\n", shader_length);
+        file.seekg(0, std::ios::beg);
+        const GLchar* shader_text;
+        file.read((char*) shader_text, shader_length);  // reading text isn't fun
+        file.close();
+        printf("%s\n", shader_text);
+        printf("%d\n", (int) strlen(shader_text));
+        GLenum shader_type = i == 0 ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
+        shaders[i] = glCreateShader(shader_type);
+        glShaderSource(shaders[i], 1, &shader_text, &shader_length);
+        glCompileShader(shaders[i]);
+        // verify shader compiled
+        GLint compile_success;
+        glGetShaderiv(shaders[i], GL_COMPILE_STATUS, &compile_success);
+        if (compile_success == GL_FALSE)  {
+            GLint log_length;
+            glGetShaderiv(shaders[i], GL_INFO_LOG_LENGTH, &log_length);
+            char *error_log = (char*) malloc(log_length);
+            glGetShaderInfoLog(shaders[i], log_length, &log_length, error_log);
+            const char* shader_type_name = i == 0 ? "vertex" : "fragment";
+            sprintf(error_message, "Failed to compile %s shader (%s):\n%s\n", shader_type_name, filename, error_log);
+            throw std::runtime_error(error_message);
+        }
+    }
+    GLuint shader_program = glCreateProgram();
+    glAttachShader(shader_program, shaders[0]);  // vertex
+    glAttachShader(shader_program, shaders[1]);  // fragment
+    glLinkProgram(shader_program);
+    glDetachShader(shader_program, shaders[0]);
+    glDetachShader(shader_program, shaders[1]);
+    return shader_program;
+}
+
 
 using namespace bsp_tool::respawn_entertainment;
-void bsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
+void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     using namespace titanfall;
     MaterialSort  material_sort;
     Mesh          mesh;
@@ -195,8 +239,12 @@ int main(int argc, char* argv[]) {
     // NOTE: r1o/mp_npe Mesh #1194 uses VERTEX_LIT_BUMP (empty) w/ negative indices???
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
-    bsp_geo_init(&bsp_file, &bsp);
+    r1_rbsp_geo_init(&bsp_file, &bsp);
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
+    // TODO: move this buffer initialisation to other functions / RenderObject methods
+    // -- defining the vertex format probably belongs in r1_rbsp_geo_init
+    // -- selecting the vertex buffer, index buffer & data location & indices matters
+    // -- being able have multiple RenderObjects share buffers would be nice
     glGenBuffers(1, &bsp.vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, bsp.vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
@@ -211,9 +259,24 @@ int main(int argc, char* argv[]) {
     glGenBuffers(1, &bsp.index_buffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
-    // TODO: shaders
+    // shaders
+    // TODO: rethink locating the `gl_shaders` folder (std::filesystem?)
+    // char vert_shader_file[64] = "../src/gl_shaders/rbsp/basic.vert";
+    // char frag_shader_file[64] = "../src/gl_shaders/rbsp/basic.frag";
+    char vert_shader_file[128] = "/home/bikkie/Documents/Code/GitHub/bsp_tool/src/gl_shaders/rbsp/basic.vert";
+    char frag_shader_file[128] = "/home/bikkie/Documents/Code/GitHub/bsp_tool/src/gl_shaders/rbsp/basic.frag";
+    try {
+        bsp.shader_program = basic_shader_from(vert_shader_file, frag_shader_file);
+    } catch (const std::runtime_error& e) {
+        // could goto a label to kill, but that feels cursed imo
+        fprintf(stderr, "%s\n", e.what());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    };
 
     // TODO: libsm64 init
+    // NOTE: 1024 triangle limit on static geo
     // sm64_static_surfaces_load(bsp.worldspawn)  // need to dynamically update?
     // sm64_surface_object_create(bsp.model[i])
     // sm64_surface_object_move(bsp.model[i])
