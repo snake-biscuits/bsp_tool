@@ -36,7 +36,7 @@ run: build/glview.exe
 
 debug:
 	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/glview.cpp -o build/glview.exe $(SDLFLAGS)
-	gdb --args build/glview.exe $(TESTMAP)
+	gdb --args build/glview.exe $(TESTMAP) -ex run -ex bt
 
 # TODO: .o builds
 # TODO: clean
