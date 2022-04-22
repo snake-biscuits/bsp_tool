@@ -2,19 +2,21 @@
 
 ### Level Editors
 
-| Tool          | Link                                                              | Games
-| :------------ | :---------------------------------------------------------------- | :----------------------------------- |
-| CoDRadiant    | moddb.com/downloads/cod-radiant                                   | CoD1                                 |
-| CoD2Radiant   | gamefront.com/games/call-of-duty-2/file/cod2-updated-map-mod-tool | CoD2                                 |
-| CoD4Radiant   | github.com/promod/CoD4-Mod-Tools                                  | COD4:MW                              |
-| CODWAWRadiant | `TODO`                                                            |                                      |
-| CSO2Converter | git.sr.ht/~leite/cso2-bsp-converter                               | CS:S -> CS:O2                        |
-| GtkRadiant    | github.com/TTimo/GtkRadiant                                       | Q3/RtCW/W:ET/SoF2/JK2/JA/EF/HL/Q2/H2 |
-|               | svn.icculus.org/gtkradiant-gamepacks                              |                                      |
-| hammer.exe    | ships with associated game(s) or Source SDK                       | SOURCE ENGINE                        |
-| MapBase       | moddb.com/mods/mapbase/downloads/mapbase-release-build            | Source SDK 2013                      |
-| TrenchBroom   | github.com/TrenchBroom/TrenchBroom                                | Q/Q2/H2/Daikatana                    |
-| ÜbertoolsGDK  | moddb.com/downloads/stef2-bertools-game-devolopment-kit           | FAKK2/EF2/MOH:AA/AMA                 |
+| Tool           | Link                                                                                       | Games                                |
+| :------------- | :----------------------------------------------------------------------------------------- | :----------------------------------- |
+| CoDRadiant     | moddb.com/downloads/cod-radiant                                                            | CoD1                                 |
+| CoD2Radiant    | gamefront.com/games/call-of-duty-2/file/cod2-updated-map-mod-tool                          | CoD2                                 |
+| CoD4Radiant    | github.com/promod/CoD4-Mod-Tools                                                           | COD4:MW                              |
+| CODWAWRadiant  | `TODO`                                                                                     |                                      |
+| CSO2Converter  | git.sr.ht/~leite/cso2-bsp-converter                                                        | CS:S -> CS:O2                        |
+| DarkMessiahSDK | www.moddb.com/games/dark-messiah-of-might-magic/downloads/dark-messiah-might-and-magic-sdk | Dark Messiah SP                      |
+| GtkRadiant     | github.com/TTimo/GtkRadiant                                                                | Q3/RtCW/W:ET/SoF2/JK2/JA/EF/HL/Q2/H2 |
+|                | svn.icculus.org/gtkradiant-gamepacks                                                       |                                      |
+| hammer.exe     | ships with associated game(s) or Source SDK                                                | SOURCE ENGINE                        |
+| MapBase        | moddb.com/mods/mapbase/downloads/mapbase-release-build                                     | Source SDK 2013                      |
+| TrenchBroom    | github.com/TrenchBroom/TrenchBroom                                                         | Q/Q2/H2/Daikatana                    |
+| ÜbertoolsGDK   | moddb.com/downloads/stef2-bertools-game-devolopment-kit                                    | FAKK2/EF2/MOH:AA/AMA                 |
+| VampireSDK     |  https://www.moddb.com/mods/vtmb-unofficial-patch/downloads/bloodlines-sdk                 | VtMB                                 |
 
 > TODO: get a list of preferred compilers from Trenchbroom's default profiles
 
@@ -64,13 +66,13 @@
 | RitualBsp       | `ritual.fakk2`                    | ÜbertoolsGDK             |               |           |
 |                 | `ritual.moh_allied_assault`       | ÜbertoolsGDK             |               |           |
 |                 | `ritual.star_trek_elite_force2`   | ÜbertoolsGDK             |               |           |
-| ValveBsp        | `arkane.dark_messiah`             |                          |               |           |
+| ValveBsp        | `arkane.dark_messiah`             | DarkMessiahSDK           |               |           |
 |                 | `arkane.dark_messiah_multiplayer` |                          |               |           |
 |                 | `loiste.infra`                    | hammer.exe               |               |           |
 |                 | `nexon.cso2`                      |                          | CSO2Converter |           |
 |                 | `nexon.cso2_2018`                 |                          | CSO2Converter |           |
 |                 | `nexon.vindictus`                 |                          |               |           |
-|                 | `troika.vampire`                  |                          |               |           |
+|                 | `troika.vampire`                  | VampireSDK               |               |           |
 |                 | `valve.alien_swarm`               | hammer.exe               |               |           |
 |                 | `valve.left4dead`                 | hammer.exe               |               |           |
 |                 | `valve.left4dead2`                | hammer.exe               |               |           |
