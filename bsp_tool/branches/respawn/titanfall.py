@@ -88,7 +88,7 @@ class LUMP(enum.Enum):
     UNUSED_63 = 0x003F
     UNUSED_64 = 0x0040
     UNUSED_65 = 0x0041
-    TRICOLL_TRIS = 0x0042
+    TRICOLL_TRIANGLES = 0x0042
     UNUSED_67 = 0x0043
     TRICOLL_NODES = 0x0044
     TRICOLL_HEADERS = 0x0045
@@ -459,6 +459,12 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
     _arrays = {"unknown": 11}
 
 
+class TricollNode(base.Struct):  # LUMP 68 (0044)
+    __slots__ = ["unknown"]
+    _format = "4i"
+    _arrays = {"unknown": 4}
+
+
 class WorldLight(base.Struct):  # LUMP 54 (0036)
     origin: List[float]
     __slots__ = ["origin", "unknown"]
@@ -628,7 +634,8 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
                       "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedInts},
                       "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
-                      "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts}}
+                      "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts},
+                      "TRICOLL_TRIANGLES":           {2: shared.UnsignedInts}}  # could be a pair of shorts?
 
 LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CELL_AABB_NODES":                   {0: Node},
@@ -663,6 +670,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
                 "TEXTURE_DATA":                      {1: TextureData},
                 "TRICOLL_HEADERS":                   {1: TricollHeader},
+                "TRICOLL_NODES":                     {1: TricollNode},
                 "VERTEX_NORMALS":                    {0: quake.Vertex},
                 "VERTICES":                          {0: quake.Vertex},
                 "VERTEX_BLINN_PHONG":                {0: VertexBlinnPhong},
