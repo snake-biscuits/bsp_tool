@@ -454,8 +454,10 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
+    # NOTE: the 16 lowest bits of unknown[0] are always blank
+    # NOTE: bsp.TRICOLL_HEADERS[-1].unknown[4] is always less than len(bsp.TRICOLL_TRIANGLES)
     __slots__ = ["unknown"]
-    _format = "11i"
+    _format = "8i3f"
     _arrays = {"unknown": 11}
 
 
