@@ -25,11 +25,18 @@
 
 
 ### References
+
  * [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format)
  * [Source SDK 2013](https://github.com/ValveSoftware/source-sdk-2013)
    - [bspfile.h](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h)
    - [bspflags.h](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h)
    - [bsplib.cpp](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bsplib.cpp)
+
+
+### Vampire SDK
+
+ * [Unofficial SDK](https://www.moddb.com/mods/vtmb-unofficial-patch/downloads/bloodlines-sdk)
+ * [Planet Vampire Modding Community](https://forums.planetvampire.com/bloodlines-modding/bloodlines-sdk/)
 
 
 ## Supported Lumps
@@ -83,32 +90,32 @@
 | 32 | 17 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L364) | 100% |
 | 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 17 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
-| 35 | 17 | ``GAME_LUMP.dplt`` | - |  | 0% |
 | 35 | 17 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
-| 35 | 17 | ``GAME_LUMP.dplh`` | - |  | 0% |
-| 35 | 19 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
-| 35 | 19 | ``GAME_LUMP.dplt`` | - |  | 0% |
+| 35 | 17 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 17 | ``GAME_LUMP.dprp`` | - |  | 0% |
 | 35 | 19 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
 | 35 | 17 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
+| 35 | 19 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
 | 35 | 19 | ``GAME_LUMP.dprp`` | - |  | 0% |
 | 35 | 17 | ``GAME_LUMP.sprp.props`` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L684) | 100% |
-| 35 | 20 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
-| 35 | 20 | ``GAME_LUMP.dplt`` | - |  | 0% |
-| 35 | 17 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
 | 35 | 20 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
-| 35 | 20 | ``GAME_LUMP.dplh`` | - |  | 0% |
-| 35 | 21 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 17 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
+| 35 | 20 | ``GAME_LUMP.dprp`` | - |  | 0% |
+| 35 | 20 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 21 | ``GAME_LUMP.dplh`` | - |  | 0% |
 | 35 | 19 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
+| 35 | 21 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 21 | ``GAME_LUMP.dprp`` | - |  | 0% |
 | 35 | 21 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
 | 35 | 17 | ``GAME_LUMP.sprp.props`` | 8 |  | 0% |
 | 35 | 19 | ``GAME_LUMP.sprp.props`` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L684) | 100% |
+| 35 | 20 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
+| 35 | 22 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 22 | ``GAME_LUMP.dplh`` | - |  | 0% |
+| 35 | 22 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
 | 35 | 22 | ``GAME_LUMP.dplt`` | - |  | 0% |
 | 35 | 19 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
-| 35 | 22 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
-| 35 | 22 | ``GAME_LUMP.dplh`` | - |  | 0% |
-| 35 | 22 | ``GAME_LUMP`` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
-| 35 | 20 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
+| 35 | 22 | ``GAME_LUMP.dprp`` | - |  | 0% |
 | 35 | 20 | ``GAME_LUMP.sprp.props`` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L684) | 100% |
 | 35 | 21 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
 | 35 | 19 | ``GAME_LUMP.sprp.props`` | 8 |  | 0% |
@@ -116,12 +123,12 @@
 | 35 | 21 | ``GAME_LUMP.sprp.props`` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L684) | 100% |
 | 35 | 20 | ``GAME_LUMP.sprp.props`` | 8 |  | 0% |
 | 35 | 21 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
-| 35 | 19 | ``GAME_LUMP.sprp.props`` | 10 |  | 0% |
 | 35 | 22 | ``GAME_LUMP.sprp.props`` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L665) | 100% |
+| 35 | 19 | ``GAME_LUMP.sprp.props`` | 10 |  | 0% |
 | 35 | 22 | ``GAME_LUMP.sprp.props`` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L684) | 100% |
-| 35 | 20 | ``GAME_LUMP.sprp.props`` | 10 |  | 0% |
-| 35 | 22 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
 | 35 | 21 | ``GAME_LUMP.sprp.props`` | 8 |  | 0% |
+| 35 | 22 | ``GAME_LUMP.sprp.props`` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L705) | 100% |
+| 35 | 20 | ``GAME_LUMP.sprp.props`` | 10 |  | 0% |
 | 36 | 17 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L460) | 100% |
 | 37 | 17 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L520) | 100% |
 | 37 | 22 | `PRIMITIVES` | 0 |  | 0% |

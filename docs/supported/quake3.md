@@ -29,7 +29,7 @@
 | 0 | 19 | `SHADERS` | [`ritual.moh_allied_assault.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/moh_allied_assault.py#L110) | 100% |
 | 0 | 20 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L63) | 100% |
 | 0 | 46 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
-| 1 | 1 | `SHADER_REFERENCES` |  | 0% |
+| 1 | 1 | `SHADERS` |  | 0% |
 | 1 | 12 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L213) | 100% |
 | 1 | 46 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L221) | 100% |
 | 2 | 1 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L213) | 100% |
@@ -57,8 +57,8 @@
 | 8 | 19 | `LEAVES` | [`ritual.moh_allied_assault.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/moh_allied_assault.py#L91) | 100% |
 | 8 | 20 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |
 | 8 | 46 | `BRUSHES` | [`id_software.quake3.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L98) | 100% |
-| 9 | 1 | `BRUSH_SIDES` |  | 0% |
 | 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L56) | 100% |
+| 9 | 1 | `BRUSH_SIDES` |  | 0% |
 | 9 | 12 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L205) | 100% |
 | 9 | 20 | `LEAF_SURFACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |
 | 9 | 46 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L106) | 100% |

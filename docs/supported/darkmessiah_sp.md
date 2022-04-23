@@ -6,12 +6,19 @@
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Single Player | [`arkane.dark_messiah_singleplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_singleplayer.py) | 39 / 57 | 7 | 68.07% |
 
 
-### References
- * [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format)
- * [Source SDK 2013](https://github.com/ValveSoftware/source-sdk-2013)
-   - [bspfile.h](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspfile.h)
-   - [bspflags.h](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bspflags.h)
-   - [bsplib.cpp](https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/bsplib.cpp)
+[Dark Messiah SP SDK .gcf files](https://www.moddb.com/games/dark-messiah-of-might-magic/downloads/dark-messiah-might-and-magic-sdk)
+
+Difficult to get hammer to run, is a real branch of the Source SDK made by Arkane
+
+Appears it was available on steam for a time in some kind of beta
+The SDK's Steam AppID is in `gameinfo.txt`, perhaps the SDK could be downloaded with `steamcmd`?
+
+
+## SDK Guides
+ * [VDC Guide](https://developer.valvesoftware.com/wiki/Dark_Messiah%3A_Single-Player_Level_Creation/SourceSDK)
+ * [ModDB Guide](https://www.moddb.com/games/dark-messiah-of-might-magic/downloads/dark-messiah-might-and-magic-sdk)
+
+Both guides are written by [soer4769](https://developer.valvesoftware.com/wiki/User:Soer4769), a VDC contributor who has created many resources helpful to mappers
 
 
 ## Supported Lumps
@@ -52,9 +59,10 @@
 | 32 | 20.4 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 20.4 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L364) | 100% |
 | 34 | 20.4 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 20.4 | ``GAME_LUMP`` | - | [`lumps.DarkMessiahSPGameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L412) | 90% |
-| 35 | 20.4 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
 | 35 | 20.4 | ``GAME_LUMP.dprp`` | - |  | 0% |
+| 35 | 20.4 | ``GAME_LUMP.sprp`` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L618) | 100% |
+| 35 | 20.4 | ``GAME_LUMP`` | - | [`lumps.DarkMessiahSPGameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L412) | 90% |
+| 35 | 20.4 | ``GAME_LUMP.sprp.props`` | 6 |  | 0% |
 | 36 | 20.4 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L460) | 100% |
 | 37 | 20.4 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L520) | 100% |
 | 38 | 20.4 | `PRIMITIVE_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L238) | 100% |

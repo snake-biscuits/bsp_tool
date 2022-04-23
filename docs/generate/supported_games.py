@@ -86,7 +86,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                                   branches.troika.vampire, branches.loiste.infra]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
-          ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "source.md",
+          ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
                       {ValveBsp: [branches.arkane.dark_messiah_singleplayer]}),
           ScriptGroup("Dark Messiah MP", "darkmessiah_mp.md", "Arkane Studios", "source.md",
                       {ValveBsp: [branches.arkane.dark_messiah_multiplayer]}),
