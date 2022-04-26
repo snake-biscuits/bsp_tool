@@ -6,8 +6,6 @@
 #include <string>
 
 
-namespace fs = std::filesystem;
-
 namespace bsp_tool {
 
     // Bsp base class; gives an interface to read the .bsp file
@@ -194,10 +192,11 @@ namespace bsp_tool {
                         throw std::runtime_error("rBSP header does not contain '127'"); }
                     this->_read(&this->header);
                     /* load external .bsp_lump files */
-                    fs::path bsp_lump(".bsp_lump"), bsp_path(filename), current_file;
+                    std::filesystem::path bsp_lump = ".bsp_lump";
+                    std::filesystem::path bsp_path = filename;
                     int LUMP_index; std::string LUMP_hex_index;
-                    for (auto file : fs::directory_iterator(bsp_path.parent_path())) {
-                        current_file = file.path();
+                    for (auto file : std::filesystem::directory_iterator(bsp_path.parent_path())) {
+                        std::filesystem::path current_file = file.path();
                         if (current_file.extension() == bsp_lump) {
                             if (current_file.stem().stem() == bsp_path.filename()) {
                                 LUMP_hex_index = current_file.stem().extension().string();
@@ -220,9 +219,8 @@ namespace bsp_tool {
                         throw std::runtime_error("Type does not evenly divide external lump");
                     }
                     #endif
-                    std::fstream external_lump = this->_external[LUMP_index];
-                    external_lump.seekg(0, std::ios::beg);
-                    external_lump.read((char*) &lump_entries, external_size);
+                    this->_external[LUMP_index].seekg(0, std::ios::beg);
+                    this->_external[LUMP_index].read((char*) &lump_entries, external_size);
                 };
 
                 template <typename Type>
@@ -230,9 +228,8 @@ namespace bsp_tool {
                     #ifdef DEBUG
                     // TODO: assert start_index + length does not overshoot
                     #endif
-                    std::fstream external_lump = this->_external[LUMP_index];
-                    external_lump.seekg(sizeof(Type) * start_index, std::ios::beg);
-                    external_lump.read((char*) &slice, sizeof(Type) * length);
+                    this->_external[LUMP_index].seekg(sizeof(Type) * start_index, std::ios::beg);
+                    this->_external[LUMP_index].read((char*) &slice, sizeof(Type) * length);
                 };
 
                 template <typename Type>
@@ -241,9 +238,8 @@ namespace bsp_tool {
                     // TODO: assert entry_index is in this lump & Type divides the lump evenly
                     #endif
                     Type lump_entry;
-                    std::fstream external_lump = this->_external[LUMP_index];
-                    external_lump.seekg(sizeof(Type) * entry_index, std::ios::beg);
-                    external_lump.read((char*) &lump_entry, sizeof(Type));
+                    this->_external[LUMP_index].seekg(sizeof(Type) * entry_index, std::ios::beg);
+                    this->_external[LUMP_index].read((char*) &lump_entry, sizeof(Type));
                     return lump_entry;
                 };
         };

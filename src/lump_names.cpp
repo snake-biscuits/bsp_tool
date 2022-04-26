@@ -2,6 +2,11 @@
 #include "lump_names.hpp"
 
 
+// TODO: develop into more of a general bspinfo.exe
+// -- requires lump limits for target
+
+// TODO: auto-detect in bsp_tool to replace asking user for developer name
+
 void print_help(char* argv_0) {
     printf("%s DEVELOPER FILE1 [FILE2 ...]\n", argv_0);
     printf("Print the headers of each .bsp for the given developer\n");
@@ -23,7 +28,7 @@ int main(int argc, char* argv[]) {
         using namespace bsp_tool::id_software;
         for (i = 2; i < argc; i++) {
             // NOTE: Quake 3 Only
-            IdTechBsp<17>  bsp = (argv[i]);
+            IdTechBsp<17> bsp(argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
             for (j = 0; j < 17; j++) {
                 LumpHeader header = bsp.header[j];

@@ -94,12 +94,10 @@ GLuint basic_shader_from(char* vert_filename, char* frag_filename) {
 
 using namespace bsp_tool::respawn_entertainment;
 void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
+    // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
     using namespace titanfall;
-    MaterialSort  material_sort;
-    Mesh          mesh;
-    TextureData   texture_data;
 
-    // assign array of type `Type` named `name` value of lump `ENUM` (calculate length)
+    // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length
     #define GET_LUMP(Type, name, ENUM) \
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
@@ -125,6 +123,7 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
     float default_colour[3] = {1.0f, 0.0f, 1.0f};
+    // true vertex colour is collected from TextureData when working out index buffer
     RenderVertex render_vertex;
     int vertex_count = 0;
     #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
@@ -144,9 +143,12 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     #undef COPY_RENDER_VERTICES
 
     out->indices = new unsigned int[MESH_INDICES_SIZE];
-    unsigned int total_indices = 0;
-    unsigned int vertex_lump_offset;
-    Model worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    unsigned int  total_indices = 0;
+    unsigned int  vertex_lump_offset;
+    MaterialSort  material_sort;
+    Mesh          mesh;
+    TextureData   texture_data;
+    Model         worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
     // TODO: create a render object for each Model (w/ shared vertex buffer)
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
@@ -238,18 +240,16 @@ int main(int argc, char* argv[]) {
 
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
-    // NOTE: r1o/mp_npe Mesh #1194 uses VERTEX_LIT_BUMP (empty) w/ negative indices???
     RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     r1_rbsp_geo_init(&bsp_file, &bsp);
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
     // TODO: move this buffer initialisation to other functions / RenderObject methods
-    // -- defining the vertex format probably belongs in r1_rbsp_geo_init
-    // -- selecting the vertex buffer, index buffer & data location & indices matters
-    // -- being able have multiple RenderObjects share buffers would be nice
+    // vertex buffer
     glGenBuffers(1, &bsp.vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, bsp.vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
+    // NOTE: Vertex Attributes should be unique to this buffer, but are tied to the RenderVertex type
     glEnableVertexAttribArray(0);  // vertex_position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), NULL);
     glEnableVertexAttribArray(1);  // vertex_normal
@@ -258,11 +258,11 @@ int main(int argc, char* argv[]) {
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 6));
     glEnableVertexAttribArray(3);  // vertex_uv0
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 9));
+    // index buffer
     glGenBuffers(1, &bsp.index_buffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
-#if 0
     std::filesystem::path vertex_shader_filepath = "../src/gl_shaders/rbsp/basic.vert";
     char *vertex_shader_filename = std::filesystem::absolute(vertex_shader_filepath).c_str();
     std::filesystem::path fragment_shader_filename = "../src/gl_shaders/rbsp/basic.frag";
@@ -276,7 +276,6 @@ int main(int argc, char* argv[]) {
         SDL_Quit();
         return 1;
     };
-#endif
 
     // TODO: libsm64 init
     // NOTE: 1024 triangle limit on static geo
@@ -284,6 +283,8 @@ int main(int argc, char* argv[]) {
     // sm64_surface_object_create(bsp.model[i])
     // sm64_surface_object_move(bsp.model[i])
     // sm64_mario_create(*bsp.spawnpoint[0].xyz)
+
+    // TODO: squirrel VM for vscript
 
     camera::FirstPerson fp_camera;
     memset(fp_camera.motion, false, 6);

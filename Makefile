@@ -13,16 +13,14 @@ ifeq ($(OS),Windows_NT)
     # -- you will need to copy some .dlls to /build; ntldd is helpful for this
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -mwindows -mconsole -lopengl32 -lglew32 `sdl2-config --cflags --libs`
-    R1_MAPS_DIR  := /e/Mod/Titanfall/maps
-    R1O_MAPS_DIR := /e/Mod/TitanfallOnline/maps
-    R2_MAPS_DIR  := /e/Mod/Titanfall2/maps
-    R5_DIR       := /e/Mod/ApexLegends/maps
+    R1_MAPS_DIR  := /E/Mod/Titanfall/maps
+    R1O_MAPS_DIR := /E/Mod/TitanfallOnline/maps
+    R2_MAPS_DIR  := /E/Mod/Titanfall2/maps
+    R5_DIR       := /E/Mod/ApexLegends
 endif
 
-# TESTMAP := $(R1_MAPS_DIR)/mp_colony.bsp
+TESTMAP := $(R!_MAPS_DIR)/mp_runoff.bsp
 # TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
-# TESTMAP := $(R1O_MAPS_DIR)/mp_npe.bsp
-TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
 
 DUMMY != mkdir -p build
 
@@ -44,7 +42,5 @@ debug:
 build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@
 
-# OpenGL .bsp viewer
-# NOTE: untested on Windows (not compiling)
 build/glview.exe: src/glview.cpp src/bsp_tool.hpp src/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
