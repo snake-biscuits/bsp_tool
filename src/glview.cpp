@@ -1,6 +1,7 @@
 #include <chrono>
 #include <cstdio>
 
+#include <filesystem>  // --std=c++17 -lstdc++fs
 #include <GL/glew.h>
 #include <GL/gl.h>  // -lGL
 #define SDL_MAIN_HANDLED  // for Windows
@@ -261,13 +262,13 @@ int main(int argc, char* argv[]) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
-    // TODO: rethink locating the `gl_shaders` folder (std::filesystem?)
-    // char vert_shader_file[64] = "../src/gl_shaders/rbsp/basic.vert";
-    // char frag_shader_file[64] = "../src/gl_shaders/rbsp/basic.frag";
-    char vert_shader_file[128] = "/home/bikkie/Documents/Code/GitHub/bsp_tool/src/gl_shaders/rbsp/basic.vert";
-    char frag_shader_file[128] = "/home/bikkie/Documents/Code/GitHub/bsp_tool/src/gl_shaders/rbsp/basic.frag";
+#if 0
+    std::filesystem::path vertex_shader_filepath = "../src/gl_shaders/rbsp/basic.vert";
+    char *vertex_shader_filename = std::filesystem::absolute(vertex_shader_filepath).c_str();
+    std::filesystem::path fragment_shader_filename = "../src/gl_shaders/rbsp/basic.frag";
+    char *fragment_shader_filename = std::filesystem::absolute(fragment_shader_filepath).c_str();
     try {
-        bsp.shader_program = basic_shader_from(vert_shader_file, frag_shader_file);
+        bsp.shader_program = basic_shader_from(vertex_shader_filename, fragment_shader_filename);
     } catch (const std::runtime_error& e) {
         // could goto a label to kill, but that feels cursed imo
         fprintf(stderr, "%s\n", e.what());
@@ -275,6 +276,7 @@ int main(int argc, char* argv[]) {
         SDL_Quit();
         return 1;
     };
+#endif
 
     // TODO: libsm64 init
     // NOTE: 1024 triangle limit on static geo
