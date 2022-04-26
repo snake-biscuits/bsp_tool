@@ -12,7 +12,7 @@ ifeq ($(OS),Windows_NT)
     # NOTE: if compiling for Windows, use MSYS2 / MINGW64
     # -- you will need to copy some .dlls to /build; ntldd is helpful for this
     CC       := x86_64-w64-mingw32-g++
-    SDLFLAGS := -lm -Wl,-subsystem,windows -lopengl32 `sdl2-config --cflags --libs`
+    SDLFLAGS := -lm -mwindows -mconsole -lopengl32 -lglew32 `sdl2-config --cflags --libs`
     R1_MAPS_DIR  := /e/Mod/Titanfall/maps
     R1O_MAPS_DIR := /e/Mod/TitanfallOnline/maps
     R2_MAPS_DIR  := /e/Mod/Titanfall2/maps

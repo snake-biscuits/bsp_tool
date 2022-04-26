@@ -195,6 +195,7 @@ void print_help(char* argv_0) {
     printf("    MAPNAME  .bsp file to load\n");
     printf("    WIDTH    viewport width\n");
     printf("    HEIGHT   viewport height\n");
+    printf("    currently only supports Titanfall & Titanfall: Online .bsp files\n")
 }
 
 
