@@ -46,15 +46,15 @@ struct RenderObject {
 };
 
 
-GLuint basic_shader_from(char* vert_filename, char* frag_filename) {
+GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
     GLuint shaders[2];
     char error_message[4096];  // should be enough, can't be bothered with accuracy
     for (int i=0; i<2; i++) {
-        char *filename = i == 0 ? vert_filename : frag_filename;
+        std::string filename = i == 0 ? vert_filename : frag_filename;
         std::fstream file;
         file.open(filename, std::ios::in | std::ios::ate);
         if (!file) {
-            sprintf(error_message, "Couldn't open '%s'", filename);
+            sprintf(error_message, "Couldn't open '%s'", filename.c_str());
             throw std::runtime_error(error_message);
         }
         int shader_length = file.tellg();
@@ -78,7 +78,7 @@ GLuint basic_shader_from(char* vert_filename, char* frag_filename) {
             char *error_log = (char*) malloc(log_length);
             glGetShaderInfoLog(shaders[i], log_length, &log_length, error_log);
             const char* shader_type_name = i == 0 ? "vertex" : "fragment";
-            sprintf(error_message, "Failed to compile %s shader (%s):\n%s\n", shader_type_name, filename, error_log);
+            sprintf(error_message, "Failed to compile %s shader (%s):\n%s\n", shader_type_name, filename.c_str(), error_log);
             throw std::runtime_error(error_message);
         }
     }
@@ -263,12 +263,14 @@ int main(int argc, char* argv[]) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
-    std::filesystem::path vertex_shader_filepath = "../src/gl_shaders/rbsp/basic.vert";
-    char *vertex_shader_filename = std::filesystem::absolute(vertex_shader_filepath).c_str();
-    std::filesystem::path fragment_shader_filename = "../src/gl_shaders/rbsp/basic.frag";
-    char *fragment_shader_filename = std::filesystem::absolute(fragment_shader_filepath).c_str();
+    std::filesystem::path vertex_shader_file = "../src/gl_shaders/rbsp/basic.vert";
+    vertex_shader_file = std::filesystem::absolute(vertex_shader_file);
+    // NOTE: absolute is relative to executing directory
+    // TODO: get .exe directory from argv[0] & use a relative path 
+    std::filesystem::path fragment_shader_file = "../src/gl_shaders/rbsp/basic.frag";
+    fragment_shader_file = std::filesystem::absolute(fragment_shader_file);
     try {
-        bsp.shader_program = basic_shader_from(vertex_shader_filename, fragment_shader_filename);
+        bsp.shader_program = basic_shader_from(vertex_shader_file.string(), fragment_shader_file.string());
     } catch (const std::runtime_error& e) {
         // could goto a label to kill, but that feels cursed imo
         fprintf(stderr, "%s\n", e.what());
