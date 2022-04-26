@@ -4,6 +4,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
+// TODO: glm
 
 #include "common.hpp"
 
@@ -27,20 +28,18 @@ namespace camera {
                 float near;
                 float far;
             } clip;
+            GLfloat matrix[4][4];
 
         // METHODS
-        void use() {
-            // gluPerspective(fov, aspect_ratio, clip.near, clip.far);
+        void update() {  // generate a fresh perspective matrix
             float fov_fraction  = 1.0f / tanf(fov * 0.5f);
             float clip_fraction = 1.0f / (clip.near - clip.far);
-            GLfloat mat4[16];
-            memset(mat4, 0, sizeof(mat4));
-            mat4[4 * 0 + 0] = fov_fraction / aspect_ratio;
-            mat4[4 * 1 + 1] = fov_fraction;
-            mat4[4 * 2 + 2] = (clip.near + clip.far) * clip_fraction;
-            mat4[4 * 2 + 3] = -1.0f;
-            mat4[4 * 3 + 2] = 2.0f * clip.near * clip.far * clip_fraction;
-            glMultMatrixf(mat4);  // NOTE: could return instead for shaders
+            memset(matrix, 0, sizeof(GLfloat) * 4 * 4);
+            matrix[0][0] = fov_fraction / aspect_ratio;
+            matrix[1][1] = fov_fraction;
+            matrix[2][2] = (clip.near + clip.far) * clip_fraction;
+            matrix[2][3] = -1.0f;
+            matrix[3][2] = 2.0f * clip.near * clip.far * clip_fraction;
         }
     };
 
@@ -69,12 +68,14 @@ namespace camera {
                 position += wish.rotate(-rotation) * speed * delta_time_ms;
             };
 
+            // TODO: use glm to rotate a given matrix
             void rotate() {
                 glRotatef(-90, 1, 0, 0);  // Z+ UP; Y+ FRONT
                 glRotatef(rotation.x, 1, 0, 0);
                 glRotatef(rotation.z, 0, 0, 1);
             };
 
+            // TODO: use glm to translate a given matrix
             void translate() {
                 glTranslated(-position.x, -position.y, -position.z);
             };

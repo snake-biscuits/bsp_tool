@@ -19,8 +19,9 @@ ifeq ($(OS),Windows_NT)
     R5_DIR       := /E/Mod/ApexLegends
 endif
 
-TESTMAP := $(R!_MAPS_DIR)/mp_runoff.bsp
+# TESTMAP := $(R1_MAPS_DIR)/mp_runoff.bsp
 # TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
+TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
 
 DUMMY != mkdir -p build
 

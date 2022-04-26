@@ -58,13 +58,11 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
             throw std::runtime_error(error_message);
         }
         int shader_length = file.tellg();
-        printf("shader_length = %d\n", shader_length);
         file.seekg(0, std::ios::beg);
-        const GLchar* shader_text;
-        file.read((char*) shader_text, shader_length);  // reading text isn't fun
+        const GLchar *shader_text;
+        shader_text = (const GLchar*) malloc(shader_length + 1);
+        file.read((char*) shader_text, shader_length + 1);
         file.close();
-        printf("%s\n", shader_text);
-        printf("%d\n", (int) strlen(shader_text));
         GLenum shader_type = i == 0 ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
         shaders[i] = glCreateShader(shader_type);
         glShaderSource(shaders[i], 1, &shader_text, &shader_length);
@@ -202,6 +200,9 @@ void print_help(char* argv_0) {
 }
 
 
+// TODO: optionally set shader folder in args
+
+
 int main(int argc, char* argv[]) {
     int width  = WIDTH;
     int height = HEIGHT;
@@ -209,7 +210,7 @@ int main(int argc, char* argv[]) {
         width  = atoi(argv[2]);
         height = atoi(argv[3]);
     }
-    else if (argc != 2) { // invalid input
+    else if (argc != 2) {  // invalid input
         print_help(argv[0]);
         return 0;
     }
@@ -238,6 +239,8 @@ int main(int argc, char* argv[]) {
     glEnable(GL_DEPTH_TEST);
     glPointSize(4);
 
+    // TODO: move all the initialisation to other functions
+    // -- keeping stale temp variables around is wasteful
     // SIMULATION VARIABLES
     using namespace bsp_tool::respawn_entertainment;
     RespawnBsp bsp_file = (argv[1]);
@@ -249,7 +252,7 @@ int main(int argc, char* argv[]) {
     glGenBuffers(1, &bsp.vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, bsp.vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
-    // NOTE: Vertex Attributes should be unique to this buffer, but are tied to the RenderVertex type
+    // explaining the RenderVertex struct to shaders
     glEnableVertexAttribArray(0);  // vertex_position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), NULL);
     glEnableVertexAttribArray(1);  // vertex_normal
@@ -263,21 +266,23 @@ int main(int argc, char* argv[]) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
+    std::filesystem::path exe_dir(argv[0]);
+    exe_dir = exe_dir.parent_path();
     std::filesystem::path vertex_shader_file = "../src/gl_shaders/rbsp/basic.vert";
-    vertex_shader_file = std::filesystem::absolute(vertex_shader_file);
-    // NOTE: absolute is relative to executing directory
-    // TODO: get .exe directory from argv[0] & use a relative path 
+    vertex_shader_file = exe_dir / vertex_shader_file;
     std::filesystem::path fragment_shader_file = "../src/gl_shaders/rbsp/basic.frag";
-    fragment_shader_file = std::filesystem::absolute(fragment_shader_file);
+    fragment_shader_file = exe_dir / fragment_shader_file;
     try {
         bsp.shader_program = basic_shader_from(vertex_shader_file.string(), fragment_shader_file.string());
     } catch (const std::runtime_error& e) {
-        // could goto a label to kill, but that feels cursed imo
         fprintf(stderr, "%s\n", e.what());
-        SDL_DestroyWindow(window);
+        SDL_DestroyWindow(window);  // could goto a label to kill, but that feels cursed imo
         SDL_Quit();
         return 1;
     };
+    glUseProgram(bsp.shader_program);
+    // TODO: create & mutate camera matrices in camera.hpp w/ <glm>
+    GLint view_matrix_loc = glGetUniformLocation(bsp.shader_program, "view_matrix");
 
     // TODO: libsm64 init
     // NOTE: 1024 triangle limit on static geo
@@ -390,11 +395,14 @@ int main(int argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // CAMERA
         glPushMatrix();
-        lens.use();
+        lens.update();
         fp_camera.rotate();
         // TODO: SKYBOX
         fp_camera.translate();
         // WORLD
+        glUseProgram(bsp.shader_program);
+        // TODO: update view_matrix with camera transforms
+        glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*) lens.matrix);
         glDrawElements(GL_TRIANGLES, bsp.index_count, GL_UNSIGNED_INT, NULL);
         glPopMatrix();
         // PRESENT FRAME
