@@ -282,7 +282,9 @@ gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
 # -- [ ] checking versions in dict against branch scripts should help ensure all is up to date
 # -- [ ] coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
 def game_lump_table(branch_script: ModuleType) -> List[str]:
-    base_GameLump = GameLump if branch_script is not branches.arkane.dark_messiah_singleplayer else DarkMessiahSPGameLump  # noqa E501
+    base_GameLump = GameLump
+    if branch_script is branches.arkane.dark_messiah_singleplayer:
+        base_GameLump = DarkMessiahSPGameLump
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(base_GameLump)[1]}"
     game_lump_handler = f"[`lumps.{base_GameLump.__name__}`]({game_lump_handler_url})"
     # NOTE: GAME_LUMP version  in the .bsp header doesn't seem to matter atm, might affect Apex though...
@@ -293,7 +295,7 @@ def game_lump_table(branch_script: ModuleType) -> List[str]:
     # TODO: use a coverage total here rather than defaulting to 90
     table_block = {TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90)}
     for sub_lump, mapping in gamelump_mappings[branch_script].items():
-        game_lump_name = f"`GAME_LUMP.{sub_lump}`"
+        game_lump_name = f"GAME_LUMP.{sub_lump}"
         if not isinstance(mapping, dict):
             mapping = {"-": mapping}
         for lump_version, LumpClass in mapping.items():
@@ -307,7 +309,6 @@ def game_lump_table(branch_script: ModuleType) -> List[str]:
                 percent = 0
             table_block.add(TableRow(*row_header, game_lump_name, lump_version, lump_class, percent))
     return table_block
-    # TODO: sort & merge when called
 
 
 def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False, titanfall_engine=False) -> List[str]:
@@ -347,6 +348,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                 bsp_version = "0"
             else:
                 bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
+                # (20, 4) -> "20.4"; 29 -> "29"
             # TODO: move special cases (Lightmaps, GameLump etc.) to coverage to be counted in branch_script total
             if lump_name == "GAME_LUMP":
                 game_lump_block = game_lump_table(branch_script)
@@ -370,9 +372,14 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                                    key=lambda r: float(r.bsp_version) * 2 +
                                    (r.lump_version if isinstance(r.lump_version, (int, float)) else 0)))
         # TODO: secondary alphabetical sort
+        # -- {(bsp_ver, lump_ver): [("LUMP_NAME", "branch_script.LumpClass")]}
+        # TODO: source.md has the densest GAME_LUMP definitions & they are messy
         if len(sorted_block) == 0:  # TODO: check if this works as intended
             continue
         # start removing doubles
+        # -- same LUMP_NAME & LumpClass is an implied ditto
+        # -- record only the point of change
+        # -- e.g. v7: LumpClassv7; v8: None; v10: LumpClassv10
         final_block = [sorted_block[0]]
         lump_names = {r.lump_name for r in sorted_block}
         unused_lumps = {ln.startswith("UNUSED_") for ln in lump_names}
