@@ -3,11 +3,17 @@
 #include <cstring>
 
 #include <GL/gl.h>
-#include <GL/glu.h>
-// TODO: glm
+// #include <GL/glu.h>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/trigonometric.hpp>
+#include <glm/ext.hpp>
+
 
 #include "common.hpp"
 
+
+// NOTE: this camera system assumes a Z-up world
 
 namespace camera {
     namespace MOVE {
@@ -28,18 +34,11 @@ namespace camera {
                 float near;
                 float far;
             } clip;
-            GLfloat matrix[4][4];
+            glm::mat4 matrix;
 
         // METHODS
-        void update() {  // generate a fresh perspective matrix
-            float fov_fraction  = 1.0f / tanf(fov * 0.5f);
-            float clip_fraction = 1.0f / (clip.near - clip.far);
-            memset(matrix, 0, sizeof(GLfloat) * 4 * 4);
-            matrix[0][0] = fov_fraction / aspect_ratio;
-            matrix[1][1] = fov_fraction;
-            matrix[2][2] = (clip.near + clip.far) * clip_fraction;
-            matrix[2][3] = -1.0f;
-            matrix[3][2] = 2.0f * clip.near * clip.far * clip_fraction;
+        void update_matrix() {  // generate a fresh perspective matrix
+            matrix = glm::perspective(glm::radians(fov), aspect_ratio, clip.near, clip.far);
         }
     };
 
@@ -53,7 +52,7 @@ namespace camera {
             float   speed;
 
             // METHODS
-            // NOTE: no blending between ticks
+            // NOTE: uninterpolated
             void update(Vector2D mouse, uint64_t delta_time_ms) {
                 // controls break sometimes? gimball lock?
                 rotation.z += mouse.x * sensitivity;
@@ -68,16 +67,15 @@ namespace camera {
                 position += wish.rotate(-rotation) * speed * delta_time_ms;
             };
 
-            // TODO: use glm to rotate a given matrix
-            void rotate() {
-                glRotatef(-90, 1, 0, 0);  // Z+ UP; Y+ FRONT
-                glRotatef(rotation.x, 1, 0, 0);
-                glRotatef(rotation.z, 0, 0, 1);
+            glm::mat4 rotate(glm::mat4 in_matrix) {
+                glm::mat4 out_matrix = glm::rotate(in_matrix, glm::radians(-90.0f), glm::vec3(1, 0, 0));  // Z+ up; Y+ forward
+                out_matrix = glm::rotate(out_matrix, glm::radians(rotation.x), glm::vec3(1, 0, 0));
+                out_matrix = glm::rotate(out_matrix, glm::radians(rotation.z), glm::vec3(0, 0, 1));
+                return out_matrix;
             };
 
-            // TODO: use glm to translate a given matrix
-            void translate() {
-                glTranslated(-position.x, -position.y, -position.z);
+            glm::mat4 translate(glm::mat4 in_matrix) {
+                return glm::translate(in_matrix, glm::vec3(-position.x, -position.y, -position.z));
             };
     };
 }

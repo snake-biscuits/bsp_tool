@@ -2,8 +2,10 @@
 #include <cstdio>
 
 #include <filesystem>  // --std=c++17 -lstdc++fs
-#include <GL/glew.h>
+#include <GL/glew.h>  // -lGLEW
 #include <GL/gl.h>  // -lGL
+#include <glm/mat4x4.hpp>  // -lglm
+#include <glm/gtc/type_ptr.hpp>  // -lglm
 #define SDL_MAIN_HANDLED  // for Windows
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
@@ -121,7 +123,7 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
     float default_colour[3] = {1.0f, 0.0f, 1.0f};
-    // true vertex colour is collected from TextureData when working out index buffer
+    // actual vertex colour is collected from TextureData when working out indices
     RenderVertex render_vertex;
     int vertex_count = 0;
     #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
@@ -143,15 +145,12 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     out->indices = new unsigned int[MESH_INDICES_SIZE];
     unsigned int  total_indices = 0;
     unsigned int  vertex_lump_offset;
-    MaterialSort  material_sort;
-    Mesh          mesh;
-    TextureData   texture_data;
     Model         worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
     // TODO: create a render object for each Model (w/ shared vertex buffer)
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
-        material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
-        texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
+        Mesh mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
+        MaterialSort material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
+        TextureData texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
         switch (mesh.flags & FLAG::MASK_VERTEX) {
             case FLAG::VERTEX_UNLIT:
                 vertex_lump_offset = VERTEX_UNLIT_OFFSET;    break;
@@ -283,6 +282,7 @@ int main(int argc, char* argv[]) {
     glUseProgram(bsp.shader_program);
     // TODO: create & mutate camera matrices in camera.hpp w/ <glm>
     GLint view_matrix_loc = glGetUniformLocation(bsp.shader_program, "view_matrix");
+    glm::mat4 view_matrix;
 
     // TODO: libsm64 init
     // NOTE: 1024 triangle limit on static geo
@@ -305,6 +305,8 @@ int main(int argc, char* argv[]) {
     lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
     lens.clip.near = 16;
     lens.clip.far = 102400;
+    lens.update_matrix();
+    glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, glm::value_ptr(lens.matrix));
 
     // INPUTS
     SDL_Keycode  key;
@@ -387,7 +389,8 @@ int main(int argc, char* argv[]) {
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
             // END TICK
-            tick_delta -= tick_length; }
+            tick_delta -= tick_length;
+        }
         tick_accumulator = tick_delta;
         last_tick = time_ms();
 
@@ -395,14 +398,14 @@ int main(int argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // CAMERA
         glPushMatrix();
-        lens.update();
-        fp_camera.rotate();
+        // lens.update_matrix();
+        view_matrix = fp_camera.rotate(lens.matrix);
         // TODO: SKYBOX
-        fp_camera.translate();
+        view_matrix = fp_camera.translate(view_matrix);
         // WORLD
         glUseProgram(bsp.shader_program);
         // TODO: update view_matrix with camera transforms
-        glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*) lens.matrix);
+        glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
         glDrawElements(GL_TRIANGLES, bsp.index_count, GL_UNSIGNED_INT, NULL);
         glPopMatrix();
         // PRESENT FRAME
