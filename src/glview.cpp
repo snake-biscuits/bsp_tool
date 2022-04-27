@@ -78,7 +78,7 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
             char *error_log = (char*) malloc(log_length);
             glGetShaderInfoLog(shaders[i], log_length, &log_length, error_log);
             const char* shader_type_name = i == 0 ? "vertex" : "fragment";
-            sprintf(error_message, "Failed to compile %s shader (%s):\n%s\n", shader_type_name, filename.c_str(), error_log);
+            sprintf(error_message, "Failed to compile %s shader (%s):\n%s", shader_type_name, filename.c_str(), error_log);
             throw std::runtime_error(error_message);
         }
     }
@@ -122,8 +122,6 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
     VertexLitFlat  vertex_lit_flat;
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
-    float default_colour[3] = {1.0f, 0.0f, 1.0f};
-    // actual vertex colour is collected from TextureData when working out indices
     RenderVertex render_vertex;
     int vertex_count = 0;
     #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
@@ -131,7 +129,6 @@ void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
             mesh_vertex = VERTEX_LUMP[i]; \
             render_vertex.position = VERTICES[mesh_vertex.position]; \
             render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
-            memcpy(render_vertex.colour, default_colour, sizeof(float) * 3); \
             render_vertex.uv = mesh_vertex.uv; \
             out->vertices[vertex_count] = render_vertex; \
             vertex_count++; \
@@ -258,6 +255,7 @@ int main(int argc, char* argv[]) {
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 3));
     glEnableVertexAttribArray(3);  // vertex_colour
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 6));
+    // ^ comes out all blue??? why???
     glEnableVertexAttribArray(3);  // vertex_uv0
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 9));
     // index buffer

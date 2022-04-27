@@ -3,16 +3,25 @@ CXXFLAGS := --std=c++17 -Wall
 LDLIBS   := -lstdc++fs
 
 SDLFLAGS := -lGLEW -lGL `sdl2-config --cflags --libs`
+
 R1_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r1/maps
 R1O_MAPS_DIR := /media/bikkie/Sandisk/Respawn/r1o/maps
 R2_MAPS_DIR  := /media/bikkie/Sandisk/Respawn/r2/maps
 R5_DIR       := /media/bikkie/Sandisk/Respawn/r5/maps
 
+TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
+
 ifeq ($(OS),Windows_NT)
     # NOTE: if compiling for Windows, use MSYS2 / MINGW64
-    # -- you will need to copy some .dlls to /build; ntldd is helpful for this
+    # DEPENDENCIES:
+    # -- mingw-w64-x86_64-glew
+    # -- mingw-w64-x86_64-glm
+    # -- mingw-w64-x86_64-mesa
+    # -- mingw-w64-x86_64-SDL2
+    # TODO: figure out standalone Windows builds
     CC       := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -mwindows -mconsole -lopengl32 -lglew32 `sdl2-config --cflags --libs`
+
     R1_MAPS_DIR  := /E/Mod/Titanfall/maps
     R1O_MAPS_DIR := /E/Mod/TitanfallOnline/maps
     R2_MAPS_DIR  := /E/Mod/Titanfall2/maps
@@ -21,7 +30,6 @@ endif
 
 # TESTMAP := $(R1_MAPS_DIR)/mp_runoff.bsp
 # TESTMAP := $(R1O_MAPS_DIR)/mp_box.bsp
-TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
 
 DUMMY != mkdir -p build
 
