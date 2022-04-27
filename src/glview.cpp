@@ -250,14 +250,13 @@ int main(int argc, char* argv[]) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
     // explaining the RenderVertex struct to shaders
     glEnableVertexAttribArray(0);  // vertex_position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), NULL);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, position));
     glEnableVertexAttribArray(1);  // vertex_normal
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 3));
-    glEnableVertexAttribArray(3);  // vertex_colour
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 6));
-    // ^ comes out all blue??? why???
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, normal));
+    glEnableVertexAttribArray(2);  // vertex_colour
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, colour));
     glEnableVertexAttribArray(3);  // vertex_uv0
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (const void*) (sizeof(float) * 9));
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, uv));
     // index buffer
     glGenBuffers(1, &bsp.index_buffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
