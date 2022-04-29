@@ -78,7 +78,8 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
             char *error_log = (char*) malloc(log_length);
             glGetShaderInfoLog(shaders[i], log_length, &log_length, error_log);
             const char* shader_type_name = i == 0 ? "vertex" : "fragment";
-            sprintf(error_message, "Failed to compile %s shader (%s):\n%s", shader_type_name, filename.c_str(), error_log);
+            sprintf(error_message, "Failed to compile %s shader (%s):\n%s\nSource (%d bytes):\n%s",
+                    shader_type_name, filename.c_str(), error_log, shader_length, (char*) shader_text);
             throw std::runtime_error(error_message);
         }
     }
@@ -262,6 +263,8 @@ int main(int argc, char* argv[]) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
+    // NOTE: shaders can be editted without recompiling C++
+    // -- however, shader uniform use is hardcoded
     std::filesystem::path exe_dir(argv[0]);
     exe_dir = exe_dir.parent_path();
     std::filesystem::path vertex_shader_file = "../src/viewer/shaders/rbsp/basic.vert";
