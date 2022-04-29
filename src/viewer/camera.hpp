@@ -10,7 +10,7 @@
 #include <glm/ext.hpp>
 
 
-#include "common.hpp"
+#include "../common.hpp"
 
 
 // NOTE: this camera system assumes a Z-up world

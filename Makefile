@@ -36,14 +36,14 @@ DUMMY != mkdir -p build
 .PHONY: all run debug
 
 
-all: build/lump_names.exe build/glview.exe
+all: build/lump_names.exe build/viewer.exe
 
-run: build/glview.exe
-	build/glview.exe $(TESTMAP)
+run: build/viewer.exe
+	build/viewer.exe $(TESTMAP)
 
 debug:
-	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/glview.cpp -o build/glview.exe $(SDLFLAGS)
-	gdb --args build/glview.exe $(TESTMAP) -ex run -ex bt
+	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/viewer/main.cpp -o build/viewer.exe $(SDLFLAGS)
+	gdb --args build/viewer.exe $(TESTMAP) -ex run -ex bt
 
 # TODO: .o builds
 # TODO: clean
@@ -51,5 +51,5 @@ debug:
 build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@
 
-build/glview.exe: src/glview.cpp src/bsp_tool.hpp src/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp
+build/viewer.exe: src/viewer/main.cpp src/bsp_tool.hpp src/viewer/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)

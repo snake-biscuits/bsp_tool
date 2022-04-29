@@ -10,9 +10,9 @@
 #include <SDL.h>  // `sdl2-config --cflags --libs`
 #include <SDL_opengl.h>
 
-#include "bsp_tool.hpp"  // <filesystem> --std=c++17 -lstdc++fs
+#include "../bsp_tool.hpp"  // <filesystem> --std=c++17 -lstdc++fs
 #include "camera.hpp"
-#include "respawn_entertainment/meshes.hpp"
+#include "../respawn_entertainment/meshes.hpp"
 
 
 #define WIDTH   960
@@ -264,9 +264,9 @@ int main(int argc, char* argv[]) {
     // shaders
     std::filesystem::path exe_dir(argv[0]);
     exe_dir = exe_dir.parent_path();
-    std::filesystem::path vertex_shader_file = "../src/gl_shaders/rbsp/basic.vert";
+    std::filesystem::path vertex_shader_file = "../src/viewer/shaders/rbsp/basic.vert";
     vertex_shader_file = exe_dir / vertex_shader_file;
-    std::filesystem::path fragment_shader_file = "../src/gl_shaders/rbsp/basic.frag";
+    std::filesystem::path fragment_shader_file = "../src/viewer/shaders/rbsp/basic.frag";
     fragment_shader_file = exe_dir / fragment_shader_file;
     try {
         bsp.shader_program = basic_shader_from(vertex_shader_file.string(), fragment_shader_file.string());
