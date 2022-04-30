@@ -54,14 +54,16 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
     for (int i=0; i<2; i++) {
         std::string filename = i == 0 ? vert_filename : frag_filename;
         std::fstream file;
+        if (!std::filesystem::exists(filename)) {
+            sprintf(error_message, "'%s' does not exist", filename.c_str());
+            throw std::runtime_error(error_message);
+        }
+        int shader_length = std::filesystem::file_size(filename);
         file.open(filename, std::ios::in);
         if (!file) {
             sprintf(error_message, "Couldn't open '%s'", filename.c_str());
             throw std::runtime_error(error_message);
         }
-	file.seekg(0, std::ios::end);
-        int shader_length = file.tellg();
-        file.seekg(0, std::ios::beg);
         const GLchar *shader_text;
         shader_text = (const GLchar*) malloc(shader_length + 1);
         file.read((char*) shader_text, shader_length + 1);
@@ -94,23 +96,23 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
 }
 
 
-using namespace bsp_tool::respawn_entertainment;
-void r1_rbsp_geo_init(RespawnBsp *bsp, RenderObject *out) {
+void r1_rbsp_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
-    using namespace titanfall;
+    using namespace bsp_tool::respawn_entertainment::titanfall;
 
     // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length
+    // NOTE: sadly we cannot concatenate `LUMP::##name` because marcos require each side to be a valid token pre-concatenation
     #define GET_LUMP(Type, name, ENUM) \
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short,  MESH_INDICES,     LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,          VERTICES,         LUMP::VERTICES       )
-    GET_LUMP(Vector,          VERTEX_NORMALS,   LUMP::VERTEX_NORMALS )
-    GET_LUMP(VertexUnlit,     VERTEX_UNLIT,     LUMP::VERTEX_UNLIT   )
-    GET_LUMP(VertexLitFlat,   VERTEX_LIT_FLAT,  LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(VertexLitBump,   VERTEX_LIT_BUMP,  LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(VertexUnlitTS,   VERTEX_UNLIT_TS,  LUMP::VERTEX_UNLIT_TS)
+    GET_LUMP(unsigned short, MESH_INDICES,    LUMP::MESH_INDICES   )
+    GET_LUMP(Vector,         VERTICES,        LUMP::VERTICES       )
+    GET_LUMP(Vector,         VERTEX_NORMALS,  LUMP::VERTEX_NORMALS )
+    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    LUMP::VERTEX_UNLIT   )
+    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
     unsigned int VERTEX_UNLIT_OFFSET    = 0;
@@ -270,9 +272,9 @@ int main(int argc, char* argv[]) {
     // -- however, shader uniform use is hardcoded
     std::filesystem::path exe_dir(argv[0]);
     exe_dir = exe_dir.parent_path();
-    std::filesystem::path vertex_shader_file = "../src/viewer/shaders/rbsp/basic.vert";
+    std::filesystem::path vertex_shader_file = "../src/viewer/shaders/basic.vert";
     vertex_shader_file = exe_dir / vertex_shader_file;
-    std::filesystem::path fragment_shader_file = "../src/viewer/shaders/rbsp/basic.frag";
+    std::filesystem::path fragment_shader_file = "../src/viewer/shaders/basic.frag";
     fragment_shader_file = exe_dir / fragment_shader_file;
     try {
         bsp.shader_program = basic_shader_from(vertex_shader_file.string(), fragment_shader_file.string());
