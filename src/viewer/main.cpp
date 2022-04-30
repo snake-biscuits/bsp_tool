@@ -7,45 +7,20 @@
 #include <glm/mat4x4.hpp>  // -lglm
 #include <glm/gtc/type_ptr.hpp>  // -lglm
 #define SDL_MAIN_HANDLED  // for Windows
-#include <SDL.h>  // `sdl2-config --cflags --libs`
-#include <SDL_opengl.h>
+#include <SDL2/SDL.h>  // `sdl2-config --cflags --libs`
+#include <SDL2/SDL_opengl.h>
 
-#include "../bsp_tool.hpp"  // <filesystem> --std=c++17 -lstdc++fs
+#include "../bsp_tool.hpp"  // BspClasses
+// viewer utils
 #include "camera.hpp"
-#include "../respawn_entertainment/meshes.hpp"
+#include "renderables.hpp"
+// per-branch_script renderable adapters
+#include "titanfall.hpp"
 
 
 #define WIDTH   960
 #define HEIGHT  544
 // NOTE: 960x544 is the screen dimensions of a PSVita
-
-
-struct RenderVertex {
-    Vector    position;
-    Vector    normal;
-    float     colour[3];
-    Vector2D  uv;
-};
-
-
-struct RenderObject {
-    /* Buffer data */
-    unsigned int  vertex_count;
-    RenderVertex *vertices;  // always allocate w/ `new`
-    unsigned int  index_count;
-    unsigned int *indices;  // always allocate w/ `new`
-    /* Shader & Buffer handles */
-    GLuint        vertex_buffer;
-    GLuint        index_buffer;
-    GLuint        shader_program;
-
-    /* Methods */
-    RenderObject() {}
-    ~RenderObject() {
-        delete[] vertices;
-        delete[] indices;
-    }
-};
 
 
 GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
@@ -94,94 +69,6 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
     glDetachShader(shader_program, shaders[1]);
     return shader_program;
 }
-
-
-void r1_rbsp_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
-    // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
-    using namespace bsp_tool::respawn_entertainment::titanfall;
-
-    // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length
-    // NOTE: sadly we cannot concatenate `LUMP::##name` because marcos require each side to be a valid token pre-concatenation
-    #define GET_LUMP(Type, name, ENUM) \
-        int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
-        Type *name = new Type[name##_SIZE]; \
-        bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short, MESH_INDICES,    LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,         VERTICES,        LUMP::VERTICES       )
-    GET_LUMP(Vector,         VERTEX_NORMALS,  LUMP::VERTEX_NORMALS )
-    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    LUMP::VERTEX_UNLIT   )
-    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, LUMP::VERTEX_UNLIT_TS)
-    #undef GET_LUMP
-
-    unsigned int VERTEX_UNLIT_OFFSET    = 0;
-    unsigned int VERTEX_LIT_FLAT_OFFSET = VERTEX_UNLIT_SIZE;
-    unsigned int VERTEX_LIT_BUMP_OFFSET = VERTEX_LIT_FLAT_OFFSET + VERTEX_LIT_FLAT_SIZE;
-    unsigned int VERTEX_UNLIT_TS_OFFSET = VERTEX_LIT_BUMP_OFFSET + VERTEX_LIT_BUMP_SIZE;
-    out->vertex_count = VERTEX_UNLIT_TS_OFFSET + VERTEX_UNLIT_TS_SIZE;
-    out->vertices = new RenderVertex[out->vertex_count];
-
-    VertexUnlit    vertex_unlit;
-    VertexLitFlat  vertex_lit_flat;
-    VertexLitBump  vertex_lit_bump;
-    VertexUnlitTS  vertex_unlit_ts;
-    RenderVertex render_vertex;
-    int vertex_count = 0;
-    #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
-        for (int i = 0; i < VERTEX_LUMP##_SIZE; i++) { \
-            mesh_vertex = VERTEX_LUMP[i]; \
-            render_vertex.position = VERTICES[mesh_vertex.position]; \
-            render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
-            render_vertex.uv = mesh_vertex.uv; \
-            out->vertices[vertex_count] = render_vertex; \
-            vertex_count++; \
-        }
-    COPY_RENDER_VERTICES(VERTEX_UNLIT,    vertex_unlit   )
-    COPY_RENDER_VERTICES(VERTEX_LIT_FLAT, vertex_lit_flat)
-    COPY_RENDER_VERTICES(VERTEX_LIT_BUMP, vertex_lit_bump)
-    COPY_RENDER_VERTICES(VERTEX_UNLIT_TS, vertex_unlit_ts)
-    #undef COPY_RENDER_VERTICES
-
-    out->indices = new unsigned int[MESH_INDICES_SIZE];
-    unsigned int  total_indices = 0;
-    unsigned int  vertex_lump_offset;
-    Model         worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
-    // TODO: create a render object for each Model (w/ shared vertex buffer)
-    for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        Mesh mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
-        MaterialSort material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
-        TextureData texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
-        switch (mesh.flags & FLAG::MASK_VERTEX) {
-            case FLAG::VERTEX_UNLIT:
-                vertex_lump_offset = VERTEX_UNLIT_OFFSET;    break;
-            case FLAG::VERTEX_LIT_FLAT:
-                vertex_lump_offset = VERTEX_LIT_FLAT_OFFSET; break;
-            case FLAG::VERTEX_LIT_BUMP:
-                vertex_lump_offset = VERTEX_LIT_BUMP_OFFSET; break;
-            case FLAG::VERTEX_UNLIT_TS:
-                vertex_lump_offset = VERTEX_UNLIT_TS_OFFSET; break;
-        }
-        for (int j = 0; j < mesh.num_triangles * 3; j++) {
-            unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j];
-            vertex_index += vertex_lump_offset;
-            render_vertex = out->vertices[vertex_index];
-            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3);
-            out->vertices[vertex_index] = render_vertex;
-            out->indices[total_indices] = vertex_index;
-            total_indices += 1;
-        }
-    }
-    out->index_count = total_indices;
-    printf("Using %d of %d potential indices\n", total_indices, MESH_INDICES_SIZE);
-    delete[] MESH_INDICES;
-    delete[] VERTICES;
-    delete[] VERTEX_NORMALS;
-    delete[] VERTEX_UNLIT;
-    delete[] VERTEX_LIT_FLAT;
-    delete[] VERTEX_LIT_BUMP;
-    delete[] VERTEX_UNLIT_TS;
-};
 
 
 uint64_t time_ms() {
@@ -244,8 +131,7 @@ int main(int argc, char* argv[]) {
     // TODO: move all the initialisation to other functions
     // -- keeping stale temp variables around is wasteful
     // SIMULATION VARIABLES
-    using namespace bsp_tool::respawn_entertainment;
-    RespawnBsp bsp_file = (argv[1]);
+    bsp_tool::respawn_entertainment::RespawnBsp bsp_file = (argv[1]);
     RenderObject bsp;
     r1_rbsp_geo_init(&bsp_file, &bsp);
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
@@ -254,15 +140,7 @@ int main(int argc, char* argv[]) {
     glGenBuffers(1, &bsp.vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, bsp.vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(RenderVertex) * bsp.vertex_count, bsp.vertices, GL_STATIC_DRAW);
-    // explaining the RenderVertex struct to shaders
-    glEnableVertexAttribArray(0);  // vertex_position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, position));
-    glEnableVertexAttribArray(1);  // vertex_normal
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, normal));
-    glEnableVertexAttribArray(2);  // vertex_colour
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, colour));
-    glEnableVertexAttribArray(3);  // vertex_uv0
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*) offsetof(RenderVertex, uv));
+    SET_RENDERVERTEX_ATTRIBS  // MACRO; defined in renderables.hpp
     // index buffer
     glGenBuffers(1, &bsp.index_buffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
