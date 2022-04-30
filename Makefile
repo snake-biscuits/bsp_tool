@@ -26,6 +26,8 @@ ifeq ($(OS),Windows_NT)
     R1O_MAPS_DIR := /E/Mod/TitanfallOnline/maps
     R2_MAPS_DIR  := /E/Mod/Titanfall2/maps
     R5_DIR       := /E/Mod/ApexLegends
+
+    TESTMAP := $(R1_MAPS_DIR)/mp_angel_city.bsp
 endif
 
 # TESTMAP := $(R1_MAPS_DIR)/mp_runoff.bsp

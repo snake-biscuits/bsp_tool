@@ -54,11 +54,12 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
     for (int i=0; i<2; i++) {
         std::string filename = i == 0 ? vert_filename : frag_filename;
         std::fstream file;
-        file.open(filename, std::ios::in | std::ios::ate);
+        file.open(filename, std::ios::in);
         if (!file) {
             sprintf(error_message, "Couldn't open '%s'", filename.c_str());
             throw std::runtime_error(error_message);
         }
+	file.seekg(0, std::ios::end);
         int shader_length = file.tellg();
         file.seekg(0, std::ios::beg);
         const GLchar *shader_text;
@@ -234,6 +235,8 @@ int main(int argc, char* argv[]) {
     glewInit();
     glClearColor(0.5, 0.0, 0.5, 0.0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    glEnable(GL_POLYGON_OFFSET_FILL);
     glPointSize(4);
 
     // TODO: move all the initialisation to other functions
