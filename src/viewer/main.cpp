@@ -1,5 +1,6 @@
 #include <chrono>
 #include <cstdio>
+#include <cstring>
 
 #include <filesystem>  // --std=c++17 -lstdc++fs
 #include <GL/glew.h>  // -lGLEW
@@ -41,6 +42,7 @@ GLuint basic_shader_from(std::string vert_filename, std::string frag_filename) {
         }
         const GLchar *shader_text;
         shader_text = (const GLchar*) malloc(shader_length + 1);
+        memset((void*) shader_text, 0, shader_length + 1);
         file.read((char*) shader_text, shader_length + 1);
         file.close();
         GLenum shader_type = i == 0 ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
@@ -124,14 +126,17 @@ int main(int argc, char* argv[]) {
     glewInit();
     glClearColor(0.5, 0.0, 0.5, 0.0);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_POLYGON_OFFSET_LINE);
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glPointSize(4);
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CW);
+    glCullFace(GL_BACK);
+    // TODO: decal rendering
+    // glEnable(GL_POLYGON_OFFSET_LINE);
+    // glEnable(GL_POLYGON_OFFSET_FILL);
 
     // TODO: move all the initialisation to other functions
     // -- keeping stale temp variables around is wasteful
     // SIMULATION VARIABLES
-    bsp_tool::respawn_entertainment::RespawnBsp bsp_file = (argv[1]);
+    bsp_tool::respawn_entertainment::RespawnBsp bsp_file = argv[1];
     RenderObject bsp;
     r1_rbsp_geo_init(&bsp_file, &bsp);
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
@@ -146,13 +151,14 @@ int main(int argc, char* argv[]) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bsp.index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * bsp.index_count, bsp.indices, GL_STATIC_DRAW);
     // shaders
-    // NOTE: shaders can be editted without recompiling C++
+    // TODO: select shaders w/ args (default: basic.vert & basic.frag)
+    // NOTE: shaders can be edited without recompiling C++
     // -- however, shader uniform use is hardcoded
     std::filesystem::path exe_dir(argv[0]);
     exe_dir = exe_dir.parent_path();
-    std::filesystem::path vertex_shader_file = "../src/viewer/shaders/basic.vert";
+    std::filesystem::path vertex_shader_file = "../src/viewer/shaders/debug.vert";
     vertex_shader_file = exe_dir / vertex_shader_file;
-    std::filesystem::path fragment_shader_file = "../src/viewer/shaders/basic.frag";
+    std::filesystem::path fragment_shader_file = "../src/viewer/shaders/foggy.frag";
     fragment_shader_file = exe_dir / fragment_shader_file;
     try {
         bsp.shader_program = basic_shader_from(vertex_shader_file.string(), fragment_shader_file.string());
@@ -163,7 +169,7 @@ int main(int argc, char* argv[]) {
         return 1;
     };
     glUseProgram(bsp.shader_program);
-    // TODO: create & mutate camera matrices in camera.hpp w/ <glm>
+    glUniform1i(glGetUniformLocation(bsp.shader_program, "vertex_count"), bsp.vertex_count);
     GLint view_matrix_loc = glGetUniformLocation(bsp.shader_program, "view_matrix");
     glm::mat4 view_matrix;
 
@@ -245,6 +251,7 @@ int main(int argc, char* argv[]) {
         while (tick_delta >= tick_length) {  // 1 tick for each tick elapsed
             // UPDATE
             // imagine a hashmap matching keys to functions
+            // TODO: camera speed increases
             using namespace camera::MOVE;
             memset(fp_camera.motion, false, 6);
             if (keys[SDLK_w - 87]) {

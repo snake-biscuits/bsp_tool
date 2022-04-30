@@ -1,34 +1,32 @@
 #version 300 es
-layout(location = 0) in vec3 vertex_position;
-layout(location = 1) in vec3 vertex_normal;
-// layout(location = 2) in vec3 vertex_colour;
-layout(location = 3) in vec2 vertex_uv0;
+layout(location = 0) in mediump vec3 vertex_position;
+layout(location = 1) in mediump vec3 vertex_normal;
+// layout(location = 2) in mediump vec3 vertex_colour;
+layout(location = 3) in mediump vec2 vertex_uv0;
 
 
-uniform mat4 view_matrix;
-uniform float vertex_count;
+uniform mediump mat4 view_matrix;
+uniform highp int vertex_count;
 
-in int gl_VertexID;
-
-out vec3 position;
-out vec3 normal;
-out vec3 colour;
-out vec2 uv0;
+out mediump vec3 position;
+out mediump vec3 normal;
+out mediump vec3 colour;
+out mediump vec2 uv0;
 
 
 // Python colorsys.hsv_to_rgb as GLSL
 vec3 int_to_rgb(int integer) {
     // base colour
-    float hue = (integer / vertex_count) + 0.66;  // start at deep blue
-    float saturation = 0.5;
-    float value = 0.0;
+    mediump float hue = float(integer) / float(vertex_count) + 0.66;  // starts at deep blue
+    mediump float saturation = 0.5;
+    mediump float value = 0.0;
     // hue shift
-    int i = int(hue * 6.0);
-    float f = (hue * 6.0) - i;
+    highp int i = int(hue * 6.0);
+    mediump float f = (hue * 6.0) - float(i);
     // NOTE: these could all be constants if saturation never changes
-    float p = (1.0 - saturation);
-    float q = (1.0 - saturation * f);
-    float t = (1.0 - saturation * (1.0 - f));
+    mediump float p = (1.0 - saturation);
+    mediump float q = (1.0 - saturation * f);
+    mediump float t = (1.0 - saturation * (1.0 - f));
     switch (i % 6) {
         case 0:
             return vec3(value, t, p);
