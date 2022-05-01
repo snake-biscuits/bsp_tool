@@ -7,9 +7,10 @@
 #include "../respawn_entertainment/meshes.hpp"
 
 
-void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
+void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
-    using namespace bsp_tool::respawn_entertainment::titanfall;
+    using namespace bsp_tool::respawn_entertainment;
+    using namespace bsp_tool::respawn_entertainment::apex_legends;
     // NOTE: we only use the .bsp file, allowing for fast reads & easy TF:O support
 
     // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length
@@ -18,13 +19,13 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short, MESH_INDICES,    LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,         VERTICES,        LUMP::VERTICES       )
-    GET_LUMP(Vector,         VERTEX_NORMALS,  LUMP::VERTEX_NORMALS )
-    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    LUMP::VERTEX_UNLIT   )
-    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, LUMP::VERTEX_UNLIT_TS)
+    GET_LUMP(unsigned short, MESH_INDICES,    titanfall::LUMP::MESH_INDICES   )
+    GET_LUMP(Vector,         VERTICES,        titanfall::LUMP::VERTICES       )
+    GET_LUMP(Vector,         VERTEX_NORMALS,  titanfall::LUMP::VERTEX_NORMALS )
+    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    titanfall::LUMP::VERTEX_UNLIT   )
+    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, titanfall::LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, titanfall::LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, titanfall::LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
     unsigned int VERTEX_UNLIT_OFFSET    = 0;
@@ -39,6 +40,7 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
     VertexLitBump  vertex_lit_bump;
     VertexUnlitTS  vertex_unlit_ts;
     RenderVertex render_vertex;
+    float default_colour[3] = {0.15, 0.15, 0.15};
     int vertex_count = 0;
     #define COPY_RENDER_VERTICES(VERTEX_LUMP, mesh_vertex) \
         for (int i = 0; i < VERTEX_LUMP##_SIZE; i++) { \
@@ -46,6 +48,7 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
             render_vertex.position = VERTICES[mesh_vertex.position]; \
             render_vertex.normal = VERTEX_NORMALS[mesh_vertex.normal]; \
             render_vertex.uv = mesh_vertex.uv0; \
+            memcpy(render_vertex.colour, default_colour, sizeof(float) * 3); \
             out->vertices[vertex_count] = render_vertex; \
             vertex_count++; \
         }
@@ -58,27 +61,25 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
     out->indices = new unsigned int[MESH_INDICES_SIZE];
     unsigned int  total_indices = 0;
     unsigned int  vertex_lump_offset;
-    Model         worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    Model         worldspawn = bsp->getLumpEntry<Model>(titanfall::LUMP::MODELS, 0);
     // TODO: create a render object for each Model (w/ shared vertex buffer)
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        Mesh mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
-        MaterialSort material_sort = bsp->getLumpEntry<MaterialSort>(LUMP::MATERIAL_SORT, mesh.material_sort);
-        TextureData texture_data = bsp->getLumpEntry<TextureData>(LUMP::TEXTURE_DATA, material_sort.texture_data);
-        switch (mesh.flags & FLAG::MASK_VERTEX) {
-            case FLAG::VERTEX_UNLIT:
+        Mesh mesh = bsp->getLumpEntry<Mesh>(titanfall::LUMP::MESHES, worldspawn.first_mesh + i);
+        MaterialSort material_sort = bsp->getLumpEntry<MaterialSort>(titanfall::LUMP::MATERIAL_SORT, mesh.material_sort);
+        switch (mesh.flags & titanfall::FLAG::MASK_VERTEX) {
+            case titanfall::FLAG::VERTEX_UNLIT:
                 vertex_lump_offset = VERTEX_UNLIT_OFFSET;    break;
-            case FLAG::VERTEX_LIT_FLAT:
+            case titanfall::FLAG::VERTEX_LIT_FLAT:
                 vertex_lump_offset = VERTEX_LIT_FLAT_OFFSET; break;
-            case FLAG::VERTEX_LIT_BUMP:
+            case titanfall::FLAG::VERTEX_LIT_BUMP:
                 vertex_lump_offset = VERTEX_LIT_BUMP_OFFSET; break;
-            case FLAG::VERTEX_UNLIT_TS:
+            case titanfall::FLAG::VERTEX_UNLIT_TS:
                 vertex_lump_offset = VERTEX_UNLIT_TS_OFFSET; break;
         }
         for (int j = 0; j < mesh.num_triangles * 3; j++) {
             unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j];
             vertex_index += vertex_lump_offset;
             render_vertex = out->vertices[vertex_index];
-            memcpy(render_vertex.colour, texture_data.colour, sizeof(float) * 3);
             out->vertices[vertex_index] = render_vertex;
             out->indices[total_indices] = vertex_index;
             total_indices += 1;

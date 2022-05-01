@@ -7,8 +7,6 @@ in mediump vec3 normal;
 in mediump vec3 colour;
 in mediump vec2 uv0;
 
-in highp vec4 gl_FragCoord;
-
 
 void main() {
     mediump float Ka = 0.15;

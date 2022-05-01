@@ -26,7 +26,8 @@ namespace bsp_tool {
                 this->filename = filename;
                 this->_file.open(filename, std::ios::in | std::ios::binary);
                 if (!this->_file) {
-                    throw std::runtime_error("could not find .bsp file"); }
+                    throw std::runtime_error("could not find .bsp file");
+                }
             };
 
             ~Bsp() {};
@@ -86,7 +87,8 @@ namespace bsp_tool {
                     this->_file.seekg(0, std::ios::beg);
                     int file_magic; this->_read(&file_magic);
                     if (file_magic != FILE_MAGIC) {
-                        throw std::runtime_error("unexpected file magic for IBSP"); }
+                        throw std::runtime_error("unexpected file magic for IBSP");
+                    }
                     this->_read(&this->format_version);
                     this->_read(&this->header);
                 };
@@ -232,7 +234,7 @@ namespace bsp_tool {
                     this->_external[LUMP_index].read((char*) &slice, sizeof(Type) * length);
                 };
 
-                template <typename Type>
+template <typename Type>
                 Type getExternalLumpEntry(int LUMP_index, int entry_index) {
                     #ifdef DEBUG
                     // TODO: assert entry_index is in this lump & Type divides the lump evenly

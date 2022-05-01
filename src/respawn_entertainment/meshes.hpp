@@ -62,7 +62,7 @@ namespace bsp_tool {
 
             struct TextureData {
                 float  colour[3];
-                int    name_index;
+                int    name;
                 struct { int width, height; } size;
                 struct { int width, height; } view;
                 int    flags;
@@ -74,9 +74,9 @@ namespace bsp_tool {
 
             // VertexReservedX
             struct VertexLitBump {
-                int       position;
-                int       normal;
-                Vector2D  uv;
+                int       position;  // index into VERTICES
+                int       normal;    // index into VERTEX_NORMALS
+                Vector2D  uv0;
                 int       unknown[7];
             };
 
@@ -84,7 +84,7 @@ namespace bsp_tool {
             struct VertexLitFlat {
                 int       position;
                 int       normal;
-                Vector2D  uv;
+                Vector2D  uv0;
                 int       unknown[5];
             };
 
@@ -92,7 +92,7 @@ namespace bsp_tool {
             struct VertexUnlit {
                 int       position;
                 int       normal;
-                Vector2D  uv;
+                Vector2D  uv0;
                 int       unknown[1];
             };
 
@@ -100,14 +100,16 @@ namespace bsp_tool {
             struct VertexUnlitTS {
                 int       position;
                 int       normal;
-                Vector2D  uv;
+                Vector2D  uv0;
                 int       unknown[3];
             };
         };
+
+
         namespace apex_legends {
             struct MaterialSort {
                 short         texture_data;
-                short         lightmap_index;
+                short         lightmap;
                 short         unknown[2];
                 unsigned int  vertex_offset;
             };
@@ -132,7 +134,7 @@ namespace bsp_tool {
 
 
             struct TextureData {
-               int name_index;
+               int name;
                struct { int width, height; } size;
                int flags;
             };
@@ -140,16 +142,16 @@ namespace bsp_tool {
 
             // VertexReservedX
             struct VertexBlinnPhong {  // unused
-                unsigned int  position_index;
-                unsigned int  normal_index;
+                unsigned int  position;
+                unsigned int  normal;
                 Vector2D      uv0;
                 Vector2D      uv1;
             };
 
 
             struct VertexLitBump {
-                unsigned int  position_index;
-                unsigned int  normal_index;
+                unsigned int  position;
+                unsigned int  normal;
                 Vector2D      uv0;
                 int           unused;
                 Vector        unknown;
@@ -157,24 +159,24 @@ namespace bsp_tool {
 
 
             struct VertexLitFlat {
-                unsigned int  position_index;
-                unsigned int  normal_index;
+                unsigned int  position;
+                unsigned int  normal;
                 Vector2D      uv0;
                 int           unknown;
             };
 
 
             struct VertexUnlit {
-                unsigned int  position_index;
-                unsigned int  normal_index;
+                unsigned int  position;
+                unsigned int  normal;
                 Vector2D      uv0;
                 int           unknown;
             };
 
 
             struct VertexUnlitTS {
-                unsigned int  position_index;
-                unsigned int  normal_index;
+                unsigned int  position;
+                unsigned int  normal;
                 Vector2D      uv0;
                 int           unknown[2];
             };

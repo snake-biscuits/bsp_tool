@@ -17,6 +17,7 @@
 #include "renderables.hpp"
 // per-branch_script renderable adapters
 #include "titanfall.hpp"
+#include "apex_legends.hpp"
 
 
 #define WIDTH   960
@@ -138,7 +139,14 @@ int main(int argc, char* argv[]) {
     // SIMULATION VARIABLES
     bsp_tool::respawn_entertainment::RespawnBsp bsp_file = argv[1];
     RenderObject bsp;
-    r1_rbsp_geo_init(&bsp_file, &bsp);
+    if (bsp_file.format_version <= 37) {
+        // Titanfall / Titanfall: Online
+        // Titanfall 2 & Titanfall 2 Tech Test (vertex_colour is all black)
+        rbsp_titanfall_geo_init(&bsp_file, &bsp);
+    } else {
+        // Apex Legends (up to Season 10)
+        rbsp_apex_geo_init(&bsp_file, &bsp);
+    }
     printf("%d triangles; %d KB\n", bsp.index_count / 3, static_cast<int>(sizeof(RenderVertex) * bsp.vertex_count / 1024));
     // TODO: move this buffer initialisation to other functions / RenderObject methods
     // vertex buffer
