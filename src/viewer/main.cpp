@@ -197,6 +197,7 @@ int main(int argc, char* argv[]) {
     fp_camera.sensitivity = 0.25;
     fp_camera.speed = 1.0;
 
+    // TODO: lots of frustrum related jitter, especially on large maps
     camera::Lens lens;
     lens.fov = 90;
     lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
