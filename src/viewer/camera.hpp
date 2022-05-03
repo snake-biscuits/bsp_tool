@@ -26,6 +26,8 @@ namespace camera {
     }
 
 
+    // TODO: use doubles for greater accuracy
+    // -- vis matrix seem to have seriou rounding issues
     class Lens {
         public:
             float fov;  // along Y axis

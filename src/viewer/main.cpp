@@ -131,8 +131,9 @@ int main(int argc, char* argv[]) {
     glFrontFace(GL_CW);
     glCullFace(GL_BACK);
     // TODO: decal rendering
-    // glEnable(GL_POLYGON_OFFSET_LINE);
-    // glEnable(GL_POLYGON_OFFSET_FILL);
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glPolygonOffset(1.0, 1.0);
 
     // TODO: move all the initialisation to other functions
     // -- keeping stale temp variables around is wasteful

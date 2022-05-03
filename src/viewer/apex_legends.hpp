@@ -10,8 +10,7 @@
 void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
     using namespace bsp_tool::respawn_entertainment;
-    using namespace bsp_tool::respawn_entertainment::apex_legends;
-    // NOTE: we only use the .bsp file, allowing for fast reads & easy TF:O support
+    // NOTE: we only use the .bsp file, limiting this implementation to only maps before season 11
 
     // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length
     // NOTE: sadly we cannot concatenate `LUMP::##name` because macros require each side to be a valid token pre-concatenation
@@ -19,13 +18,13 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short, MESH_INDICES,    titanfall::LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,         VERTICES,        titanfall::LUMP::VERTICES       )
-    GET_LUMP(Vector,         VERTEX_NORMALS,  titanfall::LUMP::VERTEX_NORMALS )
-    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    titanfall::LUMP::VERTEX_UNLIT   )
-    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, titanfall::LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, titanfall::LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, titanfall::LUMP::VERTEX_UNLIT_TS)
+    GET_LUMP(unsigned short,               MESH_INDICES,    titanfall::LUMP::MESH_INDICES   )
+    GET_LUMP(Vector,                       VERTICES,        titanfall::LUMP::VERTICES       )
+    GET_LUMP(Vector,                       VERTEX_NORMALS,  titanfall::LUMP::VERTEX_NORMALS )
+    GET_LUMP(apex_legends::VertexUnlit,    VERTEX_UNLIT,    titanfall::LUMP::VERTEX_UNLIT   )
+    GET_LUMP(apex_legends::VertexLitFlat,  VERTEX_LIT_FLAT, titanfall::LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(apex_legends::VertexLitBump,  VERTEX_LIT_BUMP, titanfall::LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(apex_legends::VertexUnlitTS,  VERTEX_UNLIT_TS, titanfall::LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
     unsigned int VERTEX_UNLIT_OFFSET    = 0;
@@ -35,10 +34,10 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
     out->vertex_count = VERTEX_UNLIT_TS_OFFSET + VERTEX_UNLIT_TS_SIZE;
     out->vertices = new RenderVertex[out->vertex_count];
 
-    VertexUnlit    vertex_unlit;
-    VertexLitFlat  vertex_lit_flat;
-    VertexLitBump  vertex_lit_bump;
-    VertexUnlitTS  vertex_unlit_ts;
+    apex_legends::VertexUnlit    vertex_unlit;
+    apex_legends::VertexLitFlat  vertex_lit_flat;
+    apex_legends::VertexLitBump  vertex_lit_bump;
+    apex_legends::VertexUnlitTS  vertex_unlit_ts;
     RenderVertex render_vertex;
     float default_colour[3] = {0.15, 0.15, 0.15};
     int vertex_count = 0;
@@ -59,13 +58,14 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
     #undef COPY_RENDER_VERTICES
 
     out->indices = new unsigned int[MESH_INDICES_SIZE];
-    unsigned int  total_indices = 0;
-    unsigned int  vertex_lump_offset;
-    Model         worldspawn = bsp->getLumpEntry<Model>(titanfall::LUMP::MODELS, 0);
+    unsigned int total_indices = 0;
+    unsigned int vertex_lump_offset;
+    apex_legends::Model worldspawn = bsp->getLumpEntry<apex_legends::Model>(titanfall::LUMP::MODELS, 0);
     // TODO: create a render object for each Model (w/ shared vertex buffer)
+    worldspawn.num_meshes = 256;
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
-        Mesh mesh = bsp->getLumpEntry<Mesh>(titanfall::LUMP::MESHES, worldspawn.first_mesh + i);
-        MaterialSort material_sort = bsp->getLumpEntry<MaterialSort>(titanfall::LUMP::MATERIAL_SORT, mesh.material_sort);
+        apex_legends::Mesh mesh = bsp->getLumpEntry<apex_legends::Mesh>(titanfall::LUMP::MESHES, worldspawn.first_mesh + i);
+        apex_legends::MaterialSort material_sort = bsp->getLumpEntry<apex_legends::MaterialSort>(titanfall::LUMP::MATERIAL_SORT, mesh.material_sort);
         switch (mesh.flags & titanfall::FLAG::MASK_VERTEX) {
             case titanfall::FLAG::VERTEX_UNLIT:
                 vertex_lump_offset = VERTEX_UNLIT_OFFSET;    break;
