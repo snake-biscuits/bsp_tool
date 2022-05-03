@@ -333,14 +333,13 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)
-    # NOTE: these are all guesses based on GDC 2018 - Extreme SIMD
-    mins: List[float]  # TODO: verify
-    flags_1: int  # unsure
-    maxs: List[float]
-    flags_2: int
-    __slots__ = ["mins", "flags_1", "maxs", "flags_2"]
+    origin: List[float]
+    unknown_1: int
+    extents: List[float]  # bounds extend symmetrically by this much along each axis
+    unknown_2: int
+    __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
     _format = "3fI3fI"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
