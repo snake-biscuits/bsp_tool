@@ -245,7 +245,11 @@ class RespawnBsp(valve.ValveBsp):
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
-            lump_bytes = self.lump_as_bytes(LUMP.name)
+            try:
+                lump_bytes = self.lump_as_bytes(LUMP.name)
+            except Exception as exc:
+                print(f"failed to convert {LUMP.name} to bytes")
+                raise exc
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
         # recalculate headers

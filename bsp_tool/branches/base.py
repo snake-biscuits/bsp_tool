@@ -276,6 +276,8 @@ class MappedArray:
             value = getattr(self, attr)
             if isinstance(value, MappedArray):
                 array.extend(value.flat())  # recursive call
+            elif isinstance(value, list):
+                array.extend(value)
             else:
                 array.append(value)
         return array
