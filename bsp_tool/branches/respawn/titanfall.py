@@ -334,11 +334,12 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)
     origin: List[float]
-    unknown_1: int
+    unknown_1: float  # might be related to volume / surface area?
     extents: List[float]  # bounds extend symmetrically by this much along each axis
-    unknown_2: int
+    # NOTE: both unknown_1 & extents are always positive
+    unknown_2: int  # could be a float, but value is strange; unsure of purpose; can be 0
     __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
-    _format = "3fI3fI"
+    _format = "4f3fI"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
 
