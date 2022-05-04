@@ -221,12 +221,10 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 # TODO: finish populating this dict with every ValveBsp & RespawnBsp branch_script (3/16)
 # NOTE: base wrapper class is `GameLump if lump != dark_messiah_singleplayer else DarkMessiahSPGameLump`
 # NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
-unmapped_gamelumps = {"dplh": None, "dplt": None, "dprp": None}
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
 # NOTE: `None` mappings are used by the branch, but not yet mapped
-gamelump_mappings[branches.valve.source] = {**unmapped_gamelumps,
-                                            "sprp": branches.valve.source.GameLump_SPRP,
+gamelump_mappings[branches.valve.source] = {"sprp": branches.valve.source.GameLump_SPRP,
                                             "sprp.props": {4: branches.valve.source.StaticPropv4,
                                                            5: branches.valve.source.StaticPropv5,
                                                            6: branches.valve.source.StaticPropv6}}
@@ -234,8 +232,7 @@ gamelump_mappings[branches.troika.vampire] = gamelump_mappings[branches.valve.so
 gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
                                                                    10: branches.valve.orange_box.StaticPropv10})
-gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {**unmapped_gamelumps,
-                                                                "sprp": branches.valve.source.GameLump_SPRP,
+gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {"sprp": branches.valve.source.GameLump_SPRP,
                                                                 "sprp.props": {6: None}}
 gamelump_mappings[branches.arkane.dark_messiah_multiplayer] = gamelump_mappings[branches.arkane.dark_messiah_singleplayer].copy()  # noqa E501
 gamelump_mappings[branches.nexon.vindictus] = {"sprp": branches.nexon.vindictus.GameLump_SPRP,
@@ -293,7 +290,7 @@ def game_lump_table(branch_script: ModuleType) -> List[str]:
     bsp_version = ".".join(map(str, bsp_version)) if isinstance(bsp_version, tuple) else str(bsp_version)
     row_header = (branch_script.LUMP.GAME_LUMP.value, bsp_version)
     # TODO: use a coverage total here rather than defaulting to 90
-    table_block = {TableRow(*row_header, "`GAME_LUMP`", "-", game_lump_handler, 90)}
+    table_block = {TableRow(*row_header, "GAME_LUMP", "-", game_lump_handler, 90)}
     for sub_lump, mapping in gamelump_mappings[branch_script].items():
         game_lump_name = f"GAME_LUMP.{sub_lump}"
         if not isinstance(mapping, dict):
@@ -396,6 +393,9 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
             elif row.LumpClass == final_block[-1].LumpClass:
                 continue  # remove repeats
             final_block.append(row)
+        if "GAME_LUMP" in lump_names:  # don't sort
+            final_block = table_block
+            # TODO: merge GAME_LUMP blocks here
         lines.extend(map(row_as_string, final_block))
     return lines
 
