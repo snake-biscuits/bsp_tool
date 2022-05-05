@@ -114,9 +114,9 @@ class LUMP(enum.Enum):
     CM_PRIMITIVE_BOUNDS = 0x005A
     CM_UNIQUE_CONTENTS = 0x005B
     CM_BRUSHES = 0x005C
-    CM_BRUSH_SIDE_PLANE_OFFSETS = 0x005D
-    CM_BRUSH_SIDE_PROPS = 0x005E
-    CM_BRUSH_TEX_VECS = 0x005F
+    CM_BRUSH_SIDE_PLANES = 0x005D
+    CM_BRUSH_SIDE_PROPERTIES = 0x005E
+    CM_BRUSH_SIDE_TEXTURE_VECTORS = 0x005F
     TRICOLL_BEVEL_STARTS = 0x0060
     TRICOLL_BEVEL_INDICES = 0x0061
     LIGHTMAP_DATA_SKY = 0x0062
@@ -173,27 +173,47 @@ LumpHeader = source.LumpHeader
 #             \--> .flags (VertexReservedX)     \--> VertexNormal
 #              \-> VertexReservedX               \-> .uv
 
-# MeshBounds & Mesh are indexed in paralell?
+# MeshBounds & Mesh are parallel
+# NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
+# -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
 # ShadowEnvironment -> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
 #                                                    \-?> ShadowMeshAlphaVertex
 
-# ??? -> Brush -?> Plane
-
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
+# PORTAL LUMPS
 # Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
 
-# PortalEdgeIntersectHeader -?> PortalEdgeIntersect ? (parallel indices?)
-# NOTE: there are always as many intersect headers as edges
+# PortalEdgeIntersectHeader -> ???
+# PortalEdgeIntersectHeader is parallel w/ PortalEdge
+# NOTE: titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
+# -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
 # NOTE: there are also always as many vert refs as edge refs
+# PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
 
 # ??? WorldLight <-?-> WorldLightParentInfo -?> Model
+
+# CM_* LUMPS
+# the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
+
+# Cell -?> Primitive | PrimitiveBounds
+#     \-?> GeoSet | GeoSetBounds
+
+# Brush -> BrushSidePlane -> Plane
+#      \-> BrushSideProperties | BrushSideTextureVector
+
+# BrushSideProps is parallel w/ BrushTexVecs
+# Primitives is parallel w/ PrimitiveBounds
+# GeoSets is parallel w/ GeoSetBounds
+# PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
+
+# TODO: TRICOLL_* LUMPS
 
 
 # engine limits:

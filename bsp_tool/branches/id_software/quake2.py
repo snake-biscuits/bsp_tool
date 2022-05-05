@@ -42,8 +42,6 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
-# TODO: MAX & Contents enums
-
 # A rough map of the relationships between lumps:
 # ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
 #                                      \-> LEAF_BRUSHES -> BRUSHES
@@ -55,6 +53,8 @@ LumpHeader = quake.LumpHeader
 
 # POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
 
+
+# TODO: MAX & Contents enums
 
 # flag enums
 class Contents(enum.IntEnum):
@@ -83,6 +83,18 @@ class Contents(enum.IntEnum):
     DETAIL = 0x08000000
     TRANSLUCENT = 0x10000000  # vis splitting brushes
     LADDER = 0x20000000
+
+
+class Surface(enum.IntFlag):  # qcommon/qfiles.h
+    """TextureInfo flags"""  # NOTE: vbsp sets these in src/utils/vbsp/textures.cpp
+    LIGHT = 0x0001  # "value will hold the light strength"
+    SLICK = 0x0002  # affects game physics (spelt "effects in source")
+    SKY = 0x0004  # don't draw, but add to skybox
+    WARP = 0x0008  # turbulent water warp
+    TRANS33 = 0x0010  # 1/3 transparency?
+    TRANS66 = 0x0020  # 2/3 transparency?
+    FLOWING = 0x0040  # "scroll towards angle"
+    NO_DRAW = 0x0080  # "don't bother referencing the texture"
 
 
 # classes for lumps, in alphabetical order:
@@ -145,8 +157,8 @@ class TextureInfo(base.Struct):  # LUMP 5
     flags: int  # "miptex flags & overrides"
     value: int  # "light emission etc."
     name: bytes  # texture name
-    next: int  # index into TextureInfo lump for animations (-1 = last frame)
-    __slots__ = ["U", "V", "flags", "value", "name", "next"]
+    next_frame: int  # index into TextureInfo lump for animations (-1 = last frame)
+    __slots__ = ["U", "V", "flags", "value", "name", "next_frame"]
     _format = "8f2I32sI"
     _arrays = {"U": [*"xyzw"], "V": [*"xyzw"]}
 

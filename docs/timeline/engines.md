@@ -59,6 +59,7 @@
  - [Ritual Entertainment: Ubertools](http://ritualistic.chrissstrahl.de/games/ef2/gdkdocs/)
  - [Murder of Raven Software](https://steemit.com/gaming/@vladalexan/the-murder-of-raven-software)
  - [Steve Lee: Why Making Titanfall was Hard - Interview with 2 design leads at Respawn](https://youtu.be/ZT9yVUDDUJg?t=560)
+ - [Valve-ERC: Half-Life's Code Basis](http://web.archive.org/web/20080228162611/http://collective.valve-erc.com/index.php?doc=1028244478-62628500)
 
 ### Wikipedia
  - [Quake Engine](https://en.wikipedia.org/wiki/Quake_engine#Games_using_the_Quake_engine)
