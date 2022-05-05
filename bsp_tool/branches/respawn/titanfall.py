@@ -282,14 +282,6 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     _arrays = {"unknown": 4}
 
 
-class LeafWaterData(base.Struct):  # LUMP 46 (0024)
-    surface_z: float  # global Z height of the water's surface
-    min_z: float  # bottom of the water volume?
-    texture_data: int  # index to this LeafWaterData's TextureData
-    _mapping = ["surface_z", "min_z", "texture_data"]
-    _format = "2fI"
-
-
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
     count: int  # assuming this counts the number of lightmaps this size
     # NOTE: there's actually 2 identically sized lightmaps for each header (for titanfall2)
@@ -344,7 +336,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
 
     @classmethod
     def from_bounds(cls, mins: List[float], maxs: List[float]) -> MeshBounds:
-        out = MeshBounds()
+        out = cls()
         mins = vector.vec3(*mins)
         maxs = vector.vec3(*maxs)
         out.origin = maxs - mins
@@ -661,7 +653,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},
                 "CUBEMAPS":                          {0: Cubemap},
-                "LEAF_WATER_DATA":                   {0: LeafWaterData},
+                "LEAF_WATER_DATA":                   {1: source.LeafWaterData},
                 "LIGHTMAP_HEADERS":                  {1: LightmapHeader},
                 "LIGHTPROBE_REFERENCES":             {0: LightProbeRef},
                 "MATERIAL_SORT":                     {0: MaterialSort},
