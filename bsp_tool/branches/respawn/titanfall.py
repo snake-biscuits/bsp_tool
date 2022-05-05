@@ -191,8 +191,9 @@ LumpHeader = source.LumpHeader
 # CM_* LUMPS
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
 
-# Cell -?> Primitive | PrimitiveBounds
-#     \-?> GeoSet | GeoSetBounds
+# GridCell -?> Cell -?> Primitive | PrimitiveBounds
+#                  \-?> GeoSet | GeoSetBounds
+# ^ Primitive / GeoSet lookup by bounds?
 
 # Brush -> BrushSidePlane -> Plane
 #      \-> BrushSideProperties | BrushSideTextureVector
@@ -237,13 +238,13 @@ class Flags(enum.IntFlag):
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     """Identified by warmist"""
-    mins: List[int]
+    origin: List[int]
     unknown_1: int
-    maxs: List[int]
+    extends: List[int]
     unknown_2: int
-    __slots__ = ["mins", "unknown_1", "maxs", "unknown_2"]
+    __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
     _format = "8h"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
 
 class Brush(base.Struct):  # LUMP 92 (005C)
@@ -649,7 +650,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANES":       {0: shared.UnsignedShorts},
-                      "CM_BRUSH_SIDE_PROPERTIES":   {0: shared.UnsignedShorts},  # indices or flags? texturedata?
+                      "CM_BRUSH_SIDE_PROPERTIES":   {0: shared.UnsignedShorts},  # surface / contents flags?
                       "CM_GRID_CELLS":              {0: shared.UnsignedInts},
                       "CM_UNIQUE_CONTENTS":         {0: shared.UnsignedInts},  # source.Contents? test against vmts?
                       "CSM_OBJ_REFERENCES":         {0: shared.UnsignedShorts},
