@@ -7,6 +7,7 @@ from typing import Dict, List, Union
 
 from .. import base
 from .. import shared
+from .. import vector
 from ..id_software import quake
 from ..valve import source
 
@@ -340,6 +341,17 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
     __slots__ = ["origin", "radius", "extents", "unknown_2"]
     _format = "4f3fI"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+
+    @classmethod
+    def from_bounds(cls, mins: List[float], maxs: List[float]) -> MeshBounds:
+        out = MeshBounds()
+        mins = vector.vec3(*mins)
+        maxs = vector.vec3(*maxs)
+        out.origin = maxs - mins
+        out.extents = maxs - out.origin
+        out.radius = out.extents.magnitude() + 0.001  # round up a little
+        # out.unknown_2 = ...
+        return out
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
