@@ -7,6 +7,8 @@
 // Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
 //              \-> .flags (VertexReservedX)     \--> VertexNormal
 //                                                \-> .uv
+//
+// MeshBounds is parallel with Mesh (equal length of lump; match with same index into lump)
 
 
 namespace bsp_tool {
@@ -44,6 +46,14 @@ namespace bsp_tool {
                 short           unknown[6];
                 unsigned short  material_sort;
                 unsigned int    flags;
+            };
+
+
+            struct MeshBounds {
+                Vector  origin;
+                float   radius;
+                Vector  extents;
+                int     unknown_2;
             };
 
 

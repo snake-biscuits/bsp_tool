@@ -122,6 +122,8 @@ int main(int argc, char* argv[]) {
 
     SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_CaptureMouse(SDL_TRUE);
+    // TODO: stop capturing mouse when window is not in focus
+    // -- also stop teleporting mouse & simulating ticks while not in focus?
 
     // SETUP OpenGL
     glewInit();
@@ -209,8 +211,11 @@ int main(int argc, char* argv[]) {
 
     // INPUTS
     SDL_Keycode  key;
-    bool         keys[36] = {false};  // [0-9] SDLK_0-9; [10-35] SDLK_a-z
+    bool         keys[122] = {false};  // this system can't capture arrow keys or modifiers
     Vector2D     mouse;
+
+    // ENVIRONMENT
+    unsigned int current_mesh = 0;  // index into bsp.children
 
     // TICKS
     uint64_t last_tick = time_ms();
@@ -234,19 +239,19 @@ int main(int argc, char* argv[]) {
                     key = event.key.keysym.sym;
                     if (key == SDLK_ESCAPE) {
                         running = false;
-                        break; }  // GOTO: QUIT
-                    else if (48 <= key && key <= 57) {  // SDLK_0-9
-                        keys[key - 48] = true; }        // keys[0-9]
-                    else if (97 <= key && key <= 122) {  // SDLK_a-z
-                        keys[key - 87] = true; }         // keys[10-35]
+                        break;  // GOTO: QUIT
+                    }
+                    if (key < 122) {
+                        keys[key] = true;
+                    } else {
+                        fprintf(stderr, "Key %s (%d) is untracked!\n", SDL_GetKeyName(key), key);
+                    }
                     break;
                 case SDL_KEYUP:
                     if (event.key.repeat) { break; }
                     key = event.key.keysym.sym;
-                    if (48 <= key && key <= 57) {        // SDLK_0-9
-                        keys[key - 48] = false; }        // keys[0-9]
-                    else if (97 <= key && key <= 122) {  // SDLK_a-z
-                        keys[key - 87] = false; }        // keys[10-35]
+                    if (key < 122)
+                        keys[key] = false;
                     break;
                 case SDL_MOUSEMOTION:
                     mouse.x += event.motion.xrel;
@@ -264,27 +269,20 @@ int main(int argc, char* argv[]) {
             // TODO: camera speed increases
             using namespace camera::MOVE;
             memset(fp_camera.motion, false, 6);
-            if (keys[SDLK_w - 87]) {
-                fp_camera.motion[DOLLY_IN] = true;
-            }
-            if (keys[SDLK_s - 87]) {
-                fp_camera.motion[DOLLY_OUT] = true;
-            }
-            if (keys[SDLK_a - 87]) {
-                fp_camera.motion[PAN_LEFT] = true;
-            }
-            if (keys[SDLK_d - 87]) {
-                fp_camera.motion[PAN_RIGHT] = true;
-            }
-            if (keys[SDLK_q - 87]) {
-                fp_camera.motion[PAN_DOWN] = true;
-            }
-            if (keys[SDLK_e - 87]) {
-                fp_camera.motion[PAN_UP] = true;
-            }
-            if (keys[SDLK_f - 87]) {  // print some debug info here
+            if (keys[SDLK_w])  fp_camera.motion[DOLLY_IN] = true;
+            if (keys[SDLK_s])  fp_camera.motion[DOLLY_OUT] = true;
+            if (keys[SDLK_a])  fp_camera.motion[PAN_LEFT] = true;
+            if (keys[SDLK_d])  fp_camera.motion[PAN_RIGHT] = true;
+            if (keys[SDLK_q])  fp_camera.motion[PAN_DOWN] = true;
+            if (keys[SDLK_e])  fp_camera.motion[PAN_UP] = true;
+            // if (keys[SDLK_LSHIFT])  fp_camera.speed *= 1.25;
+            // if (keys[SDLK_LCTRL])   fp_camera.speed *= 0.8;
+            // if (keys[SDLK_LEFT])   current_mesh = current_mesh == 0 ? bsp.child_count - 1 : current_mesh - 1;
+            // if (keys[SDLK_RIGHT])  current_mesh = current_mesh == bsp.child_count - 1 ? 0 : current_mesh + 1;
+            if (keys[SDLK_f]) {  // print some debug info
                 printf("fp_camera @ (%.3f, %.3f, %.3f)\n",
                        fp_camera.position.x, fp_camera.position.y, fp_camera.position.z);
+                printf("Isolating mesh %d\n", current_mesh);
             }
             fp_camera.update(mouse, tick_delta);
             mouse = {0, 0};  // zero the mouse to eliminate drift
@@ -307,6 +305,14 @@ int main(int argc, char* argv[]) {
         // TODO: update view_matrix with camera transforms
         glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
         glDrawElements(GL_TRIANGLES, bsp.index_count, GL_UNSIGNED_INT, NULL);
+        /*
+        glDrawRangeElements(GL_TRIANGLES,
+                            bsp.children[current_mesh].start,
+                            bsp.children[current_mesh].start + bsp.children[current_mesh].length,
+                            bsp.children[current_mesh].length,
+                            GL_UNSIGNED_INT,
+                            NULL);
+        */
         glPopMatrix();
         // PRESENT FRAME
         SDL_GL_SwapWindow(window);

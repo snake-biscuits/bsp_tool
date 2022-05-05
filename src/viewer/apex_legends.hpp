@@ -63,6 +63,8 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
     apex_legends::Model worldspawn = bsp->getLumpEntry<apex_legends::Model>(titanfall::LUMP::MODELS, 0);
     // TODO: create a render object for each Model (w/ shared vertex buffer)
     worldspawn.num_meshes = 256;
+    out->child_count = worldspawn.num_meshes;
+    out->children = new Span[out->child_count];
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         apex_legends::Mesh mesh = bsp->getLumpEntry<apex_legends::Mesh>(titanfall::LUMP::MESHES, worldspawn.first_mesh + i);
         apex_legends::MaterialSort material_sort = bsp->getLumpEntry<apex_legends::MaterialSort>(titanfall::LUMP::MATERIAL_SORT, mesh.material_sort);
@@ -76,11 +78,10 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
             case titanfall::FLAG::VERTEX_UNLIT_TS:
                 vertex_lump_offset = VERTEX_UNLIT_TS_OFFSET; break;
         }
+        out->children[i] = {total_indices, (unsigned int) mesh.num_triangles * 3};
         for (int j = 0; j < mesh.num_triangles * 3; j++) {
             unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j];
             vertex_index += vertex_lump_offset;
-            render_vertex = out->vertices[vertex_index];
-            out->vertices[vertex_index] = render_vertex;
             out->indices[total_indices] = vertex_index;
             total_indices += 1;
         }

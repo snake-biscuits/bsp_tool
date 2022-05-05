@@ -45,7 +45,7 @@ run: build/viewer.exe
 
 debug:
 	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/viewer/main.cpp -o build/viewer.exe $(SDLFLAGS)
-	gdb --args build/viewer.exe $(TESTMAP) -ex run -ex bt
+	gdb -ex run -ex bt --args build/viewer.exe $(TESTMAP)
 
 # TODO: .o builds
 # TODO: clean

@@ -59,6 +59,8 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
     unsigned int  total_indices = 0;
     unsigned int  vertex_lump_offset;
     Model         worldspawn = bsp->getLumpEntry<Model>(LUMP::MODELS, 0);
+    out->child_count = worldspawn.num_meshes;
+    out->children = new Span[out->child_count];
     // TODO: create a render object for each Model (w/ shared vertex buffer)
     for (unsigned int i = 0; i < worldspawn.num_meshes; i++) {
         Mesh mesh = bsp->getLumpEntry<Mesh>(LUMP::MESHES, worldspawn.first_mesh + i);
@@ -74,6 +76,7 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
             case FLAG::VERTEX_UNLIT_TS:
                 vertex_lump_offset = VERTEX_UNLIT_TS_OFFSET; break;
         }
+        out->children[i] = {total_indices, (unsigned int) mesh.num_triangles * 3};
         for (int j = 0; j < mesh.num_triangles * 3; j++) {
             unsigned int vertex_index = material_sort.vertex_offset + MESH_INDICES[mesh.first_mesh_index + j];
             vertex_index += vertex_lump_offset;
