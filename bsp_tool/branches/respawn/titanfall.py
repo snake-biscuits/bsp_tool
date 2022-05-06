@@ -195,10 +195,12 @@ LumpHeader = source.LumpHeader
 #                  \-?> GeoSet | GeoSetBounds
 # ^ Primitive / GeoSet lookup by bounds?
 
-# Brush -> BrushSidePlane -> Plane
-#      \-> BrushSideProperties | BrushSideTextureVector
+#      /-> BrushSidePlane -?> Plane
+# Brush -> BrushSideProperties -?> TextureData
+#      \-> BrushSideTextureVector
 
 # BrushSideProps is parallel w/ BrushTexVecs
+# len(BrushSideProps/TexVecs) = len(Brushes) * 6 + len(BrushSidePlanes)
 # Primitives is parallel w/ PrimitiveBounds
 # GeoSets is parallel w/ GeoSetBounds
 # PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
