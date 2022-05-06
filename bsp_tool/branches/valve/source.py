@@ -319,7 +319,7 @@ class BrushSide(base.Struct):  # LUMP 19
     plane: int      # index into Plane lump
     texture_info: int   # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
-    bevel: int      # smoothing group?
+    bevel: int      # bool? indicates if side is a bevel plane (BSPVERSION 7)
     __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "H3h"
 

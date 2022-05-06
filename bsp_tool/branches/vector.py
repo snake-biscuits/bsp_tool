@@ -42,6 +42,9 @@ class vec2:
     def __getitem__(self, key: int) -> float:
         return [self.x, self.y][key]
 
+    def __hash__(self) -> int:
+        return hash(tuple(self))
+
     def __iter__(self) -> Iterable:
         return iter((self.x, self.y))
 
@@ -78,6 +81,12 @@ class vec2:
     def magnitude(self) -> float:
         """length of vector"""
         return math.sqrt(self.sqrmagnitude())
+
+    def normalise(self):
+        """scale this vector into a unit vector"""
+        new = self.normalised()
+        self.x = new.x
+        self.y = new.y
 
     def normalised(self) -> vec2:
         """returns this vector if length was 1 (unless length is 0), does not mutate"""
@@ -139,6 +148,9 @@ class vec3:
     def __getitem__(self, key: int) -> float:
         return [self.x, self.y, self.z][key]
 
+    def __hash__(self) -> int:
+        return hash(tuple(self))
+
     def __iter__(self) -> Iterable:
         return iter((self.x, self.y, self.z))
 
@@ -183,8 +195,15 @@ class vec3:
         """length of vector"""
         return math.sqrt(self.sqrmagnitude())
 
-    def normalise(self) -> vec3:
-        """returns unit vector without mutating"""
+    def normalise(self):
+        """scale this vector into a unit vector"""
+        new = self.normalised()
+        self.x = new.x
+        self.y = new.y
+        self.z = new.z
+
+    def normalised(self) -> vec3:
+        """returns vec3 as a unit vector"""
         m = self.magnitude()
         if m != 0:
             return vec3(self.x/m, self.y/m, self.z/m)
