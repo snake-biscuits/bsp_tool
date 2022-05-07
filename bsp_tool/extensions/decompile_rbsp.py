@@ -18,19 +18,24 @@ def triangle_for(plane: (vec3, float), scale: float = 64) -> List[vec3]:
 
 def fstr(x: float) -> str:
     """str(float) without trailing zeroes"""
+    x = round(x, 2)
     if x % 1.0 == 0.0:
         return str(int(x))
     return str(x)
 
 
+# NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
+# -- J.A.C.K. can convert to other formats including .vmf
+# TODO: why are all exported maps inverted?
 # https://quakewiki.org/wiki/Quake_Map_Format
 def decompile(bsp) -> List[str]:
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
-    out = ['// entity 0\n{\n"classname" "worldspawn"\n']
+    out = ["// Game: Generic\n// Format: Valve\n",
+           '// entity 0\n{\n"classname" "worldspawn"\n']
     first_brush_side = 0
     for i, brush in enumerate(bsp.CM_BRUSHES):
         out.append(f"// brush {i}" + "\n{\n")
-        origin = vec3(*brush.origin)
+        origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
         extents = vec3(*brush.extents)
         mins = origin - extents
         maxs = origin + extents
@@ -58,4 +63,5 @@ def decompile(bsp) -> List[str]:
         first_brush_side += num_brush_sides
         out.append("}\n")
     out.append("}\n")
+    # TODO: all other entities
     return out
