@@ -251,36 +251,71 @@ class TraceCollisionGroup(enum.Enum):
     BLOCK_WEAPONS_AND_PHYSICS = 19
 
 
-class Contents(enum.IntEnum):  # derived from source.Contents & Tracemask
-    UNKNOWN = 0x200
-    TITAN_CLIP = 0x200000  # replaces Contents.CURRENT_270
+class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
+    """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
+    # visible
+    EMPTY = 0x00
+    SOLID = 0x01
+    WINDOW = 0x02  # bulletproof glass etc. (transparent but solid)
+    AUX = 0x04  # unused?
+    GRATE = 0x08  # allows bullets & vis
+    SLIME = 0x10
+    WATER = 0x20
+    UNKNOWN_1 = 0x40  # ! MOVED !  was BLOCK_LOS
+    OPAQUE = 0x80  # blocks AI Line Of Sight, may be non-solid
+    TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
+    UNKNOWN_2 = 0x200  # ! NEW ! was UNUSED_1
+    UNUSED = 0x400  # is it tho
+    TEAM1 = 0x0800
+    TEAM2 = 0x1000
+    IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
+    UNKNOWN_3 = 0x4000  # ! NEW ! was MOVEABLE
+    # not visible
+    AREAPORTAL = 0x8000
+    PLAYER_CLIP = 0x10000
+    MONSTER_CLIP = 0x20000
+    # CURRENT_0
+    BLOCK_LOS = 0x100000  # ! MOVED ! was CURRENT_90
+    # CURRENT_180
+    TITAN_CLIP = 0x200000  # ! NEW !  was CURRENT_270
+    UNKNOWN_4 = 0x400000  # ! NEW !  was CURRENT_UP
+    # CURRENT DOWN
+    ORIGIN = 0x1000000  # "removed before bsping an entity"
+    MONSTER = 0x2000000  # in-game only, shouldn't be in a .bsp
+    DEBRIS = 0x4000000
+    DETAIL = 0x8000000  # func_detail; for VVIS (visleaf assembly from Brushes)
+    TRANSLUCENT = 0x10000000
+    LADDER = 0x20000000
+    HITBOX = 0x40000000  # requests hit tracing use hitboxes
+    # TODO: might r1 Titan Shields be a flag?
 
 
 class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
-    # NOTE: uncommented entries match source.ContentsMask
+    """source.ContentsMask eqiuvalent, exposed to squirrel vscript API"""
     # PHYSICS
-    PLAYER_SOLID = 33636363
-    TITAN_SOLID = 35667979  # source.ContentsMask.SOLID | Contents.TITAN_CLIP
-    NPC_SOLID = 33701899
-    WATER = 48  # 0x4030 -> 0x30  (removed MOVEABLE)
+    SOLID = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER | Contents.GRATE
+    PLAYER_SOLID = SOLID | Contents.PLAYER_CLIP
+    TITAN_SOLID = SOLID | Contents.TITAN_CLIP  # new
+    NPC_SOLID = SOLID | Contents.MONSTER_CLIP
+    WATER = Contents.WATER | Contents.SLIME  # removed Contents.MOVEABLE
     # VIS
-    OPAQUE = 16513
-    OPAQUE_AND_NPCS = 33570945
-    BLOCK_LOS = 540801  # TODO: identify Contents
-    BLOCK_LOS_AND_NPCS = 34095233  # TODO: identify Contents
-    VISIBLE = 24705
-    VISIBLE_AND_NPCS = 33579137
+    OPAQUE = Contents.SOLID | Contents.MOVEABLE | Contents.OPAQUE  # blocks light
+    OPAQUE_AND_NPCS = OPAQUE | Contents.MONSTER
+    BLOCK_LOS = OPAQUE | Contents.BLOCK_LOS  # blocks AI Line Of Sight; added Contents.OPAQUE
+    BLOCK_LOS_AND_NPCS = BLOCK_LOS | Contents.MONSTER
+    VISIBLE = OPAQUE | Contents.IGNORE_NODRAW_OPAQUE  # blocks Player Line Of Sight
+    VISIBLE_AND_NPCS = OPAQUE_AND_NPCS | Contents.IGNORE_NODRAW_OPAQUE
     # WEAPONS
-    SHOT = 1178615859  # source.ContentsMask.SHOT | WATER | 0x400000
-    SHOT_BRUSH_ONLY = 71319603  # ! NEW !  SHOT ~ (Contents.HITBOX | Contents.MONSTER)
-    SHOT_HULL = 104873995  # source.ContentsMask.SHOT_HULL | 0x40000
-    GRENADE = 1178615819  # ! NEW !  TODO: identify Contents
+    SHOT = 1178615859  # source.ContentsMask.SHOT | WATER | Contents.UNKNOWN_3
+    SHOT_BRUSH_ONLY = 71319603  # ! NEW !  SHOT & ~(Contents.HITBOX | Contents.MONSTER)
+    SHOT_HULL = 104873995  # source.ContentsMask.SHOT_HULL | Contents.UNKNOWN_3
+    GRENADE = SOLID | Contents.HITBOX | Contents.DEBRIS  # ! NEW !
     # ALTERNATES
-    SOLID_BRUSH_ONLY = 16907  # source.ContentsMask.SOLID_BRUSH_ONLY | Contents.UNKNOWN
-    PLAYER_SOLID_BRUSH_ONLY = 81931
-    NPC_SOLID_BRUSH_ONLY = 147467
-    NPC_WORLD_STATIC = 131083
-    NPC_FLUID = 33701891  # ! NEW !  NPC_SOLID ~ Contents.GRATE
+    SOLID_BRUSH_ONLY = 16907  # source.ContentsMask.SOLID_BRUSH_ONLY | Contents.UNKNOWN_2
+    PLAYER_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.PLAYER_CLIP
+    NPC_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.MONSTER_CLIP
+    NPC_WORLD_STATIC = Contents.SOLID | Contents.WINDOW | Contents.MONSTER_CLIP | Contents.GRATE  # for route rebuilding
+    NPC_FLUID = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER | Contents.MONSTER_CLIP  # new
 
 
 # classes for lumps, in alphabetical order:

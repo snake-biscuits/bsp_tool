@@ -188,7 +188,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     # visible
     EMPTY = 0x00
     SOLID = 0x01
-    WINDOW = 0x02
+    WINDOW = 0x02  # bulletproof glass etc. (transparent but solid)
     AUX = 0x04  # unused?
     GRATE = 0x08  # allows bullets & vis
     SLIME = 0x10
@@ -201,7 +201,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     TEAM1 = 0x0800
     TEAM2 = 0x1000
     IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
-    MOVEABLE = 0x4000  # pushables
+    MOVEABLE = 0x4000  # half-life 1 push crates etc.
     # not visible
     AREAPORTAL = 0x8000
     PLAYER_CLIP = 0x10000
@@ -237,14 +237,11 @@ class ContentsMask(enum.IntEnum):
     VISIBLE = OPAQUE | Contents.IGNORE_NODRAW_OPAQUE  # blocks Player Line Of Sight
     VISIBLE_AND_NPCS = OPAQUE_AND_NPCS | Contents.IGNORE_NODRAW_OPAQUE
     # WEAPONS
-    SHOT = Contents.SOLID | Contents.MOVEABLE | Contents.MONSTER | Contents.WINDOW | Contents.DEBRIS | Contents.HITBOX
-    # ^ blocks raycast bullets
-    SHOT_HULL = Contents.SOLID | Contents.MOVEABLE | Contents.MONSTER | Contents.WINDOW | Contents.DEBRIS | Contents.GRATE
-    # ^ blocks other weapon projectiles
-    SHOT_PORTAL = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER
-    # ^ other weapon projectiles that can pass through grates
+    SHOT_HULL = SOLID | Contents.DEBRIS  # projectile weapons
+    SHOT = SHOT_HULL | Contents.HITBOX  # raycast weapons
+    SHOT_PORTAL = SOLID & ~Contents.GRATE  # other projectile weapons
     # ALTERNATES
-    SOLID_BRUSH_ONLY = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.GRATE
+    SOLID_BRUSH_ONLY = SOLID & ~Contents.MONSTER
     PLAYER_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.PLAYER_CLIP
     NPC_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.MONSTER_CLIP
     NPC_WORLD_STATIC = Contents.SOLID | Contents.WINDOW | Contents.MONSTER_CLIP | Contents.GRATE  # for route rebuilding
