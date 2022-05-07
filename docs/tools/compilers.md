@@ -36,46 +36,48 @@
 | BSPFix          | valvedev.info/tools/bspfix                                        | HL -> HL:BS                          |
 | JBNTools        | code.google.com/archive/p/jbn-bsp-lump-tools                      | JB:N (cannot compile maps)           |
 | D3DBspConverter | github.com/SE2Dev/D3DBSP_Converter                                | CoD:WaW <-> CoD:BO                   |
+| Q2Tools220      | github.com/qbism/q2tools-220                                      | Q2/HL                                |
+| 220Converter    | www.ogier-editor.com/mapconv                                      | Q2/Q3                                |
 
 
 
 ## Engine Branch Coverage
 
-| BspClass        | `branch_script`                   | Editors                  | Converter     | Other     |
-| :-------------- | :-------------------------------- | :----------------------- | :------------ | :-------- |
-| D3DBsp          | `infinity_ward.modern_warfare`    | CoD4Radiant              |               |           |
-| FusionBsp       | `id_software.qfusion`             | GtkRadiant               |               |           |
-| GoldSrcBsp      | `gearbox.blue_shift`              | GtkRadiant               | BSPFix        |           |
-|                 | `gearbox.nightfire`               | JBNTools                 |               | JBNTools  |
-|                 | `valve.goldsrc`                   | GtkRadiant               |               |           |
-| IdTechBsp       | `id_software.quake2`              | GtkRadiant \ TrenchBroom |               |           |
-|                 | `id_software.quake3`              | GtkRadiant               |               |           |
-|                 | `infinity_ward.call_of_duty1`     | CoDRadiant               |               |           |
-|                 | `ion_storm.daikatana`             | TrenchBroom              |               |           |
-|                 | `raven.soldier_of_fortune`        |                          |               |           |
-|                 | `ritual.sin`                      |                          |               |           |
-| InfinityWardBsp | `infinity_ward.call_of_duty2`     | CoD2Radiant              |               |           |
-| QuakeBsp        | `id_software.quake`               | TrenchBroom              |               |           |
-|                 | `raven.hexen2`                    | TrenchBroom              |               |           |
-| RavenBsp        | `raven.soldire_of_fortune2`       | GtkRadiant               |               |           |
-|                 | `ritual.sin`                      |                          |               |           |
-| ReMakeQuakeBsp  | `id_software.remake_quake`        | GtkRadiant               |               |           |
-| RespawnBsp      | `respawn.apex_legends`            |                          |               |           |
-|                 | `respawn.titanfall`               |                          |               |           |
-|                 | `respawn.titanfall2`              |                          |               |           |
-| RitualBsp       | `ritual.fakk2`                    | ÜbertoolsGDK             |               |           |
-|                 | `ritual.moh_allied_assault`       | ÜbertoolsGDK             |               |           |
-|                 | `ritual.star_trek_elite_force2`   | ÜbertoolsGDK             |               |           |
-| ValveBsp        | `arkane.dark_messiah`             | DarkMessiahSDK           |               |           |
-|                 | `arkane.dark_messiah_multiplayer` |                          |               |           |
-|                 | `loiste.infra`                    | hammer.exe               |               |           |
-|                 | `nexon.cso2`                      |                          | CSO2Converter |           |
-|                 | `nexon.cso2_2018`                 |                          | CSO2Converter |           |
-|                 | `nexon.vindictus`                 |                          |               |           |
-|                 | `troika.vampire`                  | VampireSDK               |               |           |
-|                 | `valve.alien_swarm`               | hammer.exe               |               |           |
-|                 | `valve.left4dead`                 | hammer.exe               |               |           |
-|                 | `valve.left4dead2`                | hammer.exe               |               |           |
-|                 | `valve.orange_box`                | hammer.exe               |               |           |
-|                 | `valve.sdk_2013`                  | hammer.exe / MapBase     |               |           |
-|                 | `valve.source`                    | hammer.exe               |               |           |
+| BspClass        | `branch_script`                   | Editors                  | Converter     | Other      |
+| :-------------- | :-------------------------------- | :----------------------- | :------------ | :--------- |
+| D3DBsp          | `infinity_ward.modern_warfare`    | CoD4Radiant              |               |            |
+| FusionBsp       | `id_software.qfusion`             | GtkRadiant               |               |            |
+| GoldSrcBsp      | `gearbox.blue_shift`              | GtkRadiant               | BSPFix        |            |
+|                 | `gearbox.nightfire`               | JBNTools                 |               | JBNTools   |
+|                 | `valve.goldsrc`                   | GtkRadiant               |               |            |
+| IdTechBsp       | `id_software.quake2`              | GtkRadiant \ TrenchBroom |               | Q2Tools220 |
+|                 | `id_software.quake3`              | GtkRadiant               |               |            |
+|                 | `infinity_ward.call_of_duty1`     | CoDRadiant               |               |            |
+|                 | `ion_storm.daikatana`             | TrenchBroom              |               |            |
+|                 | `raven.soldier_of_fortune`        |                          |               |            |
+|                 | `ritual.sin`                      |                          |               |            |
+| InfinityWardBsp | `infinity_ward.call_of_duty2`     | CoD2Radiant              |               |            |
+| QuakeBsp        | `id_software.quake`               | TrenchBroom              |               |            |
+|                 | `raven.hexen2`                    | TrenchBroom              |               |            |
+| RavenBsp        | `raven.soldire_of_fortune2`       | GtkRadiant               |               |            |
+|                 | `ritual.sin`                      |                          |               |            |
+| ReMakeQuakeBsp  | `id_software.remake_quake`        | GtkRadiant               |               |            |
+| RespawnBsp      | `respawn.apex_legends`            |                          |               |            |
+|                 | `respawn.titanfall`               |                          |               |            |
+|                 | `respawn.titanfall2`              |                          |               |            |
+| RitualBsp       | `ritual.fakk2`                    | ÜbertoolsGDK             |               |            |
+|                 | `ritual.moh_allied_assault`       | ÜbertoolsGDK             |               |            |
+|                 | `ritual.star_trek_elite_force2`   | ÜbertoolsGDK             |               |            |
+| ValveBsp        | `arkane.dark_messiah`             | DarkMessiahSDK           |               |            |
+|                 | `arkane.dark_messiah_multiplayer` |                          |               |            |
+|                 | `loiste.infra`                    | hammer.exe               |               |            |
+|                 | `nexon.cso2`                      |                          | CSO2Converter |            |
+|                 | `nexon.cso2_2018`                 |                          | CSO2Converter |            |
+|                 | `nexon.vindictus`                 |                          |               |            |
+|                 | `troika.vampire`                  | VampireSDK               |               |            |
+|                 | `valve.alien_swarm`               | hammer.exe               |               |            |
+|                 | `valve.left4dead`                 | hammer.exe               |               |            |
+|                 | `valve.left4dead2`                | hammer.exe               |               |            |
+|                 | `valve.orange_box`                | hammer.exe               |               |            |
+|                 | `valve.sdk_2013`                  | hammer.exe / MapBase     |               |            |
+|                 | `valve.source`                    | hammer.exe               |               |            |
