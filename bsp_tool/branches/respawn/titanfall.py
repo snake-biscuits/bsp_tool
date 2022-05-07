@@ -237,12 +237,58 @@ class Flags(enum.IntFlag):
     MASK_VERTEX = 0x600
 
 
+class TraceCollisionGroup(enum.Enum):
+    # taken from squirrel (vscript) by BobTheBob
+    NONE = 0
+    DEBRIS = 1
+    DEBRIS_TRIGGER = 2
+    PLAYER = 5
+    BREAKABLE_GLASS = 6
+    NPC = 8
+    WEAPON = 12
+    PROJECTILE = 14
+    BLOCK_WEAPONS = 18
+    BLOCK_WEAPONS_AND_PHYSICS = 19
+
+
+class Contents(enum.IntEnum):  # derived from source.Contents & Tracemask
+    UNKNOWN = 0x200
+    TITAN_CLIP = 0x200000  # replaces Contents.CURRENT_270
+
+
+class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
+    # NOTE: uncommented entries match source.ContentsMask
+    # PHYSICS
+    PLAYER_SOLID = 33636363
+    TITAN_SOLID = 35667979  # source.ContentsMask.SOLID | Contents.TITAN_CLIP
+    NPC_SOLID = 33701899
+    WATER = 48  # 0x4030 -> 0x30  (removed MOVEABLE)
+    # VIS
+    OPAQUE = 16513
+    OPAQUE_AND_NPCS = 33570945
+    BLOCK_LOS = 540801  # TODO: identify Contents
+    BLOCK_LOS_AND_NPCS = 34095233  # TODO: identify Contents
+    VISIBLE = 24705
+    VISIBLE_AND_NPCS = 33579137
+    # WEAPONS
+    SHOT = 1178615859  # source.ContentsMask.SHOT | WATER | 0x400000
+    SHOT_BRUSH_ONLY = 71319603  # ! NEW !  SHOT ~ (Contents.HITBOX | Contents.MONSTER)
+    SHOT_HULL = 104873995  # source.ContentsMask.SHOT_HULL | 0x40000
+    GRENADE = 1178615819  # ! NEW !  TODO: identify Contents
+    # ALTERNATES
+    SOLID_BRUSH_ONLY = 16907  # source.ContentsMask.SOLID_BRUSH_ONLY | Contents.UNKNOWN
+    PLAYER_SOLID_BRUSH_ONLY = 81931
+    NPC_SOLID_BRUSH_ONLY = 147467
+    NPC_WORLD_STATIC = 131083
+    NPC_FLUID = 33701891  # ! NEW !  NPC_SOLID ~ Contents.GRATE
+
+
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     """Identified by warmist"""
     origin: List[int]
     unknown_1: int
-    extends: List[int]
+    extents: List[int]
     unknown_2: int
     __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
     _format = "8h"

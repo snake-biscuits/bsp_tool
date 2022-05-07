@@ -193,14 +193,14 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     GRATE = 0x08  # allows bullets & vis
     SLIME = 0x10
     WATER = 0x20
-    MIST = 0x40  # BLOCK_LOS, blocks AI line of sight
-    OPAQUE = 0x80  # blocks NPC line of sight, may be non-solid
+    BLOCK_LOS = 0x40  # blocks AI Line Of Sight
+    OPAQUE = 0x80  # blocks AI Line Of Sight, may be non-solid
     TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
     UNUSED_1 = 0x200
-    UNUSED_2 = 0x400  # titanfall vertex lump flags?
+    UNUSED_2 = 0x400
     TEAM1 = 0x0800
     TEAM2 = 0x1000
-    IGNORE_NO_DRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
+    IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
     MOVEABLE = 0x4000  # pushables
     # not visible
     AREAPORTAL = 0x8000
@@ -220,6 +220,38 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
     TRANSLUCENT = 0x10000000
     LADDER = 0x20000000
     HITBOX = 0x40000000  # requests hit tracing use hitboxes
+
+
+class ContentsMask(enum.IntEnum):
+    ALL = 0xFFFFFFFF
+    # PHYSICS
+    SOLID = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER | Contents.GRATE
+    PLAYER_SOLID = SOLID | Contents.PLAYER_CLIP
+    NPC_SOLID = SOLID | Contents.MONSTER_CLIP
+    WATER = Contents.WATER | Contents.MOVEABLE | Contents.SLIME  # water physics apply inside this volume
+    # VIS
+    OPAQUE = Contents.SOLID | Contents.MOVEABLE | Contents.OPAQUE  # blocks light
+    OPAQUE_AND_NPCS = OPAQUE | Contents.MONSTER
+    BLOCK_LOS = Contents.SOLID | Contents.MOVEABLE | Contents.BLOCK_LOS  # blocks AI Line Of Sight
+    BLOCK_LOS_AND_NPCS = BLOCK_LOS | Contents.MONSTER
+    VISIBLE = OPAQUE | Contents.IGNORE_NODRAW_OPAQUE  # blocks Player Line Of Sight
+    VISIBLE_AND_NPCS = OPAQUE_AND_NPCS | Contents.IGNORE_NODRAW_OPAQUE
+    # WEAPONS
+    SHOT = Contents.SOLID | Contents.MOVEABLE | Contents.MONSTER | Contents.WINDOW | Contents.DEBRIS | Contents.HITBOX
+    # ^ blocks raycast bullets
+    SHOT_HULL = Contents.SOLID | Contents.MOVEABLE | Contents.MONSTER | Contents.WINDOW | Contents.DEBRIS | Contents.GRATE
+    # ^ blocks other weapon projectiles
+    SHOT_PORTAL = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER
+    # ^ other weapon projectiles that can pass through grates
+    # ALTERNATES
+    SOLID_BRUSH_ONLY = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.GRATE
+    PLAYER_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.PLAYER_CLIP
+    NPC_SOLID_BRUSH_ONLY = SOLID_BRUSH_ONLY | Contents.MONSTER_CLIP
+    NPC_WORLD_STATIC = Contents.SOLID | Contents.WINDOW | Contents.MONSTER_CLIP | Contents.GRATE  # for route rebuilding
+    # OTHER
+    SPLIT_AREAPORTAL = Contents.WATER | Contents.SLIME  # can split areaportals
+    CURRENT = sum([c for c in Contents if c.name.startswith("CURRENT")])
+    DEAD_SOLID = Contents.SOLID | Contents.PLAYER_CLIP | Contents.WINDOW | Contents.GRATE  # unused?
 
 
 class DisplacementFlags(enum.IntFlag):
