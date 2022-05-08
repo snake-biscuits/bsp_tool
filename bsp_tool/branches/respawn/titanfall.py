@@ -332,7 +332,7 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags?
+    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags? seems to default 1024 most of the time
     # ^ zip([*range(6)], [0] * 6) for mp_lobby
     # mp_box unknown_1[1] = brush_index?
     plane: int
