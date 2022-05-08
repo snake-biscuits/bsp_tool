@@ -332,9 +332,10 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    unknown_1: List[int]  # could be indices to other CM_* lumps?
+    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags?
     # ^ zip([*range(6)], [0] * 6) for mp_lobby
     # mp_box unknown_1[1] = brush_index?
+    plane: int
     extents: List[float]  # bounds expands symmetrically by this much along each axis
     # mins = origin - extents
     # maxs = origin + extents
@@ -347,7 +348,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # -- this approach is kinda insane, paralell indexing makes sense for perf, but not data redundancy
     # -- CoD:MW did lots of stuff with indexing via accumulation, & most SpecialLumpClasses are no stranger to it either
     # -- still, if this creates accurate brush geo I'll be impressed
-    __slots__ = ["origin", "unknown_1", "extents", "first_brush_side_plane"]
+    __slots__ = ["origin", "unknown_1", "plane", "extents", "first_brush_side_plane"]
     _format = "3f2h3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"], "unknown_1": 2}
 
