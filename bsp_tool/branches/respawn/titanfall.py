@@ -269,7 +269,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     TEAM1 = 0x0800
     TEAM2 = 0x1000
     IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
-    UNKNOWN_3 = 0x4000  # ! NEW ! was MOVEABLE
+    MOVEABLE = 0x4000
     # not visible
     AREAPORTAL = 0x8000
     PLAYER_CLIP = 0x10000
@@ -278,7 +278,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     BLOCK_LOS = 0x100000  # ! MOVED ! was CURRENT_90
     # CURRENT_180
     TITAN_CLIP = 0x200000  # ! NEW !  was CURRENT_270
-    UNKNOWN_4 = 0x400000  # ! NEW !  was CURRENT_UP
+    UNKNOWN_3 = 0x400000  # ! NEW !  was CURRENT_UP
     # CURRENT DOWN
     ORIGIN = 0x1000000  # "removed before bsping an entity"
     MONSTER = 0x2000000  # in-game only, shouldn't be in a .bsp
@@ -306,9 +306,9 @@ class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
     VISIBLE = OPAQUE | Contents.IGNORE_NODRAW_OPAQUE  # blocks Player Line Of Sight
     VISIBLE_AND_NPCS = OPAQUE_AND_NPCS | Contents.IGNORE_NODRAW_OPAQUE
     # WEAPONS
-    SHOT = 1178615859  # source.ContentsMask.SHOT | WATER | Contents.UNKNOWN_3
+    SHOT = 1178615859  # source.ContentsMask.SHOT | WATER | Contents.MOVEABLE
     SHOT_BRUSH_ONLY = 71319603  # ! NEW !  SHOT & ~(Contents.HITBOX | Contents.MONSTER)
-    SHOT_HULL = 104873995  # source.ContentsMask.SHOT_HULL | Contents.UNKNOWN_3
+    SHOT_HULL = 104873995  # source.ContentsMask.SHOT_HULL | Contents.MOVEABLE
     GRENADE = SOLID | Contents.HITBOX | Contents.DEBRIS  # ! NEW !
     # ALTERNATES
     SOLID_BRUSH_ONLY = 16907  # source.ContentsMask.SOLID_BRUSH_ONLY | Contents.UNKNOWN_2
