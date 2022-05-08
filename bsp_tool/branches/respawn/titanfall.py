@@ -334,6 +334,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
     unknown_1: List[int]  # could be indices to other CM_* lumps?
     # ^ zip([*range(6)], [0] * 6) for mp_lobby
+    # mp_box unknown_1[1] = brush_index?
     extents: List[float]  # bounds expands symmetrically by this much along each axis
     # mins = origin - extents
     # maxs = origin + extents
