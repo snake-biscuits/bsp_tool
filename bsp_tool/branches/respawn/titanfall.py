@@ -116,7 +116,7 @@ class LUMP(enum.Enum):
     CM_PRIMITIVE_BOUNDS = 0x005A
     CM_UNIQUE_CONTENTS = 0x005B
     CM_BRUSHES = 0x005C
-    CM_BRUSH_SIDE_PLANES = 0x005D
+    CM_BRUSH_SIDE_PLANE_OFFSETS = 0x005D
     CM_BRUSH_SIDE_PROPERTIES = 0x005E
     CM_BRUSH_SIDE_TEXTURE_VECTORS = 0x005F
     TRICOLL_BEVEL_STARTS = 0x0060
@@ -332,23 +332,24 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags? seems to default 1024 most of the time
+    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags?
     # ^ zip([*range(6)], [0] * 6) for mp_lobby
     # mp_box unknown_1[1] = brush_index?
-    plane: int
+    plane: int  # matches index of brush, exceeding len(PLANES)
+    # why would you contain your own index?
     extents: List[float]  # bounds expands symmetrically by this much along each axis
-    # mins = origin - extents
-    # maxs = origin + extents
-    # extents.magnitude = radius (for fast sphere collision test)
-    first_brush_side_plane: int  # num_brush_side_planes = first_*:next (either the next indexed, or the very last)
+    unknown_2: int  # always from 0 to len(BRUSH_SIDE_PLANE_OFFSETS) inclusive
     # brushes are likely bounding boxes sliced by indexed planes
-    # num_brush_sides is probably 6 + num_brush_side_planes
-    # ^ if this is the case, the order of faces is unknown at present
-    # first_brush_side would be accumulated as the lump is loaded
-    # -- this approach is kinda insane, paralell indexing makes sense for perf, but not data redundancy
-    # -- CoD:MW did lots of stuff with indexing via accumulation, & most SpecialLumpClasses are no stranger to it either
-    # -- still, if this creates accurate brush geo I'll be impressed
-    __slots__ = ["origin", "unknown_1", "plane", "extents", "first_brush_side_plane"]
+    # how brushsides are indexed idk (3 lumps, PLANE_OFFSETS, PROPERTIES, & TEXTURE_VECTORS
+    # expecting something like:
+    #                   /-> TextureVector
+    # Brush -> BrushSide -> Plane
+    #      \-> Contents (CM_UNIQUE_CONTENTS?)
+
+    # BrushSide -> TextureData -> .vmt (surfaceprop)
+    #                         \-> Surface flags
+
+    __slots__ = ["origin", "unknown_1", "plane", "extents", "unknown_2"]
     _format = "3f2h3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
@@ -734,68 +735,68 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANES":       {0: shared.UnsignedShorts},
-                      "CM_BRUSH_SIDE_PROPERTIES":   {0: shared.UnsignedShorts},  # surface / contents flags?
-                      "CM_GRID_CELLS":              {0: shared.UnsignedInts},
-                      "CM_UNIQUE_CONTENTS":         {0: shared.UnsignedInts},  # source.Contents? test against vmts?
-                      "CSM_OBJ_REFERENCES":         {0: shared.UnsignedShorts},
-                      "MESH_INDICES":               {0: shared.UnsignedShorts},
-                      "OBJ_REFERENCES":             {0: shared.UnsignedShorts},
-                      "OCCLUSION_MESH_INDICES":     {0: shared.Shorts},
-                      "PORTAL_EDGE_REFERENCES":     {0: shared.UnsignedShorts},
-                      "PORTAL_VERTEX_REFERENCES":   {0: shared.UnsignedShorts},
-                      "SHADOW_MESH_INDICES":        {0: shared.UnsignedShorts},
-                      "TEXTURE_DATA_STRING_TABLE":  {0: shared.UnsignedInts},
-                      "TRICOLL_BEVEL_STARTS":       {0: shared.UnsignedShorts},
-                      "TRICOLL_BEVEL_INDICES":      {0: shared.UnsignedInts},
-                      "TRICOLL_TRIANGLES":          {2: shared.UnsignedInts}}  # could be a pair of shorts?
+BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
+                      "CM_BRUSH_SIDE_PROPERTIES":    {0: shared.UnsignedShorts},  # surface / contents flags?
+                      "CM_GRID_CELLS":               {0: shared.UnsignedInts},
+                      "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # source.Contents? test against vmts?
+                      "CSM_OBJ_REFERENCES":          {0: shared.UnsignedShorts},
+                      "MESH_INDICES":                {0: shared.UnsignedShorts},
+                      "OBJ_REFERENCES":              {0: shared.UnsignedShorts},
+                      "OCCLUSION_MESH_INDICES":      {0: shared.Shorts},
+                      "PORTAL_EDGE_REFERENCES":      {0: shared.UnsignedShorts},
+                      "PORTAL_VERTEX_REFERENCES":    {0: shared.UnsignedShorts},
+                      "SHADOW_MESH_INDICES":         {0: shared.UnsignedShorts},
+                      "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedInts},
+                      "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
+                      "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts},
+                      "TRICOLL_TRIANGLES":           {2: shared.UnsignedInts}}  # could be a pair of shorts?
 
-LUMP_CLASSES = {"CELLS":                            {0: Cell},
-                "CELL_AABB_NODES":                  {0: Node},
-                # "CELL_BSP_NODES":                  {0: Node},
-                "CM_BRUSHES":                       {0: Brush},
-                "CM_BRUSH_SIDE_TEXTURE_VECTORS":    {0: TextureVector},
-                "CM_GEO_SETS":                      {0: GeoSet},
-                "CM_GEO_SET_BOUNDS":                {0: Bounds},
-                "CM_PRIMITIVES":                    {0: Primitive},
-                "CM_PRIMITIVE_BOUNDS":              {0: Bounds},
-                "CSM_AABB_NODES":                   {0: Node},
-                "CUBEMAPS":                         {0: Cubemap},
-                "LEAF_WATER_DATA":                  {1: source.LeafWaterData},
-                "LIGHTMAP_HEADERS":                 {1: LightmapHeader},
-                "LIGHTPROBE_REFERENCES":            {0: LightProbeRef},
-                "MATERIAL_SORT":                    {0: MaterialSort},
-                "MESHES":                           {0: Mesh},
-                "MESH_BOUNDS":                      {0: MeshBounds},
-                "MODELS":                           {0: Model},
-                "OBJ_REFERENCE_BOUNDS":             {0: ObjRefBounds},
-                "OCCLUSION_MESH_VERTICES":          {0: quake.Vertex},
-                "PLANES":                           {1: Plane},
-                "PORTALS":                          {0: Portal},
-                "PORTAL_EDGES":                     {0: quake.Edge},
-                "PORTAL_EDGE_INTERSECT_AT_VERTEX":  {0: PortalEdgeIntersect},
-                "PORTAL_EDGE_INTERSECT_AT_EDGE":    {0: PortalEdgeIntersect},
-                "PORTAL_EDGE_INTERSECT_HEADER":     {0: PortalEdgeIntersectHeader},
-                "PORTAL_VERTICES":                  {0: quake.Vertex},
-                "PORTAL_VERTEX_EDGES":              {0: PortalEdgeIntersect},
-                "SHADOW_MESHES":                    {0: ShadowMesh},
-                "SHADOW_MESH_ALPHA_VERTICES":       {0: ShadowMeshAlphaVertex},
-                "SHADOW_MESH_OPAQUE_VERTICES":      {0: quake.Vertex},
-                "TEXTURE_DATA":                     {1: TextureData},
-                "TRICOLL_HEADERS":                  {1: TricollHeader},
-                "TRICOLL_NODES":                    {1: TricollNode},
-                "VERTEX_NORMALS":                   {0: quake.Vertex},
-                "VERTICES":                         {0: quake.Vertex},
-                "VERTEX_BLINN_PHONG":               {0: VertexBlinnPhong},
-                "VERTEX_LIT_BUMP":                  {1: VertexLitBump},
-                "VERTEX_LIT_FLAT":                  {1: VertexLitFlat},
-                "VERTEX_UNLIT":                     {0: VertexUnlit},
-                "VERTEX_UNLIT_TS":                  {0: VertexUnlitTS},
-                "WORLD_LIGHTS":                     {1: WorldLight}}
+LUMP_CLASSES = {"CELLS":                             {0: Cell},
+                "CELL_AABB_NODES":                   {0: Node},
+                # "CELL_BSP_NODES":                   {0: Node},
+                "CM_BRUSHES":                        {0: Brush},
+                "CM_BRUSH_SIDE_TEXTURE_VECTORS":     {0: TextureVector},
+                "CM_GEO_SETS":                       {0: GeoSet},
+                "CM_GEO_SET_BOUNDS":                 {0: Bounds},
+                "CM_PRIMITIVES":                     {0: Primitive},
+                "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
+                "CSM_AABB_NODES":                    {0: Node},
+                "CUBEMAPS":                          {0: Cubemap},
+                "LEAF_WATER_DATA":                   {1: source.LeafWaterData},
+                "LIGHTMAP_HEADERS":                  {1: LightmapHeader},
+                "LIGHTPROBE_REFERENCES":             {0: LightProbeRef},
+                "MATERIAL_SORT":                     {0: MaterialSort},
+                "MESHES":                            {0: Mesh},
+                "MESH_BOUNDS":                       {0: MeshBounds},
+                "MODELS":                            {0: Model},
+                "OBJ_REFERENCE_BOUNDS":              {0: ObjRefBounds},
+                "OCCLUSION_MESH_VERTICES":           {0: quake.Vertex},
+                "PLANES":                            {1: Plane},
+                "PORTALS":                           {0: Portal},
+                "PORTAL_EDGES":                      {0: quake.Edge},
+                "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
+                "PORTAL_VERTICES":                   {0: quake.Vertex},
+                "PORTAL_VERTEX_EDGES":               {0: PortalEdgeIntersect},
+                "SHADOW_MESHES":                     {0: ShadowMesh},
+                "SHADOW_MESH_ALPHA_VERTICES":        {0: ShadowMeshAlphaVertex},
+                "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
+                "TEXTURE_DATA":                      {1: TextureData},
+                "TRICOLL_HEADERS":                   {1: TricollHeader},
+                "TRICOLL_NODES":                     {1: TricollNode},
+                "VERTEX_NORMALS":                    {0: quake.Vertex},
+                "VERTICES":                          {0: quake.Vertex},
+                "VERTEX_BLINN_PHONG":                {0: VertexBlinnPhong},
+                "VERTEX_LIT_BUMP":                   {1: VertexLitBump},
+                "VERTEX_LIT_FLAT":                   {1: VertexLitFlat},
+                "VERTEX_UNLIT":                      {0: VertexUnlit},
+                "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS},
+                "WORLD_LIGHTS":                      {1: WorldLight}}
 
-SPECIAL_LUMP_CLASSES = {"CM_GRID":                  {0: Grid.from_bytes},
-                        "ENTITY_PARTITIONS":        {0: EntityPartitions},
-                        "ENTITIES":                 {0: shared.Entities},
+SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
+                        "ENTITY_PARTITIONS":         {0: EntityPartitions},
+                        "ENTITIES":                  {0: shared.Entities},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},

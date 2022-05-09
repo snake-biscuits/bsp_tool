@@ -104,9 +104,14 @@ class LumpHeader(base.MappedArray):
 
 
 # a rough map of the relationships between lumps:
-#                     /-> SurfEdge -> Edge -> Vertex
-# Leaf -> Node -> Face -> Plane
-#                     \-> DisplacementInfo -> DisplacementVertex
+
+#                                 /-> SurfEdge -> Edge -> Vertex
+# Node -> Leaf -> LeafFace -> Face -> Plane
+#                                \--> TextureInfo -> TextureData -> TextureDataStringTable
+#                                 \-> DisplacementInfo -> DisplacementVertex
+
+# Leaf -> LeafBrush -> Brush -> BrushSide -> TextureInfo
+#                                        \-> Plane
 
 # FaceID is paralell with Faces & lists Hammer ids per face
 
