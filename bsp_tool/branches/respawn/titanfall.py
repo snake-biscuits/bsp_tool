@@ -900,6 +900,17 @@ def shadow_meshes_as_obj(bsp) -> str:
     return "\n".join(out)
 
 
+def occlusion_mesh_as_obj(bsp) -> str:
+    out = [f"# generated with bsp_tool from {bsp.filename}",
+           "# OCCLUSION MESH"]
+    for v in bsp.OCCLUSION_MESH_VERTICES:
+        out.append(f"v {v.x} {v.y} {v.z}")
+    for i in range(0, len(bsp.OCCLUSION_MESH_INDICES), 3):
+        tri = [str(x + 1) for x in bsp.OCCLUSION_MESH_INDICES[i:i + 3]]
+        out.append(f"f {' '.join(tri)}")
+    return "\n".join(out)
+
+
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
     print("# TD_index  TD.name  TextureData.flags")
@@ -931,4 +942,5 @@ def debug_Mesh_stats(bsp):
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
            search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj,
+           occlusion_mesh_as_obj,
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
