@@ -350,7 +350,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # -- still, if this creates accurate brush geo I'll be impressed
     __slots__ = ["origin", "unknown_1", "plane", "extents", "first_brush_side_plane"]
     _format = "3f2h3fi"
-    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"], "unknown_1": 2}
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
