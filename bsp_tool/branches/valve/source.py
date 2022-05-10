@@ -283,6 +283,7 @@ class EmitType(enum.Enum):
 
 
 class SPRP_flags(enum.IntFlag):
+    # derived at compile or run time
     FADES = 0x1  # use fade distances
     USE_LIGHTING_ORIGIN = 0x2
     NO_DRAW = 0x4    # computed at run time based on dx level
@@ -293,7 +294,8 @@ class SPRP_flags(enum.IntFlag):
     # next 3 are for lighting compiler
     NO_PER_VERTEX_LIGHTING = 0x40
     NO_SELF_SHADOWING = 0x80
-    NO_PER_TEXEL_LIGHTING = 0x100
+    NO_PER_TEXEL_LIGHTING = 0x100  # when was this added
+    # mask
     EDITOR_MASK = 0x1D8
 
 

@@ -335,19 +335,31 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags?
     # ^ zip([*range(6)], [0] * 6) for mp_lobby
     # mp_box unknown_1[1] = brush_index?
-    plane: int  # matches index of brush, exceeding len(PLANES)
-    # why would you contain your own index?
+    plane: int  # forcing to 0 seems to leave brushes in their default cube state?
+    # matches index of brush, exceeding len(PLANES)
+    # why would you contain your own index? no lump is parallel w/ CM_BRUSHES
     extents: List[float]  # bounds expands symmetrically by this much along each axis
     unknown_2: int  # always from 0 to len(BRUSH_SIDE_PLANE_OFFSETS) inclusive
-    # brushes are likely bounding boxes sliced by indexed planes
-    # how brushsides are indexed idk (3 lumps, PLANE_OFFSETS, PROPERTIES, & TEXTURE_VECTORS
-    # expecting something like:
-    #                   /-> TextureVector
-    # Brush -> BrushSide -> Plane
-    #      \-> Contents (CM_UNIQUE_CONTENTS?)
 
-    # BrushSide -> TextureData -> .vmt (surfaceprop)
+    # brushes are likely bounding boxes sliced by indexed planes
+    # how brushsides are indexed idk (3 lumps, PLANE_OFFSETS, PROPERTIES, & TEXTURE_VECTORS)
+    # expecting something like:
+    #                   /-> BrushSideTextureVector
+    # Brush -> BrushSide -> BrushSidePlaneOffset -> Plane
+    #      \-> Contents (BrushSideProps -> UniqueContents)
+
+    # BrushSide -> TextureData -> .vmt (surfaceprop)  # unsure, but would make sense for some systems
     #                         \-> Surface flags
+
+    # Parallel BrushSideTextureVector & BrushSideProps is somewhat wasteful (many duplicates)
+    # BrushSides could be indexed via an index derived from brush index
+    # However total BrushSides is len(Brushes) * 6 + len(BrushSidePlaneOffsets)
+    # this implies the base 6 sides of each brush are generated from the bounds
+    # however, we need at least the number of planes per brush
+    # unknown_2 might index BrushSidePlaneOffsets, but indices can be too long
+    # the contents of BrushSidePlaneOffsets also make little sense, much repetition occurs
+    # and Plane also contain many axis-aligned planes, which brushes wouldn't need
+    # presumably some other systems / lumps utilise planes, because the lump lengths do not seem to make sense otherwise
 
     __slots__ = ["origin", "unknown_1", "plane", "extents", "unknown_2"]
     _format = "3f2h3fi"
