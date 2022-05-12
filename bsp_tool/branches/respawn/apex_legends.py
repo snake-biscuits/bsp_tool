@@ -48,7 +48,8 @@ GAME_PATHS = {"Apex Legends": "ApexLegends/maps",
               "Apex Legends: Season 11 - Escape [6 Nov Patch] (110)": f"ApexLegends/season11_6nov21/{r5110}",
               "Apex Legends: Season 11 - Escape [19 Nov Patch]": "ApexLegends/season11_19nov21/maps",
               "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": f"ApexLegends/season11_19nov21/{r5110}",
-              "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": f"ApexLegends/season11_19nov21/{r5111}"}
+              "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": f"ApexLegends/season11_19nov21/{r5111}",
+              "Apex Legends: Season 13 - Saviors": "ApexLegends/season13/10mar22/maps"}
 
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
@@ -56,7 +57,8 @@ GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
                  "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,
                  "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1),
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1)}
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1),
+                 "Apex Legends: Season 13 - Saviors": (51, 1)}
 
 
 class LUMP(enum.Enum):
