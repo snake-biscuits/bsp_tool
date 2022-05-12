@@ -223,13 +223,14 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 # NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
-# NOTE: `None` mappings are used by the branch, but not yet mapped
+# NOTE: `None` mappings are used for structs that exist, but are not yet mapped
 gamelump_mappings[branches.valve.source] = {"sprp": branches.valve.source.GameLump_SPRP,
                                             "sprp.props": {4: branches.valve.source.StaticPropv4,
                                                            5: branches.valve.source.StaticPropv5,
                                                            6: branches.valve.source.StaticPropv6}}
 gamelump_mappings[branches.troika.vampire] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.source].copy()
+gamelump_mappings[branches.valve.orange_box]["sprp.props"] = gamelump_mappings[branches.valve.source]["sprp.props"].copy()
 gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
                                                                    10: branches.valve.orange_box.StaticPropv10})
 gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {"sprp": branches.valve.source.GameLump_SPRP,
@@ -241,11 +242,13 @@ gamelump_mappings[branches.nexon.vindictus] = {"sprp": branches.nexon.vindictus.
 gamelump_mappings[branches.nexon.cso2] = gamelump_mappings[branches.nexon.vindictus].copy()
 gamelump_mappings[branches.nexon.cso2_2018] = gamelump_mappings[branches.nexon.cso2].copy()
 gamelump_mappings[branches.valve.left4dead] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.left4dead]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
 gamelump_mappings[branches.valve.left4dead]["sprp.props"].pop(7)
 gamelump_mappings[branches.valve.left4dead]["sprp.props"][8] = None
 gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
 gamelump_mappings[branches.valve.alien_swarm] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.sdk_2013] = gamelump_mappings[branches.valve.orange_box].copy()
+gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"][10] = None
 gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
@@ -363,15 +366,9 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                     lump_class_module = LumpClass.__module__[len("bsp_tool.branches."):]
                     lump_class = f"[`{lump_class_module}.{LumpClass.__name__}`]({url_of_LumpClass(LumpClass)})"
                     table_block.add(TableRow(i, bsp_version, lump_name, lump_version, lump_class, percent))
-        # TODO: sort differently if GAME_LUMP (alphabetically by LUMP_NAME)
-        # -- GAME_LUMP also features "-" as a lump version for GameLump_SPRP SpecialLumpClasses
-        sorted_block = list(sorted(table_block,
-                                   key=lambda r: float(r.bsp_version) * 2 +
-                                   (r.lump_version if isinstance(r.lump_version, (int, float)) else 0)))
-        # TODO: secondary alphabetical sort
-        # -- {(bsp_ver, lump_ver): [("LUMP_NAME", "branch_script.LumpClass")]}
-        # TODO: source.md has the densest GAME_LUMP definitions & they are messy
-        if len(sorted_block) == 0:  # TODO: check if this works as intended
+        fix = lambda x: x if isinstance(x, (int, float)) else -1  # noqa E731
+        sorted_block = list(sorted(table_block, key=lambda row: (float(row.bsp_version), fix(row.lump_version))))
+        if len(sorted_block) == 0:
             continue
         # start removing doubles
         # -- same LUMP_NAME & LumpClass is an implied ditto
@@ -393,9 +390,17 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
             elif row.LumpClass == final_block[-1].LumpClass:
                 continue  # remove repeats
             final_block.append(row)
-        if "GAME_LUMP" in lump_names:  # don't sort
-            final_block = table_block
-            # TODO: merge GAME_LUMP blocks here
+        if "GAME_LUMP" in lump_names:  # alternate sorting & reduction
+            # sort by (bsp_version, lump_name, lump_version)
+            sorted_block = sorted(table_block, key=lambda row: (float(row.bsp_version), row.lump_name, fix(row.lump_version)))
+            # remove duplicate (lump_name, lump_version, LumpClass)
+            defined = list()
+            final_block = list()
+            for row in sorted_block:
+                key = (row.lump_name, row.lump_version, row.LumpClass)
+                if key not in defined:
+                    final_block.append(row)
+                    defined.append(key)
         lines.extend(map(row_as_string, final_block))
     return lines
 
