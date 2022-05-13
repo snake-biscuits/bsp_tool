@@ -117,7 +117,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs108] [32mPA
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs109] [32mPASSED[0m[31m [ 57%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs110] [32mPASSED[0m[31m [ 58%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs111] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs112] [31mFAILED[0m[31m [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs112] [32mPASSED[0m[31m [ 59%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs113] [32mPASSED[0m[31m [ 59%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs114] [32mPASSED[0m[31m        [ 60%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs115] [32mPASSED[0m[31m        [ 60%][0m
@@ -1169,102 +1169,6 @@ raw_entities = b'{\n"editorclass" "info_particle_system_clientside"\n"Visibility
 [1m[31mE                       StopIteration[0m
 
 [1m[31mbsp_tool\branches\shared.py[0m:69: StopIteration
-[31m[1m___________ test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs112] ____________[0m
-
-group_path = 'E:/Mod', game_name = 'ApexLegends/season13'
-map_dirs = ['10may22/maps', '10may22/depot/r5-130/game/r2/maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
-        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
-        errors = [96mdict[39;49;00m()
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m
-        total = [94m0[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            [94mif[39;49;00m os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
-                total += [96mlen[39;49;00m(maps)
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
-                    [94mtry[39;49;00m:
-                        bsp_filename = os.path.join(full_path, m)
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
->                       bsp = load_bsp(bsp_filename, branch_script)
-
-[1m[31mtests\test_bsp.py[0m:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-filename = 'E:/Mod\\ApexLegends/season13\\10may22/maps\\mp_lobby.bsp'
-branch_script = None
-
-    [94mdef[39;49;00m [92mload_bsp[39;49;00m(filename: [96mstr[39;49;00m, branch_script: ModuleType = [94mNone[39;49;00m) -> base.Bsp:
-        [33m"""Calculate and return the correct base.Bsp sub-class for the given .bsp"""[39;49;00m
-        [90m# TODO: OPTION: use filepath to guess game / branch[39;49;00m
-        [90m# verify path[39;49;00m
-        [94mif[39;49;00m [95mnot[39;49;00m os.path.exists(filename):
-            [94mraise[39;49;00m [96mFileNotFoundError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m.bsp file [39;49;00m[33m'[39;49;00m[33m{[39;49;00mfilename[33m}[39;49;00m[33m'[39;49;00m[33m does not exist.[39;49;00m[33m"[39;49;00m)
-        [94melif[39;49;00m os.path.getsize(filename) == [94m0[39;49;00m:  [90m# HL2/ d2_coast_02.bsp[39;49;00m
-            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfilename[33m}[39;49;00m[33m is an empty file[39;49;00m[33m"[39;49;00m)
-        [90m# parse header[39;49;00m
-        [94mwith[39;49;00m [96mopen[39;49;00m(filename, [33m"[39;49;00m[33mrb[39;49;00m[33m"[39;49;00m) [94mas[39;49;00m bsp_file:
-            file_magic = bsp_file.read([94m4[39;49;00m)
-            [94mif[39;49;00m file_magic == [33mb[39;49;00m[33m"[39;49;00m[33mBSP2[39;49;00m[33m"[39;49;00m:
-                [94mreturn[39;49;00m ReMakeQuakeBsp(branches.id_software.remake_quake, filename)
-            [90m# endianness[39;49;00m
-            [94mif[39;49;00m file_magic [95min[39;49;00m ([33mb[39;49;00m[33m"[39;49;00m[33mPSBr[39;49;00m[33m"[39;49;00m, [33mb[39;49;00m[33m"[39;49;00m[33mPSBV[39;49;00m[33m"[39;49;00m):  [90m# big endian[39;49;00m
-                version = [96mint[39;49;00m.from_bytes(bsp_file.read([94m4[39;49;00m), [33m"[39;49;00m[33mbig[39;49;00m[33m"[39;49;00m)
-            [94melse[39;49;00m:
-                version = [96mint[39;49;00m.from_bytes(bsp_file.read([94m4[39;49;00m), [33m"[39;49;00m[33mlittle[39;49;00m[33m"[39;49;00m)
-            [94mif[39;49;00m version > [94m0xFFFF[39;49;00m:  [90m# 2 part version[39;49;00m
-                version = (version & [94m0xFFFF[39;49;00m, version >> [94m16[39;49;00m)  [90m# major, minor[39;49;00m
-        [90m# identify BspVariant[39;49;00m
-        [94mif[39;49;00m filename.lower().endswith([33m"[39;49;00m[33m.d3dbsp[39;49;00m[33m"[39;49;00m):  [90m# CoD2 & CoD4[39;49;00m
-            [94massert[39;49;00m file_magic == [33mb[39;49;00m[33m"[39;49;00m[33mIBSP[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mMystery .d3dbsp![39;49;00m[33m"[39;49;00m
-            [94massert[39;49;00m version [95min[39;49;00m InfinityWard_versions, [33m"[39;49;00m[33mUnexpected .d3dbsp format version![39;49;00m[33m"[39;49;00m
-            [94mif[39;49;00m version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
-                BspVariant = D3DBsp
-            [94melse[39;49;00m:
-                BspVariant = InfinityWardBsp
-        [94melif[39;49;00m filename.lower().endswith([33m"[39;49;00m[33m.bsp[39;49;00m[33m"[39;49;00m):
-            [94mif[39;49;00m file_magic [95mnot[39;49;00m [95min[39;49;00m BspVariant_from_file_magic:  [90m# Quake / GoldSrc[39;49;00m
-                version = [96mint[39;49;00m.from_bytes(file_magic, [33m"[39;49;00m[33mlittle[39;49;00m[33m"[39;49;00m)
-                [94mif[39;49;00m version [95min[39;49;00m Quake_versions:
-                    BspVariant = QuakeBsp
-                    file_magic = [94mNone[39;49;00m
-                [94melif[39;49;00m version [95min[39;49;00m GoldSrc_versions:
-                    BspVariant = GoldSrcBsp
-                    file_magic = [94mNone[39;49;00m
-                [94melse[39;49;00m:
-                    [90m# TODO: check for encrypted Tactical Intervention .bsp[39;49;00m
-                    [94mraise[39;49;00m [96mNotImplementedError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mUnknown file_magic: [39;49;00m[33m{[39;49;00mfile_magic[33m}[39;49;00m[33m"[39;49;00m)
-            [94melse[39;49;00m:  [90m# Call of Duty[39;49;00m
-                [94mif[39;49;00m file_magic == [33mb[39;49;00m[33m"[39;49;00m[33mIBSP[39;49;00m[33m"[39;49;00m [95mand[39;49;00m version [95min[39;49;00m InfinityWard_versions:
-                    BspVariant = InfinityWardBsp
-                [94melse[39;49;00m:
-                    BspVariant = BspVariant_from_file_magic[file_magic]
-        [94melse[39;49;00m:  [90m# invalid extension[39;49;00m
-            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfilename[33m}[39;49;00m[33m is not a .bsp file![39;49;00m[33m"[39;49;00m)
-        [90m# TODO: ata4's bspsrc uses unique entity classnames to identify branches[39;49;00m
-        [90m# -- need this for identifying variants with overlapping identifiers[39;49;00m
-        [90m# identify branch script[39;49;00m
-        [94mif[39;49;00m branch_script [95mis[39;49;00m [94mNone[39;49;00m:
->           branch_script = branches.script_from_file_magic_and_version[(file_magic, version)]
-[1m[31mE           KeyError: (b'rBSP', (51, 1))[0m
-
-[1m[31mbsp_tool\__init__.py[0m:97: KeyError
 [33m============================== warnings summary ===============================[0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
@@ -1273,17 +1177,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  DrawVertex
-  Model
-  AxisAlignedBoundingBox
-  Light
-  PatchCollision
-  Occluder
-  CullGroup
   Node
+  PatchCollision
+  Portal
+  Light
   Brush
   Cell
-  Portal
+  DrawVertex
+  CullGroup
+  Occluder
+  AxisAlignedBoundingBox
+  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -1405,5 +1309,4 @@ TOTAL                                                    6965   1603    77%
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs94] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs102] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs104] - ...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs112]
-[31m=========== [31m[1m4 failed[0m, [32m187 passed[0m, [33m8 warnings[0m[31m in 13278.57s (3:41:18)[0m[31m ===========[0m
+[31m=========== [31m[1m3 failed[0m, [32m188 passed[0m, [33m8 warnings[0m[31m in 13432.14s (3:43:52)[0m[31m ===========[0m
