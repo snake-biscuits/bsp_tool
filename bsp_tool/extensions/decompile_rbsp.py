@@ -28,7 +28,7 @@ def fstr(x: float) -> str:
 # -- J.A.C.K. can convert to other formats including .vmf
 # TODO: why are all exported maps inverted?
 # https://quakewiki.org/wiki/Quake_Map_Format
-def decompile(bsp) -> List[str]:
+def decompile(bsp, map_filename: str):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
     out = ["// Game: Generic\n// Format: Valve\n",
            '// entity 0\n{\n"classname" "worldspawn"\n']
@@ -41,11 +41,11 @@ def decompile(bsp) -> List[str]:
         maxs = origin + extents
         planes = list()
         # ^ [(normal: vec3, distance: float)]
-        # assemble base brushsides in order: +X -X +Y -Y +Z -Z
+        # assemble base brush sides in order: +X -X +Y -Y +Z -Z
         for axis, min_, max_ in zip("xyz", mins, maxs):
             planes.append((vec3(**{axis: 1}), -max_))  # +ve axis
             planes.append((vec3(**{axis: -1}), min_))  # -ve axis
-        # TODO: check order of generated brushsides lines up
+        # TODO: check order of generated brushsides lines up w/ texture projection
         # TODO: pull any extra planes from CM_BRUSH_SIDE_PLANES if nessecary
         # -- unsure how / if they index the PLANES lump
         num_brush_sides = 6
@@ -53,6 +53,8 @@ def decompile(bsp) -> List[str]:
             tri = triangle_for(planes[j])
             j += first_brush_side
             # prop = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
+            # texdata = bsp.TEXTURE_DATA[...]
+            # texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
             tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[j]
             tv_s = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
             tri_s = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
@@ -63,5 +65,6 @@ def decompile(bsp) -> List[str]:
         first_brush_side += num_brush_sides
         out.append("}\n")
     out.append("}\n")
-    # TODO: all other entities
-    return out
+    # TODO: entities
+    with open(map_filename, "w") as map_file:
+        map_file.write("".join(out))
