@@ -32,6 +32,21 @@ struct BspHeader {
     int         version;
     LumpHeader  headers[17]
 };
+
+// source_bsp.h
+struct LumpHeader {
+    int  offset;
+    int  length;
+    int  version;
+    int  fourCC;  // indicated size when decompressed; 0 if not compressed
+};
+
+struct BspHeader {
+    int         file_magic;  // ('V' << 0 | 'B' << 8 | 'S' << 16 | 'P' << 24)
+    int         version;
+    LumpHeader  header[64];
+    int         revision;
+};
 ```
 
 > NOTE: In `bsp_tool`: `LumpHeader` is defined per branch script, and `BspHeader` is defined per `BspClass`  
@@ -172,6 +187,9 @@ This massively simplifies the codebase.
 Valve & Respawn engines support storing lump data in external files.
 In the case of Valve branches, this can be used for quick pathes while keeping download sizes small.
 
+
+### Valve `.lmp`
+
 Valve branches use `.lmp` files, these begin with a small header
 ```C
 # external_lmp.h
@@ -185,15 +203,26 @@ struct LmpHeader{
 ```
 Followed by the lump data.
 
-`.lmp` files are named `<bsp_name>_l_<id>.lmp`. Apparently some Left4Dead maps use `_h_` & `_s_` for certain gamemodes.
-
-> TODO: VDC footnotes / links
+`.lmp` files are named `<bsp_name>_l_<id>.lmp`. Apparently some Left4Dead maps use `_h_` & `_s_` for certain gamemodes.[^VDC_lmp]
 
 > NOTE: `GAME_LUMP` offsets may be relative to the `.lmp`, unsure if that includes the header
 
+
+### Respawn `.bsp_lump`
+
 Respawn branches use `.bsp_lump` files. These have no header and seem to match the lump in the `.bsp` one-to-one.
+
+Naming convention: `<bsp_name>.bsp.<hex_id>.bsp_lump`
+
+> NOTE: `<hex_id>` is always 4 characters, even though only `0000` to `007F` are used.
 
 One exception is Titanfall 2 lightmaps, some of which expect a different lump size.
 
 Apex Legends maps after Season 11 only keep the `BspHeader` in the `.bsp`, with all lump data in `.bsp_lump`s  
 There seems to be a flag set next to `version` to indicate this
+
+
+
+## Footnote
+
+[^VDC_lmp]: Valve Developer Community: [`.lmp` file format](https://developer.valvesoftware.com/wiki/Lump_file_format)
