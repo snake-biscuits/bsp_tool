@@ -3,23 +3,24 @@
 
 ## Source engine basis
 
-Titanfall (2014) was built on a fork of Valve's Source Engine around 2011 (Portal 2's engine)[^Lee]  
-From here Respawn built on the Valve's variant of the `.bsp` format[^VDC][^VDC_Titanfall]
+ * Titanfall (2014) was built on a fork of Valve's Source Engine around 2011 (Portal 2's engine)[^Lee]  
+ * From here Respawn built on the Valve's variant of the `.bsp` format[^VDC][^VDC_Titanfall]
 
 
 
 ## Pre-existing research
 
-Cra0kalo & ata4 Titanfall 1 lump names[^Cra0]  
-Titanfall 2 `.bsp` -> `.obj`,[^Warmist] originally by [Icepick](https://titanfallmods.com/) dev [WillCo](https://will.io)  
-Possibly derived from a function BobTheBob found (rediscovered?) in Titanfall 2 which does the same thing
+ * Cra0kalo & ata4 Titanfall 1 lump names[^Cra0]  
+ * Titanfall 2 `.bsp` -> `.obj`,[^Warmist] originally by [Icepick](https://titanfallmods.com/) dev [WillCo](https://will.io)  
+   Possibly derived from a function BobTheBob found (rediscovered?) in Titanfall 2 which does the same thing
 
 
 
 ## Current research
 
-[Legion+ `.bsp` blender converter](https://github.com/r-ex/LegionPlus/blob/main/Legion/RBspLib.h)  
-[Northstar Discord: Modding > Research > Maps](https://discord.com/channels/920776187884732556/925435799057604709)  
+* [Legion+ `.bsp` blender converter](https://github.com/r-ex/LegionPlus/blob/main/Legion/RBspLib.h)  
+* [Northstar Discord: Modding > Research > Maps](https://discord.com/channels/920776187884732556/925435799057604709)  
+
 This list is incomplete, you can help by expanding it.
 
 
@@ -444,20 +445,19 @@ Then get destination indices as before, but with modified node mask. Leaf mask c
 > TODO: explain what is listed & how coverage is calculated
 
 
-## mapping lump relationships
-
-> TODO: explain `branch_script` layout
-> TODO: database normalisation / optimisation
-> TODO: "parallel" lumps
-> TODO: .bsp design patterns
-> TODO: byte-alignment, padding & SIMD registers
+## `.bsp` Lumps
 
 from `bsp_tool/branches/respawn/titanfall2.py`
+
+> TODO: explain `branch_script` layout  
+> TODO: database normalisation / optimisation  
+> TODO: `.bsp` design patterns  
+> TODO: byte-alignment, padding & SIMD registers
+
 
 ### Known lump changes from Titanfall -> Titanfall 2:
 
 New:
-
 ```
 UNUSED_4 -> LIGHTPROBE_PARENT_INFOS
 UNUSED_5 -> SHADOW_ENVIRONMENTS
@@ -468,7 +468,6 @@ UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
 ```
 
 Deprecated:
-
 ```
 LEAF_WATER_DATA
 PHYSICS_LEVEL
@@ -532,8 +531,8 @@ PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in
 ## References
 
 [^Lee]: Steve Lee on Youtube: [Why Making Titanfall was Hard - interview with 2 design leads at Respawn](https://www.youtube.com/watch?v=ZT9yVUDDUJg)
-[^VDC]: [Valve Developer Community: BSP File Format](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format)
-[^VDC_Titanfall]: [Valve Developer Community: Titanfall BSP](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall)
+[^VDC]: Valve Developer Community: [BSP File Format](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format)
+[^VDC_Titanfall]: Valve Developer Community: [Titanfall BSP](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall)
 [^Cra0]: Cra0kalo: [Titanfall BSPInspect](https://dev.cra0kalo.com/?p=202)
 [^Warmist]: warmist on GitHub [titanfallMapExporter](https://github.com/warmist/titanfallMapExporter/blob/master/titanfallMapExporter.py)
 [^SAH]: [Surface Area Heuristic](https://medium.com/@bromanz/how-to-create-awesome-accelerators-the-surface-area-heuristic-e14b5dec6160)
