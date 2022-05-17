@@ -1,7 +1,8 @@
-# `.bsp` basics
+# `.bsp` File Structure
 
-All `.bsp` contain lumps, these are named arrays used by the game engine as a sort of database containing a level.
+All `.bsp` contain multiple "lumps", a variety of structures used by the game engine as a sort of database, representing a level.
 
+The number of lumps & use varies from branch to branch.
 
 
 ## Lumps
@@ -31,21 +32,6 @@ struct LumpHeader {
 struct BspHeader {
     int         version;
     LumpHeader  headers[17]
-};
-
-// source_bsp.h
-struct LumpHeader {
-    int  offset;
-    int  length;
-    int  version;
-    int  fourCC;  // indicated size when decompressed; 0 if not compressed
-};
-
-struct BspHeader {
-    int         file_magic;  // ('V' << 0 | 'B' << 8 | 'S' << 16 | 'P' << 24)
-    int         version;
-    LumpHeader  header[64];
-    int         revision;
 };
 ```
 
@@ -186,9 +172,6 @@ This massively simplifies the codebase.
 
 Valve & Respawn engines support storing lump data in external files.
 In the case of Valve branches, this can be used for quick pathes while keeping download sizes small.
-
-
-### Valve `.lmp`
 
 Valve branches use `.lmp` files, these begin with a small header
 ```C

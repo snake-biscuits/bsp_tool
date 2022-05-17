@@ -409,15 +409,15 @@ class DisplacementVertex(base.Struct):  # LUMP 33
 
 class Face(base.Struct):  # LUMP 7
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
-    plane: int       # index into Plane lump
-    side: int        # "faces opposite to the node's plane direction"
-    on_node: bool    # if False, face is in a leaf
+    plane: int  # index into Plane lump
+    side: int  # "faces opposite to the node's plane direction"
+    on_node: bool  # if False, face is in a leaf
     first_edge: int  # index into the SurfEdge lump
-    num_edges: int   # number of SurfEdges after first_edge in this Face
-    texture_info: int    # index into the TextureInfo lump
-    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
+    num_edges: int  # number of SurfEdges after first_edge in this Face
+    texture_info: int  # index into the TextureInfo lump
+    displacement_info: int  # index into the DisplacementInfo lump (None if -1)
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
-    styles: int      # 4 different lighting states? "switchable lighting info"
+    styles: List[int]  # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
     lightmap: List[float]
@@ -427,7 +427,7 @@ class Face(base.Struct):  # LUMP 7
     # NOTE: num_primitives top bit is a flag for shadows, this means a max of 32768 primitives are allowed
     num_primitives: int  # non-zero if t-juncts are present? number of Primitives
     first_primitive_id: int  # index of Primitive
-    smoothing_groups: int    # lightmap smoothing group
+    smoothing_groups: int  # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face",
