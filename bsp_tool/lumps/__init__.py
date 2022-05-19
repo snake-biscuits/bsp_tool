@@ -96,6 +96,8 @@ class RawBspLump:
     offset: int  # position in file where lump begins
     _changes: Dict[int, bytes]
     # ^ {index: new_byte}
+    # NOTE: bytes objects don't support item assignment
+    # -- but we want to allow light hex editting with slice overrides
     _length: int  # number of indexable entries
 
     def __init__(self, file: io.BufferedReader, lump_header: Any):
@@ -130,17 +132,14 @@ class RawBspLump:
         self._length += len(other_bytes)
         self[start:] = other_bytes
 
-    def __setitem__(self, index: Union[int, slice], value: Any):
-        # TODO: allow slice assignment to act like insert/extend
-        if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            self._changes[index] = value
-        elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            for i, v in zip(range(_slice.start, _slice.stop, _slice.step), value):
-                self[i] = v
-        else:
+    def __setitem__(self, index: slice, value: Any):
+        """remapping slices is allowed, but only slices"""
+        if not isinstance(index, slice):
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+        _slice = _remap_slice(index, self._length)
+        # TODO: allow slice assignment to act like insert/extend
+        for i, v in zip(range(_slice.start, _slice.stop, _slice.step), value):
+            self._changes[index] = value
 
     def __iter__(self):
         return iter([self[i] for i in range(self._length)])
