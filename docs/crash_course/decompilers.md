@@ -62,3 +62,4 @@ However, this would mean new mapping communities would be built on edits to Offi
 ## References
 
 [^mp_amogus]: `mp_rr_box` on Twitter: [`mp_box` edit](https://twitter.com/mp_rr_box/status/1522908229956685824)
+[^Gaas_fraud]: Accursed Farms in Youtube ["Games as a service" is Fraud](https://youtube.com/watch?v=tUAX0gnZ3Nw)

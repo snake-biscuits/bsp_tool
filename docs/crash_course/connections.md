@@ -44,7 +44,7 @@ struct Face {
 > TODO: index types & engine limits (`MAX_EDGES = 65535` etc.)
 
 
-## Mapping connections
+## Documenting connections
 
 `bsp_tool` list lump connections after the `LUMP` definition in each branch script.
 
@@ -79,10 +79,4 @@ class LumpHeader(base.MappedArray):
 ...
 ```
 
-> TODO: Database design principles (Normalised Form, Entity Integrity, Strong Relationships, M:N -> 2x 1:M)
-
-> TODO: Primary Keys & Foreign Keys
-
-> TODO: Database construction order
-
-> TODO: Compile process & order
+> TODO: `bsp_tool` documenting connections in LumpClass type hints

@@ -206,6 +206,6 @@ There seems to be a flag set next to `version` to indicate this
 
 
 
-## Footnote
+## References
 
 [^VDC_lmp]: Valve Developer Community: [`.lmp` file format](https://developer.valvesoftware.com/wiki/Lump_file_format)

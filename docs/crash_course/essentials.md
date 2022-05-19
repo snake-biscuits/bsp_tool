@@ -23,12 +23,6 @@ Respawn's Titanfall fork of the Source Engine entirely removes Entity IO[^Slothy
 
 
 
-## Worldspawn
-
-> TODO
-
-
-
 ## Models (Level Geometry)
 
 > NOTE: `Model[0]` is always worldspawn; static "world" geometry with pre-baked lighting & physics
@@ -36,7 +30,13 @@ Respawn's Titanfall fork of the Source Engine entirely removes Entity IO[^Slothy
 > NOTE: Other Models are always centered on `0, 0, 0`, their true position comes from the associated entity
 
 
-### Mesh data
+### Worldspawn
+
+> TODO
+
+
+
+## Mesh data
 
 > TODO
 
