@@ -1,5 +1,5 @@
 [1m============================= test session starts =============================[0m
-platform win32 -- Python 3.9.12, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\users\jared\documents\github\bsp_tool\venv\scripts\python.exe
+platform win32 -- Python 3.9.13, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\users\jared\documents\github\bsp_tool\venv\scripts\python.exe
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
@@ -134,7 +134,7 @@ tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m
 tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 66%][0m
 tests/test_bsplump.py::TestBspLump::test_list_conversion [32mPASSED[0m[31m          [ 67%][0m
 tests/test_bsplump.py::TestBspLump::test_indexing [32mPASSED[0m[31m                 [ 67%][0m
-tests/test_bsplump.py::TestBspLump::test_del [32mPASSED[0m[31m                      [ 68%][0m
+tests/test_bsplump.py::TestBspLump::test_del [31mFAILED[0m[31m                      [ 68%][0m
 tests/test_bsplump.py::TestBspLump::test_setitem [32mPASSED[0m[31m                  [ 68%][0m
 tests/test_bsplump.py::TestBasicBspLump::test_its_basic [32mPASSED[0m[31m           [ 69%][0m
 tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[31m     [ 69%][0m
@@ -1169,6 +1169,38 @@ raw_entities = b'{\n"editorclass" "info_particle_system_clientside"\n"Visibility
 [1m[31mE                       StopIteration[0m
 
 [1m[31mbsp_tool\branches\shared.py[0m:69: StopIteration
+[31m[1m____________________________ TestBspLump.test_del _____________________________[0m
+
+self = <tests.test_bsplump.TestBspLump object at 0x000001E20C5FBDF0>
+
+    [94mdef[39;49;00m [92mtest_del[39;49;00m([96mself[39;49;00m):
+        [94mfor[39;49;00m map_name [95min[39;49;00m bsps:
+            lump = bsps[map_name].VERTICES
+            initial_length = [96mlen[39;49;00m(lump)
+>           [94mdel[39;49;00m lump[[94m0[39;49;00m]
+
+[1m[31mtests\test_bsplump.py[0m:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mbsp_tool\lumps\__init__.py[0m:184: in __delitem__
+    [96mself[39;49;00m[index:] = [96mself[39;49;00m[index + [94m1[39;49;00m:]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <BspLump(24 Vertex) at 0x000001E20B6B62E0>, index = slice(0, None, None)
+value = [<Vertex {'position': <MappedArray (x: 192.0, y: -192.0, z: -192.0)>, 'uv': <MappedArray (texture: <MappedArray (u: -3...5)>)>, 'normal': <MappedArray (x: 0.0, y: -1.0, z: 0.0)>, 'colour': <MappedArray (r: 13, g: 13, b: 13, a: 255)>}>, ...]
+
+    [94mdef[39;49;00m [92m__setitem__[39;49;00m([96mself[39;49;00m, index: [96mint[39;49;00m | [96mslice[39;49;00m, value: Any):
+        [33m"""remapping slices is allowed, but only slices"""[39;49;00m
+        [94mif[39;49;00m [96misinstance[39;49;00m(index, [96mint[39;49;00m):
+            index = _remap_negative_index(index, [96mself[39;49;00m._length)
+            [96mself[39;49;00m._changes[index] = value
+        [94melif[39;49;00m [96misinstance[39;49;00m(index, [96mslice[39;49;00m):
+            [90m# TODO: allow slice assignment to act like insert/extend[39;49;00m
+            _slice = _remap_slice(index, [96mself[39;49;00m._length)
+            slice_indices = [96mlist[39;49;00m([96mrange[39;49;00m(_slice.start, _slice.stop, _slice.step))
+>           [94massert[39;49;00m [96mlen[39;49;00m([96mlist[39;49;00m(value)) == [96mlen[39;49;00m(slice_indices), [33m"[39;49;00m[33mslice insert/shorten not yet supported[39;49;00m[33m"[39;49;00m
+[1m[31mE           AssertionError: slice insert/shorten not yet supported[0m
+
+[1m[31mbsp_tool\lumps\__init__.py[0m:144: AssertionError
 [33m============================== warnings summary ===============================[0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
@@ -1177,24 +1209,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Node
+  DrawVertex
+  Model
+  AxisAlignedBoundingBox
+  CullGroup
+  Brush
+  Occluder
   PatchCollision
+  Node
+  Cell
   Portal
   Light
-  Brush
-  Cell
-  DrawVertex
-  CullGroup
-  Occluder
-  AxisAlignedBoundingBox
-  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -1215,8 +1247,8 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.resp
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  DisplacementInfo_x360
   Primitive_x360
+  DisplacementInfo_x360
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source]
@@ -1226,7 +1258,7 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
 
----------- coverage: platform win32, python 3.9.12-final-0 -----------
+---------- coverage: platform win32, python 3.9.13-final-0 -----------
 Name                                                    Stmts   Miss  Cover
 ---------------------------------------------------------------------------
 bsp_tool\__init__.py                                       53      3    94%
@@ -1290,23 +1322,24 @@ bsp_tool\branches\vector.py                               190    129    32%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
 bsp_tool\extensions\archive.py                             70     70     0%
-bsp_tool\extensions\decompile_rbsp.py                      41     41     0%
+bsp_tool\extensions\decompile_rbsp.py                      42     42     0%
 bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               111    111     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
 bsp_tool\id_software.py                                   117     15    87%
 bsp_tool\infinity_ward.py                                  69     10    86%
-bsp_tool\lumps\__init__.py                                341     91    73%
+bsp_tool\lumps\__init__.py                                343     95    72%
 bsp_tool\raven.py                                           3      0   100%
 bsp_tool\respawn.py                                       253    135    47%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         136     68    50%
 ---------------------------------------------------------------------------
-TOTAL                                                    6965   1603    77%
+TOTAL                                                    6968   1608    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs94] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs102] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs104] - ...
-[31m=========== [31m[1m3 failed[0m, [32m188 passed[0m, [33m8 warnings[0m[31m in 13432.14s (3:43:52)[0m[31m ===========[0m
+FAILED tests/test_bsplump.py::TestBspLump::test_del - AssertionError: slice i...
+[31m=========== [31m[1m4 failed[0m, [32m187 passed[0m, [33m8 warnings[0m[31m in 13689.11s (3:48:09)[0m[31m ===========[0m

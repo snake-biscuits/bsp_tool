@@ -132,14 +132,20 @@ class RawBspLump:
         self._length += len(other_bytes)
         self[start:] = other_bytes
 
-    def __setitem__(self, index: slice, value: Any):
+    def __setitem__(self, index: int | slice, value: Any):
         """remapping slices is allowed, but only slices"""
-        if not isinstance(index, slice):
-            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
-        _slice = _remap_slice(index, self._length)
-        # TODO: allow slice assignment to act like insert/extend
-        for i, v in zip(range(_slice.start, _slice.stop, _slice.step), value):
+        if isinstance(index, int):
+            index = _remap_negative_index(index, self._length)
             self._changes[index] = value
+        elif isinstance(index, slice):
+            # TODO: allow slice assignment to act like insert/extend
+            _slice = _remap_slice(index, self._length)
+            slice_indices = list(range(_slice.start, _slice.stop, _slice.step))
+            assert len(list(value)) == len(slice_indices), "slice insert/shorten not yet supported"
+            for i, v in zip(slice_indices, value):
+                self._changes[i] = v
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
     def __iter__(self):
         return iter([self[i] for i in range(self._length)])
