@@ -48,7 +48,7 @@ LumpHeader = quake.LumpHeader
 
 #      /-> PLANES
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#     \--> TEXTURE_INFO -> MIP_TEXTURES
+#     \--> TEXTURE_INFO
 #      \-> LIGHTMAPS
 
 # POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
