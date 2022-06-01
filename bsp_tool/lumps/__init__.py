@@ -110,6 +110,8 @@ class RawBspLump:
     def __repr__(self):
         return f"<{self.__class__.__name__}; {len(self)} bytes at 0x{id(self):016X}>"
 
+    # NOTE: no __delitem__
+
     def __getitem__(self, index: Union[int, slice]) -> bytes:
         """Reads bytes from the start of the lump"""
         if isinstance(index, int):
@@ -130,7 +132,7 @@ class RawBspLump:
             raise TypeError(f"can't concat {other_bytes.__class__.__name__} to bytes")
         start = self._length
         self._length += len(other_bytes)
-        self[start:] = other_bytes
+        self[start:] = other_bytes  # slice insert; TEST!
 
     def __setitem__(self, index: int | slice, value: Any):
         """remapping slices is allowed, but only slices"""
@@ -138,12 +140,20 @@ class RawBspLump:
             index = _remap_negative_index(index, self._length)
             self._changes[index] = value
         elif isinstance(index, slice):
-            # TODO: allow slice assignment to act like insert/extend
             _slice = _remap_slice(index, self._length)
             slice_indices = list(range(_slice.start, _slice.stop, _slice.step))
-            assert len(list(value)) == len(slice_indices), "slice insert/shorten not yet supported"
-            for i, v in zip(slice_indices, value):
-                self._changes[i] = v
+            length_change = len(list(value)) - len(slice_indices)
+            slice_changes = dict(zip(slice_indices, value))
+            if length_change == 0:  # replace a slice with an equal length slice
+                self._changes.update(slice_changes)
+            else:  # update a slice in the place of another slice (delete / insert)
+                self._length += length_change
+                head, tail = min(slice_indices), max(slice_indices)
+                # NOTE: slice may have negative step
+                # TODO: TEST different slice step
+                new_head = {i: v for i, v in self._changes.items() if i < head}
+                new_tail = {i + length_change: v for i, v in self._changes.items() if i > tail}
+                self._changes = {**new_head, **slice_changes, **new_tail}
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
@@ -182,7 +192,6 @@ class BspLump(RawBspLump):
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
             self[index:] = self[index + 1:]
-            self._length -= 1
         elif isinstance(index, slice):
             _slice = _remap_slice(index, self._length)
             for i in range(_slice.start, _slice.stop, _slice.step):
