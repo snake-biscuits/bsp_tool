@@ -56,7 +56,7 @@ BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"FACES":          {0: Face},
                      "ORIGINAL_FACES": {0: Face}})
-LUMP_CLASSES["LEAVES"].pop(0)  # differs from source.Leafv0
+LUMP_CLASSES.pop("LEAVES")
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?

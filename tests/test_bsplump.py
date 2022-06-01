@@ -60,8 +60,8 @@ class TestBspLump:
             # ^ all three just look at the first byte
             # expecting behaviour the same as if lump was a bytestring
             assert len(lump[-2:]) == 2, f"{map_name} failed"
-            # TODO: check negative indices line up
-            # TODO: check slice cases (negative step, wide step, invalid slice)
+            # TODO: check negative indices line up [_remap_negative_index]
+            # TODO: check slice cases (negative step, wide step, invalid slice) [_remap_slice]
             with pytest.raises(TypeError):
                 assert lump["one"], f"{map_name} failed"
 
@@ -84,6 +84,10 @@ class TestBspLump:
             lump[:2] = [empty_entry, empty_entry]
             assert lump[:2] == [empty_entry, empty_entry], f"{map_name} failed"
             # TODO: allow for insert via slice & test for this
+            # TODO: test changes to object attrs for Issue #23
+            # -- e.g. bsp.LUMP[index].attr = val (uses soft copies)
+
+    # TODO: test_iadd (__iadd__ method; overrides +=)
 
 
 class TestExternalBspLump:  # TODO: ship bespoke RespawnBsp .bsp_lump files with tests

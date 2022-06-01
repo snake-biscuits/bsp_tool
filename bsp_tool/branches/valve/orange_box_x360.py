@@ -144,9 +144,11 @@ for LumpClass_name, LumpClass in LumpClasses.items():
     globals()[LumpClass_name] = LumpClass
 
 
-LUMP_CLASSES, LumpClasses = x360.convert_versioned(orange_box.LUMP_CLASSES)
+# pop reimplemented classes first to avoid name collision
+LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("DISPLACEMENT_INFO")
 LUMP_CLASSES.pop("PRIMITIVES")
+LUMP_CLASSES, LumpClasses = x360.convert_versioned(LUMP_CLASSES)
 # copy used LumpClasses to globals
 for LumpClass_name, LumpClass in LumpClasses.items():
     globals()[LumpClass_name] = LumpClass
@@ -156,7 +158,7 @@ del LumpClass_name, LumpClass
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         # "PAKFILE":                  {0: PakFile_x360},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
-# TODO: converted PhysicsCollide
+# TODO: PhysicsCollide_x360
 
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 
