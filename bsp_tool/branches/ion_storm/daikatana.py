@@ -23,7 +23,7 @@ LumpHeader = quake.LumpHeader
 
 #      /-> PLANES
 # FACES -> SURFEDGES -> EDGES -> VERTICES
-#     \--> TEXTURE_INFO -> MIP_TEXTURES
+#     \--> TEXTURE_INFO
 #      \-> LIGHTMAPS
 
 # {"LUMP_NAME": {version: LumpClass}}
