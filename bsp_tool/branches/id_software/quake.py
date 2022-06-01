@@ -29,7 +29,7 @@ class LUMP(enum.Enum):
     PLANES = 1
     MIP_TEXTURES = 2
     VERTICES = 3
-    VISIBILITY = 4  # appears to be same as in Source Engine
+    VISIBILITY = 4
     NODES = 5
     TEXTURE_INFO = 6
     FACES = 7
