@@ -87,7 +87,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 32 | 0020 | 29 | `UNUSED_32` | 0 |  | 0% |
 | 33 | 0021 | 29 | `UNUSED_33` | 0 |  | 0% |
 | 34 | 0022 | 29 | `UNUSED_34` | 0 |  | 0% |
-| 35 | 0023 | 29 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L319) | 90% |
+| 35 | 0023 | 29 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L333) | 90% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp` | - | [`respawn.titanfall.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L673) | 60% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.props` | 12 | [`respawn.titanfall.StaticPropv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L719) | 94% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp` | - | [`respawn.titanfall2.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L272) | 40% |
