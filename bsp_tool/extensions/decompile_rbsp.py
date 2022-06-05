@@ -1,6 +1,6 @@
 from typing import List
 
-from ..branches.vector import vec3
+from ..branches.vector import dot, vec3
 
 
 def triangle_for(plane: (vec3, float), scale: float = 64) -> List[vec3]:
@@ -24,9 +24,42 @@ def fstr(x: float) -> str:
     return str(x)
 
 
+texture_axes = {vec3(x=1): (vec3(y=1), vec3(z=-1)),  # west / east wall
+                vec3(y=1): (vec3(x=1), vec3(z=-1)),  # south / north wall
+                vec3(z=1): (vec3(x=1), vec3(y=-1))}  # floor / cieling
+
+
+# https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/utils/vbsp/textures.cpp#L306
+def world_texture_vectors(normal: vec3) -> (vec3, vec3):
+    """Gets the default world aligned texture vectors (vec3 only) for a given surface normal"""
+    best_dot, best_axis = 0, vec3(z=1)
+    for world_axis in [vec3(z=1), vec3(y=1), vec3(x=1)]:  # matching Source tiebreaker preference order
+        world_dot = abs(dot(normal, world_axis))
+        if world_dot > best_dot:
+            best_dot, best_axis = world_dot, world_axis
+    return texture_axes[best_axis]
+# TODO: use this function to match BrushSideTextureVector(s)
+# TODO: face_texture_vector (same as above, but flip S if dot(normal, best_axis) < 0)
+
+
+def face_texture_vectors(normal: vec3) -> (vec3, vec3):
+    """Gets the default face aligned texture vectors (vec3 only) for a given surface normal"""
+    # NOTE: based on an assumption that world == face aligned on +ve normals
+    flip_S = False
+    best_dot, best_axis = 0, vec3(z=1)
+    for world_axis in [vec3(z=1), vec3(y=1), vec3(x=1)]:  # matching Source tiebreaker preference order
+        world_dot = dot(normal, world_axis)
+        if abs(world_dot) > best_dot:
+            best_dot, best_axis = abs(world_dot), world_axis
+            if world_dot < 0:
+                flip_S = True
+    S, T = texture_axes[best_axis]
+    S = -S if flip_S else S
+    return S, T
+
+
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
-# TODO: why are all exported maps inverted?
 # https://quakewiki.org/wiki/Quake_Map_Format
 def decompile(bsp, map_filename: str):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
@@ -48,6 +81,8 @@ def decompile(bsp, map_filename: str):
         # TODO: check order of generated brushsides lines up w/ texture projection
         # TODO: pull any extra planes from CM_BRUSH_SIDE_PLANES if nessecary
         # -- unsure how / if they index the PLANES lump
+        # -- planes seems to include many bevel planes but not all surface planes
+        # -- only the bevel planes of unrendered brushes seem to exist in PLANES lump
         num_brush_sides = 6
         for j in range(num_brush_sides):
             tri = triangle_for(planes[j])

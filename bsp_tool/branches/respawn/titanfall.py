@@ -574,7 +574,7 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
     t: List[float]  # T vector
     __slots__ = ["s", "t"]
     _format = "8f"
-    _arrays = {"s": [*"xyzw"], "t": [*"xyzw"]}
+    _arrays = {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
