@@ -264,7 +264,7 @@ class DisplacementFlags(enum.IntFlag):
     NO_RAY = 8
 
 
-class DispTris(enum.IntFlag):
+class DisplacementTriangle(enum.IntFlag):
     """DisplacementTriangle flags"""
     SURFACE = 0x01
     WALKABLE = 0x02
@@ -282,7 +282,13 @@ class EmitType(enum.Enum):
     SKY_AMBIENT = 0x05  # spherical light w/ no falloff (surface must trace to SKY texture)
 
 
-class SPRP_flags(enum.IntFlag):
+class PrimitiveType(enum.Enum):
+    """stored in Primitive.type"""
+    TRIANGLE_LIST = 0
+    TRIANGLE_STRIP = 1
+
+
+class SPRP(enum.IntFlag):
     # derived at compile or run time
     FADES = 0x1  # use fade distances
     USE_LIGHTING_ORIGIN = 0x2
