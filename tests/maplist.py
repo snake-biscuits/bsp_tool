@@ -157,6 +157,7 @@ extracted_dirs = {
                      # "baseq3/pak4.pk3/maps",  # only .aas files
                      "baseq3/pak6.pk3/maps",  # 4 maps | 14 MB | .pk3
                      "missionpack/pak0.pk3/maps"],  # 21 maps | 150 MB | .pk3
+        "Dreamcast/QuakeIII": ["maps"],  # 38 maps | 64 MB | .zip
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
@@ -186,6 +187,7 @@ extracted_dirs = {
         # GoldSrcBsp
         # https://www.moddb.com/games/james-bond-007-nightfire/downloads/alura-zoe
         "Nightfire": ["ROOT/maps"],  # 53 maps | 405 MB | .007
+        "Dreamcast/Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
