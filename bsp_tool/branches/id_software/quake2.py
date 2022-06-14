@@ -52,6 +52,7 @@ LumpHeader = quake.LumpHeader
 #      \-> LIGHTMAPS
 
 # POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
+# POP seems to be the last lump written and is always null bytes in every map which has this lump
 
 
 # TODO: MAX & Contents enums
