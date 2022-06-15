@@ -1,49 +1,3 @@
-# `.bsp` file basics
-
-
-## Structure
-
-`.bsp` files usually have a file header containing the following information
- - version identifier
- - map revision (optional)
- - lump headers
-   * offset
-   * length
-   * other meta-data
-
-Some variants have a different order but at the very least the following should be present:
- - format version
- - lump headers
-   * offset
-   * length
-
-```C
-// quake_bsp.h
-#include <stdint.h>
-
-#define BSP_VERSION_QUAKE  29
-
-typedef struct {
-    uint32_t  offset;
-    uint32_t  length;
-} QuakeLumpHeader;
-
-typedef struct {
-    uint32_t         version;  /* BSP_VERSION_QUAKE (29) */
-    QuakeLumpHeader  lump[15];
-} QuakeBspHeader;
-```
-
-
-## Lumps
-
-Lumps are the chunks of the file pointed at by bsp headers. They come in 2 forms:
-    1. Array of Type
-    2. Sequence of raw byte data
-Most lumps are of the first form. These lumps hold data like rendered vertices.
-The second form is employed for more complex systems, such as entity data & visibility trees
-
-```C
 // quake_vertices.c
 #include <errno.h>
 #include <stdio.h>
@@ -99,17 +53,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-```
-
-
-## Format History
-
-The `.bsp` file format as it is known publically began with Quake (1996).
-`.bsp` stands for Binary Space Partition
-Binary Space Partioning is a method for optimising rendering developed by the US AIR FORCE in 1969[^1]
-Use of a Binary Space Partition allows a renderer to only render what is possible to be seen from a given position in the level
-
-
-## References
-
- [^1]: [STUDY FOR APPLYING COMPUTER-GENERATED IMAGES TO VISUAL SIMULATION](https://apps.dtic.mil/sti/citations/AD0700375)
