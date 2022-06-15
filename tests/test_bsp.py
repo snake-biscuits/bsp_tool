@@ -63,14 +63,13 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
-                    # TODO: check external lumps (RespawnBsp only)
-                    # -- mostly filesize checks
-                    # -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors
                     loading_errors = {**bsp.loading_errors}
                     if hasattr(bsp, "GAME_LUMP"):
                         if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                             loading_errors.update(bsp.GAME_LUMP.loading_errors)
                     if hasattr(bsp, "external"):
+                        # TODO: actually read external SpecialLumpClasses lumps for a thorough check
+                        # TODO: close any external lump files this opens to avoid OSError
                         loading_errors.update(bsp.external.loading_errors)
                         if hasattr(bsp.external, "GAME_LUMP"):
                             if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps

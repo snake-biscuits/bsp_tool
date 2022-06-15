@@ -5,6 +5,7 @@ import io
 import zipfile
 
 from .. import base
+from ..valve import source
 from . import vindictus
 
 
@@ -135,9 +136,10 @@ LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("PAKFILE")
 
+GAME_LUMP_HEADER = source.GameLumpHeader
 
-# NOTE: GameLump is busted atm
-GAME_LUMP_CLASSES = vindictus.GAME_LUMP_CLASSES.copy()
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = dict()
 
 
 methods = [*vindictus.methods]

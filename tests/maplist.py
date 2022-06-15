@@ -218,7 +218,7 @@ extracted_dirs = {
         # -- .bpk filenames are unknown, so .bsp, .bsp_lump & .ent may all be incorrect
         # NOTE: working to better extract files from .bpk with p0358
         # -- all files become null bytes after 131207 bytes (2 ** 17)
-        "Titanfall/x360": ["maps"],  # 17 maps | 349 MB
+        # "Titanfall/x360": ["maps"],  # 17 maps | 349 MB
         # donated by p0358
         "TitanfallOnline": ["maps",  # 17 maps | 2.0 GB | .pkg
                             "v2905-dated-2017-04-08/maps",  # 13 maps | 1.3 GB | .7z

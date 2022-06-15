@@ -3,7 +3,7 @@ platform win32 -- Python 3.9.13, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\us
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
-[1mcollecting ... [0mcollected 193 items
+[1mcollecting ... [0mcollected 192 items
 
 tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[32m         [  0%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[32m [  1%][0m
@@ -29,9 +29,9 @@ tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czer
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] [32mPASSED[0m[32m [ 11%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] [32mPASSED[0m[32m [ 11%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[32m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[32m [ 12%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[32m [ 13%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[32m [ 13%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 13%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 14%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[32m [ 14%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[32m [ 15%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[32m [ 15%][0m
@@ -52,13 +52,13 @@ tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs44] [32mPASSED[0m[32m [ 23%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs45] [32mPASSED[0m[32m [ 23%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs46] [32mPASSED[0m[32m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs47] [32mPASSED[0m[32m [ 24%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs47] [32mPASSED[0m[32m [ 25%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs48] [32mPASSED[0m[32m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs49] [32mPASSED[0m[32m [ 25%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs49] [32mPASSED[0m[32m [ 26%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs50] [32mPASSED[0m[32m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs51] [32mPASSED[0m[32m [ 26%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs51] [32mPASSED[0m[32m [ 27%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs52] [32mPASSED[0m[32m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs53] [32mPASSED[0m[32m [ 27%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs53] [32mPASSED[0m[32m [ 28%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs54] [32mPASSED[0m[32m [ 28%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs55] [32mPASSED[0m[32m [ 29%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs56] [32mPASSED[0m[32m [ 29%][0m
@@ -77,15 +77,15 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs68] [32mPASSED
 tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs69] [32mPASSED[0m[32m      [ 36%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs70] [32mPASSED[0m[32m [ 36%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs71] [32mPASSED[0m[32m    [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs72] [32mPASSED[0m[32m     [ 37%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs72] [32mPASSED[0m[32m     [ 38%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs73] [32mPASSED[0m[32m     [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs74] [32mPASSED[0m[32m        [ 38%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs74] [32mPASSED[0m[32m        [ 39%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs75] [32mPASSED[0m[32m        [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs76] [32mPASSED[0m[32m          [ 39%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs76] [32mPASSED[0m[32m          [ 40%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs77] [32mPASSED[0m[32m           [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs78] [32mPASSED[0m[32m           [ 40%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs78] [32mPASSED[0m[32m           [ 41%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs79] [32mPASSED[0m[32m          [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs80] [32mPASSED[0m[32m [ 41%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs80] [32mPASSED[0m[32m [ 42%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs81] [32mPASSED[0m[32m       [ 42%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs82] [32mPASSED[0m[32m      [ 43%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs83] [32mPASSED[0m[32m [ 43%][0m
@@ -100,37 +100,36 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs91] [32mPASSED[0m[32m   
 tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs92] [32mPASSED[0m[32m     [ 48%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs93] [32mPASSED[0m[32m [ 48%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs94] [32mPASSED[0m[32m     [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs95] [32mPASSED[0m[32m    [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs96] [31mFAILED[0m[31m          [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs97] [32mPASSED[0m[31m [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs98] [32mPASSED[0m[31m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs99] [32mPASSED[0m[31m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs100] [32mPASSED[0m[31m        [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs101] [32mPASSED[0m[31m  [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs102] [32mPASSED[0m[31m [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs103] [32mPASSED[0m[31m [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs95] [32mPASSED[0m[32m    [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs96] [32mPASSED[0m[32m          [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs97] [32mPASSED[0m[32m [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs98] [32mPASSED[0m[32m [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs99] [32mPASSED[0m[32m [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs100] [32mPASSED[0m[32m        [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs101] [32mPASSED[0m[32m  [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs102] [32mPASSED[0m[32m [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs103] [32mPASSED[0m[32m [ 54%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] [31mFAILED[0m[31m    [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs105] [32mPASSED[0m[31m    [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs106] [31mFAILED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs107] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs108] [32mPASSED[0m[31m   [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs109] [32mPASSED[0m[31m  [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs110] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs111] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs112] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs113] [32mPASSED[0m[31m [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs114] [32mPASSED[0m[31m [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs115] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs116] [32mPASSED[0m[31m        [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs117] [32mPASSED[0m[31m        [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs118] [32mPASSED[0m[31m        [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs119] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs120] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs121] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs122] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs123] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs124] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs125] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs105] [32mPASSED[0m[31m    [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs106] [32mPASSED[0m[31m [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs107] [32mPASSED[0m[31m   [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs108] [32mPASSED[0m[31m  [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs109] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs110] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs111] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs112] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs113] [32mPASSED[0m[31m [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs114] [32mPASSED[0m[31m [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs115] [32mPASSED[0m[31m        [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs116] [32mPASSED[0m[31m        [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA-map_dirs117] [32mPASSED[0m[31m        [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs118] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs119] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs120] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs121] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs122] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs123] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs124] [32mPASSED[0m[31m [ 65%][0m
 tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 65%][0m
 tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 66%][0m
@@ -143,11 +142,11 @@ tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[3
 tests/test_bsplump.py::TestBasicBspLump::test_indexing [32mPASSED[0m[31m            [ 70%][0m
 tests/test_d3d_bsp.py::test_no_errors[d3dbsp0] [32mPASSED[0m[31m                    [ 70%][0m
 tests/test_d3d_bsp.py::test_no_errors[d3dbsp1] [32mPASSED[0m[31m                    [ 71%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 72%][0m
+tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 71%][0m
 tests/test_d3d_bsp.py::test_no_errors[d3dbsp3] [32mPASSED[0m[31m                    [ 72%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 73%][0m
+tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 72%][0m
 tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp1] [32mPASSED[0m[31m               [ 73%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 74%][0m
+tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 73%][0m
 tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp3] [32mPASSED[0m[31m               [ 74%][0m
 tests/test_idtech_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                    [ 75%][0m
 tests/test_idtech_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m              [ 75%][0m
@@ -170,9 +169,9 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 85%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 86%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 87%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 88%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 88%][0m
@@ -200,269 +199,6 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [100%][0m
 
 ================================== FAILURES ===================================
-[31m[1m____________________ test_load_bsp[E:/Mod-CSO2-map_dirs96] ____________________[0m
-
-group_path = 'E:/Mod', game_name = 'CSO2', map_dirs = ['maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
-        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
-        errors = [96mdict[39;49;00m()
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m
-        total = [94m0[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            [94mif[39;49;00m os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
-                total += [96mlen[39;49;00m(maps)
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
-                    [94mtry[39;49;00m:
-                        bsp_filename = os.path.join(full_path, m)
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
-                        bsp = load_bsp(bsp_filename, branch_script)
-                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
-                        [90m# TODO: check external lumps (RespawnBsp only)[39;49;00m
-                        [90m# -- mostly filesize checks[39;49;00m
-                        [90m# -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors[39;49;00m
-                        loading_errors = {**bsp.loading_errors}
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
-                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
-                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
-                            loading_errors.update(bsp.external.loading_errors)
-                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
-                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
-                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
-                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
-                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
-                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
-                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
-                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
-                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
-                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
-                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
-                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
-                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
-                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
-                        [94mdel[39;49;00m bsp
->       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
-[1m[31mE       AssertionError: 97 out of 97 .bsps failed[0m
-[1m[31mE         ('ValveBsp', 'bsp_tool.branches.nexon.cso2', 100)[0m
-[1m[31mE       assert {'maps/aim_dust.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/awp_museum.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/bigcity_main.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/bigcity_pvp.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/campaign_05.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/cs_aquarium.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/cs_assault.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/cs_estate.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/cs_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/cs_italy_night.bsp': AssertionError('FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/cs_militia.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/cs_office.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/cs_office_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_cbble.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_centered.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_cornerwork.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_cornerwork2.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_dust.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/de_dust2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),\n 'maps/de_headquarter.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_inferno.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/de_nuke.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_prodigy.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_sa02.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_sa03.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_storage.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_survivor.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_tides.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_tosca.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_train.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/de_vantage.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/de_vertigo.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/dm_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/dm_dustrush.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/dm_killhouse.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/dm_mboss.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/dm_playground.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/dm_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/dm_sewer.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/dm_shutdown.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/dm_uprising.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/duel_diner.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/ew_lasttrain.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/gb_varena.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/gm_giant.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hm_multi01.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs2_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs2_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/hs2_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs2_office.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_phouse.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_sa02.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_sa03.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs2_studio.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs_aqua.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs_dust2.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs_festival.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),\n 'maps/hs_italy2.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/hs_studio.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/mad_city.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/mad_city_big.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/testzone_transition1.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/testzone_transition2.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/tuto_walk.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/uc_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/uc_museum.bsp': AssertionError('WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/uc_shutdown.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/zc_laboratory.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/zc_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),\n 'maps/zd_aztec.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zd_boss.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/zd_internal.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zd_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zd_lasttrain.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zd_nuke.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zd_park.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zd_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zp_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zp_aztec.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zp_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zp_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zp_militia.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),\n 'maps/zp_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),\n 'maps/zp_uprising.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zz_festival.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),\n 'maps/zz_phouse.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),\n 'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0')} == {}[0m
-[1m[31mE         Left contains 97 more items:[0m
-[1m[31mE         {'maps/aim_dust.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/awp_museum.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/bigcity_main.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/bigcity_pvp.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/campaign_05.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/cs_aquarium.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/cs_assault.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/cs_estate.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/cs_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/cs_italy_night.bsp': AssertionError('FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/cs_militia.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/cs_office.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/cs_office_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_cbble.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_centered.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_cornerwork.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_cornerwork2.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_dust.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/de_dust2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE          'maps/de_headquarter.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_inferno.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/de_nuke.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_prodigy.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_sa02.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_sa03.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_storage.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_survivor.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_tides.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_tosca.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_train.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/de_vantage.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/de_vertigo.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/dm_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/dm_dustrush.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/dm_killhouse.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/dm_mboss.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/dm_playground.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/dm_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/dm_sewer.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/dm_shutdown.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/dm_uprising.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/duel_diner.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/ew_lasttrain.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/gb_varena.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/gm_giant.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hm_multi01.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs2_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs2_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/hs2_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs2_office.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_phouse.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_sa02.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_sa03.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs2_studio.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs_aqua.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs_dust2.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs_festival.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/hs_italy2.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/hs_studio.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/mad_city.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/mad_city_big.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/testzone_transition1.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/testzone_transition2.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/tuto_walk.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/uc_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/uc_museum.bsp': AssertionError('WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/uc_shutdown.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/zc_laboratory.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/zc_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE          'maps/zd_aztec.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zd_boss.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/zd_internal.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zd_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zd_lasttrain.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zd_nuke.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zd_park.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zd_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zp_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zp_aztec.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zp_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zp_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zp_militia.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/zp_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE          'maps/zp_uprising.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zz_festival.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE          'maps/zz_phouse.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE          'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0')}[0m
-[1m[31mE         Full diff:[0m
-[1m[31mE           {[0m
-[1m[31mE         -  ,[0m
-[1m[31mE         +  'maps/aim_dust.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/awp_metro.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/awp_museum.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/bigcity_main.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/bigcity_pvp.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/campaign_05.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/cs_aquarium.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/cs_assault.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/cs_estate.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/cs_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/cs_italy_night.bsp': AssertionError('FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/cs_militia.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/cs_office.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/cs_office_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_cbble.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_centered.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_cornerwork.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_cornerwork2.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_dust.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/de_dust2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/de_dust2_decompressed.bsp': AssertionError('GAME_LUMP\nassert 1 == 0\n  +1\n  -0'),[0m
-[1m[31mE         +  'maps/de_headquarter.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_inferno.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/de_nuke.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_prodigy.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_sa02.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_sa03.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_storage.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_survivor.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_tides.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_tosca.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_train.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/de_vantage.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/de_vertigo.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/dm_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/dm_dustrush.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/dm_killhouse.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/dm_mboss.bsp': AssertionError('TEXTURE_INFO, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/dm_playground.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/dm_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/dm_sewer.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/dm_shutdown.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/dm_uprising.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/duel_diner.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/ew_lasttrain.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/gb_varena.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/gm_giant.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hm_multi01.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_cargoship.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_italy2.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_office.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_phouse.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_sa01.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_sa02.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_sa03.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs2_studio.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs_aqua.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs_dust2.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs_festival.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs_highland.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/hs_italy2.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs_italy2_xmas.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/hs_studio.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/mad_city.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/mad_city_big.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/testzone_transition1.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/testzone_transition2.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/tuto_walk.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/uc_aztec.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/uc_museum.bsp': AssertionError('WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/uc_shutdown.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/zc_laboratory.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/zc_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, WORLD_LIGHTS, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 5 == 0\n  +5\n  -0'),[0m
-[1m[31mE         +  'maps/zd_aztec.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zd_boss.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/zd_internal.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zd_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zd_lasttrain.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zd_nuke.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zd_park.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zd_trainyard.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zp_assault.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zp_aztec.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zp_estate.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zp_italy.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zp_militia.bsp': AssertionError('TEXTURE_INFO, GAME_LUMP\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/zp_storm.bsp': AssertionError('TEXTURE_INFO, FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 4 == 0\n  +4\n  -0'),[0m
-[1m[31mE         +  'maps/zp_uprising.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zz_festival.bsp': AssertionError('FACES, GAME_LUMP, WORLD_LIGHTS_HDR\nassert 3 == 0\n  +3\n  -0'),[0m
-[1m[31mE         +  'maps/zz_phouse.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE         +  'maps/zz_prodigy.bsp': AssertionError('GAME_LUMP, WORLD_LIGHTS_HDR\nassert 2 == 0\n  +2\n  -0'),[0m
-[1m[31mE           }[0m
-
-[1m[31mtests\test_bsp.py[0m:90: AssertionError
 [31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs104] _________________[0m
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
@@ -497,14 +233,13 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
                             [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
                         bsp = load_bsp(bsp_filename, branch_script)
                         bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
-                        [90m# TODO: check external lumps (RespawnBsp only)[39;49;00m
-                        [90m# -- mostly filesize checks[39;49;00m
-                        [90m# -- SpecialLumps will have to be loaded and then add bsp.external.loading_errors[39;49;00m
                         loading_errors = {**bsp.loading_errors}
                         [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
                             [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
                                 loading_errors.update(bsp.GAME_LUMP.loading_errors)
                         [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
                             loading_errors.update(bsp.external.loading_errors)
                             [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
                                 [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
@@ -1093,84 +828,7 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 [1m[31mE         +  'maps/w_boss02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:90: AssertionError
-[31m[1m______________ test_load_bsp[E:/Mod-Titanfall/x360-map_dirs106] _______________[0m
-
-group_path = 'E:/Mod', game_name = 'Titanfall/x360', map_dirs = ['maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
-        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
-        errors = [96mdict[39;49;00m()
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m
-        total = [94m0[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
-            full_path = os.path.join(group_path, game_name, map_dir)
-            [94mif[39;49;00m os.path.exists(full_path):
-                files = os.listdir(full_path)
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
-                total += [96mlen[39;49;00m(maps)
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
-                    [94mtry[39;49;00m:
-                        bsp_filename = os.path.join(full_path, m)
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
->                       bsp = load_bsp(bsp_filename, branch_script)
-
-[1m[31mtests\test_bsp.py[0m:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mbsp_tool\__init__.py[0m:98: in load_bsp
-    [94mreturn[39;49;00m BspVariant(branch_script, filename, autoload=[94mTrue[39;49;00m)  [90m# might raise errors[39;49;00m
-[1m[31mbsp_tool\respawn.py[0m:160: in __init__
-    [96msuper[39;49;00m(RespawnBsp, [96mself[39;49;00m).[92m__init__[39;49;00m(branch, filename, autoload)
-[1m[31mbsp_tool\valve.py[0m:24: in __init__
-    [96msuper[39;49;00m(ValveBsp, [96mself[39;49;00m).[92m__init__[39;49;00m(branch, filename, autoload)
-[1m[31mbsp_tool\base.py[0m:35: in __init__
-    [96mself[39;49;00m._preload()
-[1m[31mbsp_tool\respawn.py[0m:236: in _preload
-    [96msetattr[39;49;00m([96mself[39;49;00m, LUMP_name, shared.Entities(ent_file.read()))
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-self = [{'editorclass': 'info_particle_system_clientside', 'VisibilityFlags': '7', 'start_active': '1', 'model': 'models/dev/..., 'effect_name': 'glow_imc_light03_wide', 'targetname': 'info_particle_system_2', 'classname': 'info_particle_system'}]
-raw_entities = b'{\n"editorclass" "info_particle_system_clientside"\n"VisibilityFlags" "7"\n"start_active" "1"\n"model" "models/dev/e...00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-
-    [94mdef[39;49;00m [92m__init__[39;49;00m([96mself[39;49;00m, raw_entities: [96mbytes[39;49;00m):
-        entities: List[Dict[[96mstr[39;49;00m, [96mstr[39;49;00m]] = [96mlist[39;49;00m()
-        [90m# ^ [{"key": "value"}][39;49;00m
-        [90m# TODO: handle newlines in keys / values[39;49;00m
-        enumerated_lines = [96menumerate[39;49;00m(raw_entities.decode(errors=[33m"[39;49;00m[33mignore[39;49;00m[33m"[39;49;00m).splitlines())
-        [94mfor[39;49;00m line_no, line [95min[39;49;00m enumerated_lines:
-            [94mif[39;49;00m re.match([33mr[39;49;00m[33m"[39;49;00m[33m^[39;49;00m[33m\[39;49;00m[33ms*$[39;49;00m[33m"[39;49;00m, line):  [90m# line is blank / whitespace[39;49;00m
-                [94mcontinue[39;49;00m
-            [94mif[39;49;00m [33m"[39;49;00m[33m{[39;49;00m[33m"[39;49;00m [95min[39;49;00m line:  [90m# new entity[39;49;00m
-                ent = [96mdict[39;49;00m()
-            [94melif[39;49;00m [33m'[39;49;00m[33m"[39;49;00m[33m'[39;49;00m [95min[39;49;00m line:
-                key_value_pair = re.search([33mr[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[33m([^[39;49;00m[33m"[39;49;00m[33m]*)[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33ms[39;49;00m[33m"[39;49;00m[33m([^[39;49;00m[33m"[39;49;00m[33m]*)[39;49;00m[33m"[39;49;00m[33m'[39;49;00m, line)
-                [94mif[39;49;00m [95mnot[39;49;00m key_value_pair:
-                    open_key_value_pair = re.search([33mr[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[33m([^[39;49;00m[33m"[39;49;00m[33m]*)[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33ms[39;49;00m[33m"[39;49;00m[33m([^[39;49;00m[33m"[39;49;00m[33m]*)[39;49;00m[33m'[39;49;00m, line)
-                    [94mif[39;49;00m [95mnot[39;49;00m open_key_value_pair:
-                        [96mRuntimeError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mUnexpected line in entities: L[39;49;00m[33m{[39;49;00mline_no[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mline.encode()[33m}[39;49;00m[33m"[39;49;00m)
-                    key, value = open_key_value_pair.groups()
-                    [90m# TODO: use regex to catch CRLF line endings & unexpected whitespace[39;49;00m
-                    tail = re.search([33mr[39;49;00m[33m'[39;49;00m[33m([^[39;49;00m[33m"[39;49;00m[33m]*)[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33ms*$[39;49;00m[33m'[39;49;00m, line)
-                    [94mwhile[39;49;00m [95mnot[39;49;00m tail:
-                        [94mif[39;49;00m [33m"[39;49;00m[33m{[39;49;00m[33m"[39;49;00m [95min[39;49;00m line [95mor[39;49;00m [33m"[39;49;00m[33m}[39;49;00m[33m"[39;49;00m [95min[39;49;00m line:
-                            [96mRuntimeError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mUnexpected line in entities: L[39;49;00m[33m{[39;49;00mline_no[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mline.encode()[33m}[39;49;00m[33m"[39;49;00m)
->                       line_no, line = [96mnext[39;49;00m(enumerated_lines)
-[1m[31mE                       StopIteration[0m
-
-[1m[31mbsp_tool\branches\shared.py[0m:69: StopIteration
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
 [33m============================== warnings summary ===============================[0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
@@ -1179,17 +837,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Cell
-  DrawVertex
   Node
-  Brush
   Light
-  Occluder
-  Portal
-  CullGroup
   AxisAlignedBoundingBox
+  Portal
+  Occluder
+  CullGroup
+  DrawVertex
   Model
+  Cell
   PatchCollision
+  Brush
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -1245,9 +903,9 @@ bsp_tool\branches\ion_storm\daikatana.py                   13      0   100%
 bsp_tool\branches\loiste\__init__.py                        2      0   100%
 bsp_tool\branches\loiste\infra.py                          80      0   100%
 bsp_tool\branches\nexon\__init__.py                         4      0   100%
-bsp_tool\branches\nexon\cso2.py                           103      6    94%
+bsp_tool\branches\nexon\cso2.py                           109      6    94%
 bsp_tool\branches\nexon\cso2_2018.py                       18      0   100%
-bsp_tool\branches\nexon\vindictus.py                      236      9    96%
+bsp_tool\branches\nexon\vindictus.py                      237      9    96%
 bsp_tool\branches\physics.py                              139     52    63%
 bsp_tool\branches\py_struct_as_cpp.py                     171    171     0%
 bsp_tool\branches\raven\__init__.py                         4      0   100%
@@ -1288,16 +946,14 @@ bsp_tool\extensions\lightmaps.py                          191    191     0%
 bsp_tool\extensions\mprt.py                                12     12     0%
 bsp_tool\id_software.py                                   117     15    87%
 bsp_tool\infinity_ward.py                                  69     10    86%
-bsp_tool\lumps\__init__.py                                348     91    74%
+bsp_tool\lumps\__init__.py                                348     92    74%
 bsp_tool\raven.py                                           3      0   100%
-bsp_tool\respawn.py                                       253    135    47%
+bsp_tool\respawn.py                                       253    138    45%
 bsp_tool\ritual.py                                         45      3    93%
-bsp_tool\valve.py                                         136     68    50%
+bsp_tool\valve.py                                         136     71    48%
 ---------------------------------------------------------------------------
-TOTAL                                                    6997   1623    77%
+TOTAL                                                    7004   1630    77%
 
 =========================== short test summary info ===========================
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs96] - AssertionEr...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] - Asser...
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall/x360-map_dirs106] - ...
-[31m=========== [31m[1m3 failed[0m, [32m190 passed[0m, [33m6 warnings[0m[31m in 13745.67s (3:49:05)[0m[31m ===========[0m
+[31m=========== [31m[1m1 failed[0m, [32m191 passed[0m, [33m6 warnings[0m[31m in 14159.52s (3:55:59)[0m[31m ===========[0m
