@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
     printf("%s has %d vertices:\n", argv[1], vertex_lump_len);
     for (int i=0; i<vertex_lump_len; i++) {
         Vertex v = vertex_lump[i];
-        printf("vertex[%d] = {%.3f, %.3f, %.3f}\n", i, v.x, v.y, v.z);
+        printf("vertex[%d] = (%.3f, %.3f, %.3f)\n", i, v.x, v.y, v.z);
     }
 
     return 0;
