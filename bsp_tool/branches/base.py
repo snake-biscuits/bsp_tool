@@ -9,6 +9,7 @@ from typing import Any, Dict, Iterable, List, Union
 # TODO: _decode: Dict[str, BytesDecodeArgs] class variable for both Struct & MappedArray
 # ^ BytesDecodeArgs = Dict[str, str]
 # ^^ {"encoding": "utf-8", "errors": "strict"} -> bytes(...).decode(encoding="utf-8", errors="strict")
+# -- this should decode any strings in the type, should also be used for enconding writes
 # TODO: LumpClass(**{"attr.sub": value}) & MappedArray(**{"attr.sub": value})
 # TODO: _subclass: Dict[str, Any] class variable for both Struct & MappedArray
 # ^ {"attr": SubClass, "attr2.sub": SubClass}

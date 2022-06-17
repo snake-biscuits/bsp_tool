@@ -99,7 +99,9 @@ class Bsp:
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
         # branch is a "branch script" that has been imported into python
         # if writing your own "branch script", see branches/README.md for a guide
-        # TODO: remove old methods first
+        if hasattr(self, "branch"):
+            for method in getattr(branch, "methods", list()):
+                delattr(self, method.__name__)
         self.branch = branch
         # attach methods
         for method in getattr(branch, "methods", list()):
