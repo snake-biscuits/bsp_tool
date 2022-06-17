@@ -16,9 +16,9 @@ format E 11 0 0
 format F 10 0 0
 format G 10 0 0
 format 1 5
-format 4 4
 format 5 4
-format 7 5
+format 6 4
+format 8 5
 leftstring A0 = "branch_script"
 leftstring B0 = "Editor file"
 leftstring C0 = "Compiler"
@@ -43,17 +43,17 @@ let E2 = 1
 rightstring F2 = "Unknown"
 let G2 = 1
 rightstring H2 = "N/A"
-leftstring A3 = "valve.goldsrc"
-leftstring B3 = ".rmf"
-leftstring A4 = "valve.source"
-leftstring B4 = ".vmf"
-leftstring C4 = "Source SDK"
-leftstring D4 = "vbsp\nvvis\nvrad\nbspinfo"
-let E4 = 1
-rightstring F4 = "Unknown"
-rightstring G4 = "Unknown"
-rightstring H4 = "Unknown"
-leftstring A5 = "valve.orange_box"
+leftstring A3 = "respawn.titanfall2"
+leftstring B3 = ".map"
+leftstring C3 = "r2radiant"
+leftstring D3 = "q3map2"
+let E3 = 1
+rightstring F3 = "Unknown"
+let G3 = 1
+rightstring H3 = "N/A"
+leftstring A4 = "valve.goldsrc"
+leftstring B4 = ".rmf"
+leftstring A5 = "valve.source"
 leftstring B5 = ".vmf"
 leftstring C5 = "Source SDK"
 leftstring D5 = "vbsp\nvvis\nvrad\nbspinfo"
@@ -61,15 +61,23 @@ let E5 = 1
 rightstring F5 = "Unknown"
 rightstring G5 = "Unknown"
 rightstring H5 = "Unknown"
-leftstring A6 = "valve.left4dead"
-leftstring A7 = "valve.left4dead2"
-leftstring B7 = ".vmf"
-leftstring C7 = "Source SDK"
-leftstring D7 = "vbsp\nvvis\nvrad\nbspinfo"
-let E7 = 1
-rightstring F7 = "Unknown"
-rightstring G7 = "Unknown"
-rightstring H7 = "Unknown"
-leftstring A8 = "valve.sdk_2013"
-leftstring A9 = "valve.alien_swarm"
-goto B1
+leftstring A6 = "valve.orange_box"
+leftstring B6 = ".vmf"
+leftstring C6 = "Source SDK"
+leftstring D6 = "vbsp\nvvis\nvrad\nbspinfo"
+let E6 = 1
+rightstring F6 = "Unknown"
+rightstring G6 = "Unknown"
+rightstring H6 = "Unknown"
+leftstring A7 = "valve.left4dead"
+leftstring A8 = "valve.left4dead2"
+leftstring B8 = ".vmf"
+leftstring C8 = "Source SDK"
+leftstring D8 = "vbsp\nvvis\nvrad\nbspinfo"
+let E8 = 1
+rightstring F8 = "Unknown"
+rightstring G8 = "Unknown"
+rightstring H8 = "Unknown"
+leftstring A9 = "valve.sdk_2013"
+leftstring A10 = "valve.alien_swarm"
+goto G3
