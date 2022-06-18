@@ -9,7 +9,7 @@ R1O_MAPS_DIR := /media/bikkie/GAMES/bsps/TitanfallOnline/maps
 R2_MAPS_DIR  := /media/bikkie/GAMES/bsps/Titanfall2/maps
 R5_DIR       := /media/bikkie/GAMES/bsps/ApexLegends
 
-TESTMAP := /home/bikkie/Documents/Maps/mp_switchback.bsp
+TESTMAP := /home/bikkie/Documents/Mod/Titanfall/maps/mp_switchback.bsp
 
 ifeq ($(OS),Windows_NT)
     # NOTE: if compiling for Windows, use MSYS2 / MINGW64
