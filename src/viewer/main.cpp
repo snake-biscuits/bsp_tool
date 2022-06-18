@@ -203,16 +203,17 @@ int main(int argc, char* argv[]) {
     // TODO: lots of frustrum related jitter, especially on large maps
     camera::Lens lens;
     lens.fov = 90;
-    lens.aspect_ratio = static_cast<float>(width) / static_cast<float>(height);
+    lens.aspect_ratio = static_cast<double>(width) / static_cast<double>(height);
     lens.clip.near = 16;
     lens.clip.far = 102400;
     lens.update_matrix();
     glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, glm::value_ptr(lens.matrix));
 
     // INPUTS
-    SDL_Keycode  key;
-    bool         keys[122] = {false};  // this system can't capture arrow keys or modifiers
-    Vector2D     mouse;
+    SDL_Keycode       key;
+    bool              keys[122] = {false};
+    // NOTE: ^ this system can't capture arrow keys or modifiers
+    Vector2D<double>  mouse;
 
     // ENVIRONMENT
     unsigned int current_mesh = 0;  // index into bsp.children
@@ -295,14 +296,12 @@ int main(int argc, char* argv[]) {
         // DRAW
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // CAMERA
-        glPushMatrix();
         // lens.update_matrix();
         view_matrix = fp_camera.rotate(lens.matrix);
         // TODO: SKYBOX
         view_matrix = fp_camera.translate(view_matrix);
         // WORLD
         glUseProgram(bsp.shader_program);
-        // TODO: update view_matrix with camera transforms
         glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
         glDrawElements(GL_TRIANGLES, bsp.index_count, GL_UNSIGNED_INT, NULL);
         /*
@@ -313,7 +312,7 @@ int main(int argc, char* argv[]) {
                             GL_UNSIGNED_INT,
                             NULL);
         */
-        glPopMatrix();
+        // NOTE: drawing in immediate mode will require gluPerspective etc. to match the fp_camera.matrix
         // PRESENT FRAME
         SDL_GL_SwapWindow(window);
     }

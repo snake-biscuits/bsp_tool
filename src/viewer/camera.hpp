@@ -13,7 +13,7 @@
 #include "../common.hpp"
 
 
-// NOTE: this camera system assumes a Z-up world
+// NOTE: this camera system assumes a +Z up, +Y north world
 
 namespace camera {
     namespace MOVE {
@@ -26,15 +26,13 @@ namespace camera {
     }
 
 
-    // TODO: use doubles for greater accuracy
-    // -- vis matrix seem to have seriou rounding issues
     class Lens {
         public:
-            float fov;  // along Y axis
-            float aspect_ratio;  // width / height
+            double fov;  // along Y axis
+            double aspect_ratio;  // width / height
             struct {
-                float near;
-                float far;
+                double near;
+                double far;
             } clip;
             glm::mat4 matrix;
 
@@ -47,21 +45,21 @@ namespace camera {
 
     class FirstPerson {
         public:
-            bool    motion[6];
-            Vector  position;
-            Vector  rotation;
-            float   sensitivity;
-            float   speed;
+            bool              motion[6];
+            Vector3D<double>  position;
+            Vector3D<double>  rotation;
+            double            sensitivity;
+            double            speed;
 
             // METHODS
             // NOTE: uninterpolated
-            void update(Vector2D mouse, uint64_t delta_time_ms) {
+            void update(Vector2D<double> mouse, uint64_t delta_time_ms) {
                 // controls break sometimes? gimball lock?
                 rotation.z += mouse.x * sensitivity;
                 rotation.x += mouse.y * sensitivity;
                 rotation.x = rotation.x > 90 ? 90 : rotation.x < -90 ? -90 : rotation.x;
                 using namespace MOVE;
-                Vector wish;
+                Vector3D<double> wish;
                 wish.x = -(motion[PAN_LEFT] - motion[PAN_RIGHT]);
                 wish.y = -(motion[DOLLY_OUT] - motion[DOLLY_IN]);
                 wish.z = -(motion[PAN_DOWN] - motion[PAN_UP]);
@@ -69,10 +67,11 @@ namespace camera {
                 position += wish.rotate(-rotation) * speed * delta_time_ms;
             };
 
+            // TODO: can we force glm::mat4<double>? what is sizeof(GLfloat)?
             glm::mat4 rotate(glm::mat4 in_matrix) {
                 glm::mat4 out_matrix = glm::rotate(in_matrix, glm::radians(-90.0f), glm::vec3(1, 0, 0));  // Z+ up; Y+ forward
-                out_matrix = glm::rotate(out_matrix, glm::radians(rotation.x), glm::vec3(1, 0, 0));
-                out_matrix = glm::rotate(out_matrix, glm::radians(rotation.z), glm::vec3(0, 0, 1));
+                out_matrix = glm::rotate(out_matrix, static_cast<float>(glm::radians(rotation.x)), glm::vec3(1, 0, 0));
+                out_matrix = glm::rotate(out_matrix, static_cast<float>(glm::radians(rotation.z)), glm::vec3(0, 0, 1));
                 return out_matrix;
             };
 

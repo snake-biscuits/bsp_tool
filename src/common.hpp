@@ -10,58 +10,66 @@
 #define RADIANS(degrees)  degrees * M_PI / 180
 
 
-class Vector {
+template <typename T>
+class Vector3D {
     public:
-        float  x, y, z;
+        T  x, y, z;
 
         // OPERATORS
-        Vector operator+(const Vector& other) {
-            static Vector out;
+        // NOTE: Left-hand side type takes precedence
+        template<typename OT>
+        Vector3D<T> operator+(const Vector3D<OT>& other) {
+            static Vector3D<T> out;
             out.x = x + other.x;
             out.y = y + other.y;
             out.z = z + other.z;
             return out;
         }
 
-        Vector& operator+=(const Vector& other) {
+        template<typename OT>
+        Vector3D<T>& operator+=(const Vector3D<OT>& other) {
             this->x = x + other.x;
             this->y = y + other.y;
             this->z = z + other.z;
             return *this;
         }
 
-        Vector& operator-() {  // __neg__
-            static Vector out;
+        Vector3D<T>& operator-() {  // unary
+            static Vector3D<T> out;
             out.x = -x;
             out.y = -y;
             out.z = -z;
             return out;
         }
 
-        Vector& operator-(const Vector& other) {
-            static Vector out;
+        template<typename OT>
+        Vector3D<T>& operator-(const Vector3D<OT>& other) {
+            static Vector3D<T> out;
             out.x = x - other.x;
             out.y = y - other.y;
             out.z = z - other.z;
             return out;
         }
 
-        Vector& operator-=(const Vector& other) {
+        template<typename OT>
+        Vector3D<T>& operator-=(const Vector3D<OT>& other) {
             this->x = x - other.x;
             this->y = y - other.y;
             this->z = z - other.z;
             return *this;
         }
 
-        Vector operator*(const float& scalar) {
-            static Vector out;
+        template<typename ST>
+        Vector3D<T> operator*(const ST& scalar) {
+            static Vector3D<T> out;
             out.x = x * scalar;
             out.y = y * scalar;
             out.z = z * scalar;
             return out;
         }
 
-        Vector& operator*=(const float& scalar) {
+        template<typename ST>
+        Vector3D<T>& operator*=(const ST& scalar) {
             this->x = x * scalar;
             this->y = y * scalar;
             this->z = z * scalar;
@@ -69,12 +77,12 @@ class Vector {
         }
 
         // METHODS
-        Vector rotate(Vector angle) {
-            static Vector out;
+        Vector3D<float> rotate(Vector3D<T> angle) {
+            static Vector3D<float> out;
             // ROTATE X
             float cos_x = cos(RADIANS(angle.x));
             float sin_x = sin(RADIANS(angle.x));
-            Vector temp;
+            Vector3D<T> temp;
             out.y = y * cos_x - z * sin_x;
             out.z = y * sin_x + z * cos_x;
             // ROTATE Y
@@ -93,40 +101,48 @@ class Vector {
         }
 };
 
+
+template<typename T>
 class Vector2D {
     public:
-        float  x, y;
+        T  x, y;
 
         // OPERATORS
-        Vector2D operator+(const Vector2D& other) {
-            static Vector2D out;
+        // NOTE: Left-hand side type takes precedence
+        template<typename OT>
+        Vector2D<T> operator+(const Vector2D<OT>& other) {
+            static Vector2D<T> out;
             out.x = x + other.x;
             out.y = y + other.y;
             return out;
         }
 
-        Vector2D& operator+=(const Vector2D& other) {
+        template<typename OT>
+        Vector2D<T>& operator+=(const Vector2D<OT>& other) {
             this->x = x + other.x;
             this->y = y + other.y;
             return *this;
         }
 
-        Vector2D operator*(const float& scalar) {
-            static Vector2D out;
+        template<typename ST>
+        Vector2D<T> operator*(const ST& scalar) {
+            static Vector2D<T> out;
             out.x = x * scalar;
             out.y = y * scalar;
             return out;
         }
 
-        Vector2D& operator*=(const float& scalar) {
+        template<typename ST>
+        Vector2D<T>& operator*=(const ST& scalar) {
             this->x = x * scalar;
             this->y = y * scalar;
             return *this;
         }
 
         // METHODS
-        Vector2D rotate(float degrees) {
-            static Vector2D out;
+        template<typename DT>
+        Vector2D<T> rotate(DT degrees) {
+            static Vector2D<T> out;
             float cos_theta = cos(RADIANS(degrees));
             float sin_theta = sin(RADIANS(degrees));
             out.x = x * cos_theta + y * sin_theta;

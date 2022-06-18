@@ -1,4 +1,6 @@
 #pragma once  // probably unnessecary
+
+#include <cstdint>
 #include <cstring>
 
 #include "renderables.hpp"
@@ -18,13 +20,13 @@ void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, R
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short, MESH_INDICES,    LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,         VERTICES,        LUMP::VERTICES       )
-    GET_LUMP(Vector,         VERTEX_NORMALS,  LUMP::VERTEX_NORMALS )
-    GET_LUMP(VertexUnlit,    VERTEX_UNLIT,    LUMP::VERTEX_UNLIT   )
-    GET_LUMP(VertexLitFlat,  VERTEX_LIT_FLAT, LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(VertexLitBump,  VERTEX_LIT_BUMP, LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(VertexUnlitTS,  VERTEX_UNLIT_TS, LUMP::VERTEX_UNLIT_TS)
+    GET_LUMP(uint16_t,        MESH_INDICES,    LUMP::MESH_INDICES   )
+    GET_LUMP(Vector3D<float>, VERTICES,        LUMP::VERTICES       )
+    GET_LUMP(Vector3D<float>, VERTEX_NORMALS,  LUMP::VERTEX_NORMALS )
+    GET_LUMP(VertexUnlit,     VERTEX_UNLIT,    LUMP::VERTEX_UNLIT   )
+    GET_LUMP(VertexLitFlat,   VERTEX_LIT_FLAT, LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(VertexLitBump,   VERTEX_LIT_BUMP, LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(VertexUnlitTS,   VERTEX_UNLIT_TS, LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
     unsigned int VERTEX_UNLIT_OFFSET    = 0;

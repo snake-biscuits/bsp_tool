@@ -22,10 +22,10 @@ struct Span {
 
 
 struct RenderVertex {
-    Vector    position;
-    Vector    normal;
-    float     colour[3];
-    Vector2D  uv;
+    Vector3D<float>  position;
+    Vector3D<float>  normal;
+    float            colour[3];
+    Vector2D<float>  uv;
 };
 
 

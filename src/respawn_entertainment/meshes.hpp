@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "../common.hpp"
 
 
@@ -30,30 +32,30 @@ namespace bsp_tool {
 
 
             struct MaterialSort {
-                short  texture_data;
-                short  lightmap_header;
-                short  cubemap;  // -1 == None
-                short  unknown;
-                int    vertex_offset;  // offset into VertexReservedX
+                int16_t  texture_data;
+                int16_t  lightmap_header;
+                int16_t  cubemap;  // -1 == None
+                int16_t  unknown;
+                int32_t  vertex_offset;  // offset into VertexReservedX
             };
 
 
             struct Mesh {
-                int             first_mesh_index;
-                unsigned short  num_triangles;
-                unsigned short  first_vertex;
-                unsigned short  num_vertices;
-                short           unknown[6];
-                unsigned short  material_sort;
-                unsigned int    flags;
+                int32_t   first_mesh_index;
+                uint16_t  num_triangles;
+                uint16_t  first_vertex;
+                uint16_t  num_vertices;
+                int16_t   unknown[6];
+                uint16_t  material_sort;
+                uint32_t  flags;
             };
 
 
             struct MeshBounds {
-                Vector  origin;
-                float   radius;
-                Vector  extents;
-                int     unknown_2;
+                Vector3D<float>  origin;
+                float            radius;
+                Vector3D<float>  extents;
+                int32_t          unknown_2;
             };
 
 
@@ -62,20 +64,20 @@ namespace bsp_tool {
 
             struct Model {
                 struct {
-                    Vector min;
-                    Vector max;
+                    Vector3D<float> min;
+                    Vector3D<float> max;
                 } bounds;
-                unsigned int first_mesh;
-                unsigned int num_meshes;
+                uint32_t first_mesh;
+                uint32_t num_meshes;
             };
 
 
             struct TextureData {
-                float  colour[3];
-                int    name;
-                struct { int width, height; } size;
-                struct { int width, height; } view;
-                int    flags;
+                float    colour[3];
+                int32_t  name;
+                struct { int32_t width, height; } size;
+                struct { int32_t width, height; } view;
+                int32_t  flags;
             };
 
 
@@ -84,111 +86,111 @@ namespace bsp_tool {
 
             // VertexReservedX
             struct VertexLitBump {
-                int       position;  // index into VERTICES
-                int       normal;    // index into VERTEX_NORMALS
-                Vector2D  uv0;
-                int       unknown[7];
+                int32_t          position;  // index into VERTICES
+                int32_t          normal;    // index into VERTEX_NORMALS
+                Vector2D<float>  uv0;
+                int32_t          unknown[7];
             };
 
 
             struct VertexLitFlat {
-                int       position;
-                int       normal;
-                Vector2D  uv0;
-                int       unknown[5];
+                int32_t          position;
+                int32_t          normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown[5];
             };
 
 
             struct VertexUnlit {
-                int       position;
-                int       normal;
-                Vector2D  uv0;
-                int       unknown[1];
+                int32_t          position;
+                int32_t          normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown[1];
             };
 
 
             struct VertexUnlitTS {
-                int       position;
-                int       normal;
-                Vector2D  uv0;
-                int       unknown[3];
+                int32_t          position;
+                int32_t          normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown[3];
             };
         };
 
 
         namespace apex_legends {
             struct MaterialSort {
-                short         texture_data;
-                short         lightmap;
-                short         unknown[2];
-                unsigned int  vertex_offset;
+                int16_t   texture_data;
+                int16_t   lightmap;
+                int16_t   unknown[2];
+                uint32_t  vertex_offset;
             };
 
 
             struct Mesh {
-                unsigned int    first_mesh_index;
-                unsigned short  num_triangles;
-                short           unknown[7];
-                unsigned short  material_sort;
-                unsigned int    flags;
+                uint32_t  first_mesh_index;
+                uint16_t  num_triangles;
+                int16_t   unknown[7];
+                uint16_t  material_sort;
+                uint32_t  flags;
             };
 
 
             struct Model {
-                Vector        mins;
-                Vector        maxs;
-                unsigned int  first_mesh;
-                unsigned int  num_meshes;
-                int           unknown[8];
+                Vector3D<float>  mins;
+                Vector3D<float>  maxs;
+                uint32_t         first_mesh;
+                uint32_t         num_meshes;
+                int32_t          unknown[8];
             };
 
 
             struct TextureData {
-               int name;
-               struct { int width, height; } size;
-               int flags;
+               int32_t name;
+               struct { int32_t width, height; } size;
+               int32_t flags;
             };
 
 
             // VertexReservedX
             struct VertexBlinnPhong {  // unused
-                unsigned int  position;
-                unsigned int  normal;
-                Vector2D      uv0;
-                Vector2D      uv1;
+                uint32_t         position;
+                uint32_t         normal;
+                Vector2D<float>  uv0;
+                Vector2D<float>  uv1;
             };
 
 
             struct VertexLitBump {
-                unsigned int  position;
-                unsigned int  normal;
-                Vector2D      uv0;
-                int           unused;
-                Vector        unknown;
+                uint32_t         position;
+                uint32_t         normal;
+                Vector2D<float>  uv0;
+                int32_t          unused;
+                Vector3D<float>  unknown;
             };
 
 
             struct VertexLitFlat {
-                unsigned int  position;
-                unsigned int  normal;
-                Vector2D      uv0;
-                int           unknown;
+                uint32_t         position;
+                uint32_t         normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown;
             };
 
 
             struct VertexUnlit {
-                unsigned int  position;
-                unsigned int  normal;
-                Vector2D      uv0;
-                int           unknown;
+                uint32_t         position;
+                uint32_t         normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown;
             };
 
 
             struct VertexUnlitTS {
-                unsigned int  position;
-                unsigned int  normal;
-                Vector2D      uv0;
-                int           unknown[2];
+                uint32_t         position;
+                uint32_t         normal;
+                Vector2D<float>  uv0;
+                int32_t          unknown[2];
             };
         };
     };

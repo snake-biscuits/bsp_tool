@@ -1,4 +1,6 @@
 #pragma once  // probably unnessecary
+
+#include <cstdint>
 #include <cstring>
 
 #include "renderables.hpp"
@@ -18,13 +20,13 @@ void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, Render
         int name##_SIZE = bsp->header[ENUM].length / sizeof(Type); \
         Type *name = new Type[name##_SIZE]; \
         bsp->getLump<Type>(ENUM, name);
-    GET_LUMP(unsigned short,               MESH_INDICES,    titanfall::LUMP::MESH_INDICES   )
-    GET_LUMP(Vector,                       VERTICES,        titanfall::LUMP::VERTICES       )
-    GET_LUMP(Vector,                       VERTEX_NORMALS,  titanfall::LUMP::VERTEX_NORMALS )
-    GET_LUMP(apex_legends::VertexUnlit,    VERTEX_UNLIT,    titanfall::LUMP::VERTEX_UNLIT   )
-    GET_LUMP(apex_legends::VertexLitFlat,  VERTEX_LIT_FLAT, titanfall::LUMP::VERTEX_LIT_FLAT)
-    GET_LUMP(apex_legends::VertexLitBump,  VERTEX_LIT_BUMP, titanfall::LUMP::VERTEX_LIT_BUMP)
-    GET_LUMP(apex_legends::VertexUnlitTS,  VERTEX_UNLIT_TS, titanfall::LUMP::VERTEX_UNLIT_TS)
+    GET_LUMP(uint16_t,                    MESH_INDICES,    titanfall::LUMP::MESH_INDICES   )
+    GET_LUMP(Vector3D<float>,             VERTICES,        titanfall::LUMP::VERTICES       )
+    GET_LUMP(Vector3D<float>,             VERTEX_NORMALS,  titanfall::LUMP::VERTEX_NORMALS )
+    GET_LUMP(apex_legends::VertexUnlit,   VERTEX_UNLIT,    titanfall::LUMP::VERTEX_UNLIT   )
+    GET_LUMP(apex_legends::VertexLitFlat, VERTEX_LIT_FLAT, titanfall::LUMP::VERTEX_LIT_FLAT)
+    GET_LUMP(apex_legends::VertexLitBump, VERTEX_LIT_BUMP, titanfall::LUMP::VERTEX_LIT_BUMP)
+    GET_LUMP(apex_legends::VertexUnlitTS, VERTEX_UNLIT_TS, titanfall::LUMP::VERTEX_UNLIT_TS)
     #undef GET_LUMP
 
     unsigned int VERTEX_UNLIT_OFFSET    = 0;
