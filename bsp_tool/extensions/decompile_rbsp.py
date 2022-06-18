@@ -64,7 +64,8 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
 def decompile(bsp, map_filename: str):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
     out = ["// Game: Generic\n// Format: Valve\n",
-           '// entity 0\n{\n"classname" "worldspawn"\n']
+           '// entity 0\n{\n',
+           *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     first_brush_side = 0
     for i, brush in enumerate(bsp.CM_BRUSHES):
         out.append(f"// brush {i}" + "\n{\n")
@@ -100,6 +101,10 @@ def decompile(bsp, map_filename: str):
         first_brush_side += num_brush_sides
         out.append("}\n")
     out.append("}\n")
-    # TODO: entities
+    for i, entity in enumerate(bsp.ENTITIES[1:]):
+        # NOTE: .bsp entity lump only
+        # TODO: identify brush entities in Titanfall 2 entities
+        # TODO: match brush entities to brushes
+        out.extend((f"// entity {i + 1}", "\n{\n", *[f'"{k}" "{v}"\n' for k, v in entity.items()], "}\n"))
     with open(map_filename, "w") as map_file:
         map_file.write("".join(out))
