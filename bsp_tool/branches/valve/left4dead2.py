@@ -106,7 +106,7 @@ class LumpHeader(base.MappedArray):
 # classes for special lumps, in alphabetical order:
 # TODO: PropCollision
 # TODO: PropBlob
-# TODO: StaticPropv8
+# TODO: StaticPropv9
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -121,7 +121,7 @@ GAME_LUMP_HEADER = left4dead.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = left4dead.GAME_LUMP_CLASSES.copy()
-# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
+# TODO: GAME_LUMP_CLASSES["sprp"].update({9: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv9)})
 
 
 methods = [*left4dead.methods]

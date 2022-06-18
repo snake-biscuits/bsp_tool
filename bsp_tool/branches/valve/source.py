@@ -657,7 +657,7 @@ class GameLumpHeader(base.MappedArray):
     _format = "4s2H2i"
 
 
-class GameLump_SPRP:
+class GameLump_SPRP:  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
     StaticPropClass: object  # StaticPropvX
     model_names: List[str]
@@ -704,13 +704,13 @@ class GameLump_SPRP:
                          *prop_bytes])
 
 
-class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35)
+class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L151"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv4 is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -729,7 +729,7 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv5 is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -750,7 +750,7 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv10 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv6 is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -764,6 +764,29 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     _format = "6f3H2Bi6f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
+
+
+class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
+    """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv7 is in
+    solid_mode: int  # collision flags enum
+    flags: int  # other flags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    dx_level: List[int]  # supported directX level, will not render depending on settings
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "dx_level", "diffuse_modulation"]
+    _format = "6f3H2Bi6f2H4B"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -821,7 +844,8 @@ GAME_LUMP_HEADER = GameLumpHeader
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4),
                               5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
-                              6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6)}}
+                              6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6),
+                              7: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv7)}}
 # TODO: more GameLump definitions:
 # -- https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
 

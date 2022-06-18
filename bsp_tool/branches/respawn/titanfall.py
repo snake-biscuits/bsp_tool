@@ -716,7 +716,8 @@ class GameLump_SPRP:
                          *prop_bytes])
 
 
-class StaticPropv12(base.Struct):  # sprp GAME_LUMP (0023)
+class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12]
+    """appears to extend valve.left4dead.StaticPropv8"""
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll
     model_name: int  # index into GAME_LUMP.sprp.model_names

@@ -1,6 +1,9 @@
 # https://developer.valvesoftware.com/wiki/Left_4_Dead_(engine_branch)
+# https://github.com/Galaco/bsp/blob/master/primitives/game/staticpropv8.go
 import enum
+from typing import List
 
+from .. import base
 from . import orange_box
 from . import source
 
@@ -92,7 +95,29 @@ LumpHeader = source.LumpHeader
 
 
 # classes for special lumps, in alphabetical order:
-# TODO: StaticPropv8
+class StaticPropv8(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
+    """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticPropv8 is in
+    solid_mode: int  # collision flags enum
+    flags: int  # other flags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation"]
+    _format = "6f3H2Bi6f8B"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -107,9 +132,8 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
-GAME_LUMP_CLASSES["sprp"].pop(7)
-# TODO: GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
+GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
 
 
 # branch exclusive methods, in alphabetical order:

@@ -303,7 +303,7 @@ class GameLump_SPRP:
                         self.unknown_3])
 
 
-class StaticPropv13(base.Struct):  # sprp GAME_LUMP (0023)
+class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13]
     """Identified w/ BobTheBob"""
     origin: List[float]  # x, y, z
     angles: List[float]  # pitch, yaw, roll (Y Z X)

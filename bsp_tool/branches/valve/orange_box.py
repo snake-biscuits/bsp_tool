@@ -142,7 +142,7 @@ class PhysicsDisplacement(list):  # LUMP 28
         return b"".join(count, *sizes, *self)
 
 
-class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35)
+class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7* / 10]
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into AME_LUMP.sprp.model_names
