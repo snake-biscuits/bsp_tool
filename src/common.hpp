@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <cstdint>
 
 
 #ifndef M_PI
@@ -136,4 +137,4 @@ class Vector2D {
 
 struct QAngle { float pitch, yaw, roll; };  // Y Z X; 0 0 0 = Facing East / X+;
 
-struct Colour32 { unsigned char r, g, b, a; };
+struct Colour32 { uint8_t r, g, b, a; };
