@@ -123,6 +123,17 @@ class LeafType(enum.Enum):
     # NOTE: types below 6 may not be implemented, but act like water
 
 
+class PlaneType(enum.Enum):
+    # Axial, perfectly aligned
+    X = 0
+    Y = 1
+    Z = 2
+    # Non-axial, nearest axis
+    NEAR_X = 3
+    NEAR_Y = 4
+    NEAR_Z = 5
+
+
 # classes for lumps, in alphabetical order:
 class ClipNode(base.Struct):  # LUMP 9
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
@@ -164,15 +175,15 @@ class Face(base.Struct):  # LUMP 7
 
 
 class Leaf(base.Struct):  # LUMP 10
-    leaf_type: int  # see LeafType enum
+    type: int  # see LeafType enum
     vis_offset: int  # index into the VISIBILITY lump
     bounds: List[List[int]]
     # bounds.mins: List[int]
     # bounds.maxs: List[int]
-    first_leaf_face: int
-    num_leaf_faces: int
+    first_leaf_face: int  # first LeafFace in this Leaf
+    num_leaf_faces: int  # number of LeafFaces after first_leaf_face in this Leaf
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-    __slots__ = ["leaf_type", "vis_offset", "bounds", "first_leaf_face",
+    __slots__ = ["type", "vis_offset", "bounds", "first_leaf_face",
                  "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
@@ -199,7 +210,7 @@ class Model(base.Struct):  # LUMP 14
 
 
 class Node(base.Struct):  # LUMP 5
-    plane: int
+    plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
     bounds: List[int]  # for sphere culling at runtime
@@ -217,8 +228,8 @@ class Node(base.Struct):  # LUMP 5
 class Plane(base.Struct):  # LUMP 1
     normal: List[float]
     distance: float
-    plane_type: int  # 0-5 (Axial X-Z, Non-Axial X-Z)
-    __slots__ = ["normal", "distance", "plane_type"]
+    type: int  # see PlaneType enum
+    __slots__ = ["normal", "distance", "type"]
     _format = "4fI"
     _arrays = {"normal": [*"xyz"]}
 
