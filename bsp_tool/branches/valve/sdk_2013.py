@@ -163,7 +163,7 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
-GAME_LUMP_CLASSES = left4dead2.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = {"sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),
                                   11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11)})
 

@@ -147,7 +147,7 @@ SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = left4dead.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = left4dead.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = {"sprp": left4dead.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({9: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv9)})
 
 

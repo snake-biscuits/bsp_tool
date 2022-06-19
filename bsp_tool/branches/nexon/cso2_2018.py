@@ -38,8 +38,8 @@ LUMP_CLASSES.update({"DISPLACEMENT_INFO": {0: DisplacementInfo}})
 
 SPECIAL_LUMP_CLASSES = cso2.SPECIAL_LUMP_CLASSES.copy()
 
+# {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = cso2.GAME_LUMP_CLASSES.copy()
-# ^ {"lump": {version: SpecialLumpClass}}
 
 
 methods = [*cso2.methods]

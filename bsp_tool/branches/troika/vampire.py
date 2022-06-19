@@ -63,7 +63,7 @@ SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
 
 
 methods = [*source.methods]

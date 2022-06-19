@@ -27,6 +27,7 @@ ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "
 source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
                   branches.valve.left4dead, branches.valve.left4dead2,
                   *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
+# NOTE; table row sorting isn't 100% deterministic for some reason
 # NOTE: per BspClass files that could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
 # -- confirming all the BspClasses line up is pretty important though

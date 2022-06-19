@@ -179,7 +179,7 @@ SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = source.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = source.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({7: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
                                  10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10)})
 

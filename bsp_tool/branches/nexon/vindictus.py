@@ -330,7 +330,7 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES = {"sprp": orange_box.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES.update({"sprp": {6: lambda raw_lump: GameLump_SPRP(raw_lump, source.StaticPropv6)}})
 # NOTE: 281 / 474 maps fail to load with this format
 # -- older maps? nexon often updates formats without changing version numbers...

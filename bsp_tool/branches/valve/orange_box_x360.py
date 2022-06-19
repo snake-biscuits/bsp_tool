@@ -162,12 +162,12 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
 
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 
+# {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv4_x360),
                               5: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv5_x360),
                               6: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv6_x360),
                               7: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv10_x360),  # 7*
                               10: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv10_x360)}}
-# ^ {"lump": {version: SpecialLumpClass}}
 
 
 methods = [*orange_box.methods]
