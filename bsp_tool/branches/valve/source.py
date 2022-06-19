@@ -710,7 +710,7 @@ class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv4 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -729,7 +729,7 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv5 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -750,7 +750,7 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv6 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -772,7 +772,7 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv7 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl

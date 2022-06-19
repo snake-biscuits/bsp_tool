@@ -1,9 +1,10 @@
 # https://github.com/ValveSoftware/source-sdk-2013/
 import enum
+from typing import List
 
+from .. import base
 # from . import alien_swarm
-# from . import left4dead
-# from . import left4dead2
+from . import left4dead2
 from . import orange_box
 from . import source
 
@@ -94,6 +95,63 @@ LumpHeader = source.LumpHeader
 # TODO: Known lump changes from Orange Box -> Source SDK 2013:
 
 
+# classes for special lumps, in alphabetical order:
+class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
+    """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    solid_mode: int  # collision flags enum
+    flags: int  # other flags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    disable_x360: bool
+    flags_2: int  # values unknown
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+                 "disable_x360", "flags_2"]
+    _format = "6f3H2Bi6f8B?I"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+
+
+class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
+    """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    solid_mode: int  # collision flags enum
+    flags: int  # other flags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    flags_2: int  # values unknown
+    scale: float
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+                 "flags_2", "scale"]
+    _format = "6f3H2Bi6f8BIf"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
@@ -105,7 +163,8 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
-GAME_LUMP_CLASSES = orange_box.GAME_LUMP_CLASSES.copy()
-GAME_LUMP_CLASSES["sprp"].pop(10)
+GAME_LUMP_CLASSES = left4dead2.GAME_LUMP_CLASSES.copy()
+GAME_LUMP_CLASSES["sprp"].update({10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),
+                                  11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11)})
 
 methods = [*orange_box.methods]

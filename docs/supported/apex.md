@@ -93,6 +93,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 48 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L306) | 92% |
 | 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 49 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L306) | 92% |
 | 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 50 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L306) | 92% |
+| 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 51 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L306) | 92% |
 | 36 | 0024 | 47 | `UNUSED_36` | 0 |  | 0% |
 | 37 | 0025 | 47 | `UNKNOWN_37` | 0 |  | 0% |
 | 38 | 0026 | 47 | `UNKNOWN_38` | 0 |  | 0% |

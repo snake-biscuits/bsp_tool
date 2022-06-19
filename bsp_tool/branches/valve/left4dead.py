@@ -101,7 +101,7 @@ class StaticPropv8(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticPropv8 is in
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl

@@ -246,11 +246,12 @@ gamelump_mappings[branches.valve.left4dead]["sprp.props"] = gamelump_mappings[br
 gamelump_mappings[branches.valve.left4dead]["sprp.props"].pop(7)
 gamelump_mappings[branches.valve.left4dead]["sprp.props"][8] = branches.valve.left4dead.StaticPropv8
 gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
-gamelump_mappings[branches.valve.left4dead2]["sprp.props"][9] = None
+gamelump_mappings[branches.valve.left4dead2]["sprp.props"][9] = branches.valve.left4dead2.StaticPropv9
 gamelump_mappings[branches.valve.alien_swarm] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.sdk_2013] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
-gamelump_mappings[branches.valve.sdk_2013]["sprp.props"][10] = None
+gamelump_mappings[branches.valve.sdk_2013]["sprp.props"].update({10: branches.valve.sdk_2013.StaticPropv10,
+                                                                 11: branches.valve.sdk_2013.StaticPropv11})
 gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
                                                  "sprp.props": {12: branches.respawn.titanfall.StaticPropv12}}
@@ -260,7 +261,8 @@ gamelump_mappings[branches.respawn.apex_legends] = {"sprp": branches.respawn.tit
                                                     "sprp.props": {47: branches.respawn.titanfall2.StaticPropv13,
                                                                    48: branches.respawn.titanfall2.StaticPropv13,
                                                                    49: branches.respawn.titanfall2.StaticPropv13,
-                                                                   50: branches.respawn.titanfall2.StaticPropv13}}
+                                                                   50: branches.respawn.titanfall2.StaticPropv13,
+                                                                   51: branches.respawn.titanfall2.StaticPropv13}}
 gamelump_coverage = dict()
 # ^ {LumpClass: percent, SpecialLumpClass: percent}
 # TODO: gather all the classes defined above and calculate their % unknown automatically
@@ -269,7 +271,10 @@ gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
                           branches.valve.source.StaticPropv5: 100,
                           branches.valve.source.StaticPropv6: 100,
                           branches.valve.left4dead.StaticPropv8: 100,
+                          branches.valve.left4dead2.StaticPropv9: 100,
                           branches.valve.orange_box.StaticPropv10: 100,
+                          branches.valve.sdk_2013.StaticPropv10: 100,
+                          branches.valve.sdk_2013.StaticPropv11: 100,
                           branches.nexon.vindictus.GameLump_SPRP: 100,
                           branches.nexon.vindictus.StaticPropScale: 100,
                           branches.respawn.titanfall.GameLump_SPRP: 60,
