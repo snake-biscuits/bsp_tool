@@ -112,13 +112,13 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
-    disable_x360: bool
+    disable_x360: int  # 4 byte bool
     flags_2: int  # values unknown
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
                  "disable_x360", "flags_2"]
-    _format = "6f3H2Bi6f8B?I"
+    _format = "6f3H2Bi6f8B2I"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
