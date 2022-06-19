@@ -29,7 +29,7 @@
 | 28 | 22 | `LEAVES` |  | 0% |
 | 29 | 22 | `LEAF_BRUSHES` |  | 0% |
 | 30 | 22 | `LEAF_SURFACES` |  | 0% |
-| 31 | 22 | `COLLISION_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L238) | 100% |
+| 31 | 22 | `COLLISION_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L248) | 100% |
 | 32 | 22 | `COLLISION_TRIANGLES` | [`infinity_ward.call_of_duty2.Triangle`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L163) | 100% |
 | 33 | 22 | `COLLISION_EDGE_WALK` |  | 0% |
 | 34 | 22 | `COLLISION_BORDERS` |  | 0% |
