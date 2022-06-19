@@ -244,8 +244,9 @@ gamelump_mappings[branches.nexon.cso2_2018] = gamelump_mappings[branches.nexon.c
 gamelump_mappings[branches.valve.left4dead] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.left4dead]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
 gamelump_mappings[branches.valve.left4dead]["sprp.props"].pop(7)
-gamelump_mappings[branches.valve.left4dead]["sprp.props"][8] = None
+gamelump_mappings[branches.valve.left4dead]["sprp.props"][8] = branches.valve.left4dead.StaticPropv8
 gamelump_mappings[branches.valve.left4dead2] = gamelump_mappings[branches.valve.left4dead].copy()
+gamelump_mappings[branches.valve.left4dead2]["sprp.props"][9] = None
 gamelump_mappings[branches.valve.alien_swarm] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.sdk_2013] = gamelump_mappings[branches.valve.orange_box].copy()
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
@@ -267,6 +268,7 @@ gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
                           branches.valve.source.StaticPropv4: 100,
                           branches.valve.source.StaticPropv5: 100,
                           branches.valve.source.StaticPropv6: 100,
+                          branches.valve.left4dead.StaticPropv8: 100,
                           branches.valve.orange_box.StaticPropv10: 100,
                           branches.nexon.vindictus.GameLump_SPRP: 100,
                           branches.nexon.vindictus.StaticPropScale: 100,
