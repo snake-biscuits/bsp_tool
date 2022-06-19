@@ -38,77 +38,77 @@ tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Tril
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[32m [ 16%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[32m [ 16%][0m
 tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[32m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[32m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34] [32mPASSED[0m[32m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs35] [32mPASSED[0m[32m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs36] [32mPASSED[0m[32m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs37] [32mPASSED[0m[32m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs38] [32mPASSED[0m[32m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs39] [32mPASSED[0m[32m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs40] [32mPASSED[0m[32m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs41] [32mPASSED[0m[32m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs42] [32mPASSED[0m[32m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs43] [32mPASSED[0m[32m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs44] [32mPASSED[0m[32m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs45] [32mPASSED[0m[32m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs46] [32mPASSED[0m[32m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs47] [32mPASSED[0m[32m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs48] [32mPASSED[0m[32m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs49] [32mPASSED[0m[32m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs50] [32mPASSED[0m[32m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs51] [32mPASSED[0m[32m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs52] [32mPASSED[0m[32m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs53] [32mPASSED[0m[32m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs54] [32mPASSED[0m[32m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs55] [32mPASSED[0m[32m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs56] [32mPASSED[0m[32m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs57] [32mPASSED[0m[32m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs58] [32mPASSED[0m[32m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs59] [32mPASSED[0m[32m [ 31%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs60] [32mPASSED[0m[32m [ 31%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61] [32mPASSED[0m[32m [ 32%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs62] [32mPASSED[0m[32m [ 32%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs63] [32mPASSED[0m[32m [ 33%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs64] [32mPASSED[0m[32m [ 33%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs65] [32mPASSED[0m[32m [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs66] [32mPASSED[0m[32m    [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs67] [32mPASSED[0m[32m         [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs68] [32mPASSED[0m[32m [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs69] [32mPASSED[0m[32m      [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs70] [32mPASSED[0m[32m [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs71] [32mPASSED[0m[32m    [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs72] [32mPASSED[0m[32m     [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs73] [32mPASSED[0m[32m     [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs74] [32mPASSED[0m[32m        [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs75] [32mPASSED[0m[32m        [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs76] [32mPASSED[0m[32m          [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs77] [32mPASSED[0m[32m           [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs78] [32mPASSED[0m[32m           [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs79] [32mPASSED[0m[32m          [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs80] [32mPASSED[0m[32m [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs81] [32mPASSED[0m[32m       [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs82] [32mPASSED[0m[32m      [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs83] [32mPASSED[0m[32m [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs84] [32mPASSED[0m[32m     [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs85] [32mPASSED[0m[32m        [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs86] [32mPASSED[0m[32m         [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs87] [32mPASSED[0m[32m       [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs88] [32mPASSED[0m[32m        [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs89] [32mPASSED[0m[32m          [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs90] [32mPASSED[0m[32m          [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs91] [32mPASSED[0m[32m          [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs92] [32mPASSED[0m[32m     [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs93] [32mPASSED[0m[32m [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs94] [32mPASSED[0m[32m     [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs95] [32mPASSED[0m[32m    [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs96] [32mPASSED[0m[32m          [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs97] [32mPASSED[0m[32m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs98] [32mPASSED[0m[32m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs99] [32mPASSED[0m[32m [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs100] [32mPASSED[0m[32m        [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs101] [32mPASSED[0m[32m  [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs102] [32mPASSED[0m[32m [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs103] [32mPASSED[0m[32m [ 54%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [31mFAILED[0m[31m [ 17%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34] [31mFAILED[0m[31m [ 18%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs35] [32mPASSED[0m[31m [ 18%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs36] [32mPASSED[0m[31m [ 19%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs37] [32mPASSED[0m[31m [ 19%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs38] [32mPASSED[0m[31m [ 20%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs39] [32mPASSED[0m[31m [ 20%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs40] [32mPASSED[0m[31m [ 21%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs41] [32mPASSED[0m[31m [ 21%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs42] [32mPASSED[0m[31m [ 22%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs43] [32mPASSED[0m[31m [ 22%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs44] [32mPASSED[0m[31m [ 23%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs45] [32mPASSED[0m[31m [ 23%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs46] [32mPASSED[0m[31m [ 24%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs47] [32mPASSED[0m[31m [ 25%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs48] [32mPASSED[0m[31m [ 25%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs49] [32mPASSED[0m[31m [ 26%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs50] [32mPASSED[0m[31m [ 26%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs51] [32mPASSED[0m[31m [ 27%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs52] [32mPASSED[0m[31m [ 27%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs53] [32mPASSED[0m[31m [ 28%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs54] [32mPASSED[0m[31m [ 28%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs55] [32mPASSED[0m[31m [ 29%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs56] [32mPASSED[0m[31m [ 29%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs57] [32mPASSED[0m[31m [ 30%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs58] [32mPASSED[0m[31m [ 30%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs59] [32mPASSED[0m[31m [ 31%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs60] [32mPASSED[0m[31m [ 31%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61] [31mFAILED[0m[31m [ 32%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs62] [32mPASSED[0m[31m [ 32%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs63] [31mFAILED[0m[31m [ 33%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs64] [32mPASSED[0m[31m [ 33%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs65] [32mPASSED[0m[31m [ 34%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs66] [32mPASSED[0m[31m    [ 34%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs67] [32mPASSED[0m[31m         [ 35%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs68] [32mPASSED[0m[31m [ 35%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs69] [32mPASSED[0m[31m      [ 36%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs70] [32mPASSED[0m[31m [ 36%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs71] [32mPASSED[0m[31m    [ 37%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs72] [32mPASSED[0m[31m     [ 38%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs73] [32mPASSED[0m[31m     [ 38%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs74] [32mPASSED[0m[31m        [ 39%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs75] [32mPASSED[0m[31m        [ 39%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs76] [32mPASSED[0m[31m          [ 40%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs77] [32mPASSED[0m[31m           [ 40%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs78] [32mPASSED[0m[31m           [ 41%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs79] [32mPASSED[0m[31m          [ 41%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs80] [32mPASSED[0m[31m [ 42%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs81] [32mPASSED[0m[31m       [ 42%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs82] [32mPASSED[0m[31m      [ 43%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs83] [32mPASSED[0m[31m [ 43%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs84] [32mPASSED[0m[31m     [ 44%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs85] [32mPASSED[0m[31m        [ 44%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs86] [32mPASSED[0m[31m         [ 45%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs87] [32mPASSED[0m[31m       [ 45%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs88] [32mPASSED[0m[31m        [ 46%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs89] [32mPASSED[0m[31m          [ 46%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs90] [32mPASSED[0m[31m          [ 47%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs91] [32mPASSED[0m[31m          [ 47%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs92] [32mPASSED[0m[31m     [ 48%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs93] [32mPASSED[0m[31m [ 48%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs94] [31mFAILED[0m[31m     [ 49%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs95] [32mPASSED[0m[31m    [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs96] [32mPASSED[0m[31m          [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs97] [32mPASSED[0m[31m [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs98] [32mPASSED[0m[31m [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs99] [32mPASSED[0m[31m [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs100] [32mPASSED[0m[31m        [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs101] [32mPASSED[0m[31m  [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs102] [32mPASSED[0m[31m [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs103] [32mPASSED[0m[31m [ 54%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] [31mFAILED[0m[31m    [ 54%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs105] [32mPASSED[0m[31m    [ 55%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs106] [32mPASSED[0m[31m [ 55%][0m
@@ -129,7 +129,7 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs120] [32mP
 tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs121] [32mPASSED[0m[31m [ 63%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs122] [32mPASSED[0m[31m [ 64%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs123] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs124] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs124] [31mFAILED[0m[31m [ 65%][0m
 tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 65%][0m
 tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 66%][0m
@@ -199,6 +199,662 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [100%][0m
 
 ================================== FAILURES ===================================
+[31m[1m__ test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] __[0m
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Blade Symphony'
+map_dirs = ['berimbau/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 8 out of 21 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013', 21)[0m
+[1m[31mE       assert {'berimbau/maps/cp_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/duel_castle.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/duel_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/duel_practice_box.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/ffa_community.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/free_district.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/free_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'berimbau/maps/free_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 8 more items:[0m
+[1m[31mE         {'berimbau/maps/cp_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/duel_castle.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/duel_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/duel_practice_box.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/ffa_community.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/free_district.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/free_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'berimbau/maps/free_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'berimbau/maps/cp_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/duel_castle.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/duel_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/duel_practice_box.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/ffa_community.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/free_district.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/free_docks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'berimbau/maps/free_monastery.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
+[31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34] _[0m
+
+group_path = 'D:/SteamLibrary/steamapps/common'
+game_name = 'Counter-Strike Global Offensive', map_dirs = ['csgo/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 29 out of 41 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013', 21)[0m
+[1m[31mE       assert {'csgo/maps/ar_lunacy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/ar_shoots.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/cs_climb.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/cs_italy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/cs_militia.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/cs_office.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_ancient.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_bank.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_cache.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_canals.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_crete.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_dust2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_hive.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_inferno.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_iris.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_mirage.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_nuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_overpass.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_shortnuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_train.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/de_vertigo.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/dz_blacksite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/dz_ember.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/dz_sirocco.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/dz_vineyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/gd_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/lobby_mapveto.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'csgo/maps/training1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 29 more items:[0m
+[1m[31mE         {'csgo/maps/ar_lunacy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/ar_shoots.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/cs_climb.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/cs_italy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/cs_militia.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/cs_office.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_ancient.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_bank.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_cache.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_canals.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_crete.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_dust2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_hive.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_inferno.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_iris.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_mirage.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_nuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_overpass.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_shortnuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_train.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/de_vertigo.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/dz_blacksite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/dz_ember.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/dz_sirocco.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/dz_vineyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/gd_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/lobby_mapveto.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'csgo/maps/training1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'csgo/maps/ar_lunacy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/ar_shoots.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/cs_climb.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/cs_italy.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/cs_militia.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/cs_office.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_ancient.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_bank.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_cache.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_canals.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_crete.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_dust2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_hive.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_inferno.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_iris.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_mirage.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_nuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_overpass.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_shortnuke.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_train.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/de_vertigo.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/dz_blacksite.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/dz_ember.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/dz_sirocco.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/dz_vineyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/gd_cbble.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/lobby_mapveto.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'csgo/maps/training1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
+[31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61] __[0m
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'SourceFilmmaker'
+map_dirs = ['game/tf/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 7 out of 71 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013', 21)[0m
+[1m[31mE       assert {'game/tf/maps/ctf_foundry.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/ctf_gorge.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/koth_lakeside_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/pl_cactuscanyon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/pl_upward.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/rd_asteroid.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'game/tf/maps/sd_doomsday_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 7 more items:[0m
+[1m[31mE         {'game/tf/maps/ctf_foundry.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/ctf_gorge.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/koth_lakeside_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/pl_cactuscanyon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/pl_upward.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/rd_asteroid.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'game/tf/maps/sd_doomsday_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'game/tf/maps/ctf_foundry.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/ctf_gorge.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/koth_lakeside_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/pl_cactuscanyon.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/pl_upward.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/rd_asteroid.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'game/tf/maps/sd_doomsday_event.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
+[31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs63] __[0m
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Team Fortress 2'
+map_dirs = ['tf/maps', 'tf/download/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 5 out of 505 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
+[1m[31mE       assert {'tf/download/maps/arena_idolon_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/bananaland_rc5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_e1m1mountainlab.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_ismac_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_ismac_mc18_a2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 5 more items:[0m
+[1m[31mE         {'tf/download/maps/arena_idolon_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'tf/download/maps/bananaland_rc5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'tf/download/maps/cp_e1m1mountainlab.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'tf/download/maps/cp_ismac_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'tf/download/maps/cp_ismac_mc18_a2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'tf/download/maps/arena_idolon_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'tf/download/maps/bananaland_rc5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'tf/download/maps/cp_e1m1mountainlab.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'tf/download/maps/cp_ismac_mc18_a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'tf/download/maps/cp_ismac_mc18_a2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
+[31m[1m_________________ test_load_bsp[E:/Mod-BlackMesa-map_dirs94] __________________[0m
+
+group_path = 'E:/Mod', game_name = 'BlackMesa', map_dirs = ['maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 107 out of 109 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013', 20)[0m
+[1m[31mE       assert {'maps/background01.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background03.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background04.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background05.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background06.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background07.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background08.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background09.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background10.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background11.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background12.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background13.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background14.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background15.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background16.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background17.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/background18.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c0a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c0a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c0a0c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a1d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a1e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a4d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c1a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a4h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c2a5i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c3a2i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a1c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3b2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3c2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a3d1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c4a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/bm_c5a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_boom.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_bounce.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_chopper.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_crossfire.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_gasworks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_lambdabunker.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_power.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_rail.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_stack.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_stalkyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_subtransit.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'maps/dm_undertow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 107 more items:[0m
+[1m[31mE         {'maps/background01.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background03.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background04.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background05.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background06.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background07.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background08.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background09.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background10.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background11.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background12.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background13.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background14.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background15.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background16.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background17.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/background18.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c0a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c0a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c0a0c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a1d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a1e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a4d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c1a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a4h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c2a5i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c3a2i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a1c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3b2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3c2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a3d1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c4a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/bm_c5a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_boom.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_bounce.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_chopper.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_crossfire.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_gasworks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_lambdabunker.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_power.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_rail.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_stack.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_stalkyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_subtransit.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'maps/dm_undertow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'maps/background01.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background02.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background03.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background04.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background05.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background06.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background07.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background08.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background09.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background10.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background11.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background12.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background13.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background14.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background15.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background16.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background17.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/background18.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c0a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c0a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c0a0c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a0a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a0b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a1d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a1e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a4d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c1a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a4h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c2a5i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2e.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2f.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2g.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2h.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c3a2i.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a1c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a2a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a2b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a2c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3a1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3b.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3b1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3b2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3c.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3c1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3c2.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3d.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a3d1.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c4a4a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/bm_c5a1a.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_boom.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_bounce.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_chopper.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_crossfire.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_gasworks.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_lambdabunker.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_power.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_rail.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_stack.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_stalkyard.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_subtransit.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'maps/dm_undertow.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
 [31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs104] _________________[0m
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
@@ -829,6 +1485,284 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 [1m[31mE           }[0m
 
 [1m[31mtests\test_bsp.py[0m:89: AssertionError
+[31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs124] ________________[0m
+
+group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = {**bsp.loading_errors}
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            loading_errors.update(bsp.external.loading_errors)
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m, *[96mmap[39;49;00m([96mstr[39;49;00m, types)])
+[1m[31mE       AssertionError: 105 out of 105 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.sdk_2013_x360', 21)[0m
+[1m[31mE       assert {'portal2/maps/mp_coop_catapult_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_catapult_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_catapult_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_doors.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_fan.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_fling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_fling_3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_fling_crushers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_infinifling_train.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_laser_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_laser_crusher.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_lobby_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_multifling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_bridge.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_longjump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_red_racer.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_speed_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_speed_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_paint_walljumps.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_race_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_rat_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_start.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_catch_grind_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_drill.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_laser_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_polarity2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_polarity3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_tbeam_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_teambts.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_turret_ball.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_turret_walls.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_wall_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_wall_5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_wall_block.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/mp_coop_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_intro7.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a1_wakeup.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bridge_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bridge_the_gap.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_bts6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_catapult_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_column_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_core.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_dual_lasers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_fizzler_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_chaining.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_over_goo.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_relays.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_stairs.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_laser_vs_turret.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_pit_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_pull_the_rug.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_ricochet.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_sphere_peek.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_triple_laser.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_trust_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_turret_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a2_turret_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_00.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_03.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_bomb_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_crazy_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_jump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_portal_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_speed_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_speed_ramp.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a3_transition01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_finale1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_finale2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_finale3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_finale4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_jump_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_laser_catapult.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_laser_platform.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_speed_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_stop_the_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_tb_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_tb_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_tb_trust_drop.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a4_tb_wall_button.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),\n 'portal2/maps/sp_a5_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 105 more items:[0m
+[1m[31mE         {'portal2/maps/mp_coop_catapult_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_catapult_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_catapult_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_doors.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_fan.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_fling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_fling_3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_fling_crushers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_infinifling_train.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_laser_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_laser_crusher.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_lobby_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_multifling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_bridge.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_longjump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_red_racer.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_speed_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_speed_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_paint_walljumps.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_race_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_rat_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_start.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_catch_grind_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_drill.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_laser_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_polarity2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_polarity3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_tbeam_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_teambts.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_turret_ball.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_turret_walls.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_wall_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_wall_5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_wall_block.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/mp_coop_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_intro7.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a1_wakeup.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bridge_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bridge_the_gap.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_bts6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_catapult_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_column_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_core.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_dual_lasers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_fizzler_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_chaining.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_over_goo.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_relays.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_stairs.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_laser_vs_turret.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_pit_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_pull_the_rug.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_ricochet.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_sphere_peek.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_triple_laser.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_trust_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_turret_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a2_turret_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_00.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_03.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_bomb_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_crazy_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_jump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_portal_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_speed_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_speed_ramp.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a3_transition01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_finale1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_finale2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_finale3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_finale4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_jump_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_laser_catapult.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_laser_platform.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_speed_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_stop_the_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_tb_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_tb_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_tb_trust_drop.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a4_tb_wall_button.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE          'portal2/maps/sp_a5_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE           {[0m
+[1m[31mE         -  ,[0m
+[1m[31mE         +  'portal2/maps/mp_coop_catapult_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_catapult_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_catapult_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_doors.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_fan.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_fling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_fling_3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_fling_crushers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_infinifling_train.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_laser_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_laser_crusher.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_lobby_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_multifling_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_bridge.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_come_along.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_longjump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_red_racer.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_speed_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_speed_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_paint_walljumps.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_race_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_rat_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_start.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_catch_grind_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_drill.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_laser_1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_maze.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_polarity2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_polarity3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_tbeam_redirect.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_teambts.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_turret_ball.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_turret_walls.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_wall_2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_wall_5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_wall_block.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/mp_coop_wall_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_intro7.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a1_wakeup.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bridge_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bridge_the_gap.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts5.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_bts6.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_catapult_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_column_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_core.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_dual_lasers.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_fizzler_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_chaining.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_over_goo.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_relays.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_stairs.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_laser_vs_turret.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_pit_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_pull_the_rug.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_ricochet.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_sphere_peek.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_triple_laser.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_trust_fling.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_turret_blocker.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a2_turret_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_00.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_03.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_bomb_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_crazy_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_end.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_jump_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_portal_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_speed_flings.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_speed_ramp.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a3_transition01.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_finale1.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_finale2.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_finale3.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_finale4.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_jump_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_laser_catapult.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_laser_platform.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_speed_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_stop_the_box.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_tb_catch.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_tb_intro.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_tb_polarity.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_tb_trust_drop.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a4_tb_wall_button.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE         +  'portal2/maps/sp_a5_credits.360.bsp': AssertionError('sprp\nassert 1 == 0\n  +1\n  -0'),[0m
+[1m[31mE           }[0m
+
+[1m[31mtests\test_bsp.py[0m:89: AssertionError
 [33m============================== warnings summary ===============================[0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
@@ -837,24 +1771,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Node
+  Cell
+  Brush
   Light
   AxisAlignedBoundingBox
-  Portal
-  Occluder
+  Node
+  PatchCollision
   CullGroup
+  Portal
   DrawVertex
   Model
-  Cell
-  PatchCollision
-  Brush
+  Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionEdge
-  Model
   CollisionTriangle
+  Model
+  CollisionEdge
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_singleplayer]
@@ -879,7 +1813,7 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.resp
 Name                                                    Stmts   Miss  Cover
 ---------------------------------------------------------------------------
 bsp_tool\__init__.py                                       53      3    94%
-bsp_tool\base.py                                           65     29    55%
+bsp_tool\base.py                                           68     31    54%
 bsp_tool\branches\__init__.py                              30      0   100%
 bsp_tool\branches\arkane\__init__.py                        3      0   100%
 bsp_tool\branches\arkane\dark_messiah_multiplayer.py       16      0   100%
@@ -890,7 +1824,7 @@ bsp_tool\branches\gearbox\blue_shift.py                    28      0   100%
 bsp_tool\branches\gearbox\nightfire.py                     90      0   100%
 bsp_tool\branches\id_software\__init__.py                   6      0   100%
 bsp_tool\branches\id_software\qfusion.py                   89      6    93%
-bsp_tool\branches\id_software\quake.py                    286     82    71%
+bsp_tool\branches\id_software\quake.py                    293     82    72%
 bsp_tool\branches\id_software\quake2.py                   135      3    98%
 bsp_tool\branches\id_software\quake3.py                   169     11    93%
 bsp_tool\branches\id_software\remake_quake.py              25      0   100%
@@ -928,18 +1862,18 @@ bsp_tool\branches\troika\vampire.py                        37      0   100%
 bsp_tool\branches\valve\__init__.py                        10      0   100%
 bsp_tool\branches\valve\alien_swarm.py                     81      0   100%
 bsp_tool\branches\valve\goldsrc.py                         78      0   100%
-bsp_tool\branches\valve\left4dead.py                       82      0   100%
-bsp_tool\branches\valve\left4dead2.py                      83      0   100%
+bsp_tool\branches\valve\left4dead.py                      102      0   100%
+bsp_tool\branches\valve\left4dead2.py                     105      0   100%
 bsp_tool\branches\valve\orange_box.py                     131     10    92%
 bsp_tool\branches\valve\orange_box_x360.py                110     10    91%
-bsp_tool\branches\valve\sdk_2013.py                        82      0   100%
-bsp_tool\branches\valve\sdk_2013_x360.py                   17      0   100%
-bsp_tool\branches\valve\source.py                         658    113    83%
+bsp_tool\branches\valve\sdk_2013.py                       125      0   100%
+bsp_tool\branches\valve\sdk_2013_x360.py                   24      0   100%
+bsp_tool\branches\valve\source.py                         675    113    83%
 bsp_tool\branches\vector.py                               190    129    32%
 bsp_tool\branches\x360.py                                  15      0   100%
 bsp_tool\extensions\__init__.py                             0      0   100%
 bsp_tool\extensions\archive.py                             70     70     0%
-bsp_tool\extensions\decompile_rbsp.py                      62     62     0%
+bsp_tool\extensions\decompile_rbsp.py                      64     64     0%
 bsp_tool\extensions\decrypt_xor.py                         11     11     0%
 bsp_tool\extensions\diff.py                               111    111     0%
 bsp_tool\extensions\lightmaps.py                          191    191     0%
@@ -952,8 +1886,14 @@ bsp_tool\respawn.py                                       253    138    45%
 bsp_tool\ritual.py                                         45      3    93%
 bsp_tool\valve.py                                         136     71    48%
 ---------------------------------------------------------------------------
-TOTAL                                                    7004   1630    77%
+TOTAL                                                    7125   1634    77%
 
 =========================== short test summary info ===========================
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs63]
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs94] - Assert...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] - Asser...
-[31m=========== [31m[1m1 failed[0m, [32m191 passed[0m, [33m6 warnings[0m[31m in 14159.52s (3:55:59)[0m[31m ===========[0m
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs124] - As...
+[31m=========== [31m[1m7 failed[0m, [32m185 passed[0m, [33m6 warnings[0m[31m in 13538.98s (3:45:38)[0m[31m ===========[0m
