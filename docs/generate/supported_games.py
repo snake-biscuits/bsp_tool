@@ -36,44 +36,47 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # -- no support for bitfields of any order exists yet anyway, however
 # NOTE: list of all BspClass & associated branch_script + Y/N coverage column
 # -- loosely copied from games.sc
-# | BspClass        | branch_script                    | Y/N |
-# | :-------------- | :------------------------------- | --- |
-# | D3DBsp          | infinity_ward.modern_warfare     |  Y  |
-# | FusionBsp       | id_software.qfusion              |  Y  |
-# | GoldSrcBsp      | valve.goldsrc                    |  Y  |
-# | GoldSrcBsp      | gearbox.blue_shift               |  Y  |
-# | GoldSrcBsp      | gearbox.nightfire                |  Y  |
-# | IdTechBsp       | id_software.quake2               |  Y  |
-# | IdTechBsp       | id_software.quake3               |  Y  |
-# | IdTechBsp       | infinity_ware.call_of_duty1      |  Y  |
-# | IdTechBsp       | ion_storm.daikatana              |  Y  |
-# | IdTechBsp       | raven.solder_of_fortune          |  Y  |
-# | IdTechBsp       | ritual.sin                       |  Y  |
-# | InfinityWardBsp | infinity_ware.call_of_duty2      |  Y  |
-# | QuakeBsp        | id_software.quake                |  Y  |
-# | QuakeBsp        | raven.hexen2                     |  Y  |
-# | RavenBsp        | raven.soldier_of_fortune2        |  Y  |
-# | RavenBsp        | ritual.sin                       |  N  |  # investigate
-# | ReMakeQuakeBsp  | id_software.remake_quake         |  Y  |
-# | RespawnBsp      | respawn.apex_legends             |  Y  |
-# | RespawnBsp      | respawn.titanfall                |  Y  |
-# | RespawnBsp      | respawn.titanfall2               |  Y  |
-# | RitualBsp       | ritual.fakk2                     |  Y  |
-# | RitualBsp       | ritual.moh_allied_assault        |  Y  |
-# | RitualBsp       | ritual.start_trek_elite_force2   |  Y  |
-# | ValveBsp        | arkane.dark_messiah_singleplayer |  Y  |
-# | ValveBsp        | arkane.dark_messiah_multiplayer  |  Y  |
-# | ValveBsp        | loiste.infra                     |  Y  |
-# | ValveBsp        | nexon.cso2                       |  Y  |
-# | ValveBsp        | nexon.cso2_2018                  |  Y  |
-# | ValveBsp        | nexon.vindictus                  |  Y  |
-# | ValveBsp        | troika.vampire                   |  Y  |
-# | ValveBsp        | valve.alien_swarm                |  Y  |
-# | ValveBsp        | valve.left4dead                  |  Y  |
-# | ValveBsp        | valve.left4dead2                 |  Y  |
-# | ValveBsp        | valve.orange_box                 |  Y  |
-# | ValveBsp        | valve.sdk_2013                   |  Y  |
-# | ValveBsp        | valve.source                     |  Y  |
+# | BspClass        | branch_script                  | Y/N |
+# | :-------------- | :----------------------------- | --- |
+# | D3DBsp          | infinity_ward.modern_warfare   |  Y  |
+# | FusionBsp       | id_software.qfusion            |  Y  |
+# | GoldSrcBsp      | valve.goldsrc                  |  Y  |
+# | GoldSrcBsp      | gearbox.blue_shift             |  Y  |
+# | GoldSrcBsp      | gearbox.nightfire              |  Y  |
+# | IdTechBsp       | id_software.quake2             |  Y  |
+# | IdTechBsp       | id_software.quake3             |  Y  |
+# | IdTechBsp       | infinity_ware.call_of_duty1    |  Y  |
+# | IdTechBsp       | ion_storm.daikatana            |  Y  |
+# | IdTechBsp       | raven.solder_of_fortune        |  Y  |
+# | IdTechBsp       | ritual.sin                     |  Y  |
+# | InfinityWardBsp | infinity_ware.call_of_duty2    |  Y  |
+# | QuakeBsp        | id_software.quake              |  Y  |
+# | QuakeBsp        | raven.hexen2                   |  Y  |
+# | RavenBsp        | raven.soldier_of_fortune2      |  Y  |
+# | RavenBsp        | ritual.sin                     |  N  |  # investigate
+# | ReMakeQuakeBsp  | id_software.remake_quake       |  Y  |
+# | RespawnBsp      | respawn.apex_legends           |  Y  |
+# | RespawnBsp      | respawn.titanfall              |  Y  |
+# | RespawnBsp      | respawn.titanfall_x360         |  N  |
+# | RespawnBsp      | respawn.titanfall2             |  Y  |
+# | RitualBsp       | ritual.fakk2                   |  Y  |
+# | RitualBsp       | ritual.moh_allied_assault      |  Y  |
+# | RitualBsp       | ritual.start_trek_elite_force2 |  Y  |
+# | ValveBsp        | arkane.dark_messiah_sp         |  Y  |
+# | ValveBsp        | arkane.dark_messiah_mp         |  Y  |
+# | ValveBsp        | loiste.infra                   |  Y  |
+# | ValveBsp        | nexon.cso2                     |  Y  |
+# | ValveBsp        | nexon.cso2_2018                |  Y  |
+# | ValveBsp        | nexon.vindictus                |  Y  |
+# | ValveBsp        | troika.vampire                 |  Y  |
+# | ValveBsp        | valve.alien_swarm              |  Y  |
+# | ValveBsp        | valve.left4dead                |  Y  |
+# | ValveBsp        | valve.left4dead2               |  Y  |
+# | ValveBsp        | valve.orange_box               |  Y  |
+# | ValveBsp        | valve.orange_box_x360          |  N  |
+# | ValveBsp        | valve.sdk_2013                 |  Y  |
+# | ValveBsp        | valve.sdk_2013_x360            |  N  |
+# | ValveBsp        | valve.source                   |  Y  |
 
 # TODO: more prefaces (insert .md)
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
@@ -88,9 +91,9 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
-                      {ValveBsp: [branches.arkane.dark_messiah_singleplayer]}),
+                      {ValveBsp: [branches.arkane.dark_messiah_sp]}),
           ScriptGroup("Dark Messiah MP", "darkmessiah_mp.md", "Arkane Studios", "source.md",
-                      {ValveBsp: [branches.arkane.dark_messiah_multiplayer]}),
+                      {ValveBsp: [branches.arkane.dark_messiah_mp]}),
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
@@ -220,7 +223,7 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 
 # NOTE: this is hard to sync with branch_scripts, but still easier than parsing GAME_LUMP_CLASSES
 # TODO: finish populating this dict with every ValveBsp & RespawnBsp branch_script (3/16)
-# NOTE: base wrapper class is `GameLump if lump != dark_messiah_singleplayer else DarkMessiahSPGameLump`
+# NOTE: base wrapper class is `GameLump if lump != dark_messiah_sp else DarkMessiahSPGameLump`
 # NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
@@ -234,9 +237,9 @@ gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.
 gamelump_mappings[branches.valve.orange_box]["sprp.props"] = gamelump_mappings[branches.valve.source]["sprp.props"].copy()
 gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
                                                                    10: branches.valve.orange_box.StaticPropv10})
-gamelump_mappings[branches.arkane.dark_messiah_singleplayer] = {"sprp": branches.valve.source.GameLump_SPRP,
-                                                                "sprp.props": {6: None}}
-gamelump_mappings[branches.arkane.dark_messiah_multiplayer] = gamelump_mappings[branches.arkane.dark_messiah_singleplayer].copy()  # noqa E501
+gamelump_mappings[branches.arkane.dark_messiah_sp] = {"sprp": branches.valve.source.GameLump_SPRP,
+                                                      "sprp.props": {6: None}}
+gamelump_mappings[branches.arkane.dark_messiah_mp] = gamelump_mappings[branches.arkane.dark_messiah_sp].copy()  # noqa E501
 gamelump_mappings[branches.nexon.vindictus] = {"sprp": branches.nexon.vindictus.GameLump_SPRP,
                                                "sprp.props": {6: branches.valve.source.StaticPropv6},
                                                "sprp.scales": {6: branches.nexon.vindictus.StaticPropScale}}
@@ -291,7 +294,7 @@ gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
 # -- [ ] coverage data would also be ideal (mixing SpecialLumpClasses & regular LumpClasses)
 def game_lump_table(branch_script: ModuleType) -> List[str]:
     base_GameLump = GameLump
-    if branch_script is branches.arkane.dark_messiah_singleplayer:
+    if branch_script is branches.arkane.dark_messiah_sp:
         base_GameLump = DarkMessiahSPGameLump
     game_lump_handler_url = f"{repo_url}/lumps/__init__.py#L{inspect.getsourcelines(base_GameLump)[1]}"
     game_lump_handler = f"[`lumps.{base_GameLump.__name__}`]({game_lump_handler_url})"

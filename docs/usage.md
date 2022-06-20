@@ -26,7 +26,7 @@ bsp_tool.load_bsp("filename", bsp_tool.branches.developer.game)
 | ------------------ | --------------------------- | -------------------------- |
 | Alien Swarm        | `valve.sdk_2013`            | `valve.alien_swarm`        |
 | CS:O 2 (2018+)     | `nexon.cso2`                | `nexon.cso2_2018`          |
-| Dark Messiah: MP   | `arkane.dark_messiah_singleplayer` | `arkane.dark_messiah_multiplayer` |
+| Dark Messiah: MP   | `arkane.dark_messiah_sp`    | `arkane.dark_messiah_mp`   |
 | Left 4 Dead        | `valve.orange_box`          | `valve.left4dead`          |
 | Left 4 Dead 2      | `valve.sdk_2013`            | `valve.left4dead2`         |
 | SiN                | `raven.soldier_of_fortune2` | `ritual.sin`               |

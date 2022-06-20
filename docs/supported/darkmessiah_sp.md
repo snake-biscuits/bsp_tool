@@ -3,7 +3,7 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Single Player | [`arkane.dark_messiah_singleplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_singleplayer.py) | 39 / 57 | 7 | 68.07% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Single Player | [`arkane.dark_messiah_sp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_sp.py) | 39 / 57 | 7 | 68.07% |
 
 
 [Dark Messiah SP SDK .gcf files](https://www.moddb.com/games/dark-messiah-of-might-magic/downloads/dark-messiah-might-and-magic-sdk)

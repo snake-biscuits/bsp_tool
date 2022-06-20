@@ -3,7 +3,7 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_multiplayer`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_multiplayer.py) | 41 / 57 | 7 | 71.58% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_mp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_mp.py) | 41 / 57 | 7 | 71.58% |
 
 
 ### References

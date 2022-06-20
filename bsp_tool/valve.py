@@ -57,7 +57,7 @@ class ValveBsp(base.Bsp):
                     # NOTE: lump_header.version is ignored in this case!
                     GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                     GameLump = lumps.GameLump
-                    if self.branch.__name__.split(".")[-1] == "dark_messiah_singleplayer":
+                    if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
                         GameLump = lumps.DarkMessiahSPGameLump
                     BspLump = GameLump(self.file, lump_header, self.endianness,
                                        GameLumpClasses, self.branch.GAME_LUMP_HEADER)

@@ -17,7 +17,7 @@ from bsp_tool import load_bsp
 game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
                 **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
                 "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
-                "DarkMessiah/multiplayer": branches.arkane.dark_messiah_multiplayer,
+                "DarkMessiah/multiplayer": branches.arkane.dark_messiah_mp,
                 "Half-Life/blue_shift": branches.gearbox.blue_shift,
                 "Hexen2": branches.raven.hexen2,
                 "left 4 dead": branches.valve.left4dead,
