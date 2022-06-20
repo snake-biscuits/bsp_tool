@@ -81,7 +81,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # TODO: more prefaces (insert .md)
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
-          ScriptGroup("Apex Legends", "apex.md", "Respawn Entertainment", "respawn.md",
+          ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
                       {RespawnBsp: [branches.respawn.apex_legends]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
@@ -90,9 +90,9 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                                   branches.troika.vampire, branches.loiste.infra]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
-          ScriptGroup("Dark Messiah SP", "darkmessiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
+          ScriptGroup("Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
                       {ValveBsp: [branches.arkane.dark_messiah_sp]}),
-          ScriptGroup("Dark Messiah MP", "darkmessiah_mp.md", "Arkane Studios", "source.md",
+          ScriptGroup("Dark Messiah MP", "dark_messiah_mp.md", "Arkane Studios", "source.md",
                       {ValveBsp: [branches.arkane.dark_messiah_mp]}),
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
@@ -413,6 +413,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                     final_block.append(row)
                     defined.append(key)
         lines.extend(map(row_as_string, final_block))
+        # TODO: BUG: UNUSED_63 absent from dark_messiah_sp.md?
     return lines
 
 
