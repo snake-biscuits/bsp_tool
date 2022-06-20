@@ -49,5 +49,6 @@
 | 51 | 22 | `SIMPLE_AABB_TREE` |  | 0% |
 | 52 | 22 | `LIGHT_REGIONS` | [`shared.UnsignedBytes`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L30) | 100% |
 | 53 | 22 | `LIGHT_REGION_HULLS` |  | 0% |
+| 54 | 22 | `LIGHT_REGION_AXES` |  | 0% |
 
 

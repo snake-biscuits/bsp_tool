@@ -90,5 +90,6 @@ Both guides are written by [soer4769](https://developer.valvesoftware.com/wiki/U
 | 60 | 20.4 | `OVERLAY_FADES` | 0 | [`valve.source.OverlayFade`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L556) | 100% |
 | 61 | 20.4 | `UNUSED_61` | 0 |  | 0% |
 | 62 | 20.4 | `UNUSED_62` | 0 |  | 0% |
+| 63 | 20.4 | `UNUSED_63` | 0 |  | 0% |
 
 

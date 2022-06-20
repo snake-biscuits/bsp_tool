@@ -95,5 +95,6 @@
 | 60 | 21 | `OVERLAY_FADES` | 0 | [`valve.source.OverlayFade`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L556) | 100% |
 | 61 | 21 | `UNUSED_61` | 0 |  | 0% |
 | 62 | 21 | `UNUSED_62` | 0 |  | 0% |
+| 63 | 21 | `DISPLACEMENT_MULTIBLEND` | 0 |  | 0% |
 
 

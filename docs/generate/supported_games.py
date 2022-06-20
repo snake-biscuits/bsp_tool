@@ -341,7 +341,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
     lump_classes = {bs: LumpClasses_of(bs) for bs in branch_scripts}
     if not versioned_lumps:
         lump_classes = {bs: {ln: {0: lc} for ln, lc in ld.items()} for bs, ld in lump_classes.items()}
-    max_lumps = max([max([e.value for e in bs.LUMP]) for bs in branch_scripts])
+    max_lumps = max([max([e.value for e in bs.LUMP]) for bs in branch_scripts]) + 1
     # TODO: find a way to make the blue shift lump swap clearer
     # -- same bsp_version!
     # -- would also be nice to present more branch_script families in a single script
@@ -413,7 +413,6 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                     final_block.append(row)
                     defined.append(key)
         lines.extend(map(row_as_string, final_block))
-        # TODO: BUG: UNUSED_63 absent from dark_messiah_sp.md?
     return lines
 
 

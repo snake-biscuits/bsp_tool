@@ -41,9 +41,8 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
-| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
 | 0 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
-| 0 | 42 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
+| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
 | 1 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
 | 1 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
 | 1 | 42 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
@@ -75,5 +74,6 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 | 14 | 42 | `MODELS` | [`gearbox.nightfire.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L87) | 83% |
 | 15 | 42 | `BRUSHES` |  | 0% |
 | 16 | 42 | `BRUSH_SIDES` | [`gearbox.nightfire.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L45) | 100% |
+| 17 | 42 | `TEXTURE_INFO` | [`gearbox.nightfire.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L115) | 100% |
 
 

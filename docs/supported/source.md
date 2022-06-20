@@ -141,5 +141,8 @@
 | 62 | 17 | `UNUSED_62` | 0 |  | 0% |
 | 62 | 21 | `PHYSICS_LEVEL` | 0 |  | 0% |
 | 62 | 22 | `PHYSICS_LEVEL` | 0 |  | 0% |
+| 63 | 17 | `UNUSED_63` | 0 |  | 0% |
+| 63 | 21 | `DISPLACEMENT_MULTIBLEND` | 0 |  | 0% |
+| 63 | 22 | `DISPLACEMENT_MULTIBLEND` | 0 |  | 0% |
 
 

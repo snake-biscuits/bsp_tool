@@ -37,5 +37,6 @@
 | 15 | 1 | `BRUSH_SIDES` | [`id_software.quake2.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake2.py#L110) | 0% |
 | 16 | 1 | `POP` |  | 0% |
 | 17 | 1 | `AREAS` |  | 0% |
+| 18 | 1 | `AREA_PORTALS` |  | 0% |
 
 

@@ -73,5 +73,6 @@
 | 36 | 4 | `VISIBILITY` |  | 0% |
 | 37 | 4 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
 | 38 | 4 | `PATHS` |  | 0% |
+| 39 | 4 | `LIGHTS` |  | 0% |
 
 
