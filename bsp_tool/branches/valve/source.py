@@ -1020,4 +1020,15 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
 # TODO: vertices_of_model (walk the node tree)
 # TODO: vertices_of_node
 
-methods = [vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]
+def textures_of_brush(bsp, brush_index: int) -> List[str]:
+    out = set()
+    brush = bsp.BRUSHES[brush_index]
+    for brush_side in bsp.BRUSH_SIDES[brush.first_side:brush.first_side + brush.num_sides]:
+        texture_info = bsp.TEXTURE_INFO[brush_side.texture_info]
+        texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
+        texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+        out.add(texture_name)
+    return sorted(out)
+
+
+methods = [vertices_of_face, vertices_of_displacement, textures_of_brush, shared.worldspawn_volume]
