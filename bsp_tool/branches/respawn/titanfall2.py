@@ -275,8 +275,8 @@ class GameLump_SPRP:
     model_names: List[str]  # filenames of all .mdl / .rmdl used
     unknown_1: int
     unknown_2: int  # indices?
-    props: List[object] | List[bytes]  # List[StaticPropClass]
-    unknown_3: bytes
+    props: List[object]  # List[StaticPropClass]
+    unknown_3: List[bytes]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
         self.StaticPropClass = StaticPropClass
@@ -289,7 +289,8 @@ class GameLump_SPRP:
         read_size = struct.calcsize(StaticPropClass._format) * prop_count
         props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
         setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        self.unknown_3 = sprp_lump.read()
+        unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
+        setattr(self, "unknown_3", [sprp_lump.read(64) for i in range(unknown_3_count)])
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
@@ -300,7 +301,8 @@ class GameLump_SPRP:
                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                         struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
                         *prop_bytes,
-                        self.unknown_3])
+                        len(self.unknown_3).to_bytes(4, "little"),
+                        *self.unknown_3])
 
 
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13]
