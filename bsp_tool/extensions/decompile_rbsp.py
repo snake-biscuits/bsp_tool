@@ -50,6 +50,7 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
     for world_axis in [vec3(z=1), vec3(y=1), vec3(x=1)]:  # matching Source tiebreaker preference order
         world_dot = dot(normal, world_axis)
         if abs(world_dot) > best_dot:
+            flip_S = False
             best_dot, best_axis = abs(world_dot), world_axis
             if world_dot < 0:
                 flip_S = True
