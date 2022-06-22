@@ -79,7 +79,7 @@ class LUMP(enum.Enum):
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    LUMP_OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
+    OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
     UNUSED_62 = 62
     UNUSED_63 = 63
 
@@ -88,7 +88,7 @@ LumpHeader = source.LumpHeader
 
 # Known lump changes from Orange Box -> Left 4 Dead:
 # New:
-#   UNUSED_61 -> LUMP_OVERLAY_SYSTEM_LEVELS
+#   UNUSED_61 -> OVERLAY_SYSTEM_LEVELS
 
 
 # classes for lumps, in alphabetical order:

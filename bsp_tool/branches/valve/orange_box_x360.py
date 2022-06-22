@@ -14,6 +14,8 @@ BSP_VERSION = 20
 GAME_PATHS = {"Half-Life 2": "OrangeBox/hl2",
               "Half-Life 2: Episode 1": "OrangeBox/episodic",
               "Half-Life 2: Episode 2": "OrangeBox/ep2",
+              "Left 4 Dead": "Left4Dead/left4dead",
+              "Left 4 Dead 2": "Left4Dead2/left4dead2",
               "Portal": "OrangeBox/portal",
               "Team Fortress 2": "OrangeBox/tf"}
 
@@ -91,7 +93,7 @@ StaticPropv10_x360 = x360.make_big_endian(orange_box.StaticPropv10)
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES, LumpClasses = x360.convert_versioned(orange_box.BASIC_LUMP_CLASSES)
-# copy used LumpClasses to globals
+# copy used BasicLumpClasses to globals
 for LumpClass_name, LumpClass in LumpClasses.items():
     globals()[LumpClass_name] = LumpClass
 
@@ -108,7 +110,7 @@ del LumpClass_name, LumpClass
 
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        # "PAKFILE":                  {0: PakFile_x360},
+                        # "PAKFILE":                  {0: shared.PakFile_x360},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
 # TODO: PhysicsCollide_x360
 

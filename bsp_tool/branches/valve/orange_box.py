@@ -88,7 +88,7 @@ class LUMP(enum.Enum):
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     UNUSED_61 = 61
-    UNUSED_62 = 62
+    PHYSICS_LEVEL = 62  # used by orange_box_x360 for L4D2 maps
     UNUSED_63 = 63
 
 

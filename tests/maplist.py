@@ -333,10 +333,13 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
 
 # extracted from xisos; a very painful process
-# TODO: Left4Dead, Left4Dead2, CS:GO
-# NOTE: DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
+# TODO: CS:GO, DarkMessiah: Elements, Titanfall
+# -- DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
 # -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
-x360_dirs = {"OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
+# -- Titanfall maps are in .bpk files, decrypter (TitanfallVPKTool) has a buffer limit so files are incomplete
+x360_dirs = {"Left4Dead": ["left4dead"],  # 44 maps | 295 MB
+             "Left4Dead2": ["left4dead2"],  # 23 maps | 196 MB
+             "OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
                            "episodic/maps",  # 18 maps | 121 MB
                            "hl2/maps",  # 76 maps | 376 MB
                            "portal/maps",  # 26 maps | 99 MB

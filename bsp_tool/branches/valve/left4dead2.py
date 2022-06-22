@@ -80,8 +80,8 @@ class LUMP(enum.Enum):
     FACES_HDR = 58
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
-    LUMP_OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
-    LUMP_PHYSICS_LEVEL = 62
+    OVERLAY_SYSTEM_LEVELS = 61  # overlay CPU & GPU limits
+    PHYSICS_LEVEL = 62
     UNUSED_63 = 63
 
 
@@ -97,7 +97,7 @@ class LumpHeader(base.MappedArray):
 #   UNUSED_24 -> PROP_HULL_VERTS
 #   UNUSED_25 -> PROP_HULL_TRIS
 #   PHYSICS_COLLIDE_SURFACE -> PROP_BLOB
-#   UNUSED_62 -> LUMP_PHYSICS_LEVEL
+#   UNUSED_62 -> PHYSICS_LEVEL
 
 
 # classes for lumps, in alphabetical order:
