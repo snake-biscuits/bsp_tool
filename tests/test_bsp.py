@@ -33,6 +33,7 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
 
 # NOTE: due to the dynamic way LumpClasses are loaded, they are not tested by this function
 # -- only header.length % struct.calcsize(LumpClass._format) & SpecialLumpClasses are tested in-depth
+# TODO: this function is so general and has so many edge case handlers, you should really break if down smaller
 @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
 def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 69GB+ of .bsp files!"""
@@ -63,17 +64,27 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
-                    loading_errors = {**bsp.loading_errors}
+                    loading_errors = dict()
+                    for lump_name, error in bsp.loading_errors.keys():
+                        lump_version = getattr(bsp.headers[lump_name], "version", None)
+                        if lump_version is not None:
+                            loading_errors[f"{lump_name} v{lump_version}"] = error
+                        else:
+                            loading_errors[lump_name] = error
                     if hasattr(bsp, "GAME_LUMP"):
                         if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
-                            loading_errors.update(bsp.GAME_LUMP.loading_errors)
+                            loading_errors.update({f"{k} v{bsp.GAME_LUMP.headers[k].version}": v
+                                                   for k, v in bsp.GAME_LUMP.loading_errors.items()})
                     if hasattr(bsp, "external"):
                         # TODO: actually read external SpecialLumpClasses lumps for a thorough check
                         # TODO: close any external lump files this opens to avoid OSError
-                        loading_errors.update(bsp.external.loading_errors)
+                        # NOTE: if collecting external lumps for a BspClass w/o versions this will break
+                        loading_errors.update({f"external.{k} v{bsp.external.headers[k].version}": v
+                                               for k, v in bsp.external.loading_errors.items()})
                         if hasattr(bsp.external, "GAME_LUMP"):
                             if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
-                                loading_errors.update(bsp.external.GAME_LUMP.loading_errors)
+                                loading_errors.update({f"external.GAME_LUMP.{k} v{bsp.external.GAME_LUMP.headers[k].version}": v  # noqa E501
+                                                       for k, v in bsp.external.GAME_LUMP.loading_errors.items()})
                     assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
                 except NotImplementedError as nie:
                     # "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension
@@ -86,4 +97,6 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     errors[f"{map_dir}/{m}"] = ae
                     types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
                     del bsp
-    assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed", *map(str, types)])
+    assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed",
+                                        *map(str, types),  # BspClass, branch_script, bsp_version
+                                        *{ln for ae in errors.values() for ln in ae.args[0].split("\n")[0].split(", ")}])
