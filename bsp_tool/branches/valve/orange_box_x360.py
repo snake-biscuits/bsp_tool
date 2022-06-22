@@ -1,9 +1,5 @@
 from __future__ import annotations
 import enum
-import io
-import itertools
-import struct
-from typing import List
 
 from .. import shared
 from .. import x360
@@ -86,54 +82,10 @@ class MAX(enum.Enum):
 
 
 # special lump classes, in alphabetical order:
-class GameLump_SPRP_x360:
-    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
-    StaticPropClass: object
-    model_names: List[str]
-    leaves: List[int]
-    props: List[object] | List[bytes]  # List[StaticPropClass]
-
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        self.StaticPropClass = StaticPropClass
-        sprp_lump = io.BytesIO(raw_sprp_lump)
-        model_name_count = int.from_bytes(sprp_lump.read(4), "big")
-        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
-        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "big")
-        leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leaves", list(leaves))
-        prop_count = int.from_bytes(sprp_lump.read(4), "big")
-        if StaticPropClass is None:
-            raw_props = sprp_lump.read()
-            prop_size = len(raw_props) // prop_count
-            props = list()
-            for i in range(prop_count):
-                props.append(raw_props[i * prop_size:(i + 1) * prop_size])
-            setattr(self, "props", props)
-        else:
-            read_size = struct.calcsize(StaticPropClass._format) * prop_count
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes; StaticPropClass._format is incorrect!"
-
-    def as_bytes(self) -> bytes:
-        if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
-        else:
-            prop_bytes = []
-        return b"".join([int.to_bytes(len(self.model_names), 4, "big"),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "big"),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.props), 4, "big"),
-                         *prop_bytes])
-
-
 StaticPropv4_x360 = x360.make_big_endian(source.StaticPropv4)
 StaticPropv5_x360 = x360.make_big_endian(source.StaticPropv5)
 StaticPropv6_x360 = x360.make_big_endian(source.StaticPropv6)
+# NOTE: orange_box.StaticPropv10 overrides source.StaticPropv7 (7*)
 StaticPropv10_x360 = x360.make_big_endian(orange_box.StaticPropv10)
 
 
@@ -163,11 +115,11 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv4_x360),
-                              5: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv5_x360),
-                              6: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv6_x360),
-                              7: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv10_x360),  # 7*
-                              10: lambda raw_lump: GameLump_SPRP_x360(raw_lump, StaticPropv10_x360)}}
+GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv4_x360, endianness="big"),
+                              5: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv5_x360, endianness="big"),
+                              6: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv6_x360, endianness="big"),
+                              7: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big"),  # 7*
+                              10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big")}}
 
 
 methods = [*orange_box.methods]

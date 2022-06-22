@@ -664,15 +664,16 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
     leaves: List[int]
     props: List[object] | List[bytes]  # List[StaticPropClass]
 
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
+    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object, endianness: str = "little"):
+        self.endianness = endianness
         sprp_lump = io.BytesIO(raw_sprp_lump)
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        model_name_count = int.from_bytes(sprp_lump.read(4), self.endianness)
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        leaf_count = int.from_bytes(sprp_lump.read(4), self.endianness)
         leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leaves", list(leaves))
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
+        prop_count = int.from_bytes(sprp_lump.read(4), self.endianness)
         if StaticPropClass is None:
             raw_props = sprp_lump.read()
             if len(raw_props) == 0:
@@ -696,11 +697,11 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
             prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
         else:
             prop_bytes = []
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
+        return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
                          *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "little"),
+                         int.to_bytes(len(self.leaves), 4, self.endianness),
                          *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.props), 4, "little"),
+                         int.to_bytes(len(self.props), 4, self.endianness),
                          *prop_bytes])
 
 

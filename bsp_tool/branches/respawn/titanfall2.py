@@ -291,6 +291,9 @@ class GameLump_SPRP:
         setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
         unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
         setattr(self, "unknown_3", [sprp_lump.read(64) for i in range(unknown_3_count)])
+        here = sprp_lump.tell()
+        end = sprp_lump.seek(0, 2)
+        assert here == end, "Had some leftover bytes; unknown_3 is incorrect!"
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:

@@ -3,6 +3,7 @@ from . import left4dead
 from . import left4dead2
 from . import orange_box_x360
 from . import sdk_2013
+from . import source
 
 
 FILE_MAGIC = b"PSBV"
@@ -43,10 +44,10 @@ GAME_LUMP_HEADER = orange_box_x360.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": orange_box_x360.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: orange_box_x360.GameLump_SPRP_x360(raw_lump, StaticPropv8_x360),
-                                  9: lambda raw_lump: orange_box_x360.GameLump_SPRP_x360(raw_lump, StaticPropv9_x360),
-                                  10: lambda raw_lump: orange_box_x360.GameLump_SPRP_x360(raw_lump, StaticPropv10_x360),
-                                  11: lambda raw_lump: orange_box_x360.GameLump_SPRP_x360(raw_lump, StaticPropv11_x360)})
+GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8_x360, endianness="big"),
+                                  9: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv9_x360, endianness="big"),
+                                  10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big"),
+                                  11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11_x360, endianness="big")})
 
 
 methods = [*orange_box_x360.methods]
