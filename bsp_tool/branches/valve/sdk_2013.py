@@ -126,6 +126,7 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
 
 class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
+    # TODO: Breaking on almost every map; conflicting versions or just a bad def?
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
@@ -165,6 +166,6 @@ GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = {"sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),
-                                  11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11)})
+                                  11: lambda raw_lump: source.GameLump_SPRP(raw_lump, None)})
 
 methods = [*orange_box.methods]

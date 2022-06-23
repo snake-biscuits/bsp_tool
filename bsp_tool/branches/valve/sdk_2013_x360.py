@@ -26,7 +26,7 @@ LumpHeader = orange_box_x360.LumpHeader
 
 # special lump classes, in alphabetical order:
 StaticPropv8_x360 = x360.make_big_endian(left4dead.StaticPropv8)
-StaticPropv9_x360 = x360.make_big_endian(left4dead2.StaticPropv9)
+# StaticPropv9_x360 = x360.make_big_endian(left4dead2.StaticPropv9)  # failing for Portal 2
 StaticPropv10_x360 = x360.make_big_endian(sdk_2013.StaticPropv10)
 StaticPropv11_x360 = x360.make_big_endian(sdk_2013.StaticPropv11)
 
@@ -45,7 +45,7 @@ GAME_LUMP_HEADER = orange_box_x360.GAME_LUMP_HEADER
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": orange_box_x360.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8_x360, endianness="big"),
-                                  9: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv9_x360, endianness="big"),
+                                  9: lambda raw_lump: source.GameLump_SPRP(raw_lump, None, endianness="big"),
                                   10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big"),
                                   11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11_x360, endianness="big")})
 

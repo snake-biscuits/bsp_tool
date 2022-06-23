@@ -690,7 +690,7 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
             setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
         here = sprp_lump.tell()
         end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes; StaticPropClass._format is incorrect!"
+        assert here == end, f"Had {end - here} leftover bytes; StaticPropClass._format is incorrect!"
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
