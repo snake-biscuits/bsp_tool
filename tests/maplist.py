@@ -337,8 +337,8 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
 # -- DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
 # -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
 # -- Titanfall maps are in .bpk files, decrypter (TitanfallVPKTool) has a buffer limit so files are incomplete
-x360_dirs = {"Left4Dead": ["left4dead"],  # 44 maps | 295 MB
-             "Left4Dead2": ["left4dead2"],  # 23 maps | 196 MB
+x360_dirs = {"Left4Dead": ["left4dead/maps"],  # 44 maps | 295 MB
+             "Left4Dead2": ["left4dead2/maps"],  # 23 maps | 196 MB
              "OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
                            "episodic/maps",  # 18 maps | 121 MB
                            "hl2/maps",  # 76 maps | 376 MB
