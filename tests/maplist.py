@@ -286,7 +286,10 @@ extracted_dirs = {
                                  "29march22/depot/r5-121/game/r2/maps"],  # 11 maps | 1.84 GB | .vpk
         # season13:  Saviour [10th May 2022]
         "ApexLegends/season13": ["10may22/maps",  # 11 maps | 1.91 GB | .vpk
-                                 "10may22/depot/r5-130/game/r2/maps"],  # 11 maps | 1.86 GB | .vpk
+                                 "10may22/depot/r5-130/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
+                                 "21jun22/maps",  # 11 maps | 1.88 GB | .vpk
+                                 "21jun22/depot/r5-130/game/r2/maps",  # 10 maps | 1.79 GB | .vpk
+                                 "21jun22/depot/r5-131/game/r2/maps"],  # 11 maps | 1.82 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk

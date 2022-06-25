@@ -14,10 +14,11 @@ BSP_VERSION = 47
 
 launch = "depot/r5launch/game/r2/maps"
 staging = "depot/r5staging/game/r2/maps"
-r5100 = "depot/r5-100/game/r2/maps"
-r5101 = "depot/r5-101/game/r2/maps"
-r5110 = "depot/r5-110/game/r2/maps"
-r5111 = "depot/r5-111/game/r2/maps"
+r5_100 = "depot/r5-100/game/r2/maps"
+r5_101 = "depot/r5-101/game/r2/maps"
+r5_110 = "depot/r5-110/game/r2/maps"
+r5_111 = "depot/r5-111/game/r2/maps"
+r5_131 = "depot/r5-131/game/r2/maps"
 
 GAME_PATHS = {"Apex Legends": "ApexLegends/maps",
               "Apex Legends: Season 2 - Battle Charge": "ApexLegends/season2/maps",
@@ -25,31 +26,32 @@ GAME_PATHS = {"Apex Legends": "ApexLegends/maps",
               "Apex Legends: Season 3 - Meltdown (launch)": f"ApexLegends/season3/{launch}",
               "Apex Legends: Season 3 - Meltdown (staging)": f"ApexLegends/season3/{staging}",
               "Apex Legends: Season 3 - Meltdown [30 Oct Patch]": "ApexLegends/season3_30oct19/maps",
-              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (launch)": f"ApexLegends/season3_30oct19/{launch}",
-              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (staging)": f"ApexLegends/season3_30oct19/{staging}",
-              "Apex Legends: Season 3 - Meltdown [3 Dec Patch]": "ApexLegends/season3_3dec19/maps",
-              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (launch)": f"ApexLegends/season3_3dec19/{launch}",
-              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (staging)": f"ApexLegends/season3_3dec19/{staging}",
+              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (launch)": f"ApexLegends/season3/30oct19/{launch}",
+              "Apex Legends: Season 3 - Meltdown [30 Oct Patch] (staging)": f"ApexLegends/season3/30oct19/{staging}",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch]": "ApexLegends/season3/3dec19/maps",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (launch)": f"ApexLegends/season3/3dec19/{launch}",
+              "Apex Legends: Season 3 - Meltdown [3 Dec Patch] (staging)": f"ApexLegends/season3/3dec19/{staging}",
               "Apex Legends: Season 5 - Fortune's Favor": "ApexLegends/season5/maps",
               "Apex Legends: Season 8 - Mayhem": "ApexLegends/season8/maps",
               "Apex Legends: Season 9 - Legacy": "ApexLegends/season9/maps",
-              "Apex Legends: Season 10 - Emergence [3 Aug Patch]": "ApexLegends/season10_3aug21/maps/",
-              "Apex Legends: Season 10 - Emergence [10 Aug Patch]": "ApexLegends/season10_10aug21/maps/",
-              "Apex Legends: Season 10 - Emergence [10 Aug Patch] (100)": f"ApexLegends/season10_10aug21/{r5100}",
-              "Apex Legends: Season 10 - Emergence [14 Sep Patch]": "ApexLegends/season10_14sep21/maps/",
-              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (100)": f"ApexLegends/season10_14sep21/{r5100}",
-              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (101)": f"ApexLegends/season10_14sep21/{r5101}",
-              "Apex Legends: Season 10 - Emergence [24 Sep Patch]": "ApexLegends/season10_24sep21/maps/",
-              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (100)": f"ApexLegends/season10_24sep21/{r5100}",
-              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (101)": f"ApexLegends/season10_24sep21/{r5101}",
+              "Apex Legends: Season 10 - Emergence [3 Aug Patch]": "ApexLegends/season10/3aug21/maps/",
+              "Apex Legends: Season 10 - Emergence [10 Aug Patch]": "ApexLegends/season10/10aug21/maps/",
+              "Apex Legends: Season 10 - Emergence [10 Aug Patch] (100)": f"ApexLegends/season10/10aug21/{r5_100}",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch]": "ApexLegends/season10/14sep21/maps/",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (100)": f"ApexLegends/season10/14sep21/{r5_100}",
+              "Apex Legends: Season 10 - Emergence [14 Sep Patch] (101)": f"ApexLegends/season10/14sep21/{r5_101}",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch]": "ApexLegends/season10/24sep21/maps/",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (100)": f"ApexLegends/season10/24sep21/{r5_100}",
+              "Apex Legends: Season 10 - Emergence [24 Sep Patch] (101)": f"ApexLegends/season10/24sep21/{r5_101}",
               "Apex Legends: Season 11 - Escape": "ApexLegends/season11/maps",
-              "Apex Legends: Season 11 - Escape (110)": f"ApexLegends/season11/{r5110}",
-              "Apex Legends: Season 11 - Escape [6 Nov Patch]": "ApexLegends/season11_6nov21/maps",
-              "Apex Legends: Season 11 - Escape [6 Nov Patch] (110)": f"ApexLegends/season11_6nov21/{r5110}",
-              "Apex Legends: Season 11 - Escape [19 Nov Patch]": "ApexLegends/season11_19nov21/maps",
-              "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": f"ApexLegends/season11_19nov21/{r5110}",
-              "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": f"ApexLegends/season11_19nov21/{r5111}",
-              "Apex Legends: Season 13 - Saviors": "ApexLegends/season13/10mar22/maps"}
+              "Apex Legends: Season 11 - Escape (110)": f"ApexLegends/season11/{r5_110}",
+              "Apex Legends: Season 11 - Escape [6 Nov Patch]": "ApexLegends/season11/6nov21/maps",
+              "Apex Legends: Season 11 - Escape [6 Nov Patch] (110)": f"ApexLegends/season11/6nov21/{r5_110}",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch]": "ApexLegends/season11/19nov21/maps",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": f"ApexLegends/season11/19nov21/{r5_110}",
+              "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": f"ApexLegends/season11/19nov21/{r5_111}",
+              "Apex Legends: Season 13 - Saviors": "ApexLegends/season13/10mar22/maps",
+              "Apex Legends: Season 13 - Saviors [Awaken] (131)": f"ApexLegends/season13/21jun22/{r5_131}"}
 
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
@@ -413,7 +415,7 @@ SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}}
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {bsp_version: ApexSPRP for bsp_version in (47, 48, 49, 50)}}
+GAME_LUMP_CLASSES = {"sprp": {bsp_version: ApexSPRP for bsp_version in (47, 48, 49, 50, 51)}}
 
 
 # branch exclusive methods, in alphabetical order:

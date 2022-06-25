@@ -969,24 +969,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
+  AxisAlignedBoundingBox
+  Node
   Cell
-  DrawVertex
   CullGroup
   Model
-  AxisAlignedBoundingBox
+  PatchCollision
   Portal
   Brush
-  PatchCollision
-  Node
   Light
+  DrawVertex
   Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionEdge
-  Model
   CollisionTriangle
+  Model
+  CollisionEdge
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
@@ -1045,7 +1045,7 @@ bsp_tool\branches\raven\hexen2.py                       50      0   100%
 bsp_tool\branches\raven\soldier_of_fortune.py           14      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py          32      0   100%
 bsp_tool\branches\respawn\__init__.py                    5      0   100%
-bsp_tool\branches\respawn\apex_legends.py              268     22    92%
+bsp_tool\branches\respawn\apex_legends.py              269     22    92%
 bsp_tool\branches\respawn\titanfall.py                 606     99    84%
 bsp_tool\branches\respawn\titanfall2.py                228      4    98%
 bsp_tool\branches\respawn\titanfall_x360.py             52     17    67%
@@ -1084,7 +1084,7 @@ bsp_tool\respawn.py                                    253    138    45%
 bsp_tool\ritual.py                                      45      3    93%
 bsp_tool\valve.py                                      136     71    48%
 ------------------------------------------------------------------------
-TOTAL                                                 7103   1633    77%
+TOTAL                                                 7104   1633    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61]
@@ -1092,4 +1092,4 @@ FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fo
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs123] - ...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs126] - As...
-[31m=========== [31m[1m5 failed[0m, [32m189 passed[0m, [33m6 warnings[0m[31m in 13173.89s (3:39:33)[0m[31m ===========[0m
+[31m=========== [31m[1m5 failed[0m, [32m189 passed[0m, [33m6 warnings[0m[31m in 14326.79s (3:58:46)[0m[31m ===========[0m
