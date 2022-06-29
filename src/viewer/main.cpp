@@ -257,7 +257,7 @@ int main(int argc, char* argv[]) {
                 case SDL_MOUSEMOTION:
                     mouse.x += event.motion.xrel;
                     mouse.y += event.motion.yrel;
-                    SDL_WarpMouseInWindow(window, width / 2, height / 2);
+                    // SDL_WarpMouseInWindow(window, width / 2, height / 2);
                     break;
             }
         }
