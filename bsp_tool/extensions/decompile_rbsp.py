@@ -4,15 +4,15 @@ from ..branches.vector import dot, vec3
 
 
 def triangle_for(plane: (vec3, float), scale: float = 64) -> List[vec3]:
-    """returns a clockwise facing triangle on plane"""
+    """returns a counter-clockwise facing triangle on plane"""
     normal, distance = plane
     # NOTE: normal is assumed to be normalised
     non_parallel = vec3(**{"z" if abs(normal.z) != 1 else "y": -1})
     local_y = (non_parallel * normal).normalised()
     local_x = (local_y * normal).normalised()
-    A = normal * distance
-    B = A + local_x * scale
-    C = A + local_y * scale
+    A = normal * distance    # C
+    B = A + local_x * scale  # |\
+    C = A + local_y * scale  # A-B
     return (A, B, C)
 
 
@@ -39,7 +39,6 @@ def world_texture_vectors(normal: vec3) -> (vec3, vec3):
             best_dot, best_axis = world_dot, world_axis
     return texture_axes[best_axis]
 # TODO: use this function to match BrushSideTextureVector(s)
-# TODO: face_texture_vector (same as above, but flip S if dot(normal, best_axis) < 0)
 
 
 def face_texture_vectors(normal: vec3) -> (vec3, vec3):
@@ -80,11 +79,17 @@ def decompile(bsp, map_filename: str):
         for axis, min_, max_ in zip("xyz", mins, maxs):
             planes.append((vec3(**{axis: 1}), -max_))  # +ve axis
             planes.append((vec3(**{axis: -1}), min_))  # -ve axis
-        # TODO: check order of generated brushsides lines up w/ texture projection
-        # TODO: pull any extra planes from CM_BRUSH_SIDE_PLANES if nessecary
-        # -- unsure how / if they index the PLANES lump
-        # -- planes seems to include many bevel planes but not all surface planes
-        # -- only the bevel planes of unrendered brushes seem to exist in PLANES lump
+        # TODO: check order of generated brushsides lines up w/ texture projections
+        # TODO: identify non-AABB brushes
+        # TODO: get num_brush_sides
+        # TODO: get indexed planes for additional brush sides
+        # -- unsure how PLANES lump is indexed
+        # --- brush.unknown -> CM_BRUSH_SIDE_PLANE_OFFSETS -?> PLANES
+        # --- definitely some offset calculations involved, like MATERIAL_SORT
+        # -- around 50% of PLANES are bevel planes; very few axial planes
+        # -- r2/mp_lobby: only rendered brushes get axial planes
+        # --- unrendered brushes only get bevel planes
+        # --- all brushes in r2/mp_lobby are AABB brushes
         num_brush_sides = 6
         for j in range(num_brush_sides):
             tri = triangle_for(planes[j])
@@ -93,11 +98,13 @@ def decompile(bsp, map_filename: str):
             # texdata = bsp.TEXTURE_DATA[...]
             # texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
             tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[j]
-            tv_s = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
-            tri_s = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
+            tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
+            # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
+            tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
+            # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
             # TODO: determine texture; using TrenchBroom default texture for now
             # -- current theory is that BrushSideProperties indexes TextureData, somehow
-            out.append(" ".join([tri_s, "__TB_empty", tv_s, "0 1 1\n"]))
+            out.append(" ".join([tri_str, "__TB_empty", tv_str, "0 1 1\n"]))
             # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
         first_brush_side += num_brush_sides
         out.append("}\n")
