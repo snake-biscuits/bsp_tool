@@ -332,12 +332,10 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    unknown_1: int  # could be indices to other CM_* lumps? or some kind of flags?
-    # ^ zip([*range(6)], [0] * 6) for mp_lobby
-    # mp_box unknown_1[1] = brush_index?
+    unknown_1: int  # some offset?
+    num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
     plane: int  # forcing to 0 seems to leave brushes in their default cube state?
-    # matches index of brush, exceeding len(PLANES)
-    # why would you contain your own index? no lump is parallel w/ CM_BRUSHES
+    # matches index of brush; why would you contain your own index? no lump is parallel w/ CM_BRUSHES
     extents: List[float]  # bounds expands symmetrically by this much along each axis
     unknown_2: int  # always from 0 to len(BRUSH_SIDE_PLANE_OFFSETS) inclusive
 
@@ -361,8 +359,8 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # and Plane also contain many axis-aligned planes, which brushes wouldn't need
     # presumably some other systems / lumps utilise planes, because the lump lengths do not seem to make sense otherwise
 
-    __slots__ = ["origin", "unknown_1", "plane", "extents", "unknown_2"]
-    _format = "3f2h3fi"
+    __slots__ = ["origin", "unknown_1", "num_plane_offsets", "plane", "extents", "unknown_2"]
+    _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
 

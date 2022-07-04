@@ -58,6 +58,7 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
     return S, T
 
 
+# TODO: figure out why planes / coords are all inverted
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
 # https://quakewiki.org/wiki/Quake_Map_Format
@@ -67,33 +68,41 @@ def decompile(bsp, map_filename: str):
            '// entity 0\n{\n',
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     first_brush_side = 0
+    # cur_plane_offset = 0
+    # PLANE_OFFSETS = getattr(bsp, "CM_BRUSH_SIDE_PLANE_OFFSETS", [0])
+    # PLANES = [(-vec3(*p.normal), -p.distance) for p in bsp.PLANES[-max(PLANE_OFFSETS) - 1:]]
+    # NOTE: had to flip planes here, really feel like I messed up the math somewhere (CW vs. CCW faces?)
     for i, brush in enumerate(bsp.CM_BRUSHES):
         out.append(f"// brush {i}" + "\n{\n")
         origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
         extents = vec3(*brush.extents)
         mins = origin - extents
         maxs = origin + extents
-        planes = list()
+        brush_planes = list()
         # ^ [(normal: vec3, distance: float)]
         # assemble base brush sides in order: +X -X +Y -Y +Z -Z
         for axis, min_, max_ in zip("xyz", mins, maxs):
-            planes.append((vec3(**{axis: 1}), -max_))  # +ve axis
-            planes.append((vec3(**{axis: -1}), min_))  # -ve axis
+            brush_planes.append((vec3(**{axis: 1}), -max_))  # +ve axis
+            brush_planes.append((vec3(**{axis: -1}), min_))  # -ve axis
         # TODO: check order of generated brushsides lines up w/ texture projections
         # TODO: identify non-AABB brushes
-        # TODO: get num_brush_sides
         # TODO: get indexed planes for additional brush sides
-        # -- unsure how PLANES lump is indexed
-        # --- brush.unknown -> CM_BRUSH_SIDE_PLANE_OFFSETS -?> PLANES
+        # -- unsure how exactly PLANES lump is indexed
+        # --- brush.num_plane_offsets -> CM_BRUSH_SIDE_PLANE_OFFSETS -?> PLANES
         # --- definitely some offset calculations involved, like MATERIAL_SORT
         # -- around 50% of PLANES are bevel planes; very few axial planes
         # -- r2/mp_lobby: only rendered brushes get axial planes
         # --- unrendered brushes only get bevel planes
         # --- all brushes in r2/mp_lobby are AABB brushes
+        # NOTE: failed plane indexing
+        # last_plane_offset = cur_plane_offset + brush.num_plane_offsets
+        # brush_plane_offsets = PLANE_OFFSETS[cur_plane_offset:last_plane_offset]
+        # brush_planes.extend([PLANES[i] for i in brush_plane_offsets])
         num_brush_sides = 6
+        # cur_plane_offset = last_plane_offset
         for j in range(num_brush_sides):
-            tri = triangle_for(planes[j])
-            j += first_brush_side
+            tri = triangle_for(brush_planes[j])
+            j += first_brush_side  # for indexing BRUSH_SIDE_PROPERTIES / BRUSH_SIDE_TEXTURE_VECTORS
             # prop = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
             # texdata = bsp.TEXTURE_DATA[...]
             # texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
@@ -104,9 +113,9 @@ def decompile(bsp, map_filename: str):
             # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
             # TODO: determine texture; using TrenchBroom default texture for now
             # -- current theory is that BrushSideProperties indexes TextureData, somehow
-            out.append(" ".join([tri_str, "__TB_empty", tv_str, "0 1 1\n"]))
+            out.append(" ".join([tri_str, "__TB_empty", tv_str, "0 4 4\n"]))
             # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
-        first_brush_side += num_brush_sides
+        first_brush_side += num_brush_sides + brush.num_plane_offsets
         out.append("}\n")
     out.append("}\n")
     for i, entity in enumerate(bsp.ENTITIES[1:]):
