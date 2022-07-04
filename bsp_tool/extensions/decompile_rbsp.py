@@ -1,5 +1,6 @@
-from typing import List
+from typing import Dict, List
 
+from ..branches.respawn import titanfall
 from ..branches.vector import dot, vec3
 
 
@@ -58,13 +59,35 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
     return S, T
 
 
+# NOTE: matching in-engine texture paths to in-wad texture names
+# TODO: use per-wad .json files
+# mp_box_wad = {"TOOLS\\TOOLSSKYBOX": "skybox",
+#               "TOOLS\\TOOLSNODRAW": "nodraw",
+#               "WORLD\\FLOORS\\IMC_FLOOR_LARGE_PANEL_01": "imc_lrgpan_1",
+#               "WORLD\\METAL\\METAL_GREY_WALLPANEL_01": "wallpanel_1",
+#               "WORLD\\METAL\\METAL_DIAMOND_PLATE_LARGE_CLEAN": "dia_plt_lrg",
+#               "WORLD\\DEV\\DEV_GROUND_512": "dev_ground_512",
+#               "WORLD\\DEV\\DEV_WHITE_512": "dev_white_512",
+#               "WORLD\\HAVEN\\WALLS\\RED_WALL_01": "red_wall_1",
+#               "WORLD\\PLASTIC\\PLASTIC_BLUE": "plastic_blue",
+#               "WORLD\\CONCRETE\\CONCRETE_ALLEY_01": "concrete",
+#               "WORLD\\DEV\\DEV_ORANGE_512": "dev_orange_512",
+#               "WORLD\\DEV\\WEAPON_RANGE_TARGET": "range_target",
+#               "world\\signs\\sign_numbers_yellow_plastic_gasoline": "numbers",
+#               "TOOLS\\TOOLSCLIP_HUMAN_CLIMBABLE": "clip_climb",
+#               "WORLD\\METAL\\BEAM_IMC_METAL_GRAY_MAT": "imc_beam",
+#               "TOOLS\\TOOLSTRIGGER": "trigger"}
+
+
 # TODO: figure out why planes / coords are all inverted
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
 # https://quakewiki.org/wiki/Quake_Map_Format
-def decompile(bsp, map_filename: str):
+def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
-    out = ["// Game: Generic\n// Format: Valve\n",
+    # NOTE: game is Quake, not Generic because we want to use .wad textures
+    # NOTE: wad_dict should map texture filepaths to wad texture names
+    out = ["// Game: Quake\n// Format: Valve\n",
            '// entity 0\n{\n',
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     first_brush_side = 0
@@ -81,9 +104,9 @@ def decompile(bsp, map_filename: str):
         brush_planes = list()
         # ^ [(normal: vec3, distance: float)]
         # assemble base brush sides in order: +X -X +Y -Y +Z -Z
-        for axis, min_, max_ in zip("xyz", mins, maxs):
-            brush_planes.append((vec3(**{axis: 1}), -max_))  # +ve axis
-            brush_planes.append((vec3(**{axis: -1}), min_))  # -ve axis
+        for axis, min_dist, max_dist in zip("xyz", mins, maxs):
+            brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
+            brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
         # TODO: check order of generated brushsides lines up w/ texture projections
         # TODO: identify non-AABB brushes
         # TODO: get indexed planes for additional brush sides
@@ -103,9 +126,12 @@ def decompile(bsp, map_filename: str):
         for j in range(num_brush_sides):
             tri = triangle_for(brush_planes[j])
             j += first_brush_side  # for indexing BRUSH_SIDE_PROPERTIES / BRUSH_SIDE_TEXTURE_VECTORS
-            # prop = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
-            # texdata = bsp.TEXTURE_DATA[...]
-            # texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
+            # texture = "__TB_empty"  # trenchbroom default texture
+            properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
+            texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
+            texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/")
+            texture = wad_dict.get(texture, texture)
+            # NOTE: texture name is simplified a little for a .wad
             tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[j]
             tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
             # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
@@ -113,7 +139,7 @@ def decompile(bsp, map_filename: str):
             # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
             # TODO: determine texture; using TrenchBroom default texture for now
             # -- current theory is that BrushSideProperties indexes TextureData, somehow
-            out.append(" ".join([tri_str, "__TB_empty", tv_str, "0 4 4\n"]))
+            out.append(" ".join([tri_str, texture, tv_str, "0 4 4\n"]))
             # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
         first_brush_side += num_brush_sides + brush.num_plane_offsets
         out.append("}\n")

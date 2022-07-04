@@ -219,36 +219,13 @@ class MAX(enum.Enum):
 
 
 # flag enums
-class Flags(enum.IntFlag):
-    # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
-    SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
-    SKY = 0x0004
-    WARP = 0x0008  # Quake water surface?
-    TRANSLUCENT = 0x0010  # decals & atmo?
-    # titanfall.Mesh.flags
-    VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
-    VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2
-    VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
-    VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
-    # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
-    SKIP = 0x20000  # 0x200 in valve.source.Surface (<< 8?)
-    TRIGGER = 0x40000  # guessing
-    # masks
-    MASK_VERTEX = 0x600
+class BrushSideProperty(enum.IntFlag):
+    UNKNOWN_FLAG = 0x8000
+    BEVEL_PLANE = 0x4000
+    # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
+    # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
 
-
-class TraceCollisionGroup(enum.Enum):
-    # taken from squirrel (vscript) by BobTheBob
-    NONE = 0
-    DEBRIS = 1
-    DEBRIS_TRIGGER = 2
-    PLAYER = 5
-    BREAKABLE_GLASS = 6
-    NPC = 8
-    WEAPON = 12
-    PROJECTILE = 14
-    BLOCK_WEAPONS = 18
-    BLOCK_WEAPONS_AND_PHYSICS = 19
+    MASK_TEXTURE_DATA = 0x01FF  # R1 / R1:O / R2 never exceed 511 (0x1FF) TextureData per-map
 
 
 class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
@@ -288,6 +265,38 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     LADDER = 0x20000000
     HITBOX = 0x40000000  # requests hit tracing use hitboxes
     # TODO: might r1 Titan Shields be a flag?
+
+
+class Flags(enum.IntFlag):
+    # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
+    SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
+    SKY = 0x0004
+    WARP = 0x0008  # Quake water surface?
+    TRANSLUCENT = 0x0010  # decals & atmo?
+    # titanfall.Mesh.flags
+    VERTEX_LIT_FLAT = 0x000     # VERTEX_RESERVED_1
+    VERTEX_LIT_BUMP = 0x200     # VERTEX_RESERVED_2
+    VERTEX_UNLIT = 0x400        # VERTEX_RESERVED_0
+    VERTEX_UNLIT_TS = 0x600     # VERTEX_RESERVED_3
+    # VERTEX_BLINN_PHONG = 0x???  # VERTEX_RESERVED_4
+    SKIP = 0x20000  # 0x200 in valve.source.Surface (<< 8?)
+    TRIGGER = 0x40000  # guessing
+    # masks
+    MASK_VERTEX = 0x600
+
+
+class TraceCollisionGroup(enum.Enum):
+    # taken from squirrel (vscript) by BobTheBob
+    NONE = 0
+    DEBRIS = 1
+    DEBRIS_TRIGGER = 2
+    PLAYER = 5
+    BREAKABLE_GLASS = 6
+    NPC = 8
+    WEAPON = 12
+    PROJECTILE = 14
+    BLOCK_WEAPONS = 18
+    BLOCK_WEAPONS_AND_PHYSICS = 19
 
 
 class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
