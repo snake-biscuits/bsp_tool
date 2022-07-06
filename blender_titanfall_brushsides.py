@@ -4,7 +4,7 @@ import sys
 import bpy
 
 sys.path.append("/home/bikkie/Documents/Code/GitHub/bsp_tool")
-import bsp_tool
+import bsp_tool  # noqa E402
 
 
 importlib.reload(bsp_tool)
@@ -29,7 +29,7 @@ for plane in bsp.PLANES:
     # NOTE: damped track means we can't really match sidedness
     bpy.ops.object.constraint_add(type="DAMPED_TRACK")
     bpy.context.object.constraints["Damped Track"].target = empty_object
-    bpy.context.object.constraints["Damped Track"].track_axis = "TRACK_Z"
+    bpy.context.object.constraints["Damped Track"].track_axis = "TRACK_Z" if plane.distance < 0 else "TRACK_NEGATIVE_Z"
     bpy.ops.transform.resize(value=(plane.distance,) * 3,
                              center_override=(0, 0, 0),
                              orient_type="GLOBAL")
