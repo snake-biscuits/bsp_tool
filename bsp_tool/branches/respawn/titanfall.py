@@ -196,12 +196,14 @@ LumpHeader = source.LumpHeader
 #                  \-?> GeoSet | GeoSetBounds
 # ^ Primitive / GeoSet lookup by bounds?
 
-#      /-> BrushSidePlane -?> Plane
-# Brush -> BrushSideProperties -?> TextureData
-#      \-> BrushSideTextureVector
+# BrushSideProperties is parallel w/ BrushSideTextureVector
+# len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
 
-# BrushSideProps is parallel w/ BrushTexVecs
-# len(BrushSideProps/TexVecs) = len(Brushes) * 6 + len(BrushSidePlanes)
+#      /-> BrushSidePlaneOffset -?> Plane
+# Brush -> BrushSideProperties -> TextureData
+#      \-> BrushSideTextureVector
+# -?> UniqueContents
+
 # Primitives is parallel w/ PrimitiveBounds
 # GeoSets is parallel w/ GeoSetBounds
 # PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
@@ -344,20 +346,16 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
     unknown_1: int  # some offset?
     num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
-    plane: int  # forcing to 0 seems to leave brushes in their default cube state?
-    # matches index of brush; why would you contain your own index? no lump is parallel w/ CM_BRUSHES
+    index: int  # idk why, just is; might be tied to plane indexing
     extents: List[float]  # bounds expands symmetrically by this much along each axis
     unknown_2: int  # always from 0 to len(BRUSH_SIDE_PLANE_OFFSETS) inclusive
 
-    # brushes are likely bounding boxes sliced by indexed planes
-    # how brushsides are indexed idk (3 lumps, PLANE_OFFSETS, PROPERTIES, & TEXTURE_VECTORS)
-    # expecting something like:
-    #                   /-> BrushSideTextureVector
-    # Brush -> BrushSide -> BrushSidePlaneOffset -> Plane
-    #      \-> Contents (BrushSideProps -> UniqueContents)
+    # brushes are bounding boxes sliced by indexed planes
 
-    # BrushSide -> TextureData -> .vmt (surfaceprop)  # unsure, but would make sense for some systems
-    #                         \-> Surface flags
+    #      /-> BrushSideTextureVector
+    # Brush -> BrushSidePlaneOffset -?> Plane
+    #      \-> BrushSideProperties -> TextureData
+    # -?> UniqueContents
 
     # Parallel BrushSideTextureVector & BrushSideProps is somewhat wasteful (many duplicates)
     # BrushSides could be indexed via an index derived from brush index
@@ -369,7 +367,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # and Plane also contain many axis-aligned planes, which brushes wouldn't need
     # presumably some other systems / lumps utilise planes, because the lump lengths do not seem to make sense otherwise
 
-    __slots__ = ["origin", "unknown_1", "num_plane_offsets", "plane", "extents", "unknown_2"]
+    __slots__ = ["origin", "unknown_1", "num_plane_offsets", "index", "extents", "unknown_2"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
