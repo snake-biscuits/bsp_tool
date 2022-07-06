@@ -2,8 +2,9 @@
 from __future__ import annotations
 import enum
 import io
+import math
 import struct
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Tuple, Union
 
 from .. import base
 from .. import shared
@@ -932,6 +933,60 @@ def occlusion_mesh_as_obj(bsp) -> str:
     return "\n".join(out)
 
 
+def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
+    # NOTE: if doing a bulk operation, write a loop that accumulates the first_brush_side index
+    if brush_index > len(bsp.CM_BRUSHES):
+        raise IndexError("brush index out of range")
+    out = dict()
+    brush = bsp.CM_BRUSHES[brush_index]
+    first = sum([6 + b.num_plane_offsets for b in bsp.CM_BRUSHES[:brush_index]])
+    last = first + 6 + brush.num_plane_offsets
+    out["properties"] = [BrushSideProperty(p) for p in bsp.CM_BRUSH_SIDE_PROPERTIES[first:last]]
+    out["texture_vectors"] = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first:last]
+    out["textures"] = [p & BrushSideProperty.MASK_TEXTURE_DATA for p in out["properties"]]
+    out["textures"] = [bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index] for tdi in out["textures"]]
+    # TODO: planes: axial can be generated pretty easily, but others must be indexed (via plane_offsets?)
+    origin = -vector.vec3(*brush.origin)  # inverted for some reason? prob bad math
+    extents = vector.vec3(*brush.extents)
+    mins, maxs = origin - extents, origin + extents
+    brush_planes = list()
+    # ^ [(normal: vec3, distance: float)]
+    # assemble base brush sides in order: +X -X +Y -Y +Z -Z
+    for axis, min_dist, max_dist in zip("xyz", mins, maxs):
+        brush_planes.append((vector.vec3(**{axis: 1}), -max_dist))  # +ve axis plane
+        brush_planes.append((vector.vec3(**{axis: -1}), min_dist))  # -ve axis plane
+    # TODO: indexed planes
+    out["planes"] = brush_planes + [...] * brush.num_plane_offsets
+    # NOTE: we can visually identify bevel planes pretty easily, could also mathematically find them
+    # -- just find the XY planes for each vertical edge (dot against plane normal to get approx distance)
+    # -- could use this with approximate plane matching to find the correct plane indices
+    return out
+
+
+def get_brush_bevel_planes(bsp, brush_index: int) -> List[Tuple[vector.vec3, float]]:
+    # NOTE: distance is accurate within ~1.15e-07
+    if brush_index > len(bsp.CM_BRUSHES):
+        raise IndexError("brush index out of range")
+    out = list()
+    # ^ [(normal: vec3, distance: float)]
+    brush = bsp.CM_BRUSHES[brush_index]
+    origin = -vector.vec3(*brush.origin)  # inverted for some reason? prob bad math
+    extents = vector.vec3(*brush.extents)
+    mins, maxs = origin - extents, origin + extents
+    # assemble bevel brush sides in order: -X+Y -X-Y +X-Y +X+Y
+    # NOTE: this is the bevel plane order for all 3 brushes in r2's mp_lobby
+    # -- 6x axial planes for fog volume / skybox then 3x bevel planes
+    seq = ((-1, +1), (-1, -1), (+1, -1), (+1, +1))
+    x, y = {-1: mins.x, +1: maxs.x}, {-1: mins.y, +1: maxs.y}
+    half_sqrt_2 = math.sqrt(2) / 2
+    for x_scalar, y_scalar in seq:
+        normal = vector.vec3(half_sqrt_2 * x_scalar, half_sqrt_2 * y_scalar)
+        edge_vertex = vector.vec3(x[x_scalar], y[y_scalar])
+        distance = vector.dot(edge_vertex, normal)
+        out.append((normal, distance))
+    return out
+
+
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
     print("# TD_index  TD.name  TextureData.flags")
@@ -963,5 +1018,5 @@ def debug_Mesh_stats(bsp):
 methods = [vertices_of_mesh, vertices_of_model,
            replace_texture, find_mesh_by_texture, get_mesh_texture,
            search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj,
-           occlusion_mesh_as_obj,
+           occlusion_mesh_as_obj, get_brush_sides, get_brush_bevel_planes,
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
