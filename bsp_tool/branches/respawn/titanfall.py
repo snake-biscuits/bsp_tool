@@ -224,7 +224,7 @@ class MAX(enum.Enum):
 # flag enums
 class BrushSideProperty(enum.IntFlag):
     UNKNOWN_FLAG = 0x8000
-    BEVEL_PLANE = 0x4000
+    DISCARD = 0x4000  # this side helps define bounds (axial or bevel), but has no polygon
     # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
     # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
 

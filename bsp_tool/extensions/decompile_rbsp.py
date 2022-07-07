@@ -117,7 +117,7 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
         # -- r2/mp_lobby: only rendered brushes get axial planes
         # --- unrendered brushes only get bevel planes
         # --- all brushes in r2/mp_lobby are AABB brushes
-        # NOTE: failed plane indexing
+        # NOTE: failed plane indexing; until this works, non-AABB brushes will break
         # last_plane_offset = cur_plane_offset + brush.num_plane_offsets
         # brush_plane_offsets = PLANE_OFFSETS[cur_plane_offset:last_plane_offset]
         # brush_planes.extend([PLANES[i] for i in brush_plane_offsets])
@@ -128,6 +128,9 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
             j += first_brush_side  # for indexing BRUSH_SIDE_PROPERTIES / BRUSH_SIDE_TEXTURE_VECTORS
             # texture = "__TB_empty"  # trenchbroom default texture
             properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
+            # NOTE: if planes aren't indexed for additional brushsides, this will break the brush
+            if properties & titanfall.BrushSideProperty.DISCARD:  # bevel planes etc.
+                continue  # this side shouldn't generate a polygon
             texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
             texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/")
             texture = wad_dict.get(texture, texture)
