@@ -91,11 +91,13 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
            '// entity 0\n{\n',
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     first_brush_side = 0
-    # cur_plane_offset = 0
-    # PLANE_OFFSETS = getattr(bsp, "CM_BRUSH_SIDE_PLANE_OFFSETS", [0])
-    # PLANES = [(-vec3(*p.normal), -p.distance) for p in bsp.PLANES[-max(PLANE_OFFSETS) - 1:]]
-    # NOTE: had to flip planes here, really feel like I messed up the math somewhere (CW vs. CCW faces?)
+    # HACK: r1 mp_lobby fix
+    axes = (vec3(x=1), vec3(x=-1), vec3(y=1), vec3(y=-1), vec3(z=1), vec3(z=-1))
+    plane_index = [i for i, p in enumerate(bsp.PLANES) if vec3(*p.normal) not in axes][0]
+    PLANES = [(-vec3(*p.normal), -p.distance) for p in bsp.PLANES]
+    plane_offset_index = 0  # index into bsp.CM_BRUSH_SIDE_PLANE_OFFSETS
     for i, brush in enumerate(bsp.CM_BRUSHES):
+        # NOTE: had to flip planes here, really feel like I messed up the math somewhere (CW vs. CCW faces?)
         out.append(f"// brush {i}" + "\n{\n")
         origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
         extents = vec3(*brush.extents)
@@ -107,50 +109,43 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
         for axis, min_dist, max_dist in zip("xyz", mins, maxs):
             brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
             brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
-        # TODO: check order of generated brushsides lines up w/ texture projections
-        # TODO: identify non-AABB brushes
-        # TODO: get indexed planes for additional brush sides
-        # -- unsure how exactly PLANES lump is indexed
-        # --- brush.num_plane_offsets -> CM_BRUSH_SIDE_PLANE_OFFSETS -?> PLANES
-        # --- definitely some offset calculations involved, like MATERIAL_SORT
-        # -- around 50% of PLANES are bevel planes; very few axial planes
-        # -- r2/mp_lobby: only rendered brushes get axial planes
-        # --- unrendered brushes only get bevel planes
-        # --- all brushes in r2/mp_lobby are AABB brushes
-        # NOTE: failed plane indexing; until this works, non-AABB brushes will break
-        # last_plane_offset = cur_plane_offset + brush.num_plane_offsets
-        # brush_plane_offsets = PLANE_OFFSETS[cur_plane_offset:last_plane_offset]
-        # brush_planes.extend([PLANES[i] for i in brush_plane_offsets])
-        num_brush_sides = 6
-        # cur_plane_offset = last_plane_offset
+        num_brush_sides = 6 + brush.num_plane_offsets
         for j in range(num_brush_sides):
-            tri = triangle_for(brush_planes[j])
-            j += first_brush_side  # for indexing BRUSH_SIDE_PROPERTIES / BRUSH_SIDE_TEXTURE_VECTORS
-            # texture = "__TB_empty"  # trenchbroom default texture
-            properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j]
-            # NOTE: if planes aren't indexed for additional brushsides, this will break the brush
-            if properties & titanfall.BrushSideProperty.DISCARD:  # bevel planes etc.
-                continue  # this side shouldn't generate a polygon
+            properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j + first_brush_side]
+            if j < 6:  # AABB plane (generated)
+                tri = triangle_for(brush_planes[j])
+            else:  # clip plane (indexed)
+                # NOTE: this math works for mp_box, but not many other maps
+                # NOTE: could brush.unknown_2 be used instead of accumulating?
+                # -- e.g. brush.first_brush side = brush.index * 6 + brush.unknown_2 ?
+                # would explain why length seems to match len(PLANE_OFFSETS) [not every map meets these criteria!]
+                plane_offset = bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[plane_offset_index]
+                plane_offset_index += 1
+                # print(f"BRUSH[{i}] SIDE #{j}: PLANES[{plane_index - plane_offset}] (-{plane_offset})", end=" ")
+                # print("[DISCARDED]" if properties & titanfall.BrushSideProperty.DISCARD else "")
+                tri = triangle_for(PLANES[plane_index - plane_offset])
+                plane_index += 1
+            if properties & titanfall.BrushSideProperty.DISCARD:
+                continue  # this side doesn't have a polygon, only used for physics / vis tests
             texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
             texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
             texture = wad_dict.get(texture, texture)
-            # NOTE: texture name is simplified a little for a .wad
-            tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[j]
+            # NOTE: .wad textures have a 15 char length limit (16 chars + '\0')
+            # -- if using a .wad, provide wad_dict. e.g. {"tools/toolsnodraw": "nodraw"}
+            tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
             tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
             # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
             tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
             # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
-            # TODO: determine texture; using TrenchBroom default texture for now
-            # -- current theory is that BrushSideProperties indexes TextureData, somehow
             out.append(" ".join([tri_str, texture, tv_str, "0 4 4\n"]))
             # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
-        first_brush_side += num_brush_sides + brush.num_plane_offsets
+        first_brush_side += num_brush_sides
         out.append("}\n")
     out.append("}\n")
     for i, entity in enumerate(bsp.ENTITIES[1:]):
-        # NOTE: .bsp entity lump only
+        # NOTE: .bsp entity lump (*.bsp.0000.bsp_lump) only
         # TODO: identify brush entities in Titanfall 2 entities
-        # TODO: match brush entities to brushes
+        # -- then match brush entities to brushes; (is ent origin enough to position correctly?)
         out.extend((f"// entity {i + 1}", "\n{\n", *[f'"{k}" "{v}"\n' for k, v in entity.items()], "}\n"))
     with open(map_filename, "w") as map_file:
         map_file.write("".join(out))

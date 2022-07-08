@@ -344,11 +344,15 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    unknown_1: int  # some offset?
+    num_discarded_base_sides: int  # number of AABB brush sides that are replaced by other planes
+    # TODO: test / confirm theory
     num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
+    # num_brush_sides = 6 + num_plane_offsets
     index: int  # idk why, just is; might be tied to plane indexing
     extents: List[float]  # bounds expands symmetrically by this much along each axis
-    unknown_2: int  # always from 0 to len(BRUSH_SIDE_PLANE_OFFSETS) inclusive
+    unknown_2: int  # small int, increments slowly
+    # might be an offset for finding first_brush_side? (index * 6 + unknown_2)
+    # TODO: test / confirm theory
 
     # brushes are bounding boxes sliced by indexed planes
 
@@ -364,10 +368,14 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # however, we need at least the number of planes per brush
     # unknown_2 might index BrushSidePlaneOffsets, but indices can be too long
     # the contents of BrushSidePlaneOffsets also make little sense, much repetition occurs
-    # and Plane also contain many axis-aligned planes, which brushes wouldn't need
-    # presumably some other systems / lumps utilise planes, because the lump lengths do not seem to make sense otherwise
+    # and Plane also contains many axis-aligned planes, which brushes wouldn't need
+    # presumably some other systems / lumps utilise planes (visibility, could be SKYBOX planes?)
+    # the lump lengths do not seem to make sense otherwise
+    # NOTE: PLANES also features some repeats, thanks to rounding errors
+    # NOTE: the first few planes are axis-aligned, until brush planes
+    # -- brushes would never need to use axial planes, as their bounds would define these planes
 
-    __slots__ = ["origin", "unknown_1", "num_plane_offsets", "index", "extents", "unknown_2"]
+    __slots__ = ["origin", "num_discarded_base_sides", "num_plane_offsets", "index", "extents", "unknown_2"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
