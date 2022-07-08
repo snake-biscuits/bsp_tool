@@ -132,7 +132,7 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
             if properties & titanfall.BrushSideProperty.DISCARD:  # bevel planes etc.
                 continue  # this side shouldn't generate a polygon
             texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
-            texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/")
+            texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
             texture = wad_dict.get(texture, texture)
             # NOTE: texture name is simplified a little for a .wad
             tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[j]
