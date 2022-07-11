@@ -57,8 +57,8 @@
 | 8 | 19 | `LEAVES` | [`ritual.moh_allied_assault.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/moh_allied_assault.py#L91) | 100% |
 | 8 | 20 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |
 | 8 | 46 | `BRUSHES` | [`id_software.quake3.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L98) | 100% |
-| 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L56) | 100% |
 | 9 | 1 | `BRUSH_SIDES` |  | 0% |
+| 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L56) | 100% |
 | 9 | 12 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L205) | 100% |
 | 9 | 20 | `LEAF_SURFACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |
 | 9 | 46 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L106) | 100% |
@@ -67,9 +67,8 @@
 | 10 | 12 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L106) | 100% |
 | 10 | 19 | `SIDE_EQUATIONS` |  | 0% |
 | 10 | 46 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L229) | 100% |
-| 11 | 1 | `ELEMENTS` |  | 0% |
 | 11 | 1 | `DRAW_INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |
-| 11 | 12 | `BRUSHES` |  | 0% |
+| 11 | 1 | `ELEMENTS` |  | 0% |
 | 11 | 19 | `BRUSH_SIDES` | [`ritual.moh_allied_assault.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/moh_allied_assault.py#L83) | 100% |
 | 11 | 20 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L205) | 100% |
 | 11 | 46 | `MESH_VERTICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L22) | 100% |

@@ -59,9 +59,9 @@
 | 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
 | 35 | 20 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L333) | 90% |
 | 35 | 20 | `GAME_LUMP.sprp` | - | [`valve.source.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L660) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L707) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L726) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L747) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L708) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L727) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L748) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 8 | [`valve.left4dead.StaticPropv8`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead.py#L98) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 9 | [`valve.left4dead2.StaticPropv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L112) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 10 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L145) | 100% |
@@ -90,9 +90,9 @@
 | 58 | 20 | `FACES_HDR` | 0 |  | 0% |
 | 59 | 20 | `MAP_FLAGS` | 0 |  | 0% |
 | 60 | 20 | `OVERLAY_FADES` | 0 | [`valve.source.OverlayFade`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L556) | 100% |
-| 61 | 20 | `LUMP_OVERLAY_SYSTEM_LEVELS` | 0 |  | 0% |
+| 61 | 20 | `OVERLAY_SYSTEM_LEVELS` | 0 |  | 0% |
 | 62 | 20 | `UNUSED_62` | 0 |  | 0% |
-| 62 | 21 | `LUMP_PHYSICS_LEVEL` | 0 |  | 0% |
+| 62 | 21 | `PHYSICS_LEVEL` | 0 |  | 0% |
 | 63 | 20 | `UNUSED_63` | 0 |  | 0% |
 
 
