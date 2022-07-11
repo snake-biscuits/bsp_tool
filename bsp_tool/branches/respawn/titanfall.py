@@ -245,7 +245,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     OPAQUE = 0x80  # blocks AI Line Of Sight, may be non-solid
     TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
     UNKNOWN_2 = 0x200  # ! NEW ! was UNUSED_1
-    UNUSED = 0x400  # is it tho
+    UNUSED = 0x400  # TODO: confirm
     TEAM1 = 0x0800
     TEAM2 = 0x1000
     IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
@@ -270,7 +270,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     # TODO: might r1 Titan Shields be a flag?
 
 
-class Flags(enum.IntFlag):
+class Flags(enum.IntFlag):  # Mesh / TextureData Flags
     # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
     SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
     SKY = 0x0004
