@@ -344,8 +344,7 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 class Brush(base.Struct):  # LUMP 92 (005C)
     origin: List[float]  # center of bounds
-    num_discarded_base_sides: int  # number of AABB brush sides that are replaced by other planes
-    # TODO: test / confirm theory
+    unknown: int  # might tie into plane indexing, but I kinda hope not
     num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
     # num_brush_sides = 6 + num_plane_offsets
     index: int  # idk why, just is; might be tied to plane indexing
@@ -360,8 +359,8 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     #      \-> BrushSideProperties -> TextureData
     # -?> UniqueContents
 
-    # TODO: determine how planes are indexed? do we start immediately after axial planes?
-    # NOTE: planes can have near duplicates (rounding errors etc.), might plane indexing be accumulated?
+    # TODO: determine how planes are indexed? planes might get reused
+    # -- current theory is we count up from a starting index but shift back by the current plane offset
 
     # TODO: we might be able to match planes w/ texvec math (this assumes uniform texture scale / projection)
     # -- (vec3) local_x * (vec3) local_y = (vec3) local_z  // [normal axis]
@@ -369,7 +368,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # -- NOTE: multiple intersections could occur to create a given AABB
     # -------  the plane may or may not touch an AABB point, but we can still find the range of valid distances
 
-    __slots__ = ["origin", "num_discarded_base_sides", "num_plane_offsets", "index", "extents", "brush_side_offset"]
+    __slots__ = ["origin", "unknown", "num_plane_offsets", "index", "extents", "brush_side_offset"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
