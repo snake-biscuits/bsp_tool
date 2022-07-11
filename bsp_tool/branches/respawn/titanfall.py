@@ -350,9 +350,8 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     # num_brush_sides = 6 + num_plane_offsets
     index: int  # idk why, just is; might be tied to plane indexing
     extents: List[float]  # bounds expands symmetrically by this much along each axis
-    unknown_2: int  # small int, increments slowly
-    # might be an offset for finding first_brush_side? (index * 6 + unknown_2)
-    # TODO: test / confirm theory
+    brush_side_offset: int  # also provides first_plane_offset
+    # first_brush_side = (index * 6 + brush_side_offset)
 
     # brushes are bounding boxes sliced by indexed planes
 
@@ -361,21 +360,16 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     #      \-> BrushSideProperties -> TextureData
     # -?> UniqueContents
 
-    # Parallel BrushSideTextureVector & BrushSideProps is somewhat wasteful (many duplicates)
-    # BrushSides could be indexed via an index derived from brush index
-    # However total BrushSides is len(Brushes) * 6 + len(BrushSidePlaneOffsets)
-    # this implies the base 6 sides of each brush are generated from the bounds
-    # however, we need at least the number of planes per brush
-    # unknown_2 might index BrushSidePlaneOffsets, but indices can be too long
-    # the contents of BrushSidePlaneOffsets also make little sense, much repetition occurs
-    # and Plane also contains many axis-aligned planes, which brushes wouldn't need
-    # presumably some other systems / lumps utilise planes (visibility, could be SKYBOX planes?)
-    # the lump lengths do not seem to make sense otherwise
-    # NOTE: PLANES also features some repeats, thanks to rounding errors
-    # NOTE: the first few planes are axis-aligned, until brush planes
-    # -- brushes would never need to use axial planes, as their bounds would define these planes
+    # TODO: determine how planes are indexed? do we start immediately after axial planes?
+    # NOTE: planes can have near duplicates (rounding errors etc.), might plane indexing be accumulated?
 
-    __slots__ = ["origin", "num_discarded_base_sides", "num_plane_offsets", "index", "extents", "unknown_2"]
+    # TODO: we might be able to match planes w/ texvec math (this assumes uniform texture scale / projection)
+    # -- (vec3) local_x * (vec3) local_y = (vec3) local_z  // [normal axis]
+    # -- dot normal against bounds & find valid intersections that maintain AABB
+    # -- NOTE: multiple intersections could occur to create a given AABB
+    # -------  the plane may or may not touch an AABB point, but we can still find the range of valid distances
+
+    __slots__ = ["origin", "num_discarded_base_sides", "num_plane_offsets", "index", "extents", "brush_side_offset"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
 
@@ -945,7 +939,7 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
         raise IndexError("brush index out of range")
     out = dict()
     brush = bsp.CM_BRUSHES[brush_index]
-    first = sum([6 + b.num_plane_offsets for b in bsp.CM_BRUSHES[:brush_index]])
+    first = 6 * brush.index + brush.brush_side_offset
     last = first + 6 + brush.num_plane_offsets
     out["properties"] = [BrushSideProperty(p) for p in bsp.CM_BRUSH_SIDE_PROPERTIES[first:last]]
     out["texture_vectors"] = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first:last]

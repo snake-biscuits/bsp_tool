@@ -90,12 +90,10 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
     out = ["// Game: Quake\n// Format: Valve\n",
            '// entity 0\n{\n',
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
-    first_brush_side = 0
     # HACK: r1 mp_lobby fix
     axes = (vec3(x=1), vec3(x=-1), vec3(y=1), vec3(y=-1), vec3(z=1), vec3(z=-1))
     plane_index = [i for i, p in enumerate(bsp.PLANES) if vec3(*p.normal) not in axes][0]
     PLANES = [(-vec3(*p.normal), -p.distance) for p in bsp.PLANES]
-    plane_offset_index = 0  # index into bsp.CM_BRUSH_SIDE_PLANE_OFFSETS
     for i, brush in enumerate(bsp.CM_BRUSHES):
         # NOTE: had to flip planes here, really feel like I messed up the math somewhere (CW vs. CCW faces?)
         out.append(f"// brush {i}" + "\n{\n")
@@ -109,6 +107,7 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
         for axis, min_dist, max_dist in zip("xyz", mins, maxs):
             brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
             brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
+        first_brush_side = brush.index * 6 + brush.brush_side_offset
         num_brush_sides = 6 + brush.num_plane_offsets
         for j in range(num_brush_sides):
             properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j + first_brush_side]
@@ -116,11 +115,7 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
                 tri = triangle_for(brush_planes[j])
             else:  # clip plane (indexed)
                 # NOTE: this math works for mp_box, but not many other maps
-                # NOTE: could brush.unknown_2 be used instead of accumulating?
-                # -- e.g. brush.first_brush side = brush.index * 6 + brush.unknown_2 ?
-                # would explain why length seems to match len(PLANE_OFFSETS) [not every map meets these criteria!]
-                plane_offset = bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[plane_offset_index]
-                plane_offset_index += 1
+                plane_offset = bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + j - 6]
                 # print(f"BRUSH[{i}] SIDE #{j}: PLANES[{plane_index - plane_offset}] (-{plane_offset})", end=" ")
                 # print("[DISCARDED]" if properties & titanfall.BrushSideProperty.DISCARD else "")
                 tri = triangle_for(PLANES[plane_index - plane_offset])
