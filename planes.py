@@ -65,14 +65,20 @@ def plane_match(plane: r1.Plane, normal: vec3, min_dist: float, max_dist: float,
     return True
 
 
-def behind_plane(point: vec3, plane: (vec3, float), delta: float = 0.05):
+def behind_plane(point: vec3, plane: (vec3, float), delta: float = 0.25):
+    # NOTE: ONLY return True if 'point' is not on or in front of 'plane'
     # NOTE: on plane = not behind plane
     # -- this means bevel planes & axial planes are considered to intersect brushes
+    # TODO: planes on axial bounds are being ignored
+    # -- we need to get a pass & fail for these borderline cases to work
     normal, distance = plane
     dot_normal = dot(point, normal)
-    pos_delta = bool(dot_normal <= distance + delta)
-    neg_delta = bool(dot_normal <= distance - delta)
-    return pos_delta and neg_delta  # {True, False} -> False if on plane
+    case_a = bool(dot_normal + delta < distance + delta)
+    case_b = bool(dot_normal - delta < distance + delta)
+    case_c = bool(dot_normal + delta < distance - delta)
+    case_d = bool(dot_normal - delta < distance - delta)
+    case_e = dot_normal != distance
+    return case_a and case_b and case_c and case_d and case_e
 
 
 def planes_intersecting_brush(bsp: RespawnBsp, brush_index: int) -> List[int]:
@@ -100,3 +106,33 @@ def brush_potential_planes(bsp: RespawnBsp, brush_index: int) -> Dict[int, List[
             if plane_match(bsp.PLANES[j], normal, min_dist, max_dist):
                 out[i].append(j)
     return out
+
+
+if __name__ == "__main__":
+    # testing axial & bevel planes are grouped to brushes correctly
+    import functools
+
+    import bsp_tool
+
+    def union(*sets: List[set]) -> set:
+        return functools.reduce(lambda a, b: a.union(b), sets)
+
+    r2l = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
+    # intersect group
+    ig_0 = set(planes_intersecting_brush(r2l, 0))  # 640x640x16 @ (0, 0, -8)
+    ig_1 = set(planes_intersecting_brush(r2l, 1))  # 48x48x32 @ (0, -256, 16)
+    ig_2 = set(planes_intersecting_brush(r2l, 2))  # 3072x3072x3072 @ (0, 0, 0)
+    # plane group
+    pg_0 = {0, 1, 2, 3, 4, 5}  # Brush 2 axial bounds
+    pg_1 = {6, 7, 8, 9}        # Brush 0 bevel planes
+    pg_2 = {10, 11, 12, 13}    # Brush 1 bevel planes
+    pg_3 = {14, 15, 16, 17}    # Brush 2 bevel planes
+    # all planes should be accounted for
+    assert ig_0.intersection(pg_1) == pg_1, "brush 0: missed brush 0's bevel planes"
+    assert ig_0.intersection(pg_2) == pg_2, "brush 0: missed brush 1's bevel planes"
+    assert ig_0 == union(pg_1, pg_2), "brush 0: includes some incorrect planes"
+    assert ig_1 == pg_2, "brush 1: missed brush 1's bevel planes"
+    assert ig_2.intersection(pg_0) == pg_0, "brush 2: missed brush 2's axial bounds"
+    assert ig_2.intersection(pg_1) == pg_1, "brush 2: missed brush 0's bevel planes"
+    assert ig_2.intersection(pg_2) == pg_2, "brush 2: missed brush 1's bevel planes"
+    assert ig_2.intersection(pg_3) == pg_3, "brush 2: missed brush 2's bevel planes"
