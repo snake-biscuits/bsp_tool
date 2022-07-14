@@ -385,6 +385,29 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     _format = "4h"
 
 
+class CellAABBNode(base.Struct):  # LUMP 119 (0077)
+    """Identified by Fifty#8113"""
+    # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
+    mins: List[float]
+    num_children: int  # number of direct child CellAABBNodes (max 5)
+    num_obj_ref_indices: int  # number of ObjRefIndex after first_obj_ref_index
+    total_children: int  # children of my children
+    maxs: List[float]
+    first_child: int  # index of first child CellAABBNode
+    first_obj_ref_index: int
+    __slots__ = ["mins", "num_children", "num_obj_ref_indices", "total_children",
+                 "maxs", "first_child", "first_obj_ref_index"]
+    _format = "3f2BH3f2H"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+
+
+class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
+    unknown_1: int
+    unknown_2: int
+    _mapping = ["unknown_1", "unknown_2"]
+    _format = "2i"
+
+
 class Cubemap(base.Struct):  # LUMP 42 (002A)
     origin: List[int]
     unknown: int  # index? flags?
@@ -485,7 +508,8 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
-class Node(base.Struct):  # LUMP 99, 106 & 119 (0063, 006A & 0077)
+class Node(base.Struct):  # LUMP 99 (0063)
+    # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
     mins: List[float]
     unknown_1: int
     maxs: List[float]
@@ -772,8 +796,8 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "TRICOLL_TRIANGLES":           {2: shared.UnsignedInts}}  # could be a pair of shorts?
 
 LUMP_CLASSES = {"CELLS":                             {0: Cell},
-                "CELL_AABB_NODES":                   {0: Node},
-                # "CELL_BSP_NODES":                   {0: Node},
+                "CELL_AABB_NODES":                   {0: CellAABBNode},
+                "CELL_BSP_NODES":                    {0: CellBSPNode},
                 "CM_BRUSHES":                        {0: Brush},
                 "CM_BRUSH_SIDE_TEXTURE_VECTORS":     {0: TextureVector},
                 "CM_GEO_SETS":                       {0: GeoSet},
