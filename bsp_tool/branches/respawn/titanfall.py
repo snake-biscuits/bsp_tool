@@ -377,12 +377,11 @@ class Cell(base.Struct):  # LUMP 107 (006B)
     """BVH4? (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
 https://www.youtube.com/watch?v=6BIfqfC1i7U
 https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
-    a: int
-    b: int
-    c: int
-    d: int  # always -1?
-    __slots__ = [*"abcd"]
-    _format = "4h"
+    num_portals: int  # link found by Fifty
+    unknown: List[int]  # 2nd is always -1? TODO: confirm
+    __slots__ = ["num_portals", "unknown"]
+    _format = "I2H"
+    _arrays = {"unkown": 2}
 
 
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
