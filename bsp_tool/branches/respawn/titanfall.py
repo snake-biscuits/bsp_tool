@@ -423,13 +423,15 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 
 class GeoSet(base.Struct):  # LUMP 87 (0057)
-    unknown: List[int]
+    unknown_1: List[int]  # 2x uint16_t
+    unknown_2: int  # uint8_t
     index: int  # -> brush / tricoll, depending on flags
-    # TODO: use paralell bounds to test indices
+    # NOTE: Fifty thinks index might be a short, but the byte alignment is wierd
+    unknown_2: int  # high byte of index?
     flags: int  # see GeoSetFlags
-    __slots__ = ["unknown", "index", "flags"]
-    _format = "5BHB"
-    _arrays = {"unknown": 5}
+    __slots__ = ["unknown_1", "unknown_2", "index", "unknown_3", "flags"]
+    _format = "2H4B"
+    _arrays = {"unknown_1": 2}
 
 
 # NOTE: only one 28 byte entry per file
