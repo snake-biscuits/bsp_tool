@@ -422,13 +422,14 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
     _arrays = {"origin": [*"xyz"]}
 
 
-class GeoSet(base.MappedArray):  # LUMP 87 (0057)
+class GeoSet(base.Struct):  # LUMP 87 (0057)
     unknown: List[int]
     index: int  # -> brush / tricoll, depending on flags
     # TODO: use paralell bounds to test indices
     flags: int  # see GeoSetFlags
-    _mapping = {"unknown": 3}
-    _format = "2HBHB"  # interesting byte alignment
+    __slots__ = ["unknown", "index", "flags"]
+    _format = "5BHB"
+    _arrays = {"unknown": 5}
 
 
 # NOTE: only one 28 byte entry per file
