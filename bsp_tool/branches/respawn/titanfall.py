@@ -233,6 +233,7 @@ class BrushSideProperty(enum.IntFlag):
 
 class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
+    # TODO: find where these flags are used
     # visible
     EMPTY = 0x00
     SOLID = 0x01
@@ -286,6 +287,12 @@ class Flags(enum.IntFlag):  # Mesh / TextureData Flags
     TRIGGER = 0x40000  # guessing
     # masks
     MASK_VERTEX = 0x600
+
+
+class GeoSetFlags(enum.IntFlag):  # CM_GEO_SETS.flags
+    # identified by Fifty
+    BRUSH = 0x00
+    TRICOLL = 0x40
 
 
 class TraceCollisionGroup(enum.Enum):
@@ -416,9 +423,12 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 
 class GeoSet(base.MappedArray):  # LUMP 87 (0057)
-    unknown: List[int]  # we know the size, but nothing else
-    _mapping = {"unknown": 4}
-    _format = "4h"  # definitely 8 bytes
+    unknown: List[int]
+    index: int  # -> brush / tricoll, depending on flags
+    # TODO: use paralell bounds to test indices
+    flags: int  # see GeoSetFlags
+    _mapping = {"unknown": 3}
+    _format = "2HBHB"  # interesting byte alignment
 
 
 # NOTE: only one 28 byte entry per file
