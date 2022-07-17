@@ -368,7 +368,7 @@ map_dirs = ['tf/maps', 'tf/download/maps']
 >       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,
                                             *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, bsp_version[39;49;00m
                                             *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])
-[1m[31mE       AssertionError: 5 out of 506 .bsps failed[0m
+[1m[31mE       AssertionError: 5 out of 514 .bsps failed[0m
 [1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
 [1m[31mE         sprp v10[0m
 [1m[31mE       assert {'tf/download/maps/arena_idolon_mc18_a1.bsp': AssertionError('sprp v10\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/bananaland_rc5a.bsp': AssertionError('sprp v10\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_e1m1mountainlab.bsp': AssertionError('sprp v10\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_ismac_mc18_a1.bsp': AssertionError('sprp v10\nassert 1 == 0\n  +1\n  -0'),\n 'tf/download/maps/cp_ismac_mc18_a2.bsp': AssertionError('sprp v10\nassert 1 == 0\n  +1\n  -0')} == {}[0m
@@ -969,24 +969,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  AxisAlignedBoundingBox
   Node
   Cell
-  CullGroup
+  Light
+  Brush
+  Occluder
   Model
   PatchCollision
-  Portal
-  Brush
-  Light
   DrawVertex
-  Occluder
+  AxisAlignedBoundingBox
+  CullGroup
+  Portal
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
@@ -1046,7 +1046,7 @@ bsp_tool\branches\raven\soldier_of_fortune.py           14      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py          32      0   100%
 bsp_tool\branches\respawn\__init__.py                    5      0   100%
 bsp_tool\branches\respawn\apex_legends.py              269     22    92%
-bsp_tool\branches\respawn\titanfall.py                 606     99    84%
+bsp_tool\branches\respawn\titanfall.py                 672    134    80%
 bsp_tool\branches\respawn\titanfall2.py                228      4    98%
 bsp_tool\branches\respawn\titanfall_x360.py             52     17    67%
 bsp_tool\branches\ritual\__init__.py                     5      0   100%
@@ -1071,7 +1071,7 @@ bsp_tool\branches\vector.py                            190    129    32%
 bsp_tool\branches\x360.py                               15      0   100%
 bsp_tool\extensions\__init__.py                          0      0   100%
 bsp_tool\extensions\archive.py                          70     70     0%
-bsp_tool\extensions\decompile_rbsp.py                   65     65     0%
+bsp_tool\extensions\decompile_rbsp.py                   78     78     0%
 bsp_tool\extensions\decrypt_xor.py                      11     11     0%
 bsp_tool\extensions\diff.py                            111    111     0%
 bsp_tool\extensions\lightmaps.py                       191    191     0%
@@ -1084,7 +1084,7 @@ bsp_tool\respawn.py                                    253    138    45%
 bsp_tool\ritual.py                                      45      3    93%
 bsp_tool\valve.py                                      136     71    48%
 ------------------------------------------------------------------------
-TOTAL                                                 7104   1633    77%
+TOTAL                                                 7183   1681    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs61]
@@ -1092,4 +1092,4 @@ FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fo
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs123] - ...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs126] - As...
-[31m=========== [31m[1m5 failed[0m, [32m189 passed[0m, [33m6 warnings[0m[31m in 14326.79s (3:58:46)[0m[31m ===========[0m
+[31m=========== [31m[1m5 failed[0m, [32m189 passed[0m, [33m6 warnings[0m[31m in 15035.20s (4:10:35)[0m[31m ===========[0m
