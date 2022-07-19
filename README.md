@@ -191,6 +191,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Preserving **extensive** documentation, mods & source code for Quake 3 & Ubertools games
  * [Ficool2](https://github.com/ficool2)
    - Providing lots of current and detailed info on Source & helping track down some rarer titles
+ * [F1F7Y](https://github.com/F1F7Y)
+   - Lead developer on [Spyglass Radiant](https://github.com/F1F7Y/spyglass-radiant) NetRadiant-Custom fork for Titanfall Series
  * [GCFScape](https://nemstools.github.io/pages/GCFScape-Download.html)
    - Super handy `.vpk` (Valve format) browser; VTFLib / VTFEdit is also from Nem's Tools
  * [Maxime Dupuis](https://github.com/maxdup)
