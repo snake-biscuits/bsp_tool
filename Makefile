@@ -1,4 +1,5 @@
-CC       := g++
+CC       := gcc
+CXX      := g++
 CXXFLAGS := --std=c++17 -Wall
 LDLIBS   := -lstdc++fs
 
@@ -19,7 +20,8 @@ ifeq ($(OS),Windows_NT)
     # -- mingw-w64-x86_64-mesa
     # -- mingw-w64-x86_64-SDL2
     # TODO: figure out standalone Windows builds
-    CC       := x86_64-w64-mingw32-g++
+    CC       := x86_64-w64-mingw32-gcc
+    CXX      := x86_64-w64-mingw32-g++
     SDLFLAGS := -lm -mwindows -mconsole -lopengl32 -lglew32 `sdl2-config --cflags --libs`
 
     R1_MAPS_DIR  := /E/Mod/Titanfall/maps
@@ -44,17 +46,17 @@ run: build/viewer.exe
 	build/viewer.exe $(TESTMAP)
 
 debug:
-	$(CC) $(CXXFLAGS) -ggdb $(LDLIBS) src/viewer/main.cpp -o build/viewer.exe $(SDLFLAGS)
+	$(CXX) $(CXXFLAGS) -ggdb $(LDLIBS) src/viewer/main.cpp -o build/viewer.exe $(SDLFLAGS)
 	gdb -ex run -ex bt --args build/viewer.exe $(TESTMAP)
 
 # TODO: .o builds
 # TODO: clean
 
 build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
-	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@
+	$(CXX) $(CXXFLAGS) $(LDLIBS) $< -o $@
 
 build/viewer.exe: src/viewer/main.cpp src/bsp_tool.hpp src/viewer/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp src/viewer/titanfall.hpp src/viewer/apex_legends.hpp
-	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
+	$(CXX) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
 
-build/indentify.exe: src/identify_bsp.c
+build/identify.exe: src/identify_bsp.c
 	$(CC) -Wall --std=c89 $< -o $@
