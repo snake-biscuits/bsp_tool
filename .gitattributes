@@ -1,0 +1,15 @@
+* text=auto
+# code
+*.c text eol=lf
+*.h text eol=lf
+*.py text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+# other text
+*.md text eol=lf
+*.map text eol=lf
+*.txt text eol=lf
+# binary files
+*.bsp binary
+*.blend binary
+*.d3dbsp binary
