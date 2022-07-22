@@ -38,7 +38,7 @@ DUMMY != mkdir -p build
 .PHONY: all run debug
 
 
-all: build/lump_names.exe build/viewer.exe
+all: build/lump_names.exe build/viewer.exe build/identify.exe
 
 run: build/viewer.exe
 	build/viewer.exe $(TESTMAP)
@@ -55,3 +55,6 @@ build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 
 build/viewer.exe: src/viewer/main.cpp src/bsp_tool.hpp src/viewer/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp src/viewer/titanfall.hpp src/viewer/apex_legends.hpp
 	$(CC) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
+
+build/indentify.exe: src/identify_bsp.c
+	$(CC) -Wall --std=c89 $< -o $@
