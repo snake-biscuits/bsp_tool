@@ -226,22 +226,19 @@ int main(int argc, char* argv[]) {
 
     // MAIN LOOP
     SDL_Event event;
-    bool running = true;
-    while (running) {
+    while (true) {
         // PROCESS INPUT
-        // TODO: move to a function called by the main while loop
+        // TODO: move to a function
         while(SDL_PollEvent(&event) != 0) {
             switch (event.type) {
                 case SDL_QUIT:
-                    running = false;
-                    break;  // GOTO: QUIT
+                    goto JMP_QUIT;
                 case SDL_KEYDOWN:
-                    if (event.key.repeat) { break; }
+                    if (event.key.repeat)
+                        break;
                     key = event.key.keysym.sym;
-                    if (key == SDLK_ESCAPE) {
-                        running = false;
-                        break;  // GOTO: QUIT
-                    }
+                    if (key == SDLK_ESCAPE)
+                        goto JMP_QUIT;
                     if (key < 122) {
                         keys[key] = true;
                     } else {
@@ -317,7 +314,7 @@ int main(int argc, char* argv[]) {
         SDL_GL_SwapWindow(window);
     }
 
-    // QUIT
+JMP_QUIT:
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
