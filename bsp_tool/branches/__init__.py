@@ -18,7 +18,8 @@ from . import troika
 from . import valve
 # TODO: xatrix.kingpin
 # ^ https://github.com/QuakeTools/Kingpin-SDK-v1.21
-# (Kingpin allegedly has it's own KRadiant "on the CD")
+# -- (Kingpin allegedly has it's own KRadiant "on the CD")
+# -- https://steamdb.info/depot/38431/ lists radiant & compilers in files
 
 
 # NOTE: this dict can be generated from branch_scripts, but listing it here is more convenient
