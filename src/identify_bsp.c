@@ -54,8 +54,8 @@ JMP_2015:
     goto JMP_NEXT;
 JMP_FAKK:
     switch (v) {
-	case VERSION_FAKK: REPORT_X("Heavy Metal F.A.K.K 2")
-	case VERSION_ALIC: REPORT_X("American McGee's Alice")
+        case VERSION_FAKK: REPORT_X("Heavy Metal F.A.K.K 2")
+        case VERSION_ALIC: REPORT_X("American McGee's Alice")
     }
     goto JMP_NEXT;
 JMP_IBSP:
@@ -119,7 +119,7 @@ JMP_KILL:
 
 JMP_STRT:
     if (!--c) goto JMP_HELP;
-    for (; c > 0; --c) {
+    for (; c > 0; --c) {  /* NOTE: args processed in reverse order */
         if (a[c][0] == '-') {
             if (!strcmp(a[c], "-h") || !strcmp(a[c], "--help"))
                 goto JMP_HELP;
@@ -138,7 +138,7 @@ JMP_STRT:
             CASE_MAGIC(BSP2)
             CASE_MAGIC(EALA)
             CASE_MAGIC(EF2_)
-	    CASE_MAGIC(FAKK)
+            CASE_MAGIC(FAKK)
             CASE_MAGIC(FBSP)
             CASE_MAGIC(IBSP)
             CASE_MAGIC(PSBV)
