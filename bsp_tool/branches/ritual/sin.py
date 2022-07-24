@@ -1,11 +1,12 @@
 """All three creditted programmers worked on Heavy Metal F.A.K.K. 2
 Some also went on to work on MoH:AA expansions & some Valve titles"""
+# https://github.com/id-Software/Quake-III-Arena/blob/master/code/bspc/l_bsp_sin.h
 from ..id_software import quake
 from ..id_software import quake2
 
 
-FILE_MAGIC = b"RBSP"  # Raven's Ubertools?
-# NOTE: 1x b"IBSP" map exists in map collection, will SiN play it?
+FILE_MAGIC = b"RBSP"
+# NOTE: b"IBSP" v41 is also SiN
 
 BSP_VERSION = 1
 

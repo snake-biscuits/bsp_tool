@@ -296,12 +296,31 @@ extracted_dirs = {
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
-        "Alice": ["maps",  # 42 maps | 196 MB | .pk3
+        "Alice": ["maps",  # 42 maps | 196 MB | .pk3 (includes maps from demo)
                   "download/maps"],  # 1 map | 61 KB | .pk3
-        "MoHAA": ["maps",  # 37 maps | 293 MB | .pk3
-                  "maps/briefing",  # 6 maps | 319 KB | .pk3
-                  "maps/DM",  # 7 maps | 48 MB | .pk3
-                  "maps/obj"],  # 4 maps | 36 MB | .pk3
+        # https://archive.org/details/MedalOfHonourAlliedAssaultSinglePlayer
+        "MoHAA/demo": ["Pak5.pk3/maps"],  # 2 maps | 10 MB | .pk3
+        # NOTE: we don't test credits.bsp.old
+        "MoHAA/main": ["Pak5.pk3/maps",  # 37 maps | 298 MB | .pk3
+                       "Pak5.pk3/maps/briefing",  # 6 maps | 319 KB | .pk3
+                       "Pak5.pk3/maps/DM",  # 7 maps | 48 MB | .pk3
+                       "Pak5.pk3/maps/obj"],  # 4 maps | 36 MB | .pk3
+        # DLC 1: Spearhead
+        "MoHAA/mainta": ["pak1.pk3/maps",  # 19 maps | 255 MB | .pk3
+                         "pak1.pk3/maps/breifing",  # 5 maps | 276 MB | .pk3
+                         "pak1.pk3/maps/DM",  # 8 maps | 64 MB | .pk3
+                         "pak1.pk3/maps/obj",  # 4 maps | 63 MB | .pk3
+                         "pak3.pk3/maps",  # 9 maps | 136 MB | .pk3
+                         "pak3.pk3/maps/DM",  # 4 maps | 39 MB | .pk3
+                         "pak3.pk3/maps/obj"],  # 3 maps | 48 MB | .pk3
+        # DLC 2: Breakthrough
+        "MoHAA/maintt": ["pak1.pk3/maps",  # 22 maps | 288 MB | .pk3
+                         "pak1.pk3/maps/briefing",  # 5 maps | 276 MB | .pk3
+                         "pak1.pk3/maps/DM",  # 8 maps | 64 MB | .pk3
+                         "pak1.pk3/maps/obj",  # 4 maps | 63 MB | .pk3
+                         "pak3.pk3/maps",  # 9 maps | 136 MB | .pk3
+                         "pak3.pk3/maps/DM",  # 4 maps | 39 MB | .pk3
+                         "pak3.pk3/maps/obj"],  # 3 maps | 48 MB | .pk3
         "StarTrekEliteForceII": ["download/maps",  # 188 maps | 886 MB | .pk3
                                  "maps"],  # 88 maps | 607 MB | .pk3
         "StarWarsJediKnight": ["assets0.pk3/maps",  # 34 maps | 348 MB | .pk3

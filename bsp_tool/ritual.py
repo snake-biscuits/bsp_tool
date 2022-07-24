@@ -7,7 +7,7 @@ from . import lumps
 
 
 class RitualBsp(id_software.IdTechBsp):
-    _file_magics = (b"RBSP", b"FAKK", b"2015", b"EF2!")
+    _file_magics = (b"RBSP", b"FAKK", b"2015", b"EF2!", b"EALA")
     checksum: int  # how is this calculated / checked?
 
     def _preload(self):  # big copy-paste, should use super + dheader_t

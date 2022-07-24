@@ -9,6 +9,7 @@
 #define MAGIC_2015  MAGIC('2', '0', '1', '5')  /* 2015 inc. */
 #define MAGIC_2PSB  MAGIC('2', 'P', 'S', 'B')  /* DEPRECATED */
 #define MAGIC_BSP2  MAGIC('B', 'S', 'P', '2')  /* Various Quake Source Ports */
+#define MAGIC_EALA  MAGIC('E', 'A', 'L', 'A')  /* Medal of Honor: Allied Assault - Breakthrough */
 #define MAGIC_EF2_  MAGIC('E', 'F', '2', '!')  /* Ritual */
 #define MAGIC_FAKK  MAGIC('F', 'A', 'K', 'K')  /* Ritual, Rogue */
 #define MAGIC_FBSP  MAGIC('F', 'B', 'S', 'P')  /* QFusion */
@@ -26,6 +27,9 @@
 #define VERSION_GSRC  30
 /* MAGIC_2015 */
 #define VERSION_2015  19  /* Medal of Honor: Allied Assault */
+#define VERSION_DEMO  18  /* Medal of Honor: Allied Assault (Demo) */
+/* MAGIC_EALA */
+#define VERSION_EALA  21  /* Medal of Honor: Allied Assault - Breakthrough */
 /* MAGIC_EF2_ */
 #define VERSION_EF2_  20  /* Star Trek: Elite Force II */
 /* MAGIC_FAKK */
@@ -71,7 +75,7 @@
 #define CONFIRM(x)  if (v!=x) fprintf(stderr, "WARNING: unexpected .bsp version (v%d; expected v%d)", v, x);
 #define UNIQUE(x, y)  JMP_##x: printf(y "\n"); CONFIRM(VERSION_##x); goto JMP_NEXT;
 /* ^ expand jump defs first ^ */
-#define BIG_ENDIAN  v = MAGIC(v >> 24, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF);
+#define ENDIAN_FLIP  v = MAGIC(v >> 24, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF);
 #define CASE_X(x, y)  case x##_##y: goto JMP_##y;
 #define CASE_MAGIC(x)  CASE_X(MAGIC, x)
 #define CASE_VERSION(x)  CASE_X(VERSION, x)
@@ -91,7 +95,7 @@ int main(int c, char** a) {
 
     goto JMP_STRT;
 /* TODO: report conflicting identifiers clearly */
-UNIQUE(2015, "Medal of Honor: Allied Assault (by 2015 Inc.)")
+UNIQUE(EALA, "Medal of Honor: Allied Assault - Breakthrough (by EA Los Angeles)")
 UNIQUE(EF2_, "Star Trek: Elite Force II (by Ritual Entertainment)")
 UNIQUE(FBSP, "QFusion / Warsow")
 UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")
@@ -99,6 +103,12 @@ BASIC(2PSB, "DEPRECATED Quake Source Port format")
 BASIC(BSP2, "ReMakeQuake")
 BASIC(IDQ1, "Quake Engine / Source Port")
 BASIC(GSRC, "GoldSrc\nNOTE: Half-Life: Blue Shift flips the first 2 lump headers")
+JMP_2015:
+    switch (v) {
+        case VERSION_2015: REPORT_X("Medal of Honor: Allied Assault (by 2015 Inc.)")
+        case VERSION_DEMO: REPORT_X("Medal of Honor: Allied Assault [Demo] (by 2015 Inc.)")
+    }
+    goto JMP_NEXT;
 JMP_IBSP:
     switch (v) {
         case VERSION_IDQ2: REPORT_ID("Quake II Engine")
@@ -114,7 +124,7 @@ JMP_IBSP:
     goto JMP_NEXT;
 JMP_PSBV:
     printf("Xbox 360 ");
-    BIG_ENDIAN;
+    ENDIAN_FLIP;
 JMP_VBSP:
     switch (v) {
         case VERSION_CRIM: REPORT_SOURCE("HL2 BETA [ILLEGAL]")
@@ -129,7 +139,7 @@ JMP_VBSP:
     goto JMP_NEXT;
 JMP_PSBr:
     printf("Xbox 360 ");
-    BIG_ENDIAN;
+    ENDIAN_FLIP;
 JMP_rBSP:
     switch (v) {
         case VERSION_RER1: REPORT_TITAN("Titanfall / Titanfall: Online")
@@ -168,14 +178,15 @@ JMP_STRT:
         if (!f) { printf("not found.\n"); continue; }
         READ
         switch(m) {
-            CASE_MAGIC(2015)
             CASE_MAGIC(2PSB)
             CASE_MAGIC(BSP2)
+            CASE_MAGIC(EALA)
             CASE_MAGIC(EF2_)
             CASE_MAGIC(FBSP)
             CASE_MAGIC(RBSP)
             CASE_VERSION(IDQ1)
             CASE_VERSION(GSRC)
+            CASE_MAGIC(2015)
             CASE_MAGIC(IBSP)
             CASE_MAGIC(VBSP)
             CASE_MAGIC(PSBV)

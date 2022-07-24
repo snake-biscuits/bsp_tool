@@ -1,4 +1,6 @@
 # https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_mohaa.c
+# https://github.com/openmoh/openmohaa/blob/master/code/bspc/q3files.h
+# https://github.com/wfowler/LibBsp
 # TODO: finish copying implementation
 import enum
 from typing import List
@@ -11,15 +13,15 @@ from . import fakk2
 
 FILE_MAGIC = b"2015"
 
-BSP_VERSION = 19
+BSP_VERSION = 18
 
-GAME_PATHS = {"Medal of Honor: Allied Assault": "MoHAA",
-              "Medal of Honor: Allied Assault - Breakthrough": "MoHAA",
-              "Medal of Honor: Allied Assault - Spearhead": "MoHAA"}
+GAME_PATHS = {"Medal of Honor: Allied Assault (Demo)": "MoHAA/demo"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
+# NOTE: these are assumptions built on the mapped MoH:AA release
+# TODO: confirm against lump loads in MOHAADemo.exe (search for CM_LoadMap string to get started)
 class LUMP(enum.Enum):
     SHADERS = 0
     PLANES = 1
@@ -29,14 +31,14 @@ class LUMP(enum.Enum):
     DRAW_INDICES = 5
     LEAF_BRUSHES = 6
     LEAF_SURFACES = 7
-    LEAVES = 8
+    LEAVES = 8  # has 2 versions based on BSP_VERSION
     NODES = 9
     SIDE_EQUATIONS = 10
     BRUSH_SIDES = 11
     BRUSHES = 12
     MODELS = 13
-    ENTITIES = 14
-    VISIBILITY = 15
+    UNKNOWN_14 = 14  # not FOGS or VISIBILITY
+    ENTITIES = 15
     LIGHT_GRID_PALETTE = 16
     LIGHT_GRID_OFFSETS = 17
     LIGHT_GRID_DATA = 18
@@ -53,7 +55,8 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
-# Known lump changes from Ubertools -> Allied Assault:
+
+# Known changes from Ubertools -> Allied Assault Demo:
 # New:
 #   SIDE_EQUATIONS
 #   LIGHT_GRID_PALETTE
@@ -67,8 +70,6 @@ LumpHeader = quake.LumpHeader
 #   STATIC_MODEL_DEFINITIONS
 #   STATIC_MODEL_INDICES
 #   UNKNOWN_27
-# Deprecated:
-#   FOGS
 
 # a rough map of the relationships between lumps:
 #
@@ -117,12 +118,28 @@ class Shader(base.Struct):  # LUMP 0
     _arrays = {"flags": ["surface", "contents"]}
 
 
+class Unknown14(base.Struct):  # LUMP 14
+    """reminds me of respawn.titanfall2.ShadowEnvironment"""
+    mins: List[float]
+    maxs: List[float]
+    first_unknown_1: int
+    num_unknown_1: int
+    first_unknown_2: int
+    num_unknown_2: int
+    __slots__ = ["mins", "maxs", "first_unknown_1", "num_unknown_1",
+                 "first_unknown_2", "num_unknown_2"]
+    _format = "6f4i"
+    _arrays = {"min": [*"xyz"], "max": [*"xyz"]}
+
+
+# {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = fakk2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = fakk2.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
                      "LEAVES":      Leaf,
-                     "SHADERS":     Shader})
+                     "SHADERS":     Shader,
+                     "UNKNOWN_14":  Unknown14})
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()
 

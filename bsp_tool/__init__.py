@@ -19,6 +19,7 @@ from .valve import GoldSrcBsp, ValveBsp
 
 BspVariant_from_file_magic = {b"2015": RitualBsp,
                               b"BSP2": ReMakeQuakeBsp,
+                              b"EALA": RitualBsp,
                               b"EF2!": RitualBsp,
                               b"FAKK": RitualBsp,
                               b"FBSP": FusionBsp,
