@@ -24,6 +24,8 @@ GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: 
 GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
                  "Return to Castle Wolfenstein": 47, "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}
+# NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34
+# NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
 
 
 class LUMP(enum.Enum):
