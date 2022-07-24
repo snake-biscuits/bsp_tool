@@ -8,13 +8,14 @@
 
 /* Utilities */
 #define BASIC(x, y)  JMP_##x: printf(y "\n"); goto JMP_NEXT;
-#define CONFIRM(x)  if (v!=x) fprintf(stderr, "WARNING: unexpected .bsp version (v%d; expected v%d)", v, x);
+#define CONFIRM(x)  if (v!=x) fprintf(stderr, "\tWARNING: unexpected .bsp version (v%d; expected v%d)\n", v, x);
 #define UNIQUE(x, y)  JMP_##x: printf(y "\n"); CONFIRM(VERSION_##x); goto JMP_NEXT;
 /* ^ expand jump defs first ^ */
 #define ENDIAN_FLIP  v = MAGIC(v >> 24, v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF);
 #define CASE_X(x, y)  case x##_##y: goto JMP_##y;
 #define CASE_MAGIC(x)  CASE_X(MAGIC, x)
 #define CASE_VERSION(x)  CASE_X(VERSION, x)
+#define CHAR(x, y)  ((x >> y * 8) & 0xFF)
 #define READ_X(x)  fread(x, sizeof(uint32_t), 1, f);
 #define READ  READ_X(&m) READ_X(&v)
 #define REPORT_X(x)  printf(x "\n"); break;
@@ -30,15 +31,17 @@ int main(int c, char** a) {
     uint32_t  m, v;
 
     goto JMP_STRT;
-/* TODO: report conflicting identifiers clearly (overlapping branches) */
-UNIQUE(EALA, "Medal of Honor: Allied Assault - Breakthrough (by EA Los Angeles)")
-UNIQUE(EF2_, "Star Trek: Elite Force II (by Ritual Entertainment)")
-UNIQUE(FBSP, "QFusion / Warsow")
-UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")
-BASIC(2PSB, "DEPRECATED Quake Source Port format")
-BASIC(BSP2, "ReMakeQuake")
-BASIC(IDQ1, "Quake Engine / Source Port")
-BASIC(GSRC, "GoldSrc\nNOTE: Half-Life: Blue Shift flips the first 2 lump headers")
+    /* TODO: report conflicting identifiers clearly (overlapping branches) */
+    /* ONE VERSION */
+    UNIQUE(EALA, "Medal of Honor: Allied Assault - Breakthrough (by EA Los Angeles)")
+    UNIQUE(EF2_, "Star Trek: Elite Force II (by Ritual Entertainment)")
+    UNIQUE(FBSP, "QFusion / Warsow")
+    UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")
+    /* NO VERSION */
+    BASIC(2PSB, "DEPRECATED Quake Source Port format")
+    BASIC(BSP2, "ReMakeQuake")
+    BASIC(IDQ1, "Quake Engine / Source Port")
+    BASIC(GSRC, "GoldSrc\nNOTE: Half-Life: Blue Shift flips the first 2 lump headers")
 JMP_2015:
     switch (v) {
         case VERSION_2015: REPORT_X("Medal of Honor: Allied Assault (by 2015 Inc.)")
@@ -65,7 +68,7 @@ JMP_VBSP:
     switch (v) {
         case VERSION_CRIM: REPORT_SOURCE("HL2 BETA [ILLEGAL]")
         case VERSION_VTMB: REPORT_SOURCE("Vampire: The Masqerade - Bloodlines")
-        case VERSION_2007: REPORT_SOURCE("Orange Box")
+        case VERSION_2007: REPORT_SOURCE("Orange Box or Left4Dead")
         case VERSION_2013: REPORT_SOURCE("2013 SDK or L4D2 or Alien Swarm")
         case VERSION_XSDK: REPORT_SOURCE("Extended 2013 SDK")
         case VERSION_CONT: REPORT_SOURCE("Contagion")
@@ -129,7 +132,11 @@ JMP_STRT:
             CASE_MAGIC(PSBV)
             CASE_MAGIC(rBSP)
             CASE_MAGIC(PSBr)
-            default: printf("could not be indentified.\n");
+#if 0  /* TODO: ensure we don't print any invalid chars (NULL etc.) */
+            default: printf("Could not be indentified. MAGIC = %c%c%c%c, VERSION = %d\n",
+                            CHAR(m, 0), CHAR(m, 1), CHAR(m, 2), CHAR(m, 3), v);
+#endif
+            default: fprintf(stderr, "Could not be identified.\n");
         }
 JMP_NEXT:
         fclose(f);  /* idk what to do w/ errors so just ignore them */
