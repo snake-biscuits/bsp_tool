@@ -52,6 +52,12 @@ JMP_2015:
         case VERSION_DEMO: REPORT_X("Medal of Honor: Allied Assault [Demo] (by 2015 Inc.)")
     }
     goto JMP_NEXT;
+JMP_FAKK:
+    switch (v) {
+	case VERSION_FAKK: REPORT_X("Heavy Metal F.A.K.K 2")
+	case VERSION_ALIC: REPORT_X("American McGee's Alice")
+    }
+    goto JMP_NEXT;
 JMP_IBSP:
     switch (v) {
         case VERSION_IDQ2: REPORT_ID("Quake II Engine")
@@ -127,21 +133,22 @@ JMP_STRT:
         if (!f) { printf("not found.\n"); continue; }
         READ
         switch(m) {
+            CASE_MAGIC(2015)
             CASE_MAGIC(2PSB)
             CASE_MAGIC(BSP2)
             CASE_MAGIC(EALA)
             CASE_MAGIC(EF2_)
+	    CASE_MAGIC(FAKK)
             CASE_MAGIC(FBSP)
+            CASE_MAGIC(IBSP)
+            CASE_MAGIC(PSBV)
             CASE_MAGIC(RBSP)
+            CASE_MAGIC(rBSP)
+            CASE_MAGIC(PSBr)
+            CASE_MAGIC(VBSP)
             CASE_VERSION(GSRC)
             CASE_VERSION(HLBS)
             CASE_VERSION(IDQ1)
-            CASE_MAGIC(2015)
-            CASE_MAGIC(IBSP)
-            CASE_MAGIC(VBSP)
-            CASE_MAGIC(PSBV)
-            CASE_MAGIC(rBSP)
-            CASE_MAGIC(PSBr)
             default:
                 fprintf(stderr, "Could not be identified.\n");
                 if (SAFE(CHAR(m , 0)) && SAFE(CHAR(m, 1)) && SAFE(CHAR(m, 2)) && SAFE(CHAR(m, 3)))
