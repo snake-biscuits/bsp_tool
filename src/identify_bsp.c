@@ -16,6 +16,8 @@
 #define CASE_MAGIC(x)  CASE_X(MAGIC, x)
 #define CASE_VERSION(x)  CASE_X(VERSION, x)
 #define CHAR(x, y)  ((x >> y * 8) & 0xFF)
+#define IN_RANGE(x, y, z)  (x >= y && x <= z)
+#define MAGIC_CHARS  CHAR(m, 0), CHAR(m, 1), CHAR(m, 2), CHAR(m, 3)
 #define READ_X(x)  fread(x, sizeof(uint32_t), 1, f);
 #define READ  READ_X(&m) READ_X(&v)
 #define REPORT_X(x)  printf(x "\n"); break;
@@ -24,6 +26,8 @@
 #define REPORT_SOURCE(x)  REPORT_X("Source Engine: " x " branch")
 #define REPORT_TITAN(x)  REPORT_X("Titanfall Engine: " x)
 #define REPORT_APEX(x)  REPORT_X("Apex Legends (Season " x ")")
+#define REPORT_WARN  fprintf(stderr, "\tWARNING: %c%c%c%c v%d identifies multiple branches\n", MAGIC_CHARS, v);
+#define SAFE(x) (IN_RANGE(x, 'a', 'z') || IN_RANGE(x, 'A', 'Z') || IN_RANGE(x, '0', '9') || (x == '!'))
 
 
 int main(int c, char** a) {
@@ -31,17 +35,17 @@ int main(int c, char** a) {
     uint32_t  m, v;
 
     goto JMP_STRT;
-    /* TODO: report conflicting identifiers clearly (overlapping branches) */
     /* ONE VERSION */
     UNIQUE(EALA, "Medal of Honor: Allied Assault - Breakthrough (by EA Los Angeles)")
     UNIQUE(EF2_, "Star Trek: Elite Force II (by Ritual Entertainment)")
     UNIQUE(FBSP, "QFusion / Warsow")
-    UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")
+    UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")  /* TODO: REPORT_WARN? */
     /* NO VERSION */
-    BASIC(2PSB, "DEPRECATED Quake Source Port format")
+    BASIC(2PSB, "DEPRECATED Quake Source Port")
     BASIC(BSP2, "ReMakeQuake")
-    BASIC(IDQ1, "Quake Engine / Source Port")
-    BASIC(GSRC, "GoldSrc\nNOTE: Half-Life: Blue Shift flips the first 2 lump headers")
+    BASIC(GSRC, "GoldSrc")
+    BASIC(HLBS, "Half-Life: Blue Shift")
+    BASIC(IDQ1, "Quake Engine")
 JMP_2015:
     switch (v) {
         case VERSION_2015: REPORT_X("Medal of Honor: Allied Assault (by 2015 Inc.)")
@@ -51,7 +55,8 @@ JMP_2015:
 JMP_IBSP:
     switch (v) {
         case VERSION_IDQ2: REPORT_ID("Quake II Engine")
-        case VERSION_IDQ3: REPORT_ID("Quake III Engine / Soldier of Fortune")
+        case VERSION_IDQ3: REPORT_WARN
+                           REPORT_ID("Quake III Engine or Soldier of Fortune")
         case VERSION_RTCW: REPORT_ID("Return to Castle Wolfenstein")
         case VERSION_Q3DS: REPORT_X("Quake III Mod: Dark Salvation")
         case VERSION_COD1: REPORT_IW("Call of Duty / United Offensive")
@@ -68,12 +73,16 @@ JMP_VBSP:
     switch (v) {
         case VERSION_CRIM: REPORT_SOURCE("HL2 BETA [ILLEGAL]")
         case VERSION_VTMB: REPORT_SOURCE("Vampire: The Masqerade - Bloodlines")
-        case VERSION_2007: REPORT_SOURCE("Orange Box or Left4Dead")
-        case VERSION_2013: REPORT_SOURCE("2013 SDK or L4D2 or Alien Swarm")
+        case VERSION_2007: REPORT_WARN
+                           REPORT_SOURCE("Orange Box or Left4Dead")
+        case VERSION_2013: REPORT_WARN
+                           REPORT_SOURCE("2013 SDK or L4D2 or Alien Swarm")
         case VERSION_XSDK: REPORT_SOURCE("Extended 2013 SDK")
         case VERSION_CONT: REPORT_SOURCE("Contagion")
-        case VERSION_CSO2: REPORT_SOURCE("Counter-Strike: Online 2") /* TODO: WARNING: 2013 & 2018 branches differ! */
-        case VERSION_DMMM: REPORT_SOURCE("Dark Mesiah of Might & Magic")  /* TODO: WARNING: SP & MP branches differ!*/
+        case VERSION_CSO2: REPORT_WARN
+                           REPORT_SOURCE("Counter-Strike: Online 2 (2013 or 2018)")
+        case VERSION_DMMM: REPORT_WARN
+                           REPORT_SOURCE("Dark Mesiah of Might & Magic (SP or MP)")
         default: printf("Unknown Source Engine .bsp (v%d)\n", v);
     }
     goto JMP_NEXT;
@@ -124,19 +133,20 @@ JMP_STRT:
             CASE_MAGIC(EF2_)
             CASE_MAGIC(FBSP)
             CASE_MAGIC(RBSP)
-            CASE_VERSION(IDQ1)
             CASE_VERSION(GSRC)
+            CASE_VERSION(HLBS)
+            CASE_VERSION(IDQ1)
             CASE_MAGIC(2015)
             CASE_MAGIC(IBSP)
             CASE_MAGIC(VBSP)
             CASE_MAGIC(PSBV)
             CASE_MAGIC(rBSP)
             CASE_MAGIC(PSBr)
-#if 0  /* TODO: ensure we don't print any invalid chars (NULL etc.) */
-            default: printf("Could not be indentified. MAGIC = %c%c%c%c, VERSION = %d\n",
-                            CHAR(m, 0), CHAR(m, 1), CHAR(m, 2), CHAR(m, 3), v);
-#endif
-            default: fprintf(stderr, "Could not be identified.\n");
+            default:
+                fprintf(stderr, "Could not be identified.\n");
+                if (SAFE(CHAR(m , 0)) && SAFE(CHAR(m, 1)) && SAFE(CHAR(m, 2)) && SAFE(CHAR(m, 3)))
+                    printf("\tMAGIC = %c%c%c%c, VERSION = %d\n", MAGIC_CHARS, v);
+
         }
 JMP_NEXT:
         fclose(f);  /* idk what to do w/ errors so just ignore them */

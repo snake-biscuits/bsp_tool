@@ -27,6 +27,7 @@
 /* NO MAGIC */
 #define VERSION_IDQ1  29  /* Quake */
 #define VERSION_GSRC  30  /* Half-Life */
+#define VERSION_HLBS  42  /* Half-Life: Blue Shift */
 /* MAGIC_2015 */
 #define VERSION_DEMO  18  /* Medal of Honor: Allied Assault (Demo) */
 #define VERSION_2015  19  /* Medal of Honor: Allied Assault */
