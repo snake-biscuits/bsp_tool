@@ -58,5 +58,5 @@ build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 build/viewer.exe: src/viewer/main.cpp src/bsp_tool.hpp src/viewer/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp src/viewer/titanfall.hpp src/viewer/apex_legends.hpp
 	$(CXX) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
 
-build/identify.exe: src/identify_bsp.c
+build/identify.exe: src/identify_bsp.c src/identify_bsp.h
 	$(CC) -Wall --std=c89 $< -o $@
