@@ -674,6 +674,9 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
         leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
         setattr(self, "leaves", list(leaves))
         prop_count = int.from_bytes(sprp_lump.read(4), self.endianness)
+        # TODO: throw an error if the remaining props length divides into a different length
+        # -- in future: use this to detect a different branch script / format
+        # NOTE: SFM sprp v10 is 72 bytes, not the expected 76
         if StaticPropClass is None:
             raw_props = sprp_lump.read()
             if len(raw_props) == 0:
