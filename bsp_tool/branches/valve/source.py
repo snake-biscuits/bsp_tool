@@ -684,7 +684,9 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
         if props_byte_size != len(raw_props):
             warnings.warn(UserWarning("StaticPropClass format is unknown / doesn't match lump size"))
             StaticPropClass = None
-        if StaticPropClass is None:
+        if prop_count == 0:
+            setattr(self, "props", [])
+        elif StaticPropClass is None:
             setattr(self, "props", [])
             prop_size = len(raw_props) // prop_count
             assert len(raw_props) % prop_count == 0, "SPRP.props does not divide evenly by prop_count"
