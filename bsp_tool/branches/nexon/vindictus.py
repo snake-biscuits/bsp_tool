@@ -16,6 +16,8 @@ from ..valve import source
 FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20
+# NOTE: Vindictus may have 2 format eras with identical version identifiers
+# -- we currently do not know how to load / find a map in-game to test for outdated maps
 
 GAME_PATHS = {"Vindictus": "Vindictus"}
 

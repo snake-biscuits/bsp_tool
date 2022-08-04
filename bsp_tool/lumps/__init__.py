@@ -5,6 +5,7 @@ import io
 import lzma
 import struct
 from typing import Any, Dict, Union
+import warnings
 
 
 def _remap_negative_index(index: int, length: int) -> int:
@@ -379,16 +380,25 @@ class GameLump:
                 file.seek(child_header.offset)
                 try:
                     child_lump_bytes = file.read(child_header.length)
-                    # check if GameLump child is LZMA compressed (Xbox360)
-                    # -- GameLumpHeader.flags does not appear to inidicate compression
-                    if child_lump_bytes[:4] == b"LZMA":
+                    compressed = child_lump_bytes[:4] == b"LZMA"
+                    if compressed and child_header.flags | 1 != 1:
+                        warnings.warn(UserWarning(f"{child_name} game lump is compressed but the flag is unset (Xbox360?)"))
+                    if not compressed:
+                        child_lump = child_LumpClass(child_lump_bytes)
+                    if compressed and child_header.length > 17:  # sizeof(LZMA_Header)
                         child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
-                    child_lump = child_LumpClass(child_lump_bytes)
+                        child_lump = child_LumpClass(child_lump_bytes)
+                    elif compressed:  # but otherwise empty
+                        warnings.warn(UserWarning(f"compressed empty {child_name} game lump"))
+                        child_lump = None
                 except Exception as exc:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)
                     # NOTE: RawBspLumps are not decompressed
-                setattr(self, child_name, child_lump)
+                if child_lump is not None:  # discarding compressed empty lumps
+                    setattr(self, child_name, child_lump)
+                # TODO: test how empty lumps are written back
+                # -- can the branch that produced this wierd case function without this lump?
         if self.is_external:
             file.close()
 

@@ -8,6 +8,7 @@ import io
 import itertools
 import struct
 from typing import List
+import warnings
 
 from .. import base
 from .. import shared
@@ -677,23 +678,21 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
         # TODO: throw an error if the remaining props length divides into a different length
         # -- in future: use this to detect a different branch script / format
         # NOTE: SFM sprp v10 is 72 bytes, not the expected 76
+        raw_props = sprp_lump.read()
+        StaticPropClass_size = struct.calcsize(getattr(StaticPropClass, "_format", ""))
+        props_byte_size = StaticPropClass_size * prop_count
+        if props_byte_size != len(raw_props):
+            warnings.warn(UserWarning("StaticPropClass format is unknown / doesn't match lump size"))
+            StaticPropClass = None
         if StaticPropClass is None:
-            raw_props = sprp_lump.read()
-            if len(raw_props) == 0:
-                setattr(self, "props", [])
-            else:
-                prop_size = len(raw_props) // prop_count
-                props = list()
-                for i in range(prop_count):
-                    props.append(raw_props[i * prop_size:(i + 1) * prop_size])
-                setattr(self, "props", props)
+            setattr(self, "props", [])
+            prop_size = len(raw_props) // prop_count
+            assert len(raw_props) % prop_count == 0, "SPRP.props does not divide evenly by prop_count"
+            for i in range(prop_count):
+                self.props.append(raw_props[i * prop_size:(i + 1) * prop_size])
         else:
-            read_size = struct.calcsize(StaticPropClass._format) * prop_count
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
+            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(props_byte_size))
             setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, f"Had {end - here} leftover bytes; StaticPropClass._format is incorrect!"
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:

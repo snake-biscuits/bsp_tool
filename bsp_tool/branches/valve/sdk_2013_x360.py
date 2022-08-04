@@ -45,7 +45,9 @@ GAME_LUMP_HEADER = orange_box_x360.GAME_LUMP_HEADER
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": orange_box_x360.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8_x360, endianness="big"),
-                                  9: lambda raw_lump: source.GameLump_SPRP(raw_lump, None, endianness="big"),
+                                  # TODO: v9 (Portal 2 Xbox360)
+                                  # -- model_names appears to be absent?
+                                  # -- "empty" lumps consist of 3 seemingly random integers?
                                   10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big"),
                                   11: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv11_x360, endianness="big")})
 

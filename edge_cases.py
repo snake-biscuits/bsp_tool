@@ -1,32 +1,33 @@
-import fnmatch
+# import fnmatch
 import os
 
 import bsp_tool
 
 
-STEAM_DIR = "D:/SteamLibrary/steamapps/common"
-SFM = "SourceFilmmaker/game/tf/maps"
-TF2 = "Team Fortress 2/tf/download/maps"
+# STEAM_DIR = "D:/SteamLibrary/steamapps/common"
+# SFM = "SourceFilmmaker/game/tf/maps"
+# TF2 = "Team Fortress 2/tf/download/maps"
 
 MOD_DIR = "E:/Mod"
 VIND = "Vindictus/maps"
 
-X360_DIR = "E:/Mod/X360"
-L4D = "Left4Dead/left4dead/maps"
-P2 = "Portal2/portal2/maps"
+# X360_DIR = "E:/Mod/X360"
+# L4D = "Left4Dead/left4dead/maps"
+# P2 = "Portal2/portal2/maps"
 
-maps = {(STEAM_DIR, SFM): ["ctf_foundry.bsp",
-                           "ctf_gorge.bsp",
-                           "koth_lakeside_event.bsp",
-                           "pl_cactuscanyon.bsp",
-                           "pl_upward.bsp",
-                           "rd_asteroid.bsp",
-                           "sd_doomsday_event.bsp"],  # 7 / 71
-        (STEAM_DIR, TF2): ["arena_idolon_mc18_a1.bsp",
-                           "bananaland_rc5a.bsp",
-                           "cp_e1m1mountainlab.bsp",
-                           "cp_ismac_mc18_a1.bsp",
-                           "cp_ismac_mc18_a2.bsp"],  # 5 / 514
+maps = {
+        # (STEAM_DIR, SFM): ["ctf_foundry.bsp",
+        #                    "ctf_gorge.bsp",
+        #                    "koth_lakeside_event.bsp",
+        #                    "pl_cactuscanyon.bsp",
+        #                    "pl_upward.bsp",
+        #                    "rd_asteroid.bsp",
+        #                    "sd_doomsday_event.bsp"],  # 7 / 71
+        # (STEAM_DIR, TF2): ["arena_idolon_mc18_a1.bsp",
+        #                    "bananaland_rc5a.bsp",
+        #                    "cp_e1m1mountainlab.bsp",
+        #                    "cp_ismac_mc18_a1.bsp",
+        #                    "cp_ismac_mc18_a2.bsp"],  # 5 / 514
         (MOD_DIR, VIND): ["17e.bsp",
                           "17e_ending.bsp",
                           "3_24_ending.bsp",
@@ -44,15 +45,18 @@ maps = {(STEAM_DIR, SFM): ["ctf_foundry.bsp",
                           "lobby_showcase_silhouette.bsp",
                           "lobby_showcase_silhouette_ari.bsp",
                           "s3_game_create_character.bsp"],  # 17 / 474
-        (X360_DIR, L4D): [fn for fn in fnmatch.filter(os.listdir(os.path.join(X360_DIR, L4D)), "*.bsp")
-                          if fn not in ("credits.360.bsp", "l4d_airport02_offices.360.bsp")],  # 42 / 44
-        (X360_DIR, P2): [*fnmatch.filter(os.listdir(os.path.join(X360_DIR, P2)), "*.bsp")]}  # 105 / 105
+        # (X360_DIR, L4D): [fn for fn in fnmatch.filter(os.listdir(os.path.join(X360_DIR, L4D)), "*.bsp")
+        #                   if fn not in ("credits.360.bsp", "l4d_airport02_offices.360.bsp")],  # 42 / 44
+        # (X360_DIR, P2): [*fnmatch.filter(os.listdir(os.path.join(X360_DIR, P2)), "*.bsp")]  # 105 / 105
+       }
 
-bsps = {(STEAM_DIR, SFM): [],
-        (STEAM_DIR, TF2): [],
+bsps = {
+        # (STEAM_DIR, SFM): [],
+        # (STEAM_DIR, TF2): [],
         (MOD_DIR, VIND): [],
-        (X360_DIR, L4D): [],
-        (X360_DIR, P2): []}
+        # (X360_DIR, L4D): [],
+        # (X360_DIR, P2): []
+       }
 
 for group_dir, game_dir in maps:
     map_list = maps[(group_dir, game_dir)]
