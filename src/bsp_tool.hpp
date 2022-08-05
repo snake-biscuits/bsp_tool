@@ -234,7 +234,7 @@ namespace bsp_tool {
                     this->_external[LUMP_index].read((char*) &slice, sizeof(Type) * length);
                 };
 
-template <typename Type>
+                template <typename Type>
                 Type getExternalLumpEntry(int LUMP_index, int entry_index) {
                     #ifdef DEBUG
                     // TODO: assert entry_index is in this lump & Type divides the lump evenly
