@@ -97,9 +97,9 @@ JMP_PSBr:
     ENDIAN_FLIP;
 JMP_rBSP:
     switch (v) {
-        case VERSION_RER1: REPORT_TITAN("Titanfall / Titanfall: Online")
+        case VERSION_R1RE: REPORT_TITAN("Titanfall / Titanfall: Online")
         case VERSION_R2TT: REPORT_TITAN("Titanfall 2 Tech Test")
-        case VERSION_RER2: REPORT_TITAN("Titanfall 2")
+        case VERSION_R2RE: REPORT_TITAN("Titanfall 2")
         case VERSION_R5S0: REPORT_APEX("0-6")
         case VERSION_R5S7: REPORT_APEX("7")
         case VERSION_R5S8: REPORT_APEX("8-9 + 11.0 Depot")

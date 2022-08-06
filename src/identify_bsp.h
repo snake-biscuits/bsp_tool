@@ -52,9 +52,9 @@
 /* MAGIC_RBSP */
 #define VERSION_RBSP   1  /* SiN / Soldier of Fortune II / Star Wars Jedi Knight: Jedi Academy / Outcast */
 /* MAGIC_rBSP */
-#define VERSION_RER1  29  /* Titanfall / Titanfall: Online */
+#define VERSION_R1RE  29  /* Titanfall / Titanfall: Online */
 #define VERSION_R2TT  36  /* Titanfall 2 Tech Test */
-#define VERSION_RER2  37  /* Titanfall 2 */
+#define VERSION_R2RE  37  /* Titanfall 2 */
 #define VERSION_R5S0  47  /* Apex Legends (Season 0-6) */
 #define VERSION_R5S7  48  /* Season 7 */
 #define VERSION_R5S8  49  /* Season 8-9 + 11.0 Depot */
