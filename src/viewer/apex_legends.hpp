@@ -9,7 +9,7 @@
 #include "../respawn_entertainment/meshes.hpp"
 
 
-void rbsp_apex_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
+void rbsp_apex_world_geo(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
     using namespace bsp_tool::respawn_entertainment;
     // NOTE: we only use the .bsp file, limiting this implementation to only maps before season 11

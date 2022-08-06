@@ -9,7 +9,7 @@
 #include "../respawn_entertainment/meshes.hpp"
 
 
-void rbsp_titanfall_geo_init(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
+void rbsp_titanfall_world_geo(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
     using namespace bsp_tool::respawn_entertainment::titanfall;
     // NOTE: we only use the .bsp file, allowing for fast reads & easy TF:O support
