@@ -3,7 +3,7 @@ platform win32 -- Python 3.9.13, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\us
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
-[1mcollecting ... [0mcollected 199 items
+[1mcollecting ... [0mcollected 200 items
 
 tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[33m         [  0%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[33m [  1%][0m
@@ -119,89 +119,90 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs110] [32mP
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs111] [32mPASSED[0m[31m [ 56%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs112] [32mPASSED[0m[31m [ 56%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs113] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs114] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs115] [32mPASSED[0m[31m        [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs116] [32mPASSED[0m[31m        [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs117] [32mPASSED[0m[31m   [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs118] [32mPASSED[0m[31m   [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs119] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs120] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs121] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs122] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs123] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs124] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs125] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs126] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs127] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs128] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs129] [32mPASSED[0m[31m [ 65%][0m
-tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs114] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs115] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs116] [32mPASSED[0m[31m        [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs117] [32mPASSED[0m[31m        [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs118] [32mPASSED[0m[31m   [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs119] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs120] [32mPASSED[0m[31m [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs121] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs122] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs123] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs124] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs125] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs126] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs127] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs128] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs129] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs130] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 66%][0m
-tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 66%][0m
+tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 67%][0m
 tests/test_bsplump.py::TestBspLump::test_list_conversion [32mPASSED[0m[31m          [ 67%][0m
-tests/test_bsplump.py::TestBspLump::test_indexing [32mPASSED[0m[31m                 [ 67%][0m
+tests/test_bsplump.py::TestBspLump::test_indexing [32mPASSED[0m[31m                 [ 68%][0m
 tests/test_bsplump.py::TestBspLump::test_del [32mPASSED[0m[31m                      [ 68%][0m
-tests/test_bsplump.py::TestBspLump::test_setitem [32mPASSED[0m[31m                  [ 68%][0m
+tests/test_bsplump.py::TestBspLump::test_setitem [32mPASSED[0m[31m                  [ 69%][0m
 tests/test_bsplump.py::TestBasicBspLump::test_its_basic [32mPASSED[0m[31m           [ 69%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[31m     [ 69%][0m
+tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[31m     [ 70%][0m
 tests/test_bsplump.py::TestBasicBspLump::test_indexing [32mPASSED[0m[31m            [ 70%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp0] [32mPASSED[0m[31m                    [ 70%][0m
+tests/test_d3d_bsp.py::test_no_errors[d3dbsp0] [32mPASSED[0m[31m                    [ 71%][0m
 tests/test_d3d_bsp.py::test_no_errors[d3dbsp1] [32mPASSED[0m[31m                    [ 71%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 71%][0m
+tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 72%][0m
 tests/test_d3d_bsp.py::test_no_errors[d3dbsp3] [32mPASSED[0m[31m                    [ 72%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 72%][0m
+tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 73%][0m
 tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp1] [32mPASSED[0m[31m               [ 73%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 73%][0m
+tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 74%][0m
 tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp3] [32mPASSED[0m[31m               [ 74%][0m
-tests/test_idtech_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                    [ 74%][0m
+tests/test_idtech_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                    [ 75%][0m
 tests/test_idtech_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m              [ 75%][0m
-tests/test_idtech_bsp.py::test_face_struct[bsp0] [32mPASSED[0m[31m                  [ 75%][0m
+tests/test_idtech_bsp.py::test_face_struct[bsp0] [32mPASSED[0m[31m                  [ 76%][0m
 tests/test_valve_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                     [ 76%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp1] [32mPASSED[0m[31m                     [ 76%][0m
+tests/test_valve_bsp.py::test_no_errors[bsp1] [32mPASSED[0m[31m                     [ 77%][0m
 tests/test_valve_bsp.py::test_no_errors[bsp2] [32mPASSED[0m[31m                     [ 77%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m               [ 77%][0m
+tests/test_valve_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m               [ 78%][0m
 tests/test_valve_bsp.py::test_entities_loaded[bsp1] [32mPASSED[0m[31m               [ 78%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp2] [32mPASSED[0m[31m               [ 78%][0m
+tests/test_valve_bsp.py::test_entities_loaded[bsp2] [32mPASSED[0m[31m               [ 79%][0m
 tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 79%][0m
-tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 79%][0m
+tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 80%][0m
 tests/branches/test_base.py::TestMappedArray::test_init [32mPASSED[0m[31m           [ 80%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 80%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 81%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 81%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 82%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 82%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 83%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 83%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 83%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 84%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 85%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 85%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 86%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 87%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 88%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 89%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_demo] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 89%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 90%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 91%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_mp] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 92%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 92%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 93%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 93%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 94%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 95%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 96%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 97%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 98%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 99%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 99%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [100%][0m
 
@@ -338,17 +339,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Brush
-  DrawVertex
+  Portal
+  Light
+  Node
   Model
+  Occluder
   CullGroup
   Cell
-  Occluder
-  AxisAlignedBoundingBox
+  Brush
+  DrawVertex
   PatchCollision
-  Node
-  Light
-  Portal
+  AxisAlignedBoundingBox
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -459,4 +460,4 @@ TOTAL                                                 7261   1682    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs104] - Asser...
-[31m========== [31m[1m1 failed[0m, [32m198 passed[0m, [33m20 warnings[0m[31m in 14730.90s (4:05:30)[0m[31m ===========[0m
+[31m========== [31m[1m1 failed[0m, [32m199 passed[0m, [33m20 warnings[0m[31m in 15816.83s (4:23:36)[0m[31m ===========[0m

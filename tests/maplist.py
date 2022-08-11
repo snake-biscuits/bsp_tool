@@ -290,6 +290,9 @@ extracted_dirs = {
                                  "21jun22/maps",  # 11 maps | 1.88 GB | .vpk
                                  "21jun22/depot/r5-130/game/r2/maps",  # 10 maps | 1.79 GB | .vpk
                                  "21jun22/depot/r5-131/game/r2/maps"],  # 11 maps | 1.82 GB | .vpk
+        # season14:  Hunted [9th Aug 2022]
+        "ApexLegends/season14": ["9aug22/maps",  # 11 maps | 1.85 GB | .vpk
+                                 "9aug22/depot/r5-140/game/r2/maps"],  # 11 maps | 1.80 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
