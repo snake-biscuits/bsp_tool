@@ -10,28 +10,33 @@ The number of lumps & use varies from branch to branch.
 In `bsp_tool`, each "branch script" enumerates lump names in `LUMP`
 
 ```python
-# bsp_tool/branches/developer/branch_script.py
+# bsp_tool/branches/developer/branch.py
 import enum
 
 
 class LUMP(enum.Enum):
     ENTITIES = 0
-    INDICES = 2
-    VERTICES = 3
+    INDICES = 1  # not a real lump, used for later examples
+    VERTICES = 2
     ...
 ```
 
 The value of each `LUMP` enum is an index into the lump headers section of the `.bsp` file header.
 ```C
-// quake_bsp.h
+/* quake_bsp.h */
+#include <stdint.h>
+
+#define NUM_LUMPS  17
+
+
 struct LumpHeader {
-    int  offset;
-    int  length;
+    uint32_t  offset;
+    uint32_t  length;
 };
 
 struct BspHeader {
-    int         version;
-    LumpHeader  headers[17]
+    uint32_t    version;
+    LumpHeader  headers[NUM_LUMPS];
 };
 ```
 
@@ -42,6 +47,9 @@ struct BspHeader {
 We use the names of the `LUMP` enums to identify the structure of each lump.
 
 > NOTE: Valve & Respawn variants of the `.bsp` format have per-lump format versions
+
+
+### LumpClasses
 
 `bsp_tool` matches lump names to structures in 3 different ways:
  1) `BASIC_LUMP_CLASSES`
@@ -77,23 +85,27 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 ```
 
 
-### Game Lumps
+## Game Lumps
 
 A 4th type of LumpClass is used in Valve/Respawn branches: `GameLumpClass`
 
 Lump `35`: `GAME_LUMP` has a master structure
 ```C
-// game_lump.h
+/* game_lump.h */
+#include <stdint.h>
+
+
 struct GameLumpHeader {
-    int    id;     // four characters merged into an int; used like LUMP_NAME
-    short  flags;
-    short  version;
-    int    offset;
-    int    length;
+    int32_t  id;
+    int16_t  flags;
+    int16_t  version;
+    int32_t  offset;
+    int32_t  length;
 };
 
 
-// ids from Source SDK 2013 (src/public/gamebspfile.h:25)
+/* NOTE: ids are 4 char as int; identifies LUMP type */
+/* taken from Source SDK 2013 (src/public/gamebspfile.h:25) */
 #define MAKE_ID(a, b, c, d) ((a) << 24 | (b) << 16 | (c) << 8 | (d) << 0)
 enum {
     GAME_LUMP_DETAIL_PROPS             = MAKE_ID('d', 'p', 'r', 'p'),
@@ -105,7 +117,7 @@ enum {
 
 
 struct GameLump {
-    unsigned int    count;
+    uint32_t        count;
     GameLumpHeader  headers[count];
 };
 ```
@@ -114,21 +126,30 @@ struct GameLump {
 
 This master structure indexes child lumps within the full length of the `GAME_LUMP` lump.  
 ```C
-int             num_game_lumps;
+uint32_t        num_game_lumps;
 GameLumpHeader  headers[num_game_lumps];
-// @ headers[0].offset
+/* NOTE: most lumps are in series like this
+ * however: each lump should be byte-algined to 4 bytes for 32-bit CPUs
+ * most structures will fit this nicely, but sometimes lumps are compressed
+ * it's generally best to respect the headers vs. making assumptions.
+*/
+/* @ headers[0].offset */
 char  game_lump_0_bytes[headers[0].length];
-// @ headers[1].offset
+/* @ headers[1].offset */
 char  game_lump_1_bytes[headers[1].length];
-// to use, determine type from each game lump id
-// GameLump0_t game_lump_0 = (GameLump0_t) game_lump_0_bytes;
-// GameLump1_t game_lump_1 = (GameLump1_t) game_lump_1_bytes;
+/* to use, determine type from each game lump id
+ * GameLump0_t  game_lump_0 = (GameLump0_t) game_lump_0_bytes;
+ * GameLump1_t  game_lump_1 = (GameLump1_t) game_lump_1_bytes;
+*/
 ```
 
 
 > NOTE: GameLumpHeader offsets are relative to the file, not the lump!  
 > -- for this reason, a GameLump in a `.bsp` will not match that in an external `.lmp` or `.bsp_lump`!
 
+
+
+### GameLumpClasses
 
 To map game lump classes, `bsp_tool` does the following:
 ```python
@@ -146,26 +167,39 @@ The `SpecialLumpClass` is defined as a `lambda` here to set the child class per 
 
 `sprp` or Static Prop GameLumps have the following structure:
 ```C
-// game_lump_sprp.h
+/* game_lump_sprp.h */
+#include <stdint.h>
+
 #define MAX_NAME_LEN 128
 
+
 struct GameLump_SPRP {
-    int         num_model_names;
+    int32_t     num_model_names;
     char        model_names[num_model_names][MAX_NAME_LEN];
-    int         num_leaves;
-    short       leaves[num_leaves];
-    int         num_props;
-    StaticProp  props[num_props];  // type varies with each lump version
+    int32_t     num_leaves;
+    int16_t     leaves[num_leaves];
+    int32_t     num_props;
+    StaticProp  props[num_props];
+    /* NOTE: StaticProp is an abstraction here.
+     * most SPRP lumps keep this master structure
+     * StaticProp format will vary per lump version
+    */
 };
 ```
 
-Since only the type of the last component varies with each version, we pass it to `GameLump_SPRP` as an argument.  
-This massively simplifies the codebase.
+Since only the format of `StaticProp` varies with each version, we pass a `StaticPropClass` to `GameLump_SPRP`.  
+Recycling code like this generally simplifies maintenance as well as letting new feature bleed across branches.
 
-> NOTE: Support for multiple lump versions is acheived with a `MIN_VERSION` for legacy support  
-> -- any lump from `MIN_VERSION` to `VERSION` is updated to the current type at load time  
-> -- this system can't take advantage of new features, as it can only set missing fields to some default
 
+### Backwards Compatability
+
+In the engine codebases, sometimes a game needs to support multiple lump or bsp formats.  
+This is achieved with a `MIN_VERSION` constant which the engine checks at loadtime.  
+Runtime formats are locked to the latest format for the sake of simplicity;
+To get older formats to behave, they are updated to the latest version by using default values for new fields.
+
+Older maps don't get to take advantage of newer features with this approach, but it can make development easier.  
+Having to recompile all maps to test a new feature set could seriously hurt iteration time.
 
 
 ## External lumps
@@ -175,13 +209,16 @@ In the case of Valve branches, this can be used for quick pathes while keeping d
 
 Valve branches use `.lmp` files, these begin with a small header
 ```C
-# external_lmp.h
+/* external_lmp.h */
+#include <stdint.h>
+
+
 struct LmpHeader{
-    int  offset;    // should always be 20
-    int  id;        // lump index / enum
-    int  version;   // should match LumpHeader
-    int  length;    // should match LumpHeader
-    int  revision;  // should match BspHeader, or used to resolve file conflicts?
+    uint32_t  offset;    /* should always be sizeof(LmpHeader) */
+    uint32_t  id;        /* lump index */
+    uint32_t  version;   /* should match LumpHeader */
+    uint32_t  length;    /* should match LumpHeader */
+    uint32_t  revision;  /* should match BspHeader, or used to resolve file conflicts? */
 };
 ```
 Followed by the lump data.
@@ -202,7 +239,7 @@ Naming convention: `<bsp_name>.bsp.<hex_id>.bsp_lump`
 One exception is Titanfall 2 lightmaps, some of which expect a different lump size.
 
 Apex Legends maps after Season 11 only keep the `BspHeader` in the `.bsp`, with all lump data in `.bsp_lump`s  
-There seems to be a flag set next to `version` to indicate this
+There seems to be a flag set within `version` to indicate this (went from 1x `uint32_t` to 2x `uint16_t`)
 
 
 

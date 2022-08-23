@@ -82,7 +82,23 @@ Displacements are the closest
 
 ## Static Props
 
-> TODO
+Static Props are mostly found in Source Engine branches, these draw from external model files.
+Each prop is named in the `.bsp` for the engine to cache at load time.
+In Source, each prop is essentially welded onto the viscluster it appears in.
+However, the CS:GO branch fuses props into one big triangle soup for a low rendering cost.
+
+Props consume a lot of geo so you generally want to unload them when not on-screen.
+This is especially true of older rendering approaches like BSP.
+So you can expect to find Static Props tied to visibility systems.
+A fair chunk of StaticProp fields are filters for the rendering config.
+e.g. Only render from X or less units away, do not render at Direct X level Y.
+
+
+More Quake-based engines tend to use triangle soups to directly bake models into maps.
+Triangle soups are still a bit more complex but are quite basic.
+Unlike Source Engine static props they cannot have LoD (Level of Detail) substitution.
+Matching with level geo is much easier as they are rendered with the same shaders and lightmaps tho.
+Sort of a happy medium, embedding bsps is also possible in some engines, but such knowledge is arcane.[^Admer_magic]
 
 > NOTE: Not every engine allows for static props, Triangle Soups likely fill this gap for those engines
 
@@ -90,8 +106,9 @@ Displacements are the closest
 
 ## References
 
-[^Admer_ents]: Admer456 on Youtube: [Half-Life SDK Programming #2: Creating a new entity](https://www.youtube.com/watch?v=ECp6o6ex0Ok&list=PLZmAT317GNn19tjUoC9dlT8nv4f8GHcjy&index=4)
-[^Slothy]: Rackspace on Youtube: [Jon Shiring Public Tech Talk at Rackspace](https://www.youtube.com/watch?v=ayF8e8q_aA8)
-[^flipcode]: Jacco Bikker on flipcode: [Building a 3D Portal Engine - Issue 17 - End Of Transmission](https://www.flipcode.com/archives/Building_a_3D_Portal_Engine-Issue_17_End_Of_Transmission_.shtml)
+[^Admer_magic]: Admer456 on Twitter: [embedding `.bsp` with `env_sprite`](https://twitter.com/theAdmer456/status/1317930920003981313)  
+[^Admer_ents]: Admer456 on Youtube: [Half-Life SDK Programming #2: Creating a new entity](https://www.youtube.com/watch?v=ECp6o6ex0Ok&list=PLZmAT317GNn19tjUoC9dlT8nv4f8GHcjy&index=4)  
+[^Slothy]: Rackspace on Youtube: [Jon Shiring Public Tech Talk at Rackspace](https://www.youtube.com/watch?v=ayF8e8q_aA8)  
+[^flipcode]: Jacco Bikker on flipcode: [Building a 3D Portal Engine - Issue 17 - End Of Transmission](https://www.flipcode.com/archives/Building_a_3D_Portal_Engine-Issue_17_End_Of_Transmission_.shtml)  
 
-> TODO: useful timestamps for each Youtube reference
+> TODO: useful timestamps for Youtube references
