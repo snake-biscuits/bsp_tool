@@ -54,6 +54,7 @@ source_dirs = {
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
          "dayofinfamy": ["doi/maps"],  # 16 maps | 1.09 GB
          "Double Action": ["dab/maps"],  # 10 maps | 255 MB
+         "EntropyZero2": ["entropyzero2/maps"],  # 72 maps | 1.58 GB
          "EYE Divine Cybermancy Demo": ["EYE/maps"],  # 6 maps | 176 MB
          "Fistful of Frags": ["fof/maps"],  # 39 maps | 1.68 GB
          "Fortress Forever": ["FortressForever/maps"],  # 22 maps | 618 MB
