@@ -28,6 +28,8 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
                   branches.valve.left4dead, branches.valve.left4dead2,
                   *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
 # NOTE; table row sorting isn't 100% deterministic for some reason
+# TODO: some groups list overlapping identifiers with different LumpClasses
+# -- need to handle these clashes more clearly (currently some data is discarded)
 # NOTE: per BspClass files that could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
 # -- confirming all the BspClasses line up is pretty important though
@@ -100,7 +102,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
                       {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
-          # TODO: present BSP2 (no version) better
+          # TODO: present BSP2 (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
                        ReMakeQuakeBsp: [branches.id_software.remake_quake]}),
