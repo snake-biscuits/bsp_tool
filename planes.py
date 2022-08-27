@@ -73,6 +73,7 @@ def behind_plane(point: vec3, plane: (vec3, float), delta: float = 0.25):
     # -- we need to get a pass & fail for these borderline cases to work
     normal, distance = plane
     dot_normal = dot(point, normal)
+    # maybe just use math.isclose...
     case_a = bool(dot_normal + delta < distance + delta)
     case_b = bool(dot_normal - delta < distance + delta)
     case_c = bool(dot_normal + delta < distance - delta)
@@ -84,9 +85,12 @@ def behind_plane(point: vec3, plane: (vec3, float), delta: float = 0.25):
 def planes_intersecting_brush(bsp: RespawnBsp, brush_index: int) -> List[int]:
     out = list()
     brush = bsp.CM_BRUSHES[brush_index]
+    brush_verts = brush_aabb_vertices(brush)
     for i, plane in enumerate(bsp.PLANES):
         plane = (vec3(*plane.normal), plane.distance)
-        if {behind_plane(v, plane) for v in brush_aabb_vertices(brush)} == {True, False}:
+        # handle axial plane edge case here?
+        if {behind_plane(v, plane) for v in brush_verts} == {True, False}:
+            # NOTE: all false for axial overlap
             out.append(i)
     return out
 
@@ -111,18 +115,22 @@ def brush_potential_planes(bsp: RespawnBsp, brush_index: int) -> Dict[int, List[
 if __name__ == "__main__":
     # testing axial & bevel planes are grouped to brushes correctly
     import functools
+    import os
 
     import bsp_tool
 
     def union(*sets: List[set]) -> set:
         return functools.reduce(lambda a, b: a.union(b), sets)
 
-    r2l = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
-    # intersect group
+    if os.uname().sysname == "Linux":
+        r2l = bsp_tool.load_bsp("/home/bikkie/Documents/Mod/Titanfall2/maps/mp_lobby.bsp")
+    else:
+        r2l = bsp_tool.load_bsp("E:/Mod/Titanfall2/maps/mp_lobby.bsp")
+    # intersect groups
     ig_0 = set(planes_intersecting_brush(r2l, 0))  # 640x640x16 @ (0, 0, -8)
     ig_1 = set(planes_intersecting_brush(r2l, 1))  # 48x48x32 @ (0, -256, 16)
     ig_2 = set(planes_intersecting_brush(r2l, 2))  # 3072x3072x3072 @ (0, 0, 0)
-    # plane group
+    # plane groups
     pg_0 = {0, 1, 2, 3, 4, 5}  # Brush 2 axial bounds
     pg_1 = {6, 7, 8, 9}        # Brush 0 bevel planes
     pg_2 = {10, 11, 12, 13}    # Brush 1 bevel planes
