@@ -3,7 +3,7 @@ platform win32 -- Python 3.9.13, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\us
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
-[1mcollecting ... [0mcollected 201 items
+[1mcollecting ... [0mcollected 202 items
 
 tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[33m         [  0%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[33m [  0%][0m
@@ -107,36 +107,37 @@ tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs98] [3
 tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs99] [32mPASSED[0m[33m [ 49%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs100] [32mPASSED[0m[33m [ 50%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs101] [32mPASSED[0m[33m        [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs102] [32mPASSED[0m[33m  [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs102] [32mPASSED[0m[33m  [ 50%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs103] [32mPASSED[0m[33m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs104] [32mPASSED[0m[33m [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs104] [32mPASSED[0m[33m [ 51%][0m
 tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs105] [31mFAILED[0m[31m    [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs106] [32mPASSED[0m[31m    [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs107] [32mPASSED[0m[31m [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs108] [32mPASSED[0m[31m   [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs109] [32mPASSED[0m[31m  [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs110] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs111] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs112] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs113] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs114] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs115] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs116] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs117] [32mPASSED[0m[31m        [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs118] [32mPASSED[0m[31m        [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs119] [32mPASSED[0m[31m   [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs120] [32mPASSED[0m[31m   [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs121] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs122] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs123] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs124] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs125] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs126] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs127] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs128] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs129] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs130] [32mPASSED[0m[31m [ 65%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs131] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs106] [32mPASSED[0m[31m [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs107] [32mPASSED[0m[31m    [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs108] [32mPASSED[0m[31m [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs109] [32mPASSED[0m[31m   [ 54%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs110] [32mPASSED[0m[31m  [ 54%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs111] [32mPASSED[0m[31m [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs112] [32mPASSED[0m[31m [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs113] [32mPASSED[0m[31m [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs114] [32mPASSED[0m[31m [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs115] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs116] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs117] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs118] [32mPASSED[0m[31m        [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs119] [32mPASSED[0m[31m        [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs120] [32mPASSED[0m[31m   [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs121] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs122] [32mPASSED[0m[31m [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs123] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs124] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs125] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs126] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs127] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs128] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs129] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs130] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs131] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs132] [32mPASSED[0m[31m [ 65%][0m
 tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 67%][0m
@@ -243,7 +244,7 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
                         bsp = load_bsp(bsp_filename, branch_script)
                         bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
                         loading_errors = [96mdict[39;49;00m()
-                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.keys():
+                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():
                             lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)
                             [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:
                                 loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error
@@ -340,24 +341,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  AxisAlignedBoundingBox
-  Cell
-  Brush
   PatchCollision
+  AxisAlignedBoundingBox
+  Node
+  Portal
+  Cell
+  Occluder
+  Brush
+  DrawVertex
   Light
   Model
-  Portal
-  DrawVertex
   CullGroup
-  Node
-  Occluder
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
@@ -461,4 +462,4 @@ TOTAL                                                 7261   1682    77%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs105] - Asser...
-[31m========== [31m[1m1 failed[0m, [32m200 passed[0m, [33m20 warnings[0m[31m in 15141.54s (4:12:21)[0m[31m ===========[0m
+[31m========== [31m[1m1 failed[0m, [32m201 passed[0m, [33m20 warnings[0m[31m in 14916.24s (4:08:36)[0m[31m ===========[0m

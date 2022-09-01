@@ -209,6 +209,7 @@ extracted_dirs = {
                               "tfbot080/MAPS"],  # 1 map | 212 KB | .zip
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.1 GB | .hfs
+        "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk
                       "depot/r1dev/game/r1/maps",  # 16 maps | 4.2 GB | .vpk

@@ -65,7 +65,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
                     loading_errors = dict()
-                    for lump_name, error in bsp.loading_errors.keys():
+                    for lump_name, error in bsp.loading_errors.items():
                         lump_version = getattr(bsp.headers[lump_name], "version", None)
                         if lump_version is not None:
                             loading_errors[f"{lump_name} v{lump_version}"] = error
