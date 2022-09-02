@@ -26,7 +26,8 @@
  * "MegaTest" RAM usage significantly reduced
  * `ArkaneBsp` has been rolled into `ValveBsp` & deleted
  * `LumpHeader` now use `bsp.branch.LumpHeader` instead of `collections.namedtuple`
- * Preparing to support `ValveBsp` & `RespawnBsp` x360 (big/mixed-endian) formats
+ * Support for `ValveBsp` & `RespawnBsp` x360 (big/mixed-endian) formats
+ * Caught some unexpected behaviour with `GAME_LUMP_CLASS` dict deepcopies
 
 ### Newly Supported
  * Infinity Ward Engine
@@ -35,9 +36,11 @@
  * Ion Storm IdTech
    - Daikatana
  * Raven IdTech
+   - Medal of Honor: Allied Assault (Demo, Release & DLC)
  * Respawn Engine
    - Titanfall (Xbox360)
  * Source Engine
+   - Half-Life 2 (Xbox)
    - Infra
    - Orange Box (Xbox360)
    - Portal 2 (Xbox360)
