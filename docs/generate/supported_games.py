@@ -216,6 +216,8 @@ lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scrip
                      **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
                      **{(branches.respawn.titanfall2, L): lightmaps.save_rbsp_r2
+                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
+                     **{(branches.respawn.apex_legends, L): lightmaps.save_rbsp_r5
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 del vbsp_branch_scripts

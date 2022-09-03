@@ -446,11 +446,10 @@ class Grid(base.Struct):  # LUMP 85 (0055)
 
 
 class LightmapHeader(base.Struct):  # LUMP 83 (0053)
-    count: int  # assuming this counts the number of lightmaps this size
-    # NOTE: there's actually 2 identically sized lightmaps for each header (for titanfall2)
+    flags: int  # makes the most sense but idk
     width: int
     height: int
-    __slots__ = ["count", "width", "height"]
+    __slots__ = ["flags", "width", "height"]
     _format = "I2H"
 
 
