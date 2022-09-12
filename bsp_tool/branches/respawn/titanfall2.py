@@ -258,14 +258,14 @@ class WorldLightv3(base.Struct):  # LUMP 54 (0036)
 class ShadowEnvironment(base.Struct):
     """Identified w/ BobTheBob; appears linked to dynamic shadows and optimisation"""
     # making modifications caused severe framerate drops (2fps)
-    unknown_1: List[int]  # likely indices into other lumps
+    unknown_1: List[int]  # likely indices into other lumps (vistree? nodes?) [first_]
     first_shadow_mesh: int  # first ShadowMesh in this ShadowEnvironment
-    unknown_2: List[int]  # likely indices into other lumps
+    unknown_2: List[int]  # likely indices into other lumps (vistree? nodes?) [num_]
     num_shadow_meshes: int  # number of ShadowMeshes in this ShadowEnvironment after first_shadow_mesh
-    unknown_3: List[float]  # 3x floats from -1.0 to +1.0; not a unit vector!
-    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "unknown_3"]
+    angle_vector: List[float]  # a unit vector indicating the angle of the sun / shadows
+    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "angle_vector"]
     _format = "6i3f"
-    _arrays = {"unknown_1": 2, "unknown_2": 2, "unknown_3": 3}
+    _arrays = {"unknown_1": 2, "unknown_2": 2, "angle_vector": 3}
 
 
 # classes for special lumps, in alphabetical order:
