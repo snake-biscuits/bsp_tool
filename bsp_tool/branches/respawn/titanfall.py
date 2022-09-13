@@ -388,7 +388,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     unknown: List[int]  # 2nd is always -1? TODO: confirm
     __slots__ = ["num_portals", "unknown"]
     _format = "I2H"
-    _arrays = {"unkown": 2}
+    _arrays = {"unknown": 2}
 
 
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
@@ -620,11 +620,22 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
-    # NOTE: the 16 lowest bits of unknown[0] are always blank
-    # NOTE: bsp.TRICOLL_HEADERS[-1].unknown[4] is always less than len(bsp.TRICOLL_TRIANGLES)
-    __slots__ = ["unknown"]
-    _format = "8i3f"
-    _arrays = {"unknown": 11}
+    # Identified by Fifty; very WIP
+    # NOTE: the 16 lowest bits of flags are always blank
+    # NOTE: last header's first_vertex is always less than len(bsp.TRICOLL_TRIANGLES)
+    flags: int  # unsure
+    material: int  # unsure; indexes TextureData?
+    num_vertices: int  # indexing vertices?
+    num_bevels: int  # might be counting nodes?
+    first_vertex: int
+    first_bevel_start: int  # this + num_bevels = next first_bevel_start
+    first_tricoll_node: int
+    num_bevel_indices: int  # unsure; always <= len(TricollBevelIndices)
+    unknown: List[float]
+    __slots__ = ["flags", "material", "num_vertices", "num_bevels", "first_vertex",
+                 "first_bevel_start", "first_tricoll_node", "num_bevel_indices", "unknown"]
+    _format = "i2h5i4f"
+    _arrays = {"unknown": 4}
 
 
 class TricollNode(base.Struct):  # LUMP 68 (0044)
