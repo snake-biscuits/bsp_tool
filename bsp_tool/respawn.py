@@ -248,7 +248,7 @@ class RespawnBsp(valve.ValveBsp):
             try:
                 lump_bytes = self.lump_as_bytes(LUMP.name)
             except Exception as exc:
-                print(f"failed to convert {LUMP.name} to bytes")
+                print(f"Failed to convert {LUMP.name} to bytes")
                 raise exc
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
