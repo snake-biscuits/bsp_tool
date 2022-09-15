@@ -793,7 +793,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     # int skin; float fade_min, fade_max; Vector lighting_origin;
     cubemap: int  # index of this StaticProp's Cubemap
     unknown: int
-    fade_distance: float
+    forced_fade_scale: float
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: List[int]  # RGBA 32-bit colour
