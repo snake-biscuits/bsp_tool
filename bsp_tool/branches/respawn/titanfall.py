@@ -209,6 +209,7 @@ LumpHeader = source.LumpHeader
 # PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
 
 # TODO: TRICOLL_* LUMPS
+# TODO: LIGHTPROBES
 
 
 # engine limits:
@@ -445,12 +446,21 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     _arrays = {"unknown": 4}
 
 
-class LightmapHeader(base.Struct):  # LUMP 83 (0053)
+class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
     flags: int  # makes the most sense but idk
     width: int
     height: int
-    __slots__ = ["flags", "width", "height"]
+    _mapping = ["flags", "width", "height"]
     _format = "I2H"
+
+
+class LightProbe(base.Struct):  # LUMP 102 (0066)
+    unknown_1: int
+    unknown_2: List[int]
+    unknown_3: List[int]  # last 4 are often (0, -1, -1, 0)
+    __slots__ = ["unknown_1", "unknown_2", "unknown_3"]
+    _format = "i2h10i"
+    _arrays = {"unknown_2": 2, "unknown_3": 10}
 
 
 class LightProbeRef(base.Struct):  # LUMP 104 (0068)
@@ -830,6 +840,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CUBEMAPS":                          {0: Cubemap},
                 "LEAF_WATER_DATA":                   {1: source.LeafWaterData},
                 "LIGHTMAP_HEADERS":                  {1: LightmapHeader},
+                "LIGHTPROBES":                       {0: LightProbe},
                 "LIGHTPROBE_REFERENCES":             {0: LightProbeRef},
                 "MATERIAL_SORT":                     {0: MaterialSort},
                 "MESHES":                            {0: Mesh},
@@ -867,6 +878,7 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
                         "PAKFILE":                  {0: shared.PakFile},
                         "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
+# TODO: LightProbeParentInfos/BspNodes/RefIds & StaticPropLightProbeIndices may all be Special
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
