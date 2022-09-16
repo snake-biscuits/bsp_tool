@@ -1,10 +1,13 @@
-import sys
+if __name__ == "__main__":
+    import fnmatch
+    import os
 
-import bsp_tool
-from bsp_tool.extensions import upgrade
+    import bsp_tool
+    from bsp_tool.extensions import upgrade
 
-
-for map_name in sys.argv[1:]:
-    r1_bsp = bsp_tool.load_bsp(map_name)
-    assert isinstance(r1_bsp, bsp_tool.RespawnBsp) and r1_bsp.branch is bsp_tool.branches.respawn.titanfall
-    upgrade.r1_to_r2(r1_bsp)  # new r2 copy will be dumped in bsp_tool dir
+    r1o_md = "E:/Mod/TitanfallOnline/maps"
+    outdir = r"D:\SteamLibrary\steamapps\common\Titanfall2\R2Northstar\mods\bikkie.TFOnlineMaps\mod\maps"
+    for map_name in fnmatch.filter(os.listdir(r1o_md), "*.bsp"):
+        bsp = bsp_tool.load_bsp(os.path.join(r1o_md, map_name))
+        print(f"upgrading {map_name}...")
+        upgrade.r1_to_r2(bsp, outdir)
