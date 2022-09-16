@@ -172,13 +172,13 @@ LumpHeader = source.LumpHeader
 # Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
 #             \--> .flags (VertexReservedX)     \--> VertexNormal
 #              \-> VertexReservedX               \-> .uv
-
 # MeshBounds & Mesh are parallel
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
 # ShadowEnvironment -> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
 #                                                    \-?> ShadowMeshAlphaVertex
+# ShadowEnvironments are indexed by entities (light_environment(_volume) w/ lightEnvironmentIndex key)
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
@@ -197,7 +197,7 @@ LumpHeader = source.LumpHeader
 # NOTE: there are also always as many vert refs as edge refs
 # PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
 
-# ??? WorldLight <-?-> WorldLightParentInfo -?> Model
+# ??? WorldLight <-?-> WorldLightParentInfo -?> Model / Entity?
 
 # CM_* LUMPS
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
@@ -214,6 +214,9 @@ LumpHeader = source.LumpHeader
 # PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
 
 # TODO: TRICOLL_* LUMPS
+# TODO: LIGHTPROBES
+# LightProbeTree -?> LightProbeRef -> LightProbe
+# -?> STATIC_PROP_LIGHTPROBE_INDICES
 
 
 # engine limits:

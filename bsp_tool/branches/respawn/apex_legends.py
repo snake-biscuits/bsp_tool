@@ -237,15 +237,16 @@ LumpHeader = source.LumpHeader
 # Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
 #                             \--> VertexReservedX
 #                              \-> MeshIndex?
-
-# MeshBounds & Mesh (must have equal number of each)
-# CM_GRID is linked to mesh bounds?
+# MeshBounds & Mesh are parallel
+# NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
+# -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
 # VertexReservedX -> Vertex
 #                \-> VertexNormal
 
-# ??? -> ShadowMeshIndices -?> ShadowMesh -> ???
-# ??? -> Brush -?> Plane
+# ShadowEnvironment -> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
+#                                                    \-?> ShadowMeshAlphaVertex
+# ShadowEnvironments are indexed by entities (light_environment(_volume) w/ lightEnvironmentIndex key)
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS

@@ -161,7 +161,6 @@ LumpHeader = source.LumpHeader
 # Model -> Mesh -> MeshIndex -\-> VertexReservedX -> Vertex
 #             \--> .flags (VertexReservedX)     \--> VertexNormal
 #              \-> VertexReservedX               \-> .uv
-
 # MeshBounds & Mesh are parallel
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
@@ -169,8 +168,8 @@ LumpHeader = source.LumpHeader
 # LeafWaterData -> TextureData -> water material
 # NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
 
-# ??? -?> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
-#                                       \-?> ShadowMeshAlphaVertex
+# ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
+#                               \-?> ShadowMeshAlphaVertex
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
@@ -210,6 +209,8 @@ LumpHeader = source.LumpHeader
 
 # TODO: TRICOLL_* LUMPS
 # TODO: LIGHTPROBES
+# LightProbeTree -?> LightProbeRef -> LightProbe
+# -?> STATIC_PROP_LIGHTPROBE_INDICES
 
 
 # engine limits:
