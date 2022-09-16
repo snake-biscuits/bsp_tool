@@ -36,6 +36,12 @@ def r1_to_r2(r1_bsp, outdir="./"):
                                       angle_vector=sun_vector)
     r1_bsp.SHADOW_ENVIRONMENTS = [shadow_env]
     light_env["lightEnvironmentIndex"] = "*0"
+    # Entities
+    trigger_ents = [e for e in r1_bsp.ENTITIES if e["classname"].startswith("trigger_")]
+    # TODO: update trigger flags instead
+    for e in trigger_ents:
+        r1_bsp.ENTITIES.remove(e)
+    del trigger_ents
     # game lump
     r1_bsp.GAME_LUMP.headers["sprp"].version = 13
     old_sprp = r1_bsp.GAME_LUMP.sprp
