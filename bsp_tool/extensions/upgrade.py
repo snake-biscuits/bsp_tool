@@ -25,6 +25,12 @@ def r1_to_r2(r1_bsp, outdir="./"):
     # LightProbeRefs
     new_lprs = [r2.LightProbeRef(**{a: getattr(r, a) for a in r.__slots__}) for r in r1_bsp.LIGHTPROBE_REFERENCES]
     r1_bsp.LIGHTPROBE_REFERENCES = new_lprs
+    # Meshes
+    for i, mesh in enumerate(r1_bsp.MESHES):
+        mesh.first_vertex = 0
+        mesh.num_vertices = 0
+        mesh.unknown = [0] * 6
+        r1_bsp.MESHES[i] = mesh
     # ShadowEnvironment
     light_env = [e for e in r1_bsp.ENTITIES if e["classname"] == "light_environment"][0]
     pitch, yaw, roll = map(float, light_env.get("angles", "0 0 0").split())
@@ -52,8 +58,7 @@ def r1_to_r2(r1_bsp, outdir="./"):
         d = {a: getattr(v12_prop, a) for a in r2.StaticPropv13.__slots__ if a not in ("unknown", "lighting_origin")}
         return r2.StaticPropv13(**d)
 
-    new_sprp.props = [upgrade_prop(p) for p in old_sprp.props]
-
+    # new_sprp.props = [upgrade_prop(p) for p in old_sprp.props]
     r1_bsp.GAME_LUMP.sprp = new_sprp
     # save changes
     # NOTE: will copy any .bsp_lump & .ent files attached to r1_bsp
