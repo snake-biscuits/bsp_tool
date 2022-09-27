@@ -341,17 +341,17 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Brush
-  Light
-  Portal
-  Occluder
   CullGroup
-  Cell
-  DrawVertex
-  Model
   Node
-  PatchCollision
+  Model
+  DrawVertex
+  Brush
+  Occluder
   AxisAlignedBoundingBox
+  Cell
+  Portal
+  Light
+  PatchCollision
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
@@ -383,7 +383,7 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.resp
 Name                                                 Stmts   Miss  Cover
 ------------------------------------------------------------------------
 bsp_tool\__init__.py                                    53      3    94%
-bsp_tool\base.py                                        68     31    54%
+bsp_tool\base.py                                        77     33    57%
 bsp_tool\branches\__init__.py                           30      0   100%
 bsp_tool\branches\arkane\__init__.py                     3      0   100%
 bsp_tool\branches\arkane\dark_messiah_mp.py             16      0   100%
@@ -451,16 +451,16 @@ bsp_tool\extensions\diff.py                            111    111     0%
 bsp_tool\extensions\lightmaps.py                       224    224     0%
 bsp_tool\extensions\mprt.py                             12     12     0%
 bsp_tool\extensions\upgrade.py                          44     44     0%
-bsp_tool\id_software.py                                117     15    87%
-bsp_tool\infinity_ward.py                               69     10    86%
+bsp_tool\id_software.py                                 74      8    89%
+bsp_tool\infinity_ward.py                               52      7    87%
 bsp_tool\lumps\__init__.py                             358     93    74%
 bsp_tool\raven.py                                        3      0   100%
-bsp_tool\respawn.py                                    253    138    45%
-bsp_tool\ritual.py                                      45      3    93%
+bsp_tool\respawn.py                                    245    129    47%
+bsp_tool\ritual.py                                      22      0   100%
 bsp_tool\valve.py                                      140     75    46%
 ------------------------------------------------------------------------
-TOTAL                                                 7358   1763    76%
+TOTAL                                                 7276   1743    76%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs105] - Asser...
-[31m========== [31m[1m1 failed[0m, [32m201 passed[0m, [33m20 warnings[0m[31m in 17562.84s (4:52:42)[0m[31m ===========[0m
+[31m========== [31m[1m1 failed[0m, [32m201 passed[0m, [33m20 warnings[0m[31m in 16794.69s (4:39:54)[0m[31m ===========[0m
