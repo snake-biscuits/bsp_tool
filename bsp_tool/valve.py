@@ -1,7 +1,7 @@
 import os
 import struct
 from types import ModuleType
-from typing import Dict
+from typing import Any, Dict
 
 from . import base
 from . import id_software
@@ -23,13 +23,47 @@ class ValveBsp(base.Bsp):
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         super(ValveBsp, self).__init__(branch, filename, autoload)
 
+    def _preload_lump(self, lump_name: str, lump_header: Any):
+        if lump_header.length == 0:
+            return
+        try:
+            if lump_name == "GAME_LUMP":
+                # NOTE: lump_header.version is ignored in this case!
+                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
+                GameLump = lumps.GameLump
+                if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
+                    GameLump = lumps.DarkMessiahSPGameLump
+                BspLump = GameLump(self.file, lump_header, self.endianness,
+                                   GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+            elif lump_name in self.branch.LUMP_CLASSES:
+                LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
+                BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+            elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
+                SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name][lump_header.version]
+                decompressed_file, decompressed_header = lumps.decompressed(self.file, lump_header)
+                decompressed_file.seek(decompressed_header.offset)
+                lump_data = decompressed_file.read(decompressed_header.length)
+                BspLump = SpecialLumpClass(lump_data)
+            elif lump_name in self.branch.BASIC_LUMP_CLASSES:
+                LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
+                BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+            else:
+                BspLump = lumps.create_RawBspLump(self.file, lump_header)
+        except KeyError:  # lump VERSION not supported
+            BspLump = lumps.create_RawBspLump(self.file, lump_header)
+        except Exception as exc:
+            self.loading_errors[lump_name] = exc
+            BspLump = lumps.create_RawBspLump(self.file, lump_header)
+        setattr(self, lump_name, BspLump)
+
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
+        # collect files
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(self.filename.partition(".")[0])
         self.associated_files = [f for f in local_files if is_related(f)]
-        # open .bsp
         self.file = open(os.path.join(self.folder, self.filename), "rb")
+        # collect metadata
         file_magic = self.file.read(4)
         if file_magic == self.file_magic:
             self.endianness = "little"
@@ -41,51 +75,20 @@ class ValveBsp(base.Bsp):
         self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
         if self.bsp_version > 0xFFFF:  # major.minor bsp_version
             self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
+        lump_count = max([e.value for e in self.branch.LUMP]) + 1
+        self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * (lump_count))
+        self.revision = int.from_bytes(self.file.read(4), self.endianness)
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
-
+        # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
-        for LUMP in self.branch.LUMP:
-            self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
-            lump_header = self.branch.LumpHeader.from_stream(self.file)
-            self.headers[LUMP.name] = lump_header
-            if lump_header.length == 0:
-                continue
-            try:
-                if LUMP.name == "GAME_LUMP":
-                    # NOTE: lump_header.version is ignored in this case!
-                    GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                    GameLump = lumps.GameLump
-                    if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
-                        GameLump = lumps.DarkMessiahSPGameLump
-                    BspLump = GameLump(self.file, lump_header, self.endianness,
-                                       GameLumpClasses, self.branch.GAME_LUMP_HEADER)
-                elif LUMP.name in self.branch.LUMP_CLASSES:
-                    LumpClass = self.branch.LUMP_CLASSES[LUMP.name][lump_header.version]
-                    BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
-                elif LUMP.name in self.branch.SPECIAL_LUMP_CLASSES:
-                    SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[LUMP.name][lump_header.version]
-                    decompressed_file, decompressed_header = lumps.decompressed(self.file, lump_header)
-                    decompressed_file.seek(decompressed_header.offset)
-                    lump_data = decompressed_file.read(decompressed_header.length)
-                    BspLump = SpecialLumpClass(lump_data)
-                elif LUMP.name in self.branch.BASIC_LUMP_CLASSES:
-                    LumpClass = self.branch.BASIC_LUMP_CLASSES[LUMP.name][lump_header.version]
-                    BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
-                else:
-                    BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            except KeyError:  # lump VERSION not supported
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            except Exception as exc:
-                self.loading_errors[LUMP.name] = exc
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            setattr(self, LUMP.name, BspLump)
-        self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * (LUMP.value + 1))
-        self.revision = int.from_bytes(self.file.read(4), self.endianness)
+        for lump_name, lump_header in self._header_generator(offset=8):
+            self._preload_lump(lump_name, lump_header)
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """Converts the named (versioned) lump back into bytes"""
+        # NOTE: LumpClasses are derived from branch, not lump data!
         if not hasattr(self, lump_name):
             return b""  # lump is empty / deleted
         lump_entries = getattr(self, lump_name)

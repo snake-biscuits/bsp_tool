@@ -1,7 +1,7 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "lumps", "tools", "D3DBsp",
-           "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp",
-           "RavenBsp", "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+__all__ = ["base", "branches", "load_bsp", "lumps", "D3DBsp", "FusionBsp",
+           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp", "RavenBsp",
+           "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType

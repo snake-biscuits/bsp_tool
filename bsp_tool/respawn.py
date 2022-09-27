@@ -6,6 +6,7 @@ import struct
 from types import MethodType, ModuleType
 from typing import Dict
 
+from . import base
 from . import lumps
 from . import valve
 from .branches import shared
@@ -52,15 +53,7 @@ class ExternalLumpManager:
             method = MethodType(method, self)
             setattr(self, method.__name__, method)
 
-    def __repr__(self):  # copied from base.Bsp
-        branch_script = ".".join(self.branch.__name__.split(".")[-2:])
-        if isinstance(self.bsp_version, tuple):
-            major, minor = self.bsp_version
-            version_number = f"{major}.{minor}"
-        else:
-            version_number = self.bsp_version
-        version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
-        return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
+    __repr__ = base.Bsp.__repr__
 
     def __getattr__(self, attr):
         """initialises lumps when created"""
@@ -81,6 +74,7 @@ class ExternalLumpManager:
             raise RuntimeError(f"The .bsp_lump file for the {lump_name} lump is empty!")
         if not os.path.exists(lump_header.filename):
             raise FileNotFoundError(f"Couldn't find .bsp_lump file for {lump_name} lump!")
+        # NOTE: near identical to ValveBsp._preload_lump, but uses ExternalRawBspLump subclasses
         try:
             if lump_name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                 GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
@@ -113,6 +107,7 @@ class ExternalLumpManager:
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """based on base.Bsp.lump_as_bytes()"""
+        # NOTE: LumpClasses are derived from branch, not lump data!
         if lump_name in self.loading_errors:
             # opened file, but failed to parse
             assert isinstance(getattr(self, lump_name), lumps.ExternalRawBspLump), "idk how this happened"
@@ -153,7 +148,10 @@ class RespawnBsp(valve.ValveBsp):
     file_magic: bytes = b"rBSP"
     lump_count: int = 127
     entity_headers: Dict[str, str]
-    # {"LUMP_NAME": "header text"}
+    # ^ {"LUMP_NAME": "header text"}
+    # struct LumpHeader { int offset, length, version, fourCC; };
+    # struct BspHeader { char file_magic[4]; int version, revision, lump_count;
+    #                    LumpHeader headers[128]; };
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         self.entity_headers = dict()
@@ -162,13 +160,12 @@ class RespawnBsp(valve.ValveBsp):
 
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
+        # collect files
         local_files = os.listdir(self.folder)
         def is_related(f): return f.startswith(self.filename.partition(".")[0])
         self.associated_files = [f for f in local_files if is_related(f)]
         self.file = open(os.path.join(self.folder, self.filename), "rb")
-        # struct LumpHeader { int offset, length, version, fourCC; };
-        # struct BspHeader { char file_magic[4]; int version, revision, lump_count;
-        #                    LumpHeader headers[128]; };
+        # collect metadata
         file_magic = self.file.read(4)
         if file_magic == self.file_magic:
             self.endianness = "little"
@@ -188,7 +185,8 @@ class RespawnBsp(valve.ValveBsp):
         assert self.lump_count == 127, "irregular RespawnBsp lump_count"
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
-
+        # collect lumps
+        self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for LUMP in self.branch.LUMP:
             self.file.seek(16 + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
@@ -237,11 +235,12 @@ class RespawnBsp(valve.ValveBsp):
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename: str):
+        # NOTE: the compiler has a fixed order, we should probably refer to that
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
         # ^ {"lump.name": LumpHeader}
         # NOTE: messes up a little on empty lumps, so we can't get an exact 1:1 copy /;
-        # -- the engine works just fine though
+        # -- the games load resaved maps just fine tho
         raw_lumps: Dict[str, bytes] = dict()
         # ^ {"LUMP.name": b"raw lump data]"}
         for LUMP in self.branch.LUMP:
@@ -293,6 +292,7 @@ class RespawnBsp(valve.ValveBsp):
             raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
         # make file
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
+        # TODO: close self.file if overwriting
         outfile = open(filename, "wb")
         bsp_version = self.bsp_version
         if isinstance(self.bsp_version, tuple):
@@ -341,7 +341,3 @@ class RespawnBsp(valve.ValveBsp):
                 ent_file.write(header)
                 ent_file.write(b"\n")
                 ent_file.write(getattr(self, LUMP_name).as_bytes())
-
-    def save(self, single_file: bool = False):
-        self.save_as(os.path.join(self.folder, self.filename), single_file)
-        self._preload()  # reload lumps, clearing all BspLump._changes

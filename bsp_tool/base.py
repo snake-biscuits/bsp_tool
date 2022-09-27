@@ -53,8 +53,19 @@ class Bsp:
         version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
+    def _header_generator(self, offset: int = 4) -> (str, Any):
+        for LUMP in self.branch.LUMP:
+            self.file.seek(offset + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
+            lump_header = self.branch.LumpHeader.from_stream(self.file)
+            self.headers[LUMP.name] = lump_header
+            yield (LUMP.name, lump_header)
+
+    def _preload(self):
+        raise NotImplementedError()
+
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """Converts the named (unversioned) lump back into bytes"""
+        # NOTE: LumpClasses are derived from branch, not lump data!
         if not hasattr(self, lump_name):
             return b""  # lump is empty / deleted
         lump_entries = getattr(self, lump_name)
@@ -93,7 +104,10 @@ class Bsp:
         # # write contents of lumps
 
     def save(self):
+        # NOTE: save_as must copy all lumps into memory (w/ lump_as_bytes) and close self.file
+        # -- otherwise a write conflict will occur; backups are recommended anyway
         self.save_as(os.path.join(self.folder, self.filename))
+        self._preload()  # reload file
 
     def set_branch(self, branch: ModuleType):
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
