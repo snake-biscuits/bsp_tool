@@ -69,6 +69,8 @@ source_dirs = {
                          "lostcoast"]},  # HL2:LC  |   4 maps | 101 MB
          "half-life 2 deathmatch": ["hl2mp/maps"],  # 8 maps | 72 MB
          "Half-Life 2 Update": ["hl2/maps"],  # 76 maps | 2.9 GB
+         "Half-Life 2 VR": ["hl2/maps",  # 79 maps | 777 MB
+                            "hlvr/maps"],  # 1 map | 7 MB
          "insurgency2": ["insurgency/maps"],  # 49 maps | 2.54 GB
          "left 4 dead": ["left4dead/maps",   # 45 maps | 975 maps
                          "left4dead_dlc3/maps"],  # 3 maps | 67 MB
