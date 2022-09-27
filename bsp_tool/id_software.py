@@ -48,6 +48,7 @@ class QuakeBsp(base.Bsp):
         self.loading_errors: Dict[str, Exception] = dict()
         for lump_name, lump_header in self._header_generator(offset=4):
             self._preload_lump(lump_name, lump_header)
+        # TODO: detect additional BSPX data appended to end of file
 
 
 class ReMakeQuakeBsp(QuakeBsp):
