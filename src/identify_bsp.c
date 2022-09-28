@@ -39,12 +39,12 @@ int main(int c, char** a) {
     UNIQUE(EALA, "Medal of Honor: Allied Assault - Breakthrough (by EA Los Angeles)")
     UNIQUE(EF2_, "Star Trek: Elite Force II (by Ritual Entertainment)")
     UNIQUE(FBSP, "QFusion / Warsow")
-    UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")  /* TODO: REPORT_WARN? */
+    UNIQUE(RBSP, "SiN / Soldier of Fortune II / Star Wars Jedi Knight")  /* TODO: REPORT_WARN 3-way branch conflict */
     /* NO VERSION */
     BASIC(2PSB, "DEPRECATED Quake Source Port")
     BASIC(BSP2, "ReMakeQuake")
-    BASIC(GSRC, "GoldSrc")
-    BASIC(HLBS, "Half-Life: Blue Shift")
+    BASIC(GSRC, "GoldSrc")  /* TODO: REPORT_WARN overlap w/ Half-Life: Blue Shift */
+    BASIC(JBNF, "James Bond 007: Nightfire")
     BASIC(IDQ1, "Quake Engine")
 JMP_2015:
     switch (v) {
@@ -147,8 +147,8 @@ JMP_STRT:
             CASE_MAGIC(PSBr)
             CASE_MAGIC(VBSP)
             CASE_VERSION(GSRC)
-            CASE_VERSION(HLBS)
             CASE_VERSION(IDQ1)
+            CASE_VERSION(JBNF)
             default:
                 fprintf(stderr, "Could not be identified.\n");
                 if (SAFE(CHAR(m , 0)) && SAFE(CHAR(m, 1)) && SAFE(CHAR(m, 2)) && SAFE(CHAR(m, 3)))
