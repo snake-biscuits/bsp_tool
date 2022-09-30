@@ -447,6 +447,18 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     _arrays = {"unknown": 4}
 
 
+# NOTE: only one 28 byte entry per file
+class LevelInfo(base.Struct):  # LUMP 123 (007B)
+    # identified by Fifty
+    unknown: List[int]  # possibly linked to mesh flags in worldspawn?
+    # unknown[2] is almost always len([... for m in bsp.MESHES if m.flags & 0x200])
+    num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props)
+    sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
+    __slots__ = ["unknown", "num_static_props", "sun_angle"]
+    _format = "4I3f"
+    _arrays = {"unknown": 3, "sun_angle": [*"xyz"]}
+
+
 class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
     flags: int  # makes the most sense but idk
     width: int
@@ -876,9 +888,10 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
                         "ENTITY_PARTITIONS":         {0: EntityPartitions},
                         "ENTITIES":                  {0: shared.Entities},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
-                        "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
+                        "LEVEL_INFO":                {0: LevelInfo.from_bytes},
+                        "PAKFILE":                   {0: shared.PakFile},
+                        "PHYSICS_COLLIDE":           {0: shared.physics.CollideLump},
+                        "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes/RefIds & StaticPropLightProbeIndices may all be Special
 
 GAME_LUMP_HEADER = source.GameLumpHeader
