@@ -397,8 +397,10 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
     mins: List[float]
-    child_data: int
-    # struct { uint32_t flags : 8, first_child : 16, num_children: 8; } child_data;
+    child_data: int  # struct { uint32_t flags : 8, first_child : 16, num_children: 8; } child_data;
+    flags: int  # property; derived from child_data
+    first_child: int  # property; derived from child_data
+    num_children: int  # property; derived from child_data
     # if num_children == 0, flags == 64
     maxs: List[float]
     unknown: int  # likely flags / metadata; might index ObjReferences?
