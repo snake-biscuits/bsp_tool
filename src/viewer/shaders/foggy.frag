@@ -1,11 +1,12 @@
 #version 300 es
 layout(location = 0) out highp vec4 outColour;
 
-
 in highp vec3 position;
 in highp vec3 normal;
 in highp vec3 colour;
 in highp vec2 uv0;
+
+// TODO: uniform highp vec3 sun;  // collect from LevelInfo
 
 
 void main() {

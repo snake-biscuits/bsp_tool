@@ -6,6 +6,8 @@ in highp vec3 normal;
 in highp vec3 colour;
 in highp vec2 uv0;
 
+// TODO: uniform highp vec3 sun;  // collect from LevelInfo
+
 
 void main() {
     highp float Ka = 0.15;
