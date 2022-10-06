@@ -271,7 +271,17 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-# NOTE: LightmapHeader.count doesn't look like a count, quite off in general
+
+# NOTE: only one 36 byte entry per file
+class LevelInfo(base.Struct):  # LUMP 123 (007B)
+    unknown: List[int]  # possibly linked to mesh flags in worldspawn?
+    num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props) [UNTESTED]
+    sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
+    unknown_2: int  # quite small, under 255
+    __slots__ = ["unknown", "num_static_props", "sun_angle", "unknown_2"]
+    _format = "4I3fI"
+    _arrays = {"unknown": 4, "sun_angle": [*"xyz"]}
+
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
@@ -411,7 +421,8 @@ LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("CM_GRID")
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
-SPECIAL_LUMP_CLASSES.update({"SURFACE_NAMES": {0: shared.TextureDataStringData}})
+SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo.from_bytes},
+                             "SURFACE_NAMES": {0: shared.TextureDataStringData}})
 
 
 GAME_LUMP_HEADER = source.GameLumpHeader
