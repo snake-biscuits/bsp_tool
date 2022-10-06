@@ -3,8 +3,8 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 21 | Alien Swarm | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 41 / 58 | 6 | 70.34% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 21 | Alien Swarm: Reactive Drop | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 41 / 58 | 6 | 70.34% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Alien Swarm | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 41 / 58 | 6 | 70.34% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Alien Swarm: Reactive Drop | [`valve.alien_swarm`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/alien_swarm.py) | 41 / 58 | 6 | 70.34% |
 
 
 ### References
@@ -33,7 +33,7 @@
 | 5 | 21 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L524) | 100% |
 | 6 | 21 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L584) | 100% |
 | 7 | 21 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L417) | 100% |
-| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
 | 9 | 21 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 21 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L446) | 100% |
 | 10 | 21 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L108) | 100% |
@@ -85,7 +85,7 @@
 | 50 | 21 | `WATER_OVERLAYS` | 0 | [`valve.source.WaterOverlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L597) | 100% |
 | 51 | 21 | `LEAF_AMBIENT_INDEX_HDR` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L485) | 100% |
 | 52 | 21 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L485) | 100% |
-| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 21 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
 | 56 | 21 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |

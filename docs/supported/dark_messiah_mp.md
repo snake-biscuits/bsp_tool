@@ -3,7 +3,7 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_mp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_mp.py) | 41 / 58 | 6 | 70.34% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20.4 | Dark Messiah of Might and Magic Multi-Player | [`arkane.dark_messiah_mp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/arkane/dark_messiah_mp.py) | 41 / 58 | 6 | 70.34% |
 
 
 ### References
@@ -32,7 +32,7 @@
 | 5 | 20.4 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L524) | 100% |
 | 6 | 20.4 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L584) | 100% |
 | 7 | 20.4 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L417) | 100% |
-| 8 | 20.4 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 8 | 20.4 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
 | 9 | 20.4 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 20.4 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L446) | 100% |
 | 10 | 20.4 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L108) | 100% |
@@ -80,7 +80,7 @@
 | 50 | 20.4 | `WATER_OVERLAYS` | 0 | [`valve.source.WaterOverlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L597) | 100% |
 | 51 | 20.4 | `LEAF_AMBIENT_INDEX_HDR` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L485) | 100% |
 | 52 | 20.4 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L485) | 100% |
-| 53 | 20.4 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 53 | 20.4 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
 | 54 | 20.4 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 20.4 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
 | 56 | 20.4 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |

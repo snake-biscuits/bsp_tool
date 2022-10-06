@@ -155,7 +155,10 @@ CoverageMap = Dict[ModuleType, Dict[str, int]]
 
 def url_of_BspClass(BspClass: object) -> str:
     """gets a url to the definition of BspClass in the GitHub repo"""
-    script_url = BspClass.__module__.replace(".", "/")
+    script_url = BspClass.__module__.split(".")
+    if script_url[0] == "bsp_tool":
+        script_url = script_url[1:]
+    script_url = "/".join(script_url)
     line_number = inspect.getsourcelines(BspClass)[1]
     # TODO: block link "#L{start}-L{start + length}"
     lumpclass_url = f"{repo_url}/{script_url}.py#L{line_number}"

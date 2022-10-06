@@ -3,7 +3,7 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`D3DBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/bsp_tool/infinity_ward.py#L36) | 22 | Call of Duty 4: Modern Warfare | [`infinity_ward.modern_warfare`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/modern_warfare.py) | 10 / 41 | 0 | 23.56% |
+| [`D3DBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/infinity_ward.py#L35) | 22 | Call of Duty 4: Modern Warfare | [`infinity_ward.modern_warfare`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/modern_warfare.py) | 10 / 41 | 0 | 23.56% |
 
 
 ## Supported Lumps
