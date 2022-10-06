@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 
     int i, j;
     if (developer == std::string("idsoft") || developer == std::string("idtech")) {
-        using namespace bsp_tool::id_software;
+        using namespace id_software;
         for (i = 2; i < argc; i++) {
             // NOTE: Quake 3 Only
             IdTechBsp<17> bsp(argv[i]);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
             }
         }
     } else if (developer == std::string("valve")) {
-        using namespace bsp_tool::valve_software;
+        using namespace valve;
         for (i = 2; i < argc; i++) {
             ValveBsp bsp (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
             }
         }
     } else if (developer == std::string("respawn")) {
-        using namespace bsp_tool::respawn_entertainment;
+        using namespace respawn;
         for (i = 2; i<argc; i++) {
             RespawnBsp bsp (argv[i]);
             printf("Loaded: %s\n", bsp.filename.c_str());

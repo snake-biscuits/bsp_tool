@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Expected use: %s FILE.BSP\n", argv[0]);
         return 0;
     }
-    /* Open FILE.BSP*/
+    /* Open FILE.BSP */
     bsp_file = fopen(argv[1], "rb");
     if (!bsp_file) {
         errsv = errno;
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Encountered an error closing: %s; errno = %d\n", argv[1], errsv);
         return 1;
     }
-    /* Do something with lump data read from FILE.BSP */
+    /* Print all vertices in FILE.BSP */
     printf("%s has %d vertices:\n", argv[1], vertex_lump_len);
     for (int i=0; i<vertex_lump_len; i++) {
         Vertex v = vertex_lump[i];

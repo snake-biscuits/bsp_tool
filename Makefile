@@ -40,7 +40,7 @@ DUMMY != mkdir -p build
 .PHONY: all run debug
 
 
-all: build/lump_names.exe build/viewer.exe build/identify.exe
+all: build/lump_names.exe build/viewer.exe build/identify.exe build/quake_vertices.exe
 
 run: build/viewer.exe
 	build/viewer.exe $(TESTMAP)
@@ -55,8 +55,11 @@ debug:
 build/lump_names.exe: src/lump_names.cpp src/bsp_tool.hpp
 	$(CXX) $(CXXFLAGS) $(LDLIBS) $< -o $@
 
-build/viewer.exe: src/viewer/main.cpp src/bsp_tool.hpp src/viewer/camera.hpp src/common.hpp src/respawn_entertainment/meshes.hpp src/viewer/titanfall.hpp src/viewer/apex_legends.hpp
+build/viewer.exe: src/viewer/main.cpp src/viewer/*.hpp src/bsp_tool.hpp src/common.hpp src/respawn/meshes.hpp
 	$(CXX) $(CXXFLAGS) $(LDLIBS) $< -o $@ $(SDLFLAGS)
 
 build/identify.exe: src/identify_bsp.c src/identify_bsp.h
 	$(CC) -Wall --std=c89 $< -o $@
+
+build/quake_vertices.exe: src/quake_vertices.c src/quake_bsp.h
+	$(CC) -Wall --std=c99 $< -o $@

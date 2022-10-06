@@ -6,12 +6,12 @@
 #include "renderables.hpp"
 #include "../bsp_tool.hpp"  // <filesystem>  --std=C++17 -lstdc++fs
 #include "../common.hpp"
-#include "../respawn_entertainment/meshes.hpp"
+#include "../respawn/meshes.hpp"
 
 
-void rbsp_titanfall_world_geo(bsp_tool::respawn_entertainment::RespawnBsp *bsp, RenderObject *out) {
+void rbsp_titanfall_world_geo(respawn::RespawnBsp *bsp, RenderObject *out) {
     // Titanfall rBSP worldspawn (bsp.MODELS[0]) -> RenderObject
-    using namespace bsp_tool::respawn_entertainment::titanfall;
+    using namespace respawn::titanfall;
     // NOTE: we only use the .bsp file, allowing for fast reads & easy TF:O support
 
     // read contents of lump `ENUM` into array of type `Type` named `name` & record lump length

@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
     // TODO: move all the initialisation to other functions
     // -- keeping stale temp variables around is wasteful
     // SIMULATION VARIABLES
-    bsp_tool::respawn_entertainment::RespawnBsp bsp_file = argv[1];
+    respawn::RespawnBsp bsp_file = argv[1];
     RenderObject bsp;
     if (bsp_file.format_version <= 37) {
         // Titanfall / Titanfall: Online

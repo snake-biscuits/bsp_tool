@@ -1,25 +1,27 @@
 #pragma once
 
+#include <cstdint>
 #include <cstring>
 #include <iostream>
 
-#include "respawn_entertainment/titanfall.hpp"  // lump structs etc.
+#include "respawn/titanfall.hpp"  // lump enum & structs
 
 
-namespace bsp_tool::respawn_entertainment {
-    // NOTE: RespawnBsp LumpHeader is the same as ValveBsp LumpHeader
+namespace respawn {
+    // NOTE: same for valve
     struct LumpHeader {
-        int  offset;
-        int  length;
-        int  version;
-        int  decompressed_size;
+        uint32_t  offset;
+        uint32_t  length;
+        uint32_t  version;
+        uint32_t  decompressed_size;  // fourCC
     };
 
 
     struct RespawnBsp {
-        char        file_magic[4];  // 'rBSP'
-        int         version;  // Apex Legends Season 11+ is short[2]
-        int         lump_count;  // always 127; in all shipped maps
+        uint32_t    file_magic;
+        uint16_t    version;
+        uint16_t    external_only;  // Apex S11 onwards
+        uint32_t    lump_count;     // always 127
         LumpHeader  header[128];
     };
     // NOTE: RespawnBsp often uses external files (.bsp_lump)
@@ -32,8 +34,8 @@ namespace bsp_tool::respawn_entertainment {
 
     // TODO: useful methods / helper functions
     std::string bsp_lump_filename(int LUMP_ENUM, char* bsp_filename) {
-        char filename[4096];
-        snprintf(filename, 4096, "%s.%X04.bsp_lump", bsp_filename, LUMP_ENUM);
+        char filename[4096];  // len(bsp_filename + 14)
+        snprintf(filename, 4096, "%s.%04X.bsp_lump", bsp_filename, LUMP_ENUM);
         return std::string(filename);
     };
 }
