@@ -290,7 +290,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # num_vertices: int
     unknown: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
-    flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    flags: int  # MeshFlags(mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
     _format = "IHh3ihHI"  # 28 bytes
     _arrays = {"unknown": 5}
@@ -452,7 +452,7 @@ def debug_Mesh_stats(bsp):
             mesh = bsp.MESHES[j]
             material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
             texture_name = bsp.get_TextureData_SurfaceName(material_sort.texture_data)
-            vertex_lump = (titanfall.Flags(mesh.flags) & titanfall.Flags.MASK_VERTEX).name
+            vertex_lump = (titanfall.MeshFlags(mesh.flags) & titanfall.MeshFlags.MASK_VERTEX).name
             indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
             _min, _max = min(indices), max(indices)
             _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices

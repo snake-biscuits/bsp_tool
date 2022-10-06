@@ -273,7 +273,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     # TODO: might r1 Titan Shields be a flag?
 
 
-class Flags(enum.IntFlag):  # Mesh / TextureData Flags
+class MeshFlags(enum.IntFlag):
     # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
     SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
     SKY = 0x0004
@@ -295,6 +295,9 @@ class GeoSetFlags(enum.IntFlag):  # CM_GEO_SETS.flags
     # identified by Fifty
     BRUSH = 0x00
     TRICOLL = 0x40
+
+
+TextureDataFlags = MeshFlags  # always the same as Mesh.flags -> MaterialSort -> TextureData.flags
 
 
 class TraceCollisionGroup(enum.Enum):
@@ -534,7 +537,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
     # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
-    flags: int  # Flags(mesh.flags & Flags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    flags: int  # MeshFlags(mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "first_vertex",
                  "num_vertices", "unknown", "material_sort", "flags"]
     _format = "I3H6hHI"  # 28 Bytes
@@ -939,7 +942,7 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
     start = mesh.first_mesh_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, (Flags(mesh.flags) & Flags.MASK_VERTEX).name)
+    VERTEX_LUMP = getattr(bsp, (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name)
     return [VERTEX_LUMP[i] for i in indices]
 
 
@@ -1110,7 +1113,7 @@ def debug_Mesh_stats(bsp):
             material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
             texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
             texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
-            vertex_lump = (Flags(mesh.flags) & Flags.MASK_VERTEX).name
+            vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name
             indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
             _min, _max = min(indices), max(indices)
             _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices

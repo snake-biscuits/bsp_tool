@@ -633,7 +633,7 @@ class WorldLight(base.Struct):  # LUMP 15
     linear: float
     quadratic: float
     # ^ these factor into some equation...
-    flags: int  # WorldLightFlags
+    flags: int  # see WorldLightFlags
     texture_info: int  # index of TextureInfo
     owner: int  # parent entity ID
     __slots__ = ["origin", "intensity", "normal", "cluster", "emit_type", "style",
