@@ -447,7 +447,9 @@ class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: int  # Contents flags
     cluster: int   # index of this Leaf's cluster (leaf group in VISIBILITY lump)
-    area_flags: int  # area & flags bitfield (short area:9; short flags:7;)
+    area_flags: int  # struct { uint16_t area : 9, flags : 7; } area_flags;
+    area: int  # property; derived from area_flags
+    flags: int  # property; derived from area_flags
     # why was this done when the struct is padded by one short anyway?
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
@@ -464,6 +466,7 @@ class Leaf(base.Struct):  # LUMP 10
     _format = "i8h4H2h24B"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"],
                "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
+    # TODO: map cube face names to UP, DOWN etc.
 
     @property
     def area(self):
