@@ -342,24 +342,24 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Node
   Portal
-  AxisAlignedBoundingBox
-  DrawVertex
-  Cell
-  Model
-  Occluder
   Brush
+  Node
+  Cell
   Light
-  CullGroup
   PatchCollision
+  AxisAlignedBoundingBox
+  CullGroup
+  Occluder
+  DrawVertex
+  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionTriangle
-  Model
   CollisionEdge
+  Model
+  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
@@ -470,4 +470,4 @@ TOTAL                                                 7312   1749    76%
 
 =========================== short test summary info ===========================
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs106] - Asser...
-[31m========== [31m[1m1 failed[0m, [32m202 passed[0m, [33m21 warnings[0m[31m in 15254.16s (4:14:14)[0m[31m ===========[0m
+[31m========== [31m[1m1 failed[0m, [32m202 passed[0m, [33m21 warnings[0m[31m in 17651.00s (4:54:10)[0m[31m ===========[0m
