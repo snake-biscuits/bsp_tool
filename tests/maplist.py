@@ -297,9 +297,12 @@ extracted_dirs = {
         # season14:  Hunted [9th Aug 2022]
         "ApexLegends/season14": ["9aug22/maps",  # 11 maps | 1.85 GB | .vpk
                                  "9aug22/depot/r5-140/game/r2/maps",  # 11 maps | 1.80 GB | .vpk
-                                 "20sept22/maps",  # 12 maps | 1.97 GB | .vpk
-                                 "20sept22/depot/r5-140/game/r2/maps",  # 9 maps | 1.38 GB | .vpk
-                                 "20sept22/depot/r5-141/game/r2/maps"],  # 12 maps | 1.92 GB | .vpk
+                                 "20sep22/maps",  # 12 maps | 1.97 GB | .vpk
+                                 "20sep22/depot/r5-140/game/r2/maps",  # 9 maps | 1.38 GB | .vpk
+                                 "20sep22/depot/r5-141/game/r2/maps",  # 12 maps | 1.92 GB | .vpk
+                                 "29sep22/maps",  # 2 maps | 400 MB | .vpk
+                                 "29sep22/depot/r5-140/game/r2/maps",  # 1 map | 5.62 MB | .vpk
+                                 "29sep22/depot/r5-141/game/r2/maps"],  # 2 maps | 387 MB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
