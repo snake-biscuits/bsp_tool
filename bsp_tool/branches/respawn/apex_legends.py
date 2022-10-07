@@ -279,7 +279,7 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
     unknown_2: int  # quite small, under 255
     __slots__ = ["unknown", "num_static_props", "sun_angle", "unknown_2"]
-    _format = "4I3fI"
+    _format = "5I3fI"
     _arrays = {"unknown": 4, "sun_angle": [*"xyz"]}
 
 
