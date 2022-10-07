@@ -1,0 +1,38 @@
+...\GtkRadiant-1.6.6-20180422> q3map2.exe -info ".../maps/Quake 3 Arena/mp_lobby.bsp"
+2.5.17
+8 threads
+Q3Map         - v1.0r (c) 1999 Id Software Inc.
+Q3Map (ydnar) - v2.5.17
+GtkRadiant    - v1.6.6 Apr 23 2018 01:51:41
+We're still here
+VFS Init: .../Quake Engine/baseq3/
+
+---------------------------------
+.../maps/Quake 3 Arena/mp_lobby.bsp
+Abstracted BSP file components (*actual sizes may differ)
+        1 models               40
+        2 shaders             144
+        6 brushes              72
+       36 brushsides          432 *
+        0 fogs                  0
+       30 planes              480
+        2 entdata             101
+
+       31 nodes              1116
+       33 leafs              1584
+       24 leafsurfaces         96
+       24 leafbrushes          96
+
+        6 drawsurfaces        888 *
+       24 drawverts          1920 *
+       18 drawindexes          72
+
+        2 lightmaps         98304
+      147 lightgrid          4410 *
+          visibility           72
+
+          total            105532
+                              103 KB
+                                0 MB
+---------------------------------
+        0 seconds elapsed

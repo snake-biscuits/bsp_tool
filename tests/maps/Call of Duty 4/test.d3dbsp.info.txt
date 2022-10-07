@@ -1,7 +1,7 @@
-.../Call of Duty 4> bin/cod4map.exe -info ../raw/maps/test.d3dbsp
+.../Call of Duty 4> bin/cod4map.exe -info .../maps/test.d3dbsp
 CoD4Map v1.1 (c) 2002 Id Software Inc. / Infinity Ward
 ---------------------
-../raw/maps/test.d3dbsp: 3310912
+.../maps/test.d3dbsp: 3310912
 
  Limit%  Count Lump                    Bytes Kilobytes   BSP%
 ------------------------------------------------------------
