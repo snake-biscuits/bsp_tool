@@ -3,21 +3,21 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter Strike | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter-Strike: Condition Zero | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter-Strike: Condition Zero - Deleted Scenes | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Cry of Fear | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Day of Defeat | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Deathmatch Classic | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life: Opposing Force | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Halfquake Trilogy | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Natural Selection | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Ricochet | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Sven Co-op | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Team Fortress Classic | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life: Blue Shift | [`gearbox.blue_shift`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/blue_shift.py) | 13 / 15 | 0 | 86.00% |
-| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 42 | James Bond 007: Nightfire | [`gearbox.nightfire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py) | 15 / 18 | 0 | 81.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter Strike | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter-Strike: Condition Zero | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Counter-Strike: Condition Zero - Deleted Scenes | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Cry of Fear | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Day of Defeat | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Deathmatch Classic | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life: Opposing Force | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Halfquake Trilogy | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Natural Selection | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Ricochet | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Sven Co-op | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Team Fortress Classic | [`valve.goldsrc`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 30 | Half-Life: Blue Shift | [`gearbox.blue_shift`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/blue_shift.py) | 12 / 15 | 0 | 79.33% |
+| [`GoldSrcBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L11) | 42 | James Bond 007: Nightfire | [`gearbox.nightfire`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py) | 10 / 18 | 0 | 54.11% |
 
 
 ### Blue Shift's Lump Shift
@@ -41,10 +41,10 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
-| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
+| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
 | 0 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
-| 0 | 42 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
-| 1 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L43) | 100% |
+| 0 | 42 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
+| 1 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
 | 1 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
 | 2 | 30 | `MIP_TEXTURES` | [`id_software.quake.MipTextureLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L258) | 90% |
 | 2 | 42 | `TEXTURES` |  | 0% |
@@ -55,7 +55,7 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 | 5 | 30 | `NODES` | [`id_software.quake.ClipNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L138) | 100% |
 | 5 | 42 | `NORMALS` |  | 0% |
 | 6 | 30 | `TEXTURE_INFO` | [`id_software.quake.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L237) | 100% |
-| 6 | 42 | `INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L34) | 100% |
+| 6 | 42 | `INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 7 | 30 | `FACES` | [`id_software.quake.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L160) | 100% |
 | 7 | 42 | `VISIBILITY` |  | 0% |
 | 8 | 30 | `LIGHTING` |  | 0% |
@@ -68,7 +68,7 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 | 11 | 42 | `LEAVES` | [`gearbox.nightfire.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L71) | 100% |
 | 12 | 30 | `EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L149) | 100% |
 | 12 | 42 | `MARK_SURFACES` |  | 0% |
-| 13 | 30 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L26) | 100% |
+| 13 | 30 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 13 | 42 | `MARK_BRUSHES` |  | 0% |
 | 14 | 30 | `MODELS` | [`valve.goldsrc.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py#L108) | 100% |
 | 14 | 42 | `MODELS` | [`gearbox.nightfire.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L87) | 83% |

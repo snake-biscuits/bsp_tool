@@ -14,6 +14,7 @@ from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, 
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
+# TODO: ensure the tools in this script can be used to generate a coverage .csv
 
 # NOTE: forks should substitute their own repo here
 # TODO: get the commit hash from `git rev-parse HEAD` for permalinks
@@ -83,6 +84,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.source                   |  Y  |
 
 # TODO: more prefaces (insert .md)
+# NOTE: conflicts: cso2 & cso2_2018, quake & hexen2, qfusion & soldier_of_fortune2, goldsrc & blue_shift
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
@@ -133,20 +135,21 @@ inserts_path = "inserts"
 # timeline / engine map as a navigation pane through the documentation
 
 
-# TODO: declare confidence by SpecialLumpClass, not LUMP_NAME
-# -- not every branch_script.LUMP.name is linked to the same SpecialLumpClass!
-# -- and coverage quiality can also vary from mapping to mapping
+# NOTE: GAME_LUMP coverage is hardcoded later
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
-SpecialLumpClass_confidence.update({"ENTITIES": 100,
-                                    "ENTITY_PARTITIONS": 100,
-                                    "GAME_LUMP": 100,  # 90 for DarkMessiahSP!
-                                    "PAKFILE": 100,  # 0 for CSO2!
-                                    "SURFACE_NAMES": 100,
-                                    "TEXTURE_DATA_STRING_DATA": 100})
+SpecialLumpClass_confidence.update({branches.shared.Entities: 100,
+                                    branches.shared.PakFile: 100,
+                                    branches.shared.TextureDataStringData: 100,
+                                    branches.respawn.titanfall.EntityPartitions: 100,
+                                    branches.id_software.quake3.Visibility: 100,
+                                    branches.nexon.cso2.PakFile: 0})
+# TODO: titanfall.CM_GRID & LEVEL_INFO struct coverage
 
 
 def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
-    return {**branch_script.BASIC_LUMP_CLASSES, **branch_script.LUMP_CLASSES, **branch_script.SPECIAL_LUMP_CLASSES}
+    out = {**branch_script.BASIC_LUMP_CLASSES, **branch_script.LUMP_CLASSES, **branch_script.SPECIAL_LUMP_CLASSES}
+    out = {L: v for L, v in out.items() if hasattr(branch_script.LUMP, L)}
+    return out
 
 
 CoverageMap = Dict[ModuleType, Dict[str, int]]
@@ -457,7 +460,12 @@ def supported_md(group: ScriptGroup) -> List[str]:
                         attrs, unknowns = 1, 0
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
                 elif lump_name in branch_script.SPECIAL_LUMP_CLASSES or lump_name == "GAME_LUMP":
-                    percent = SpecialLumpClass_confidence[lump_name]
+                    if lump_name == "GAME_LUMP":
+                        # TODO: use gamelump coverage dict here
+                        percent = 100 if branch_script is not branches.arkane.dark_messiah_sp else 90  # HACK
+                    else:
+                        SpecialLumpClass = LumpClass_dict[lump_version]
+                        percent = SpecialLumpClass_confidence[SpecialLumpClass]
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
                 coverage[branch_script][lump_name][lump_version] = percent

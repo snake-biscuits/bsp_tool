@@ -1,5 +1,6 @@
 # https://www.mralligator.com/q3/
 # https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_q3.c
+# https://github.com/id-Software/Quake-III-Arena/blob/master/code/qcommon/qfiles.h
 import enum
 from typing import List
 import struct
@@ -28,23 +29,24 @@ GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin":
 # NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
 
 
+# NOTE: based on mralligator's lump names, Q3 source code names are in comments
 class LUMP(enum.Enum):
-    ENTITIES = 0  # one long string
-    TEXTURES = 1
+    ENTITIES = 0
+    TEXTURES = 1  # SHADERS
     PLANES = 2
     NODES = 3
     LEAVES = 4
-    LEAF_FACES = 5
+    LEAF_FACES = 5  # LEAFSURFACES
     LEAF_BRUSHES = 6
     MODELS = 7
     BRUSHES = 8
     BRUSH_SIDES = 9
-    VERTICES = 10
-    MESH_VERTICES = 11
-    EFFECTS = 12
-    FACES = 13
-    LIGHTMAPS = 14  # 3 128x128 RGB888 images
-    LIGHT_VOLUMES = 15
+    VERTICES = 10  # DRAWVERTS
+    MESH_VERTICES = 11  # DRAWINDICES
+    EFFECTS = 12  # FOGS
+    FACES = 13  # SURFACES
+    LIGHTMAPS = 14  # 3x 128x128px RGB888 images
+    LIGHT_VOLUMES = 15  # LIGHTGRID
     VISIBILITY = 16
 
 
@@ -113,10 +115,10 @@ class BrushSide(base.Struct):  # LUMP 9
 
 
 class Effect(base.Struct):  # LUMP 12
-    name: str
+    shader_name: str
     brush: int  # index into Brush lump
-    unknown: int  # Always 5, except in q3dm8, which has one effect with -1
-    __slots__ = ["name", "brush", "unknown"]
+    visible_side: int  # side of brush to clip ray tests against (-1 = None)
+    __slots__ = ["shader_name", "brush", "visible_side"]
     _format = "64s2i"
 
 
@@ -241,17 +243,42 @@ class Vertex(base.Struct):  # LUMP 10
 
 
 # special lump classes, in alphabetical order:
-class Visibility:
-    """Cluster X is visible from Cluster Y if:
+class Visibility(list):
+    """Cluster A is visible from Cluster B if bit B of Visibility[A] is set
     bit (1 << Y % 8) of vecs[X * vector_size + Y // 8] is set
     NOTE: Clusters are associated with Leaves"""
-    def __init__(self, raw_visiblity: bytes):
-        self.vector_count, self.vector_size = struct.unpack("2i", raw_visiblity[:8])
-        self.vectors = struct.unpack(f"{self.vector_count * self.vector_size}B", raw_visiblity[8:])
+    vectors: List[bytes]
+    # TODO: detect fast vis / leaked
+    # NOTE: tests/mp_lobby.bsp  {*Visibility} == {(2 ** len(Visibility) - 1).to_bytes(len(Visibility), "little")}
 
-    def as_bytes(self):
-        vectors_bytes = f"{self.vector_count * self.vector_size}B"
-        return struct.pack(f"2i{vectors_bytes}", (self.vector_count, self.vector_size, *self.vectors))
+    def __init__(self, raw_visibility: bytes = None):
+        if raw_visibility is None:
+            return super().__init__()  # create empty visibility lump
+            # NOTE: to function correctly, the visibility lump must have max(LEAVES.cluster) entries
+        vec_n, vec_sz = struct.unpack("2i", raw_visibility[:8])
+        assert len(raw_visibility) - 8 == vec_n * vec_sz, "lump size does not match internal header"
+        # we could check if vec_sz is the smallest it could be here...
+        return super().__init__([raw_visibility[8:][i:i + vec_sz] for i in range(0, vec_n * vec_sz, vec_sz)])
+
+    def as_bytes(self, compress=False):
+        # default behaviour should be to match input bytes; hence compress=False
+        # TODO: verify "compression" does not break maps
+        # lazy method
+        vec_n = len(self)
+        vec_sz = len(self[0])  # assumption! verified later
+        best_vec_sz = vec_n // 8 + (1 if vec_n % 8 else 0)
+        if vec_sz >= best_vec_sz and compress is False:
+            assert len({len(v) for v in self}) == 1, "not all vectors are the same size"
+            return struct.pack(f"2i{vec_n * vec_sz}s", vec_n, vec_sz, b"".join(self))
+        # robust method (compresses)
+        vecs = b""
+        for vec in self:
+            if len(vec) > best_vec_sz:
+                vec = vec[:best_vec_sz]  # unsure if safe
+            elif len(vec) < best_vec_sz:
+                vec += b"\0" * (best_vec_sz - len(vec))
+            vecs += vec
+        return struct.pack(f"2i{vec_n * best_vec_sz}s", vec_n, best_vec_sz, vecs)
 
 
 BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  shared.Ints,

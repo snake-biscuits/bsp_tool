@@ -4,6 +4,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import shared
 from . import quake
 from . import quake3
 
@@ -140,6 +141,7 @@ class Vertex(base.MappedArray):  # LUMP 10
 
 # {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = quake3.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES.update({"ELEMENTS": shared.UnsignedShorts})
 
 LUMP_CLASSES = quake3.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,

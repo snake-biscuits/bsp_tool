@@ -1,7 +1,6 @@
 import io
 import math
 import re
-import struct
 import zipfile
 from typing import Dict, List
 
