@@ -58,8 +58,18 @@ class LumpHeader(base.MappedArray):
     _format = "2I"
 
 
+# flag enums
+class LightType(enum.Enum):  # Light.type
+    # NOTE: sun is baked into light volumes (6 sp maps have no lights)
+    DIRECTIONAL_1 = 0x01
+    UNKNOWN_2 = 0x02
+    DIRECTIONLESS_4 = 0x04
+    UNKNOWN_5 = 0x05
+    DIRECTIONAL_7 = 0x07
+
+
 # classes for lumps, in alphabetical order:
-# NOTE: all are incomplete guesses
+# NOTE: haven't properly identified the formats for a lot of these yet
 class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     """AABB tree"""
     # not floats. some kind of node indices?
@@ -88,36 +98,46 @@ class BrushSide(base.Struct):  # LUMP 3
 
 class Cell(base.Struct):  # LUMP 17
     """No idea what this is / does"""
-    data: bytes
-    __slots__ = ["data"]
-    _format = "52s"
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "13i"
 
 
 class CullGroup(base.Struct):  # LUMP 9
-    data: bytes
-    __slots__ = ["data"]
-    _format = "32s"
+    # indices & aabb tree stuff?
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "8i"
 
 
 class DrawVertex(base.Struct):  # LUMP 7
-    data: bytes
-    __slots__ = ["data"]
-    _format = "44s"
+    # position, uv0 (albedo), uv1 (lightmap), colour etc.
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "11i"
+    _arryas = {"unknown": 11}
 
 
 class Leaf(base.Struct):  # LUMP 21
-    # first_leaf_brush
-    # num_leaf_brushes
-    data: bytes
-    __slots__ = ["data"]
-    _format = "36s"
+    unknown_1: List[int]
+    first_leaf_brush: int
+    num_leaf_brushes: int
+    unknown_2: List[int]
+    __slots__ = ["unknown_1", "first_leaf_brush", "num_leaf_brush", "unknown_2"]
+    _format = "9i"
+    _arrays = {"unknown_1": 4, "unknown_2": 3}
 
 
 class Light(base.Struct):  # LUMP 30
-    # attenuations, colours, strengths
-    data: bytes
-    __slots__ = ["data"]
-    _format = "72s"
+    type: int  # see LightType
+    unknown_1: List[float]  # big floats
+    origin: List[float]  # seems legit
+    vector: List[float]  # magnitude of ~1.0 if a directional type
+    unknown_2: List[float]
+    unknown_3: List[int]  # indices into other lumps?
+    __slots__ = ["type", "unknown_1", "origin", "vector", "unknown_2", "unknown_3"]
+    _format = "i12f5i"
+    _arrays = {"unknown_1": 3, "origin": [*"xyz"], "vector": [*"xyz"], "unknown_2": 3, "unknown_3": 5}
 
 
 class Lightmap(list):  # LUMP 1
@@ -149,16 +169,21 @@ class Model(base.Struct):  # LUMP 27
     num_faces: int  # number of Faces after first_face included in this Model
     first_brush: int  # index into Brush lump
     num_brushes: int  # number of Brushes after first_brush included in this Model
-    unknown: List[bytes]
+    unknown: List[int]
     __slots__ = ["mins", "maxs", "first_face", "num_faces", "first_brush", "num_brushes", "unknown"]
     _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
 
 
 class Node(base.Struct):  # LUMP 20
-    data: bytes
-    __slots__ = ["data"]
-    _format = "36s"
+    plane: int  # index of Plane that splits this Node
+    children: List[int]  # likely -ve for Leaves
+    # bounds
+    mins: List[int]
+    maxs: List[int]
+    __slots__ = ["plane", "children", "mins", "maxs"]
+    _format = "9i"
+    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
 
 
 class Occluder(base.Struct):  # LUMP 12
@@ -173,9 +198,10 @@ class Occluder(base.Struct):  # LUMP 12
 
 class PatchCollision(base.Struct):  # LUMP 24
     """'Patches' are the CoD version of Source's Displacements (think of a fabric patch on torn clothes)"""
-    data: bytes
-    __slots__ = ["data"]
-    _format = "16s"
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "16b"
+    _arrays = {"unknown": 16}
 
 
 class Plane(base.Struct):  # LUMP 2
@@ -187,9 +213,10 @@ class Plane(base.Struct):  # LUMP 2
 
 
 class Portal(base.Struct):  # LUMP 18
-    data: bytes
-    __slots__ = ["data"]
-    _format = "16s"
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "4i"
+    _arrays = {"unknown": 4}
 
 
 class Shader(base.Struct):  # LUMP 0
@@ -232,15 +259,15 @@ LUMP_CLASSES = {
                 # "CULL_GROUPS":        CullGroup,
                 # "DRAW_VERTICES":      DrawVertex,
                 "LEAVES":             Leaf,
-                # "LIGHTS":             Light,
+                "LIGHTS":             Light,
                 "LIGHTMAPS":          Lightmap,
                 # "MODELS":             Model,
-                # "NODES":              Node,
+                "NODES":              Node,
                 # "OCCLUDERS":          Occluder,
                 "OCCLUDER_EDGES":     quake.Edge,
                 # "PATCH_COLLISION":    PatchCollision,
                 "PLANES":             Plane,
-                # "PORTALS":            Portal,
+                "PORTALS":            Portal,
                 "SHADERS":            Shader,
                 "TRIANGLE_SOUPS":     TriangleSoup}
 

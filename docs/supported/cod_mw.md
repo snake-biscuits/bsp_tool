@@ -9,7 +9,7 @@
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
-| 0 | 22 | `SHADERS` | [`infinity_ward.call_of_duty1.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L195) | 100% |
+| 0 | 22 | `SHADERS` | [`infinity_ward.call_of_duty1.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L222) | 100% |
 | 1 | 22 | `LIGHTMAPS` |  | 0% |
 | 2 | 22 | `LIGHT_GRID_POINTS` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 3 | 22 | `LIGHT_GRID_COLOURS` |  | 0% |
