@@ -1,0 +1,21 @@
+---- bspinfo / ericw-tools v0.18.1 ----
+---------------------
+mp_lobby_rmq.bsp
+LoadBSPFile: 'mp_lobby_rmq.bsp'
+BSP is version BSP2
+      1 models      
+     17 planes              340
+     30 vertexes            360
+      6 nodes               264
+      6 texinfos            240
+     24 faces               672
+     12 clipnodes           144
+      2 leafs                88
+     24 marksurfaces         96
+     53 edges               424
+    104 surfedges           416
+      2 textures          21812
+        lightdata          4125
+        visdata               1
+        entdata             300
+---------------------

@@ -1,8 +1,8 @@
 ---- vis / ericw-tools v0.18.1 ----
 running with 2 threads
 testlevel = 4
-LoadBSPFile: 'mp_lobby.bsp'
-BSP is version 29
+LoadBSPFile: 'mp_lobby_rmq.bsp'
+BSP is version BSP2
      1 leafs
      0 portals
 Calculating Base Vis:
@@ -13,5 +13,5 @@ average leafs visible: 1
 c_noclip: 0
 c_chains: 0
 visdatasize:1  compressed from 1
-Writing mp_lobby.bsp as BSP version 29
-  0.2 seconds elapsed
+Writing mp_lobby_rmq.bsp as BSP version BSP2
+  0.3 seconds elapsed

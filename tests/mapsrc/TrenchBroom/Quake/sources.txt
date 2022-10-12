@@ -1,1 +1,2 @@
-mp_lobby.map - made by @snake-biscuits (Titanfall mp_lobby.bsp recreation)
+mp_lobby.map     - made by @snake-biscuits (Titanfall mp_lobby.bsp recreation)
+mp_lobby_rmq.map - made by @snake-biscuits (Titanfall mp_lobby.bsp recreation)

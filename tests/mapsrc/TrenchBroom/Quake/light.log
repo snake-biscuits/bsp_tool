@@ -1,8 +1,8 @@
 ---- light / ericw-tools v0.18.1 ----
 Raytracing backend: Embree
 running with 2 threads
-LoadBSPFile: 'mp_lobby.bsp'
-BSP is version 29
+LoadBSPFile: 'mp_lobby_rmq.bsp'
+BSP is version BSP2
 --- LoadEntities ---
 WARNING: entity at () (worldspawn) has empty key/value "_sunlight" ""
 WARNING: couldn't parse '' as number for key 'sunlight'
@@ -29,8 +29,8 @@ Lighting Completed.
 
 lightdatasize: 4125
 0 switchable light styles (32 max)
-Writing mp_lobby.bsp as BSP version 29
-0.258 seconds elapsed
+Writing mp_lobby_rmq.bsp as BSP version BSP2
+0.296 seconds elapsed
 
 stats:
 0.625247 lights tested, 0.625247 hits per sample point
