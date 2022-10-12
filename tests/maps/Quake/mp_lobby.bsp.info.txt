@@ -1,0 +1,21 @@
+---- bspinfo / ericw-tools v0.18.1 ----
+---------------------
+tests/mapsrc/TrenchBroom/Quake/mp_lobby.bsp
+LoadBSPFile: 'tests/mapsrc/TrenchBroom/Quake/mp_lobby.bsp'
+BSP is version 29
+      1 models      
+     17 planes              340
+     30 vertexes            360
+      6 nodes               144
+      6 texinfos            240
+     24 faces               480
+     12 clipnodes            96
+      2 leafs                56
+     24 marksurfaces         48
+     53 edges               212
+    104 surfedges           416
+      2 textures          21812
+        lightdata          4125
+        visdata               1
+        entdata             300
+---------------------
