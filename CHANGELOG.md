@@ -19,14 +19,14 @@
  * Completely refactored `branch_script` detection
    - only `file_magic` & `bsp_version` matter (unless `.d3dbsp`)
    - `load_bsp` now only accepts a `branch_script` as it's optional argument
- * RespawnBsp `.ent` file headers moved to `bsp.entity_headers`
+ * RespawnBsp `.ent` file headers moved to `RespawnBsp.entity_headers`
  * RespawnBsp `.bsp_lump` moved to `bsp.external`
    - Uses the `respawn.ExternalLumpManager`
    - `.bsp_lump` are only opened when accesed via `bsp.external.LUMP_NAME`
  * "MegaTest" RAM usage significantly reduced
- * `ArkaneBsp` has been rolled into `ValveBsp` & deleted
+ * `ArkaneBsp` has been rolled into `ValveBsp`
  * `LumpHeader` now use `bsp.branch.LumpHeader` instead of `collections.namedtuple`
- * Support for `ValveBsp` & `RespawnBsp` x360 (big/mixed-endian) formats
+ * Support for `ValveBsp` & `RespawnBsp` x360 (big-endian) formats
  * Caught some unexpected behaviour with `GAME_LUMP_CLASS` dict deepcopies
 
 ### Newly Supported
@@ -35,8 +35,6 @@
    - Call of Duty 4: Modern Warfare
  * Ion Storm IdTech
    - Daikatana
- * Raven IdTech
-   - Medal of Honor: Allied Assault (Demo, Release & DLC)
  * Respawn Engine
    - Titanfall (Xbox360)
  * Source Engine
