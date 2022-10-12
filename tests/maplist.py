@@ -156,7 +156,8 @@ extracted_dirs = {
                                "pak1/maps",  # 4 maps | 20 MB | .pak
                                "pak3/maps"],  # 22 maps | 107 MB | .pak
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
-                    "pak1/maps"],  # 8 maps | 10 MB | .pak
+                    "pak1/maps",  # 8 maps | 10 MB | .pak
+                    "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak
         "QuakeIII": ["baseq3/pak0.pk3/maps",  # 31 maps | 110 MB | .pk3
                      "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
                      # "baseq3/pak4.pk3/maps",  # only .aas files
@@ -414,8 +415,7 @@ group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dir
 
 # registering tests/maps first
 installed_games = {("./", "tests/maps"): ["Call of Duty 4", "Call of Duty 4/mp",
-                                          "Quake",
-                                          "Quake 3 Arena",
+                                          "Quake", "Quake 2", "Quake 3 Arena",
                                           "Team Fortress 2"]}
 for group, games in group_dirs.items():
     if os.path.exists(group):

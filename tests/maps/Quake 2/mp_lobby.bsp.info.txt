@@ -1,0 +1,135 @@
+#### Using working directory '...\tests\mapsrc\Trenchbroom\Quake 2'
+#### Executing '"...\q2tools-220-10-4-22-win64\4bsp.exe" -moddir "...\baseq2" mp_lobby.map'
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 4bsp >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+BSP compiler build Oct  4 2022
+microvolume = 0.020000
+
+moddir = ...\baseq2\
+basedir = ...\baseq2\
+gamedir = ...\tests\mapsrc\Trenchbroom\Quake 2\..\..\
+entering ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.map
+0...2...5...7... (0)
+0...2...5...7... (0)
+
+texinfo count: 16 of 16384 maximum
+brushsides count: 36 of 65536 maximum
+writing ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.prt
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FILE STATS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+models:            1        size:      48
+brushes:           6        size:      72
+brushsides:       36        size:     144
+planes:           40        size:     800
+texinfo:          16        size:    1216
+entdata:           3        size:     181
+vertices:         29        size:     348
+nodes:            27        size:     756
+faces:            24        size:     480
+leafs:            29        size:     812
+leaffaces:        24        size:      48
+leafbrushes:      16        size:      32
+edges:            51        size:     204
+surfedges:       100        size:     400
+                  lightdata size:       0
+                    visdata size:       0
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END 4bsp >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#### Finished with exit status 0
+
+#### Executing '"...\q2tools-220-10-4-22-win64\4vis.exe" -moddir "...\baseq2" mp_lobby.bsp'
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 4vis >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+visibility compiler build Oct  4 2022
+moddir = ...\baseq2\
+basedir = ...\baseq2\
+gamedir = ...\tests\mapsrc\Trenchbroom\Quake 2\..\..\
+reading ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.bsp
+reading ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.prt
+   4 portalclusters
+   4 numportals
+0...1...2...3...5...6...7...8... (0)
+0...1...2...3...5...6...7...8... (0)
+Average clusters visible: 4
+Building PHS...
+Average clusters hearable: 4
+visdatasize: 44 compressed from 64
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FILE STATS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+models:            1        size:      48
+brushes:           6        size:      72
+brushsides:       36        size:     144
+planes:           40        size:     800
+texinfo:          16        size:    1216
+entdata:           3        size:     181
+vertices:         29        size:     348
+nodes:            27        size:     756
+faces:            24        size:     480
+leafs:            29        size:     812
+leaffaces:        24        size:      48
+leafbrushes:      16        size:      32
+edges:            51        size:     204
+surfedges:       100        size:     400
+                  lightdata size:       0
+                    visdata size:      44
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END 4vis >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#### Finished with exit status 0
+
+#### Executing '"...\q2tools-220-10-4-22-win64\4rad.exe" -moddir "...\baseq2" mp_lobby.bsp'
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 4rad >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+radiosity compiler build Oct  4 2022
+sample nudge: 0.250000
+ambient     : 0.000000
+scale       : 1.000000
+maxlight    : 255.000000
+entity      : 1.000000
+direct      : 1.000000
+saturation  : 1.000000
+bounce      : 4
+radmin      : 0.000000
+subdiv      : 64.000000
+smooth angle: 44.000000
+nudge       : 0.250000
+threads     : -1
+moddir = ...\baseq2\
+basedir = ...\baseq2\
+gamedir = ...\tests\mapsrc\Trenchbroom\Quake 2\..\..\
+reading ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.bsp
+384 subdiv patches
+-------------------------
+1 direct lights
+0...1...2...3...4...5...6...7...8...9... (0)
+0...1...2...3...4...5...6...7...8...9... (0)
+0...1...2...3...4...5...6...7...8...9... (0)
+Smoothing edges found: 0
+writing ...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.bsp
+    0 seconds elapsed
+12414 bytes light data used of 2097152 max.
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FILE STATS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+models:            1        size:      48
+brushes:           6        size:      72
+brushsides:       36        size:     144
+planes:           40        size:     800
+texinfo:          16        size:    1216
+entdata:           3        size:     181
+vertices:         29        size:     348
+nodes:            27        size:     756
+faces:            24        size:     480
+leafs:            29        size:     812
+leaffaces:        24        size:      48
+leafbrushes:      16        size:      32
+edges:            51        size:     204
+surfedges:       100        size:     400
+                  lightdata size:   12414
+                    visdata size:      44
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< END 4rad >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#### Finished with exit status 0
+
+#### Copying '...\tests\mapsrc\Trenchbroom\Quake 2\mp_lobby.bsp' to 'E:\Mod\QuakeII\vkquake2-1.5.8_win64\baseq2\maps'
