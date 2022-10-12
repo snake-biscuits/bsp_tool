@@ -13,7 +13,8 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 38
 
-GAME_PATHS = {"Anachronox": "Anachronox", "Quake II": "Quake 2", "Heretic II": "Heretic II"}
+GAME_PATHS = {"Anachronox": "Anachronox", "Quake II": "Quake 2", "Heretic II": "Heretic II",
+              "D-Day Normandy": "D-Day_ Normandy/dday"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 

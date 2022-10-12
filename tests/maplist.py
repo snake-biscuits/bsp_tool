@@ -125,6 +125,8 @@ extracted_dirs = {
         "Anachronox": ["maps",  # 98 maps | 377 MB | .dat
                        "anox1.zip/maps"],  # 3 maps | 4 MB | .zip
         "Daikatana": ["pak2/maps"],  # 83 maps | 291 MB | .pak
+        "DDayNormandy": ["D-Day_ Normandy/dday/maps",  # 61 maps | 135 MB | .zip
+                         "DDaynormandymaps-mappack/dday/maps"],  # 658 maps | 1.08 GB | .zip
         "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
         "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
                    "pak1/maps"],  # 38 maps | 47 MB | .pak

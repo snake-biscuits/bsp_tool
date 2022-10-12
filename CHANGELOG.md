@@ -29,7 +29,7 @@
  * Support for `ValveBsp` & `RespawnBsp` x360 (big-endian) formats
  * Caught some unexpected behaviour with `GAME_LUMP_CLASS` dict deepcopies
 
-### Newly Supported
+### Newly Supported Branches
  * Infinity Ward Engine
    - Call of Duty 2
    - Call of Duty 4: Modern Warfare
