@@ -18,6 +18,7 @@ from .valve import GoldSrcBsp, ValveBsp
 
 
 BspVariant_from_file_magic = {b"2015": RitualBsp,
+                              b"2PSB": ReMakeQuakeBsp,
                               b"BSP2": ReMakeQuakeBsp,
                               b"EALA": RitualBsp,
                               b"EF2!": RitualBsp,
@@ -55,14 +56,16 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     # parse header
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
-        if file_magic == b"BSP2":
-            return ReMakeQuakeBsp(branches.id_software.remake_quake, filename)
+        if file_magic in (b"2PSB", b"BSP2"):
+            version = None
+        # elif file_magic == b"BSP2":
+        #     return ReMakeQuakeBsp(branches.id_software.remake_quake, filename)
         # endianness
-        if file_magic in (b"PSBr", b"PSBV"):  # big endian
+        elif file_magic in (b"PSBr", b"PSBV"):  # big endian
             version = int.from_bytes(bsp_file.read(4), "big")
         else:
             version = int.from_bytes(bsp_file.read(4), "little")
-        if version > 0xFFFF:  # 2 part version
+        if version is not None and version > 0xFFFF:  # 2 part version
             version = (version & 0xFFFF, version >> 16)  # major, minor
     # identify BspVariant
     if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4

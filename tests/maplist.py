@@ -114,10 +114,12 @@ extracted_dirs = {
                             "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
                             "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
         # http://quake.great-site.net/
-        # RemakeQuakeBsp
+        # ReMakeQuakeBsp
         "Alkaline": ["alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
                      "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
                      "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
+        # rome.ro Quake Map Source compiled with `ericw-tool/qbsp -2psb`
+        "Quake/2psb": ["maps"],  # 62 maps | 45 MB | .zip (.map)
         # Dimension of the Past
         "Quake/rerelease/dopa": ["pak0/maps"],  # 13 maps | 25 MB | .pak
         # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)

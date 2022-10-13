@@ -69,7 +69,8 @@ class ReMakeQuakeBsp(QuakeBsp):
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         # collect metadata
         file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.filename} is not a {self.__class__.__name__}"
+        if file_magic != self.file_magic and file_magic != bytes(reversed(self.file_magic)):
+            raise RuntimeError(f"{self.file} is not a RemakeQuakeBsp! file_magic is incorrect")
         self.file_magic = file_magic
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
@@ -98,7 +99,8 @@ class IdTechBsp(base.Bsp):
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         # collect metadata
         file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.file.name} file_magic is invalid: ({file_magic} != {self.file_magic})"
+        if file_magic != self.file_magic:
+            raise RuntimeError(f"{self.file} is not an IdTechBsp! file_magic is incorrect")
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()

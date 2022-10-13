@@ -4,8 +4,8 @@
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
 | [`InfinityWardBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/infinity_ward.py#L9) | 4 | Call of Duty 2 | [`infinity_ward.call_of_duty2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py) | 17 / 40 | 0 | 38.33% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 59 | Call of Duty | [`infinity_ward.call_of_duty1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) | 19 / 31 | 0 | 54.84% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 59 | Call of Duty: United Offensive | [`infinity_ward.call_of_duty1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) | 19 / 31 | 0 | 54.84% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 59 | Call of Duty | [`infinity_ward.call_of_duty1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) | 19 / 31 | 0 | 54.84% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 59 | Call of Duty: United Offensive | [`infinity_ward.call_of_duty1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) | 19 / 31 | 0 | 54.84% |
 
 
 ## Supported Lumps

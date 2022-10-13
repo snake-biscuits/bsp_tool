@@ -58,6 +58,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | RavenBsp        | raven.soldier_of_fortune2      |  Y  |
 # | RavenBsp        | ritual.sin                     |  N  |  # investigate
 # | ReMakeQuakeBsp  | id_software.remake_quake       |  Y  |
+# | ReMakeQuakeBsp  | id_software.remake_quake_old   |  Y  |
 # | RespawnBsp      | respawn.apex_legends           |  Y  |
 # | RespawnBsp      | respawn.titanfall              |  Y  |
 # | RespawnBsp      | respawn.titanfall_x360         |  N  |
@@ -107,7 +108,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           # TODO: present BSP2 (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
-                       ReMakeQuakeBsp: [branches.id_software.remake_quake]}),
+                       ReMakeQuakeBsp: [branches.id_software.remake_quake, branches.id_software.remake_quake_old]}),
           ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
                       {IdTechBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
                                    branches.raven.soldier_of_fortune, branches.ritual.sin]}),

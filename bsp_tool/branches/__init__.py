@@ -28,6 +28,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                                   raven.hexen2,
                                   valve.goldsrc],
                            b"2015": [ritual.mohaa, ritual.mohaa_demo],
+                           b"2PSB": [id_software.remake_quake_old],
                            b"BSP2": [id_software.remake_quake],
                            b"EF2!": [ritual.star_trek_elite_force2],
                            b"EALA": [ritual.mohaa_bt],
@@ -63,6 +64,7 @@ script_from_file_magic_and_version = dict()
 # ^ {(file_magic, version): branch_script}
 for file_magic, branch_scripts in scripts_from_file_magic.items():
     for branch_script in branch_scripts:
+        script_from_file_magic_and_version[(file_magic, branch_script.BSP_VERSION)] = branch_script
         for version in branch_script.GAME_VERSIONS.values():
             script_from_file_magic_and_version[(file_magic, version)] = branch_script
 

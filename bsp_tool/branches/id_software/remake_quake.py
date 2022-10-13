@@ -3,6 +3,7 @@
 from typing import List
 
 from . import quake
+from . import remake_quake_old
 
 
 FILE_MAGIC = b"BSP2"
@@ -38,26 +39,14 @@ LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class ClipNode(quake.ClipNode):  # LUMP 9
-    _format = "3i"
-
-
-class Edge(quake.Edge):  # LUMP 12
-    _format = "2I"  # List[int]
-
-
-class Face(quake.Face):  # LUMP 7
-    _format = "5i4Bi"
-
-
-class Leaf(quake.Leaf):  # LUMP 10
+class Leaf(remake_quake_old.Leaf):  # LUMP 10
     bounds: List[List[float]]
     # bounds.mins: List[float]
     # bounds.maxs: List[float]
     _format = "2i6f2I4B"
 
 
-class Node(quake.Node):  # LUMP 5
+class Node(remake_quake_old.Node):  # LUMP 5
     bounds: List[List[float]]
     # bounds.mins: List[float]
     # bounds.maxs: List[float]
@@ -65,16 +54,13 @@ class Node(quake.Node):  # LUMP 5
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = remake_quake_old.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = quake.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CLIP_NODES": ClipNode,
-                     "EDGES":      Edge,
-                     "FACES":      Face,
-                     "LEAVES":     Leaf,
+LUMP_CLASSES = remake_quake_old.LUMP_CLASSES.copy()
+LUMP_CLASSES.update({"LEAVES":     Leaf,
                      "NODES":      Node})
 
-SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = remake_quake_old.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*quake.methods]
+methods = [*remake_quake_old.methods]

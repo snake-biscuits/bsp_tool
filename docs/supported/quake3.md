@@ -3,7 +3,7 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`FusionBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L112) | 1 | Warsow | [`id_software.qfusion`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py) | 15 / 18 | 0 | 77.78% |
+| [`FusionBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L114) | 1 | Warsow | [`id_software.qfusion`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py) | 15 / 18 | 0 | 77.78% |
 | [`RavenBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/raven.py#L4) | 1 | Soldier of Fortune 2 | [`raven.soldier_of_fortune2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/raven/soldier_of_fortune2.py) | 11 / 18 | 0 | 61.11% |
 | [`RavenBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/raven.py#L4) | 1 | Star Wars Jedi Knight - Jedi Academy | [`raven.soldier_of_fortune2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/raven/soldier_of_fortune2.py) | 11 / 18 | 0 | 61.11% |
 | [`RavenBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/raven.py#L4) | 1 | Star Wars Jedi Knight II - Jedi Outcast | [`raven.soldier_of_fortune2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/raven/soldier_of_fortune2.py) | 11 / 18 | 0 | 61.11% |
@@ -14,12 +14,12 @@
 | [`RitualBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/ritual.py#L7) | 20 | Star Trek: Elite Force II | [`ritual.star_trek_elite_force2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2.py) | 12 / 30 | 0 | 40.00% |
 | [`RitualBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/ritual.py#L7) | 21 | Medal of Honor: Allied Assault - Breakthrough | [`ritual.mohaa_bt`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_bt.py) | 13 / 28 | 0 | 46.43% |
 | [`RitualBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/ritual.py#L7) | 42 | American McGee's Alice | [`ritual.fakk2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py) | 13 / 20 | 0 | 65.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 46 | Quake III Arena | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 46 | Quake Live | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 46 | WRATH: Aeon of Ruin | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 47 | Return to Castle Wolfenstein | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 47 | Wolfenstein Enemy Territory | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
-| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L83) | 666 | Dark Salvation | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 46 | Quake III Arena | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 46 | Quake Live | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 46 | WRATH: Aeon of Ruin | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 47 | Return to Castle Wolfenstein | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 47 | Wolfenstein Enemy Territory | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
+| [`IdTechBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/id_software.py#L84) | 666 | Dark Salvation | [`id_software.quake3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py) | 17 / 17 | 0 | 100.00% |
 
 
 ## Supported Lumps
@@ -31,7 +31,7 @@
 | 0 | 20 | `SHADERS` | [`ritual.fakk2.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L63) | 100% |
 | 0 | 21 | `SHADERS` | [`ritual.mohaa_demo.Shader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L111) | 100% |
 | 0 | 46 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
-| 1 | 1 | `SHADERS` |  | 0% |
+| 1 | 1 | `SHADER_REFERENCES` |  | 0% |
 | 1 | 12 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L217) | 100% |
 | 1 | 46 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L225) | 100% |
 | 2 | 1 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L217) | 100% |
@@ -68,8 +68,8 @@
 | 9 | 20 | `LEAF_SURFACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 9 | 21 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
 | 9 | 46 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L110) | 100% |
-| 10 | 1 | `DRAW_VERTICES` |  | 0% |
 | 10 | 1 | `VERTICES` | [`id_software.qfusion.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L129) | 0% |
+| 10 | 1 | `DRAW_VERTICES` |  | 0% |
 | 10 | 12 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L110) | 100% |
 | 10 | 18 | `SIDE_EQUATIONS` |  | 0% |
 | 10 | 46 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L233) | 100% |
@@ -98,8 +98,8 @@
 | 14 | 20 | `FOGS` |  | 0% |
 | 14 | 21 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
 | 14 | 46 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L163) | 100% |
-| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 1 | `LIGHT_GRID` | [`id_software.qfusion.GridLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L95) | 100% |
+| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 12 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L246) | 100% |
 | 15 | 18 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
 | 15 | 19 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L246) | 100% |
