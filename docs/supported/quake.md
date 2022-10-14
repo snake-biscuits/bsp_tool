@@ -40,6 +40,5 @@
 | 13 | 0 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 14 | 0 | `MODELS` | [`id_software.quake.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L193) | 87% |
 | 14 | 29 | `MODELS` | [`raven.hexen2.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/raven/hexen2.py#L67) | 100% |
-| 14 | 29 | `MODELS` | [`id_software.quake.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L193) | 87% |
 
 

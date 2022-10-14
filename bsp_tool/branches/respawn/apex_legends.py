@@ -271,6 +271,53 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
+class CellAABBNode(base.Struct):  # ...
+    """Identified by Fifty#8113"""
+    # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
+    mins: List[float]
+    child_data: int  # struct { uint32_t flags : 8, first_child : 16, num_children: 8; } child_data;
+    flags: int  # property; derived from child_data
+    first_child: int  # property; derived from child_data
+    num_children: int  # property; derived from child_data
+    # if num_children == 0, flags == 64
+    maxs: List[float]
+    unknown: int  # likely flags / metadata; might index ObjReferences?
+    __slots__ = ["mins", "child_data",
+                 "maxs", "unknown"]
+    _format = "3fI3fI"
+    # 3FI3fI is a common pattern for Respawn AABB based objects
+    # since you can pipe XYZ into SIMD registers quickly
+    # .w ints contain metadata & flags (see Extreme SIMD GDC Talk / Notes)
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+
+    # TODO: between this & valve.source.Leaf, we should add bitfields to base.Struct / MappedArray
+    # -- could be a dict e.g. {"bitfield": [(8, "a"), (16, "b"), (8, "c")]}
+    # -- be aware: endianess can mess with bitfield order
+    @property
+    def num_children(self):
+        return self.child_data & 0xFF
+
+    @num_children.setter
+    def num_children(self, new_flags: int):
+        self.child_data = (new_flags & 0xFF) | (self.child_data & 0xFFFFFF00)
+
+    @property
+    def first_child(self):
+        return (self.child_data >> 8) & 0xFFFF
+
+    @first_child.setter
+    def first_child(self, new_first_child: int):
+        self.child_data = ((new_first_child & 0xFFFF) << 8) | (self.child_data & 0xFF0000FF)
+
+    @property
+    def flags(self):
+        return self.child_data >> 24
+
+    @flags.setter
+    def flags(self, new_flags: int):
+        self.child_data = ((new_flags & 0xFF) << 24) | (self.child_data & 0x00FFFFFF)
+
+
 
 # NOTE: only one 36 byte entry per file
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
