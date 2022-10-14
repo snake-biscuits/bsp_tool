@@ -435,15 +435,15 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
 
     @first_child.setter
     def first_child(self, new_first_child: int):
-        self.area_flags = ((self.area & 0xFFFF) << 8) | (self.child_data & 0xFF0000FF)
+        self.child_data = ((new_first_child & 0xFFFF) << 8) | (self.child_data & 0xFF0000FF)
 
     @property
     def flags(self):
-        return self.flags >> 24
+        return self.child_data >> 24
 
     @flags.setter
     def flags(self, new_flags: int):
-        self.area_flags = ((self.area & 0xFF) << 24) | (self.child_data & 0x00FFFFFF)
+        self.child_data = ((new_flags & 0xFF) << 24) | (self.child_data & 0x00FFFFFF)
 
 
 class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
