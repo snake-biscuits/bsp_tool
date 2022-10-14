@@ -191,9 +191,12 @@ LumpHeader = source.LumpHeader
 # CM_* LUMPS
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
 
-# GridCell -?> Cell -?> Primitive | PrimitiveBounds
-#                  \-?> GeoSet | GeoSetBounds
-# ^ Primitive / GeoSet lookup by bounds?
+# Grid -?> GridCell -> GeoSetBounds | GeoSet -> Brush / Tricoll
+
+# what does the Cell lump do? (CoD introduces a Cell lump)
+# sounds vistree related (cell / node?)
+
+# how are CM_Primitives indexed?
 
 # BrushSideProperties is parallel w/ BrushSideTextureVector
 # len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
@@ -459,6 +462,7 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 
 class GeoSet(base.Struct):  # LUMP 87 (0057)
+    # TODO: Bitfields
     unknown_1: List[int]  # 2x uint16_t
     unknown_2: int  # uint8_t
     index: int  # -> brush / tricoll, depending on flags
@@ -473,12 +477,22 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
     scale: float  # scaled against some global vector in engine, I think
-    min_x: int  # *close* to (world_mins * scale) + scale
-    min_y: int  # *close* to (world_mins * scale) + scale
     unknown: List[int]
-    __slots__ = ["scale", "min_x", "min_y", "unknown"]
+    # unknown[1] is close to (world_mins.x * scale) + scale
+    # unknown[2] is close to (world_mins.y * scale) + scale
+    # FIFTY: unknown[2] * unknown[3] is always slightly lower than len(CMGridCells)
+    # -- struct CMGridCell { uint16_t unknown[2]; };
+    # -- CMGridCell.unknown[0] doesn't seem to surpass len(CMGeoSets) (<=)
+    __slots__ = ["scale", "unknown"]
     _format = "f6i"
-    _arrays = {"unknown": 4}
+    _arrays = {"unknown": 6}
+
+
+class GridCell(base.MappedArray):  # LUMP 86 (0056)
+    first_geo_set: int
+    num_geo_sets: int
+    _mapping = ["first_geo_set", "num_geo_sets"]
+    _format = "2H"
 
 
 # NOTE: only one 28 byte entry per file
@@ -860,7 +874,6 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_BRUSH_SIDE_PROPERTIES":    {0: shared.UnsignedShorts},  # surface / contents flags?
-                      "CM_GRID_CELLS":               {0: shared.UnsignedInts},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # source.Contents? test against vmts?
                       "CSM_OBJ_REFERENCES":          {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
@@ -881,6 +894,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CM_BRUSH_SIDE_TEXTURE_VECTORS":     {0: TextureVector},
                 "CM_GEO_SETS":                       {0: GeoSet},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
+                "CM_GRID_CELLS":                     {0: GridCell},
                 "CM_PRIMITIVES":                     {0: Primitive},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},

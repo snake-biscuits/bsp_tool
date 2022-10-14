@@ -62,8 +62,8 @@
 | 8 | 20 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 8 | 21 | `LEAVES` | [`ritual.mohaa_demo.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L92) | 100% |
 | 8 | 46 | `BRUSHES` | [`id_software.quake3.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L102) | 100% |
-| 9 | 1 | `BRUSH_SIDES` |  | 0% |
 | 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L57) | 100% |
+| 9 | 1 | `BRUSH_SIDES` |  | 0% |
 | 9 | 12 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
 | 9 | 20 | `LEAF_SURFACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 9 | 21 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
@@ -73,8 +73,8 @@
 | 10 | 12 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L110) | 100% |
 | 10 | 18 | `SIDE_EQUATIONS` |  | 0% |
 | 10 | 46 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L233) | 100% |
-| 11 | 1 | `DRAW_INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 11 | 1 | `ELEMENTS` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L37) | 100% |
+| 11 | 1 | `DRAW_INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 11 | 12 | `BRUSHES` |  | 0% |
 | 11 | 18 | `BRUSH_SIDES` | [`ritual.mohaa_demo.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L84) | 100% |
 | 11 | 20 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L209) | 100% |
@@ -90,8 +90,8 @@
 | 13 | 20 | `BRUSHES` |  | 0% |
 | 13 | 21 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L197) | 100% |
 | 13 | 46 | `FACES` | [`id_software.quake3.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L125) | 100% |
-| 14 | 1 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L163) | 100% |
 | 14 | 1 | `LIGHTMAPS` | [`id_software.qfusion.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L108) | 100% |
+| 14 | 1 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L163) | 100% |
 | 14 | 12 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |
 | 14 | 18 | `UNKNOWN_14` | [`ritual.mohaa_demo.Unknown14`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L121) | 100% |
 | 14 | 19 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L42) | 100% |

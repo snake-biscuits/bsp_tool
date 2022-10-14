@@ -10,7 +10,7 @@ FILE_MAGIC = b"2PSB"
 
 BSP_VERSION = None
 
-GAME_PATHS = {}  # No known mods use this format
+GAME_PATHS = {"DEPRECATED": ""}  # No known mods use this format
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 

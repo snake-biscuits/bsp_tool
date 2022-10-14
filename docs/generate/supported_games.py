@@ -86,6 +86,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 
 # TODO: more prefaces (insert .md)
 # NOTE: conflicts: cso2 & cso2_2018, quake & hexen2, qfusion & soldier_of_fortune2, goldsrc & blue_shift
+# NOTE: remake_quake & remake_quake_old conflict
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
                       {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
@@ -105,7 +106,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
                       {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
-          # TODO: present BSP2 (FILE_MAGIC only; no BSP_VERSION) better
+          # TODO: present BSP2 & 2PSB (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
                        ReMakeQuakeBsp: [branches.id_software.remake_quake, branches.id_software.remake_quake_old]}),
