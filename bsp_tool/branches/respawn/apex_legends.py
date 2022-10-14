@@ -271,7 +271,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class CellAABBNode(base.Struct):  # ...
+class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
     mins: List[float]
@@ -316,7 +316,6 @@ class CellAABBNode(base.Struct):  # ...
     @flags.setter
     def flags(self, new_flags: int):
         self.child_data = ((new_flags & 0xFF) << 24) | (self.child_data & 0x00FFFFFF)
-
 
 
 # NOTE: only one 36 byte entry per file
@@ -451,19 +450,20 @@ def ApexSPRP(raw_lump):
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
-                     "MATERIAL_SORT":       {0: MaterialSort},
-                     "MESHES":              {0: Mesh},
-                     "MODELS":              {0: Model},
-                     "PACKED_VERTICES":     {0: PackedVertex},
-                     "PLANES":              {0: titanfall.Plane},
-                     "SHADOW_MESHES":       {0: ShadowMesh},
-                     "TEXTURE_DATA":        {0: TextureData},
-                     "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
-                     "VERTEX_LIT_BUMP":     {0: VertexLitBump},
-                     "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
-                     "VERTEX_UNLIT":        {0: VertexUnlit},
-                     "VERTEX_UNLIT_TS":     {0: VertexUnlitTS}})
+LUMP_CLASSES.update({"CELL_AABB_NODES":    {0: CellAABBNode},
+                     "LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
+                     "MATERIAL_SORT":      {0: MaterialSort},
+                     "MESHES":             {0: Mesh},
+                     "MODELS":             {0: Model},
+                     "PACKED_VERTICES":    {0: PackedVertex},
+                     "PLANES":             {0: titanfall.Plane},
+                     "SHADOW_MESHES":      {0: ShadowMesh},
+                     "TEXTURE_DATA":       {0: TextureData},
+                     "VERTEX_BLINN_PHONG": {0: VertexBlinnPhong},
+                     "VERTEX_LIT_BUMP":    {0: VertexLitBump},
+                     "VERTEX_LIT_FLAT":    {0: VertexLitFlat},
+                     "VERTEX_UNLIT":       {0: VertexUnlit},
+                     "VERTEX_UNLIT_TS":    {0: VertexUnlitTS}})
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("CM_GRID")
