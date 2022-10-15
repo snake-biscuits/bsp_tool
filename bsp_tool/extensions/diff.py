@@ -164,10 +164,12 @@ def xxd(data: bytes, width: int = 32) -> str:
     # TODO: start index and length to read
     for i, _bytes in enumerate(split(data, width)):
         address = f"0x{i * width:08X}"
-        hex = " ".join([f"{b:02X}" for b in _bytes])
+        hex_ = " ".join([f"{b:02X}" for b in _bytes])
+        if len(hex_) < 3 * width:
+            hex_ += " " * (3 * width - len(hex_))
         # TODO: expand allowed ascii chars regex to include more punctuation and compile as a global!
         ascii = "".join([chr(b) if re.match(r"[a-zA-Z0-9/\\]", chr(b)) else "." for b in _bytes])
-        yield f"{address}:  {hex}  {ascii}"
+        yield f"{address}:  {hex_}  {ascii}"
 
 
 if __name__ == "__main__":
