@@ -1,5 +1,6 @@
 """Base classes for defining .bsp lump structs"""
 from __future__ import annotations
+import itertools
 import io
 import re
 import struct
@@ -14,11 +15,12 @@ from typing import Any, Dict, Iterable, List, Union
 # TODO: _subclass: Dict[str, Any] class variable for both Struct & MappedArray
 # ^ {"attr": SubClass, "attr2.sub": SubClass}
 # child_MappedArray = ...; SubClass.__init__(child_MappedArray)
-# allows for nesting vector.Vec3 in Structs
+# allows for nesting vector.vec3 in Structs
 # would need to be reversable into bytes in a standardised way; struct.pack(_format, *subclass_instance) ?
-# TODO: bitfields (split & rejoin)
+# TODO: _bitfields (as a subclass)
 # TODO: {int: Mapping} mappings (list of MappedArray)
 # -- e.g. {"triangle": {3: Vertex}}
+
 
 class Struct:
     """base class for tuple <-> class conversion
@@ -205,7 +207,7 @@ class MappedArray:
     # or, a dict containing a list of attr names, or another dict
     # this second form is difficult to express as a type hint
 
-    # TODO: test subclass definitions (MappedArray, vector.Vec3)
+    # TODO: test subclass definitions (MappedArray, vector.vec3)
 
     def __init__(self, *args, _mapping: Any = None, _format: str = None, **kwargs):
         if _format is None:
@@ -374,6 +376,64 @@ class MappedArray:
         # else:
         #     raise RuntimeError(f"Invalid _mapping type: {type(cls._mapping)}")
         # out.append("};\n")
+
+
+class BitField:
+    """Maps sub-integer data"""
+    _format: str = ""
+    _fields: Dict[(str, int)] = dict()
+    # NOTE: we kind of depend on fixed dict order, which isn't guarranteed in older python versions...
+    # TODO: either use ordered dict or check the python changelogs
+
+    def __init__(self, *args, _format: str = None, _fields: Any = None, **kwargs):
+        """generate a unique class at runtime, just like MappedArray"""
+        self._format = self._format if _format is None else _format
+        self._fields = self._fields if _fields is None else _fields
+        # valid specification
+        if not (self._format in "BHI" and len(self._format) == 1):
+            raise NotImplementedError("Only unsigned single integer BitFields are supported")
+        if sum(self._fields.values()) != struct.calcsize(self._format) * 8:
+            raise RuntimeError("fields do not match format")
+        # valid data
+        if len(args) > len(self._fields):
+            raise RuntimeError("too many values for current spec")
+        if any({k not in self._fields for k in kwargs}):
+            raise RuntimeError("invalid field names passed to __init__")
+        # set data w/ defaults
+        values = dict(itertools.zip_longest(self._fields, args, fillvalue=0))
+        values.update(kwargs)
+        for attr, size in _fields.items():
+            # TODO: generate setter properties that clamp ranges w/ warnings
+            setattr(self, attr, values[attr])
+
+    def __iter__(self) -> Iterable:  # for use as Struct / MappedArray _child_class
+        return iter([self.as_int()])
+
+    def __repr__(self) -> str:
+        attrs = []
+        for attr in self._fields.keys():
+            attrs.append(f"{attr}: {getattr(self, attr)}")
+        return f"<{self.__class__.__name__} ({', '.join(attrs)})>"
+
+    @classmethod
+    def from_int(cls, value: int, _fields: Dict[str, int] = None, _format: str = None) -> BitField:
+        out_format = cls._format if _format is None else _format
+        out_fields = cls._fields if _fields is None else _fields
+        out_args = list()
+        offset = 0
+        for size in out_fields.values():
+            mask = 2 ** size - 1 << offset
+            out_args.append(value & mask)
+            offset += size
+        return cls(*out_args, _format=out_format, _fields=out_fields)
+
+    def as_int(self) -> int:
+        out = 0
+        offset = 0
+        for attr, size in self._fields.items():
+            out += getattr(self, attr) << offset
+            offset += size
+        return out
 
 
 def split_format(_format: str) -> List[str]:
