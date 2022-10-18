@@ -54,11 +54,13 @@ class Entities(list):
             if "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
-                key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
+                key_value_pair = re.search(r'[\'"]([^"]*)[\'"]\s[\'"]([^"]*)[\'"]', line)
+                # NOTE: DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
+                # -- this seems illegal but the map runs without complaint
                 if not key_value_pair:
                     open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
-                    if not open_key_value_pair:
-                        RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+                    if open_key_value_pair is None:
+                        raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
                     key, value = open_key_value_pair.groups()
                     # TODO: use regex to catch CRLF line endings & unexpected whitespace
                     tail = re.search(r'([^"]*)"\s*$', line)
@@ -85,7 +87,7 @@ class Entities(list):
             elif line.strip() == b"\x00".decode():  # ignore null bytes
                 continue
             elif line.startswith("//"):  # ignore comments
-                continue
+                continue  # TODO: preserve comments
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
             super().__init__(entities)
