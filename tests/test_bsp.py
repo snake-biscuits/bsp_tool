@@ -30,6 +30,10 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
                 "Vindictus": branches.nexon.vindictus}
 # ^ {"game_name": branch_script}
 
+dday_mappack_excludes = ("dday3bh.bsp", "dofdtownbhv3.bsp", "gb1stdaybh.bsp", "iraidbhv3.bsp",
+                         "LIDDUX.bsp", "schlitz1.bsp", "wiltzbh.bsp", "wiltzbhv3.bsp")
+# TODO: make a pull request to https://github.com/PowaBanga/DDaynormandymaps removing these maps
+
 
 # NOTE: due to the dynamic way LumpClasses are loaded, they are not tested by this function
 # -- only header.length % struct.calcsize(LumpClass._format) & SpecialLumpClasses are tested in-depth
@@ -51,6 +55,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
         if os.path.exists(full_path):
             files = os.listdir(full_path)
             maps = fnmatch.filter(files, "*[Bb][Ss][Pp]")  # .bsp, .BSP & CoD2 .d3dbsp
+            maps = [m for m in maps if "." in m]  # DDayNormandy bomba2bsp edge case
             total += len(maps)
             assert len(maps) != 0, f"couldn't find any maps for {game_name} in {map_dir}"
             for m in maps:  # load every .bsp
@@ -62,6 +67,8 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # broken HL2:EP1 map (game crashes on load)
                     elif game_name == "half-life 2/hl1" and m in ("c4a1y.bsp", "c4a1z.bsp"):
                         continue  # broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)
+                    elif game_name == "DDayNormandy" and m in dday_mappack_excludes:
+                        continue  # maps probably tweaked in a text editor, all null bytes are spaces
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
                     loading_errors = dict()
