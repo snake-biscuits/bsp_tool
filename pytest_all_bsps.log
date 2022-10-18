@@ -3,7 +3,7 @@ platform win32 -- Python 3.9.13, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- c:\us
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-2.12.1
-[1mcollecting ... [0mcollected 203 items
+[1mcollecting ... [0mcollected 206 items
 
 tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[33m         [  0%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[33m [  0%][0m
@@ -17,128 +17,130 @@ tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemo
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-backontrack-map_dirs9] [32mPASSED[0m[33m [  4%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tworooms-map_dirs10] [32mPASSED[0m[33m [  5%][0m
 tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs11] [32mPASSED[0m[33m [  5%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] [32mPASSED[0m[33m [  6%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs13] [32mPASSED[0m[33m [  6%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs14] [32mPASSED[0m[33m [  7%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] [32mPASSED[0m[33m [  7%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[33m [  8%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] [32mPASSED[0m[33m [  8%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] [32mPASSED[0m[33m [  9%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] [32mPASSED[0m[33m [  9%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] [32mPASSED[0m[33m [ 10%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] [32mPASSED[0m[33m [ 10%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] [32mPASSED[0m[33m [ 11%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[33m [ 11%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[33m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[33m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[33m [ 13%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[33m [ 13%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[33m [ 14%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[33m [ 14%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[33m [ 15%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[33m [ 15%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[33m [ 16%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[33m [ 16%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34] [32mPASSED[0m[33m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs35] [32mPASSED[0m[33m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs36] [32mPASSED[0m[33m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs37] [32mPASSED[0m[33m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs38] [32mPASSED[0m[33m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EntropyZero2-map_dirs39] [32mPASSED[0m[33m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs40] [32mPASSED[0m[33m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs41] [32mPASSED[0m[33m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs42] [32mPASSED[0m[33m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs43] [32mPASSED[0m[33m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs44] [32mPASSED[0m[33m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs45] [32mPASSED[0m[33m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs46] [32mPASSED[0m[33m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs47] [32mPASSED[0m[33m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs48] [32mPASSED[0m[33m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs49] [32mPASSED[0m[33m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs50] [32mPASSED[0m[33m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs51] [32mPASSED[0m[33m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs52] [32mPASSED[0m[33m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 VR-map_dirs53] [32mPASSED[0m[33m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs54] [32mPASSED[0m[33m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs55] [32mPASSED[0m[33m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs56] [32mPASSED[0m[33m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs57] [32mPASSED[0m[33m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs58] [32mPASSED[0m[33m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs59] [32mPASSED[0m[33m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs60] [32mPASSED[0m[33m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs61] [32mPASSED[0m[33m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs62] [32mPASSED[0m[33m [ 31%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs63] [32mPASSED[0m[33m [ 31%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs64] [32mPASSED[0m[33m [ 32%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs65] [32mPASSED[0m[33m [ 32%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs66] [32mPASSED[0m[33m [ 33%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs67] [32mPASSED[0m[33m [ 33%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs68] [32mPASSED[0m[33m    [ 33%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs69] [32mPASSED[0m[33m         [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs70] [32mPASSED[0m[33m [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs71] [32mPASSED[0m[33m      [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs72] [32mPASSED[0m[33m [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs73] [32mPASSED[0m[33m    [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs74] [32mPASSED[0m[33m     [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs75] [32mPASSED[0m[33m     [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs76] [32mPASSED[0m[33m        [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs77] [32mPASSED[0m[33m        [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs78] [32mPASSED[0m[33m          [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs79] [32mPASSED[0m[33m           [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs80] [32mPASSED[0m[33m           [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs81] [32mPASSED[0m[33m          [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs82] [32mPASSED[0m[33m [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs83] [32mPASSED[0m[33m       [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs84] [32mPASSED[0m[33m      [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs85] [32mPASSED[0m[33m [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs86] [32mPASSED[0m[33m     [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs87] [32mPASSED[0m[33m        [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs88] [32mPASSED[0m[33m         [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs89] [32mPASSED[0m[33m       [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs90] [32mPASSED[0m[33m        [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs91] [32mPASSED[0m[33m          [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs92] [32mPASSED[0m[33m          [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs93] [32mPASSED[0m[33m          [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs94] [32mPASSED[0m[33m     [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs95] [32mPASSED[0m[33m [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs96] [32mPASSED[0m[33m     [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs97] [32mPASSED[0m[33m    [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs98] [32mPASSED[0m[33m          [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs99] [32mPASSED[0m[33m [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs100] [32mPASSED[0m[33m [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs101] [32mPASSED[0m[33m [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs102] [32mPASSED[0m[33m        [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs103] [32mPASSED[0m[33m  [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs104] [32mPASSED[0m[33m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs105] [32mPASSED[0m[33m [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs106] [31mFAILED[0m[31m    [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs107] [32mPASSED[0m[31m [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs108] [32mPASSED[0m[31m    [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs109] [32mPASSED[0m[31m [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs110] [32mPASSED[0m[31m   [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs111] [32mPASSED[0m[31m  [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs112] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs113] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs114] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs115] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs116] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs117] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs118] [32mPASSED[0m[31m [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs119] [32mPASSED[0m[31m        [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs120] [32mPASSED[0m[31m        [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs121] [32mPASSED[0m[31m   [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs122] [32mPASSED[0m[31m   [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs123] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs124] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs125] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs126] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs127] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs128] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs129] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs130] [32mPASSED[0m[31m [ 64%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs131] [32mPASSED[0m[31m [ 65%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs132] [32mPASSED[0m[31m [ 65%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs133] [32mPASSED[0m[31m [ 66%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] [31mFAILED[0m[31m [  6%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs13] [32mPASSED[0m[31m [  6%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs14] [32mPASSED[0m[31m [  7%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] [32mPASSED[0m[31m [  7%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[31m [  8%][0m
+tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] [32mPASSED[0m[31m [  8%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] [32mPASSED[0m[31m [  9%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] [32mPASSED[0m[31m [  9%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] [32mPASSED[0m[31m [ 10%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] [32mPASSED[0m[31m [ 10%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] [32mPASSED[0m[31m [ 11%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[31m [ 11%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[31m [ 12%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[31m [ 12%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[31m [ 13%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[31m [ 13%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[31m [ 14%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[31m [ 14%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[31m [ 15%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[31m [ 15%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[31m [ 16%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[31m [ 16%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs34] [32mPASSED[0m[31m [ 16%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs35] [32mPASSED[0m[31m [ 17%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs36] [32mPASSED[0m[31m [ 17%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs37] [32mPASSED[0m[31m [ 18%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs38] [32mPASSED[0m[31m [ 18%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EntropyZero2-map_dirs39] [32mPASSED[0m[31m [ 19%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs40] [32mPASSED[0m[31m [ 19%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs41] [32mPASSED[0m[31m [ 20%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs42] [32mPASSED[0m[31m [ 20%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs43] [32mPASSED[0m[31m [ 21%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs44] [32mPASSED[0m[31m [ 21%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs45] [32mPASSED[0m[31m [ 22%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs46] [32mPASSED[0m[31m [ 22%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs47] [32mPASSED[0m[31m [ 23%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs48] [32mPASSED[0m[31m [ 23%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs49] [32mPASSED[0m[31m [ 24%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs50] [32mPASSED[0m[31m [ 24%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs51] [32mPASSED[0m[31m [ 25%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs52] [32mPASSED[0m[31m [ 25%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 VR-map_dirs53] [32mPASSED[0m[31m [ 26%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs54] [32mPASSED[0m[31m [ 26%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs55] [32mPASSED[0m[31m [ 27%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs56] [32mPASSED[0m[31m [ 27%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs57] [32mPASSED[0m[31m [ 28%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs58] [32mPASSED[0m[31m [ 28%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs59] [32mPASSED[0m[31m [ 29%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs60] [32mPASSED[0m[31m [ 29%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs61] [32mPASSED[0m[31m [ 30%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs62] [32mPASSED[0m[31m [ 30%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs63] [32mPASSED[0m[31m [ 31%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs64] [32mPASSED[0m[31m [ 31%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs65] [31mFAILED[0m[31m [ 32%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs66] [32mPASSED[0m[31m [ 32%][0m
+tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs67] [32mPASSED[0m[31m [ 33%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs68] [32mPASSED[0m[31m    [ 33%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs69] [32mPASSED[0m[31m         [ 33%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs70] [32mPASSED[0m[31m [ 34%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs71] [32mPASSED[0m[31m      [ 34%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/2psb-map_dirs72] [32mPASSED[0m[31m    [ 35%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs73] [32mPASSED[0m[31m [ 35%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs74] [32mPASSED[0m[31m    [ 36%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs75] [32mPASSED[0m[31m     [ 36%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs76] [31mFAILED[0m[31m  [ 37%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs77] [32mPASSED[0m[31m     [ 37%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs78] [32mPASSED[0m[31m        [ 38%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs79] [32mPASSED[0m[31m        [ 38%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs80] [32mPASSED[0m[31m          [ 39%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs81] [32mPASSED[0m[31m           [ 39%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs82] [32mPASSED[0m[31m           [ 40%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs83] [32mPASSED[0m[31m          [ 40%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs84] [32mPASSED[0m[31m [ 41%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs85] [32mPASSED[0m[31m       [ 41%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs86] [32mPASSED[0m[31m      [ 42%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs87] [32mPASSED[0m[31m [ 42%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs88] [32mPASSED[0m[31m     [ 43%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs89] [32mPASSED[0m[31m        [ 43%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs90] [32mPASSED[0m[31m         [ 44%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs91] [32mPASSED[0m[31m       [ 44%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs92] [32mPASSED[0m[31m        [ 45%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs93] [32mPASSED[0m[31m          [ 45%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs94] [32mPASSED[0m[31m          [ 46%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs95] [32mPASSED[0m[31m          [ 46%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs96] [32mPASSED[0m[31m     [ 47%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs97] [32mPASSED[0m[31m [ 47%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs98] [32mPASSED[0m[31m     [ 48%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs99] [32mPASSED[0m[31m    [ 48%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs100] [32mPASSED[0m[31m         [ 49%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs101] [32mPASSED[0m[31m [ 49%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs102] [32mPASSED[0m[31m [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs103] [32mPASSED[0m[31m [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs104] [32mPASSED[0m[31m        [ 50%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs105] [32mPASSED[0m[31m  [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs106] [32mPASSED[0m[31m [ 51%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs107] [32mPASSED[0m[31m [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs108] [31mFAILED[0m[31m    [ 52%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs109] [32mPASSED[0m[31m [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs110] [32mPASSED[0m[31m    [ 53%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs111] [32mPASSED[0m[31m [ 54%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs112] [32mPASSED[0m[31m   [ 54%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs113] [32mPASSED[0m[31m  [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs114] [32mPASSED[0m[31m [ 55%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs115] [32mPASSED[0m[31m [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs116] [32mPASSED[0m[31m [ 56%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs117] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs118] [32mPASSED[0m[31m [ 57%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs119] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs120] [32mPASSED[0m[31m [ 58%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs121] [32mPASSED[0m[31m        [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs122] [32mPASSED[0m[31m        [ 59%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs123] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs124] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs125] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs126] [32mPASSED[0m[31m [ 61%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs127] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs128] [32mPASSED[0m[31m [ 62%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs129] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs130] [32mPASSED[0m[31m [ 63%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs131] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs132] [32mPASSED[0m[31m [ 64%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs133] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs134] [32mPASSED[0m[31m [ 65%][0m
+tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs135] [32mPASSED[0m[31m [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 66%][0m
 tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 67%][0m
@@ -174,6 +176,7 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 82%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 82%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 83%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake_old] [32mPASSED[0m[31m [ 83%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 83%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
@@ -210,7 +213,262 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [100%][0m
 
 ================================== FAILURES ===================================
-[31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs106] _________________[0m
+[31m[1m_ test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] _[0m
+
+group_path = 'C:/Program Files (x86)/Steam/steamapps/sourcemods'
+game_name = 'tunetwo', map_dirs = ['maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:
+                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = [96mdict[39;49;00m()
+                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():
+                            lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)
+                            [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:
+                                loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error
+                            [94melse[39;49;00m:
+                                loading_errors[lump_name] = error
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                       [94mfor[39;49;00m k, v [95min[39;49;00m bsp.GAME_LUMP.loading_errors.items()})
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            [90m# NOTE: if collecting external lumps for a BspClass w/o versions this will break[39;49;00m
+                            loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                   [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.GAME_LUMP.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v  [90m# noqa E501[39;49;00m
+                                                           [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.GAME_LUMP.loading_errors.items()})
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,
+                                            *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, bsp_version[39;49;00m
+                                            *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])
+[1m[31mE       AssertionError: 1 out of 12 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
+[1m[31mE         ENTITIES v0[0m
+[1m[31mE       assert {'maps/tt13_everything.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 1 more item:[0m
+[1m[31mE         {'maps/tt13_everything.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE         - {}[0m
+[1m[31mE         + {'maps/tt13_everything.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')}[0m
+
+[1m[31mtests\test_bsp.py[0m:107: AssertionError
+[31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs65] __[0m
+
+group_path = 'D:/SteamLibrary/steamapps/common', game_name = 'Team Fortress 2'
+map_dirs = ['tf/maps', 'tf/download/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:
+                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = [96mdict[39;49;00m()
+                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():
+                            lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)
+                            [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:
+                                loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error
+                            [94melse[39;49;00m:
+                                loading_errors[lump_name] = error
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                       [94mfor[39;49;00m k, v [95min[39;49;00m bsp.GAME_LUMP.loading_errors.items()})
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            [90m# NOTE: if collecting external lumps for a BspClass w/o versions this will break[39;49;00m
+                            loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                   [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.GAME_LUMP.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v  [90m# noqa E501[39;49;00m
+                                                           [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.GAME_LUMP.loading_errors.items()})
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,
+                                            *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, bsp_version[39;49;00m
+                                            *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])
+[1m[31mE       AssertionError: 1 out of 652 .bsps failed[0m
+[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
+[1m[31mE         ENTITIES v0[0m
+[1m[31mE       assert {'tf/download/maps/pd_jetpacks_n_shotguns_v3a.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 1 more item:[0m
+[1m[31mE         {'tf/download/maps/pd_jetpacks_n_shotguns_v3a.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE         - {}[0m
+[1m[31mE         + {'tf/download/maps/pd_jetpacks_n_shotguns_v3a.bsp': AssertionError('ENTITIES v0\nassert 1 == 0\n  +1\n  -0')}[0m
+
+[1m[31mtests\test_bsp.py[0m:107: AssertionError
+[31m[1m________________ test_load_bsp[E:/Mod-DDayNormandy-map_dirs76] ________________[0m
+
+group_path = 'E:/Mod', game_name = 'DDayNormandy'
+map_dirs = ['D-Day_ Normandy/dday/maps', 'DDaynormandymaps-mappack/dday/maps']
+
+    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])
+    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):
+        [33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m
+        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m
+        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m
+        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m
+        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m
+        errors = [96mdict[39;49;00m()
+        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m
+        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m
+        [90m# ^ {(BspClass, branch, version)}[39;49;00m
+        total = [94m0[39;49;00m
+        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:
+            full_path = os.path.join(group_path, game_name, map_dir)
+            [94mif[39;49;00m os.path.exists(full_path):
+                files = os.listdir(full_path)
+                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m
+                total += [96mlen[39;49;00m(maps)
+                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
+                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
+                    [94mtry[39;49;00m:
+                        bsp_filename = os.path.join(full_path, m)
+                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m
+                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:
+                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
+                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:
+                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m
+                        bsp = load_bsp(bsp_filename, branch_script)
+                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
+                        loading_errors = [96mdict[39;49;00m()
+                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():
+                            lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)
+                            [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:
+                                loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error
+                            [94melse[39;49;00m:
+                                loading_errors[lump_name] = error
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                       [94mfor[39;49;00m k, v [95min[39;49;00m bsp.GAME_LUMP.loading_errors.items()})
+                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):
+                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m
+                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m
+                            [90m# NOTE: if collecting external lumps for a BspClass w/o versions this will break[39;49;00m
+                            loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v
+                                                   [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})
+                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):
+                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m
+                                    loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.GAME_LUMP.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v  [90m# noqa E501[39;49;00m
+                                                           [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.GAME_LUMP.loading_errors.items()})
+                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())
+                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:
+                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m
+                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m
+                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m
+                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m
+                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):
+                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie
+                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m
+                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae
+                        types.add((bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.bsp_version))
+                        [94mdel[39;49;00m bsp
+>       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,
+                                            *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, bsp_version[39;49;00m
+                                            *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])
+[1m[31mE       AssertionError: 1 out of 719 .bsps failed[0m
+[1m[31mE         ('IdTechBsp', 'bsp_tool.branches.id_software.quake2', 38)[0m
+[1m[31mE         ENTITIES[0m
+[1m[31mE       assert {'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')} == {}[0m
+[1m[31mE         Left contains 1 more item:[0m
+[1m[31mE         {'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')}[0m
+[1m[31mE         Full diff:[0m
+[1m[31mE         - {}[0m
+[1m[31mE         + {'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n  +1\n  -0')}[0m
+
+[1m[31mtests\test_bsp.py[0m:107: AssertionError
+[31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs108] _________________[0m
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 
@@ -231,6 +489,7 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
             [94mif[39;49;00m os.path.exists(full_path):
                 files = os.listdir(full_path)
                 maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m
+                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m
                 total += [96mlen[39;49;00m(maps)
                 [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m
                 [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m
@@ -242,6 +501,8 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
                             [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m
                         [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):
                             [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m
+                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:
+                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m
                         bsp = load_bsp(bsp_filename, branch_script)
                         bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m
                         loading_errors = [96mdict[39;49;00m()
@@ -324,7 +585,7 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 [1m[31mE         +  'maps/s3_game_create_character.bsp': AssertionError('sprp v6\nassert 1 == 0\n  +1\n  -0'),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:100: AssertionError
+[1m[31mtests\test_bsp.py[0m:107: AssertionError
 [33m============================== warnings summary ===============================[0m
 bsp_tool\branches\valve\source.py:688: 1 warning
 tests/test_bsp.py: 12 warnings
@@ -342,24 +603,21 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  Portal
-  Brush
-  Node
-  Cell
-  Light
   PatchCollision
+  DrawVertex
   AxisAlignedBoundingBox
+  Model
+  Cell
+  Brush
   CullGroup
   Occluder
-  DrawVertex
-  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:81: UserWarning: Unused LumpClasses in branch script:
-  CollisionEdge
-  Model
   CollisionTriangle
+  Model
+  CollisionEdge
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
@@ -375,8 +633,8 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.resp
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:123: UserWarning: Unused LumpClasses in branch script:
-  LevelInfo
   Grid
+  LevelInfo
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360]
@@ -391,23 +649,24 @@ Name                                                 Stmts   Miss  Cover
 ------------------------------------------------------------------------
 bsp_tool\__init__.py                                    53      3    94%
 bsp_tool\base.py                                        77     33    57%
-bsp_tool\branches\__init__.py                           30      0   100%
+bsp_tool\branches\__init__.py                           31      0   100%
 bsp_tool\branches\arkane\__init__.py                     3      0   100%
 bsp_tool\branches\arkane\dark_messiah_mp.py             16      0   100%
 bsp_tool\branches\arkane\dark_messiah_sp.py             48      0   100%
-bsp_tool\branches\base.py                              265     40    85%
+bsp_tool\branches\base.py                              309     74    76%
 bsp_tool\branches\gearbox\__init__.py                    3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                 28      0   100%
 bsp_tool\branches\gearbox\nightfire.py                  90      0   100%
-bsp_tool\branches\id_software\__init__.py                6      0   100%
-bsp_tool\branches\id_software\qfusion.py                89      6    93%
+bsp_tool\branches\id_software\__init__.py                7      0   100%
+bsp_tool\branches\id_software\qfusion.py                91      6    93%
 bsp_tool\branches\id_software\quake.py                 293     82    72%
 bsp_tool\branches\id_software\quake2.py                135      3    98%
-bsp_tool\branches\id_software\quake3.py                169     11    93%
-bsp_tool\branches\id_software\remake_quake.py           25      0   100%
+bsp_tool\branches\id_software\quake3.py                185     24    87%
+bsp_tool\branches\id_software\remake_quake.py           20      0   100%
+bsp_tool\branches\id_software\remake_quake_old.py       25      0   100%
 bsp_tool\branches\infinity_ward\__init__.py              4      0   100%
-bsp_tool\branches\infinity_ward\call_of_duty1.py       147      6    96%
-bsp_tool\branches\infinity_ward\call_of_duty2.py       133      1    99%
+bsp_tool\branches\infinity_ward\call_of_duty1.py       170      6    96%
+bsp_tool\branches\infinity_ward\call_of_duty2.py       134      1    99%
 bsp_tool\branches\infinity_ward\modern_warfare.py       63      0   100%
 bsp_tool\branches\ion_storm\__init__.py                  2      0   100%
 bsp_tool\branches\ion_storm\daikatana.py                13      0   100%
@@ -424,8 +683,8 @@ bsp_tool\branches\raven\hexen2.py                       50      0   100%
 bsp_tool\branches\raven\soldier_of_fortune.py           14      0   100%
 bsp_tool\branches\raven\soldier_of_fortune2.py          32      0   100%
 bsp_tool\branches\respawn\__init__.py                    5      0   100%
-bsp_tool\branches\respawn\apex_legends.py              277     22    92%
-bsp_tool\branches\respawn\titanfall.py                 714    140    80%
+bsp_tool\branches\respawn\apex_legends.py              306     28    91%
+bsp_tool\branches\respawn\titanfall.py                 699    134    81%
 bsp_tool\branches\respawn\titanfall2.py                228      4    98%
 bsp_tool\branches\respawn\titanfall_x360.py             52     17    67%
 bsp_tool\branches\ritual\__init__.py                     7      0   100%
@@ -435,7 +694,7 @@ bsp_tool\branches\ritual\mohaa_bt.py                    12      0   100%
 bsp_tool\branches\ritual\mohaa_demo.py                  84      0   100%
 bsp_tool\branches\ritual\sin.py                         14      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2.py      72      0   100%
-bsp_tool\branches\shared.py                             90     21    77%
+bsp_tool\branches\shared.py                             89     19    79%
 bsp_tool\branches\troika\__init__.py                     2      0   100%
 bsp_tool\branches\troika\vampire.py                     37      0   100%
 bsp_tool\branches\valve\__init__.py                     10      0   100%
@@ -454,20 +713,23 @@ bsp_tool\extensions\__init__.py                          0      0   100%
 bsp_tool\extensions\archive.py                          70     70     0%
 bsp_tool\extensions\decompile_rbsp.py                   78     78     0%
 bsp_tool\extensions\decrypt_xor.py                      11     11     0%
-bsp_tool\extensions\diff.py                            111    111     0%
+bsp_tool\extensions\diff.py                            113    113     0%
 bsp_tool\extensions\lightmaps.py                       224    224     0%
 bsp_tool\extensions\mprt.py                             12     12     0%
 bsp_tool\extensions\upgrade.py                          44     44     0%
-bsp_tool\id_software.py                                 74      8    89%
+bsp_tool\id_software.py                                 76      7    91%
 bsp_tool\infinity_ward.py                               52      7    87%
 bsp_tool\lumps\__init__.py                             358     93    74%
 bsp_tool\raven.py                                        3      0   100%
 bsp_tool\respawn.py                                    245    129    47%
 bsp_tool\ritual.py                                      22      0   100%
-bsp_tool\valve.py                                      140     75    46%
+bsp_tool\valve.py                                      140     72    49%
 ------------------------------------------------------------------------
-TOTAL                                                 7312   1749    76%
+TOTAL                                                 7437   1792    76%
 
 =========================== short test summary info ===========================
-FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs106] - Asser...
-[31m========== [31m[1m1 failed[0m, [32m202 passed[0m, [33m21 warnings[0m[31m in 17651.00s (4:54:10)[0m[31m ===========[0m
+FAILED tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12]
+FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs65]
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs76] - Ass...
+FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs108] - Asser...
+[31m========== [31m[1m4 failed[0m, [32m202 passed[0m, [33m21 warnings[0m[31m in 16263.39s (4:31:03)[0m[31m ===========[0m
