@@ -57,6 +57,9 @@ class Entities(list):
                 key_value_pair = re.search(r'[\'"]([^"]*)[\'"]\s[\'"]([^"]*)[\'"]', line)
                 # NOTE: DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
                 # -- this seems illegal but the map runs without complaint
+                # TODO: properly handle multi-line key-value messages in MapLab's tunetwo/tt13_everything.bsp
+                # -- allow single quotes encasing double quotes?
+                # -- we haven't even tested this on all .ent files in out possesion
                 if not key_value_pair:
                     open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
                     if open_key_value_pair is None:
