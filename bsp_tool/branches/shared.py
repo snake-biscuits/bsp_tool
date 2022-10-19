@@ -54,20 +54,19 @@ class Entities(list):
             if "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
-                key_value_pair = re.search(r'[\'"]([^"]*)[\'"]\s[\'"]([^"]*)[\'"]', line)
-                # NOTE: DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
-                # -- this seems illegal but the map runs without complaint
-                # TODO: properly handle multi-line key-value messages in MapLab's tunetwo/tt13_everything.bsp
-                # -- allow single quotes encasing double quotes?
-                # -- we haven't even tested this on all .ent files in out possesion
+                key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
                 if not key_value_pair:
+                    # TODO: "key" 'value"
+                    # NOTE: DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
+                    # -- this seems illegal but the map runs without complaint
+                    # multi-line value
                     open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
                     if open_key_value_pair is None:
                         raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
                     key, value = open_key_value_pair.groups()
                     # TODO: use regex to catch CRLF line endings & unexpected whitespace
                     tail = re.search(r'([^"]*)"\s*$', line)
-                    while not tail:
+                    while not tail:  # keep grabbing lines until the end of the value
                         if "{" in line or "}" in line:
                             RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
                         line_no, line = next(enumerated_lines)
