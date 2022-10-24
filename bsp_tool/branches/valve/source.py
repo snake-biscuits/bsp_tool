@@ -78,7 +78,7 @@ class LUMP(enum.Enum):
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
     FACE_MACRO_TEXTURE_INFO = 47
-    DISPLACEMENT_TRIS = 48
+    DISPLACEMENT_TRIANGLES = 48
     PHYSICS_COLLIDE_SURFACE = 49  # deprecated / X360 ?
     WATER_OVERLAYS = 50  # deprecated / X360 ?
     LEAF_AMBIENT_INDEX_HDR = 51
@@ -120,6 +120,8 @@ class LumpHeader(base.MappedArray):
 # LeafAmbientIndex -> LeafAmbientSample
 
 # ClipPortalVertices are AreaPortal geometry [unverified]
+
+# Overlay & OverlayFade are parallel (paired w/ other of same index)
 
 
 # engine limits: (2013 SDK bspfile.h)
@@ -258,20 +260,10 @@ class ContentsMask(enum.IntEnum):
 
 
 class DisplacementFlags(enum.IntFlag):
-    """DisplacementInfo collision flags"""
     UNUSED = 1
     NO_PHYS = 2
     NO_HULL = 4
     NO_RAY = 8
-
-
-class DisplacementTriangle(enum.IntFlag):
-    """DisplacementTriangle flags"""
-    SURFACE = 0x01
-    WALKABLE = 0x02
-    BUILDABLE = 0x04
-    SURFPROP1 = 0x08  # use surfaceprop of first material?
-    SURFPROP2 = 0x10  # use surfaceprop of second material?
 
 
 class EmitType(enum.Enum):
@@ -283,13 +275,19 @@ class EmitType(enum.Enum):
     SKY_AMBIENT = 0x05  # spherical light w/ no falloff (surface must trace to SKY texture)
 
 
+class LeafFlags(enum.IntFlag):
+    SKY = 0x01
+    RADIAL = 0x02
+    SKY_2D = 0x04
+
+
 class PrimitiveType(enum.Enum):
     """stored in Primitive.type"""
     TRIANGLE_LIST = 0
     TRIANGLE_STRIP = 1
 
 
-class SPRP(enum.IntFlag):
+class StaticPropFlags(enum.IntFlag):
     # derived at compile or run time
     FADES = 0x1  # use fade distances
     USE_LIGHTING_ORIGIN = 0x2
@@ -304,6 +302,12 @@ class SPRP(enum.IntFlag):
     NO_PER_TEXEL_LIGHTING = 0x100  # when was this added
     # mask
     EDITOR_MASK = 0x1D8
+
+
+class StaticPropCollision(enum.IntFlag):
+    NON_SOLID = 0
+    BOUNDING_BOX = 2
+    VPHYSICS = 6
 
 
 class Surface(enum.IntFlag):  # src/public/bspflags.h
@@ -340,10 +344,10 @@ class Area(base.MappedArray):  # LUMP 20
 
 class AreaPortal(base.MappedArray):  # LUMP 21
     # public/bspfile.h dareaportal_t &  utils/vbsp/portals.cpp EmitAreaPortals
-    portal_key: int                # for tying to entities
-    first_clip_portal_vert: int    # index into the ClipPortalVertex lump
+    portal_key: int  # for tying to entities
+    first_clip_portal_vert: int  # index into the ClipPortalVertex lump
     num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
-    plane: int                     # index of into the Plane lump
+    plane: int  # index of into the Plane lump
     _mapping = ["portal_key", "other_area", "first_clip_portal_vertex",
                 "num_clip_portal_vertices", "plane"]
     _format = "4Hi"
@@ -352,28 +356,30 @@ class AreaPortal(base.MappedArray):  # LUMP 21
 class Brush(base.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
     first_side: int  # index into BrushSide lump
-    num_sides: int   # number of BrushSides after first_side in this Brush
-    contents: int    # contents bitflags
+    num_sides: int  # number of BrushSides after first_side in this Brush
+    contents: Contents
     __slots__ = ["first_side", "num_sides", "contents"]
     _format = "3i"
+    _classes = {"contents": Contents}
 
 
 class BrushSide(base.Struct):  # LUMP 19
-    plane: int      # index into Plane lump
-    texture_info: int   # index into TextureInfo lump
+    plane: int  # index into Plane lump
+    texture_info: int  # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
-    bevel: int      # bool? indicates if side is a bevel plane (BSPVERSION 7)
+    bevel: int  # bool? indicates if side is a bevel plane (BSPVERSION 7)
     __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "H3h"
 
 
 class Cubemap(base.Struct):  # LUMP 42
     """Location (origin) & resolution (size)"""
-    origin: List[float]  # origin.xyz
+    origin: vector.vec3
     size: int  # texture dimension (each face of a cubemap is square)
     __slots__ = ["origin", "size"]
     _format = "4i"
     _arrays = {"origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
 
 
 class DisplacementInfo(base.Struct):  # LUMP 26
@@ -383,10 +389,10 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     displacement_tri_start: int   # index of first DisplacementTriangle
     # ^ length of sequence for each varies depending on power
     power: int  # level of subdivision
-    flags: int  # see DisplacementFlags
+    flags: DisplacementFlags
     min_tesselation: int  # for tesselation shaders / triangle assembley?
     smoothing_angle: float  # ?
-    contents: int  # contents bitflags
+    contents: Contents
     map_face: int  # index of Face?
     __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start",
                  "power", "flags", "min_tesselation", "smoothing_angle", "contents",
@@ -395,23 +401,27 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     _format = "3f3iHhfiH2i88c10i"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
                "corner_neighbours": 44, "allowed_vertices": 10}
-    # TODO: map neighbours with base.Struct subclasses, rather than MappedArrays
-    # both the __init__ & flat methods may need some changes to accommodate this
+    _classes = {"start_position": vector.vec3, "flags": DisplacementFlags, "contents": Contents}
+    # TODO: EdgeNeighbour, CornerNeighbour
 
-    # def __init__(self, _tuple):
-    #     super(base.Struct, self).__init__(_tuple)
-    #     self.edge_neighbours = ...
-    #     self.corner_neighbours = ...
+
+class DisplacementTriangle(shared.UnsignedShort, enum.IntFlag):  # LUMP 48
+    SURFACE = 0x01
+    WALKABLE = 0x02
+    BUILDABLE = 0x04
+    SURFPROP1 = 0x08  # use surfaceprop of first material?
+    SURFPROP2 = 0x10  # use surfaceprop of second material?
 
 
 class DisplacementVertex(base.Struct):  # LUMP 33
     """The positional deformation & blend value of a point in a displacement"""
-    vector: List[float]  # direction of vertex offset from barymetric base
+    normal: vector.vec3  # direction of vertex offset from barymetric base
     distance: float      # length to scale deformation vector by
     alpha: float         # [0-1] material blend factor
-    __slots__ = ["vector", "distance", "alpha"]
+    __slots__ = ["normal", "distance", "alpha"]
     _format = "5f"
-    _arrays = {"vector": [*"xyz"]}
+    _arrays = {"normal": [*"xyz"]}
+    _classes = {"normal": vector.vec3}
 
 
 class Face(base.Struct):  # LUMP 7
@@ -427,12 +437,13 @@ class Face(base.Struct):  # LUMP 7
     styles: List[int]  # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
-    lightmap: List[float]
-    # lightmap.mins  # dimensions of lightmap segment
-    # lightmap.size  # scalars for lightmap segment
+    lightmap: List[vector.vec2]
+    # lightmap.mins: vector.vec2  # dimensions of lightmap segment
+    # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
-    # NOTE: num_primitives top bit is a flag for shadows, this means a max of 32768 primitives are allowed
-    num_primitives: int  # non-zero if t-juncts are present? number of Primitives
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives; BitField
+    # num_primitives.count: int  # limit of 32768
+    # num_primitives.allow_dynamic_shadows: bool
     first_primitive_id: int  # index of Primitive
     smoothing_groups: int  # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
@@ -441,48 +452,36 @@ class Face(base.Struct):  # LUMP 7
                  "num_primitives", "first_primitive_id", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _bitfields = {"num_primitives": {"count": 15, "allow_dynamic_shadows": 1}}
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
+                "num_primitives.allow_dynamic_shadows": bool}
 
 
 class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
-    contents: int  # Contents flags
-    cluster: int   # index of this Leaf's cluster (leaf group in VISIBILITY lump)
-    area_flags: int  # struct { uint16_t area : 9, flags : 7; } area_flags;
-    area: int  # property; derived from area_flags
-    flags: int  # property; derived from area_flags
-    # why was this done when the struct is padded by one short anyway?
-    mins: List[float]  # bounding box minimums along XYZ axes
-    maxs: List[float]  # bounding box maximums along XYZ axes
-    first_leaf_face: int   # index of first LeafFace
-    num_leaf_faces: int    # number of LeafFaces
+    contents: Contents
+    cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump)
+    area_flags: base.BitField  # area & flags bitfield
+    bounds: List[vector.vec3]  # uint16_t, very blocky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_leaf_face: int  # index of first LeafFace
+    num_leaf_faces: int  # number of LeafFaces
     first_leaf_brush: int  # index of first LeafBrush
     num_leaf_brushes: int  # number of LeafBrushes
     leaf_water_data_id: int  # -1 if this leaf isn't submerged
-    padding: int  # should be 0
+    padding: int  # should be 0; waste of a bitfield
     cube: List[List[int]]  # CompressedLightCube; unsure about orientation / face order
-    __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
+    __slots__ = ["contents", "cluster", "area_flags", "bounds",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
-                 "num_leaf_brushes", "leaf_water_data_id", "cube"]
-    _format = "i8h4H2h24B"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"],
+                 "num_leaf_brushes", "leaf_water_data_id", "padding", "cube"]
+    _format = "i2H6h4H2h24B"
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
     # TODO: map cube face names to UP, DOWN etc.
-
-    @property
-    def area(self):
-        return self.area_flags >> 7
-
-    @area.setter
-    def area(self, new_area: int):
-        self.area_flags = (new_area & 0x1FF) << 7 + self.flags
-
-    @property
-    def flags(self):
-        return self.area_flags & 0x7F
-
-    @flags.setter
-    def flags(self, new_flags: int):
-        self.area_flags = self.area << 7 + new_flags & 0x7F
+    _bitfields = {"area_flags": {"area": 9, "flags": 7}}
+    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: CompressedLightCube (8x RGBExponent / RGBA32)
 
 
 class LeafAmbientIndex(base.MappedArray):  # LUMP 52
@@ -495,12 +494,14 @@ class LeafAmbientIndex(base.MappedArray):  # LUMP 52
 class LeafAmbientSample(base.MappedArray):  # LUMP 56
     """cube of lighting samples"""
     cube: List[List[int]]  # unsure about orientation / face order
-    vector: List[int]
-    padding: int
-    __slots__ = ["cube", "vector", "padding"]
+    origin: vector.vec3  # uint8_t; "fixed point fraction of Leaf bounds"
+    padding: int  # should be 0
+    __slots__ = ["cube", "origin", "padding"]
     _format = "28B"
     _arrays = {"cube": {x: [*"rgbe"] for x in "ABCDEF"},  # integer keys in _mapping would be nicer
-               "vector": [*"xyz"]}
+               "origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
+    # TODO: CompressedLightCube (8x RGBExponent / RGBA32)
 
 
 class LeafWaterData(base.MappedArray):  # LUMP 36
@@ -513,32 +514,35 @@ class LeafWaterData(base.MappedArray):  # LUMP 36
 
 class Model(base.Struct):  # LUMP 14
     """Brush based entities; Index 0 is worldspawn"""
-    mins: List[float]  # bounding box minimums along XYZ axes
-    maxs: List[float]  # bounding box maximums along XYZ axes
-    origin: List[float]  # center of model, worldspawn is always at 0 0 0
-    head_node: int   # index into Node lump
+    bounds: List[vector.vec3]
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    origin: vector.vec3  # center of model, worldspawn is always at 0 0 0
+    head_node: int  # index into Node lump
     first_face: int  # index into Face lump
-    num_faces: int   # number of Faces after first_face in this Model
-    __slots__ = ["mins", "maxs", "origin", "head_node", "first_face", "num_faces"]
+    num_faces: int  # number of Faces after first_face in this Model
+    __slots__ = ["bounds", "origin", "head_node", "first_face", "num_faces"]
     _format = "9f3i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "origin": [*"xyz"]}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
 class Node(base.Struct):  # LUMP 5
-    plane: int            # index into Plane lump
-    children: List[int]   # 2 indices; Node if positive, Leaf if negative
-    mins: List[float]     # bounding box minimums along XYZ axes
-    maxs: List[float]     # bounding box maximums along XYZ axes
-    first_face: int       # index into Face lump
-    num_faces: int        # number of Faces after first_face in this Node
-    area: int             # index into Area lump, if all children are in the same area, else -1
-    padding: int          # should be empty
-    __slots__ = ["plane", "children", "mins", "maxs", "first_face", "num_faces",
+    plane: int  # index into Plane lump
+    children: List[int]  # 2 indices; Node if positive, Leaf if negative
+    bounds: List[vector.vec3]  # uint16_t, very blocky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_face: int  # index into Face lump
+    num_faces: int  # number of Faces after first_face in this Node
+    area: int  # index into Area lump, if all children are in the same area, else -1
+    # area is always 0?
+    padding: int  # should be 0
+    __slots__ = ["plane", "children", "bounds", "first_face", "num_faces",
                  "area", "padding"]
-    # area is appears to always be 0
-    # however leaves correctly connect to all areas
     _format = "3i6h2H2h"
-    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"children": 2, "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Overlay(base.Struct):  # LUMP 45
@@ -547,14 +551,16 @@ class Overlay(base.Struct):  # LUMP 45
     face_count: int  # render order in top 2 bits
     faces: List[int]
     uv: List[float]  # uncertain of order
-    points: List[List[float]]
-    origin: List[float]
-    normal: List[float]
+    points: List[vector.vec3]
+    origin: vector.vec3
+    normal: vector.vec3
     __slots__ = ["id", "texture_info", "face_count", "faces",
                  "uv", "points", "origin", "normal"]
     _format = "i2h64i22f"
     _arrays = {"faces": 64, "uv": ["left", "right", "top", "bottom"],
-               "points": {P: [*"xyz"] for P in "ABCD"}}
+               "points": {P: [*"xyz"] for P in "ABCD"}, "origin": [*"xyz"], "normal": [*"xyz"]}
+    # TODO: index uv & points w/ {int: _mapping} _arrays
+    _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
 
 
 class OverlayFade(base.MappedArray):  # LUMP 60
@@ -575,26 +581,30 @@ class Primitive(base.MappedArray):  # LUMP 37
 
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
-    reflectivity: List[float]
+    reflectivity: List[float]  # colour average of view rect?
     name_index: int  # index of texture name in TEXTURE_DATA_STRING_TABLE / TABLE
-    size: List[int]  # dimensions of full texture
-    view: List[int]  # dimensions of visible section of texture
+    size: vector.vec2  # dimensions of full texture
+    view: vector.vec2  # dimensions of visible section of texture
+    # NOTE: view rect top-left is determined with TextureInfo vectors & some math
     __slots__ = ["reflectivity", "name_index", "size", "view"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
+    _classes = {"size": vector.renamed_vec2("width", "height"), "view": vector.renamed_vec2("width", "height")}
+    # TODO: RGB24 reflectivity
 
 
 class TextureInfo(base.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
     texture: List[List[float]]  # 2 texture projection vectors
     lightmap: List[List[float]]  # 2 lightmap projection vectors
-    flags: int  # Surface flags
+    flags: Surface
     texture_data: int  # index of TextureData
     __slots__ = ["texture", "lightmap", "flags", "texture_data"]
     _format = "16f2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
-    # ^ nested MappedArrays; texture.s.x, texture.t.x
+    _classes = {"flags": Surface}
+    # TODO: vmf_tool TextureVector (singular) class -> TextureVectors w/ .pos_to_uv(vec3) method
 
 
 class WaterOverlay(base.Struct):  # LUMP 50
@@ -603,9 +613,9 @@ class WaterOverlay(base.Struct):  # LUMP 50
     face_count: int  # render order in top 2 bits
     faces: List[int]
     uv: List[float]  # uncertain of order
-    points: List[List[float]]
-    origin: List[float]
-    normal: List[float]
+    points: List[vector.vec3]
+    origin: vector.vec3
+    normal: vector.vec3
     __slots__ = ["id", "texture_info", "face_count", "faces",
                  "uv", "points", "origin", "normal"]
     _format = "i2h256i22f"
@@ -615,12 +625,12 @@ class WaterOverlay(base.Struct):  # LUMP 50
 
 class WorldLight(base.Struct):  # LUMP 15
     """A static light"""
-    origin: List[float]  # origin point of this light source
-    intensity: float     # light strength scalar
-    normal: List[float]  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    origin: vector.vec3  # origin point of this light source
+    intensity: vector.vec3  # brightness scalar?
+    normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
     cluster: int  # viscluster (leaf group)
-    emit_type: int  # EmitType
-    style: int  # lighting style
+    emit_type: EmitType
+    style: int  # lighting style (Face style index?)
     # see base.fgd:
     stop_dot: float  # spotlight penumbra start
     stop_dot2: float  # spotlight penumbra end
@@ -633,7 +643,7 @@ class WorldLight(base.Struct):  # LUMP 15
     linear: float
     quadratic: float
     # ^ these factor into some equation...
-    flags: int  # see WorldLightFlags
+    flags: WorldLightFlags
     texture_info: int  # index of TextureInfo
     owner: int  # parent entity ID
     __slots__ = ["origin", "intensity", "normal", "cluster", "emit_type", "style",
@@ -642,6 +652,8 @@ class WorldLight(base.Struct):  # LUMP 15
                  "flags", "texture_info", "owner"]
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+                "emit_type": EmitType, "flags": WorldLightFlags}
 
 
 # special lump classes, in alphabetical order:
@@ -663,7 +675,7 @@ class GameLumpHeader(base.MappedArray):
 
 class GameLump_SPRP:  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
-    StaticPropClass: object  # StaticPropvX
+    StaticPropClass: object  # StaticPropvXX
     model_names: List[str]
     leaves: List[int]
     props: List[object] | List[bytes]  # List[StaticPropClass]
@@ -701,7 +713,7 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.as_tuple()) for p in self.props]
         else:
             prop_bytes = []
         return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
@@ -714,35 +726,38 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
 
 class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L151"""
-    origin: List[float]  # origin.xyz
-    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
-    solid_mode: int  # collision flags enum
-    flags: int  # other flags
+    solid_mode: StaticPropCollision
+    flags: StaticPropFlags
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
-    lighting_origin: List[float]  # xyz position to sample lighting from
+    lighting_origin: vector.vec3  # position to sample lighting from
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin"]
     _format = "6f3H2Bi5f"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
+                "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L168"""
-    origin: List[float]  # origin.xyz
-    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
-    solid_mode: int  # collision flags enum
-    flags: int  # other flags
+    solid_mode: StaticPropCollision
+    flags: StaticPropFlags
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
-    lighting_origin: List[float]  # xyz position to sample lighting from
+    lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
@@ -750,20 +765,23 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     _format = "6f3H2Bi6f"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
+                "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
-    origin: List[float]  # origin.xyz
-    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
-    solid_mode: int  # collision flags enum
-    flags: int  # other flags
+    solid_mode: StaticPropCollision
+    flags: StaticPropFlags
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
-    lighting_origin: List[float]  # xyz position to sample lighting from
+    lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
@@ -772,20 +790,23 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     _format = "6f3H2Bi6f2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
+    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
+                "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
-    origin: List[float]  # origin.xyz
-    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int  # index into Leaf lump
     num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
-    solid_mode: int  # collision flags enum
-    flags: int  # other flags
+    solid_mode: StaticPropCollision
+    flags: StaticPropFlags
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
-    lighting_origin: List[float]  # xyz position to sample lighting from
+    lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
     diffuse_modulation: List[int]  # RGBA 32-bit colour
@@ -795,10 +816,13 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     _format = "6f3H2Bi6f2H4B"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
+                "lighting_origin": vector.vec3}
+    # TODO: angles QAngle, diffuse_modulation RBGExponent
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIS":         {0: shared.UnsignedShorts},
+BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIANGLES":    {0: DisplacementTriangle},
                       "FACE_IDS":                  {0: shared.UnsignedShorts},
                       "FACE_MACRO_TEXTURE_INFO":   {0: shared.Shorts},
                       "LEAF_BRUSHES":              {0: shared.UnsignedShorts},

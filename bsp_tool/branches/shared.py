@@ -34,6 +34,10 @@ class UnsignedInts(int):
     _format = "I"
 
 
+class UnsignedShort:  # enum.IntFlag base class
+    _format = "H"
+
+
 class UnsignedShorts(int):
     _format = "H"
 

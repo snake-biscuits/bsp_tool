@@ -11,6 +11,11 @@ from bsp_tool import branches
 
 
 # TODO: Use "./tests/maps/*.bsp" to check each LumpClass matches byte for byte
+# -- bsp.file.read() vs. bsp.lump_as_bytes()
+
+
+def LumpClassWarning(LumpClass, msg):
+    warnings.warn(UserWarning(f"{LumpClass.__name__} {msg}"))
 
 
 def LumpClasses_of(module: ModuleType) -> List[object]:
@@ -33,20 +38,28 @@ def verify(LumpClass):
     if isinstance(LumpClass, branches.base.Struct):
         if not hasattr(LumpClass, "__slots__"):
             raise NotImplementedError(f"{LumpClass.__name__} has no .__slots__!")
-        # TODO: verify names in type annotations match __slots__
         if hasattr(LumpClass, "_mapping"):
-            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using ._mapping!"))
+            LumpClassWarning(LumpClass, "should not be using ._mapping!")
         if not hasattr(LumpClass, "_arrays"):
-            warnings.warn(UserWarning(f"{LumpClass.__name__} should be a base.MappedArray"))
+            LumpClassWarning(LumpClass, "should be a base.MappedArray")
+        _format_mapped = "".join(branches.base.struct_attr_formats[LumpClass].values())
+        _format_expanded = "".join(branches.base.split_format(LumpClass._format))
+        if _format_mapped != _format_expanded:
+            LumpClassWarning(LumpClass, "does not map whole _format!")
+        if LumpClass.__annotations__.keys() != LumpClass.__slots__:
+            LumpClassWarning(LumpClass, "type hints do not match .__slots__!")
     # MappedArray
     elif isinstance(LumpClass, branches.base.MappedArray):
         if hasattr(LumpClass, "__slots__"):
-            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using .__slots__!"))
+            LumpClassWarning(LumpClass, "should not be using .__slots__!")
         if hasattr(LumpClass, "_arrays"):
-            warnings.warn(UserWarning(f"{LumpClass.__name__} should not be using ._arrays!"))
+            LumpClassWarning(LumpClass, "should not be using ._arrays!")
         if not hasattr(LumpClass, "_mapping"):
             raise NotImplementedError(f"{LumpClass.__name__} has no ._mapping!")
-        # TODO: verify names in type annotations match _mapping
+        if "".join(LumpClass()._attr_formats.values()) != "".join(branches.base.split_format(LumpClass._format)):
+            LumpClassWarning(LumpClass, "does not map whole _format!")
+        if LumpClass.__annotations__.keys() != LumpClass._mapping.keys():
+            LumpClassWarning(LumpClass, "type hints do not match top-level of ._mapping!")
     # Any
     if not hasattr(LumpClass, "_format"):
         raise NotImplementedError(f"{LumpClass.__name__} has no ._format!")
@@ -73,6 +86,7 @@ def test_basic_branch_script(branch_script):
     # -- also type hints
     used_LumpClasses.add(branch_script.LumpHeader)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
+    # TODO: exclude quake.MipTexture
     # TODO: trace what happens to imported LumpClasses
     # -- do they count as unused, because they are defined elsewhere?
     if len(unused_LumpClasses) > 0:

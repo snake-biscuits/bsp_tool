@@ -6,6 +6,8 @@ import math
 from typing import Iterable, Union
 
 
+# TODO: swizzle __getattr__ methods
+
 class vec2:
     """2D vector class"""
     __slots__ = ["x", "y"]
@@ -13,7 +15,7 @@ class vec2:
     y: float
 
     def __init__(self, x: float = 0, y: float = 0):
-        self.x, self.y = map(float, (x, y))
+        self.x, self.y = x, y
 
     def __abs__(self) -> float:
         return self.magnitude()
@@ -119,7 +121,7 @@ class vec3:
     z: float
 
     def __init__(self, x=0, y=0, z=0):
-        self.x, self.y, self.z = map(float, (x, y, z))
+        self.x, self.y, self.z = x, y, z
 
     def __abs__(self) -> float:
         return self.magnitude()
@@ -131,7 +133,7 @@ class vec3:
         if isinstance(other, vec2):
             if [*self] == [*other, 0]:
                 return True
-        elif isinstance(other, vec3):
+        elif isinstance(other, (vec3, Iterable)):
             if [*self] == [*other]:
                 return True
         elif isinstance(other, (int, float)):
@@ -274,3 +276,13 @@ def sort_clockwise(points: vec3, normal: Iterable) -> list:
                     proximity[i] += 1
     sorted_vec3s = [points[0]] + [points[i] for i in sorted(proximity.keys(), key=lambda k: proximity[k])]
     return sorted_vec3s
+
+
+def renamed_vec2(renamed_x: str, renamed_y: str) -> vec2:
+    """Surely there's a better way to do this"""
+    exec("\n".join([f"class vec2_{renamed_x}_{renamed_y}(vec2):",
+                    f"    def __set_x(s, x): s.x = x",
+                    f"    {renamed_x} = property(lambda s: s.x, __set_x)",
+                    f"    def __set_y(s, y): s.y = y",
+                    f"    {renamed_y} = property(lambda s: s.y, __set_y)"]))
+    return locals()[f"vec2_{renamed_x}_{renamed_y}"]

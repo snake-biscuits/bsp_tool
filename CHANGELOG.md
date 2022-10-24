@@ -16,6 +16,9 @@
    - built in asserts to verify accurate definitions (TODO: move to tests)
    - `as_bytes` method added
    - `from_stream` method added
+   - `_bitfields` attr added (works similar to `_arrays`, but creates `base.BitFields`)
+   - `_classes` attr added (works similar to `_arrays`, but creates any class)
+ * Added `base.BitField` for more reliable bitfield mapping
  * Completely refactored `branch_script` detection
    - only `file_magic` & `bsp_version` matter (unless `.d3dbsp`)
    - `load_bsp` now only accepts a `branch_script` as it's optional argument

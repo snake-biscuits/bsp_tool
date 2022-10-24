@@ -1,3 +1,6 @@
+import enum
+import inspect
+
 from typing import Any, Dict
 
 
@@ -7,6 +10,11 @@ def make_big_endian(cls) -> object:
     # altertives tried:
     # -- subclass w/ __name__: only applied on creation
     # -- copying class in locals() to a new name: original name persisted
+    if issubclass(cls, enum.Enum):  # class BasicBspClass(FormatBase, enum.IntFlag): pass
+        BaseClass = make_big_endian(inspect.getmro(cls)[1])  # hopefully index is consistent
+        exec("\n".join([f"class {cls.__name__}_x360(BaseClass, enum.IntFlag):",
+                        *[f"    {FLAG} = {value}" for FLAG, value in cls.__members__.items()]]))
+        return locals()[f"{cls.__name__}_x360"]
     exec("\n".join([f"class {cls.__name__}_x360(cls):",
                     f'    _format = ">{cls._format}"']))
     # NOTE: trying to use the `inspect` module on a LumpClass_x360 will raise an OSError

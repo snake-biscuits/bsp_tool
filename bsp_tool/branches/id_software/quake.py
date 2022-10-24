@@ -11,7 +11,7 @@ from typing import Any, Dict, List
 
 from .. import base
 from .. import shared  # special lumps
-from .. import vector  # methods
+from .. import vector
 
 
 FILE_MAGIC = None
@@ -95,14 +95,13 @@ class Contents(enum.IntFlag):
     # src/public/bspflags.h
     # NOTE: compiler gets these flags from a combination of all textures on the brush
     # e.g. any non opaque face means this brush is non-opaque, and will not block vis
-    # visible
     EMPTY = -1
     SOLID = -2
     WATER = -3
     SLIME = -4
     LAVA = -5
     SKY = -6
-    ORIGIN = -7  # remove when compiling from .map to .bsp
+    ORIGIN = -7  # removed when compiling from .map to .bsp
     CLIP = -8  # "changed to contents_solid"
     CURRENT_0 = -9
     CURRENT_90 = -10
@@ -111,16 +110,10 @@ class Contents(enum.IntFlag):
     CURRENT_UP = -13
     CURRENT_DOWN = -14
 
-
-class LeafType(enum.Enum):
-    # NOTE: other types exist, but are unknown
-    NORMAL = -1
-    SOLID = -2
-    WATER = -3
-    SLIME = -4
-    LAVA = -5
-    SKY = -6
-    # NOTE: types below 6 may not be implemented, but act like water
+    def __repr__(self):
+        if self < 0:
+            return super().__repr__()
+        return str(int(self))
 
 
 class PlaneType(enum.Enum):
@@ -140,16 +133,19 @@ class ClipNode(base.Struct):  # LUMP 9
     # NOTE: bounded by associated model
     # basic convex solid stuff
     plane: int
-    children: List[int]  # +ve ClipNode, -1 outside model, -2 inside model
+    children: List[int]  # +ve indexes ClipNode, -ve Contents
     __slots__ = ["plane", "children"]
     _format = "I2h"
     _arrays = {"children": ["front", "back"]}
+    _classes = {"children.front": Contents, "Children.back": Contents}
+    # NOTE: +ve children index other ClipNodes & will have a seriously inflated repr
+    # -- might be worth making a enum.IntFlag subclass w/ it's own __repr__ method
 
 
 class Edge(list):  # LUMP 12
     _format = "2H"  # List[int]
 
-    def flat(self):
+    def as_tuple(self):
         return self  # HACK
 
     @classmethod
@@ -172,29 +168,31 @@ class Face(base.Struct):  # LUMP 7
                  "lighting_type", "base_light", "light", "lightmap_offset"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
+    # TODO: FaceLightingType(enum.IntFlag)
 
 
 class Leaf(base.Struct):  # LUMP 10
-    type: int  # see LeafType enum
-    vis_offset: int  # index into the VISIBILITY lump
-    bounds: List[List[int]]
-    # bounds.mins: List[int]
-    # bounds.maxs: List[int]
+    contents: Contents
+    vis_offset: int  # index into the VISIBILITY lump; -1 for none
+    bounds: List[vector.vec3]  # uint16_t; very chunky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_leaf_face: int  # first LeafFace in this Leaf
     num_leaf_faces: int  # number of LeafFaces after first_leaf_face in this Leaf
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-    __slots__ = ["type", "vis_offset", "bounds", "first_leaf_face",
+    __slots__ = ["contents", "vis_offset", "bounds", "first_leaf_face",
                  "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "sound": ["water", "sky", "slime", "lava"]}
+    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Model(base.Struct):  # LUMP 14
-    bounds: List[List[float]]
-    # bounds.mins: List[float]
-    # bounds.maxs: List[float]
-    origin: List[float]
+    bounds: List[vector.vec3]
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    origin: vector.vec3
     # headnode[MAX_MAP_HULLS]:
     first_node: int  # first node in NODES lumps
     clip_nodes: List[int]  # 1st & second CLIP_NODES indices
@@ -202,36 +200,38 @@ class Model(base.Struct):  # LUMP 14
     num_leaves: int  # "not counting the solid leaf 0"
     first_face: int
     num_faces: int
-    __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unknown_node",
+    __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unused_node",
                  "num_leaves", "first_face", "num_faces"]
     _format = "9f7i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"],
                "clip_nodes": 2}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
 class Node(base.Struct):  # LUMP 5
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
-    bounds: List[int]  # for sphere culling at runtime
-    # bounds.mins: List[int]
-    # bounds.maxs: List[int]
-    # NOTE: bounds are generous, rounding up to the nearest 16 units
+    bounds: List[vector.vec3]  # uint16_t; very chunky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_face: int
     num_faces: int
     __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I8h2H"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Plane(base.Struct):  # LUMP 1
-    normal: List[float]
+    normal: vector.vec3
     distance: float
-    type: int  # see PlaneType enum
+    type: PlaneType
     __slots__ = ["normal", "distance", "type"]
     _format = "4fI"
     _arrays = {"normal": [*"xyz"]}
+    _classes = {"normal": vector.vec3, "type": PlaneType}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -243,9 +243,10 @@ class TextureInfo(base.Struct):  # LUMP 6
     _format = "8f2I"
     _arrays = {"s": [*"xyz", "offset"],
                "t": [*"xyz", "offset"]}
+    # TODO: TextureVector class (see vmf_tool)
 
 
-class Vertex(base.MappedArray):  # LUMP 3
+class Vertex(base.MappedArray, vector.vec3):  # LUMP 3
     """a point in 3D space"""
     x: float
     y: float
@@ -315,12 +316,14 @@ class MipTexture(base.Struct):  # LUMP 2
     # if name starts with "*" it scrolls like water / lava
     # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
     # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
-    size: List[int]  # width & height
+    # if name starts with "{" it can be transparent
+    size: vector.vec2  # width & height
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "offsets"]
     _format = "16s6I"
     _arrays = {"size": ["width", "height"],
                "offsets": ["full", "half", "quarter", "eighth"]}
+    _classes = {"size": vector.renamed_vec2("width", "height")}
 
 
 # TODO: Visibility
@@ -391,7 +394,8 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
     out["lightmap_offset"] = face.lightmap_offset
     if face.lightmap_offset == -1:
         out["width"], out["height"] = 0, 0
-        out["lightmap_bytes"] = []
+        out["lightmap_bytes"] = b""
+        return out
     # calculate uv bounds
     minU, minV = math.inf, math.inf
     maxU, maxV = -math.inf, -math.inf

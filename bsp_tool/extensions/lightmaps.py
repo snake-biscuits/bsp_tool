@@ -76,7 +76,7 @@ def save_ibsp_q3(ibsp, image_dir="./"):  # saves to image_dir/<ibsp.filename>.li
     # TODO: detect dimensions; iirc this is quake3 specific
     lightmap_images = list()
     for lightmap_data in ibsp.LIGHTMAPS:
-        lightmap = Image.frombytes("RGB", (128, 128), lightmap_data.flat(), "raw")
+        lightmap = Image.frombytes("RGB", (128, 128), lightmap_data.as_bytes(), "raw")
         lightmap_images.append(lightmap)
     tiled_lightmaps = sum(lightmap_images, start=LightmapPage(max_width=128 * 5))
     os.makedirs(image_dir, exist_ok=True)

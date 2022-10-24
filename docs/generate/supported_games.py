@@ -227,7 +227,10 @@ lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scrip
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
                      **{(branches.respawn.apex_legends, L): lightmaps.save_rbsp_r5
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
+# ^ {(branch_script, "LUMP"): function}
+# NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
+# TODO: Quake: branches.id_software.quake.lightmap_of_face (~75%)
 del vbsp_branch_scripts
 
 
@@ -455,6 +458,7 @@ def supported_md(group: ScriptGroup) -> List[str]:
                         attrs = len(LumpClass.__slots__)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass.__slots__])
                         # TODO: nested attrs (get format of unknown & divide by struct.calcsize()
+                        # -- child BitField unknowns
                     elif issubclass(LumpClass, branches.base.MappedArray):
                         attrs = len(LumpClass._mapping)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass._mapping])

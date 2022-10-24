@@ -82,7 +82,7 @@ class Bsp:
         # BspLump -> bytes
         elif lump_name in self.branch.LUMP_CLASSES:
             _format = self.branch.LUMP_CLASSES[lump_name]._format
-            raw_lump = b"".join([struct.pack(_format, *x.flat()) for x in lump_entries])
+            raw_lump = b"".join([struct.pack(_format, *x.as_tuple()) for x in lump_entries])
         # SpecialLumpClass -> bytes
         elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
             raw_lump = lump_entries.as_bytes()

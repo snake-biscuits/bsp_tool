@@ -9,6 +9,7 @@ from typing import List
 
 from .. import base
 from .. import shared
+from ..id_software import quake
 from ..valve import orange_box
 from ..valve import source
 
@@ -139,15 +140,8 @@ class DisplacementInfo(source.DisplacementInfo):  # LUMP 26
                "corner_neighbours": 72, "allowed_verts": 10}
 
 
-class Edge(list):  # LUMP 12
-    _format = "2I"
-
-    def flat(self):
-        return self  # HACK
-
-    @classmethod
-    def from_tuple(cls, _tuple):
-        return cls(_tuple)
+class Edge(quake.Edge):  # LUMP 12
+    _format = "2I"  # increased from uint16_t to uint32_t
 
 
 class Face(base.Struct):  # LUMP 7

@@ -7,10 +7,12 @@ from typing import Any, Dict, List, Union
 
 from .base import mapping_length, MappedArray, Struct
 # class base.Struct:
-#   __slots__: List[str]     # top-level attr name
-#   _format: str             # types
-#   _arrays: Dict[str, any]  # child mapping
+#   __slots__: List[str]        # top-level attr name
+#   _format: str                # types
+#   _arrays: Dict[str, Any]     # child mapping
 #   # ^ {"attr": _mapping}
+#   _bitfields: Dict[str, Any]  # struct { uint16_t b: 9, f: 7; } bf;  // alternate MappedArray
+#   _classes: Dict[str, Any]    # Vector position;  // predefine (link enum.IntFlags w/ comment)
 
 # class base.MappedArray:
 #     _mapping: int             # list of len _mapping
@@ -86,11 +88,16 @@ def split_format(_format: str) -> List[str]:
     return out
 
 
-type_LUT = {"c": "char",  "?": "bool",
-            "b": "char",  "B": "unsigned char",
-            "h": "short", "H": "unsigned short",
-            "i": "int",   "I": "unsigned int",
-            "f": "float", "g": "double"}
+# NOTE: C: #include <stdint.h>; C++: #include <cstdint.h>
+type_LUT = {"c": "char",    "?": "bool",
+            "b": "int8_t",  "B": "uint8_t",
+            "h": "int16_t", "H": "uint16_t",
+            "i": "int32_t", "I": "uint32_t",
+            "f": "float",   "g": "double"}
+# NOTE: can't detect strings with a dict
+# -- to catch strings: type_defaults[t] if not t.endswith("s") else ...
+# TODO: make a function to lookup type and check / trim string sizes
+# -- a trim / warn / fail setting would be ideal
 
 
 def c_type_of(attr: str, formats: List[str], mapping: StructMapping) -> (CType, str):
@@ -169,7 +176,7 @@ def get_type_hint_comments(cls: object) -> Dict[str, str]:
 class Style(enum.IntFlag):
     # masks
     TYPE_MASK = 0b11
-    ONER = 0b01
+    ONER = 0b01  # one line
     INNER = 0b10
     # major styles
     OUTER_FULL = 0b00
@@ -178,7 +185,7 @@ class Style(enum.IntFlag):
     # };
     OUTER_ONER = 0b01  # struct OuterOner { type a, b; type c; };
     INNER_FULL = 0b10
-    # struct {  // inner_full
+    # struct {
     #     type  member;
     # } inner_full;
     INNER_ONER = 0b11  # struct { type d, e, f; } inner_oner;

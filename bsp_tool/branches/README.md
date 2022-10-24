@@ -168,7 +168,8 @@ This is essential because each lump class is initialised with the tuple `struct.
 And to read these raw bytes `Bsp.load_lumps` uses something similar to `struct.iter_unpack(LumpClass._format, RAW_LUMP)`  
 If the tuple returned has a length of 0 `bsp.LUMP = list(map(LumpClass, [t[0] for t in tuples]))`  
 Else: `Bsp.LUMP = list(map(LumpClass, tuples))`  
-To support re-saving LumpClasses, a `.flat()` method is required, which must return a tuple near identical to the one it was made from (same types)  
+To support re-saving LumpClasses, a `.as_tuple()` method is required  
+`as_tuple` must return a tuple of the same length & containing the correct type to feed `struct.pack`
 
 
 ## Special lump classes

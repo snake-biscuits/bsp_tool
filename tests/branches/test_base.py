@@ -1,27 +1,58 @@
+import enum
 import struct
 
+import pytest
+
 from bsp_tool.branches import base
+from bsp_tool.branches import vector
+
+
+# TODO: test everything fails correctly when fed invalid inputs
+
+class ExampleFlags(enum.IntFlag):
+    FOO = 0x01
+    BAR = 0x02
 
 
 class Example(base.Struct):
-    __slots__ = ["id", "position", "data"]
-    _format = "i3f4i"
-    _arrays = {"position": [*"xyz"], "data": 4}
+    __slots__ = ["id", "position", "data", "flags", "bitfield"]
+    _format = "i3f3iI"
+    _arrays = {"position": [*"xyz"], "data": 2}
+    _classes = {"position": vector.vec3, "flags": ExampleFlags}
+    _bitfields = {"bitfield": {"foo": 24, "bar": 8}}
 
 
 class TestStruct:
+    def test_init(self):
+        # no args, no kwargs
+        test_Struct = Example()
+        assert test_Struct.id == 0
+        assert isinstance(test_Struct.position, vector.vec3)
+        assert test_Struct.position == (0,) * 3
+        assert base.struct_attr_formats[Example]["data"] == "i" * 2
+        assert tuple(test_Struct.data) == (0,) * 2
+        assert isinstance(test_Struct.flags, ExampleFlags)
+        assert test_Struct.flags == 0
+        assert isinstance(test_Struct.bitfield, base.BitField)
+        assert test_Struct.bitfield._fields == test_Struct._bitfields["bitfield"]
+        assert test_Struct.bitfield.as_int() == 0
+        # TODO: args
+        # TODO: kwargs
+
     def test_unpack(self):
         raw_struct = b"\x00\x00\x00\x00" b"\xDE\xAD\xBE\xEF" \
                      b"\xDE\xAD\xBE\xEF" b"\xDE\xAD\xBE\xEF" \
                      b"\x04\x00\x00\x00" b"\x05\x00\x00\x00" \
                      b"\x06\x00\x00\x00" b"\x07\x00\x00\x00"
         raw_tuple = struct.unpack(Example._format, raw_struct)
-        test_struct = Example.from_tuple(raw_tuple)
-        assert test_struct.id == 0
-        assert test_struct.position == base.MappedArray.from_bytes(b"\xDE\xAD\xBE\xEF" * 3,
+        test_Struct = Example.from_tuple(raw_tuple)
+        assert test_Struct.id == 0
+        assert test_Struct.position == base.MappedArray.from_bytes(b"\xDE\xAD\xBE\xEF" * 3,
                                                                    _mapping=[*"xyz"],
                                                                    _format="3f")
-        assert test_struct.data == (4, 5, 6, 7)
+        assert test_Struct.data == (4, 5)
+        assert test_Struct.flags == 6
+        assert test_Struct.bitfield.as_int() == 7
 
     def test_pack(self):
         raw_struct = b"\x00\x00\x00\x00" b"\x00\x00\x00\x01" \
@@ -29,13 +60,14 @@ class TestStruct:
                      b"\x00\x00\x00\x04" b"\x00\x00\x00\x05" \
                      b"\x00\x00\x00\x06" b"\x00\x00\x00\x07"
         raw_tuple = struct.unpack(Example._format, raw_struct)
-        test_struct = Example.from_tuple(raw_tuple)
-        flattened_struct = test_struct.flat()
+        test_Struct = Example.from_tuple(raw_tuple)
+        flattened_struct = test_Struct.as_tuple()
         recreated_struct = struct.pack(Example._format, *flattened_struct)
         assert raw_struct == recreated_struct
 
 
 class TestMappedArray:
+    # TODO: test non-Subclass MappedArrays do not overlap
     def test_init(self):
         # TODO: test invalid inputs are caught
         # no args; MappedArray defaults
@@ -90,3 +122,36 @@ class TestMappedArray:
         assert test_MappedArray.x == base.type_defaults["f"]
         assert test_MappedArray.y == base.type_defaults["f"]
         assert test_MappedArray.z == 1.0
+        # TODO: _classes & _bitfields
+
+    def test_attr_format_collision(self):
+        x = base.MappedArray(1, 2, 3, _mapping=[*"abc"], _format="3f")
+        y = base.MappedArray(4, 5, 6, _mapping=[*"def"], _format="3b")
+        assert x._attr_formats != y._attr_formats
+        x = base.MappedArray(1, (2, 3), _mapping={"a": None, "b": 2}, _format="3f")
+        y = base.MappedArray((4, 5), 6, _mapping={"c": 2, "d": None}, _format="3b")
+        assert x._attr_formats != y._attr_formats
+
+
+class TestBitField:
+    def test_init(self):
+        test_BitField = base.BitField(0xAA, 0xBBBB, 0xCC, _format="I", _fields={"AA": 8, "BBBB": 16, "CC": 8})
+        assert test_BitField.AA == 0xAA
+        assert test_BitField.BBBB == 0xBBBB
+        assert test_BitField.CC == 0xCC
+        assert test_BitField.as_int() == 0xCCBBBBAA  # little-endian
+        with pytest.raises(OverflowError):
+            test_BitField.AA = 0x1FF
+
+        class Test_BitField(base.BitField):
+            _format = "H"
+            _fields = dict(foo=4, bar=12)
+
+        test_bitfield = Test_BitField.from_int(0xEEED)
+        assert test_bitfield.foo == 0xD
+        assert test_bitfield.bar == 0xEEE
+
+
+def test_dict_subgroup():
+    out = base.dict_subgroup({"attr.sub": 0, "attr": 1}, "attr")
+    assert out == {"sub": 0}

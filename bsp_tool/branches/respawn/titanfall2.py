@@ -300,7 +300,7 @@ class GameLump_SPRP:
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.as_tuple()) for p in self.props]
         else:
             prop_bytes = []
         return b"".join([len(self.model_names).to_bytes(4, "little"),

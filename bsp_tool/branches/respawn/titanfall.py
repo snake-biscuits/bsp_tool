@@ -191,7 +191,7 @@ LumpHeader = source.LumpHeader
 # CM_* LUMPS
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
 
-# Grid -?> GridCell -> GeoSetBounds | GeoSet -> Brush / Tricoll
+# Grid -> GridCell -> GeoSetBounds | GeoSet -> Brush / Tricoll
 
 # what does the Cell lump do? (CoD introduces a Cell lump)
 # sounds vistree related (cell / node?)
@@ -227,15 +227,6 @@ class MAX(enum.Enum):
 
 
 # flag enums
-class BrushSideProperty(enum.IntFlag):
-    UNKNOWN_FLAG = 0x8000
-    DISCARD = 0x4000  # this side helps define bounds (axial or bevel), but has no polygon
-    # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
-    # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
-
-    MASK_TEXTURE_DATA = 0x01FF  # R1 / R1:O / R2 never exceed 511 (0x1FF) TextureData per-map
-
-
 class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
     # TODO: find where these flags are used
@@ -294,7 +285,7 @@ class MeshFlags(enum.IntFlag):
     MASK_VERTEX = 0x600
 
 
-class GeoSetFlags(enum.IntFlag):  # CM_GEO_SETS.flags
+class GeoSetFlags(enum.IntFlag):
     # identified by Fifty
     BRUSH = 0x00
     TRICOLL = 0x40
@@ -355,16 +346,17 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
     _format = "8h"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
 class Brush(base.Struct):  # LUMP 92 (005C)
-    origin: List[float]  # center of bounds
+    origin: vector.vec3  # center of bounds
     unknown: int  # might tie into plane indexing, but I kinda hope not
     num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
     # num_brush_sides = 6 + num_plane_offsets
-    index: int  # idk why, just is; might be tied to plane indexing
-    extents: List[float]  # bounds expands symmetrically by this much along each axis
-    brush_side_offset: int  # also provides first_plane_offset
+    index: int  # index of this Brush; makes calculating BrushSideX indices easier
+    extents: vector.vec3  # bounds expands symmetrically by this much along each axis
+    brush_side_offset: int  # also provides first_plane_offset, somehow ...
     # first_brush_side = (index * 6 + brush_side_offset)
 
     # brushes are bounding boxes sliced by indexed planes
@@ -386,6 +378,17 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     __slots__ = ["origin", "unknown", "num_plane_offsets", "index", "extents", "brush_side_offset"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}
+
+
+# TODO: use a BitField instead
+class BrushSideProperty(shared.UnsignedShort, enum.IntFlag):  # LUMP 94 (005E)
+    UNKNOWN_FLAG = 0x8000
+    DISCARD = 0x4000  # this side helps define bounds (axial or bevel), but has no polygon
+    # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
+    # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
+
+    MASK_TEXTURE_DATA = 0x01FF  # R1 / R1:O / R2 never exceed 512 (0x1FF + 1) TextureData per-map
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
@@ -412,6 +415,7 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
                  "maxs", "first_child", "first_obj_ref"]
     _format = "3f2BH3f2H"  # Extreme SIMD
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
@@ -427,33 +431,34 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
     __slots__ = ["origin", "unknown"]
     _format = "3iI"
     _arrays = {"origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
 
 
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     # TODO: Bitfields
     unknown_1: List[int]  # 2x uint16_t
+    # TODO: Bitfield(unknown=8, index=16, flags=8)
     unknown_2: int  # uint8_t
     index: int  # -> brush / tricoll, depending on flags
-    # NOTE: Fifty thinks index might be a short, but the byte alignment is wierd
-    unknown_2: int  # high byte of index?
+    unknown_3: int  # high byte of index?
     flags: int  # see GeoSetFlags
     __slots__ = ["unknown_1", "unknown_2", "index", "unknown_3", "flags"]
     _format = "2H4B"
     _arrays = {"unknown_1": 2}
+    _classes = {"flags": GeoSetFlags}
 
 
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
-    scale: float  # scaled against some global vector in engine, I think
-    unknown: List[int]
-    # unknown[1] is close to (world_mins.x * scale) + scale
-    # unknown[2] is close to (world_mins.y * scale) + scale
-    # FIFTY: unknown[2] * unknown[3] is always slightly lower than len(CMGridCells)
-    # -- struct CMGridCell { uint16_t unknown[2]; };
-    # -- CMGridCell.unknown[0] doesn't seem to surpass len(CMGeoSets) (<=)
-    __slots__ = ["scale", "unknown"]
+    """splits the map into a grid on the XY-axes"""
+    scale: float  # 256 for r1, 704 for r2
+    offset: List[int]  # offset to first X & Y cells
+    count: List[int]  # * scale to get width & height
+    # count.x * count.y + len(Models) = len(CMGridCells)
+    unknown: List[int]  # no clue
+    __slots__ = ["scale", "offset", "count", "unknown"]
     _format = "f6i"
-    _arrays = {"unknown": 6}
+    _arrays = {"offset": [*"xy"], "count": [*"xy"], "unknown": 2}
 
 
 class GridCell(base.MappedArray):  # LUMP 86 (0056)
@@ -473,6 +478,7 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     __slots__ = ["unknown", "num_static_props", "sun_angle"]
     _format = "4I3f"
     _arrays = {"unknown": 3, "sun_angle": [*"xyz"]}
+    _classes = {"sun_angle": vector.vec3}
 
 
 class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
@@ -498,6 +504,7 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     __slots__ = ["origin", "lightprobe"]
     _format = "3fI"
     _arrays = {"origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
 
 
 class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
@@ -524,6 +531,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
                  "num_vertices", "unknown", "material_sort", "flags"]
     _format = "I3H6hHI"  # 28 Bytes
     _arrays = {"unknown": 6}
+    _classes = {"flags": MeshFlags}
 
 
 class MeshBounds(base.Struct):  # LUMP 81 (0051)
@@ -534,6 +542,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
     __slots__ = ["origin", "radius", "extents", "unknown_2"]
     _format = "4f3fI"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
     @classmethod
     def from_bounds(cls, mins: List[float], maxs: List[float]) -> MeshBounds:
@@ -556,6 +565,7 @@ class Model(base.Struct):  # LUMP 14 (000E)
     __slots__ = ["mins", "maxs", "first_mesh", "num_meshes"]
     _format = "6f2I"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Node(base.Struct):  # LUMP 99 (0063)
@@ -567,17 +577,21 @@ class Node(base.Struct):  # LUMP 99 (0063)
     __slots__ = ["mins", "unknown_1", "maxs", "unknown_2"]
     _format = "3fi3fi"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
-    # NOTE: w is always 0, could be a copy of the Node class
+    # NOTE: w is always 0; SIMD?
     # - CM_BRUSHES Brush may also use this class
     # NOTE: introduced in v29, not present in v25
     mins: List[float]
+    unused_1: int
     maxs: List[float]
-    _format = "8f"
-    __slots__ = ["mins", "maxs"]
-    _arrays = {"mins": [*"xyzw"], "maxs": [*"xyzw"]}
+    unused_2: int
+    _format = "3fi3fi"
+    __slots__ = ["mins", "unused_1", "maxs", "unused_2"]
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Plane(base.Struct):  # LUMP 1 (0001)
@@ -586,6 +600,7 @@ class Plane(base.Struct):  # LUMP 1 (0001)
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
+    _classes = {"normal": vector.vec3}
 
 
 class Portal(base.Struct):  # LUMP 108 (006C)
@@ -628,13 +643,12 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
 
 
 class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
-    x: float
-    y: float
-    z: float
-    unknown: List[float]  # both are always from 0.0 -> 1.0 (uvs?)
+    position: List[float]
+    unknown: List[float]  # both are always from 0.0 -> 1.0 (uvs? alpha?)
     _format = "5f"
-    __slots__ = [*"xyz", "unknown"]
-    _arrays = {"unknown": 2}
+    __slots__ = ["position", "unknown"]
+    _arrays = {"position": [*"xyz"], "unknown": 2}
+    _classes = {"position": vector.vec3}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -643,11 +657,13 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     size: List[int]  # dimensions of full texture
     view: List[int]  # dimensions of visible section of texture
-    flags: int  # matches Mesh's .flags; probably from source.TextureInfo
+    flags: int  # matches .flags of Mesh indexing this TextureData (Mesh->MaterialSort->TextureData)
     __slots__ = ["reflectivity", "name_index", "size", "view", "flags"]
     _format = "3f6i"
     _arrays = {"reflectivity": [*"rgb"],
                "size": ["width", "height"], "view": ["width", "height"]}
+    _classes = {"flags": TextureDataFlags}
+    # TODO: rgb24 reflectivity & width-height vec2 for size & view
 
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
@@ -656,6 +672,7 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
     __slots__ = ["s", "t"]
     _format = "8f"
     _arrays = {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}
+    # TODO: vec3 for texvec components
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
@@ -688,6 +705,7 @@ class WorldLight(base.Struct):  # LUMP 54 (0036)
     __slots__ = ["origin", "unknown"]
     _format = "3f22I"  # 100 bytes
     _arrays = {"origin": [*"xyz"], "unknown": 22}
+    _classes = {"origin": vector.vec3}
 
 
 # special vertices
@@ -714,6 +732,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2fi2f4i"  # 44 bytes
     _arrays = {"uv0": [*"uv"], "unknown": 7}
+    # TODO: uv vec2
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
@@ -725,6 +744,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2f5I"
     _arrays = {"uv0": [*"uv"], "unknown": 5}
+    # TODO: uv vec2
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
@@ -736,6 +756,7 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2fi"  # 20 bytes
     _arrays = {"uv0": [*"uv"]}
+    # TODO: uv vec2
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
@@ -747,6 +768,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
     _format = "2I2f3I"  # 28 bytes
     _arrays = {"uv0": [*"uv"], "unknown": 3}
+    # TODO: uv vec2
 
 
 VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
@@ -797,7 +819,7 @@ class GameLump_SPRP:
 
     def as_bytes(self) -> bytes:
         if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
+            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.as_tuple()) for p in self.props]
         else:
             prop_bytes = []
         return b"".join([len(self.model_names).to_bytes(4, "little"),
@@ -837,11 +859,13 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
                "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
+    _classes = {"origin": vector.vec3}
+    # TODO: Qangle vec3 type (0-360 pitch yaw roll), rgb32 diffuse_modulation
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
-                      "CM_BRUSH_SIDE_PROPERTIES":    {0: shared.UnsignedShorts},  # surface / contents flags?
+                      "CM_BRUSH_SIDE_PROPERTIES":    {0: BrushSideProperty},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # source.Contents? test against vmts?
                       "CSM_OBJ_REFERENCES":          {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
