@@ -620,7 +620,9 @@ class WaterOverlay(base.Struct):  # LUMP 50
                  "uv", "points", "origin", "normal"]
     _format = "i2h256i22f"
     _arrays = {"faces": 256, "uv": ["left", "right", "top", "bottom"],
-               "points": {P: [*"xyz"] for P in "ABCD"}}
+               "points": {P: [*"xyz"] for P in "ABCD"},
+               "origin": [*"xyz"], "normal": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "normal": vector.vec3}
 
 
 class WorldLight(base.Struct):  # LUMP 15

@@ -11,14 +11,17 @@
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
  * Fixed up `GAME_LUMP.sprp` errors across `source`, `left4dead` & `source_2013`
  * Updated both `base.Struct` & `base.MappedArray`
-   - `from_tuple` method added (this is used for loading from file)
-   - `from_bytes` method added
-   - built in asserts to verify accurate definitions (TODO: move to tests)
-   - `as_bytes` method added
-   - `from_stream` method added
-   - `_bitfields` attr added (works similar to `_arrays`, but creates `base.BitFields`)
-   - `_classes` attr added (works similar to `_arrays`, but creates any class)
+   - built in asserts to verify accurate definitions
+   - rebuilt `__init__` method, can now generate blank
+   - added `_bitfields` attr, defines child `base.BitFields`
+   - added `_classes` attr, overrides class of named attr
+   - added `as_bytes` method
+   - added `as_cpp` method
+   - added `from_bytes` method
+   - added `from_stream` method
+   - added `from_tuple` method (replaces old `__init__` behaviour)
  * Added `base.BitField` for more reliable bitfield mapping
+   - behaves similarly to `base.MappedArray`
  * Completely refactored `branch_script` detection
    - only `file_magic` & `bsp_version` matter (unless `.d3dbsp`)
    - `load_bsp` now only accepts a `branch_script` as it's optional argument

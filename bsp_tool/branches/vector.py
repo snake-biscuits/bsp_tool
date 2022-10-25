@@ -15,7 +15,7 @@ class vec2:
     y: float
 
     def __init__(self, x: float = 0, y: float = 0):
-        self.x, self.y = x, y
+        self.x, self.y = float(x), float(y)
 
     def __abs__(self) -> float:
         return self.magnitude()
@@ -121,7 +121,7 @@ class vec3:
     z: float
 
     def __init__(self, x=0, y=0, z=0):
-        self.x, self.y, self.z = x, y, z
+        self.x, self.y, self.z = map(float, (x, y, z))
 
     def __abs__(self) -> float:
         return self.magnitude()

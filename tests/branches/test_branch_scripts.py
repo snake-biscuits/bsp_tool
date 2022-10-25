@@ -48,6 +48,9 @@ def verify(LumpClass):
             LumpClassWarning(LumpClass, "does not map whole _format!")
         if LumpClass.__annotations__.keys() != LumpClass.__slots__:
             LumpClassWarning(LumpClass, "type hints do not match .__slots__!")
+        # use MappedArray._defaults to test mapping is valid
+        branches.MappedArray(_mapping={s: LumpClass._arrays.get(s, None) for s in LumpClass.__slots__},
+                             _format=LumpClass._format)
     # MappedArray
     elif isinstance(LumpClass, branches.base.MappedArray):
         if hasattr(LumpClass, "__slots__"):
@@ -64,7 +67,7 @@ def verify(LumpClass):
     if not hasattr(LumpClass, "_format"):
         raise NotImplementedError(f"{LumpClass.__name__} has no ._format!")
     assert struct.calcsize(LumpClass._format) > 0, f"{LumpClass.__name__}._format is invalid!"
-    LumpClass()  # try __init__
+    LumpClass()  # try __init__ (will verify mapping covers format if LumpClass is a MappedArray)
 
 
 # IdTech + IW + GoldSrc Engines (no lump versions)

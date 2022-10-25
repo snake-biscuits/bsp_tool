@@ -1,5 +1,6 @@
 """Base classes for defining .bsp lump structs"""
 from __future__ import annotations
+import collections
 import itertools
 import io
 import re
@@ -13,21 +14,15 @@ from typing import Any, Dict, Iterable, List, Union
 # -- this should decode any strings in the type, also for re-encoding into bytes
 # TODO: set values in Struct / MappedArray __init__ kwargs w/ "attr.sub" keys
 # -- use *NEW* dict_subgroup function
-# TODO: {int: Mapping} mappings (list of MappedArray)
-# -- e.g. {"triangle": {3: Vertex}}
-# -- int dict keys could get dicey, but this is already for rare edge cases
-# TODO: type coersion (float -> int if lossless in .as_tuple() method)
 # TODO: __setattr__ for Struct & MappedArray:
 # -- integer overflow check
 # -- string length check (assume zero terminated, unless bytestring)
-# TODO: allow _classes to target each member of a list, rather than the whole
-# -- {"attr[::]": Class}
-# -- would go well with List[MappedArray] mappings
 
 ArraysDict = Dict[str, Union[int, List[str], Dict[str, Any]]]  # recursive
 # ^ {"a": 2, "b": [*"xyz"], "c": {"u": [*"xy"], "v": [*"xy"]}}
-# TODO: Dict[int, ArraysDict]
-# -- generate a list of the same MappedArray
+# TODO: {int: Mapping} mappings (list of MappedArray)
+# -- e.g. {"triangle": {3: Vertex}}
+# -- int dict keys could get dicey, but this is already for rare edge cases
 AttrMap = Union[List[str], ArraysDict]
 # ^ ["a", "b", "c"]
 # NOTE: BitFieldMapping & ClassesDict allow "attr.sub" keys
@@ -43,6 +38,12 @@ ClassesDict = Dict[str, Any]
 # -- m.a = Class(0); m.b = Class(*(1, 2))
 # NOTE: classes must have a __iter__ method (allows Struct/MappedArray to convert to bytes)
 # NOTE: classes can hold multiple values, but the attr must gather those values to pass them on
+# TODO: allow _classes to target each member of a list, rather than the whole
+# -- {"attr[::]": Class}
+# -- would go well with List[MappedArray] mappings
+# TODO: look into making _classes into MappedArray subclasses at runtime
+# -- would be nice to retain _attr_formats & as_bytes
+# -- edge cases: functions that return classes [renamed_vec2], enum.IntFlags
 
 
 struct_attr_formats: Dict[Struct, Dict[str, str]] = dict()
@@ -160,7 +161,7 @@ class Struct:
                 _tuple.append(value.as_int())
             else:
                 _tuple.append(value)
-        return _tuple
+        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
     @classmethod
     def _defaults(cls) -> Dict[str, Any]:
@@ -216,9 +217,12 @@ class Struct:
         return struct.pack(self._format, *self.as_tuple())
 
     @classmethod
-    def as_cpp(self) -> str:  # C++ struct definition
-        # TODO: use struct_attr_formats
-        raise NotImplementedError()
+    def as_cpp(cls, one_liner_limit: int = 80) -> str:
+        kwargs = dict(_mapping={s: cls._arrays.get(s, None) for s in cls.__slots__}, _format=cls._format,
+                      _bitfields=cls._bitfields, _classes=cls._classes)
+        exec(f"class {cls.__name__}(MappedArray): pass")  # set class name
+        instance = locals()[cls.__name__](**kwargs)
+        return instance.as_cpp(one_liner_limit=one_liner_limit)
 
 
 class MappedArray:
@@ -236,9 +240,6 @@ class MappedArray:
         self._bitfields = self._bitfields if _bitfields is None else _bitfields
         self._classes = self._classes if _classes is None else _classes
         assert len(args) <= len(self._mapping), "Too many arguments! Should match top level attributes!"
-        # NOTE: _mapping & _format might be passed in as regular args
-        # TODO: check to see if _mapping or _mapping, _format are on the tail of args
-        # CURSED: don't do that
         invalid_kwargs = set(kwargs).difference(set(self._mapping))
         # TODO: could branch here and check for subattr kwargs
         # subattr_values = {a: dict_subgroup(kwargs, a) for a in {k.partition(".")[0] for k in invalid_kwargs}}
@@ -250,7 +251,7 @@ class MappedArray:
         # NOTE: could also skip generating defaults if arg + kwargs defines the whole struct
         # -- however that's probably more work to detect than could be saved so \_(0.0)_/
         else:
-            # NOTE: _defaults is a classmethod, so need to pass overrides
+            # NOTE: _defaults is a classmethod, so we MUST override
             default_values = self._defaults(_mapping=self._mapping, _format=self._format)
         default_values.update(dict(zip(self._mapping, args)))
         default_values.update(kwargs)
@@ -335,7 +336,7 @@ class MappedArray:
                 _tuple.append(value.as_int())
             else:
                 _tuple.append(value)
-        return _tuple
+        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
     @classmethod
     def _defaults(cls, _mapping: AttrMap = None, _format: str = None) -> Dict[str, Any]:
@@ -408,26 +409,77 @@ class MappedArray:
     def as_bytes(self) -> bytes:
         return struct.pack(self._format, *self.as_tuple())
 
-    @classmethod
-    def as_cpp(cls, _mapping: Any = None, _format: str = None) -> str:  # C++ struct definition
-        _format = cls._format if _format is None else _format
-        _mapping = cls._mapping if _mapping is None else _mapping
-        # TODO: use cls()._attr_formats
-        raise NotImplementedError()
+    # NOTE: cannot be a classmethod due to runtime type definition
+    def as_cpp(self, inline_as: str = None, one_liner_limit: int = 80) -> str:
+        one_liner = False
+        if len(self._classes) + len(self._bitfields) == 0 and isinstance(self._mapping, list):  # basic types only!
+            if len(set(split_format(self._format))) == 1:
+                one_liner = True  # struct MappedArray { float x, y, z; };
+            if len(set(split_format(self._format))) * 8 + sum(map(len, self._attr_formats)) <= one_liner_limit - 30:
+                one_liner = True  # struct MappedArray { uint32_t crucible; float bloodstain; uint16_t mnemonic, ritual; };
+                # NOTE: default one_liner_limit will be 80 chars wide at max, assuming a struct name of 16 chars or less
+        attrs = list()
+        for attr, attr_format in self._attr_formats.items():
+            value = getattr(self, attr)
+            if not isinstance(value, (Iterable, BitField)):  # basic type
+                if not attr_format[-1] == "s":
+                    attrs.append(f"{type_LUT[attr_format]} {attr};")
+                else:
+                    attrs.append(f"char {attr}[{attr_format[:-1]}];")
+            else:  # sub-struct
+                if isinstance(value, MappedArray):
+                    attrs.extend(value.as_cpp(inline_as=attr, one_liner_limit=one_liner_limit - 4).split("\n"))
+                elif isinstance(value, BitField):
+                    attrs.append(value.as_cpp(inline_as=attr))
+                elif attr in self._classes:  # enum.IntFlags shouldn't end up here
+                    kwargs = dict(_mapping=self._mapping[attr], _format="".join(attr_format))
+                    limit = one_liner_limit - 4
+                    attrs.extend(MappedArray(*value, **kwargs).as_cpp(inline_as=attr, one_liner_limit=limit).split("\n"))
+                # TODO: array of struct (List[MappedArray] mapping)
+                elif isinstance(value, list):
+                    assert len(set(attr_format)) == 1, "cannot create mixed type list in C!"
+                    length = len(attr_format)
+                    if not attr_format[0][-1] == "s":
+                        attrs.append(f"{type_LUT[attr_format[0]]} {attr}[{length}];")
+                    else:
+                        attrs.append(f"char {attr}[{attr_format[0][:-1]}][{length}];")
+                else:
+                    raise NotImplementedError("Unexpected type for {attr}: {type(value)}")
+        if one_liner:
+            # compress inner
+            last_type, attr = attrs[0][:-1].split()  # "type attr;" -> "type", "attr"
+            inner = " ".join([last_type, attr])
+            for attr_spec in attrs[1:]:
+                c_type, attr = attr_spec[:-1].split()  # "type attr; -> "type", "attr"
+                inner += f", {attr}" if c_type == last_type else f"; {c_type} {attr}"
+                last_type = c_type
+            inner += ";"
+            # assemble struct
+            if inline_as is None:
+                return "".join([f"struct {self.__class__.__name__}" + " { ", inner, " };"])
+            else:
+                return "".join(["struct { ", inner, " } " + f"{inline_as};"])
+        else:
+            inner = "\n".join(["\t" + a for a in attrs])
+            if inline_as is None:
+                return "\n".join([f"struct {self.__class__.__name__}" + " {", inner, "};"])
+            else:
+                return "\n".join(["struct {", inner, "} " + f"{inline_as};"])
 
 
 class BitField:
     """Maps sub-integer data"""
     _fields: BitFieldMapping = dict()  # must cover entire int type
+    # NOTE: _fields will become an OrderedDict when intialised, making it easier to tweak
+    # -- if re-ordering attrs, replace _fields with a new OrderedDict
     _format: str = ""  # 1x uint8/16/32_t
     _classes: ClassesDict = dict()  # good for enum.IntFlags subclasses; bool also accepted
 
     def __init__(self, *args, _fields: BitFieldMapping = None, _format: str = None, _classes: ClassesDict = None, **kwargs):
         """generate a unique class at runtime, just like MappedArray"""
         self._format = self._format if _format is None else _format
-        self._fields = self._fields if _fields is None else _fields
+        self._fields = collections.OrderedDict(self._fields if _fields is None else _fields)
         self._classes = self._classes if _classes is None else _classes
-        # TODO: automatically make 1-bit fields bool?
         # valid specification
         if not (self._format in "BHI" and len(self._format) == 1):  # pls no
             raise NotImplementedError("Only unsigned single integer BitFields are supported")
@@ -483,6 +535,18 @@ class BitField:
             out += getattr(self, attr) << offset  # __setattr__ prevents overflow
             offset += size
         return out
+
+    # NOTE: cannot be a classmethod due to runtime type definition
+    def as_cpp(self, _fields: BitFieldMapping = None, _format: str = None, inline_as: str = None) -> str:
+        """returns BitField spec as a one line C/C++ struct definition"""
+        _fields = self._fields if _fields is None else _fields
+        _format = self._format if _format is None else _format
+        members = ", ".join([f"{member}: {size}" for member, size in _fields.items()])
+        inner = f"{type_LUT[_format]} {members};"
+        if inline_as is None:
+            return "".join([f"struct {self.__class__.__name__}", " { ", inner, " };"])
+        else:
+            return "".join(["struct { ", inner, " } ", f"{inline_as};"])
 
 
 def handle_child_class(parent: Union[Struct, MappedArray, BitField], attr: str, value: Any) -> Any:

@@ -7,6 +7,7 @@ import struct
 
 from .. import base
 from .. import shared
+from .. import vector
 from .. id_software import quake
 
 
@@ -131,18 +132,21 @@ class Face(base.Struct):  # LUMP 13
     first_mesh_vertex: int  # index into MeshVertex lump
     num_mesh_vertices: int  # number of MeshVertices after first_mesh_vertex in this face
     # lightmap.index: int  # which of the 3 lightmap textures to use
-    # lightmap.top_left: List[int]  # approximate top-left corner of visible lightmap segment
-    # lightmap.size: List[int]  # size of visible lightmap segment
-    # lightmap.origin: List[float]  # world space lightmap origin
-    # lightmap.vector: List[List[float]]  # lightmap texture projection vectors
-    normal: List[float]
-    patch: List[float]  # for patches (displacement-like)
+    # lightmap.top_left: vector.vec2  # approximate top-left corner of visible lightmap segment
+    # lightmap.size: vector.vec2  # size of visible lightmap segment
+    # lightmap.origin: vector.vec3  # world space lightmap origin
+    # lightmap.vector: List[vector.vec3]  # lightmap texture projection vectors
+    normal: vector.vec3
+    patch: vector.vec2  # for patches (displacement-like)
     __slots__ = ["texture", "effect", "surface_type", "first_vertex", "num_vertices",
-                 "first_mesh_vertex", "num_mesh_vertices", "lightmap", "normal", "size"]
+                 "first_mesh_vertex", "num_mesh_vertices", "lightmap", "normal", "patch"]
     _format = "12i12f2i"
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
                "normal": [*"xyz"], "patch": ["width", "height"]}
+    _classes = {"lightmap.top_left": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
+                "lightmap.origin": vector.vec3, "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3,
+                "normal": vector.vec3, "patch": vector.vec2}
 
 
 class Leaf(base.Struct):  # LUMP 4
