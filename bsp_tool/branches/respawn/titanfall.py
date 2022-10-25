@@ -339,9 +339,9 @@ class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     """Identified by warmist"""
-    origin: List[int]
+    origin: vector.vec3  # uint16_t
     unknown_1: int
-    extents: List[int]
+    extents: vector.vec3  # uint16_t
     unknown_2: int
     __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
     _format = "8h"
@@ -404,18 +404,18 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
 
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
-    mins: List[float]
+    origin: vector.vec3
     num_children: int  # number of CellAABBNodes after first_child
     num_obj_refs: int  # number of ObjReferences after first_obj_rf
     total_obj_refs: int  # sum of all obj refs in children
-    maxs: List[float]
+    extents: vector.vec3
     first_child: int  # index into CellAABBNodes
     first_obj_ref: int  # index into ObjReferences
-    __slots__ = ["mins", "num_children", "num_obj_refs", "total_obj_refs",
-                 "maxs", "first_child", "first_obj_ref"]
+    __slots__ = ["origin", "num_children", "num_obj_refs", "total_obj_refs",
+                 "extents", "first_child", "first_obj_ref"]
     _format = "3f2BH3f2H"  # Extreme SIMD
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
 class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
@@ -426,7 +426,7 @@ class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
-    origin: List[int]
+    origin: vector.vec3
     unknown: int  # index? flags?
     __slots__ = ["origin", "unknown"]
     _format = "3iI"
@@ -441,7 +441,7 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     unknown_2: int  # uint8_t
     index: int  # -> brush / tricoll, depending on flags
     unknown_3: int  # high byte of index?
-    flags: int  # see GeoSetFlags
+    flags: GeoSetFlags
     __slots__ = ["unknown_1", "unknown_2", "index", "unknown_3", "flags"]
     _format = "2H4B"
     _arrays = {"unknown_1": 2}
@@ -454,11 +454,13 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     scale: float  # 256 for r1, 704 for r2
     offset: List[int]  # offset to first X & Y cells
     count: List[int]  # * scale to get width & height
+    # NOTE: offset & count don't 100% align with worldspawn bounds
     # count.x * count.y + len(Models) = len(CMGridCells)
     unknown: List[int]  # no clue
     __slots__ = ["scale", "offset", "count", "unknown"]
     _format = "f6i"
     _arrays = {"offset": [*"xy"], "count": [*"xy"], "unknown": 2}
+    _classes = {"offset": vector.vec2, "count": vector.renamed_vec2("width", "height")}
 
 
 class GridCell(base.MappedArray):  # LUMP 86 (0056)
