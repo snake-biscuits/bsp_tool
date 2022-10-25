@@ -132,8 +132,8 @@ class Struct:
         return iter([getattr(self, attr) for attr in self.__slots__])
 
     def __repr__(self) -> str:
-        attrs = {s: getattr(self, s) for s in self.__slots__}
-        return f"<{self.__class__.__name__} ({attrs})>"
+        attrs = [f"{a}={getattr(self, a)!r}" for a in self.__slots__]
+        return f"{self.__class__.__name__}({', '.join(attrs)})>"
 
     def __setattr__(self, attr, value):  # NOTE: private variables must pass through untouched
         # NOTE: bitfield & class should be mutually exclusive, so order doesn't matter
@@ -308,9 +308,7 @@ class MappedArray:
         return iter([getattr(self, attr) for attr in self._mapping])
 
     def __repr__(self) -> str:
-        attrs = []
-        for attr, value in zip(self._mapping, self):
-            attrs.append(f"{attr}: {value}")
+        attrs = [f"{attr}: {value!r}" for attr, value in zip(self._mapping, self)]
         return f"<{self.__class__.__name__} ({', '.join(attrs)})>"
 
     def __setattr__(self, attr, value):  # NOTE: private variables must pass through untouched
@@ -450,9 +448,7 @@ class BitField:
             setattr(self, attr, values[attr])
 
     def __repr__(self) -> str:
-        attrs = []
-        for attr in self._fields.keys():
-            attrs.append(f"{attr}: {getattr(self, attr)}")
+        attrs = [f"{a}: {getattr(self, a)!r}" for a in self._fields.keys()]
         return f"<{self.__class__.__name__} ({', '.join(attrs)})>"
 
     def __setattr__(self, attr, value):  # NOTE: private variables must pass through untouched
