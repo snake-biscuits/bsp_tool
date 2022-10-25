@@ -350,21 +350,17 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 
 
 class Brush(base.Struct):  # LUMP 92 (005C)
-    origin: vector.vec3  # center of bounds
+    """A bounding box sliced down into a convex hull by multiple planes"""
+    origin: vector.vec3
     unknown: int  # might tie into plane indexing, but I kinda hope not
-    num_plane_offsets: int  # number of CM_BRUSH_SIDE_PLANE_OFFSETS in this brush
+    num_plane_offsets: int  # number of CM_BRUSH_SIDE_ PLANE_OFFSETS / PROPERITES in this brush
     # num_brush_sides = 6 + num_plane_offsets
     index: int  # index of this Brush; makes calculating BrushSideX indices easier
-    extents: vector.vec3  # bounds expands symmetrically by this much along each axis
+    extents: vector.vec3
+    # mins = origin - extents
+    # maxs = origin + extents
     brush_side_offset: int  # also provides first_plane_offset, somehow ...
     # first_brush_side = (index * 6 + brush_side_offset)
-
-    # brushes are bounding boxes sliced by indexed planes
-
-    #      /-> BrushSideTextureVector
-    # Brush -> BrushSidePlaneOffset -?> Plane
-    #      \-> BrushSideProperties -> TextureData
-    # -?> UniqueContents
 
     # TODO: determine how planes are indexed? planes might get reused
     # -- current theory is we count up from a starting index but shift back by the current plane offset
@@ -426,7 +422,7 @@ class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
 
 
 class Cubemap(base.Struct):  # LUMP 42 (002A)
-    origin: vector.vec3
+    origin: vector.vec3  # int32_t
     unknown: int  # index? flags?
     __slots__ = ["origin", "unknown"]
     _format = "3iI"
@@ -435,35 +431,46 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 
 class GeoSet(base.Struct):  # LUMP 87 (0057)
-    # TODO: Bitfields
-    unknown_1: List[int]  # 2x uint16_t
-    # TODO: Bitfield(unknown=8, index=16, flags=8)
-    unknown_2: int  # uint8_t
-    index: int  # -> brush / tricoll, depending on flags
-    unknown_3: int  # high byte of index?
-    flags: GeoSetFlags
-    __slots__ = ["unknown_1", "unknown_2", "index", "unknown_3", "flags"]
-    _format = "2H4B"
-    _arrays = {"unknown_1": 2}
-    _classes = {"flags": GeoSetFlags}
+    unknown: List[int]  # uint16_t[2]
+    child: base.BitField  # struct { uint32_t type: 8, index: 16, unknown: 8; };
+    # child.unknown: int  # may not be relevant to child
+    # child.index: int  # index of Brush / TriCollHeader?
+    # child.type: GeoSetFlags  # Brush or TriColl
+    __slots__ = ["unknown", "child"]
+    _format = "2HI"
+    _arrays = {"unknown": 2}
+    _bitfields = {"child": {"unknown": 8, "index": 16, "type": 8}}
+    _classes = {"child.type": GeoSetFlags}
 
 
 # NOTE: only one 28 byte entry per file
 class Grid(base.Struct):  # LUMP 85 (0055)
     """splits the map into a grid on the XY-axes"""
+    # grid pattern start at mins.xy, increments Y first, then X
     scale: float  # 256 for r1, 704 for r2
-    offset: List[int]  # offset to first X & Y cells
-    count: List[int]  # * scale to get width & height
-    # NOTE: offset & count don't 100% align with worldspawn bounds
+    offset: vector.vec2  # position of first GridCell (mins.xy)
+    count: vector.vec2  # x * y = number of GridCells in worldspawn
     # count.x * count.y + len(Models) = len(CMGridCells)
-    unknown: List[int]  # no clue
+    # mins = offset * scale
+    # maxs = (offset + count) * scale
+    # NOTE: bounds covers Models[0]
+    unknown: List[int]
+    # unknown[0]: int  # num brushes in Models[0]?
+    # unknown[1]: int  # first plane for brush side indexing?
     __slots__ = ["scale", "offset", "count", "unknown"]
     _format = "f6i"
     _arrays = {"offset": [*"xy"], "count": [*"xy"], "unknown": 2}
-    _classes = {"offset": vector.vec2, "count": vector.renamed_vec2("width", "height")}
+    _classes = {"offset": vector.vec2, "count": vector.vec2}
 
 
 class GridCell(base.MappedArray):  # LUMP 86 (0056)
+    # GridCells[:Grid.count.x * Grid.count.y]     => Models[0]; broken into cells
+    # GridCells[Grid.count.x * Grid.count.y + 1]  => Models[0]; num_geo_sets = 0
+    # GridCells[Grid.count.x * Grid.count.y + 2:] => Models[1:]; 1 cell per model
+    # x = index / Grid.count.y + Grid.offset.x
+    # y = index % Grid.count.x + Grid.offset.y
+    # bounds.mins.xy = x * Grid.scale, y * Grid.scale
+    # bounds.maxs.xy = (x + 1) * Grid.scale, (y + 1) * scale
     first_geo_set: int
     num_geo_sets: int
     _mapping = ["first_geo_set", "num_geo_sets"]
@@ -474,9 +481,10 @@ class GridCell(base.MappedArray):  # LUMP 86 (0056)
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
     # identified by Fifty
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
+    # unknowns are probably some kind of mesh counts
     # unknown[2] is almost always len([... for m in bsp.MESHES if m.flags & 0x200])
-    num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props)
-    sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
+    num_static_props: int  # len(bsp.GAME_LUMP.sprp.props)
+    sun_angle: vector.vec3  # represents angle of last light_environment
     __slots__ = ["unknown", "num_static_props", "sun_angle"]
     _format = "4I3f"
     _arrays = {"unknown": 3, "sun_angle": [*"xyz"]}
@@ -516,7 +524,7 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     unknown: int
     vertex_offset: int  # offset into appropriate VERTEX_RESERVED_X lump
     _mapping = ["texture_data", "lightmap_header", "cubemap", "unknown", "vertex_offset"]
-    _format = "4hi"  # 12 bytes
+    _format = "4hi"
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
@@ -528,10 +536,10 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
     # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
     material_sort: int  # index of this Mesh's MaterialSort
-    flags: int  # MeshFlags(mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    flags: MeshFlags  # (mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "first_vertex",
                  "num_vertices", "unknown", "material_sort", "flags"]
-    _format = "I3H6hHI"  # 28 Bytes
+    _format = "I3H6hHI"
     _arrays = {"unknown": 6}
     _classes = {"flags": MeshFlags}
 
@@ -1047,32 +1055,26 @@ def occlusion_mesh_as_obj(bsp) -> str:
 
 
 def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
-    # NOTE: if doing a bulk operation, write a loop that accumulates the first_brush_side index
     if brush_index > len(bsp.CM_BRUSHES):
         raise IndexError("brush index out of range")
     out = dict()
     brush = bsp.CM_BRUSHES[brush_index]
     first = 6 * brush.index + brush.brush_side_offset
     last = first + 6 + brush.num_plane_offsets
-    out["properties"] = [BrushSideProperty(p) for p in bsp.CM_BRUSH_SIDE_PROPERTIES[first:last]]
+    out["properties"] = bsp.CM_BRUSH_SIDE_PROPERTIES[first:last]
     out["texture_vectors"] = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first:last]
     out["textures"] = [p & BrushSideProperty.MASK_TEXTURE_DATA for p in out["properties"]]
     out["textures"] = [bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index] for tdi in out["textures"]]
     # TODO: planes: axial can be generated pretty easily, but others must be indexed (via plane_offsets?)
-    origin = -vector.vec3(*brush.origin)  # inverted for some reason? prob bad math
+    origin = vector.vec3(*brush.origin)
     extents = vector.vec3(*brush.extents)
     mins, maxs = origin - extents, origin + extents
-    brush_planes = list()
-    # ^ [(normal: vec3, distance: float)]
-    # assemble base brush sides in order: +X -X +Y -Y +Z -Z
+    brush_planes = list()  # [(normal: vec3, distance: float)]
     for axis, min_dist, max_dist in zip("xyz", mins, maxs):
-        brush_planes.append((vector.vec3(**{axis: 1}), -max_dist))  # +ve axis plane
-        brush_planes.append((vector.vec3(**{axis: -1}), min_dist))  # -ve axis plane
+        brush_planes.append((vector.vec3(**{axis: 1}), max_dist))
+        brush_planes.append((vector.vec3(**{axis: -1}), -min_dist))
     # TODO: indexed planes
     out["planes"] = brush_planes + [...] * brush.num_plane_offsets
-    # NOTE: we can visually identify bevel planes pretty easily, could also mathematically find them
-    # -- just find the XY planes for each vertical edge (dot against plane normal to get approx distance)
-    # -- could use this with approximate plane matching to find the correct plane indices
     return out
 
 
