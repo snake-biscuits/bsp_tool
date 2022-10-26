@@ -460,7 +460,6 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     __slots__ = ["scale", "offset", "count", "unknown"]
     _format = "f6i"
     _arrays = {"offset": [*"xy"], "count": [*"xy"], "unknown": 2}
-    _classes = {"offset": vector.vec2, "count": vector.vec2}
 
 
 class GridCell(base.MappedArray):  # LUMP 86 (0056)

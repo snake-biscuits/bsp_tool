@@ -286,3 +286,6 @@ def renamed_vec2(renamed_x: str, renamed_y: str) -> vec2:
                     f"    def __set_y(s, y): s.y = y",
                     f"    {renamed_y} = property(lambda s: s.y, __set_y)"]))
     return locals()[f"vec2_{renamed_x}_{renamed_y}"]
+
+
+# TODO: ivec2, ivec3, QAngle
