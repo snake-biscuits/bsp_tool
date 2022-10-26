@@ -134,7 +134,7 @@ class Struct:
 
     def __repr__(self) -> str:
         attrs = [f"{a}={getattr(self, a)!r}" for a in self.__slots__]
-        return f"{self.__class__.__name__}({', '.join(attrs)})>"
+        return f"{self.__class__.__name__}({', '.join(attrs)})"
 
     def __setattr__(self, attr, value):  # NOTE: private variables must pass through untouched
         # NOTE: bitfield & class should be mutually exclusive, so order doesn't matter
