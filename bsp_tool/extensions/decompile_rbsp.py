@@ -1,3 +1,4 @@
+import functools
 from typing import Dict, List
 
 from ..branches.respawn import titanfall
@@ -79,7 +80,41 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
 #               "TOOLS\\TOOLSTRIGGER": "trigger"}
 
 
-# TODO: figure out why planes / coords are all inverted
+def brush_valve_220(bsp, brush, wad_dict: Dict[str, str] = dict()) -> List[str]:
+    # NOTE: AABB only!
+    out = ["{\n"]
+    origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
+    extents = vec3(*brush.extents)
+    mins = origin - extents
+    maxs = origin + extents
+    brush_planes = list()  # [(normal: vec3, distance: float)]
+    # assemble base brush sides in order: +X -X +Y -Y +Z -Z
+    for axis, min_dist, max_dist in zip("xyz", mins, maxs):
+        brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
+        brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
+    # TODO: append bsp.PLANES indexed planes for this brush
+    first_brush_side = brush.index * 6 + brush.brush_side_offset
+    # num_brush_sides = 6 + brush.num_plane_offsets
+    for j in range(6):  # num_brush_sides
+        properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j + first_brush_side]
+        # TODO: discard unused faces
+        tri = triangle_for(brush_planes[j])
+        texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
+        texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
+        texture = wad_dict.get(texture, texture)
+        # NOTE: .wad textures have a 15 char length limit (16 chars + '\0')
+        # -- if using a .wad, provide wad_dict. e.g. {"tools/toolsnodraw": "nodraw"}
+        tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
+        tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
+        # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
+        tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
+        # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
+        out.append(" ".join([tri_str, texture, tv_str, "0 4 4\n"]))
+        # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
+    out.append("}\n")
+    return out
+
+
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
 # https://quakewiki.org/wiki/Quake_Map_Format
@@ -88,59 +123,39 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
     # NOTE: game is Quake, not Generic because we want to use .wad textures
     # NOTE: wad_dict should map texture filepaths to wad texture names
     out = ["// Game: Quake\n// Format: Valve\n",
-           '// entity 0\n{\n',
+           '// entity 0\n{\n',  # worldspawn
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
-    # HACK: r1 mp_lobby fix
-    axes = (vec3(x=1), vec3(x=-1), vec3(y=1), vec3(y=-1), vec3(z=1), vec3(z=-1))
-    plane_index = [i for i, p in enumerate(bsp.PLANES) if vec3(*p.normal) not in axes][0]
-    PLANES = [(-vec3(*p.normal), -p.distance) for p in bsp.PLANES]
-    for i, brush in enumerate(bsp.CM_BRUSHES):
-        # NOTE: had to flip planes here, really feel like I messed up the math somewhere (CW vs. CCW faces?)
-        out.append(f"// brush {i}" + "\n{\n")
-        origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
-        extents = vec3(*brush.extents)
-        mins = origin - extents
-        maxs = origin + extents
-        brush_planes = list()
-        # ^ [(normal: vec3, distance: float)]
-        # assemble base brush sides in order: +X -X +Y -Y +Z -Z
-        for axis, min_dist, max_dist in zip("xyz", mins, maxs):
-            brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
-            brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
-        first_brush_side = brush.index * 6 + brush.brush_side_offset
-        num_brush_sides = 6 + brush.num_plane_offsets
-        for j in range(num_brush_sides):
-            properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j + first_brush_side]
-            if j < 6:  # AABB plane (generated)
-                tri = triangle_for(brush_planes[j])
-            else:  # clip plane (indexed)
-                # NOTE: this math works for mp_box, but not many other maps
-                plane_offset = bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + j - 6]
-                # print(f"BRUSH[{i}] SIDE #{j}: PLANES[{plane_index - plane_offset}] (-{plane_offset})", end=" ")
-                # print("[DISCARDED]" if properties & titanfall.BrushSideProperty.DISCARD else "")
-                tri = triangle_for(PLANES[plane_index - plane_offset])
-                plane_index += 1
-            if properties & titanfall.BrushSideProperty.DISCARD:
-                continue  # this side doesn't have a polygon, only used for physics / vis tests
-            texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
-            texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
-            texture = wad_dict.get(texture, texture)
-            # NOTE: .wad textures have a 15 char length limit (16 chars + '\0')
-            # -- if using a .wad, provide wad_dict. e.g. {"tools/toolsnodraw": "nodraw"}
-            tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
-            tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
-            # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
-            tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
-            # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
-            out.append(" ".join([tri_str, texture, tv_str, "0 4 4\n"]))
-            # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
-        first_brush_side += num_brush_sides
-        out.append("}\n")
-    out.append("}\n")
-    for i, entity in enumerate(bsp.ENTITIES[1:]):
-        # NOTE: .bsp entity lump (*.bsp.0000.bsp_lump) only
-        # TODO: identify brush entities in Titanfall 2 entities
-        # -- then match brush entities to brushes; (is ent origin enough to position correctly?)
-        out.extend((f"// entity {i + 1}", "\n{\n", *[f'"{k}" "{v}"\n' for k, v in entity.items()], "}\n"))
+    # entity brush groups
+    entity_brushes = dict()
+    for i, grid_cell in enumerate(bsp.CM_GRID_CELLS[-len(bsp.MODELS):]):
+        start = end = grid_cell.first_geo_set
+        end += grid_cell.num_geo_sets
+        entity_brushes[i] = {gs.child.index for gs in bsp.CM_GEO_SETS[start:end] if gs.child.type == 0}
+    entity_brushes.pop(0)
+    if len(entity_brushes) != 0:
+        non_worldspawn = functools.reduce(lambda a, b: a.union(b), entity_brushes.values())
+    else:
+        non_worldspawn = set()
+    # world brushes
+    for i, brush in enumerate([b for i, b in enumerate(bsp.CM_BRUSHES) if i not in non_worldspawn]):
+        out.extend([f"// brush {i}" + "\n", *brush_valve_220(bsp, brush, wad_dict)])
+    out.append("}\n")  # end worldspawn
+    # entities
+    # NOTE: *.bsp.0000.bsp_lump + brush entites; skipping .ents to keep filesize manageable
+    included_ents = bsp.ENTITIES[1:]
+    for ent_file in ("env", "fx", "script", "snd", "spawn"):
+        included_ents.extend([e for e in getattr(bsp, f"ENTITIES_{ent_file}") if e.get("model", "").startswith("*")])
+    for i, entity in enumerate(included_ents):
+        brushes = list()
+        if entity.get("model", "").startswith("*"):
+            for j, brush_index in enumerate(entity_brushes[int(entity["model"][1:])]):
+                brushes.append(f"// brush {j}" + "\n")
+                brush = bsp.CM_BRUSHES[brush_index]
+                # NOTE: brush planes may be relative to centered brush, might break this hack
+                # NOTE: func_breakable_surf has * model & brushes, but no origin
+                brush.origin += vec3(*entity.get("origin", "0 0 0").split())
+                brushes.extend(brush_valve_220(bsp, brush, wad_dict))
+        keyvalues = [f'"{k}" "{v}"\n' for k, v in entity.items() if not v.startswith("*")]  # added by compiler
+        out.extend((f"// entity {i + 1}", "\n{\n", *keyvalues, *brushes, "}\n"))
     with open(map_filename, "w") as map_file:
         map_file.write("".join(out))
