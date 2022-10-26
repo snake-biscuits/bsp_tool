@@ -33,12 +33,8 @@ def test_face_struct(bsp: IdTechBsp):  # the most complex MappedArray
     with open(bsp.file.name, "rb") as file:
         file.seek(header.offset)
         raw_faces = file.read(header.length)
-
-    # TODO: figure out what I was testing for here:
-    faces = [*map(quake3.Face.from_tuple, struct.iter_unpack(quake3.Face._format, raw_faces))]
-    print(*faces, sep="\n")  # error in __repr__?
-    return faces
-    # ^ what?
+    # just __init__ on some real-world bytes
+    faces = [*map(quake3.Face.from_tuple, struct.iter_unpack(quake3.Face._format, raw_faces))]  # noqa F841
 
 
 # TODO: implement .save_as method and test that uneditted saves match EXACTLY
