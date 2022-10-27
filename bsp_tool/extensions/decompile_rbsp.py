@@ -101,7 +101,7 @@ def brush_valve_220(bsp, brush, wad_dict: Dict[str, str] = dict()) -> List[str]:
         tri = triangle_for(brush_planes[j])
         texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
         texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
-        texture = wad_dict.get(texture, texture)
+        texture = wad_dict.get(texture, texture)  # for TrenchBroom
         # NOTE: .wad textures have a 15 char length limit (16 chars + '\0')
         # -- if using a .wad, provide wad_dict. e.g. {"tools/toolsnodraw": "nodraw"}
         tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
@@ -109,23 +109,30 @@ def brush_valve_220(bsp, brush, wad_dict: Dict[str, str] = dict()) -> List[str]:
         # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
         tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
         # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
-        out.append(" ".join([tri_str, texture, tv_str, "0 4 4\n"]))
+        out.append(" ".join([tri_str, texture, tv_str, "0 1 1\n"]))
         # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
     out.append("}\n")
     return out
 
 
+supported_editors = ["TrenchBroom", "JACK", "MRVN",  # .map (Valve220)
+                     "Hammer"]  # .vmf
+
+
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
 # https://quakewiki.org/wiki/Quake_Map_Format
-def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
+def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict(), editor: str = "Trenchbroom"):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
+    assert editor in supported_editors, f"editor: {editor} is not supported!"
     # NOTE: game is Quake, not Generic because we want to use .wad textures
     # NOTE: wad_dict should map texture filepaths to wad texture names
     out = ["// Game: Quake\n// Format: Valve\n",
            '// entity 0\n{\n',  # worldspawn
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     # entity brush groups
+    # TODO: some brushes / entities do not get grouped
+    # -- investigate func_breakable_surf & func_window_hint
     entity_brushes = dict()
     for i, grid_cell in enumerate(bsp.CM_GRID_CELLS[-len(bsp.MODELS):]):
         start = end = grid_cell.first_geo_set
@@ -153,7 +160,8 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict()):
                 brush = bsp.CM_BRUSHES[brush_index]
                 # NOTE: brush planes may be relative to centered brush, might break this hack
                 # NOTE: func_breakable_surf has * model & brushes, but no origin
-                brush.origin += vec3(*entity.get("origin", "0 0 0").split())
+                if editor != "MRVN":  # NetRadiant / MRVN-radiant offset brushes automatically
+                    brush.origin += vec3(*entity.get("origin", "0 0 0").split())
                 brushes.extend(brush_valve_220(bsp, brush, wad_dict))
         keyvalues = [f'"{k}" "{v}"\n' for k, v in entity.items() if not v.startswith("*")]  # added by compiler
         out.extend((f"// entity {i + 1}", "\n{\n", *keyvalues, *brushes, "}\n"))
