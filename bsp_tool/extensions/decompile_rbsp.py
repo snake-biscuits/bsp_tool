@@ -1,5 +1,5 @@
 import functools
-from typing import Dict, List
+from typing import List
 
 from ..branches.respawn import titanfall
 from ..branches.vector import dot, vec3
@@ -60,27 +60,8 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
     return S, T
 
 
-# NOTE: matching in-engine texture paths to in-wad texture names
-# TODO: use per-wad .json files
-# mp_box_wad = {"TOOLS\\TOOLSSKYBOX": "skybox",
-#               "TOOLS\\TOOLSNODRAW": "nodraw",
-#               "WORLD\\FLOORS\\IMC_FLOOR_LARGE_PANEL_01": "imc_lrgpan_1",
-#               "WORLD\\METAL\\METAL_GREY_WALLPANEL_01": "wallpanel_1",
-#               "WORLD\\METAL\\METAL_DIAMOND_PLATE_LARGE_CLEAN": "dia_plt_lrg",
-#               "WORLD\\DEV\\DEV_GROUND_512": "dev_ground_512",
-#               "WORLD\\DEV\\DEV_WHITE_512": "dev_white_512",
-#               "WORLD\\HAVEN\\WALLS\\RED_WALL_01": "red_wall_1",
-#               "WORLD\\PLASTIC\\PLASTIC_BLUE": "plastic_blue",
-#               "WORLD\\CONCRETE\\CONCRETE_ALLEY_01": "concrete",
-#               "WORLD\\DEV\\DEV_ORANGE_512": "dev_orange_512",
-#               "WORLD\\DEV\\WEAPON_RANGE_TARGET": "range_target",
-#               "world\\signs\\sign_numbers_yellow_plastic_gasoline": "numbers",
-#               "TOOLS\\TOOLSCLIP_HUMAN_CLIMBABLE": "clip_climb",
-#               "WORLD\\METAL\\BEAM_IMC_METAL_GRAY_MAT": "imc_beam",
-#               "TOOLS\\TOOLSTRIGGER": "trigger"}
-
-
-def brush_valve_220(bsp, brush, wad_dict: Dict[str, str] = dict()) -> List[str]:
+def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom") -> List[str]:
+    editor = editor.lower()
     # NOTE: AABB only!
     out = ["{\n"]
     origin = -vec3(*brush.origin)  # inverted for some reason? prob bad math
@@ -101,33 +82,30 @@ def brush_valve_220(bsp, brush, wad_dict: Dict[str, str] = dict()) -> List[str]:
         tri = triangle_for(brush_planes[j])
         texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
         texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
-        texture = wad_dict.get(texture, texture)  # for TrenchBroom
-        # NOTE: .wad textures have a 15 char length limit (16 chars + '\0')
-        # -- if using a .wad, provide wad_dict. e.g. {"tools/toolsnodraw": "nodraw"}
         tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
         tv_str = " ".join([" ".join(["[", *map(fstr, v), "]"]) for v in tv])
         # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
         tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
         # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
-        out.append(" ".join([tri_str, texture, tv_str, "0 1 1\n"]))
-        # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"  # valve 220 texture format
+        scale = 4 if editor == "trenchbroom" else 1
+        out.append(" ".join([tri_str, texture, tv_str, f"0 {scale} {scale}\n"]))
+        # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"
     out.append("}\n")
     return out
 
 
 supported_editors = ["TrenchBroom", "JACK", "MRVN",  # .map (Valve220)
-                     "Hammer"]  # .vmf
+                     "Hammer", "Hammer++"]  # .vmf (TODO)
+supported_editors = [e.lower() for e in supported_editors]
 
 
 # NOTE: only TrenchBroom & J.A.C.K. seem to like Valve220
 # -- J.A.C.K. can convert to other formats including .vmf
 # https://quakewiki.org/wiki/Quake_Map_Format
-def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict(), editor: str = "Trenchbroom"):
+def decompile(bsp, map_filename: str, editor: str = "TrenchBroom"):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
-    assert editor in supported_editors, f"editor: {editor} is not supported!"
-    # NOTE: game is Quake, not Generic because we want to use .wad textures
-    # NOTE: wad_dict should map texture filepaths to wad texture names
-    out = ["// Game: Quake\n// Format: Valve\n",
+    assert editor.lower() in supported_editors, f"editor: {editor} is not supported!"
+    out = ["// Game: Quake\n// Format: Valve\n",  # TrenchBroom header
            '// entity 0\n{\n',  # worldspawn
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     # entity brush groups
@@ -145,7 +123,7 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict(), editor:
         non_worldspawn = set()
     # world brushes
     for i, brush in enumerate([b for i, b in enumerate(bsp.CM_BRUSHES) if i not in non_worldspawn]):
-        out.extend([f"// brush {i}" + "\n", *brush_valve_220(bsp, brush, wad_dict)])
+        out.extend([f"// brush {i}" + "\n", *brush_valve_220(bsp, brush, editor)])
     out.append("}\n")  # end worldspawn
     # entities
     # NOTE: *.bsp.0000.bsp_lump + brush entites; skipping .ents to keep filesize manageable
@@ -160,9 +138,9 @@ def decompile(bsp, map_filename: str, wad_dict: Dict[str, str] = dict(), editor:
                 brush = bsp.CM_BRUSHES[brush_index]
                 # NOTE: brush planes may be relative to centered brush, might break this hack
                 # NOTE: func_breakable_surf has * model & brushes, but no origin
-                if editor != "MRVN":  # NetRadiant / MRVN-radiant offset brushes automatically
+                if editor != "mrvn":  # NetRadiant / MRVN-radiant offsets brushes automatically
                     brush.origin += vec3(*entity.get("origin", "0 0 0").split())
-                brushes.extend(brush_valve_220(bsp, brush, wad_dict))
+                brushes.extend(brush_valve_220(bsp, brush, editor))
         keyvalues = [f'"{k}" "{v}"\n' for k, v in entity.items() if not v.startswith("*")]  # added by compiler
         out.extend((f"// entity {i + 1}", "\n{\n", *keyvalues, *brushes, "}\n"))
     with open(map_filename, "w") as map_file:
