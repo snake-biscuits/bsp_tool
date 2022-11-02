@@ -105,11 +105,12 @@ supported_editors = [e.lower() for e in supported_editors]
 def decompile(bsp, map_filename: str, editor: str = "TrenchBroom"):
     """Converts a Titanfall .bsp into a Valve 220 .map file"""
     assert editor.lower() in supported_editors, f"editor: {editor} is not supported!"
-    out = ["// Game: Quake\n// Format: Valve\n",  # TrenchBroom header
+    out = ["// Game: Generic\n// Format: Valve\n",  # TrenchBroom header
            '// entity 0\n{\n',  # worldspawn
            *[f'"{k}" "{v}"\n' for k, v in bsp.ENTITIES[0].items()]]
     # entity brush groups
     # TODO: some brushes / entities do not get grouped
+    # -- CMGeoSet might include a count?
     # -- investigate func_breakable_surf & func_window_hint
     entity_brushes = dict()
     for i, grid_cell in enumerate(bsp.CM_GRID_CELLS[-len(bsp.MODELS):]):
