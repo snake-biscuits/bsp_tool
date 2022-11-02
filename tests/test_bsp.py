@@ -71,6 +71,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # maps probably tweaked in a text editor, all null bytes are spaces
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
+                    # files stay open if .bsp has loading errors???
                     loading_errors = dict()
                     for lump_name, error in bsp.loading_errors.items():
                         lump_version = getattr(bsp.headers[lump_name], "version", None)
@@ -92,7 +93,8 @@ def test_load_bsp(group_path, game_name, map_dirs):
                             if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update({f"external.GAME_LUMP.{k} v{bsp.external.GAME_LUMP.headers[k].version}": v  # noqa E501
                                                        for k, v in bsp.external.GAME_LUMP.loading_errors.items()})
-                    assert len(loading_errors) == 0, ", ".join(loading_errors.keys())
+                    del bsp  # close all open files before the pytest assert preserves locals()
+                    assert len(loading_errors) == 0, ", ".join(loading_errors.keys())  # pass loading_errors out
                 except NotImplementedError as nie:
                     # "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension
                     # https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF
