@@ -296,8 +296,8 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
     num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props) [UNTESTED]
     sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
-    unknown_2: int  # quite small, under 255
-    __slots__ = ["unknown", "num_static_props", "sun_angle", "unknown_2"]
+    num_entity_models: int  # matches num_models in .ent file headers ("ENTITY02 num_models=X")
+    __slots__ = ["unknown", "num_static_props", "sun_angle", "num_entity_models"]
     _format = "5I3fI"
     _arrays = {"unknown": 4, "sun_angle": [*"xyz"]}
 
