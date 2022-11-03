@@ -40,7 +40,7 @@ leftstring B8 = "qfusion"
 let C8 = 77.78
 leftstring A9 = "respawn"
 leftstring B9 = "titanfall"
-let C9 = 71.57
+let C9 = 71.71
 leftstring A10 = "valve"
 leftstring B10 = "orange_box"
 let C10 = 70.34
@@ -52,7 +52,7 @@ leftstring B12 = "source"
 let C12 = 68.52
 leftstring A13 = "respawn"
 leftstring B13 = "titanfall2"
-let C13 = 68.14
+let C13 = 68.28
 leftstring A14 = "arkane"
 leftstring B14 = "dark_messiah_mp"
 let C14 = 66.9
@@ -128,4 +128,4 @@ let C37 = 38.33
 leftstring A38 = "infinity_ward"
 leftstring B38 = "modern_warfare"
 let C38 = 23.56
-goto C9
+goto C12
