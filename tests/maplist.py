@@ -53,6 +53,7 @@ source_dirs = {
                                    ],
          "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
          "dayofinfamy": ["doi/maps"],  # 16 maps | 1.09 GB
+         "Dino D-Day": ["dinodday/maps"],  # 14 maps | 434 MB
          "Double Action": ["dab/maps"],  # 10 maps | 255 MB
          "EntropyZero2": ["entropyzero2/maps"],  # 72 maps | 1.58 GB
          "EYE Divine Cybermancy Demo": ["EYE/maps"],  # 6 maps | 176 MB
