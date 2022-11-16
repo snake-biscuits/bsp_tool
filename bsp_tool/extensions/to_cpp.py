@@ -1,6 +1,10 @@
 from ..branches.base import Struct, MappedArray, BitField, type_LUT
 
 
+def int_max(c_type: str) -> str:
+    return c_type.split("_")[0].upper() + "_MAX"
+
+
 def LumpClasses_as_cpp(branch_script) -> str:
     out = list()
     for s in sorted({ls for d in branch_script.LUMP_CLASSES.values() for ls in d.values()}, key=lambda ls: ls.__name__):
@@ -19,7 +23,7 @@ def BasicLumpClasses_as_cpp(branch_script) -> str:
     # TODO: BitField definitions & flags
     lump_formats = {L: type_LUT[list(d.values())[0]._format] for L, d in branch_script.BASIC_LUMP_CLASSES.items()}
     for lump, c_type in lump_formats.items():
-        out.append(f"{c_type} {lump}[];")
+        out.append(f"{c_type} {lump}[{int_max(c_type)}];")
     return "\n".join(out) + "\n"
 
 
