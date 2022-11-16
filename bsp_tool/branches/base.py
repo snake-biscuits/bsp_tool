@@ -444,7 +444,7 @@ class MappedArray:
                     else:
                         attrs.append(f"char {attr}[{attr_format[0][:-1]}][{length}];")
                 else:
-                    raise NotImplementedError("Unexpected type for {attr}: {type(value)}")
+                    raise NotImplementedError(f"Unexpected type for {attr}: {type(value)}")
         if one_liner:
             # compress inner
             last_type, attr = attrs[0][:-1].split()  # "type attr;" -> "type", "attr"
