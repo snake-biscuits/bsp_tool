@@ -321,8 +321,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     material_sort: int  # index of this Mesh's MaterialSort
     flags: int  # MeshFlags(mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
-    _format = "IHh3ihHI"  # 28 bytes
-    _arrays = {"unknown": 5}
+    _format = "IH8hHI"  # 28 bytes
+    _arrays = {"unknown": 8}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
