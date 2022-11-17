@@ -174,7 +174,8 @@ def save_rbsp_r2(rbsp, image_dir="./", ext="png"):
     sky_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.sky.{ext}"))
     with open(os.path.join(image_dir, f"{rbsp.filename}.sky.json"), "w") as sky_json:
         json.dump([dict(zip(AllocatedSpace._fields, c)) for c in sky_lightmap_page.children], sky_json)
-    rtl_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 3  # RTL_A | RTL_B | RTL_C
+    rtl_width = max([h.width for h in rbsp.LIGHTMAP_HEADERS]) * 2  # RTL_A | RTL_B
+    # TODO: add a little more width if RTL_C is present
     rtl_lightmap_page = sum(rtl_lightmaps, start=LightmapPage(max_width=rtl_width))
     rtl_lightmap_page.image.save(os.path.join(image_dir, f"{rbsp.filename}.rtl.{ext}"))
     with open(os.path.join(image_dir, f"{rbsp.filename}.rtl.json"), "w") as rtl_json:
