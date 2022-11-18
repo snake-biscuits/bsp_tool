@@ -286,7 +286,7 @@ class MeshFlags(enum.IntFlag):
 
 
 class GeoSetFlags(enum.IntFlag):
-    # identified by Fifty
+    """Identified by Fifty"""
     BRUSH = 0x00
     TRICOLL = 0x40
 
@@ -478,7 +478,7 @@ class GridCell(base.MappedArray):  # LUMP 86 (0056)
 
 # NOTE: only one 28 byte entry per file
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
-    # identified by Fifty
+    """Identified by Fifty"""
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
     # unknowns are probably some kind of mesh counts
     # unknown[2] is almost always len([... for m in bsp.MESHES if m.flags & 0x200])
@@ -499,21 +499,38 @@ class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
 
 
 class LightProbe(base.Struct):  # LUMP 102 (0066)
-    unknown_1: int
-    unknown_2: List[int]
-    unknown_3: List[int]  # last 4 are often (0, -1, -1, 0)
-    __slots__ = ["unknown_1", "unknown_2", "unknown_3"]
-    _format = "i2h10i"
-    _arrays = {"unknown_2": 2, "unknown_3": 10}
+    """Identified by rexx"""  # untested
+    cube: List[List[int]]  # rgb888 ambient light cube
+    sky_dir_sun_vis: List[int]
+    static_light: List[List[int]]  # connection to local static lights
+    # static_light.weights: List[int]  # up to 4 scalars; default 0
+    # static_light.indices: List[int]  # up to 4 indices; default -1
+    __slots__ = ["cube", "sky_dir_sun_vis", "static_light", "padding"]
+    _format = "24B4h4B4hI"
+    _arrays = {"cube": {x: [*"rgba"] for x in "ABCDEF"}, "sky_dir_sun_vis": 4,
+               "static_light": {"weights": 4, "indices": 4}}
+    # TODO: map cube face names to UP, DOWN etc.
+    # TODO: ambient light cube childClass
 
 
 class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     origin: List[float]  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
+    # NOTE: not every lightprobe is indexed
     __slots__ = ["origin", "lightprobe"]
     _format = "3fI"
     _arrays = {"origin": [*"xyz"]}
     _classes = {"origin": vector.vec3}
+
+
+class LightProbeTree(base.MappedArray):  # LUMP 103 (0067)
+    """Identified by rexx"""
+    # seems wrong, no clue as to connections
+    tag: int  # could be flags but tends to increment (bitfield?)
+    num_entries: int  # often looks like a valid float
+    # num_entries switches between floats and small ints
+    _format = "2I"  # could be too small
+    _mapping = ["tag", "num_entries"]
 
 
 class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
@@ -904,6 +921,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "LIGHTMAP_HEADERS":                  {1: LightmapHeader},
                 "LIGHTPROBES":                       {0: LightProbe},
                 "LIGHTPROBE_REFERENCES":             {0: LightProbeRef},
+                "LIGHTPROBE_TREE":                   {0: LightProbeTree},
                 "MATERIAL_SORT":                     {0: MaterialSort},
                 "MESHES":                            {0: Mesh},
                 "MESH_BOUNDS":                       {0: MeshBounds},
