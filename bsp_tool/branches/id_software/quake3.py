@@ -144,9 +144,10 @@ class Face(base.Struct):  # LUMP 13
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
                "normal": [*"xyz"], "patch": ["width", "height"]}
-    _classes = {"lightmap.top_left": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
-                "lightmap.origin": vector.vec3, "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3,
-                "normal": vector.vec3, "patch": vector.vec2}
+    _classes = {"surface_type": SurfaceType, "lightmap.top_left": vector.vec2,
+                "lightmap.size": vector.renamed_vec2("width", "height"), "lightmap.origin": vector.vec3,
+                "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3, "normal": vector.vec3,
+                "patch": vector.vec2}
 
 
 class Leaf(base.Struct):  # LUMP 4
