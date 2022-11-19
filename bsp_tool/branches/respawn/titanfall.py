@@ -454,12 +454,12 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     # mins = offset * scale
     # maxs = (offset + count) * scale
     # NOTE: bounds covers Models[0]
-    unknown: List[int]
-    # unknown[0]: int  # num brushes in Models[0]?
-    # unknown[1]: int  # first plane for brush side indexing?
-    __slots__ = ["scale", "offset", "count", "unknown"]
+    num_straddle_groups: int  # linked to geosets, objects straddling many gridcells?
+    base_plane_offet: int  # first plane for brushes to index
+    # other planes might be used by portals, unsure
+    __slots__ = ["scale", "offset", "count", "num_straddle_groups", "base_plane_offset"]
     _format = "f6i"
-    _arrays = {"offset": [*"xy"], "count": [*"xy"], "unknown": 2}
+    _arrays = {"offset": [*"xy"], "count": [*"xy"]}
 
 
 class GridCell(base.MappedArray):  # LUMP 86 (0056)

@@ -60,7 +60,7 @@ def face_texture_vectors(normal: vec3) -> (vec3, vec3):
     return S, T
 
 
-def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom") -> List[str]:
+def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom", offset: vec3 = vec3()) -> List[str]:
     editor = editor.lower()
     # NOTE: AABB only!
     out = ["{\n"]
@@ -73,13 +73,19 @@ def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom") ->
     for axis, min_dist, max_dist in zip("xyz", mins, maxs):
         brush_planes.append((vec3(**{axis: 1}), -max_dist))  # +ve axis plane
         brush_planes.append((vec3(**{axis: -1}), min_dist))  # -ve axis plane
-    # TODO: append bsp.PLANES indexed planes for this brush
     first_brush_side = brush.index * 6 + brush.brush_side_offset
-    # num_brush_sides = 6 + brush.num_plane_offsets
-    for j in range(6):  # num_brush_sides
+    # add additional planes
+    # TODO: some brushes become invalid, might be slicing with bad bevel planes
+    for i in range(brush.num_plane_offsets):
+        brush_plane_offset = brush.brush_side_offset + i - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + i]
+        normal, distance = bsp.PLANES[bsp.CM_GRID.base_plane_offset + brush_plane_offset]
+        brush_planes.append((-normal, -distance))
+    num_brush_sides = 6 + brush.num_plane_offsets
+    for j in range(num_brush_sides):
         properties = bsp.CM_BRUSH_SIDE_PROPERTIES[j + first_brush_side]
-        # TODO: discard unused faces
-        tri = triangle_for(brush_planes[j])
+        # if properties & titanfall.BrushSideProperty.DISCARD:
+        #     continue
+        tri = [p + offset for p in triangle_for(brush_planes[j])]
         texdata = bsp.TEXTURE_DATA[properties & titanfall.BrushSideProperty.MASK_TEXTURE_DATA]
         texture = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index].replace("\\", "/").lower()
         tv = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first_brush_side + j]
@@ -87,7 +93,7 @@ def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom") ->
         # ^ (x, y, z, offset) -> "[ x y z offset ]"  x2 [S,T]
         tri_str = " ".join([" ".join(["(", *map(fstr, p), ")"]) for p in tri])
         # ^ (x, y, z) -> "( x y z )"  x3 [A,B,C]
-        scale = 4 if editor == "trenchbroom" else 1
+        scale = 4 if editor.lower() == "trenchbroom" else 1
         out.append(" ".join([tri_str, texture, tv_str, f"0 {scale} {scale}\n"]))
         # ^ "( A ) ( B ) ( C ) TEXTURE [ S ] [ T ] rotation scale_X scale_Y"
     out.append("}\n")
@@ -139,9 +145,10 @@ def decompile(bsp, map_filename: str, editor: str = "TrenchBroom"):
                 brush = bsp.CM_BRUSHES[brush_index]
                 # NOTE: brush planes may be relative to centered brush, might break this hack
                 # NOTE: func_breakable_surf has * model & brushes, but no origin
-                if editor != "mrvn":  # NetRadiant / MRVN-radiant offsets brushes automatically
-                    brush.origin += vec3(*entity.get("origin", "0 0 0").split())
-                brushes.extend(brush_valve_220(bsp, brush, editor))
+                origin = vec3()
+                if editor.lower() != "mrvn":  # NetRadiant / MRVN-radiant offsets brushes automatically
+                    origin = vec3(*entity.get("origin", "0 0 0").split())
+                brushes.extend(brush_valve_220(bsp, brush, editor, origin))
         keyvalues = [f'"{k}" "{v}"\n' for k, v in entity.items() if not v.startswith("*")]  # added by compiler
         out.extend((f"// entity {i + 1}", "\n{\n", *keyvalues, *brushes, "}\n"))
     with open(map_filename, "w") as map_file:
