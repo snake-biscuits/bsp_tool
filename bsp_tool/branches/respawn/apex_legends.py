@@ -271,7 +271,87 @@ LumpHeader = source.LumpHeader
 # PACKED_VERTICES is parallel with VERTICES?
 
 
+# flag enums
+class BVHNodeType(enum.Enum):  # used by BVHNode
+    """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
+https://www.youtube.com/watch?v=6BIfqfC1i7U
+https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
+    UNKNOWN_0 = 0x00
+    UNKNOWN_1 = 0x01
+    UNKNOWN_2 = 0x02
+    UNKNOWN_3 = 0x03
+    UNKNOWN_4 = 0x04
+    UNKNOWN_5 = 0x05
+    UNKNOWN_6 = 0x06
+    UNKNOWN_7 = 0x07
+    UNKNOWN_8 = 0x08
+    UNKNOWN_9 = 0x09
+    UNKNOWN_10 = 0x0A
+    UNKNOWN_11 = 0x0B
+    UNKNOWN_12 = 0x0C
+    UNKNOWN_13 = 0x0D
+    UNKNOWN_14 = 0x0E
+    UNKNOWN_15 = 0x0F
+    UNKNOWN_16 = 0x10
+
+
 # classes for lumps, in alphabetical order:
+class BVHNode(base.Struct):  # LUMP 18 (0012)
+    """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
+https://www.youtube.com/watch?v=6BIfqfC1i7U
+https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
+    # Identified by Fifty & Rexx, matched to GDC talk spec
+    # |     child0    |     child1    |     child2    |     child3    |
+    # | min x | max x | min x | max x | min x | max x | min x | max x |
+    # | min y | max y | min y | max y | min y | max y | min y | max y |
+    # | min z | max z | min z | max z | min z | max z | min z | max z |
+    # |   INDEX  | 01 |   INDEX  | 23 |   INDEX  | CM |   INDEX  |    |
+    # arranged for easy SIMD operations
+    x: List[List[int]]  # x.child0.min .. x.child3.max
+    y: List[List[int]]  # y.child0.min .. y.child3.max
+    z: List[List[int]]  # z.child0.min .. z.child3.max
+    index: List[List[int]]  # child indices and metadata
+    # NOTE: index.child2.collision_mask should be an index (SurfaceProperties?)
+    __slots__ = [*"xyz", "index"]
+    _format = "24h4I"
+    _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
+    _arrays.update({"index": [f"child{i}" for i in range(4)]})
+    _bitfields = {"index.child0": {"index": 24, "child0_type": 4, "child1_type": 4},
+                  "index.child1": {"index": 24, "child2_type": 4, "child3_type": 4},
+                  "index.child2": {"index": 24, "collision_mask": 8},
+                  "index.child3": {"index": 24, "padding": 8}}
+    _classes = {"index.child0.child0_type": BVHNodeType, "index.child0.child1_type": BVHNodeType,
+                "index.child1.child2_type": BVHNodeType, "index.child1.child3_type": BVHNodeType}
+
+    # TODO: remap w/ properties and use a bounding box class
+    # node.children[0].mins.x
+    # node.children[1].index  # TODO: might need to allow signed bitfield members
+    # node.collision_mask
+
+    def __repr__(self) -> str:
+        out = list()
+
+        def minmax(node: BVHNode, axis: str, child: str) -> str:
+            a = getattr(getattr(node, axis), child)
+            return f"min.{axis} = {str(a.min):<6} | max.{axis} = {str(a.max):<6}"
+
+        out.append("| ------------ child0 ----------- | ------------ child1 ----------- |")
+        out.append(f"| {minmax(self, 'x', 'child0')} | {minmax(self, 'x', 'child1')} |")
+        out.append(f"| {minmax(self, 'y', 'child0')} | {minmax(self, 'y', 'child1')} |")
+        out.append(f"| {minmax(self, 'z', 'child0')} | {minmax(self, 'z', 'child1')} |")
+        out.append(f"| index = {str(self.index.child0.index):<23} | index = {str(self.index.child1.index):<23} |")
+        out.append(f"| type = {str(self.index.child0.child0_type):<24} | type = {str(self.index.child0.child1_type):<24} |")
+        out.append("| ------------ child2 ----------- | ------------ child3 ----------- |")
+        out.append(f"| {minmax(self, 'x', 'child2')} | {minmax(self, 'x', 'child3')} |")
+        out.append(f"| {minmax(self, 'y', 'child2')} | {minmax(self, 'y', 'child3')} |")
+        out.append(f"| {minmax(self, 'z', 'child2')} | {minmax(self, 'z', 'child3')} |")
+        out.append(f"| index = {str(self.index.child2.index):<23} | index = {str(self.index.child3.index):<23} |")
+        out.append(f"| type = {str(self.index.child1.child2_type):<24} | type = {str(self.index.child1.child3_type):<24} |")
+        out.append(f"| collision_mask = {str(self.index.child2.collision_mask):<48} |")
+        # NOTE: padding is not displayed with this method
+        return "\n".join(out)
+
+
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
@@ -421,9 +501,23 @@ def ApexSPRP(raw_lump):
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES.pop("CM_BRUSH_SIDE_PLANE_OFFSETS")
+BASIC_LUMP_CLASSES.pop("CM_BRUSH_SIDE_PROPERTIES")
+BASIC_LUMP_CLASSES.pop("CM_UNIQUE_CONTENTS")
+BASIC_LUMP_CLASSES.pop("TRICOLL_BEVEL_STARTS")
+BASIC_LUMP_CLASSES.pop("TRICOLL_BEVEL_INDICES")
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CELL_AABB_NODES":    {0: CellAABBNode},
+LUMP_CLASSES.pop("CM_BRUSHES")
+LUMP_CLASSES.pop("CM_BRUSH_SIDE_TEXTURE_VECTORS")
+LUMP_CLASSES.pop("CM_GEO_SETS")
+LUMP_CLASSES.pop("CM_GEO_SET_BOUNDS")
+LUMP_CLASSES.pop("CM_GRID_CELLS")
+LUMP_CLASSES.pop("CM_PRIMITIVES")
+LUMP_CLASSES.pop("CM_PRIMITIVE_BOUNDS")
+LUMP_CLASSES.pop("LEAF_WATER_DATA")
+LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
+                     "CELL_AABB_NODES":    {0: CellAABBNode},
                      "LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
                      "MATERIAL_SORT":      {0: MaterialSort},
                      "MESHES":             {0: Mesh},
