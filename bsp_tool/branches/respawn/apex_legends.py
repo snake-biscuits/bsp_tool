@@ -317,10 +317,10 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     _format = "24h4I"
     _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
     _arrays.update({"index": [f"child{i}" for i in range(4)]})
-    _bitfields = {"index.child0": {"index": 24, "child0_type": 4, "child1_type": 4},
-                  "index.child1": {"index": 24, "child2_type": 4, "child3_type": 4},
-                  "index.child2": {"index": 24, "collision_mask": 8},
-                  "index.child3": {"index": 24, "padding": 8}}
+    _bitfields = {"index.child0": {"child0_type": 4, "child1_type": 4, "index": 24},
+                  "index.child1": {"child2_type": 4, "child3_type": 4, "index": 24},
+                  "index.child2": {"collision_mask": 8, "index": 24},
+                  "index.child3": {"padding": 8, "index": 24}}
     _classes = {"index.child0.child0_type": BVHNodeType, "index.child0.child1_type": BVHNodeType,
                 "index.child1.child2_type": BVHNodeType, "index.child1.child3_type": BVHNodeType}
 
