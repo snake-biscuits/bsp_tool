@@ -84,7 +84,6 @@ class MAX(enum.Enum):
     ENTITY_KEY = 32
     ENTITY_STRING = 65536
     ENTITY_VALUE = 1024
-    PORTALS = 65536  # related to leaves
     SURFEDGES = 512000
     MAP_HULLS = 4
 

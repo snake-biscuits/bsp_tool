@@ -165,8 +165,8 @@ LumpHeader = source.LumpHeader
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
-# LeafWaterData -> TextureData -> water material
-# NOTE: LeafWaterData is also used in calculating VPhysics / PHYSICS_COLLIDE
+# Cell -> LeafWaterData -> TextureData -> water material
+# NOTE: LeafWaterData could also be relevant to physics (VPHYS PhysicsCollide)
 
 # ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
 #                               \-?> ShadowMeshAlphaVertex
@@ -175,7 +175,7 @@ LumpHeader = source.LumpHeader
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
 # PORTAL LUMPS
-# Portal -?> PortalEdge -> PortalVertex
+# Cell -> Portal -?> PortalEdge -> PortalVertex
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
@@ -189,12 +189,11 @@ LumpHeader = source.LumpHeader
 # PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
 
 # CM_* LUMPS
-# the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
+# the entire GM_GRID lump is always 28 bytes (SpecialLumpClass w/ world bounds & other metadata)
 
-# Grid -> GridCell -> GeoSetBounds | GeoSet -> Brush / Tricoll
-
-# what does the Cell lump do? (CoD introduces a Cell lump)
-# sounds vistree related (cell / node?)
+#                                                   /-> BrushSideProperties -> TextureData
+# Grid -> GridCell -> GeoSetBounds | GeoSet -> Brush -> BrushSidePlaneOffsets -> Planes
+#                                          \-> Tricoll? -?>
 
 # how are CM_Primitives indexed?
 
@@ -227,6 +226,14 @@ class MAX:
 
 
 # flag enums
+class CellSkyFlags(enum.IntFlag):  # used by Cell
+    # NOTE: only ever 0, 1, 3 or 5
+    UNKNOWN_1 = 0b000
+    UNKNOWN_2 = 0b001
+    UNKNOWN_3 = 0b010
+    UNKNOWN_4 = 0b100
+
+
 class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
     # TODO: find where these flags are used
@@ -389,11 +396,17 @@ class BrushSideProperty(shared.UnsignedShort, enum.IntFlag):  # LUMP 94 (005E)
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
-    num_portals: int  # link found by Fifty
-    unknown: List[int]  # 2nd is always -1? TODO: confirm
-    __slots__ = ["num_portals", "unknown"]
-    _format = "I2H"
-    _arrays = {"unknown": 2}
+    """Identified by Fifty#8113 & rexx#1287"""
+    # likely part of VISIBILITY system
+    # NOTE: inifinity_ward.call_of_duty1 also introduced a Cell lump
+    num_portals: int  # index into Portal lump?
+    first_portal: int  # number of Portals in this Cell?
+    # TODO: confirm always 0xFFFF, 0XFFFF
+    flags: int  # skyFlags; visibility related?
+    leaf_water_data: int  # index into LeafWaterData; -1 for None
+    __slots__ = ["num_portals", "first_portal", "flags", "leaf_water_data"]
+    _format = "4h"
+    _classes = {"flags": CellSkyFlags}
 
 
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
@@ -413,9 +426,11 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
 
 
 class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
-    unknown_1: int
-    unknown_2: int
-    _mapping = ["unknown_1", "unknown_2"]
+    """Identified by rexx#1287"""
+    plane: int  # index into Plane lump
+    child: int  # childrenOrCell; presumably type switched w/ sign
+    # indexes a child CellBspNode?
+    _mapping = ["plane", "child"]
     _format = "2i"
 
 
@@ -535,9 +550,10 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
-    unknown: int
-    vertex_offset: int  # offset into appropriate VERTEX_RESERVED_X lump
-    _mapping = ["texture_data", "lightmap_header", "cubemap", "unknown", "vertex_offset"]
+    last_vertex: int  # last indexed vertex in VERTEX_RESERVED_X lump
+    # TODO: verify
+    first_vertex: int  # firstVtxOffset; offset into appropriate VERTEX_RESERVED_X lump
+    _mapping = ["texture_data", "lightmap_header", "cubemap", "last_vertex", "vertex_offset"]
     _format = "4hi"
 
 
@@ -627,12 +643,21 @@ class Plane(base.Struct):  # LUMP 1 (0001)
     _classes = {"normal": vector.vec3}
 
 
-class Portal(base.Struct):  # LUMP 108 (006C)
-    unknown: List[int]
-    index: int  # looks like an index
-    __slots__ = ["unknown", "index"]
-    _format = "3I"
-    _arrays = {"unknown": 2}
+class Portal(base.MappedArray):  # LUMP 108 (006C)
+    """Identified by rexx#1287"""
+    is_reversed: int  # bool?
+    type: int  # TODO: see PortalType enum
+    num_edges: int  # number of PortalEdges in this Portal
+    padding: int  # should be 0
+    first_reference: int  # first ??? in this Portal
+    cell: int  # index of Cell this portal connects to?
+    # do portals link cells together?
+    # Cell -> Portal -> (different) Cell?
+    plane: int  # Plane this portal lies on?
+    # NOTE: valve.source.AreaPortal also indexes planes
+    _mapping = ["is_reversed", "type", "num_edges", "padding", "first_reference", "cell", "plane"]
+    _format = "4B2hi"
+    # TODO: _classes {"type": PortalType}
 
 
 class PortalEdgeIntersect(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
