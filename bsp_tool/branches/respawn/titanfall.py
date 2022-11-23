@@ -217,11 +217,12 @@ LumpHeader = source.LumpHeader
 
 
 # engine limits:
-class MAX(enum.Enum):
+class MAX:
     MODELS = 1024
     TEXTURE_DATA = 2048
     WORLD_LIGHTS = 4064
     STATIC_PROPS = 40960
+    UNIQUE_CONTENTS = 256
 
 # NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
 
@@ -385,12 +386,33 @@ class BrushSideProperty(shared.UnsignedShort, enum.IntFlag):  # LUMP 94 (005E)
     # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
 
     MASK_TEXTURE_DATA = 0x01FF  # R1 / R1:O / R2 never exceed 512 (0x1FF + 1) TextureData per-map
+    # TODO: use a BitField instead
+
+
+class BVHNode(base.Struct):  # LUMP ?? (00??)
+    """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
+https://www.youtube.com/watch?v=6BIfqfC1i7U
+https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
+    # Identified by Fifty & Rexx, matched to GDC talk spec
+    # |     child0    |     child1    |     child2    |     child3    |
+    # | min x | max x | min x | max x | min x | max x | min x | max x |
+    # | min y | max y | min y | max y | min y | max y | min y | max y |
+    # | min z | max z | min z | max z | min z | max z | min z | max z |
+    # |   INDEX  | 01 |   INDEX  | 23 |   INDEX  | CM |   INDEX  |    |
+    x: List[List[int]]  # x.child0.min .. x.child3.max
+    y: List[List[int]]  # y.child0.min .. y.child3.max
+    z: List[List[int]]  # z.child0.min .. z.child3.max
+    index: List[List[int]]  # child indexes and metadata
+    _format = "24h4I"
+    _arrays = {axis: {f"child{i}": {"min", "max"} for i in range(4)} for axis in [*"xyz"]}
+    _arrays.update({"index": [f"child{i}" for i in range(4)]})
+    _bitfields = {"index.child0": {"index": 24, "child0_type": 4, "child1_type": 4},
+                  "index.child1": {"index": 24, "child2_type": 4, "child3_type": 4},
+                  "index.child2": {"index": 24, "collision_mask": 8},  # CM_UNIQUE_CONTENTS?
+                  "index.child3": {"index": 24, "padding": 8}}
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
-    """BVH4? (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
-https://www.youtube.com/watch?v=6BIfqfC1i7U
-https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     num_portals: int  # link found by Fifty
     unknown: List[int]  # 2nd is always -1? TODO: confirm
     __slots__ = ["num_portals", "unknown"]
