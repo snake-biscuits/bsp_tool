@@ -348,6 +348,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
         out.append(f"| index = {str(self.index.child2.index):<23} | index = {str(self.index.child3.index):<23} |")
         out.append(f"| type = {str(self.index.child1.child2_type):<24} | type = {str(self.index.child1.child3_type):<24} |")
         out.append(f"| collision_mask = {str(self.index.child2.collision_mask):<48} |")
+        out.append(f"| padding = {str(self.index.child2.collision_mask):<55} |")
         # NOTE: padding is not displayed with this method
         return "\n".join(out)
 
