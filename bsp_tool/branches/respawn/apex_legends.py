@@ -292,7 +292,6 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     UNKNOWN_13 = 0x0D
     UNKNOWN_14 = 0x0E
     UNKNOWN_15 = 0x0F
-    UNKNOWN_16 = 0x10
 
 
 # classes for lumps, in alphabetical order:
@@ -311,6 +310,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     y: List[List[int]]  # y.child0.min .. y.child3.max
     z: List[List[int]]  # z.child0.min .. z.child3.max
     index: List[List[int]]  # child indices and metadata
+    # NOTE: bitfields are definitely all wrong, not all padding is 0
     # NOTE: index.child2.collision_mask should be an index (SurfaceProperties?)
     __slots__ = [*"xyz", "index"]
     _format = "24h4I"
@@ -504,8 +504,10 @@ BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
 BASIC_LUMP_CLASSES.pop("CM_BRUSH_SIDE_PLANE_OFFSETS")
 BASIC_LUMP_CLASSES.pop("CM_BRUSH_SIDE_PROPERTIES")
 BASIC_LUMP_CLASSES.pop("CM_UNIQUE_CONTENTS")
+BASIC_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_TABLE")
 BASIC_LUMP_CLASSES.pop("TRICOLL_BEVEL_STARTS")
 BASIC_LUMP_CLASSES.pop("TRICOLL_BEVEL_INDICES")
+BASIC_LUMP_CLASSES.pop("TRICOLL_TRIANGLES")
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("CM_BRUSHES")
@@ -516,6 +518,9 @@ LUMP_CLASSES.pop("CM_GRID_CELLS")
 LUMP_CLASSES.pop("CM_PRIMITIVES")
 LUMP_CLASSES.pop("CM_PRIMITIVE_BOUNDS")
 LUMP_CLASSES.pop("LEAF_WATER_DATA")
+LUMP_CLASSES.pop("LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE")
+LUMP_CLASSES.pop("TRICOLL_HEADERS")
+LUMP_CLASSES.pop("TRICOLL_NODES")
 LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
                      "CELL_AABB_NODES":    {0: CellAABBNode},
                      "LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
@@ -534,6 +539,7 @@ LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("CM_GRID")
+SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo.from_bytes},
                              "SURFACE_NAMES": {0: shared.TextureDataStringData}})

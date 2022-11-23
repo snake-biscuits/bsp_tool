@@ -430,7 +430,7 @@ class MappedArray:
             else:  # sub-struct
                 if isinstance(value, MappedArray):
                     attrs.extend(value.as_cpp(inline_as=attr, one_liner_limit=one_liner_limit - 4).split("\n"))
-                elif isinstance(value, BitField):
+                elif isinstance(value, BitField):  # gets skipped sometimes?
                     attrs.append(value.as_cpp(inline_as=attr))
                 elif attr in self._classes:  # enum.IntFlags shouldn't end up here
                     kwargs = dict(_mapping=self._mapping[attr], _format="".join(attr_format))

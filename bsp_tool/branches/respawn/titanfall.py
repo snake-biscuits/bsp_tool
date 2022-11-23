@@ -222,7 +222,6 @@ class MAX:
     TEXTURE_DATA = 2048
     WORLD_LIGHTS = 4064
     STATIC_PROPS = 40960
-    UNIQUE_CONTENTS = 256
 
 # NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
 
@@ -565,7 +564,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
     extents: List[float]  # bounds extend symmetrically by this much along each axis
     unknown_2: int  # could be a float, but value is strange; unsure of purpose; can be 0
     __slots__ = ["origin", "radius", "extents", "unknown_2"]
-    _format = "4f3fI"
+    _format = "4f3fI"  # Extreme SIMD
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
@@ -600,7 +599,7 @@ class Node(base.Struct):  # LUMP 99 (0063)
     maxs: List[float]
     unknown_2: int
     __slots__ = ["mins", "unknown_1", "maxs", "unknown_2"]
-    _format = "3fi3fi"
+    _format = "3fi3fi"  # Extreme SIMD
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
@@ -613,7 +612,7 @@ class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
     unused_1: int
     maxs: List[float]
     unused_2: int
-    _format = "3fi3fi"
+    _format = "3fi3fi"  # Extreme SIMD
     __slots__ = ["mins", "unused_1", "maxs", "unused_2"]
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
