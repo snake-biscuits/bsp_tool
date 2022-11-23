@@ -228,6 +228,14 @@ class MAX:
 
 
 # flag enums
+class BVHNodeType(enum.IntFlag):  # used by BVHNode
+    # TODO: see GDC talk, could be Titan / Pilot / NPC?
+    UNKNOWN_1 = 0b0001
+    UNKNOWN_2 = 0b0010
+    UNKNOWN_3 = 0b0100
+    UNKNOWN_4 = 0b1000
+
+
 class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
     # TODO: find where these flags are used
@@ -399,10 +407,11 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     # | min y | max y | min y | max y | min y | max y | min y | max y |
     # | min z | max z | min z | max z | min z | max z | min z | max z |
     # |   INDEX  | 01 |   INDEX  | 23 |   INDEX  | CM |   INDEX  |    |
+    # arranged for easy SIMD operations
     x: List[List[int]]  # x.child0.min .. x.child3.max
     y: List[List[int]]  # y.child0.min .. y.child3.max
     z: List[List[int]]  # z.child0.min .. z.child3.max
-    index: List[List[int]]  # child indexes and metadata
+    index: List[List[int]]  # child indices and metadata
     __slots__ = [*"xyz", "index"]
     _format = "24h4I"
     _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
@@ -411,6 +420,8 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
                   "index.child1": {"index": 24, "child2_type": 4, "child3_type": 4},
                   "index.child2": {"index": 24, "collision_mask": 8},  # CM_UNIQUE_CONTENTS?
                   "index.child3": {"index": 24, "padding": 8}}
+    _classes = {"index.child0.child0_type": BVHNodeType, "index.child0.child1_type": BVHNodeType,
+                "index.child1.child2_type": BVHNodeType, "index.child1.child3_type": BVHNodeType}
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
