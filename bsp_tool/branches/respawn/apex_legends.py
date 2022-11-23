@@ -276,9 +276,10 @@ class BVHNodeType(enum.Enum):  # used by BVHNode
     """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
 https://www.youtube.com/watch?v=6BIfqfC1i7U
 https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
-    UNKNOWN_0 = 0x00
-    UNKNOWN_1 = 0x01
-    UNKNOWN_2 = 0x02
+    BVH_NODE = 0x00
+    NO_CHILD = 0x01
+    # primitive types:
+    UNKNOWN_2 = 0x02  # edge?
     UNKNOWN_3 = 0x03
     UNKNOWN_4 = 0x04
     UNKNOWN_5 = 0x05
