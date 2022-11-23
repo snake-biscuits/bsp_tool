@@ -403,6 +403,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     y: List[List[int]]  # y.child0.min .. y.child3.max
     z: List[List[int]]  # z.child0.min .. z.child3.max
     index: List[List[int]]  # child indexes and metadata
+    __slots__ = [*"xyz", "index"]
     _format = "24h4I"
     _arrays = {axis: {f"child{i}": {"min", "max"} for i in range(4)} for axis in [*"xyz"]}
     _arrays.update({"index": [f"child{i}" for i in range(4)]})
