@@ -405,7 +405,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     index: List[List[int]]  # child indexes and metadata
     __slots__ = [*"xyz", "index"]
     _format = "24h4I"
-    _arrays = {axis: {f"child{i}": {"min", "max"} for i in range(4)} for axis in [*"xyz"]}
+    _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
     _arrays.update({"index": [f"child{i}" for i in range(4)]})
     _bitfields = {"index.child0": {"index": 24, "child0_type": 4, "child1_type": 4},
                   "index.child1": {"index": 24, "child2_type": 4, "child3_type": 4},
