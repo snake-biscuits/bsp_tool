@@ -1,6 +1,7 @@
 """Base classes for defining .bsp lump structs"""
 from __future__ import annotations
 import collections
+import enum
 import itertools
 import io
 import re
@@ -532,7 +533,10 @@ class BitField:
         out = 0
         offset = 0
         for attr, size in self._fields.items():
-            out += getattr(self, attr) << offset  # __setattr__ prevents overflow
+            value = getattr(self, attr)
+            if isinstance(value, enum.Enum):
+                value = int(value.value)
+            out += value << offset  # __setattr__ prevents overflow
             offset += size
         return out
 
