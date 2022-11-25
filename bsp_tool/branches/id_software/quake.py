@@ -309,13 +309,20 @@ class MipTextureLump(list):  # LUMP 2
 
 
 class MipTexture(base.Struct):  # LUMP 2
+    # http://www.cs.hut.fi/~andy/T-126.101/2004/texture_prefix.html
+    # http://www.slackiller.com/tommy14/hltexture.htm
     name: str  # texture name
-    # NOTE: string may contain multiple values
+    # NOTE: may contain multiple values
     # -- e.g. b"+buttontex\0\x03\0..."
-    # if name starts with "*" it scrolls like water / lava
-    # if name starts with "+" it animates frame-by-frame (first frame must be 0-9)
-    # if name starts with "sky" it scrolls like sky (sky textures have 2 parts)
-    # if name starts with "{" it can be transparent
+    # leading "*": scroll like water / lava
+    # leading "+": animate frame-by-frame (first frame must be 0-9)
+    # leading "sky": scroll like sky (sky textures have 2 parts)
+    # leading "{": transparent via blue chroma key (palette)
+    # added in Half-Life:
+    # leading "!": water, no entity required
+    # leading "~": emit light
+    # leading "+a": animated toggle;  cycle through up to 10 frames
+    # leading "-": random tiling; (set of 3 or 4)
     size: vector.vec2  # width & height
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "offsets"]
