@@ -1,6 +1,8 @@
 // titanfall 1 bsp types
-enum
-{
+#include <stdbool.h>
+
+
+enum {
         LUMP_ENTITIES = 0x0000, // 0
         LUMP_PLANES = 0x0001, // 1
         LUMP_TEXDATA = 0x0002, // 2
@@ -389,151 +391,150 @@ struct dfastplane_t {
         /* 0x000c */ float           dist; // size: 4
 };
 
-struct dcollbrush_t
-{
-        /* 0x0000 */ Vector3 origin; // size: 12
-        /* 0x000c */ char nonAxialCount[2]; // size: 2
-        /* 0x000e */ short priorBrushCount; // size: 2
-        /* 0x0010 */ Vector3 extent; // size: 12
-        /* 0x001c */ int priorNonAxialCount; // size: 4
+struct dcollbrush_t {
+        /* 0x0000 */ struct          Vector3 origin; // size: 12
+        /* 0x000c */ char            nonAxialCount[2]; // size: 2
+        /* 0x000e */ short           priorBrushCount; // size: 2
+        /* 0x0010 */ struct Vector3  extent; // size: 12
+        /* 0x001c */ int             priorNonAxialCount; // size: 4
 };
-struct dmodel_t
-{
-        /* 0x0000 */ Vector3 mins; // size: 12
-        /* 0x000c */ Vector3 maxs; // size: 12
-        /* 0x0018 */ int firstMesh; // size: 4
-        /* 0x001c */ int meshCount; // size: 4
+
+struct dmodel_t {
+        /* 0x0000 */ struct Vector3  mins; // size: 12
+        /* 0x000c */ struct Vector3  maxs; // size: 12
+        /* 0x0018 */ int             firstMesh; // size: 4
+        /* 0x001c */ int             meshCount; // size: 4
 };
-struct dphysmodel_t
-{
-        /* 0x0000 */ int modelIndex; // size: 4
-        /* 0x0004 */ int dataSize; // size: 4
-        /* 0x0008 */ int keydataSize; // size: 4
-        /* 0x000c */ int solidCount; // size: 4
+
+struct dphysmodel_t {
+        /* 0x0000 */ int  modelIndex; // size: 4
+        /* 0x0004 */ int  dataSize; // size: 4
+        /* 0x0008 */ int  keydataSize; // size: 4
+        /* 0x000c */ int  solidCount; // size: 4
 };
-struct dphystris_t
-{
+
+struct dphystris_t {
         /* 0x0000 */ short triCollCount; // size: 2
 };
-struct dworldlight_t
-{
-        /* 0x0000 */ Vector3 origin; // size: 12
-        /* 0x000c */ Vector3 intensity; // size: 12
-        /* 0x0018 */ Vector3 normal; // size: 12
-        /* 0x0024 */ Vector3 shadow_cast_offset; // size: 12
-        /* 0x0030 */ int unused; // size: 4
-        /* 0x0034 */ int type; // size: 4
-        /* 0x0038 */ int style; // size: 4
-        /* 0x003c */ float stopdot; // size: 4
-        /* 0x0040 */ float stopdot2; // size: 4
-        /* 0x0044 */ float exponent; // size: 4
-        /* 0x0048 */ float radius; // size: 4
-        /* 0x004c */ float constant_attn; // size: 4
-        /* 0x0050 */ float linear_attn; // size: 4
-        /* 0x0054 */ float quadratic_attn; // size: 4
-        /* 0x0058 */ int flags; // size: 4
-        /* 0x005c */ int texdata; // size: 4
-        /* 0x0060 */ int owner; // size: 4
+
+struct dworldlight_t {
+        /* 0x0000 */ struct Vector3  origin; // size: 12
+        /* 0x000c */ struct Vector3  intensity; // size: 12
+        /* 0x0018 */ struct Vector3  normal; // size: 12
+        /* 0x0024 */ struct Vector3  shadow_cast_offset; // size: 12
+        /* 0x0030 */ int             unused; // size: 4
+        /* 0x0034 */ int             type; // size: 4
+        /* 0x0038 */ int             style; // size: 4
+        /* 0x003c */ float           stopdot; // size: 4
+        /* 0x0040 */ float           stopdot2; // size: 4
+        /* 0x0044 */ float           exponent; // size: 4
+        /* 0x0048 */ float           radius; // size: 4
+        /* 0x004c */ float           constant_attn; // size: 4
+        /* 0x0050 */ float           linear_attn; // size: 4
+        /* 0x0054 */ float           quadratic_attn; // size: 4
+        /* 0x0058 */ int             flags; // size: 4
+        /* 0x005c */ int             texdata; // size: 4
+        /* 0x0060 */ int             owner; // size: 4
 };
-struct dleafwaterdata_t
-{
-        /* 0x0000 */ float surfaceZ; // size: 4
-        /* 0x0004 */ float minZ; // size: 4
-        /* 0x0008 */ int surfaceTexData; // size: 4
+
+struct dleafwaterdata_t {
+        /* 0x0000 */ float  surfaceZ; // size: 4
+        /* 0x0004 */ float  minZ; // size: 4
+        /* 0x0008 */ int    surfaceTexData; // size: 4
 };
-struct doccluderdata_t
-{
-        /* 0x0000 */ int flags; // size: 4
-        /* 0x0004 */ int firstpoly; // size: 4
-        /* 0x0008 */ int polycount; // size: 4
-        /* 0x000c */ Vector3 mins; // size: 12
-        /* 0x0018 */ Vector3 maxs; // size: 12
-        /* 0x0024 */ int area; // size: 4
+
+struct doccluderdata_t {
+        /* 0x0000 */ int             flags; // size: 4
+        /* 0x0004 */ int             firstpoly; // size: 4
+        /* 0x0008 */ int             polycount; // size: 4
+        /* 0x000c */ struct Vector3  mins; // size: 12
+        /* 0x0018 */ struct Vector3  maxs; // size: 12
+        /* 0x0024 */ int             area; // size: 4
 };
-struct doccluderpolydata_t
-{
-        /* 0x0000 */ int firstvertexindex; // size: 4
-        /* 0x0004 */ int vertexcount; // size: 4
-        /* 0x0008 */ int planeIdx; // size: 4
+
+struct doccluderpolydata_t {
+        /* 0x0000 */ int  firstvertexindex; // size: 4
+        /* 0x0004 */ int  vertexcount; // size: 4
+        /* 0x0008 */ int  planeIdx; // size: 4
 };
-struct dcubemapsample_t
-{
+
+struct dcubemapsample_t {
         /* 0x0000 */ int origin[3]; // size: 12
         /* 0x000c */ int unused; // size: 4
 };
-struct dgamelumpheader_t
-{
+
+struct dgamelumpheader_t {
         /* 0x0000 */ int lumpCount; // size: 4
 };
-struct dgamelump_t
-{
-        /* 0x0000 */ int id; // size: 4
-        /* 0x0004 */ short flags; // size: 2
-        /* 0x0006 */ short version; // size: 2
-        /* 0x0008 */ int fileofs; // size: 4
-        /* 0x000c */ int filelen; // size: 4
+
+struct dgamelump_t {
+        /* 0x0000 */ int    id; // size: 4
+        /* 0x0004 */ short  flags; // size: 2
+        /* 0x0006 */ short  version; // size: 2
+        /* 0x0008 */ int    fileofs; // size: 4
+        /* 0x000c */ int    filelen; // size: 4
 };
-struct StaticPropDictLump_t
-{
+
+struct StaticPropDictLump_t {
         /* 0x0000 */ char m_Name[128]; // size: 128
 };
-struct StaticPropLump_t
-{
-        /* 0x0000 */ Vector3 m_Origin; // size: 12
-        /* 0x000c */ Vector3 m_Angles; // size: 12
-        /* 0x0018 */ short m_PropType; // size: 2
-        /* 0x001a */ short m_FirstLeaf; // size: 2
-        /* 0x001c */ short m_LeafCount; // size: 2
-        /* 0x001e */ char m_Solid; // size: 1
-        /* 0x001f */ char m_Flags; // size: 1
-        /* 0x0020 */ short m_Skin; // size: 2
-        /* 0x0022 */ short m_EnvCubemap; // size: 2
-        /* 0x0024 */ float m_FadeMinDist; // size: 4
-        /* 0x0028 */ float m_FadeMaxDist; // size: 4
-        /* 0x002c */ Vector3 m_LightingOrigin; // size: 12
-        /* 0x0038 */ float m_flForcedFadeScale; // size: 4
-        /* 0x003c */ char m_nMinCPULevel; // size: 1
-        /* 0x003c */ char m_nMaxCPULevel; // size: 1
-        /* 0x003e */ char m_nMinGPULevel; // size: 1
-        /* 0x003e */ char m_nMaxGPULevel; // size: 1
-        /* 0x0040 */ int m_DiffuseModulation; // size: 4
-        /* 0x0044 */ bool m_bDisableX360; // size: 1
-        /* 0x0048 */ float m_Scale; // size: 4
-        /* 0x004c */ int m_collisionFlagsAdd; // size: 4
-        /* 0x0050 */ int m_collisionFlagsRemove; // size: 4
+
+struct StaticPropLump_t {
+        /* 0x0000 */ struct Vector3  m_Origin; // size: 12
+        /* 0x000c */ struct Vector3  m_Angles; // size: 12
+        /* 0x0018 */ short           m_PropType; // size: 2
+        /* 0x001a */ short           m_FirstLeaf; // size: 2
+        /* 0x001c */ short           m_LeafCount; // size: 2
+        /* 0x001e */ char            m_Solid; // size: 1
+        /* 0x001f */ char            m_Flags; // size: 1
+        /* 0x0020 */ short           m_Skin; // size: 2
+        /* 0x0022 */ short           m_EnvCubemap; // size: 2
+        /* 0x0024 */ float           m_FadeMinDist; // size: 4
+        /* 0x0028 */ float           m_FadeMaxDist; // size: 4
+        /* 0x002c */ struct Vector3  m_LightingOrigin; // size: 12
+        /* 0x0038 */ float           m_flForcedFadeScale; // size: 4
+        /* 0x003c */ char            m_nMinCPULevel; // size: 1
+        /* 0x003c */ char            m_nMaxCPULevel; // size: 1
+        /* 0x003e */ char            m_nMinGPULevel; // size: 1
+        /* 0x003e */ char            m_nMaxGPULevel; // size: 1
+        /* 0x0040 */ int             m_DiffuseModulation; // size: 4
+        /* 0x0044 */ bool            m_bDisableX360; // size: 1
+        /* 0x0048 */ float           m_Scale; // size: 4
+        /* 0x004c */ int             m_collisionFlagsAdd; // size: 4
+        /* 0x0050 */ int             m_collisionFlagsRemove; // size: 4
 };
-struct StaticPropLeafLump_t
-{
+
+struct StaticPropLeafLump_t {
         /* 0x0000 */ short m_Leaf; // size: 2
 };
-struct dprophull_t
-{
+
+struct dprophull_t {
         /* 0x0000 */ int m_nVertCount; // size: 4
         /* 0x0004 */ int m_nVertStart; // size: 4
         /* 0x0008 */ int m_nSurfaceProp; // size: 4
         /* 0x000c */ int m_nContents; // size: 4
 };
-struct dprophulltris_t
-{
+
+struct dprophulltris_t {
         /* 0x0000 */ int m_nIndexStart; // size: 4
         /* 0x0004 */ int m_nIndexCount; // size: 4
 };
-struct dpropcollision_t
-{
+
+struct dpropcollision_t {
         /* 0x0000 */ int m_nHullCount; // size: 4
         /* 0x0004 */ int m_nHullStart; // size: 4
 };
-struct dtricolltri_t
-{
+
+struct dtricolltri_t {
         /* 0x0000 */ int packed; // size: 4
 };
-struct dtricollleaf_t
-{
+
+struct dtricollleaf_t {
         /* 0x0000 */ short first; // size: 2
         /* 0x0002 */ short count; // size: 2
 };
-struct dtricollnode_t
-{
+
+struct dtricollnode_t {
         /* 0x0000 */ float org_x[4]; // size: 16
         /* 0x0010 */ float org_y[4]; // size: 16
         /* 0x0020 */ float org_z[4]; // size: 16
@@ -542,30 +543,30 @@ struct dtricollnode_t
         /* 0x0050 */ float ext_z[4]; // size: 16
         /* 0x0060 */ short children[4]; // size: 8
 };
-struct dtricollheader_t
-{
-        /* 0x0000 */ short flags; // size: 2
-        /* 0x0002 */ short texinfoFlags; // size: 2
-        /* 0x0004 */ short texdata; // size: 2
-        /* 0x0006 */ short numVerts; // size: 2
-        /* 0x0008 */ short numTris; // size: 2
-        /* 0x000a */ short numBevelIndexes; // size: 2
-        /* 0x000c */ int firstVert; // size: 4
-        /* 0x0010 */ int firstTri; // size: 4
-        /* 0x0014 */ int firstNode; // size: 4
-        /* 0x0018 */ int firstBevelIndex; // size: 4
-        /* 0x001c */ Vector3 org; // size: 12
-        /* 0x0028 */ float scale; // size: 4
+
+struct dtricollheader_t {
+        /* 0x0000 */ short           flags; // size: 2
+        /* 0x0002 */ short           texinfoFlags; // size: 2
+        /* 0x0004 */ short           texdata; // size: 2
+        /* 0x0006 */ short           numVerts; // size: 2
+        /* 0x0008 */ short           numTris; // size: 2
+        /* 0x000a */ short           numBevelIndexes; // size: 2
+        /* 0x000c */ int             firstVert; // size: 4
+        /* 0x0010 */ int             firstTri; // size: 4
+        /* 0x0014 */ int             firstNode; // size: 4
+        /* 0x0018 */ int             firstBevelIndex; // size: 4
+        /* 0x001c */ struct Vector3  org; // size: 12
+        /* 0x0028 */ float           scale; // size: 4
 };
-struct MeshHeader_t
-{
+
+struct MeshHeader_t {
         /* 0x0000 */ int m_nLod; // size: 4
         /* 0x0004 */ int m_nVertexes; // size: 4
         /* 0x0008 */ int m_nOffset; // size: 4
         /* 0x000c */ int m_nUnused[4]; // size: 16
 };
-struct FileHeader_t
-{
+
+struct FileHeader_t {
         /* 0x0000 */ int m_nVersion; // size: 4
         /* 0x0004 */ int m_nChecksum; // size: 4
         /* 0x0008 */ int m_nVertexFlags; // size: 4
@@ -592,11 +593,13 @@ struct FileHeader_t
 //      /* 0x003c */ int nReserved2[0]; // size: 4
 //      /* 0x0040 */ int nReserved2[1]; // size: 4
 // };
+//
 // struct DiskPhysics2Polytope_t
 // {
 //      /* 0x0000 */ int offsetPolytope; // size: 4
 //      /* 0x0004 */ int offsetInertia; // size: 4
 // };
+//
 // struct DiskPhysics2LevelMesh_t
 // {
 //      /* 0x0000 */ int polymesh.offset; // size: 4

@@ -169,18 +169,19 @@ LumpHeader = source.LumpHeader
 # NOTE: LeafWaterData could also be relevant to physics (VPHYS PhysicsCollide)
 
 # ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
-#                               \-?> ShadowMeshAlphaVertex
+#           \-> MaterialSort?    \-> ShadowMeshAlphaVertex
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
 # PORTAL LUMPS
-# Cell -> Portal -?> PortalEdge -> PortalVertex
+#               /-> Plane
+# Cell -> Portal -> PortalEdge -> PortalVertex
+#               \-> Cell
 # PortalEdgeRef -> PortalEdge
 # PortalVertRef -> PortalVertex
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
-
 # PortalEdgeIntersectHeader -> ???
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
 # NOTE: titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
@@ -492,14 +493,19 @@ class GridCell(base.MappedArray):  # LUMP 86 (0056)
 # NOTE: only one 28 byte entry per file
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
     """Identified by Fifty"""
-    unknown: List[int]  # possibly linked to mesh flags in worldspawn?
-    # unknowns are probably some kind of mesh counts
-    # unknown[2] is almost always len([... for m in bsp.MESHES if m.flags & 0x200])
+    # implies worldspawn (model[0]) mesh order to be:
+    # - opaque
+    # - decals
+    # - transparent
+    # - skybox
+    first_decal_mesh: int
+    first_transparent_mesh: int
+    first_sky_mesh: int
     num_static_props: int  # len(bsp.GAME_LUMP.sprp.props)
     sun_angle: vector.vec3  # represents angle of last light_environment
-    __slots__ = ["unknown", "num_static_props", "sun_angle"]
+    __slots__ = ["first_decal_mesh", "first_transparent_mesh", "first_sky_mesh", "num_static_props", "sun_angle"]
     _format = "4I3f"
-    _arrays = {"unknown": 3, "sun_angle": [*"xyz"]}
+    _arrays = {"sun_angle": [*"xyz"]}
     _classes = {"sun_angle": vector.vec3}
 
 
@@ -621,15 +627,13 @@ class Node(base.Struct):  # LUMP 99 (0063)
 
 
 class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
-    # NOTE: w is always 0; SIMD?
-    # - CM_BRUSHES Brush may also use this class
     # NOTE: introduced in v29, not present in v25
     mins: List[float]
-    unused_1: int
+    mins_zero: int  # basically unused
     maxs: List[float]
-    unused_2: int
+    maxs_zero: int  # basically unused
     _format = "3fi3fi"  # Extreme SIMD
-    __slots__ = ["mins", "unused_1", "maxs", "unused_2"]
+    __slots__ = ["mins", "mins_zero", "maxs", "maxs_zero"]
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
@@ -660,17 +664,20 @@ class Portal(base.MappedArray):  # LUMP 108 (006C)
     # TODO: _classes {"type": PortalType}
 
 
-class PortalEdgeIntersect(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
-    unknown: List[int]  # oftens ends with a few -1, allows for variable length?
-    __slots__ = ["unknown"]
-    _format = "4i"
-    _arrays = {"unknown": 4}
+class PortalIndexSet(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
+    """identified by rexx#1287"""
+    # PortalVertexSet / PortalEdgeSet
+    index: List[int]  # -1 for None; essentially variable length
+    __slots__ = ["index"]
+    _format = "8h"
+    _arrays = {"index": 8}
 
 
 class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
-    start: int  # 0 - 3170
-    count: int  # 1 - 6
-    _mapping = ["start", "count"]  # assumed
+    """Confirmed by rexx#1287"""
+    start: int  # unsure what this indexes
+    count: int
+    _mapping = ["start", "count"]
     _format = "2I"
 
 
@@ -685,19 +692,22 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     """SHADOW_MESH_INDICES offset is end of previous ShadowMesh"""
     vertex_offset: int  # add each index in SHADOW_MESH_INDICES[prev_end:prev_end + num_triangles * 3]
     num_triangles: int  # number of triangles in SHADOW_MESH_INDICES
-    unknown: List[int]  # [1, -1] or [0, small_int]
-    __slots__ = ["vertex_offset", "num_triangles", "unknown"]
+    is_opaque: int  # indexes ShadowMeshAlphaVertex if 0, ShadowMeshVertex if 1
+    material_sort: int  # index into MaterialSort; -1 for None
+    __slots__ = ["vertex_offset", "num_triangles", "is_opaque", "material_sort"]
     _format = "2I2h"
-    _arrays = {"unknown": 2}
+    _classes = {"is_opaque": bool}
 
 
 class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
+    """"Identified by rexx#1287"""
+    # seems to get paired w/ a material sort, might explain which material is used?
     position: List[float]
-    unknown: List[float]  # both are always from 0.0 -> 1.0 (uvs? alpha?)
+    uv: List[float]
     _format = "5f"
-    __slots__ = ["position", "unknown"]
-    _arrays = {"position": [*"xyz"], "unknown": 2}
-    _classes = {"position": vector.vec3}
+    __slots__ = ["position", "uv"]
+    _arrays = {"position": [*"xyz"], "uv": [*"uv"]}
+    _classes = {"position": vector.vec3, "uv": vector.vec2}
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -954,11 +964,11 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "PLANES":                            {1: Plane},
                 "PORTALS":                           {0: Portal},
                 "PORTAL_EDGES":                      {0: quake.Edge},
-                "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalEdgeIntersect},
-                "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalEdgeIntersect},
+                "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalIndexSet},
+                "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalIndexSet},
                 "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
                 "PORTAL_VERTICES":                   {0: quake.Vertex},
-                "PORTAL_VERTEX_EDGES":               {0: PortalEdgeIntersect},
+                "PORTAL_VERTEX_EDGES":               {0: PortalIndexSet},  # unsure
                 "SHADOW_MESHES":                     {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTICES":        {0: ShadowMeshAlphaVertex},
                 "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
@@ -1076,9 +1086,12 @@ def shadow_meshes_as_obj(bsp) -> str:
         for j in range(mesh.num_triangles):
             start = end + j * 3
             tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
-            assert max(tri) < len(bsp.SHADOW_MESH_OPAQUE_VERTICES)
             v_tri = [x + 1 + mesh.vertex_offset for x in tri]
-            out.append(f"f {v_tri[0]} {v_tri[1]} {v_tri[2]}")
+            if not mesh.is_opaque:  # AlphaVertices
+                # TODO: figure out what to do with material sort
+                # -- usemtl material_sort.texture_data.name?
+                v_tri = [f"{i + len(bsp.SHADOW_MESH_OPAQUE_VERTICES)}/{i}" for i in v_tri]  # v/vt
+            out.append(f"f {' '.join(map(str, v_tri))}")
         end = start + 3
     return "\n".join(out)
 
