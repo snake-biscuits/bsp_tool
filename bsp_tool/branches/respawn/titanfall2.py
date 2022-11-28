@@ -272,18 +272,18 @@ class ShadowEnvironment(base.Struct):
 
 
 # classes for special lumps, in alphabetical order:
-class GameLump_SPRP:
+class GameLump_SPRP(titanfall.GameLump_SPRP):  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
     StaticPropClass: object  # StaticPropv13
     model_names: List[str]  # filenames of all .mdl / .rmdl used
     unknown_1: int
-    unknown_2: int  # indices?
+    unknown_2: int
     props: List[object]  # List[StaticPropClass]
-    unknown_3: List[bytes]
+    unknown_3: List[bytes]  # array of some unknown struct
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        self.StaticPropClass = StaticPropClass
         sprp_lump = io.BytesIO(raw_sprp_lump)
+        self.StaticPropClass = StaticPropClass
         model_names_count = int.from_bytes(sprp_lump.read(4), "little")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_names_count))
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])

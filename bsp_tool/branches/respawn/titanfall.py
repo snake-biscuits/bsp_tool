@@ -843,18 +843,20 @@ class EntityPartitions(list):
         return " ".join(self).encode("ascii") + b"\0"
 
 
-class GameLump_SPRP:
+class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
     StaticPropClass: object  # StaticPropv12
     model_names: List[str]
     leaves: List[int]
+    # NOTE: both unknown_1 & unknown_2 are new
+    # -- they might mark first_translucent_prop & first_alphatest_prop
     unknown_1: int
     unknown_2: int
     props: List[object] | List[bytes]  # List[StaticPropClass]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        self.StaticPropClass = StaticPropClass
         sprp_lump = io.BytesIO(raw_sprp_lump)
+        self.StaticPropClass = StaticPropClass
         model_name_count = int.from_bytes(sprp_lump.read(4), "little")
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])

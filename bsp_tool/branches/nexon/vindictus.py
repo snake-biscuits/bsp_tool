@@ -248,7 +248,7 @@ class GameLumpHeader(base.MappedArray):
     _format = "4s4i"
 
 
-class GameLump_SPRP:
+class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
     StaticPropClass: object
     model_names: List[str]

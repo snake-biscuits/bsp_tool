@@ -28,7 +28,7 @@ Grid_x360 = x360.make_big_endian(titanfall.Grid)
 
 
 # classes for special lumps, in alphabetical order:
-class GameLump_SPRP_x360:
+class GameLump_SPRP_x360(titanfall.GameLump_SPRP):  # sprp GameLump (LUMP 35)
     """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
     StaticPropClass: object
     model_names: List[str]

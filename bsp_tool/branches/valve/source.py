@@ -683,8 +683,9 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
     props: List[object] | List[bytes]  # List[StaticPropClass]
 
     def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object, endianness: str = "little"):
-        self.endianness = endianness
         sprp_lump = io.BytesIO(raw_sprp_lump)
+        self.StaticPropClass = StaticPropClass
+        self.endianness = endianness
         model_name_count = int.from_bytes(sprp_lump.read(4), self.endianness)
         model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
         setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
@@ -696,14 +697,14 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
         # -- in future: use this to detect a different branch script / format
         # NOTE: SFM sprp v10 is 72 bytes, not the expected 76
         raw_props = sprp_lump.read()
-        StaticPropClass_size = struct.calcsize(getattr(StaticPropClass, "_format", ""))
+        StaticPropClass_size = struct.calcsize(getattr(self.StaticPropClass, "_format", ""))
         props_byte_size = StaticPropClass_size * prop_count
         if props_byte_size != len(raw_props):
             warnings.warn(UserWarning("StaticPropClass format is unknown / doesn't match lump size"))
             StaticPropClass = None
         if prop_count == 0:
             setattr(self, "props", [])
-        elif StaticPropClass is None:
+        elif self.StaticPropClass is None:
             setattr(self, "props", [])
             prop_size = len(raw_props) // prop_count
             assert len(raw_props) % prop_count == 0, "SPRP.props does not divide evenly by prop_count"
@@ -724,6 +725,9 @@ class GameLump_SPRP:  # sprp GameLump (LUMP 35)
                          *[struct.pack("H", L) for L in self.leaves],
                          int.to_bytes(len(self.props), 4, self.endianness),
                          *prop_bytes])
+
+    def get_prop_model_name(self, prop_index: int) -> str:
+        return self.model_names[self.props[prop_index].model_name]
 
 
 class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
