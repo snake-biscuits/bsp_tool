@@ -14,7 +14,11 @@ from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, 
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
-# TODO: ensure the tools in this script can be used to generate a coverage .csv
+# TODO: use the tools in this script to generate coverage.csv (rank branches by % of lumps mapped)
+# TODO: list lumps added / deprecated / renamed by each branch
+# TODO: lump relationship maps w/ completeness
+# -- systems / associated subsystems (rendering, vis, light, physics)
+# -- would likely require some kind of dict, mapping how lumps index could be useful in general tbh
 
 # NOTE: forks should substitute their own repo here
 # TODO: get the commit hash from `git rev-parse HEAD` for permalinks
