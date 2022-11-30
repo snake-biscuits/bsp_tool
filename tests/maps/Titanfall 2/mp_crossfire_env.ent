@@ -1,0 +1,21 @@
+ENTITIES01
+{
+"classname" "env_fog_controller"
+"origin" "0 -952 -1552"
+"foghalfdistbottom" "1000"
+"foghalfdisttop" "10000"
+"useworldfog" "0"
+"use_angles" "1"
+"angles" "52 -160 -18"
+"fogenable" "1"
+"fogdircolor" "112 167 154"
+"fogcolor" "216 232 255"
+"targetname" "env_fog_controller_2"
+"fogangles" "-0 90 0"
+"farz" "-1"
+"fogdensity" ".3"
+"fogztop" "250"
+"fogzbottom" "0"
+"spawnclass" "reFog"
+"fogcolorstrength" ".2"
+}

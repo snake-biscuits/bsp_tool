@@ -1,0 +1,449 @@
+ENTITIES01
+{
+"classname" "info_spawnpoint_human"
+"origin" "4 312 -1848"
+"angles" "0 122 0"
+"teamnum" "0"
+"targetname" "dm_spawn_40"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-688.0 512.0 -1685.0"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_1"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-992 1504 -1689"
+"angles" "0 340 0"
+"teamnum" "0"
+"targetname" "dm_spawn_2"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-248 1232 -1528"
+"angles" "0 270 0"
+"teamnum" "0"
+"targetname" "dm_spawn_33"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "424.0 1064.0 -1528.0"
+"angles" "0 219 0"
+"teamnum" "0"
+"targetname" "dm_spawn_4"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "424 936 -1688"
+"angles" "0 219 0"
+"teamnum" "0"
+"targetname" "dm_spawn_5"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-744.0 920.0 -1528.0"
+"angles" "0 31 0"
+"teamnum" "0"
+"targetname" "dm_spawn_6"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-984.0 1304.0 -1688.0"
+"angles" "0 320 0"
+"teamnum" "0"
+"targetname" "dm_spawn_7"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "848.0 1152.0 -1526.0"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_8"
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "496 840 -1528"
+"angles" "0 0 0"
+"teamnum" "0"
+"targetname" "dm_spawn_9"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "672.0 1488.0 -1528.0"
+"angles" "0 219 0"
+"teamnum" "0"
+"targetname" "dm_spawn_10"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "16.0 1488.0 -1528.0"
+"angles" "0 194 0"
+"teamnum" "0"
+"targetname" "dm_spawn_11"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-32.0 1488.0 -1688.0"
+"angles" "0 194 0"
+"teamnum" "0"
+"targetname" "dm_spawn_12"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "192 1504 -1848"
+"angles" "0 270 0"
+"teamnum" "0"
+"targetname" "dm_spawn_13"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "864 736 -1848"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_14"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "208 224 -1688"
+"angles" "0 90 0"
+"teamnum" "0"
+"targetname" "dm_spawn_15"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "624 160 -1848"
+"angles" "0 71 0"
+"teamnum" "0"
+"targetname" "dm_spawn_16"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human_start"
+"model" "models/dev/mp_spawn_start.mdl"
+"origin" "0 -952 -1688"
+"targetname" "info_player_start_1"
+"angles" "0 90 0"
+"teamnum" "3"
+"teamnumber" "3"
+}
+{
+"classname" "info_spawnpoint_dropship_start"
+"origin" "352 -952 -1696"
+"angles" "0 180 0"
+"teamnum" "3"
+"targetname" "info_spawnpoint_dropship_start_1"
+}
+{
+"classname" "info_spawnpoint_dropship_start"
+"origin" "-640 800 -1696"
+"teamnum" "2"
+"targetname" "info_spawnpoint_dropship_start_2"
+}
+{
+"classname" "info_spawnpoint_titan_start"
+"origin" "-368 -944 -1696"
+"angles" "0 90 0"
+"teamnum" "3"
+"targetname" "info_spawnpoint_titan_start_1"
+}
+{
+"classname" "info_spawnpoint_titan_start"
+"origin" "48 768 -1856"
+"angles" "0 270 0"
+"teamnum" "2"
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "496 904 -1528"
+"angles" "0 0 0"
+"teamnum" "0"
+"targetname" "dm_spawn_19"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "672 1424 -1528"
+"teamnum" "0"
+"targetname" "dm_spawn_22"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+"angles" "0 155 0"
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "848 1200 -1526"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_18"
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "360 936 -1688"
+"angles" "0 270 0"
+"teamnum" "0"
+"targetname" "dm_spawn_25"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "864 688 -1848"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_24"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "672 160 -1848"
+"angles" "0 100 0"
+"teamnum" "0"
+"targetname" "dm_spawn_26"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-992 1456 -1689"
+"angles" "0 0 0"
+"teamnum" "0"
+"targetname" "dm_spawn_32"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-32 1424 -1688"
+"angles" "0 194 0"
+"teamnum" "0"
+"targetname" "dm_spawn_32"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "16 1440 -1528"
+"angles" "0 187 0"
+"teamnum" "0"
+"targetname" "dm_spawn_31"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-296 1232 -1528"
+"angles" "0 270 0"
+"teamnum" "0"
+"targetname" "dm_spawn_3"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "-744 968 -1528"
+"angles" "0 0 0"
+"teamnum" "0"
+"targetname" "dm_spawn_36"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "160 224 -1688"
+"angles" "0 90 0"
+"teamnum" "0"
+"targetname" "dm_spawn_45"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "36 344 -1848"
+"angles" "0 122 0"
+"teamnum" "0"
+"targetname" "dm_spawn_0"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "424 1024 -1528"
+"angles" "0 180 0"
+"teamnum" "0"
+"targetname" "dm_spawn_44"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human"
+"origin" "240 1504 -1848"
+"angles" "0 270 0"
+"teamnum" "0"
+"targetname" "dm_spawn_43"
+"gamemode_ffa" "1"
+"gamemode_mfd" "1"
+"gamemode_fra" "1"
+"gamemode_chamber" "1"
+"gamemode_gg" "1"
+
+}
+{
+"classname" "info_spawnpoint_human_start"
+"model" "models/dev/mp_spawn_start.mdl"
+"origin" "-320 832 -1848"
+"targetname" "info_player_start_2"
+"angles" "0 270 0"
+"teamnum" "2"
+"teamnumber" "2"
+}

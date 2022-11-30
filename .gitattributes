@@ -6,9 +6,11 @@
 *.cpp text eol=lf
 *.hpp text eol=lf
 # other text
+*.ent text eol=lf
 *.md text eol=lf
 *.map text eol=lf
 *.txt text eol=lf
+*.vmf text eol=lf
 # binary files
 *.bsp binary
 *.blend binary
