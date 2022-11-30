@@ -422,7 +422,7 @@ group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dir
 # registering tests/maps first
 installed_games = {("./", "tests/maps"): ["Call of Duty 4", "Call of Duty 4/mp",
                                           "Quake", "Quake 2", "Quake 3 Arena",
-                                          "Team Fortress 2"]}
+                                          "Team Fortress 2", "Titanfall 2"]}
 for group, games in group_dirs.items():
     if os.path.exists(group):
         for game, map_dirs in games.items():
