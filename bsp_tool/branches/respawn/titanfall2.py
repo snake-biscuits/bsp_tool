@@ -225,7 +225,27 @@ class MAX(enum.Enum):
     TEXTURES = 2048
 
 
+# flags enums
+class GeoSetFlags(enum.IntFlag):
+    """Identified by Fifty"""
+    BRUSH = 0x00
+    TRICOLL = 0x40
+
+
 # classes for lumps, in alphabetical order::
+class GeoSet(base.Struct):  # LUMP 87 (0057)
+    unknown: List[int]  # uint16_t[2]
+    child: base.BitField  # struct { uint32_t type: 8, index: 16, unknown: 8; };
+    # child.unknown: int  # may not be relevant to child
+    # child.index: int  # index of Brush / TriCollHeader?
+    # child.type: GeoSetFlags  # Brush or TriColl
+    __slots__ = ["unknown", "child"]
+    _format = "2HI"
+    _arrays = {"unknown": 2}
+    _bitfields = {"child": {"unknown": 8, "index": 16, "type": 8}}
+    _classes = {"child.type": GeoSetFlags}
+
+
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
     data: bytes
     _format = "128s"
@@ -341,7 +361,8 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
+LUMP_CLASSES.update({"CM_GEO_SETS":                         {0: GeoSet},
+                     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
                      "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
                      "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
                      "WORLD_LIGHTS":                        {1: titanfall.WorldLight,

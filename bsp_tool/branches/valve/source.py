@@ -626,7 +626,6 @@ class WaterOverlay(base.Struct):  # LUMP 50
 
 
 class WorldLight(base.Struct):  # LUMP 15
-    """A static light"""
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
@@ -644,7 +643,6 @@ class WorldLight(base.Struct):  # LUMP 15
     constant: float
     linear: float
     quadratic: float
-    # ^ these factor into some equation...
     flags: WorldLightFlags
     texture_info: int  # index of TextureInfo
     owner: int  # parent entity ID

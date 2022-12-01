@@ -208,7 +208,7 @@ LumpHeader = source.LumpHeader
 
 # Primitives is parallel w/ PrimitiveBounds
 # GeoSets is parallel w/ GeoSetBounds
-# PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
+# PrimitiveBounds & GeoSetBounds use the same type: Bounds
 
 # TODO: TRICOLL_* LUMPS
 # TODO: LIGHTPROBES
@@ -293,12 +293,6 @@ class MeshFlags(enum.IntFlag):
     MASK_VERTEX = 0x600
 
 
-class GeoSetFlags(enum.IntFlag):
-    """Identified by Fifty"""
-    BRUSH = 0x00
-    TRICOLL = 0x40
-
-
 TextureDataFlags = MeshFlags  # always the same as Mesh.flags -> MaterialSort -> TextureData.flags
 
 
@@ -346,12 +340,13 @@ class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
 
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
-    """Identified by warmist"""
+    """Identified by warmist & rexx#1287"""
+    # dcollyawbox_t
     origin: vector.vec3  # uint16_t
-    unknown_1: int
+    negative_cos: int  # oriented bounding box?
     extents: vector.vec3  # uint16_t
-    unknown_2: int
-    __slots__ = ["origin", "unknown_1", "extents", "unknown_2"]
+    positive_sin: int  # unsure of use
+    __slots__ = ["origin", "negative_cos", "extents", "positive_sin"]
     _format = "8h"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
@@ -445,16 +440,12 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 
 
 class GeoSet(base.Struct):  # LUMP 87 (0057)
-    unknown: List[int]  # uint16_t[2]
-    child: base.BitField  # struct { uint32_t type: 8, index: 16, unknown: 8; };
-    # child.unknown: int  # may not be relevant to child
-    # child.index: int  # index of Brush / TriCollHeader?
-    # child.type: GeoSetFlags  # Brush or TriColl
-    __slots__ = ["unknown", "child"]
+    # Parallel w/ GeoSetBounds
+    straddle_group: int  # CMGrid counts straddle groups
+    num_primitives: int
+    first_primitive: int  # index into CM_PRIMITIVES?
+    __slots__ = ["straddle_group", "num_primitives", "first_primitive"]
     _format = "2HI"
-    _arrays = {"unknown": 2}
-    _bitfields = {"child": {"unknown": 8, "index": 16, "type": 8}}
-    _classes = {"child.type": GeoSetFlags}
 
 
 # NOTE: only one 28 byte entry per file
@@ -510,17 +501,18 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
 
 
 class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
-    flags: int  # makes the most sense but idk
+    type: int  # TODO: LightmapHeaderType enum
     width: int
     height: int
-    _mapping = ["flags", "width", "height"]
+    _mapping = ["type", "width", "height"]
     _format = "I2H"
+    # TODO: _classes = {"type": LightmapTypeheader}
 
 
 class LightProbe(base.Struct):  # LUMP 102 (0066)
     """Identified by rexx"""  # untested
     cube: List[List[int]]  # rgb888 ambient light cube
-    sky_dir_sun_vis: List[int]
+    sky_dir_sun_vis: List[int]  # ???
     static_light: List[List[int]]  # connection to local static lights
     # static_light.weights: List[int]  # up to 4 scalars; default 0
     # static_light.indices: List[int]  # up to 4 indices; default -1
@@ -556,27 +548,29 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
-    last_vertex: int  # last indexed vertex in VERTEX_RESERVED_X lump
-    # TODO: verify
-    first_vertex: int  # firstVtxOffset; offset into appropriate VERTEX_RESERVED_X lump
+    last_vertex: int  # last indexed vertex in VERTEX_RESERVED_X lump; TODO: verify
+    vertex_offset: int  # firstVtxOffset; offset into appropriate VERTEX_RESERVED_X lump
     _mapping = ["texture_data", "lightmap_header", "cubemap", "last_vertex", "vertex_offset"]
     _format = "4hi"
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
+    # built on valve.source.Face?
     first_mesh_index: int  # index into MeshIndices
     num_triangles: int  # number of triangles in MeshIndices after first_mesh_index
     first_vertex: int  # index to this Mesh's first VertexReservedX
-    num_vertices: int
-    unknown: List[int]
-    # for mp_box.VERTEX_LIT_BUMP: (2, -256, -1,  ?,  ?,  ?)
-    # for mp_box.VERTEX_UNLIT:    (0,   -1, -1, -1, -1, -1)
+    num_vertices: int  # lastVertexOffset? off by one
+    vertex_type: int  # doesn't correlate w/ VERTEX_RESERVED_X in flags; TODO: MeshVertexType enum
+    styles: List[int]  # from source; 4 different lighting states? "switchable lighting info"
+    luxel_origin: List[int]  # same as source lightmap mins & size?
+    luxel_offset_max: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
     flags: MeshFlags  # (mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
-    __slots__ = ["first_mesh_index", "num_triangles", "first_vertex",
-                 "num_vertices", "unknown", "material_sort", "flags"]
-    _format = "I3H6hHI"
-    _arrays = {"unknown": 6}
+    __slots__ = ["first_mesh_index", "num_triangles", "first_vertex", "num_vertices",
+                 "vertex_type", "styles", "luxel_origin", "luxel_offset_max",
+                 "material_sort", "flags"]
+    _format = "I4H4B2h2BHI"
+    _arrays = {"styles": 4}
     _classes = {"flags": MeshFlags}
 
 
@@ -584,9 +578,10 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
     origin: List[float]
     radius: float  # approx. magnitude of extents
     extents: List[float]  # bounds extend symmetrically by this much along each axis
-    unknown_2: int  # could be a float, but value is strange; unsure of purpose; can be 0
-    __slots__ = ["origin", "radius", "extents", "unknown_2"]
-    _format = "4f3fI"  # Extreme SIMD
+    tan_yaw: int  # no clue what this is used for, AABB + Z rotation?
+    # TODO: mins & maxs properties, possibly via a baseclass
+    __slots__ = ["origin", "radius", "extents", "tan_yaw"]
+    _format = "8f"  # Extreme SIMD
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
@@ -598,7 +593,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
         out.origin = maxs - mins
         out.extents = maxs - out.origin
         out.radius = out.extents.magnitude() + 0.001  # round up a little
-        # out.unknown_2 = ...
+        # out.tan_yaw = ...  # just leave as 0 for now
         return out
 
 
@@ -759,74 +754,110 @@ class TricollNode(base.Struct):  # LUMP 68 (0044)
     _arrays = {"unknown": 4}
 
 
-class WorldLight(base.Struct):  # LUMP 54 (0036)
-    origin: List[float]
-    __slots__ = ["origin", "unknown"]
-    _format = "3f22I"  # 100 bytes
-    _arrays = {"origin": [*"xyz"], "unknown": 22}
-    _classes = {"origin": vector.vec3}
+class WorldLight(source.WorldLight):  # LUMP 54 (0036)
+    """pretty basic extension of valve.source.WorldLight"""
+    origin: vector.vec3  # origin point of this light source
+    intensity: vector.vec3  # brightness scalar?
+    normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    shadow_cast_offset: vector.vec3  # new in titanfall
+    unused: int  # formerly viscluster index?
+    type: source.EmitType
+    style: int  # lighting style (Face style index?)
+    # see base.fgd:
+    stop_dot: float  # spotlight penumbra start
+    stop_dot2: float  # spotlight penumbra end
+    exponent: float
+    radius: float
+    # falloff for EmitType.SPOTLIGHT & EmitType.POINT:
+    # 1 / (constant_attn + linear_attn * dist + quadratic_attn * dist**2)
+    # attenuations:
+    constant: float
+    linear: float
+    quadratic: float
+    flags: source.WorldLightFlags
+    texture_data: int  # index of TextureData
+    owner: int  # parent entity ID
+    __slots__ = ["origin", "intensity", "normal", "shadow_cast_offset", "unused",
+                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+                 "constant", "linear", "quadratic",  # attenuation
+                 "flags", "texture_data", "owner"]
+    _format = "12f3i7f3i"  # 100 bytes
+    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_cast_offset": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+                "shadow_cast_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
 
 
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    """Not used?"""
+    """Not used in any official map"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    __slots__ = ["position_index", "normal_index", "unknown"]
-    _format = "4I"  # 16 bytes
-    _arrays = {"unknown": 2}
+    colour: List[int]
+    uv: List[float]
+    tangent: List[float]  # 4 x 4 matrix? list of 4 quaternions?
+    __slots__ = ["position_index", "normal_index", "colour", "uv", "lightmap", "tangent"]
+    _format = "2I4B20f"  # 92 bytes
+    _arrays = {"colour": [*"rgba"], "uv": [*"uv"], "lightmap": {"uv": [*"uv"]}, "tangent": 16}
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # albedo / normal / gloss / specular uv
-    negative_one: int  # -1
-    uv1: List[float]  # small 0-1 floats, lightmap uv?
-    unknown: List[int]  # (0, 0, ?, ?)
-    # {v[-2:] for v in mp_box.VERTEX_LIT_BUMP}}
-    # {x[0] for x in _}.union({x[1] for x in _})  # all numbers
-    # for "mp_box": {*range(27)} - {0, 1, 6, 17, 19, 22, 25}
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
-    _format = "2I2fi2f4i"  # 44 bytes
-    _arrays = {"uv0": [*"uv"], "unknown": 7}
-    # TODO: uv vec2
+    uv: List[float]  # albedo uv coords
+    colour: List[int]
+    lightmap: List[float]
+    # lightmap.uv: List[float]  # lightmap uv coords
+    # lightmap.step: List[float]  # lightmap offset?
+    tangent: List[int]  # indices to some vectors, but which lump are they stored in?
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "lightmap", "tangent"]
+    _format = "2I2f4B4f2i"  # 44 bytes
+    _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
+               "lightmap": {"uv": [*"uv"], "step": [*"xy"]},
+               "tangent": [*"st"]}
+    _classes = {"lightmap.step": vector.vec2}
+    # TODO: albedo_uv vec2
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     """Uncommon Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # uv coords
-    unknown: List[int]
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
-    _format = "2I2f5I"
-    _arrays = {"uv0": [*"uv"], "unknown": 5}
-    # TODO: uv vec2
+    albedo_uv: List[float]  # albedo uv coords
+    colour: List[int]
+    lightmap: List[float]
+    # lightmap.uv: List[float]  # lightmap uv coords
+    # lightmap.step: List[float]  # lightmap offset?
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "lightmap"]
+    _format = "2I2f4B4f"
+    _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
+               "lightmap": {"uv": [*"uv"], "step": [*"xy"]}}
+    _classes = {"lightmap.step": vector.vec2}
+    # TODO: albedo_uv vec2
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     """Tool Brushes"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # uv coords
-    unknown: int  # usually -1
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
-    _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv0": [*"uv"]}
-    # TODO: uv vec2
+    albedo_uv: List[float]  # albedo uv coords
+    colour: List[int]  # usually white (0xFFFFFFFF)
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "colour"]
+    _format = "2I2f4B"  # 20 bytes
+    _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"]}
+    # TODO: _classes = {"uv": vec2, "colour": PixelRGBA32}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     """Glass"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # uv coords
-    unknown: List[int]
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
-    _format = "2I2f3I"  # 28 bytes
-    _arrays = {"uv0": [*"uv"], "unknown": 3}
+    albedo_uv: List[float]  # uv coords
+    colour: List[int]
+    tangent: List[int]  # indices to some vectors, but which lump are they stored in?
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "tangent"]
+    _format = "2I2f4B2i"  # 28 bytes
+    _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"], "tangent": [*"st"]}
     # TODO: uv vec2
 
 
