@@ -165,7 +165,9 @@ extracted_dirs = {
                      "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
                      # "baseq3/pak4.pk3/maps",  # only .aas files
                      "baseq3/pak6.pk3/maps",  # 4 maps | 14 MB | .pk3
-                     "missionpack/pak0.pk3/maps"],  # 21 maps | 150 MB | .pk3
+                     "missionpack/pak0.pk3/maps",  # 21 maps | 150 MB | .pk3
+                     # https://web.archive.org/web/20030207191220/http://www.interscope.com/quake/
+                     "chronic/maps"],  # 1 map | 2.9 MB | .pk3
         "Dreamcast/QuakeIII": ["maps"],  # 38 maps | 64 MB | .zip
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
