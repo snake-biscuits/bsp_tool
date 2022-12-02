@@ -200,6 +200,8 @@ extracted_dirs = {
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
+        # https://github.com/Bocuma747/SurfMaps
+        "CSS/Bocuma747_SurfMaps": ["maps"],  # 72 maps | 2.1 GB | .zip
         # https://github.com/L-Leite/UnCSO2
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
