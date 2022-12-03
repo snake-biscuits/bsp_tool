@@ -217,13 +217,12 @@ LumpHeader = source.LumpHeader
 
 
 # engine limits:
+# NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
 class MAX:
     MODELS = 1024
     TEXTURE_DATA = 2048
     WORLD_LIGHTS = 4064
     STATIC_PROPS = 40960
-
-# NOTE: max map coords are -32768 -> 32768 along each axis (Apex is 64Kx64K, double this limit!)
 
 
 # flag enums

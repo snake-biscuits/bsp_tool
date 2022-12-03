@@ -204,6 +204,8 @@ extracted_dirs = {
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
         # https://github.com/Bocuma747/SurfMaps
         "CSS/Bocuma747_SurfMaps": ["maps"],  # 72 maps | 2.1 GB | .zip
+        # https://github.com/OuiSURF/Surf_Maps
+        "CSS/OiuSURF_SurfMaps": ["maps"],  # 183 maps | 7.51 GB | .zip
         # https://github.com/L-Leite/UnCSO2
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
@@ -211,6 +213,18 @@ extracted_dirs = {
         # https://gamebanana.com/members/submissions/sublog/1762428
         "HL2DM/patbytes": ["maps"],  # 46 maps | 895 MB | .7z
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
+        # https://github.com/momentum-mod/BSPConversionLib
+        "MomentumMod": ["chronic/maps",  # 1 map | 10 MB | .pk3 -> v25 VBSP
+                        # http://nnsurf.site.nfoservers.com/Momentum/
+                        "nfoservers/AhopMaps",  # 14 maps | 181 MB
+                        "nfoservers/ConcMaps",  # 5 maps | 48 MB
+                        "nfoservers/JumpMaps",  # 51 maps | 2.11 GB
+                        "nfoservers/SurfMaps",  # 270 maps | 9.38 GB
+                        "nfoservers/TricksurfMaps",  # 8 maps | 205 MB
+                        # Momentum Mod Discord #gamemode-conc pins
+                        "Zike/ff_conc/maps",  # 20 maps | 369 MB
+                        "Zike/ff_skill/maps",  # 99 | 1.46 GB
+                        "Zike/mmod_conc/maps"],  # 5 maps | 48 MB
         "SiNEpisodes": ["maps"],  # 32 maps | 345 MB | .vpk
         # Tactical Intervention release maps are 256-bit XOR encrypted
         # -- see `bsp_tool/extensions/decrypt_xor.py`

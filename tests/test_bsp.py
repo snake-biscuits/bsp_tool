@@ -71,7 +71,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # maps probably tweaked in a text editor, all null bytes are spaces
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
-                    # files stay open if .bsp has loading errors???
+                    bsp_id = (bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version)  # debug info
                     loading_errors = dict()
                     for lump_name, error in bsp.loading_errors.items():
                         lump_version = getattr(bsp.headers[lump_name], "version", None)
@@ -93,7 +93,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                             if not isinstance(bsp.external.GAME_LUMP, lumps.RawBspLump):  # skip unmapped game lumps
                                 loading_errors.update({f"external.GAME_LUMP.{k} v{bsp.external.GAME_LUMP.headers[k].version}": v  # noqa E501
                                                        for k, v in bsp.external.GAME_LUMP.loading_errors.items()})
-                    del bsp  # close all open files before the pytest assert preserves locals()
+                    del bsp  # close all open files before pytest freezes locals() on assert
                     assert len(loading_errors) == 0, ", ".join(loading_errors.keys())  # pass loading_errors out
                 except NotImplementedError as nie:
                     # "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension
@@ -104,7 +104,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         errors[f"{map_dir}/{m}"] = nie
                 except AssertionError as ae:  # should catch the `assert len(loading_errors) == ...` above
                     errors[f"{map_dir}/{m}"] = ae
-                    types.add((bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version))
+                    types.add(bsp_id)
                     del bsp
     assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed",
                                         *map(str, types),  # BspClass, branch_script, bsp_version
