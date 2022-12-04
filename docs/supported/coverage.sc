@@ -9,7 +9,7 @@ nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
 nb_frozen_screencols 0
-format A 14 2 0
+format A 17 2 0
 format B 23 2 0
 format C 23 2 0
 leftstring A0 = "Developer"
@@ -84,7 +84,7 @@ let C22 = 62.63
 leftstring A23 = "valve"
 leftstring B23 = "sdk_2013"
 let C23 = 62.58
-leftstring A24 = "momentum"
+leftstring A24 = "chaos_initiative"
 leftstring B24 = "chaos"
 let C24 = 62.58
 leftstring A25 = "raven"
@@ -132,4 +132,4 @@ let C38 = 38.33
 leftstring A39 = "infinity_ward"
 leftstring B39 = "modern_warfare"
 let C39 = 23.56
-goto C6
+goto A24

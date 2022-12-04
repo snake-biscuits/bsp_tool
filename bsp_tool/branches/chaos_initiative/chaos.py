@@ -1,4 +1,5 @@
-# Momentum Mod Team's Chaos Source Engine (closed source) .bsp
+# Chaos Initiative's Chaos Source Engine (closed source) v25 VBSP
+# https://blog.momentum-mod.org/posts/changelog/0.9.2/#not-so-very-full-anymore
 # https://github.com/momentum-mod/BSPConversionLib
 import enum
 
@@ -90,7 +91,7 @@ LumpHeader = source.LumpHeader
 
 # engine limits:
 # NOTE: max map coords are -131072 to 131072 (4^3x Source, 2^3x Apex Legends)
-class MAX:
+class MAX(enum.Enum):
     """https://blog.momentum-mod.org/posts/changelog/0.9.2/"""
     MODELS = 16384
     BRUSHES = 65536

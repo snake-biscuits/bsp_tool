@@ -23,7 +23,7 @@
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Portal 2 | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 39 / 62 | 2 | 62.58% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Source Filmmaker | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 39 / 62 | 2 | 62.58% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 22 | INFRA | [`loiste.infra`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/loiste/infra.py) | 38 / 62 | 2 | 60.97% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 25 | Momentum Mod | [`momentum.chaos`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/momentum/chaos.py) | 39 / 62 | 2 | 62.58% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 25 | Momentum Mod | [`chaos_initiative.chaos`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/chaos_initiative/chaos.py) | 39 / 62 | 2 | 62.58% |
 
 
 ### References

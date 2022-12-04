@@ -169,7 +169,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa.py)
     - [Medal of Honor: Allied Assault - Spearhead](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa.py)
     - [Medal of Honor: Allied Assault - Breakthrough](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa_bt.py)
-    - [Momentum Mod (Unreleased)](https://github.com/snake-biscuits/bsp_tool/tree/bsp_tool/branches/momentum/chaos.py) :o:
+    - [Momentum Mod (Unreleased)](https://github.com/snake-biscuits/bsp_tool/tree/bsp_tool/branches/chaos_initiative/chaos.py) :o:
     - [Natural Selection](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Nexuiz Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)

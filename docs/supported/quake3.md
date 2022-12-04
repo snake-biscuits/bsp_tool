@@ -98,8 +98,8 @@
 | 14 | 20 | `FOGS` |  | 0% |
 | 14 | 21 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
 | 14 | 46 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L168) | 100% |
-| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 1 | `LIGHT_GRID` | [`id_software.qfusion.GridLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L95) | 100% |
+| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 12 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L251) | 100% |
 | 15 | 18 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
 | 15 | 19 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L251) | 100% |
