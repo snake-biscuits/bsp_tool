@@ -26,8 +26,9 @@ GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: 
 GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
                  "Return to Castle Wolfenstein": 47, "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}
-# NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34
+# NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34  (early Quake 2?)
 # NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
+# NOTE: id-Software/Quake-III-Arena/common/qfiles.h uses BSPVERSION 46
 
 
 # NOTE: based on mralligator's lump names, Q3 source code names are in comments
@@ -53,6 +54,9 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
+# changes from IdTech 2 -> IdTech 3:
+# TODO: ...
+
 # a rough map of the relationships between lumps:
 #
 #               /-> Texture
@@ -60,6 +64,33 @@ LumpHeader = quake.LumpHeader
 #      \-> Face -> MeshVertex
 #             \--> Texture
 #              \-> Vertex
+
+
+# engine limits
+class MAX(enum.Enum):
+    # lumps
+    ENTITIES = 0x800
+    TEXTURES = 0x400
+    PLANES = 0x20000
+    NODES = 0x20000
+    LEAVES = 0x20000
+    LEAF_FACES = 0x20000
+    LEAF_BRUSHES = 0x40000
+    MODELS = 0x400
+    BRUSHES = 0x8000
+    BRUSH_SIDES = 0x20000
+    VERTICES = 0x80000
+    MESH_VERTICES = 0x80000
+    EFFECTS = 0x100
+    FACES = 0x20000
+    # bytesizes (SpecialLumpClass)
+    ENTITY_STRING = 0x40000
+    LIGHTING = 0x200000
+    LIGHT_VOLUMES = 0x80000
+    VISIBILITY = 0x200000
+    # string buffers
+    ENTITY_KEY = 32
+    ENTITY_VALUE = 1024
 
 
 # flag enums

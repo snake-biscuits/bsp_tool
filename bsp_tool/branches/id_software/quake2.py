@@ -43,14 +43,15 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
-# A rough map of the relationships between lumps:
-# ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                                      \-> LEAF_BRUSHES -> BRUSHES
 
-#      /-> PLANES
-# FACES -> SURFEDGES -> EDGES -> VERTICES
-#     \--> TEXTURE_INFO
-#      \-> LIGHTMAPS
+# a rough map of the relationships between lumps:
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                                \-> LeafBrush -> Brush
+
+#     /-> Plane
+# Face -> SurfEdge -> Edge -> Vertex
+#    \--> TextureInfo
+#     \-> Lightmap
 
 # POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
 # POP seems to be the last lump written and is always null bytes in every map which has this lump

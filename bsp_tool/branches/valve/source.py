@@ -100,9 +100,9 @@ class LumpHeader(base.MappedArray):
     _mapping = ["offset", "length", "version", "fourCC"]
     _format = "4I"
 
+
 # changes from GoldSrc -> Source:
 # MipTexture.flags -> TextureInfo.flags (Surface enum)
-
 
 # a rough map of the relationships between lumps:
 
