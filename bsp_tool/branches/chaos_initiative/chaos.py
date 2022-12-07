@@ -11,7 +11,7 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 25
 
-GAME_PATHS = {"Momentum Mod": "Momentum Mod/mom"}
+GAME_PATHS = {"Momentum Mod": "Momentum Mod/momentum"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -93,8 +93,8 @@ LumpHeader = source.LumpHeader
 # NOTE: max map coords are -131072 to 131072 (4^3x Source, 2^3x Apex Legends)
 class MAX(enum.Enum):
     """https://blog.momentum-mod.org/posts/changelog/0.9.2/"""
-    MODELS = 16384
-    BRUSHES = 65536
+    MODELS = 65536
+    BRUSHES = 131072
     BRUSH_SIDES = 655360
     PLANES = 1048576
     VERTICES = 1048576
@@ -118,6 +118,7 @@ class MAX(enum.Enum):
     PRIMITIVE_INDICES = 1048576
     CUBEMAP_SAMPLES = 16384
     OVERLAYS = 16384
+    DISPLACEMENTS = 262144
     # edicts limit quadrupled to 8192 (engine entity implementation)
 
 

@@ -80,6 +80,7 @@ source_dirs = {
                            "left4dead2_dlc2/maps",  # 8 maps | 186 MB
                            "left4dead2_dlc3/maps"],  # 21 maps | 481 MB
          "MINERVA": ["metastasis/maps"],  # 6 maps | 201 MB
+         "Momentum Mod Playtest": ["momentum/maps"],  # 4 maps | 39 MB
          "NEOTOKYO": ["neotokyosource/maps"],  # 24 maps | 303 MB
          "nmrih": ["nmrih/maps"],  # 31 maps | 1.1 GB
          "Portal": ["portal/maps"],  # 26 maps | 426 MB
