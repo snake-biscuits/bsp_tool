@@ -105,7 +105,6 @@ def test_load_bsp(group_path, game_name, map_dirs):
                 except AssertionError as ae:  # should catch the `assert len(loading_errors) == ...` above
                     errors[f"{map_dir}/{m}"] = ae
                     types.add(bsp_id)
-                    del bsp
     assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed",
                                         *map(str, types),  # BspClass, branch_script, bsp_version
                                         *{ln for ae in errors.values() for ln in ae.args[0].split("\n")[0].split(", ")}])
