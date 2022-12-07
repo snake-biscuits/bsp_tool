@@ -1,0 +1,61 @@
+.../Momentum Mod/bin/win64> vbspinfo.exe ../momentum/maps/mp_lobby.bsp
+Command line: ".../Momentum Mod/bin/win64/vbspinfo.exe" "../momentum/maps/mp_lobby.bsp"
+
+---------------------
+reading .../Momentum Mod/momentum/maps/mp_lobby.bsp (95504)
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness
+------------       ---------------  ---------------  --------
+models                   1/65536          48/3145728  ( 0.0%)
+brushes                  6/131072         72/1572864  ( 0.0%)
+brushsides              36/1310720       576/20971520 ( 0.0%)
+planes                  40/1048576       800/20971520 ( 0.0%)
+vertexes                19/1048576       228/12582912 ( 0.0%)
+nodes                   27/1048576      1296/50331648 ( 0.0%)
+texinfos                 3/0             216/0        ( 0.0%)
+texdata                  1/16384          32/524288   ( 0.0%)
+dispinfos                0/262144          0/60817408 ( 0.0%)
+disp_verts               0/0               0/0        ( 0.0%)
+disp_tris                0/0               0/0        ( 0.0%)
+disp_multiblend          0/0               0/0        ( 0.0%)
+disp_lmsamples           0/0               0/0        ( 0.0%)
+faces                   16/1048576      1152/75497472 ( 0.0%)
+hdr faces               16/1048576      1152/75497472 ( 0.0%)
+origfaces                6/1048576       432/75497472 ( 0.0%)
+facebrushes              0/0               0/0        ( 0.0%)
+facebrushlists          16/0             128/0        ( 0.0%)
+leaves                  29/1048576      1624/58720256 ( 0.0%)
+leaffaces               16/1048576        64/4194304  ( 0.0%)
+leafbrushes             16/1048576        64/4194304  ( 0.0%)
+areas                    2/65536          16/524288   ( 0.0%)
+surfedges               88/2097152       352/8388608  ( 0.0%)
+edges                   45/1048576       360/8388608  ( 0.0%)
+LDR worldlights          0/0               0/0        ( 0.0%)
+HDR worldlights          1/0             100/0        ( 0.0%)
+leafwaterdata            0/32768           0/393216   ( 0.0%)
+waterstrips              0/1048576         0/20971520 ( 0.0%)
+waterverts               0/1048576         0/12582912 ( 0.0%)
+waterindices             0/1048576         0/4194304  ( 0.0%)
+cubemapsamples           0/16384           0/262144   ( 0.0%)
+overlays                 0/16384           0/5832704  ( 0.0%)
+LDR lightdata         [variable]           0/0        ( 0.0%)
+HDR lightdata         [variable]        1600/0        ( 0.0%)
+visdata               [variable]          44/16777216 ( 0.0%)
+entdata               [variable]         588/393216   ( 0.1%)
+LDR ambient table       29/1048576       232/8388608  ( 0.0%)
+HDR ambient table       29/1048576       232/8388608  ( 0.0%)
+LDR leaf ambient        29/1048576       812/29360128 ( 0.0%)
+HDR leaf ambient        29/1048576       812/29360128 ( 0.0%)
+occluders                0/0               0/0        ( 0.0%)
+occluder polygons        0/0               0/0        ( 0.0%)
+occluder vert ind        0/0               0/0        ( 0.0%)
+detail props          [variable]           1/12       ( 8.3%)
+static props          [variable]           1/12       ( 8.3%)
+pakfile               [variable]       74430/0        ( 0.0%)
+physics               [variable]        6310/4194304  ( 0.2%)
+physics terrain       [variable]           4/1048576  ( 0.0%)
+
+Level flags = 7e
+
+Total triangle count: 32
+---------------------

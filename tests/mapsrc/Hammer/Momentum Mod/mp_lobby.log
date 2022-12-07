@@ -1,0 +1,128 @@
+materialPath: D:\SteamLibrary\steamapps\common\Momentum Mod Playtest\momentum\materials
+Loading c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.vmf
+Map revision 1
+fixing up env_cubemap materials on brush sides...
+ProcessBlock_Thread : 0...1...2...3...4...5...6...7...8...9...10 (0)
+ProcessBlock_Thread : 0...1...2...3...4...5...6...7...8...9...10 (0)
+Processing areas...
+done (0)
+Building Faces...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.prt...
+Building visibility clusters...
+AutoVisClustering (threshold=-1) matched 0 leafs.
+done (0)
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (6310 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 8 texinfos to 3
+Reduced 1 texdatas to 1 (26 bytes to 26)
+Writing c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp
+MSG_FILEWRITE - Filesystem was asked to write to 'c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp', but we don't own that location. Allowing...
+0 seconds elapsed
+8 threads
+reading c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp
+reading c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.prt
+   4 portalclusters
+   4 numportals
+BasePortalVis : 0...1...2...3...4...5...6...7...8...9...10 (0)
+Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 16
+Average clusters visible: 4
+Building PAS...
+Average clusters audible: 4
+visdatasize:44  compressed from 64
+writing c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp
+MSG_FILEWRITE - Filesystem was asked to write to 'c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp', but we don't own that location. Allowing...
+0 seconds elapsed
+[Reading texlights from 'lights.rad']
+[1 texlights parsed from 'lights.rad']
+
+Loading c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp
+16 faces
+6144 square feet [884736.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+16 patches before subdivision
+16 patches after subdivision
+1 direct lights
+BuildFacelights : 0...1...2...3...4...5...6...7...8...9...10 (0)
+BuildVisLeafs : 0...1...2...3...4...5...6...7...8...9...10 (0)
+transfers 192, max 14
+transfer lists:   0.0 megs
+GatherLight : 0...1...2...3...4...5...6...7...8...9...10 (0)
+	Bounce #1 added RGB(4, 4, 4)
+GatherLight : 0...1...2...3...4...5...6...7...8...9...10 (0)
+	Bounce #2 added RGB(0, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0000 sec>
+FinalLightFace : 0...1...2...3...4...5...6...7...8...9...10 (0)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient : 0...1...2...3...4...5...6...7...8...9...10 (0)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/65536          48/3145728  ( 0.0%) 
+brushes                  6/131072         72/1572864  ( 0.0%) 
+brushsides              36/1310720       576/20971520 ( 0.0%) 
+planes                  40/1048576       800/20971520 ( 0.0%) 
+vertexes                19/1048576       228/12582912 ( 0.0%) 
+nodes                   27/1048576      1296/50331648 ( 0.0%) 
+texinfos                 3/0             216/0        ( 0.0%) 
+texdata                  1/16384          32/524288   ( 0.0%) 
+dispinfos                0/262144          0/60817408 ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                   16/1048576      1152/75497472 ( 0.0%) 
+hdr faces               16/1048576      1152/75497472 ( 0.0%) 
+origfaces                6/1048576       432/75497472 ( 0.0%) 
+facebrushes              0/0               0/0        ( 0.0%) 
+facebrushlists          16/0             128/0        ( 0.0%) 
+leaves                  29/1048576      1624/58720256 ( 0.0%) 
+leaffaces               16/1048576        64/4194304  ( 0.0%) 
+leafbrushes             16/1048576        64/4194304  ( 0.0%) 
+areas                    2/65536          16/524288   ( 0.0%) 
+surfedges               88/2097152       352/8388608  ( 0.0%) 
+edges                   45/1048576       360/8388608  ( 0.0%) 
+LDR worldlights          0/0               0/0        ( 0.0%) 
+HDR worldlights          1/0             100/0        ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips              0/1048576         0/20971520 ( 0.0%) 
+waterverts               0/1048576         0/12582912 ( 0.0%) 
+waterindices             0/1048576         0/4194304  ( 0.0%) 
+cubemapsamples           0/16384           0/262144   ( 0.0%) 
+overlays                 0/16384           0/5832704  ( 0.0%) 
+LDR lightdata         [variable]           0/0        ( 0.0%) 
+HDR lightdata         [variable]        1600/0        ( 0.0%) 
+visdata               [variable]          44/16777216 ( 0.0%) 
+entdata               [variable]         588/393216   ( 0.1%) 
+LDR ambient table       29/1048576       232/8388608  ( 0.0%) 
+HDR ambient table       29/1048576       232/8388608  ( 0.0%) 
+LDR leaf ambient        29/1048576       812/29360128 ( 0.0%) 
+HDR leaf ambient        29/1048576       812/29360128 ( 0.0%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]       74430/0        ( 0.0%) 
+physics               [variable]        6310/4194304  ( 0.2%) 
+physics terrain       [variable]           4/1048576  ( 0.0%) 
+
+Level flags = 7e
+
+Total triangle count: 32
+Writing c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp
+MSG_FILEWRITE - Filesystem was asked to write to 'c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer\momentum mod\mp_lobby.bsp', but we don't own that location. Allowing...
+0 seconds elapsed

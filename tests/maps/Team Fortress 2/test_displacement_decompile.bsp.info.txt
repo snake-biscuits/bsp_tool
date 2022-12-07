@@ -1,5 +1,5 @@
 .../Team Fortress 2> bin/vbspinfo.exe tf/maps/test_displacement_decompile.bsp
-Command line: "...Team Fortress 2\bin\vbspinfo.exe" tf/maps/test_displacement_decompile.bsp
+Command line: ".../Team Fortress 2/bin/vbspinfo.exe" tf/maps/test_displacement_decompile.bsp
 
 ---------------------
 reading .../Team Fortress 2/tf/maps/test_displacement_decompile.bsp (871964)
