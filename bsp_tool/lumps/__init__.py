@@ -381,7 +381,7 @@ class GameLump:
                 try:
                     child_lump_bytes = file.read(child_header.length)
                     compressed = child_lump_bytes[:4] == b"LZMA"
-                    if compressed and child_header.flags | 1 != 1:
+                    if compressed and child_header.flags & 1 != 1:
                         warnings.warn(UserWarning(f"{child_name} game lump is compressed but the flag is unset (Xbox360?)"))
                     if not compressed:
                         child_lump = child_LumpClass(child_lump_bytes)
@@ -389,6 +389,7 @@ class GameLump:
                         child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
                         child_lump = child_LumpClass(child_lump_bytes)
                     elif compressed:  # but otherwise empty
+                        # NOTE: length might be 12, for an empty source.GameLump_SPRP
                         warnings.warn(UserWarning(f"compressed empty {child_name} game lump"))
                         child_lump = None
                 except Exception as exc:
