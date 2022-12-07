@@ -3,6 +3,9 @@
 # https://github.com/momentum-mod/BSPConversionLib
 import enum
 
+# from .. import base
+from .. import shared
+from ..id_software import remake_quake_old
 from ..valve import sdk_2013
 from ..valve import source
 
@@ -122,11 +125,27 @@ class MAX(enum.Enum):
     # edicts limit quadrupled to 8192 (engine entity implementation)
 
 
+# classes for each lump, in alphabetical order:
+# TODO: v1 AreaPortal
+# TODO: v1 BrushSide (16 bytes)
+# TODO: v2 Face (72 bytes)  # FACES_HDR & ORIGINAL_FACES are the same size per-struct (72 bytes)
+# TODO: v2 Leaf (56 bytes)
+# TODO: v1 DisplacementInfo
+# TODO: v0 DisplacementTriangle
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = sdk_2013.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES":          {1: shared.UnsignedInts},
+                           "LEAF_FACES":            {1: shared.UnsignedInts},
+                           "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
 
 LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("ORIGINAL_FACES")
+pop = ("AREA_PORTALS", "BRUSH_SIDES", "DISPLACEMENT_INFO", "FACES", "LEAVES", "NODES", "ORIGINAL_FACES")
+for lump_name in pop:
+    LUMP_CLASSES.pop(lump_name)
+del lump_name, pop
+LUMP_CLASSES["EDGES"] = {1: remake_quake_old.Edge}
 
 SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
 

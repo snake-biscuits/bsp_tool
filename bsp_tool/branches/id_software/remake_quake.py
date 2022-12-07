@@ -23,19 +23,20 @@ LUMP = quake.LUMP
 LumpHeader = quake.LumpHeader
 
 
-# A rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
 
-# ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                   \-> CLIP_NODES -> PLANES
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                \-> ClipNode -> Plane
 
-#      /-> TEXTURE_INFO -> MIP_TEXTURES
-# FACES -> SURFEDGES -> EDGES -> VERTICES
-#     \--> LIGHTMAPS
-#      \-> PLANES
+#      /-> TextureInfo -> MipTextures -> MipTexture
+# Face -> SurfEdge -> Edge -> Vertex
+#     \--> Lightmap
+#      \-> Plane
 
 
-# TODO: MAXS
-# -- https://quakewiki.org/wiki/Engine_Limits
+# TODO: engine limits:
+# -- class MAX(enum.Enum):
+# --     """https://quakewiki.org/wiki/Engine_Limits"""
 
 
 # classes for lumps, in alphabetical order:
@@ -57,8 +58,8 @@ class Node(remake_quake_old.Node):  # LUMP 5
 BASIC_LUMP_CLASSES = remake_quake_old.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = remake_quake_old.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LEAVES":     Leaf,
-                     "NODES":      Node})
+LUMP_CLASSES.update({"LEAVES": Leaf,
+                     "NODES":  Node})
 
 SPECIAL_LUMP_CLASSES = remake_quake_old.SPECIAL_LUMP_CLASSES.copy()
 
