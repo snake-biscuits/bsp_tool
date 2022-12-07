@@ -84,12 +84,12 @@ let C22 = 62.63
 leftstring A23 = "valve"
 leftstring B23 = "sdk_2013"
 let C23 = 62.58
-leftstring A24 = "chaos_initiative"
-leftstring B24 = "chaos"
-let C24 = 62.58
-leftstring A25 = "raven"
-leftstring B25 = "soldier_of_fortune2"
-let C25 = 61.11
+leftstring A24 = "raven"
+leftstring B24 = "soldier_of_fortune2"
+let C24 = 61.11
+leftstring A25 = "chaos_initiative"
+leftstring B25 = "chaos"
+let C25 = 60.97
 leftstring A26 = "loiste"
 leftstring B26 = "infra"
 let C26 = 60.97
@@ -132,4 +132,4 @@ let C38 = 38.33
 leftstring A39 = "infinity_ward"
 leftstring B39 = "modern_warfare"
 let C39 = 23.56
-goto A24
+goto C25
