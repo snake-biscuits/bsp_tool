@@ -19,14 +19,14 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
-    SHADERS = 0
+    TEXTURES = 0
     PLANES = 1
     LIGHTMAPS = 2
-    SURFACES = 3
-    DRAW_VERTICES = 4
-    DRAW_INDICES = 5
+    FACES = 3
+    VERTICES = 4
+    INDICES = 5
     LEAF_BRUSHES = 6
-    LEAF_SURFACES = 7
+    LEAF_FACES = 7
     LEAVES = 8
     NODES = 9
     SIDE_EQUATIONS = 10
@@ -51,19 +51,29 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
-# Known lump changes from Allied Assault Demo -> Allied Assault:
-# New:
+# known lump changes from Allied Assault Demo -> Allied Assault:
+# new:
 #   VISIBILITY
-# Deprecated:
+# deprecated:
 #   UNKNOWN_14
 
 # a rough map of the relationships between lumps:
-#
-#               /-> Shader
-# Model -> Brush -> BrushSide
-#      \-> Face -> MeshVertex
-#             \--> Texture
-#              \-> Vertex
+
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                                \-> LeafBrush -> Brush
+
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
+
+#               /-> Texture  /-> Texture
+# Model -> Brush -> BrushSide -> Plane
+#      \-> Face              \-> Face
+# NOTE: Brush's indexed Texture is just used for Contents flags
+
+#     /-> Texture
+# Face -> Index -> Vertex
+#    \--> Vertex
+#     \-> Effect
 
 
 # {"LUMP_NAME": LumpClass}

@@ -25,7 +25,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
-    ENTITIES = 0  # one long string
+    ENTITIES = 0
     PLANES = 1
     MIP_TEXTURES = 2
     VERTICES = 3
@@ -35,10 +35,10 @@ class LUMP(enum.Enum):
     FACES = 7
     LIGHTMAPS = 8  # 8bpp 0x00-0xFF black-white
     CLIP_NODES = 9
-    LEAVES = 10  # indexed by NODES, index ranges of LEAF_FACES
-    LEAF_FACES = 11  # indices into FACES, sorted for (start, len) lookups
+    LEAVES = 10
+    LEAF_FACES = 11
     EDGES = 12
-    SURFEDGES = 13  # indices into EDGES (-ve indices reverse edge direction)
+    SURFEDGES = 13
     MODELS = 14
 
 
@@ -47,48 +47,48 @@ class LumpHeader(base.MappedArray):
     _format = "2I"
 
 
-# A rough map of the relationships between lumps:
+# a rough map of the relationships between lumps:
 
-# ENTITIES -> MODELS -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                   \-> CLIP_NODES -> PLANES
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                \-> ClipNode -> Plane
 
-# VISIBILITY -> NODES -> LEAVES -> LEAF_FACES -> FACES
-#                    \-> PLANES
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
 
-#      /-> TEXTURE_INFO -> MIP_TEXTURES
-# FACES -> SURFEDGES -> EDGES -> VERTICES
-#     \--> LIGHTMAPS
-#      \-> PLANES
+#     /-> TextureInfo -> MipTextures -> MipTexture
+# Face -> SurfEdge -> Edge -> Vertex
+#    \--> Lightmap
+#     \-> Plane
 
 
-# Engine limits:
+# engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
+    ENTITIES_SIZE = 65536  # bytesize
     PLANES = 32767
     MIP_LEVELS = 4  # affects MipTexture LumpClass
     MIP_TEXTURES = 512
-    MIP_TEXTURES_SIZE = 0x200000  # in bytes
+    MIP_TEXTURES_SIZE = 0x200000  # bytesize
     VERTICES = 65535
-    VISIBILITY_SIZE = 0x100000  # in bytes
+    VISIBILITY_SIZE = 0x100000  # bytesize
     NODES = 32767  # "because negative shorts are contents"
     TEXTURE_INFO = 4096
     FACES = 65535
-    LIGHTING_SIZE = 0x100000  # in bytes
     LIGHTMAPS = 4  # affects Face LumpClass
+    LIGHTING_SIZE = 0x100000  # bytesize
     CLIP_NODES = 32767
     LEAVES = 8192
-    MARK_SURFACES = 65535
+    LEAF_FACES = 65535  # MARKSURFACES
     EDGES = 256000
+    SURFEDGES = 512000
     MODELS = 256
     BRUSHES = 4096  # for radiant / q2map ?
     ENTITY_KEY = 32
-    ENTITY_STRING = 65536
     ENTITY_VALUE = 1024
-    SURFEDGES = 512000
     MAP_HULLS = 4
 
 
-# flag enums
+# flag enums:
 class Contents(enum.IntFlag):
     """Brush flags"""
     # src/public/bspflags.h

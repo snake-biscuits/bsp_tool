@@ -4,8 +4,9 @@ from typing import List
 
 from .. import base
 from .. import shared
+from .. import vector
 from ..id_software import quake
-# from ..id_software import quake3  # RTCW based
+from ..id_software import quake3  # CoD1 was built on RTCW
 
 
 FILE_MAGIC = b"IBSP"
@@ -19,14 +20,14 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
-    SHADERS = 0
+    TEXTURES = 0
     LIGHTMAPS = 1
     PLANES = 2
     BRUSH_SIDES = 3
     BRUSHES = 4
     TRIANGLE_SOUPS = 6
-    DRAW_VERTICES = 7
-    DRAW_INDICES = 8
+    VERTICES = 7
+    INDICES = 8
     CULL_GROUPS = 9
     CULL_GROUP_INDICES = 10
     PORTAL_VERTICES = 11
@@ -41,7 +42,7 @@ class LUMP(enum.Enum):
     NODES = 20
     LEAVES = 21
     LEAF_BRUSHES = 22
-    LEAF_SURFACES = 23
+    LEAF_FACES = 23
     PATCH_COLLISION = 24
     COLLISION_VERTICES = 25
     COLLISION_INDICES = 26
@@ -49,7 +50,7 @@ class LUMP(enum.Enum):
     VISIBILITY = 28
     ENTITIES = 29
     LIGHTS = 30
-    UNKNOWN_31 = 31  # FOGS ?
+    UNKNOWN_31 = 31  # EFFECTS / FOGS ?
     # big "32nd lump" at end of file, not in header?
 
 
@@ -58,9 +59,15 @@ class LumpHeader(base.MappedArray):
     _format = "2I"
 
 
-# flag enums
+# TODO: known lump changes from Quake 3 -> CoD 1:
+
+
+# TODO: a rough map of the relationships between lumps:
+
+
+# flag enums:
 class LightType(enum.Enum):  # Light.type
-    # NOTE: sun is baked into light volumes (6 sp maps have no lights)
+    # NOTE: sun is baked into LightGrid (6 sp maps have no lights)
     DIRECTIONAL_1 = 0x01
     UNKNOWN_2 = 0x02
     DIRECTIONLESS_4 = 0x04
@@ -80,19 +87,19 @@ class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
 
 
 class Brush(base.MappedArray):  # LUMP 6
-    # NOTE: first side is calculated via: sum([b.num_sides for b in bsp.BRUSHES[-i]]) - 1
-    num_sides: int
-    material_id: int  # Brush's overall contents flag?
-    _mapping = ["num_sides", "material_id"]
+    # NOTE: first_side is calculated via: sum([b.num_sides for b in bsp.BRUSHES[-i]]) - 1
+    num_sides: int  # number of BrushSides after first_side in this Brush
+    texture: int  # index of Texture that sets this Brush's Contents flag
+    _mapping = ["num_sides", "texture"]
     _format = "2H"
 
 
 class BrushSide(base.Struct):  # LUMP 3
-    plane: int   # index into Plane lump
+    plane: int   # Plane this BrushSide lies on
     # NOTE: in some cases the plane index is a distance instead (float)
     # "first 6 entries indicated by an entry in lump 6 [brushes] are distances (float), rest is plane ID's"
-    shader: int  # index into Texture lump
-    __slots__ = ["plane", "shader"]
+    texture: int  # index into Texture lump
+    __slots__ = ["plane", "texture"]
     _format = "2I"
 
 
@@ -110,26 +117,19 @@ class CullGroup(base.Struct):  # LUMP 9
     _format = "8i"
 
 
-class DrawVertex(base.Struct):  # LUMP 7
-    # position, uv0 (albedo), uv1 (lightmap), colour etc.
-    unknown: List[int]
-    __slots__ = ["unknown"]
-    _format = "11i"
-    _arryas = {"unknown": 11}
-
-
 class Leaf(base.Struct):  # LUMP 21
     unknown_1: List[int]
-    first_leaf_brush: int
-    num_leaf_brushes: int
+    first_leaf_brush: int  # index of first LeafBrush in this Leaf
+    num_leaf_brushes: int  # number of LeafBrushes after first_leaf_brush in this Leaf
     unknown_2: List[int]
+    # LeafFace indices are probably in here somewhere...
     __slots__ = ["unknown_1", "first_leaf_brush", "num_leaf_brush", "unknown_2"]
     _format = "9i"
     _arrays = {"unknown_1": 4, "unknown_2": 3}
 
 
 class Light(base.Struct):  # LUMP 30
-    type: int  # see LightType
+    type: LightType
     unknown_1: List[float]  # big floats
     origin: List[float]  # seems legit
     vector: List[float]  # magnitude of ~1.0 if a directional type
@@ -138,6 +138,7 @@ class Light(base.Struct):  # LUMP 30
     __slots__ = ["type", "unknown_1", "origin", "vector", "unknown_2", "unknown_3"]
     _format = "i12f5i"
     _arrays = {"unknown_1": 3, "origin": [*"xyz"], "vector": [*"xyz"], "unknown_2": 3, "unknown_3": 5}
+    _classes = {"type": LightType, "origin": vector.vec3, "vector": vector.vec3}
 
 
 class Lightmap(list):  # LUMP 1
@@ -219,33 +220,32 @@ class Portal(base.Struct):  # LUMP 18
     _arrays = {"unknown": 4}
 
 
-class Shader(base.Struct):  # LUMP 0
-    """possibly based on Quake3 Texture LumpClass"""
-    texture: str
-    flags: List[int]
-    __slots__ = ["texture", "flags"]
-    _format = "64s2i"
-    _arrays = {"flags": ["surface", "contents"]}
-
-
 class TriangleSoup(base.MappedArray):  # LUMP 5
-    material: int
+    texture: int  # index into Textures?
     draw_order: int  # ?
     first_vertex: int
     num_vertices: int
-    first_triangle: int
+    first_triangle: int  # index into Indices?
     num_triangles: int
-    _mapping = ["material", "draw_order", "first_vertex", "num_vertices",
+    _mapping = ["texture", "draw_order", "first_vertex", "num_vertices",
                 "first_triangle", "num_triangles"]
     _format = "2HI2HI"
+
+
+class Vertex(base.Struct):  # LUMP 7
+    # position, uv0 (albedo), uv1 (lightmap), colour etc.
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "11i"
+    _arrays = {"unknown": 11}
 
 
 # {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  shared.UnsignedShorts,
                       "CULL_GROUP_INDICES": shared.UnsignedInts,
-                      "DRAW_INDICES":       shared.UnsignedShorts,
+                      "INDICES":            shared.UnsignedShorts,
                       "LEAF_BRUSHES":       shared.UnsignedInts,
-                      "LEAF_SURFACES":      shared.UnsignedInts,
+                      "LEAF_FACES":         shared.UnsignedInts,
                       "LIGHT_INDICES":      shared.UnsignedShorts,
                       "OCCLUDER_INDICES":   shared.UnsignedShorts,
                       "OCCLUDER_PLANES":    shared.UnsignedInts}
@@ -257,7 +257,7 @@ LUMP_CLASSES = {
                 # "CELLS":              Cell,
                 # "COLLISION_VERTICES": quake.Vertex,
                 # "CULL_GROUPS":        CullGroup,
-                # "DRAW_VERTICES":      DrawVertex,
+                # "VERTICES":           Vertex,
                 "LEAVES":             Leaf,
                 "LIGHTS":             Light,
                 "LIGHTMAPS":          Lightmap,
@@ -268,7 +268,7 @@ LUMP_CLASSES = {
                 # "PATCH_COLLISION":    PatchCollision,
                 "PLANES":             Plane,
                 "PORTALS":            Portal,
-                "SHADERS":            Shader,
+                "TEXTURES":            quake3.Texture,
                 "TRIANGLE_SOUPS":     TriangleSoup}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}

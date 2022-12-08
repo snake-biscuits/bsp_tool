@@ -7,7 +7,9 @@ from typing import List
 
 from .. import base
 from .. import shared
+from .. import vector
 from ..id_software import quake
+from ..id_software import quake3
 from . import fakk2
 
 
@@ -23,14 +25,14 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 # NOTE: these are assumptions built on the mapped MoH:AA release
 # TODO: confirm against lump loads in MOHAADemo.exe (search for CM_LoadMap string to get started)
 class LUMP(enum.Enum):
-    SHADERS = 0
+    TEXTURES = 0
     PLANES = 1
     LIGHTMAPS = 2
-    SURFACES = 3
-    DRAW_VERTICES = 4
-    DRAW_INDICES = 5
+    FACES = 3
+    VERTICES = 4
+    INDICES = 5
     LEAF_BRUSHES = 6
-    LEAF_SURFACES = 7
+    LEAF_FACES = 7
     LEAVES = 8  # has 2 versions based on BSP_VERSION
     NODES = 9
     SIDE_EQUATIONS = 10
@@ -56,8 +58,8 @@ class LUMP(enum.Enum):
 LumpHeader = quake.LumpHeader
 
 
-# Known changes from Ubertools -> Allied Assault Demo:
-# New:
+# known changes from Ubertools -> Allied Assault Demo:
+# new:
 #   SIDE_EQUATIONS
 #   LIGHT_GRID_PALETTE
 #   LIGHT_GRID_OFFSETS
@@ -71,29 +73,40 @@ LumpHeader = quake.LumpHeader
 #   STATIC_MODEL_INDICES
 #   UNKNOWN_27
 
+
 # a rough map of the relationships between lumps:
-#
-#               /-> Shader
-# Model -> Brush -> BrushSide
-#      \-> Face -> MeshVertex
-#             \--> Texture
-#              \-> Vertex
+
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                                \-> LeafBrush -> Brush
+
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
+
+#               /-> Texture  /-> Texture
+# Model -> Brush -> BrushSide -> Plane
+#      \-> Face              \-> Face
+# NOTE: Brush's indexed Texture is just used for Contents flags
+
+#     /-> Texture
+# Face -> Index -> Vertex
+#    \--> Vertex
+#     \-> Effect
 
 
 # classes for lumps, in alphabetical order:
 class BrushSide(base.MappedArray):
-    plane: int  # index into Plane lump
-    shader: int  # index into Shader lump
-    equation: int  # index into SideEquation lump
-    _mapping = ["plane", "shader", "equation"]
+    plane: int  # index of the Plane this BrushSide lies on
+    texture: int  # index into Texture lump
+    equation: int  # index into SideEquation lump (patches?)
+    _mapping = ["plane", "texture", "equation"]
     _format = "3i"
 
 
 class Leaf(base.Struct):  # LUMP 4
     cluster: int  # index into VisData
     area: int
-    mins: List[float]  # Bounding box
-    maxs: List[float]
+    mins: vector.vec3  # Bounding box
+    maxs: vector.vec3
     first_leaf_face: int  # index into LeafFace lump
     num_leaf_faces: int  # number of LeafFaces in this Leaf
     first_leaf_brush: int  # index into LeafBrush lump
@@ -106,9 +119,10 @@ class Leaf(base.Struct):  # LUMP 4
                  "padding", "first_static_model", "num_static_models"]  # new
     _format = "16i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "padding": 2}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Shader(base.Struct):  # LUMP 0
+class Texture(base.Struct):  # LUMP 0
     name: str
     flags: List[int]
     subdivisions: int
@@ -116,12 +130,13 @@ class Shader(base.Struct):  # LUMP 0
     __slots__ = ["name", "flags", "subdivisions", "fence_mask"]
     _format = "64s3i64s"
     _arrays = {"flags": ["surface", "contents"]}
+    _classes = {"flags.surface": quake3.Surface, "flags.Contents": quake3.Contents}
 
 
 class Unknown14(base.Struct):  # LUMP 14
     """reminds me of respawn.titanfall2.ShadowEnvironment"""
-    mins: List[float]
-    maxs: List[float]
+    mins: vector.vec3
+    maxs: vector.vec3
     first_unknown_1: int
     num_unknown_1: int
     first_unknown_2: int
@@ -130,6 +145,7 @@ class Unknown14(base.Struct):  # LUMP 14
                  "first_unknown_2", "num_unknown_2"]
     _format = "6f4i"
     _arrays = {"min": [*"xyz"], "max": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 # {"LUMP_NAME": LumpClass}
@@ -138,7 +154,7 @@ BASIC_LUMP_CLASSES = fakk2.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = fakk2.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
                      "LEAVES":      Leaf,
-                     "SHADERS":     Shader,
+                     "TEXTURES":    Texture,
                      "UNKNOWN_14":  Unknown14})
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()

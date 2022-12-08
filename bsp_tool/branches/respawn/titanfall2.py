@@ -154,15 +154,15 @@ class LUMP(enum.Enum):
 LumpHeader = source.LumpHeader
 
 
-# Known lump changes from Titanfall -> Titanfall 2:
-# New:
+# known lump changes from Titanfall -> Titanfall 2:
+# new:
 # UNUSED_4 -> LIGHTPROBE_PARENT_INFOS
 # UNUSED_5 -> SHADOW_ENVIRONMENTS
 # UNUSED_6 -> LIGHTPROBE_BSP_NODES
 # UNUSED_7 -> LIGHTPROBE_BSP_REF_IDS
 # UNUSED_55 -> WORLD_LIGHT_PARENT_INFOS
 # UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
-# Deprecated:
+# deprecated:
 # LEAF_WATER_DATA
 # PHYSICS_LEVEL
 # PHYSICS_TRIANGLES

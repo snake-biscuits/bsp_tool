@@ -43,7 +43,7 @@ class LUMP(enum.Enum):
     LIGHTING = 8
     CLIP_NODES = 9
     LEAVES = 10
-    MARK_SURFACES = 11
+    LEAF_FACES = 11  # MARKSURFACES
     EDGES = 12
     SURFEDGES = 13
     MODELS = 14
@@ -51,33 +51,33 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
-# Known lump changes from Quake II -> GoldSrc:
-# New:
-#   MARK_SURFACES
+
+# known lump changes from Quake -> GoldSrc:
+#   nothing lol
 
 
-# Engine limits:
+# engine limits:
 class MAX(enum.Enum):
     ENTITIES = 1024
+    ENTITES_SIZE = 128 * 1024  # bytesize
     PLANES = 32767
     MIP_TEXTURES = 512
-    MIP_TEXTURES_SIZE = 0x200000  # in bytes
+    MIP_TEXTURES_SIZE = 0x200000  # bytesize
     VERTICES = 65535
-    VISIBILITY_SIZE = 0x200000  # in bytes
+    VISIBILITY_SIZE = 0x200000  # bytesize
     NODES = 32767  # "because negative shorts are contents"
     TEXTURE_INFO = 8192
     FACES = 65535
     LIGHTING_SIZE = 0x200000  # in bytes
     CLIP_NODES = 32767
     LEAVES = 8192
-    MARK_SURFACES = 65535
+    LEAF_FACES = 65535
     EDGES = 256000
+    SURFEDGES = 512000
     MODELS = 400
     BRUSHES = 4096  # for radiant / q2map ?
     ENTITY_KEY = 32
-    ENTITY_STRING = 128 * 1024
     ENTITY_VALUE = 1024
-    SURFEDGES = 512000
 
 
 # flag enums
@@ -123,7 +123,7 @@ BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"MODELS": Model,
-                     "NODES": quake.ClipNode})
+                     "NODES":  quake.ClipNode})
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 

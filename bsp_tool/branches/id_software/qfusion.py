@@ -5,6 +5,7 @@ from typing import List
 
 from .. import base
 from .. import shared
+from .. import vector
 from . import quake
 from . import quake3
 
@@ -21,7 +22,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 class LUMP(enum.Enum):
     ENTITIES = 0
-    SHADER_REFERENCES = 1
+    TEXTURES = 1
     PLANES = 2
     NODES = 3
     LEAVES = 4
@@ -31,8 +32,8 @@ class LUMP(enum.Enum):
     BRUSHES = 8
     BRUSH_SIDES = 9
     VERTICES = 10
-    ELEMENTS = 11
-    FOGS = 12
+    INDICES = 11
+    EFFECTS = 12  # FOGS
     FACES = 13
     LIGHTMAPS = 14
     LIGHT_GRID = 15
@@ -42,67 +43,108 @@ class LUMP(enum.Enum):
 
 LumpHeader = quake.LumpHeader
 
+
 # a rough map of the relationships between lumps:
 
-#               /-> Texture
-# Model -> Brush -> BrushSide
-#      \-> Face -> MeshVertex
-#             \--> Texture
-#              \-> Vertex
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                                \-> LeafBrush -> Brush
+
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
+
+#               /-> Texture  /-> Texture
+# Model -> Brush -> BrushSide -> Plane
+#      \-> Face              \-> Face
+# NOTE: Brush's indexed Texture is just used for Contents flags
+
+#     /-> Texture
+# Face -> Index -> Vertex
+#    \--> Vertex
+#     \-> Effect
 
 
-# TODO: MAXS & SURFACE_TYPE IntEnums
+# engine limits:
+class MAX(enum.Enum):
+    AREAS = 256
+    BRUSHES = 32768
+    BRUSHSIDES = 196608
+    EFFECTS = 256
+    ENTITIES = 2048
+    ENTITIES_SIZE = 0x40000  # bytesize
+    FACES = 131072
+    INDICES = 524288
+    LEAVES = 131072
+    LEAF_BRUSHES = 262144
+    LEAF_FACES = 131072
+    LIGHTMAPS = 4  # one for each lighting style?
+    LIGHTMAPS_SIZE = 0x800000  # bytesize
+    MODELS = 1024
+    NODES = 131072
+    PLANES = 131072
+    PORTALS = 131072  # no lump?
+    TEXTURES = 1024
+    VERTEXES = 524288
+    VISIBILITY_SIZE = 0x200000  # bytesize
+
 
 # classes for lumps, in alphabetical order:
 class BrushSide(base.MappedArray):  # LUMP 9
-    plane: int
-    shader: int
-    surface: int
-    _mapping = ["plane", "shader", "surface"]
+    plane: int  # index of Plane this BrushSide lies on
+    texture: int  # index of this BrushSide's Texture
+    face: int  # index of the Face created from this BrushSide
+    _mapping = ["plane", "texture", "face"]
     _format = "3i"
 
 
 class Face(base.Struct):  # LUMP 13
-    shader: int  # index of this Face's shader
-    fog: int  # index of this Face's fog
-    surface_type: int  # flags
+    texture: int  # index of this Face's Texture
+    effect: int  # index of this Face's Effect; -1 for None?
+    type: int  # see quake3.FaceType
     first_vertex: int  # first Vertex in this Face
     num_vertices: int  # number of Vertices after first_vertex in this Face
-    first_element: int  # first Element in this Face
-    num_elements: int  # number of Elements after first_element in this Face
+    first_index: int  # first Index in this Face
+    num_indices: int  # number of Indices after first_index in this Face
     style: List[List[int]]
     # style.lightmap: List[int]
-    # style.vertes: List[int]
+    # style.vertex: List[int]
     lightmap: List[List[int | List[int]]]
     # lightmap.texture: List[int]
-    # lightmap.offset
-    origin: List[float]  # FLARE only
-    mins: List[float]  # FLARE / PATCH only
-    maxs: List[float]  # FLARE / PATCH only
-    normal: List[float]  # PLANAR only
-    patch_control_point_dimensions: List[int]
-    __slots__ = ["shader", "fog", "surface_type", "first_vertex", "num_vertices",
-                 "first_element", "num_elements", "style", "lightmap", "origin",
-                 "mins", "maxs", "normal", "patch_control_point_dimensions"]
+    # lightmap.offset: List[vector.vec2]
+    # lightmap.size: vector.vec2
+    origin: vector.vec3  # FLARE only
+    mins: vector.vec3  # FLARE / PATCH only
+    maxs: vector.vec3  # FLARE / PATCH only
+    normal: vector.vec3  # PLANAR only
+    patch: vector.vec2  # control point dimensions; TODO: ivec2
+    __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
+                 "first_index", "num_indices", "style", "lightmap", "origin",
+                 "mins", "maxs", "normal", "patch"]
     _format = "5iIi8B14i12f2i"
     _arrays = {"style": {"lightmap": 4, "vertex": 4},
                "lightmap": {"texture": 4, "offset": {s: [*"xy"] for s in "ABCD"},
-                            "size": [*"xy"]},
+                            "size": ["width", "height"]},
                "origin": [*"xyz"], "mins": [*"xyz"], "maxs": [*"xyz"],
-               "normal": [*"xyz"], "patch_control_point_dimensions": ["width", "height"]}
+               "normal": [*"xyz"], "patch": ["width", "height"]}
+    _classes = {"type": quake3.FaceType, "lightmap.top_left": vector.vec2,
+                "lightmap.size": vector.renamed_vec2("width", "height"), "lightmap.origin": vector.vec3,
+                "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3, "normal": vector.vec3,
+                "patch": vector.renamed_vec2("width", "height")}
 
 
-class GridLight(base.Struct):
-    ambient: List[List[int]]
-    diffuse: List[List[int]]
-    styles: List[int]
-    direction: List[int]
+class GridLight(base.Struct):  # LUMP 15
+    ambient: List[List[int]]  # 4x ambient colour
+    diffuse: List[List[int]]  # 4x diffuse colour; scaled by dot(mesh.Normal, gridlight.direction)
+    # NOTE: 4x each colour, 1 for each style
+    styles: List[int]  # which style to use?
+    direction: List[int]  # 2x 0-255 angles defining a 3D vector / angle (no roll)
     __slots__ = ["ambient", "diffuse", "styles", "direction"]
     _format = "30B"
+    # TODO: int keys in _arrays
     _arrays = {"ambient": {s: [*"rgb"] for s in "ABCD"},
                "diffuse": {s: [*"rgb"] for s in "ABCD"},
                "styles": 4,
-               "direction": 2}
+               "direction": ["phi", "theta"]}
+    # TODO: RGB24 colour _classes
 
 
 class Lightmap(list):  # LUMP 14
@@ -114,7 +156,7 @@ class Lightmap(list):  # LUMP 14
         # Lightmap[row][column] returns self.__getitem__(row)[column]
         # to get a specific pixel: self._pixels[index]
         row_start = row * 512
-        return self._pixels[row_start:row_start + 512]  # TEST: does it work with negative indices?
+        return self._pixels[row_start:row_start + 512]  # TEST: do negative indices work?
 
     def flat(self) -> bytes:
         return b"".join(self._pixels)
@@ -141,7 +183,7 @@ class Vertex(base.MappedArray):  # LUMP 10
 
 # {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = quake3.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"ELEMENTS": shared.UnsignedShorts})
+BASIC_LUMP_CLASSES.update({"INDICES": shared.UnsignedShorts})
 
 LUMP_CLASSES = quake3.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,

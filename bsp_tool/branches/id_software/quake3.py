@@ -1,6 +1,9 @@
 # https://www.mralligator.com/q3/
 # https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_q3.c
 # https://github.com/id-Software/Quake-III-Arena/blob/master/code/qcommon/qfiles.h
+# NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34  (early Quake 2?)
+# NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
+# NOTE: id-Software/Quake-III-Arena/common/qfiles.h uses BSPVERSION 46
 import enum
 from typing import List
 import struct
@@ -26,12 +29,8 @@ GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: 
 GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
                  "Return to Castle Wolfenstein": 47, "Wolfenstein Enemy Territory": 47,
                  "Dark Salvation": 666}
-# NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34  (early Quake 2?)
-# NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
-# NOTE: id-Software/Quake-III-Arena/common/qfiles.h uses BSPVERSION 46
 
 
-# NOTE: based on mralligator's lump names, Q3 source code names are in comments
 class LUMP(enum.Enum):
     ENTITIES = 0
     TEXTURES = 1  # SHADERS
@@ -44,57 +43,79 @@ class LUMP(enum.Enum):
     BRUSHES = 8
     BRUSH_SIDES = 9
     VERTICES = 10  # DRAWVERTS
-    MESH_VERTICES = 11  # DRAWINDICES
+    INDICES = 11  # DRAWINDICES
     EFFECTS = 12  # FOGS
     FACES = 13  # SURFACES
     LIGHTMAPS = 14  # 3x 128x128px RGB888 images
-    LIGHT_VOLUMES = 15  # LIGHTGRID
+    LIGHT_GRID = 15  # LIGHTGRID
     VISIBILITY = 16
 
 
 LumpHeader = quake.LumpHeader
 
-# changes from IdTech 2 -> IdTech 3:
-# TODO: ...
+
+# known lump changes from Quake 2 -> Quake 3:
+#   EDGES & SURFEDGES -> INDICES?
+# new:
+#   EFFECTS
+#   LIGHT_GRID
+# deprecated:
+#   AREAS
+#   AREA_PORTALS
+#   POP
+#   TEXTURE_INFO
+
 
 # a rough map of the relationships between lumps:
-#
-#               /-> Texture
-# Model -> Brush -> BrushSide
-#      \-> Face -> MeshVertex
-#             \--> Texture
-#              \-> Vertex
+
+# Entity -> Model -> Node -> Leaf -> LeafFace -> Face
+#                                \-> LeafBrush -> Brush
+
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
+
+#               /-> Texture  /-> Texture
+# Model -> Brush -> BrushSide -> Plane
+#      \-> Face              \-> Face
+# NOTE: Brush's indexed Texture is just used for Contents flags
+
+#     /-> Texture
+# Face -> Index -> Vertex
+#    \--> Vertex
+#     \-> Effect
 
 
 # engine limits
 class MAX(enum.Enum):
     # lumps
-    ENTITIES = 0x800
-    TEXTURES = 0x400
-    PLANES = 0x20000
-    NODES = 0x20000
-    LEAVES = 0x20000
-    LEAF_FACES = 0x20000
-    LEAF_BRUSHES = 0x40000
-    MODELS = 0x400
-    BRUSHES = 0x8000
-    BRUSH_SIDES = 0x20000
-    VERTICES = 0x80000
-    MESH_VERTICES = 0x80000
-    EFFECTS = 0x100
-    FACES = 0x20000
-    # bytesizes (SpecialLumpClass)
-    ENTITY_STRING = 0x40000
-    LIGHTING = 0x200000
-    LIGHT_VOLUMES = 0x80000
-    VISIBILITY = 0x200000
-    # string buffers
+    BRUSHES = 32768
+    BRUSH_SIDES = 131072
+    EFFECTS = 256
+    ENTITIES = 2048
+    ENTITIES_SIZE = 0x40000  # bytesize
+    FACES = 131072
+    INDICES = 524288
+    LEAF_BRUSHES = 262144
+    LEAF_FACES = 131072
+    LEAVES = 131072
+    LIGHTMAPS_SIZE = 0x200000  # bytesize
+    LIGHT_GRID_SIZE = 0x80000  # bytesize
+    MODELS = 1024
+    NODES = 131072
+    PLANES = 131072
+    TEXTURES = 1024
+    VERTICES = 524288
+    VISIBILITY_SIZE = 0x200000  # bytesize
+    # present conceptually, but not lumps yet
+    AREAS = 256  # indexed by Leaves; used serverside
+    PORTALS = 131072  # used by nodes; VIS related
+    # string buffer sizes
     ENTITY_KEY = 32
     ENTITY_VALUE = 1024
 
 
 # flag enums
-class Contents(enum.IntEnum):
+class Contents(enum.IntFlag):
     """https://github.com/xonotic/darkplaces/blob/master/bspfile.h"""
     SOLID = 0x00000001  # opaque & transparent
     LAVA = 0x00000008
@@ -121,7 +142,29 @@ class Contents(enum.IntEnum):
     NO_DROP = 0x80000000  # deletes drops
 
 
-class SurfaceType(enum.Enum):
+class Surface(enum.IntFlag):
+    """https://github.com/id-Software/Quake-III-Arena/blob/master/common/surfaceflags.h"""
+    NO_DAMAGE = 0x01  # no fall damage
+    SLICK = 0x02  # slippery physics
+    SKY = 0x04  # "lighting from environment map"
+    LADDER = 0x8
+    NO_IMPACT = 0x10  # don't make missile explosions
+    NO_MARKS = 0x20  # don't leave missile marks
+    FLESH = 0x40  # make flesh sounds and effects
+    NO_DRAW = 0x80  # don't generate a face, nothing to render here
+    HINT = 0x100  # make a primary bsp splitter
+    SKIP = 0x200  # completely ignore, allowing non-closed brushes
+    NO_LIGHTMAP = 0x400  # surface doesn't need a lightmap
+    POINT_LIGHT = 0x800  # generate lighting info at vertexes
+    METAL_STEPS = 0x1000  # clanking footsteps
+    NO_STEPS = 0x2000  # no footstep sounds
+    NON_SOLID = 0x4000  # don't collide against curves with this set
+    LIGHT_FILTER = 0x8000  # act as a light filter during q3map -light
+    ALPHA_SHADOW = 0x10000  # do per-pixel light shadow casting in q3map
+    NO_DYNAMIC_LIGHT = 0x20000  # never add dynamic lights
+
+
+class FaceType(enum.Enum):
     BAD = 0
     PLANAR = 1
     PATCH = 2  # displacement-like
@@ -134,7 +177,7 @@ class SurfaceType(enum.Enum):
 class Brush(base.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
-    texture: int  # index into Texture lump
+    texture: int  # index into Texture lump (use the Contents flags of the selected Texture)
     __slots__ = ["first_side", "num_sides", "texture"]
     _format = "3i"
 
@@ -157,7 +200,7 @@ class Effect(base.Struct):  # LUMP 12
 class Face(base.Struct):  # LUMP 13
     texture: int  # index into Texture lump
     effect: int  # index into Effect lump; -1 for no effect
-    surface_type: int  # see SurfaceType enum
+    type: FaceType
     first_vertex: int  # index into Vertex lump
     num_vertices: int  # number of Vertices after first_vertex in this face
     first_mesh_vertex: int  # index into MeshVertex lump
@@ -168,24 +211,38 @@ class Face(base.Struct):  # LUMP 13
     # lightmap.origin: vector.vec3  # world space lightmap origin
     # lightmap.vector: List[vector.vec3]  # lightmap texture projection vectors
     normal: vector.vec3
-    patch: vector.vec2  # for patches (displacement-like)
-    __slots__ = ["texture", "effect", "surface_type", "first_vertex", "num_vertices",
+    patch: vector.vec2  # for patches; control point dimensions?; TODO: ivec2
+    __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
                  "first_mesh_vertex", "num_mesh_vertices", "lightmap", "normal", "patch"]
     _format = "12i12f2i"
     _arrays = {"lightmap": {"index": None, "top_left": [*"xy"], "size": ["width", "height"],
                             "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
                "normal": [*"xyz"], "patch": ["width", "height"]}
-    _classes = {"surface_type": SurfaceType, "lightmap.top_left": vector.vec2,
+    _classes = {"type": FaceType, "lightmap.top_left": vector.vec2,
                 "lightmap.size": vector.renamed_vec2("width", "height"), "lightmap.origin": vector.vec3,
                 "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3, "normal": vector.vec3,
-                "patch": vector.vec2}
+                "patch": vector.renamed_vec2("width", "height")}
+
+
+class GridLight(base.Struct):  # LUMP 15
+    # GridLights make up a 3D grid whose dimensions are:
+    # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
+    # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
+    # z = floor(MODELS[0].maxs.z / 128) - ceil(MODELS[0].mins.z / 128) + 1
+    ambient: List[int]  # ambient colour
+    diffuse: List[int]  # diffuse colour; scaled by dot(mesh.Normal, gridlight.direction)
+    direction: List[int]  # 2x 0-255 angles defining a 3D vector / angle (no roll)
+    _format = "8B"
+    __slots__ = ["ambient", "directional", "direction"]
+    _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
+    # TODO: _classes: ambient & directional RGB24 colour
 
 
 class Leaf(base.Struct):  # LUMP 4
-    cluster: int  # index into VisData
-    area: int
-    mins: List[float]  # Bounding box
-    maxs: List[float]
+    cluster: int  # index into Visibility
+    area: int  # Areaportal Area index; used for server entity segregation?
+    mins: vector.vec3  # Bounding box
+    maxs: vector.vec3
     first_leaf_face: int  # index into LeafFace lump
     num_leaf_faces: int  # number of LeafFaces in this Leaf
     first_leaf_brush: int  # index into LeafBrush lump
@@ -194,6 +251,7 @@ class Leaf(base.Struct):  # LUMP 4
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes"]
     _format = "12i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Lightmap(list):  # LUMP 14
@@ -218,16 +276,6 @@ class Lightmap(list):  # LUMP 14
         out = cls()
         out._pixels = _tuple  # RGB_888
         return out
-
-
-class LightVolume(base.Struct):  # LUMP 15
-    # LightVolumes make up a 3D grid whose dimensions are:
-    # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
-    # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
-    # z = floor(MODELS[0].maxs.z / 128) - ceil(MODELS[0].mins.z / 128) + 1
-    _format = "8B"
-    __slots__ = ["ambient", "directional", "direction"]
-    _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
 
 
 class Model(base.Struct):  # LUMP 7
@@ -264,18 +312,22 @@ class Texture(base.Struct):  # LUMP 1
     __slots__ = ["name", "flags"]
     _format = "64s2i"
     _arrays = {"flags": ["surface", "contents"]}
+    _classes = {"flags.surface": Surface, "flags.Contents": Contents}
 
 
 class Vertex(base.Struct):  # LUMP 10
-    position: List[float]
+    position: vector.vec3
+    uv: List[List[float]]  # texture & lightmap uv coords
     # uv.texture: List[float]
     # uv.lightmap: List[float]
-    normal: List[float]
-    colour: bytes  # 1 RGBA32 pixel / texel
+    normal: vector.vec3
+    colour: List[int]  # 1 RGBA32 pixel / texel
     __slots__ = ["position", "uv", "normal", "colour"]
     _format = "10f4B"
     _arrays = {"position": [*"xyz"], "uv": {"texture": [*"uv"], "lightmap": [*"uv"]},
                "normal": [*"xyz"], "colour": [*"rgba"]}
+    _classes = {"position": vector.vec3, "normal": vector.vec3}
+    # TODO: uv vec2s & colour RGBA32
 
 
 # special lump classes, in alphabetical order:
@@ -317,22 +369,23 @@ class Visibility(list):
         return struct.pack(f"2i{vec_n * best_vec_sz}s", vec_n, best_vec_sz, vecs)
 
 
+# {"LUMP": LumpClass}
 BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  shared.Ints,
                       "LEAF_FACES":    shared.Ints,
-                      "MESH_VERTICES": shared.Ints}
+                      "INDICES":       shared.Ints}
 
-LUMP_CLASSES = {"BRUSHES":       Brush,
-                "BRUSH_SIDES":   BrushSide,
-                "EFFECTS":       Effect,
-                "FACES":         Face,
-                "LEAVES":        Leaf,
-                "LIGHTMAPS":     Lightmap,
-                "LIGHT_VOLUMES": LightVolume,
-                "MODELS":        Model,
-                "NODES":         Node,
-                "PLANES":        Plane,
-                "TEXTURES":      Texture,
-                "VERTICES":      Vertex}
+LUMP_CLASSES = {"BRUSHES":     Brush,
+                "BRUSH_SIDES": BrushSide,
+                "EFFECTS":     Effect,
+                "FACES":       Face,
+                "LEAVES":      Leaf,
+                "LIGHTMAPS":   Lightmap,
+                "LIGHT_GRID":  GridLight,
+                "MODELS":      Model,
+                "NODES":       Node,
+                "PLANES":      Plane,
+                "TEXTURES":    Texture,
+                "VERTICES":    Vertex}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": Visibility}

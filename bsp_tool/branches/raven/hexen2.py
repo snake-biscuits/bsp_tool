@@ -51,7 +51,7 @@ class MAX(enum.Enum):
     LIGHTMAPS = 4  # affects Face LumpClass
     CLIP_NODES = 32767
     LEAVES = 8192
-    MARK_SURFACES = 65535
+    LEAF_FACES = 65535
     EDGES = 256000
     MODELS = 256
     BRUSHES = 4096  # for radiant / q2map ?

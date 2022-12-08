@@ -20,7 +20,7 @@ GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
 
 class LUMP(enum.Enum):
-    SHADERS = 0
+    TEXTURES = 0
     LIGHTMAPS = 1
     LIGHT_GRID_HASHES = 2
     LIGHT_GRID_VALUES = 3  # MODEL_LIGHTING
@@ -29,7 +29,7 @@ class LUMP(enum.Enum):
     BRUSHES = 6
     TRIANGLE_SOUPS = 7
     VERTICES = 8
-    TRIANGLES = 9
+    TRIANGLES = 9  # INDICES?
     CULL_GROUPS = 10
     CULL_GROUP_INDICES = 11
     SHADOW_VERTICES = 12
@@ -48,7 +48,7 @@ class LUMP(enum.Enum):
     NODES = 25
     LEAVES = 26
     LEAF_BRUSHES = 27
-    LEAF_SURFACES = 28
+    LEAF_FACES = 28
     COLLISION_VERTICES = 29
     COLLISION_EDGES = 30
     COLLISION_TRIANGLES = 31
@@ -64,26 +64,26 @@ class LUMP(enum.Enum):
 
 LumpHeader = call_of_duty1.LumpHeader
 
-# Known lump changes from Call of Duty -> Call of Duty 2:
-# New:
+
+# known lump changes from Call of Duty -> Call of Duty 2:
+#   INDICES -> TRIANGLES
+# new:
+#   COLLISION_AABBS
+#   COLLISION_BORDERS
+#   COLLISION_EDGES
+#   COLLISION_PARTS
+#   COLLISION_TRIANGLES
 #   LIGHT_GRID_HASH
 #   LIGHT_GRID_VALUES
-#   DRAW_VERTICES -> VERTICES
-#   DRAW_INDICES -> TRIANGLES ?
-#   SHADOW_VERTICES
-#   SHADOW_INDICES
-#   SHADOW_CLUSTERS
+#   PATHS  (see https://github.com/id-Software/Quake-III-Arena/blob/master/q3radiant/BSPFILE.H#L259-L266)
 #   SHADOW_AABB_TREES
+#   SHADOW_CLUSTERS
+#   SHADOW_INDICES
 #   SHADOW_SOURCES
-#   COLLISION_EDGES
-#   COLLISION_TRIANGLES
-#   COLLISION_BORDERS
-#   COLLISION_PARTS
-#   COLLISION_AABBS
-#   PATHS
-# Deprecated:
-#   LIGHT_INDICES
+#   SHADOW_VERTICES
+# deprecated:
 #   COLLISION_INDICES
+#   LIGHT_INDICES
 
 # a rough map of the relationships between lumps:
 #      /-> Brush
@@ -198,7 +198,7 @@ BASIC_LUMP_CLASSES = call_of_duty1.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = call_of_duty1.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LIGHTMAPS")  # 4 MB per lightmap?
 LUMP_CLASSES.pop("LIGHTS")
-LUMP_CLASSES.update({"LIGHT_GRID_HASH": quake3.LightVolume,
+LUMP_CLASSES.update({"LIGHT_GRID_HASH": quake3.GridLight,
                      "PORTAL_VERTICES": quake.Vertex,
                      "TRIANGLES":       Triangle,
                      "TRIANGLE_SOUPS":  TriangleSoup,

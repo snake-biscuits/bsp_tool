@@ -30,8 +30,8 @@ class LUMP(enum.Enum):
     FACES = 9
     LIGHTMAPS = 10
     LEAVES = 11
-    MARK_SURFACES = 12
-    MARK_BRUSHES = 13
+    LEAF_FACES = 12
+    LEAF_BRUSHES = 13
     MODELS = 14
     BRUSHES = 15
     BRUSH_SIDES = 16
@@ -39,6 +39,17 @@ class LUMP(enum.Enum):
 
 
 LumpHeader = quake.LumpHeader
+
+
+# known lump changes from GoldSrc -> Nightfire:
+#   MIP_TEXTURES -> MATERIALS
+#   LIGHTING -> LIGHTMAPS
+#   SURFEDGES & EDGES -> INDICES
+# new:
+#   NORMALS
+#   LEAF_BRUSHES
+#   BRUSHES
+#   BRUSH_SIDES
 
 
 # classes for lumps, in alphabetical order:
@@ -74,12 +85,12 @@ class Leaf(base.Struct):  # LUMP 11
     bounds: List[List[float]]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
-    first_mark_brush: int
-    num_mark_brushes: int
-    first_mark_face: int
-    num_mark_faces: int
+    first_leaf_brush: int
+    num_leaf_brushes: int
+    first_leaf_face: int
+    num_leaf_faces: int
     __slots__ = ["contents", "cluster", "bounds",
-                 "first_mark_brush", "num_mark_brushes", "first_mark_face", "num_mark_faces"]
+                 "first_leaf_brush", "num_leaf_brushes", "first_leaf_face", "num_leaf_faces"]
     _format = "2i6f4i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 

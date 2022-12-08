@@ -44,9 +44,26 @@ class LUMP(enum.Enum):
 LumpHeader = quake.LumpHeader
 
 
+# known lump changes from Quake 2 -> Quake 3:
+# new:
+#   LEAF_BRUSHES
+#   BRUSHES
+#   BRUSH_SIDES
+#   POP
+#   AREAS
+#   AREA_PORTALS
+# deprecated:
+#   MIP_TEXTURES
+#   CLIP_NODES
+
+
 # a rough map of the relationships between lumps:
+
 # Entity -> Model -> Node -> Leaf -> LeafFace -> Face
 #                                \-> LeafBrush -> Brush
+
+# Visibility -> Node -> Leaf -> LeafFace -> Face
+#                   \-> Plane
 
 #     /-> Plane
 # Face -> SurfEdge -> Edge -> Vertex
@@ -57,10 +74,35 @@ LumpHeader = quake.LumpHeader
 # POP seems to be the last lump written and is always null bytes in every map which has this lump
 
 
-# TODO: MAX & Contents enums
+# engine limits:
+class MAX(enum.Enum):
+    # lumps
+    AREAS = 256
+    AREA_PORTALS = 1024
+    BRUSHES = 8192
+    BRUSH_SIDES = 65536
+    EDGES = 128000
+    ENTITIES = 2048
+    FACES = 65536
+    LEAF_BRUSHES = 65536
+    LEAF_FACES = 65536
+    LEAVES = 65536
+    LIGHTMAPS_SIZE = 0x200000  # bytesize
+    MODELS = 1024
+    NODES = 65536
+    PLANES = 65536
+    # NOTE: no POP limit
+    SURFEDGES = 256000
+    TEXTURE_INFO = 8192
+    VERTICES = 65535
+    VISIBILITY_SIZE = 0x100000  # bytesize
+    # other
+    ENTITY_KEY = 32
+    ENTITY_VALUE = 1024
 
-# flag enums
-class Contents(enum.IntEnum):
+
+# flag enums:
+class Contents(enum.IntFlag):
     """https://github.com/xonotic/darkplaces/blob/master/bspfile.h"""
     SOLID = 0x00000001  # opaque & transparent
     WINDOW = 0x00000002
