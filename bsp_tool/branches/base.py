@@ -478,6 +478,8 @@ class BitField:
 
     def __init__(self, *args, _fields: BitFieldMapping = None, _format: str = None, _classes: ClassesDict = None, **kwargs):
         """generate a unique class at runtime, just like MappedArray"""
+        if len(args) == 1 and len(kwargs) == 0:  # BasicLumpClass
+            args = tuple(self.__class__.from_int(args[0], _fields, _format, _classes))
         self._format = self._format if _format is None else _format
         self._fields = collections.OrderedDict(self._fields if _fields is None else _fields)
         self._classes = self._classes if _classes is None else _classes
@@ -496,9 +498,11 @@ class BitField:
         values.update(kwargs)
         invalid_kwargs = set(kwargs).difference(set(self._fields))
         assert len(invalid_kwargs) == 0, f"Invalid kwargs: {invalid_kwargs}"
-        # TODO: check for invalid kwargs
-        for attr, size in _fields.items():
+        for attr, size in self._fields.items():
             setattr(self, attr, values[attr])
+
+    def __iter__(self) -> Iterable:
+        return iter([getattr(self, attr) for attr in self._fields])
 
     def __repr__(self) -> str:
         attrs = [f"{a}: {getattr(self, a)!r}" for a in self._fields.keys()]
