@@ -68,6 +68,7 @@ class LumpHeader(base.MappedArray):
 # flag enums:
 class LightType(enum.Enum):  # Light.type
     # NOTE: sun is baked into LightGrid (6 sp maps have no lights)
+    INVALID = 0x00  # required for Light.__init__ with 0 arguments
     DIRECTIONAL_1 = 0x01
     UNKNOWN_2 = 0x02
     DIRECTIONLESS_4 = 0x04
