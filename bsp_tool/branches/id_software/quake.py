@@ -137,8 +137,6 @@ class ClipNode(base.Struct):  # LUMP 9
     _format = "I2h"
     _arrays = {"children": ["front", "back"]}
     _classes = {"children.front": Contents, "Children.back": Contents}
-    # NOTE: +ve children index other ClipNodes & will have a seriously inflated repr
-    # -- might be worth making a enum.IntFlag subclass w/ it's own __repr__ method
 
 
 class Edge(list):  # LUMP 12
@@ -185,6 +183,7 @@ class Leaf(base.Struct):  # LUMP 10
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "sound": ["water", "sky", "slime", "lava"]}
     _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: ivec3
 
 
 class Model(base.Struct):  # LUMP 14
@@ -197,8 +196,8 @@ class Model(base.Struct):  # LUMP 14
     clip_nodes: List[int]  # 1st & second CLIP_NODES indices
     unused_node: int  # always 0
     num_leaves: int  # "not counting the solid leaf 0"
-    first_face: int
-    num_faces: int
+    first_face: int  # index to the first Face in this Model
+    num_faces: int  # number of faces after first_face in this Model
     __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unused_node",
                  "num_leaves", "first_face", "num_faces"]
     _format = "9f7i"
@@ -474,6 +473,12 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
     # TODO: do we need to walk the leaf/node tree?
     leaf_faces = bsp.LEAF_FACES[model.first_leaf_face:model.first_leaf_face + model.num_leaf_faces]
     return list(itertools.chain(*[bsp.vertices_of_face(i) for i in leaf_faces]))
+
+
+# TODO: reverse brush planes from ClipNodes
+# -- will likely require a Brush utility class for convex solids & plane -> mesh conversion
+# -- that kind of toolset would be handy in general for various .vmf, .map & .bsp tools
+# -- probably split the brush tools of vmf_tool into it's own repo & utilise other repos for parsing?
 
 
 methods = [vertices_of_face, lightmap_of_face, as_lightmapped_obj, parse_vis, vertices_of_model]
