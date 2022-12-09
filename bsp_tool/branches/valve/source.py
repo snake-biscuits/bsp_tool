@@ -114,9 +114,9 @@ class LumpHeader(base.MappedArray):
 # Leaf -> LeafBrush -> Brush -> BrushSide -> TextureInfo
 #                                        \-> Plane
 
-# FaceID is paralell with Faces & lists Hammer ids per face
+# FaceID is parallel with Faces & lists Hammer ids per face
 
-# Leaf is Parallel with LeafAmbientIndex
+# Leaf is parallel with LeafAmbientIndex
 # LeafAmbientIndex -> LeafAmbientSample
 
 # ClipPortalVertices are AreaPortal geometry [unverified]
