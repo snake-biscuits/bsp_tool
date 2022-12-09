@@ -189,7 +189,7 @@ LumpHeader = source.LumpHeader
 # NOTE: there are also always as many vert refs as edge refs
 # PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
 
-# CM_* LUMPS
+# CM_* (presumed: Clip Model)
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass w/ world bounds & other metadata)
 
 #                                                   /-> BrushSideProperties -> TextureData
@@ -210,10 +210,19 @@ LumpHeader = source.LumpHeader
 # GeoSets is parallel w/ GeoSetBounds
 # PrimitiveBounds & GeoSetBounds use the same type: Bounds
 
-# TODO: TRICOLL_* LUMPS
-# TODO: LIGHTPROBES
+# TRICOLL_* (presumed: Triangle Collision)
+#              /-> Vertices?
+# TricollHeader -> TricollTriangle -?> Vertices?
+#             \--> TricollNode -> TricollNode -?> TricollLeaf? -?> ???
+#              \-> TricollBevelIndices -?> ?
+
+# TricollLeaf might index Primitives?
+
+# -?> TricollBevelStarts -?>
+
+# LIGHTPROBE*
 # LightProbeTree -?> LightProbeRef -> LightProbe
-# -?> STATIC_PROP_LIGHTPROBE_INDICES
+# -?> StaticPropLightProbeIndex
 
 
 # engine limits:
@@ -659,7 +668,7 @@ class Portal(base.MappedArray):  # LUMP 108 (006C)
 
 
 class PortalIndexSet(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
-    """identified by rexx#1287"""
+    """Identified by rexx#1287"""
     # PortalVertexSet / PortalEdgeSet
     index: List[int]  # -1 for None; essentially variable length
     __slots__ = ["index"]
@@ -676,10 +685,13 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 
 
 class Primitive(base.MappedArray):  # LUMP 89 (0059)
-    start: int  # assuming indices
-    count: int  # should have a smaller range than start
-    _mapping = ["start", "count"]
-    _format = "2h"
+    """identified by Fifty"""
+    unknown: int
+    index: int  # indexes Tricolls?
+    flags: int  # TODO: PrimitiveFlags enum
+    _fields = {"unknown": 8, "index": 16, "flags": 8}
+    _format = "I"
+    # TODO: _classes = {"flags": PrimitiveFlags}
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
@@ -726,31 +738,61 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
     _format = "8f"
     _arrays = {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}
     # TODO: vec3 for texvec components
+    # TODO: def uv_at(point: vector.vec3) -> vector.vec2:
+    # --  """calculate uv coords from these texture vectors"""
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
-    # Identified by Fifty; very WIP
-    # NOTE: the 16 lowest bits of flags are always blank
-    # NOTE: last header's first_vertex is always less than len(bsp.TRICOLL_TRIANGLES)
-    flags: int  # unsure
-    material: int  # unsure; indexes TextureData?
-    num_vertices: int  # indexing vertices?
-    num_bevels: int  # might be counting nodes?
-    first_vertex: int
-    first_bevel_start: int  # this + num_bevels = next first_bevel_start
-    first_tricoll_node: int
-    num_bevel_indices: int  # unsure; always <= len(TricollBevelIndices)
-    unknown: List[float]
-    __slots__ = ["flags", "material", "num_vertices", "num_bevels", "first_vertex",
-                 "first_bevel_start", "first_tricoll_node", "num_bevel_indices", "unknown"]
-    _format = "i2h5i4f"
-    _arrays = {"unknown": 4}
+    """Identified by rexx#1287"""
+    flags: int  # TODO: TricollHeaderFlags enum
+    texinfo_flags: int  # TextureDataFlags? always 0?
+    texture_data: int  # for surfaceproperties & flags?
+    num_vertices: int  # vertices are indexed by TricollTriangles?
+    num_triangles: int
+    num_bevels: int
+    first_vertex: int  # index into Vertices? TricollTriangle for order
+    first_triangle: int  # index into TricollTriangles; also indexes TricollBevelStarts?
+    first_node: int  # index into TricollNodes
+    first_bevel: int  # index into TricollBevelIndices?
+    origin: vector.vec3
+    scale: float
+    __slots__ = ["flags", "texinfo_flags", "texture_data", "num_vertices",
+                 "num_triangles", "num_bevels", "first_vertex", "first_triangle",
+                 "first_node", "first_bevel", "origin", "scale"]
+    _format = "6h4i4f"
+    _arrays = {"origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
+
+
+class TricollTriangle(base.BitField):  # LUMP 66 (0042)
+    """Identified by Fifty"""
+    A: int  # vertex index?
+    B: int
+    C: int
+    unknown: int  # {0..31}, bank of indexable space?
+    _fields = {"A": 9, "B": 9, "C": 9, "unknown": 5}
+    _format = "I"
+
+
+class TricollLeaf(base.MappedArray):  # LUMP ?? (00??)
+    """Identified by rexx #1287"""
+    first_unknown: int  # TODO: figure out what is being indexed
+    num_unknowns: int  # TricollTriangles? Primitives?
+    _mapping = ["first_unknown", "num_unknowns"]
+    _format = "2h"
 
 
 class TricollNode(base.Struct):  # LUMP 68 (0044)
-    __slots__ = ["unknown"]
-    _format = "4i"
-    _arrays = {"unknown": 4}
+    """Identified by rexx #1287"""
+    origin: vector.vec3
+    extents: vector.vec3
+    # mins = origin - extents
+    # maxs = origin + extents
+    children: List[int]  # +ve for TricollNode; -ve for TricollLeaf?
+    __slots__ = ["origin", "extents", "children"]
+    _format = "6f4h"
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"], "children": 4}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
 class WorldLight(source.WorldLight):  # LUMP 54 (0036)
@@ -968,7 +1010,7 @@ BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "TEXTURE_DATA_STRING_TABLE":   {0: shared.UnsignedInts},
                       "TRICOLL_BEVEL_STARTS":        {0: shared.UnsignedShorts},
                       "TRICOLL_BEVEL_INDICES":       {0: shared.UnsignedInts},
-                      "TRICOLL_TRIANGLES":           {2: shared.UnsignedInts}}  # could be a pair of shorts?
+                      "TRICOLL_TRIANGLES":           {2: TricollTriangle}}
 
 LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CELL_AABB_NODES":                   {0: CellAABBNode},
@@ -996,24 +1038,25 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "PLANES":                            {1: Plane},
                 "PORTALS":                           {0: Portal},
                 "PORTAL_EDGES":                      {0: quake.Edge},
-                "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalIndexSet},
                 "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalIndexSet},
+                "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalIndexSet},
                 "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
-                "PORTAL_VERTICES":                   {0: quake.Vertex},
                 "PORTAL_VERTEX_EDGES":               {0: PortalIndexSet},  # unsure
+                "PORTAL_VERTICES":                   {0: quake.Vertex},
                 "SHADOW_MESHES":                     {0: ShadowMesh},
                 "SHADOW_MESH_ALPHA_VERTICES":        {0: ShadowMeshAlphaVertex},
                 "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
                 "TEXTURE_DATA":                      {1: TextureData},
                 "TRICOLL_HEADERS":                   {1: TricollHeader},
+                "TRICOLL_LEAVES":                    {1: TricollLeaf},
                 "TRICOLL_NODES":                     {1: TricollNode},
-                "VERTEX_NORMALS":                    {0: quake.Vertex},
-                "VERTICES":                          {0: quake.Vertex},
                 "VERTEX_BLINN_PHONG":                {0: VertexBlinnPhong},
                 "VERTEX_LIT_BUMP":                   {1: VertexLitBump},
                 "VERTEX_LIT_FLAT":                   {1: VertexLitFlat},
+                "VERTEX_NORMALS":                    {0: quake.Vertex},
                 "VERTEX_UNLIT":                      {0: VertexUnlit},
                 "VERTEX_UNLIT_TS":                   {0: VertexUnlitTS},
+                "VERTICES":                          {0: quake.Vertex},
                 "WORLD_LIGHTS":                      {1: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
