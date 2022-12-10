@@ -549,6 +549,10 @@ class BitField:
             offset += size
         return out
 
+    def as_bytes(self) -> bytes:
+        # TODO: endianness
+        return self.as_int().to_bytes(struct.calcsize(self._format), "little")
+
     # NOTE: cannot be a classmethod due to runtime type definition
     def as_cpp(self, _fields: BitFieldMapping = None, _format: str = None, inline_as: str = None) -> str:
         """returns BitField spec as a one line C/C++ struct definition"""

@@ -106,8 +106,10 @@ class ValveBsp(base.Bsp):
                 # NOTE: if the lump's version is mapped, it will be handled below
         # BasicBspLump -> bytes
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
-            _format = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]._format
-            raw_lump = struct.pack(f"{len(lump_entries)}{_format}", *lump_entries)
+            BasicLumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]
+            if hasattr(BasicLumpClass, "as_int"):  # branches.base.BitField
+                lump_entries = [x.as_int() for x in lump_entries]
+            raw_lump = struct.pack(f"{len(lump_entries)}{BasicLumpClass._format}", *lump_entries)
         # BspLump -> bytes
         elif lump_name in self.branch.LUMP_CLASSES:
             _format = self.branch.LUMP_CLASSES[lump_name][lump_version]._format
