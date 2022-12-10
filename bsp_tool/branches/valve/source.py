@@ -101,18 +101,24 @@ class LumpHeader(base.MappedArray):
     _format = "4I"
 
 
-# changes from GoldSrc -> Source:
-# MipTexture.flags -> TextureInfo.flags (Surface enum)
+# known lump changes from GoldSrc -> Source:
+
+# MipTextures -> TextureInfo & TextureData -> TextureDataStringTable/Data
+# NOTE: GoldSrc MipTextures didn't store textures, just gave the texture name & flags
+
 
 # a rough map of the relationships between lumps:
 
-#                                 /-> SurfEdge -> Edge -> Vertex
-# Node -> Leaf -> LeafFace -> Face -> Plane
-#                                \--> TextureInfo -> TextureData -> TextureDataStringTable
-#                                 \-> DisplacementInfo -> DisplacementVertex
+# Entity -> Model -> Node -> Leaf
+#                \-> Face
 
 # Leaf -> LeafBrush -> Brush -> BrushSide -> TextureInfo
-#                                        \-> Plane
+#     \-> LeafFace -> Face               \-> Plane
+
+#     /-> SurfEdge -> Edge -> Vertex
+# Face -> Plane
+#    \--> TextureInfo -> TextureData -> TextureDataStringTable
+#     \-> DisplacementInfo -> DisplacementVertex
 
 # FaceID is parallel with Faces & lists Hammer ids per face
 
