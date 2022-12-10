@@ -136,7 +136,7 @@ class ClipNode(base.Struct):  # LUMP 9
     __slots__ = ["plane", "children"]
     _format = "I2h"
     _arrays = {"children": ["front", "back"]}
-    _classes = {"children.front": Contents, "Children.back": Contents}
+    _classes = {"children.front": Contents, "children.back": Contents}
 
 
 class Edge(list):  # LUMP 12

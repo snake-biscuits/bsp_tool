@@ -115,7 +115,7 @@ class Contents(enum.IntFlag):  # src/public/bspflags.h
 class ClipNode(quake.ClipNode):  # LUMP 9
     plane: int
     children: List[int]  # +ve indexes ClipNode, -ve Contents
-    _classes = {"children.front": Contents, "Children.back": Contents}
+    _classes = {"children.front": Contents, "children.back": Contents}
 
 
 class Model(base.Struct):  # LUMP 14

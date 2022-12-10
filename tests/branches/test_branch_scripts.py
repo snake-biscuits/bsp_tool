@@ -34,6 +34,7 @@ def verify(LumpClass):
     # -- no skipped bytes! (single byte alignment gets wierd)
     # -- incomplete / mismatched / outdated type-hints should also be checked
     # -- this may require scanning comments for "deep" type-hints `# attr.sub: type  # desc`
+    # TODO: check for attr.sub typos in _classes & _bitfields
     # Struct
     if isinstance(LumpClass, branches.base.Struct):
         if not hasattr(LumpClass, "__slots__"):
