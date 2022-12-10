@@ -156,10 +156,10 @@ class Struct:
             value = getattr(self, slot)
             if isinstance(value, MappedArray):
                 _tuple.extend(value.as_tuple())  # unpack the stack
+            elif isinstance(value, BitField):  # BitField is Iterable!
+                _tuple.append(value.as_int())
             elif isinstance(value, Iterable):  # includes _classes
                 _tuple.extend(value)
-            elif isinstance(value, BitField):
-                _tuple.append(value.as_int())
             else:
                 _tuple.append(value)
         return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
@@ -331,10 +331,10 @@ class MappedArray:
             value = getattr(self, attr)
             if isinstance(value, MappedArray):
                 _tuple.extend(value.as_tuple())  # recursive call
+            elif isinstance(value, BitField):  # BitField is Iterable!
+                _tuple.append(value.as_int())
             elif isinstance(value, Iterable):  # includes _classes
                 _tuple.extend(value)
-            elif isinstance(value, BitField):
-                _tuple.append(value.as_int())
             else:
                 _tuple.append(value)
         return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
