@@ -470,10 +470,15 @@ class MappedArray:
 
 class BitField:
     """Maps sub-integer data"""
+    # WARNING: field order & bit order may not match!
+    # BitField(0xAA, 0XBBBB, 0xCC, _format="I", _fields={"a": 8, "b": 16, "c": 8}).as_int() == 0xCCBBBBAA
     _fields: BitFieldMapping = dict()  # must cover entire int type
     # NOTE: _fields will become an OrderedDict when intialised, making it easier to tweak
     # -- if re-ordering attrs, replace _fields with a new OrderedDict
+    # TODO: automatically add padding field w/ a UserWarning
+    # -- throw an error if padding is already used
     _format: str = ""  # 1x uint8/16/32_t
+    # TODO: endianness, wider BitFields (e.g. 2x)
     _classes: ClassesDict = dict()  # good for enum.IntFlags subclasses; bool also accepted
 
     def __init__(self, *args, _fields: BitFieldMapping = None, _format: str = None, _classes: ClassesDict = None, **kwargs):

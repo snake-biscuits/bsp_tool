@@ -152,21 +152,28 @@ class TestMappedArray:
 
 class TestBitField:
     def test_init(self):
-        test_BitField = base.BitField(0xAA, 0xBBBB, 0xCC, _format="I", _fields={"AA": 8, "BBBB": 16, "CC": 8})
-        assert test_BitField.AA == 0xAA
-        assert test_BitField.BBBB == 0xBBBB
-        assert test_BitField.CC == 0xCC
-        assert test_BitField.as_int() == 0xCCBBBBAA  # little-endian
-        with pytest.raises(OverflowError):
-            test_BitField.AA = 0x1FF
+        test_bitfield = base.BitField(0xAA, 0xBBBB, 0xCC, _format="I", _fields={"AA": 8, "BBBB": 16, "CC": 8})
+        assert test_bitfield.AA == 0xAA
+        assert test_bitfield.BBBB == 0xBBBB
+        assert test_bitfield.CC == 0xCC
+        assert test_bitfield.as_int() == 0xCCBBBBAA  # little-endian
 
         class Test_BitField(base.BitField):
-            _format = "H"
             _fields = dict(foo=4, bar=12)
+            _format = "H"
 
         test_bitfield = Test_BitField.from_int(0xEEED)
         assert test_bitfield.foo == 0xD
         assert test_bitfield.bar == 0xEEE
+
+        test_bitfield = TestBitField(0xF0, _format="B", _fields={"alpha": 4, "omega": 4})
+        assert test_bitfield.alpha == 0x0
+        assert test_bitfield.omega == 0xF
+
+    def test_overflow(self):
+        test_bitfield = base.BitField(0xFFFFFFFF, _format="I", _fields={"red": 8, "green": 16, "blue": 8})
+        with pytest.raises(OverflowError):
+            test_bitfield.red = 0xFF + 1
 
 
 def test_dict_subgroup():
