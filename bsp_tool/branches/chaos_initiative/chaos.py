@@ -111,8 +111,8 @@ class MAX(enum.Enum):
     LEAF_FACES = 1048576
     LEAF_BRUSHES = 1048576
     AREAS = 65536
-    SURFEDGES = 2097152
-    EDGES = 1048576
+    SURFEDGES = 8192000
+    EDGES = 4096000
     # unlimited WORLDLIGHTS
     # unlimited WORLDLIGHTS_HDR
     LEAF_WATER_DATA = 32768  # unchanged
