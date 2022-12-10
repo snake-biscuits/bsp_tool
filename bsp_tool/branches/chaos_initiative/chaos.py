@@ -1,6 +1,7 @@
 # Chaos Initiative's Chaos Source Engine (closed source) v25 VBSP
-# https://blog.momentum-mod.org/posts/changelog/0.9.2/#not-so-very-full-anymore
-# https://github.com/momentum-mod/BSPConversionLib
+# https://github.com/ChaosInitiative/Wiki/blob/feat/bsp-v25/docs/Reference/bsp-v25.md
+# https://blog.momentum-mod.org/posts/changelog/0.9.4/
+# https://github.com/momentum-mod/BSPConvert
 import enum
 
 # from .. import base
@@ -88,8 +89,12 @@ class LUMP(enum.Enum):  # assumed
 
 LumpHeader = source.LumpHeader
 
-# Known lump changes from SDK 2013 -> Chaos
+
+# known lump changes from SDK 2013 -> Chaos
 # TODO: figure out what changed
+
+
+# TODO: a rough map of the relationships between lumps
 
 
 # engine limits:
