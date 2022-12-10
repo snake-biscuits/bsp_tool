@@ -1,6 +1,5 @@
 # https://github.com/ValveSoftware/halflife/blob/master/utils/common/bspfile.h
 # http://hlbsp.sourceforge.net/index.php?content=bspdef
-# https://valvedev.info/tools/bsptwomap/
 import enum
 from typing import List
 
