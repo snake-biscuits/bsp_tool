@@ -80,6 +80,8 @@ class MAX(enum.Enum):
     # string buffers
     ENTITY_KEY = 32
     ENTITY_VALUE = 1024
+    # other
+    MAP_EXTENTS = 4096  # -4096 to 4096, 8192 ** 3 cubic units of space
 
 
 # flag enums

@@ -63,29 +63,32 @@ class LumpHeader(base.MappedArray):
 
 # engine limits:
 class MAX(enum.Enum):
+    BRUSHES = 4096  # for radiant / q2map ?
+    CLIP_NODES = 32767
+    EDGES = 256000
     ENTITIES = 1024
     ENTITIES_SIZE = 65536  # bytesize
-    PLANES = 32767
+    FACES = 65535
+    LEAF_FACES = 65535  # MARKSURFACES
+    LEAVES = 8192
+    LIGHTING_SIZE = 0x100000  # bytesize
+    LIGHTMAPS = 4  # affects Face LumpClass
     MIP_LEVELS = 4  # affects MipTexture LumpClass
     MIP_TEXTURES = 512
     MIP_TEXTURES_SIZE = 0x200000  # bytesize
+    MODELS = 256
+    NODES = 32767  # "because negative shorts are contents"
+    PLANES = 32767
+    SURFEDGES = 512000
+    TEXTURE_INFO = 4096
     VERTICES = 65535
     VISIBILITY_SIZE = 0x100000  # bytesize
-    NODES = 32767  # "because negative shorts are contents"
-    TEXTURE_INFO = 4096
-    FACES = 65535
-    LIGHTMAPS = 4  # affects Face LumpClass
-    LIGHTING_SIZE = 0x100000  # bytesize
-    CLIP_NODES = 32767
-    LEAVES = 8192
-    LEAF_FACES = 65535  # MARKSURFACES
-    EDGES = 256000
-    SURFEDGES = 512000
-    MODELS = 256
-    BRUSHES = 4096  # for radiant / q2map ?
+    # string buffers
     ENTITY_KEY = 32
     ENTITY_VALUE = 1024
+    # other
     MAP_HULLS = 4
+    MAP_EXTENTS = 4096  # -4096 to 4096, 8192 ** 3 cubic units of space
 
 
 # flag enums:
