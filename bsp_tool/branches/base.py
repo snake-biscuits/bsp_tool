@@ -149,21 +149,6 @@ class Struct:
         # TODO: enforce MappedArray spec
         super().__setattr__(attr, value)
 
-    def as_tuple(self) -> list:
-        """recreates the _tuple this instance was initialised from"""
-        _tuple = list()
-        for slot in self.__slots__:
-            value = getattr(self, slot)
-            if isinstance(value, MappedArray):
-                _tuple.extend(value.as_tuple())  # unpack the stack
-            elif isinstance(value, BitField):  # BitField is Iterable!
-                _tuple.append(value.as_int())
-            elif isinstance(value, Iterable):  # includes _classes
-                _tuple.extend(value)
-            else:
-                _tuple.append(value)
-        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
-
     @classmethod
     def _defaults(cls) -> Dict[str, Any]:
         types = split_format(cls._format)
@@ -216,6 +201,21 @@ class Struct:
 
     def as_bytes(self) -> bytes:
         return struct.pack(self._format, *self.as_tuple())
+
+    def as_tuple(self) -> list:
+        """recreates the _tuple this instance was initialised from"""
+        _tuple = list()
+        for slot in self.__slots__:
+            value = getattr(self, slot)
+            if isinstance(value, MappedArray):
+                _tuple.extend(value.as_tuple())  # unpack the stack
+            elif isinstance(value, BitField):  # BitField is Iterable!
+                _tuple.append(value.as_int())
+            elif isinstance(value, Iterable):  # includes _classes
+                _tuple.extend(value)
+            else:
+                _tuple.append(value)
+        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
     @classmethod
     def as_cpp(cls, one_liner_limit: int = 80) -> str:
@@ -323,21 +323,6 @@ class MappedArray:
                                       _classes=dict_subgroup(self._classes, attr))
         # TODO: enforce child MappedArray spec
         super().__setattr__(attr, value)
-
-    def as_tuple(self) -> list:
-        """recreates the array this instance was generated from"""
-        _tuple = list()
-        for attr in self._mapping:
-            value = getattr(self, attr)
-            if isinstance(value, MappedArray):
-                _tuple.extend(value.as_tuple())  # recursive call
-            elif isinstance(value, BitField):  # BitField is Iterable!
-                _tuple.append(value.as_int())
-            elif isinstance(value, Iterable):  # includes _classes
-                _tuple.extend(value)
-            else:
-                _tuple.append(value)
-        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
     @classmethod
     def _defaults(cls, _mapping: AttrMap = None, _format: str = None) -> Dict[str, Any]:
@@ -466,6 +451,21 @@ class MappedArray:
                 return "\n".join([f"struct {self.__class__.__name__}" + " {", inner, "};"])
             else:
                 return "\n".join(["struct {", inner, "} " + f"{inline_as};"])
+
+    def as_tuple(self) -> list:
+        """recreates the array this instance was generated from"""
+        _tuple = list()
+        for attr in self._mapping:
+            value = getattr(self, attr)
+            if isinstance(value, MappedArray):
+                _tuple.extend(value.as_tuple())  # recursive call
+            elif isinstance(value, BitField):  # BitField is Iterable!
+                _tuple.append(value.as_int())
+            elif isinstance(value, Iterable):  # includes _classes
+                _tuple.extend(value)
+            else:
+                _tuple.append(value)
+        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
 
 class BitField:
