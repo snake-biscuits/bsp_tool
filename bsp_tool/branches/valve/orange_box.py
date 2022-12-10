@@ -129,22 +129,6 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
 
 
 # classes for special lumps, in alphabetical order:
-class PhysicsDisplacement(list):  # LUMP 28
-    def __init__(self, raw_lump: bytes):
-        lump = io.BytesIO(raw_lump)
-        count = int.from_bytes(lump.read(2), "little")
-        data_sizes = list(*struct.unpack(f"{count}H", lump.read(count * 2)))
-        physics_data = list()
-        for size in data_sizes:
-            physics_data.append(lump.read(size))
-        super().__init__(physics_data)
-
-    def as_bytes(self) -> bytes:
-        count = len(self).to_bytes(2, "little")
-        sizes = map(lambda s: s.to_bytes(2, "little"), [len(d) for d in self])
-        return b"".join(count, *sizes, *self)
-
-
 class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7* / 10]
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East

@@ -1,6 +1,7 @@
 from __future__ import annotations
 import enum
 
+# from .. import valve_physics
 from .. import shared
 from .. import x360
 from . import orange_box
@@ -84,6 +85,10 @@ class MAX(enum.Enum):
 
 
 # special lump classes, in alphabetical order:
+# class PhysicsDisplacement_x360(valve_physics.Displacement):
+#     _int = UnsignedShort_x360
+
+
 StaticPropv4_x360 = x360.make_big_endian(source.StaticPropv4)
 StaticPropv5_x360 = x360.make_big_endian(source.StaticPropv5)
 StaticPropv6_x360 = x360.make_big_endian(source.StaticPropv6)
@@ -111,6 +116,7 @@ del LumpClass_name, LumpClass
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         # "PAKFILE":                  {0: shared.PakFile_x360},
+                        # "PHYSICS_DISPLACEMENT":     {0: PhysicsDisplacement_x360},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
 # TODO: PhysicsCollide_x360
 

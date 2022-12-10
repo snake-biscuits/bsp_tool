@@ -4,8 +4,6 @@ import re
 import zipfile
 from typing import Dict, List
 
-from . import physics  # noqa F401
-
 
 # TODO: move current special class __init__ to a .from_bytes() method
 # TODO: all SpecialLumpClass __init__ methods should create an empty mutable object

@@ -221,3 +221,29 @@ class CollisionModel(base.Struct):
         # -- vertices and triangles, make each leaf an object? how to communicate lineage?
         raise NotImplementedError()
         return "\n".join(out)
+
+
+class Displacement(list):
+    _format = "H"
+
+    def __init__(self, raw_lump: bytes):
+        lump_size = len(raw_lump)
+        blobs = list()
+        buffer = io.BytesIO(raw_lump)
+        int_size = struct.calcsize(self._format)
+
+        def read_int() -> int:
+            return struct.unpack(self._format, buffer.read(int_size))[0]
+
+        blob_count = read_int()
+        blob_sizes = [read_int() for i in range(blob_count)]
+        blobs = [buffer.read(s) for s in blob_sizes]
+        assert buffer.tell() == lump_size
+        return super().__init__(blobs)
+
+    def as_bytes(self) -> bytes:
+        out = [len(self)]
+        out.extend([len(b) for b in self])
+        out = [struct.pack(f"{len(out)}{self._format}", *out)]
+        out.extend([b for b in self])
+        return b"".join(out)

@@ -12,6 +12,7 @@ import warnings
 
 from .. import base
 from .. import shared
+from .. import valve_physics
 from .. import vector
 from ..id_software import quake
 from ..id_software import quake2
@@ -877,7 +878,8 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":          {0: shared.physics.CollideLump},
+                        "PHYSICS_COLLIDE":          {0: valve_physics.CollideLump},
+                        "PHYSICS_DISPLACEMENT":     {0: valve_physics.Displacement},
                         "VISIBILITY":               {0: quake2.Visibility}}
 
 

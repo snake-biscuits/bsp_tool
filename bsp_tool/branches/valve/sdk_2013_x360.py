@@ -1,6 +1,5 @@
 from .. import x360
 from . import left4dead
-from . import left4dead2
 from . import orange_box_x360
 from . import sdk_2013
 from . import source
