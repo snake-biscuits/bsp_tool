@@ -152,21 +152,27 @@ class TestMappedArray:
 
 class TestBitField:
     def test_init(self):
+        # full *args
         test_bitfield = base.BitField(0xAA, 0xBBBB, 0xCC, _format="I", _fields={"AA": 8, "BBBB": 16, "CC": 8})
         assert test_bitfield.AA == 0xAA
         assert test_bitfield.BBBB == 0xBBBB
         assert test_bitfield.CC == 0xCC
         assert test_bitfield.as_int() == 0xCCBBBBAA  # little-endian
 
+        # TODO: full kwargs, mixed args & kwargs
+
+        # subclass
         class Test_BitField(base.BitField):
             _fields = dict(foo=4, bar=12)
             _format = "H"
 
+        # .from_int
         test_bitfield = Test_BitField.from_int(0xEEED)
         assert test_bitfield.foo == 0xD
         assert test_bitfield.bar == 0xEEE
 
-        test_bitfield = TestBitField(0xF0, _format="B", _fields={"alpha": 4, "omega": 4})
+        # single arg
+        test_bitfield = base.BitField(0xF0, _format="B", _fields={"alpha": 4, "omega": 4})
         assert test_bitfield.alpha == 0x0
         assert test_bitfield.omega == 0xF
 
