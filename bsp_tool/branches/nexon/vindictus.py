@@ -105,11 +105,12 @@ class Area(base.Struct):  # LUMP 20
 
 class AreaPortal(base.Struct):  # LUMP 21
     portal_key: int  # unique ID?
-    other_area: int  # ???
+    other_area: int  # index of Area this on the other side? Area -> AreaPortal -> Area?
     first_clip_portal_vertex: int  # index into the ClipPortalVertex lump
     num_clip_portal_vertices: int  # number of ClipPortalVertices after first_clip_portal_vertex in this AreaPortal
+    plane: int  # Plane this AreaPortal lies on
     __slots__ = ["portal_key", "other_area", "first_clip_portal_vertex",
-                 "num_clip_portal_vertices", "plane_num"]
+                 "num_clip_portal_vertices", "plane"]
     _format = "4Ii"
 
 
@@ -118,7 +119,7 @@ class BrushSide(base.Struct):  # LUMP 19
     texture_info: int   # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
     bevel: int      # smoothing group?
-    __slots__ = ["plane_num", "texture_info", "displacement_info", "bevel"]
+    __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "I3i"
 
 
