@@ -9,7 +9,8 @@ from typing import List
 
 from .. import base
 from .. import shared
-from ..id_software import quake
+from .. import vector
+from ..id_software import remake_quake_old
 from ..valve import orange_box
 from ..valve import source
 
@@ -19,6 +20,8 @@ FILE_MAGIC = b"VBSP"
 BSP_VERSION = 20
 # NOTE: Vindictus may have 2 format eras with identical version identifiers
 # -- we currently do not know how to load / find a map in-game to test for outdated maps
+# TODO: look into GitHub Issue #40; a 1.69 client exists, unsure if old maps are included
+# -- should make nailing down era differences easier
 
 GAME_PATHS = {"Vindictus": "Vindictus"}
 
@@ -115,115 +118,151 @@ class AreaPortal(base.Struct):  # LUMP 21
 
 
 class BrushSide(base.Struct):  # LUMP 19
-    plane: int      # index into Plane lump
-    texture_info: int   # index into TextureInfo lump
-    displacement_info: int  # index into DisplacementInfo lump
-    bevel: int      # smoothing group?
+    plane: int  # Plane this BrushSide lies on
+    texture_info: int  # TextureInfo this BrushSide uses
+    displacement_info: int  # DisplacementInfo applied to the Face derived from this BrushSide; -1 for None
+    bevel: int  # is_bevel: bool? could indicate side is only used for collision detection
     __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "I3i"
 
 
 class DisplacementInfo(source.DisplacementInfo):  # LUMP 26
-    start_position: List[float]  # approximate XYZ of first point in face this DisplacementInfo is rotated around
-    displacement_vertex_start: int  # index into DisplacementVertex lump
-    displacement_triangle_start: int  # index into DisplacementTriangle lump
-    power: int  # 2, 3 or 4; indicates subdivision level
-    smoothing_angle: float
+    start_position: vector.vec3  # approx coords of first corner of face
+    # nessecary to ensure order of displacement vertices
+    first_displacement_vertex: int  # index into DisplacementVertices
+    first_displacement_triangle: int  # index into DisplacementTriangles
+    power: int  # number of subdivisions; {2..4}
+    # used to calculate num_displacement_vertices/triangles
+    # TODO: formula for both num_displacement_vertices * triangles
+    smoothing_angle: float  # for shading?
     unknown: int  # don't know what this does in Vindictus' format
-    contents: int  # contents flags
-    face: int  # index into Face lump
-    __slots__ = ["start_position", "displacement_vertex_start", "displacement_triangle_start",
+    # flags: source.DisplacementFlags?
+    # min_tesselation: int?
+    contents: source.Contents
+    face: int  # Face this DisplacementInfo affects
+    lightmap_alpha_start: int  # TODO: figure out displacement lightmaps
+    lightmap_sample_position_start: int
+    edge_neighbours: List[bytes]  # TODO: DisplacementNeighbour class
+    corner_neighbours: List[bytes]  # TODO: DisplacementCornerNeighbour class
+    allowed_vertices: List[int]
+    __slots__ = ["start_position", "first_displacement_vertex", "first_displacement_triangle",
                  "power", "smoothing_angle", "unknown", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
-                 "edge_neighbours", "corner_neighbours", "allowed_verts"]
+                 "edge_neighbours", "corner_neighbours", "allowed_vertices"]
     _format = "3f3if2iI2i144c10I"  # Neighbours are also different
+    # TODO: replace 44c w/ f"{DisplacementNeighbour._format}" * 4
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 72,
-               "corner_neighbours": 72, "allowed_verts": 10}
-
-
-class Edge(quake.Edge):  # LUMP 12
-    _format = "2I"  # increased from uint16_t to uint32_t
+               "corner_neighbours": 72, "allowed_vertices": 10}
+    # TODO: DisplacementNeighbour._mapping.copy()
+    _classes = {"start_position": vector.vec3, "contents": source.Contents}
+    # TODO: neighbour classes
 
 
 class Face(base.Struct):  # LUMP 7
-    plane: int       # index into Plane lump
-    side: int        # "faces opposite to the node's plane direction"
-    on_node: bool    # if False, face is in a leaf
+    plane: int  # Plane this Face lies on
+    side: int  # "faces opposite to the node's plane direction"; bool / enum?
+    on_node: bool  # if False, Face is in a Leaf
     unknown: int
-    first_edge: int  # index into the SurfEdge lump
-    num_edges: int   # number of SurfEdges after first_edge in this Face
-    texture_info: int    # index into the TextureInfo lump
-    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
-    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
-    styles: int      # 4 different lighting states? "switchable lighting info"
+    first_edge: int  # index into SurfEdges
+    num_edges: int  # number of SurfEdges after first_edge in this Face
+    texture_info: int  # TextureInfo used on this Face
+    displacement_info: int  # index into DisplacementInfos; -1 for None
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog? index?
+    styles: List[int]  # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
-    lightmap: List[float]
-    # lightmap.mins  # dimensions of lightmap segment
-    # lightmap.size  # scalars for lightmap segment
-    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    lightmap: List[List[float]]
+    # lightmap.mins: vector.vec2  # dimensions of lightmap segment
+    # lightmap.size: vector.vec2  # scalars for lightmap segment
+    original_face: int  # index into OriginalFaces; -1 if an OriginalFace
     num_primitives: int  # non-zero if t-juncts are present? number of Primitives
-    first_primitive_id: int  # index of Primitive
-    smoothing_groups: int    # lightmap smoothing group
+    first_primitive: int  # index of first Primitive
+    smoothing_groups: int  # lightmap smoothing group; select multiple by using bits?
     __slots__ = ["plane", "side", "on_node", "unknown", "first_edge",
                  "num_edges", "texture_info", "displacement_info",
                  "surface_fog_volume_id", "styles", "light_offset", "area",
                  "lightmap", "original_face", "num_primitives",
-                 "first_primitive_id", "smoothing_groups"]
+                 "first_primitive", "smoothing_groups"]
     _format = "I2bh5i4bif4i4I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height")}
 
 
 class Facev2(base.Struct):  # LUMP 7 (v2)
-    plane: int       # index into Plane lump
-    side: int        # "faces opposite to the node's plane direction"
-    on_node: bool    # if False, face is in a leaf
+    plane: int  # Plane this Face lies on
+    side: int  # "faces opposite to the node's plane direction"; bool / enum?
+    on_node: bool  # if False, Face is in a Leaf
     unknown_1: int
-    first_edge: int  # index into the SurfEdge lump
-    num_edges: int   # number of SurfEdges after first_edge in this Face
-    texture_info: int    # index into the TextureInfo lump
-    displacement_info: int   # index into the DisplacementInfo lump (None if -1)
+    first_edge: int  # index into SurfEdges
+    num_edges: int  # number of SurfEdges after first_edge in this Face
+    texture_info: int  # index into TextureInfos
+    displacement_info: int   # index into the DisplacementInfos; -1 for None
     surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
     unknown_2: int
     styles: List[int]  # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
-    lightmap: List[float]
-    # lightmap.mins  # dimensions of lightmap segment
-    # lightmap.size  # scalars for lightmap segment
-    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    lightmap: List[List[float]]
+    # lightmap.mins: vector.vec2  # dimensions of lightmap segment
+    # lightmap.size: vector.vec2  # scalars for lightmap segment
+    original_face: int  # index into OriginalFaces; -1 if an OriginalFace
     num_primitives: int  # non-zero if t-juncts are present? number of Primitives
-    first_primitive_id: int  # index of Primitive
-    smoothing_groups: int    # lightmap smoothing group
+    first_primitive: int  # index of first Primitive
+    smoothing_groups: int  # lightmap smoothing group; select multiple by using bits?
     __slots__ = ["plane", "side", "on_node", "unknown_1", "first_edge",
                  "num_edges", "texture_info", "displacement_info",
                  "surface_fog_volume_id", "unknown_2", "styles",
                  "light_offset", "area", "lightmap", "original_face",
-                 "num_primitives", "first_primitive_id", "smoothing_groups"]
+                 "num_primitives", "first_primitive", "smoothing_groups"]
     _format = "I2bh6i4bif4i4I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height")}
 
 
 class Leaf(base.Struct):  # LUMP 10
+    contents: source.Contents
+    cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump)
+    flags: int  # not area & flags bitfield?
+    bounds: List[vector.vec3]  # uint16_t, very blocky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_leaf_face: int  # index of first LeafFace
+    num_leaf_faces: int  # number of LeafFaces in this Leaf
+    first_leaf_brush: int  # index of first LeafBrush
+    num_leaf_brushes: int  # number of LeafBrushes in this Leaf
+    leaf_water_data: int  # index into LeafWaterData; -1 if not submerged
     __slots__ = ["contents", "cluster", "flags", "mins", "maxs",
-                 "firstleafface", "numleaffaces", "firstleafbrush",
-                 "numleafbrushes", "leafWaterDataID"]
+                 "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
+                 "num_leaf_brushes", "leaf_water_data"]
     _format = "9i4Ii"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"contents": source.Contents, "mins": vector.vec3, "maxs": vector.vec3}
+    # TODO: ivec3
 
 
 class Node(base.Struct):  # LUMP 5
-    __slots__ = ["planenum", "children", "mins", "maxs", "firstface",
-                 "numfaces", "padding"]
+    plane: int  # index into Plane lump
+    children: List[int]  # 2 indices; Node if positive, Leaf if negative
+    bounds: List[vector.vec3]  # uint16_t, very blocky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_face: int  # index into Face lump
+    num_faces: int  # number of Faces after first_face in this Node
+    padding: int  # should be 0
+    __slots__ = ["plane", "children", "bounds", "first_face", "num_faces", "padding"]
     _format = "12i"
-    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"children": 2, "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Overlay(base.Struct):  # LUMP 45
     id: int
     texture_info: int  # index to this Overlay's TextureInfo
     face_count_and_render_order: int  # render order uses the top 2 bits
-    faces: List[int]  # face indices this overlay is tied to (need face_count to read accurately)
+    bitfield: int  # num_faces + render_order
+    # bitfield.num_faces  # number of faces this Overlay touches?
+    # bitfield.render_order
+    faces: List[int]  # face indices this overlay is tied to (need bitfield.num_faces to read accurately)
     u: List[float]  # mins & maxs?
     v: List[float]  # mins & maxs?
     uv_points: List[List[float]]  # Vector[4]; 3D corners of the overlay?
@@ -236,6 +275,8 @@ class Overlay(base.Struct):  # LUMP 45
                "u": 2, "v": 2,
                "uv_points": {P: [*"xyz"] for P in "ABCD"},
                "origin": [*"xyz"], "normal": [*"xyz"]}
+    _bitfields = {"bitfield": {"num_faces": 30, "render_order": 2}}
+    _classes = {"origin": vector.vec3, "normal": vector.vec3}
 
 
 # classes for special lumps, in alphabetical order:
@@ -298,9 +339,13 @@ class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)
                          *prop_bytes])
 
 
-class StaticPropScale(base.MappedArray):
-    _mapping = ["index", *"xyz"]
+class StaticPropScale(base.Struct):
+    prop: int  # index of prop to scale? (SPRP.props[sps.prop] * sps.scale)
+    scale: vector.vec3
+    __slots__ = ["index", "scale"]
     _format = "i3f"
+    _arrays = {"scale": [*"xyz"]}
+    _classes = {"scale": vector.vec3}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -313,7 +358,7 @@ LUMP_CLASSES.update({"AREAS":             {0: Area},
                      "AREA_PORTALS":      {0: AreaPortal},
                      "BRUSH_SIDES":       {0: BrushSide},
                      "DISPLACEMENT_INFO": {0: DisplacementInfo},
-                     "EDGES":             {0: Edge},
+                     "EDGES":             {0: remake_quake_old.Edge},
                      "FACES":             {1: Face,
                                            2: Facev2},
                      "LEAVES":            {1: Leaf},
@@ -329,8 +374,6 @@ GAME_LUMP_HEADER = GameLumpHeader
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": orange_box.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES.update({"sprp": {6: lambda raw_lump: GameLump_SPRP(raw_lump, None)}})
-# NOTE: 281 / 474 maps fail to load with this format
-# -- older maps? nexon often updates formats without changing version numbers...
 
 
 methods = [*orange_box.methods]
