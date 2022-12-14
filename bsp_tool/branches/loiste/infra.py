@@ -82,8 +82,9 @@ class LUMP(enum.Enum):
 
 LumpHeader = source.LumpHeader
 
-# Known lump changes from SDK 2013 -> Infra
-# New:
+
+# known lump changes from SDK 2013 -> Infra:
+# new:
 #   FACE_BRUSHES
 #   FACE_BRUSHES_LIST
 
@@ -99,5 +100,6 @@ SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = {"sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
+
 
 methods = [*sdk_2013.methods]

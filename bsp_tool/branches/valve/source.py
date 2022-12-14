@@ -139,14 +139,14 @@ class MIN(enum.Enum):
 class MAX(enum.Enum):
     # misc:
     CUBEMAP_SAMPLES = 1024
-    DISPLACEMENT_POWER = 4
     DISPLACEMENT_CORNER_NEIGHBORS = 4
+    DISPLACEMENT_POWER = 4
     ENTITY_KEY, ENTITY_VALUE = 32, 1024  # key value pair sizes
     LIGHTMAPS = 4  # max lightmap styles?
-    LIGHTMAP_DIMENSION_WITH_BORDER_BRUSH = 35  # "vbsp cut limit" +1 (to account for rounding errors)
     LIGHTMAP_DIMENSION_WITHOUT_BORDER_BRUSH = 32
-    LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT = 128
     LIGHTMAP_DIMENSION_WITHOUT_BORDER_DISPLACEMENT = 125
+    LIGHTMAP_DIMENSION_WITH_BORDER_BRUSH = 35  # "vbsp cut limit" +1 (to account for rounding errors)
+    LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT = 128
     # absolute maximum, based on previous values
     LIGHTMAP_DIMENSION_WITH_BORDER = LIGHTMAP_DIMENSION_WITH_BORDER_DISPLACEMENT
     LIGHTMAP_DIMENSION_WITHOUT_BORDER = LIGHTMAP_DIMENSION_WITHOUT_BORDER_DISPLACEMENT
@@ -362,7 +362,7 @@ class AreaPortal(base.MappedArray):  # LUMP 21
 
 class Brush(base.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
-    first_side: int  # index into BrushSide lump
+    first_side: int  # first BrushSide of this Brush
     num_sides: int  # number of BrushSides after first_side in this Brush
     contents: Contents
     __slots__ = ["first_side", "num_sides", "contents"]
@@ -371,9 +371,9 @@ class Brush(base.Struct):  # LUMP 18
 
 
 class BrushSide(base.Struct):  # LUMP 19
-    plane: int  # index into Plane lump
-    texture_info: int  # index into TextureInfo lump
-    displacement_info: int  # index into DisplacementInfo lump
+    plane: int  # Plane this BrushSide lies on
+    texture_info: int  # TextureInfo this BrushSide uses
+    displacement_info: int  # DisplacementInfo applied to the Face derived from this BrushSide; -1 for None
     bevel: int  # bool? indicates if side is a bevel plane (BSPVERSION 7)
     __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
     _format = "H3h"
@@ -391,19 +391,25 @@ class Cubemap(base.Struct):  # LUMP 42
 
 class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
-    start_position: List[float]  # rough XYZ of the vertex to orient around
-    displacement_vert_start: int  # index of first DisplacementVertex
-    displacement_tri_start: int   # index of first DisplacementTriangle
-    # ^ length of sequence for each varies depending on power
+    start_position: vector.vec3  # approx coords of first corner of face
+    # nessecary to ensure order of displacement vertices
+    first_displacement_vertex: int  # index of first DisplacementVertex
+    first_displacement_triangle: int   # index of first DisplacementTriangle
     power: int  # level of subdivision
+    # TODO: power -> num_displacement_vertices / triangles formulae
     flags: DisplacementFlags
     min_tesselation: int  # for tesselation shaders / triangle assembley?
     smoothing_angle: float  # ?
     contents: Contents
-    map_face: int  # index of Face?
+    face: int  # Face this DisplacementInfo affects
+    lightmap_alpha_start: int  # TODO: figure out displacement lightmaps
+    lightmap_sample_position_start: int
+    edge_neighbours: List[bytes]  # TODO: DisplacementNeighbour class
+    corner_neighbours: List[bytes]  # TODO: DisplacementCornerNeighbour class
+    allowed_vertices: List[int]
     __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start",
                  "power", "flags", "min_tesselation", "smoothing_angle", "contents",
-                 "map_face", "lightmap_alpha_start", "lightmap_sample_position_start",
+                 "face", "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_vertices"]
     _format = "3f3iHhfiH2i88c10i"
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
@@ -431,7 +437,7 @@ class DisplacementVertex(base.Struct):  # LUMP 33
     _classes = {"normal": vector.vec3}
 
 
-class Face(base.Struct):  # LUMP 7
+class Face(base.Struct):  # LUMPS 7, 27 & 58
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     plane: int  # index into Plane lump
     side: int  # "faces opposite to the node's plane direction"
@@ -447,10 +453,10 @@ class Face(base.Struct):  # LUMP 7
     lightmap: List[vector.vec2]
     # lightmap.mins: vector.vec2  # dimensions of lightmap segment
     # lightmap.size: vector.vec2  # scalars for lightmap segment
-    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
-    num_primitives: int  # non-zero if t-juncts are present? number of Primitives; BitField
-    # num_primitives.count: int  # limit of 32768
-    # num_primitives.allow_dynamic_shadows: bool
+    original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
+    bitfield: int
+    # bitfield.num_primitives: int  # limit of 32768
+    # bitfield.allow_shadows: bool  # allow (dynamic?) shadows on this Face's Primitives
     first_primitive_id: int  # index of Primitive
     smoothing_groups: int  # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
@@ -468,7 +474,9 @@ class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: Contents
     cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump)
-    area_flags: base.BitField  # area & flags bitfield
+    bitfield: base.BitField  # area & flags bitfield
+    # bitfield.area  # index into Areas?
+    # bitfield.flags  # TODO: LeafFlags enum
     bounds: List[vector.vec3]  # uint16_t, very blocky
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
@@ -476,24 +484,24 @@ class Leaf(base.Struct):  # LUMP 10
     num_leaf_faces: int  # number of LeafFaces
     first_leaf_brush: int  # index of first LeafBrush
     num_leaf_brushes: int  # number of LeafBrushes
-    leaf_water_data_id: int  # -1 if this leaf isn't submerged
+    leaf_water_data: int  # index into LeafWaterData; -1 if not submerged
     padding: int  # should be 0; waste of a bitfield
     cube: List[List[int]]  # CompressedLightCube; unsure about orientation / face order
     __slots__ = ["contents", "cluster", "area_flags", "bounds",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
-                 "num_leaf_brushes", "leaf_water_data_id", "padding", "cube"]
+                 "num_leaf_brushes", "leaf_water_data", "padding", "cube"]
     _format = "i2H6h4H2h24B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
     # TODO: map cube face names to UP, DOWN etc.
-    _bitfields = {"area_flags": {"area": 9, "flags": 7}}
+    _bitfields = {"bitfield": {"area": 9, "flags": 7}}
     _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
-    # TODO: CompressedLightCube (8x RGBExponent / RGBA32)
+    # TODO: CompressedLightCube (8x RGBExponent / RGBA32), "bitfield.flags": LeafFlags
 
 
 class LeafAmbientIndex(base.MappedArray):  # LUMP 52
     num_samples: int
-    first_sample: int
+    first_sample: int  # index into LeafAmbientSamples
     _format = "2h"
     _mapping = ["num_samples", "first_sample"]
 
@@ -514,9 +522,9 @@ class LeafAmbientSample(base.MappedArray):  # LUMP 56
 class LeafWaterData(base.MappedArray):  # LUMP 36
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
-    texture_data: int  # index to this LeafWaterData's TextureData
+    texture_info: int  # index to this LeafWaterData's TextureInfo
     _format = "2fI"
-    _mapping = ["surface_z", "min_z", "texture_data"]
+    _mapping = ["surface_z", "min_z", "texture_info"]
 
 
 class Model(base.Struct):  # LUMP 14
@@ -535,8 +543,9 @@ class Model(base.Struct):  # LUMP 14
 
 
 class Node(base.Struct):  # LUMP 5
-    plane: int  # index into Plane lump
+    plane: int  # Plane that splits this Node
     children: List[int]  # 2 indices; Node if positive, Leaf if negative
+    # TODO: match children to sides of Plane
     bounds: List[vector.vec3]  # uint16_t, very blocky
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
@@ -550,6 +559,7 @@ class Node(base.Struct):  # LUMP 5
     _format = "3i6h2H2h"
     _arrays = {"children": 2, "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: ivec3 bounds & AABB bounds class
 
 
 class Overlay(base.Struct):  # LUMP 45
@@ -577,13 +587,14 @@ class OverlayFade(base.MappedArray):  # LUMP 60
 
 
 class Primitive(base.MappedArray):  # LUMP 37
-    type: int
+    type: PrimitiveType
     first_index: int  # index into PrimitiveIndex lump
     num_indices: int
     first_vertex: int  # index into PrimitiveVertices lump
     num_vertices: int
     _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
     _format = "B4H"
+    _classes = {"type"}
 
 
 class TextureData(base.Struct):  # LUMP 2
@@ -672,7 +683,7 @@ class GameLumpHeader(base.MappedArray):
     # -- dplt: Detail Prop Lighting
     # -- dprp: Detail Props (procedural grass on displacements)
     # -- sprp: Static Props
-    flags: int  # use unknown
+    flags: int  # barely used; inconsistently indicates compression?
     version: int
     offset: int
     length: int
