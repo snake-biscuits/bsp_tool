@@ -41,37 +41,36 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
-| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
-| 0 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L226) | 100% |
-| 0 | 42 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
-| 1 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L226) | 100% |
-| 1 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
-| 1 | 42 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L226) | 100% |
-| 2 | 30 | `MIP_TEXTURES` | [`id_software.quake.MipTextureLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L258) | 90% |
+| 0 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
+| 0 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 1 | 30 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
+| 1 | 30 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 1 | 42 | `PLANES` | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
+| 2 | 30 | `MIP_TEXTURES` | [`id_software.quake.MipTextureLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L260) | 90% |
 | 2 | 42 | `TEXTURES` |  | 0% |
-| 3 | 30 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L248) | 100% |
+| 3 | 30 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L250) | 100% |
 | 3 | 42 | `MATERIALS` |  | 0% |
 | 4 | 30 | `VISIBILITY` |  | 0% |
-| 4 | 42 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L248) | 100% |
-| 5 | 30 | `NODES` | [`id_software.quake.ClipNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L130) | 100% |
+| 4 | 42 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L250) | 100% |
+| 5 | 30 | `NODES` | [`id_software.quake.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L212) | 100% |
 | 5 | 42 | `NORMALS` |  | 0% |
-| 6 | 30 | `TEXTURE_INFO` | [`id_software.quake.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L236) | 100% |
-| 6 | 42 | `INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 7 | 30 | `FACES` | [`id_software.quake.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L155) | 100% |
+| 6 | 30 | `TEXTURE_INFO` | [`id_software.quake.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L238) | 100% |
+| 6 | 42 | `INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 7 | 30 | `FACES` | [`id_software.quake.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L156) | 100% |
 | 7 | 42 | `VISIBILITY` |  | 0% |
 | 8 | 30 | `LIGHTING` |  | 0% |
 | 8 | 42 | `NODES` | [`gearbox.nightfire.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L112) | 100% |
-| 9 | 30 | `CLIP_NODES` | [`id_software.quake.ClipNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L130) | 100% |
+| 9 | 30 | `CLIP_NODES` | [`valve.goldsrc.ClipNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py#L116) | 100% |
 | 9 | 42 | `FACES` | [`gearbox.nightfire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L63) | 91% |
-| 10 | 30 | `LEAVES` | [`id_software.quake.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L173) | 100% |
+| 10 | 30 | `LEAVES` | [`id_software.quake.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L174) | 100% |
 | 10 | 42 | `LIGHTMAPS` |  | 0% |
-| 11 | 30 | `LEAF_FACES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
+| 11 | 30 | `LEAF_FACES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
 | 11 | 42 | `LEAVES` | [`gearbox.nightfire.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L82) | 100% |
-| 12 | 30 | `EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L144) | 100% |
-| 12 | 42 | `LEAF_FACES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
-| 13 | 30 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
+| 12 | 30 | `EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L145) | 100% |
+| 12 | 42 | `LEAF_FACES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
+| 13 | 30 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
 | 13 | 42 | `LEAF_BRUSHES` |  | 0% |
-| 14 | 30 | `MODELS` | [`valve.goldsrc.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py#L107) | 100% |
+| 14 | 30 | `MODELS` | [`valve.goldsrc.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py#L122) | 100% |
 | 14 | 42 | `MODELS` | [`gearbox.nightfire.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L98) | 83% |
 | 15 | 42 | `BRUSHES` |  | 0% |
 | 16 | 42 | `BRUSH_SIDES` | [`gearbox.nightfire.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L56) | 100% |

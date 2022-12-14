@@ -13,69 +13,69 @@
 | ---------: | ----------: | --------- | --------- | :------- |
 | 0 | 4 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L309) | 100% |
 | 1 | 4 | `LIGHTMAPS` |  | 0% |
-| 1 | 59 | `LIGHTMAPS` | [`infinity_ward.call_of_duty1.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L144) | 100% |
+| 1 | 59 | `LIGHTMAPS` | [`infinity_ward.call_of_duty1.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L145) | 100% |
 | 2 | 4 | `LIGHT_GRID_HASHES` |  | 0% |
-| 2 | 59 | `PLANES` | [`infinity_ward.call_of_duty1.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L208) | 100% |
+| 2 | 59 | `PLANES` | [`infinity_ward.call_of_duty1.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L209) | 100% |
 | 3 | 4 | `LIGHT_GRID_VALUES` |  | 0% |
-| 3 | 59 | `BRUSH_SIDES` | [`infinity_ward.call_of_duty1.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L97) | 100% |
-| 4 | 4 | `PLANES` | [`infinity_ward.call_of_duty1.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L208) | 100% |
+| 3 | 59 | `BRUSH_SIDES` | [`infinity_ward.call_of_duty1.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L98) | 100% |
+| 4 | 4 | `PLANES` | [`infinity_ward.call_of_duty1.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L209) | 100% |
 | 4 | 59 | `BRUSHES` |  | 0% |
-| 5 | 4 | `BRUSH_SIDES` | [`infinity_ward.call_of_duty1.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L97) | 100% |
+| 5 | 4 | `BRUSH_SIDES` | [`infinity_ward.call_of_duty1.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L98) | 100% |
 | 6 | 4 | `BRUSHES` |  | 0% |
-| 6 | 59 | `TRIANGLE_SOUPS` | [`infinity_ward.call_of_duty1.TriangleSoup`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L223) | 100% |
+| 6 | 59 | `TRIANGLE_SOUPS` | [`infinity_ward.call_of_duty1.TriangleSoup`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L224) | 100% |
 | 7 | 4 | `TRIANGLE_SOUPS` | [`infinity_ward.call_of_duty2.TriangleSoup`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L170) | 100% |
 | 7 | 59 | `VERTICES` |  | 0% |
 | 8 | 4 | `VERTICES` | [`infinity_ward.call_of_duty2.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L182) | 83% |
-| 8 | 59 | `INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L41) | 100% |
+| 8 | 59 | `INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
 | 9 | 4 | `TRIANGLES` | [`infinity_ward.call_of_duty2.Triangle`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L163) | 100% |
 | 9 | 59 | `CULL_GROUPS` |  | 0% |
 | 10 | 4 | `CULL_GROUPS` |  | 0% |
-| 10 | 59 | `CULL_GROUP_INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 11 | 4 | `CULL_GROUP_INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
+| 10 | 59 | `CULL_GROUP_INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 11 | 4 | `CULL_GROUP_INDICES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 11 | 59 | `PORTAL_VERTICES` |  | 0% |
 | 12 | 4 | `SHADOW_VERTICES` |  | 0% |
 | 13 | 4 | `SHADOW_INDICES` |  | 0% |
-| 13 | 59 | `OCCLUDER_PLANES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
+| 13 | 59 | `OCCLUDER_PLANES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 14 | 4 | `SHADOW_CLUSTERS` |  | 0% |
-| 14 | 59 | `OCCLUDER_EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L144) | 100% |
+| 14 | 59 | `OCCLUDER_EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L145) | 100% |
 | 15 | 4 | `SHADOW_AABB_TREES` |  | 0% |
-| 15 | 59 | `OCCLUDER_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L41) | 100% |
+| 15 | 59 | `OCCLUDER_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
 | 16 | 4 | `SHADOW_SOURCES` |  | 0% |
-| 17 | 4 | `PORTAL_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L248) | 100% |
+| 17 | 4 | `PORTAL_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L250) | 100% |
 | 17 | 59 | `CELLS` |  | 0% |
 | 18 | 4 | `OCCLUDERS` |  | 0% |
-| 18 | 59 | `PORTALS` | [`infinity_ward.call_of_duty1.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L216) | 0% |
-| 19 | 4 | `OCCLUDER_PLANES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 19 | 59 | `LIGHT_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L41) | 100% |
-| 20 | 4 | `OCCLUDER_EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L144) | 100% |
-| 20 | 59 | `NODES` | [`infinity_ward.call_of_duty1.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L179) | 100% |
-| 21 | 4 | `OCCLUDER_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L41) | 100% |
-| 21 | 59 | `LEAVES` | [`infinity_ward.call_of_duty1.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L120) | 50% |
+| 18 | 59 | `PORTALS` | [`infinity_ward.call_of_duty1.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L217) | 0% |
+| 19 | 4 | `OCCLUDER_PLANES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 19 | 59 | `LIGHT_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
+| 20 | 4 | `OCCLUDER_EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L145) | 100% |
+| 20 | 59 | `NODES` | [`infinity_ward.call_of_duty1.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L180) | 100% |
+| 21 | 4 | `OCCLUDER_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
+| 21 | 59 | `LEAVES` | [`infinity_ward.call_of_duty1.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L121) | 50% |
 | 22 | 4 | `AABB_TREE` |  | 0% |
-| 22 | 59 | `LEAF_BRUSHES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
+| 22 | 59 | `LEAF_BRUSHES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 23 | 4 | `CELLS` |  | 0% |
-| 23 | 59 | `LEAF_FACES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 24 | 4 | `PORTALS` | [`infinity_ward.call_of_duty1.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L216) | 0% |
+| 23 | 59 | `LEAF_FACES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 24 | 4 | `PORTALS` | [`infinity_ward.call_of_duty1.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L217) | 0% |
 | 24 | 59 | `PATCH_COLLISION` |  | 0% |
-| 25 | 4 | `NODES` | [`infinity_ward.call_of_duty1.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L179) | 100% |
+| 25 | 4 | `NODES` | [`infinity_ward.call_of_duty1.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L180) | 100% |
 | 25 | 59 | `COLLISION_VERTICES` |  | 0% |
-| 26 | 4 | `LEAVES` | [`infinity_ward.call_of_duty1.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L120) | 50% |
-| 26 | 59 | `COLLISION_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L41) | 100% |
-| 27 | 4 | `LEAF_BRUSHES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
+| 26 | 4 | `LEAVES` | [`infinity_ward.call_of_duty1.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L121) | 50% |
+| 26 | 59 | `COLLISION_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
+| 27 | 4 | `LEAF_BRUSHES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 27 | 59 | `MODELS` |  | 0% |
-| 28 | 4 | `LEAF_FACES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
+| 28 | 4 | `LEAF_FACES` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 28 | 59 | `VISIBILITY` |  | 0% |
 | 29 | 4 | `COLLISION_VERTICES` |  | 0% |
-| 29 | 59 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
+| 29 | 59 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 30 | 4 | `COLLISION_EDGES` |  | 0% |
-| 30 | 59 | `LIGHTS` | [`infinity_ward.call_of_duty1.Light`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L131) | 50% |
+| 30 | 59 | `LIGHTS` | [`infinity_ward.call_of_duty1.Light`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1.py#L132) | 50% |
 | 31 | 4 | `COLLISION_TRIANGLES` |  | 0% |
 | 32 | 4 | `COLLISION_BORDERS` |  | 0% |
 | 33 | 4 | `COLLISION_PARTS` |  | 0% |
 | 34 | 4 | `COLLISION_AABBS` |  | 0% |
 | 35 | 4 | `MODELS` |  | 0% |
 | 36 | 4 | `VISIBILITY` |  | 0% |
-| 37 | 4 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L46) | 100% |
+| 37 | 4 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
 | 38 | 4 | `PATHS` |  | 0% |
 | 39 | 4 | `LIGHTS` |  | 0% |
 

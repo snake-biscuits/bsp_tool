@@ -19,6 +19,7 @@ from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 # TODO: lump relationship maps w/ completeness
 # -- systems / associated subsystems (rendering, vis, light, physics)
 # -- would likely require some kind of dict, mapping how lumps index could be useful in general tbh
+# TODO: include lump relationships in generated docs (see GitHub Issue #)
 
 # NOTE: forks should substitute their own repo here
 # TODO: get the commit hash from `git rev-parse HEAD` for permalinks
@@ -32,15 +33,17 @@ ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "
 source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
                   branches.valve.left4dead, branches.valve.left4dead2,
                   *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
-# NOTE; table row sorting isn't 100% deterministic for some reason
+# NOTE: table row sorting isn't 100% deterministic for some reason
+# TODO: table sorting doesn't remove duplicates when multiple lump versions are used
 # TODO: some groups list overlapping identifiers with different LumpClasses
 # -- need to handle these clashes more clearly (currently some data is discarded)
+# TODO: use some icons / emoji to identify overlapping branches
+# -- compiling the whole Source Engine into one .md would be great
 # NOTE: per BspClass files that could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
 # -- confirming all the BspClasses line up is pretty important though
 # NOTE: x360 branch scripts are generated almost entirely from existing branch scripts
-# -- this is incomplete however, as bitfields are also inverted somewhat
-# -- no support for bitfields of any order exists yet anyway, however
+# TODO: treat x360 branches as a special case & trace their base classes
 # NOTE: list of all BspClass & associated branch_script + Y/N coverage column
 # -- loosely copied from games.sc
 # | BspClass        | branch_script                  | Y/N |
@@ -74,6 +77,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | RitualBsp       | ritual.start_trek_elite_force2 |  Y  |
 # | ValveBsp        | arkane.dark_messiah_sp         |  Y  |
 # | ValveBsp        | arkane.dark_messiah_mp         |  Y  |
+# | ValveBsp        | chaos_initiative.chaos         |  Y  |
 # | ValveBsp        | loiste.infra                   |  Y  |
 # | ValveBsp        | nexon.cso2                     |  Y  |
 # | ValveBsp        | nexon.cso2_2018                |  Y  |
@@ -459,6 +463,8 @@ def supported_md(group: ScriptGroup) -> List[str]:
             for lump_version, LumpClass in LumpClass_dict.items():
                 if lump_name in branch_script.LUMP_CLASSES:
                     # TODO: calculate unknowns as % of bytes mapped
+                    # -- should be able to use split_format for this
+                    # -- also, break out this coverage calculator into another function
                     if issubclass(LumpClass, branches.base.Struct):
                         attrs = len(LumpClass.__slots__)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass.__slots__])
@@ -467,6 +473,9 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     elif issubclass(LumpClass, branches.base.MappedArray):
                         attrs = len(LumpClass._mapping)
                         unknowns = sum([a.startswith("unknown") for a in LumpClass._mapping])
+                    elif issubclass(LumpClass, branches.base.BitField):
+                        attrs = len(LumpClass._fields.keys())
+                        unknowns = sum([a.startswith("unknown") for a in LumpClass._fields.keys()])
                     elif issubclass(LumpClass, list):  # quake.Edge / vindictus.Edge etc.
                         attrs, unknowns = 1, 0
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
@@ -474,6 +483,9 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     if lump_name == "GAME_LUMP":
                         # TODO: use gamelump coverage dict here
                         percent = 100 if branch_script is not branches.arkane.dark_messiah_sp else 90  # HACK
+                    elif LumpClass_dict[lump_version].__name__ == "from_bytes":  # titanfall.Grid / LevelInfo
+                        SpecialLumpClass = LumpClass_dict[lump_version].__self__
+                        percent = 100  # TODO: reuse MappedArray / Struct unknown calculator
                     else:
                         SpecialLumpClass = LumpClass_dict[lump_version]
                         percent = SpecialLumpClass_confidence[SpecialLumpClass]
