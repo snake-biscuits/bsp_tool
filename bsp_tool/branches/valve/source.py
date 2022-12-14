@@ -594,7 +594,7 @@ class Primitive(base.MappedArray):  # LUMP 37
     num_vertices: int
     _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
     _format = "B4H"
-    _classes = {"type"}
+    _classes = {"type": PrimitiveType}
 
 
 class TextureData(base.Struct):  # LUMP 2
