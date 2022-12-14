@@ -169,7 +169,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Medal of Honor: Allied Assault](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa.py)
     - [Medal of Honor: Allied Assault - Spearhead](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa.py)
     - [Medal of Honor: Allied Assault - Breakthrough](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ritual/mohaa_bt.py)
-    - [Momentum Mod (Unreleased)](https://github.com/snake-biscuits/bsp_tool/tree/bsp_tool/branches/chaos_initiative/chaos.py) :o:
+    - [Momentum Mod Playtest (Closed Beta)](https://github.com/snake-biscuits/bsp_tool/tree/bsp_tool/branches/chaos_initiative/chaos.py)
     - [Natural Selection](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [NEOTOKYO](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Nexuiz Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
@@ -204,6 +204,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Lead developer on [Spyglass Radiant](https://github.com/F1F7Y/spyglass-radiant) NetRadiant-Custom fork for Titanfall Series
  * [GCFScape](https://nemstools.github.io/pages/GCFScape-Download.html)
    - Super handy `.vpk` (Valve format) browser; VTFLib / VTFEdit is also from Nem's Tools
+ * [JJL772](https://github.com/JJL772)
+   - Published public documentation for the otherwise closed-source VBSP v25
  * [Maxime Dupuis](https://github.com/maxdup)
    - Helping me identify multiple lumps in Source Engine .bsps
  * [MobyGames](https://www.mobygames.com/)
