@@ -1,12 +1,17 @@
 # Chaos Initiative's Chaos Source Engine (closed source) v25 VBSP
-# https://github.com/ChaosInitiative/Wiki/blob/feat/bsp-v25/docs/Reference/bsp-v25.md
+# https://chaosinitiative.github.io/Wiki/docs/Reference/bsp-v25/
 # https://blog.momentum-mod.org/posts/changelog/0.9.4/
 # https://github.com/momentum-mod/BSPConvert
 import enum
+# import struct
+from typing import List
 
-# from .. import base
+from .. import base
 from .. import shared
+from .. import valve_physics
+from .. import vector
 from ..id_software import remake_quake_old
+from ..nexon import vindictus
 from ..valve import sdk_2013
 from ..valve import source
 
@@ -131,28 +136,235 @@ class MAX(enum.Enum):
 
 
 # classes for each lump, in alphabetical order:
-# TODO: v1 AreaPortal
-# TODO: v1 BrushSide (16 bytes)
-# TODO: v2 Face (72 bytes)  # FACES_HDR & ORIGINAL_FACES are the same size per-struct (72 bytes)
-# TODO: v2 Leaf (56 bytes)
-# TODO: v1 DisplacementInfo
-# TODO: v0 DisplacementTriangle
+class BrushSide(base.MappedArray):  # LUMP 19
+    plane: int  # Plane this BrushSide lies on
+    texture_info: int  # index into TextureInfo lump
+    displacement_info: int  # index into DisplacementInfo lump
+    bevel: int  # bool? indicates if side is a bevel plane (BSPVERSION 7)
+    thin: int  # bool? new, might be from CSGO (bullet / PAS penetration)?
+    padding: int
+    _mapping = ["plane", "texture_info", "displacement_info", "bevel", "thin", "padding"]
+    _format = "I2i2bh"
+
+
+# class DisplacementCornerNeighbour(base.Struct):  # LUMP 26
+#     neighbours: List[int]  # 4x indices into DisplacementInfo?
+#     num_neighbours: int  # {0..4}?
+#     __slots__ = ["neighbours", "num_neighbours"]
+#     _format = "4IB"  # padding hell
+#     _arrays = {"neighbours": 4}
+
+
+# class DisplacementSubNeighbour(base.MappedArray):  # LUMP 26
+#     # TODO: Source SDK displacement neighbour ascii diagram & comment block
+#     neighbour: int  # DisplacementInfo index?
+#     orientation: int  # neighbourOrient; enum?
+#     span: int  # ?
+#     neighbour_span: int  # ??
+#     _mapping = ["neighbour", "orientation", "span", "neighbour_span"]
+#     _format = "I3B"  # struct alignment hell
+
+
+# class DisplacementNeighbour(list):  # LUMP 26
+#     """x2 DisplacementSubNeighbour"""
+#     _format = DisplacementSubNeighbour._format * 2
+
+#     @classmethod
+#     def from_bytes(cls, raw: bytes):
+#         return cls(struct.iter_unpack(DisplacementSubNeighbour._format, raw))
+
+#     def as_bytes(self) -> bytes:
+#         return b"".join([x.as_bytes() for x in self])
+
+
+class DisplacementInfo(base.Struct):  # LUMP 26
+    """Holds the information defining a displacement"""
+    start_position: vector.vec3  # approx coords of first corner of face
+    # nessecary to ensure order of displacement vertices
+    first_displacement_vertex: int  # index of first DisplacementVertex
+    first_displacement_triangle: int   # index of first DisplacementTriangle
+    power: int  # level of subdivision
+    # TODO: power -> num_displacement_vertices / triangles formulae
+    min_tesselation: int  # for tesselation shaders / triangle assembley?
+    smoothing_angle: float  # ?
+    contents: source.Contents
+    face: int  # Face this DisplacementInfo affects
+    first_lightmap_alpha: int  # index into DisplacementLightmapAlphas?
+    first_lightmap_sample_position: int  # ...
+    # TODO: lightmap lengths
+    # substruct packing hell:
+    edge_neighbours: List[bytes]  # TODO: DisplacementNeighbour class
+    corner_neighbours: List[bytes]  # TODO: DisplacementCornerNeighbour class
+    allowed_vertices: List[int]
+    __slots__ = ["start_position", "first_displacement_vertex", "first_displacement_triangle",
+                 "power", "min_tesselation", "smoothing_angle", "contents", "face",
+                 "first_lightmap_alpha", "first_lightmap_sample_position",
+                 "edge_neighbours", "corner_neighbours", "allowed_vertices"]
+    _format = "3f4ifiI2i124B10I"
+    # 124B = (4 * 2 * sizeof("I3B")) + (4 * sizeof("4IB"))
+    _arrays = {"edge_neighbours": 56, "corner_neighbours": 68, "allowed_vertices": 10}
+    # 4x DisplacementNeighbour: edge_neighbours
+    # 4x DisplacementCornerNeighbours: corner_neighbours
+    _classes = {"start_position": vector.vec3, "contents": source.Contents}
+    # TODO: neighbour classes while maintaining packing
+
+    # def from_bytes(self, *args, **kwargs) -> DisplacementInfo:
+    #     super(self).from_bytes(*args, **kwargs)
+    #     self.corner_neighbours = DisplacementNeighbour.from_bytes(self.corner_neighbours)
+    #     self.edge_neighbours = DisplacementNeighbour.from_bytes(self.corner_neighbours)
+
+    # def as_bytes(self) -> bytes:
+    #     ...  # TODO
+
+
+class Face(base.Struct):  # LUMPS 7, 27 * 58
+    """makes up Models (including worldspawn), also referenced by LeafFaces"""
+    plane: int  # index into Plane lump
+    side: int  # "faces opposite to the node's plane direction"
+    on_node: bool  # if False, face is in a leaf
+    first_edge: int  # index into the SurfEdge lump
+    num_edges: int  # number of SurfEdges after first_edge in this Face
+    texture_info: int  # index into the TextureInfo lump
+    displacement_info: int  # index into the DisplacementInfo lump (None if -1)
+    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    styles: List[int]  # 4 different lighting states? "switchable lighting info"
+    light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
+    area: float  # surface area of this face
+    lightmap: List[vector.vec2]
+    # lightmap.mins: vector.vec2  # dimensions of lightmap segment
+    # lightmap.size: vector.vec2  # scalars for lightmap segment
+    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    num_primitives: int  # non-zero if t-juncts are present? number of Primitives; BitField
+    # num_primitives.count: int  # limit of 32768
+    # num_primitives.allow_dynamic_shadows: bool
+    first_primitive_id: int  # index of Primitive
+    smoothing_groups: int  # lightmap smoothing group
+    __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges", "texture_info",
+                 "displacement_info", "surface_fog_volume_id", "styles", "light_offset",
+                 "area", "lightmap", "original_face", "bitfield", "first_primitive", "smoothing_groups"]
+    _format = "I2b5I4bif5i3I"
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _bitfields = {"bitfield": {"enable_shadows": 1, "num_primitives": 31}}
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height")}
+
+
+class FaceBrushList(base.MappedArray):  # LUMP 23
+    num_face_brushes: int
+    first_face_brush: int  # index into FaceBrushes
+    _mapping = ["num_face_brushes", "first_face_brush"]
+    _format = "2I"
+
+
+class Leaf(source.Face):  # LUMP 10
+    """Endpoint of a vis tree branch, a pocket of Faces"""
+    contents: source.Contents
+    cluster: int  # index of viscluster in Visibility
+    bitfield: base.BitField
+    # bitfield.area: int  # index?
+    # bitfield.flags: int  # LeafFlags enum?
+    bounds: List[vector.vec3]
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_leaf_face: int  # index into LeafFaces
+    num_leaf_faces: int
+    first_leaf_brush: int  # index into LeafBrushes
+    num_leaf_brushes: int
+    leaf_water_data: int  # index into LeafWaterData
+    __slots__ = ["contents", "cluster", "bitfield", "bounds", "first_leaf_face",
+                 "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes", "leaf_water_id"]
+    _format = "3I6f4Ii"
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _bitfields = {"bitfield": {"area": 17, "flags": 15}}
+    _classes = {"contents": source.Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: bounds AABB class
+
+
+class LeafAmbientIndex(source.LeafAmbientIndex):  # LUMP 52
+    num_samples: int
+    first_sample: int  # index into LeafAmbientSamples
+    _format = "2I"
+    _mapping = ["num_samples", "first_sample"]
+
+
+class Node(base.Struct):  # LUMP 5
+    plane: int  # Plane that splits this Node
+    children: List[int]  # 2 indices; Node if positive, Leaf if negative
+    # TODO: match children to sides of Plane
+    bounds: List[vector.vec3]  # uint16_t, very blocky
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    first_face: int  # index into Face lump
+    num_faces: int  # number of Faces after first_face in this Node
+    area: int  # index into Area lump, if all children are in the same area, else -1
+    padding: int
+    __slots__ = ["plane", "children", "bounds", "first_face", "num_faces", "area", "padding"]
+    _format = "3i6f2I2h"
+    _arrays = {"children": 2, "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: AABB bounds class
+
+
+class Overlay(base.Struct):  # LUMP 45
+    id: int
+    texture_info: int  # index into TextureInfo
+    face_count: int  # render order in top 2 bits
+    faces: List[int]
+    uv: List[float]  # uncertain of order
+    points: List[vector.vec3]
+    origin: vector.vec3
+    normal: vector.vec3
+    __slots__ = ["id", "texture_info", "face_count", "faces",
+                 "uv", "points", "origin", "normal"]
+    _format = "2iH64i22f"
+    _arrays = {"faces": 64, "uv": ["left", "right", "top", "bottom"],
+               "points": {P: [*"xyz"] for P in "ABCD"}, "origin": [*"xyz"], "normal": [*"xyz"]}
+    # TODO: index uv & points w/ {int: _mapping} _arrays
+    _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
+
+
+class Primitive(source.Primitive):  # LUMP 37
+    type: source.PrimitiveType
+    first_index: int  # index into PrimitiveIndices
+    num_indices: int
+    first_vertex: int  # index into PrimitiveVertices
+    num_vertices: int
+    _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
+    _format = "B4I"
+    _classes = {"type": source.PrimitiveType}
+
+
+# special lump classes, in alphabetical order:
+class PhysicsDisplacement(valve_physics.Displacement):  # LUMP 28
+    _format = "I"
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = sdk_2013.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES":          {1: shared.UnsignedInts},
+BASIC_LUMP_CLASSES.update({"FACE_IDS":              {1: shared.UnsignedInts},
+                           "LEAF_BRUSHES":          {1: shared.UnsignedInts},
                            "LEAF_FACES":            {1: shared.UnsignedInts},
                            "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
 
 LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
-pop = ("AREA_PORTALS", "BRUSH_SIDES", "DISPLACEMENT_INFO", "FACES", "LEAVES", "NODES", "ORIGINAL_FACES")
-for lump_name in pop:
-    LUMP_CLASSES.pop(lump_name)
-del lump_name, pop
-LUMP_CLASSES["EDGES"] = {1: remake_quake_old.Edge}
+LUMP_CLASSES.pop("NODES")
+LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus.AreaPortal},
+                     "BRUSH_SIDES":            {1: BrushSide},
+                     "DISPLACEMENT_INFO":      {1: DisplacementInfo},
+                     "EDGES":                  {1: remake_quake_old.Edge},
+                     "FACES":                  {2: Face},
+                     "FACES_HDR":              {2: Face},
+                     "LEAVES":                 {2: Leaf},
+                     "LEAF_AMBIENT_INDEX":     {1: LeafAmbientIndex},
+                     "LEAF_AMBIENT_INDEX_HDR": {1: LeafAmbientIndex},
+                     "LEAF_WATER_DATA":        {1: source.LeafWaterData},
+                     "NODES":                  {1: Node},
+                     "ORIGINAL_FACES":         {2: Face},
+                     "OVERLAYS":               {1: Overlay},
+                     "PRIMITIVE":              {1: Primitive},
+                     "WATER_OVERLAYS":         {1: Overlay}})
 
 SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES.update({"PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
 
 GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
