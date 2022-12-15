@@ -169,22 +169,16 @@ class BrushSide(base.MappedArray):  # LUMP 19
 #     """x2 DisplacementSubNeighbour"""
 #     _format = DisplacementSubNeighbour._format * 2
 
-#     @classmethod
-#     def from_bytes(cls, raw: bytes):
-#         return cls(struct.iter_unpack(DisplacementSubNeighbour._format, raw))
-
-#     def as_bytes(self) -> bytes:
-#         return b"".join([x.as_bytes() for x in self])
-
 
 class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: vector.vec3  # approx coords of first corner of face
     # nessecary to ensure order of displacement vertices
     first_displacement_vertex: int  # index of first DisplacementVertex
-    first_displacement_triangle: int   # index of first DisplacementTriangle
+    # num_displacement_vertices: int = ((1 << power) + 1) ** 2
+    first_displacement_triangle: int  # index of first DisplacementTriangle
+    # num_diplacement_triangles: int = 2 * (1 << power) ** 2
     power: int  # level of subdivision
-    # TODO: power -> num_displacement_vertices / triangles formulae
     min_tesselation: int  # for tesselation shaders / triangle assembley?
     smoothing_angle: float  # ?
     contents: source.Contents
@@ -200,21 +194,12 @@ class DisplacementInfo(base.Struct):  # LUMP 26
                  "power", "min_tesselation", "smoothing_angle", "contents", "face",
                  "first_lightmap_alpha", "first_lightmap_sample_position",
                  "edge_neighbours", "corner_neighbours", "allowed_vertices"]
-    _format = "3f4ifiI2i124B10I"
-    # 124B = (4 * 2 * sizeof("I3B")) + (4 * sizeof("4IB"))
-    _arrays = {"edge_neighbours": 56, "corner_neighbours": 68, "allowed_vertices": 10}
+    _format = "3f4ifiI2i144B10I"
+    _arrays = {"edge_neighbours": 72, "corner_neighbours": 72, "allowed_vertices": 10}
     # 4x DisplacementNeighbour: edge_neighbours
     # 4x DisplacementCornerNeighbours: corner_neighbours
     _classes = {"start_position": vector.vec3, "contents": source.Contents}
-    # TODO: neighbour classes while maintaining packing
-
-    # def from_bytes(self, *args, **kwargs) -> DisplacementInfo:
-    #     super(self).from_bytes(*args, **kwargs)
-    #     self.corner_neighbours = DisplacementNeighbour.from_bytes(self.corner_neighbours)
-    #     self.edge_neighbours = DisplacementNeighbour.from_bytes(self.corner_neighbours)
-
-    # def as_bytes(self) -> bytes:
-    #     ...  # TODO
+    # TODO: neighbour classes
 
 
 class Face(base.Struct):  # LUMPS 7, 27 * 58
@@ -309,14 +294,15 @@ class Overlay(base.Struct):  # LUMP 45
     texture_info: int  # index into TextureInfo
     face_count: int  # render order in top 2 bits
     faces: List[int]
-    uv: List[float]  # uncertain of order
+    u: List[float]
+    v: List[float]
     points: List[vector.vec3]
     origin: vector.vec3
     normal: vector.vec3
     __slots__ = ["id", "texture_info", "face_count", "faces",
-                 "uv", "points", "origin", "normal"]
+                 "u", "v", "points", "origin", "normal"]
     _format = "2iH64i22f"
-    _arrays = {"faces": 64, "uv": ["left", "right", "top", "bottom"],
+    _arrays = {"faces": 64, "u": ["min", "max"], "v": ["min", "max"],
                "points": {P: [*"xyz"] for P in "ABCD"}, "origin": [*"xyz"], "normal": [*"xyz"]}
     # TODO: index uv & points w/ {int: _mapping} _arrays
     _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
@@ -331,6 +317,25 @@ class Primitive(source.Primitive):  # LUMP 37
     _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
     _format = "B4I"
     _classes = {"type": source.PrimitiveType}
+
+
+class WaterOverlay(base.Struct):  # LUMP 50
+    id: int
+    texture_info: int  # index into TextureInfo
+    face_count: int  # render order in top 2 bits
+    faces: List[int]
+    u: List[float]
+    v: List[float]
+    points: List[vector.vec3]
+    origin: vector.vec3
+    normal: vector.vec3
+    __slots__ = ["id", "texture_info", "face_count", "faces",
+                 "u", "v", "points", "origin", "normal"]
+    _format = "2iH256i22f"
+    _arrays = {"faces": 256, "u": ["min", "max"], "v": ["min", "max"],
+               "points": {P: [*"xyz"] for P in "ABCD"}, "origin": [*"xyz"], "normal": [*"xyz"]}
+    # TODO: index uv & points w/ {int: _mapping} _arrays
+    _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
 
 
 # special lump classes, in alphabetical order:
@@ -361,7 +366,7 @@ LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus.AreaPortal},
                      "ORIGINAL_FACES":         {2: Face},
                      "OVERLAYS":               {1: Overlay},
                      "PRIMITIVE":              {1: Primitive},
-                     "WATER_OVERLAYS":         {1: Overlay}})
+                     "WATER_OVERLAYS":         {1: WaterOverlay}})
 
 SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.update({"PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
