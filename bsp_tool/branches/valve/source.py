@@ -266,6 +266,52 @@ class ContentsMask(enum.IntEnum):
     DEAD_SOLID = Contents.SOLID | Contents.PLAYER_CLIP | Contents.WINDOW | Contents.GRATE  # unused?
 
 
+class DisplacementChildNode(enum.Enum):
+    """These can be used to index g_ChildNodeIndexMul"""
+    UPPER_RIGHT = 0
+    UPPER_LEFT = 1
+    LOWER_LEFT = 2
+    LOWER_RIGHT = 3
+
+
+class DisplacementCorner(enum.Enum):
+    """Corner indices. Used to index m_CornerNeighbors"""
+    LOWER_LEFT = 0
+    UPPER_LEFT = 1
+    UPPER_RIGHT = 2
+    LOWER_RIGHT = 3
+
+
+class DisplacementEdge(enum.Enum):  # used to index DisplacementInfo.neighbours.edges
+    """These edge indices must match the edge indices of the CCoreDispSurface"""
+    LEFT = 0
+    TOP = 1
+    RIGHT = 2
+    BOTTOM = 3
+
+
+class DisplacementSpan(enum.Enum):
+    """Where one DisplacementInfo fits on another"""
+    CORNER_TO_CORNER = 0  # 1 -> x -> 2
+    CORNER_TO_MIDPOINT = 1  # 1 -> x
+    MIDPOINT_TO_CORNER = 2  # x -> 2
+    # 1 -> x -> 2
+    # ^         ^
+    # |         |
+    # x    x    x
+    # ^         ^
+    # |         |
+    # 0 -> x -> 3
+
+
+class DisplacementOrientation(enum.Enum):
+    """Relative orientations of displacement neighbors"""
+    CCW_0 = 0
+    CCW_90 = 1
+    CCW_180 = 2
+    CCW_270 = 3
+
+
 class DisplacementFlags(enum.IntFlag):
     UNUSED = 1
     NO_PHYS = 2
@@ -389,33 +435,65 @@ class Cubemap(base.Struct):  # LUMP 42
     _classes = {"origin": vector.vec3}
 
 
+class CornerNeighbour(base.MappedArray):  # LUMP 26
+    neighbours: List[int]  # indices of neighbouring DisplacementInfos
+    num_neighbours: int  # number of DisplacementInfos indexed; {0..4}
+    padding: int
+    _mapping = {"neighbours": 4, "num_neighbours": None, "padding": None}
+    _format = "4H2B"
+
+
+class SubNeighbour(base.MappedArray):  # LUMP 26
+    neighbour: int  # index of neighbouring DisplacementInfo; 0xFFFF for None
+    neighbour_orientation: DisplacementOrientation  # orientation of neighbour relative to self
+    span: DisplacementSpan  # where neighbour fits onto this side
+    neighbour_span: DisplacementSpan  # how this side connects to neighbour
+    padding: int
+    _mapping = ["neighbour", "neighbour_orientation", "span", "neighbour_span", "padding"]
+    _format = "H4B"
+    _classes = {"neighbour_orientation": DisplacementOrientation,
+                "span": DisplacementSpan, "neighbour_span": DisplacementSpan}
+
+
 class DisplacementInfo(base.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: vector.vec3  # approx coords of first corner of face
     # nessecary to ensure order of displacement vertices
     first_displacement_vertex: int  # index of first DisplacementVertex
-    first_displacement_triangle: int   # index of first DisplacementTriangle
+    # num_displacement_vertices: int = ((1 << power) + 1) ** 2
+    first_displacement_triangle: int  # index of first DisplacementTriangle
+    # num_diplacement_triangles: int = 2 * (1 << power) ** 2
     power: int  # level of subdivision
-    # TODO: power -> num_displacement_vertices / triangles formulae
     flags: DisplacementFlags
     min_tesselation: int  # for tesselation shaders / triangle assembley?
-    smoothing_angle: float  # ?
+    smoothing_angle: float  # for smooth lighting
     contents: Contents
-    face: int  # Face this DisplacementInfo affects
+    face: int  # Face this DisplacementInfo affects / came from
     lightmap_alpha_start: int  # TODO: figure out displacement lightmaps
     lightmap_sample_position_start: int
-    edge_neighbours: List[bytes]  # TODO: DisplacementNeighbour class
-    corner_neighbours: List[bytes]  # TODO: DisplacementCornerNeighbour class
+    neighbours: List[List[SubNeighbour] | List[CornerNeighbour]]
+    # neighbours.edge: List[SubNeighbour]  # x8 edge connections
+    # neighbours.corner: List[CornerNeighbour]  # x4 corner connections
     allowed_vertices: List[int]
-    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start",
-                 "power", "flags", "min_tesselation", "smoothing_angle", "contents",
-                 "face", "lightmap_alpha_start", "lightmap_sample_position_start",
-                 "edge_neighbours", "corner_neighbours", "allowed_vertices"]
-    _format = "3f3iHhfiH2i88c10i"
-    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 44,
-               "corner_neighbours": 44, "allowed_vertices": 10}
-    _classes = {"start_position": vector.vec3, "flags": DisplacementFlags, "contents": Contents}
-    # TODO: EdgeNeighbour, CornerNeighbour
+    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start", "power",
+                 "flags", "min_tesselation", "smoothing_angle", "contents", "face", "lightmap_alpha_start",
+                 "lightmap_sample_position_start", "neighbours", "allowed_vertices"]
+    _format = "3f3iHhfiH2i" + SubNeighbour._format * 8 + CornerNeighbour._format * 4 + "10i"
+    _arrays = {"start_position": [*"xyz"], "allowed_vertices": 10,
+               "neighbours": {"edge": {x: {y: SubNeighbour._mapping for y in "AB"} for x in "ABCD"},
+                              "corner": {x: CornerNeighbour._mapping for x in "ABCD"}}}
+    # TODO: clean up neighbours with {int: _mapping} mappings (generate lists)
+    _classes = {"start_position": vector.vec3, "flags": DisplacementFlags, "contents": Contents,
+                **{f"neighbours.edge.{x}.{y}": SubNeighbour for x in "ABCD" for y in "AB"},
+                **{f"neighbours.corner.{x}": CornerNeighbour for x in "ABCD"}}
+
+    @property
+    def num_displacement_vertices(self) -> int:
+        return ((1 << self.power) + 1) ** 2
+
+    @property
+    def num_displacement_triangles(self) -> int:
+        return 2 * (1 << self.power) ** 2
 
 
 class DisplacementTriangle(shared.UnsignedShort, enum.IntFlag):  # LUMP 48
