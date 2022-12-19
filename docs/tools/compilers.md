@@ -13,6 +13,7 @@
 | GtkRadiant      | github.com/TTimo/GtkRadiant                                                            | Q3/RtCW/W:ET/SoF2/JK2/JA/EF/HL/Q2/H2 |
 |                 | svn.icculus.org/gtkradiant-gamepacks                                                   |                                      |
 | hammer.exe      | ships with associated game(s) or Source SDK                                            | SOURCE ENGINE                        |
+| IonRadiant      | bitbucket.org/daikatana13/daikatana/downloads/dktools_11f_test2.7z                     | Daikatana                            |
 | MapBase         | moddb.com/mods/mapbase/downloads/mapbase-release-build                                 | Source SDK 2013                      |
 | TrenchBroom     | github.com/TrenchBroom/TrenchBroom                                                     | Q/Q2/H2/Daikatana                    |
 | ÜbertoolsGDK    | moddb.com/downloads/stef2-bertools-game-devolopment-kit                                | FAKK2/EF2/MOH:AA/AMA                 |
