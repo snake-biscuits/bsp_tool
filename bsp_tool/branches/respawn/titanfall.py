@@ -587,7 +587,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
     origin: List[float]
     radius: float  # approx. magnitude of extents
     extents: List[float]  # bounds extend symmetrically by this much along each axis
-    tan_yaw: int  # no clue what this is used for, AABB + Z rotation?
+    tan_yaw: float  # no clue what this is used for, AABB + Z rotation?
     # TODO: mins & maxs properties, possibly via a baseclass
     __slots__ = ["origin", "radius", "extents", "tan_yaw"]
     _format = "8f"  # Extreme SIMD
@@ -685,7 +685,7 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
     _format = "2I"
 
 
-class Primitive(base.MappedArray):  # LUMP 89 (0059)
+class Primitive(base.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
     unknown: int
     index: int  # indexes Tricolls?
@@ -1000,6 +1000,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"CM_BRUSH_SIDE_PLANE_OFFSETS": {0: shared.UnsignedShorts},
                       "CM_BRUSH_SIDE_PROPERTIES":    {0: BrushSideProperty},
+                      "CM_PRIMITIVES":               {0: Primitive},
                       "CM_UNIQUE_CONTENTS":          {0: shared.UnsignedInts},  # source.Contents? test against vmts?
                       "CSM_OBJ_REFERENCES":          {0: shared.UnsignedShorts},
                       "MESH_INDICES":                {0: shared.UnsignedShorts},
@@ -1021,7 +1022,6 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "CM_GEO_SETS":                       {0: GeoSet},
                 "CM_GEO_SET_BOUNDS":                 {0: Bounds},
                 "CM_GRID_CELLS":                     {0: GridCell},
-                "CM_PRIMITIVES":                     {0: Primitive},
                 "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
                 "CSM_AABB_NODES":                    {0: Node},
                 "CUBEMAPS":                          {0: Cubemap},
