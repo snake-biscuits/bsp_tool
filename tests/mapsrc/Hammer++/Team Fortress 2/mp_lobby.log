@@ -1,0 +1,76 @@
+[Reading texlights from 'lights.rad']
+[56 texlights parsed from 'lights.rad']
+
+Loading c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer++\team fortress 2\mp_lobby.bsp
+16 faces
+6144 square feet [884736.00 square inches]
+0 Displacements
+0 Square Feet [0.00 Square Inches]
+16 patches before subdivision
+16 patches after subdivision
+2 direct lights
+0...1...2...3...4...5...6...7...8...9...100...1...2...3...4...5...6...7...8...9...10transfers 208, max 14
+transfer lists:   0.0 megs
+0...1...2...3...4...5...6...7...8...9...10	Bounce #1 added RGB(24, 23, 23)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #2 added RGB(2, 2, 2)
+0...1...2...3...4...5...6...7...8...9...10	Bounce #3 added RGB(0, 0, 0)
+Build Patch/Sample Hash Table(s).....Done<0.0001 sec>
+0...1...2...3...4...5...6...7...8...9...10FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+0...1...2...3...4...5...6...7...8...9...10Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/1024           48/49152    ( 0.1%) 
+brushes                  6/8192           72/98304    ( 0.1%) 
+brushsides              36/65536         288/524288   ( 0.1%) 
+planes                  40/65536         800/1310720  ( 0.1%) 
+vertexes                19/65536         228/786432   ( 0.0%) 
+nodes                   27/65536         864/2097152  ( 0.0%) 
+texinfos                 4/12288         288/884736   ( 0.0%) 
+texdata                  2/2048           64/65536    ( 0.1%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                   16/65536         896/3670016  ( 0.0%) 
+hdr faces               16/65536         896/3670016  ( 0.0%) 
+origfaces                6/65536         336/3670016  ( 0.0%) 
+leaves                  29/65536         928/2097152  ( 0.0%) 
+leaffaces               16/65536          32/131072   ( 0.0%) 
+leafbrushes             16/65536          32/131072   ( 0.0%) 
+areas                    2/256            16/2048     ( 0.8%) 
+surfedges               88/512000        352/2048000  ( 0.0%) 
+edges                   45/256000        180/1024000  ( 0.0%) 
+LDR worldlights          2/8192          176/720896   ( 0.0%) 
+HDR worldlights          2/8192          176/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips              0/32768           0/327680   ( 0.0%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices             0/65536           0/131072   ( 0.0%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/512             0/180224   ( 0.0%) 
+LDR lightdata         [variable]       15872/0        ( 0.0%) 
+HDR lightdata         [variable]       15872/0        ( 0.0%) 
+visdata               [variable]          44/16777216 ( 0.0%) 
+entdata               [variable]        1121/393216   ( 0.3%) 
+LDR ambient table       29/65536         116/262144   ( 0.0%) 
+HDR ambient table       29/65536         116/262144   ( 0.0%) 
+LDR leaf ambient        51/65536        1428/1835008  ( 0.1%) 
+HDR leaf ambient        51/65536        1428/1835008  ( 0.1%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]          54/0        ( 0.0%) 
+physics               [variable]        2296/4194304  ( 0.1%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 32
+Writing c:\users\jared\documents\github\bsp_tool\tests\mapsrc\hammer++\team fortress 2\mp_lobby.bsp
+ZIP Output overshot buffer estimate: Estimated 0, actual 54
+0 seconds elapsed
