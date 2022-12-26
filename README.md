@@ -133,7 +133,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Left 4 Dead 2 (Xbox360)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box_x360.py)
     - [Portal](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Portal 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
-    - [Portal 2 (Xbox360)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013_x360.py) :x:
+    - [Portal 2 (Xbox360)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013_x360.py)
     - [Richochet](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Source Filmmaker](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Source SDK 2013](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
@@ -144,7 +144,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Alkaline](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/remake_quake.py)
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
-    - Bloody Good Time :o:
+    - [Bloody Good Time](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - Call of Duty: Black Ops III :o:
     - [Call of Duty: United Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :o:
     - Call of Duty: World at War :o:
@@ -177,7 +177,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Nosferatu](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py) :o:
     - [Quake: Dimension of the Past](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/remake_quake.py)
     - [Return to Castle Wolfenstein](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
-    - The Ship :o:
+    - [The Ship](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Synergy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Tactical Intervention](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)

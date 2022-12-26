@@ -202,6 +202,7 @@ extracted_dirs = {
         "Dreamcast/Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
+        "BloodyGoodTime": ["maps"],  # 3 maps | 124 MB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
         # https://github.com/Bocuma747/SurfMaps
         "CSS/Bocuma747_SurfMaps": ["maps"],  # 72 maps | 2.1 GB | .zip
@@ -234,6 +235,9 @@ extracted_dirs = {
         "TeamFortressQuake": ["tf25rel/maps",  # 1 map | 1.88 MB | .zip
                               "tf28/FORTRESS/maps",  # 1 map | 1.88 MB | .zip
                               "tfbot080/MAPS"],  # 1 map | 212 KB | .zip
+        "TheShip": ["base/maps",  # 11 maps | 223 MB | .vpk
+                    "sp/maps",  # 14 maps | 245 MB | .vpk
+                    "tutorial/maps"],  # 12 maps | 224 MB | .vpk
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["maps"],  # 474 maps | 8.1 GB | .hfs
         "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
