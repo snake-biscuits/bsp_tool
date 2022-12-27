@@ -104,8 +104,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
           ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.troika.vampire, branches.loiste.infra, branches.chaos_initiative.chaos,
-                                  branches.monochrome.contagion]}),
+                                  branches.troika.vampire, branches.loiste.infra, branches.chaos_initiative.chaos]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
@@ -115,7 +114,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
-                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
+                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2, branches.monochrome.contagion]}),
           # TODO: present BSP2 & 2PSB (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
