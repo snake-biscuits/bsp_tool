@@ -127,6 +127,7 @@ GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: source.GameLump_SPRP(raw_lump,
                               5: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv5_x360, endianness="big"),
                               6: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv6_x360, endianness="big"),
                               7: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big"),  # 7*
+                              # TODO: Xbox360 Left 4 Dead sprp v7 is different
                               10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10_x360, endianness="big")}}
 
 
