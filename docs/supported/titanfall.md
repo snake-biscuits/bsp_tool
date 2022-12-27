@@ -3,10 +3,10 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 29 | Titanfall | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 66 / 72 | 56 | 88.51% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 29 | Titanfall: Online | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 66 / 72 | 56 | 88.51% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 36 | Titanfall 2 Tech Test | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 67 / 76 | 52 | 83.10% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 67 / 76 | 52 | 83.10% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 29 | Titanfall | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 66 / 72 | 56 | 89.90% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 29 | Titanfall: Online | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 66 / 72 | 56 | 89.90% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 36 | Titanfall 2 Tech Test | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 67 / 76 | 52 | 84.42% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 67 / 76 | 52 | 84.42% |
 
 
 ### References
@@ -92,7 +92,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.props` | 12 | [`respawn.titanfall.StaticPropv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L967) | 94% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp` | - | [`respawn.titanfall2.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L295) | 40% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L334) | 92% |
-| 36 | 0024 | 29 | `LEAF_WATER_DATA` | 1 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L522) | 100% |
+| 36 | 0024 | 29 | `LEAF_WATER_DATA` | 1 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L600) | 100% |
 | 37 | 0025 | 29 | `UNUSED_37` | 0 |  | 0% |
 | 38 | 0026 | 29 | `UNUSED_38` | 0 |  | 0% |
 | 39 | 0027 | 29 | `UNUSED_39` | 0 |  | 0% |
@@ -149,7 +149,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 87 | 0057 | 29 | `CM_GEO_SETS` | 0 | [`respawn.titanfall.GeoSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L451) | 100% |
 | 87 | 0057 | 37 | `CM_GEO_SETS` | 0 | [`respawn.titanfall2.GeoSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L236) | 50% |
 | 88 | 0058 | 29 | `CM_GEO_SET_BOUNDS` | 0 | [`respawn.titanfall.Bounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L351) | 100% |
-| 89 | 0059 | 29 | `CM_PRIMITIVES` | 0 | [`respawn.titanfall.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L688) | 0% |
+| 89 | 0059 | 29 | `CM_PRIMITIVES` | 0 | [`respawn.titanfall.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L688) | 100% |
 | 90 | 005A | 29 | `CM_PRIMITIVE_BOUNDS` | 0 | [`respawn.titanfall.Bounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L351) | 100% |
 | 91 | 005B | 29 | `CM_UNIQUE_CONTENTS` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 92 | 005C | 29 | `CM_BRUSHES` | 0 | [`respawn.titanfall.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L364) | 83% |

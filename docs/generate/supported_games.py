@@ -260,7 +260,9 @@ gamelump_mappings[branches.valve.source] = {"sprp": branches.valve.source.GameLu
 gamelump_mappings[branches.troika.vampire] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box] = gamelump_mappings[branches.valve.source].copy()
 gamelump_mappings[branches.valve.orange_box]["sprp.props"] = gamelump_mappings[branches.valve.source]["sprp.props"].copy()
-gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({7: branches.valve.orange_box.StaticPropv10,
+gamelump_mappings[branches.valve.orange_box]["sprp.props"].update({5: None,
+                                                                   6: None,
+                                                                   7: branches.valve.orange_box.StaticPropv10,
                                                                    10: branches.valve.orange_box.StaticPropv10})
 gamelump_mappings[branches.arkane.dark_messiah_sp] = {"sprp": branches.valve.source.GameLump_SPRP,
                                                       "sprp.props": {6: None}}
