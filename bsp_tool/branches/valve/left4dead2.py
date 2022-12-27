@@ -90,8 +90,8 @@ class LumpHeader(base.MappedArray):
     _format = "4I"
 
 
-# Known lump changes from Left 4 Dead -> Left 4 Dead 2:
-# New:
+# known lump changes from Left 4 Dead -> Left 4 Dead 2:
+# new:
 #   UNUSED_22 -> PROP_COLLISION
 #   UNUSED_23 -> PROP_HULLS
 #   UNUSED_24 -> PROP_HULL_VERTS

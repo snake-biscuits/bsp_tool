@@ -47,6 +47,7 @@ source_dirs = {
          "Alien Swarm": ["swarm/maps"],  # 9 maps | 299 MB
          "Alien Swarm Reactive Drop": ["reactivedrop/maps"],  # 53 maps | 1.3 GB
          "Blade Symphony": ["berimbau/maps"],  # 21 maps | 1.0 GB
+         "Contagion": ["contagion_sdk/losmuertos_tutorial/maps"],  # 1 map | 30 MB
          "Counter-Strike Global Offensive": ["csgo/maps"],  # 38 maps | 5.9 GB
          "counter-strike source": ["cstrike/maps",  # 20 maps | 237 MB
                                    # "cstrike/download/maps"
@@ -203,6 +204,7 @@ extracted_dirs = {
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "BloodyGoodTime": ["maps"],  # 3 maps | 124 MB | .vpk
+        "Contagion": ["maps"],  # 52 maps | 2.62 GB | .vpk
         "CSMalvinas": ["maps"],  # 1 map | 13 MB | Counter-Strike: Malvinas
         # https://github.com/Bocuma747/SurfMaps
         "CSS/Bocuma747_SurfMaps": ["maps"],  # 72 maps | 2.1 GB | .zip
