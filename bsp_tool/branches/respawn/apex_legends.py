@@ -235,9 +235,11 @@ LumpHeader = source.LumpHeader
 #   TRICOLL_TRIANGLES
 
 # a rough map of the relationships between lumps:
-# Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
-#                             \--> VertexReservedX
-#                              \-> MeshIndex?
+
+#                /-> BVHNode
+# Entity -> Model -> Mesh -> MaterialSort -> TextureData -> SurfaceName
+#                \-> BVHLeaf            \--> VertexReservedX
+#                                        \-> MeshIndex?
 # MeshBounds & Mesh are parallel
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
@@ -405,6 +407,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     __slots__ = ["first_mesh_index", "num_triangles", "unknown", "material_sort", "flags"]
     _format = "IH8hHI"  # 28 bytes
     _arrays = {"unknown": 8}
+    _classes = {"flags": titanfall.MeshFlags}
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
@@ -412,10 +415,16 @@ class Model(base.Struct):  # LUMP 14 (000E)
     maxs: List[float]  # AABB maxs
     first_mesh: int
     num_meshes: int
-    unknown: List[int]  # \_(;/)_/
-    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "unknown"]
-    _format = "6f2I8i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 8}
+    bvh_node: int
+    bvh_leaf: int
+    first_vertex: int
+    vertex_flags: int  # use PACKED_VERTICES or other?
+    unknown_1: List[float]
+    unknown_2: int
+    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "bvh_node", "bvh_leaf",
+                 "first_vertex", "vertex_flags", "unknown_1", "unknown_2"]
+    _format = "6f2I4i3fi"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown_1": 3}
 
 
 class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
@@ -427,13 +436,22 @@ class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
     _format = "3h"
 
 
-class ShadowMesh(base.Struct):  # LUMP 7F (0127)
+class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     start_index: int  # assumed
     num_triangles: int  # assumed
     unknown: List[int]  # usually (1, -1)
     __slots__ = ["start_index", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": 2}
+
+
+class SurfaceProperty(base.MappedArray):  # LUMP 17 (0011)
+    unknown_1: int
+    unknown_2: int
+    contents_mask: int  # index of ContentsMask for this SurfaceProperty
+    surface_name: int  # index of SurfaceName for this SurfaceProperty
+    _mapping = ["unknown_1", "unknown_2", "content_mask", "surface_name"]
+    _format = "h2bi"
 
 
 class TextureData(base.Struct):  # LUMP 2 (0002)
@@ -458,7 +476,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     uv0: List[float]  # texture coordindates
-    negative_one: int  # -1
+    negative_one: int  # always -1
     uv1: List[float]  # lightmap coords
     colour: List[int]
     __slots__ = ["position_index", "normal_index", "uv0", "negative_one", "uv1", "colour"]
@@ -508,6 +526,7 @@ pops = ("CM_BRUSH_SIDE_PLANE_OFFSETS", "CM_BRUSH_SIDE_PROPERTIES", "CM_PRIMITIVE
 for LUMP_NAME in pops:
     BASIC_LUMP_CLASSES.pop(LUMP_NAME)
 del LUMP_NAME, pops
+BASIC_LUMP_CLASSES.update({"CONTENTS_MASKS": {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
 pops = ("CM_BRUSHES", "CM_BRUSH_SIDE_TEXTURE_VECTORS", "CM_GEO_SETS", "CM_GEO_SET_BOUNDS",
@@ -525,6 +544,7 @@ LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
                      "PACKED_VERTICES":    {0: PackedVertex},
                      "PLANES":             {0: titanfall.Plane},
                      "SHADOW_MESHES":      {0: ShadowMesh},
+                     "SURFACE_PROPERTIES": {0: SurfaceProperty},
                      "TEXTURE_DATA":       {0: TextureData},
                      "VERTEX_BLINN_PHONG": {0: VertexBlinnPhong},
                      "VERTEX_LIT_BUMP":    {0: VertexLitBump},

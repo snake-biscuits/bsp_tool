@@ -611,10 +611,10 @@ class Model(base.Struct):  # LUMP 14
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
     origin: vector.vec3  # center of model, worldspawn is always at 0 0 0
-    head_node: int  # index into Node lump
+    node: int  # index into Node lump; head of all nodes containing this Model
     first_face: int  # index into Face lump
     num_faces: int  # number of Faces after first_face in this Model
-    __slots__ = ["bounds", "origin", "head_node", "first_face", "num_faces"]
+    __slots__ = ["bounds", "origin", "node", "first_face", "num_faces"]
     _format = "9f3i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
