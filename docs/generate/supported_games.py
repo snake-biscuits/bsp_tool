@@ -37,7 +37,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # TODO: table sorting doesn't remove duplicates when multiple lump versions are used
 # TODO: some groups list overlapping identifiers with different LumpClasses
 # -- need to handle these clashes more clearly (currently some data is discarded)
-# TODO: use some icons / emoji to identify overlapping branches
+# TODO: use game icons / emoji to identify overlapping branches
 # -- compiling the whole Source Engine into one .md would be great
 # NOTE: per BspClass files that could probably be generated: (would be quite messy though)
 # -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
@@ -248,7 +248,6 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 
 
 # NOTE: this is hard to sync with branch_scripts, but still easier than parsing GAME_LUMP_CLASSES
-# TODO: finish populating this dict with every ValveBsp & RespawnBsp branch_script (3/16)
 # NOTE: base wrapper class is `GameLump if lump != dark_messiah_sp else DarkMessiahSPGameLump`
 # NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
 gamelump_mappings = dict()
