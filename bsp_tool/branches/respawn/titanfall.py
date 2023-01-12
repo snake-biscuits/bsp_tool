@@ -578,8 +578,8 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     __slots__ = ["first_mesh_index", "num_triangles", "first_vertex", "num_vertices",
                  "vertex_type", "styles", "luxel_origin", "luxel_offset_max",
                  "material_sort", "flags"]
-    _format = "I4H4B2h2BHI"
-    _arrays = {"styles": 4}
+    _format = "I4H4b2h2BHI"
+    _arrays = {"styles": 4, "luxel_origin": 2, "luxel_offset_max": 2}
     _classes = {"flags": MeshFlags}
 
 
