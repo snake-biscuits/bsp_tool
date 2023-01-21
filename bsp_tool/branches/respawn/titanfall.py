@@ -2,6 +2,7 @@
 from __future__ import annotations
 import enum
 import io
+import itertools
 import math
 import struct
 from typing import Any, Dict, List, Tuple, Union
@@ -1253,9 +1254,15 @@ def debug_Mesh_stats(bsp):
             texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
             texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
             vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name
-            indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
-            _min, _max = min(indices), max(indices)
-            _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices
+            indices = bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3]
+
+            def reduce_to_ranges(numbers: List[int]) -> (int, int):  # generator
+                sorted_numbers = sorted(set(numbers))
+                for a, b in itertools.groupby(enumerate(sorted_numbers), lambda ix: ix[0] - ix[1]):
+                    b = list(b)
+                    yield b[0][1], b[-1][1]
+
+            _range = ", ".join([f"({s}->{e})" for s, e in reduce_to_ranges(sorted(indices))])
             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
 
 
