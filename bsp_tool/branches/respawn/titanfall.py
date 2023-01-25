@@ -1195,16 +1195,22 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
     out["texture_vectors"] = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first:last]
     out["textures"] = [p & BrushSideProperty.MASK_TEXTURE_DATA for p in out["properties"]]
     out["textures"] = [bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index] for tdi in out["textures"]]
-    # TODO: planes: axial can be generated pretty easily, but others must be indexed (via plane_offsets?)
+    # brush bounds -> geo
     origin = vector.vec3(*brush.origin)
     extents = vector.vec3(*brush.extents)
     mins, maxs = origin - extents, origin + extents
     brush_planes = list()  # [(normal: vec3, distance: float)]
+    # axial planes
     for axis, min_dist, max_dist in zip("xyz", mins, maxs):
         brush_planes.append((vector.vec3(**{axis: 1}), max_dist))
         brush_planes.append((vector.vec3(**{axis: -1}), -min_dist))
-    # TODO: indexed planes
-    out["planes"] = brush_planes + [...] * brush.num_plane_offsets
+    # non-axial planes
+    for i in range(brush.num_plane_offsets):
+        brush_plane_offset = brush.brush_side_offset + i - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + i]
+        normal, distance = bsp.PLANES[bsp.CM_GRID.base_plane_offset + brush_plane_offset]
+        brush_planes.append((-normal, -distance))
+    out["planes"] = brush_planes
+    # NOTE: which planes are used is likely filtered by brush side properties
     return out
 
 
@@ -1236,7 +1242,7 @@ def get_brush_bevel_planes(bsp, brush_index: int) -> List[Tuple[vector.vec3, flo
 def debug_TextureData(bsp):
     print("# TD_index  TD.name  TextureData.flags")
     for i, td in enumerate(bsp.TEXTURE_DATA):
-        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {source.Surface(td.flags)!r}")
+        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {td.flags!r}")
 
 
 def debug_unused_TextureData(bsp):
