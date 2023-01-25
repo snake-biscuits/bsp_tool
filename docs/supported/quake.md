@@ -22,8 +22,8 @@
 | 2 | 0 | `MIP_TEXTURES` | [`id_software.quake.MipTextureLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L260) | 90% |
 | 3 | 0 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L250) | 100% |
 | 4 | 0 | `VISIBILITY` |  | 0% |
-| 5 | 0 | `NODES` | [`id_software.remake_quake_old.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L58) | 100% |
 | 5 | 0 | `NODES` | [`id_software.remake_quake.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake.py#L50) | 100% |
+| 5 | 0 | `NODES` | [`id_software.remake_quake_old.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L58) | 100% |
 | 5 | 29 | `NODES` | [`id_software.quake.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L212) | 100% |
 | 6 | 0 | `TEXTURE_INFO` | [`id_software.quake.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L238) | 100% |
 | 7 | 0 | `FACES` | [`id_software.remake_quake_old.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L47) | 100% |

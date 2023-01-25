@@ -149,7 +149,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Call of Duty: United Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :o:
     - Call of Duty: World at War :o:
     - [Cocaine Diesel](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py) :o:
-    - [Contagion](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/monochrome/contagion.py)
+    - [Contagion](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/left4dead2.py)
     - [Cry of Fear](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [DarkPlaces](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake.py)
     - [D-Day Normandy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)

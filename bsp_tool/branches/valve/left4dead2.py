@@ -13,9 +13,11 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 21
 
-GAME_PATHS = {"Left 4 Dead 2": "Left 4 Dead 2/left4dead2"}
+GAME_PATHS = {"Left 4 Dead 2": "Left 4 Dead 2/left4dead2",
+              "Contagion": "Contagion/contagion"}
 
-GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
+GAME_VERSIONS = {"Left 4 Dead 2": 21,
+                 "Contagion": 27}
 
 
 class LUMP(enum.Enum):

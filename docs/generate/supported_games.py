@@ -79,7 +79,6 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | arkane.dark_messiah_mp         |  Y  |
 # | ValveBsp        | chaos_initiative.chaos         |  Y  |
 # | ValveBsp        | loiste.infra                   |  Y  |
-# | ValveBsp        | monochrome.contagion           |  Y  |
 # | ValveBsp        | nexon.cso2                     |  Y  |
 # | ValveBsp        | nexon.cso2_2018                |  Y  |
 # | ValveBsp        | nexon.vindictus                |  Y  |
@@ -114,7 +113,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
-                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2, branches.monochrome.contagion]}),
+                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
           # TODO: present BSP2 & 2PSB (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
@@ -284,7 +283,6 @@ gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[bra
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"].update({10: branches.valve.sdk_2013.StaticPropv10,
                                                                  11: branches.valve.sdk_2013.StaticPropv11})
 gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
-gamelump_mappings[branches.monochrome.contagion] = gamelump_mappings[branches.valve.left4dead2].copy()
 gamelump_mappings[branches.chaos_initiative.chaos] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
                                                  "sprp.props": {12: branches.respawn.titanfall.StaticPropv12}}
