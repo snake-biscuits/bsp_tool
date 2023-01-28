@@ -3,9 +3,8 @@ from __future__ import annotations
 import enum
 import io
 import itertools
-import math
 import struct
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Union
 
 from .. import base
 from .. import shared
@@ -194,37 +193,37 @@ LumpHeader = source.LumpHeader
 # CM_* (presumed: Clip Model)
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass w/ world bounds & other metadata)
 
-#                                                   /-> BrushSideProperties -> TextureData
-# Grid -> GridCell -> GeoSetBounds | GeoSet -> Brush -> BrushSidePlaneOffsets -> Planes
-#                                          \-> Tricoll? -?>
+# Grid -> GridCell -> GeoSet
+#                 \-?> Primitive
 
-# how are CM_Primitives indexed?
+#                   /-> UniqueContents
+# GeoSet & Primitive -> .primitive.type / .type -> Brush OR Tricoll
 
-# BrushSideProperties is parallel w/ BrushSideTextureVector
-# len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
+# GeoSet appears to wrap Primitive w/ a count & stradle group (fusing primitives?)
 
-#      /-> BrushSidePlaneOffset -?> Plane
+# Primitives is parallel w/ PrimitiveBounds & GeoSets is parallel w/ GeoSetBounds
+# PrimitiveBounds & GeoSetBounds use the same "Bounds" type
+
+# CM_BRUSH: brushwork geo
+#      /-> BrushSidePlaneOffset -> Plane
 # Brush -> BrushSideProperties -> TextureData
 #      \-> BrushSideTextureVector
-# -?> UniqueContents
 
-# Primitives is parallel w/ PrimitiveBounds
-# GeoSets is parallel w/ GeoSetBounds
-# PrimitiveBounds & GeoSetBounds use the same type: Bounds
+# BrushSideProperties is parallel w/ BrushSideTextureVector (one per brushside)
+# len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
+# Brush.num_brush_sides (derived) is 6 + Brush.num_plane_offsets
 
-# TRICOLL_* (presumed: Triangle Collision)
+# TRICOLL_* (presumed: Triangle Collision for patches / displacements)
 #              /-> Vertices?
 # TricollHeader -> TricollTriangle -?> Vertices?
 #             \--> TricollNode -> TricollNode -?> TricollLeaf? -?> ???
 #              \-> TricollBevelIndices -?> ?
 
-# TricollLeaf might index Primitives?
-
 # -?> TricollBevelStarts -?>
 
 # LIGHTPROBE*
 # LightProbeTree -?> LightProbeRef -> LightProbe
-# -?> StaticPropLightProbeIndex
+# -?> StaticPropLightProbeIndex (name implies parallel w/ StaticProps, confirm)
 
 
 # engine limits:
@@ -286,7 +285,7 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
 
 
 class MeshFlags(enum.IntFlag):
-    # source.Surface (source.TextureInfo rolled into titanfall.TextureData ?)
+    # source.Surface (source.TextureInfo rolled into titanfall.TextureData?)
     SKY_2D = 0x0002  # TODO: test overriding sky with this in-game
     SKY = 0x0004
     WARP = 0x0008  # Quake water surface?
@@ -348,6 +347,12 @@ class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
     NPC_FLUID = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER | Contents.MONSTER_CLIP  # new
 
 
+class PrimitiveType(enum.IntFlag):
+    """Used by CMGeoSet & CMPrimitive to identify collidable children"""
+    BRUSH = 0
+    TRICOLL = 64
+
+
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     """Identified by warmist & rexx#1287"""
@@ -365,26 +370,19 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 class Brush(base.Struct):  # LUMP 92 (005C)
     """A bounding box sliced down into a convex hull by multiple planes"""
     origin: vector.vec3
-    unknown: int  # might tie into plane indexing, but I kinda hope not
-    num_plane_offsets: int  # number of CM_BRUSH_SIDE_ PLANE_OFFSETS / PROPERITES in this brush
-    # num_brush_sides = 6 + num_plane_offsets
+    num_non_axial_side_unknown: int  # properties of texvecs? idk.
+    # ^ equal to or less than num_plane_offsets?, how is first derived?
+    # -- filtered by side property discard?
+    num_plane_offsets: int  # number of BrushSidePlaneOffsets in this brush
+    # num_brush_sides = 6 + num_plane_offsets OR num_properties
     index: int  # index of this Brush; makes calculating BrushSideX indices easier
     extents: vector.vec3
     # mins = origin - extents
     # maxs = origin + extents
     brush_side_offset: int  # also provides first_plane_offset, somehow ...
+    # alternatively, num_prior_non_axial
     # first_brush_side = (index * 6 + brush_side_offset)
-
-    # TODO: determine how planes are indexed? planes might get reused
-    # -- current theory is we count up from a starting index but shift back by the current plane offset
-
-    # TODO: we might be able to match planes w/ texvec math (this assumes uniform texture scale / projection)
-    # -- (vec3) local_x * (vec3) local_y = (vec3) local_z  // [normal axis]
-    # -- dot normal against bounds & find valid intersections that maintain AABB
-    # -- NOTE: multiple intersections could occur to create a given AABB
-    # -------  the plane may or may not touch an AABB point, but we can still find the range of valid distances
-
-    __slots__ = ["origin", "unknown", "num_plane_offsets", "index", "extents", "brush_side_offset"]
+    __slots__ = ["origin", "num_properties", "num_plane_offsets", "index", "extents", "brush_side_offset"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
@@ -452,10 +450,15 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
     straddle_group: int  # CMGrid counts straddle groups
-    num_primitives: int
-    first_primitive: int  # index into CM_PRIMITIVES?
-    __slots__ = ["straddle_group", "num_primitives", "first_primitive"]
+    num_children: int  # start from primitive.index?
+    primitive: List[int]  # embedded Primitive?
+    # primitive.unique_contents: int  # index into UniqueContents
+    # primitive.index: int  # index into Brushes / TricollHeaders
+    # primitive.type: PrimitiveType  # Brushes or Tricoll
+    __slots__ = ["straddle_group", "num_primities", "primitive"]
     _format = "2HI"
+    _bitfields = {"primitive": {"unique_contents": 8, "index": 16, "type": 8}}
+    _classes = {"primitive.type": PrimitiveType}
 
 
 # NOTE: only one 28 byte entry per file
@@ -470,7 +473,7 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     # maxs = (offset + count) * scale
     # NOTE: bounds covers Models[0]
     num_straddle_groups: int  # linked to geosets, objects straddling many gridcells?
-    base_plane_offet: int  # first plane for brushes to index
+    base_plane_offset: int  # first plane for brushes to index
     # other planes might be used by portals, unsure
     __slots__ = ["scale", "offset", "count", "num_straddle_groups", "base_plane_offset"]
     _format = "f6i"
@@ -494,11 +497,7 @@ class GridCell(base.MappedArray):  # LUMP 86 (0056)
 # NOTE: only one 28 byte entry per file
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
     """Identified by Fifty"""
-    # implies worldspawn (model[0]) mesh order to be:
-    # - opaque
-    # - decals
-    # - transparent
-    # - skybox
+    # implies worldspawn (model[0]) mesh order to be: opaque, decals, transparent, skybox
     first_decal_mesh: int
     first_transparent_mesh: int
     first_sky_mesh: int
@@ -688,12 +687,13 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 
 class Primitive(base.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
-    unknown: int
-    index: int  # indexes Tricolls?
-    flags: int  # TODO: PrimitiveFlags enum
-    _fields = {"unknown": 8, "index": 16, "flags": 8}
+    # same as the BitField component of GeoSet?
+    unique_contents: int  # index into UniqueContents (Contents flags &ed together)
+    index: int  # indexed lump depends on type
+    type: PrimitiveType
+    _fields = {"unique_contents": 8, "index": 16, "type": 8}
     _format = "I"
-    # TODO: _classes = {"flags": PrimitiveFlags}
+    _classes = {"flags": PrimitiveType}
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
@@ -1214,30 +1214,6 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
     return out
 
 
-def get_brush_bevel_planes(bsp, brush_index: int) -> List[Tuple[vector.vec3, float]]:
-    # NOTE: distance is accurate within ~1.15e-07
-    if brush_index > len(bsp.CM_BRUSHES):
-        raise IndexError("brush index out of range")
-    out = list()
-    # ^ [(normal: vec3, distance: float)]
-    brush = bsp.CM_BRUSHES[brush_index]
-    origin = -vector.vec3(*brush.origin)  # inverted for some reason? prob bad math
-    extents = vector.vec3(*brush.extents)
-    mins, maxs = origin - extents, origin + extents
-    # assemble bevel brush sides in order: -X+Y -X-Y +X-Y +X+Y
-    # NOTE: this is the bevel plane order for all 3 brushes in r2's mp_lobby
-    # -- 6x axial planes for fog volume / skybox then 3x bevel planes
-    seq = ((-1, +1), (-1, -1), (+1, -1), (+1, +1))
-    x, y = {-1: mins.x, +1: maxs.x}, {-1: mins.y, +1: maxs.y}
-    half_sqrt_2 = math.sqrt(2) / 2
-    for x_scalar, y_scalar in seq:
-        normal = vector.vec3(half_sqrt_2 * x_scalar, half_sqrt_2 * y_scalar)
-        edge_vertex = vector.vec3(x[x_scalar], y[y_scalar])
-        distance = vector.dot(edge_vertex, normal)
-        out.append((normal, distance))
-    return out
-
-
 # "debug" methods for investigating the compile process
 def debug_TextureData(bsp):
     print("# TD_index  TD.name  TextureData.flags")
@@ -1272,8 +1248,6 @@ def debug_Mesh_stats(bsp):
             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
 
 
-methods = [vertices_of_mesh, vertices_of_model,
-           replace_texture, find_mesh_by_texture, get_mesh_texture,
-           search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj,
-           occlusion_mesh_as_obj, get_brush_sides, get_brush_bevel_planes,
+methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture, get_mesh_texture,
+           search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
