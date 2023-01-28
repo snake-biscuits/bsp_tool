@@ -20,7 +20,7 @@ leftstring B1 = "quake3"
 let C1 = 100
 leftstring A2 = "respawn"
 leftstring B2 = "titanfall"
-let C2 = 89.9
+let C2 = 90.14
 leftstring A3 = "gearbox"
 leftstring B3 = "blue_shift"
 let C3 = 86
@@ -41,7 +41,7 @@ leftstring B8 = "goldsrc"
 let C8 = 86
 leftstring A9 = "respawn"
 leftstring B9 = "titanfall2"
-let C9 = 84.42
+let C9 = 84.64
 leftstring A10 = "id_software"
 leftstring B10 = "qfusion"
 let C10 = 77.78
@@ -132,4 +132,4 @@ let C38 = 38.33
 leftstring A39 = "infinity_ward"
 leftstring B39 = "modern_warfare"
 let C39 = 23.56
-goto A1
+goto C9
