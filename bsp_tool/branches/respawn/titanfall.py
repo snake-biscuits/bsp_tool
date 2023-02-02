@@ -370,19 +370,16 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
 class Brush(base.Struct):  # LUMP 92 (005C)
     """A bounding box sliced down into a convex hull by multiple planes"""
     origin: vector.vec3
-    num_non_axial_side_unknown: int  # properties of texvecs? idk.
-    # ^ equal to or less than num_plane_offsets?, how is first derived?
-    # -- filtered by side property discard?
-    num_plane_offsets: int  # number of BrushSidePlaneOffsets in this brush
-    # num_brush_sides = 6 + num_plane_offsets OR num_properties
+    num_non_axial_no_discard: int  # number of BrushSideProperties after the axial 6 w/ no DISCARD flag set
+    num_plane_offsets: int  # number of BrushSideX in this brush
+    # num_brush_sides = 6 + num_plane_offsets
     index: int  # index of this Brush; makes calculating BrushSideX indices easier
     extents: vector.vec3
     # mins = origin - extents
     # maxs = origin + extents
-    brush_side_offset: int  # also provides first_plane_offset, somehow ...
-    # alternatively, num_prior_non_axial
+    brush_side_offset: int  # alternatively, num_prior_non_axial
     # first_brush_side = (index * 6 + brush_side_offset)
-    __slots__ = ["origin", "num_properties", "num_plane_offsets", "index", "extents", "brush_side_offset"]
+    __slots__ = ["origin", "num_non_axial_no_discard", "num_plane_offsets", "index", "extents", "brush_side_offset"]
     _format = "3f2Bh3fi"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
