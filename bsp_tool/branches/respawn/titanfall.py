@@ -148,7 +148,7 @@ class LUMP(enum.Enum):
     OBJ_REFERENCES = 0x0078
     OBJ_REFERENCE_BOUNDS = 0x0079
     UNUSED_122 = 0x007A
-    LEVEL_INFO = 0x007B  # PVS related? tied to portals & cells
+    LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTICES = 0x007C
     SHADOW_MESH_ALPHA_VERTICES = 0x007D
     SHADOW_MESH_INDICES = 0x007E
@@ -166,8 +166,6 @@ LumpHeader = source.LumpHeader
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
-# Cell -> LeafWaterData -> TextureData -> water material
-# NOTE: LeafWaterData could also be relevant to physics (VPHYS PhysicsCollide)
 
 # ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
 #           \-> MaterialSort?    \-> ShadowMeshAlphaVertex
@@ -176,11 +174,11 @@ LumpHeader = source.LumpHeader
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
 # PORTAL LUMPS
-#               /-> Plane
-# Cell -> Portal -> PortalEdge -> PortalVertex
-#               \-> Cell
-# PortalEdgeRef -> PortalEdge
-# PortalVertRef -> PortalVertex
+#               /-> Cell
+#              /--> Plane
+# Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertexReference -> PortalVertex
+#     \-> LeafWaterData -> TextureData (water material)
+
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
 # PortalEdgeIntersectHeader -> ???
