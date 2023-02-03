@@ -176,17 +176,23 @@ LumpHeader = source.LumpHeader
 # PORTAL LUMPS
 #               /-> Cell
 #              /--> Plane
-# Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertexReference -> PortalVertex
+# Cell -> Portal -> PortalEdgeReference? -?> PortalEdge?
 #     \-> LeafWaterData -> TextureData (water material)
+
+# PortalEdge -?> PortalVertex
 
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
 # PortalEdgeIntersectHeader -> ???
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
+
 # NOTE: titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
 # -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
-# NOTE: there are also always as many vert refs as edge refs
-# PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
+
+# PortalEdgeReference is parallel w/ PortalVertexReference (2x PortalEdges)
+
+# PortalVertexEdges -> PortalEdges (list up to 8 edges each PortalVertex is indexed by)
+# PortalVertexEdges is Parallel w/ PortalVertices
 
 # CM_* (presumed: Clip Model)
 # the entire GM_GRID lump is always 28 bytes (SpecialLumpClass w/ world bounds & other metadata)
@@ -1179,6 +1185,17 @@ def occlusion_mesh_as_obj(bsp) -> str:
     return "\n".join(out)
 
 
+def portals_as_prt(bsp) -> str:
+    out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
+    for ci, cell in enumerate(bsp.CELLS):
+        for pi in range(cell.first_portal, cell.first_portal + cell.num_portals):
+            portal = bsp.PORTALS[pi]
+            edges = bsp.PORTAL_EDGES[portal.first_reference:portal.first_reference + portal.num_edges]
+            winding = [bsp.PORTAL_VERTICES[e[0]] for e in edges]
+            out.append(" ".join([f"{len(winding)} {ci} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+    return "\n".join(out)
+
+
 def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
     if brush_index > len(bsp.CM_BRUSHES):
         raise IndexError("brush index out of range")
@@ -1245,4 +1262,4 @@ def debug_Mesh_stats(bsp):
 
 methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture, get_mesh_texture,
            search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,
-           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats]
+           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats, portals_as_prt]
