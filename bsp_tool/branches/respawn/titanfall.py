@@ -167,8 +167,8 @@ LumpHeader = source.LumpHeader
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
 
-# ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
-#           \-> MaterialSort?    \-> ShadowMeshAlphaVertex
+# ShadowMesh -> ShadowMeshIndex -> ShadowMeshOpaqueVertex
+#           \-> MaterialSort?  \-> ShadowMeshAlphaVertex
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
@@ -176,17 +176,15 @@ LumpHeader = source.LumpHeader
 # PORTAL LUMPS
 #               /-> Cell
 #              /--> Plane
-# Cell -> Portal -> PortalEdgeReference? -?> PortalEdge?
+# Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertex
 #     \-> LeafWaterData -> TextureData (water material)
-
-# PortalEdge -?> PortalVertex
 
 # PortalEdgeIntersect -> PortalEdge?
 #                    \-> PortalVertex
 # PortalEdgeIntersectHeader -> ???
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
 
-# NOTE: titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
+# NOTE: Titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
 # -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
 
 # PortalEdgeReference is parallel w/ PortalVertexReference (2x PortalEdges)
@@ -1190,8 +1188,12 @@ def portals_as_prt(bsp) -> str:
     for ci, cell in enumerate(bsp.CELLS):
         for pi in range(cell.first_portal, cell.first_portal + cell.num_portals):
             portal = bsp.PORTALS[pi]
-            edges = bsp.PORTAL_EDGES[portal.first_reference:portal.first_reference + portal.num_edges]
-            winding = [bsp.PORTAL_VERTICES[e[0]] for e in edges]
+            refs = bsp.PORTAL_EDGE_REFERENCES[portal.first_reference:portal.first_reference + portal.num_edges]
+            winding = [bsp.PORTAL_VERTICES[bsp.PORTAL_EDGES[r // 2][r & 1]] for r in refs]
+            # windings are a mess in mp_box, but r2/mp_lobby looks ok
+            # checking vertices are on plane & sorting verts didn't do much
+            # normal = bsp.PLANES[portal.plane].normal
+            # winding = vector.sort_clockwise(winding, normal)
             out.append(" ".join([f"{len(winding)} {ci} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
     return "\n".join(out)
 

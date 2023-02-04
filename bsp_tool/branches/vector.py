@@ -281,9 +281,9 @@ def sort_clockwise(points: vec3, normal: Iterable) -> list:
 def renamed_vec2(renamed_x: str, renamed_y: str) -> vec2:
     """Surely there's a better way to do this"""
     exec("\n".join([f"class vec2_{renamed_x}_{renamed_y}(vec2):",
-                    f"    def __set_x(s, x): s.x = x",
+                    "    def __set_x(s, x): s.x = x",
                     f"    {renamed_x} = property(lambda s: s.x, __set_x)",
-                    f"    def __set_y(s, y): s.y = y",
+                    "    def __set_y(s, y): s.y = y",
                     f"    {renamed_y} = property(lambda s: s.y, __set_y)"]))
     return locals()[f"vec2_{renamed_x}_{renamed_y}"]
 
