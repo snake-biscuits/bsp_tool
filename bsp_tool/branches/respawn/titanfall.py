@@ -449,12 +449,12 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
     straddle_group: int  # CMGrid counts straddle groups
-    num_children: int  # start from primitive.index?
+    num_primitives: int  # start from primitive.index?
     primitive: List[int]  # embedded Primitive?
     # primitive.unique_contents: int  # index into UniqueContents
     # primitive.index: int  # index into Brushes / TricollHeaders
     # primitive.type: PrimitiveType  # Brushes or Tricoll
-    __slots__ = ["straddle_group", "num_primities", "primitive"]
+    __slots__ = ["straddle_group", "num_primitives", "primitive"]
     _format = "2HI"
     _bitfields = {"primitive": {"unique_contents": 8, "index": 16, "type": 8}}
     _classes = {"primitive.type": PrimitiveType}
