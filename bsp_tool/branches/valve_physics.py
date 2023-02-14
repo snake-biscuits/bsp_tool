@@ -224,6 +224,7 @@ class CollisionModel(base.Struct):
 
 
 class Displacement(list):
+    # TODO: https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/builddisp.cpp
     _format = "H"
 
     def __init__(self, raw_lump: bytes):
