@@ -337,6 +337,9 @@ extracted_dirs = {
         # season15:  Eclipse [1st Nov 2022]
         "ApexLegends/season15": ["1nov22/maps",  # 12 maps | 2.24 GB | .vpk
                                  "1nov22/depot/r5-150/game/r2/maps"],  # 12 maps | 2.17 GB | .vpk
+        # season16:  Revelry [14th Feb 2023]
+        "ApexLegends/season16": ["14feb23/maps",  # 9 maps | 1.72 GB | .vpk
+                                 "14feb23/depot/r5-160/game/r2/maps"],  # 9 maps | 1.67 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
