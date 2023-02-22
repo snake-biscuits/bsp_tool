@@ -697,9 +697,12 @@ class TextureInfo(base.Struct):  # LUMP 6
     texture_data: int  # index of TextureData
     __slots__ = ["texture", "lightmap", "flags", "texture_data"]
     _format = "16f2i"
-    _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
-               "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
-    _classes = {"flags": Surface}
+    _arrays = {"texture": {"s": {"vector": [*"xyz"], "offset": None},
+                           "t": {"vector": [*"xyz"], "offset": None}},
+               "lightmap": {"s": {"vector": [*"xyz"], "offset": None},
+                            "t": {"vector": [*"xyz"], "offset": None}}}
+    _classes = {"flags": Surface, "texture.s.vector": vector.vec3, "texture.t.vector": vector.vec3,
+                "lightmap.s.vector": vector.vec3, "lightmap.t.vector": vector.vec3}
     # TODO: vmf_tool TextureVector (singular) class -> TextureVectors w/ .pos_to_uv(vec3) method
 
 
@@ -1013,14 +1016,14 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
     # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
     for P in positions:
         # texture UV
-        uv = [vector.dot(P, texture.s[:3]) + texture.s.offset,
-              vector.dot(P, texture.t[:3]) + texture.t.offset]
+        uv = [vector.dot(P, texture.s.vector) + texture.s.offset,
+              vector.dot(P, texture.t.vector) + texture.t.offset]
         uv[0] /= texture_data.view.width if texture_data.view.width != 0 else 1
         uv[1] /= texture_data.view.height if texture_data.view.height != 0 else 1
         uvs.append(vector.vec2(*uv))
         # lightmap UV
-        uv2 = [vector.dot(P, lightmap.s[:3]) + lightmap.s.offset,
-               vector.dot(P, lightmap.t[:3]) + lightmap.t.offset]
+        uv2 = [vector.dot(P, lightmap.s.vector) + lightmap.s.offset,
+               vector.dot(P, lightmap.t.vector) + lightmap.t.offset]
         if any([(face.lightmap.mins.x == 0), (face.lightmap.mins.y == 0)]):
             uv2 = [0, 0]  # invalid / no lighting
         else:
@@ -1140,7 +1143,7 @@ def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
         t2 = index // (power2 + 1) / power2
         bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
         # ^ interpolates across the base_quad to find the barymetric point
-        displacement_vert = [x * disp_vertex.distance for x in disp_vertex.vector]
+        displacement_vert = [n * disp_vertex.distance for n in disp_vertex.normal]
         true_vertex = [a + b for a, b in zip(bary_vert, displacement_vert)]
         texture_uv = vector.lerp(uvA + (uvAD * t1), uvB + (uvBC * t1), t2)
         lightmap_uv = vector.lerp(uv2A + (uv2AD * t1), uv2B + (uv2BC * t1), t2)
