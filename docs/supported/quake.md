@@ -22,8 +22,8 @@
 | 2 | 0 | `MIP_TEXTURES` | [`id_software.quake.MipTextureLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L260) | 90% |
 | 3 | 0 | `VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L250) | 100% |
 | 4 | 0 | `VISIBILITY` |  | 0% |
-| 5 | 0 | `NODES` | [`id_software.remake_quake_old.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L58) | 100% |
 | 5 | 0 | `NODES` | [`id_software.remake_quake.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake.py#L50) | 100% |
+| 5 | 0 | `NODES` | [`id_software.remake_quake_old.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L58) | 100% |
 | 5 | 29 | `NODES` | [`id_software.quake.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L212) | 100% |
 | 6 | 0 | `TEXTURE_INFO` | [`id_software.quake.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L238) | 100% |
 | 7 | 0 | `FACES` | [`id_software.remake_quake_old.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L47) | 100% |
@@ -40,6 +40,5 @@
 | 13 | 0 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
 | 14 | 0 | `MODELS` | [`id_software.quake.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L192) | 100% |
 | 14 | 29 | `MODELS` | [`raven.hexen2.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/raven/hexen2.py#L67) | 100% |
-| 14 | 29 | `MODELS` | [`id_software.quake.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L192) | 100% |
 
 
