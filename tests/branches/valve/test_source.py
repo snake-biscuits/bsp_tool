@@ -25,7 +25,7 @@ class TestMethods:
     # TODO: def test_vertices_of_face(bsp):
 
     @pytest.mark.parametrize("bsp", bsps)
-    def test_vertices_of_displacement(bsp):
+    def test_vertices_of_displacement(self, bsp):
         for disp_info in getattr(bsp, "DISPLACEMENT_INFO", list()):
             face_index = disp_info.face
             bsp.vertices_of_displacement(face_index)  # failing when the function can't be called is good enough for now
