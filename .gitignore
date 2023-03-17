@@ -164,6 +164,6 @@ dmypy.json
 *.out
 *.app
 
-# Hammer & Raidant Autosaves
+# Hammer & Radiant Autosaves
 *.vmx
 *.bak
