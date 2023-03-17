@@ -1,3 +1,0 @@
-mingw64-x86_64-glew-1.11.0-1
-mingw64-x86_64-SDL2-2.0.1-1
-# https://stackoverflow.com/questions/52345803/unable-to-compile-sdl-opengl-program-under-mingw
