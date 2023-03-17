@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0 (??? 2022)
+## v0.4.0 (??? 2023)
 
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
@@ -46,6 +46,7 @@
  * Source Engine
    - Half-Life 2 (Xbox)
    - Infra
+   - Momentum Mod
    - Orange Box (Xbox360)
    - Portal 2 (Xbox360)
    - Tactical Intervention
@@ -85,7 +86,7 @@
 ## v0.3.0 (29th September 2021)
 
 ### New
- * Added `load_bsp` function to identify bsp type  
+ * Added `load_bsp` function to identify bsp type
  * Added `InfinityWardBsp`, `IdTechBsp`, `RespawnBsp` & `ValveBsp` classes
  * Added general support for the PakFile lump
  * Added general support for the GameLump lump
@@ -109,7 +110,7 @@
    - `GAME_LUMP_CLASSES` for GameLump SpecialLumpClasses
  * `Bsp`s no longer print to console once loaded
  * `Base.Bsp` & subclasses have reserved ALL CAPS member names for lumps only
-   - BSP_VERSION, FILE_MAGIC, HEADERS, REVISION -> bsp_version, file_magic, headers, revision
+   - `BSP_VERSION, FILE_MAGIC, HEADERS, REVISION` -> `bsp_version, file_magic, headers, revision`
 
 ### Newly Supported
   * IdTech Engine
