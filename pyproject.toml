@@ -1,3 +1,51 @@
+[project]
+name = "bsp_tool"
+version = "0.4.0"
+description = "Python library for analysing .bsp files"
+readme = "README.md"
+requires-python=">=3.7"
+license = {file = "LICENSE"}
+keywords = ["bsp", "quake", "source", "cod", "titanfall", "idtech"]
+authors = [
+    {name="Jared Ketterer", email="haveanotherbiscuit@gmail.com"},
+    {name="BobTheBob"},
+    {name="rexx"}
+]
+maintainers = [
+    {name="Jared Ketterer", email="haveanotherbiscuit@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Games/Entertainment :: First Person Shooters",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+
+[project.optional-dependencies]
+# install with pip extras sytax; for example: `$ pip install bsp_tool[extended]`
+extended = ["Pillow"]  # bsp_tool.extensions.lightmaps
+test = ["pytest", "pytest_cov"]
+
+
+[project.urls]
+"Homepage" = "https://snake-biscuits.github.io/bsp_tool/"
+"Documentation" = "https://github.com/snake-biscuits/bsp_tool/wiki"
+"Repository" = "https://github.com/snake-biscuits/bsp_tool.git"
+"Bug Reports" = "https://github.com/snake-biscuits/bsp_tool/issues"
+"Funding" = "https://ko-fi.com/bikkie"
+
+
 [build-system]
-requires = ["setuptools>=40.8.0", "wheel"]
-build-backend = "setuptools.build_meta:__legacy__"
+requires = ["setuptools >= 40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
