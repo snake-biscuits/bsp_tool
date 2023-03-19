@@ -39,8 +39,9 @@ test = ["pytest", "pytest_cov"]
 
 [project.urls]
 "Homepage" = "https://snake-biscuits.github.io/bsp_tool/"
+"Repository" = "https://github.com/snake-biscuits/bsp_tool"
 "Documentation" = "https://github.com/snake-biscuits/bsp_tool/wiki"
-"Repository" = "https://github.com/snake-biscuits/bsp_tool.git"
+"Changelog" = "https://github.com/snake-biscuits/bsp_tool/blob/master/CHANGELOG.md"
 "Bug Reports" = "https://github.com/snake-biscuits/bsp_tool/issues"
 "Funding" = "https://ko-fi.com/bikkie"
 
