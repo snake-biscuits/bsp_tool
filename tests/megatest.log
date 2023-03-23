@@ -738,13 +738,13 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:99: UserWarning: Unused LumpClasses in branch script:
-  Cell
   Vertex
-  Brush
-  AxisAlignedBoundingBox
-  Model
   CullGroup
+  Cell
+  AxisAlignedBoundingBox
   Occluder
+  Brush
+  Model
   PatchCollision
     warnings.warn(UserWarning(warning_text))
 
@@ -875,4 +875,4 @@ FAILED tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceF
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs79] - Ass...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs117] - Asser...
 FAILED tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs143] - ...
-[31m========== [31m[1m4 failed[0m, [32m225 passed[0m, [33m69 warnings[0m[31m in 41598.80s (11:33:18)[0m[31m ==========[0m
+[31m========== [31m[1m4 failed[0m, [32m225 passed[0m, [33m69 warnings[0m[31m in 41504.68s (11:31:44)[0m[31m ==========[0m
