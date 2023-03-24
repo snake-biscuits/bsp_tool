@@ -1,10 +1,9 @@
 """Index of all known .bsp format variants"""
-__all__ = ["arkane", "chaos_initiative", "gearbox", "id_software", "infinity_ward",
-           "ion_storm", "loiste", "nexon", "raven", "respawn", "ritual", "troika", "valve"
+__all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
+           "nexon", "raven", "respawn", "ritual", "strata", "troika", "valve"
            "scripts_from_file_magic", "script_from_file_magic_and_version", "game_name_table"]
 
 from . import arkane
-from . import chaos_initiative
 from . import gearbox
 from . import id_software
 from . import infinity_ward
@@ -14,6 +13,7 @@ from . import nexon
 from . import raven
 from . import respawn
 from . import ritual
+from . import strata
 from . import troika
 from . import valve
 # TODO: xatrix.kingpin
@@ -49,7 +49,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                            b"RBSP": [raven.soldier_of_fortune2,
                                      ritual.sin],
                            b"VBSP": [*arkane.scripts,
-                                     chaos_initiative.chaos,
+                                     strata.strata,
                                      loiste.infra,
                                      *nexon.scripts,
                                      troika.vampire,

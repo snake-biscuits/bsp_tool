@@ -1,9 +1,8 @@
-# Chaos Initiative's Chaos Source Engine (closed source) v25 VBSP
-# https://chaosinitiative.github.io/Wiki/docs/Reference/bsp-v25/
+# Strata Source Engine (closed source) v25 VBSP
+# https://stratasource.github.io/Wiki/docs/Reference/bsp-v25/
 # https://blog.momentum-mod.org/posts/changelog/0.9.4/
 # https://github.com/momentum-mod/BSPConvert
 import enum
-# import struct
 from typing import List
 
 from .. import base
