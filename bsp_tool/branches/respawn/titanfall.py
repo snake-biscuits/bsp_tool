@@ -246,10 +246,9 @@ class CellSkyFlags(enum.IntFlag):  # used by Cell
     UNKNOWN_4 = 0b100
 
 
-class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
-    """Brush flags"""  # set by flags in material (e.g. "%compileTitanClip")
-    # TODO: find where these flags are used
-    # visible
+class Contents(enum.IntFlag):
+    """Brush flags"""
+    # r1/scripts/vscripts/_consts.nut:1159
     EMPTY = 0x00
     SOLID = 0x01
     WINDOW = 0x02  # bulletproof glass etc. (transparent but solid)
@@ -257,33 +256,30 @@ class Contents(enum.IntFlag):  # derived from source.Contents & Tracemask
     GRATE = 0x08  # allows bullets & vis
     SLIME = 0x10
     WATER = 0x20
-    UNKNOWN_1 = 0x40  # ! MOVED !  was BLOCK_LOS
+    WINDOW_NO_COLLIDE = 0x40
     OPAQUE = 0x80  # blocks AI Line Of Sight, may be non-solid
     TEST_FOG_VOLUME = 0x100  # cannot be seen through, but may be non-solid
-    UNKNOWN_2 = 0x200  # ! NEW ! was UNUSED_1
-    UNUSED = 0x400  # TODO: confirm
-    TEAM1 = 0x0800
-    TEAM2 = 0x1000
+    UNUSED_1 = 0x200
+    BLOCK_LIGHT = 0x400
+    TEAM_1 = 0x800
+    TEAM_2 = 0x1000
     IGNORE_NODRAW_OPAQUE = 0x2000  # ignore opaque if Surface.NO_DRAW
     MOVEABLE = 0x4000
-    # not visible
-    AREAPORTAL = 0x8000
-    PLAYER_CLIP = 0x10000
+    PLAYER_CLIP = 0x10000  # blocks human players
     MONSTER_CLIP = 0x20000
-    # CURRENT_0
-    BLOCK_LOS = 0x100000  # ! MOVED ! was CURRENT_90
-    # CURRENT_180
-    TITAN_CLIP = 0x200000  # ! NEW !  was CURRENT_270
-    UNKNOWN_3 = 0x400000  # ! NEW !  was CURRENT_UP
-    # CURRENT DOWN
-    ORIGIN = 0x1000000  # "removed before bsping an entity"
-    MONSTER = 0x2000000  # in-game only, shouldn't be in a .bsp
+    BRUSH_PAINT = 0x40000
+    BLOCK_LOS = 0x80000  # block AI line of sight
+    NO_CLIMB = 0x100000
+    TITAN_CLIP = 0x200000  # blocks titan players
+    BULLET_CLIP = 0x400000
+    UNUSED_5 = 0x800000
+    ORIGIN = 0x1000000  # removed before bsping an entity
+    MONSTER = 0x2000000  # should never be on a brush, only in game
     DEBRIS = 0x4000000
-    DETAIL = 0x8000000  # func_detail; for VVIS (visleaf assembly from Brushes)
-    TRANSLUCENT = 0x10000000
+    DETAIL = 0x8000000  # brushes to be added after vis leafs
+    TRANSLUCENT = 0x10000000  # auto set if any surface has trans
     LADDER = 0x20000000
-    HITBOX = 0x40000000  # requests hit tracing use hitboxes
-    # TODO: might r1 Titan Shields be a flag?
+    HITBOX = 0x40000000  # use accurate hitboxes on trace
 
 
 class MeshFlags(enum.IntFlag):
