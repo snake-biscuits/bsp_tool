@@ -77,7 +77,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | RitualBsp       | ritual.start_trek_elite_force2 |  Y  |
 # | ValveBsp        | arkane.dark_messiah_sp         |  Y  |
 # | ValveBsp        | arkane.dark_messiah_mp         |  Y  |
-# | ValveBsp        | chaos_initiative.chaos         |  Y  |
+# | ValveBsp        | strata.strata                  |  Y  |
 # | ValveBsp        | loiste.infra                   |  Y  |
 # | ValveBsp        | nexon.cso2                     |  Y  |
 # | ValveBsp        | nexon.cso2_2018                |  Y  |
@@ -103,7 +103,7 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
           ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.troika.vampire, branches.loiste.infra, branches.chaos_initiative.chaos]}),
+                                  branches.troika.vampire, branches.loiste.infra, branches.strata.strata]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
@@ -283,7 +283,7 @@ gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[bra
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"].update({10: branches.valve.sdk_2013.StaticPropv10,
                                                                  11: branches.valve.sdk_2013.StaticPropv11})
 gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
-gamelump_mappings[branches.chaos_initiative.chaos] = gamelump_mappings[branches.valve.sdk_2013].copy()
+gamelump_mappings[branches.strata.strata] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
                                                  "sprp.props": {12: branches.respawn.titanfall.StaticPropv12}}
 gamelump_mappings[branches.respawn.titanfall2] = {"sprp": branches.respawn.titanfall2.GameLump_SPRP,
