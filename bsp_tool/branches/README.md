@@ -1,6 +1,6 @@
-# How bsp_tool loads .bsps
+# How `bsp_tool` loads .bsps
 If you're using `bsp_tool.load_bsp("reallycoolmap.bsp")` to load a `.bsp` a few things happen behind the scenes to figure out the format  
-Since bsp_tool supports a range of `.bsp` variants, a single script to handle the rough format wasn't going to cut it  
+Since `bsp_tool` supports a range of `.bsp` variants, a single script to handle the rough format wasn't going to cut it  
 To narrow down the exact format of a bsp file `load_bsp` looks at some key information in each file:
 
 
@@ -10,13 +10,18 @@ If the file extension is `.d3dbsp`, it's a Call of Duty 2 `InfinityWardBsp`
 Other bsps use the `.bsp` extension (Call of Duty 1 included)  
 The developer is identified from the "file-magic", the first four bytes of any .bsp are:
   - `b"2015"` for `RitualBsp`
+  - `b"2PSB"` for `ReMakeQuakeBsp`
+  - `b"BSP2"` for `ReMakeQuakeBsp`
+  - `b"EALA"` for `RitualBsp`
   - `b"EF2!"` for `RitualBsp`
   - `b"FAKK"` for `RitualBsp`
-  - `b"IBSP"` for `IdTechBsp`
-  - `b"IBSP"` for `InfinityWardBsp`
+  - `b"FBSP"` for `FusionBsp`
+  - `b"IBSP"` for `IdTechBsp` / `InfinityWardBsp` `D3DBsp`
+  - `b"PSBV"` for `ValveBsp` (Xbox360 scripts)
+  - `b"PSBr"` for `RespawnBsp` (Xbox360 scripts)
   - `b"RBSP"` for `RavenBsp`
-  - `b"rBSP"` for `RespawnBsp`
   - `b"VBSP"` for `ValveBsp`
+  - `b"rBSP"` for `RespawnBsp`
 
 > This rule isn't perfect! most mods out there are Source Engine forks with b"VBSP"  
 
@@ -30,12 +35,13 @@ More on those differences in an upcoming wiki page...
 ### Game variants
 Once `load_bsp` knows the developer, it has to work out which game a `.bsp` comes from  
 
-In the `.bsp` header there will always be a 4 byte int for the `.bsp` format version  
-Unfortunately this isn't totally unique from game to game, [most Source Engine titles use version 20](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format#Versions)  
-This is where `load_bsp`'s second (optional!) argument comes in, `branch`  
+In the `.bsp` header there will always be a 4 byte int for the `.bsp` format version
+
+Unfortunately this isn't totally unique from game to game, [most Source Engine titles use version 20](https://developer.valvesoftware.com/wiki/Source_BSP_File_Format#Versions)
+
+This is where `load_bsp`'s second (optional!) argument comes in, `branch`
 
 `branch` can be either a string or a python script
-
 ```python
 >>> import bsp_tool
 
@@ -66,7 +72,7 @@ When `branch` is `"unknown"` (default) the bsp format version is used as a key i
 
 # Branch scripts
 Now that we know a branch script is needed to load a specific .bsp variant, why might we need to make one?  
-Well, bsp_tool doesn't cover a lot of formats, and those it does aren't mapped completely either!  
+Well, `bsp_tool` doesn't cover a lot of formats, and those it does aren't mapped completely either!  
 
 But with branch scripts you can develop a rough map of a particular format while copying definitions from other scripts  
 [`nexon/vindictus.py`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py) for example, imports `valve.orange_box` and copies most of the format  
