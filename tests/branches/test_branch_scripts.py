@@ -150,3 +150,9 @@ def test_branch_script(branch_script):
 
 # TODO: use tests/maplist.py to look at headers to ensure UNUSED_* / UNKNOWN_* lumps are correctly marked
 # -- looking for unmapped lump versions in ValveBsp & RespawnBsp would be nice too
+
+# TODO: assert LumpClasses capture all bytes (no gaps caused by alignment)
+# sizeof(_format) == sum(map(sizeof, _format))
+
+# TODO: verify LumpClass __annotations__ match _format ("hHiI": int, "fg": float, "s": str, "?": bool)
+# NOTE: _classes will override base type
