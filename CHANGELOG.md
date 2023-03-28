@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0 (??? 2023)
+## v0.4.0 (28 March 2023)
 
 ## New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
