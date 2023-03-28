@@ -11,7 +11,7 @@ To use the latest version, clone from git:
 $ git clone git@github.com:snake-biscuits/bsp_tool.git
 ```
 
-Or to use the latest stable release (0.3.1), install via [pip](https://pypi.org/project/bsp-tool/) (Python 3.7+):
+Or to use the latest stable release (0.4.0), install via [pip](https://pypi.org/project/bsp-tool/) (Python 3.7-10):
 ```
 pip install bsp_tool
 ```
