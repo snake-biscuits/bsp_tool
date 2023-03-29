@@ -25,7 +25,7 @@ class QuakeBsp(base.Bsp):
             elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name]
                 self.file.seek(lump_header.offset)
-                BspLump = SpecialLumpClass(self.file.read(lump_header.length))
+                BspLump = SpecialLumpClass.from_bytes(self.file.read(lump_header.length))
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name]
                 BspLump = lumps.BasicBspLump(self.file, lump_header, LumpClass)

@@ -43,7 +43,7 @@ class ValveBsp(base.Bsp):
                 decompressed_file, decompressed_header = lumps.decompressed(self.file, lump_header)
                 decompressed_file.seek(decompressed_header.offset)
                 lump_data = decompressed_file.read(decompressed_header.length)
-                BspLump = SpecialLumpClass(lump_data)
+                BspLump = SpecialLumpClass.from_bytes(lump_data)
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
                 BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
