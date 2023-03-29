@@ -193,7 +193,7 @@ LumpHeader = source.LumpHeader
 # PortalVertexEdges is Parallel w/ PortalVertices
 
 # CM_* (presumed: Clip Model)
-# the entire GM_GRID lump is always 28 bytes (SpecialLumpClass w/ world bounds & other metadata)
+# GM_GRID holds world bounds & other metadata
 
 # Grid -> GridCell -> GeoSet
 #                 \-?> Primitive
@@ -1056,11 +1056,11 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "VERTICES":                          {0: quake.Vertex},
                 "WORLD_LIGHTS":                      {1: WorldLight}}
 
-SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid.from_bytes},
+SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid},
                         "ENTITY_PARTITIONS":         {0: EntityPartitions},
                         "ENTITIES":                  {0: shared.Entities},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
-                        "LEVEL_INFO":                {0: LevelInfo.from_bytes},
+                        "LEVEL_INFO":                {0: LevelInfo},
                         "PAKFILE":                   {0: shared.PakFile},
                         "PHYSICS_COLLIDE":           {0: valve_physics.CollideLump},
                         "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}

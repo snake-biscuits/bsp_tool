@@ -200,7 +200,7 @@ LumpHeader = source.LumpHeader
 # ??? WorldLight <-?-> WorldLightParentInfo -?> Model / Entity?
 
 # CM_* LUMPS
-# the entire GM_GRID lump is always 28 bytes (SpecialLumpClass? flags & world bounds?)
+# GM_GRID holds world bounds & other metadata
 
 # Cell -?> Primitive | PrimitiveBounds
 #     \-?> GeoSet | GeoSetBounds
