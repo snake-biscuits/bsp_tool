@@ -3,10 +3,10 @@
 ## v0.5.0 (??? 2023)
 
 ### New
- * ...
+ * `__init__` methods for all SpecialLumpClasses
 
 ### Changed
- * ...
+ * SpecialLumpClasses are now loaded with `from_bytes`, just like every other LumpClass
 
 ### Updated Support
  * ... branch name
