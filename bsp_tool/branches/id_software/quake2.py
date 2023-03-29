@@ -234,14 +234,14 @@ class Visibility:
         _buffer = io.BytesIO(raw_lump)
         num_clusters = int.from_bytes(_buffer.read(4), "little")
         offsets = list(struct.iter_unpack("2I", _buffer.read(8 * num_clusters)))
-        PVS, PAS = list(), list()
+        pvs, pas = list(), list()
         for pvs_offset, pas_offset in offsets:
             _buffer.seek(pvs_offset)
-            PVS.append(cls.run_length_decode(_buffer, num_clusters))
+            pvs.append(cls.run_length_decode(_buffer, num_clusters))
             _buffer.seek(pas_offset)
-            PAS.append(cls.run_length_decode(_buffer, num_clusters))
+            pas.append(cls.run_length_decode(_buffer, num_clusters))
             # TODO: treat bytes as List[bool]
-        return cls(PVS, PAS)
+        return cls(pvs, pas)
 
     @staticmethod
     def run_length_decode(stream: io.BytesIO, num_clusters: int) -> bytes:
@@ -277,7 +277,9 @@ class Visibility:
         return bytes(out)
 
     def as_bytes(self) -> bytes:
-        raise NotImplementedError("Visibility lump hard")
+        # TODO: test
+        # TODO: reduce pvs & pas to a set of each unique flag sequence
+        # -- then index that fixed list of pvs/pas flags for extra compression
         assert len(self.PVS) == len(self.PAS)
         num_clusters = len(self.PVS)
         compressed_pvs = [self.run_length_encode(d) for d in self.PVS]
