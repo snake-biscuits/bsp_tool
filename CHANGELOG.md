@@ -1,13 +1,25 @@
 # Changelog
 
+## v0.5.0 (??? 2023)
+
+### New
+ * ...
+
+### Changed
+ * ...
+
+### Updated Support
+ * ... branch name
+
+
 ## v0.4.0 (28 March 2023)
 
-## New
+### New
  * Added support for Ritual Entertainment's Ubertools (Quake III Engine Branch)
  * If `autoload` cannot find the specified `.bsp` file a UserWarning is issued
  * Support for `ValveBsp` & `RespawnBsp` Xbox360 formats (`.360.bsp`)
 
-## Changed
+### Changed
  * Moved physics SpecialLumpClasses to `branches/shared/physics.py`
  * Fixed up `GAME_LUMP.sprp` errors across `source`, `left4dead` & `source_2013`
  * Updated both `base.Struct` & `base.MappedArray`
