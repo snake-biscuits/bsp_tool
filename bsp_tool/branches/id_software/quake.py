@@ -259,39 +259,11 @@ class Vertex(base.MappedArray, vector.vec3):  # LUMP 3
 # special lump classes, in alphabetical order:
 class MipTextureLump(list):  # LUMP 2
     """see github.com/id-Software/Quake-2/blob/master/ref_soft/r_image.c"""
-    # later superseded by TextureData in source
-    _buffer: io.BytesIO  # for debugging
+    # packed texture data, kind of like a WAD
+    # goldsrc just uses this lump to list texture names & mounts an external WAD
 
-    def __init__(self, raw_lump: bytes):
-        out = list()
-        self._buffer = io.BytesIO(raw_lump)
-        length = int.from_bytes(self._buffer.read(4), "little")
-        offsets = struct.unpack(f"{length}i", self._buffer.read(4 * length))
-        for i, offset in enumerate(offsets):
-            if offset == -1:
-                out.append((None, [b""] * 4))  # there is no mip
-                continue
-            self._buffer.seek(offset)
-            miptex = MipTexture.from_stream(self._buffer)
-            mips = list()
-            for j, mip_offset in enumerate(miptex.offsets):
-                if mip_offset == 0:  # Half-Life/valve/maps/gasworks.bsp has no embedded mips
-                    mips.append(b"")
-                    continue
-                self._buffer.seek(offset + mip_offset)
-                # don't bother accurately calculating & confirming mip sizes, just grab all the bytes
-                if j < 3:  # len(miptex.offsets) - 1
-                    end_offset = miptex.offsets[j + 1]
-                elif i < len(offsets) - 1:
-                    end_offset = offsets[i + 1]
-                else:  # end of lump (j == 3 and offset == offsets[-1])
-                    end_offset = len(raw_lump)
-                length = end_offset - mip_offset
-                mip = self._buffer.read(length)
-                mips.append(mip)
-            out.append((miptex, mips))
-        assert len(raw_lump) == self._buffer.tell()
-        super().__init__(out)
+    def __init__(self, iterable: List[(MipTexture, List[bytes])] = tuple()):
+        super().__init__(iterable)
 
     def as_bytes(self):
         out = [len(self).to_bytes(4, "little")]  # miptex count
@@ -308,6 +280,38 @@ class MipTextureLump(list):  # LUMP 2
             miptex_offset += mip_offset
         out[1:1] = miptex_offsets  # splice offsets to each miptex in after the miptex count
         return b"".join(out)
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        out = list()
+        _buffer = io.BytesIO(raw_lump)
+        length = int.from_bytes(_buffer.read(4), "little")
+        offsets = struct.unpack(f"{length}i", _buffer.read(4 * length))
+        for i, offset in enumerate(offsets):
+            if offset == -1:
+                out.append((None, [b""] * 4))  # there is no mip
+                continue
+            _buffer.seek(offset)
+            miptex = MipTexture.from_stream(_buffer)
+            mips = list()
+            for j, mip_offset in enumerate(miptex.offsets):
+                if mip_offset == 0:  # Half-Life/valve/maps/gasworks.bsp has no embedded mips
+                    mips.append(b"")
+                    continue
+                _buffer.seek(offset + mip_offset)
+                # don't bother accurately calculating & confirming mip sizes, just grab all the bytes
+                if j < 3:  # len(miptex.offsets) - 1
+                    end_offset = miptex.offsets[j + 1]
+                elif i < len(offsets) - 1:
+                    end_offset = offsets[i + 1]
+                else:  # end of lump (j == 3 and offset == offsets[-1])
+                    end_offset = len(raw_lump)
+                length = end_offset - mip_offset
+                mip = _buffer.read(length)
+                mips.append(mip)
+            out.append((miptex, mips))
+        assert len(raw_lump) == _buffer.tell()
+        return cls(out)
 
 
 class MipTexture(base.Struct):  # LUMP 2

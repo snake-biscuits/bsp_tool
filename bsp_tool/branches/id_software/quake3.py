@@ -339,14 +339,8 @@ class Visibility(list):
     # TODO: detect fast vis / leaked
     # NOTE: tests/mp_lobby.bsp  {*Visibility} == {(2 ** len(Visibility) - 1).to_bytes(len(Visibility), "little")}
 
-    def __init__(self, raw_visibility: bytes = None):
-        if raw_visibility is None:
-            return super().__init__()  # create empty visibility lump
-            # NOTE: to function correctly, the visibility lump must have max(LEAVES.cluster) entries
-        vec_n, vec_sz = struct.unpack("2i", raw_visibility[:8])
-        assert len(raw_visibility) - 8 == vec_n * vec_sz, "lump size does not match internal header"
-        # we could check if vec_sz is the smallest it could be here...
-        return super().__init__([raw_visibility[8:][i:i + vec_sz] for i in range(0, vec_n * vec_sz, vec_sz)])
+    def __init__(self, vectors: List[bytes] = tuple()):
+        super().__init__(vectors)
 
     def as_bytes(self, compress=False):
         # default behaviour should be to match input bytes; hence compress=False
@@ -367,6 +361,13 @@ class Visibility(list):
                 vec += b"\0" * (best_vec_sz - len(vec))
             vecs += vec
         return struct.pack(f"2i{vec_n * best_vec_sz}s", vec_n, best_vec_sz, vecs)
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes = None):
+        vec_n, vec_sz = struct.unpack("2i", raw_lump[:8])
+        assert len(raw_lump) - 8 == vec_n * vec_sz, "lump size does not match internal header"
+        # we could check if vec_sz is the smallest it could be here...
+        return cls([raw_lump[8:][i:i + vec_sz] for i in range(0, vec_n * vec_sz, vec_sz)])
 
 
 # {"LUMP": LumpClass}

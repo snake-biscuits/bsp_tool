@@ -904,12 +904,17 @@ VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUn
 
 # classes for special lumps, in alphabetical order:
 class EntityPartitions(list):
-    """name of each used .ent file"""  # [0] = "01*"; .0000.bsp_lump?
-    def __init__(self, raw_lump: bytes):
-        super().__init__(raw_lump.decode("ascii")[:-1].split(" "))
+    """name of each used .ent file"""
+    # always starts with "01*", probably indicates the internal entity lump
+    def __init__(self, iterable: List[str] = tuple()):
+        super(self).__init__(iterable)
 
     def as_bytes(self) -> bytes:
         return " ".join(self).encode("ascii") + b"\0"
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        return cls(raw_lump.decode("ascii")[:-1].split(" "))
 
 
 class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)

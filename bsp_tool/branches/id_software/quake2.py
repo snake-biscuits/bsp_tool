@@ -1,6 +1,8 @@
 # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
 # https://github.com/id-Software/Quake-2/blob/master/qcommon/qfiles.h#L214
 import enum
+import io
+import itertools
 import struct
 from typing import List
 
@@ -213,39 +215,79 @@ class Visibility:
     """Developed with maxdup"""
     # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
     # NOTE: cluster index comes from Leaf.cluster
-    # TODO: RLE decode / encode
     # -- https://github.com/ericwa/ericw-tools/blob/master/vis/vis.cc
     # -- https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4378-L4439
     # -- not RLE encoded in Source Engine branches?
-    _bytes: bytes  # raw lump
-    _cluster_pvs: List[int]  # Potential Visible Set
-    _cluster_pas: List[int]  # Potential Audible Set
+    pvs: List[bytes]  # Potential Visible Set
+    pas: List[bytes]  # Potential Audible Set
+    # TODO: List[bool] -> bytes
+    # -- sum([2 ** i if b else 0 for i, b in enumerate(x)]).to_bytes(len(x) // 8 + 1 if len(x) % 8 != 0 else 0, "big")
+    # TODO: bytes -> List[bool]
+    # -- [b == "1" for b in f"{int.from_bytes(x, 'big'):b}"[::-1]]
 
-    def __init__(self, raw_visibility: bytes):
-        self._bytes = raw_visibility
-        num_clusters = int.from_bytes(raw_visibility[:4], "little")
-        offsets = list(struct.iter_unpack("2I", raw_visibility[4:4 + (8 * num_clusters)]))
-        # ^ [(pvs_offset, pas_offset)]
-        self._cluster_pvs = list()
-        self._cluster_pas = list()
-        for pvs, pas in offsets:
-            self._cluster_pvs.append(pvs)
-            self._cluster_pas.append(pas)
+    def __init__(self, pvs_table: List[List[bool]] = tuple(), pas_table: List[List[bool]] = tuple()):
+        self.pvs = pvs_table
+        self.pas = pas_table
 
-    # might be worth create a child for looking up pvs & one for pas
-    # -- q2_bsp.Visibility.pvs[leaf_xx.cluster]
-    def __getitem__(self, cluster_index: int) -> bytes:
-        # TODO: adapt quake.parse_vis to work with cluster lists
-        # -- lookup offset & RLE decode, can determine num_clusters independantly
-        raise NotImplementedError()
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        _buffer = io.BytesIO(raw_lump)
+        num_clusters = int.from_bytes(_buffer.read(4), "little")
+        offsets = list(struct.iter_unpack("2I", _buffer.read(8 * num_clusters)))
+        PVS, PAS = list(), list()
+        for pvs_offset, pas_offset in offsets:
+            _buffer.seek(pvs_offset)
+            PVS.append(cls.run_length_decode(_buffer, num_clusters))
+            _buffer.seek(pas_offset)
+            PAS.append(cls.run_length_decode(_buffer, num_clusters))
+            # TODO: treat bytes as List[bool]
+        return cls(PVS, PAS)
 
-    def __setitem__(self, cluster_index: int, new_value: bytes):
-        raise NotImplementedError()
+    @staticmethod
+    def run_length_decode(stream: io.BytesIO, num_clusters: int) -> bytes:
+        # https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4412-L4439
+        out = list()
+        out_size = num_clusters // 8 + 1 if num_clusters % 8 else 0
+        while(len(out) < out_size):
+            byte = stream.read(1)
+            if byte != 0:
+                out.append(byte)
+                continue
+            count = stream.read(1)
+            assert count != 0, "stream is not compressed"
+            out.extend([0] * count)
+        return b"".join(out)
+
+    @staticmethod
+    def run_length_encode(data: bytes) -> bytes:
+        # https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4382-L4404
+        out = list()
+        i = 0
+        while (i < len(data)):
+            byte = data[i]
+            i += 1
+            if byte != 0:
+                out.append(byte)
+                continue
+            count = 1
+            while data[i] == 0 and count < 255 and i < len(data):
+                count += 1
+                i += 1
+            out.extend([0, count])
+        return bytes(out)
 
     def as_bytes(self) -> bytes:
-        # NOTE: changes are not applied, yet.
-        return self._bytes
-        # raise NotImplementedError("Visibility lump hard")
+        raise NotImplementedError("Visibility lump hard")
+        assert len(self.PVS) == len(self.PAS)
+        num_clusters = len(self.PVS)
+        compressed_pvs = [self.run_length_encode(d) for d in self.PVS]
+        compressed_pas = [self.run_length_encode(d) for d in self.PAS]
+        pvs_offsets = [4 + sum(map(len, compressed_pvs[:i])) for i in range(num_clusters)]
+        offset = pvs_offsets[-1] + len(compressed_pvs[-1])
+        pas_offsets = [offset + sum(map(len, compressed_pas[:i])) for i in range(num_clusters)]
+        header = [num_clusters, *itertools.chain(*zip(pvs_offsets, pas_offsets))]
+        data = list(itertools.chain(*zip(compressed_pvs, compressed_pas)))
+        return b"".join([*[x.to_bytes(4, "little") for x in header], *data])
 
 
 # {"LUMP": LumpClass}
