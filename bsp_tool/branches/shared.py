@@ -66,22 +66,21 @@ class Entities(list):
         return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
 
     @classmethod
-    def from_bytes(cls, raw_entities: bytes):
+    def from_bytes(cls, raw_lump: bytes):
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
-        # TODO: handle newlines in keys / values
-        enumerated_lines = enumerate(raw_entities.decode(errors="ignore").splitlines())
+        enumerated_lines = enumerate(raw_lump.decode(errors="ignore").splitlines())
         for line_no, line in enumerated_lines:
             if re.match(r"^\s*$", line):  # line is blank / whitespace
                 continue
-            if "{" in line:  # new entity
+            elif "{" in line:  # new entity
                 ent = dict()
             elif '"' in line:
                 key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
+                # TODO: "key" 'value"
+                # -- DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
+                # -- this seems illegal but the map runs without complaint
                 if not key_value_pair:
-                    # TODO: "key" 'value"
-                    # NOTE: DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
-                    # -- this seems illegal but the map runs without complaint
                     # multi-line value
                     open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
                     if open_key_value_pair is None:
@@ -115,7 +114,7 @@ class Entities(list):
                 continue  # TODO: preserve comments
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
-            return cls(entities)
+        return cls(entities)
 
 
 class PakFile(zipfile.ZipFile):
