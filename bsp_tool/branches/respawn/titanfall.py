@@ -907,7 +907,7 @@ class EntityPartitions(list):
     """name of each used .ent file"""
     # always starts with "01*", probably indicates the internal entity lump
     def __init__(self, iterable: List[str] = tuple()):
-        super(self).__init__(iterable)
+        super().__init__(iterable)
 
     def as_bytes(self) -> bytes:
         return " ".join(self).encode("ascii") + b"\0"
