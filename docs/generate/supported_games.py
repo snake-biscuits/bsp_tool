@@ -147,13 +147,15 @@ inserts_path = "inserts"
 
 # NOTE: GAME_LUMP coverage is hardcoded later
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
-SpecialLumpClass_confidence.update({branches.shared.Entities: 100,
-                                    branches.shared.PakFile: 100,
-                                    branches.shared.TextureDataStringData: 100,
+SpecialLumpClass_confidence.update({branches.id_software.quake3.Visibility: 100,
+                                    branches.nexon.cso2.PakFile: 0,
+                                    branches.respawn.apex_legends.LevelInfo: 75,
                                     branches.respawn.titanfall.EntityPartitions: 100,
-                                    branches.id_software.quake3.Visibility: 100,
-                                    branches.nexon.cso2.PakFile: 0})
-# TODO: titanfall.CM_GRID & LEVEL_INFO struct coverage
+                                    branches.respawn.titanfall.Grid: 100,
+                                    branches.respawn.titanfall.LevelInfo: 100,
+                                    branches.shared.Entities: 100,
+                                    branches.shared.PakFile: 100,
+                                    branches.shared.TextureDataStringData: 100})
 
 
 def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
@@ -484,9 +486,6 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     if lump_name == "GAME_LUMP":
                         # TODO: use gamelump coverage dict here
                         percent = 100 if branch_script is not branches.arkane.dark_messiah_sp else 90  # HACK
-                    elif LumpClass_dict[lump_version].__name__ == "from_bytes":  # titanfall.Grid / LevelInfo
-                        SpecialLumpClass = LumpClass_dict[lump_version].__self__
-                        percent = 100  # TODO: reuse MappedArray / Struct unknown calculator
                     else:
                         SpecialLumpClass = LumpClass_dict[lump_version]
                         percent = SpecialLumpClass_confidence[SpecialLumpClass]

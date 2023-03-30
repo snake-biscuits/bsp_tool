@@ -50,7 +50,7 @@ leftstring B11 = "orange_box"
 let C11 = 71.9
 leftstring A12 = "respawn"
 leftstring B12 = "apex_legends"
-let C12 = 71.87
+let C12 = 71.49
 leftstring A13 = "nexon"
 leftstring B13 = "vindictus"
 let C13 = 70.95
@@ -132,4 +132,4 @@ let C38 = 38.33
 leftstring A39 = "infinity_ward"
 leftstring B39 = "modern_warfare"
 let C39 = 23.56
-goto C9
+goto C12

@@ -11,7 +11,7 @@
 | ---------: | ----------: | --------- | --------- | :------- |
 | 0 | 22 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L309) | 100% |
 | 1 | 22 | `LIGHTMAPS` |  | 0% |
-| 2 | 22 | `LIGHT_GRID_POINTS` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 2 | 22 | `LIGHT_GRID_POINTS` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 3 | 22 | `LIGHT_GRID_COLOURS` |  | 0% |
 | 4 | 22 | `PLANES` |  | 0% |
 | 5 | 22 | `BRUSH_SIDES` |  | 0% |
@@ -20,7 +20,7 @@
 | 8 | 22 | `BRUSHES` |  | 0% |
 | 9 | 22 | `LAYERED_TRIANGLE_SOUPS` |  | 0% |
 | 10 | 22 | `LAYERED_VERTICES` | [`infinity_ward.call_of_duty2.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L182) | 83% |
-| 11 | 22 | `LAYERED_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
+| 11 | 22 | `LAYERED_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 19 | 22 | `PORTAL_VERTICES` |  | 0% |
 | 24 | 22 | `LAYERED_AABB_TREE` |  | 0% |
 | 25 | 22 | `CELLS` |  | 0% |
@@ -36,7 +36,7 @@
 | 35 | 22 | `COLLISION_PARTS` |  | 0% |
 | 36 | 22 | `COLLISION_AABBS` |  | 0% |
 | 37 | 22 | `MODELS` |  | 0% |
-| 39 | 22 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L44) | 100% |
+| 39 | 22 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L38) | 100% |
 | 40 | 22 | `PATHS` |  | 0% |
 | 41 | 22 | `REFLECTION_PROBES` |  | 0% |
 | 42 | 22 | `LAYERED_DATA` |  | 0% |
@@ -45,9 +45,9 @@
 | 45 | 22 | `LIGHT_GRID_ROWS` |  | 0% |
 | 47 | 22 | `SIMPLE_TRIANGLE_SOUPS` |  | 0% |
 | 48 | 22 | `SIMPLE_VERTICES` | [`infinity_ward.call_of_duty2.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty2.py#L182) | 83% |
-| 49 | 22 | `SIMPLE_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L39) | 100% |
+| 49 | 22 | `SIMPLE_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 51 | 22 | `SIMPLE_AABB_TREE` |  | 0% |
-| 52 | 22 | `LIGHT_REGIONS` | [`shared.UnsignedBytes`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L27) | 100% |
+| 52 | 22 | `LIGHT_REGIONS` | [`shared.UnsignedBytes`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L21) | 100% |
 | 53 | 22 | `LIGHT_REGION_HULLS` |  | 0% |
 | 54 | 22 | `LIGHT_REGION_AXES` |  | 0% |
 
