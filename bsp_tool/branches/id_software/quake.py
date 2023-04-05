@@ -33,7 +33,7 @@ class LUMP(enum.Enum):
     NODES = 5
     TEXTURE_INFO = 6
     FACES = 7
-    LIGHTMAPS = 8  # 8bpp 0x00-0xFF black-white
+    LIGHTING = 8  # 8bpp 0x00-0xFF black-white
     CLIP_NODES = 9
     LEAVES = 10
     LEAF_FACES = 11
@@ -236,15 +236,16 @@ class Plane(base.Struct):  # LUMP 1
 
 
 class TextureInfo(base.Struct):  # LUMP 6
+    # TODO: TextureVector base class (see vmf_tool)
     s: List[float]  # S (U-Axis) texture vector
     t: List[float]  # T (V-Axis) texure vector
     mip_texture: int  # index to this TextureInfo's target MipTexture
     animated: int  # 0 or 1
     __slots__ = ["s", "t", "mip_texture", "animated"]
     _format = "8f2I"
-    _arrays = {"s": [*"xyz", "offset"],
-               "t": [*"xyz", "offset"]}
-    # TODO: TextureVector class (see vmf_tool)
+    _arrays = {"s": {"vector": [*"xyz"], "offset": None},
+               "t": {"vector": [*"xyz"], "offset": None}}
+    _classes = {"s.vector": vector.vec3, "t.vector": vector.vec3}
 
 
 class Vertex(base.MappedArray, vector.vec3):  # LUMP 3
@@ -398,10 +399,13 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
     # NOTE: if mapping onto a lightmap page you'll need to calculate a X&Y offset to fit this face into
     # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions/lightmaps.py
     out = dict()
-    # ^ {"uvs": List[vector.vec2], "lightmap_offset": int, "width": int, "height": int, "lightmap_bytes": bytes}
+    # ^ {"uvs": List[vector.vec2],
+    #    "lightmap_offset": int,
+    #    "width": int, "height": int,
+    #    "lightmap_bytes": bytes}
     face = bsp.FACES[face_index]
-    out["uvs"] = [uv for position, uv, normal in bsp.vertices_of_face(face_index)]
-    # NOTE: to create a lightmap page you'll need to reposition these uvs onto that sheet
+    out["uvs"] = [uv for position, uv in bsp.vertices_of_face(face_index)]
+    # NOTE: to utilise a lightmap page you'll need to reposition these uvs onto that sheet
     # -- forcing the top-left of the uv's bounds to (0, 0) might help with that
     out["lightmap_offset"] = face.lightmap_offset
     if face.lightmap_offset == -1:
@@ -417,8 +421,9 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
         maxU = max(uv.x, maxU)
         maxV = max(uv.y, maxV)
     # TODO: use -minUV as an offset to reposition the UV bounds top-left to (0, 0)
-    out["width"] = (maxU - minU) // 16  # 16 units per texel, always
-    out["height"] = (maxV - minV) // 16
+    # TODO: round to ceiling
+    out["width"] = int((maxU - minU) // 16)  # 16 units per texel, always
+    out["height"] = int((maxV - minV) // 16)
     # collect lightmap bytes
     start = out["lightmap_offset"]
     length = out["width"] * out["height"] * 4  # 4 bytes per texel, RGBA_8888?
@@ -453,22 +458,19 @@ def parse_vis(bsp, leaf_index: int):
 def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2, vector.vec3)]:
     """output is [(position.xyz, uv.xy, normal.xyz, colour.rgba)] """
     face = bsp.FACES[face_index]
-    uv0 = list()  # texture uv
+    uv0 = list()
     first_edge = face.first_edge
     positions = list()
     for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
-        if surfedge >= 0:  # index is positive
+        if surfedge >= 0:
             positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
-            # ^ utils/vrad/trace.cpp:637
-        else:  # index is negative
+        else:
             positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
-            # ^ utils/vrad/trace.cpp:635
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
-    # generate uvs
     for P in positions:
-        uv = [vector.dot(P, texture_info.s[:3]) + texture_info.s.offset,
-              vector.dot(P, texture_info.t[:3]) + texture_info.t.offset]
         # TODO: scale uv against MipTexture width & height
+        uv = [vector.dot(P, texture_info.s.vector) + texture_info.s.offset,
+              vector.dot(P, texture_info.t.vector) + texture_info.t.offset]
         uv0.append(vector.vec2(*uv))
     # NOTE: vertex normal can be found via bsp.PLANES[face.planes].normal
     # -- however, the normal may be inverted, depending on face.side, haven't tested

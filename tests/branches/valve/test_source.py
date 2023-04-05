@@ -11,7 +11,6 @@ bsps = []
 map_dir = os.path.join(os.getcwd(), "tests/maps/Team Fortress 2")
 for map_name in fnmatch.filter(os.listdir(map_dir), "*[Bb][Ss][Pp]"):
     bsps.append(ValveBsp(orange_box, os.path.join(map_dir, map_name)))
-# TODO: add test maps from other branches which inherit valve.source.methods
 
 
 # TODO: ensure no floats are NaN
