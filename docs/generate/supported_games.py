@@ -229,6 +229,8 @@ def url_of_LumpClass(LumpClass: object) -> str:
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
 vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
                        *branches.nexon.scripts, branches.troika.vampire, *branches.arkane.scripts]
+# NOTE: coverage for each is currently hardcoded to 100%
+# TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
                         for L in ("LIGHTING", "LIGHTING_HDR")},
                      **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
@@ -238,10 +240,11 @@ lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scrip
                      **{(branches.respawn.apex_legends, L): lightmaps.save_rbsp_r5
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # ^ {(branch_script, "LUMP"): function}
-# NOTE: coverage for each is currently hardcoded to 100%
-# TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
-# TODO: Quake: branches.id_software.quake.lightmap_of_face (~75%)
 del vbsp_branch_scripts
+
+method_mappings = {(branches.id_software.quake, "LIGHTING"): (branches.id_software.quake.lightmap_of_face, 75),
+                   (branches.id_software.quake, "VISIBILITY"): (branches.id_software.quake.parse_vis, 75)}
+# ^ {(branch_script, "LUMP"): (method, coverage)}
 
 
 # lump coverage table
@@ -254,6 +257,7 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
 # NOTE: `None` mappings are used for structs that exist, but are not yet mapped
+# TODO: "dprp": None etc.
 gamelump_mappings[branches.valve.source] = {"sprp": branches.valve.source.GameLump_SPRP,
                                             "sprp.props": {4: branches.valve.source.StaticPropv4,
                                                            5: branches.valve.source.StaticPropv5,
@@ -299,6 +303,7 @@ gamelump_mappings[branches.respawn.apex_legends] = {"sprp": branches.respawn.tit
 gamelump_coverage = dict()
 # ^ {LumpClass: percent, SpecialLumpClass: percent}
 # TODO: gather all the classes defined above and calculate their % unknown automatically
+# -- split supported_md's coverage calculator into a function we can use
 gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
                           branches.valve.source.StaticPropv4: 100,
                           branches.valve.source.StaticPropv5: 100,
@@ -314,7 +319,6 @@ gamelump_coverage.update({branches.valve.source.GameLump_SPRP: 100,
                           branches.respawn.titanfall.StaticPropv12: 94,
                           branches.respawn.titanfall2.GameLump_SPRP: 40,
                           branches.respawn.titanfall2.StaticPropv13: 92})
-# TODO: work gamelump_coverage into total coverage
 
 
 # TODO: get functioning to level of hand crafted block
@@ -397,6 +401,11 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                 LumpClass = lightmap_mappings[(branch_script, lump_name)]
                 lump_class = f"[`extensions.lightmaps.{LumpClass.__name__}`]({url_of_BspClass(LumpClass)})"
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, lump_class, 100))
+            elif (branch_script, lump_name) in method_mappings:
+                method, percent = method_mappings[(branch_script, lump_name)]
+                method_module = method.__module__[len("bsp_tool.branches."):]
+                method_link = f"[`{method_module}.{method.__name__}`]({url_of_BspClass(method)})"
+                table_block.add(TableRow(i, bsp_version, lump_name, 0, method_link, percent))
             elif lump_name not in lump_classes[branch_script]:
                 table_block.add(TableRow(i, bsp_version, lump_name, 0, "", 0))
             else:  # standard lump
@@ -454,10 +463,10 @@ def supported_md(group: ScriptGroup) -> List[str]:
     # ^ {branch_script: {"LUMP_NAME": {lump_version: percent_covered}}}
     # TODO: some .bsp may contain lump versions that haven't been supported yet
     # -- would be worth mapping such lumps with tests.maplist.installed_games
-    # -- since this still constitutes unmapped lumps (a non-present version 0 would not, however)
+    # -- since this still constitutes unmapped lumps (a non-public version 0 would not, however)
     # -- only known .bsp files matter, no need for hypotheticals (don't really care about leaked betas either)
-    # TODO: include lightmap coverage via lightmap_mappings
     # TODO: have some override list for edge cases (e.g. LEVEL_INFO & PHYSICS_LEVEL)
+    # -- respawn.titanfall2.PHYSICS_LEVEL is just the lump.version metadata
     for branch_script in chain(*group.branch_scripts.values()):
         coverage[branch_script] = defaultdict(dict)
         for lump_name, LumpClass_dict in LumpClasses_of(branch_script).items():
@@ -484,15 +493,30 @@ def supported_md(group: ScriptGroup) -> List[str]:
                     percent = int((100 / attrs) * (attrs - unknowns)) if unknowns != attrs else 0
                 elif lump_name in branch_script.SPECIAL_LUMP_CLASSES or lump_name == "GAME_LUMP":
                     if lump_name == "GAME_LUMP":
-                        # TODO: use gamelump coverage dict here
-                        percent = 100 if branch_script is not branches.arkane.dark_messiah_sp else 90  # HACK
+                        mapped_classes = gamelump_mappings.get(branch_script, dict())
+                        coverages = list()
+                        for child in mapped_classes.values():
+                            if isinstance(child, dict):
+                                coverages.extend([gamelump_coverage.get(lc, 0) for lc in child.values()])
+                            else:
+                                coverages.append(gamelump_coverage.get(child, 0))
+                        percent = sum(coverages) / len(coverages)
                     else:
                         SpecialLumpClass = LumpClass_dict[lump_version]
                         percent = SpecialLumpClass_confidence[SpecialLumpClass]
                 else:  # BASIC_LUMP_CLASSES
                     percent = 100
                 coverage[branch_script][lump_name][lump_version] = percent
-        # TODO: GAME_LUMP_CLASSES (StaticPropvX etc.)
+        for lump_name in [L.name for L in branch_script.LUMP]:
+            key = (branch_script, lump_name)
+            if key in lightmap_mappings:
+                percent = 100
+            elif key in method_mappings:
+                percent = method_mappings[(branch_script, lump_name)][1]
+            else:
+                continue
+            # TODO: verify lump_version is always 0
+            coverage[branch_script][lump_name][0] = percent
     # END COVERAGE CALCULATIONS
     lines.extend(games_table(group, coverage))
     lines.append("\n\n")
