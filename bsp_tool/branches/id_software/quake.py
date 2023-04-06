@@ -162,10 +162,10 @@ class Face(base.Struct):  # LUMP 7
     lighting_type: int  # 0x00=lightmap, 0xFF=no-lightmap, 0x01=fast-pulse, 0x02=slow-pulse, 0x03-0x10 other
     base_light: int  # 0x00 bright - 0xFF dark (lowest possible light level)
     light: int  # "additional light models"
-    lightmap_offset: int  # index to first byte in LIGHTING lump; -1 if not lightmapped
+    lighting_offset: int  # index to first byte in LIGHTING lump; -1 for no baked lighting
     # NOTE: the number of texels used by the lightmap is determined by the uv bounds
     __slots__ = ["plane", "side", "first_edge", "num_edges", "texture_info",
-                 "lighting_type", "base_light", "light", "lightmap_offset"]
+                 "lighting_type", "base_light", "light", "lighting_offset"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
     # TODO: FaceLightingType(enum.IntFlag)
@@ -371,7 +371,7 @@ def as_lightmapped_obj(bsp):
     obj_file.write("\n".join(f"vn {p.normal.x} {p.normal.y} {p.normal.z}" for p in bsp.PLANES))
     # TODO: unique plane normals for smoothing groups; need to blend neighbouring edges
     faces = list()
-    # [[(v, vt, vn)]]
+    # ^ [[(v, vt, vn)]]
     lightmap_dicts = list()
     for i, face in enumerate(bsp.FACES):
         lightmap_dicts.append(bsp.lightmap_of_face(i))
@@ -407,8 +407,8 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
     out["uvs"] = [uv for position, uv in bsp.vertices_of_face(face_index)]
     # NOTE: to utilise a lightmap page you'll need to reposition these uvs onto that sheet
     # -- forcing the top-left of the uv's bounds to (0, 0) might help with that
-    out["lightmap_offset"] = face.lightmap_offset
-    if face.lightmap_offset == -1:
+    out["lighting_offset"] = face.lighting_offset
+    if face.lighting_offset == -1:
         out["width"], out["height"] = 0, 0
         out["lightmap_bytes"] = b""
         return out
@@ -420,15 +420,14 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
         minV = min(uv.y, minV)
         maxU = max(uv.x, maxU)
         maxV = max(uv.y, maxV)
-    # TODO: use -minUV as an offset to reposition the UV bounds top-left to (0, 0)
-    # TODO: round to ceiling
-    out["width"] = int((maxU - minU) // 16)  # 16 units per texel, always
-    out["height"] = int((maxV - minV) // 16)
+    # always 16 units per texel
+    out["width"] = int((maxU - minU) // 16) + 1
+    out["height"] = int((maxV - minV) // 16) + 1
     # collect lightmap bytes
-    start = out["lightmap_offset"]
-    length = out["width"] * out["height"] * 4  # 4 bytes per texel, RGBA_8888?
-    # what about lighting styles? how many copies do we need to load in sequence?
+    start = out["lighting_offset"]
+    length = out["width"] * out["height"]
     out["lightmap_bytes"] = bsp.LIGHTING[start:start + length]
+    # TODO: multiple styles
     return out
 
 
