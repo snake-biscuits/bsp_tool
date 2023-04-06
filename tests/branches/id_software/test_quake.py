@@ -32,10 +32,11 @@ class TestMethods:
             # ^ {"uvs": [uv.xy], "width": 0, "height": 0}
             # uvs are from vertices_of_face, used to derive width & height
             if (data["width"], data["height"]) == (0, 0):
-                assert data["lightmap_offset"] == -1
+                assert data["lighting_offset"] == -1
                 continue
-            assert 0 <= data["lightmap_offset"] < len(bsp.LIGHTING)
+            assert 0 <= data["lighting_offset"] < len(bsp.LIGHTING)
             assert len(data["lightmap_bytes"]) != b""
+        # TODO: assert whole LIGHTING lump is used (correct width & height)
 
     # TODO: test_as_lightmapped_obj
     # TODO: test_parse_vis
