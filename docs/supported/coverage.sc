@@ -20,7 +20,7 @@ leftstring B1 = "quake3"
 let C1 = 100
 leftstring A2 = "id_software"
 leftstring B2 = "quake"
-let C2 = 96
+let C2 = 97.67
 leftstring A3 = "respawn"
 leftstring B3 = "titanfall"
 let C3 = 92.92
@@ -132,4 +132,4 @@ let C38 = 38.33
 leftstring A39 = "infinity_ward"
 leftstring B39 = "modern_warfare"
 let C39 = 23.56
-goto B1
+goto C2

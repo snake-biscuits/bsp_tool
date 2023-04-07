@@ -57,7 +57,7 @@
 | 7 | 17 | `FACES` | 0 | [`troika.vampire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/troika/vampire.py#L23) | 100% |
 | 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L518) | 100% |
 | 7 | 25 | `FACES` | 2 | [`strata.strata.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L204) | 100% |
-| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 8 | 22 | `LIGHTING` | 0 |  | 0% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
@@ -150,7 +150,7 @@
 | 51 | 25 | `LEAF_AMBIENT_INDEX_HDR` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L266) | 100% |
 | 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L580) | 100% |
 | 52 | 25 | `LEAF_AMBIENT_INDEX` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L266) | 100% |
-| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 53 | 22 | `LIGHTING_HDR` | 0 |  | 0% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L727) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |

@@ -70,8 +70,29 @@ class LightmapPage:
         return page
 
 
-# TODO: quake lightmaps & darkplaces lightmaps
-def save_ibsp_q3(ibsp, image_dir="./"):  # saves to image_dir/<ibsp.filename>.lightmaps.png
+def save_quakebsp_q1(bsp, image_dir="./"):  # saves to <image_dir>/<bsp.filename>.lightmaps.png
+    """for Quake 1 bsp (v29) only"""
+    # TODO: sorted / tighter packing & remapping lightmap uvs
+    # TODO: catch entity keys for alternate lightmap scale(s)
+    # -- "_world_units_per_luxel" in worldspawn / model ent
+    # -- "_lightmap_scale" in worldspawn
+    # see ericw-tools testmaps/q2_lightmap_custom_scale.map
+    lightmaps = list()
+    for i, face in enumerate(bsp.FACES):
+        d = bsp.lightmap_of_face(i)
+        if d["lighting_offset"] == -1:
+            continue
+        lightmap = Image.frombytes("L", (d["width"], d["height"]), d["lightmap_bytes"], "raw")
+        lightmaps.append(lightmap)
+    tiled_lightmaps = sum(lightmaps, start=LightmapPage(max_width=256))
+    os.makedirs(image_dir, exist_ok=True)
+    tiled_lightmaps.image.save(os.path.join(image_dir, f"{bsp.filename}.lightmaps.png"))
+
+
+# TODO: darkplaces lightmaps, .lit, bsp2 lightdata
+
+
+def save_ibsp_q3(ibsp, image_dir="./"):  # saves to <image_dir>/<ibsp.filename>.lightmaps.png
     """for IdTechBsp / InfinityWardBsp only"""
     # TODO: detect dimensions; iirc this is quake3 specific
     lightmap_images = list()

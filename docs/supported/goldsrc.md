@@ -68,7 +68,7 @@ Half-Life: Blue Shift's format is identical to GoldSrc, except for one small cha
 | 11 | 42 | `LEAVES` | [`gearbox.nightfire.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L82) | 100% |
 | 12 | 30 | `EDGES` | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L145) | 100% |
 | 12 | 42 | `LEAF_FACES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L17) | 100% |
-| 13 | 30 | `SURFEDGES` | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L17) | 100% |
+| 13 | 30 | `SURFEDGES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 13 | 42 | `LEAF_BRUSHES` |  | 0% |
 | 14 | 30 | `MODELS` | [`valve.goldsrc.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/goldsrc.py#L122) | 100% |
 | 14 | 42 | `MODELS` | [`gearbox.nightfire.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/gearbox/nightfire.py#L98) | 83% |

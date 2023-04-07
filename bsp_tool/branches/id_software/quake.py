@@ -347,7 +347,7 @@ class MipTexture(base.Struct):  # LUMP 2
 
 # {"LUMP": LumpClass}
 BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
-                      "SURFEDGES":  shared.Shorts}
+                      "SURFEDGES":  shared.Ints}
 
 LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
                 "EDGES":        Edge,
@@ -395,7 +395,7 @@ def as_lightmapped_obj(bsp):
     # -- should use & remap <bsp filename>.lightmap_uvs.json to work with exported lightmap page
 
 
-def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
+def lightmap_of_face(bsp, face_index: int, lightmap_scale: float = 16) -> Dict[Any]:
     # NOTE: if mapping onto a lightmap page you'll need to calculate a X&Y offset to fit this face into
     # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions/lightmaps.py
     out = dict()
@@ -404,14 +404,7 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
     #    "width": int, "height": int,
     #    "lightmap_bytes": bytes}
     face = bsp.FACES[face_index]
-    out["uvs"] = [uv for position, uv in bsp.vertices_of_face(face_index)]
-    # NOTE: to utilise a lightmap page you'll need to reposition these uvs onto that sheet
-    # -- forcing the top-left of the uv's bounds to (0, 0) might help with that
-    out["lighting_offset"] = face.lighting_offset
-    if face.lighting_offset == -1:
-        out["width"], out["height"] = 0, 0
-        out["lightmap_bytes"] = b""
-        return out
+    out["uvs"] = [uv / lightmap_scale for position, uv in bsp.vertices_of_face(face_index)]
     # calculate uv bounds
     minU, minV = math.inf, math.inf
     maxU, maxV = -math.inf, -math.inf
@@ -420,14 +413,20 @@ def lightmap_of_face(bsp, face_index: int) -> Dict[Any]:
         minV = min(uv.y, minV)
         maxU = max(uv.x, maxU)
         maxV = max(uv.y, maxV)
-    # always 16 units per texel
-    out["width"] = int((maxU - minU) // 16) + 1
-    out["height"] = int((maxV - minV) // 16) + 1
-    # collect lightmap bytes
+    out["uvs"] = [vector.vec2(uv.x - maxU, uv.y - maxV) for uv in out["uvs"]]
+    # NOTE: to utilise a lightmap page you'll need to remap uvs
+    out["lighting_offset"] = face.lighting_offset
+    if face.lighting_offset == -1:
+        out["width"], out["height"] = 0, 0
+        out["lightmap_bytes"] = b""
+        return out
+    # get lightmap (if this face has one)
+    out["width"] = int(maxU - minU) + 1
+    out["height"] = int(maxV - minV) + 1
     start = out["lighting_offset"]
     length = out["width"] * out["height"]
     out["lightmap_bytes"] = bsp.LIGHTING[start:start + length]
-    # TODO: multiple styles
+    # TODO: handle multiple light styles
     return out
 
 
@@ -454,26 +453,23 @@ def parse_vis(bsp, leaf_index: int):
     return bytes(out)
 
 
-def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2, vector.vec3)]:
+def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2)]:
     """output is [(position.xyz, uv.xy, normal.xyz, colour.rgba)] """
+    out = list()
     face = bsp.FACES[face_index]
-    uv0 = list()
-    first_edge = face.first_edge
-    positions = list()
-    for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
-        if surfedge >= 0:
-            positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
-        else:
-            positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
-    for P in positions:
+    for surfedge in bsp.SURFEDGES[face.first_edge:face.first_edge + face.num_edges]:
+        if surfedge < 0:
+            P = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
+        else:
+            P = bsp.VERTICES[bsp.EDGES[surfedge][0]]
         # TODO: scale uv against MipTexture width & height
         uv = [vector.dot(P, texture_info.s.vector) + texture_info.s.offset,
               vector.dot(P, texture_info.t.vector) + texture_info.t.offset]
-        uv0.append(vector.vec2(*uv))
+        out.append((P, vector.vec2(*uv)))
     # NOTE: vertex normal can be found via bsp.PLANES[face.planes].normal
     # -- however, the normal may be inverted, depending on face.side, haven't tested
-    return list(zip(positions, uv0))
+    return out
 
 
 def vertices_of_model(bsp, model_index: int) -> List[float]:

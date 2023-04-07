@@ -158,8 +158,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 95 | 005F | 29 | `CM_BRUSH_SIDE_TEXTURE_VECTORS` | 0 | [`respawn.titanfall.TextureVector`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L731) | 100% |
 | 96 | 0060 | 29 | `TRICOLL_BEVEL_STARTS` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 97 | 0061 | 29 | `TRICOLL_BEVEL_INDICES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
-| 98 | 0062 | 29 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L113) | 100% |
-| 98 | 0062 | 37 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L143) | 100% |
+| 98 | 0062 | 29 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L134) | 100% |
+| 98 | 0062 | 37 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L164) | 100% |
 | 99 | 0063 | 29 | `CSM_AABB_NODES` | 0 | [`respawn.titanfall.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L616) | 50% |
 | 100 | 0064 | 29 | `CSM_OBJ_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 101 | 0065 | 29 | `LIGHTPROBES` | 0 | [`respawn.titanfall.LightProbe`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L516) | 100% |
@@ -167,8 +167,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 103 | 0067 | 29 | `LIGHTPROBE_TREE` | 0 | [`respawn.titanfall.LightProbeTree`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L541) | 100% |
 | 104 | 0068 | 29 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L531) | 100% |
 | 104 | 0068 | 37 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall2.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L255) | 66% |
-| 105 | 0069 | 29 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L113) | 100% |
-| 105 | 0069 | 37 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L143) | 100% |
+| 105 | 0069 | 29 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r1`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L134) | 100% |
+| 105 | 0069 | 37 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L164) | 100% |
 | 106 | 006A | 29 | `CELL_BSP_NODES` | 0 | [`respawn.titanfall.CellBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L427) | 100% |
 | 107 | 006B | 29 | `CELLS` | 0 | [`respawn.titanfall.Cell`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L397) | 100% |
 | 108 | 006C | 29 | `PORTALS` | 0 | [`respawn.titanfall.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L649) | 100% |

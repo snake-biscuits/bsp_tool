@@ -33,7 +33,7 @@
 | 5 | 21 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L623) | 100% |
 | 6 | 21 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L692) | 100% |
 | 7 | 21 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L518) | 100% |
-| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 9 | 21 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 21 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L551) | 100% |
 | 10 | 21 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L108) | 100% |
@@ -85,7 +85,7 @@
 | 50 | 21 | `WATER_OVERLAYS` | 0 | [`valve.source.WaterOverlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L709) | 100% |
 | 51 | 21 | `LEAF_AMBIENT_INDEX_HDR` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L580) | 100% |
 | 52 | 21 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L580) | 100% |
-| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 21 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |
 | 56 | 21 | `LEAF_AMBIENT_LIGHTING` | 0 |  | 0% |

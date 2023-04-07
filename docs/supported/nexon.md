@@ -37,7 +37,7 @@
 | 7 | 20 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L161) | 94% |
 | 7 | 20 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L191) | 88% |
 | 7 | 100 | `FACES` | 0 |  | 0% |
-| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 9 | 20 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 20 | `LEAVES` | 1 | [`nexon.vindictus.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L222) | 100% |
 | 10 | 100 | `LEAVES` | 0 |  | 0% |
@@ -59,8 +59,8 @@
 | 24 | 20 | `UNUSED_24` | 0 |  | 0% |
 | 25 | 20 | `UNUSED_25` | 0 |  | 0% |
 | 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L129) | 92% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L23) | 0% |
 | 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
+| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L23) | 0% |
 | 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L161) | 94% |
 | 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L191) | 88% |
 | 27 | 100 | `ORIGINAL_FACES` | 0 |  | 0% |
@@ -95,7 +95,7 @@
 | 50 | 20 | `WATER_OVERLAYS` | 0 | [`valve.source.WaterOverlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L709) | 100% |
 | 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L580) | 100% |
 | 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L580) | 100% |
-| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L86) | 100% |
+| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
 | 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L727) | 100% |
 | 54 | 100 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |

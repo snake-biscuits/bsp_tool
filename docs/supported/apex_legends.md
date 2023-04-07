@@ -158,14 +158,14 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 95 | 005F | 47 | `UNUSED_95` | 0 |  | 0% |
 | 96 | 0060 | 47 | `UNUSED_96` | 0 |  | 0% |
 | 97 | 0061 | 47 | `UNKNOWN_97` | 0 |  | 0% |
-| 98 | 0062 | 47 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L252) | 100% |
+| 98 | 0062 | 47 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.save_rbsp_r5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L273) | 100% |
 | 99 | 0063 | 47 | `CSM_AABB_NODES` | 0 | [`respawn.titanfall.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L616) | 50% |
 | 100 | 0064 | 47 | `CSM_OBJ_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 101 | 0065 | 47 | `LIGHTPROBES` | 0 | [`respawn.titanfall.LightProbe`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L516) | 100% |
 | 102 | 0066 | 47 | `STATIC_PROP_LIGHTPROBE_INDICES` | 0 |  | 0% |
 | 103 | 0067 | 47 | `LIGHTPROBE_TREE` | 0 | [`respawn.titanfall.LightProbeTree`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L541) | 100% |
 | 104 | 0068 | 47 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall2.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L255) | 66% |
-| 105 | 0069 | 47 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L252) | 100% |
+| 105 | 0069 | 47 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.save_rbsp_r5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L273) | 100% |
 | 106 | 006A | 47 | `CELL_BSP_NODES` | 0 | [`respawn.titanfall.CellBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L427) | 100% |
 | 107 | 006B | 47 | `CELLS` | 0 | [`respawn.titanfall.Cell`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L397) | 100% |
 | 108 | 006C | 47 | `PORTALS` | 0 | [`respawn.titanfall.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L649) | 100% |

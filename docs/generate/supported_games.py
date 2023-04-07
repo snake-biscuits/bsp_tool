@@ -231,7 +231,8 @@ vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches
                        *branches.nexon.scripts, branches.troika.vampire, *branches.arkane.scripts]
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
-lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
+lightmap_mappings = {(branches.id_software.quake, "LIGHTING"): lightmaps.save_quakebsp_q1,
+                     **{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
                         for L in ("LIGHTING", "LIGHTING_HDR")},
                      **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
@@ -242,9 +243,10 @@ lightmap_mappings = {**{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scrip
 # ^ {(branch_script, "LUMP"): function}
 del vbsp_branch_scripts
 
-method_mappings = {(branches.id_software.quake, "LIGHTING"): (branches.id_software.quake.lightmap_of_face, 75),
-                   (branches.id_software.quake, "VISIBILITY"): (branches.id_software.quake.parse_vis, 75)}
+method_mappings = {(branches.id_software.quake, "VISIBILITY"): (branches.id_software.quake.parse_vis, 75)}
 # ^ {(branch_script, "LUMP"): (method, coverage)}
+
+# TODO: list Quake derived LIGHTING & VISIBILITY
 
 
 # lump coverage table
