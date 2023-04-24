@@ -3,7 +3,8 @@ import enum
 from typing import List
 
 from .. import base
-# from . import alien_swarm
+from .. import vector
+from . import alien_swarm
 from . import left4dead2
 from . import orange_box
 from . import source
@@ -122,16 +123,22 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv10(orange_box.GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35) [version 10]
+    StaticPropClass = StaticPropv10
 
 
 class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
-    # TODO: Breaking on almost every map; conflicting versions or just a bad def?
+    # TODO: breaking on almost every map; conflicting versions or just a bad def?
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
-    first_leaf: int  # index into Leaf lump
-    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    first_leaf: int  # index into GAME_LUMP.sprp.leaves -> Leaf lump
+    num_leafs: int  # number of Leaves after first_leaf this StaticProp is in
     solid_mode: int  # collision flags enum
     flags: int  # other flags
     skin: int  # index of this StaticProp's skin in the .mdl
@@ -151,21 +158,25 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv11(GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35) [version 11]
+    StaticPropClass = StaticPropv11
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = alien_swarm.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("WORLD_LIGHTS")
-LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+LUMP_CLASSES = alien_swarm.LUMP_CLASSES.copy()
 
-SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = alien_swarm.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
+GAME_LUMP_HEADER = alien_swarm.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = {"sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({10: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),
-                                  11: lambda raw_lump: source.GameLump_SPRP(raw_lump, None)})
+GAME_LUMP_CLASSES["sprp"].update({10: GameLump_SPRPv10,
+                                  11: GameLump_SPRPv11})
 
-methods = [*orange_box.methods]
+methods = [*alien_swarm.methods]

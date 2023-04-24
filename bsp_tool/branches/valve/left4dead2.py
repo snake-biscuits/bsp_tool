@@ -4,6 +4,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import vector
 from ..id_software import quake
 from . import left4dead
 from . import source
@@ -136,6 +137,12 @@ class StaticPropv9(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv9(left4dead.GameLump_SPRPv8):  # sprp GAME LUMP (LUMP 35) [version 9]
+    StaticPropClass = StaticPropv9
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -150,7 +157,7 @@ GAME_LUMP_HEADER = left4dead.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": left4dead.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({9: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv9)})
+GAME_LUMP_CLASSES["sprp"].update({9: GameLump_SPRPv9})
 
 
 methods = [*left4dead.methods]

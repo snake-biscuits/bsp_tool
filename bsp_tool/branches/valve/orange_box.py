@@ -3,6 +3,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import vector
 from . import source
 
 
@@ -129,7 +130,7 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7* / 10]
+class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into AME_LUMP.sprp.model_names
@@ -150,6 +151,12 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7* / 10]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
                "lightmap": ["width", "height"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv10(source.GameLump_SPRPv7):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
+    StaticPropClass = StaticPropv10
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -167,10 +174,8 @@ GAME_LUMP_HEADER = source.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({5: lambda raw_lump: source.GameLump_SPRP(raw_lump, None),  # The Ship
-                                  6: lambda raw_lump: source.GameLump_SPRP(raw_lump, None),  # Bloody Good Time
-                                  7: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv10),  # 7*
-                                  10: lambda raw_lump: source.GameLump_SPRP(raw_lump, None)})  # tiny sample breaking?
+GAME_LUMP_CLASSES["sprp"].update({7:  GameLump_SPRPv10,  # 7*
+                                  10: GameLump_SPRPv10})
 
 
 methods = [*source.methods]

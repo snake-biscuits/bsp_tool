@@ -384,10 +384,10 @@ class GameLump:
                     if compressed and child_header.flags & 1 != 1:
                         warnings.warn(UserWarning(f"{child_name} game lump is compressed but the flag is unset (Xbox360?)"))
                     if not compressed:
-                        child_lump = child_LumpClass(child_lump_bytes)
+                        child_lump = child_LumpClass.from_bytes(child_lump_bytes)
                     if compressed and child_header.length > 17:  # sizeof(LZMA_Header)
                         child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
-                        child_lump = child_LumpClass(child_lump_bytes)
+                        child_lump = child_LumpClass.from_bytes(child_lump_bytes)
                     elif compressed:  # but otherwise empty
                         # NOTE: length might be 12, for an empty source.GameLump_SPRP
                         warnings.warn(UserWarning(f"compressed empty {child_name} game lump"))
@@ -482,7 +482,7 @@ class DarkMessiahSPGameLump:
                     # -- GameLumpHeader.flags does not appear to inidicate compression
                     if child_lump_bytes[:4] == b"LZMA":
                         child_lump_bytes = decompress_valve_LZMA(child_lump_bytes)
-                    child_lump = child_LumpClass(child_lump_bytes)
+                    child_lump = child_LumpClass.from_bytes(child_lump_bytes)
                 except Exception as exc:
                     self.loading_errors[child_name] = exc
                     child_lump = create_RawBspLump(file, child_header)

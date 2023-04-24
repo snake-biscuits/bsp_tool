@@ -123,12 +123,7 @@ def test_branch_script(branch_script):
         used_LumpClasses.update(version_dict.values())
     # NOTE: respawn.titanfall.Grid.from_bytes (classmethod) is used as a SpecialLumpClass
     # TODO: SpecialLumpClasses often consume child classes defined in the same script
-    # need to somehow decode `GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4)}}`
-    # -- inspect + regex can pull the childclass passed to SpecialLumpClass.__init__, but it's far from ideal
-    # -- all GameLumpClasses seem to do this, should we treat them differently?
-    # -- e.g. GAME_LUMP_CLASSES = {"sprp": {4: (GameLump_SPRP, StaticPropv4)}}
-    # -- -->  SpecialLumpClass, *child_classes = branch.GAME_LUMP_CLASSES[_id][version]
-    # -- -->  SpecialLumpClass(raw_lump, *child_classes)
+    # -- e.g. GameLumpClasses include a StaticPropClass (+ StaticPropScale for nexon.vindictus)
     # TODO: Identify all other cases where a lump is broken down into SpecialLumpClass & children
     # e.g. quake MipTextures
     if hasattr(branch_script, "GAME_LUMP_HEADER"):

@@ -5,6 +5,7 @@ import io
 import itertools
 import struct
 from typing import Any, Dict, List, Union
+import warnings
 
 from .. import base
 from .. import shared
@@ -12,6 +13,7 @@ from .. import valve_physics
 from .. import vector
 from ..id_software import quake
 from ..valve import source
+from ..valve import sdk_2013
 
 
 FILE_MAGIC = b"rBSP"
@@ -917,54 +919,6 @@ class EntityPartitions(list):
         return cls(raw_lump.decode("ascii")[:-1].split(" "))
 
 
-class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)
-    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
-    StaticPropClass: object  # StaticPropv12
-    model_names: List[str]
-    leaves: List[int]
-    # NOTE: both unknown_1 & unknown_2 are new
-    # -- they might mark first_translucent_prop & first_alphatest_prop
-    unknown_1: int
-    unknown_2: int
-    props: List[object] | List[bytes]  # List[StaticPropClass]
-
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        sprp_lump = io.BytesIO(raw_sprp_lump)
-        self.StaticPropClass = StaticPropClass
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
-        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")  # usually 0
-        leaves = list(struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leaves", leaves)
-        prop_count, unknown_1, unknown_2 = struct.unpack("3i", sprp_lump.read(12))
-        self.unknown_1, self.unknown_2 = unknown_1, unknown_2
-        if StaticPropClass is not None:
-            read_size = struct.calcsize(StaticPropClass._format) * prop_count
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        else:
-            prop_bytes = sprp_lump.read()
-            prop_size = len(prop_bytes) // prop_count
-            # NOTE: will break if prop_size does not divide evenly by prop_count
-            setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes, bad format"
-
-    def as_bytes(self) -> bytes:
-        if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.as_tuple()) for p in self.props]
-        else:
-            prop_bytes = []
-        return b"".join([len(self.model_names).to_bytes(4, "little"),
-                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-                         len(self.leaves).to_bytes(4, "little"),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         struct.pack("3I", len(self.props), self.unknown_1, self.unknown_2),
-                         *prop_bytes])
-
-
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12]
     """appears to extend valve.left4dead.StaticPropv8"""
     origin: List[float]  # x, y, z
@@ -994,8 +948,57 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
                "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
-    _classes = {"origin": vector.vec3}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
     # TODO: Qangle vec3 type (0-360 pitch yaw roll), rgb32 diffuse_modulation
+
+
+class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [version 12]
+    StaticPropClass: StaticPropv12
+    endianness: str = "little"  # for x360
+    model_names: List[str]
+    leaves: List[int]
+    # NOTE: both unknown_1 & unknown_2 are new
+    # -- they might mark first_translucent_prop & first_alphatest_prop like LevelInfo
+    unknown_1: int
+    unknown_2: int
+    props: List[StaticPropv12]
+
+    def __init__(self):
+        self.model_names = list()
+        self.leaves = list()
+        self.unknown_1 = 0
+        self.unknown_2 = 0
+        self.props = list()
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        sprp_lump = io.BytesIO(raw_lump)
+        out = cls()
+        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
+        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.leaves = [int.from_bytes(sprp_lump.read(2), cls.endianness) for i in range(leaf_count)]
+        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.unknown_1 = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.unknown_2 = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        tail = sprp_lump.read()
+        if len(tail) > 0:
+            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+        return out
+
+    def as_bytes(self) -> bytes:
+        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
+        leaves_format = {"little": "<H", "big": ">H"}[self.endianness]
+        return b"".join([len(self.model_names).to_bytes(4, self.endianness),
+                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
+                         len(self.leaves).to_bytes(4, self.endianness),
+                         *[struct.pack(leaves_format, L) for L in self.leaves],
+                         len(self.props).to_bytes(4, self.endianness),
+                         self.unknown_1.to_bytes(4, self.endianness),
+                         self.unknown_2.to_bytes(4, self.endianness),
+                         *[p.as_bytes() for p in self.props]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -1073,7 +1076,8 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid},
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {12: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv12)}}
+# {"lump": {version: SpecialLumpClass}}
+GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12}}
 
 
 # branch exclusive methods, in alphabetical order:

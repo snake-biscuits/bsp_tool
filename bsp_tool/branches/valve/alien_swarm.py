@@ -92,9 +92,11 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-# TODO: WorldLightHDR
+# TODO: WorldLight
+
 
 # classes for special lumps, in alphabetical order:
+
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()

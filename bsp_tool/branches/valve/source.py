@@ -5,7 +5,6 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
 import struct
 from typing import List
 import warnings
@@ -772,61 +771,6 @@ class GameLumpHeader(base.MappedArray):
     _format = "4s2H2i"
 
 
-class GameLump_SPRP:  # sprp GameLump (LUMP 35)
-    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
-    StaticPropClass: object  # StaticPropvXX
-    model_names: List[str]
-    leaves: List[int]
-    props: List[object] | List[bytes]  # List[StaticPropClass]
-
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object, endianness: str = "little"):
-        sprp_lump = io.BytesIO(raw_sprp_lump)
-        self.StaticPropClass = StaticPropClass
-        self.endianness = endianness
-        model_name_count = int.from_bytes(sprp_lump.read(4), self.endianness)
-        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
-        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), self.endianness)
-        leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leaves", list(leaves))
-        prop_count = int.from_bytes(sprp_lump.read(4), self.endianness)
-        # TODO: throw an error if the remaining props length divides into a different length
-        # -- in future: use this to detect a different branch script / format
-        # NOTE: SFM sprp v10 is 72 bytes, not the expected 76
-        raw_props = sprp_lump.read()
-        StaticPropClass_size = struct.calcsize(getattr(self.StaticPropClass, "_format", ""))
-        props_byte_size = StaticPropClass_size * prop_count
-        if props_byte_size != len(raw_props):
-            warnings.warn(UserWarning("StaticPropClass format is unknown / doesn't match lump size"))
-            StaticPropClass = None
-        if prop_count == 0:
-            setattr(self, "props", [])
-        elif self.StaticPropClass is None:
-            setattr(self, "props", [])
-            prop_size = len(raw_props) // prop_count
-            assert len(raw_props) % prop_count == 0, "SPRP.props does not divide evenly by prop_count"
-            for i in range(prop_count):
-                self.props.append(raw_props[i * prop_size:(i + 1) * prop_size])
-        else:
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(props_byte_size))
-            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-
-    def as_bytes(self) -> bytes:
-        if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.as_tuple()) for p in self.props]
-        else:
-            prop_bytes = []
-        return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, self.endianness),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.props), 4, self.endianness),
-                         *prop_bytes])
-
-    def get_prop_model_name(self, prop_index: int) -> str:
-        return self.model_names[self.props[prop_index].model_name]
-
-
 class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L151"""
     origin: vector.vec3
@@ -845,8 +789,48 @@ class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"]}
     _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}
-    # TODO: angles QAngle
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+
+
+class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
+    StaticPropClass: object = StaticPropv4
+    endianness: str = "little"  # for x360
+    model_names: List[str]
+    leaves: List[int]
+    props: List[object]  # List[StaticPropClass]
+
+    def __init__(self):
+        self.model_names = list()
+        self.leaves = list()
+        self.props = list()
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        sprp_lump = io.BytesIO(raw_lump)
+        out = cls()
+        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
+        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.leaves = [int.from_bytes(sprp_lump.read(2), cls.endianness) for i in range(leaf_count)]
+        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        tail = sprp_lump.read()
+        if len(tail) > 0:
+            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+        return out
+
+    def as_bytes(self) -> bytes:
+        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
+        leaves_format = {"little": "<H", "big": ">H"}[self.endianness]
+        return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
+                         *[struct.pack("128s", n) for n in self.model_names],
+                         int.to_bytes(len(self.leaves), 4, self.endianness),
+                         *[struct.pack(leaves_format, L) for L in self.leaves],
+                         int.to_bytes(len(self.props), 4, self.endianness),
+                         *[p.as_bytes for p in self.props]])
+
+    def get_prop_model_name(self, prop_index: int) -> str:
+        return self.model_names[self.props[prop_index].model_name]
 
 
 class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
@@ -869,8 +853,11 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"]}
     _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}
-    # TODO: angles QAngle
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+
+
+class GameLump_SPRPv5(GameLump_SPRPv4):  # sprp GameLump (LUMP 35)
+    StaticPropClass = StaticPropv5
 
 
 class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
@@ -894,8 +881,11 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
     _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}
-    # TODO: angles QAngle
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+
+
+class GameLump_SPRPv6(GameLump_SPRPv5):  # sprp GameLump (LUMP 35)
+    StaticPropClass = StaticPropv6
 
 
 class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
@@ -920,8 +910,11 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}
-    # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35)
+    StaticPropClass = StaticPropv7
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -978,10 +971,10 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {4: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv4),
-                              5: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv5),
-                              6: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv6),
-                              7: lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropv7)}}
+GAME_LUMP_CLASSES = {"sprp": {4: GameLump_SPRPv4,
+                              5: GameLump_SPRPv5,
+                              6: GameLump_SPRPv6,
+                              7: GameLump_SPRPv7}}
 # TODO: more GameLump definitions:
 # -- https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
 

@@ -3,9 +3,9 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
 import struct
 from typing import List
+import warnings
 
 from .. import base
 from .. import shared
@@ -290,55 +290,6 @@ class GameLumpHeader(base.MappedArray):
     _format = "4s4i"
 
 
-class GameLump_SPRP(source.GameLump_SPRP):  # sprp GameLump (LUMP 35)
-    """use `lambda raw_lump: GameLump_SPRP(raw_lump, StaticPropvXX)` to implement"""
-    StaticPropClass: object
-    model_names: List[str]
-    leaves: List[int]
-    scales: List[StaticPropScale]
-    props: List[object]  # List[StaticPropClass]
-
-    def __init__(self, raw_sprp_lump: bytes, StaticPropClass: object):
-        sprp_lump = io.BytesIO(raw_sprp_lump)
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        model_names = struct.iter_unpack("128s", sprp_lump.read(128 * model_name_count))
-        setattr(self, "model_names", [t[0].replace(b"\0", b"").decode() for t in model_names])
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
-        leaves = itertools.chain(*struct.iter_unpack("H", sprp_lump.read(2 * leaf_count)))
-        setattr(self, "leaves", list(leaves))
-        scale_count = int.from_bytes(sprp_lump.read(4), "little")
-        read_size = struct.calcsize(StaticPropScale._format) * scale_count
-        scales = struct.iter_unpack(StaticPropScale._format, sprp_lump.read(read_size))
-        setattr(self, "scales", list(scales))
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        if StaticPropClass is not None:
-            read_size = struct.calcsize(StaticPropClass._format) * prop_count
-            props = struct.iter_unpack(StaticPropClass._format, sprp_lump.read(read_size))
-            setattr(self, "props", list(map(StaticPropClass.from_tuple, props)))
-        else:
-            prop_bytes = sprp_lump.read()
-            prop_size = len(prop_bytes) // prop_count
-            # NOTE: will break if prop_size does not divide evenly by prop_count
-            setattr(self, "props", list(struct.iter_unpack(f"{prop_size}s", prop_bytes)))
-        here = sprp_lump.tell()
-        end = sprp_lump.seek(0, 2)
-        assert here == end, "Had some leftover bytes, bad format"
-
-    def as_bytes(self) -> bytes:
-        if len(self.props) > 0:
-            prop_bytes = [struct.pack(self.StaticPropClass._format, *p.flat()) for p in self.props]
-        else:
-            prop_bytes = []
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "little"),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.scales), 4, "little"),
-                         *[struct.pack(StaticPropScale._format, s) for s in self.scales],
-                         int.to_bytes(len(self.props), 4, "little"),
-                         *prop_bytes])
-
-
 class StaticPropScale(base.Struct):
     prop: int  # index of prop to scale? (SPRP.props[sps.prop] * sps.scale)
     scale: vector.vec3
@@ -348,10 +299,52 @@ class StaticPropScale(base.Struct):
     _classes = {"scale": vector.vec3}
 
 
+class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [version 6]
+    StaticPropClass: object = source.StaticPropv6
+    model_names: List[str]
+    leaves: List[int]
+    scales: List[StaticPropScale]
+    props: List[source.StaticPropv6]
+
+    def __init__(self):
+        self.model_names = list()
+        self.leaves = list()
+        self.scales = list()
+        self.props = list()
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        sprp_lump = io.BytesIO(raw_lump)
+        out = cls()
+        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
+        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
+        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
+        out.leaves = [int.from_bytes(sprp_lump.read(2), "little") for i in range(leaf_count)]
+        scale_count = int.from_bytes(sprp_lump.read(4), "little")
+        out.scales = [StaticPropScale.from_stream(sprp_lump) for i in range(scale_count)]
+        prop_count = int.from_bytes(sprp_lump.read(4), "little")
+        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        tail = sprp_lump.read()
+        if len(tail) > 0:
+            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+        return out
+
+    def as_bytes(self) -> bytes:
+        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
+        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
+                         *[struct.pack("128s", n) for n in self.model_names],
+                         int.to_bytes(len(self.leaves), 4, "little"),
+                         *[struct.pack("H", L) for L in self.leaves],
+                         int.to_bytes(len(self.scales), 4, "little"),
+                         *[s.as_bytes for s in self.scales],
+                         int.to_bytes(len(self.props), 4, "little"),
+                         *[p.as_bytes for p in self.props]])
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES":              {0: shared.UnsignedInts},
-                           "LEAF_FACES":                {0: shared.UnsignedInts}})
+BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES": {0: shared.UnsignedInts},
+                           "LEAF_FACES":   {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"AREAS":             {0: Area},
@@ -373,7 +366,7 @@ GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": orange_box.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES.update({"sprp": {6: lambda raw_lump: GameLump_SPRP(raw_lump, None)}})
+GAME_LUMP_CLASSES.update({"sprp": {6: GameLump_SPRPv6}})
 
 
 methods = [*orange_box.methods]

@@ -514,8 +514,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 # special lump classes, in alphabetical order:
-def ApexSPRP(raw_lump):
-    return titanfall2.GameLump_SPRP(raw_lump, titanfall2.StaticPropv13)
+# TODO: BVHLeafData
 
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
@@ -562,7 +561,7 @@ SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo},
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {bsp_version: ApexSPRP for bsp_version in (47, 48, 49, 50, 51)}}
+GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_version in (47, 48, 49, 50, 51)}}
 
 
 # branch exclusive methods, in alphabetical order:

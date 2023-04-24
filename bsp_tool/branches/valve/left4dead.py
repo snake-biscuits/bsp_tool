@@ -4,6 +4,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import vector
 from . import orange_box
 from . import source
 
@@ -92,6 +93,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
+# TODO: WorldLight
 
 
 # classes for special lumps, in alphabetical order:
@@ -118,6 +120,12 @@ class StaticPropv8(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+
+
+class GameLump_SPRPv8(source.GameLump_SPRPv7):  # sprp GAME LUMP (LUMP 35) [version 8]
+    StaticPropClass = StaticPropv8
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -133,7 +141,7 @@ GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
 GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({8: lambda raw_lump: source.GameLump_SPRP(raw_lump, StaticPropv8)})
+GAME_LUMP_CLASSES["sprp"].update({8: GameLump_SPRPv8})
 
 
 # branch exclusive methods, in alphabetical order:
