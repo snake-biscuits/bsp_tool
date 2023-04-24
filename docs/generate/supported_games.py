@@ -83,6 +83,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | nexon.cso2_2018                |  Y  |
 # | ValveBsp        | nexon.vindictus                |  Y  |
 # | ValveBsp        | troika.vampire                 |  Y  |
+# | ValveBsp        | utoplanet.merubasu             |  Y  |
 # | ValveBsp        | valve.alien_swarm              |  Y  |
 # | ValveBsp        | valve.left4dead                |  Y  |
 # | ValveBsp        | valve.left4dead2               |  Y  |
@@ -93,17 +94,28 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.source                   |  Y  |
 
 # TODO: more prefaces (insert .md)
-# NOTE: conflicts: cso2 & cso2_2018, quake & hexen2, qfusion & soldier_of_fortune2, goldsrc & blue_shift
-# NOTE: remake_quake & remake_quake_old conflict
+# NOTE: conflicts:
+# -- cso2 & cso2_2018
+# -- goldsrc & blue_shift
+# -- orange_box & merubasu
+# -- qfusion & soldier_of_fortune2
+# -- quake & hexen2
+# -- remake_quake & remake_quake_old
 groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
-                      {RespawnBsp: [branches.respawn.titanfall, branches.respawn.titanfall2]}),
+                      {RespawnBsp: [branches.respawn.titanfall,
+                                    branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
                       {RespawnBsp: [branches.respawn.apex_legends]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
-                      {GoldSrcBsp: [branches.valve.goldsrc, branches.gearbox.blue_shift, branches.gearbox.nightfire]}),
+                      {GoldSrcBsp: [branches.valve.goldsrc,
+                                    branches.gearbox.blue_shift,
+                                    branches.gearbox.nightfire]}),
           ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.troika.vampire, branches.loiste.infra, branches.strata.strata]}),
+                                  branches.loiste.infra,
+                                  branches.strata.strata,
+                                  branches.troika.vampire,
+                                  branches.utoplanet.merubasu]}),
           ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
                       {ValveBsp: [branches.valve.alien_swarm]}),
           ScriptGroup("Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
@@ -113,14 +125,19 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
                       {ValveBsp: branches.nexon.scripts}),
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
-                      {ValveBsp: [branches.valve.left4dead, branches.valve.left4dead2]}),
+                      {ValveBsp: [branches.valve.left4dead,
+                                  branches.valve.left4dead2]}),
           # TODO: present BSP2 & 2PSB (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
-                      {QuakeBsp: [branches.id_software.quake, branches.raven.hexen2],
-                       ReMakeQuakeBsp: [branches.id_software.remake_quake, branches.id_software.remake_quake_old]}),
+                      {QuakeBsp: [branches.id_software.quake,
+                                  branches.raven.hexen2],
+                       ReMakeQuakeBsp: [branches.id_software.remake_quake,
+                                        branches.id_software.remake_quake_old]}),
           ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
-                      {IdTechBsp: [branches.id_software.quake2, branches.ion_storm.daikatana,
-                                   branches.raven.soldier_of_fortune, branches.ritual.sin]}),
+                      {IdTechBsp: [branches.id_software.quake2,
+                                   branches.ion_storm.daikatana,
+                                   branches.raven.soldier_of_fortune,
+                                   branches.ritual.sin]}),
           ScriptGroup("Quake III Engine", "quake3.md", "Id Software", None,
                       {FusionBsp: [branches.id_software.qfusion],
                        IdTechBsp: [branches.id_software.quake3],
@@ -139,7 +156,7 @@ inserts_path = "inserts"
 # -- order could be more dynamic
 # --- merging multiple .md files together
 # -- lump relationship maps from branch_script comments (requires much parsing & standardising)
-# --- html <svg/> Entity Relationship Diagrams w/ LumpClasses
+# --- html <svg/> Entity Relationship Diagrams w/ LumpClasses (mermaid graphs?)
 # listing new & deprecated lumps across version
 # -- currently manually generated, could be automated
 # timeline / engine map as a navigation pane through the documentation
@@ -228,7 +245,10 @@ def url_of_LumpClass(LumpClass: object) -> str:
 
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
 vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
-                       *branches.nexon.scripts, branches.troika.vampire, *branches.arkane.scripts]
+                       *branches.arkane.scripts,
+                       *branches.nexon.scripts,
+                       branches.troika.vampire,
+                       branches.utoplanet.merubasu]
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 lightmap_mappings = {(branches.id_software.quake, "LIGHTING"): lightmaps.save_quakebsp_q1,
@@ -253,9 +273,11 @@ method_mappings = {(branches.id_software.quake, "VISIBILITY"): (branches.id_soft
 TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_version", "LumpClass", "coverage"])
 
 
-# NOTE: this is hard to sync with branch_scripts, but still easier than parsing GAME_LUMP_CLASSES
+# TODO: AUTOMATE! parse GameLump_SPRPvX class & StaticPropClass
 # NOTE: base wrapper class is `GameLump if lump != dark_messiah_sp else DarkMessiahSPGameLump`
 # NOTE: GameLumpHeader per branch_script is `branch_script.GAME_LUMP_HEADER`
+# NOTE: nexon.vindictus includes StaticPropScales
+# NOTE: sprp.leaves can be expressed as shared.UnsignedShorts
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
 # NOTE: `None` mappings are used for structs that exist, but are not yet mapped
@@ -290,6 +312,8 @@ gamelump_mappings[branches.valve.sdk_2013] = gamelump_mappings[branches.valve.or
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
 gamelump_mappings[branches.valve.sdk_2013]["sprp.props"].update({10: branches.valve.sdk_2013.StaticPropv10,
                                                                  11: branches.valve.sdk_2013.StaticPropv11})
+gamelump_mappings[branches.utoplanet.merubasu]["sprp.props"] = gamelump_mappings[branches.valve.orange_box]["sprp.props"].copy()
+gamelump_mappings[branches.valve.sdk_2013]["sprp.props"].update({7: branches.valve.sdk_2013.StaticPropv11})
 gamelump_mappings[branches.loiste.infra] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.strata.strata] = gamelump_mappings[branches.valve.sdk_2013].copy()
 gamelump_mappings[branches.respawn.titanfall] = {"sprp": branches.respawn.titanfall.GameLump_SPRP,
