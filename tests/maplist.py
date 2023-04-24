@@ -74,6 +74,7 @@ source_dirs = {
          "Half-Life 2 VR": ["hl2/maps",  # 79 maps | 777 MB
                             "hlvr/maps"],  # 1 map | 7 MB
          "insurgency2": ["insurgency/maps"],  # 49 maps | 2.54 GB
+         "Jabroni Brawl Episode 3": ["jbep3/maps"],  # 133 maps | 2.64 GB
          "left 4 dead": ["left4dead/maps",   # 45 maps | 975 maps
                          "left4dead_dlc3/maps"],  # 3 maps | 67 MB
          "Left 4 Dead 2": ["left4dead2/maps",  # 8 maps | 186 MB
@@ -217,6 +218,7 @@ extracted_dirs = {
         # https://gamebanana.com/members/submissions/sublog/1762428
         "HL2DM/patbytes": ["maps"],  # 46 maps | 895 MB | .7z
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
+        "MeruBasu": ["shadowland/maps"],  # 29 maps | 315 MB | .apk
         # https://github.com/momentum-mod/BSPConversionLib
         "MomentumMod": ["chronic/maps",  # 1 map | 10 MB | .pk3 -> v25 VBSP
                         # http://nnsurf.site.nfoservers.com/Momentum/

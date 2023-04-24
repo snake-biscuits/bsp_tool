@@ -22,6 +22,7 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
                 "Hexen2": branches.raven.hexen2,
                 "left 4 dead": branches.valve.left4dead,
                 "Left 4 Dead 2": branches.valve.left4dead2,
+                "MeruBasu": branches.utoplanet.merubasu,
                 "SiN": branches.ritual.sin,
                 "SoF": branches.raven.soldier_of_fortune,
                 "SoF2": branches.raven.soldier_of_fortune2,

@@ -1,6 +1,6 @@
 """Index of all known .bsp format variants"""
 __all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
-           "nexon", "raven", "respawn", "ritual", "strata", "troika", "valve"
+           "nexon", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve",
            "scripts_from_file_magic", "script_from_file_magic_and_version", "game_name_table"]
 
 from . import arkane
@@ -15,6 +15,7 @@ from . import respawn
 from . import ritual
 from . import strata
 from . import troika
+from . import utoplanet
 from . import valve
 # TODO: xatrix.kingpin
 # ^ https://github.com/QuakeTools/Kingpin-SDK-v1.21
@@ -53,6 +54,7 @@ scripts_from_file_magic = {None: [id_software.quake,
                                      loiste.infra,
                                      *nexon.scripts,
                                      troika.vampire,
+                                     utoplanet.merubasu,
                                      valve.alien_swarm,
                                      valve.left4dead,
                                      valve.left4dead2,

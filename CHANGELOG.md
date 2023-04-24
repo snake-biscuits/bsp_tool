@@ -8,8 +8,12 @@
 ### Changed
  * SpecialLumpClasses are now loaded with `from_bytes`, just like every other LumpClass
 
+### Newly Supported Branches
+ * Source Engine
+   - Fairy Tale Busters (メルヘソバスターズ)
+
 ### Updated Support
- * ... branch name
+ * Quake
 
 
 ## v0.4.0 (28 March 2023)
