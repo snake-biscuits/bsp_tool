@@ -26,8 +26,8 @@ LumpHeader = source.LumpHeader
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("WORLD_LIGHTS")  # sdk_2013?
-LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+LUMP_CLASSES.pop("WORLD_LIGHTS")  # sdk_2013 + uint32 illuminate_players (0, 1, 2 enum)
+LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")  # TODO: check .fgd for illuminate players enum
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
