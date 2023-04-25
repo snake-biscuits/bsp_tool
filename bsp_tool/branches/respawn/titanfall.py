@@ -941,20 +941,20 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     disable_x360: int  # 4 byte bool
     collision_flags: List[int]  # add, remove
     __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
-                 "solid_mode", "flags", "skin", "cubemap", "unknown",
-                 "forced_fade_scale", "cpu_level", "gpu_level",
+                 "solid_mode", "flags", "skin", "cubemap", "fade_distance",
+                 "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
                  "diffuse_modulation", "scale", "disable_x360", "collision_flags"]
-    _format = "6f3H2Bi2h4i2f8bfI2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 6, "fade_distance": ["min", "max"],
-               "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+    _format = "6f3H2B2i6f8Bfi2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
-    # TODO: Qangle vec3 type (0-360 pitch yaw roll), rgb32 diffuse_modulation
+                "lighting_origin": vector.vec3, "disable_x360": bool}  # TODO: assert valid bool values (0 & 1 only)
+    # TODO: angles QAngle, diffuse_modulation RBGExponent, collision_flags CollisionFlag(enum.IntEnum)
 
 
 class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [version 12]
-    StaticPropClass: StaticPropv12
+    StaticPropClass: object = StaticPropv12
     endianness: str = "little"  # for x360
     model_names: List[str]
     leaves: List[int]

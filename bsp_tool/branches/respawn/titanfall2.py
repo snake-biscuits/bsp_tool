@@ -323,7 +323,8 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
 
 
 class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [version 13]
-    StaticPropClass: StaticPropv13
+    StaticPropClass: object = StaticPropv13
+    # little endian only
     model_names: List[str]  # filenames of all .mdl / .rmdl used
     unknown_1: int  # first_transparent?
     unknown_2: int  # first_alpha_sort?
@@ -349,6 +350,7 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
         out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
         unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
         out.unknown_3 = [sprp_lump.read(64) for i in range(unknown_3_count)]
+        assert all([len(u) == 64 for u in out.unknown_3])
         tail = sprp_lump.read()
         if len(tail) > 0:
             warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
@@ -356,6 +358,7 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
 
     def as_bytes(self) -> bytes:
         assert all([isinstance(p, self.StaticPropClass) for p in self.props])
+        assert all([len(u) == 64 for u in self.unknown_3])
         return b"".join([len(self.model_names).to_bytes(4, "little"),
                          *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                          len(self.props).to_bytes(4, self.endianness),
