@@ -13,9 +13,13 @@ FILE_MAGIC = b"FAKK"
 
 BSP_VERSION = 12
 
-GAME_PATHS = {"Heavy Metal: F.A.K.K. 2": "FAKK2", "American McGee's Alice": "Alice"}
+GAME_PATHS = {"Heavy Metal: F.A.K.K. 2": "FAKK2",
+              "Star Trek Elite Force II Single Player Demo": "StarTrekEliteForceIIDemo",
+              "American McGee's Alice": "Alice"}
 
-GAME_VERSIONS = {"Heavy Metal: F.A.K.K. 2": 12, "American McGee's Alice": 42}
+GAME_VERSIONS = {"Heavy Metal: F.A.K.K. 2": 12,
+                 "Star Trek Elite Force II Single Player Demo": 19,
+                 "American McGee's Alice": 42}
 
 
 class LUMP(enum.Enum):

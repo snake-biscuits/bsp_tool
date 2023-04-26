@@ -28,15 +28,15 @@
 2008 |                    | world at war <-|-> quantum of solace         |              |-> left 4 dead
 2009 |                    |  |              \-> modern warfare 2         |              |   \-> left 4 dead 2
 2010 |       quake:live <-/  \-> blops          |                        |  vindictus <-|-> alien swarm
-2011 |                           |              \-> modern warfare 3     |   portal 2 <-|
-2012 |                           \-> blops 2        |                    |   |          |-> cs:go
-2013 |                               |              \-> ghosts  cs:o 2 <-/   |          \-> tactical intervention
-2014 |                               | advanced warfare |                    \-> titanfall
-2015 |                               \-> blops 3        |                        |
-2016 |                                   |              \-> infinite warfare     |-> titanfall 2
-2017 |                                   |                  |        tf:online <-/   |
-2018 |                                   |-> blops 4        |                        |
-2019 |                                   |                  \-> modern warfare       \-> apex legends
+2011 |                           |              \-> modern warfare 3     |              |--------------------------> portal 2
+2012 |                           \-> blops 2        |                    |              |-> cs:go                    |
+2013 |                               |              \-> ghosts  cs:o 2 <-/              |-> tactical intervention    |
+2014 |                               | advanced warfare |                               |                            \-> titanfall
+2015 |                               \-> blops 3        |                               |                                |
+2016 |                                   |              \-> infinite warfare            |                                |-> titanfall 2
+2017 |                                   |                  |                           \-> merubasu  titanfall:online <-/   |
+2018 |                                   |-> blops 4        |                                                                |
+2019 |                                   |                  \-> modern warfare                                apex legends <-/
 2020 |                                   \-> blops cold war     |-> cod:warzone
 2021 |                                                          \-> vanguard
 ```

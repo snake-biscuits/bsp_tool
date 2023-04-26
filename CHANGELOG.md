@@ -6,11 +6,18 @@
  * `__init__` methods for all SpecialLumpClasses
 
 ### Changed
- * SpecialLumpClasses are now loaded with `from_bytes`, just like every other LumpClass
+ * SpecialLumpClasses & GameLumpClasses refactor
+   - new basic `__init__` for making your own from scratch
+   - loaded from files with `from_bytes`
 
 ### Newly Supported Branches
+ * Infinity Ward Engine
+   - Call of Duty 1 SP Demo: Burnville
+   - Call of Duty 1 SP Demo: Dawnville
  * Source Engine
    - Fairy Tale Busters (メルヘソバスターズ)
+ * Ubertools
+   - Star Trek Elite Force II SP Demo
 
 ### Updated Support
  * Quake

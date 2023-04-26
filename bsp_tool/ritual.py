@@ -20,7 +20,7 @@ class RitualBsp(id_software.IdTechBsp):
         # collect metadata
         self.file_magic = self.file.read(4)
         assert self.file_magic in self._file_magics, f"{self.file} is not a valid .bsp!"
-        assert self.file_magic == self.branch.FILE_MAGIC, f"{self.file} is not from {self.branch.GAME_PATHS[0]}!"
+        assert self.file_magic == self.branch.FILE_MAGIC, f"{self.file} is not from {[*self.branch.GAME_PATHS][0]}!"
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.checksum = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file

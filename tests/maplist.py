@@ -185,6 +185,8 @@ extracted_dirs = {
         # FusionBSP
         "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # InfinityWardBsp
+        "CoD1Demo": ["burnville/maps",  # 1 map | 13 MB | .pk3
+                     "dawnville/maps"],  # 1 map | 16 MB | .pk3
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
         "CoD2": ["maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
@@ -376,8 +378,9 @@ extracted_dirs = {
                          "pak3.pk3/maps",  # 9 maps | 136 MB | .pk3
                          "pak3.pk3/maps/DM",  # 4 maps | 39 MB | .pk3
                          "pak3.pk3/maps/obj"],  # 3 maps | 48 MB | .pk3
-        "StarTrekEliteForceII": ["download/maps",  # 188 maps | 886 MB | .pk3
-                                 "maps"],  # 88 maps | 607 MB | .pk3
+        "StarTrekEliteForceIIDemo": ["maps"],  # 2 maps | 32 MB | .pk3
+        "StarTrekEliteForceII": ["maps",  # 88 maps | 607 MB | .pk3
+                                 "download/maps"],  # 188 maps | 886 MB | .pk3
         "StarWarsJediKnight": ["assets0.pk3/maps",  # 34 maps | 348 MB | .pk3
                                "assets0.pk3/maps/mp",  # 23 maps | 154 MB | .pk3
                                "assets3.pk3/maps/mp"],  # 4 maps | 32 MB | .pk3

@@ -100,7 +100,7 @@ class IdTechBsp(base.Bsp):
         # collect metadata
         file_magic = self.file.read(4)
         if file_magic != self.file_magic:
-            raise RuntimeError(f"{self.file} is not an IdTechBsp! file_magic is incorrect")
+            raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
         self.bsp_version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
