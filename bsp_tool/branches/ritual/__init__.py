@@ -7,6 +7,7 @@ from . import mohaa_bt
 from . import mohaa_demo
 from . import sin
 from . import star_trek_elite_force2
+from . import star_trek_elite_force2_demo
 
 
-scripts = [fakk2, mohaa, mohaa_bt, mohaa_demo, sin, star_trek_elite_force2]
+scripts = [fakk2, mohaa, mohaa_bt, mohaa_demo, sin, star_trek_elite_force2, star_trek_elite_force2_demo]
