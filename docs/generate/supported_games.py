@@ -297,7 +297,7 @@ for branch_script in bs:
         continue
     d = {"sprp": branch_script.GAME_LUMP_CLASSES["sprp"],
          "sprp.props": {v: glc.StaticPropClass for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}}
-    leaves = {v: branches.shared.UnsignedShorts for v, glc in d["sprp"].items() if hasattr(glc, "leaves")}
+    leaves = {v: branches.shared.UnsignedShorts for v, glc in d["sprp"].items() if hasattr(glc(), "leaves")}
     if len(leaves) != 0:
         d["sprp.leaves"] = leaves
     if branch_script == branches.nexon.vindictus:
@@ -308,6 +308,10 @@ for branch_script in bs:
     gamelump_mappings[branch_script] = d
 del branch_script, d, leaves
 
+# keep apex_legends.md to v47, structs stay the same
+gamelump_mappings[branches.respawn.apex_legends] = {k: {v: c for v, c in d.items() if v == 47}
+                                                    for k, d in gamelump_mappings[branches.respawn.apex_legends].items()}
+
 
 gamelump_coverage = dict()
 # ^ {LumpClass: percent, SpecialLumpClass: percent}
@@ -317,6 +321,7 @@ for branch_script in bs:
     if branch_script.GAME_LUMP_CLASSES == dict():
         continue
     for GameLumpClass in branch_script.GAME_LUMP_CLASSES["sprp"].values():
+        # TODO: use coverage calculator for StaticPropClass
         gamelump_coverage.update({GameLumpClass: 100, GameLumpClass.StaticPropClass: 100})
 del branch_script, GameLumpClass
 del bs
@@ -444,8 +449,8 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
                 continue  # remove repeats
             final_block.append(row)
         if "GAME_LUMP" in lump_names:  # alternate sorting & reduction
-            # sort by (bsp_version, lump_name, lump_version)
-            sorted_block = sorted(table_block, key=lambda row: (float(row.bsp_version), row.lump_name, fix(row.lump_version)))
+            # sort by (bsp_version, lump_version, lump_name)
+            sorted_block = sorted(table_block, key=lambda row: (float(row.bsp_version), fix(row.lump_version), row.lump_name))
             # remove duplicate (lump_name, lump_version, LumpClass)
             defined = list()
             final_block = list()
