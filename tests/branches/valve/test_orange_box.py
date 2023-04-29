@@ -7,7 +7,7 @@ from bsp_tool.branches.valve import orange_box
 import pytest
 
 
-bsps = []
+bsps = list()
 map_dir = os.path.join(os.getcwd(), "tests/maps/Team Fortress 2")
 for map_name in fnmatch.filter(os.listdir(map_dir), "*[Bb][Ss][Pp]"):
     bsps.append(ValveBsp(orange_box, os.path.join(map_dir, map_name)))

@@ -1,11 +1,16 @@
+import fnmatch
+import os
+
 from bsp_tool import QuakeBsp
 from bsp_tool.branches.id_software import quake
 
 import pytest
 
 
-# NOTE: not grabbing all maps as ReMakeQuake maps are in the same folder
-bsps = [QuakeBsp(quake, "tests/maps/Quake/mp_lobby.bsp")]
+bsps = list()
+map_dir = os.path.join(os.getcwd(), "tests/maps/Quake")
+for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
+    bsps.append(QuakeBsp(quake, os.path.join(map_dir, map_name)))
 
 
 # TODO: test LumpClasses are valid
