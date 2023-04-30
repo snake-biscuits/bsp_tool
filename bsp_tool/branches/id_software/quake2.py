@@ -29,7 +29,7 @@ class LUMP(enum.Enum):
     NODES = 4
     TEXTURE_INFO = 5
     FACES = 6
-    LIGHTMAPS = 7
+    LIGHTING = 7
     LEAVES = 8
     LEAF_FACES = 9
     LEAF_BRUSHES = 10
@@ -89,7 +89,7 @@ class MAX(enum.Enum):
     LEAF_BRUSHES = 65536
     LEAF_FACES = 65536
     LEAVES = 65536
-    LIGHTMAPS_SIZE = 0x200000  # bytesize
+    LIGHTING_SIZE = 0x200000  # bytesize
     MODELS = 1024
     NODES = 65536
     PLANES = 65536
@@ -161,7 +161,7 @@ class BrushSide(base.MappedArray):  # LUMP 15
 
 class Leaf(base.Struct):  # LUMP 10
     type: int  # see LeafType enum
-    cluster: int  # index into the VISIBILITY lump
+    cluster: int  # index into the VISIBILITY lump; -1 for always visible
     area: int
     bounds: List[int]
     first_leaf_face: int  # index to this Leaf's first LeafFace
@@ -170,7 +170,7 @@ class Leaf(base.Struct):  # LUMP 10
     num_leaf_brushes: int  # the number of LeafBrushes after first_brush in this Leaf
     __slots__ = ["type", "cluster", "area", "bounds", "first_leaf_face",
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes"]
-    _format = "I12H"
+    _format = "Ih11H"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 
 
@@ -199,15 +199,16 @@ class Node(base.Struct):  # LUMP 4
 
 
 class TextureInfo(base.Struct):  # LUMP 5
-    U: List[float]
-    V: List[float]
+    s: List[float]  # S (U-Axis) texture vector
+    t: List[float]  # T (V-Axis) texure vector
     flags: int  # "miptex flags & overrides"
     value: int  # "light emission etc."
     name: bytes  # texture name
     next_frame: int  # index into TextureInfo lump for animations (-1 = last frame)
-    __slots__ = ["U", "V", "flags", "value", "name", "next_frame"]
+    __slots__ = ["s", "t", "flags", "value", "name", "next_frame"]
     _format = "8f2I32sI"
-    _arrays = {"U": [*"xyzw"], "V": [*"xyzw"]}
+    _arrays = {"s": {"vector": [*"xyz"], "offset": None},
+               "t": {"vector": [*"xyz"], "offset": None}}
 
 
 # special lump classes, in alphabetical order:
@@ -311,4 +312,4 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": Visibility}
 
 
-methods = [shared.worldspawn_volume]
+methods = [shared.worldspawn_volume, quake.vertices_of_face, quake.lightmap_of_face]

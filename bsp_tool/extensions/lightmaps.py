@@ -70,8 +70,9 @@ class LightmapPage:
         return page
 
 
-def save_quakebsp_q1(bsp, image_dir="./"):  # saves to <image_dir>/<bsp.filename>.lightmaps.png
-    """for Quake 1 bsp (v29) only"""
+def save_quakebsp_q1(bsp, image_dir="./", lightmap_scale=16):  # saves to <image_dir>/<bsp.filename>.lightmaps.png
+    """for Quake bsp (v29) only"""  # also Quake 2 (in theory)
+    # TODO: identify quake 2 default lightmap scale
     # TODO: sorted / tighter packing & remapping lightmap uvs
     # TODO: catch entity keys for alternate lightmap scale(s)
     # -- "_world_units_per_luxel" in worldspawn / model ent
@@ -79,7 +80,7 @@ def save_quakebsp_q1(bsp, image_dir="./"):  # saves to <image_dir>/<bsp.filename
     # see ericw-tools testmaps/q2_lightmap_custom_scale.map
     lightmaps = list()
     for i, face in enumerate(bsp.FACES):
-        d = bsp.lightmap_of_face(i)
+        d = bsp.lightmap_of_face(i, lightmap_scale)
         if d["lighting_offset"] == -1:
             continue
         lightmap = Image.frombytes("L", (d["width"], d["height"]), d["lightmap_bytes"], "raw")

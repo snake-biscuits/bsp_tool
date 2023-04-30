@@ -72,7 +72,7 @@ class MAX(enum.Enum):
     LEAF_FACES = 65535  # MARKSURFACES
     LEAVES = 8192
     LIGHTING_SIZE = 0x100000  # bytesize
-    LIGHTMAPS = 4  # affects Face LumpClass
+    LIGHTMAPS = 4  # affects Face LumpClass; num lighting styles?
     MIP_LEVELS = 4  # affects MipTexture LumpClass
     MIP_TEXTURES = 512
     MIP_TEXTURES_SIZE = 0x200000  # bytesize
@@ -379,7 +379,7 @@ def as_lightmapped_obj(bsp):
         # TODO: triangle fan vertices
         # TODO: remap vertex_position & vertex_normal to indices into bsp.VERTICES & [p.normal for p in bsp.PLANES]
         faces.append(face_vertices)
-        # TODO: write & index LIGHTMAP uvs; f"vt {uv.x} {uv.y}"
+        # TODO: write & index lightmap uvs; f"vt {uv.x} {uv.y}"
         # TODO: write face; "f " + " ".join([f"{vi}/{vti}/{vni}" for vi, vti, vni in face_indices])
     obj_file.close()
     print(f"Wrote {bsp.filename}.lightmapped.obj")
