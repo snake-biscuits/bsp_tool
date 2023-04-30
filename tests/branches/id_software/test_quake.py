@@ -9,6 +9,7 @@ import pytest
 
 bsps = list()
 map_dir = os.path.join(os.getcwd(), "tests/maps/Quake")
+# TODO: add more Quake dirs from maplist.installed_games & make it optional
 for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
     bsps.append(QuakeBsp(quake, os.path.join(map_dir, map_name)))
 
@@ -17,6 +18,7 @@ for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
 # TODO: test SpecialLumpClasses are valid
 # TODO: verify assumptions about this branch_script
 # TODO: verify lumps that index other lumps are in bounds
+
 
 class TestMethods:
     @pytest.mark.parametrize("bsp", bsps)

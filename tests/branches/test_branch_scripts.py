@@ -91,6 +91,7 @@ def test_basic_branch_script(branch_script):
     used_LumpClasses.add(branch_script.LumpHeader)
     unused_LumpClasses = set(LumpClasses_of(branch_script)).difference(used_LumpClasses)
     # TODO: exclude quake.MipTexture
+    # TODO: exclude titanfall.LevelInfo, Grid & apex_legends.LevelInfo (SpecialLumpClasses)
     # TODO: trace what happens to imported LumpClasses
     # -- do they count as unused, because they are defined elsewhere?
     if len(unused_LumpClasses) > 0:
