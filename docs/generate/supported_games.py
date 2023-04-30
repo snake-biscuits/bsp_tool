@@ -255,6 +255,7 @@ vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 lightmap_mappings = {(branches.id_software.quake, "LIGHTING"): lightmaps.save_quakebsp_q1,
+                     (branches.id_software.quake2, "LIGHTING"): lightmaps.save_quakebsp_q1,  # ~90%; need scale
                      **{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
                         for L in ("LIGHTING", "LIGHTING_HDR")},
                      **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
