@@ -9,7 +9,7 @@ import pytest
 
 bsps = list()
 map_dir = os.path.join(os.getcwd(), "tests/maps/Team Fortress 2")
-for map_name in fnmatch.filter(os.listdir(map_dir), "*[Bb][Ss][Pp]"):
+for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
     bsps.append(ValveBsp(orange_box, os.path.join(map_dir, map_name)))
 
 

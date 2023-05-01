@@ -350,7 +350,6 @@ BASIC_LUMP_CLASSES.update({"FACE_IDS":              {1: shared.UnsignedInts},
                            "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
 
 LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("NODES")
 LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus.AreaPortal},
                      "BRUSH_SIDES":            {1: BrushSide},
                      "DISPLACEMENT_INFO":      {1: DisplacementInfo},
