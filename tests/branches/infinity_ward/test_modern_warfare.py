@@ -1,19 +1,11 @@
-import fnmatch
-import os
-
+from ... import utils
 from bsp_tool import D3DBsp
 from bsp_tool.branches.infinity_ward import modern_warfare
 
 import pytest
 
 
-bsps = list()
-map_dirs = [os.path.join(os.getcwd(), "tests/maps/Call of Duty 4"),
-            os.path.join(os.getcwd(), "tests/maps/Call of Duty 4/mp")]
-# TODO: add more Call of Duty 4 dirs from maplist.installed_games & make it optional
-for map_dir in map_dirs:
-    for map_name in fnmatch.filter(os.listdir(map_dir), "*.d3dbsp"):
-        bsps.append(D3DBsp(modern_warfare, os.path.join(map_dir, map_name)))
+bsps = utils.get_test_maps(D3DBsp, {modern_warfare: ["Call of Duty 4", "Call of Duty 4/mp"]}, pattern="*.d3dbsp")
 
 
 # TODO: test LumpClasses are valid

@@ -1,17 +1,11 @@
-import fnmatch
-import os
-
+from ... import utils
 from bsp_tool import QuakeBsp
 from bsp_tool.branches.id_software import quake
 
 import pytest
 
 
-bsps = list()
-map_dir = os.path.join(os.getcwd(), "tests/maps/Quake")
-# TODO: add more Quake dirs from maplist.installed_games & make it optional
-for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
-    bsps.append(QuakeBsp(quake, os.path.join(map_dir, map_name)))
+bsps = utils.get_test_maps(QuakeBsp, {quake: ["Quake"]})
 
 
 # TODO: test LumpClasses are valid
@@ -22,7 +16,7 @@ for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
 
 class TestMethods:
     @pytest.mark.parametrize("bsp", bsps)
-    def test_vertices_of_face(self, bsp):
+    def test_vertices_of_face(self, bsp: QuakeBsp):
         for i, face in enumerate(bsp.FACES):
             vertices = bsp.vertices_of_face(i)
             # ^ [(pos.xyz, uv.xy)]
@@ -33,7 +27,7 @@ class TestMethods:
             # consistent winding order
 
     @pytest.mark.parametrize("bsp", bsps)
-    def test_lightmap_of_face(self, bsp):
+    def test_lightmap_of_face(self, bsp: QuakeBsp):
         for i, face in enumerate(bsp.FACES):
             data = bsp.lightmap_of_face(i)
             # ^ {"uvs": [uv.xy], "width": 0, "height": 0}

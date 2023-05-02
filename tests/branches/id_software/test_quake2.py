@@ -1,17 +1,11 @@
-import fnmatch
-import os
-
+from ... import utils
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake2
 
 import pytest
 
 
-bsps = list()
-map_dir = os.path.join(os.getcwd(), "tests/maps/Quake 2")
-# TODO: add more Quake 2 dirs from maplist.installed_games & make it optional
-for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
-    bsps.append(IdTechBsp(quake2, os.path.join(map_dir, map_name)))
+bsps = utils.get_test_maps(IdTechBsp, {quake2: ["Quake 2"]})
 
 
 # TODO: test LumpClasses are valid

@@ -1,17 +1,11 @@
-import fnmatch
-import os
-
+from ... import utils
 from bsp_tool import RespawnBsp
 from bsp_tool.branches.respawn import titanfall2
 
 import pytest
 
 
-bsps = list()
-map_dir = os.path.join(os.getcwd(), "tests/maps/Titanfall 2")
-# TODO: add more Titanfall 2 dirs from maplist.installed_games & make it optional
-for map_name in fnmatch.filter(os.listdir(map_dir), "*.bsp"):
-    bsps.append(RespawnBsp(titanfall2, os.path.join(map_dir, map_name)))
+bsps = utils.get_test_maps(RespawnBsp, {titanfall2: ["Titanfall 2"]})
 
 
 # TODO: test LumpClasses are valid

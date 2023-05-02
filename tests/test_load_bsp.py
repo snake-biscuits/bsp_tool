@@ -1,17 +1,17 @@
 import fnmatch
 import os
 
-import pytest
-
 from . import maplist
 from bsp_tool import branches
 from bsp_tool import lumps
 from bsp_tool import load_bsp
 
+import pytest
+
 
 # auto-detect helper for games with shared (file_magic, version)
 # TODO: automatically detect the differences between these branches
-# -- unique entities (not all maps wil have these)
+# -- unique entities (not all maps will have these)
 # -- incorrect lump sizes (some maps may share a common denominator)
 # -- a 100% accurate approach may not be possible
 game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
