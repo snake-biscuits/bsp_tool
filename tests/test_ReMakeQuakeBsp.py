@@ -8,12 +8,12 @@ import pytest
 bsps = utils.get_test_maps(ReMakeQuakeBsp, {remake_quake: ["ReMakeQuake"]})
 
 
-@pytest.mark.parametrize("bsp", bsps)
+@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 def test_no_errors(bsp):
     assert len(bsp.loading_errors) == 0
 
 
-@pytest.mark.parametrize("bsp", bsps)
+@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 def test_entities_loaded(bsp):
     assert bsp.ENTITIES[0]["classname"] == "worldspawn"
 
