@@ -71,9 +71,9 @@ class Entities(list):
         # ^ [{"key": "value"}]
         enumerated_lines = enumerate(raw_lump.decode(errors="ignore").splitlines())
         for line_no, line in enumerated_lines:
-            if re.match(r"^\s*$", line):  # line is blank / whitespace
+            if re.match(r"^\s*$", line) is not None:  # line is blank / whitespace
                 continue
-            elif line.startswith("{"):  # new entity
+            elif re.match(r"^\s*{\s*$", line) is not None:  # new entity
                 ent = dict()
             elif '"' in line:
                 key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
@@ -105,9 +105,9 @@ class Entities(list):
                         ent[key].append(value)
                     else:  # second occurance of key
                         ent[key] = [ent[key], value]
-            elif line.startswith("}"):  # close entity
+            elif re.match(r"^\s*}\s*(\x00)?\s*$", line) is not None:  # close entity
                 entities.append(ent)
-            elif line.strip() == b"\x00".decode():  # ignore null bytes
+            elif line.strip() == b"\0".decode():  # terminating line
                 continue
             elif line.startswith("//"):  # ignore comments
                 continue  # TODO: preserve comments

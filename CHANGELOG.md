@@ -10,6 +10,11 @@
    - new basic `__init__` for making your own from scratch
    - loaded from files with `from_bytes`
 
+### Fixed
+ * `shared.Entities` the following silent failures are now caught by the parser
+   - curly braces inside key values
+   - multi-line keys
+
 ### Newly Supported Branches
  * Infinity Ward Engine
    - Call of Duty 1 SP Demo: Burnville
