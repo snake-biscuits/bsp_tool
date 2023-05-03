@@ -15,7 +15,7 @@ bsps = utils.get_test_maps(ReMakeQuakeBsp, {remake_quake: ["ReMakeQuake"]})
 
 
 class TestMethods:
-    @pytest.mark.parametrize("bsp", bsps)
+    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
     def test_vertices_of_face(self, bsp: ReMakeQuakeBsp):
         for i, face in enumerate(bsp.FACES):
             vertices = bsp.vertices_of_face(i)
@@ -26,7 +26,7 @@ class TestMethods:
             # uvs match texture vec projections (or close enough)
             # consistent winding order
 
-    @pytest.mark.parametrize("bsp", bsps)
+    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
     def test_lightmap_of_face(self, bsp: ReMakeQuakeBsp):
         for i, face in enumerate(bsp.FACES):
             data = bsp.lightmap_of_face(i)

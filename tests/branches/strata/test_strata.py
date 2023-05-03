@@ -14,7 +14,7 @@ bsps = utils.get_test_maps(ValveBsp, {strata: ["Momentum Mod"]})
 # TODO: verify lumps that index other lumps are in bounds
 
 
-@pytest.mark.parametrize("bsp", bsps)
+@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 def test_spec(bsp: ValveBsp):
     assert bsp.file_magic == strata.FILE_MAGIC
     assert bsp.bsp_version == strata.BSP_VERSION

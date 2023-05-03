@@ -11,7 +11,7 @@ bsps = utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]})
 class TestMethods:
     # TODO: def test_vertices_of_face(bsp: ValveBsp):
 
-    @pytest.mark.parametrize("bsp", bsps)
+    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
     def test_vertices_of_displacement(self, bsp: ValveBsp):
         for disp_info in getattr(bsp, "DISPLACEMENT_INFO", list()):
             face_index = disp_info.face

@@ -16,11 +16,11 @@ bsps = utils.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})
 # TODO: verify lumps that index other lumps are in bounds
 
 
-@pytest.mark.parametrize("bsp", bsps)
+@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 def test_face_struct(bsp: IdTechBsp):  # the most complex MappedArray
     # TODO: add more asserts, be thorough
     header = bsp.headers["FACES"]
-    assert header.length % struct.calcsize(quake3.Face._format) == 0, bsp.filename
+    assert header.length % struct.calcsize(quake3.Face._format) == 0
     with open(bsp.file.name, "rb") as file:
         file.seek(header.offset)
         raw_faces = file.read(header.length)
@@ -29,12 +29,12 @@ def test_face_struct(bsp: IdTechBsp):  # the most complex MappedArray
 
 
 # class TestMethods:
-#     @pytest.mark.parametrize("bsp", bsps)
+#     @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 #     def test_vertices_of_face(self, bsp: IdTechBsp):
 #         # TODO: write a real test once this method exists
 #         ...
 
-#     @pytest.mark.parametrize("bsp", bsps)
+#     @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 #     def test_vertices_of_model(self, bsp: IdTechBsp):
 #         # TODO: write a real test once this method exists
 #         ...

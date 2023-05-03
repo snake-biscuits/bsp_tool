@@ -15,10 +15,10 @@ bsps = utils.get_test_maps(D3DBsp, {modern_warfare: ["Call of Duty 4", "Call of 
 
 class TestBounds:
     """verify lumps that index other lumps are in bounds"""
-    @pytest.mark.parametrize("bsp", bsps)
+    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
     def test_simple_indices(self, bsp: D3DBsp):
         assert all([i <= len(bsp.SIMPLE_VERTICES) for i in bsp.SIMPLE_INDICES])
 
-    @pytest.mark.parametrize("bsp", bsps)
+    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
     def test_layered_indices(self, bsp: D3DBsp):
         assert all([i <= len(bsp.LAYERED_VERTICES) for i in bsp.LAYERED_INDICES])
