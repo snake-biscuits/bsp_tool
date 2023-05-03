@@ -94,7 +94,6 @@ class Entities(list):
                         tail = re.search(r'([^"]*)"\s*$', line)
                         if tail is None:  # accumulate line
                             value = "\n".join([value, line])
-                        print(f">> {value=}, {tail=}")
                     value = "\n".join([value, tail.groups()[0]])
                 else:
                     key, value = key_value_pair.groups()
