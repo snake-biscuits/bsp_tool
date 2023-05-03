@@ -73,31 +73,31 @@ class Entities(list):
         for line_no, line in enumerated_lines:
             if re.match(r"^\s*$", line):  # line is blank / whitespace
                 continue
-            elif "{" in line:  # new entity
+            elif line.startswith("{"):  # new entity
                 ent = dict()
             elif '"' in line:
                 key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)"', line)
                 # TODO: "key" 'value"
                 # -- DDayNormany-mappack mtownbh L18 opens w/ `'` & closes w/ `"`
                 # -- this seems illegal but the map runs without complaint
-                if not key_value_pair:
-                    # multi-line value
+                if key_value_pair is None:  # might be a multi-line value
                     open_key_value_pair = re.search(r'"([^"]*)"\s"([^"]*)', line)
                     if open_key_value_pair is None:
-                        raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+                        raise RuntimeError(f"Unexpected line in entities: L{line_no + 1}: {line.encode()}")
                     key, value = open_key_value_pair.groups()
-                    # TODO: use regex to catch CRLF line endings & unexpected whitespace
-                    tail = re.search(r'([^"]*)"\s*$', line)
-                    while not tail:  # keep grabbing lines until the end of the value
-                        if "{" in line or "}" in line:
-                            RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
-                        line_no, line = next(enumerated_lines)
-                        # NOTE: ^ might've broken line numbers?
-                        value += line
+                    tail = None  # hacky do-while loop
+                    while tail is None:  # keep grabbing lines until the end of the value
+                        if line.startswith("{") or line.startswith("}"):  # previous value didn't terminate
+                            RuntimeError(f"Unexpected line in entities: L{line_no + 1}: {line.encode()}")
+                        # grab another line
+                        line_no, line = next(enumerated_lines)  # BUG: breaks line_no?
                         tail = re.search(r'([^"]*)"\s*$', line)
-                    value += tail.groups()[0]
-                    continue
-                key, value = key_value_pair.groups()
+                        if tail is None:  # accumulate line
+                            value = "\n".join([value, line])
+                        print(f">> {value=}, {tail=}")
+                    value = "\n".join([value, tail.groups()[0]])
+                else:
+                    key, value = key_value_pair.groups()
                 if key not in ent:
                     ent[key] = value
                 else:  # don't override duplicate keys, share a list instead
@@ -106,14 +106,14 @@ class Entities(list):
                         ent[key].append(value)
                     else:  # second occurance of key
                         ent[key] = [ent[key], value]
-            elif "}" in line:  # close entity
+            elif line.startswith("}"):  # close entity
                 entities.append(ent)
             elif line.strip() == b"\x00".decode():  # ignore null bytes
                 continue
             elif line.startswith("//"):  # ignore comments
                 continue  # TODO: preserve comments
             else:
-                raise RuntimeError(f"Unexpected line in entities: L{line_no}: {line.encode()}")
+                raise RuntimeError(f"Unexpected line in entities: L{line_no + 1}: {line.encode()}")
         return cls(entities)
 
 
