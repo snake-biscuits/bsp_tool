@@ -3,241 +3,278 @@ platform win32 -- Python 3.10.0, pytest-7.2.2, pluggy-1.0.0 -- C:\Users\Jared\Do
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-4.0.0
-[1mcollecting ... [0mcollected 233 items
+[1mcollecting ... [0mcollected 270 items
 
-tests/test_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[32m         [  0%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[32m [  0%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-half-life 2 riot act-map_dirs2] [32mPASSED[0m[32m [  1%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-TFTS-map_dirs3] [32mPASSED[0m[32m [  1%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-episodeone-map_dirs4] [32mPASSED[0m[32m [  2%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-RunThinkShootLiveVille2-map_dirs5] [32mPASSED[0m[32m [  2%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-cromulentville2-map_dirs6] [32mPASSED[0m[32m [  3%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-companionpiece2-map_dirs7] [32mPASSED[0m[32m [  3%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-eyecandy-map_dirs8] [32mPASSED[0m[32m [  3%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-backontrack-map_dirs9] [32mPASSED[0m[32m [  4%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tworooms-map_dirs10] [32mPASSED[0m[32m [  4%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs11] [32mPASSED[0m[32m [  5%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] [32mPASSED[0m[32m [  5%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs13] [32mPASSED[0m[32m [  6%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs14] [32mPASSED[0m[32m [  6%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] [32mPASSED[0m[32m [  6%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[32m [  7%][0m
-tests/test_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] [32mPASSED[0m[32m [  7%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] [32mPASSED[0m[32m [  8%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] [32mPASSED[0m[32m [  8%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] [32mPASSED[0m[32m [  9%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] [32mPASSED[0m[32m [  9%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] [32mPASSED[0m[32m [  9%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[32m [ 10%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[32m [ 10%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[32m [ 11%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 11%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[32m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[32m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[32m [ 12%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[32m [ 13%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[32m [ 13%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[32m [ 14%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[32m [ 14%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Contagion-map_dirs34] [32mPASSED[0m[33m [ 15%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35] [32mPASSED[0m[33m [ 15%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs36] [32mPASSED[0m[33m [ 15%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs37] [32mPASSED[0m[33m [ 16%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs38] [32mPASSED[0m[33m [ 16%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Dino D-Day-map_dirs39] [32mPASSED[0m[33m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs40] [32mPASSED[0m[33m [ 17%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EntropyZero2-map_dirs41] [32mPASSED[0m[33m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs42] [32mPASSED[0m[33m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs43] [32mPASSED[0m[33m [ 18%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs44] [32mPASSED[0m[33m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs45] [32mPASSED[0m[33m [ 19%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs46] [32mPASSED[0m[33m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs47] [32mPASSED[0m[33m [ 20%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs48] [32mPASSED[0m[33m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs49] [32mPASSED[0m[33m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs50] [32mPASSED[0m[33m [ 21%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs51] [32mPASSED[0m[33m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs52] [32mPASSED[0m[33m [ 22%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs53] [32mPASSED[0m[33m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs54] [32mPASSED[0m[33m [ 23%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 VR-map_dirs55] [32mPASSED[0m[33m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs56] [32mPASSED[0m[33m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57] [32mPASSED[0m[33m [ 24%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs58] [32mPASSED[0m[33m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs59] [32mPASSED[0m[33m [ 25%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs60] [32mPASSED[0m[33m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Momentum Mod Playtest-map_dirs61] [32mPASSED[0m[33m [ 26%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs62] [32mPASSED[0m[33m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs63] [32mPASSED[0m[33m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs64] [32mPASSED[0m[33m [ 27%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs65] [32mPASSED[0m[33m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs66] [32mPASSED[0m[33m [ 28%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67] [31mFAILED[0m[31m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs68] [32mPASSED[0m[31m [ 29%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs69] [32mPASSED[0m[31m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs70] [32mPASSED[0m[31m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs71] [32mPASSED[0m[31m [ 30%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs72] [32mPASSED[0m[31m    [ 31%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs73] [32mPASSED[0m[31m         [ 31%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs74] [32mPASSED[0m[31m [ 32%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs75] [32mPASSED[0m[31m      [ 32%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/2psb-map_dirs76] [32mPASSED[0m[31m    [ 33%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs77] [32mPASSED[0m[31m [ 33%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs78] [32mPASSED[0m[31m    [ 33%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs79] [32mPASSED[0m[31m     [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs80] [31mFAILED[0m[31m  [ 34%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs81] [32mPASSED[0m[31m     [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs82] [32mPASSED[0m[31m        [ 35%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs83] [32mPASSED[0m[31m        [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs84] [32mPASSED[0m[31m          [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs85] [32mPASSED[0m[31m           [ 36%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs86] [32mPASSED[0m[31m           [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs87] [32mPASSED[0m[31m          [ 37%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs88] [32mPASSED[0m[31m [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs89] [32mPASSED[0m[31m       [ 38%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs90] [32mPASSED[0m[31m      [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs91] [32mPASSED[0m[31m [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs92] [32mPASSED[0m[31m     [ 39%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs93] [32mPASSED[0m[31m        [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs94] [32mPASSED[0m[31m         [ 40%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs95] [32mPASSED[0m[31m       [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs96] [32mPASSED[0m[31m        [ 41%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs97] [32mPASSED[0m[31m          [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs98] [32mPASSED[0m[31m          [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs99] [32mPASSED[0m[31m          [ 42%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs100] [32mPASSED[0m[31m    [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs101] [32mPASSED[0m[31m [ 43%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102] [32mPASSED[0m[31m    [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs103] [32mPASSED[0m[31m [ 44%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Contagion-map_dirs104] [32mPASSED[0m[31m    [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs105] [32mPASSED[0m[31m   [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs106] [32mPASSED[0m[31m [ 45%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs107] [32mPASSED[0m[31m [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs108] [32mPASSED[0m[31m         [ 46%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109] [32mPASSED[0m[31m [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110] [32mPASSED[0m[31m [ 47%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs111] [32mPASSED[0m[31m [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs112] [32mPASSED[0m[31m        [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MeruBasu-map_dirs113] [32mPASSED[0m[31m     [ 48%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs114] [32mPASSED[0m[31m  [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs115] [32mPASSED[0m[31m  [ 49%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs116] [32mPASSED[0m[31m [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs117] [32mPASSED[0m[31m [ 50%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118] [32mPASSED[0m[31m      [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs119] [31mFAILED[0m[31m    [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs120] [32mPASSED[0m[31m [ 51%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs121] [32mPASSED[0m[31m    [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs122] [32mPASSED[0m[31m [ 52%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs123] [32mPASSED[0m[31m   [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs124] [32mPASSED[0m[31m  [ 53%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs125] [32mPASSED[0m[31m [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs126] [32mPASSED[0m[31m [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs127] [32mPASSED[0m[31m [ 54%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs128] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs129] [32mPASSED[0m[31m [ 55%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs130] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season15-map_dirs131] [32mPASSED[0m[31m [ 56%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season16-map_dirs132] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs133] [32mPASSED[0m[31m [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs134] [32mPASSED[0m[31m        [ 57%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs135] [32mPASSED[0m[31m        [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs136] [32mPASSED[0m[31m   [ 58%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs137] [32mPASSED[0m[31m   [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs138] [32mPASSED[0m[31m [ 59%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs139] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs140] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs141] [32mPASSED[0m[31m [ 60%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs142] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs143] [32mPASSED[0m[31m [ 61%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs144] [32mPASSED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs145] [31mFAILED[0m[31m [ 62%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs146] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs147] [32mPASSED[0m[31m [ 63%][0m
-tests/test_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs148] [31mFAILED[0m[31m [ 63%][0m
-tests/test_bsplump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[31m               [ 64%][0m
-tests/test_bsplump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[31m       [ 64%][0m
-tests/test_bsplump.py::TestRawBspLump::test_indexing [32mPASSED[0m[31m              [ 65%][0m
-tests/test_bsplump.py::TestBspLump::test_list_conversion [32mPASSED[0m[31m          [ 65%][0m
-tests/test_bsplump.py::TestBspLump::test_indexing [32mPASSED[0m[31m                 [ 66%][0m
-tests/test_bsplump.py::TestBspLump::test_del [32mPASSED[0m[31m                      [ 66%][0m
-tests/test_bsplump.py::TestBspLump::test_setitem [32mPASSED[0m[31m                  [ 66%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_its_basic [32mPASSED[0m[31m           [ 67%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[31m     [ 67%][0m
-tests/test_bsplump.py::TestBasicBspLump::test_indexing [32mPASSED[0m[31m            [ 68%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp0] [32mPASSED[0m[31m                    [ 68%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp1] [32mPASSED[0m[31m                    [ 69%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp2] [32mPASSED[0m[31m                    [ 69%][0m
-tests/test_d3d_bsp.py::test_no_errors[d3dbsp3] [32mPASSED[0m[31m                    [ 69%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp0] [32mPASSED[0m[31m               [ 70%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp1] [32mPASSED[0m[31m               [ 70%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp2] [32mPASSED[0m[31m               [ 71%][0m
-tests/test_d3d_bsp.py::test_entites_loaded[d3dbsp3] [32mPASSED[0m[31m               [ 71%][0m
-tests/test_idtech_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                    [ 72%][0m
-tests/test_idtech_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m              [ 72%][0m
-tests/test_idtech_bsp.py::test_face_struct[bsp0] [32mPASSED[0m[31m                  [ 72%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp0] [32mPASSED[0m[31m                     [ 73%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp1] [32mPASSED[0m[31m                     [ 73%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp2] [32mPASSED[0m[31m                     [ 74%][0m
-tests/test_valve_bsp.py::test_no_errors[bsp3] [32mPASSED[0m[31m                     [ 74%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp0] [32mPASSED[0m[31m               [ 75%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp1] [32mPASSED[0m[31m               [ 75%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp2] [32mPASSED[0m[31m               [ 75%][0m
-tests/test_valve_bsp.py::test_entities_loaded[bsp3] [32mPASSED[0m[31m               [ 76%][0m
-tests/branches/test_base.py::TestStruct::test_init [32mPASSED[0m[31m                [ 76%][0m
-tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 77%][0m
-tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 77%][0m
-tests/branches/test_base.py::TestMappedArray::test_init [32mPASSED[0m[31m           [ 78%][0m
-tests/branches/test_base.py::TestMappedArray::test_attr_format_collision [32mPASSED[0m[31m [ 78%][0m
-tests/branches/test_base.py::TestMappedArray::test_as_cpp [32mPASSED[0m[31m         [ 78%][0m
-tests/branches/test_base.py::TestBitField::test_init [32mPASSED[0m[31m              [ 79%][0m
-tests/branches/test_base.py::TestBitField::test_overflow [32mPASSED[0m[31m          [ 79%][0m
-tests/branches/test_base.py::test_dict_subgroup [32mPASSED[0m[31m                   [ 80%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 80%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake_old] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 83%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 83%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_demo] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_mp] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/id_software/test_quake.py::TestMethods::test_vertices_of_face[bsp0] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/id_software/test_quake.py::TestMethods::test_lightmap_of_face[bsp0] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/valve/test_source.py::TestMethods::test_vertices_of_displacement[bsp0] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/valve/test_source.py::TestMethods::test_vertices_of_displacement[bsp1] [32mPASSED[0m[31m [ 99%][0m
-tests/branches/valve/test_source.py::TestMethods::test_vertices_of_displacement[bsp2] [32mPASSED[0m[31m [ 99%][0m
-tests/branches/valve/test_source.py::TestMethods::test_vertices_of_displacement[bsp3] [32mPASSED[0m[31m [100%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw [32mPASSED[0m[32m               [  0%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion [32mPASSED[0m[32m       [  0%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing [32mPASSED[0m[32m              [  1%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion [32mPASSED[0m[32m          [  1%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing [32mPASSED[0m[32m                 [  1%][0m
+tests/test_BspLump.py::TestBspLump::test_del [32mPASSED[0m[32m                      [  2%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem [32mPASSED[0m[32m                  [  2%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic [32mPASSED[0m[32m           [  2%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion [32mPASSED[0m[32m     [  3%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing [32mPASSED[0m[32m            [  3%][0m
+tests/test_D3DBsp.py::test_no_errors[test.d3dbsp] [32mPASSED[0m[32m                 [  4%][0m
+tests/test_D3DBsp.py::test_no_errors[test_traverses.d3dbsp] [32mPASSED[0m[32m       [  4%][0m
+tests/test_D3DBsp.py::test_no_errors[mp_lobby.d3dbsp] [32mPASSED[0m[32m             [  4%][0m
+tests/test_D3DBsp.py::test_no_errors[mp_test.d3dbsp] [32mPASSED[0m[32m              [  5%][0m
+tests/test_D3DBsp.py::test_entites_loaded[test.d3dbsp] [32mPASSED[0m[32m            [  5%][0m
+tests/test_D3DBsp.py::test_entites_loaded[test_traverses.d3dbsp] [32mPASSED[0m[32m  [  5%][0m
+tests/test_D3DBsp.py::test_entites_loaded[mp_lobby.d3dbsp] [32mPASSED[0m[32m        [  6%][0m
+tests/test_D3DBsp.py::test_entites_loaded[mp_test.d3dbsp] [32mPASSED[0m[32m         [  6%][0m
+tests/test_Entities.py::test_generic[one_entity] [32mPASSED[0m[32m                  [  7%][0m
+tests/test_Entities.py::test_generic[two_entities] [32mPASSED[0m[32m                [  7%][0m
+tests/test_Entities.py::test_generic[one_newline_in_value] [32mPASSED[0m[32m        [  7%][0m
+tests/test_Entities.py::test_generic[two_newlines_in_value] [32mPASSED[0m[32m       [  8%][0m
+tests/test_Entities.py::test_generic[curly_brace_in_value] [32mPASSED[0m[32m        [  8%][0m
+tests/test_Entities.py::test_ignore_comment [32mPASSED[0m[32m                       [  8%][0m
+tests/test_Entities.py::test_curly_whitespace [32mPASSED[0m[32m                     [  9%][0m
+tests/test_Entities.py::test_null_terminated [32mPASSED[0m[32m                      [  9%][0m
+tests/test_Entities.py::test_null_terminated_after_newline [32mPASSED[0m[32m        [ 10%][0m
+tests/test_Entities.py::test_null_terminated_and_trailing_whitespace [32mPASSED[0m[32m [ 10%][0m
+tests/test_IdTechBsp.py::test_no_errors[mp_lobby.bsp0] [32mPASSED[0m[32m            [ 10%][0m
+tests/test_IdTechBsp.py::test_no_errors[mp_lobby.bsp1] [32mPASSED[0m[32m            [ 11%][0m
+tests/test_IdTechBsp.py::test_entities_loaded[mp_lobby.bsp0] [32mPASSED[0m[32m      [ 11%][0m
+tests/test_IdTechBsp.py::test_entities_loaded[mp_lobby.bsp1] [32mPASSED[0m[32m      [ 11%][0m
+tests/test_QuakeBsp.py::test_no_errors[mp_lobby.bsp] [32mPASSED[0m[32m              [ 12%][0m
+tests/test_QuakeBsp.py::test_entities_loaded[mp_lobby.bsp] [32mPASSED[0m[32m        [ 12%][0m
+tests/test_ReMakeQuakeBsp.py::test_no_errors[mp_lobby.bsp] [32mPASSED[0m[32m        [ 12%][0m
+tests/test_ReMakeQuakeBsp.py::test_entities_loaded[mp_lobby.bsp] [32mPASSED[0m[32m  [ 13%][0m
+tests/test_RespawnBsp.py::test_no_errors[mp_crossfire.bsp] [32mPASSED[0m[32m        [ 13%][0m
+tests/test_RespawnBsp.py::test_entities_loaded[mp_crossfire.bsp] [32mPASSED[0m[32m  [ 14%][0m
+tests/test_ValveBsp.py::test_no_errors[mp_lobby.bsp0] [32mPASSED[0m[32m             [ 14%][0m
+tests/test_ValveBsp.py::test_no_errors[test2.bsp] [32mPASSED[0m[32m                 [ 14%][0m
+tests/test_ValveBsp.py::test_no_errors[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 15%][0m
+tests/test_ValveBsp.py::test_no_errors[test_physcollide.bsp] [32mPASSED[0m[32m      [ 15%][0m
+tests/test_ValveBsp.py::test_no_errors[mp_lobby.bsp1] [32mPASSED[0m[32m             [ 15%][0m
+tests/test_ValveBsp.py::test_entities_loaded[mp_lobby.bsp0] [32mPASSED[0m[32m       [ 16%][0m
+tests/test_ValveBsp.py::test_entities_loaded[test2.bsp] [32mPASSED[0m[32m           [ 16%][0m
+tests/test_ValveBsp.py::test_entities_loaded[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 17%][0m
+tests/test_ValveBsp.py::test_entities_loaded[test_physcollide.bsp] [32mPASSED[0m[32m [ 17%][0m
+tests/test_ValveBsp.py::test_entities_loaded[mp_lobby.bsp1] [32mPASSED[0m[32m       [ 17%][0m
+tests/test_load_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[32m    [ 18%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[32m [ 18%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-half-life 2 riot act-map_dirs2] [32mPASSED[0m[32m [ 18%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-TFTS-map_dirs3] [32mPASSED[0m[32m [ 19%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-episodeone-map_dirs4] [32mPASSED[0m[32m [ 19%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-RunThinkShootLiveVille2-map_dirs5] [32mPASSED[0m[32m [ 20%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-cromulentville2-map_dirs6] [32mPASSED[0m[32m [ 20%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-companionpiece2-map_dirs7] [32mPASSED[0m[32m [ 20%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-eyecandy-map_dirs8] [32mPASSED[0m[32m [ 21%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-backontrack-map_dirs9] [32mPASSED[0m[32m [ 21%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tworooms-map_dirs10] [32mPASSED[0m[32m [ 21%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs11] [32mPASSED[0m[32m [ 22%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] [32mPASSED[0m[32m [ 22%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs13] [32mPASSED[0m[32m [ 22%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs14] [32mPASSED[0m[32m [ 23%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] [32mPASSED[0m[32m [ 23%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[32m [ 24%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] [32mPASSED[0m[32m [ 24%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] [32mPASSED[0m[32m [ 24%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] [32mPASSED[0m[32m [ 25%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czero-map_dirs20] [32mPASSED[0m[32m [ 25%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/czeror-map_dirs21] [32mPASSED[0m[32m [ 25%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dmc-map_dirs22] [32mPASSED[0m[32m [ 26%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[32m [ 26%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[32m [ 27%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[32m [ 27%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 27%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[32m [ 28%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[32m [ 28%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[32m [ 28%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[32m [ 29%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[32m [ 29%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[32m [ 30%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[32m [ 30%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Contagion-map_dirs34] [32mPASSED[0m[33m [ 30%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35] [32mPASSED[0m[33m [ 31%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs36] [32mPASSED[0m[33m [ 31%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-day of defeat source-map_dirs37] [32mPASSED[0m[33m [ 31%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-dayofinfamy-map_dirs38] [32mPASSED[0m[33m [ 32%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Dino D-Day-map_dirs39] [32mPASSED[0m[33m [ 32%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Double Action-map_dirs40] [32mPASSED[0m[33m [ 32%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EntropyZero2-map_dirs41] [32mPASSED[0m[33m [ 33%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-EYE Divine Cybermancy Demo-map_dirs42] [32mPASSED[0m[33m [ 33%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fistful of Frags-map_dirs43] [32mPASSED[0m[33m [ 34%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Fortress Forever-map_dirs44] [32mPASSED[0m[33m [ 34%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-G String-map_dirs45] [32mPASSED[0m[33m [ 34%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod-map_dirs46] [32mPASSED[0m[33m [ 35%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs47] [32mPASSED[0m[33m [ 35%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs48] [32mPASSED[0m[33m [ 35%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs49] [32mPASSED[0m[33m [ 36%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs50] [32mPASSED[0m[33m [ 36%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs51] [32mPASSED[0m[33m [ 37%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs52] [32mPASSED[0m[33m [ 37%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs53] [32mPASSED[0m[33m [ 37%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 Update-map_dirs54] [32mPASSED[0m[33m [ 38%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 2 VR-map_dirs55] [32mPASSED[0m[33m [ 38%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-insurgency2-map_dirs56] [32mPASSED[0m[33m [ 38%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57] [32mPASSED[0m[33m [ 39%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-left 4 dead-map_dirs58] [32mPASSED[0m[33m [ 39%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Left 4 Dead 2-map_dirs59] [32mPASSED[0m[33m [ 40%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-MINERVA-map_dirs60] [32mPASSED[0m[33m [ 40%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Momentum Mod Playtest-map_dirs61] [32mPASSED[0m[33m [ 40%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-NEOTOKYO-map_dirs62] [32mPASSED[0m[33m [ 41%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map_dirs63] [32mPASSED[0m[33m [ 41%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs64] [32mPASSED[0m[33m [ 41%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs65] [32mPASSED[0m[33m [ 42%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs66] [32mPASSED[0m[33m [ 42%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67] [31mFAILED[0m[31m [ 42%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs68] [32mPASSED[0m[31m [ 43%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs69] [32mPASSED[0m[31m [ 43%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs70] [32mPASSED[0m[31m [ 44%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs71] [32mPASSED[0m[31m [ 44%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs72] [32mPASSED[0m[31m [ 44%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs73] [32mPASSED[0m[31m    [ 45%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs74] [32mPASSED[0m[31m [ 45%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs75] [32mPASSED[0m[31m [ 45%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/2psb-map_dirs76] [32mPASSED[0m[31m [ 46%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease/dopa-map_dirs77] [32mPASSED[0m[31m [ 46%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Anachronox-map_dirs78] [32mPASSED[0m[31m [ 47%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs79] [32mPASSED[0m[31m [ 47%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs80] [31mFAILED[0m[31m [ 47%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs81] [32mPASSED[0m[31m [ 48%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs82] [32mPASSED[0m[31m   [ 48%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs83] [32mPASSED[0m[31m   [ 48%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs84] [32mPASSED[0m[31m     [ 49%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs85] [32mPASSED[0m[31m      [ 49%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs86] [32mPASSED[0m[31m      [ 50%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs87] [32mPASSED[0m[31m     [ 50%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs88] [32mPASSED[0m[31m [ 50%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs89] [32mPASSED[0m[31m  [ 51%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs90] [32mPASSED[0m[31m [ 51%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs91] [32mPASSED[0m[31m [ 51%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs92] [32mPASSED[0m[31m [ 52%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs93] [32mPASSED[0m[31m   [ 52%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs94] [32mPASSED[0m[31m    [ 52%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs95] [32mPASSED[0m[31m  [ 53%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs96] [32mPASSED[0m[31m   [ 53%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD1Demo-map_dirs97] [32mPASSED[0m[31m [ 54%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs98] [32mPASSED[0m[31m     [ 54%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs99] [32mPASSED[0m[31m     [ 54%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs100] [32mPASSED[0m[31m    [ 55%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs101] [32mPASSED[0m[31m [ 55%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs102] [32mPASSED[0m[31m [ 55%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103] [32mPASSED[0m[31m [ 56%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs104] [32mPASSED[0m[31m [ 56%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Contagion-map_dirs105] [32mPASSED[0m[31m [ 57%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs106] [32mPASSED[0m[31m [ 57%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs107] [32mPASSED[0m[31m [ 57%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs108] [32mPASSED[0m[31m [ 58%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs109] [32mPASSED[0m[31m    [ 58%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110] [32mPASSED[0m[31m [ 58%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111] [32mPASSED[0m[31m [ 59%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs112] [32mPASSED[0m[31m [ 59%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs113] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MeruBasu-map_dirs114] [32mPASSED[0m[31m [ 60%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs115] [32mPASSED[0m[31m [ 60%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs116] [32mPASSED[0m[31m [ 61%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs117] [32mPASSED[0m[31m [ 61%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs118] [32mPASSED[0m[31m [ 61%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119] [32mPASSED[0m[31m [ 62%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs120] [31mFAILED[0m[31m [ 62%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs121] [32mPASSED[0m[31m [ 62%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs122] [32mPASSED[0m[31m [ 63%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs123] [32mPASSED[0m[31m [ 63%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs124] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs125] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs126] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs127] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs128] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs129] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs130] [32mPASSED[0m[31m [ 66%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs131] [32mPASSED[0m[31m [ 66%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season15-map_dirs132] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season16-map_dirs133] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs134] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs135] [32mPASSED[0m[31m   [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs136] [32mPASSED[0m[31m   [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs137] [32mPASSED[0m[31m [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs138] [32mPASSED[0m[31m [ 69%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs139] [32mPASSED[0m[31m [ 69%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs140] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceIIDemo-map_dirs141] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs142] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs143] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs144] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs145] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs146] [32mPASSED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs147] [31mFAILED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs148] [32mPASSED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs149] [32mPASSED[0m[31m [ 73%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs150] [31mFAILED[0m[31m [ 73%][0m
+tests/branches/test_base.py::TestStruct::test_init [32mPASSED[0m[31m                [ 74%][0m
+tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 74%][0m
+tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 74%][0m
+tests/branches/test_base.py::TestMappedArray::test_init [32mPASSED[0m[31m           [ 75%][0m
+tests/branches/test_base.py::TestMappedArray::test_attr_format_collision [32mPASSED[0m[31m [ 75%][0m
+tests/branches/test_base.py::TestMappedArray::test_as_cpp [32mPASSED[0m[31m         [ 75%][0m
+tests/branches/test_base.py::TestBitField::test_init [32mPASSED[0m[31m              [ 76%][0m
+tests/branches/test_base.py::TestBitField::test_overflow [32mPASSED[0m[31m          [ 76%][0m
+tests/branches/test_base.py::test_dict_subgroup [32mPASSED[0m[31m                   [ 77%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 77%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 77%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 78%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 78%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 78%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake_old] [32mPASSED[0m[31m [ 79%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1_demo] [32mPASSED[0m[31m [ 79%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 80%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 80%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 80%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 81%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 81%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 81%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 82%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 82%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 82%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 83%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa] [32mPASSED[0m[31m [ 83%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 84%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_demo] [32mPASSED[0m[31m [ 84%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 84%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] [32mPASSED[0m[31m [ 85%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2_demo] [32mPASSED[0m[31m [ 85%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 85%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_mp] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] [32mPASSED[0m[31m [ 89%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 89%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 92%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [ 92%][0m
+tests/branches/id_software/test_quake.py::TestMethods::test_vertices_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 92%][0m
+tests/branches/id_software/test_quake.py::TestMethods::test_lightmap_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 93%][0m
+tests/branches/id_software/test_quake2.py::test_visibility[mp_lobby.bsp] [32mPASSED[0m[31m [ 93%][0m
+tests/branches/id_software/test_quake3.py::test_face_struct[mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/id_software/test_remake_quake.py::TestMethods::test_vertices_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/id_software/test_remake_quake.py::TestMethods::test_lightmap_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[test.d3dbsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[test_traverses.d3dbsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[mp_test.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[test.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[test_traverses.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[mp_test.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/respawn/test_titanfall2.py::TestAssumptions::test_grid_cells_count[mp_crossfire.bsp] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/strata/test_strata.py::test_spec[mp_lobby.bsp] [32mPASSED[0m[31m     [ 98%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[mp_lobby.bsp] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[test2.bsp] [32mPASSED[0m[31m [ 99%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[test_displacement_decompile.bsp] [32mPASSED[0m[31m [ 99%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[test_physcollide.bsp] [32mPASSED[0m[31m [100%][0m
 
 ================================== FAILURES ===================================
 [31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67] __[0m
@@ -339,7 +376,7 @@ map_dirs = ['game/tf/maps']
 [1m[31mE         +  'game/tf/maps/sd_doomsday_event.bsp': AssertionError("sprp v10\nassert 1 == 0\n +  where 1 = len({'sprp v10': AssertionError('Not enough bytes! Expected 76 got 28')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:109: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:109: AssertionError
 [31m[1m________________ test_load_bsp[E:/Mod-DDayNormandy-map_dirs80] ________________[0m
 
 group_path = 'E:/Mod', game_name = 'DDayNormandy'
@@ -418,19 +455,19 @@ map_dirs = ['D-Day_ Normandy/dday/maps', 'DDaynormandymaps-mappack/dday/maps']
 [1m[31mE       AssertionError: 2 out of 719 .bsps failed[0m
 [1m[31mE         ('IdTechBsp', 'bsp_tool.branches.id_software.quake2', 38)[0m
 [1m[31mE         ENTITIES[0m
-[1m[31mE       assert {'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L18: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'), 'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L0: b\'; worldspawn\'")})')} == {}[0m
+[1m[31mE       assert {'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L19: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'), 'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L1: b\'; worldspawn\'")})')} == {}[0m
 [1m[31mE         Left contains 2 more items:[0m
-[1m[31mE         {'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L18: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'),[0m
-[1m[31mE          'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L0: b\'; worldspawn\'")})')}[0m
+[1m[31mE         {'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L19: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'),[0m
+[1m[31mE          'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L1: b\'; worldspawn\'")})')}[0m
 [1m[31mE         Full diff:[0m
 [1m[31mE           {[0m
 [1m[31mE         -  ,[0m
-[1m[31mE         +  'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L18: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'),[0m
-[1m[31mE         +  'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L0: b\'; worldspawn\'")})'),[0m
+[1m[31mE         +  'DDaynormandymaps-mappack/dday/maps/mtownbh.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L19: b\\\'"nextmap" \\\\\\\'battle2bh"\\\'\')})'),[0m
+[1m[31mE         +  'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L1: b\'; worldspawn\'")})'),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:109: AssertionError
-[31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs119] _________________[0m
+[1m[31mtests\test_load_bsp.py[0m:109: AssertionError
+[31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs120] _________________[0m
 
 group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 
@@ -1114,8 +1151,8 @@ group_path = 'E:/Mod', game_name = 'Vindictus', map_dirs = ['maps']
 [1m[31mE         +  'maps/w_boss02.bsp': AssertionError("sprp v6\nassert 1 == 0\n +  where 1 = len({'sprp v6': AssertionError('Not enough bytes! Expected 64 got 8')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:109: AssertionError
-[31m[1m______________ test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs145] _______________[0m
+[1m[31mtests\test_load_bsp.py[0m:109: AssertionError
+[31m[1m______________ test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs147] _______________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Left4Dead'
 map_dirs = ['left4dead/maps']
@@ -1286,8 +1323,8 @@ map_dirs = ['left4dead/maps']
 [1m[31mE         +  'left4dead/maps/lighthouse.360.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': AssertionError('Not enough bytes! Expected 71 got 54')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:109: AssertionError
-[31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs148] ________________[0m
+[1m[31mtests\test_load_bsp.py[0m:109: AssertionError
+[31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs150] ________________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
 
@@ -1581,1058 +1618,1058 @@ group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
 [1m[31mE         +  'portal2/maps/sp_a5_credits.360.bsp': AssertionError("sprp v9\nassert 1 == 0\n +  where 1 = len({'sprp v9': UnicodeDecodeError('utf-8', b'\\x0b\\xf4R', 1, 2, 'invalid continuation byte')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_bsp.py[0m:109: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:109: AssertionError
 [33m============================== warnings summary ===============================[0m
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3468 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 584 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2684 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 244 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8868 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2020 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2576 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2232 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1308 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 7020 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3048 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3180 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 12108 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 15544 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2872 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3140 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16452 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 9560 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4960 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3516 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 12632 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 27896 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 7000 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 27564 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8136 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 25364 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 13924 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 12288 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 15440 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 36752 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 30704 bytes
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 30536 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 40340 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 41500 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4996 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2584 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3008 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1916 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2300 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 428 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 408 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 36 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1984 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 648 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 684 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 364 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4308 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 576 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1332 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 92 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1400 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 288 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 124 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3700 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2544 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5032 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1728 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 24 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1288 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 88 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 12 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 512 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3000 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 196 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2076 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 368 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 504 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1244 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 20 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 828 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1464 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1420 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1824 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2156 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 140 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 580 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 776 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 156 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2360 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 704 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 660 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 868 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3660 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 904 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Momentum Mod Playtest-map_dirs61]
-tests/test_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs69]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs106]
-tests/test_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs107]
-tests/test_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs114]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Momentum Mod Playtest-map_dirs61]
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs69]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs107]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs108]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs115]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\lumps\__init__.py:393: UserWarning: compressed empty sprp game lump
     warnings.warn(UserWarning(f"compressed empty {child_name} game lump"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 628 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 180 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 256 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
-tests/test_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs114]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs115]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 80 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1164 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 668 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 260 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 272 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 916 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 468 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1732 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 564 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 176 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1004 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1176 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 60 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3896 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4612 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2612 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3748 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4796 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3628 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3976 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5672 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3044 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4848 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2624 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4980 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5424 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5956 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2764 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6136 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8636 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8248 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5220 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2196 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5688 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4124 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6012 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6568 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4412 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5896 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3440 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4652 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6712 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3432 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3040 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3808 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3988 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1920 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2404 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4116 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2972 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3296 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2432 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5576 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8012 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 10188 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 10052 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5224 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5084 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4864 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5248 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2844 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2112 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2588 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2240 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2160 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5384 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2800 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2044 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3476 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3736 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4852 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5952 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2900 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3684 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8504 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6556 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5416 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4332 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3408 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4824 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3972 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1892 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 7908 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2716 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 344 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 1904 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2120 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5788 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2420 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8772 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 14012 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3448 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3176 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2336 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 3720 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 4976 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs102]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs103]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 5488 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs103]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs104]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 222464 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs103]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs104]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 225280 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs103]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs104]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 196480 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 54792 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 32616 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 43128 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 42696 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 29880 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16200 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 44568 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 45648 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 32040 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 25704 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 19800 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 47376 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 32112 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 18864 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 38448 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 33120 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 17280 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 39816 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16416 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 18072 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 84240 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16920 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 59184 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 44136 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 40176 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 49968 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 63648 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 34992 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 28872 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 32400 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 48024 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs109]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs110]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 25632 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2304 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 8712 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 9576 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 25920 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 9864 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 17496 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 45864 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 42192 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 19584 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 60264 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs110]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs111]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 37440 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 161280 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 61952 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 108032 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 113408 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 173312 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 264832 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 256640 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 180224 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 148992 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 67072 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 184704 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 251648 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 16128 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 2944 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
-tests/test_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs118]
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs119]
   C:\Users\Jared\Documents\GitHub\bsp_tool\bsp_tool\branches\valve\source.py:819: UserWarning: sprp lump has a tail of 6528 bytes
     warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:99: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:100: UserWarning: Unused LumpClasses in branch script:
   MipTexture
     warnings.warn(UserWarning(warning_text))
 
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:99: UserWarning: Unused LumpClasses in branch script:
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1_demo]
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:100: UserWarning: Unused LumpClasses in branch script:
   Occluder
-  Vertex
   PatchCollision
+  Cell
   Brush
   Model
-  Cell
-  CullGroup
   AxisAlignedBoundingBox
+  Vertex
+  CullGroup
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:99: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:100: UserWarning: Unused LumpClasses in branch script:
+  CollisionTriangle
   Model
   CollisionEdge
-  CollisionTriangle
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:136: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
   Model
   TextureInfo
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:136: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
   LevelInfo
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:136: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
   LevelInfo
   Grid
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:136: UserWarning: Unused LumpClasses in branch script:
-  Grid_x360
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
   LevelInfo_x360
+  Grid_x360
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:136: UserWarning: Unused LumpClasses in branch script:
+  C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
   CornerNeighbour
   SubNeighbour
     warnings.warn(UserWarning(warning_text))
@@ -2640,96 +2677,98 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 
 ---------- coverage: platform win32, python 3.10.0-final-0 -----------
-Name                                                 Stmts   Miss  Cover
-------------------------------------------------------------------------
-bsp_tool\__init__.py                                    53      3    94%
-bsp_tool\base.py                                        79     35    56%
-bsp_tool\branches\__init__.py                           33      0   100%
-bsp_tool\branches\arkane\__init__.py                     3      0   100%
-bsp_tool\branches\arkane\dark_messiah_mp.py             16      0   100%
-bsp_tool\branches\arkane\dark_messiah_sp.py             48      0   100%
-bsp_tool\branches\base.py                              419     45    89%
-bsp_tool\branches\gearbox\__init__.py                    3      0   100%
-bsp_tool\branches\gearbox\blue_shift.py                 28      0   100%
-bsp_tool\branches\gearbox\nightfire.py                  90      0   100%
-bsp_tool\branches\id_software\__init__.py                7      0   100%
-bsp_tool\branches\id_software\qfusion.py               114      6    95%
-bsp_tool\branches\id_software\quake2.py                197     27    86%
-bsp_tool\branches\id_software\quake3.py                237     23    90%
-bsp_tool\branches\id_software\quake.py                 298     54    82%
-bsp_tool\branches\id_software\remake_quake.py           20      0   100%
-bsp_tool\branches\id_software\remake_quake_old.py       25      0   100%
-bsp_tool\branches\infinity_ward\__init__.py              4      0   100%
-bsp_tool\branches\infinity_ward\call_of_duty1.py       168      6    96%
-bsp_tool\branches\infinity_ward\call_of_duty2.py       134      1    99%
-bsp_tool\branches\infinity_ward\modern_warfare.py       63      0   100%
-bsp_tool\branches\ion_storm\__init__.py                  2      0   100%
-bsp_tool\branches\ion_storm\daikatana.py                13      0   100%
-bsp_tool\branches\loiste\__init__.py                     2      0   100%
-bsp_tool\branches\loiste\infra.py                       80      0   100%
-bsp_tool\branches\nexon\__init__.py                      4      0   100%
-bsp_tool\branches\nexon\cso2.py                        109      6    94%
-bsp_tool\branches\nexon\cso2_2018.py                    18      0   100%
-bsp_tool\branches\nexon\vindictus.py                   261      3    99%
-bsp_tool\branches\raven\__init__.py                      4      0   100%
-bsp_tool\branches\raven\hexen2.py                       50      0   100%
-bsp_tool\branches\raven\soldier_of_fortune2.py          32      0   100%
-bsp_tool\branches\raven\soldier_of_fortune.py           14      0   100%
-bsp_tool\branches\respawn\__init__.py                    5      0   100%
-bsp_tool\branches\respawn\apex_legends.py              357     41    89%
-bsp_tool\branches\respawn\titanfall2.py                248      4    98%
-bsp_tool\branches\respawn\titanfall.py                 794    132    83%
-bsp_tool\branches\respawn\titanfall_x360.py             27      0   100%
-bsp_tool\branches\ritual\__init__.py                     7      0   100%
-bsp_tool\branches\ritual\fakk2.py                       60      0   100%
-bsp_tool\branches\ritual\mohaa.py                       42      0   100%
-bsp_tool\branches\ritual\mohaa_bt.py                    12      0   100%
-bsp_tool\branches\ritual\mohaa_demo.py                  89      0   100%
-bsp_tool\branches\ritual\sin.py                         14      0   100%
-bsp_tool\branches\ritual\star_trek_elite_force2.py      77      0   100%
-bsp_tool\branches\shared.py                            105     23    78%
-bsp_tool\branches\strata\__init__.py                     2      0   100%
-bsp_tool\branches\strata\strata.py                     239      0   100%
-bsp_tool\branches\troika\__init__.py                     2      0   100%
-bsp_tool\branches\troika\vampire.py                     37      0   100%
-bsp_tool\branches\utoplanet\__init__.py                  2      0   100%
-bsp_tool\branches\utoplanet\merubasu.py                 80      0   100%
-bsp_tool\branches\valve\__init__.py                     10      0   100%
-bsp_tool\branches\valve\alien_swarm.py                  81      0   100%
-bsp_tool\branches\valve\goldsrc.py                      88      3    97%
-bsp_tool\branches\valve\left4dead2.py                  109      0   100%
-bsp_tool\branches\valve\left4dead.py                   106      0   100%
-bsp_tool\branches\valve\orange_box.py                  122      0   100%
-bsp_tool\branches\valve\orange_box_x360.py              85      0   100%
-bsp_tool\branches\valve\sdk_2013.py                    131      0   100%
-bsp_tool\branches\valve\sdk_2013_x360.py                36      0   100%
-bsp_tool\branches\valve\source.py                      750     48    94%
-bsp_tool\branches\valve_physics.py                     179     50    72%
-bsp_tool\branches\vector.py                            193    103    47%
-bsp_tool\branches\x360.py                               21      0   100%
-bsp_tool\extensions\__init__.py                          0      0   100%
-bsp_tool\extensions\archive.py                          70     70     0%
-bsp_tool\extensions\decompile_rbsp.py                  102    102     0%
-bsp_tool\extensions\decrypt_xor.py                      11     11     0%
-bsp_tool\extensions\diff.py                            113    113     0%
-bsp_tool\extensions\lightmaps.py                       235    235     0%
-bsp_tool\extensions\mprt.py                             15     15     0%
-bsp_tool\extensions\to_cpp.py                           24     24     0%
-bsp_tool\extensions\upgrade.py                          44     44     0%
-bsp_tool\id_software.py                                 76      7    91%
-bsp_tool\infinity_ward.py                               52      7    87%
-bsp_tool\lumps\__init__.py                             358     93    74%
-bsp_tool\raven.py                                        3      0   100%
-bsp_tool\respawn.py                                    224    128    43%
-bsp_tool\ritual.py                                      22      0   100%
-bsp_tool\valve.py                                      142     77    46%
-------------------------------------------------------------------------
-TOTAL                                                 8229   1539    81%
+Name                                                      Stmts   Miss  Cover
+-----------------------------------------------------------------------------
+bsp_tool\__init__.py                                         53      3    94%
+bsp_tool\base.py                                             79     35    56%
+bsp_tool\branches\__init__.py                                33      0   100%
+bsp_tool\branches\arkane\__init__.py                          3      0   100%
+bsp_tool\branches\arkane\dark_messiah_mp.py                  16      0   100%
+bsp_tool\branches\arkane\dark_messiah_sp.py                  48      0   100%
+bsp_tool\branches\base.py                                   419     45    89%
+bsp_tool\branches\gearbox\__init__.py                         3      0   100%
+bsp_tool\branches\gearbox\blue_shift.py                      28      0   100%
+bsp_tool\branches\gearbox\nightfire.py                       90      0   100%
+bsp_tool\branches\id_software\__init__.py                     7      0   100%
+bsp_tool\branches\id_software\qfusion.py                    114      6    95%
+bsp_tool\branches\id_software\quake2.py                     197     27    86%
+bsp_tool\branches\id_software\quake3.py                     237     23    90%
+bsp_tool\branches\id_software\quake.py                      298     54    82%
+bsp_tool\branches\id_software\remake_quake.py                20      0   100%
+bsp_tool\branches\id_software\remake_quake_old.py            25      0   100%
+bsp_tool\branches\infinity_ward\__init__.py                   5      0   100%
+bsp_tool\branches\infinity_ward\call_of_duty1.py             46      0   100%
+bsp_tool\branches\infinity_ward\call_of_duty1_demo.py       166      6    96%
+bsp_tool\branches\infinity_ward\call_of_duty2.py            134      1    99%
+bsp_tool\branches\infinity_ward\modern_warfare.py            63      0   100%
+bsp_tool\branches\ion_storm\__init__.py                       2      0   100%
+bsp_tool\branches\ion_storm\daikatana.py                     13      0   100%
+bsp_tool\branches\loiste\__init__.py                          2      0   100%
+bsp_tool\branches\loiste\infra.py                            80      0   100%
+bsp_tool\branches\nexon\__init__.py                           4      0   100%
+bsp_tool\branches\nexon\cso2.py                             109      6    94%
+bsp_tool\branches\nexon\cso2_2018.py                         18      0   100%
+bsp_tool\branches\nexon\vindictus.py                        261      3    99%
+bsp_tool\branches\raven\__init__.py                           4      0   100%
+bsp_tool\branches\raven\hexen2.py                            50      0   100%
+bsp_tool\branches\raven\soldier_of_fortune2.py               32      0   100%
+bsp_tool\branches\raven\soldier_of_fortune.py                14      0   100%
+bsp_tool\branches\respawn\__init__.py                         5      0   100%
+bsp_tool\branches\respawn\apex_legends.py                   357     41    89%
+bsp_tool\branches\respawn\titanfall2.py                     248      4    98%
+bsp_tool\branches\respawn\titanfall.py                      794    132    83%
+bsp_tool\branches\respawn\titanfall_x360.py                  27      0   100%
+bsp_tool\branches\ritual\__init__.py                          8      0   100%
+bsp_tool\branches\ritual\fakk2.py                            60      0   100%
+bsp_tool\branches\ritual\mohaa.py                            42      0   100%
+bsp_tool\branches\ritual\mohaa_bt.py                         12      0   100%
+bsp_tool\branches\ritual\mohaa_demo.py                       89      0   100%
+bsp_tool\branches\ritual\sin.py                              14      0   100%
+bsp_tool\branches\ritual\star_trek_elite_force2.py           43      0   100%
+bsp_tool\branches\ritual\star_trek_elite_force2_demo.py      77      0   100%
+bsp_tool\branches\shared.py                                 105     23    78%
+bsp_tool\branches\strata\__init__.py                          2      0   100%
+bsp_tool\branches\strata\strata.py                          238      0   100%
+bsp_tool\branches\troika\__init__.py                          2      0   100%
+bsp_tool\branches\troika\vampire.py                          37      0   100%
+bsp_tool\branches\utoplanet\__init__.py                       2      0   100%
+bsp_tool\branches\utoplanet\merubasu.py                      80      0   100%
+bsp_tool\branches\valve\__init__.py                          10      0   100%
+bsp_tool\branches\valve\alien_swarm.py                       81      0   100%
+bsp_tool\branches\valve\goldsrc.py                           88      3    97%
+bsp_tool\branches\valve\left4dead2.py                       109      0   100%
+bsp_tool\branches\valve\left4dead.py                        106      0   100%
+bsp_tool\branches\valve\orange_box.py                       122      0   100%
+bsp_tool\branches\valve\orange_box_x360.py                   85      0   100%
+bsp_tool\branches\valve\sdk_2013.py                         131      0   100%
+bsp_tool\branches\valve\sdk_2013_x360.py                     36      0   100%
+bsp_tool\branches\valve\source.py                           750     48    94%
+bsp_tool\branches\valve_physics.py                          179     50    72%
+bsp_tool\branches\vector.py                                 193    103    47%
+bsp_tool\branches\x360.py                                    21      0   100%
+bsp_tool\extensions\__init__.py                               0      0   100%
+bsp_tool\extensions\archive.py                               70     70     0%
+bsp_tool\extensions\decompile_rbsp.py                       102    102     0%
+bsp_tool\extensions\decrypt_xor.py                           11     11     0%
+bsp_tool\extensions\diff.py                                 113    113     0%
+bsp_tool\extensions\lightmaps.py                            235    235     0%
+bsp_tool\extensions\mprt.py                                  15     15     0%
+bsp_tool\extensions\to_cpp.py                                24     24     0%
+bsp_tool\extensions\upgrade.py                               44     44     0%
+bsp_tool\id_software.py                                      76      7    91%
+bsp_tool\infinity_ward.py                                    52      7    87%
+bsp_tool\lumps\__init__.py                                  358     93    74%
+bsp_tool\raven.py                                             3      0   100%
+bsp_tool\respawn.py                                         224    128    43%
+bsp_tool\ritual.py                                           22      0   100%
+bsp_tool\valve.py                                           142     77    46%
+-----------------------------------------------------------------------------
+TOTAL                                                      8317   1539    81%
 
 [36m[1m=========================== short test summary info ===========================[0m
-[31mFAILED[0m tests/test_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67][0m - AssertionError: 7 out of 71 .bsps failed
-[31mFAILED[0m tests/test_bsp.py::[1mtest_load_bsp[E:/Mod-DDayNormandy-map_dirs80][0m - AssertionError: 2 out of 719 .bsps failed
-[31mFAILED[0m tests/test_bsp.py::[1mtest_load_bsp[E:/Mod-Vindictus-map_dirs119][0m - AssertionError: 300 out of 474 .bsps failed
-[31mFAILED[0m tests/test_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Left4Dead-map_dirs145][0m - AssertionError: 43 out of 44 .bsps failed
-[31mFAILED[0m tests/test_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Portal2-map_dirs148][0m - AssertionError: 105 out of 105 .bsps failed
-[31m========= [31m[1m5 failed[0m, [32m228 passed[0m, [33m265 warnings[0m[31m in 50976.72s (14:09:36)[0m[31m ==========[0m
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67][0m - AssertionError: 7 out of 71 .bsps failed
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DDayNormandy-map_dirs80][0m - AssertionError: 2 out of 719 .bsps failed
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-Vindictus-map_dirs120][0m - AssertionError: 300 out of 474 .bsps failed
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Left4Dead-map_dirs147][0m - AssertionError: 43 out of 44 .bsps failed
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Portal2-map_dirs150][0m - AssertionError: 105 out of 105 .bsps failed
+[31m========= [31m[1m5 failed[0m, [32m265 passed[0m, [33m265 warnings[0m[31m in 50474.68s (14:01:14)[0m[31m ==========[0m
