@@ -80,7 +80,7 @@ script_from_file_magic_and_version[(b"IBSP", 46)] = id_software.quake3
 script_from_file_magic_and_version[(b"VBSP", 20)] = valve.orange_box
 # ^ NOT nexon.vindictus OR valve.left4dead
 script_from_file_magic_and_version[(b"VBSP", 21)] = valve.sdk_2013
-# ^ NOT valve.alien_swarm OR valve.left4dead2
+# ^ NOT utoplanet.merubasu OR valve.alien_swarm OR valve.left4dead2
 script_from_file_magic_and_version[(b"VBSP", 100)] = nexon.cso2
 # ^ NOT nexon.cso2_2018
 script_from_file_magic_and_version[(b"RBSP", 1)] = raven.soldier_of_fortune2

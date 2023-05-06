@@ -813,10 +813,17 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
         out.leaves = [int.from_bytes(sprp_lump.read(2), cls.endianness) for i in range(leaf_count)]
         prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        # StaticPropClass & end of lump checks
+        props_start = sprp_lump.tell()
+        try:
+            out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        except AssertionError:  # .from_stream() raises an assert if end of lump reached
+            possible_sizeof = (sprp_lump.tell() - props_start) / prop_count
+            raise RuntimeError(f"hit end of props early; {possible_sizeof=}")
         tail = sprp_lump.read()
         if len(tail) > 0:
-            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
+            raise RuntimeError(f"tail of {len(tail)} bytes; {possible_sizeof=}")
         return out
 
     def as_bytes(self) -> bytes:

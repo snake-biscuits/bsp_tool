@@ -133,7 +133,6 @@ class GameLump_SPRPv10(orange_box.GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35)
 
 class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
-    # TODO: breaking on almost every map; conflicting versions or just a bad def?
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into GAME_LUMP.sprp.model_names
@@ -150,11 +149,12 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     diffuse_modulation: List[int]  # RGBA 32-bit colour
     flags_2: int  # values unknown
     scale: float
+    unknown: int
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "flags_2", "scale"]
-    _format = "6f3H2Bi6f8BIf"
+                 "flags_2", "scale", "unknown"]
+    _format = "6f3H2Bi6f8BIfi"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
