@@ -819,11 +819,11 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
             out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
         except AssertionError:  # .from_stream() raises an assert if end of lump reached
             possible_sizeof = (sprp_lump.tell() - props_start) / prop_count
-            raise RuntimeError(f"hit end of props early; {possible_sizeof=}")
+            raise RuntimeError(f"hit end of props early; possible_sizeof={possible_sizeof}")
         tail = sprp_lump.read()
         if len(tail) > 0:
             possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
-            raise RuntimeError(f"tail of {len(tail)} bytes; {possible_sizeof=}")
+            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
         return out
 
     def as_bytes(self) -> bytes:
