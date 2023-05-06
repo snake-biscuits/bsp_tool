@@ -97,7 +97,8 @@ source_dirs = {
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 187 maps | 2.6 GB
          "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
-         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"]}  # 101 maps | 430 MB
+         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"],  # 101 maps | 430 MB
+         "Zeno Clash Demo": ["zenozoik/maps"]}  # 20 maps | 16 MB
 # ^ {"game_dir": ["map_dir"]}
 
 # TODO: steam_workshop_dirs
@@ -245,7 +246,9 @@ extracted_dirs = {
                     "sp/maps",  # 14 maps | 245 MB | .vpk
                     "tutorial/maps"],  # 12 maps | 224 MB | .vpk
         # https://github.com/yretenai/HFSExtract
-        "Vindictus": ["maps"],  # 474 maps | 8.1 GB | .hfs
+        "Vindictus": ["hfs/2022/maps",  # 474 maps | 8.08 GB | .hfs
+                      "Client v1.69 EU/hfs/maps",  # 279 maps | 4.30 GB | .hfs
+                      "Colhen_Mod_BSP (Private Server Version)"],  # 1 map | 23 MB | .zip
         "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk

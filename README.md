@@ -190,6 +190,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Wolfenstein: Enemy Territory](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [WRATH: Aeon of Ruin](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [Xonotic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
+    - Zeno Clash :o:
+    - [Zeno Clash Demo](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
 
 
 ## Thanks
@@ -202,7 +204,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
  * [Ficool2](https://github.com/ficool2)
    - Providing lots of current and detailed info on Source & helping track down some rarer titles
  * [F1F7Y](https://github.com/F1F7Y)
-   - Lead developer on [Spyglass Radiant](https://github.com/F1F7Y/spyglass-radiant) NetRadiant-Custom fork for Titanfall Series
+   - Lead developer on [MRVN-Radiant](https://github.com/MRVN-Radiant/MRVN-Radiant) NetRadiant-custom fork for Respawn's Source Engine fork
  * [GCFScape](https://nemstools.github.io/pages/GCFScape-Download.html)
    - Super handy `.vpk` (Valve format) browser; VTFLib / VTFEdit is also from Nem's Tools
  * [JJL772](https://github.com/JJL772)
