@@ -13,6 +13,10 @@
    - new barebones `__init__`
    - maps bsp lumps with `from_header`
    - pulled out of streams with `from_count`
+   - `lumps.create_RawBspLump` will decompress before mapping
+   - added `append`, `extend` & `insert` methods to `RawBspLump`
+   - `BspLump.find(attr=val)` method is now `.search()`
+   - removed `.find()` method from `BasicBspLump`
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser

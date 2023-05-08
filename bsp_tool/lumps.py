@@ -65,15 +65,6 @@ def create_RawBspLump(stream: Stream, lump_header: LumpHeader) -> RawBspLump:
         return ExternalRawBspLump.from_header(lump_header)
 
 
-def create_BspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object = None) -> BspLump:
-    if hasattr(lump_header, "fourCC"):
-        stream, lump_header = decompressed(stream, lump_header)
-    if not hasattr(lump_header, "filename"):
-        return BspLump.from_header(stream, lump_header, LumpClass)
-    else:
-        return ExternalBspLump.from_header(lump_header, LumpClass)
-
-
 def create_BasicBspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object) -> BasicBspLump:
     if hasattr(lump_header, "fourCC"):
         stream, lump_header = decompressed(stream, lump_header)
@@ -81,6 +72,15 @@ def create_BasicBspLump(stream: Stream, lump_header: LumpHeader, LumpClass: obje
         return BasicBspLump.from_header(stream, lump_header, LumpClass)
     else:
         return ExternalBasicBspLump.from_header(lump_header, LumpClass)
+
+
+def create_BspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object = None) -> BspLump:
+    if hasattr(lump_header, "fourCC"):
+        stream, lump_header = decompressed(stream, lump_header)
+    if not hasattr(lump_header, "filename"):
+        return BspLump.from_header(stream, lump_header, LumpClass)
+    else:
+        return ExternalBspLump.from_header(lump_header, LumpClass)
 
 
 class RawBspLump:
@@ -126,13 +126,6 @@ class RawBspLump:
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
-    def __iadd__(self, other_bytes: bytes):
-        if not isinstance(other_bytes, bytes):
-            raise TypeError(f"can't concat {other_bytes.__class__.__name__} to bytes")
-        start = self._length
-        self._length += len(other_bytes)
-        self[start:] = other_bytes  # slice insert; TEST!
-
     def __setitem__(self, index: int | slice, value: Any):
         """remapping slices is allowed, but only slices"""
         if isinstance(index, int):
@@ -162,9 +155,27 @@ class RawBspLump:
     def __len__(self):
         return self._length
 
+    def append(self, entry):
+        self._length += 1
+        self[-1] = entry
 
-class BspLump(RawBspLump):
-    """Dynamically reads LumpClasses from a binary stream"""
+    def extend(self, entries: bytes):
+        for entry in entries:
+            self.append(entry)
+
+    def insert(self, index: int, entry: Any):
+        self._length += 1
+        self[index + 1:] = self[index:]
+        self[index] = entry
+
+    def pop(self, index: Union[int, slice]) -> Union[int, bytes]:
+        out = self[index]
+        del self[index]
+        return out
+
+
+class BasicBspLump(RawBspLump):
+    """Dynamically reads BasicLumpClasses from a binary stream"""
     stream: Stream
     offset: int  # position in stream where lump begins
     LumpClass: object
@@ -222,6 +233,37 @@ class BspLump(RawBspLump):
 
     def __getitem__(self, index: Union[int, slice]):
         """Reads bytes from self.stream & returns LumpClass(es)"""
+        # read bytes -> struct.unpack tuples -> LumpClass
+        # NOTE: BspLump[index] = LumpClass(entry)
+        if isinstance(index, int):
+            index = _remap_negative_index(index, self._length)
+            self.stream.seek(self.offset + (index * self._entry_size))
+            raw_entry = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
+            # NOTE: only the following line has changed
+            return self.LumpClass(raw_entry[0])
+        elif isinstance(index, slice):
+            _slice = _remap_slice(index, self._length)
+            out = list()
+            for i in range(_slice.start, _slice.stop, _slice.step):
+                out.append(self[i])
+            return out
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+
+
+class BspLump(BasicBspLump):
+    """Dynamically reads LumpClasses from a binary stream"""
+    stream: Stream
+    offset: int  # position in stream where lump begins
+    LumpClass: object
+    _changes: Dict[int, object]
+    # ^ {index: LumpClass(new_entry)}
+    # NOTE: there are no checks to ensure changes are the correct type or size
+    _entry_size: int  # sizeof(LumpClass)
+    _length: int  # number of indexable entries
+
+    def __getitem__(self, index: Union[int, slice]):
+        """Reads bytes from self.stream & returns LumpClass(es)"""
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
             if index in self._changes:
@@ -239,63 +281,9 @@ class BspLump(RawBspLump):
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
-    def append(self, entry):
-        self._length += 1
-        self[-1] = entry
-
-    def extend(self, entries: bytes):
-        for entry in entries:
-            self.append(entry)
-
-    def find(self, **kwargs):
+    def search(self, **kwargs):
         """Returns all lump entries which have the queried values [e.g. find(x=0)]"""
-        out = list()
-        entire_lump = self[::]  # load all LumpClasses
-        for entry in entire_lump:
-            if all([getattr(entry, attr) == value for attr, value in kwargs.items()]):
-                out.append(entry)
-        return out
-
-    def insert(self, index: int, entry: Any):
-        self._length += 1
-        self[index + 1:] = self[index:]
-        self[index] = entry
-
-    def pop(self, index: Union[int, slice]) -> Union[int, bytes]:
-        out = self[index]
-        del self[index]
-        return out
-
-
-class BasicBspLump(BspLump):
-    """Dynamically reads LumpClasses from a binary stream"""
-    stream: Stream
-    offset: int  # position in stream where lump begins
-    LumpClass: object
-    _changes: Dict[int, Any]
-    # ^ {index: LumpClass(new_entry)}
-    # NOTE: there are no checks to ensure changes are the correct type or size
-    _entry_size: int  # sizeof(LumpClass)
-    _length: int  # number of indexable entries
-
-    def __getitem__(self, index: Union[int, slice]):
-        """Reads bytes from self.stream & returns LumpClass(es)"""
-        # read bytes -> struct.unpack tuples -> LumpClass
-        # NOTE: BspLump[index] = LumpClass(entry)
-        if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            self.stream.seek(self.offset + (index * self._entry_size))
-            raw_entry = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
-            # NOTE: only the following line has changed
-            return self.LumpClass(raw_entry[0])
-        elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            out = list()
-            for i in range(_slice.start, _slice.stop, _slice.step):
-                out.append(self[i])
-            return out
-        else:
-            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+        return [x for x in self[::] if all([getattr(x, a) == v for a, v in kwargs.items()])]
 
 
 class ExternalRawBspLump(RawBspLump):
@@ -316,6 +304,23 @@ class ExternalRawBspLump(RawBspLump):
         return out
 
 
+class ExternalBasicBspLump(BasicBspLump):
+    """Dynamically reads LumpClasses from a binary stream"""
+    stream: Stream
+    offset: int  # position in stream where lump begins
+    LumpClass: object
+    _changes: Dict[int, object]
+    # ^ {index: LumpClass(new_entry)}
+    _length: int  # number of indexable entries
+
+    @classmethod
+    def from_header(cls, lump_header: LumpHeader, LumpClass: object):
+        out = super().from_header(None, lump_header, LumpClass)
+        out.offset = 0
+        out.stream = open(lump_header.filename, "rb")
+        return out
+
+
 class ExternalBspLump(BspLump):
     """Dynamically reads LumpClasses from a binary stream"""
     stream: Stream
@@ -330,23 +335,6 @@ class ExternalBspLump(BspLump):
     @classmethod
     def from_header(cls, lump_header: LumpHeader, LumpClass: object):
         out = super().from_header(None, lump_header, LumpClass)
-        out.offset = 0
-        out.stream = open(lump_header.filename, "rb")
-        return out
-
-
-class ExternalBasicBspLump(BasicBspLump):
-    """Dynamically reads LumpClasses from a binary stream"""
-    stream: Stream
-    offset: int  # position in stream where lump begins
-    LumpClass: object
-    _changes: Dict[int, object]
-    # ^ {index: LumpClass(new_entry)}
-    _length: int  # number of indexable entries
-
-    @classmethod
-    def from_header(cls, lump_header: LumpHeader, LumpClass: object):
-        out = super().__init__(None, lump_header, LumpClass)
         out.offset = 0
         out.stream = open(lump_header.filename, "rb")
         return out

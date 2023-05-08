@@ -51,7 +51,7 @@ class TestRawBspLump:
         header = LumpHeader_basic(offset=0, length=8)
         stream = io.BytesIO(bytes([*range(8)]))
         lump = lumps.RawBspLump.from_header(stream, header)
-        lump += bytes([*range(8, 16)])
+        lump.extend(bytes([*range(8, 16)]))
         assert len(lump) == 16
         for i, x in enumerate(lump):
             assert i == x
