@@ -83,21 +83,21 @@ class ExternalLumpManager:
                                                  GameLumpClasses, self.branch.GAME_LUMP_HEADER)
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
-                ExternalBspLump = lumps.ExternalBspLump(lump_header, LumpClass)
+                ExternalBspLump = lumps.ExternalBspLump.from_header(lump_header, LumpClass)
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
-                ExternalBspLump = lumps.ExternalBasicBspLump(lump_header, LumpClass)
+                ExternalBspLump = lumps.ExternalBasicBspLump.from_header(lump_header, LumpClass)
             elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name][lump_header.version]
                 with open(lump_header.filename, "rb") as bsp_lump_file:
                     ExternalBspLump = SpecialLumpClass.from_bytes(bsp_lump_file.read())
             else:
-                ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
+                ExternalBspLump = lumps.ExternalRawBspLump.from_header(lump_header)
         except KeyError:  # lump version not supported
-            ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
+            ExternalBspLump = lumps.ExternalRawBspLump.from_header(lump_header)
         except Exception as exc:
             self.loading_errors[lump_name] = exc
-            ExternalBspLump = lumps.ExternalRawBspLump(lump_header)
+            ExternalBspLump = lumps.from_header.ExternalRawBspLump(lump_header)
         setattr(self, lump_name, ExternalBspLump)
         return getattr(self, lump_name)  # uses __getattribute__
 

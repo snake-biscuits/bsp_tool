@@ -9,6 +9,10 @@
  * SpecialLumpClasses & GameLumpClasses refactor
    - new basic `__init__` for making your own from scratch
    - loaded from files with `from_bytes`
+ * BspLump refactor
+   - new barebones `__init__`
+   - maps bsp lumps with `from_header`
+   - pulled out of streams with `from_count`
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser
