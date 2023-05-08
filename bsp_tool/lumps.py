@@ -56,15 +56,6 @@ def decompressed(stream: Stream, lump_header: LumpHeader) -> (Stream, LumpHeader
     return stream, lump_header
 
 
-def create_BspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object = None) -> BspLump:
-    if hasattr(lump_header, "fourCC"):
-        stream, lump_header = decompressed(stream, lump_header)
-    if not hasattr(lump_header, "filename"):
-        return BspLump.from_header(stream, lump_header, LumpClass)
-    else:
-        return ExternalBspLump.from_header(lump_header, LumpClass)
-
-
 def create_RawBspLump(stream: Stream, lump_header: LumpHeader) -> RawBspLump:
     if hasattr(lump_header, "fourCC"):
         stream, lump_header = decompressed(stream, lump_header)
@@ -72,6 +63,15 @@ def create_RawBspLump(stream: Stream, lump_header: LumpHeader) -> RawBspLump:
         return RawBspLump.from_header(stream, lump_header)
     else:
         return ExternalRawBspLump.from_header(lump_header)
+
+
+def create_BspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object = None) -> BspLump:
+    if hasattr(lump_header, "fourCC"):
+        stream, lump_header = decompressed(stream, lump_header)
+    if not hasattr(lump_header, "filename"):
+        return BspLump.from_header(stream, lump_header, LumpClass)
+    else:
+        return ExternalBspLump.from_header(lump_header, LumpClass)
 
 
 def create_BasicBspLump(stream: Stream, lump_header: LumpHeader, LumpClass: object) -> BasicBspLump:
@@ -222,8 +222,6 @@ class BspLump(RawBspLump):
 
     def __getitem__(self, index: Union[int, slice]):
         """Reads bytes from self.stream & returns LumpClass(es)"""
-        # read bytes -> struct.unpack tuples -> LumpClass
-        # NOTE: BspLump[index] = LumpClass(entry)
         if isinstance(index, int):
             index = _remap_negative_index(index, self._length)
             if index in self._changes:

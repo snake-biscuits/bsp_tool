@@ -44,6 +44,19 @@ class LumpClass_basic(base.MappedArray):
     _format = "3H"
 
 
+class TestRawBspLump:
+    """test the changes system & bytearray-like behaviour"""
+    # TODO: tests to ensure RawBspLump behaves like a bytearray
+    def test_concat(self):
+        header = LumpHeader_basic(offset=0, length=8)
+        stream = io.BytesIO(bytes([*range(8)]))
+        lump = lumps.RawBspLump.from_header(stream, header)
+        lump += bytes([*range(8, 16)])
+        assert len(lump) == 16
+        for i, x in enumerate(lump):
+            assert i == x
+
+
 class TestBspLump:
     @pytest.mark.xfail(reason="not yet implemented")
     def test_implicit_change(self):
@@ -53,3 +66,8 @@ class TestBspLump:
         assert lump[0].x == 1
         lump[0].x += 1
         assert lump[0].x == 2
+
+
+# TODO: external lump test files as part of test maps (Issue #16)
+# TODO: TestGameLump
+# TODO: TestDarkMessiahSPGameLump
