@@ -43,7 +43,7 @@
 | 15 | 4 | `SHADOW_AABB_TREES` |  | 0% |
 | 15 | 58 | `OCCLUDER_INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 16 | 4 | `SHADOW_SOURCES` |  | 0% |
-| 17 | 4 | `PORTAL_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L251) | 100% |
+| 17 | 4 | `PORTAL_VERTICES` | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
 | 17 | 58 | `CELLS` |  | 0% |
 | 18 | 4 | `OCCLUDERS` |  | 0% |
 | 18 | 58 | `PORTALS` | [`infinity_ward.call_of_duty1_demo.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/call_of_duty1_demo.py#L215) | 0% |

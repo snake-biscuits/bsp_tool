@@ -48,17 +48,17 @@
 | Lump index | Bsp version | Lump name | Lump version | LumpClass | Coverage |
 | ---------: | ----------: | --------- | -----------: | --------- | :------- |
 | 0 | 17 | `ENTITIES` | 0 | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L38) | 100% |
-| 1 | 17 | `PLANES` | 0 | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L228) | 100% |
+| 1 | 17 | `PLANES` | 0 | [`id_software.quake.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L230) | 100% |
 | 2 | 17 | `TEXTURE_DATA` | 0 | [`valve.source.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L677) | 100% |
-| 3 | 17 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L251) | 100% |
-| 4 | 17 | `VISIBILITY` | 0 | [`id_software.quake2.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake2.py#L214) | 90% |
+| 3 | 17 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
+| 4 | 17 | `VISIBILITY` | 0 | [`id_software.quake2.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake2.py#L215) | 90% |
 | 5 | 17 | `NODES` | 0 | [`valve.source.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L622) | 100% |
 | 5 | 25 | `NODES` | 1 | [`strata.strata.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L273) | 100% |
 | 6 | 17 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L691) | 100% |
 | 7 | 17 | `FACES` | 0 | [`troika.vampire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/troika/vampire.py#L23) | 100% |
 | 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L517) | 100% |
 | 7 | 25 | `FACES` | 2 | [`strata.strata.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L204) | 100% |
-| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
+| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
 | 8 | 22 | `LIGHTING` | 0 |  | 0% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
@@ -110,29 +110,29 @@
 | 28 | 25 | `PHYSICS_DISPLACEMENT` | 2 | [`strata.strata.PhysicsDisplacement`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L341) | 90% |
 | 29 | 17 | `PHYSICS_COLLIDE` | 0 |  | 0% |
 | 29 | 19 | `PHYSICS_COLLIDE` | 0 | [`valve_physics.CollideLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve_physics.py#L26) | 90% |
-| 30 | 17 | `VERTEX_NORMALS` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L251) | 100% |
+| 30 | 17 | `VERTEX_NORMALS` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
 | 31 | 17 | `VERTEX_NORMAL_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 31 | 25 | `VERTEX_NORMAL_INDICES` | 1 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 32 | 17 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L506) | 100% |
 | 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 17 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L334) | 90% |
+| 35 | 17 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L341) | 90% |
 | 35 | 17 | `GAME_LUMP.sprp` | 4 | [`valve.source.GameLump_SPRPv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L795) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 4 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.props` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L774) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp` | 5 | [`valve.source.GameLump_SPRPv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L859) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp` | 5 | [`valve.source.GameLump_SPRPv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L860) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 5 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L836) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp` | 6 | [`valve.source.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L887) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L837) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp` | 6 | [`valve.source.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L888) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 6 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L863) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp` | 7 | [`valve.source.GameLump_SPRPv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L916) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L864) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp` | 7 | [`valve.source.GameLump_SPRPv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L917) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 7 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 35 | 17 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L891) | 100% |
+| 35 | 17 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L892) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L158) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L165) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.sdk_2013.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L134) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L158) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 10 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 10 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
@@ -151,12 +151,12 @@
 | 37 | 17 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L666) | 100% |
 | 37 | 22 | `PRIMITIVES` | 0 |  | 0% |
 | 37 | 25 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L666) | 100% |
-| 38 | 17 | `PRIMITIVE_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L251) | 100% |
+| 38 | 17 | `PRIMITIVE_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
 | 39 | 17 | `PRIMITIVE_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 40 | 17 | `PAKFILE` | 0 | [`shared.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L120) | 100% |
-| 41 | 17 | `CLIP_PORTAL_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L251) | 100% |
+| 40 | 17 | `PAKFILE` | 0 | [`shared.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L119) | 100% |
+| 41 | 17 | `CLIP_PORTAL_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
 | 42 | 17 | `CUBEMAPS` | 0 | [`valve.source.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L427) | 100% |
-| 43 | 17 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L143) | 100% |
+| 43 | 17 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L142) | 100% |
 | 44 | 17 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 45 | 17 | `OVERLAYS` | 0 |  | 0% |
 | 45 | 25 | `OVERLAYS` | 1 | [`strata.strata.Overlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L291) | 100% |
@@ -171,7 +171,7 @@
 | 51 | 25 | `LEAF_AMBIENT_INDEX_HDR` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L266) | 100% |
 | 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L579) | 100% |
 | 52 | 25 | `LEAF_AMBIENT_INDEX` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L266) | 100% |
-| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L107) | 100% |
+| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
 | 53 | 22 | `LIGHTING_HDR` | 0 |  | 0% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L726) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
