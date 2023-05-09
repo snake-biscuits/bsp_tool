@@ -6,6 +6,7 @@ import itertools
 import struct
 from typing import Any, Dict, List, Union
 
+from ... import lumps
 from .. import base
 from .. import shared
 from .. import valve_physics
@@ -981,13 +982,7 @@ class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [v
         prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
         out.unknown_1 = int.from_bytes(sprp_lump.read(4), cls.endianness)
         out.unknown_2 = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        # StaticPropClass & end of lump checks
-        props_start = sprp_lump.tell()
-        try:
-            out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
-        except AssertionError:  # .from_stream() raises an assert if end of lump reached
-            possible_sizeof = (sprp_lump.tell() - props_start) / prop_count
-            raise RuntimeError(f"hit end of props early; possible_sizeof={possible_sizeof}")
+        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
         tail = sprp_lump.read()
         if len(tail) > 0:
             possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count

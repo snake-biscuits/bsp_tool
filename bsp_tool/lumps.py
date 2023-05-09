@@ -219,9 +219,12 @@ class BasicBspLump(RawBspLump):
         out._length = count
         out.offset = stream.tell()
         out.stream = stream
-        byte_length = out._entry_size * out._length
-        if len(stream.read(byte_length)) != byte_length:
-            raise RuntimeError(f"{stream} is not long enough to hold {count} {LumpClass}")
+        # verify size
+        size = out._entry_size * out._length
+        real_size = len(stream.read(size))  # seek to end of lump
+        if size != real_size:
+            possible_sizeof = (out.stream.tell() - out.offset) / count
+            raise RuntimeError(f"Early end of lump! possible_sizeof={possible_sizeof} (is {out._entry_size})")
         return out
 
     @classmethod
