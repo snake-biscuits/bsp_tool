@@ -214,7 +214,8 @@ class BasicBspLump(RawBspLump):
     def from_count(cls, stream: Stream, count: int, LumpClass: object):
         """starts from cursor; stream.seek() before creating"""
         out = cls()
-        out._entry_size = struct.sizeof(LumpClass._format)
+        out.LumpClass = LumpClass
+        out._entry_size = struct.calcsize(LumpClass._format)
         out._length = count
         out.offset = stream.tell()
         out.stream = stream

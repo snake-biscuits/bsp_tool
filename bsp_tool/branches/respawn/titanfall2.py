@@ -4,6 +4,7 @@ import io
 import struct
 from typing import List
 
+from ... import lumps
 from .. import base
 from .. import vector
 from ..valve import source
@@ -346,7 +347,7 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
         prop_count = int.from_bytes(sprp_lump.read(4), "little")
         out.unknown_1 = int.from_bytes(sprp_lump.read(4), "little")
         out.unknown_2 = int.from_bytes(sprp_lump.read(4), "little")
-        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
         unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
         out.unknown_3 = [bytearray(sprp_lump.read(64)) for i in range(unknown_3_count)]
         assert all([len(u) == 64 for u in out.unknown_3]), "hit end of lump early while getting unknown_3"
