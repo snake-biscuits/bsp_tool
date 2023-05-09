@@ -17,6 +17,10 @@
    - added `append`, `extend` & `insert` methods to `RawBspLump`
    - `BspLump.find(attr=val)` method is now `.search()`
    - removed `.find()` method from `BasicBspLump`
+   - allowed implicit changes (e.g. `bsp.VERTICES[0].z += 1`)
+   - `__iter__` doesn't update `_changes`, reducing unnesecary caching
+   - TODO: `bsp.LUMP[::]` creates a copy & doesn't affect / share `_changes`
+   - `RawBspLump` slices are `bytearray`s
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser

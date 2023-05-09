@@ -143,10 +143,12 @@ class ClipNode(base.Struct):  # LUMP 9
 
 
 class Edge(list):  # LUMP 12
+    # TODO: replace w/ MappedArray(_mapping=2)
     _format = "2H"  # List[int]
 
+    # hacky methods for working with other systems
     def as_tuple(self):
-        return self  # HACK
+        return self
 
     @classmethod
     def from_tuple(cls, _tuple):

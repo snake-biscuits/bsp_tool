@@ -15,7 +15,7 @@ LumpHeader = Any
 Stream = Union[io.BufferedReader, io.BytesIO]
 
 
-def _remap_negative_index(index: int, length: int) -> int:
+def _remap_index(index: int, length: int) -> int:
     """simplify to positive integer"""
     if index < 0:
         index = length + index
@@ -24,13 +24,13 @@ def _remap_negative_index(index: int, length: int) -> int:
     return index
 
 
-def _remap_slice(_slice: slice, length: int) -> slice:
+def _remap_slice_to_range(_slice: slice, length: int) -> slice:
     """simplify to positive start & stop within range(0, length)"""
     start, stop, step = _slice.start, _slice.stop, _slice.step
     start = 0 if (start is None) else max(length + start, 0) if (start < 0) else length if (start > length) else start
     stop = length if (stop is None or stop > length) else max(length + stop, 0) if (stop < 0) else stop
     step = 1 if (step is None) else step
-    return slice(start, stop, step)
+    return range(start, stop, step)
 
 
 def decompress_valve_LZMA(data: bytes) -> bytes:
@@ -109,31 +109,49 @@ class RawBspLump:
     def __repr__(self):
         return f"<{self.__class__.__name__}; {len(self)} bytes at 0x{id(self):016X}>"
 
-    # NOTE: no __delitem__
+    def __delitem__(self, index: Union[int, slice]):
+        if isinstance(index, int):
+            index = _remap_index(index, self._length)
+            self[index:] = self[index + 1:]
+            # NOTE: slice assignment will change length
+        elif isinstance(index, slice):
+            for i in _remap_slice_to_range(index, self._length):
+                del self[i]
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
-    def __getitem__(self, index: Union[int, slice]) -> bytes:
+    def get(self, index: int, mutable: bool = True) -> int:
+        # NOTE: don't use get! we can't be sure the given index in bounds
+        if index in self._changes:
+            return self._changes[index]
+        else:
+            value = self.get_unchanged(index)
+            if mutable:
+                self._changes[index] = value
+            return value
+
+    def get_unchanged(self, index: int) -> int:
+        """no index remapping, be sure to respect stream data bounds!"""
+        self.stream.seek(self.offset + index)
+        return self.stream.read(1)[0]
+
+    def __getitem__(self, index: Union[int, slice]) -> Union[int, bytearray]:
         """Reads bytes from the start of the lump"""
         if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            if index in self._changes:
-                return self._changes[index]
-            else:
-                self.stream.seek(self.offset + index)
-                return self.stream.read(1)[0]  # return 1 0-255 integer, matching bytes behaviour
+            return self.get(_remap_index(index, self._length))
         elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            return bytes([self[i] for i in range(_slice.start, _slice.stop, _slice.step)])
+            # TODO: BspLump[::] returns a copy (doesn't update _changes)
+            return bytearray([self[i] for i in _remap_slice_to_range(index, self._length)])
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
     def __setitem__(self, index: int | slice, value: Any):
         """remapping slices is allowed, but only slices"""
         if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
+            index = _remap_index(index, self._length)
             self._changes[index] = value
         elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            slice_indices = list(range(_slice.start, _slice.stop, _slice.step))
+            slice_indices = list(_remap_slice_to_range(index, self._length))
             length_change = len(list(value)) - len(slice_indices)
             slice_changes = dict(zip(slice_indices, value))
             if length_change == 0:  # replace a slice with an equal length slice
@@ -150,7 +168,7 @@ class RawBspLump:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
     def __iter__(self):
-        return iter([self[i] for i in range(self._length)])
+        return iter([self.get(i, mutable=False) for i in range(self._length)])
 
     def __len__(self):
         return self._length
@@ -220,33 +238,19 @@ class BasicBspLump(RawBspLump):
     def __repr__(self):
         return f"<{self.__class__.__name__}({len(self)} {self.LumpClass.__name__}) at 0x{id(self):016X}>"
 
-    def __delitem__(self, index: Union[int, slice]):
-        if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            self[index:] = self[index + 1:]
-        elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            for i in range(_slice.start, _slice.stop, _slice.step):
-                del self[i]
-        else:
-            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+    def get_unchanged(self, index: int) -> int:
+        """no index remapping, be sure to respect stream data bounds!"""
+        # NOTE: no .from_stream(); BasicLumpClasses only specify _format
+        self.stream.seek(self.offset + (index * self._entry_size))
+        raw_entry = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
+        return self.LumpClass(raw_entry[0])
 
     def __getitem__(self, index: Union[int, slice]):
         """Reads bytes from self.stream & returns LumpClass(es)"""
-        # read bytes -> struct.unpack tuples -> LumpClass
-        # NOTE: BspLump[index] = LumpClass(entry)
         if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            self.stream.seek(self.offset + (index * self._entry_size))
-            raw_entry = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
-            # NOTE: only the following line has changed
-            return self.LumpClass(raw_entry[0])
+            return self.get(_remap_index(index, self._length))
         elif isinstance(index, slice):
-            _slice = _remap_slice(index, self._length)
-            out = list()
-            for i in range(_slice.start, _slice.stop, _slice.step):
-                out.append(self[i])
-            return out
+            return [self[i] for i in _remap_slice_to_range(index, self._length)]
         else:
             raise TypeError(f"list indices must be integers or slices, not {type(index)}")
 
@@ -262,24 +266,14 @@ class BspLump(BasicBspLump):
     _entry_size: int  # sizeof(LumpClass)
     _length: int  # number of indexable entries
 
-    def __getitem__(self, index: Union[int, slice]):
-        """Reads bytes from self.stream & returns LumpClass(es)"""
-        if isinstance(index, int):
-            index = _remap_negative_index(index, self._length)
-            if index in self._changes:
-                return self._changes[index]
-            else:
-                self.stream.seek(self.offset + (index * self._entry_size))
-                _tuple = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
-                return self.LumpClass.from_tuple(_tuple)
-        elif isinstance(index, slice):  # LAZY HACK
-            _slice = _remap_slice(index, self._length)
-            out = list()
-            for i in range(_slice.start, _slice.stop, _slice.step):
-                out.append(self[i])
-            return out
-        else:
-            raise TypeError(f"list indices must be integers or slices, not {type(index)}")
+    def get_unchanged(self, index: int) -> int:
+        """no index remapping, be sure to respect stream data bounds!"""
+        self.stream.seek(self.offset + (index * self._entry_size))
+        # BROKEN: quake.Edge does not support .from_stream()
+        # return self.LumpClass.from_stream(self.stream)
+        # HACK: required for quake.Edge
+        _tuple = struct.unpack(self.LumpClass._format, self.stream.read(self._entry_size))
+        return self.LumpClass.from_tuple(_tuple)
 
     def search(self, **kwargs):
         """Returns all lump entries which have the queried values [e.g. find(x=0)]"""

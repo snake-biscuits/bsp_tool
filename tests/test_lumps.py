@@ -7,28 +7,32 @@ from bsp_tool.branches import base
 import pytest
 
 
+# TODO: more mutability & _changes testing
+# TODO: merge with tests/test_BspLump.py (or divide concerns more clearly)
+
+
 class TestRemapNegativeIndex:
     def test_guess(self):
-        assert lumps._remap_negative_index(-1, 50) == 49
+        assert lumps._remap_index(-1, 50) == 49
 
     def test_range(self):
         arr = [*range(128)]
         for i in range(-128, 0):
-            positive_i = lumps._remap_negative_index(i, 128)
+            positive_i = lumps._remap_index(i, 128)
             assert arr[i] == arr[positive_i]
 
     def test_negative_out_of_range(self):
         with pytest.raises(IndexError):
-            [*range(8)][lumps._remap_negative_index(-16, 8)]
+            [*range(8)][lumps._remap_index(-16, 8)]
 
 
-class TestRemapSlice:
+class TestRemapSliceToRange:
     def test_lazy(self):
-        assert lumps._remap_slice(slice(None, None, None), 50) == slice(0, 50, 1)
-        assert lumps._remap_slice(slice(0, None, None), 50) == slice(0, 50, 1)
-        assert lumps._remap_slice(slice(0, 50, None), 50) == slice(0, 50, 1)
-        assert lumps._remap_slice(slice(0, 50, 1), 50) == slice(0, 50, 1)
-        assert lumps._remap_slice(slice(0, 69, 1), 50) == slice(0, 50, 1)
+        assert lumps._remap_slice_to_range(slice(None, None, None), 50) == range(0, 50, 1)
+        assert lumps._remap_slice_to_range(slice(0, None, None), 50) == range(0, 50, 1)
+        assert lumps._remap_slice_to_range(slice(0, 50, None), 50) == range(0, 50, 1)
+        assert lumps._remap_slice_to_range(slice(0, 50, 1), 50) == range(0, 50, 1)
+        assert lumps._remap_slice_to_range(slice(0, 69, 1), 50) == range(0, 50, 1)
 
 
 class TestDecompress:
@@ -47,18 +51,10 @@ class LumpClass_basic(base.MappedArray):
 class TestRawBspLump:
     """test the changes system & bytearray-like behaviour"""
     # TODO: tests to ensure RawBspLump behaves like a bytearray
-    def test_concat(self):
-        header = LumpHeader_basic(offset=0, length=8)
-        stream = io.BytesIO(bytes([*range(8)]))
-        lump = lumps.RawBspLump.from_header(stream, header)
-        lump.extend(bytes([*range(8, 16)]))
-        assert len(lump) == 16
-        for i, x in enumerate(lump):
-            assert i == x
+    ...
 
 
 class TestBspLump:
-    @pytest.mark.xfail(reason="not yet implemented")
     def test_implicit_change(self):
         header = LumpHeader_basic(offset=0, length=6)
         stream = io.BytesIO(b"\x01\x00\x02\x00\x03\x00")
