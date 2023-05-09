@@ -7,7 +7,6 @@ import enum
 import io
 import struct
 from typing import List
-import warnings
 
 from .. import base
 from .. import shared
@@ -834,7 +833,7 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
                          int.to_bytes(len(self.leaves), 4, self.endianness),
                          *[struct.pack(leaves_format, L) for L in self.leaves],
                          int.to_bytes(len(self.props), 4, self.endianness),
-                         *[p.as_bytes for p in self.props]])
+                         *[p.as_bytes() for p in self.props]])
 
     def get_prop_model_name(self, prop_index: int) -> str:
         return self.model_names[self.props[prop_index].model_name]

@@ -3,7 +3,6 @@ import enum
 import io
 import struct
 from typing import List
-import warnings
 
 from .. import base
 from .. import vector
@@ -349,11 +348,11 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
         out.unknown_2 = int.from_bytes(sprp_lump.read(4), "little")
         out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
         unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.unknown_3 = [sprp_lump.read(64) for i in range(unknown_3_count)]
-        assert all([len(u) == 64 for u in out.unknown_3])
+        out.unknown_3 = [bytearray(sprp_lump.read(64)) for i in range(unknown_3_count)]
+        assert all([len(u) == 64 for u in out.unknown_3]), "hit end of lump early while getting unknown_3"
         tail = sprp_lump.read()
         if len(tail) > 0:
-            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+            raise RuntimeError(f"sprp lump has a tail of {len(tail)} bytes")
         return out
 
     def as_bytes(self) -> bytes:

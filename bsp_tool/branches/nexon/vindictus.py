@@ -5,7 +5,6 @@ import enum
 import io
 import struct
 from typing import List
-import warnings
 
 from .. import base
 from .. import shared
@@ -323,10 +322,17 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
         scale_count = int.from_bytes(sprp_lump.read(4), "little")
         out.scales = [StaticPropScale.from_stream(sprp_lump) for i in range(scale_count)]
         prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        # StaticPropClass & end of lump checks
+        props_start = sprp_lump.tell()
+        try:
+            out.props = [cls.StaticPropClass.from_stream(sprp_lump) for i in range(prop_count)]
+        except AssertionError:  # .from_stream() raises an assert if end of lump reached
+            possible_sizeof = (sprp_lump.tell() - props_start) / prop_count
+            raise RuntimeError(f"hit end of props early; possible_sizeof={possible_sizeof}")
         tail = sprp_lump.read()
         if len(tail) > 0:
-            warnings.warn(UserWarning(f"sprp lump has a tail of {len(tail)} bytes"))
+            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
+            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
         return out
 
     def as_bytes(self) -> bytes:
@@ -336,9 +342,9 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
                          int.to_bytes(len(self.leaves), 4, "little"),
                          *[struct.pack("H", L) for L in self.leaves],
                          int.to_bytes(len(self.scales), 4, "little"),
-                         *[s.as_bytes for s in self.scales],
+                         *[s.as_bytes() for s in self.scales],
                          int.to_bytes(len(self.props), 4, "little"),
-                         *[p.as_bytes for p in self.props]])
+                         *[p.as_bytes() for p in self.props]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
