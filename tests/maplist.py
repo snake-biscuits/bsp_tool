@@ -350,6 +350,9 @@ extracted_dirs = {
                                  "28mar23/maps",  # 11 maps | 2.19 GB | .vpk
                                  "28mar23/depot/r5-160/game/r2/maps",  # 9 maps | 1.67 GB | .vpk
                                  "28mar23/depot/r5-161/game/r2/maps"],  # 10 maps | 2.04 GB | .vpk
+        # season17:  Arsenal [9th May 2023]
+        "ApexLegends/season17": ["9may23/maps",  # 10 maps | 1.80 GB | .vpk
+                                 "9may23/depot/r5-170/game/r2/maps"],  # 10 maps | 1.74 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
