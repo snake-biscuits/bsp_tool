@@ -70,3 +70,24 @@
 ...            "jb_railbridge", "jb_sabbath", "jb_sauna", "jb_sky_temple", "jb_ss2_ops", "jb_subway",
 ...            "jb_survivor", "jb_tallorder", "jb_truss_bridge", "jb_truth", "jb_verticull", "jb_volcanicpanic"}
 ```
+
+## Source Filmmaker
+
+> 7 / 71 .bsps failed
+> `possible_sizeof = 72`
+
+| BspClass | branch script                      | version | lump             | lump version |
+| -------: | :--------------------------------- | ------: | :--------------- | -----------: |
+| ValveBsp | `bsp_tool.branches.valve.sdk_2013` |      21 | `GAME_LUMP.sprp` |           10 |
+
+```python
+>>> failing = {"ctf_foundry", "ctf_gorge", "koth_lakeside_event",
+...            "pl_cactuscanyon", "pl_upward", "rd_asteroid", "sd_doomsday_event"}
+>>> import bsp_tool, os, fnmatch
+>>> md = "D:/SteamLibrary/steamapps/common/SourceFilmmaker/game/tf/maps"
+>>> maps = {m[:-4]: bsp_tool.load_bsp(os.path.join(md, m)) for m in fnmatch.filter(os.listdir(md), "*.bsp")}
+>>> {b.GAME_LUMP.headers["sprp"].version for b in maps.values()}
+{9, 10, 5, 6}
+>>> {m for m, b in maps.items() if b.GAME_LUMP.headers["sprp"].version == 10} == failing
+True
+```

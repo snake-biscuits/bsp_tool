@@ -1,8 +1,9 @@
 """Index of all known .bsp format variants"""
-__all__ = ["arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
-           "nexon", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve",
-           "scripts_from_file_magic", "script_from_file_magic_and_version", "game_name_table"]
+__all__ = ["ace_team", "arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
+           "nexon", "outerlight", "raven", "respawn", "ritual", "strata", "troika", "utoplanet",
+           "valve", "scripts_from_file_magic", "script_from_file_magic_and_version", "game_name_table"]
 
+from . import ace_team
 from . import arkane
 from . import gearbox
 from . import id_software
@@ -10,6 +11,7 @@ from . import infinity_ward
 from . import ion_storm
 from . import loiste
 from . import nexon
+from . import outerlight
 from . import raven
 from . import respawn
 from . import ritual
@@ -50,10 +52,12 @@ scripts_from_file_magic = {None: [id_software.quake,
                                      respawn.titanfall2],
                            b"RBSP": [raven.soldier_of_fortune2,
                                      ritual.sin],
-                           b"VBSP": [*arkane.scripts,
+                           b"VBSP": [ace_team.zeno_clash,
+                                     *arkane.scripts,
                                      strata.strata,
                                      loiste.infra,
                                      *nexon.scripts,
+                                     outerlight.outerlight,
                                      troika.vampire,
                                      utoplanet.merubasu,
                                      valve.alien_swarm,
@@ -61,7 +65,8 @@ scripts_from_file_magic = {None: [id_software.quake,
                                      valve.left4dead2,
                                      valve.orange_box,
                                      valve.sdk_2013,
-                                     valve.source]}
+                                     valve.source,
+                                     valve.source_filmmaker]}
 
 
 script_from_file_magic_and_version = dict()
@@ -78,9 +83,9 @@ script_from_file_magic_and_version[(None, 29)] = id_software.quake
 script_from_file_magic_and_version[(b"IBSP", 46)] = id_software.quake3
 # ^ NOT raven.soldier_of_fortune
 script_from_file_magic_and_version[(b"VBSP", 20)] = valve.orange_box
-# ^ NOT nexon.vindictus OR valve.left4dead
+# ^ NOT nexon.vindictus OR nexon.vindictus69 OR outerlight.outerlight OR utoplanet.merubasu OR valve.left4dead
 script_from_file_magic_and_version[(b"VBSP", 21)] = valve.sdk_2013
-# ^ NOT utoplanet.merubasu OR valve.alien_swarm OR valve.left4dead2
+# ^ NOT valve.alien_swarm OR valve.left4dead2 OR valve.source_filmmaker
 script_from_file_magic_and_version[(b"VBSP", 100)] = nexon.cso2
 # ^ NOT nexon.cso2_2018
 script_from_file_magic_and_version[(b"RBSP", 1)] = raven.soldier_of_fortune2

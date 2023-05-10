@@ -9,9 +9,11 @@ from . import orange_box_x360
 from . import sdk_2013
 from . import sdk_2013_x360
 from . import source
+from . import source_filmmaker
 
 
-scripts = [alien_swarm, goldsrc, left4dead, left4dead2, orange_box, orange_box_x360, sdk_2013, sdk_2013_x360, source]
+scripts = [alien_swarm, goldsrc, left4dead, left4dead2, orange_box, orange_box_x360,
+           sdk_2013, sdk_2013_x360, source, source_filmmaker]
 
 # TRIVIA: when FILE_MAGIC is incorrect Source engine games give the error message: "Not an IBSP file"
 # - this refers to the IdTech 2 FILE_MAGIC, pre-dating Half-Life 1!

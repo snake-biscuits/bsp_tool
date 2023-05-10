@@ -247,8 +247,8 @@ extracted_dirs = {
                     "tutorial/maps"],  # 12 maps | 224 MB | .vpk
         # https://github.com/yretenai/HFSExtract
         "Vindictus": ["hfs/2022/maps",  # 474 maps | 8.08 GB | .hfs
-                      "Client v1.69 EU/hfs/maps",  # 279 maps | 4.30 GB | .hfs
                       "Colhen_Mod_BSP (Private Server Version)"],  # 1 map | 23 MB | .zip
+        "Vindictus/Client v1.69 EU": ["hfs/maps"],  # 279 maps | 4.30 GB | .hfs
         "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
         # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
         "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk

@@ -11,8 +11,7 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20
 
-GAME_PATHS = {"Bloody Good Time": "Bloody Good Time/pm",
-              "Day of Defeat: Source": "day of defeat source/dod",
+GAME_PATHS = {"Day of Defeat: Source": "day of defeat source/dod",
               "Entropy: Zero 2": "EntropyZero2/entropyzero2",
               "E.Y.E: Divine Cybermancy": "EYE Divine Cybermancy/EYE",
               "G-String": "G String/gstringv2",
@@ -21,8 +20,7 @@ GAME_PATHS = {"Bloody Good Time": "Bloody Good Time/pm",
               "Half-Life 2 Update": "Half-Life 2 Update/hl2",
               "NEOTOKYO": "NEOTOKYO/neotokyosource",
               "Portal": "Portal/portal",
-              "Team Fortress 2": "Team Fortress 2/tf",
-              "The Ship": "The Ship/ship"}  # same for Single Player & Tutorial
+              "Team Fortress 2": "Team Fortress 2/tf"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 

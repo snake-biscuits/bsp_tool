@@ -17,6 +17,7 @@ import pytest
 game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
                 **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
                 "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
+                "BloodyGoodTime": branches.outerlight.outerlight,
                 "DarkMessiah/multiplayer": branches.arkane.dark_messiah_mp,
                 "Half-Life/blue_shift": branches.gearbox.blue_shift,
                 "Hexen2": branches.raven.hexen2,
@@ -26,9 +27,13 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
                 "SiN": branches.ritual.sin,
                 "SoF": branches.raven.soldier_of_fortune,
                 "SoF2": branches.raven.soldier_of_fortune2,
+                "SourceFilmmaker": branches.valve.source_filmmaker,
                 "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,
+                "TheShip": branches.outerlight.outerlight,
                 "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
-                "Vindictus": branches.nexon.vindictus}
+                "Vindictus": branches.nexon.vindictus,
+                "Vindictus/Client v1.69 EU": branches.nexon.vindictus69,
+                "Zeno Clash Demo": branches.ace_team.zeno_clash}
 # ^ {"game_name": branch_script}
 
 dday_mappack_excludes = ("dday3bh.bsp", "dofdtownbhv3.bsp", "gb1stdaybh.bsp", "iraidbhv3.bsp",

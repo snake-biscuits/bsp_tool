@@ -85,7 +85,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
   * [Nexon](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon)
     - [Counter-Strike: Online 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/cso2.py)
     - [Titanfall: Online](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/respawn/titanfall.py)
-    - [Vindictus](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus.py) :x:
+    - [Vindictus](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus.py)
+    - [Vindictus EU v1.69](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/nexon/vindictus69.py)
   * [Raven Software](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven)
     - [Heretic II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake2.py)
     - [Hexen II](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/raven/hexen2.py)
@@ -136,7 +137,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Portal 2 (Xbox360)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013_x360.py)
     - [Richochet](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Source Filmmaker](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
-    - [Source SDK 2013](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
+    - [Source SDK 2013](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source_filmmaker.py)
     - [Team Fortress 2](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Team Fortress Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [The Orange Box (Xbox360)](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box_x360.py)
@@ -144,7 +145,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Alkaline](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/remake_quake.py)
     - [Black Mesa](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
     - [Blade Symphony](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py)
-    - [Bloody Good Time](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
+    - [Bloody Good Time](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/outerlight/outerlight.py)
     - Call of Duty: Black Ops III :o:
     - [Call of Duty: United Offensive](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/infinity_ward/call_of_duty1.py) :o:
     - Call of Duty: World at War :o:
@@ -178,7 +179,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Nosferatu](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py) :o:
     - [Quake: Dimension of the Past](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/remake_quake.py)
     - [Return to Castle Wolfenstein](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
-    - [The Ship](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
+    - [The Ship](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/outerlight/outerlight.py)
     - [Sven Co-op](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/goldsrc.py)
     - [Synergy](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/source.py)
     - [Tactical Intervention](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
@@ -191,7 +192,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [WRATH: Aeon of Ruin](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [Xonotic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - Zeno Clash :o:
-    - [Zeno Clash Demo](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
+    - [Zeno Clash Demo](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/ace_team/zeno_clash.py)
 
 
 ## Thanks

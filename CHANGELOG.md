@@ -21,6 +21,7 @@
    - `__iter__` doesn't update `_changes`, reducing unnesecary caching
    - TODO: `bsp.LUMP[::]` creates a copy & doesn't affect / share `_changes`
    - `RawBspLump` slices are `bytearray`s
+ * Fractured Source Engine into more branches ("solves" version conflicts of SPRP formats)
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser
@@ -33,11 +34,14 @@
    - Call of Duty 1 SP Demo: Dawnville
  * Source Engine
    - Fairy Tale Busters (メルヘソバスターズ)
+   - Zeno Clash
  * Ubertools
    - Star Trek Elite Force II SP Demo
 
 ### Updated Support
  * Quake
+ * Source Engine
+   - cleaner static prop systems
 
 
 ## v0.4.0 (28 March 2023)

@@ -10,7 +10,7 @@ from .. import shared
 from .. import valve_physics
 from .. import vector
 from ..id_software import remake_quake_old
-from ..nexon import vindictus
+from ..nexon import vindictus69
 from ..valve import sdk_2013
 from ..valve import source
 
@@ -350,7 +350,7 @@ BASIC_LUMP_CLASSES.update({"FACE_IDS":              {1: shared.UnsignedInts},
                            "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
 
 LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus.AreaPortal},
+LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus69.AreaPortal},
                      "BRUSH_SIDES":            {1: BrushSide},
                      "DISPLACEMENT_INFO":      {1: DisplacementInfo},
                      "EDGES":                  {1: remake_quake_old.Edge},
