@@ -77,6 +77,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | RitualBsp       | ritual.mohaa_demo                  |  Y  |
 # | RitualBsp       | ritual.star_trek_elite_force2      |  Y  |
 # | RitualBsp       | ritual.star_trek_elite_force2_demo |  Y  |
+# | ValveBsp        | ace_team.zeno_clash                |  Y  |
 # | ValveBsp        | arkane.dark_messiah_sp             |  Y  |
 # | ValveBsp        | arkane.dark_messiah_mp             |  Y  |
 # | ValveBsp        | strata.strata                      |  Y  |
@@ -84,6 +85,8 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | nexon.cso2                         |  Y  |
 # | ValveBsp        | nexon.cso2_2018                    |  Y  |
 # | ValveBsp        | nexon.vindictus                    |  Y  |
+# | ValveBsp        | nexon.vindictus69                  |  Y  |
+# | ValveBsp        | outerlight.outerlight              |  Y  |
 # | ValveBsp        | troika.vampire                     |  Y  |
 # | ValveBsp        | utoplanet.merubasu                 |  Y  |
 # | ValveBsp        | valve.alien_swarm                  |  Y  |
@@ -94,6 +97,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.sdk_2013                     |  Y  |
 # | ValveBsp        | valve.sdk_2013_x360                |  N  |
 # | ValveBsp        | valve.source                       |  Y  |
+# | ValveBsp        | valve.source_filmmaker             |  Y  |
 
 # TODO: more prefaces (insert .md)
 # NOTE: conflicts:
@@ -114,7 +118,9 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                                     branches.gearbox.nightfire]}),
           ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
                       {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
+                                  branches.ace_team.zeno_clash,
                                   branches.loiste.infra,
+                                  branches.outerlight.outerlight,
                                   branches.strata.strata,
                                   branches.troika.vampire,
                                   branches.utoplanet.merubasu]}),
@@ -282,32 +288,47 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
 # NOTE: `None` mappings are used for structs that exist, but are not yet mapped
-bs = (branches.arkane.dark_messiah_mp, branches.arkane.dark_messiah_sp,
+bs = (branches.ace_team.zeno_clash,
+      branches.arkane.dark_messiah_mp, branches.arkane.dark_messiah_sp,
       branches.loiste.infra,
-      branches.nexon.cso2, branches.nexon.cso2_2018, branches.nexon.vindictus,
+      branches.nexon.cso2, branches.nexon.cso2_2018, branches.nexon.vindictus, branches.nexon.vindictus69,
+      branches.outerlight.outerlight,
       branches.respawn.apex_legends, branches.respawn.titanfall, branches.respawn.titanfall2,
       branches.strata.strata,
       branches.troika.vampire,
       branches.utoplanet.merubasu,
       branches.valve.alien_swarm, branches.valve.left4dead, branches.valve.left4dead2,
-      branches.valve.orange_box, branches.valve.sdk_2013, branches.valve.source)
+      branches.valve.orange_box, branches.valve.sdk_2013, branches.valve.source, branches.valve.source_filmmaker)
+
+# TODO: cso2 & cso2_2018
+unmapped_sprp = {branches.ace_team.zeno_clash: {7},
+                 branches.nexon.vindictus: {7},
+                 branches.outerlight.outerlight: {5, 6},
+                 branches.valve.left4dead: {8},
+                 branches.valve.left4dead: {9},
+                 branches.valve.source_filmmaker: {10}}
 
 for branch_script in bs:
+    d = {"sprp": {v: None for v in unmapped_sprp.get(branch_script, set())}}
     if branch_script.GAME_LUMP_CLASSES == dict():
-        gamelump_mappings[branch_script] = {"sprp": {"?": None}}
+        if len(d["sprp"]) < 0:
+            gamelump_mappings[branch_script] = d
+        else:
+            gamelump_mappings[branch_script] = {"sprp": {"?": None}}
         continue
-    d = {"sprp": branch_script.GAME_LUMP_CLASSES["sprp"],
-         "sprp.props": {v: glc.StaticPropClass for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}}
-    leaves = {v: branches.shared.UnsignedShorts for v, glc in d["sprp"].items() if hasattr(glc(), "leaves")}
+    d["sprp"].update(branch_script.GAME_LUMP_CLASSES["sprp"])
+    d.update({"sprp.props": {v: glc.StaticPropClass for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}})
+    leaves = {v: branches.shared.UnsignedShorts for v, glc in d["sprp"].items() if glc is not None and hasattr(glc(), "leaves")}
     if len(leaves) != 0:
         d["sprp.leaves"] = leaves
-    if branch_script == branches.nexon.vindictus:
-        d["sprp.scales"] = {6: branches.nexon.vindictus.StaticPropScale}
+    if branch_script in (branches.nexon.vindictus69, branches.nexon.vindictus):
+        d["sprp.scales"] = {6: branches.nexon.vindictus69.StaticPropScale}
     if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends):
         d["sprp.unknown_3"] = {v: None for v in branch_script.GAME_LUMP_CLASSES["sprp"].keys()}
     # TODO: "dprp": None etc.
     gamelump_mappings[branch_script] = d
 del branch_script, d, leaves
+del unmapped_sprp
 
 # keep apex_legends.md to v47, structs stay the same
 gamelump_mappings[branches.respawn.apex_legends] = {k: {v: c for v, c in d.items() if v == 47}
@@ -318,6 +339,7 @@ gamelump_coverage = dict()
 # ^ {LumpClass: percent, SpecialLumpClass: percent}
 # TODO: gather all the classes defined above and calculate their % unknown automatically
 # -- split supported_md's coverage calculator into a function we can use
+# TODO: include GameLump coverage in overall branch coverage
 for branch_script in bs:
     if branch_script.GAME_LUMP_CLASSES == dict():
         continue
@@ -327,7 +349,8 @@ for branch_script in bs:
 del branch_script, GameLumpClass
 del bs
 
-gamelump_coverage.update({branches.nexon.vindictus.StaticPropScale: 100,
+gamelump_coverage.update({branches.utoplanet.merubasu.StaticPropv11: 75,
+                          branches.nexon.vindictus69.StaticPropScale: 100,
                           branches.respawn.titanfall.GameLump_SPRPv12: 60, branches.respawn.titanfall.StaticPropv12: 94,
                           branches.respawn.titanfall2.GameLump_SPRPv13: 40, branches.respawn.titanfall2.StaticPropv13: 92,
                           branches.shared.UnsignedShorts: 100})

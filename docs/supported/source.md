@@ -8,7 +8,6 @@
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 19 | Half-Life Deathmatch: Source | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 47 / 61 | 3 | 73.28% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 19 | Half-Life 2 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 47 / 61 | 3 | 73.28% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 19 | Half-Life 2: Episode 1 | [`valve.source`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py) | 47 / 61 | 3 | 73.28% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Bloody Good Time | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Day of Defeat: Source | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Entropy: Zero 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | E.Y.E: Divine Cybermancy | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
@@ -19,12 +18,15 @@
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | NEOTOKYO | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Portal | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Team Fortress 2 | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | The Ship | [`valve.orange_box`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py) | 44 / 58 | 6 | 75.34% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Zeno Clash | [`ace_team.zeno_clash`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ace_team/zeno_clash.py) | 42 / 58 | 6 | 71.90% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Zeno Clash Demo | [`ace_team.zeno_clash`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ace_team/zeno_clash.py) | 42 / 58 | 6 | 71.90% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Bloody Good Time | [`outerlight.outerlight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/outerlight/outerlight.py) | 42 / 58 | 6 | 71.90% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | The Ship | [`outerlight.outerlight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/outerlight/outerlight.py) | 42 / 58 | 6 | 71.90% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Fairy Tale Busters | [`utoplanet.merubasu`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py) | 44 / 58 | 6 | 75.34% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Blade Symphony | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 42 / 62 | 2 | 67.26% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Counter-Strike: Global Offensive | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 42 / 62 | 2 | 67.26% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Portal 2 | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 42 / 62 | 2 | 67.26% |
-| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Source Filmmaker | [`valve.sdk_2013`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py) | 42 / 62 | 2 | 67.26% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 21 | Source Filmmaker | [`valve.source_filmmaker`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source_filmmaker.py) | 42 / 58 | 6 | 71.90% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 22 | INFRA | [`loiste.infra`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/loiste/infra.py) | 39 / 62 | 2 | 62.42% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 25 | Momentum Mod | [`strata.strata`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py) | 42 / 62 | 2 | 67.26% |
 
@@ -59,15 +61,17 @@
 | 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L517) | 100% |
 | 7 | 25 | `FACES` | 2 | [`strata.strata.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L204) | 100% |
 | 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
+| 8 | 20 | `LIGHTING` | 0 |  | 0% |
+| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
 | 8 | 22 | `LIGHTING` | 0 |  | 0% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
 | 10 | 19 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L550) | 100% |
-| 10 | 20 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L109) | 100% |
+| 10 | 20 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L107) | 100% |
 | 10 | 21 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L550) | 100% |
-| 10 | 21 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L109) | 100% |
+| 10 | 21 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L107) | 100% |
 | 10 | 22 | `LEAVES` | 0 | [`valve.source.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L550) | 100% |
-| 10 | 22 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L109) | 100% |
+| 10 | 22 | `LEAVES` | 1 | [`valve.orange_box.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L107) | 100% |
 | 10 | 25 | `LEAVES` | 2 | [`strata.strata.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L242) | 100% |
 | 11 | 17 | `FACE_IDS` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 11 | 25 | `FACE_IDS` | 1 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
@@ -86,7 +90,7 @@
 | 19 | 25 | `BRUSH_SIDES` | 1 | [`strata.strata.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L138) | 100% |
 | 20 | 17 | `AREAS` | 0 | [`valve.source.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L390) | 100% |
 | 21 | 17 | `AREA_PORTALS` | 0 | [`valve.source.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L397) | 100% |
-| 21 | 25 | `AREA_PORTALS` | 1 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L109) | 100% |
+| 21 | 25 | `AREA_PORTALS` | 1 | [`nexon.vindictus69.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L106) | 100% |
 | 22 | 17 | `PORTALS` | 0 |  | 0% |
 | 22 | 19 | `PORTALS` | 0 |  | 0% |
 | 22 | 21 | `FACE_BRUSHES` | 0 |  | 0% |
@@ -129,24 +133,26 @@
 | 35 | 17 | `GAME_LUMP.sprp` | 7 | [`valve.source.GameLump_SPRPv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L917) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 7 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L892) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L158) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L165) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.sdk_2013.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L134) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L158) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | ? |  | 0% |
+| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`utoplanet.merubasu.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L133) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`utoplanet.merubasu.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L100) | 75% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L131) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 10 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 10 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 10 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L131) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp` | 8 | [`valve.left4dead.GameLump_SPRPv8`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead.py#L127) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 8 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 8 | [`valve.left4dead.StaticPropv8`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead.py#L100) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp` | 9 | [`valve.left4dead2.GameLump_SPRPv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L144) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 9 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 9 | [`valve.left4dead2.StaticPropv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L115) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp` | 10 | [`valve.sdk_2013.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L130) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp.props` | 10 | [`valve.sdk_2013.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L100) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp` | 11 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L165) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp` | 10 | [`valve.sdk_2013.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L129) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp` | 10 |  | 0% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 10 | [`valve.sdk_2013.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L99) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp` | 11 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L164) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 11 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp.props` | 11 | [`valve.sdk_2013.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L134) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp.props` | 11 | [`valve.sdk_2013.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L133) | 100% |
 | 36 | 17 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L599) | 100% |
 | 37 | 17 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L666) | 100% |
 | 37 | 22 | `PRIMITIVES` | 0 |  | 0% |
@@ -172,6 +178,8 @@
 | 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L579) | 100% |
 | 52 | 25 | `LEAF_AMBIENT_INDEX` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L266) | 100% |
 | 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
+| 53 | 20 | `LIGHTING_HDR` | 0 |  | 0% |
+| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
 | 53 | 22 | `LIGHTING_HDR` | 0 |  | 0% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L726) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |

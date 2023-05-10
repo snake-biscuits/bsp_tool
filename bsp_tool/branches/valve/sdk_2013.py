@@ -16,8 +16,7 @@ BSP_VERSION = 21
 
 GAME_PATHS = {"Blade Symphony": "Blade Symphony/berimbau",
               "Counter-Strike: Global Offensive": "Counter-Strike Global Offensive/csgo",
-              "Portal 2": "Portal 2/portal2",
-              "Source Filmmaker": "Source Filmmaker/game/tf"}
+              "Portal 2": "Portal 2/portal2"}
 # NOTE: also most sourcemods & mapbase
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}

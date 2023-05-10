@@ -4,6 +4,7 @@
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Vindictus | [`nexon.vindictus`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py) | 43 / 57 | 7 | 74.46% |
+| [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 20 | Vindictus | [`nexon.vindictus69`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py) | 43 / 57 | 7 | 74.46% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 100 | Counter-Strike: Online 2 | [`nexon.cso2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2.py) | 32 / 58 | 6 | 54.66% |
 | [`ValveBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/valve.py#L17) | 100 | Counter-Strike: Online 2 | [`nexon.cso2_2018`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py) | 33 / 58 | 6 | 54.66% |
 
@@ -31,15 +32,15 @@
 | 2 | 20 | `TEXTURE_DATA` | 0 | [`valve.source.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L677) | 100% |
 | 3 | 20 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L253) | 100% |
 | 4 | 20 | `VISIBILITY` | 0 | [`id_software.quake2.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake2.py#L215) | 90% |
-| 5 | 20 | `NODES` | 0 | [`nexon.vindictus.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L243) | 100% |
+| 5 | 20 | `NODES` | 0 | [`nexon.vindictus69.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L240) | 100% |
 | 6 | 20 | `TEXTURE_INFO` | 0 | [`valve.source.TextureInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L691) | 100% |
 | 6 | 100 | `TEXTURE_INFO` | 0 |  | 0% |
-| 7 | 20 | `FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L161) | 94% |
-| 7 | 20 | `FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L191) | 88% |
+| 7 | 20 | `FACES` | 1 | [`nexon.vindictus69.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L158) | 94% |
+| 7 | 20 | `FACES` | 2 | [`nexon.vindictus69.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L188) | 88% |
 | 7 | 100 | `FACES` | 0 |  | 0% |
 | 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.save_vbsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps.py#L108) | 100% |
 | 9 | 20 | `OCCLUSION` | 0 |  | 0% |
-| 10 | 20 | `LEAVES` | 1 | [`nexon.vindictus.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L222) | 100% |
+| 10 | 20 | `LEAVES` | 1 | [`nexon.vindictus69.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L219) | 100% |
 | 10 | 100 | `LEAVES` | 0 |  | 0% |
 | 11 | 20 | `FACEIDS` | 0 |  | 0% |
 | 12 | 20 | `EDGES` | 0 | [`id_software.remake_quake_old.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/remake_quake_old.py#L43) | 100% |
@@ -50,19 +51,19 @@
 | 16 | 20 | `LEAF_FACES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 17 | 20 | `LEAF_BRUSHES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L25) | 100% |
 | 18 | 20 | `BRUSHES` | 0 | [`valve.source.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L408) | 100% |
-| 19 | 20 | `BRUSH_SIDES` | 0 | [`nexon.vindictus.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L120) | 100% |
+| 19 | 20 | `BRUSH_SIDES` | 0 | [`nexon.vindictus69.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L117) | 100% |
 | 19 | 100 | `BRUSH_SIDES` | 0 |  | 0% |
-| 20 | 20 | `AREAS` | 0 | [`nexon.vindictus.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L102) | 100% |
-| 21 | 20 | `AREA_PORTALS` | 0 | [`nexon.vindictus.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L109) | 100% |
+| 20 | 20 | `AREAS` | 0 | [`nexon.vindictus69.Area`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L99) | 100% |
+| 21 | 20 | `AREA_PORTALS` | 0 | [`nexon.vindictus69.AreaPortal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L106) | 100% |
 | 22 | 20 | `UNUSED_22` | 0 |  | 0% |
 | 23 | 20 | `UNUSED_23` | 0 |  | 0% |
 | 24 | 20 | `UNUSED_24` | 0 |  | 0% |
 | 25 | 20 | `UNUSED_25` | 0 |  | 0% |
-| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L129) | 92% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
+| 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus69.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L126) | 92% |
 | 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L23) | 0% |
-| 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L161) | 94% |
-| 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L191) | 88% |
+| 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
+| 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus69.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L158) | 94% |
+| 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus69.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L188) | 88% |
 | 27 | 100 | `ORIGINAL_FACES` | 0 |  | 0% |
 | 28 | 20 | `PHYSICS_DISPLACEMENT` | 0 | [`valve_physics.Displacement`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve_physics.py#L259) | 90% |
 | 29 | 20 | `PHYSICS_COLLIDE` | 0 | [`valve_physics.CollideLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve_physics.py#L26) | 90% |
@@ -72,10 +73,13 @@
 | 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L506) | 100% |
 | 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
 | 35 | 20 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L341) | 90% |
-| 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L302) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus69.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L299) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L90) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 6 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L864) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.scales` | 6 | [`nexon.vindictus.StaticPropScale`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L293) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L837) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.scales` | 6 | [`nexon.vindictus69.StaticPropScale`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L290) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 7 |  | 0% |
 | 35 | 100 | `GAME_LUMP.sprp` | ? |  | 0% |
 | 36 | 20 | `LEAF_WATER_DATA` | 0 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L599) | 100% |
 | 37 | 20 | `PRIMITIVES` | 0 | [`valve.source.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L666) | 100% |
@@ -88,7 +92,7 @@
 | 42 | 100 | `CUBEMAPS` | 0 |  | 0% |
 | 43 | 20 | `TEXTURE_DATA_STRING_DATA` | 0 | [`shared.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L142) | 100% |
 | 44 | 20 | `TEXTURE_DATA_STRING_TABLE` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
-| 45 | 20 | `OVERLAYS` | 0 | [`nexon.vindictus.Overlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L258) | 100% |
+| 45 | 20 | `OVERLAYS` | 0 | [`nexon.vindictus69.Overlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L255) | 100% |
 | 45 | 100 | `OVERLAYS` | 0 |  | 0% |
 | 46 | 20 | `LEAF_MIN_DIST_TO_WATER` | 0 |  | 0% |
 | 47 | 20 | `FACE_MARCO_TEXTURE_INFO` | 0 |  | 0% |

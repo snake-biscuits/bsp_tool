@@ -47,12 +47,12 @@
 | 4 | 1 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L241) | 100% |
 | 4 | 12 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L318) | 100% |
 | 4 | 19 | `CONT_LIGHTMAPS` |  | 0% |
+| 4 | 19 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L318) | 100% |
+| 4 | 20 | `CONT_LIGHTMAPS` |  | 0% |
 | 4 | 21 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L318) | 100% |
 | 4 | 46 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L241) | 100% |
 | 5 | 1 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 5 | 19 | `FACES` | [`ritual.star_trek_elite_force2_demo.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2_demo.py#L95) | 100% |
-| 5 | 19 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
-| 5 | 20 | `FACES` | [`ritual.star_trek_elite_force2_demo.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2_demo.py#L95) | 100% |
 | 5 | 21 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 6 | 1 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 6 | 19 | `VERTICES` | [`ritual.star_trek_elite_force2_demo.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2_demo.py#L129) | 100% |
@@ -66,12 +66,16 @@
 | 8 | 12 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L241) | 100% |
 | 8 | 18 | `LEAVES` | [`ritual.mohaa_demo.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L105) | 100% |
 | 8 | 19 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
+| 8 | 19 | `LEAVES` | [`ritual.mohaa_demo.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L105) | 100% |
+| 8 | 20 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 8 | 21 | `LEAVES` | [`ritual.mohaa_demo.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L105) | 100% |
 | 8 | 46 | `BRUSHES` | [`id_software.quake3.Brush`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L177) | 100% |
 | 9 | 1 | `BRUSH_SIDES` |  | 0% |
 | 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L91) | 100% |
 | 9 | 12 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L293) | 100% |
 | 9 | 19 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
+| 9 | 19 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L293) | 100% |
+| 9 | 20 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L13) | 100% |
 | 9 | 21 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L293) | 100% |
 | 9 | 46 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L185) | 100% |
 | 10 | 1 | `VERTICES` |  | 0% |
@@ -96,20 +100,16 @@
 | 12 | 1 | `EFFECTS` | [`id_software.quake3.Effect`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L192) | 100% |
 | 12 | 12 | `EFFECTS` |  | 0% |
 | 12 | 19 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L185) | 100% |
-| 12 | 19 | `BRUSHES` |  | 0% |
-| 12 | 20 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L185) | 100% |
 | 12 | 21 | `BRUSHES` |  | 0% |
 | 12 | 46 | `EFFECTS` | [`id_software.quake3.Effect`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L192) | 100% |
-| 13 | 1 | `FACES` | [`id_software.qfusion.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L99) | 100% |
 | 13 | 1 | `FACES` |  | 0% |
+| 13 | 1 | `FACES` | [`id_software.qfusion.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L99) | 100% |
 | 13 | 12 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L281) | 100% |
 | 13 | 19 | `BRUSHES` |  | 0% |
-| 13 | 19 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L281) | 100% |
-| 13 | 20 | `BRUSHES` |  | 0% |
 | 13 | 21 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L281) | 100% |
 | 13 | 46 | `FACES` | [`id_software.quake3.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L200) | 100% |
-| 14 | 1 | `LIGHTMAPS` | [`id_software.qfusion.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L150) | 100% |
 | 14 | 1 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L257) | 100% |
+| 14 | 1 | `LIGHTMAPS` | [`id_software.qfusion.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L150) | 100% |
 | 14 | 12 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L38) | 100% |
 | 14 | 18 | `UNKNOWN_14` | [`ritual.mohaa_demo.Unknown14`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L136) | 100% |
 | 14 | 19 | `EFFECTS` |  | 0% |
