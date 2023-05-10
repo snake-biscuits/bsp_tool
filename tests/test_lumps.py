@@ -11,7 +11,7 @@ import pytest
 # TODO: merge with tests/test_BspLump.py (or divide concerns more clearly)
 
 
-class TestRemapNegativeIndex:
+class TestRemapIndex:
     def test_guess(self):
         assert lumps._remap_index(-1, 50) == 49
 
