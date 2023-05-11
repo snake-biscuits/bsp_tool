@@ -134,8 +134,8 @@
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 7 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L892) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | ? |  | 0% |
-| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`utoplanet.merubasu.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L133) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`utoplanet.merubasu.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L100) | 75% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L131) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L156) | 100% |
@@ -147,8 +147,8 @@
 | 35 | 21 | `GAME_LUMP.sprp` | 9 | [`valve.left4dead2.GameLump_SPRPv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L144) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 9 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 9 | [`valve.left4dead2.StaticPropv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L115) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp` | 10 | [`valve.sdk_2013.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L129) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp` | 10 |  | 0% |
+| 35 | 21 | `GAME_LUMP.sprp` | 10 | [`valve.sdk_2013.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L129) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 10 | [`valve.sdk_2013.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L99) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp` | 11 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L164) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 11 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |

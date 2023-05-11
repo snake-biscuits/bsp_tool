@@ -3,14 +3,14 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 47 | Apex Legends | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 48 | Apex Legends: Season 7 - Ascension | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49 | Apex Legends: Season 8 - Mayhem | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49 | Apex Legends: Season 11 - Escape [19 Nov Patch] (110) | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49.1 | Apex Legends: Season 11 - Escape [19 Nov Patch] (111) | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 50 | Apex Legends: Season 10 - Emergence | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 50.1 | Apex Legends: Season 11 - Escape [19 Nov Patch] | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 51.1 | Apex Legends: Season 13 - Saviors | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 66 | 62 | 74.53% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 47 | Apex Legends | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 48 | Apex Legends: Season 7 - Ascension | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49 | Apex Legends: Season 8 - Mayhem | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49 | Apex Legends: Season 11 - Escape [19 Nov Patch] (110) | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 49.1 | Apex Legends: Season 11 - Escape [19 Nov Patch] (111) | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 50 | Apex Legends: Season 10 - Emergence | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 50.1 | Apex Legends: Season 11 - Escape [19 Nov Patch] | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L145) | 51.1 | Apex Legends: Season 13 - Saviors | [`respawn.apex_legends`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py) | 54 / 71 | 57 | 69.28% |
 
 
 ### References
@@ -99,11 +99,11 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 41 | 0029 | 47 | `UNUSED_41` | 0 |  | 0% |
 | 42 | 002A | 47 | `CUBEMAPS` | 0 | [`respawn.titanfall.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L438) | 50% |
 | 43 | 002B | 47 | `UNKNOWN_43` | 0 |  | 0% |
-| 44 | 002C | 47 | `UNUSED_44` | 0 |  | 0% |
-| 45 | 002D | 47 | `UNUSED_45` | 0 |  | 0% |
-| 46 | 002E | 47 | `UNUSED_46` | 0 |  | 0% |
-| 47 | 002F | 47 | `UNUSED_47` | 0 |  | 0% |
-| 48 | 0030 | 47 | `UNUSED_48` | 0 |  | 0% |
+| 44 | 002C | 47 | `UNKNOWN_44` | 0 |  | 0% |
+| 45 | 002D | 47 | `UNKNOWN_45` | 0 |  | 0% |
+| 46 | 002E | 47 | `UNKNOWN_46` | 0 |  | 0% |
+| 47 | 002F | 47 | `UNKNOWN_47` | 0 |  | 0% |
+| 48 | 0030 | 47 | `UNKNOWN_48` | 0 |  | 0% |
 | 49 | 0031 | 47 | `UNUSED_49` | 0 |  | 0% |
 | 50 | 0032 | 47 | `UNUSED_50` | 0 |  | 0% |
 | 51 | 0033 | 47 | `UNUSED_51` | 0 |  | 0% |
