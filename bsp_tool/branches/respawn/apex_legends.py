@@ -109,11 +109,11 @@ class LUMP(enum.Enum):
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
     UNKNOWN_43 = 0x002B
-    UNUSED_44 = 0x002C
-    UNUSED_45 = 0x002D
-    UNUSED_46 = 0x002E
-    UNUSED_47 = 0x002F
-    UNUSED_48 = 0x0030
+    UNKNOWN_44 = 0x002C  # Storm Point & Habitat
+    UNKNOWN_45 = 0x002D  # Storm Point & Habitat
+    UNKNOWN_46 = 0x002E  # Storm Point & Habitat
+    UNKNOWN_47 = 0x002F  # Storm Point & Habitat
+    UNKNOWN_48 = 0x0030  # Storm Point & Habitat; sometimes unused
     UNUSED_49 = 0x0031
     UNUSED_50 = 0x0032
     UNUSED_51 = 0x0033
