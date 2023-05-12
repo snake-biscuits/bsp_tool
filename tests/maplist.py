@@ -301,11 +301,25 @@ extracted_dirs = {
         # season5:  Fortune's Favour  [12th May 2020]
         "ApexLegends/season5": ["maps"],  # 3 maps | 1.2 GB | .vpk
         # TODO: season6:  Boosted  [18th Aug 2020]
-        # TODO: season7:  Ascension  [4th Nov 2020]
+        # season7:  Ascension  [4th Nov 2020]
+        "ApexLegends/season7": ["3nov20/depot/r5-70/game/r2/maps",  # 6 maps | 3.75 GB | .vpk
+                                "3nov20/maps",  # 6 maps | 3.81 GB | .vpk
+                                "6jan21/depot/r5-70/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
+                                "6jan21/depot/r5-71/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
+                                "6jan21/depot/r5-72/game/r2/maps",  # 11 maps | 6.75 GB | .vpk
+                                "6jan21/maps"],  # 11 maps | 6.84 GB | .vpk
         # season8:  Mayhem  [2nd Feb 2021]
-        "ApexLegends/season8": ["maps"],  # 1 map | 1.9 MB | .vpk
+        "ApexLegends/season8": ["2feb21/depot/r5-80/game/r2/maps",  # 7 maps | 3.83 GB | .vpk
+                                "2feb21/maps",  # 7 maps | 3.88 GB | .vpk
+                                "9mar21/depot/r5-80/game/r2/maps",  # 7 maps | 3.83 GB | .vpk
+                                "9mar21/depot/r5-81/game/r2/maps",  # 7 maps | 3.99 GB | .vpk
+                                "9mar21/maps"],  # 7 maps | 4.04 GB | .vpk
         # season9:  Legacy  [4th May 2021]
-        "ApexLegends/season9": ["maps"],  # 4 maps | 226 MB | .vpk
+        "ApexLegends/season9": ["4may21/depot/r5-90/game/r2/maps",  # 7 maps | 2.65 GB | .vpk
+                                "4may21/maps",  # 7 maps | 2.69 GB | .vpk
+                                "29jun21/depot/r5-90/game/r2/maps",  # 7 maps | 2.65 GB | .vpk
+                                "29jun21/depot/r5-91/game/r2/maps",  # 10 maps | 4.27 GB | .vpk
+                                "29jun21/maps"],  # 10 maps | 4.33 GB | .vpk
         # season10:  Emergence  [3rd Aug 2021]
         "ApexLegends/season10": ["3aug21/maps",  # 2 maps | 813 MB | .vpk
                                  "10aug21/maps",  # 8 maps | 2.8 GB | .vpk
