@@ -281,23 +281,12 @@ extracted_dirs = {
         # see also: https://github.com/Syampuuh/TitanfallApexLegends
         # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
         # -- could eventually create an archive of all map related patches
-        "ApexLegends": ["maps",  # 9 maps | 3.3 GB | .vpk (unsure of when extracted)
-                        # TODO: season0:  Preseason [4th February 2019]
-                        # TODO: season1:  Wild Frontier [19th Mar 2019]
-                        # TODO: season2:  Battle Charge [2nd Jul 2019]
-                        "season2/maps",  # 1 map | 16.9 MB | .vpk
-                        # season4:  Assimilation [4th Feb 2020]
-                        "season4/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
-                        "season4/depot/r5staging/game/r2/maps",  # 6 maps | 3.0 GB | .vpk
-                        "season4/maps",  # 8 maps | 4.6 GB | .vpk
-                        # season5:  Fortune's Favour  [12th May 2020]
-                        "season5/maps",  # 3 maps | 1.2 GB | .vpk
-                        # TODO: season6:  Boosted  [18th Aug 2020]
-                        # TODO: season7:  Ascension  [4th Nov 2020]
-                        # season8:  Mayhem  [2nd Feb 2021]
-                        "season8/maps",  # 1 map | 1.9 MB | .vpk
-                        # season9:  Legacy  [4th May 2021]
-                        "season9/maps"],  # 4 maps | 226 MB | .vpk
+        # NOTE: patch dates of archived maps from before season10 are unknown (except s3 r5r builds)
+        "ApexLegends": ["maps"],  # 9 maps | 3.3 GB | .vpk (season unknown, most likely s5)
+        # TODO: season0:  Preseason [4th February 2019]
+        # TODO: season1:  Wild Frontier [19th Mar 2019]
+        # season2:  Battle Charge [2nd Jul 2019]
+        "AprxLegends/season2": ["maps"],  # 1 map | 16.9 MB | .vpk
         # season3:  Meltdown [1st October 2019]
         "ApexLegends/season3": ["30oct19/maps",  # 8 maps | 4.9 GB | .vpk
                                 "30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB | .vpk
@@ -305,6 +294,18 @@ extracted_dirs = {
                                 "3dec19/maps",  # 8 maps | 4.6 GB | .vpk
                                 "3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
                                 "3dec19/depot/r5staging/game/r2/maps"],  # 8 maps | 3.0 GB | .vpk
+        # season4:  Assimilation [4th Feb 2020]
+        "ApexLegends/season4": ["depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
+                                "depot/r5staging/game/r2/maps",  # 6 maps | 3.0 GB | .vpk
+                                "maps"],  # 8 maps | 4.6 GB | .vpk
+        # season5:  Fortune's Favour  [12th May 2020]
+        "ApexLegends/season5": ["maps"],  # 3 maps | 1.2 GB | .vpk
+        # TODO: season6:  Boosted  [18th Aug 2020]
+        # TODO: season7:  Ascension  [4th Nov 2020]
+        # season8:  Mayhem  [2nd Feb 2021]
+        "ApexLegends/season8": ["maps"],  # 1 map | 1.9 MB | .vpk
+        # season9:  Legacy  [4th May 2021]
+        "ApexLegends/season9": ["maps"],  # 4 maps | 226 MB | .vpk
         # season10:  Emergence  [3rd Aug 2021]
         "ApexLegends/season10": ["3aug21/maps",  # 2 maps | 813 MB | .vpk
                                  "10aug21/maps",  # 8 maps | 2.8 GB | .vpk
