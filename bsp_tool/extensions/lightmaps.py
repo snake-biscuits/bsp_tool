@@ -83,7 +83,7 @@ def save_quakebsp_q1(bsp, image_dir="./", lightmap_scale=16):  # saves to <image
         d = bsp.lightmap_of_face(i, lightmap_scale)
         if d["lighting_offset"] == -1:
             continue
-        lightmap = Image.frombytes("L", (d["width"], d["height"]), d["lightmap_bytes"], "raw")
+        lightmap = Image.frombytes("L", (d["width"], d["height"]), bytes(d["lightmap_bytes"]), "raw")
         lightmaps.append(lightmap)
     tiled_lightmaps = sum(lightmaps, start=LightmapPage(max_width=256))
     os.makedirs(image_dir, exist_ok=True)
@@ -121,7 +121,7 @@ def save_vbsp(vbsp, image_dir="./", ext="png"):
             continue  # face is not lightmapped
         # NOTE: If face.styles is >1, there are multiple lightmaps of the same size immediately after the first
         width, height = [s + 1 for s in face.lightmap.size]
-        texels = lightmap_texels[face.light_offset:face.light_offset + (width * height * 4)]
+        texels = bytes(lightmap_texels[face.light_offset:face.light_offset + (width * height * 4)])
         face_lightmap = Image.frombytes("RGBA", (width, height), texels, "raw")  # Alpha is HDR exponent
         # TODO: bleed each lightmap by an extra pixel in each dimension
         lightmaps.append(face_lightmap)
@@ -141,14 +141,14 @@ def save_rbsp_r1(rbsp, image_dir="./", ext="png"):
     for header in rbsp.LIGHTMAP_HEADERS:
         # REAL_TIME_LIGHTS x1
         rtl_end = rtl_start + (header.width * header.height * 4)
-        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_bytes = bytes(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end])
         rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
         rtl_lightmaps.append(rtl_lightmap)
         rtl_start = rtl_end
         for i in range(2):
             # SKY x2
             sky_end = sky_start + (header.width * header.height * 4)
-            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end]
+            sky_bytes = bytes(rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end])
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
             sky_start = sky_end
@@ -173,20 +173,20 @@ def save_rbsp_r2(rbsp, image_dir="./", ext="png"):
         for i in range(2):
             # SKY_A + SKY_B
             sky_end = sky_start + (header.width * header.height * 4)
-            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end]
+            sky_bytes = bytes(rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end])
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
             sky_start = sky_end
             # RTL_A + RTL_B
             rtl_end = rtl_start + (header.width * header.height * 4)
-            rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+            rtl_bytes = bytes(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end])
             rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
             rtl_lightmaps.append(rtl_lightmap)
             rtl_start = rtl_end
         if not hasattr(rbsp.headers["LIGHTMAP_DATA_REAL_TIME_LIGHTS"], "filename"):  # internal only (not .bsp_lump)
             # RTL_C
             rtl_end = rtl_start + (header.width * header.height)
-            rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+            rtl_bytes = bytes(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end])
             rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
             rtl_lightmaps.append(rtl_lightmap)
             rtl_start = rtl_end
@@ -282,18 +282,18 @@ def save_rbsp_r5(rbsp, image_dir="./", ext="png"):
         for i in range(2):
             # SKY_A + SKY_B (2x 32bpp)
             sky_end = sky_start + (header.width * header.height * 4)
-            sky_bytes = rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end]
+            sky_bytes = bytes(rbsp.LIGHTMAP_DATA_SKY[sky_start:sky_end])
             sky_lightmap = Image.frombytes("RGBA", (header.width, header.height), sky_bytes, "raw")
             sky_lightmaps.append(sky_lightmap)
             sky_start = sky_end
         # RTL_A
         rtl_end = rtl_start + (header.width * header.height * 4)
-        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_bytes = bytes(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end])
         rtl_lightmap = Image.frombytes("RGBA", (header.width, header.height), rtl_bytes, "raw")
         rtl_lightmaps.append(rtl_lightmap)
         # RTL_B
         rtl_end = rtl_end + (header.width * header.height * 2)
-        rtl_bytes = rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_bytes = bytes(rbsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end])
         rtl_lightmap = Image.frombytes("RGBA", (header.width // 2, header.height // 2), rtl_bytes, "raw")
         rtl_lightmaps.append(rtl_lightmap)
         rtl_start = rtl_end
