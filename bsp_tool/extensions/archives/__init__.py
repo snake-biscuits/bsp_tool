@@ -1,11 +1,13 @@
 """Tools for opening and searching .iwd & .pk3 archives"""
-__all__ = ["base", "bluepoint", "id_software", "infinity_ward", "nexon", "respawn", "utoplanet", "valve"]
+__all__ = ["base", "bluepoint", "gearbox", "id_software", "infinity_ward",
+           "nexon", "respawn", "utoplanet", "valve"]
 import fnmatch
 import os
 
 from . import base
 # zipfile.ZipFile-like archive interfaces, grouped by developer
 from . import bluepoint  # Bpk
+from . import gearbox  # Nightfire007
 from . import id_software  # Pak Pk3
 from . import infinity_ward  # Iwd FastFile
 from . import nexon  # Pkg Hfs
