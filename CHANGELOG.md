@@ -18,10 +18,15 @@
    - `BspLump.find(attr=val)` method is now `.search()`
    - removed `.find()` method from `BasicBspLump`
    - allowed implicit changes (e.g. `bsp.VERTICES[0].z += 1`)
-   - `__iter__` doesn't update `_changes`, reducing unnesecary caching
+   - `__iter__` doesn't update `_changes`, reducing unnessecary caching
    - TODO: `bsp.LUMP[::]` creates a copy & doesn't affect / share `_changes`
    - `RawBspLump` slices are `bytearray`s
  * Fractured Source Engine into more branches ("solves" version conflicts of SPRP formats)
+ * `extensions.archives` refactor
+   - One script per-developer
+   - Placeholders for not-yet-supported archives
+   - MeruBasu `utoplanet.Apk` can extract files
+   - Titanfall `respawn.Vpk` can list files (no extraction)
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser
