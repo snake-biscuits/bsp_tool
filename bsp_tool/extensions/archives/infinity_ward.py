@@ -1,42 +1,18 @@
-"""Tools for opening and searching .iwd & .pk3 archives"""
 import enum
-import fnmatch
-import os
 import struct
-import zipfile
 import zlib
 
-
-# TODO: Nexon .pkg loader
-# TODO: Valve .vpk loader
-# -- BlackMesa, Infra, SinEpisodes, DarkMessiah all store maps in .vpk
-# TODO: Respawn .vpk loader  (make a pull request to ValvePython/vpk)
-# -- copy functionality from mrsteyk/RSPNVPK (with permission ofc)
-# TODO: Bluepoint .bpk loader (Titanfall for the Xbox360)
-# TODO: IdTech .pak loader  (https://quakewiki.org/wiki/.pak)
-# -- yquake2/pakextract or Slartibarty/PAKExtract are good tools
-
-# NOTE: you could access raw .bsp files with Zipfile.read("filename.bsp"), but bsp_tool doesn't accept open files
-# -- e1m1 = IdTechBsp(quake, "maps/e1m1.bsp")
-# -- e1m1.file = pak000.read("maps/e1m1.bsp")
-# -- e1m1._preload()
-
-class Pk3(zipfile.ZipFile):
-    """Quake & Call of Duty 1 .bsps are stored in .pk3 files, which are basically .zip archives"""
-    def extract_match(self, pattern="*.bsp", path=None):
-        for filename in self.search(pattern):
-            self.extract(filename, path)
-
-    def search(self, pattern="*.bsp"):
-        return fnmatch.filter(self.namelist(), pattern)
+from . import id_software
 
 
-class Iwd(Pk3):
+# NOTE: Call of Duty 1 uses id_software.Pk3
+class Iwd(id_software.Pk3):  # identical implmentation, different extension (so far)
     """Call of Duty 2 .bsps are stored in .iwd files, which are basically .zip archives"""
-    pass
 
 
-class FastFile:  # TODO: provide a zipfile.ZipFile-like interface
+class FastFile:
+    """Work In Progress"""
+    # TODO: provide a zipfile.ZipFile-like interface
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_Partial_Fastfile_Decompile  # .ff -> .dat
     # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_FastFile_Format  # .dat -> .*
     # https://github.com/eon8ight/cod4-prealpha/blob/master/ff-deflate.sh
@@ -107,16 +83,3 @@ class FastFile:  # TODO: provide a zipfile.ZipFile-like interface
         # assert separator1 == separator2 == 0xFFFFFFFF
         print(index_count, hex(separator1), filetype_id, hex(separator2))
         print(self.FileType(filetype_id).name)
-
-
-def search_folder(folder, pattern="*.bsp", archive="*.pk3"):
-    for pk3_filename in fnmatch.filter(os.listdir(folder), archive):
-        print(pk3_filename)
-        pk3 = Pk3(os.path.join(folder, pk3_filename))
-        print(*["\t" + bsp for bsp in pk3.search(pattern)], sep="\n", end="\n\n")
-
-
-def extract_folder(folder, pattern="*.bsp", path=None, archive="*.pk3"):
-    for archive_filename in fnmatch.filter(os.listdir(folder), archive):
-        archive_file = Pk3(os.path.join(folder, archive_filename))  # works on any zip-like format
-        archive_file.extract_match(pattern=pattern, path=path)
