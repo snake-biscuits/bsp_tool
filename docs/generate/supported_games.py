@@ -68,6 +68,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ReMakeQuakeBsp  | id_software.remake_quake           |  Y  |
 # | ReMakeQuakeBsp  | id_software.remake_quake_old       |  Y  |
 # | RespawnBsp      | respawn.apex_legends               |  Y  |
+# | RespawnBsp      | respawn.apex_legends13             |  Y  |
 # | RespawnBsp      | respawn.titanfall                  |  Y  |
 # | RespawnBsp      | respawn.titanfall_x360             |  N  |
 # | RespawnBsp      | respawn.titanfall2                 |  Y  |
@@ -111,7 +112,8 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                       {RespawnBsp: [branches.respawn.titanfall,
                                     branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
-                      {RespawnBsp: [branches.respawn.apex_legends]}),
+                      {RespawnBsp: [branches.respawn.apex_legends,
+                                    branches.respawn.apex_legends13]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
                       {GoldSrcBsp: [branches.valve.goldsrc,
                                     branches.gearbox.blue_shift,
@@ -268,7 +270,8 @@ lightmap_mappings = {(branches.id_software.quake, "LIGHTING"): lightmaps.save_qu
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
                      **{(branches.respawn.titanfall2, L): lightmaps.save_rbsp_r2
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
-                     **{(branches.respawn.apex_legends, L): lightmaps.save_rbsp_r5
+                     **{(bs, L): lightmaps.save_rbsp_r5
+                        for bs in (branches.respawn.apex_legends, branches.respawn.apex_legends13)
                         for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # ^ {(branch_script, "LUMP"): function}
 del vbsp_branch_scripts
@@ -293,7 +296,8 @@ bs = (branches.ace_team.zeno_clash,
       branches.loiste.infra,
       branches.nexon.cso2, branches.nexon.cso2_2018, branches.nexon.vindictus, branches.nexon.vindictus69,
       branches.outerlight.outerlight,
-      branches.respawn.apex_legends, branches.respawn.titanfall, branches.respawn.titanfall2,
+      branches.respawn.apex_legends, branches.respawn.apex_legends13,
+      branches.respawn.titanfall, branches.respawn.titanfall2,
       branches.strata.strata,
       branches.troika.vampire,
       branches.utoplanet.merubasu,
@@ -323,16 +327,18 @@ for branch_script in bs:
         d["sprp.leaves"] = leaves
     if branch_script in (branches.nexon.vindictus69, branches.nexon.vindictus):
         d["sprp.scales"] = {6: branches.nexon.vindictus69.StaticPropScale}
-    if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends):
+    if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends, branches.respawn.apex_legends13):
         d["sprp.unknown_3"] = {v: None for v in branch_script.GAME_LUMP_CLASSES["sprp"].keys()}
     # TODO: "dprp": None etc.
     gamelump_mappings[branch_script] = d
 del branch_script, d, leaves
 del unmapped_sprp
 
+# TODO: automatically catch changes in version number only
 # keep apex_legends.md to v47, structs stay the same
 gamelump_mappings[branches.respawn.apex_legends] = {k: {v: c for v, c in d.items() if v == 47}
                                                     for k, d in gamelump_mappings[branches.respawn.apex_legends].items()}
+# TODO: ignore s13 apex gamelump (v51)
 
 
 gamelump_coverage = dict()

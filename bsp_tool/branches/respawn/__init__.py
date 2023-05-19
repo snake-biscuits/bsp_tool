@@ -23,12 +23,13 @@ presumably all this file splitting has to do with streaming data into memory"""
 # NOTE: Respawn uses Valve's VScript + custom Squirrel .nut scripts in a VM
 # -- Likely forked from Left 4 Dead / Left 4 Dead 2
 from . import apex_legends
+from . import apex_legends13
 from . import titanfall
 from . import titanfall_x360
 from . import titanfall2
 
 
-scripts = [apex_legends, titanfall, titanfall_x360, titanfall2]
+scripts = [apex_legends, apex_legends13, titanfall, titanfall_x360, titanfall2]
 
 # Trivia:
 # All Respawn's games give the error "Not an IBSP file" when FILE_MAGIC is incorrect

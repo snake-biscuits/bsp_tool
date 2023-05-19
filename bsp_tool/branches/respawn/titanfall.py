@@ -522,6 +522,7 @@ class LightProbe(base.Struct):  # LUMP 102 (0066)
     static_light: List[List[int]]  # connection to local static lights
     # static_light.weights: List[int]  # up to 4 scalars; default 0
     # static_light.indices: List[int]  # up to 4 indices; default -1
+    padding: int
     __slots__ = ["cube", "sky_dir_sun_vis", "static_light", "padding"]
     _format = "24B4h4B4hI"
     _arrays = {"cube": {x: [*"rgba"] for x in "ABCDEF"}, "sky_dir_sun_vis": 4,
