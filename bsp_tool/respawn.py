@@ -31,12 +31,14 @@ class ExternalLumpManager:
     # ^ {"LUMP_NAME": Error}
 
     def __init__(self, bsp: RespawnBsp):
-        self.endianness = bsp.endianness
-        self.filename = bsp.filename
-        self.folder = bsp.folder
         self.branch = bsp.branch
         self.bsp_version = bsp.bsp_version
+        self.endianness = bsp.endianness
         self.file_magic = bsp.file_magic
+        self.filename = bsp.filename
+        self.folder = bsp.folder
+        self.lump_count = bsp.lump_count
+        self.revision = bsp.revision
         # generate headers
         self.headers = dict()
         self.loading_errors = dict()
