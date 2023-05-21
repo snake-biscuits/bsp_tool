@@ -73,8 +73,8 @@
 | 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L506) | 100% |
 | 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
 | 35 | 20 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L341) | 90% |
-| 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus69.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L299) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L90) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus69.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L299) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 6 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L33) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L864) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L837) | 100% |
