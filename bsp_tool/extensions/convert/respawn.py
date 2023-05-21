@@ -5,7 +5,7 @@ from ..branches.respawn import titanfall2 as r2
 from ..branches.vector import vec3
 
 
-def r1_to_r2(r1_bsp, outdir="./"):
+def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     # TODO: r1_bsp.external
     # NOTE: just mutating the r1 bsp; too lazy to build & populate an r2 bsp
     # NOTE: works best on r1o maps, no .bsp_lump edits yet
