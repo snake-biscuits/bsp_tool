@@ -1077,7 +1077,7 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12}}
 
 
-# branch exclusive methods, in alphabetical order:
+# methods for interfacing with lumps from this branch:
 def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
     """gets the VertexReservedX linked to bsp.MESHES[mesh_index]"""
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
@@ -1097,6 +1097,15 @@ def vertices_of_model(bsp, model_index: int) -> List[VertexReservedX]:
     model = bsp.MODELS[model_index]
     for i in range(model.first_mesh, model.num_meshes):
         out.extend(bsp.vertices_of_mesh(i))
+    return out
+
+
+def vertices_of_tricoll_header(bsp, tricoll_header_index: int) -> List[int]:
+    """returns indices into VERTICES, can be used to match w/ Meshes->VertexReservedX.position_index"""
+    out = list()
+    header = bsp.TRICOLL_HEADERS[tricoll_header_index]
+    for tri in bsp.TRICOLL_TRIANGLES[header.first_triangle:header.first_triangle + header.num_triangles]:
+        out.extend([header.first_vertex + i for i in (tri.A, tri.A + tri.B, tri.A + tri.C)])
     return out
 
 
@@ -1264,6 +1273,9 @@ def debug_Mesh_stats(bsp):
             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
 
 
-methods = [vertices_of_mesh, vertices_of_model, replace_texture, find_mesh_by_texture, get_mesh_texture,
-           search_all_entities, shared.worldspawn_volume, shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,
-           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats, portals_as_prt]
+methods = [shared.worldspawn_volume, search_all_entities,
+           vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,
+           replace_texture, find_mesh_by_texture, get_mesh_texture,
+           shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,
+           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,
+           portals_as_prt]
