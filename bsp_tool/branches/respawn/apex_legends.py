@@ -107,7 +107,7 @@ class LUMP(enum.Enum):
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
-    MATERIAL_SORT = 0x0052
+    MATERIAL_SORTS = 0x0052
     LIGHTMAP_HEADERS = 0x0053
     UNUSED_84 = 0x0054
     TWEAK_LIGHTS = 0x0055
@@ -497,7 +497,7 @@ del LUMP_NAME, pops
 LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
                      "CELL_AABB_NODES":    {0: CellAABBNode},
                      "LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
-                     "MATERIAL_SORT":      {0: MaterialSort},
+                     "MATERIAL_SORTS":     {0: MaterialSort},
                      "MESHES":             {0: Mesh},
                      "MODELS":             {0: Model},
                      "PACKED_VERTICES":    {0: PackedVertex},
@@ -533,7 +533,7 @@ def get_TextureData_SurfaceName(bsp, texture_data_index: int) -> str:
 def get_Mesh_SurfaceName(bsp, mesh_index: int) -> str:
     """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
-    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+    material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
     return bsp.get_TextureData_SurfaceName(material_sort.texture_data)
 
 
@@ -555,7 +555,7 @@ def debug_Mesh_stats(bsp):
         print(f"# MODELS[{i}]")
         for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
             mesh = bsp.MESHES[j]
-            material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+            material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
             texture_name = bsp.get_TextureData_SurfaceName(material_sort.texture_data)
             vertex_lump = (titanfall.MeshFlags(mesh.flags) & titanfall.MeshFlags.MASK_VERTEX).name
             indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])

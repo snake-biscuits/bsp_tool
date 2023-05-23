@@ -109,7 +109,7 @@ class LUMP(enum.Enum):
     MESH_INDICES = 0x004F
     MESHES = 0x0050
     MESH_BOUNDS = 0x0051
-    MATERIAL_SORT = 0x0052
+    MATERIAL_SORTS = 0x0052
     LIGHTMAP_HEADERS = 0x0053
     UNUSED_84 = 0x0054
     CM_GRID = 0x0055
@@ -1032,7 +1032,7 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "LIGHTPROBES":                       {0: LightProbe},
                 "LIGHTPROBE_REFERENCES":             {0: LightProbeRef},
                 "LIGHTPROBE_TREE":                   {0: LightProbeTree},
-                "MATERIAL_SORT":                     {0: MaterialSort},
+                "MATERIAL_SORTS":                    {0: MaterialSort},
                 "MESHES":                            {0: Mesh},
                 "MESH_BOUNDS":                       {0: MeshBounds},
                 "MODELS":                            {0: Model},
@@ -1082,7 +1082,7 @@ def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
     """gets the VertexReservedX linked to bsp.MESHES[mesh_index]"""
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
     mesh = bsp.MESHES[mesh_index]
-    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+    material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
     start = mesh.first_mesh_index
     finish = start + mesh.num_triangles * 3
     indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
@@ -1127,7 +1127,7 @@ def find_mesh_by_texture(bsp, texture: str) -> Mesh:
     for texture_data_index, texture_data in enumerate(bsp.TEXTURE_DATA):
         if texture_data.name_index != texture_index:
             continue
-        for material_sort_index, material_sort in enumerate(bsp.MATERIAL_SORT):
+        for material_sort_index, material_sort in enumerate(bsp.MATERIAL_SORTS):
             if material_sort.texture_data != texture_data_index:
                 continue
             for mesh in bsp.MESHES:
@@ -1138,7 +1138,7 @@ def find_mesh_by_texture(bsp, texture: str) -> Mesh:
 def get_mesh_texture(bsp, mesh_index: int) -> str:
     """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
-    material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+    material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
     texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
     return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
 
@@ -1247,7 +1247,7 @@ def debug_TextureData(bsp):
 
 
 def debug_unused_TextureData(bsp):
-    used_texture_datas = {bsp.MATERIAL_SORT[m.material_sort].texture_data for m in bsp.MESHES}
+    used_texture_datas = {bsp.MATERIAL_SORTS[m.material_sort].texture_data for m in bsp.MESHES}
     return used_texture_datas.difference({*range(len(bsp.TEXTURE_DATA))})
 
 
@@ -1257,7 +1257,7 @@ def debug_Mesh_stats(bsp):
         print(f"# MODELS[{i}]")
         for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
             mesh = bsp.MESHES[j]
-            material_sort = bsp.MATERIAL_SORT[mesh.material_sort]
+            material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
             texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
             texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
             vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name
