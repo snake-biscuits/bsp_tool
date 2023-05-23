@@ -218,12 +218,13 @@ LumpHeader = source.LumpHeader
 # Brush.num_brush_sides (derived) is 6 + Brush.num_plane_offsets
 
 # TRICOLL_* (presumed: Triangle Collision for patches / displacements)
-#              /-> Vertices?
-# TricollHeader -> TricollTriangle -?> Vertices?
-#             \--> TricollNode -> TricollNode -?> TricollLeaf? -?> ???
-#              \-> TricollBevelIndices -?> ?
+#              /-> TextureData
+#             /--> Vertices
+# TricollHeader -> TricollTriangle -> Vertices
+#             \--> TricollNode -?> TricollNode / ???
+#              \-> TricollBevelIndices? -?> ?
 
-# -?> TricollBevelStarts -?>
+# TricollBevelStarts is parallel w/ TricollTriangles
 
 # LIGHTPROBE*
 # LightProbeTree -?> LightProbeRef -> LightProbe
@@ -722,7 +723,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
     size: List[int]  # dimensions of full texture
     view: List[int]  # dimensions of visible section of texture
-    flags: int  # matches .flags of Mesh indexing this TextureData (Mesh->MaterialSort->TextureData)
+    flags: TextureDataFlags  # matches .flags of Mesh indexing this TextureData (Mesh->MaterialSort->TextureData)
     __slots__ = ["reflectivity", "name_index", "size", "view", "flags"]
     _format = "3f6i"
     _arrays = {"reflectivity": [*"rgb"],
@@ -744,55 +745,50 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)
     """Identified by rexx#1287"""
-    flags: int  # TODO: TricollHeaderFlags enum
-    texinfo_flags: int  # TextureDataFlags? always 0?
-    texture_data: int  # for surfaceproperties & flags?
-    num_vertices: int  # vertices are indexed by TricollTriangles?
-    num_triangles: int
-    num_bevels: int
-    first_vertex: int  # index into Vertices? TricollTriangle for order
-    first_triangle: int  # index into TricollTriangles; also indexes TricollBevelStarts?
+    flags: int  # always 0?
+    texture_flags: TextureDataFlags  # copy of texture_data.flags
+    texture_data: int  # probably for surfaceproperties & decals
+    num_vertices: int  # Vertices indexed by TricollTriangles
+    num_triangles: int  # number of TricollTriangles in this TricollHeader
+    num_bevel_indices: int
+    first_vertex: int  # index into Vertices, added as an offset to TricollTriangles
+    first_triangle: int  # index into TricollTriangles;
     first_node: int  # index into TricollNodes
-    first_bevel: int  # index into TricollBevelIndices?
-    origin: vector.vec3
-    scale: float
-    __slots__ = ["flags", "texinfo_flags", "texture_data", "num_vertices",
-                 "num_triangles", "num_bevels", "first_vertex", "first_triangle",
-                 "first_node", "first_bevel", "origin", "scale"]
+    first_bevel_index: int  # index into TricollBevelIndices?
+    origin: vector.vec3  # ???
+    scale: float  # ???
+    __slots__ = ["flags", "texture_flags", "texture_data",
+                 "num_vertices", "num_triangles", "num_bevel_indices",
+                 "first_vertex", "first_triangle", "first_node", "first_bevel_index",
+                 "origin", "scale"]
     _format = "6h4i4f"
     _arrays = {"origin": [*"xyz"]}
-    _classes = {"origin": vector.vec3}
+    _classes = {"texture_flags": TextureDataFlags, "origin": vector.vec3}
+    # TODO: "flags": TricollHeaderFlags
 
 
 class TricollTriangle(base.BitField):  # LUMP 66 (0042)
-    """Identified by Fifty"""
-    A: int  # vertex index?
-    B: int
-    C: int
-    unknown: int  # {0..31}, bank of indexable space?
-    _fields = {"A": 9, "B": 9, "C": 9, "unknown": 5}
+    """Identified by Fifty & RoyalBlue"""
+    A: int  # indexes VERTICES[header.first_vertex + A]
+    B: int  # indexes VERTICES[header.first_vertex + A + B]
+    C: int  # indexes VERTICES[header.first_vertex + A + C]
+    flags: int  # seems related to shape & orientation
+    _fields = {"A": 10, "B": 7, "C": 7, "flags": 8}
     _format = "I"
-
-
-class TricollLeaf(base.MappedArray):  # LUMP ?? (00??)
-    """Identified by rexx #1287"""
-    first_unknown: int  # TODO: figure out what is being indexed
-    num_unknowns: int  # TricollTriangles? Primitives?
-    _mapping = ["first_unknown", "num_unknowns"]
-    _format = "2h"
+    # TODO: _classes = {"flags": TricollTriangleFlags}
 
 
 class TricollNode(base.Struct):  # LUMP 68 (0044)
     """Identified by rexx #1287"""
-    origin: vector.vec3
-    extents: vector.vec3
-    # mins = origin - extents
-    # maxs = origin + extents
-    children: List[int]  # +ve for TricollNode; -ve for TricollLeaf?
-    __slots__ = ["origin", "extents", "children"]
-    _format = "6f4h"
-    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"], "children": 4}
-    _classes = {"origin": vector.vec3, "extents": vector.vec3}
+    mins: vector.vec3
+    maxs: vector.vec3
+    unknown: List[int]
+    # unknown[-1] on r1_wargames[0] == r1_wargames.headers[-1].first_node
+    # unknown[-1] on r1_wargames[1] == -r1_wargames.headers[-1].first_node
+    __slots__ = ["mins", "maxs", "unknown"]
+    _format = "8h"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class WorldLight(source.WorldLight):  # LUMP 54 (0036)
@@ -1055,7 +1051,6 @@ LUMP_CLASSES = {"CELLS":                             {0: Cell},
                 "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
                 "TEXTURE_DATA":                      {1: TextureData},
                 "TRICOLL_HEADERS":                   {1: TricollHeader},
-                "TRICOLL_LEAVES":                    {1: TricollLeaf},
                 "TRICOLL_NODES":                     {1: TricollNode},
                 "VERTEX_BLINN_PHONG":                {0: VertexBlinnPhong},
                 "VERTEX_LIT_BUMP":                   {1: VertexLitBump},
