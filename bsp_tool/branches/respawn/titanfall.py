@@ -755,8 +755,8 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
     first_triangle: int  # index into TricollTriangles;
     first_node: int  # index into TricollNodes
     first_bevel_index: int  # index into TricollBevelIndices?
-    origin: vector.vec3  # ???
-    scale: float  # ???
+    origin: vector.vec3  # true origin is -(origin / scale)
+    scale: float  # 0.0 for patches
     __slots__ = ["flags", "texture_flags", "texture_data",
                  "num_vertices", "num_triangles", "num_bevel_indices",
                  "first_vertex", "first_triangle", "first_node", "first_bevel_index",
@@ -1135,12 +1135,16 @@ def find_mesh_by_texture(bsp, texture: str) -> Mesh:
                     yield mesh
 
 
-def get_mesh_texture(bsp, mesh_index: int) -> str:
+def name_of_texture_data(bsp, texture_data_index: int) -> str:
+    texture_data = bsp.TEXTURE_DATA[texture_data_index]
+    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+
+
+def texture_of_mesh(bsp, mesh_index: int) -> str:
     """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
     mesh = bsp.MESHES[mesh_index]
     material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-    texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+    return bsp.name_of_texture_data(material_sort.texture_data)
 
 
 def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[str, str]]]:
@@ -1273,9 +1277,9 @@ def debug_Mesh_stats(bsp):
             print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
 
 
-methods = [shared.worldspawn_volume, search_all_entities,
-           vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,
-           replace_texture, find_mesh_by_texture, get_mesh_texture,
-           shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,
-           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,
-           portals_as_prt]
+methods = [shared.worldspawn_volume, search_all_entities,  # entities
+           vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,  # geo
+           replace_texture, find_mesh_by_texture, name_of_texture_data, texture_of_mesh,  # textures
+           shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,  # more geo
+           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,  # debug
+           portals_as_prt]  # vis
