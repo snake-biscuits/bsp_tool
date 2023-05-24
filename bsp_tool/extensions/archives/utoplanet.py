@@ -35,8 +35,16 @@ class Apk(base.Archive):
     def namelist(self) -> List[str]:
         return sorted(self.files.keys())
 
+    def read(self, filename: str) -> bytes:
+        if filename not in self.files:
+            raise FileNotFoundError()
+        entry = self.files[filename]
+        self._file.seek(entry.data_offset)
+        return self._file.read(entry.data_size)
+
     def extract(self, filename: str, dest_filename: str = None):
-        assert filename in self.files, "file not found"
+        if filename not in self.files:
+            raise FileNotFoundError()
         entry = self.files[filename]
         self._file.seek(entry.data_offset)
         dest = filename if dest_filename is None else dest_filename
