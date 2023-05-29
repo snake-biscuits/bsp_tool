@@ -783,8 +783,6 @@ class TricollNode(base.Struct):  # LUMP 68 (0044)
     mins: vector.vec3
     maxs: vector.vec3
     unknown: List[int]
-    # unknown[-1] on r1_wargames[0] == r1_wargames.headers[-1].first_node
-    # unknown[-1] on r1_wargames[1] == -r1_wargames.headers[-1].first_node
     __slots__ = ["mins", "maxs", "unknown"]
     _format = "8h"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
