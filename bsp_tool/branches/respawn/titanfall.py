@@ -750,6 +750,8 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
     texture_data: int  # probably for surfaceproperties & decals
     num_vertices: int  # Vertices indexed by TricollTriangles
     num_triangles: int  # number of TricollTriangles in this TricollHeader
+    # num_nodes is derived from the following formula:
+    # 2 * (num_triangles - (num_triangles + 3) % 6 + 3) // 3
     num_bevel_indices: int
     first_vertex: int  # index into Vertices, added as an offset to TricollTriangles
     first_triangle: int  # index into TricollTriangles;
@@ -779,14 +781,16 @@ class TricollTriangle(base.BitField):  # LUMP 66 (0042)
 
 
 class TricollNode(base.Struct):  # LUMP 68 (0044)
-    """Identified by rexx #1287"""
-    mins: vector.vec3
-    maxs: vector.vec3
-    unknown: List[int]
-    __slots__ = ["mins", "maxs", "unknown"]
+    """Identified by rexx#1287 & RoyalBlue"""
+    # dcollyawbox_t: a Z-rotated AABB w/ precaculated sin & cos
+    origin: vector.vec3
+    cos: int  # precalculated cos(yaw)
+    extents: vector.vec3
+    sin: int  # precalculated sin(yaw)
+    __slots__ = ["origin", "cos", "extents", "sin"]
     _format = "8h"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "extents": vector.vec3}  # TODO: ivec3
 
 
 class WorldLight(source.WorldLight):  # LUMP 54 (0036)
