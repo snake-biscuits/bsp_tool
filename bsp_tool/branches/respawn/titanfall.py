@@ -1069,7 +1069,7 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
                         "LEVEL_INFO":                {0: LevelInfo},
                         "PAKFILE":                   {0: shared.PakFile},
-                        "PHYSICS_COLLIDE":           {0: valve_physics.CollideLump},
+                        # "PHYSICS_COLLIDE":           {0: valve_physics.CollideLump},  # BROKEN .as_bytes()
                         "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes/RefIds & StaticPropLightProbeIndices may all be Special
 
