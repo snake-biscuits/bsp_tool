@@ -513,7 +513,7 @@ LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.pop("CM_GRID")
-SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")
+# SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # currently disabled in titanfall.py
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo},
                              "SURFACE_NAMES": {0: shared.TextureDataStringData}})
