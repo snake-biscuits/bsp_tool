@@ -17,7 +17,3 @@ def test_no_errors(bsp):
 @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
 def test_entities_loaded(bsp):
     assert bsp.ENTITIES[0]["classname"] == "worldspawn"
-
-
-# TODO: test methods
-# TODO: .save_as() with no edits should copy file byte-for-byte
