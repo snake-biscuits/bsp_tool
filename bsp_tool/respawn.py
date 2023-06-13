@@ -153,6 +153,7 @@ class RespawnBsp(valve.ValveBsp):
     lump_count: int = 127
     entity_headers: Dict[str, str]
     # ^ {"LUMP_NAME": "header text"}
+    signature: bytes = b""
     # struct LumpHeader { int offset, length, version, fourCC; };
     # struct BspHeader { char file_magic[4]; int version, revision, lump_count;
     #                    LumpHeader headers[128]; };
@@ -196,6 +197,13 @@ class RespawnBsp(valve.ValveBsp):
             if lump_header.offset >= self.bsp_file_size:
                 continue  # or version has flag (e.g. (50, 1))
             self._preload_lump(lump_name, lump_header)
+        # compiler signature
+        headers_end = 16 + (16 * 128)
+        lumps_start = min([h.offset for h in self.headers.values() if h.length != 0])
+        if lumps_start > headers_end:
+            self.file.seek(headers_end)
+            self.signature = self.file.read(lumps_start - headers_end)
+        # TODO: check for other conspicuous gaps
 
         self.external = ExternalLumpManager(self)
 
@@ -231,7 +239,9 @@ class RespawnBsp(valve.ValveBsp):
             if lump_bytes != b"":  # don't write empty lumps
                 raw_lumps[LUMP.name] = lump_bytes
         # recalculate headers
-        current_offset = 0
+        current_offset = 16 + (16 * 128)
+        signature = self.signature + b"\0" * (4 - len(self.signature) % 4)  # pad
+        current_offset += len(signature)
         headers = dict()
         # NOTE: 50.1 / 49.1 rBSP (apex_legends) still have lump offsets, just only headers in the .bsp
         for LUMP in lump_order:
@@ -252,8 +262,6 @@ class RespawnBsp(valve.ValveBsp):
                 headers[LUMP.name] = self.branch.LumpHeader(current_offset, 0, version, 0)
                 continue
             # wierd hack to align unused lump offsets correctly
-            if current_offset == 0:
-                current_offset = 16 + (16 * 128)  # first byte after headers
             offset = current_offset
             length = len(raw_lumps[LUMP.name])
             version = self.headers[LUMP.name].version
@@ -281,6 +289,7 @@ class RespawnBsp(valve.ValveBsp):
         # write headers
         for LUMP in self.branch.LUMP:
             outfile.write(headers[LUMP.name].as_bytes())
+        outfile.write(signature)
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in lump_order:
             if LUMP.name not in raw_lumps:
