@@ -452,7 +452,7 @@ class MappedArray:
             else:
                 return "\n".join(["struct {", inner, "} " + f"{inline_as};"])
 
-    def as_tuple(self) -> list:
+    def as_tuple(self) -> tuple:
         """recreates the array this instance was generated from"""
         _tuple = list()
         for attr in self._mapping:
@@ -461,11 +461,15 @@ class MappedArray:
                 _tuple.extend(value.as_tuple())  # recursive call
             elif isinstance(value, BitField):  # BitField is Iterable!
                 _tuple.append(value.as_int())
+            elif isinstance(value, str):
+                _tuple.append(value.encode("ascii", errors="ignore"))
+            elif isinstance(value, bytes):
+                _tuple.append(value)
             elif isinstance(value, Iterable):  # includes _classes
                 _tuple.extend(value)
             else:
                 _tuple.append(value)
-        return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
+        return tuple(_tuple)
 
 
 class BitField:

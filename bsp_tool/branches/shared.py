@@ -51,19 +51,18 @@ class Entities(list):
     # TODO: search_any_regex
 
     def as_bytes(self) -> bytes:
-        entities = []
+        entities = list()
         for entity_dict in self:  # Dict[str, Union[str, List[str]]]
-            entity = ["{"]
+            entity = list()
             for key, value in entity_dict.items():
                 if isinstance(value, str):
                     entity.append(f'"{key}" "{value}"')
                 elif isinstance(value, list):  # multiple entries
                     entity.extend([f'"{key}" "{v}"' for v in value])
                 else:
-                    raise RuntimeError("Entity values must be")
-            entity.append("}")
-            entities.append("\n".join(entity))
-        return b"\n".join(map(lambda e: e.encode("ascii"), entities)) + b"\n\x00"
+                    raise RuntimeError("Entity values must be either a string or list of strings")
+            entities.append("\n".join(["{", *entity, "}"]).encode("ascii", errors="ignore"))
+        return b"\n".join(entities) + b"\n\x00"
 
     @classmethod
     def from_bytes(cls, raw_lump: bytes):
