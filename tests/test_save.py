@@ -58,7 +58,7 @@ def map_dirs_to_test(*map_dirs: List[str], ext: str = "*.bsp"):
     return decorator
 
 
-def xxd(filename: str, width: int = 32) -> str:
+def xxd(filename: str, width: int = 16) -> str:
     """view a binary file like with a certain hex editor"""
     out = list()
     allowed_chars = re.compile(r"[a-zA-Z0-9/\\]")
@@ -101,6 +101,7 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
 @map_dirs_to_test("Call of Duty 4", "Call of Duty 4/mp", ext="*.d3dbsp")
 def test_D3DBsp_modern_warfare(map_path: str):
     diff = save_and_diff_backup(D3DBsp, modern_warfare, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -108,6 +109,7 @@ def test_D3DBsp_modern_warfare(map_path: str):
 @map_dirs_to_test("Quake 2")
 def test_IdTechBsp_quake2(map_path: str):
     diff = save_and_diff_backup(IdTechBsp, quake2, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -115,6 +117,7 @@ def test_IdTechBsp_quake2(map_path: str):
 @map_dirs_to_test("Quake 3 Arena")
 def test_IdTechBsp_quake3(map_path: str):
     diff = save_and_diff_backup(IdTechBsp, quake3, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -122,6 +125,7 @@ def test_IdTechBsp_quake3(map_path: str):
 @map_dirs_to_test("ReMakeQuake")
 def test_ReMakeQuakeBsp_remake_quake(map_path: str):
     diff = save_and_diff_backup(ReMakeQuakeBsp, remake_quake, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -129,6 +133,7 @@ def test_ReMakeQuakeBsp_remake_quake(map_path: str):
 @map_dirs_to_test("Titanfall 2")
 def test_RespawnBsp_titanfall2(map_path: str):
     diff = save_and_diff_backup(RespawnBsp, titanfall2, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -136,6 +141,7 @@ def test_RespawnBsp_titanfall2(map_path: str):
 @map_dirs_to_test("Quake")
 def test_QuakeBsp_quake(map_path: str):
     diff = save_and_diff_backup(QuakeBsp, quake, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -143,6 +149,7 @@ def test_QuakeBsp_quake(map_path: str):
 @map_dirs_to_test("Team Fortress 2")
 def test_ValveBsp_orange_box(map_path: str):
     diff = save_and_diff_backup(ValveBsp, orange_box, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
 
 
@@ -150,4 +157,5 @@ def test_ValveBsp_orange_box(map_path: str):
 @map_dirs_to_test("Momentum Mod")
 def test_ValveBsp_strata(map_path: str):
     diff = save_and_diff_backup(ValveBsp, strata, map_path)
+    print("".join(diff))
     assert len(diff) == 0, "not a perfect copy"
