@@ -7,9 +7,9 @@ from typing import Any, Dict, List
 
 class Bsp:
     """Bsp base class"""
-    bsp_version: int | (int, int) = 0  # .bsp format version
     associated_files: List[str]  # files in the folder of loaded file with similar names
     # TODO: include subfolder files (e.g. graphs/<mapname>.ain)
+    bsp_version: int | (int, int) = 0  # .bsp format version
     branch: ModuleType  # soft copy of "branch script"
     bsp_file_size: int = 0  # size of .bsp in bytes
     endianness: str = "little"
@@ -22,6 +22,7 @@ class Bsp:
     # NOTE: header type is self.branch.LumpHeader
     loading_errors: Dict[str, Exception]
     # ^ {"LUMP.name": Error("details")}
+    signature: bytes = b""  # compiler signature; sometimes found between header & data
 
     def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
         if not filename.lower().endswith(".bsp"):
@@ -53,7 +54,16 @@ class Bsp:
         version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
+    def _get_signature(self, header_length: int):
+        """check for a signature between header & data"""
+        # TODO: check for other conspicuous gaps between lumps (> 4 byte padding)
+        lumps_start = min([h.offset for h in self.headers.values() if h.length != 0])
+        if lumps_start > header_length:
+            self.file.seek(header_length)
+            self.signature = self.file.read(lumps_start - header_length)
+
     def _header_generator(self, offset: int = 4) -> (str, Any):
+        """iterator for reading headers from self.file"""
         for LUMP in self.branch.LUMP:
             self.file.seek(offset + struct.calcsize(self.branch.LumpHeader._format) * LUMP.value)
             lump_header = self.branch.LumpHeader.from_stream(self.file)
@@ -61,10 +71,11 @@ class Bsp:
             yield (LUMP.name, lump_header)
 
     def _preload(self):
+        """parse .bsp data & prepare dynamic readers"""
         raise NotImplementedError()
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
-        """Converts the named (unversioned) lump back into bytes"""
+        """convert the named lump back into bytes"""
         # NOTE: LumpClasses are derived from branch, not lump data!
         if not hasattr(self, lump_name):
             return b""  # lump is empty / deleted

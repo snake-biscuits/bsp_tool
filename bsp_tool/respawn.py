@@ -198,12 +198,7 @@ class RespawnBsp(valve.ValveBsp):
                 continue  # or version has flag (e.g. (50, 1))
             self._preload_lump(lump_name, lump_header)
         # compiler signature
-        headers_end = 16 + (16 * 128)
-        lumps_start = min([h.offset for h in self.headers.values() if h.length != 0])
-        if lumps_start > headers_end:
-            self.file.seek(headers_end)
-            self.signature = self.file.read(lumps_start - headers_end)
-        # TODO: check for other conspicuous gaps
+        self._get_signature(16 + (16 * 128))
 
         self.external = ExternalLumpManager(self)
 
