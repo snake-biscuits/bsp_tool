@@ -79,6 +79,7 @@ class ReMakeQuakeBsp(QuakeBsp):
         self.loading_errors: Dict[str, Exception] = dict()
         for lump_name, lump_header in self._header_generator(offset=4):
             self._preload_lump(lump_name, lump_header)
+        self._get_signature(4 + (8 * len(self.branch.LUMP)))
 
 
 class IdTechBsp(base.Bsp):
@@ -109,6 +110,7 @@ class IdTechBsp(base.Bsp):
         self.loading_errors: Dict[str, Exception] = dict()
         for lump_name, lump_header in self._header_generator(offset=8):
             self._preload_lump(lump_name, lump_header)
+        self._get_signature(8 + (8 * len(self.branch.LUMP)))
 
 
 class FusionBsp(IdTechBsp):
