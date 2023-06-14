@@ -27,6 +27,10 @@
    - Placeholders for not-yet-supported archives
    - MeruBasu `utoplanet.Apk` can extract files
    - Titanfall `respawn.Vpk` can list files (no extraction)
+ * Capturing compiler signatures
+   - `RespawnBsp` [MRVN-Radiant](https://github.com/MRVN-Radiant/MRVN-Radiant) signature
+     + saved by `.save_as`
+     + parser in `extensions.compiler_signature`
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser
