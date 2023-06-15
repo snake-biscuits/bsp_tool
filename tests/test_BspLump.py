@@ -9,8 +9,8 @@ import pytest
 
 # TODO: collect valid lumps of desired type for each test, rather than hardcoded lump names
 
-bsps = [*utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
-        *utils.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})]
+bsps = {**utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
+        **utils.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})}
 
 
 def raw_lump_of(bsp) -> lumps.RawBspLump:
@@ -23,17 +23,17 @@ def raw_lump_of(bsp) -> lumps.RawBspLump:
 
 
 class TestRawBspLump:
-    raw_lumps = list(map(raw_lump_of, bsps))
+    raw_lumps = list(map(raw_lump_of, bsps.values()))
 
-    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=bsps.keys())
     def test_its_raw(self, raw_lump):
         assert isinstance(raw_lump, lumps.RawBspLump)
 
-    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=bsps.keys())
     def test_list_conversion(self, raw_lump):
         assert list(raw_lump) == [int(b) for b in raw_lump]
 
-    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("raw_lump", raw_lumps, ids=bsps.keys())
     def test_indexing(self, raw_lump):
         assert isinstance(raw_lump[0], int)
         assert isinstance(raw_lump[:1], bytearray)
@@ -44,12 +44,12 @@ class TestRawBspLump:
 
 
 class TestBspLump:
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_list_conversion(self, bsp):
         lump = bsp.VERTICES
         assert list(lump) == [b for b in lump]
 
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_indexing(self, bsp):
         lump = bsp.VERTICES
         LumpClass = quake.Vertex if bsp.branch != quake3 else quake3.Vertex
@@ -60,7 +60,7 @@ class TestBspLump:
         with pytest.raises(TypeError):
             assert lump["one"]
 
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_del(self, bsp):
         lump = bsp.VERTICES
         initial_length = len(lump)
@@ -72,7 +72,7 @@ class TestBspLump:
         del lump[:2]
         assert len(lump) == initial_length - 2
 
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_setitem(self, bsp):
         lump = bsp.VERTICES
         empty_entry = lump.LumpClass()
@@ -90,17 +90,17 @@ class TestExternalBspLump:  # TODO: ship bespoke RespawnBsp .bsp_lump files with
 
 
 class TestBasicBspLump:
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_its_basic(self, bsp):
         lump = bsp.LEAF_FACES
         assert isinstance(lump, lumps.BasicBspLump), type(lump)
 
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_list_conversion(self, bsp):
         lump = bsp.LEAF_FACES
         assert list(lump) == [b for b in lump]
 
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_indexing(self, bsp):
         for map_name in bsps:
             lump = bsp.LEAF_FACES

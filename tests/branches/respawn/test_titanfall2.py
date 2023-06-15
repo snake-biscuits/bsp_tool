@@ -15,6 +15,6 @@ bsps = utils.get_test_maps(RespawnBsp, {titanfall2: ["Titanfall 2"]})
 
 class TestAssumptions:
     # TODO: verify more assumptions about this branch_script
-    @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_grid_cells_count(self, bsp: RespawnBsp):
         assert len(bsp.CM_GRID_CELLS) == bsp.CM_GRID.count.x * bsp.CM_GRID.count.y + len(bsp.MODELS)

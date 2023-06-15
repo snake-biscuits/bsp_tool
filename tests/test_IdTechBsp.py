@@ -9,15 +9,18 @@ import pytest
 bsps = utils.get_test_maps(IdTechBsp, {quake2: ["Quake 2"], quake3: ["Quake 3 Arena"]})
 
 
-@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+@pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_no_errors(bsp):
     assert len(bsp.loading_errors) == 0
 
 
-@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+@pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_entities_loaded(bsp):
     assert bsp.ENTITIES[0]["classname"] == "worldspawn"
 
 
-# TODO: test methods
-# TODO: .save_as() with no edits should copy file byte-for-byte
+@pytest.mark.xfail(reason="ADVERTISEMENTS header")
+@pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
+def test_get_signature(bsp):
+    signature = bsp.signature.rstrip(b"\0").decode("ascii", errors="strict")
+    assert "q3map2" in signature.lower()

@@ -13,7 +13,7 @@ bsps = utils.get_test_maps(IdTechBsp, {quake2: ["Quake 2"]})
 # TODO: verify lumps that index other lumps are in bounds
 
 
-@pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+@pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_visibility(bsp: IdTechBsp):
     num_clusters = len({leaf.cluster for leaf in bsp.LEAVES if leaf.cluster != -1})
     assert len(bsp.VISIBILITY.pvs) == num_clusters
@@ -26,7 +26,7 @@ def test_visibility(bsp: IdTechBsp):
     # is it little endian? what about bit endian?
 
 
-# @pytest.mark.parametrize("bsp", bsps, ids=[b.filename for b in bsps])
+# @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 # def test_lighting(bsp: IdTechBsp):
 #     # TODO: unmapped; like quake 1? quake 2 uses quake 1 faces...
 #     ...
