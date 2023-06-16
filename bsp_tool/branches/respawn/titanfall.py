@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Union
 from ... import lumps
 from .. import base
 from .. import shared
-from .. import valve_physics
+# from .. import valve_physics
 from .. import vector
 from ..id_software import quake
 from ..valve import source
