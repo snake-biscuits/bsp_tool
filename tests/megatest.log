@@ -3,113 +3,115 @@ platform win32 -- Python 3.10.0, pytest-7.2.2, pluggy-1.0.0 -- C:\Users\Jared\Do
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-4.0.0
-[1mcollecting ... [0mcollected 339 items
+[1mcollecting ... [0mcollected 344 items
 
-tests/test_BspLump.py::TestRawBspLump::test_its_raw[mp_lobby.bsp0] [32mPASSED[0m[32m [  0%][0m
-tests/test_BspLump.py::TestRawBspLump::test_its_raw[test2.bsp] [32mPASSED[0m[32m    [  0%][0m
-tests/test_BspLump.py::TestRawBspLump::test_its_raw[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  0%][0m
-tests/test_BspLump.py::TestRawBspLump::test_its_raw[test_physcollide.bsp] [32mPASSED[0m[32m [  1%][0m
-tests/test_BspLump.py::TestRawBspLump::test_its_raw[mp_lobby.bsp1] [32mPASSED[0m[32m [  1%][0m
-tests/test_BspLump.py::TestRawBspLump::test_list_conversion[mp_lobby.bsp0] [32mPASSED[0m[32m [  1%][0m
-tests/test_BspLump.py::TestRawBspLump::test_list_conversion[test2.bsp] [32mPASSED[0m[32m [  2%][0m
-tests/test_BspLump.py::TestRawBspLump::test_list_conversion[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  2%][0m
-tests/test_BspLump.py::TestRawBspLump::test_list_conversion[test_physcollide.bsp] [32mPASSED[0m[32m [  2%][0m
-tests/test_BspLump.py::TestRawBspLump::test_list_conversion[mp_lobby.bsp1] [32mPASSED[0m[32m [  2%][0m
-tests/test_BspLump.py::TestRawBspLump::test_indexing[mp_lobby.bsp0] [32mPASSED[0m[32m [  3%][0m
-tests/test_BspLump.py::TestRawBspLump::test_indexing[test2.bsp] [32mPASSED[0m[32m   [  3%][0m
-tests/test_BspLump.py::TestRawBspLump::test_indexing[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  3%][0m
-tests/test_BspLump.py::TestRawBspLump::test_indexing[test_physcollide.bsp] [32mPASSED[0m[32m [  4%][0m
-tests/test_BspLump.py::TestRawBspLump::test_indexing[mp_lobby.bsp1] [32mPASSED[0m[32m [  4%][0m
-tests/test_BspLump.py::TestBspLump::test_list_conversion[mp_lobby.bsp0] [32mPASSED[0m[32m [  4%][0m
-tests/test_BspLump.py::TestBspLump::test_list_conversion[test2.bsp] [32mPASSED[0m[32m [  5%][0m
-tests/test_BspLump.py::TestBspLump::test_list_conversion[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  5%][0m
-tests/test_BspLump.py::TestBspLump::test_list_conversion[test_physcollide.bsp] [32mPASSED[0m[32m [  5%][0m
-tests/test_BspLump.py::TestBspLump::test_list_conversion[mp_lobby.bsp1] [32mPASSED[0m[32m [  5%][0m
-tests/test_BspLump.py::TestBspLump::test_indexing[mp_lobby.bsp0] [32mPASSED[0m[32m  [  6%][0m
-tests/test_BspLump.py::TestBspLump::test_indexing[test2.bsp] [32mPASSED[0m[32m      [  6%][0m
-tests/test_BspLump.py::TestBspLump::test_indexing[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  6%][0m
-tests/test_BspLump.py::TestBspLump::test_indexing[test_physcollide.bsp] [32mPASSED[0m[32m [  7%][0m
-tests/test_BspLump.py::TestBspLump::test_indexing[mp_lobby.bsp1] [32mPASSED[0m[32m  [  7%][0m
-tests/test_BspLump.py::TestBspLump::test_del[mp_lobby.bsp0] [32mPASSED[0m[32m       [  7%][0m
-tests/test_BspLump.py::TestBspLump::test_del[test2.bsp] [32mPASSED[0m[32m           [  7%][0m
-tests/test_BspLump.py::TestBspLump::test_del[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  8%][0m
-tests/test_BspLump.py::TestBspLump::test_del[test_physcollide.bsp] [32mPASSED[0m[32m [  8%][0m
-tests/test_BspLump.py::TestBspLump::test_del[mp_lobby.bsp1] [32mPASSED[0m[32m       [  8%][0m
-tests/test_BspLump.py::TestBspLump::test_setitem[mp_lobby.bsp0] [32mPASSED[0m[32m   [  9%][0m
-tests/test_BspLump.py::TestBspLump::test_setitem[test2.bsp] [32mPASSED[0m[32m       [  9%][0m
-tests/test_BspLump.py::TestBspLump::test_setitem[test_displacement_decompile.bsp] [32mPASSED[0m[32m [  9%][0m
-tests/test_BspLump.py::TestBspLump::test_setitem[test_physcollide.bsp] [32mPASSED[0m[32m [ 10%][0m
-tests/test_BspLump.py::TestBspLump::test_setitem[mp_lobby.bsp1] [32mPASSED[0m[32m   [ 10%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_its_basic[mp_lobby.bsp0] [32mPASSED[0m[32m [ 10%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_its_basic[test2.bsp] [32mPASSED[0m[32m [ 10%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_its_basic[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 11%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_its_basic[test_physcollide.bsp] [32mPASSED[0m[32m [ 11%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_its_basic[mp_lobby.bsp1] [32mPASSED[0m[32m [ 11%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[mp_lobby.bsp0] [32mPASSED[0m[32m [ 12%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[test2.bsp] [32mPASSED[0m[32m [ 12%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 12%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[test_physcollide.bsp] [32mPASSED[0m[32m [ 12%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[mp_lobby.bsp1] [32mPASSED[0m[32m [ 13%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_indexing[mp_lobby.bsp0] [32mPASSED[0m[32m [ 13%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_indexing[test2.bsp] [32mPASSED[0m[32m [ 13%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_indexing[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 14%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_indexing[test_physcollide.bsp] [32mPASSED[0m[32m [ 14%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_indexing[mp_lobby.bsp1] [32mPASSED[0m[32m [ 14%][0m
-tests/test_D3DBsp.py::test_no_errors[test.d3dbsp] [32mPASSED[0m[32m                 [ 15%][0m
-tests/test_D3DBsp.py::test_no_errors[test_traverses.d3dbsp] [32mPASSED[0m[32m       [ 15%][0m
-tests/test_D3DBsp.py::test_no_errors[mp_lobby.d3dbsp] [32mPASSED[0m[32m             [ 15%][0m
-tests/test_D3DBsp.py::test_no_errors[mp_test.d3dbsp] [32mPASSED[0m[32m              [ 15%][0m
-tests/test_D3DBsp.py::test_entites_loaded[test.d3dbsp] [32mPASSED[0m[32m            [ 16%][0m
-tests/test_D3DBsp.py::test_entites_loaded[test_traverses.d3dbsp] [32mPASSED[0m[32m  [ 16%][0m
-tests/test_D3DBsp.py::test_entites_loaded[mp_lobby.d3dbsp] [32mPASSED[0m[32m        [ 16%][0m
-tests/test_D3DBsp.py::test_entites_loaded[mp_test.d3dbsp] [32mPASSED[0m[32m         [ 17%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  0%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  0%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  0%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  1%][0m
+tests/test_BspLump.py::TestRawBspLump::test_its_raw[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  1%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  1%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  2%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  2%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  2%][0m
+tests/test_BspLump.py::TestRawBspLump::test_list_conversion[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  2%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  3%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  3%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  3%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  4%][0m
+tests/test_BspLump.py::TestRawBspLump::test_indexing[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  4%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  4%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  4%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  5%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  5%][0m
+tests/test_BspLump.py::TestBspLump::test_list_conversion[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  5%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  6%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  6%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  6%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  6%][0m
+tests/test_BspLump.py::TestBspLump::test_indexing[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  7%][0m
+tests/test_BspLump.py::TestBspLump::test_del[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  7%][0m
+tests/test_BspLump.py::TestBspLump::test_del[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  7%][0m
+tests/test_BspLump.py::TestBspLump::test_del[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  8%][0m
+tests/test_BspLump.py::TestBspLump::test_del[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  8%][0m
+tests/test_BspLump.py::TestBspLump::test_del[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  8%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  9%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  9%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  9%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  9%][0m
+tests/test_BspLump.py::TestBspLump::test_setitem[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 10%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 10%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [ 10%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 11%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [ 11%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 11%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 11%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [ 12%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 12%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [ 12%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 13%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 13%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [ 13%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 13%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [ 14%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_indexing[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 14%][0m
+tests/test_D3DBsp.py::test_no_errors[Call of Duty 4/test.d3dbsp] [32mPASSED[0m[32m  [ 14%][0m
+tests/test_D3DBsp.py::test_no_errors[Call of Duty 4/test_traverses.d3dbsp] [32mPASSED[0m[32m [ 15%][0m
+tests/test_D3DBsp.py::test_no_errors[Call of Duty 4/mp/mp_lobby.d3dbsp] [32mPASSED[0m[32m [ 15%][0m
+tests/test_D3DBsp.py::test_no_errors[Call of Duty 4/mp/mp_test.d3dbsp] [32mPASSED[0m[32m [ 15%][0m
+tests/test_D3DBsp.py::test_entites_loaded[Call of Duty 4/test.d3dbsp] [32mPASSED[0m[32m [ 15%][0m
+tests/test_D3DBsp.py::test_entites_loaded[Call of Duty 4/test_traverses.d3dbsp] [32mPASSED[0m[32m [ 16%][0m
+tests/test_D3DBsp.py::test_entites_loaded[Call of Duty 4/mp/mp_lobby.d3dbsp] [32mPASSED[0m[32m [ 16%][0m
+tests/test_D3DBsp.py::test_entites_loaded[Call of Duty 4/mp/mp_test.d3dbsp] [32mPASSED[0m[32m [ 16%][0m
 tests/test_Entities.py::test_generic[one_entity] [32mPASSED[0m[32m                  [ 17%][0m
 tests/test_Entities.py::test_generic[two_entities] [32mPASSED[0m[32m                [ 17%][0m
 tests/test_Entities.py::test_generic[one_newline_in_value] [32mPASSED[0m[32m        [ 17%][0m
 tests/test_Entities.py::test_generic[two_newlines_in_value] [32mPASSED[0m[32m       [ 18%][0m
 tests/test_Entities.py::test_generic[curly_brace_in_value] [32mPASSED[0m[32m        [ 18%][0m
 tests/test_Entities.py::test_ignore_comment [32mPASSED[0m[32m                       [ 18%][0m
-tests/test_Entities.py::test_curly_whitespace [32mPASSED[0m[32m                     [ 19%][0m
+tests/test_Entities.py::test_curly_whitespace [32mPASSED[0m[32m                     [ 18%][0m
 tests/test_Entities.py::test_null_terminated [32mPASSED[0m[32m                      [ 19%][0m
 tests/test_Entities.py::test_null_terminated_after_newline [32mPASSED[0m[32m        [ 19%][0m
-tests/test_Entities.py::test_null_terminated_and_trailing_whitespace [32mPASSED[0m[32m [ 20%][0m
-tests/test_IdTechBsp.py::test_no_errors[mp_lobby.bsp0] [32mPASSED[0m[32m            [ 20%][0m
-tests/test_IdTechBsp.py::test_no_errors[mp_lobby.bsp1] [32mPASSED[0m[32m            [ 20%][0m
-tests/test_IdTechBsp.py::test_entities_loaded[mp_lobby.bsp0] [32mPASSED[0m[32m      [ 20%][0m
-tests/test_IdTechBsp.py::test_entities_loaded[mp_lobby.bsp1] [32mPASSED[0m[32m      [ 21%][0m
-tests/test_QuakeBsp.py::test_no_errors[mp_lobby.bsp] [32mPASSED[0m[32m              [ 21%][0m
-tests/test_QuakeBsp.py::test_entities_loaded[mp_lobby.bsp] [32mPASSED[0m[32m        [ 21%][0m
-tests/test_ReMakeQuakeBsp.py::test_no_errors[mp_lobby.bsp] [32mPASSED[0m[32m        [ 22%][0m
-tests/test_ReMakeQuakeBsp.py::test_entities_loaded[mp_lobby.bsp] [32mPASSED[0m[32m  [ 22%][0m
-tests/test_RespawnBsp.py::test_no_errors[mp_crossfire.bsp] [32mPASSED[0m[32m        [ 22%][0m
-tests/test_RespawnBsp.py::test_entities_loaded[mp_crossfire.bsp] [32mPASSED[0m[32m  [ 23%][0m
-tests/test_ValveBsp.py::test_no_errors[mp_lobby.bsp0] [32mPASSED[0m[32m             [ 23%][0m
-tests/test_ValveBsp.py::test_no_errors[test2.bsp] [32mPASSED[0m[32m                 [ 23%][0m
-tests/test_ValveBsp.py::test_no_errors[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 23%][0m
-tests/test_ValveBsp.py::test_no_errors[test_physcollide.bsp] [32mPASSED[0m[32m      [ 24%][0m
-tests/test_ValveBsp.py::test_no_errors[mp_lobby.bsp1] [32mPASSED[0m[32m             [ 24%][0m
-tests/test_ValveBsp.py::test_entities_loaded[mp_lobby.bsp0] [32mPASSED[0m[32m       [ 24%][0m
-tests/test_ValveBsp.py::test_entities_loaded[test2.bsp] [32mPASSED[0m[32m           [ 25%][0m
-tests/test_ValveBsp.py::test_entities_loaded[test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 25%][0m
-tests/test_ValveBsp.py::test_entities_loaded[test_physcollide.bsp] [32mPASSED[0m[32m [ 25%][0m
-tests/test_ValveBsp.py::test_entities_loaded[mp_lobby.bsp1] [32mPASSED[0m[32m       [ 25%][0m
+tests/test_Entities.py::test_null_terminated_and_trailing_whitespace [32mPASSED[0m[32m [ 19%][0m
+tests/test_IdTechBsp.py::test_no_errors[Quake 2/mp_lobby.bsp] [32mPASSED[0m[32m     [ 20%][0m
+tests/test_IdTechBsp.py::test_no_errors[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 20%][0m
+tests/test_IdTechBsp.py::test_entities_loaded[Quake 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 20%][0m
+tests/test_IdTechBsp.py::test_entities_loaded[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [ 20%][0m
+tests/test_IdTechBsp.py::test_get_signature[Quake 2/mp_lobby.bsp] [33mXFAIL[0m (ADVERTISEMENTS header)[32m [ 21%][0m
+tests/test_IdTechBsp.py::test_get_signature[Quake 3 Arena/mp_lobby.bsp] [33mXFAIL[0m (ADVERTISEMENTS header)[32m [ 21%][0m
+tests/test_QuakeBsp.py::test_no_errors[Quake/mp_lobby.bsp] [32mPASSED[0m[32m        [ 21%][0m
+tests/test_QuakeBsp.py::test_entities_loaded[Quake/mp_lobby.bsp] [32mPASSED[0m[32m  [ 22%][0m
+tests/test_ReMakeQuakeBsp.py::test_no_errors[ReMakeQuake/mp_lobby.bsp] [32mPASSED[0m[32m [ 22%][0m
+tests/test_ReMakeQuakeBsp.py::test_entities_loaded[ReMakeQuake/mp_lobby.bsp] [32mPASSED[0m[32m [ 22%][0m
+tests/test_RespawnBsp.py::test_no_errors[Titanfall 2/mp_crossfire.bsp] [32mPASSED[0m[32m [ 22%][0m
+tests/test_RespawnBsp.py::test_entities_loaded[Titanfall 2/mp_crossfire.bsp] [32mPASSED[0m[32m [ 23%][0m
+tests/test_ValveBsp.py::test_no_errors[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 23%][0m
+tests/test_ValveBsp.py::test_no_errors[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [ 23%][0m
+tests/test_ValveBsp.py::test_no_errors[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 24%][0m
+tests/test_ValveBsp.py::test_no_errors[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [ 24%][0m
+tests/test_ValveBsp.py::test_no_errors[Momentum Mod/mp_lobby.bsp] [32mPASSED[0m[32m [ 24%][0m
+tests/test_ValveBsp.py::test_entities_loaded[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [ 25%][0m
+tests/test_ValveBsp.py::test_entities_loaded[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [ 25%][0m
+tests/test_ValveBsp.py::test_entities_loaded[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [ 25%][0m
+tests/test_ValveBsp.py::test_entities_loaded[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [ 25%][0m
+tests/test_ValveBsp.py::test_entities_loaded[Momentum Mod/mp_lobby.bsp] [32mPASSED[0m[32m [ 26%][0m
 tests/test_load_bsp.py::test_load_bsp[./-tests/maps-map_dirs0] [32mPASSED[0m[32m    [ 26%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-gesource-map_dirs1] [32mPASSED[0m[32m [ 26%][0m
-tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-half-life 2 riot act-map_dirs2] [32mPASSED[0m[32m [ 26%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-half-life 2 riot act-map_dirs2] [32mPASSED[0m[32m [ 27%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-TFTS-map_dirs3] [32mPASSED[0m[32m [ 27%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-episodeone-map_dirs4] [32mPASSED[0m[32m [ 27%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-RunThinkShootLiveVille2-map_dirs5] [32mPASSED[0m[32m [ 27%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-cromulentville2-map_dirs6] [32mPASSED[0m[32m [ 28%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-companionpiece2-map_dirs7] [32mPASSED[0m[32m [ 28%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-eyecandy-map_dirs8] [32mPASSED[0m[32m [ 28%][0m
-tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-backontrack-map_dirs9] [32mPASSED[0m[32m [ 28%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-backontrack-map_dirs9] [32mPASSED[0m[32m [ 29%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tworooms-map_dirs10] [32mPASSED[0m[32m [ 29%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-fusionville2-map_dirs11] [32mPASSED[0m[32m [ 29%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-tunetwo-map_dirs12] [32mPASSED[0m[32m [ 29%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-lvl2-map_dirs13] [32mPASSED[0m[32m [ 30%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thewrapuptwo-map_dirs14] [32mPASSED[0m[32m [ 30%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halloweenhorror4-map_dirs15] [32mPASSED[0m[32m [ 30%][0m
-tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[32m [ 30%][0m
+tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-halflifeeternal-map_dirs16] [32mPASSED[0m[32m [ 31%][0m
 tests/test_load_bsp.py::test_load_bsp[C:/Program Files (x86)/Steam/steamapps/sourcemods-thelayout-map_dirs17] [32mPASSED[0m[32m [ 31%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Cry of Fear-map_dirs18] [32mPASSED[0m[32m [ 31%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/cstrike-map_dirs19] [32mPASSED[0m[32m [ 31%][0m
@@ -119,14 +121,14 @@ tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/dod-map_dirs23] [32mPASSED[0m[32m [ 33%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/gearbox-map_dirs24] [32mPASSED[0m[32m [ 33%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs25] [32mPASSED[0m[32m [ 33%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 33%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs26] [32mPASSED[0m[32m [ 34%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs27] [32mPASSED[0m[32m [ 34%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs28] [32mPASSED[0m[32m [ 34%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy-map_dirs29] [32mPASSED[0m[32m [ 34%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs30] [32mPASSED[0m[32m [ 35%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm-map_dirs31] [32mPASSED[0m[32m [ 35%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm Reactive Drop-map_dirs32] [32mPASSED[0m[32m [ 35%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[32m [ 35%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Blade Symphony-map_dirs33] [32mPASSED[0m[32m [ 36%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Contagion-map_dirs34] [32mPASSED[0m[32m [ 36%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Counter-Strike Global Offensive-map_dirs35] [32mPASSED[0m[32m [ 36%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-counter-strike source-map_dirs36] [32mPASSED[0m[32m [ 36%][0m
@@ -143,7 +145,7 @@ tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-GarrysMod
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life 1 Source Deathmatch-map_dirs47] [32mPASSED[0m[32m [ 40%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/ep2-map_dirs48] [32mPASSED[0m[32m [ 40%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/episodic-map_dirs49] [32mPASSED[0m[32m [ 40%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs50] [32mPASSED[0m[32m [ 41%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl1-map_dirs50] [32mPASSED[0m[32m [ 40%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/hl2-map_dirs51] [32mPASSED[0m[32m [ 41%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2/lostcoast-map_dirs52] [32mPASSED[0m[32m [ 41%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-half-life 2 deathmatch-map_dirs53] [32mPASSED[0m[32m [ 41%][0m
@@ -160,14 +162,14 @@ tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-nmrih-map
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal-map_dirs64] [32mPASSED[0m[31m [ 45%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal 2-map_dirs65] [32mPASSED[0m[31m [ 45%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Portal Reloaded-map_dirs66] [32mPASSED[0m[31m [ 45%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67] [32mPASSED[0m[31m [ 46%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker-map_dirs67] [32mPASSED[0m[31m [ 45%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs68] [32mPASSED[0m[31m [ 46%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs69] [32mPASSED[0m[31m [ 46%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs70] [32mPASSED[0m[31m [ 46%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines-map_dirs71] [32mPASSED[0m[31m [ 47%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Zeno Clash Demo-map_dirs72] [32mPASSED[0m[31m [ 47%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs73] [32mPASSED[0m[31m [ 47%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs74] [32mPASSED[0m[31m    [ 48%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs74] [32mPASSED[0m[31m    [ 47%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs75] [32mPASSED[0m[31m [ 48%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alkaline-map_dirs76] [32mPASSED[0m[31m [ 48%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/2psb-map_dirs77] [32mPASSED[0m[31m [ 48%][0m
@@ -177,173 +179,176 @@ tests/test_load_bsp.py::test_load_bsp[E:/Mod-Daikatana-map_dirs80] [32mPASSED[
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DDayNormandy-map_dirs81] [31mFAILED[0m[31m [ 50%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-HereticII-map_dirs82] [32mPASSED[0m[31m [ 50%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Hexen2-map_dirs83] [32mPASSED[0m[31m   [ 50%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs84] [32mPASSED[0m[31m   [ 51%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Nexuiz-map_dirs84] [32mPASSED[0m[31m   [ 50%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-RTCW-map_dirs85] [32mPASSED[0m[31m     [ 51%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiN-map_dirs86] [32mPASSED[0m[31m      [ 51%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-SoF-map_dirs87] [32mPASSED[0m[31m      [ 51%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-SoF2-map_dirs88] [32mPASSED[0m[31m     [ 52%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForce-map_dirs89] [32mPASSED[0m[31m [ 52%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeII-map_dirs90] [32mPASSED[0m[31m  [ 52%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs91] [32mPASSED[0m[31m [ 53%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeIII-map_dirs91] [32mPASSED[0m[31m [ 52%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Dreamcast/QuakeIII-map_dirs92] [32mPASSED[0m[31m [ 53%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-QuakeLive-map_dirs93] [32mPASSED[0m[31m [ 53%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-WolfET-map_dirs94] [32mPASSED[0m[31m   [ 53%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-WRATH-map_dirs95] [32mPASSED[0m[31m    [ 54%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Xonotic-map_dirs96] [32mPASSED[0m[31m  [ 54%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Warsow-map_dirs97] [32mPASSED[0m[31m   [ 54%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD1Demo-map_dirs98] [32mPASSED[0m[31m [ 55%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD1Demo-map_dirs98] [32mPASSED[0m[31m [ 54%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD1-map_dirs99] [32mPASSED[0m[31m     [ 55%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD2-map_dirs100] [32mPASSED[0m[31m    [ 55%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs101] [32mPASSED[0m[31m    [ 56%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CoD4-map_dirs101] [32mPASSED[0m[31m    [ 55%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Nightfire-map_dirs102] [32mPASSED[0m[31m [ 56%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Dreamcast/Paranoia-map_dirs103] [32mPASSED[0m[31m [ 56%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-BlackMesa-map_dirs104] [32mPASSED[0m[31m [ 56%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs105] [32mPASSED[0m[31m [ 57%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-BloodyGoodTime-map_dirs105] [32mPASSED[0m[31m [ 56%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Contagion-map_dirs106] [32mPASSED[0m[31m [ 57%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs107] [32mPASSED[0m[31m [ 57%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs108] [32mPASSED[0m[31m [ 58%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs108] [32mPASSED[0m[31m [ 57%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs109] [32mPASSED[0m[31m [ 58%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs110] [32mPASSED[0m[31m    [ 58%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs111] [31mFAILED[0m[31m [ 58%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs112] [31mFAILED[0m[31m [ 59%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheHiddenSource-map_dirs113] [32mPASSED[0m[31m [ 59%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs114] [32mPASSED[0m[31m [ 59%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs115] [32mPASSED[0m[31m   [ 60%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs115] [32mPASSED[0m[31m   [ 59%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MeruBasu-map_dirs116] [32mPASSED[0m[31m [ 60%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs117] [32mPASSED[0m[31m [ 60%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs118] [32mPASSED[0m[31m [ 61%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs118] [32mPASSED[0m[31m [ 60%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs119] [32mPASSED[0m[31m [ 61%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TeamFortressQuake-map_dirs120] [32mPASSED[0m[31m [ 61%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheShip-map_dirs121] [32mPASSED[0m[31m [ 61%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs122] [31mFAILED[0m[31m [ 62%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Vindictus-map_dirs122] [31mFAILED[0m[31m [ 61%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Vindictus/Client v1.69 EU-map_dirs123] [32mPASSED[0m[31m [ 62%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Xbox/Half-Life2-map_dirs124] [32mPASSED[0m[31m [ 62%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs125] [32mPASSED[0m[31m [ 63%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Titanfall-map_dirs125] [32mPASSED[0m[31m [ 62%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TitanfallOnline-map_dirs126] [32mPASSED[0m[31m [ 63%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Titanfall2-map_dirs127] [32mPASSED[0m[31m [ 63%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs128] [32mPASSED[0m[31m [ 64%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs129] [32mPASSED[0m[31m [ 64%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season4-map_dirs130] [32mPASSED[0m[31m [ 64%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season5-map_dirs131] [32mPASSED[0m[31m [ 64%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season7-map_dirs132] [32mPASSED[0m[31m [ 65%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season8-map_dirs133] [32mPASSED[0m[31m [ 65%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season9-map_dirs134] [32mPASSED[0m[31m [ 65%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs135] [32mPASSED[0m[31m [ 66%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs136] [32mPASSED[0m[31m [ 66%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs137] [32mPASSED[0m[31m [ 66%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs138] [32mPASSED[0m[31m [ 66%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs139] [32mPASSED[0m[31m [ 67%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season15-map_dirs140] [32mPASSED[0m[31m [ 67%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season16-map_dirs141] [32mPASSED[0m[31m [ 67%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season17-map_dirs142] [32mPASSED[0m[31m [ 68%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs143] [32mPASSED[0m[31m [ 68%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs144] [32mPASSED[0m[31m   [ 68%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs145] [32mPASSED[0m[31m   [ 69%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs146] [32mPASSED[0m[31m [ 69%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs147] [32mPASSED[0m[31m [ 69%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs148] [32mPASSED[0m[31m [ 69%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs149] [32mPASSED[0m[31m [ 70%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceIIDemo-map_dirs150] [32mPASSED[0m[31m [ 70%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs151] [32mPASSED[0m[31m [ 70%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs152] [32mPASSED[0m[31m [ 71%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs153] [32mPASSED[0m[31m [ 71%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs154] [32mPASSED[0m[31m [ 71%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs155] [32mPASSED[0m[31m [ 71%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs156] [31mFAILED[0m[31m [ 72%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs157] [32mPASSED[0m[31m [ 72%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs158] [32mPASSED[0m[31m [ 72%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs159] [31mFAILED[0m[31m [ 73%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends-map_dirs128] [32mPASSED[0m[31m [ 63%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season2-map_dirs129] [32mPASSED[0m[31m [ 63%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season3-map_dirs130] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season4-map_dirs131] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season5-map_dirs132] [32mPASSED[0m[31m [ 64%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season7-map_dirs133] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season8-map_dirs134] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season9-map_dirs135] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs136] [32mPASSED[0m[31m [ 65%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs137] [32mPASSED[0m[31m [ 66%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season12-map_dirs138] [32mPASSED[0m[31m [ 66%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season13-map_dirs139] [32mPASSED[0m[31m [ 66%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season14-map_dirs140] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season15-map_dirs141] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season16-map_dirs142] [32mPASSED[0m[31m [ 67%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season17-map_dirs143] [32mPASSED[0m[31m [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/switch-map_dirs144] [32mPASSED[0m[31m [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs145] [32mPASSED[0m[31m   [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs146] [32mPASSED[0m[31m   [ 68%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs147] [32mPASSED[0m[31m [ 69%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs148] [32mPASSED[0m[31m [ 69%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs149] [32mPASSED[0m[31m [ 69%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs150] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceIIDemo-map_dirs151] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs152] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnight-map_dirs153] [32mPASSED[0m[31m [ 70%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarWarsJediKnightII-map_dirs154] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2-map_dirs155] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/PS4-Titanfall2_tech_test-map_dirs156] [32mPASSED[0m[31m [ 71%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs157] [31mFAILED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Left4Dead2-map_dirs158] [32mPASSED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs159] [32mPASSED[0m[31m [ 72%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod/X360-Portal2-map_dirs160] [31mFAILED[0m[31m [ 72%][0m
 tests/test_lumps.py::TestRemapIndex::test_guess [32mPASSED[0m[31m                   [ 73%][0m
 tests/test_lumps.py::TestRemapIndex::test_range [32mPASSED[0m[31m                   [ 73%][0m
-tests/test_lumps.py::TestRemapIndex::test_negative_out_of_range [32mPASSED[0m[31m   [ 74%][0m
+tests/test_lumps.py::TestRemapIndex::test_negative_out_of_range [32mPASSED[0m[31m   [ 73%][0m
 tests/test_lumps.py::TestRemapSliceToRange::test_lazy [32mPASSED[0m[31m             [ 74%][0m
 tests/test_lumps.py::TestBspLump::test_implicit_change [32mPASSED[0m[31m            [ 74%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/test.d3dbsp] [33mXFAIL[0m (not implemented yet)[31m [ 74%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/test_traverses.d3dbsp] [33mXFAIL[0m (not implemented yet)[31m [ 75%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/mp/mp_lobby.d3dbsp] [33mXFAIL[0m (not implemented yet)[31m [ 75%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/mp/mp_test.d3dbsp] [33mXFAIL[0m (not implemented yet)[31m [ 75%][0m
-tests/test_save.py::test_IdTechBsp_quake2[Quake 2/mp_lobby.bsp] [33mXFAIL[0m (not implemented yet)[31m [ 76%][0m
+tests/test_save.py::test_IdTechBsp_quake2[Quake 2/mp_lobby.bsp] [33mXFAIL[0m (not implemented yet)[31m [ 75%][0m
 tests/test_save.py::test_IdTechBsp_quake3[Quake 3 Arena/mp_lobby.bsp] [33mXFAIL[0m (not implemented yet)[31m [ 76%][0m
 tests/test_save.py::test_ReMakeQuakeBsp_remake_quake[ReMakeQuake/mp_lobby.bsp] [33mXFAIL[0m (not implemented yet)[31m [ 76%][0m
 tests/test_save.py::test_RespawnBsp_titanfall2[Titanfall 2/mp_crossfire.bsp] [33mXFAIL[0m[31m [ 76%][0m
 tests/test_save.py::test_QuakeBsp_quake[Quake/mp_lobby.bsp] [33mXFAIL[0m (not implemented yet)[31m [ 77%][0m
 tests/test_save.py::test_ValveBsp_orange_box[Team Fortress 2/mp_lobby.bsp] [33mXFAIL[0m[31m [ 77%][0m
 tests/test_save.py::test_ValveBsp_orange_box[Team Fortress 2/test2.bsp] [33mXFAIL[0m[31m [ 77%][0m
-tests/test_save.py::test_ValveBsp_orange_box[Team Fortress 2/test_displacement_decompile.bsp] [33mXFAIL[0m[31m [ 78%][0m
+tests/test_save.py::test_ValveBsp_orange_box[Team Fortress 2/test_displacement_decompile.bsp] [33mXFAIL[0m[31m [ 77%][0m
 tests/test_save.py::test_ValveBsp_orange_box[Team Fortress 2/test_physcollide.bsp] [33mXFAIL[0m[31m [ 78%][0m
 tests/test_save.py::test_ValveBsp_strata[Momentum Mod/mp_lobby.bsp] [33mXFAIL[0m[31m [ 78%][0m
-tests/branches/test_base.py::TestStruct::test_init [32mPASSED[0m[31m                [ 79%][0m
+tests/branches/test_base.py::TestStruct::test_init [32mPASSED[0m[31m                [ 78%][0m
 tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 79%][0m
 tests/branches/test_base.py::TestStruct::test_pack [32mPASSED[0m[31m                [ 79%][0m
 tests/branches/test_base.py::TestMappedArray::test_init [32mPASSED[0m[31m           [ 79%][0m
-tests/branches/test_base.py::TestMappedArray::test_attr_format_collision [32mPASSED[0m[31m [ 80%][0m
+tests/branches/test_base.py::TestMappedArray::test_attr_format_collision [32mPASSED[0m[31m [ 79%][0m
 tests/branches/test_base.py::TestMappedArray::test_as_cpp [32mPASSED[0m[31m         [ 80%][0m
 tests/branches/test_base.py::TestBitField::test_init [32mPASSED[0m[31m              [ 80%][0m
-tests/branches/test_base.py::TestBitField::test_overflow [32mPASSED[0m[31m          [ 81%][0m
+tests/branches/test_base.py::TestBitField::test_overflow [32mPASSED[0m[31m          [ 80%][0m
 tests/branches/test_base.py::test_dict_subgroup [32mPASSED[0m[31m                   [ 81%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.qfusion] [32mPASSED[0m[31m [ 81%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 82%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake] [32mPASSED[0m[31m [ 81%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake2] [32mPASSED[0m[31m [ 81%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.quake3] [32mPASSED[0m[31m [ 82%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake] [32mPASSED[0m[31m [ 82%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake_old] [32mPASSED[0m[31m [ 83%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.id_software.remake_quake_old] [32mPASSED[0m[31m [ 82%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1_demo] [32mPASSED[0m[31m [ 83%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1] [32mPASSED[0m[31m [ 83%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 84%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty2] [32mPASSED[0m[31m [ 83%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.modern_warfare] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ion_storm.daikatana] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.blue_shift] [32mPASSED[0m[31m [ 84%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 85%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.gearbox.nightfire] [32mPASSED[0m[31m [ 84%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.hexen2] [32mPASSED[0m[31m [ 85%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune] [32mPASSED[0m[31m [ 85%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.raven.soldier_of_fortune2] [32mPASSED[0m[31m [ 85%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.fakk2] [32mPASSED[0m[31m [ 86%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa] [32mPASSED[0m[31m [ 86%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_demo] [32mPASSED[0m[31m [ 87%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_bt] [32mPASSED[0m[31m [ 86%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.mohaa_demo] [32mPASSED[0m[31m [ 86%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.sin] [32mPASSED[0m[31m [ 87%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2] [32mPASSED[0m[31m [ 87%][0m
-tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2_demo] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.ritual.star_trek_elite_force2_demo] [32mPASSED[0m[31m [ 87%][0m
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.valve.goldsrc] [32mPASSED[0m[31m [ 88%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_mp] [32mPASSED[0m[31m [ 88%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 89%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp] [32mPASSED[0m[31m [ 88%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2] [32mPASSED[0m[31m [ 88%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.cso2_2018] [32mPASSED[0m[31m [ 89%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus] [32mPASSED[0m[31m [ 89%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus69] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.nexon.vindictus69] [32mPASSED[0m[31m [ 89%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends] [32mPASSED[0m[31m [ 90%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends13] [32mPASSED[0m[31m [ 90%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall] [32mPASSED[0m[31m [ 90%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360] [32mPASSED[0m[31m [ 90%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall2] [32mPASSED[0m[31m [ 91%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 92%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.troika.vampire] [32mPASSED[0m[31m [ 91%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.alien_swarm] [32mPASSED[0m[31m [ 91%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead] [32mPASSED[0m[31m [ 92%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.left4dead2] [32mPASSED[0m[31m [ 92%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 93%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box] [32mPASSED[0m[31m [ 92%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.orange_box_x360] [32mPASSED[0m[31m [ 93%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013] [32mPASSED[0m[31m [ 93%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.sdk_2013_x360] [32mPASSED[0m[31m [ 93%][0m
+tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source] [32mPASSED[0m[31m [ 93%][0m
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source_filmmaker] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/id_software/test_quake.py::TestMethods::test_vertices_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
-tests/branches/id_software/test_quake.py::TestMethods::test_lightmap_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/id_software/test_quake2.py::test_visibility[mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/id_software/test_quake3.py::test_face_struct[mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
-tests/branches/id_software/test_remake_quake.py::TestMethods::test_vertices_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/id_software/test_remake_quake.py::TestMethods::test_lightmap_of_face[mp_lobby.bsp] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[test.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[test_traverses.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[mp_test.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[test.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[test_traverses.d3dbsp] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[mp_test.d3dbsp] [32mPASSED[0m[31m [ 98%][0m
-tests/branches/respawn/test_titanfall2.py::TestAssumptions::test_grid_cells_count[mp_crossfire.bsp] [32mPASSED[0m[31m [ 99%][0m
-tests/branches/strata/test_strata.py::test_spec[mp_lobby.bsp] [32mPASSED[0m[31m     [ 99%][0m
-tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[test2.bsp] [32mPASSED[0m[31m [ 99%][0m
-tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[test_displacement_decompile.bsp] [32mPASSED[0m[31m [100%][0m
+tests/branches/id_software/test_quake.py::TestMethods::test_vertices_of_face[Quake/mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/id_software/test_quake.py::TestMethods::test_lightmap_of_face[Quake/mp_lobby.bsp] [32mPASSED[0m[31m [ 94%][0m
+tests/branches/id_software/test_quake2.py::test_visibility[Quake 2/mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/id_software/test_quake3.py::test_face_struct[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/id_software/test_remake_quake.py::TestMethods::test_vertices_of_face[ReMakeQuake/mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/id_software/test_remake_quake.py::TestMethods::test_lightmap_of_face[ReMakeQuake/mp_lobby.bsp] [32mPASSED[0m[31m [ 95%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[Call of Duty 4/test.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[Call of Duty 4/test_traverses.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[Call of Duty 4/mp/mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 96%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_simple_indices[Call of Duty 4/mp/mp_test.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[Call of Duty 4/test.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[Call of Duty 4/test_traverses.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[Call of Duty 4/mp/mp_lobby.d3dbsp] [32mPASSED[0m[31m [ 97%][0m
+tests/branches/infinity_ward/test_modern_warfare.py::TestBounds::test_layered_indices[Call of Duty 4/mp/mp_test.d3dbsp] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/respawn/test_titanfall2.py::TestAssumptions::test_grid_cells_count[Titanfall 2/mp_crossfire.bsp] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/strata/test_strata.py::test_spec[Momentum Mod/mp_lobby.bsp] [32mPASSED[0m[31m [ 98%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[Team Fortress 2/test2.bsp] [32mPASSED[0m[31m [ 99%][0m
+tests/branches/valve/test_orange_box.py::TestMethods::test_vertices_of_displacement[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[31m [ 99%][0m
+tests/extensions/test_compiler_signature.py::test_MRVNRadiant[Titanfall 2/mp_crossfire.bsp] [32mPASSED[0m[31m [ 99%][0m
+tests/extensions/test_compiler_signature.py::test_identify[Titanfall 2/mp_crossfire.bsp] [32mPASSED[0m[31m [100%][0m
 
 ================================== FAILURES ===================================
 [31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57] _[0m
@@ -1470,7 +1475,7 @@ map_dirs = ['hfs/2022/maps', 'Colhen_Mod_BSP (Private Server Version)']
 [1m[31mE           }[0m
 
 [1m[31mtests\test_load_bsp.py[0m:114: AssertionError
-[31m[1m______________ test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs156] _______________[0m
+[31m[1m______________ test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs157] _______________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Left4Dead'
 map_dirs = ['left4dead/maps']
@@ -1642,7 +1647,7 @@ map_dirs = ['left4dead/maps']
 [1m[31mE           }[0m
 
 [1m[31mtests\test_load_bsp.py[0m:114: AssertionError
-[31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs159] ________________[0m
+[31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs160] ________________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
 
@@ -1953,13 +1958,13 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branches.infinity_ward.call_of_duty1_demo]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:100: UserWarning: Unused LumpClasses in branch script:
-  CullGroup
-  PatchCollision
-  AxisAlignedBoundingBox
-  Brush
-  Cell
   Model
+  Cell
+  AxisAlignedBoundingBox
   Occluder
+  PatchCollision
+  Brush
+  CullGroup
   Vertex
     warnings.warn(UserWarning(warning_text))
 
@@ -1972,8 +1977,8 @@ tests/branches/test_branch_scripts.py::test_basic_branch_script[bsp_tool.branche
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.arkane.dark_messiah_sp]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
-  Model
   TextureInfo
+  Model
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.apex_legends]
@@ -1989,8 +1994,8 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.resp
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.respawn.titanfall_x360]
   C:\Users\Jared\Documents\GitHub\bsp_tool\tests\branches\test_branch_scripts.py:137: UserWarning: Unused LumpClasses in branch script:
-  Grid_x360
   LevelInfo_x360
+  Grid_x360
     warnings.warn(UserWarning(warning_text))
 
 tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valve.source]
@@ -2005,14 +2010,14 @@ tests/branches/test_branch_scripts.py::test_branch_script[bsp_tool.branches.valv
 Name                                                      Stmts   Miss  Cover
 -----------------------------------------------------------------------------
 bsp_tool\__init__.py                                         53      3    94%
-bsp_tool\base.py                                             79     28    65%
+bsp_tool\base.py                                             85     27    68%
 bsp_tool\branches\__init__.py                                35      0   100%
 bsp_tool\branches\ace_team\__init__.py                        2      0   100%
 bsp_tool\branches\ace_team\zeno_clash.py                     79      0   100%
 bsp_tool\branches\arkane\__init__.py                          3      0   100%
 bsp_tool\branches\arkane\dark_messiah_mp.py                  16      0   100%
 bsp_tool\branches\arkane\dark_messiah_sp.py                  48      0   100%
-bsp_tool\branches\base.py                                   419     44    89%
+bsp_tool\branches\base.py                                   423     43    90%
 bsp_tool\branches\gearbox\__init__.py                         3      0   100%
 bsp_tool\branches\gearbox\blue_shift.py                      28      0   100%
 bsp_tool\branches\gearbox\nightfire.py                       90      0   100%
@@ -2046,8 +2051,8 @@ bsp_tool\branches\raven\soldier_of_fortune.py                14      0   100%
 bsp_tool\branches\respawn\__init__.py                         6      0   100%
 bsp_tool\branches\respawn\apex_legends13.py                 154      0   100%
 bsp_tool\branches\respawn\apex_legends.py                   349     41    88%
-bsp_tool\branches\respawn\titanfall2.py                     248      4    98%
-bsp_tool\branches\respawn\titanfall.py                      800    139    83%
+bsp_tool\branches\respawn\titanfall2.py                     248      1    99%
+bsp_tool\branches\respawn\titanfall.py                      799    138    83%
 bsp_tool\branches\respawn\titanfall_x360.py                  27      0   100%
 bsp_tool\branches\ritual\__init__.py                          8      0   100%
 bsp_tool\branches\ritual\fakk2.py                            60      0   100%
@@ -2057,7 +2062,7 @@ bsp_tool\branches\ritual\mohaa_demo.py                       89      0   100%
 bsp_tool\branches\ritual\sin.py                              14      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2.py           43      0   100%
 bsp_tool\branches\ritual\star_trek_elite_force2_demo.py      77      0   100%
-bsp_tool\branches\shared.py                                 105     14    87%
+bsp_tool\branches\shared.py                                 104     13    88%
 bsp_tool\branches\strata\__init__.py                          2      0   100%
 bsp_tool\branches\strata\strata.py                          238      0   100%
 bsp_tool\branches\troika\__init__.py                          2      0   100%
@@ -2089,6 +2094,7 @@ bsp_tool\extensions\archives\nexon.py                         7      7     0%
 bsp_tool\extensions\archives\respawn.py                     100    100     0%
 bsp_tool\extensions\archives\utoplanet.py                    58     58     0%
 bsp_tool\extensions\archives\valve.py                         4      4     0%
+bsp_tool\extensions\compiler_signature.py                    41      5    88%
 bsp_tool\extensions\convert\__init__.py                       0      0   100%
 bsp_tool\extensions\convert\respawn.py                       44     44     0%
 bsp_tool\extensions\decompile_rbsp.py                       102    102     0%
@@ -2097,15 +2103,15 @@ bsp_tool\extensions\diff.py                                 113    113     0%
 bsp_tool\extensions\lightmaps.py                            235    235     0%
 bsp_tool\extensions\mprt.py                                  15     15     0%
 bsp_tool\extensions\to_cpp.py                                24     24     0%
-bsp_tool\id_software.py                                      76      2    97%
+bsp_tool\id_software.py                                      78      2    97%
 bsp_tool\infinity_ward.py                                    52      7    87%
-bsp_tool\lumps.py                                           361     73    80%
+bsp_tool\lumps.py                                           361     57    84%
 bsp_tool\raven.py                                             3      0   100%
-bsp_tool\respawn.py                                         226    120    47%
+bsp_tool\respawn.py                                         229     68    70%
 bsp_tool\ritual.py                                           22      0   100%
-bsp_tool\valve.py                                           142     52    63%
+bsp_tool\valve.py                                           142     44    69%
 -----------------------------------------------------------------------------
-TOTAL                                                      9024   1665    82%
+TOTAL                                                      9078   1587    83%
 
 [36m[1m=========================== short test summary info ===========================[0m
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs57][0m - AssertionError: 1 out of 133 .bsps failed
@@ -2113,6 +2119,6 @@ TOTAL                                                      9024   1665    82%
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs111][0m - AssertionError: 33 out of 35 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs112][0m - AssertionError: 11 out of 11 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-Vindictus-map_dirs122][0m - AssertionError: 301 out of 475 .bsps failed
-[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Left4Dead-map_dirs156][0m - AssertionError: 43 out of 44 .bsps failed
-[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Portal2-map_dirs159][0m - AssertionError: 105 out of 105 .bsps failed
-[31m===== [31m[1m7 failed[0m, [32m318 passed[0m, [33m14 xfailed[0m, [33m13 warnings[0m[31m in 4372.91s (1:12:52)[0m[31m =====[0m
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Left4Dead-map_dirs157][0m - AssertionError: 43 out of 44 .bsps failed
+[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Portal2-map_dirs160][0m - AssertionError: 105 out of 105 .bsps failed
+[31m===== [31m[1m7 failed[0m, [32m321 passed[0m, [33m16 xfailed[0m, [33m13 warnings[0m[31m in 4334.29s (1:12:14)[0m[31m =====[0m

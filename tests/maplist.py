@@ -289,7 +289,7 @@ extracted_dirs = {
         # TODO: season0:  Preseason [4th February 2019]
         # TODO: season1:  Wild Frontier [19th Mar 2019]
         # season2:  Battle Charge [2nd Jul 2019]
-        "AprxLegends/season2": ["maps"],  # 1 map | 16.9 MB | .vpk
+        "ApexLegends/season2": ["maps"],  # 1 map | 16.9 MB | .vpk
         # season3:  Meltdown [1st October 2019]
         "ApexLegends/season3": ["30oct19/maps",  # 8 maps | 4.9 GB | .vpk
                                 "30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB | .vpk
@@ -370,7 +370,10 @@ extracted_dirs = {
                                  "28mar23/depot/r5-161/game/r2/maps"],  # 10 maps | 2.04 GB | .vpk
         # season17:  Arsenal [9th May 2023]
         "ApexLegends/season17": ["9may23/maps",  # 10 maps | 1.80 GB | .vpk
-                                 "9may23/depot/r5-170/game/r2/maps"],  # 10 maps | 1.74 GB | .vpk
+                                 "9may23/depot/r5-170/game/r2/maps",  # 10 maps | 1.74 GB | .vpk
+                                 "20jun23/maps",  # 14 maps | 2.81 GB | .vpk
+                                 "20jun23/depot/r5-170/game/r2/maps",  # 10 maps | 1.74 GB | .vpk
+                                 "20jun23/depot/r5-171/game/r2/maps"],  # 11 maps | 2.21 GB | .vpk
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
