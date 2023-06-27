@@ -230,6 +230,18 @@ LumpHeader = source.LumpHeader
 #   BVH_NODES = 0x0012  # BVH4 collision tree
 #   BVH_LEAF_DATA = 0x0013  # parallel w/ content masks & nodes?
 
+# BVHNode -> BVHNode
+#        \-> BVHLeafData
+
+# Type 0 & 1 are for BVHNode / None
+# BVHLeafData2 -?>
+# BVHLeafData3 -?>
+# BVHLeafData4 -> Vertices
+# BVHLeafData5 -> PackedVertices
+# BVHLeafData6 -> Vertices
+# BVHLeafData7 -> PackedVertices
+# BVHLeafData8-15?
+
 # PACKED_VERTICES is parallel with VERTICES?
 
 
@@ -241,12 +253,12 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     BVH_NODE = 0x00
     NO_CHILD = 0x01
     # primitive types:
-    UNKNOWN_2 = 0x02  # edge?
-    UNKNOWN_3 = 0x03
-    UNKNOWN_4 = 0x04
-    UNKNOWN_5 = 0x05
-    UNKNOWN_6 = 0x06
-    UNKNOWN_7 = 0x07
+    UNKNOWN_2 = 0x02  # edge? "nullsub"
+    UNKNOWN_3 = 0x03  # points to other leaves
+    TRI_REGULAR = 0x04  # bsp
+    TRI_PACKED = 0x05  # rmdl; indexes packed vertices
+    QUAD_REGULAR = 0x06  # bsp
+    QUAD_PACKED = 0x07  # rmdl; indexes packed vertices
     UNKNOWN_8 = 0x08
     UNKNOWN_9 = 0x09
     UNKNOWN_10 = 0x0A
@@ -258,6 +270,26 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
 
 
 # classes for lumps, in alphabetical order:
+class BVHLeaf5Header(base.BitField):  # LUMP 19 (0013) [type 5]
+    """TricollHeader with less diverse children"""
+    unknown: int
+    num_triangles: int  # number of BVHLeaf5Triangle after this header
+    first_vertex: int  # starting index into PackedVertices
+    _format = "I"
+    _fields = {"unknown": 12, "num_triangles": 4, "first_vertex": 16}
+
+
+class BVHLeaf5Triangle(base.BitField):  # LUMP 19 (0013) [type 5]
+    """TricollTriangle w/ more indices & less flags"""
+    A: int  # index into PackedVertices
+    B: int  # index into PackedVertices
+    C: int  # index into PackedVertices
+    # TODO: work out indexing math, could match TricollTriangle
+    edge_mask: int  # mask for each edge; one bit per edge?
+    _format = "I"
+    _fields = {"A": 11, "B": 9, "C": 9, "edge_mask": 3}
+
+
 class BVHNode(base.Struct):  # LUMP 18 (0012)
     """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
 https://www.youtube.com/watch?v=6BIfqfC1i7U
