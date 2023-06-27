@@ -252,21 +252,17 @@ https://www.youtube.com/watch?v=6BIfqfC1i7U
 https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     BVH_NODE = 0x00
     NO_CHILD = 0x01
+    UNUSED_2 = 0x02
     # primitive types:
-    UNKNOWN_2 = 0x02  # edge? "nullsub"
     UNKNOWN_3 = 0x03  # points to other leaves
-    TRI_REGULAR = 0x04  # bsp
-    TRI_PACKED = 0x05  # rmdl; indexes packed vertices
-    QUAD_REGULAR = 0x06  # bsp
-    QUAD_PACKED = 0x07  # rmdl; indexes packed vertices
-    UNKNOWN_8 = 0x08
-    UNKNOWN_9 = 0x09
-    UNKNOWN_10 = 0x0A
-    UNKNOWN_11 = 0x0B
-    UNKNOWN_12 = 0x0C
-    UNKNOWN_13 = 0x0D
-    UNKNOWN_14 = 0x0E
-    UNKNOWN_15 = 0x0F
+    TRI_REGULAR = 0x04
+    TRI_PACKED = 0x05
+    QUAD_REGULAR = 0x06
+    QUAD_PACKED = 0x07
+    UNKNOWN_8 = 0x08  # rare
+    UNKNOWN_9 = 0x09  # common
+    # UNUSED_10-15
+    # NOTE: packed types are most accurate for "on-grid" coords close to world origin
 
 
 # classes for lumps, in alphabetical order:
@@ -295,6 +291,7 @@ class BVHNode(base.Struct):  # LUMP 18 (0012)
 https://www.youtube.com/watch?v=6BIfqfC1i7U
 https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     # Identified by Fifty & Rexx, matched to GDC talk spec
+    # Corrected w/ help from Rexx & Rika
     # |     child0    |     child1    |     child2    |     child3    |
     # | min x | max x | min x | max x | min x | max x | min x | max x |
     # | min y | max y | min y | max y | min y | max y | min y | max y |
@@ -305,46 +302,45 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     y: List[List[int]]  # y.child0.min .. y.child3.max
     z: List[List[int]]  # z.child0.min .. z.child3.max
     index: List[List[int]]  # child indices and metadata
-    # NOTE: bitfields are definitely all wrong, not all padding is 0
-    # NOTE: index.child2.collision_mask should be an index (SurfaceProperties?)
+    # index.child0.contents_mask: int  # index into ContentsMasks
     __slots__ = [*"xyz", "index"]
     _format = "24h4I"
     _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
     _arrays.update({"index": [f"child{i}" for i in range(4)]})
-    _bitfields = {"index.child0": {"child0_type": 4, "child1_type": 4, "index": 24},
-                  "index.child1": {"child2_type": 4, "child3_type": 4, "index": 24},
-                  "index.child2": {"collision_mask": 8, "index": 24},
-                  "index.child3": {"padding": 8, "index": 24}}
-    _classes = {"index.child0.child0_type": BVHNodeType, "index.child0.child1_type": BVHNodeType,
-                "index.child1.child2_type": BVHNodeType, "index.child1.child3_type": BVHNodeType}
+    _bitfields = {"index.child0": {"contents_mask": 8, "index": 24},
+                  "index.child1": {"padding": 8, "index": 24},
+                  "index.child2": {"child0_type": 4, "child1_type": 4, "index": 24},
+                  "index.child3": {"child2_type": 4, "child3_type": 4, "index": 24}}
+    _classes = {"index.child2.child0_type": BVHNodeType, "index.child2.child1_type": BVHNodeType,
+                "index.child3.child2_type": BVHNodeType, "index.child3.child3_type": BVHNodeType}
 
-    # TODO: remap w/ properties and use a bounding box class
+    # TODO: remap attributes w/ properties and use a bounding box class
     # node.children[0].mins.x
-    # node.children[1].index  # TODO: might need to allow signed bitfield members
-    # node.collision_mask
+    # node.children[1].index
+    # node.contents_mask
 
     def __repr__(self) -> str:
         out = list()
 
-        def minmax(node: BVHNode, axis: str, child: str) -> str:
-            a = getattr(getattr(node, axis), child)
-            return f"min.{axis} = {str(a.min):<6} | max.{axis} = {str(a.max):<6}"
+        def minmax(attr: str) -> str:
+            child, axis = attr.split(".")
+            a = getattr(getattr(self, axis), child)
+            return f"min.{axis} = {str(a.min):>6} | max.{axis} = {str(a.max):>6}"
 
         out.append("| ------------ child0 ----------- | ------------ child1 ----------- |")
-        out.append(f"| {minmax(self, 'x', 'child0')} | {minmax(self, 'x', 'child1')} |")
-        out.append(f"| {minmax(self, 'y', 'child0')} | {minmax(self, 'y', 'child1')} |")
-        out.append(f"| {minmax(self, 'z', 'child0')} | {minmax(self, 'z', 'child1')} |")
+        out.append(f"| {minmax('child0.x')} | {minmax('child1.x')} |")
+        out.append(f"| {minmax('child0.y')} | {minmax('child1.y')} |")
+        out.append(f"| {minmax('child0.z')} | {minmax('child1.z')} |")
         out.append(f"| index = {str(self.index.child0.index):<23} | index = {str(self.index.child1.index):<23} |")
-        out.append(f"| type = {str(self.index.child0.child0_type):<24} | type = {str(self.index.child0.child1_type):<24} |")
+        out.append(f"| type = {str(self.index.child2.child0_type):<24} | type = {str(self.index.child2.child1_type):<24} |")
         out.append("| ------------ child2 ----------- | ------------ child3 ----------- |")
-        out.append(f"| {minmax(self, 'x', 'child2')} | {minmax(self, 'x', 'child3')} |")
-        out.append(f"| {minmax(self, 'y', 'child2')} | {minmax(self, 'y', 'child3')} |")
-        out.append(f"| {minmax(self, 'z', 'child2')} | {minmax(self, 'z', 'child3')} |")
+        out.append(f"| {minmax('child2.x')} | {minmax('child3.x')} |")
+        out.append(f"| {minmax('child2.y')} | {minmax('child3.y')} |")
+        out.append(f"| {minmax('child2.z')} | {minmax('child3.z')} |")
         out.append(f"| index = {str(self.index.child2.index):<23} | index = {str(self.index.child3.index):<23} |")
-        out.append(f"| type = {str(self.index.child1.child2_type):<24} | type = {str(self.index.child1.child3_type):<24} |")
-        out.append(f"| collision_mask = {str(self.index.child2.collision_mask):<48} |")
-        out.append(f"| padding = {str(self.index.child2.collision_mask):<55} |")
-        # NOTE: padding is not displayed with this method
+        out.append(f"| type = {str(self.index.child3.child2_type):<24} | type = {str(self.index.child3.child3_type):<24} |")
+        out.append(f"| contents_mask = {str(self.index.child0.contents_mask):<49} |")
+        # NOTE: padding is not displayed as it should always be 0
         return "\n".join(out)
 
 
