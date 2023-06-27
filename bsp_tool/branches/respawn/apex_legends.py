@@ -314,32 +314,56 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     _classes = {"index.child2.child0_type": BVHNodeType, "index.child2.child1_type": BVHNodeType,
                 "index.child3.child2_type": BVHNodeType, "index.child3.child3_type": BVHNodeType}
 
-    # TODO: remap attributes w/ properties and use a bounding box class
-    # node.children[0].mins.x
-    # node.children[1].index
-    # node.contents_mask
+    @property
+    def children(self) -> List[object]:
+
+        class BVHChildNode:
+            # TODO: inherit from some AABB class for math utils
+            mins: vector.vec3
+            maxs: vector.vec3
+            type: BVHNodeType
+            index: int
+
+            def __init__(self, parent, i):
+                name = f"child{i}"
+                mmx = getattr(parent.x, name)
+                mmy = getattr(parent.y, name)
+                mmz = getattr(parent.z, name)
+                # TODO: enforce Vec3<uint16_t>
+                self.mins = vector.vec3(mmx[0], mmy[0], mmz[0])
+                self.maxs = vector.vec3(mmx[1], mmy[1], mmz[1])
+                self.type = getattr(getattr(parent.index, f"child{2 + i // 2}"), f"child{i}_type")
+                self.index = getattr(parent.index, name).index
+
+            def __repr__(self):
+
+                def mm(a):
+                    mins = f"mins.{a} = {str(int(getattr(self.mins, a))):>6}"
+                    maxs = f"maxs.{a} = {str(int(getattr(self.maxs, a))):>6}"
+                    return " ".join(["|", mins, "|", maxs, "|"])
+
+                out = [mm(a) for a in [*"xyz"]]
+                out.extend([f"| type = {str(self.type):<26} |", f"| index = {self.index:<25} |"])
+                return "\n".join(out)
+
+        return [BVHChildNode(self, i) for i in range(4)]
+
+    @property
+    def contents_mask(self) -> int:
+        return self.index.child0.contents_mask
+
+    @property
+    def padding(self) -> int:
+        return self.index.child1.padding
 
     def __repr__(self) -> str:
         out = list()
-
-        def minmax(attr: str) -> str:
-            child, axis = attr.split(".")
-            a = getattr(getattr(self, axis), child)
-            return f"min.{axis} = {str(a.min):>6} | max.{axis} = {str(a.max):>6}"
-
-        out.append("| ------------ child0 ----------- | ------------ child1 ----------- |")
-        out.append(f"| {minmax('child0.x')} | {minmax('child1.x')} |")
-        out.append(f"| {minmax('child0.y')} | {minmax('child1.y')} |")
-        out.append(f"| {minmax('child0.z')} | {minmax('child1.z')} |")
-        out.append(f"| index = {str(self.index.child0.index):<23} | index = {str(self.index.child1.index):<23} |")
-        out.append(f"| type = {str(self.index.child2.child0_type):<24} | type = {str(self.index.child2.child1_type):<24} |")
-        out.append("| ------------ child2 ----------- | ------------ child3 ----------- |")
-        out.append(f"| {minmax('child2.x')} | {minmax('child3.x')} |")
-        out.append(f"| {minmax('child2.y')} | {minmax('child3.y')} |")
-        out.append(f"| {minmax('child2.z')} | {minmax('child3.z')} |")
-        out.append(f"| index = {str(self.index.child2.index):<23} | index = {str(self.index.child3.index):<23} |")
-        out.append(f"| type = {str(self.index.child3.child2_type):<24} | type = {str(self.index.child3.child3_type):<24} |")
-        out.append(f"| contents_mask = {str(self.index.child0.contents_mask):<49} |")
+        c = self.children
+        out.append("| ------------- child0 ------------ | ------------- child1 ------------ |")
+        out.extend([f"{a}{b[1:]}" for a, b in zip(repr(c[0]).split("\n"), repr(c[1]).split("\n"))])
+        out.append("| ------------- child2 ------------ | ------------- child3 ------------ |")
+        out.extend([f"{a}{b[1:]}" for a, b in zip(repr(c[2]).split("\n"), repr(c[3]).split("\n"))])
+        out.append(f"| contents_mask = {str(self.contents_mask):<51} |")
         # NOTE: padding is not displayed as it should always be 0
         return "\n".join(out)
 
