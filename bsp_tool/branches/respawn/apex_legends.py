@@ -359,11 +359,11 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     def __repr__(self) -> str:
         out = list()
         c = self.children
-        out.append("| ------------- child0 ------------ | ------------- child1 ------------ |")
+        out.append("| ---------- children[0] ---------- | ---------- children[1] ---------- |")
         out.extend([f"{a}{b[1:]}" for a, b in zip(repr(c[0]).split("\n"), repr(c[1]).split("\n"))])
-        out.append("| ------------- child2 ------------ | ------------- child3 ------------ |")
+        out.append("| ---------- children[2] ---------- | ---------- children[3] ---------- |")
         out.extend([f"{a}{b[1:]}" for a, b in zip(repr(c[2]).split("\n"), repr(c[3]).split("\n"))])
-        out.append(f"| contents_mask = {str(self.contents_mask):<51} |")
+        out.append(f"| contents_mask = {str(self.contents_mask):<53} |")
         # NOTE: padding is not displayed as it should always be 0
         return "\n".join(out)
 
