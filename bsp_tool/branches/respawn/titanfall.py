@@ -1201,13 +1201,14 @@ def occlusion_mesh_as_obj(bsp) -> str:
 
 
 def portals_as_prt(bsp) -> str:
+    """BROKEN, have yet to acquire correct portal windings"""
     out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
     for ci, cell in enumerate(bsp.CELLS):
         for pi in range(cell.first_portal, cell.first_portal + cell.num_portals):
             portal = bsp.PORTALS[pi]
             refs = bsp.PORTAL_EDGE_REFERENCES[portal.first_reference:portal.first_reference + portal.num_edges]
             winding = [bsp.PORTAL_VERTICES[bsp.PORTAL_EDGES[r // 2][r & 1]] for r in refs]
-            # windings are a mess in mp_box, but r2/mp_lobby looks ok
+            # windings are a mess in r1o/mp_box, but r2/mp_lobby looks ok
             # checking vertices are on plane & sorting verts didn't do much
             # normal = bsp.PLANES[portal.plane].normal
             # winding = vector.sort_clockwise(winding, normal)
