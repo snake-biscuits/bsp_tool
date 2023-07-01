@@ -227,6 +227,7 @@ class Visibility:
     # -- [b == "1" for b in f"{int.from_bytes(x, 'big'):b}"[::-1]]
 
     def __init__(self, pvs_table: List[List[bool]] = tuple(), pas_table: List[List[bool]] = tuple()):
+        assert len(pvs_table) == len(pas_table)
         self.pvs = pvs_table
         self.pas = pas_table
 
@@ -278,7 +279,7 @@ class Visibility:
         return bytes(out)
 
     def as_bytes(self) -> bytes:
-        # TODO: test
+        # NOTE: should be a byte-for-byte match, indices into lump should be correct
         # TODO: reduce pvs & pas to a set of each unique flag sequence
         # -- then index that fixed list of pvs/pas flags for extra compression
         assert len(self.pvs) == len(self.pas)
