@@ -1,5 +1,6 @@
 import enum
 import struct
+from typing import List
 
 import pytest
 
@@ -64,6 +65,31 @@ class TestStruct:
         flattened_struct = test_Struct.as_tuple()
         recreated_struct = struct.pack(Example._format, *flattened_struct)
         assert raw_struct == recreated_struct
+
+    def test_as_bytes(self):
+
+        class AllChildTypes(base.Struct):
+            a: base.MappedArray  # struct { float x, y; };
+            b: str               # char[4];
+            c: base.BitField     # uint32_t hi: 16, lo: 16;
+            d: ExampleFlags      # int16_t;
+            e: List[int]         # int16_t[2];
+            __slots__ = [*"abcde"]
+            _format = "2f4sI3h"
+            _arrays = {"a": [*"xy"], "e": 2}
+            _bitfields = {"c": {"hi": 16, "lo": 16}}
+            _classes = {"d": ExampleFlags}
+
+        bf = base.BitField.from_int(0x05000600, _fields={"hi": 16, "lo": 16}, _format="I")
+        test_Struct = AllChildTypes(a=(1.2, 3.4), b="test", c=bf, d=ExampleFlags.FOO, e=[7, 8])
+
+        assert isinstance(test_Struct.a, base.MappedArray)
+        assert isinstance(test_Struct.b, str)
+        assert isinstance(test_Struct.c, base.BitField)
+        assert isinstance(test_Struct.d, enum.IntFlag)
+        assert isinstance(test_Struct.e, list)
+
+        assert len(test_Struct.as_bytes()) == struct.calcsize(AllChildTypes._format)
 
 
 class TestMappedArray:
@@ -149,6 +175,30 @@ class TestMappedArray:
         for answer, kwargs in c_structs.items():
             assert base.MappedArray(**kwargs).as_cpp() == answer
 
+    def test_as_bytes(self):
+
+        class AllChildTypes(base.MappedArray):
+            a: base.MappedArray  # struct { float x, y; };
+            b: str               # char[4];
+            c: base.BitField     # uint32_t hi: 16, lo: 16;
+            d: ExampleFlags      # int16_t;
+            e: List[int]         # int16_t[2];
+            _mapping = {"a": [*"xy"], "b": None, "c": None, "d": None, "e": 2}
+            _format = "2f4sI3h"
+            _bitfields = {"c": {"hi": 16, "lo": 16}}
+            _classes = {"d": ExampleFlags}
+
+        bf = base.BitField.from_int(0x05000600, _fields={"hi": 16, "lo": 16}, _format="I")
+        test_MappedArray = AllChildTypes(a=(1.2, 3.4), b="test", c=bf, d=ExampleFlags.FOO, e=[7, 8])
+
+        assert isinstance(test_MappedArray.a, base.MappedArray)
+        assert isinstance(test_MappedArray.b, str)
+        assert isinstance(test_MappedArray.c, base.BitField)
+        assert isinstance(test_MappedArray.d, enum.IntFlag)
+        assert isinstance(test_MappedArray.e, list)
+
+        assert len(test_MappedArray.as_bytes()) == struct.calcsize(AllChildTypes._format)
+
 
 class TestBitField:
     def test_init(self):
@@ -180,6 +230,16 @@ class TestBitField:
         test_bitfield = base.BitField(0xFFFFFFFF, _format="I", _fields={"red": 8, "green": 16, "blue": 8})
         with pytest.raises(OverflowError):
             test_bitfield.red = 0xFF + 1
+
+    def test_as_bytes(self):
+        """wraps .as_int()"""
+
+        class AllChildTypes(base.BitField):
+            _fields = {"flags": 2, "unknown": 6}
+            _format = "B"
+            _classes = {"flags": ExampleFlags}
+
+        assert len(AllChildTypes(ExampleFlags.BAR, 42).as_bytes()) == struct.calcsize(AllChildTypes._format)
 
 
 def test_dict_subgroup():
