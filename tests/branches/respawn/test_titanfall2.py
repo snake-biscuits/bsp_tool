@@ -18,3 +18,10 @@ class TestAssumptions:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_grid_cells_count(self, bsp: RespawnBsp):
         assert len(bsp.CM_GRID_CELLS) == bsp.CM_GRID.count.x * bsp.CM_GRID.count.y + len(bsp.MODELS)
+
+
+class TestMethods:
+    @pytest.mark.xfail(raises=AttributeError, reason="MRVN-Radiant doesn't export BrushSideTextureVectors")
+    @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
+    def test_get_brush_sides(self, bsp: RespawnBsp):
+        assert len(bsp.get_brush_sides(0)) > 0

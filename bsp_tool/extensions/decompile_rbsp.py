@@ -77,8 +77,9 @@ def brush_valve_220(bsp, brush: titanfall.Brush, editor: str = "TrenchBroom", of
     # add additional planes
     # TODO: some brushes become invalid, might be slicing with bad bevel planes
     for i in range(brush.num_plane_offsets):
-        brush_plane_offset = brush.brush_side_offset + i - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + i]
-        normal, distance = bsp.PLANES[bsp.CM_GRID.base_plane_offset + brush_plane_offset]
+        offset = brush.brush_side_offset + i
+        brush_plane_offset = offset - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[offset]
+        normal, distance = bsp.PLANES[bsp.CM_GRID.first_brush_plane + brush_plane_offset]
         brush_planes.append((-normal, -distance))
     num_brush_sides = 6 + brush.num_plane_offsets
     for j in range(num_brush_sides):

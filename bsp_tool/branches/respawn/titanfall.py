@@ -452,7 +452,7 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     primitive: List[int]  # embedded Primitive?
     # primitive.unique_contents: int  # index into UniqueContents
     # primitive.index: int  # index into Brushes / TricollHeaders
-    # primitive.type: PrimitiveType  # Brushes or Tricoll
+    # primitive.type: PrimitiveType  # Brush / Tricoll
     __slots__ = ["straddle_group", "num_primitives", "primitive"]
     _format = "2HI"
     _bitfields = {"primitive": {"unique_contents": 8, "index": 16, "type": 8}}
@@ -470,10 +470,10 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     # mins = offset * scale
     # maxs = (offset + count) * scale
     # NOTE: bounds covers Models[0]
-    num_straddle_groups: int  # linked to geosets, objects straddling many gridcells?
-    base_plane_offset: int  # first plane for brushes to index
+    num_straddle_groups: int  # linked to GeoSets, for objects in multiple GridCells?
+    first_brush_plane: int  # index of first Plane indexed by Brushes
     # other planes might be used by portals, unsure
-    __slots__ = ["scale", "offset", "count", "num_straddle_groups", "base_plane_offset"]
+    __slots__ = ["scale", "offset", "count", "num_straddle_groups", "first_brush_plane"]
     _format = "f6i"
     _arrays = {"offset": [*"xy"], "count": [*"xy"]}
 
@@ -1238,11 +1238,12 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
         brush_planes.append((vector.vec3(**{axis: -1}), -min_dist))
     # non-axial planes
     for i in range(brush.num_plane_offsets):
-        brush_plane_offset = brush.brush_side_offset + i - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[brush.brush_side_offset + i]
-        normal, distance = bsp.PLANES[bsp.CM_GRID.base_plane_offset + brush_plane_offset]
+        offset = brush.brush_side_offset + i
+        brush_plane_offset = offset - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[offset]
+        normal, distance = bsp.PLANES[bsp.CM_GRID.first_brush_plane + brush_plane_offset]
         brush_planes.append((-normal, -distance))
     out["planes"] = brush_planes
-    # NOTE: which planes are used is likely filtered by brush side properties
+    # NOTE: BrushSideProperties likely eliminate some planes
     return out
 
 
