@@ -281,10 +281,10 @@ class Visibility:
         # TODO: test
         # TODO: reduce pvs & pas to a set of each unique flag sequence
         # -- then index that fixed list of pvs/pas flags for extra compression
-        assert len(self.PVS) == len(self.PAS)
-        num_clusters = len(self.PVS)
-        compressed_pvs = [self.run_length_encode(d) for d in self.PVS]
-        compressed_pas = [self.run_length_encode(d) for d in self.PAS]
+        assert len(self.pvs) == len(self.pas)
+        num_clusters = len(self.pvs)
+        compressed_pvs = [self.run_length_encode(d) for d in self.pvs]
+        compressed_pas = [self.run_length_encode(d) for d in self.pas]
         pvs_offsets = [4 + sum(map(len, compressed_pvs[:i])) for i in range(num_clusters)]
         offset = pvs_offsets[-1] + len(compressed_pvs[-1])
         pas_offsets = [offset + sum(map(len, compressed_pas[:i])) for i in range(num_clusters)]
