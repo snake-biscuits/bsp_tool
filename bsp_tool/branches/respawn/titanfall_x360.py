@@ -35,7 +35,11 @@ class GameLump_SPRPv12_x360(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES, LumpClasses = x360.convert_versioned(titanfall.BASIC_LUMP_CLASSES)
+BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
+# big-endian BitField not yet supported
+BASIC_LUMP_CLASSES.pop("CM_PRIMITIVES")
+BASIC_LUMP_CLASSES.pop("TRICOLL_TRIANGLES")
+BASIC_LUMP_CLASSES, LumpClasses = x360.convert_versioned(BASIC_LUMP_CLASSES)
 # copy used LumpClasses to globals
 for LumpClass_name, LumpClass in LumpClasses.items():
     globals()[LumpClass_name] = LumpClass

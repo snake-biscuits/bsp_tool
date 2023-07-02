@@ -5,6 +5,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import vector
 from ..id_software import quake
 from ..id_software import quake3
 from . import call_of_duty1
@@ -65,9 +66,9 @@ class LUMP(enum.Enum):
 LumpHeader = call_of_duty1.LumpHeader
 
 
-# known lump changes from Call of Duty -> Call of Duty 2:
+# Known lump changes from Call of Duty -> Call of Duty 2:
 #   INDICES -> TRIANGLES
-# new:
+# New:
 #   COLLISION_AABBS
 #   COLLISION_BORDERS
 #   COLLISION_EDGES
@@ -81,7 +82,7 @@ LumpHeader = call_of_duty1.LumpHeader
 #   SHADOW_INDICES
 #   SHADOW_SOURCES
 #   SHADOW_VERTICES
-# deprecated:
+# Deprecated:
 #   COLLISION_INDICES
 #   LIGHT_INDICES
 
@@ -126,23 +127,23 @@ class Surface(enum.IntFlag):
 class CollisionEdge(base.Struct):  # LUMP 30
     unknown: int  # an index?
     position: List[float]
-    normal: List[List[float]]
+    normal: List[List[float]]  # x3?
     distance: float
     __slots__ = ["unknown", "position", "normal", "distance"]
     _format = "I13f"
-    _arrays = {"position": [*"xyz"],
-               "normal": {"A": [*"xyz"], "B": [*"xyz"], "C": [*"xyz"]}}
-    # NOTE: {"normal": {3: [*"xyz"]}} doesn't work /; (yet)
+    _arrays = {"position": [*"xyz"], "normal": {i: [*"xyz"] for i in "ABC"}}
+    _classes = {"position": vector.vec3, **{f"normal.{i}": vector.vec3 for i in "ABC"}}
 
 
 class CollisionTriangle(base.Struct):  # LUMP 31
     normal: List[float]
     distance: float
     unknown_1: List[float]
-    unknown_2: List[int]
+    unknown_2: List[int]  # ids?
     __slots__ = ["normal", "distance", "unknown_1", "unknown_2"]
-    _format = "12f6"
-    _arrays = {"normal": [*"xyz"], "unknown": 8, "id": 6}
+    _format = "12f6i"
+    _arrays = {"normal": [*"xyz"], "unknown_1": 8, "unknown_2": 6}
+    _classes = {"normal": vector.vec3}
 
 
 class Model(base.Struct):  # LUMP 35
@@ -158,6 +159,7 @@ class Model(base.Struct):  # LUMP 35
                  "first_mesh", "num_meshes", "first_brush", "num_brushes"]
     _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Triangle(list):  # LUMP 9
@@ -190,6 +192,8 @@ class Vertex(base.Struct):  # LUMP 8
     _format = "6f4B10f"
     _arrays = {"position": [*"xyz"], "normal": [*"xyz"], "colour": [*"rgba"],
                "uv0": [*"uv"], "uv1": [*"uv"], "unknown": 6}
+    _classes = {"position": vector.vec3, "normal": vector.vec3}
+    # TODO: Colour32 & vec2_uv
 
 
 # {"LUMP_NAME": LumpClass}

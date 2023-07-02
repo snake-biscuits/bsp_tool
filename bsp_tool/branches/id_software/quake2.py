@@ -147,16 +147,18 @@ class Surface(enum.IntFlag):  # qcommon/qfiles.h
 
 # classes for lumps, in alphabetical order:
 class Brush(base.MappedArray):  # LUMP 14
-    first_side: int
-    num_sides: int
+    first_brush_side: int  # first BrushSide of this Brush
+    num_brush_sides: int  # number of BrushSides after first_brush_side on this Brush
     contents: int
-    _mapping = ["first_side", "num_sides", "contents"]
+    _mapping = ["first_brush_side", "num_brush_sides", "contents"]
     _format = "3i"
+    _classes = {"contents": Contents}
 
 
 class BrushSide(base.MappedArray):  # LUMP 15
-    plane: int
-    texture_info: int
+    plane: int  # Plane this BrushSide lies on
+    texture_info: int  # TextureInfo of this BrushSide
+    _mapping = ["plane", "texture_info"]
     _format = "Hh"
 
 
@@ -194,7 +196,7 @@ class Node(base.Struct):  # LUMP 4
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int  # index of the first Face in this Node
     num_faces: int  # number of Faces in this Node after first_face
-    # __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
+    __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I2i8h"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}

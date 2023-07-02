@@ -144,7 +144,7 @@ class Unknown14(base.Struct):  # LUMP 14
     __slots__ = ["mins", "maxs", "first_unknown_1", "num_unknown_1",
                  "first_unknown_2", "num_unknown_2"]
     _format = "6f4i"
-    _arrays = {"min": [*"xyz"], "max": [*"xyz"]}
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 

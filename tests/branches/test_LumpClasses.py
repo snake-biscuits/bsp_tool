@@ -7,27 +7,22 @@ import pytest
 
 from bsp_tool import branches
 from bsp_tool.branches import base
+from bsp_tool.branches import vector
 
 
-# TODO: use tests/maplist.py to look at headers to ensure UNUSED_* / UNKNOWN_* lumps are correctly marked
-# -- looking for unmapped lump versions would be nice too
+# TODO: no skipped padding due to struct alignment; sizeof(_format) == sum(map(sizeof, _format))
+# -- gets complicated with Displacement Neighbours
 
-# TODO: assert LumpClasses capture all bytes (no gaps caused by alignment)
-# sizeof(_format) == sum(map(sizeof, _format))
-
-# TODO: verify LumpClass __annotations__ match _format ("hHiI": int, "fg": float, "s": str, "?": bool)
+# TODO: __annotations__ match _format ("hHiI": int, "fg": float, "s": str, "?": bool)
 # -- _classes will override base type, confirm the reverse conversions (enum & vec3 -> int)
 # -- List[type] is appropriate for MappedArrays defined in Struct._arrays
 # TODO: check for outdated annotations, allow hints for properties
 # TODO: commented out type hints for _arrays?
 # -- allow type hints / comments for derived members (e.g. titanfall.Brush.num_brush_sides)
 
-# TODO: verify __slots__, _format, _arrays & _mapping line up correctly
-# -- all LumpClasses must coherently translate to and from bytes
-# -- no skipped bytes! (single byte alignment gets wierd)
-# -- incomplete / mismatched / outdated type-hints should also be checked
-# -- this may require scanning comments for "deep" type-hints `# attr.sub: type  # desc`
-# TODO: check for attr.sub typos in _classes & _bitfields
+# TODO: ensure all mappings are internally consistent
+# -- no typos / regressions across type hints, _arrays, _classes etc.
+# TODO: include attr.sub in _classes,_bitfields & (commented out) type hints
 
 # NOTE: _classes might complain about EnumClass(0) (if not defined) when initialising LumpClasses
 # TODO: interrogate LumpClass instances, not just class definitions
@@ -66,6 +61,7 @@ def test_Struct(LumpClass):
     assert not hasattr(LumpClass, "_mapping"), "Struct doesn't use _mapping"  # MappedArray only
     assert not hasattr(LumpClass, "_fields"), "Struct doesn't use _fields"  # BitField only
     assert hasattr(LumpClass, "_arrays"), "use MappedArray for shallow Structs"
+    assert all([a in LumpClass.__slots__ for a in LumpClass._arrays]), "typo / regression in _arrays"
     # TODO: how does memory effeciency differ between Struct & MappedArray
     # -- should we restrict use of MappedArray to _arrays definitions?
     LumpClass()  # must initialise once to generate struct_attr_formats entry
@@ -80,7 +76,10 @@ def test_Struct(LumpClass):
 def test_MappedArray(LumpClass):
     assert hasattr(LumpClass, "_format")
     assert struct.calcsize(LumpClass._format) > 0, "invalid _format"
-    assert not hasattr(LumpClass, "__slots__"), "MappedArray doesn't use __slots__"  # Struct only
+    if not issubclass(LumpClass, vector.vec3):  # quake.Vertex special case
+        assert not hasattr(LumpClass, "__slots__"), "MappedArray doesn't use __slots__"  # Struct only
+    else:
+        assert LumpClass.__slots__ == LumpClass._mapping  # __slots__ inherited from vector.vec3
     assert not hasattr(LumpClass, "_arrays"), "MappedArray doesn't use _arrays"  # Struct only
     assert not hasattr(LumpClass, "_fields"), "MappedArray doesn't use _fields"  # BitField only
     assert len(LumpClass._mapping) != 0, "forgot to create _mapping"

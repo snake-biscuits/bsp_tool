@@ -58,8 +58,8 @@ class LUMP(enum.Enum):
 LumpHeader = quake.LumpHeader
 
 
-# known lump changes from F.A.K.K. 2 -> Star Trek: Elite Force 2 Demo:
-# new:
+# Known lump changes from F.A.K.K. 2 -> Star Trek: Elite Force 2 Demo:
+# New:
 #   BASE_LIGHTMAPS
 #   CONT_LIGHTMAPS
 #   BASE_LIGHTING_VERTICES
@@ -112,17 +112,24 @@ class Face(base.Struct):  # LUMP 3
     base_lighting_face: int  # index into BaseLightingFace lump
     terrain: List[int]
     __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
-                 "first_index", "num_indices", "lightmap", "normal", "size",
+                 "first_index", "num_indices", "lightmap", "normal", "patch",
                  "subdivisions", "base_lighting_face", "terrain"]
     _format = "12i12f2if6i"
-    _arrays = {"lightmap": {"index": None, "top_left": [*"xy"],
-               "size": ["width", "height"], "origin": [*"xyz"],
-               "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
-               "normal": [*"xyz"], "patch": ["width", "height"],
+    _arrays = {"lightmap": {"index": None,
+                            "top_left": [*"xy"],
+                            "size": ["width", "height"],
+                            "origin": [*"xyz"],
+                            "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
+               "normal": [*"xyz"],
+               "patch": ["width", "height"],
                "terrain": {"inverted": None, "face_flags": 4}}
-    _classes = {"type": quake3.FaceType, "lightmap.top_left": vector.vec2,
-                "lightmap.size": vector.renamed_vec2("width", "height"), "lightmap.origin": vector.vec3,
-                "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3, "normal": vector.vec3,
+    _classes = {"type": quake3.FaceType,
+                "lightmap.top_left": vector.vec2,
+                "lightmap.size": vector.renamed_vec2("width", "height"),
+                "lightmap.origin": vector.vec3,
+                "lightmap.vector.s": vector.vec3,
+                "lightmap.vector.t": vector.vec3,
+                "normal": vector.vec3,
                 "patch": vector.renamed_vec2("width", "height")}
 
 

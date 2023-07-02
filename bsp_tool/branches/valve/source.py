@@ -583,7 +583,7 @@ class LeafAmbientIndex(base.MappedArray):  # LUMP 52
     _mapping = ["num_samples", "first_sample"]
 
 
-class LeafAmbientSample(base.MappedArray):  # LUMP 56
+class LeafAmbientSample(base.Struct):  # LUMP 56
     """cube of lighting samples"""
     cube: List[List[int]]  # unsure about orientation / face order
     origin: vector.vec3  # uint8_t; "fixed point fraction of Leaf bounds"

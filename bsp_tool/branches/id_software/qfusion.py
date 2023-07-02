@@ -168,17 +168,19 @@ class Lightmap(list):  # LUMP 14
         return out
 
 
-class Vertex(base.MappedArray):  # LUMP 10
+class Vertex(base.Struct):  # LUMP 10
     position: List[float]
     uv0: List[float]
-    lightmap_uv: List[List[float]]
+    lightmap_uv: List[List[float]]  # 4 uvs for 4 styles
     normal: List[float]
-    color: List[List[int]]
-    __slots__ = ["position", "uv0", "lightmap_uv", "normal"]
+    color: List[List[int]]  # 4 colours for 4 styles
+    __slots__ = ["position", "uv0", "lightmap_uv", "normal", "colour"]
     _format = "16f16B"
-    _arrays = {"position": [*"xyz"], "uv0": [*"uv"],
+    _arrays = {"position": [*"xyz"],
+               "uv0": [*"uv"],
                "lightmap_uv": {s: [*"uv"] for s in "ABCD"},
-               "normal": [*"xyz"], "color": {s: 4 for s in "ABCD"}}
+               "normal": [*"xyz"],
+               "colour": {s: 4 for s in "ABCD"}}
 
 
 # {"LUMP_NAME": LumpClass}

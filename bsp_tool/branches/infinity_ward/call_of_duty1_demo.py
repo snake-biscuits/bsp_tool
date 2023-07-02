@@ -97,7 +97,7 @@ class BrushSide(base.Struct):  # LUMP 3
     plane: int   # Plane this BrushSide lies on
     # NOTE: in some cases the plane index is a distance instead (float)
     # "first 6 entries indicated by an entry in lump 6 [brushes] are distances (float), rest is plane ID's"
-    texture: int  # index into Texture lump
+    texture: int  # Texture of this BrushSide
     __slots__ = ["plane", "texture"]
     _format = "2I"
 
@@ -107,6 +107,7 @@ class Cell(base.Struct):  # LUMP 17
     unknown: List[int]
     __slots__ = ["unknown"]
     _format = "13i"
+    _arrays = {"unknown": 13}
 
 
 class CullGroup(base.Struct):  # LUMP 9
@@ -114,6 +115,7 @@ class CullGroup(base.Struct):  # LUMP 9
     unknown: List[int]
     __slots__ = ["unknown"]
     _format = "8i"
+    _arrays = {"unknown": 8}
 
 
 class Leaf(base.Struct):  # LUMP 21

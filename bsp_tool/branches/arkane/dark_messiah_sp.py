@@ -2,6 +2,7 @@
 from typing import List
 
 from .. import base
+from .. import vector
 from ..valve import orange_box
 from ..valve import source
 
@@ -26,14 +27,15 @@ class Model(base.Struct):  # LUMP 14
     bounds: List[float]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
-    origin: List[float]
+    origin: List[float]  # xyz
     unknown: int
-    head_node: int   # index into Node lump
-    first_face: int  # index into Face lump
+    head_node: int   # top-level Node of this Model
+    first_face: int  # first Face of this Model
     num_faces: int   # number of Faces after first_face in this Model
     __slots__ = ["bounds", "origin", "unknown", "head_node", "first_face", "num_faces"]
     _format = "9f4i"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -43,11 +45,14 @@ class TextureInfo(base.Struct):  # LUMP 6
     unknown: bytes
     flags: int  # Surface flags
     texture_data: int  # index of TextureData
-    __slots__ = ["texture", "lightmap", "flags", "texture_data"]
+    __slots__ = ["texture", "lightmap", "unknown", "flags", "texture_data"]
     _format = "16f24s2i"
     _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
                "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
-    # ^ nested MappedArrays; texture.s.x, texture.t.x
+    _classes = {**{"{g}.{v}.xyz": vector.vec3 for g in ("texture", "lightmap") for v in "st"},
+                "flags": source.Surface}
+    # TODO: TextureVector class from vmf_tool
+    # TODO: .uv_at(position: vector.vec3) TextureVector projection
 
 
 # classes for special lumps, in alphabetical order:
