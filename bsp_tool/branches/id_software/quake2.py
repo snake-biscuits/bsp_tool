@@ -9,6 +9,7 @@ from typing import List
 from . import quake
 from .. import base
 from .. import shared
+from .. import vector
 
 
 FILE_MAGIC = b"IBSP"
@@ -176,26 +177,28 @@ class Leaf(base.Struct):  # LUMP 10
 
 class Model(base.Struct):  # LUMP 13
     bounds: List[float]  # mins & maxs
-    origin: List[float]
-    first_node: int  # first node in NODES lumps
-    first_face: int
-    num_faces: int
+    origin: List[float]  # starting position
+    first_node: int  # first Node in this Model
+    first_face: int  # first Face in this Model
+    num_faces: int  # number of Faces in this Model after first_face
     __slots__ = ["bounds", "origin", "first_node", "first_face", "num_faces"]
     _format = "9f3i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
 
 
 class Node(base.Struct):  # LUMP 4
-    plane_index: int
+    plane: int  # index of Plane that splits this Node
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
-    bounds: List[int]
+    bounds: List[List[int]]  # mins & maxs
     # NOTE: bounds are generous, rounding up to the nearest 16 units
-    first_face: int
-    num_faces: int
+    first_face: int  # index of the first Face in this Node
+    num_faces: int  # number of Faces in this Node after first_face
+    # __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I2i8h"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
 class TextureInfo(base.Struct):  # LUMP 5
