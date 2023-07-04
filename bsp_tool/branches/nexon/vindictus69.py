@@ -146,7 +146,7 @@ class DisplacementInfo(source.DisplacementInfo):  # LUMP 26
                  "power", "smoothing_angle", "unknown", "contents", "face",
                  "lightmap_alpha_start", "lightmap_sample_position_start",
                  "edge_neighbours", "corner_neighbours", "allowed_vertices"]
-    _format = "3f3if2iI2i144c10I"  # Neighbours are also different
+    _format = "3f3if2iI2i144B10I"  # Neighbours are also different
     # TODO: replace 44c w/ f"{DisplacementNeighbour._format}" * 4
     _arrays = {"start_position": [*"xyz"], "edge_neighbours": 72,
                "corner_neighbours": 72, "allowed_vertices": 10}

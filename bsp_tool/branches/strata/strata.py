@@ -194,7 +194,8 @@ class DisplacementInfo(base.Struct):  # LUMP 26
                  "first_lightmap_alpha", "first_lightmap_sample_position",
                  "edge_neighbours", "corner_neighbours", "allowed_vertices"]
     _format = "3f4ifiI2i144B10I"
-    _arrays = {"edge_neighbours": 72, "corner_neighbours": 72, "allowed_vertices": 10}
+    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 72, "corner_neighbours": 72,
+               "allowed_vertices": 10}
     # 4x DisplacementNeighbour: edge_neighbours
     # 4x DisplacementCornerNeighbours: corner_neighbours
     _classes = {"start_position": vector.vec3, "contents": source.Contents}
