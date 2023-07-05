@@ -3,6 +3,7 @@
 import enum
 import io
 import itertools
+import math
 import struct
 from typing import List
 
@@ -219,6 +220,7 @@ class TextureInfo(base.Struct):  # LUMP 5
 # special lump classes, in alphabetical order:
 class Visibility:
     """Developed with maxdup"""
+    # TODO: endianness
     # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
     # NOTE: cluster index comes from Leaf.cluster
     # -- https://github.com/ericwa/ericw-tools/blob/master/vis/vis.cc
@@ -227,7 +229,7 @@ class Visibility:
     pvs: List[bytes]  # Potential Visible Set
     pas: List[bytes]  # Potential Audible Set
     # TODO: List[bool] -> bytes
-    # -- sum([2 ** i if b else 0 for i, b in enumerate(x)]).to_bytes(len(x) // 8 + 1 if len(x) % 8 != 0 else 0, "big")
+    # -- sum([2 ** i if b else 0 for i, b in enumerate(x)]).to_bytes(math.ciel(len(x) / 8), "big")
     # TODO: bytes -> List[bool]
     # -- [b == "1" for b in f"{int.from_bytes(x, 'big'):b}"[::-1]]
 
@@ -243,60 +245,56 @@ class Visibility:
         offsets = list(struct.iter_unpack("2I", _buffer.read(8 * num_clusters)))
         pvs, pas = list(), list()
         for pvs_offset, pas_offset in offsets:
+            # get Potentially Visible Set
             _buffer.seek(pvs_offset)
             pvs.append(cls.run_length_decode(_buffer, num_clusters))
+            # get Potentially Audible Set
             _buffer.seek(pas_offset)
             pas.append(cls.run_length_decode(_buffer, num_clusters))
-            # TODO: treat bytes as List[bool]
         return cls(pvs, pas)
 
     @staticmethod
     def run_length_decode(stream: io.BytesIO, num_clusters: int) -> bytes:
-        # https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4412-L4439
         out = list()
-        out_size = num_clusters // 8 + 1 if num_clusters % 8 else 0
-        while(len(out) < out_size):
-            byte = stream.read(1)
-            if byte != 0:
+        out_size = math.ceil(num_clusters / 8)
+        while len(out) < out_size:
+            byte = int(stream.read(1).hex(), 16)
+            if byte == 0:
+                count = int(stream.read(1).hex(), 16)
+                assert count != 0, "stream is not compressed"
+                out.extend([0] * count)
+            else:
                 out.append(byte)
-                continue
-            count = stream.read(1)
-            assert count != 0, "stream is not compressed"
-            out.extend([0] * count)
-        return b"".join(out)
+        return bytes(out)
 
     @staticmethod
     def run_length_encode(data: bytes) -> bytes:
-        # https://github.com/ericwa/ericw-tools/blob/master/common/bspfile.cc#L4382-L4404
-        out = list()
-        i = 0
-        while (i < len(data)):
-            byte = data[i]
-            i += 1
-            if byte != 0:
-                out.append(byte)
-                continue
-            count = 1
-            while data[i] == 0 and count < 255 and i < len(data):
-                count += 1
-                i += 1
-            out.extend([0, count])
+        out, zeroes = list(), 0
+        for byte in data:
+            if byte == 0:
+                zeroes += 1
+                if zeroes == 0xFF:
+                    out.extend([0x00, zeroes])
+                    zeroes = 0
+            else:
+                out.extend([0x00, zeroes, byte] if zeroes != 0 else [byte])
+                zeroes = 0
+        out.extend([0x00, zeroes] if zeroes != 0 else [])
         return bytes(out)
 
     def as_bytes(self) -> bytes:
-        # NOTE: should be a byte-for-byte match, indices into lump should be correct
-        # TODO: reduce pvs & pas to a set of each unique flag sequence
-        # -- then index that fixed list of pvs/pas flags for extra compression
+        """should be a byte-for-byte match"""
         assert len(self.pvs) == len(self.pas)
         num_clusters = len(self.pvs)
-        compressed_pvs = [self.run_length_encode(d) for d in self.pvs]
-        compressed_pas = [self.run_length_encode(d) for d in self.pas]
-        pvs_offsets = [4 + sum(map(len, compressed_pvs[:i])) for i in range(num_clusters)]
-        offset = pvs_offsets[-1] + len(compressed_pvs[-1])
-        pas_offsets = [offset + sum(map(len, compressed_pas[:i])) for i in range(num_clusters)]
-        header = [num_clusters, *itertools.chain(*zip(pvs_offsets, pas_offsets))]
-        data = list(itertools.chain(*zip(compressed_pvs, compressed_pas)))
-        return b"".join([*[x.to_bytes(4, "little") for x in header], *data])
+        interleaved_sets = list(itertools.chain(*zip(self.pvs, self.pas)))
+        compressed_sets = list()
+        offsets = [4 + (num_clusters * 8)]
+        for s in interleaved_sets:
+            compressed_sets.append(self.run_length_encode(s))
+            offsets.append(offsets[-1] + len(compressed_sets[-1]))
+        header = struct.pack(f"{len(offsets)}I", num_clusters, *offsets[:-1])
+        assert len(header) + sum(map(len, compressed_sets)) == offsets[-1]
+        return b"".join([header, *compressed_sets])
 
 
 # {"LUMP": LumpClass}

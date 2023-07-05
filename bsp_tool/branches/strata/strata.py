@@ -243,7 +243,7 @@ class FaceBrushList(base.MappedArray):  # LUMP 23
 class Leaf(source.Face):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: source.Contents
-    cluster: int  # index of viscluster in Visibility
+    cluster: int  # index of viscluster in Visibility; -1 for None
     bitfield: base.BitField
     # bitfield.area: int  # index?
     # bitfield.flags: int  # LeafFlags enum?
@@ -257,7 +257,7 @@ class Leaf(source.Face):  # LUMP 10
     leaf_water_data: int  # index into LeafWaterData
     __slots__ = ["contents", "cluster", "bitfield", "bounds", "first_leaf_face",
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes", "leaf_water_id"]
-    _format = "3I6f4Ii"
+    _format = "IiI6f4Ii"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
     _bitfields = {"bitfield": {"area": 17, "flags": 15}}
     _classes = {"contents": source.Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}

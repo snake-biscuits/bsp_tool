@@ -550,7 +550,7 @@ class Face(base.Struct):  # LUMPS 7, 27 & 58
 class Leaf(base.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: Contents
-    cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump)
+    cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump); -1 for None
     bitfield: base.BitField  # area & flags bitfield
     # bitfield.area  # index into Areas?
     # bitfield.flags  # TODO: LeafFlags enum
@@ -567,7 +567,7 @@ class Leaf(base.Struct):  # LUMP 10
     __slots__ = ["contents", "cluster", "area_flags", "bounds",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data", "padding", "cube"]
-    _format = "i2H6h4H2h24B"
+    _format = "ihH6h4H2h24B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
                "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
     # TODO: map cube face names to UP, DOWN etc.
