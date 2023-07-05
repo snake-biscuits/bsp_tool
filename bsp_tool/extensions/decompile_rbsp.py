@@ -134,7 +134,7 @@ def decompile(bsp, map_filename: str, editor: str = "TrenchBroom"):
         out.extend([f"// brush {i}" + "\n", *brush_valve_220(bsp, brush, editor)])
     out.append("}\n")  # end worldspawn
     # entities
-    # NOTE: *.bsp.0000.bsp_lump + brush entites; skipping .ents to keep filesize manageable
+    # NOTE: *.bsp.0000.bsp_lump + brush entities; skipping .ents to keep filesize manageable
     included_ents = bsp.ENTITIES[1:]
     for ent_file in ("env", "fx", "script", "snd", "spawn"):
         included_ents.extend([e for e in getattr(bsp, f"ENTITIES_{ent_file}") if e.get("model", "").startswith("*")])

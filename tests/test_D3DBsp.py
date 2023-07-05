@@ -14,5 +14,5 @@ def test_no_errors(bsp):
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
-def test_entites_loaded(bsp):
+def test_entities_loaded(bsp):
     assert bsp.ENTITIES[0]["classname"] == "worldspawn"
