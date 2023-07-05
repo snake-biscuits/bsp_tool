@@ -1,5 +1,6 @@
 """Run with 64-bit python! Respawn .bsp files are large!"""
 import difflib
+import io
 import itertools
 import re
 from typing import Dict, Iterable, List
@@ -71,12 +72,14 @@ def diff_bsps(bsp1, bsp2, full=False) -> str:
                     out.append(diff_entities(bsp1.ENTITIES, bsp2.ENTITIES))
                 elif all([ln == "PAKFILE" for ln in (lump1, lump2)]):
                     # NOTE: this will fail on nexon.cso2 bsps, as their pakfiles are unmapped
-                    out.append(diff_pakfiles(bsp1.PAKFILE, bsp2.PAKFILE))
+                    out.append(diff_pakfiles(bsp1, bsp2))
                 # TODO: GAME_LUMP diff model_names
                 else:  # BASIC_LUMP_CLASSES / general raw bytes
                     # NOTE: xxd line numbers prevent accurately tracing insertions
-                    diff = difflib.context_diff([*xxd(lump_1_contents, 32)],  # 32 bytes per line looks nice
-                                                [*xxd(lump_2_contents, 32)],
+                    # TODO: set xxd width to cover LumpClass._format, 1 entry per line
+                    # -- if formats don't match, give an option to skip
+                    diff = difflib.context_diff(xxd(io.BytesIO(lump_1_contents)),
+                                                xxd(io.BytesIO(lump_2_contents)),
                                                 f"{bsp1.filename}.{lump1}",
                                                 f"{bsp2.filename}.{lump2}")
                     # TODO: run xxd without creating line numbers
@@ -122,33 +125,32 @@ def diff_entities(lump1: EntityLump, lump2: EntityLump) -> str:
             # -- otherwise many false negatives might appear in a relatively simple diff
             for k1, k2, v1, v2 in zip(e1.keys(), e2.keys(), e1.values(), e2.values()):
                 if v1 != v2:
-                    out.extend([f'-   "{k1}" "{v1}"'
-                                '+   "{k2}" "{v2}"'])
+                    out.extend([f'-   "{k1}" "{v1}"',
+                                f'+   "{k2}" "{v2}"'])
                 else:
                     out.append(f'    "{k1}" "{v1}"')
             out.append("  }")
     return "\n".join(out)
 
 
-def diff_pakfiles(bsp1_pakfile, bsp2_pakfile) -> str:
-    """Works on any ValveBsp based .bsp (excluding CSO2)"""
+def diff_pakfiles(bsp1, bsp2) -> str:
+    """Works on any ValveBsp based .bsp (except CS:O2)"""
     out = []
-    pak1_files = bsp1_pakfile.namelist()
-    pak2_files = bsp2_pakfile.namelist()
+    pak1_files = bsp1.PAKFILE.namelist()
+    pak2_files = bsp2.PAKFILE.namelist()
     for filename in pak1_files:
         absent = filename not in pak2_files
         out.append(f"- {filename}" if absent else f"  {filename}")
         if not absent:
-            file1 = bsp1_pakfile.read(filename)
-            file2 = bsp2_pakfile.read(filename)
-            if file1 == file2:
+            file1 = bsp1.PAKFILE.read(filename)
+            file2 = bsp2.PAKFILE.read(filename)
+            if file1 == file2:  # skip matches
                 continue
             out[-1] = f"~ {filename}"
-            diff = difflib.context_diff([*xxd(file1, 32)],
-                                        [*xxd(file2, 32)],
-                                        f"bsp1_pakfile.{filename}",
-                                        f"bsp2_pakfile.{filename}")
-            out.extend(diff)
+            out.extend(difflib.context_diff(xxd(io.BytesIO(file1)),
+                                            xxd(io.BytesIO(file2)),
+                                            f"{bsp1.filename}.PAKFILE.{filename}",
+                                            f"{bsp2.filename}.PAKFILE.{filename}"))
     out.extend([f"+ {f}" for f in pak2_files if f not in pak1_files])
     return "\n".join(out)
 
@@ -159,17 +161,20 @@ def split(iterable: Iterable, chunk_size: int) -> Iterable:
         yield iterable[i * chunk_size:(i + 1) * chunk_size]
 
 
-def xxd(data: bytes, width: int = 32) -> str:
-    """based on the linux hex editor"""
-    # TODO: start index and length to read
-    for i, _bytes in enumerate(split(data, width)):
+def xxd(data: io.BytesIO, width: int = 16) -> str:
+    """view a binary file like with a certain hex editor"""
+    out = list()
+    allowed_chars = re.compile(r"[a-zA-Z0-9/\\]")
+    i, bytes_ = 0, data.read(width)
+    while bytes_ != b"":
         address = f"0x{i * width:08X}"
-        hex_ = " ".join([f"{b:02X}" for b in _bytes])
-        if len(hex_) < 3 * width:
+        hex_ = " ".join([f"{b:02X}" for b in bytes_])
+        if len(hex_) < 3 * width:  # pad last line of hex with spaces
             hex_ += " " * (3 * width - len(hex_))
-        # TODO: expand allowed ascii chars regex to include more punctuation and compile as a global!
-        ascii = "".join([chr(b) if re.match(r"[a-zA-Z0-9/\\]", chr(b)) else "." for b in _bytes])
-        yield f"{address}:  {hex_}  {ascii}"
+        ascii_ = "".join([chr(b) if allowed_chars.match(chr(b)) else "." for b in bytes_])
+        out.append(f"{address}:  {hex_}  {ascii_}\n")
+        i, bytes_ = i + 1, data.read(width)
+    return out
 
 
 if __name__ == "__main__":
