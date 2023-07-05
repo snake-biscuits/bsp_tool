@@ -187,6 +187,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [The Beginner's Guide](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [The Stanley Parable](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/sdk_2013.py) :o:
     - [Vampire: The Masquerade - Bloodlines](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/troika/vampire.py)
+    - [Warfork](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py)
     - [Warsow](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py)
     - [Wolfenstein: Enemy Territory](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [WRATH: Aeon of Ruin](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)

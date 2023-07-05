@@ -184,6 +184,8 @@ extracted_dirs = {
         "WRATH": ["pak002.pk3/maps"],  # 7 maps | 395 MB | .pk3
         "Xonotic": ["maps"],  # 28 maps | 188 MB | .pk3
         # FusionBSP
+        "Warfork": ["warfork/basewf/data1_21pure.pk3/maps",  # 43 maps | 558 MB | .pk3
+                    "warfork-testing/basewf/maps"],  # 43 maps | 558 MB | awful dir tree
         "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # InfinityWardBsp
         "CoD1Demo": ["burnville/maps",  # 1 map | 13 MB | .pk3
