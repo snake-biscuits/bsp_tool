@@ -99,7 +99,7 @@ class Entities(list):
                 if key not in ent:
                     ent[key] = value
                 else:  # don't override duplicate keys, share a list instead
-                    # generally duplicate keys are ouputs
+                    # generally duplicate keys are outputs (e.g. OnMapSpawn)
                     if isinstance(ent[key], list):  # more than 2 of this key
                         ent[key].append(value)
                     else:  # second occurance of key
