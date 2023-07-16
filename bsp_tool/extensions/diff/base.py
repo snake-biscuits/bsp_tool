@@ -34,7 +34,9 @@ class Diff:
         """mimick git diff --shortstat"""
         old = set(self.old)
         new = set(self.new)
-        return f"{new.difference(old)} insertions(+) {old.difference(new)} deletions(-)"
+        added = len(new.difference(old))
+        removed = len(old.difference(new))
+        return f"{added} insertions(+) {removed} deletions(-)"
 
     def unified_diff(self) -> List[str]:
         """quick & dirty diff of __repr__"""
