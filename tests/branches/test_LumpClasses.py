@@ -1,6 +1,5 @@
 """General testing of LumpClasses (consistency & forgotten fields)"""
 import inspect
-import itertools
 import struct
 
 import pytest
@@ -32,7 +31,7 @@ Struct_LumpClasses = dict()
 MappedArray_LumpClasses = dict()
 BitField_LumpClasses = dict()
 # ^^^ {"dev.game.LumpClass": LumpClass}
-for branch_script in itertools.chain(*branches.scripts_from_file_magic.values()):
+for branch_script in (*branches.quake_based, *branches.source_based):
     script_name = ".".join(branch_script.__name__.split(".")[-2:])
     for class_name, LumpClass in inspect.getmembers(branch_script, inspect.isclass):
         if issubclass(LumpClass, base.Struct):

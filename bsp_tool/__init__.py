@@ -17,19 +17,19 @@ from .ritual import RitualBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
-BspVariant_from_file_magic = {b"2015": RitualBsp,
-                              b"2PSB": ReMakeQuakeBsp,
-                              b"BSP2": ReMakeQuakeBsp,
-                              b"EALA": RitualBsp,
-                              b"EF2!": RitualBsp,
-                              b"FAKK": RitualBsp,
-                              b"FBSP": FusionBsp,
-                              b"IBSP": IdTechBsp,  # + InfinityWardBsp + D3DBsp
-                              b"PSBr": RespawnBsp,  # Xbox360
-                              b"PSBV": ValveBsp,  # Xbox360
-                              b"rBSP": RespawnBsp,
-                              b"RBSP": RavenBsp,
-                              b"VBSP": ValveBsp}
+BspVariant_for_magic = {b"2015": RitualBsp,
+                        b"2PSB": ReMakeQuakeBsp,
+                        b"BSP2": ReMakeQuakeBsp,
+                        b"EALA": RitualBsp,
+                        b"EF2!": RitualBsp,
+                        b"FAKK": RitualBsp,
+                        b"FBSP": FusionBsp,
+                        b"IBSP": IdTechBsp,  # OR InfinityWardBsp OR D3DBsp
+                        b"PSBr": RespawnBsp,  # Xbox360
+                        b"PSBV": ValveBsp,  # Xbox360
+                        b"rBSP": RespawnBsp,
+                        b"RBSP": RavenBsp,
+                        b"VBSP": ValveBsp}
 # NOTE: if no file_magic is present:
 # - QuakeBsp
 # - GoldSrcBsp
@@ -76,7 +76,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         else:
             BspVariant = InfinityWardBsp
     elif filename.lower().endswith(".bsp"):
-        if file_magic not in BspVariant_from_file_magic:  # Quake / GoldSrc
+        if file_magic not in BspVariant_for_magic:  # Quake / GoldSrc
             version = int.from_bytes(file_magic, "little")
             if version in Quake_versions:
                 BspVariant = QuakeBsp
@@ -91,14 +91,14 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
             if file_magic == b"IBSP" and version in InfinityWard_versions:
                 BspVariant = InfinityWardBsp
             else:
-                BspVariant = BspVariant_from_file_magic[file_magic]
+                BspVariant = BspVariant_for_magic[file_magic]
     else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")
-    # TODO: ata4's bspsrc uses unique entity classnames to identify branches
-    # -- need this for identifying variants with overlapping identifiers
     # identify branch script
     if branch_script is None:
-        branch_script = branches.script_from_file_magic_and_version[(file_magic, version)]
+        branch_script = branches.identify[(file_magic, version)]
+    # TODO: ata4's bspsrc uses unique entity classnames to identify branches
+    # -- need this for identifying variants with overlapping identifiers
     return BspVariant(branch_script, filename, autoload=True)  # might raise errors
 
 
