@@ -36,6 +36,8 @@
  * `shared.Entities` the following silent failures are now caught by the parser
    - curly braces inside key values
    - multi-line keys
+ * `shared.PakFile` can be edited
+   - `.as_bytes()` correctly includes "end record", without calling `.close()`
 
 ### Newly Supported Branches
  * Infinity Ward Engine
@@ -50,7 +52,8 @@
 ### Updated Support
  * Quake
  * Source Engine
-   - cleaner static prop systems
+   - More dynamic reading of Static Props
+   - Split into more branches for Static Prop variants
 
 
 ## v0.4.0 (28 March 2023)
