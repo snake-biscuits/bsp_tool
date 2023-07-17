@@ -40,7 +40,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # TODO: use game icons / emoji to identify overlapping branches
 # -- compiling the whole Source Engine into one .md would be great
 # NOTE: per BspClass files that could probably be generated: (would be quite messy though)
-# -- bsp_tool.BspVariant_from_file_magic + branches.scripts_from_file_magic
+# -- bsp_tool.BspVariant_for_magic + branches.with_magic
 # -- confirming all the BspClasses line up is pretty important though
 # NOTE: x360 branch scripts are generated almost entirely from existing branch scripts
 # TODO: treat x360 branches as a special case & trace their base classes
@@ -308,8 +308,6 @@ bs = (branches.ace_team.zeno_clash,
 unmapped_sprp = {branches.ace_team.zeno_clash: {7},
                  branches.nexon.vindictus: {7},
                  branches.outerlight.outerlight: {5, 6},
-                 branches.valve.left4dead: {8},
-                 branches.valve.left4dead: {9},
                  branches.valve.source_filmmaker: {10}}
 
 for branch_script in bs:
