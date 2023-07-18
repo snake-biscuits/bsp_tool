@@ -31,6 +31,7 @@
    - `RespawnBsp` [MRVN-Radiant](https://github.com/MRVN-Radiant/MRVN-Radiant) signature
      + saved by `.save_as`
      + parser in `extensions.compiler_signature`
+ * Moved `valve_physics` to `valve.physics`
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser
