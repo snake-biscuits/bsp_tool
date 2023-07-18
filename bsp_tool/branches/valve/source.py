@@ -824,7 +824,7 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         assert all([isinstance(p, self.StaticPropClass) for p in self.props])
         leaves_format = {"little": "<H", "big": ">H"}[self.endianness]
         return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
-                         *[struct.pack("128s", n) for n in self.model_names],
+                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                          int.to_bytes(len(self.leaves), 4, self.endianness),
                          *[struct.pack(leaves_format, L) for L in self.leaves],
                          int.to_bytes(len(self.props), 4, self.endianness),
