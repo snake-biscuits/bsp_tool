@@ -1,9 +1,9 @@
 from __future__ import annotations
 import enum
 
-# from .. import valve_physics
 from .. import shared
 from .. import x360
+# from . import physics
 from . import orange_box
 from . import source
 
@@ -85,7 +85,7 @@ class MAX(enum.Enum):
 
 
 # special lump classes, in alphabetical order:
-# class PhysicsDisplacement_x360(valve_physics.Displacement):
+# class PhysicsDisplacement_x360(physics.Displacement):
 #     _int = UnsignedShort_x360
 
 

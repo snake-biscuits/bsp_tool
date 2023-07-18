@@ -9,11 +9,11 @@ from typing import Any, Dict, List, Union
 from ... import lumps
 from .. import base
 from .. import shared
-# from .. import valve_physics
 from .. import vector
 from ..id_software import quake
-from ..valve import source
+# from ..valve import physics
 from ..valve import sdk_2013
+from ..valve import source
 
 
 FILE_MAGIC = b"rBSP"
@@ -1069,7 +1069,7 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid},
                         # NOTE: .ent files are handled directly by the RespawnBsp class
                         "LEVEL_INFO":                {0: LevelInfo},
                         "PAKFILE":                   {0: shared.PakFile},
-                        # "PHYSICS_COLLIDE":           {0: valve_physics.CollideLump},  # BROKEN .as_bytes()
+                        # "PHYSICS_COLLIDE":           {0: physics.CollideLump},  # BROKEN .as_bytes()
                         "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes/RefIds & StaticPropLightProbeIndices may all be Special
 

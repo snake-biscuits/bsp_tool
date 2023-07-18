@@ -7,10 +7,10 @@ from typing import List
 
 from .. import base
 from .. import shared
-from .. import valve_physics
 from .. import vector
 from ..id_software import remake_quake_old
 from ..nexon import vindictus69
+from ..valve import physics
 from ..valve import sdk_2013
 from ..valve import source
 
@@ -339,7 +339,7 @@ class WaterOverlay(base.Struct):  # LUMP 50
 
 
 # special lump classes, in alphabetical order:
-class PhysicsDisplacement(valve_physics.Displacement):  # LUMP 28
+class PhysicsDisplacement(physics.Displacement):  # LUMP 28
     _format = "I"
 
 

@@ -59,7 +59,7 @@ LUMP_CLASSES.update({"FACES":          {0: Face},
 LUMP_CLASSES.pop("LEAVES")
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?
+# SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # interesting, is .phy different?
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 

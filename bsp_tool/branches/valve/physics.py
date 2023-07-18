@@ -7,8 +7,8 @@ import io
 import struct
 from typing import List, Union
 
-from . import base
-from . import vector
+from .. import base
+from .. import vector
 
 
 # PhysicsCollide headers
