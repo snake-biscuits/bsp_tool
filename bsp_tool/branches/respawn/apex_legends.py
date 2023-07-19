@@ -568,7 +568,7 @@ SPECIAL_LUMP_CLASSES.pop("CM_GRID")
 # SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # currently disabled in titanfall.py
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
 SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo},
-                             "SURFACE_NAMES": {0: shared.TextureDataStringData}})
+                             "SURFACE_NAMES": {0: source.TextureDataStringData}})
 
 
 GAME_LUMP_HEADER = source.GameLumpHeader

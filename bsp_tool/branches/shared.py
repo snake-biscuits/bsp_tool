@@ -113,23 +113,6 @@ class Entities(list):
         return cls(entities)
 
 
-class TextureDataStringData(list):
-    def __init__(self, iterable: List[str] = tuple()):
-        super().__init__(iterable)
-
-    # TODO: use regex to search
-    # def find(self, pattern: str) -> List[str]:
-    #     pattern = pattern.lower()
-    #     return fnmatch.filter(map(str.lower, self), f"*{pattern}*")
-
-    def as_bytes(self) -> bytes:
-        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
-
-    @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        return cls([t.decode("ascii", errors="ignore") for t in raw_lump[:-1].split(b"\0")])
-
-
 # methods
 def worldspawn_volume(bsp):
     """allows for sorting maps by size"""

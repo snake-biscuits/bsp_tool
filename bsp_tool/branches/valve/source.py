@@ -955,6 +955,18 @@ class PakFile(zipfile.ZipFile):  # LUMP 40
         return cls(io.BytesIO(raw_lump))
 
 
+class TextureDataStringData(list):  # LUMP 43
+    def __init__(self, iterable: List[str] = tuple()):
+        super().__init__(iterable)
+
+    def as_bytes(self) -> bytes:
+        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        return cls([t.decode("ascii", errors="ignore") for t in raw_lump[:-1].split(b"\0")])
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIANGLES":    {0: DisplacementTriangle},
                       "FACE_IDS":                  {0: shared.UnsignedShorts},
@@ -984,25 +996,25 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
                 "LEAF_WATER_DATA":           {0: LeafWaterData},
                 "MODELS":                    {0: Model},
                 "NODES":                     {0: Node},
+                "ORIGINAL_FACES":            {0: Face},
                 "OVERLAY":                   {0: Overlay},
                 "OVERLAY_FADES":             {0: OverlayFade},
-                "ORIGINAL_FACES":            {0: Face},
                 "PLANES":                    {0: quake.Plane},
                 "PRIMITIVES":                {0: Primitive},
                 "PRIMITIVE_VERTICES":        {0: quake.Vertex},
                 "TEXTURE_DATA":              {0: TextureData},
                 "TEXTURE_INFO":              {0: TextureInfo},
-                "VERTICES":                  {0: quake.Vertex},
                 "VERTEX_NORMALS":            {0: quake.Vertex},
+                "VERTICES":                  {0: quake.Vertex},
                 "WATER_OVERLAYS":            {0: WaterOverlay},
                 "WORLD_LIGHTS":              {0: WorldLight},
                 "WORLD_LIGHTS_HDR":          {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData},
                         "PAKFILE":                  {0: PakFile},
                         # "PHYSICS_COLLIDE":          {0: physics.CollideLump},  # BROKEN .as_bytes()
                         "PHYSICS_DISPLACEMENT":     {0: physics.Displacement},
+                        "TEXTURE_DATA_STRING_DATA": {0: TextureDataStringData},
                         "VISIBILITY":               {0: quake2.Visibility}}
 
 

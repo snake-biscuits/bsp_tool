@@ -1070,7 +1070,7 @@ SPECIAL_LUMP_CLASSES = {"CM_GRID":                   {0: Grid},
                         "LEVEL_INFO":                {0: LevelInfo},
                         "PAKFILE":                   {0: source.PakFile},
                         # "PHYSICS_COLLIDE":           {0: physics.CollideLump},  # BROKEN .as_bytes()
-                        "TEXTURE_DATA_STRING_DATA":  {0: shared.TextureDataStringData}}
+                        "TEXTURE_DATA_STRING_DATA":  {0: source.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes/RefIds & StaticPropLightProbeIndices may all be Special
 
 GAME_LUMP_HEADER = source.GameLumpHeader

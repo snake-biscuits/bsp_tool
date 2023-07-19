@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from .. import shared
 from .. import x360
+from ..valve import source
 from . import titanfall
 
 
@@ -56,8 +57,9 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
                         "ENTITY_PARTITIONS":        {0: titanfall.EntityPartitions},
                         "CM_GRID":                  {0: Grid_x360},
                         "LEVEL_INFO":               {0: LevelInfo_x360},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
-# TODO: big-endian versions of PakFile & PhysicsCollide
+                        "TEXTURE_DATA_STRING_DATA": {0: source.TextureDataStringData}}
+# TODO: orange_box_x360.PakFile_x360
+# TODO: orange_box_x360.PhysicsCollide_x360
 
 GAME_LUMP_HEADER = x360.make_big_endian(titanfall.GAME_LUMP_HEADER)
 

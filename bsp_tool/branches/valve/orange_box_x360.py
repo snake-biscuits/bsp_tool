@@ -137,7 +137,7 @@ for LumpClass_name, LumpClass in LumpClasses.items():
 del LumpClass_name, LumpClass
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
+                        "TEXTURE_DATA_STRING_DATA": {0: source.TextureDataStringData}}
 
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 
