@@ -10,7 +10,8 @@ from typing import Dict, List
 sys.path.insert(0, "../../")
 from bsp_tool import branches  # noqa: E402
 from bsp_tool import D3DBsp, FusionBsp, GoldSrcBsp, IdTechBsp, InfinityWardBsp  # noqa: E402
-from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp  # noqa: E402
+from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp  # noqa: E402
+from bsp_tool import QuakeBsp, Quake64Bsp  # noqa: E402
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
@@ -63,6 +64,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | InfinityWardBsp | infinity_ware.call_of_duty2        |  Y  |
 # | QuakeBsp        | id_software.quake                  |  Y  |
 # | QuakeBsp        | raven.hexen2                       |  Y  |
+# | Quake64Bsp      | id_software.quake64                |  Y  |
 # | RavenBsp        | raven.soldier_of_fortune2          |  Y  |
 # | RavenBsp        | ritual.sin                         |  N  |  # investigate
 # | ReMakeQuakeBsp  | id_software.remake_quake           |  Y  |
@@ -137,10 +139,11 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
           ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
                       {ValveBsp: [branches.valve.left4dead,
                                   branches.valve.left4dead2]}),
-          # TODO: present BSP2 & 2PSB (FILE_MAGIC only; no BSP_VERSION) better
+          # TODO: present BSP2 / 2PSB / Q64 (FILE_MAGIC only; no BSP_VERSION) better
           ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
                       {QuakeBsp: [branches.id_software.quake,
                                   branches.raven.hexen2],
+                       Quake64Bsp: [branches.id_software.quake64],
                        ReMakeQuakeBsp: [branches.id_software.remake_quake,
                                         branches.id_software.remake_quake_old]}),
           ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,

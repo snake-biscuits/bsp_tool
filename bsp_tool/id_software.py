@@ -70,7 +70,7 @@ class ReMakeQuakeBsp(QuakeBsp):
         # collect metadata
         file_magic = self.file.read(4)
         if file_magic != self.file_magic and file_magic != bytes(reversed(self.file_magic)):
-            raise RuntimeError(f"{self.file} is not a RemakeQuakeBsp! file_magic is incorrect")
+            raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
         self.file_magic = file_magic
         self.file.seek(0, 2)  # move cursor to end of file
         self.bsp_file_size = self.file.tell()
@@ -80,6 +80,13 @@ class ReMakeQuakeBsp(QuakeBsp):
         for lump_name, lump_header in self._header_generator(offset=4):
             self._preload_lump(lump_name, lump_header)
         self._get_signature(4 + (8 * len(self.branch.LUMP)))
+
+
+class Quake64Bsp(ReMakeQuakeBsp):
+    """QuakeCon 2021 PC Re-release of Midway's Nintendo 64 Port"""
+    # https://github.com/sezero/quakespasm/blob/master/Quake/bspfile.h
+    # https://github.com/sezero/quakespasm/blob/master/Quake/gl_model.c
+    file_magic = b" 46Q"
 
 
 class IdTechBsp(base.Bsp):

@@ -118,6 +118,9 @@ extracted_dirs = {
                             "hipnotic/pak0/maps",  # 18 maps | 30 MB
                             "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
                             "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        # QuakeCon 2021 PC re-release of Midway's Nintendo 64 port
+        # Download in-game (Quake Re-release) via addons; installs into %USERPROFILE%
+        "Quake64": ["q64/pak0/maps"],  # 32 maps | 21 MB | .pak
         # http://quake.great-site.net/
         # ReMakeQuakeBsp
         "Alkaline": ["alkaline/pak0/maps",  # 23 maps | 132 MB | .pak

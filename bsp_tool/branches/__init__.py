@@ -30,6 +30,7 @@ developers = (ace_team, arkane, gearbox, id_software, infinity_ward, ion_storm, 
 
 # NOTE: we could generate this list, but it makes for nice documentation
 with_magic = {None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.goldsrc],
+              b" 46Q": [id_software.quake64],
               b"2015": [ritual.mohaa, ritual.mohaa_demo],
               b"2PSB": [id_software.remake_quake_old],
               b"BSP2": [id_software.remake_quake],

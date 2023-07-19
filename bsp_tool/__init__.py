@@ -1,7 +1,7 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps", "D3DBsp", "FusionBsp",
-           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp", "RavenBsp",
-           "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp", "Quake64Bsp",
+           "RavenBsp", "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
@@ -9,7 +9,7 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
-from .id_software import FusionBsp, IdTechBsp, QuakeBsp, ReMakeQuakeBsp
+from .id_software import FusionBsp, IdTechBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
@@ -17,7 +17,8 @@ from .ritual import RitualBsp
 from .valve import GoldSrcBsp, ValveBsp
 
 
-BspVariant_for_magic = {b"2015": RitualBsp,
+BspVariant_for_magic = {b" 46Q": Quake64Bsp,
+                        b"2015": RitualBsp,
                         b"2PSB": ReMakeQuakeBsp,
                         b"BSP2": ReMakeQuakeBsp,
                         b"EALA": RitualBsp,
@@ -56,10 +57,8 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
     # parse header
     with open(filename, "rb") as bsp_file:
         file_magic = bsp_file.read(4)
-        if file_magic in (b"2PSB", b"BSP2"):
+        if file_magic in (b" 46Q", b"2PSB", b"BSP2"):
             version = None
-        # elif file_magic == b"BSP2":
-        #     return ReMakeQuakeBsp(branches.id_software.remake_quake, filename)
         # endianness
         elif file_magic in (b"PSBr", b"PSBV"):  # big endian
             version = int.from_bytes(bsp_file.read(4), "big")
