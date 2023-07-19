@@ -77,11 +77,11 @@ for file_magic, branch_scripts in with_magic.items():
         for version in branch_script.GAME_VERSIONS.values():
             identify[(file_magic, version)] = branch_script
 
-# edge case: (only found in 1 map, unsure how to list in branch script)
-identify[(b"IBSP", 41)] = ritual.sin
 # default branches:
 identify[(None, 29)] = id_software.quake
 # ^ NOT raven.hexen2
+identify[(b"IBSP", 41)] = ion_storm.daikatana
+# ^ NOT ritual.sin (though 1 such map exists in megatest)
 identify[(b"IBSP", 46)] = id_software.quake3
 # ^ NOT raven.soldier_of_fortune
 identify[(b"VBSP", 20)] = valve.orange_box
