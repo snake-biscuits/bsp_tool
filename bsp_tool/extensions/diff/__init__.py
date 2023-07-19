@@ -3,6 +3,7 @@ from typing import Any, Dict, Generator, List
 
 from . import base
 from . import shared
+from .valve import source
 
 from bsp_tool import branches
 from bsp_tool.base import Bsp
@@ -10,6 +11,7 @@ from bsp_tool.lumps import BasicBspLump, RawBspLump, ExternalRawBspLump
 
 
 def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
+    """lookup table & intialiser"""
     LumpClasses = set()
     for lump in (old_lump, new_lump):
         if issubclass(lump.__class__, BasicBspLump):
@@ -24,8 +26,8 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
         raise NotImplementedError("Cannot diff lumps of differring LumpClass")
     if LumpClasses == {branches.shared.Entities}:
         DiffClass = shared.EntitiesDiff
-    elif LumpClasses == {branches.shared.PakFile}:
-        DiffClass = shared.PakFileDiff
+    elif LumpClasses == {branches.valve.source.PakFile}:
+        DiffClass = source.PakFileDiff
     elif RawBspLump in LumpClasses or ExternalRawBspLump in LumpClasses:
         # TODO: core.xxd diff
         raise NotImplementedError("Cannot diff raw lumps")

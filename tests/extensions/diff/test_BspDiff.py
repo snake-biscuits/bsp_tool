@@ -35,7 +35,7 @@ class TestBspDiff:
 # TODO: TestNoneDiff  (short_stats only)
 # TODO: TestDiffLumps  (assigning diff class)
 # -- branches.shared.Entities -> diff.shared.EntitiesDiff
-# -- branches.shared.PakFile -> diff.shared.PakFileDiff
+# -- branches.valve.source.PakFile -> diff.valve.source.PakFileDiff
 # -- branches.base.* -> diff.base.Diff
 # -- RawBspLump -> NotImplementedError
 # -- * -> diff.base.Diff

@@ -85,6 +85,8 @@ class MAX(enum.Enum):
 
 
 # special lump classes, in alphabetical order:
+# TODO: PakFile_x360
+# TODO: PhysicsCollide_x360
 # class PhysicsDisplacement_x360(physics.Displacement):
 #     _int = UnsignedShort_x360
 
@@ -134,12 +136,8 @@ for LumpClass_name, LumpClass in LumpClasses.items():
     globals()[LumpClass_name] = LumpClass
 del LumpClass_name, LumpClass
 
-
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        # "PAKFILE":                  {0: shared.PakFile_x360},
-                        # "PHYSICS_DISPLACEMENT":     {0: PhysicsDisplacement_x360},
                         "TEXTURE_DATA_STRING_DATA": {0: shared.TextureDataStringData}}
-# TODO: PhysicsCollide_x360
 
 GAME_LUMP_HEADER = x360.make_big_endian(orange_box.GAME_LUMP_HEADER)
 

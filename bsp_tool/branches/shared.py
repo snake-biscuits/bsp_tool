@@ -1,8 +1,6 @@
-import io
 import math
 import re
-import zipfile
-from typing import Any, Dict, List
+from typing import Dict, List
 
 
 # Basic Lump Classes
@@ -113,38 +111,6 @@ class Entities(list):
             else:
                 raise RuntimeError(f"Unexpected line in entities: L{line_no + 1}: {line.encode()}")
         return cls(entities)
-
-
-class PakFile(zipfile.ZipFile):
-    _buffer: io.BytesIO
-
-    def __init__(self, file_: Any = None, mode: str = "a", **kwargs):
-        """always a read-only copy of the lump"""
-        if file_ is None:
-            empty_zip = [b"PK\x05\x06", b"\x00" * 16, b"\x20\x00XZP1\x20\x30", b"\x00" * 26]
-            self._buffer = io.BytesIO(b"".join(empty_zip))
-        elif isinstance(file_, io.BytesIO):  # BspClass will take this route via .from_bytes()
-            self._buffer = file_
-        elif isinstance(file_, str):
-            self._buffer = io.BytesIO(open(file_, "rb").read())
-        else:
-            raise TypeError(f"Cannot create {self.__class__.__name__} from type '{type(file_)}'")
-        super().__init__(self._buffer, mode=mode, **kwargs)
-
-    def as_bytes(self) -> bytes:
-        # write ending records if edits were made (adapted from ZipFile.close)
-        if self.mode in "wxa" and self._didModify and self.fp is not None:
-            with self._lock:
-                if self._seekable:
-                    self.fp.seek(self.start_dir)
-                self._write_end_record()
-        self._didModify = False  # don't double up when .close() is called
-        # NOTE: .close() can get funky but it's OK because ._buffer isn't a real file
-        return self._buffer.getvalue()
-
-    @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        return cls(io.BytesIO(raw_lump))
 
 
 class TextureDataStringData(list):

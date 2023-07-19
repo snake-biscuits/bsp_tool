@@ -1,8 +1,6 @@
 """2013-2017 format"""
 # https://git.sr.ht/~leite/cso2-bsp-converter/tree/master/item/src/bsptypes.hpp
 import enum
-import io
-import zipfile
 
 from .. import base
 from ..valve import source
@@ -100,22 +98,10 @@ class LumpHeader(base.MappedArray):
 
 
 # special lump classes, in alphabetical order:
-class PakFile(zipfile.ZipFile):  # WIP
-    """CSO2 PakFiles have a custom .zip format"""
-    # NOTE: it's not as simple as changing the FILE_MAGIC
-    # -- this appears to be a unique implementation of .zip
-    # b"CS" file magic & different header format?
-    def __init__(self, raw_zip: bytes):
-        # TODO: translate header to b"PK\x03\x04..."
-        raw_zip = b"".join([b"PK", raw_zip[2:]])  # not that easy
-        self._buffer = io.BytesIO(raw_zip)
-        super(PakFile, self).__init__(self._buffer)
-
-    def as_bytes(self) -> bytes:
-        # TODO: translate header to b"CS\x03\x04..."
-        raw_zip = self._buffer.getvalue()
-        raw_zip = b"".join([b"CS", raw_zip[2:]])  # not that easy
-        return raw_zip
+# TODO: PakFile
+# -- struct magics use b"CS" instead of b"PK"
+# -- changes may go deeper than his
+# -- hopefully just a reskin of PK/3/4 ZIP_STORE
 
 
 # {"LUMP_NAME": {version: LumpClass}}
