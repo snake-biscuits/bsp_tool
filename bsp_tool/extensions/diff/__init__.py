@@ -1,9 +1,11 @@
+"""determining the equivialency of bsps & reporting findings in detail"""
 import difflib
 from typing import Any, Dict, Generator, List
 
 from . import base
 from . import shared
 from .valve import source
+# TODO: lightmap diffs
 
 from bsp_tool import branches
 from bsp_tool.base import Bsp
@@ -44,6 +46,7 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
 
 class BspDiff:
     """deferred diffs of lumps & headers etc."""
+    # NOTE: not a base.Diff subclass
     old: Bsp
     new: Bsp
 
@@ -53,10 +56,10 @@ class BspDiff:
         self.old = old
         self.new = new
         self.headers = HeadersDiff(old.headers, new.headers)
-        # NOTE: a change in header offsets does not imply a change in lump data
         # TODO: other metadata (file magic, version, revision, signature etc.)
 
     def __getattr__(self, lump_name: str) -> Any:
+        """retrieve differ for given lump"""
         old_lump = getattr(self.old, lump_name, None)
         new_lump = getattr(self.new, lump_name, None)
         no_old_lump = old_lump is None
@@ -70,17 +73,39 @@ class BspDiff:
             setattr(self, lump_name, diff)  # cache
             return diff
 
+    def has_no_changes(self) -> bool:
+        try:
+            assert self.headers.has_no_changes()
+            # TODO: other metadata
+            for lump in self.old.headers:
+                old_header = self.old.headers[lump]
+                new_header = self.new.headers[lump]
+                if old_header.length != 0 or new_header.length != 0:
+                    assert getattr(self, lump).has_no_changes()
+        except AssertionError:
+            return False
+        return True
+
+    def what_changed(self) -> List[str]:
+        check = {"headers": self.headers.has_no_changes()}
+        # TODO: other metadata
+        for lump in self.old.headers:
+            old_header = self.old.headers[lump]
+            new_header = self.new.headers[lump]
+            if old_header.length != 0 or new_header.length != 0:
+                check[lump] = getattr(self, lump).has_no_changes()
+        return {attr for attr, unchanged in check.items() if not unchanged}
+
     def save(self, base_filename: str, log_mode: base.LogMode = base.LogMode.VERBOSE):
         """generate & save .diff files"""
-        # for each lump (match by name)
-        # filename.lump.00.ENTITIES.diff: old_goldsrc.ENTITIES (0) -> new_blue_shift.ENTITIES (1)
-        # filename.lump.01.PLANES.diff: old_goldsrc.PLANES (1) -> new_blue_shift.PLANES (0)
-        # RespawnBsp
-        # -- filename.ENTITITES.fx.diff: filename_fx.ent
-        # -- filename.lump.00XX.LUMP_NAME.diff
-        # -- filename.lump.00XX.LUMP_NAME.bsp_lump.diff
-        # filename.bsp.diff: headers & Y/N lump matches
         raise NotImplementedError()
+        # self.lump.unified_diff() -> individual files
+        # -- .bsp      -> filename.00.ENTITIES.diff
+        # RespawnBsp format:
+        # -- .bsp      -> filename.00XX.LUMP_NAME.diff
+        # -- .bsp_lump -> filename.external.00XX.LUMP_NAME.diff
+        # -- .ent      -> filename.external.ent.xxxxx.diff
+        # should also generate a general / meta diff for metadata etc.
 
 
 class NoneDiff(base.Diff):
@@ -118,13 +143,19 @@ class HeadersDiff(base.Diff):
         if diff is None:
             old = f"{lump_name} {self.old[lump_name]!r}\n"
             new = f"{lump_name} {self.new[lump_name]!r}\n"
-            diff = list(difflib.unified_diff([old], [new]))
+            diff = list(difflib.unified_diff([old], [new]))[3:]
             self._cache[lump_name] = diff
         return diff
 
+    # TODO: check headers in order
+    # -- sorted({(h.offset, h.length, i) for i, h in enumerate(self.old.headers.values()) if h.length > 0})
+    # -- find knock-on changes
+    # -- trivial differences (e.g. offset=0, length=0)
+
     def short_stats(self) -> str:
-        raise NotImplementedError()
         # TODO: how to summarise?
+        # change in any attr but "offset"
+        raise NotImplementedError()
 
     def unified_diff(self) -> Generator[str, None, None]:
         for lump_name in self.old:

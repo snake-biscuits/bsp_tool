@@ -6,21 +6,24 @@ import shutil
 from types import ModuleType
 from typing import List
 
-from bsp_tool import D3DBsp
+# BspClasses
+# from bsp_tool import D3DBsp
 from bsp_tool import IdTechBsp
 from bsp_tool import QuakeBsp
 from bsp_tool import ReMakeQuakeBsp
 from bsp_tool import RespawnBsp
 from bsp_tool import ValveBsp
+# branches
 from bsp_tool.branches.id_software import quake
 from bsp_tool.branches.id_software import quake2
 from bsp_tool.branches.id_software import quake3
 from bsp_tool.branches.id_software import remake_quake
-from bsp_tool.branches.infinity_ward import modern_warfare
+# from bsp_tool.branches.infinity_ward import modern_warfare
 from bsp_tool.branches.respawn import titanfall2
 from bsp_tool.branches.strata import strata
 from bsp_tool.branches.valve import orange_box
-# TODO: from bsp_tool.extensions import diff
+# extensions
+from bsp_tool.extensions import diff
 
 import pytest
 
@@ -91,12 +94,9 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
     # get filename of pre-save backup
     filename, ext = os.path.splitext(filename_ext)  # ext includes "."
     filename_bak_ext = f"{filename}.bak{ext}"
-    # TODO: use bsp_tool.extensions.diff
-    # -- this would also compare .bsp_lump & .ent
-    raise RuntimeError(f"didn't diff {os.path.basename(filename_bak_ext)}")  # TOO SLOW!
-    # diff_lines = difflib.unified_diff(xxd(filename_bak_ext), xxd(filename_ext),
-    #                                   os.path.basename(filename_bak_ext), os.path.basename(filename_ext))
-    # return "".join(diff_lines)
+    old_bsp = BspClass(branch_script, filename_bak_ext)  # original file
+    new_bsp = BspClass(branch_script, filename_ext)  # saved copy
+    return diff.BspDiff(old_bsp, new_bsp)
 
 
 # tests
@@ -112,62 +112,68 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("Call of Duty 4", "Call of Duty 4/mp", ext="*.d3dbsp")
 def test_D3DBsp_modern_warfare(map_path: str):
-    diff = save_and_diff_backup(D3DBsp, modern_warfare, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # TODO: diff.HeadersDiff isn't ready for modern_warfare
+    # bsp_diff = save_and_diff_backup(D3DBsp, modern_warfare, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("Quake 2")
 def test_IdTechBsp_quake2(map_path: str):
-    diff = save_and_diff_backup(IdTechBsp, quake2, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(IdTechBsp, quake2, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("Quake 3 Arena")
 def test_IdTechBsp_quake3(map_path: str):
-    diff = save_and_diff_backup(IdTechBsp, quake3, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(IdTechBsp, quake3, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("ReMakeQuake")
 def test_ReMakeQuakeBsp_remake_quake(map_path: str):
-    diff = save_and_diff_backup(ReMakeQuakeBsp, remake_quake, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(ReMakeQuakeBsp, remake_quake, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail
 @map_dirs_to_test("Titanfall 2")
 def test_RespawnBsp_titanfall2(map_path: str):
-    diff = save_and_diff_backup(RespawnBsp, titanfall2, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(RespawnBsp, titanfall2, map_path)
+    assert False
+    ...
+    # manually observed:
+    # -- bsp_diff.old.ENTITIES env_fog_controller: colour values separated w/ "\xA0"
+    # --- MRVN-Radiant/remap bug? mapsrc/*.map is clean
+    # --- might also be a "plaintext" issue, iirc \xA0 get wierd when decoded / translated
+    # -- bsp_diff.new.signature: +4 bytes of padding
 
 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("Quake")
 def test_QuakeBsp_quake(map_path: str):
-    diff = save_and_diff_backup(QuakeBsp, quake, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(QuakeBsp, quake, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail
 @map_dirs_to_test("Team Fortress 2")
 def test_ValveBsp_orange_box(map_path: str):
-    diff = save_and_diff_backup(ValveBsp, orange_box, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(ValveBsp, orange_box, map_path)
+    assert False
+    ...
 
 
 @pytest.mark.xfail
 @map_dirs_to_test("Momentum Mod")
 def test_ValveBsp_strata(map_path: str):
-    diff = save_and_diff_backup(ValveBsp, strata, map_path)
-    print("".join(diff))
-    assert len(diff) == 0, "not a perfect copy"
+    # bsp_diff = save_and_diff_backup(ValveBsp, strata, map_path)
+    assert False
+    ...

@@ -56,7 +56,7 @@ class EntitiesDiff(base.Diff):
     def long_repr(entity: Dict[str, str]) -> List[str]:
         out = list()
         for key, value in entity.items():
-            if not isinstance(value, list):  # duplicate key (Source Input/Output)
+            if isinstance(value, list):  # duplicate key (Source Input/Output)
                 out.extend([f'"{key}" "{v}"' for v in value])
             else:
                 out.append(f'"{key}" "{value}"')
