@@ -16,8 +16,8 @@ new_bsp = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test_physcollide.bsp"
 
 
 class TestBspDiff:
-    diff = diff.BspDiff(old_bsp, new_bsp)
-    # TODO: diff.BspDiff(old_bsp, new_bsp) & verify no changes
+    diff = diff.bsps.BspDiff(old_bsp, new_bsp)
+    # TODO: diff.bsps.BspDiff(old_bsp, old_bsp) & verify no changes
 
     def test_invalid_lump(self):
         with pytest.raises(AttributeError):
@@ -25,17 +25,12 @@ class TestBspDiff:
 
     def test_lump_added(self):
         lump_diff = self.diff.VISIBILITY
-        assert isinstance(lump_diff, diff.NoneDiff)
+        assert isinstance(lump_diff, diff.lumps.NoneDiff)
 
     def test_lump_removed(self):
         lump_diff = self.diff.DISPLACEMENT_INFO
-        assert isinstance(lump_diff, diff.NoneDiff)
+        assert isinstance(lump_diff, diff.lumps.NoneDiff)
 
-
-# TODO: TestNoneDiff  (short_stats only)
-# TODO: TestDiffLumps  (assigning diff class)
-# -- branches.shared.Entities -> diff.shared.EntitiesDiff
-# -- branches.valve.source.PakFile -> diff.valve.source.PakFileDiff
-# -- branches.base.* -> diff.base.Diff
-# -- RawBspLump -> NotImplementedError
-# -- * -> diff.base.Diff
+    # TODO: save
+    # TODO: has_no_changes
+    # TODO: what_changed

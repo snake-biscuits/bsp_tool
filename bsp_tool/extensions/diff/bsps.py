@@ -2,6 +2,7 @@ import difflib
 from typing import Any, Dict, List, Generator
 
 from . import base
+from . import lumps
 
 from bsp_tool.base import Bsp
 
