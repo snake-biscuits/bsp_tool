@@ -114,7 +114,7 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
 def test_D3DBsp_modern_warfare(map_path: str):
     # TODO: diff.HeadersDiff isn't ready for modern_warfare
     # bsp_diff = save_and_diff_backup(D3DBsp, modern_warfare, map_path)
-    assert False
+    raise NotImplementedError()
     ...
 
 
@@ -122,7 +122,7 @@ def test_D3DBsp_modern_warfare(map_path: str):
 @map_dirs_to_test("Quake 2")
 def test_IdTechBsp_quake2(map_path: str):
     # bsp_diff = save_and_diff_backup(IdTechBsp, quake2, map_path)
-    assert False
+    raise NotImplementedError()
     ...
 
 
@@ -130,7 +130,7 @@ def test_IdTechBsp_quake2(map_path: str):
 @map_dirs_to_test("Quake 3 Arena")
 def test_IdTechBsp_quake3(map_path: str):
     # bsp_diff = save_and_diff_backup(IdTechBsp, quake3, map_path)
-    assert False
+    raise NotImplementedError()
     ...
 
 
@@ -138,7 +138,7 @@ def test_IdTechBsp_quake3(map_path: str):
 @map_dirs_to_test("ReMakeQuake")
 def test_ReMakeQuakeBsp_remake_quake(map_path: str):
     # bsp_diff = save_and_diff_backup(ReMakeQuakeBsp, remake_quake, map_path)
-    assert False
+    raise NotImplementedError()
     ...
 
 
@@ -159,7 +159,7 @@ def test_RespawnBsp_titanfall2(map_path: str):
 @map_dirs_to_test("Quake")
 def test_QuakeBsp_quake(map_path: str):
     # bsp_diff = save_and_diff_backup(QuakeBsp, quake, map_path)
-    assert False
+    raise NotImplementedError()
     ...
 
 
