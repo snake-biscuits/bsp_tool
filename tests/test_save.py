@@ -23,7 +23,7 @@ from bsp_tool.branches.respawn import titanfall2
 from bsp_tool.branches.strata import strata
 from bsp_tool.branches.valve import orange_box
 # extensions
-from bsp_tool.extensions import diff
+import bsp_tool.extensions.diff.bsps as diff_bsps
 
 import pytest
 
@@ -96,7 +96,7 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
     filename_bak_ext = f"{filename}.bak{ext}"
     old_bsp = BspClass(branch_script, filename_bak_ext)  # original file
     new_bsp = BspClass(branch_script, filename_ext)  # saved copy
-    return diff.BspDiff(old_bsp, new_bsp)
+    return diff_bsps.BspDiff(old_bsp, new_bsp)
 
 
 # tests
@@ -112,7 +112,7 @@ def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: 
 @pytest.mark.xfail(raises=NotImplementedError, reason="not implemented yet")
 @map_dirs_to_test("Call of Duty 4", "Call of Duty 4/mp", ext="*.d3dbsp")
 def test_D3DBsp_modern_warfare(map_path: str):
-    # TODO: diff.HeadersDiff isn't ready for modern_warfare
+    # TODO: diff.bsps.HeadersDiff isn't ready for modern_warfare
     # bsp_diff = save_and_diff_backup(D3DBsp, modern_warfare, map_path)
     raise NotImplementedError()
     ...
