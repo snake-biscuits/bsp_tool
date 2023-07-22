@@ -156,7 +156,10 @@ extracted_dirs = {
                  "realRTCW/maps"],  # 11 maps | 85 MB
         "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
                 "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
-        "SoF": ["pak0/maps"],  # 32 maps | 131 MB | .pak
+        "SoF": ["pak0/maps",  # 32 maps | 131 MB | .pak
+                "pak0/maps/dm",  # 20 maps | 37 MB | .pak
+                "pak2/maps/dm",  # 19 maps | 35 MB | .pak
+                "pak3/maps/dm"],  # 5 maps | 8 MB | .pak
         "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
                  "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
                  "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
