@@ -26,6 +26,7 @@ game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien
                 "MeruBasu": branches.utoplanet.merubasu,
                 "SiN": branches.ritual.sin,
                 "SoF": branches.raven.soldier_of_fortune,
+                "Dreamcast/SoF": branches.raven.soldier_of_fortune,
                 "SoF2": branches.raven.soldier_of_fortune2,
                 "SourceFilmmaker": branches.valve.source_filmmaker,
                 "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,

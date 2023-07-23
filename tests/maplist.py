@@ -160,6 +160,7 @@ extracted_dirs = {
                 "pak0/maps/dm",  # 20 maps | 37 MB | .pak
                 "pak2/maps/dm",  # 19 maps | 35 MB | .pak
                 "pak3/maps/dm"],  # 5 maps | 8 MB | .pak
+        "Dreamcast/SoF": ["maps"],  # 117 maps | 171 MB | .gdi
         "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
                  "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
                  "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
