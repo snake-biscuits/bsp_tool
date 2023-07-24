@@ -2,6 +2,9 @@ from typing import Any, List
 
 from . import base
 from . import shared
+# TODO: name overlap w/ bsp_tool could be useful, but rn it sucks
+# -- I'd like to lookup DiffClasses based on LumpClass __name__ & __module__
+from .id_software import quake2
 from .valve import source
 
 from bsp_tool import branches
@@ -24,6 +27,8 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
         raise NotImplementedError("Cannot diff lumps of differring LumpClass")
     if LumpClasses == {branches.shared.Entities}:
         DiffClass = shared.EntitiesDiff
+    elif LumpClasses == {branches.id_software.quake2.Visibility}:
+        DiffClass = quake2.VisibilityDiff
     elif LumpClasses == {branches.valve.source.PakFile}:
         DiffClass = source.PakFileDiff
     elif RawBspLump in LumpClasses or ExternalRawBspLump in LumpClasses:
