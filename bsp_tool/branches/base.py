@@ -215,10 +215,10 @@ class Struct:
                 _tuple.append(value.encode("ascii", errors="ignore"))
             elif isinstance(value, bytes):
                 _tuple.append(value)
-            elif isinstance(value, Iterable):  # includes _classes
-                _tuple.extend(value)
             elif isinstance(value, (enum.Enum, enum.IntFlag)):  # enum _classes -> int
                 _tuple.append(value.value)
+            elif isinstance(value, Iterable):  # includes _classes
+                _tuple.extend(value)
             else:
                 _tuple.append(value)
         return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
@@ -471,10 +471,10 @@ class MappedArray:
                 _tuple.append(value.encode("ascii", errors="ignore"))
             elif isinstance(value, bytes):
                 _tuple.append(value)
-            elif isinstance(value, Iterable):  # includes _classes
-                _tuple.extend(value)
             elif isinstance(value, (enum.Enum, enum.IntFlag)):  # enum _classes -> int
                 _tuple.append(value.value)
+            elif isinstance(value, Iterable):  # includes _classes
+                _tuple.extend(value)
             else:
                 _tuple.append(value)
         return tuple(_tuple)
