@@ -391,11 +391,12 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
     num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props) [UNTESTED]
-    sun_angle: List[float]  # sun angle vector matching last ShadowEnvironment's light_environment if r2
+    sun_normal: vector.vec3  # vector matching angles of last indexed light_environment entity
     num_entity_models: int  # matches num_models in .ent file headers ("ENTITY02 num_models=X")
-    __slots__ = ["unknown", "num_static_props", "sun_angle", "num_entity_models"]
+    __slots__ = ["unknown", "num_static_props", "sun_normal", "num_entity_models"]
     _format = "5I3fI"
-    _arrays = {"unknown": 4, "sun_angle": [*"xyz"]}
+    _arrays = {"unknown": 4, "sun_normal": [*"xyz"]}
+    _classes = {"sun_normal": vector.vec3}
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)

@@ -287,11 +287,11 @@ class ShadowEnvironment(base.Struct):
     first_shadow_mesh: int  # first ShadowMesh in this ShadowEnvironment
     unknown_2: List[int]  # likely indices into other lumps (vistree? nodes?) [num_]
     num_shadow_meshes: int  # number of ShadowMeshes in this ShadowEnvironment after first_shadow_mesh
-    sun_angle: vector.vec3  # a unit vector indicating the angle of the sun / shadows
-    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "sun_angle"]
+    sun_normal: vector.vec3  # represents angle of last light_environment
+    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "sun_normal"]
     _format = "6i3f"
-    _arrays = {"unknown_1": 2, "unknown_2": 2, "sun_angle": [*"xyz"]}
-    _classes = {"sun_angle": vector.vec3}
+    _arrays = {"unknown_1": 2, "unknown_2": 2, "sun_normal": [*"xyz"]}
+    _classes = {"sun_normal": vector.vec3}
 
 
 # classes for special lumps, in alphabetical order:

@@ -500,11 +500,11 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     first_transparent_mesh: int
     first_sky_mesh: int
     num_static_props: int  # len(bsp.GAME_LUMP.sprp.props)
-    sun_angle: vector.vec3  # represents angle of last light_environment
-    __slots__ = ["first_decal_mesh", "first_transparent_mesh", "first_sky_mesh", "num_static_props", "sun_angle"]
+    sun_normal: vector.vec3  # vector matching angles of last indexed light_environment entity
+    __slots__ = ["first_decal_mesh", "first_transparent_mesh", "first_sky_mesh", "num_static_props", "sun_normal"]
     _format = "4I3f"
-    _arrays = {"sun_angle": [*"xyz"]}
-    _classes = {"sun_angle": vector.vec3}
+    _arrays = {"sun_normal": [*"xyz"]}
+    _classes = {"sun_normal": vector.vec3}
 
 
 class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)

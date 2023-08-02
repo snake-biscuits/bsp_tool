@@ -39,7 +39,7 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     sun_vector = sun_vector.rotate(z=yaw)
     shadow_env = r2.ShadowEnvironment(unknown_1=(0, 0), first_shadow_mesh=0,
                                       unknown_2=(1, 0), num_shadow_meshes=len(r1_bsp.SHADOW_MESHES),
-                                      angle_vector=sun_vector)
+                                      sun_normal=sun_vector)
     r1_bsp.SHADOW_ENVIRONMENTS = [shadow_env]
     light_env["lightEnvironmentIndex"] = "*0"
     # Entities
