@@ -18,6 +18,11 @@ def read_str(binary_stream, encoding="utf-8", errors="strict") -> str:
     return out.decode(encoding, errors)
 
 
+# TODO: Rpak
+# -- Apex Season 18 "wrap" .bsp files (oodle compression)
+# -- shadersets, materials, textures & models for io_import_rbsp
+
+
 VpkHeader = namedtuple("VpkHeader", ["magic", "version_major", "version_minor", "tree_length", "data_length"])
 
 
