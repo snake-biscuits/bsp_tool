@@ -274,7 +274,8 @@ def write_rbsp_r2(rbsp, image_dir="./", ext="png"):
 # TODO: auto-detect bytes-per-texel in save_rbsp_r2 instead
 def save_rbsp_r5(rbsp, image_dir="./", ext="png"):
     """Saves to '<image_dir>/<rbsp.filename>.sky.lightmaps.png'"""
-    # NOTE: pass rbsp.external to extract from .bsp_lumps
+    # NOTE: pass rbsp.external to extract from .bsp_lumps (essential for season 11 onwards)
+    # TODO: LIGHTMAP_DATA_UNKNOWN if present
     sky_lightmaps = list()
     sky_start, sky_end = 0, 0
     rtl_lightmaps = list()
