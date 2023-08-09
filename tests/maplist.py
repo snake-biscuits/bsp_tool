@@ -386,6 +386,10 @@ extracted_dirs = {
                                  "19jul23/maps",  # 2 maps | 169 MB | .vpk
                                  "19jul23/depot/r5-170/game/r2/maps",  # 1 map | 6 MB | .vpk
                                  "19jul23/depot/r5-171/game/r2/maps"],  # 2 maps | 168 MB | .vpk
+        # season18:  Resurrection [8th Aug 2023]
+        "ApexLegends/season18": ["8aug23/maps"],  # 9 maps | 1.91 GB | .rpak
+        # NOTE: some .bsp_lump.client aren't able to be exported yet
+        # NOTE: mid-season .rpak patches can't be exported yet
         # Nintendo Switch Release
         "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
                                "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
