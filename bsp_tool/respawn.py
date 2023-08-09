@@ -45,7 +45,9 @@ class ExternalLumpManager:
         for LUMP in bsp.branch.LUMP:
             lump_filename = f"{bsp.filename}.{LUMP.value:04x}.bsp_lump"
             if lump_filename not in bsp.associated_files:
-                continue
+                lump_filename += ".client"  # Apex Legends Season 18
+                if lump_filename not in bsp.associated_files:
+                    continue
             lump_filename = os.path.join(bsp.folder, lump_filename)
             lump_filesize = os.path.getsize(lump_filename)
             lump_header = ExternalLumpHeader(*bsp.headers[LUMP.name], lump_filename, lump_filesize)
