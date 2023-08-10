@@ -125,10 +125,16 @@ INSERT INTO Game (name) VALUES
     ("Zeno Clash"),
     ("Zeno Clash Demo");
 
+-- NOTE: Platform includes storefront
 INSERT INTO Platform (name) VALUES
-    ("PC"),
+    ("PC")
+    ("PC (Steam)"),
+    ("PC (Origin)"),
+    ("PC (GOG)"),
     ("Dreamcast"),
     ("Xbox 360");
+-- TODO: Quake 64: PC (Steam): Quake re-release: DLC (must download in-game)
+-- TODO: Quake II: Xbox 360: Quake 4: Disc 2
 
 INSERT INTO Branch (name) VALUES
     ("ace_team.zeno_clash"),

@@ -12,11 +12,13 @@ nb_frozen_screencols 0
 format A 22 2 0
 format B 38 2 0
 format C 10 0 0
+format D 22 2 0
 leftstring A0 = "Developer"
 leftstring B0 = "Game"
 rightstring C0 = "Year"
 leftstring D0 = "Platform"
 leftstring E0 = "Region"
+leftstring F0 = "Delisted"
 leftstring A1 = "Id Software"
 leftstring B1 = "Quake"
 let C1 = @dts(1996,6,22)
@@ -100,15 +102,65 @@ leftstring B26 = "Portal 2"
 let C26 = @dts(2011,4,18)
 fmt C26 "d%Y-%m-%d"
 leftstring A27 = "Respawn Entertainment"
-leftstring B27 = "Titanfall Tech Test"
+leftstring B27 = "Titanfall Open Beta"
+let C27 = @dts(2014,2,15)
+fmt C27 "d%Y-%m-%d"
+leftstring D27 = "Xbox 360"
+let F27 = @dts(2014,2,19)
+fmt F27 "d%Y-%m-%d"
 leftstring A28 = "Respawn Entertainment"
-leftstring B28 = "Titanfall"
-let C28 = @dts(2014,3,14)
+leftstring B28 = "Titanfall Open Beta"
+let C28 = @dts(2014,2,17)
 fmt C28 "d%Y-%m-%d"
+leftstring D28 = "PC (Origin)"
+let F28 = @dts(2014,2,19)
+fmt F28 "d%Y-%m-%d"
 leftstring A29 = "Respawn Entertainment"
-leftstring B29 = "Titanfall 2 Tech Test"
+leftstring B29 = "Titanfall"
+let C29 = @dts(2014,3,11)
+fmt C29 "d%Y-%m-%d"
+leftstring D29 = "PC (Origin);Xbox 360"
+let F29 = @dts(2021,3,1)
+fmt F29 "d%Y-%m-%d"
 leftstring A30 = "Respawn Entertainment"
-leftstring B30 = "Titanfall 2"
-let C30 = @dts(2016,10,28)
+leftstring B30 = "Titanfall"
+let C30 = @dts(2020,11,21)
 fmt C30 "d%Y-%m-%d"
-goto C10
+leftstring D30 = "PC (Steam)"
+let F30 = @dts(2021,3,1)
+fmt F30 "d%Y-%m-%d"
+leftstring A31 = "Respawn Entertainment"
+leftstring B31 = "Titanfall 2 Technical Test"
+let C31 = @dts(2016,8,19)
+fmt C31 "d%Y-%m-%d"
+leftstring D31 = "PC (Origin);PS4;XBOne"
+let F31 = @dts(2016,8,22)
+fmt F31 "d%Y-%m-%d"
+leftstring A32 = "Respawn Entertainment"
+leftstring B32 = "Titanfall 2 Technical Test"
+let C32 = @dts(2016,8,26)
+fmt C32 "d%Y-%m-%d"
+leftstring D32 = "PC (Origin);PS4;XBOne"
+let F32 = @dts(2016,8,28)
+fmt F32 "d%Y-%m-%d"
+leftstring A33 = "Respawn Entertainment"
+leftstring B33 = "Titanfall 2"
+let C33 = @dts(2016,10,28)
+fmt C33 "d%Y-%m-%d"
+leftstring D33 = "PC (Origin);PS4;XBOne"
+leftstring A34 = "Respawn Entertainment"
+leftstring B34 = "Titanfall 2"
+let C34 = @dts(2020,6,19)
+fmt C34 "d%Y-%m-%d"
+leftstring D34 = "PC (Steam)"
+leftstring A35 = "Respawn Entertainment"
+leftstring B35 = "Apex Legends"
+let C35 = @dts(2019,2,4)
+fmt C35 "d%Y-%m-%d"
+leftstring D35 = "PC (Origin)"
+leftstring A36 = "Respawn Entertainment"
+leftstring B36 = "Apex Legends"
+let C36 = @dts(2020,11,4)
+fmt C36 "d%Y-%m-%d"
+leftstring D36 = "PC (Steam)"
+goto D37

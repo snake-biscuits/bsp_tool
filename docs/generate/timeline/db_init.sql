@@ -25,6 +25,10 @@ CREATE TABLE IF NOT EXISTS Platform (
     name  VARCHAR(64)  NOT NULL,
 );
 
+-- TODO: Storefront / Launcher
+-- Steam, Origin, GOG
+-- Nexon, PlayGra
+
 CREATE TABLE IF NOT EXISTS Region (
     id    INTEGER      PRIMARY KEY,
     name  VARCHAR(64)  NOT NULL,
@@ -39,6 +43,13 @@ CREATE TABLE IF NOT EXISTS Release (
     FOREIGN KEY (game) REFERENCES Game (id),
     FOREIGN KEY (region) REFERENCES Region (id),
     FOREIGN KEY (platform) REFERENCES Platform (id)
+);
+
+CREATE TABLE IF NOT EXISTS Delisting (
+    id      INTEGER PRIMARY KEY,
+    release INTEGER NOT NULL,
+    day     DATE    NOT NULL,
+    FOREIGN KEY (release) REFERENCES Release (id)
 );
 
 -- COMPANIES --
