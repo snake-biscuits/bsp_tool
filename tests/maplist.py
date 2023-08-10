@@ -262,12 +262,15 @@ extracted_dirs = {
                       "Colhen_Mod_BSP (Private Server Version)"],  # 1 map | 23 MB | .zip
         "Vindictus/Client v1.69 EU": ["hfs/maps"],  # 279 maps | 4.30 GB | .hfs
         "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
-        # RespawnBsp (NOTE: .bsp_lump & .ent sizes not counted)
+        # RespawnBsp
         "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk
-                      "depot/r1dev/game/r1/maps",  # 16 maps | 4.2 GB | .vpk
-                      "depot/r1pcgold/game/r1/maps",  # 1 map | 1.7 GB | .vpk
+                      "depot/r1dev/game/r1/maps",  # 16 maps | 6.4 GB | .vpk
+                      "depot/r1pcgold/game/r1/maps",  # 1 map | 2.2 GB | .vpk
                       "depot/r1pcstaging/game/r1/maps",  # 23 maps | 5.8 GB | .vpk
                       "depot/r1pcstaging/game/r1_dlc1/maps"],  # 3 maps | 796 MB | .vpk
+        # https://archive.org/details/titanfall-beta
+        "Titanfall/beta": ["maps",  # 4 maps | 901 MB | .vpk
+                           "depot/r1beta/game/r1/maps"],  # 4 maps | 900 MB | .vpk
         # Xbox 360 maps loosely extracted from BluePoint .bpk
         # -- .bpk filenames are unknown, so .bsp, .bsp_lump & .ent may all be incorrect
         # NOTE: working to better extract files from .bpk with p0358
