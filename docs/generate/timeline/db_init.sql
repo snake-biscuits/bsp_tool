@@ -2,8 +2,7 @@ CREATE DATABASE GameEngineHistory;
 
 -- TODO:
 -- more historic dates:
---- date pulled from storefront (beta periods, delistings, end of service)
---- developer split / founding (IW -> Respawn)
+--- developer split / founding (2015 Inc. -> IW -> Respawn -> IW / Gravity Well)
 --- acquisitions, buyouts, bancruptcies, dissolutions
 
 -- GAMES --
@@ -12,9 +11,11 @@ CREATE TABLE IF NOT EXISTS Game (
     name  VARCHAR(64)  NOT NULL,
 );
 
-CREATE TABLE IF NOT EXISTS GameChild (  -- demos, updates, sequels, mods & expansions
+-- demo / fork / update / sequel / mod / expansion / engine re-used
+CREATE TABLE IF NOT EXISTS GameChild (
     game   INTEGER  NOT NULL,
     child  INTEGER  NOT NULL,
+    -- child type enum? non-time-linear relationship (e.g. demo / beta)
     FOREIGN KEY (game) REFERENCES Game (id),
     FOREIGN KEY (child) REFERENCES Game (id),
 );
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS Release (
     platform  INTEGER  NOT NULL,
     region    INTEGER  NOT NULL,
     day       DATE     NOT NULL,
+    delisted  DATE,  -- can be NULL
     FOREIGN KEY (game) REFERENCES Game (id),
     FOREIGN KEY (region) REFERENCES Region (id),
     FOREIGN KEY (platform) REFERENCES Platform (id)
@@ -53,34 +55,39 @@ CREATE TABLE IF NOT EXISTS Delisting (
 );
 
 -- COMPANIES --
-CREATE TABLE IF NOT EXISTS Publisher (
+CREATE TABLE IF NOT EXISTS Company (
     id    INTEGER      PRIMARY KEY,
     name  VARCHAR(64)  NOT NULL,
+    -- dev, publisher, platform owner etc.?
 );
 
-CREATE TABLE IF NOT EXISTS ReleasePublisher (
-    release    INTEGER  NOT NULL,
-    publisher  INTEGER  NOT NULL,
+CREATE TABLE IF NOT EXISTS ReleaseCompany (
+    release  INTEGER  NOT NULL,
+    company  INTEGER  NOT NULL,
     FOREIGN KEY (release) REFERENCES Release (id),
-    FOREIGN KEY (publisher) REFERENCES Platform (id)
-);
-
-CREATE TABLE IF NOT EXISTS Developer (
-    id    INTEGER      PRIMARY KEY,
-    name  VARCHAR(64)  NOT NULL,
-);
-
-CREATE TABLE IF NOT EXISTS ReleaseDeveloper (
-    release    INTEGER  NOT NULL,
-    developer  INTEGER  NOT NULL,
-    FOREIGN KEY (release) REFERENCES Release (id),
-    FOREIGN KEY (developer) REFERENCES Developer (id)
+    FOREIGN KEY (company) REFERENCES Company (id),
+    PRIMARY KEY (release, company)
 );
 
 -- ENGINE BRANCHES --
-CREATE TABLE IF NOT EXISTS Branch (
+CREATE TABLE IF NOT EXISTS Engine (
     id    INTEGER      PRIMARY KEY,
-    name  VARCHAR(64)  NOT NULL,
+    name  VARCHAR(64)  NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS EngineFork (
+    engine  INTEGER  NOT NULL,  -- forked
+    fork    INTEGER  NOT NULL,  -- forker
+    FOREIGN KEY (engine) REFERENCES Engine (id),
+    FOREIGN KEY (fork) REFERENCES Engine (id),
+    PRIMARY KEY (engine, fork)
+);
+
+CREATE TABLE IF NOT EXISTS Branch (
+    id      INTEGER      PRIMARY KEY,
+    name    VARCHAR(64)  NOT NULL,
+    engine  INTEGER      NOT NULL,
+    FOREIGN KEY (engine) REFERENCES Engine (id)
 );
 
 CREATE TABLE IF NOT EXISTS ReleaseBranch (
