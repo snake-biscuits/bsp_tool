@@ -118,6 +118,7 @@ extracted_dirs = {
                             "hipnotic/pak0/maps",  # 18 maps | 30 MB
                             "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
                             "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        # Quake64Bsp
         # QuakeCon 2021 PC re-release of Midway's Nintendo 64 port
         # Download in-game (Quake Re-release) via addons; installs into %USERPROFILE%
         "Quake64": ["q64/pak0/maps"],  # 32 maps | 21 MB | .pak
@@ -172,6 +173,13 @@ extracted_dirs = {
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps",  # 8 maps | 10 MB | .pak
                     "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak
+        # QuakeCon 2023 re-release
+        "QuakeII/rerelease": ["pak0/maps",  # 142 maps | 1.1 GB | .pak
+                              "pak0/maps/e3",  # 10 maps | 18 MB | .pak
+                              "pak0/maps/ec",  # 10 maps | 38 MB | .pak
+                              "pak0/maps/old",  # 11 maps | 62 MB | .pak
+                              "pak0/maps/q64",  # 30 maps | 23 MB | .pak
+                              "pak0/maps/test"],  # 19 maps | 5 MB | .pak
         "QuakeIII": ["baseq3/pak0.pk3/maps",  # 31 maps | 110 MB | .pk3
                      "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
                      # "baseq3/pak4.pk3/maps",  # only .aas files
