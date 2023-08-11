@@ -1,7 +1,7 @@
 """Index of all known .bsp format variants"""
 __all__ = ["ace_team", "arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
            "nexon", "outerlight", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve",
-           "developers", "with_magic", "identify", "game_branch", "quake_based", "source_based"]
+           "developers", "with_magic", "identify", "game_branch", "quake_based", "source_based", "of_engine"]
 
 from . import ace_team
 from . import arkane
@@ -96,8 +96,32 @@ for developer in developers:
         for game_name in script.GAME_VERSIONS:
             game_branch[game_name] = (script, script.GAME_VERSIONS[game_name])
 
+# branch groups
 source_magics = (b"PSBV", b"PSBr", b"VBSP", b"rBSP")
-source_based = [bs for magic, bss in with_magic.items() for bs in bss if magic in source_magics]
+source_based = {bs for magic, bss in with_magic.items() for bs in bss if magic in source_magics}
 # NOTE: all source_based branches have "version" in LumpHeader
-quake_based = [bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics]
+quake_based = {bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics}
 # NOTE: all quake_based lumps are unversioned
+
+of_engine = {"GoldSrc": {valve.goldsrc, *gearbox.scripts},
+             "Id Tech 2": {id_software.quake, id_software.quake2, id_software.quake64,
+                           ion_storm.daikatana, raven.hexen2, ritual.sin},
+             "Id Tech 3": {id_software.quake3, id_software.qfusion,
+                           *raven.scripts, *ritual.scripts},
+             "IW": {*infinity_ward.scripts},
+             "IW 1.0": {infinity_ward.call_of_duty1_demo, infinity_ward.call_of_duty1},
+             "IW 2.0": {infinity_ward.call_of_duty2},
+             "IW 3.0": {infinity_ward.modern_warfare},
+             "ReMakeQuake": {id_software.remake_quake, id_software.remake_quake_old},
+             "Source": {*source_based},
+             "Titanfall": {*respawn.scripts},
+             "Quake": {id_software.quake, id_software.quake64, raven.hexen2},
+             "Quake 2": {id_software.quake2, ion_storm.daikatana}}
+
+of_engine["Id Tech 3"] -= {ritual.sin}  # Quake 2 / Id Tech 2
+of_engine["Source"] -= {*respawn.scripts}  # Titanfall
+
+#      /-> ReMakeQuake
+# Quake -> GoldSrc
+#      \-> Quake 2 -> Id Tech 3 -> IW
+#                 \-> Source -> Titanfall
