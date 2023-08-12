@@ -183,6 +183,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
     - [Nexuiz Classic](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [No More Room in Hell](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/valve/orange_box.py)
     - [Nosferatu](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qfusion.py) :o:
+    - [Qbism](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/qbism.py)
     - [Quake: Dimension of the Past](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/remake_quake.py)
     - [Return to Castle Wolfenstein](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/id_software/quake3.py)
     - [The Ship](https://github.com/snake-biscuits/bsp_tool/tree/master/bsp_tool/branches/outerlight/outerlight.py)

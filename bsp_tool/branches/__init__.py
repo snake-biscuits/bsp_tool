@@ -45,6 +45,7 @@ with_magic = {None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.go
                         ritual.sin],
               b"PSBr": [respawn.titanfall_x360],
               b"PSBV": [valve.orange_box_x360, valve.sdk_2013_x360],
+              b"QBSP": [id_software.qbism],
               b"rBSP": [respawn.apex_legends, respawn.apex_legends13,
                         respawn.titanfall, respawn.titanfall2],
               b"RBSP": [raven.soldier_of_fortune2,
@@ -116,7 +117,7 @@ of_engine = {"GoldSrc": {valve.goldsrc, *gearbox.scripts},
              "Source": {*source_based},
              "Titanfall": {*respawn.scripts},
              "Quake": {id_software.quake, id_software.quake64, raven.hexen2},
-             "Quake 2": {id_software.quake2, ion_storm.daikatana}}
+             "Quake 2": {id_software.quake2, ion_storm.daikatana, id_software.qbism}}
 
 of_engine["Id Tech 3"] -= {ritual.sin}  # Quake 2 / Id Tech 2
 of_engine["Source"] -= {*respawn.scripts}  # Titanfall

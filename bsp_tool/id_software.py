@@ -125,3 +125,10 @@ class FusionBsp(IdTechBsp):
     file_magic = b"FBSP"
     # https://quakewiki.org/wiki/FTEQW_Modding#FBSP_map_support
     # https://github.com/Qfusion/qfusion/blob/master/source/qcommon/qfiles.h
+
+
+class QbismBsp(IdTechBsp):
+    """Qbism QBSP Format"""
+    file_magic = b"QBSP"
+    # https://github.com/qbism/super8
+    # https://github.com/qbism/q2tools-220

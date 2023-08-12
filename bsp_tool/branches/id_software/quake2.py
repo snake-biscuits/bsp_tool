@@ -103,6 +103,7 @@ class MAX(enum.Enum):
     # other
     ENTITY_KEY = 32
     ENTITY_VALUE = 1024
+    MAP_SIZE = 4096  # +/- bounds
 
 
 # flag enums:
@@ -164,7 +165,7 @@ class BrushSide(base.MappedArray):  # LUMP 15
 
 
 class Leaf(base.Struct):  # LUMP 10
-    type: int  # see LeafType enum
+    contents: int  # bitwise OR of all brushes (not needed?)
     cluster: int  # index into the VISIBILITY lump; -1 for always visible
     area: int
     bounds: List[int]
@@ -172,10 +173,11 @@ class Leaf(base.Struct):  # LUMP 10
     num_leaf_faces: int  # the number of LeafFaces after first_face in this Leaf
     first_leaf_brush: int  # index to this Leaf's first LeafBrush
     num_leaf_brushes: int  # the number of LeafBrushes after first_brush in this Leaf
-    __slots__ = ["type", "cluster", "area", "bounds", "first_leaf_face",
+    __slots__ = ["contents", "cluster", "area", "bounds", "first_leaf_face",
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes"]
     _format = "Ih11H"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Model(base.Struct):  # LUMP 13

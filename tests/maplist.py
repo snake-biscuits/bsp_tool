@@ -174,6 +174,7 @@ extracted_dirs = {
                     "pak1/maps",  # 8 maps | 10 MB | .pak
                     "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak
         # QuakeCon 2023 re-release
+        # NOTE: pak0/maps contains a handful of QbismBsp
         "QuakeII/rerelease": ["pak0/maps",  # 142 maps | 1.1 GB | .pak
                               "pak0/maps/e3",  # 10 maps | 18 MB | .pak
                               "pak0/maps/ec",  # 10 maps | 38 MB | .pak

@@ -45,7 +45,7 @@ class Edge(quake.Edge):  # LUMP 12
 
 
 class Face(quake.Face):  # LUMP 7
-    _format = "5i4Bi"
+    _format = "I4i4Bi"
 
 
 class Leaf(quake.Leaf):  # LUMP 10

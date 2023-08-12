@@ -1,7 +1,8 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "lumps", "D3DBsp", "FusionBsp",
-           "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp", "QuakeBsp", "Quake64Bsp",
-           "RavenBsp", "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+__all__ = ["base", "branches", "load_bsp", "lumps",
+           "D3DBsp", "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
+           "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp", "ReMakeQuakeBsp",
+           "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
@@ -9,7 +10,7 @@ from types import ModuleType
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
-from .id_software import FusionBsp, IdTechBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
+from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
@@ -28,6 +29,7 @@ BspVariant_for_magic = {b" 46Q": Quake64Bsp,
                         b"IBSP": IdTechBsp,  # OR InfinityWardBsp OR D3DBsp
                         b"PSBr": RespawnBsp,  # Xbox360
                         b"PSBV": ValveBsp,  # Xbox360
+                        b"QBSP": QbismBsp,
                         b"rBSP": RespawnBsp,
                         b"RBSP": RavenBsp,
                         b"VBSP": ValveBsp}

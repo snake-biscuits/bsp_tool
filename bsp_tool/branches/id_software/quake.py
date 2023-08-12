@@ -156,7 +156,7 @@ class Edge(list):  # LUMP 12
 
 
 class Face(base.Struct):  # LUMP 7
-    plane: int
+    plane: int  # signed for quake, unsigned for quake 2
     side: int  # 0 or 1 for side of plane
     first_edge: int
     num_edges: int
