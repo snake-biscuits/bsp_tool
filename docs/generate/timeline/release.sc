@@ -4,7 +4,7 @@
 newsheet "Releases"
 movetosheet "Releases"
 offscr_sc_cols 0
-offscr_sc_rows 10
+offscr_sc_rows 17
 nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
@@ -23,153 +23,222 @@ leftstring A1 = "Id Software"
 leftstring B1 = "Quake"
 let C1 = @dts(1996,6,22)
 fmt C1 "d%Y-%m-%d"
+leftstring D1 = "PC"
 leftstring A2 = "Id Software"
 leftstring B2 = "Quake 2"
 let C2 = @dts(1997,12,9)
 fmt C2 "d%Y-%m-%d"
+leftstring D2 = "PC"
 leftstring A3 = "Valve Software"
 leftstring B3 = "Half-Life"
 let C3 = @dts(1998,11,19)
 fmt C3 "d%Y-%m-%d"
-leftstring A4 = "Gearbox Software"
-leftstring B4 = "Half-Life: Opposing Force"
+leftstring D3 = "PC"
+leftstring A4 = "Valve Software"
+leftstring B4 = "Team Fortress Classic"
+let C4 = @dts(1999,4,7)
+fmt C4 "d%Y-%m-%d"
+leftstring D4 = "PC"
+leftstring E4 = "NA"
 leftstring A5 = "Xatrix Entertainment"
 leftstring B5 = "Kingpin: Life of Crime"
-leftstring A6 = "Valve Software"
-leftstring B6 = "Team Fortress Classic"
+let C5 = @dts(1999,6,30)
+fmt C5 "d%Y-%m-%d"
+leftstring D5 = "PC"
+leftstring A6 = "Gearbox Software"
+leftstring B6 = "Half-Life: Opposing Force"
+let C6 = @dts(1999,11,19)
+fmt C6 "d%Y-%m-%d"
+leftstring D6 = "PC"
 leftstring A7 = "Id Software"
 leftstring B7 = "Quake 3 Arena"
 let C7 = @dts(1999,12,2)
 fmt C7 "d%Y-%m-%d"
 leftstring D7 = "PC"
 leftstring E7 = "NA"
-leftstring A8 = "Id Software"
-leftstring B8 = "Quake III: Team Arena"
-let C8 = @dts(2000,12,18)
+leftstring A8 = "Valve Software"
+leftstring B8 = "Counter-Strike"
+let C8 = @dts(2000,11,8)
 fmt C8 "d%Y-%m-%d"
 leftstring D8 = "PC"
 leftstring E8 = "NA"
 leftstring A9 = "Id Software"
 leftstring B9 = "Quake III: Team Arena"
-let C9 = @dts(2001,1,15)
+let C9 = @dts(2000,12,18)
 fmt C9 "d%Y-%m-%d"
 leftstring D9 = "PC"
-leftstring E9 = "JP"
-leftstring A10 = "Id Software"
-leftstring B10 = "Quake III: Team Arena"
-let C10 = @dts(2001,1,26)
+leftstring E9 = "NA"
+leftstring A10 = "Valve Software"
+leftstring B10 = "Ricochet"
+let C10 = @dts(2000,11,1)
 fmt C10 "d%Y-%m-%d"
 leftstring D10 = "PC"
-leftstring E10 = "EU"
 leftstring A11 = "Valve Software"
 leftstring B11 = "Counter-Strike"
-leftstring A12 = "Valve Software"
-leftstring B12 = "Ricochet"
-leftstring A13 = "Rewolf Software"
-leftstring B13 = "Gunman Chronicles"
-leftstring A14 = "Valve Software"
-leftstring B14 = "Deathmatch Classic"
-leftstring A15 = "Gearbox Software"
-leftstring B15 = "Half-Life: Blue Shift"
+let C11 = @dts(2000,11,8)
+fmt C11 "d%Y-%m-%d"
+leftstring D11 = "PC"
+leftstring A12 = "Rewolf Software"
+leftstring B12 = "Gunman Chronicles"
+let C12 = @dts(2000,11,20)
+fmt C12 "d%Y-%m-%d"
+leftstring D12 = "PC"
+leftstring A13 = "Valve Software"
+leftstring B13 = "Deathmatch Classic"
+let C13 = @dts(2000,6,11)
+fmt C13 "d%Y-%m-%d"
+leftstring D13 = "PC"
+leftstring A14 = "Id Software"
+leftstring B14 = "Quake III: Team Arena"
+let C14 = @dts(2001,1,15)
+fmt C14 "d%Y-%m-%d"
+leftstring D14 = "PC"
+leftstring E14 = "JP"
+leftstring A15 = "Id Software"
+leftstring B15 = "Quake III: Team Arena"
+let C15 = @dts(2001,1,26)
+fmt C15 "d%Y-%m-%d"
+leftstring D15 = "PC"
+leftstring E15 = "EU"
 leftstring A16 = "Gearbox Software"
-leftstring B16 = "James Bond 007: Nightfire"
-leftstring A17 = "Infinity Ward"
-leftstring B17 = "Call of Duty: Dawnville Demo"
+leftstring B16 = "Half-Life: Blue Shift"
+let C16 = @dts(2001,6,12)
+fmt C16 "d%Y-%m-%d"
+leftstring D16 = "PC"
+leftstring A17 = "Gearbox Software"
+leftstring B17 = "James Bond 007: Nightfire"
+let C17 = @dts(2002,11,18)
+fmt C17 "d%Y-%m-%d"
 leftstring D17 = "PC"
 leftstring A18 = "Infinity Ward"
-leftstring B18 = "Call of Duty: Burnville Demo"
+leftstring B18 = "Call of Duty: Dawnville Demo"
 leftstring D18 = "PC"
 leftstring A19 = "Infinity Ward"
-leftstring B19 = "Call of Duty"
+leftstring B19 = "Call of Duty: Burnville Demo"
 leftstring D19 = "PC"
-leftstring A20 = "Namco"
-leftstring B20 = "Counter-Strike: Neo"
+leftstring A20 = "Infinity Ward"
+leftstring B20 = "Call of Duty"
 leftstring D20 = "PC"
 leftstring A21 = "Valve Software"
 leftstring B21 = "Ɖay of Defeat"
-leftstring D21 = "PC (Steam)"
+let C21 = @dts(2003,5,6)
+fmt C21 "d%Y-%m-%d"
+leftstring D21 = "PC"
 leftstring A22 = "Raven Software"
 leftstring B22 = "Star Wars: Jedi Knight - Jedi Academy"
+let C22 = @dts(2003,9,16)
+fmt C22 "d%Y-%m-%d"
+leftstring D22 = "PC"
 leftstring A23 = "Ritual Entertainment"
 leftstring B23 = "Counter-Strike: Condition Zero"
+let C23 = @dts(2004,3,23)
+fmt C23 "d%Y-%m-%d"
+leftstring D23 = "PC"
 leftstring A24 = "Valve Software"
-leftstring B24 = "Half-Life 2"
-let C24 = @dts(2004,11,16)
+leftstring B24 = "Counter-Strike: Source"
+let C24 = @dts(2004,11,1)
 fmt C24 "d%Y-%m-%d"
-leftstring A25 = "Infinity Ward"
-leftstring B25 = "Call of Duty 4: Modern Warfare"
-let C25 = @dts(2007,11,5)
+leftstring D24 = "PC (Steam)"
+leftstring A25 = "Valve Software"
+leftstring B25 = "Half-Life 2"
+let C25 = @dts(2004,11,16)
 fmt C25 "d%Y-%m-%d"
-leftstring A26 = "Nexon"
-leftstring B26 = "Counter-Strike: Online"
-leftstring A27 = "Id Software"
-leftstring B27 = "Quake Live"
-let C27 = @dts(2010,8,6)
+leftstring D25 = "PC (Steam)"
+leftstring A26 = "Valve Software"
+leftstring B26 = "Day of Defeat: Source"
+let C26 = @dts(2005,9,26)
+fmt C26 "d%Y-%m-%d"
+leftstring D26 = "PC (Steam)"
+leftstring A27 = "Namco"
+leftstring B27 = "Counter-Strike: Neo"
+let C27 = @dts(2005,10,27)
 fmt C27 "d%Y-%m-%d"
-leftstring A28 = "Valve Software"
-leftstring B28 = "Portal 2"
-let C28 = @dts(2011,4,18)
+leftstring D27 = "Arcade"
+leftstring A28 = "Infinity Ward"
+leftstring B28 = "Call of Duty 4: Modern Warfare"
+let C28 = @dts(2007,11,5)
 fmt C28 "d%Y-%m-%d"
-leftstring A29 = "Respawn Entertainment"
-leftstring B29 = "Titanfall (Beta)"
-let C29 = @dts(2014,2,15)
+leftstring D28 = "PC"
+leftstring A29 = "Nexon"
+leftstring B29 = "Counter-Strike: Online"
+let C29 = @dts(2008,7,24)
 fmt C29 "d%Y-%m-%d"
-leftstring D29 = "Xbox 360"
-let F29 = @dts(2014,2,19)
-fmt F29 "d%Y-%m-%d"
-leftstring A30 = "Respawn Entertainment"
-leftstring B30 = "Titanfall (Beta)"
-let C30 = @dts(2014,2,17)
+leftstring D29 = "PC"
+leftstring A30 = "Id Software"
+leftstring B30 = "Quake Live"
+let C30 = @dts(2010,8,6)
 fmt C30 "d%Y-%m-%d"
-leftstring D30 = "PC (Origin)"
-let F30 = @dts(2014,2,19)
-fmt F30 "d%Y-%m-%d"
-leftstring A31 = "Respawn Entertainment"
-leftstring B31 = "Titanfall"
-let C31 = @dts(2014,3,11)
+leftstring D30 = "PC"
+leftstring A31 = "Valve Software"
+leftstring B31 = "Portal 2"
+let C31 = @dts(2011,4,18)
 fmt C31 "d%Y-%m-%d"
-leftstring D31 = "PC (Origin);Xbox 360"
-let F31 = @dts(2021,3,1)
-fmt F31 "d%Y-%m-%d"
-leftstring A32 = "Respawn Entertainment"
-leftstring B32 = "Titanfall"
-let C32 = @dts(2020,11,21)
+leftstring D31 = "PC (Steam)"
+leftstring A32 = "Nexon"
+leftstring B32 = "Counter-Strike: Online 2"
+let C32 = @dts(2013,11,28)
 fmt C32 "d%Y-%m-%d"
-leftstring D32 = "PC (Steam)"
-let F32 = @dts(2021,3,1)
-fmt F32 "d%Y-%m-%d"
+leftstring D32 = "PC"
 leftstring A33 = "Respawn Entertainment"
-leftstring B33 = "Titanfall 2 (Tech Test)"
-let C33 = @dts(2016,8,19)
+leftstring B33 = "Titanfall (Beta)"
+let C33 = @dts(2014,2,15)
 fmt C33 "d%Y-%m-%d"
-leftstring D33 = "PC (Origin);PS4;XBOne"
-let F33 = @dts(2016,8,22)
+leftstring D33 = "Xbox 360"
+let F33 = @dts(2014,2,19)
 fmt F33 "d%Y-%m-%d"
 leftstring A34 = "Respawn Entertainment"
-leftstring B34 = "Titanfall 2 (Tech Test)"
-let C34 = @dts(2016,8,26)
+leftstring B34 = "Titanfall (Beta)"
+let C34 = @dts(2014,2,17)
 fmt C34 "d%Y-%m-%d"
-leftstring D34 = "PC (Origin);PS4;XBOne"
-let F34 = @dts(2016,8,28)
+leftstring D34 = "PC (Origin)"
+let F34 = @dts(2014,2,19)
 fmt F34 "d%Y-%m-%d"
 leftstring A35 = "Respawn Entertainment"
-leftstring B35 = "Titanfall 2"
-let C35 = @dts(2016,10,28)
+leftstring B35 = "Titanfall"
+let C35 = @dts(2014,3,11)
 fmt C35 "d%Y-%m-%d"
-leftstring D35 = "PC (Origin);PS4;XBOne"
+leftstring D35 = "PC (Origin);Xbox 360"
+let F35 = @dts(2021,3,1)
+fmt F35 "d%Y-%m-%d"
 leftstring A36 = "Respawn Entertainment"
-leftstring B36 = "Titanfall 2"
-let C36 = @dts(2020,6,19)
+leftstring B36 = "Titanfall"
+let C36 = @dts(2020,11,21)
 fmt C36 "d%Y-%m-%d"
 leftstring D36 = "PC (Steam)"
+let F36 = @dts(2021,3,1)
+fmt F36 "d%Y-%m-%d"
 leftstring A37 = "Respawn Entertainment"
-leftstring B37 = "Apex Legends"
-let C37 = @dts(2019,2,4)
+leftstring B37 = "Titanfall 2 (Tech Test)"
+let C37 = @dts(2016,8,19)
 fmt C37 "d%Y-%m-%d"
-leftstring D37 = "PC (Origin)"
+leftstring D37 = "PC (Origin);PS4;XBOne"
+let F37 = @dts(2016,8,22)
+fmt F37 "d%Y-%m-%d"
 leftstring A38 = "Respawn Entertainment"
-leftstring B38 = "Apex Legends"
-let C38 = @dts(2020,11,4)
+leftstring B38 = "Titanfall 2 (Tech Test)"
+let C38 = @dts(2016,8,26)
 fmt C38 "d%Y-%m-%d"
-leftstring D38 = "PC (Steam)"
-goto D22
+leftstring D38 = "PC (Origin);PS4;XBOne"
+let F38 = @dts(2016,8,28)
+fmt F38 "d%Y-%m-%d"
+leftstring A39 = "Respawn Entertainment"
+leftstring B39 = "Titanfall 2"
+let C39 = @dts(2016,10,28)
+fmt C39 "d%Y-%m-%d"
+leftstring D39 = "PC (Origin);PS4;XBOne"
+leftstring A40 = "Respawn Entertainment"
+leftstring B40 = "Titanfall 2"
+let C40 = @dts(2020,6,19)
+fmt C40 "d%Y-%m-%d"
+leftstring D40 = "PC (Steam)"
+leftstring A41 = "Respawn Entertainment"
+leftstring B41 = "Apex Legends"
+let C41 = @dts(2019,2,4)
+fmt C41 "d%Y-%m-%d"
+leftstring D41 = "PC (Origin)"
+leftstring A42 = "Respawn Entertainment"
+leftstring B42 = "Apex Legends"
+let C42 = @dts(2020,11,4)
+fmt C42 "d%Y-%m-%d"
+leftstring D42 = "PC (Steam)"
+goto D42

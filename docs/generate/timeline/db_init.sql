@@ -58,12 +58,12 @@ CREATE TABLE IF NOT EXISTS Delisting (
 CREATE TABLE IF NOT EXISTS Company (
     id    INTEGER      PRIMARY KEY,
     name  VARCHAR(64)  NOT NULL,
-    -- dev, publisher, platform owner etc.?
 );
 
 CREATE TABLE IF NOT EXISTS ReleaseCompany (
     release  INTEGER  NOT NULL,
     company  INTEGER  NOT NULL,
+    -- dev, publisher, platform owner etc.?
     FOREIGN KEY (release) REFERENCES Release (id),
     FOREIGN KEY (company) REFERENCES Company (id),
     PRIMARY KEY (release, company)
