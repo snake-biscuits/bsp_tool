@@ -41,12 +41,18 @@
    - `.as_bytes()` correctly includes "end record", without calling `.close()`
 
 ### Newly Supported Branches
- * Infinity Ward Engine
+ * Id Tech 2
+   - Qbism
+   - Quake 64
+ * IW Engine
    - Call of Duty 1 SP Demo: Burnville
    - Call of Duty 1 SP Demo: Dawnville
  * Source Engine
    - Fairy Tale Busters (メルヘソバスターズ)
    - Zeno Clash
+ * Titanfall Engine
+   - Apex Legends Season 13-18
+   - Apex Legends Season 18+
  * Ubertools
    - Star Trek Elite Force II SP Demo
 
