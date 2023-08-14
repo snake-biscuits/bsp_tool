@@ -384,9 +384,9 @@ extracted_dirs = {
         # season12:  Defiance [9th Feb 2022]
         "ApexLegends/season12": ["8feb22/maps",  # 11 maps | 1.91 GB | .vpk
                                  "8feb22/depot/r5-120/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
-                                 "29march22/maps",  # 11 maps | 1.89 GB | .vpk
-                                 "29march22/depot/r5-120/game/r2/maps",  # 10 maps | 1.77 GB | .vpk
-                                 "29march22/depot/r5-121/game/r2/maps"],  # 11 maps | 1.84 GB | .vpk
+                                 "29mar22/maps",  # 11 maps | 1.89 GB | .vpk
+                                 "29mar22/depot/r5-120/game/r2/maps",  # 10 maps | 1.77 GB | .vpk
+                                 "29mar22/depot/r5-121/game/r2/maps"],  # 11 maps | 1.84 GB | .vpk
         # season13:  Saviour [10th May 2022]
         "ApexLegends/season13": ["10may22/maps",  # 11 maps | 1.91 GB | .vpk
                                  "10may22/depot/r5-130/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
