@@ -301,37 +301,55 @@ extracted_dirs = {
                        "depot/r2dlc11/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
                        "depot/r2pcprecert/game/r2/maps",  # 5 maps | 1.4 GB | .vpk
                        "depot/r2staging/game/r2/maps"],  # 6 maps | 1.4 GB | .vpk
-        # Thanks to https://apexlegends.fandom.com/wiki/Version_History
-        # see also: https://github.com/Syampuuh/TitanfallApexLegends
-        # TODO: reduce list to smallest possible set with bsp_tool.extensions.diff
-        # -- could eventually create an archive of all map related patches
-        # NOTE: patch dates of archived maps from before season10 are unknown (except s3 r5r builds)
+        # TODO: remove loose maps once the archive covers season4-6 (2020)
         "ApexLegends": ["maps"],  # 9 maps | 3.3 GB | .vpk (season unknown, most likely s5)
-        # TODO: season0:  Preseason [4th February 2019]
-        # TODO: season1:  Wild Frontier [19th Mar 2019]
+        # Thanks to https://antifandom.com/apexlegends/wiki/Version_History
+        # season0-3 archives from r-ex
+        # season7-present from SteamDB Manifests + DepotDownloader
+        # season0:  Preseason [4th February 2019]
+        "ApexLegends/season0": ["4feb19/maps",  # 2 maps | 782 MB | .vpk
+                                "4feb19/depot/r5launch/game/r2/maps"],  # 2 maps | 774 MB | .vpk
+        # season1:  Wild Frontier [19th Mar 2019]
+        "ApexLegends/season1": ["19mar19/maps",  # 2 maps | 779 MB | .vpk
+                                "19mar19/depot/r5launch/game/r2/maps",  # 2 maps | 771 MB | .vpk
+                                "16apr19/maps",  # 2 maps | 785 MB | .vpk
+                                "16apr19/depot/r5launch/game/r2/maps",  # 2 maps | 777 MB | .vpk
+                                "4jun19/maps",  # 2 maps | 782 MB | .vpk
+                                "4jun19/depot/r5launch/game/r2/maps"],  # 2 maps | 773 MB | .vpk
         # season2:  Battle Charge [2nd Jul 2019]
-        "ApexLegends/season2": ["maps"],  # 1 map | 16.9 MB | .vpk
+        "ApexLegends/season2": ["2jul19/maps",  # 4 maps | 1.54 GB | .vpk
+                                "2jul19/depot/r5launch/game/r2/maps",  # 4 maps | 1.52 GB | .vpk
+                                "13aug19/maps",  # 4 maps | 1.54 GB | .vpk
+                                "13aug19/depot/r5launch/game/r2/maps",  # 4 maps | 1.53 MB | .vpk
+                                "3sep19/maps",  # 4 maps | 1.53 GB | .vpk
+                                "3sep19/depot/r5launch/game/r2/maps"],  # 4 maps | 1.51 GB | .vpk
         # season3:  Meltdown [1st October 2019]
-        "ApexLegends/season3": ["30oct19/maps",  # 8 maps | 4.9 GB | .vpk
-                                "30oct19/depot/r5launch/game/r2/maps",  # 8 maps | 4.9 GB | .vpk
-                                "30oct19/depot/r5staging/game/r2/maps",  # 6 maps | 3.2 GB | .vpk
-                                "3dec19/maps",  # 8 maps | 4.6 GB | .vpk
-                                "3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
-                                "3dec19/depot/r5staging/game/r2/maps"],  # 8 maps | 3.0 GB | .vpk
+        "ApexLegends/season3": ["1oct19/maps",  # 6 maps | 3.04 GB | .vpk
+                                "1oct19/depot/r5launch/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
+                                "5nov19/maps",  # 6 maps | 3.04 GB | .vpk
+                                "5nov19/depot/r5launch/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
+                                "5nov19/depot/r5staging/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
+                                "3dec19/maps",  # 8 maps | 4.64 GB | .vpk
+                                "3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.58 GB | .vpk
+                                "3dec19/depot/r5staging/game/r2/maps"],  # 6 maps | 3.00 GB | .vpk
         # season4:  Assimilation [4th Feb 2020]
         "ApexLegends/season4": ["depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
                                 "depot/r5staging/game/r2/maps",  # 6 maps | 3.0 GB | .vpk
                                 "maps"],  # 8 maps | 4.6 GB | .vpk
+        # TODO: season4.1:  System Override [3rd Mar 2020]
+        # TODO: season4.2:  The Old Ways [7th Apr 2020]
         # season5:  Fortune's Favour  [12th May 2020]
         "ApexLegends/season5": ["maps"],  # 3 maps | 1.2 GB | .vpk
-        # TODO: season6:  Boosted  [18th Aug 2020]
+        # TODO: season5.1:  Lost Treasures [23rd Jun 2020]
+        # TODO: season6.0:  Boosted  [18th Aug 2020]
+        # TODO: season6.1:  Aftermarket [6th Oct 2020]
         # season7:  Ascension  [4th Nov 2020]
         "ApexLegends/season7": ["3nov20/depot/r5-70/game/r2/maps",  # 6 maps | 3.75 GB | .vpk
                                 "3nov20/maps",  # 6 maps | 3.81 GB | .vpk
-                                "6jan21/depot/r5-70/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
-                                "6jan21/depot/r5-71/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
-                                "6jan21/depot/r5-72/game/r2/maps",  # 11 maps | 6.75 GB | .vpk
-                                "6jan21/maps"],  # 11 maps | 6.84 GB | .vpk
+                                "5jan21/depot/r5-70/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
+                                "5jan21/depot/r5-71/game/r2/maps",  # 11 maps | 6.91 GB | .vpk
+                                "5jan21/depot/r5-72/game/r2/maps",  # 11 maps | 6.75 GB | .vpk
+                                "5jan21/maps"],  # 11 maps | 6.84 GB | .vpk
         # season8:  Mayhem  [2nd Feb 2021]
         "ApexLegends/season8": ["2feb21/depot/r5-80/game/r2/maps",  # 7 maps | 3.83 GB | .vpk
                                 "2feb21/maps",  # 7 maps | 3.88 GB | .vpk
@@ -350,18 +368,22 @@ extracted_dirs = {
                                  "10aug21/depot/r5-100/game/r2/maps",  # 8 maps | 2.8 GB | .vpk
                                  "14sep21/maps",  # 2 maps | 962 MB | .vpk
                                  "14sep21/depot/r5-100/game/r2/maps",  # 1 map | 797 MB | .vpk
-                                 "14sep21/depot/r5-101/game/r2/maps"],  # 2 maps | 949 MB | .vpk
+                                 "14sep21/depot/r5-101/game/r2/maps",  # 2 maps | 949 MB | .vpk
+                                 "24sep21/maps",  # 1 maps | 4 MB | .vpk
+                                 "24sep21/depot/r5-100/game/r2/maps",  # 1 maps | 3 MB | .vpk
+                                 "24sep21/depot/r5-101/game/r2/maps"],  # 1 maps | 3 MB | .vpk
         # season11:  Escape  [2nd Nov 2021]
         "ApexLegends/season11": ["2nov21/maps",  # 1 map | 10 MB | .vpk
                                  "2nov21/depot/r5-110/game/r2/maps",  # 1 map | 9 MB | .vpk
-                                 "6nov21/maps",  # 1 map | 760 MB | .vpk
-                                 "6nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB | .vpk
-                                 "19nov21/maps",  # 10 maps | 1.5 GB | .vpk
-                                 "19nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB | .vpk
-                                 "19nov21/depot/r5-111/game/r2/maps"],  # 10 maps | 1.4 GB | .vpk
+                                 "5nov21/maps",  # 1 map | 760 MB | .vpk
+                                 "5nov21/depot/r5-110/game/r2/maps",  # 1 map | 749 MB | .vpk
+                                 "17nov21/maps",  # 10 maps | 1.5 GB | .vpk
+                                 "17nov21/depot/r5-110/game/r2/maps",  # 8 maps | 2.1 GB | .vpk
+                                 "17nov21/depot/r5-111/game/r2/maps"],  # 10 maps | 1.4 GB | .vpk
+        # TODO: season11.1 Raiders [7th Dec 2021]
         # season12:  Defiance [9th Feb 2022]
-        "ApexLegends/season12": ["9feb22/maps",  # 11 maps | 1.91 GB | .vpk
-                                 "9feb22/depot/r5-120/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
+        "ApexLegends/season12": ["8feb22/maps",  # 11 maps | 1.91 GB | .vpk
+                                 "8feb22/depot/r5-120/game/r2/maps",  # 11 maps | 1.86 GB | .vpk
                                  "29march22/maps",  # 11 maps | 1.89 GB | .vpk
                                  "29march22/depot/r5-120/game/r2/maps",  # 10 maps | 1.77 GB | .vpk
                                  "29march22/depot/r5-121/game/r2/maps"],  # 11 maps | 1.84 GB | .vpk
@@ -382,7 +404,9 @@ extracted_dirs = {
                                  "29sep22/depot/r5-141/game/r2/maps"],  # 2 maps | 387 MB | .vpk
         # season15:  Eclipse [1st Nov 2022]
         "ApexLegends/season15": ["1nov22/maps",  # 12 maps | 2.24 GB | .vpk
-                                 "1nov22/depot/r5-150/game/r2/maps"],  # 12 maps | 2.17 GB | .vpk
+                                 "1nov22/depot/r5-150/game/r2/maps",  # 12 maps | 2.17 GB | .vpk
+                                 "10jan23/maps",  # 2 maps | 395 MB | .vpk
+                                 "10jan23/depot/r5-150/game/r2/maps"],  # 2 maps | 382 MB | .vpk
         # season16:  Revelry [14th Feb 2023]
         "ApexLegends/season16": ["14feb23/maps",  # 9 maps | 1.72 GB | .vpk
                                  "14feb23/depot/r5-160/game/r2/maps",  # 9 maps | 1.67 GB | .vpk
@@ -403,8 +427,11 @@ extracted_dirs = {
         # NOTE: some .bsp_lump.client aren't able to be exported yet
         # NOTE: mid-season .rpak patches can't be exported yet
         # Nintendo Switch Release
-        "ApexLegends/switch": ["season9/maps",  # 7 maps | 2.4 GB | .vpk
-                               "season9/depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
+        # TODO: season8 [9mar21] (8.1 Chaos Theory)
+        # TODO: season9 [4may21, 29jun21] (9.0 Legacy, 9.1 Genesis)
+        "ApexLegends/switch/season9": ["maps",  # 7 maps | 2.4 GB | .vpk
+                                       "depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
+        # TODO: season10-present
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3

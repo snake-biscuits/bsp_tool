@@ -226,6 +226,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Super useful tool for `.pak` files
  * [PCGamingWiki](https://community.pcgamingwiki.com/files/category/16-official-patches/)
    - Archiving old patches to help install old modding tools
+ * [rexx](https://github.com/r-ex)
+   - Donating a lot of time helping organise & gather maps from 2019 Apex Legends
  * [REDxEYE](https://github.com/REDxEYE)
    - Being very open and actively collaborating on SourceIO & Titanfall .bsps
  * [Taskinoz](https://github.com/taskinoz)
