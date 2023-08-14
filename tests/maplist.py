@@ -320,7 +320,7 @@ extracted_dirs = {
         "ApexLegends/season2": ["2jul19/maps",  # 4 maps | 1.54 GB | .vpk
                                 "2jul19/depot/r5launch/game/r2/maps",  # 4 maps | 1.52 GB | .vpk
                                 "13aug19/maps",  # 4 maps | 1.54 GB | .vpk
-                                "13aug19/depot/r5launch/game/r2/maps",  # 4 maps | 1.53 MB | .vpk
+                                "13aug19/depot/r5launch/game/r2/maps",  # 4 maps | 1.53 GB | .vpk
                                 "3sep19/maps",  # 4 maps | 1.53 GB | .vpk
                                 "3sep19/depot/r5launch/game/r2/maps"],  # 4 maps | 1.51 GB | .vpk
         # season3:  Meltdown [1st October 2019]
@@ -333,10 +333,11 @@ extracted_dirs = {
                                 "3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.58 GB | .vpk
                                 "3dec19/depot/r5staging/game/r2/maps"],  # 6 maps | 3.00 GB | .vpk
         # season4:  Assimilation [4th Feb 2020]
-        "ApexLegends/season4": ["depot/r5launch/game/r2/maps",  # 8 maps | 4.6 GB | .vpk
-                                "depot/r5staging/game/r2/maps",  # 6 maps | 3.0 GB | .vpk
-                                "maps"],  # 8 maps | 4.6 GB | .vpk
-        # TODO: season4.1:  System Override [3rd Mar 2020]
+        "ApexLegends/season4": ["4feb20/maps"  # 9 maps | 5.44 GB | .vpk
+                                "4feb20/depot/r5launch/game/r2/maps",  # 9 maps | 5.38 GB | .vpk
+                                "4feb20/depot/r5staging/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
+                                "3mar20/maps"  # 4 maps | 977 MB | .vpk
+                                "3mar20/depot/r5launch/game/r2/maps"],  # 5 maps | 1.46 GB | .vpk
         # TODO: season4.2:  The Old Ways [7th Apr 2020]
         # season5:  Fortune's Favour  [12th May 2020]
         "ApexLegends/season5": ["maps"],  # 3 maps | 1.2 GB | .vpk
