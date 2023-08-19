@@ -1,5 +1,6 @@
 """!!! WARNING: THIS SCRIPT WILL CHANGE YOUR WORKING DIRECTORY! DO NOT IMPORT !!!"""
 from collections import defaultdict
+import fnmatch
 import os
 import readline  # noqa F401  (extends input())
 import subprocess
@@ -10,12 +11,13 @@ from typing import Dict, List
 
 # TODO: calculate season / patch / map dir sizes
 # TODO: abridge "depot/" paths ("depot/r5launch/.../maps" -> "depot/r5launch/")
-# TODO: depots_of(season, release)
+# TODO: depots_of(season, patch)
 # TODO: find all versions of mp_<whatever>.bsp (depots optional)
 # TODO: bsp_tool.load_bsp interface
 # TODO: scan all pakfiles
 # TODO: index season & patch by integer
 # TODO: hooks for MegaTest
+# TODO: separate filepath operations into their own function
 
 
 #################
@@ -37,6 +39,7 @@ def input_c(msg: str, col: str = "wht"):
 ###########
 # WARNING #
 ###########
+# don't be here unless you REALLY know what you're doing
 
 print_c("-===- ENTERING THE APEX ARCHIVE -===-", "grn")
 if __name__ != "__main__":
@@ -46,7 +49,7 @@ if __name__ != "__main__":
         raise SystemExit
 
 
-release_date_fmt = "%-d%b%y"  # e.g. 1Jan23 (note no leading 0)
+patch_date_fmt = "%-d%b%y"  # e.g. 1Jan23 (note no leading 0)
 # NOTE: all paths are lowercase
 
 # TODO: ensure consistent order
@@ -96,9 +99,8 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
         "season17": {"9may23": (17, 0, "Arsenal"),
                      "20jun23": (17, 1, "Dressed to Kill"),
                      "19jul23": (17, 1, "Thief's Bane")},
-        # NOTE; maps moved to .rpak in season 18
+        # NOTE: maps moved to .rpak in season 18
         "season18": {"8aug23": (18, 0, "Resurrection")}}
-
 
 # TODO: python-mode
 
@@ -109,7 +111,6 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
 # communicate working directory changes to the user
 
 def PS1():
-    # NOTE: no trailing space
     time_ = time.strftime("%H:%M")
     cwd = os.getcwd()
     if cwd.startswith("/"):  # Linux / Cygwin
@@ -119,22 +120,47 @@ def PS1():
     rel_dir = os.path.relpath(seasons_folder, cwd)
     if cwd == seasons_folder:
         rel_dir = ""
-    return f"\x1b[35m{time_} \x1b[34m{user} \x1b[33mApexArchive/{rel_dir} \x1b[35m$\x1b[0m"
+    return f"\x1b[35m{time_} \x1b[34m{user} \x1b[33mApexArchive/{rel_dir} \x1b[35m$\x1b[0m "
 
 
 def term_input(*args, **kwargs):
-    return input(PS1() + " ", *args, **kwargs)
+    return input(PS1(), *args, **kwargs)
 
 
 def term_print(*args, **kwargs):
     print(PS1(), *args, **kwargs)
 
 
-def cd(path: str):
-    # TODO: cd relative to ApexArchive/
-    # -- python-mode: cd(season, patch)
-    term_print("cd", path)
-    os.chdir(path)
+# path ops
+
+def cd(season: str, patch: str):
+    term_print(f"cd {season/patch}")
+    os.chdir(os.path.join(seasons_folder, season, patch))
+    if __name__ != "__main__":
+        # telegraph working dir change
+        # terminal-mode does this automatically
+        print(PS1())
+
+
+def map_path(filepath: str) -> str:
+    """abridged path -> full path () relative to season/patch"""
+    # NOTE: mp_rr_whatever -> mp_rr_whatever_64k_x_64k will not be caught
+    # -- catching `_mu` etc. version history should be another function's job
+    # "whatever" -> "maps/mp_rr_whatever.bsp"
+    # "depot/<d>/whatever" -> "depot/<d>/game/r2/maps/mp_rr_whatever.bsp"
+    if "/" not in filepath:  # default to maps/ dir
+        filepath = f"maps/{filepath}"
+    elif filepath.startswith("depot/") and len(filepath.split("/")) == 3:
+        _, depot, map_name = filepath.split("/")
+        filepath = f"depot/{depot}/game/r2/maps/{map_name}"
+    if "." not in filepath:  # default to .bsp extension
+        filepath += ".bsp"
+    if not filepath.split("/")[-1].startswith("mp_"):
+        split_path = filepath.split("/")
+        map_name = split_path[-1]
+        map_name = f"mp_rr_{map_name}" if map_name != "lobby" else "mp_lobby"
+        filepath = "/".join([*split_path[:-1], map_name])
+    return filepath
 
 
 ###################
@@ -160,35 +186,22 @@ else:
     print_c(f"-===- WELCOME ARCHIVIST: {user} -===-", "grn")
     seasons_folder = archivists[(user, host)]
     os.chdir(seasons_folder)
+# TODO: check which archive dirs are available
 
 
-################
-# FILE HASHING #
-################
+####################
+# DATABASE QUERIES #
+####################
+# locating maps
 
-def hash_of(season: str, release: str, filepath: str) -> str:
-    """retrieve hash of 'filepath' in 'season/release'"""
-    # TODO: stricter matching
-    # - maps/x will match depot/.../maps/x first
-    # - depot/r5launch/mapname
-    hashfile_name = os.path.join(season, release, "hashes.sha256")
-    if not os.path.exists(hashfile_name):
-        generate_hashfile(season, release)
-    with open(hashfile_name) as hashfile:
-        for line in hashfile:  # <hash> ./<filepath>
-            if filepath in line:
-                hash_, full_filepath = line.split()
-                print_c(f"found: {full_filepath!r}", "ylw")
-                return hash_
-
-
-def first_release(filepath: str) -> (str, str):
+def first_patch(filepath: str) -> (str, str):
     """first season & patch 'filepath' appears in"""
-    for season, releases in dirs.items():
-        for release in releases:
-            full_path = os.path.join(season, release, "hashes.sha256")
-            if os.path.exists(full_path):
-                return " ".join([season, release])
+    # NOTE: checks "maps/" by default, "depot/<d>/mapname" must be specified
+    filepath = map_path(filepath)
+    for season, patches in dirs.items():
+        for patch in patches:
+            if os.path.exists(os.path.join(seasons_folder, season, patch, filepath)):
+                return f"{season}/{patch}"
 
 
 def seasons_after(season: str) -> List[str]:
@@ -196,24 +209,64 @@ def seasons_after(season: str) -> List[str]:
     return all_seasons[all_seasons.index(season):]
 
 
-def releases_after(season: str, release: str) -> List[str]:
-    # TODO: accept dates that aren't releases
-    season_releases = dirs[season]
-    return season_releases[season_releases.index(release):]
+def patches_after(season: str, patch: str) -> List[str]:
+    # TODO: accept dates that aren't patches
+    season_patches = list(dirs[season].keys())
+    return season_patches[season_patches.index(patch):]
 
 
-# "maps/mp_rr_canyonlands_64k_x_64k.bsp" -> {"sha256 hash": ["season/release", ...]}
+def maps(season: str, patch: str = None) -> List[str]:
+    if patch is not None:
+        patch_dir = os.path.join(seasons_folder, season, patch)
+        patch_files = os.listdir(os.path.join(patch_dir, "maps"))
+        depots = os.listdir(os.path.join(patch_dir, "depot"))
+        depot_dirs = [f"depot/{d}/game/r2/maps" for d in depots]
+        # abridged depot dir out
+        depot_files = [f"depot/{d}/{f}" for d, dd in zip(depots, depot_dirs)
+                       for f in os.listdir(os.path.join(patch_dir, dd))]
+        files = [*patch_files, *depot_files]
+        return [m[:-4] for m in fnmatch.filter(files, "*.bsp")]
+    else:
+        out = dict()
+        for patch in dirs[season]:
+            out[patch] = maps(season, patch)
+        return out
+
+# TODO: depots
+
+
+################
+# FILE HASHING #
+################
+# history of changes
+# TODO: do .bsp_lump only .bsp change hash? revision?
+
+def hash_of(season: str, patch: str, filepath: str) -> str:
+    """retrieve hash of 'filepath' in 'season/patch'"""
+    filepath = f"*./{map_path(filepath)}"  # <hash> *./<filepath>
+    hashfile_path = os.path.join(season, patch, "hashes.sha256")
+    if not os.path.exists(hashfile_path):
+        generate_hashfile(season, patch)
+    with open(hashfile_path) as hashfile:
+        for line in hashfile:  # <hash> *./<filepath>
+            hash_, hashed_filepath = line.split()
+            if hashed_filepath == filepath:
+                return hash_
+
+
+# "maps/mp_rr_canyonlands_64k_x_64k.bsp" -> {"sha256 hash": ["season/patch", ...]}
 def hash_history(filepath: str) -> Dict[str, List[str]]:
     """list hashes of 'filepath' across all seasons"""
     out = defaultdict(list)
-    season, release = first_release(filepath).split()
-    seasons = {season: releases_after(season, release)}
+    filepath = map_path(filepath)
+    season, patch = first_patch(filepath).split("/")
+    seasons = {season: patches_after(season, patch)}
     seasons.update({s: dirs[s] for s in seasons_after(season)})
-    for season, releases in seasons.items():
-        for release in releases:
-            hash_ = hash_of(season, release, filepath)
+    for season, patches in seasons.items():
+        for patch in patches:
+            hash_ = hash_of(season, patch, filepath)
             if hash_ is not None:
-                out[hash_].append(f"{season}/{release}")
+                out[hash_].append(f"{season}/{patch}")
     return out
 
 
@@ -229,30 +282,30 @@ def generate_hashfile_linux():
         subprocess.run(bash_command, shell=True, stdout=hashfile)
 
 
-def generate_hashfile(season: str, release: str):
+def generate_hashfile(season: str, patch: str):
     """VERY DANGEROUS; changes working directoy & runs a bash command; BE CAREFUL"""
-    cd(os.path.join(seasons_folder, season, release))
+    cd(season, patch)
     if sys.platform in ("cygwin", "linux"):
         generate_hashfile_linux()
     # TODO: elif sys.platform in ("win32",): generate_hashfile_windows()
     else:
-        cd(seasons_folder)
+        os.chdir(seasons_folder)
         raise NotImplementedError(f"Cannot generate hashfile: platform='{sys.platform}'")
-    cd(seasons_folder)
+    os.chdir(seasons_folder)
 
 
 def regen_archive_hashfiles():
     """regenerate hashfiles for the entire archive"""
     if input("? regenerate all hashfiles? [y/n] ").lower()[0] != "y":
         return
-    for season, releases in dirs.items():
-        for release in releases:
-            cd(os.path.join(seasons_folder, season, release))
+    for season, patches in dirs.items():
+        for patch in patches:
+            cd(season, patch)
             if sys.platform in ("cygwin", "linux"):
                 generate_hashfile_linux()
             else:
                 raise NotImplementedError(f"Cannot generate hashfile: platform='{sys.platform}'")
-    cd(seasons_folder)
+    os.chdir(seasons_folder)
 
 
 if __name__ == "__main__":
@@ -270,10 +323,14 @@ if __name__ == "__main__":
         def wrapped(func):
             def call(*args):
                 func_out = func(*args)
-                if func_out is None:  # -> None: no lines
+                if func_out is None:  # -> None => no lines
                     return
                 elif isinstance(func_out, list):  # -> List[str] => many lines
                     {print(o) for o in func_out}
+                elif isinstance(func_out, dict):  # -> Dict[str, List[str]] => many lines
+                    for key in func_out:
+                        print(key)
+                        {print(f"\t{x}") for x in func_out[key]}
                 else:  # -> str => 1 line
                     print(func_out)
             return call
@@ -282,12 +339,14 @@ if __name__ == "__main__":
     # NOTE: tools may only have 1 instance for each arg count!
     tools = {"help": ("list all tools", term_help),
              "help tool": ("explain tool", term_help),
-             # TODO: "cd season patch": term_wrap(cd),
              "seasons": ("list all seasons", lambda: {print(s) for s in dirs}),
              "patches season": ("list all patches in season", lambda s: {print(p) for p in dirs[s]}),
-             "history filepath": term_wrap(hash_history),
+             "cd season patch": term_wrap(cd),
+             "maps season": term_wrap(maps),
+             "maps season patch": term_wrap(maps),
              "hash season patch filepath": term_wrap(hash_of),
-             "first filepath": term_wrap(first_release),
+             "first filepath": term_wrap(first_patch),
+             "history filepath": term_wrap(hash_history),
              "regen": term_wrap(regen_archive_hashfiles)}
     # ^ {"tool *args": ("description", function)}
 
@@ -320,4 +379,5 @@ if __name__ == "__main__":
                     use[tool_variant](*args)
                 except Exception as exc:
                     print(f"! ERROR ! {exc!r}")
+                    raise exc
     print_c("-===- LOGGED OUT OF ARCHIVE TERMINAL -===-", "cyn")
