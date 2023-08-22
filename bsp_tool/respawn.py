@@ -246,7 +246,7 @@ class RespawnBsp(valve.ValveBsp):
                 external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
                 if LUMP.name == "GAME_LUMP":
                     with open(external_lump_filename, "wb") as bsp_lump_file:
-                        raw_external_lump = self.external.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
+                        raw_external_lump = self.external.GAME_LUMP.as_bytes(current_offset)
                         bsp_lump_file.write(raw_external_lump)
                 elif not hasattr(self.external, LUMP.name):  # unopened, no changes
                     shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)

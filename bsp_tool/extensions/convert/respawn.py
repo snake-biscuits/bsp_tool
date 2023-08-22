@@ -1,8 +1,8 @@
 import os
 
-from ..branches.respawn import titanfall as r1
-from ..branches.respawn import titanfall2 as r2
-from ..branches.vector import vec3
+from ...branches.respawn import titanfall as r1
+from ...branches.respawn import titanfall2 as r2
+from ...branches.vector import vec3
 
 
 def titanfall_to_titanfall2(r1_bsp, outdir="./"):
@@ -25,12 +25,6 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     # LightProbeRefs
     new_lprs = [r2.LightProbeRef(**{a: getattr(r, a) for a in r.__slots__}) for r in r1_bsp.LIGHTPROBE_REFERENCES]
     r1_bsp.LIGHTPROBE_REFERENCES = new_lprs
-    # Meshes
-    for i, mesh in enumerate(r1_bsp.MESHES):
-        mesh.first_vertex = 0
-        mesh.num_vertices = 0
-        mesh.unknown = [0] * 6
-        r1_bsp.MESHES[i] = mesh
     # ShadowEnvironment
     light_env = [e for e in r1_bsp.ENTITIES if e["classname"] == "light_environment"][0]
     pitch, yaw, roll = map(float, light_env.get("angles", "0 0 0").split())
@@ -45,20 +39,25 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     # Entities
     trigger_ents = [e for e in r1_bsp.ENTITIES if e["classname"].startswith("trigger_")]
     # TODO: update trigger flags instead
+    # TODO: replace trigger models w/ entity brush definitions
     for e in trigger_ents:
         r1_bsp.ENTITIES.remove(e)
     del trigger_ents
     # game lump
     r1_bsp.GAME_LUMP.headers["sprp"].version = 13
     old_sprp = r1_bsp.GAME_LUMP.sprp
-    raw_sprp_head = old_sprp.as_bytes()[:len(old_sprp.model_names) * 128 + 12]
-    new_sprp = r2.GameLump_SPRP(raw_sprp_head + b"\0" * 8, r2.StaticPropv13)
+    new_sprp = r2.GameLump_SPRPv13()
+    new_sprp.model_names = old_sprp.model_names
+    new_sprp.unknown_1 = old_sprp.unknown_1
+    new_sprp.unknown_2 = old_sprp.unknown_2
 
     def upgrade_prop(v12_prop):
+        """copy all attrs except unknown & lighting_origin"""
         d = {a: getattr(v12_prop, a) for a in r2.StaticPropv13.__slots__ if a not in ("unknown", "lighting_origin")}
+        # TODO: typecasts
         return r2.StaticPropv13(**d)
 
-    # new_sprp.props = [upgrade_prop(p) for p in old_sprp.props]
+    new_sprp.props = list(map(upgrade_prop, old_sprp.props))
     r1_bsp.GAME_LUMP.sprp = new_sprp
     # save changes
     # NOTE: will copy any .bsp_lump & .ent files attached to r1_bsp
