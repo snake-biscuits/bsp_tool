@@ -314,7 +314,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     __slots__ = ["origin", "angles", "scale", "model_name", "solid_mode", "flags",
                  "unknown", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
-    _format = "7fH2B4b4f8b2H"  # 64 bytes
+    _format = "7fH2B4b4f4b4B2H"  # 64 bytes
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 4,
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],

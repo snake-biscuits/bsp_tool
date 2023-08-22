@@ -943,7 +943,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
                  "solid_mode", "flags", "skin", "cubemap", "fade_distance",
                  "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
                  "diffuse_modulation", "scale", "disable_x360", "collision_flags"]
-    _format = "6f3H2B2i6f8Bfi2H"
+    _format = "6f3H2B2i6f4b4Bfi2H"
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
