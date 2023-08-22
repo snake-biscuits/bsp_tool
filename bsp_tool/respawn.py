@@ -219,15 +219,15 @@ class RespawnBsp(valve.ValveBsp):
                     # each .ent file also has a null byte at the very end
 
     def save_as(self, filename: str):
-        # NOTE: the compiler has a fixed order, we should probably refer to that
+        # lumps -> bytes
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
-        # ^ {"lump.name": LumpHeader}
-        # NOTE: messes up a little on empty lumps, so we can't get an exact 1:1 copy /;
-        # -- the games load resaved maps just fine tho
+        # ^ ["LUMP.name"]
         raw_lumps: Dict[str, bytes] = dict()
-        # ^ {"LUMP.name": b"raw lump data]"}
+        # ^ {"LUMP.name": b"raw lump data"}
         for LUMP in self.branch.LUMP:
+            if LUMP.name == "GAME_LUMP":
+                continue  # need header.offset before generating
             try:
                 lump_bytes = self.lump_as_bytes(LUMP.name)
             except Exception as exc:
@@ -237,72 +237,53 @@ class RespawnBsp(valve.ValveBsp):
                 raw_lumps[LUMP.name] = lump_bytes
         # recalculate headers
         current_offset = 16 + (16 * 128)
-        signature = self.signature + b"\0" * (4 - len(self.signature) % 4)  # pad
-        current_offset += len(signature)
+        if len(self.signature) % 4 != 0:  # pad signature
+            self.signature += b"\0" * (4 - len(self.signature) % 4)
+        current_offset += len(self.signature)
         headers = dict()
-        # NOTE: 50.1 / 49.1 rBSP (apex_legends) still have lump offsets, just only headers in the .bsp
         for LUMP in lump_order:
-            if LUMP.name in self.external.headers:
-                external_lump_filename = f"{os.path.basename(filename)}.{LUMP.value:04x}.bsp_lump"
-                if LUMP.name == "GAME_LUMP":
-                    with open(external_lump_filename, "wb") as bsp_lump_file:
-                        raw_external_lump = self.external.GAME_LUMP.as_bytes(current_offset)
-                        bsp_lump_file.write(raw_external_lump)
-                elif not hasattr(self.external, LUMP.name):  # unopened, no changes
-                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
-                else:
-                    with open(external_lump_filename, "wb") as bsp_lump_file:
-                        raw_external_lump = self.external.lump_as_bytes(LUMP.name)
-                        bsp_lump_file.write(raw_external_lump)
-            if LUMP.name not in raw_lumps:  # lump is not present in bsp
-                version = self.headers[LUMP.name].version  # PHYSICS_LEVEL needs version preserved
-                headers[LUMP.name] = self.branch.LumpHeader(current_offset, 0, version, 0)
-                continue
-            # wierd hack to align unused lump offsets correctly
-            offset = current_offset
-            length = len(raw_lumps[LUMP.name])
-            version = self.headers[LUMP.name].version
-            fourCC = 0  # fourCC is always 0 because we aren't compressing
-            header = self.branch.LumpHeader(offset, length, version, fourCC)
-            headers[LUMP.name] = header  # recorded for noting padding
-            current_offset += length
-            # pad to start at the next multiple of 4 bytes
-            # TODO: note the padding so we can remove it when writing .bsp_lump
-            if current_offset % 4 != 0:
-                current_offset += 4 - current_offset % 4
+            if LUMP.name == "GAME_LUMP" and hasattr(self, "GAME_LUMP"):  # generate
+                raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(current_offset)
+            if LUMP.name not in raw_lumps:  # lump is empty
+                version = self.headers[LUMP.name].version  # preserve PHYSICS_LEVEL version
+                header = self.branch.LumpHeader(current_offset, 0, version, 0)
+            else:  # lump has data
+                offset = current_offset
+                length = len(raw_lumps[LUMP.name])
+                version = self.headers[LUMP.name].version
+                fourCC = 0  # fourCC is always 0 (no LZMA lump compression)
+                header = self.branch.LumpHeader(offset, length, version, fourCC)
+                current_offset += length
+                if current_offset % 4 != 0:  # pad
+                    current_offset += 4 - current_offset % 4
+            headers[LUMP.name] = header
         del current_offset
-        # set GAME_LUMP offsets
-        if "GAME_LUMP" in raw_lumps:
-            raw_lumps["GAME_LUMP"] = self.GAME_LUMP.as_bytes(headers["GAME_LUMP"].offset)
-        # make file
+        # write to file(s)
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         # TODO: close self.file if overwriting
         outfile = open(filename, "wb")
         bsp_version = self.bsp_version
-        if isinstance(self.bsp_version, tuple):
+        if isinstance(self.bsp_version, tuple):  # Apex Legends Season 10+
             bsp_version = bsp_version[0] + bsp_version[1] << 16
         _format = "4s3I" if self.endianness == "little" else ">4s3I"
         outfile.write(struct.pack(_format, self.file_magic, bsp_version, self.revision, 127))
-        # write headers
         for LUMP in self.branch.LUMP:
             outfile.write(headers[LUMP.name].as_bytes())
-        outfile.write(signature)
+        outfile.write(self.signature)
         # write lump contents (cannot be done until headers allocate padding)
-        for LUMP in lump_order:
-            if LUMP.name not in raw_lumps:
-                continue
-            # write external lump
-            if LUMP.name in self.external.headers:
-                external_lump = f"{filename}.{LUMP.value:04x}.bsp_lump"
-                if not hasattr(self.external, LUMP.name):
-                    shutil.copy()
-                with open(external_lump, "wb") as out_lumpfile:
-                    out_lumpfile.write(raw_lumps[LUMP.name])
-            else:  # write lump to file
+        for LUMP in [L for L in lump_order if L.name in raw_lumps]:
+            if not isinstance(self.bsp_version, tuple):  # pre Apex Season 10+
                 padding_length = headers[LUMP.name].offset - outfile.tell()
-                if padding_length > 0:  # NOTE: padding_length should not exceed 3
+                if padding_length > 0:  # pad previous lump
                     outfile.write(b"\0" * padding_length)
-                outfile.write(raw_lumps[LUMP.name])
+                outfile.write(raw_lumps[LUMP.name])  # write lump
+            if LUMP.name in self.external.headers:  # .bsp_lump
+                external_lump_filename = f"{filename}.{LUMP.value:04x}.bsp_lump"
+                if not hasattr(self.external, LUMP.name):  # no edits
+                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
+                else:
+                    with open(external_lump_filename, "wb") as out_lumpfile:
+                        out_lumpfile.write(raw_lumps[LUMP.name])
         # final padding
         end = outfile.tell()
         padding_length = 0
@@ -317,12 +298,10 @@ class RespawnBsp(valve.ValveBsp):
                 continue
             ent_filename = f"{os.path.splitext(filename)[0]}_{ent_variant}.ent"
             with open(ent_filename, "wb") as ent_file:
-                LUMP_name = f"ENTITIES_{ent_variant}"
-                # NOTE: the default .ent header given here only work for titanfall & titanfall2
-                # -- apex_legends branch requires a model count f"ENTITIES02 {num_models=}"
+                ent_LUMP_name = f"ENTITIES_{ent_variant}"
+                header = self.entity_headers.get(ent_LUMP_name, "ENTITIES01").encode("ascii")
+                # NOTE: the default .ent header will only work for titanfall & titanfall2
+                # -- apex_legends(13) requires a model count: f"ENTITIES02 {num_models=}"
                 # -- the `num_models` value appears to be for entities across all .ent files
                 # NOTE: so far `prop_*` entities have only been observed in `*_script.ent`
-                header = self.entity_headers.get(LUMP_name, "ENTITIES01").encode("ascii")
-                ent_file.write(header)
-                ent_file.write(b"\n")
-                ent_file.write(getattr(self, LUMP_name).as_bytes())
+                ent_file.write(header + b"\n" + getattr(self, ent_LUMP_name).as_bytes())
