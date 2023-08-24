@@ -32,6 +32,8 @@
      + saved by `.save_as`
      + parser in `extensions.compiler_signature`
  * Moved `valve_physics` to `valve.physics`
+ * RespawnBsp `.save_as()` can now skip `.bsp_lump`
+ * `respawn.ExternalLumpManager` now handles `.bsp_lump` saving
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser

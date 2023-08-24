@@ -111,23 +111,21 @@ class ExternalLumpManager:
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """based on base.Bsp.lump_as_bytes()"""
-        # NOTE: LumpClasses are derived from branch, not lump data!
-        if lump_name in self.loading_errors:
-            # opened file, but failed to parse
-            assert isinstance(getattr(self, lump_name), lumps.ExternalRawBspLump), "idk how this happened"
+        if lump_name in self.loading_errors:  # failed to parse
+            assert isinstance(getattr(self, lump_name), lumps.ExternalRawBspLump)
             return bytes(getattr(self, lump_name))
-        if lump_name in self.headers and not hasattr(self, lump_name):
-            # found file, but haven't opened
+        # NOTE: lump_as_bytes wont mess with "edit detection"
+        if lump_name in self.headers and not hasattr(self, lump_name):  # exists, but unedited
             with open(self.headers[lump_name].filename, "rb") as bsp_lump_file:
                 return bsp_lump_file.read()
         lump_entries = getattr(self, lump_name)
-        # NOTE: changing the version won't convert the format, but we respect the header version
+        # NOTE: we assume the contents of lumps match what the header & branch say they should be
         lump_version = self.headers[lump_name].version
         all_lump_classes = {**self.branch.BASIC_LUMP_CLASSES,
                             **self.branch.LUMP_CLASSES,
                             **self.branch.SPECIAL_LUMP_CLASSES}
         if lump_name in all_lump_classes and lump_name != "GAME_LUMP":
-            if lump_version not in all_lump_classes[lump_name]:
+            if lump_version not in all_lump_classes[lump_name]:  # raw (no LumpClass)
                 return bytes(lump_entries)
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
             BasicLumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]
@@ -140,10 +138,22 @@ class ExternalLumpManager:
         elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
             raw_lump = lump_entries.as_bytes()
         elif lump_name == "GAME_LUMP":
-            raw_lump = lump_entries.as_bytes()
+            raw_lump = lump_entries.as_bytes(lump_offset=self.headers["GAME_LUMP"].offset)
         else:  # assume lump_entries is RawBspLump
             raw_lump = bytes(lump_entries)
         return raw_lump
+
+    def save_lump(self, bsp_filename: str, lump_name: str):
+        if lump_name not in self.external.headers:
+            raise AttributeError(f"no {lump_name} lump to save!")
+        LUMP = getattr(self.branch.LUMP, lump_name)
+        external_lump_filename = f"{bsp_filename}.{LUMP.value:04x}.bsp_lump"
+        if not hasattr(self.external, LUMP.name):  # no edits
+            shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
+        else:
+            raw_lump = self.lump_as_bytes(lump_name)
+            with open(external_lump_filename, "w") as bsp_lump_file:
+                bsp_lump_file.write(raw_lump)
 
 
 class RespawnBsp(valve.ValveBsp):
@@ -218,7 +228,7 @@ class RespawnBsp(valve.ValveBsp):
                     setattr(self, LUMP_name, shared.Entities.from_bytes(ent_file.read()))
                     # each .ent file also has a null byte at the very end
 
-    def save_as(self, filename: str):
+    def save_as(self, filename: str, no_bsp_lump: bool = False):
         # lumps -> bytes
         lump_order = sorted([L for L in self.branch.LUMP],
                             key=lambda L: (self.headers[L.name].offset, self.headers[L.name].length))
@@ -270,20 +280,20 @@ class RespawnBsp(valve.ValveBsp):
         for LUMP in self.branch.LUMP:
             outfile.write(headers[LUMP.name].as_bytes())
         outfile.write(self.signature)
+        # copy GameLump offset to external header
+        old_eglh = self.external.headers["GAME_LUMP"]
+        self.external.headers["GAME_LUMP"] = ExternalLumpHeader(headers["GAME_LUMP"].offset, *old_eglh[1:])
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in [L for L in lump_order if L.name in raw_lumps]:
+            # write INTERNAL .bsp lump
             if not isinstance(self.bsp_version, tuple):  # pre Apex Season 10+
                 padding_length = headers[LUMP.name].offset - outfile.tell()
                 if padding_length > 0:  # pad previous lump
                     outfile.write(b"\0" * padding_length)
-                outfile.write(raw_lumps[LUMP.name])  # write lump
-            if LUMP.name in self.external.headers:  # .bsp_lump
-                external_lump_filename = f"{filename}.{LUMP.value:04x}.bsp_lump"
-                if not hasattr(self.external, LUMP.name):  # no edits
-                    shutil.copyfile(self.external.headers[LUMP.name].filename, external_lump_filename)
-                else:
-                    with open(external_lump_filename, "wb") as out_lumpfile:
-                        out_lumpfile.write(raw_lumps[LUMP.name])
+                outfile.write(raw_lumps[LUMP.name])
+            # write EXTERNAL .bsp_lump
+            if not no_bsp_lump and LUMP.name in self.external.headers:
+                self.external.save_lump(filename, LUMP.name)
         # final padding
         end = outfile.tell()
         padding_length = 0
