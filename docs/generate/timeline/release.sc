@@ -4,7 +4,7 @@
 newsheet "Releases"
 movetosheet "Releases"
 offscr_sc_cols 0
-offscr_sc_rows 17
+offscr_sc_rows 8
 nb_frozen_rows 0
 nb_frozen_cols 0
 nb_frozen_screenrows 0
@@ -112,12 +112,18 @@ fmt C17 "d%Y-%m-%d"
 leftstring D17 = "PC"
 leftstring A18 = "Infinity Ward"
 leftstring B18 = "Call of Duty: Dawnville Demo"
+let C18 = @dts(2003,6,6)
+fmt C18 "d%Y-%m-%d"
 leftstring D18 = "PC"
 leftstring A19 = "Infinity Ward"
 leftstring B19 = "Call of Duty: Burnville Demo"
+let C19 = @dts(2003,8,29)
+fmt C19 "d%Y-%m-%d"
 leftstring D19 = "PC"
 leftstring A20 = "Infinity Ward"
 leftstring B20 = "Call of Duty"
+let C20 = @dts(2003,10,29)
+fmt C20 "d%Y-%m-%d"
 leftstring D20 = "PC"
 leftstring A21 = "Valve Software"
 leftstring B21 = "Ɖay of Defeat"
@@ -241,4 +247,4 @@ leftstring B42 = "Apex Legends"
 let C42 = @dts(2020,11,4)
 fmt C42 "d%Y-%m-%d"
 leftstring D42 = "PC (Steam)"
-goto D42
+goto C19
