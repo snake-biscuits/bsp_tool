@@ -5,15 +5,16 @@ from ...branches.respawn import titanfall2 as r2
 from ...branches.vector import vec3
 
 
-def titanfall_to_titanfall2(r1_bsp, outdir="./"):
-    # TODO: r1_bsp.external
-    # NOTE: just mutating the r1 bsp; too lazy to build & populate an r2 bsp
-    # NOTE: works best on r1o maps, no .bsp_lump edits yet
+def titanfall_to_titanfall2(r1_bsp, outdir: str = "./"):
+    # NOTE: just mutating the r1 bsp, too lazy to build & populate an r2 bsp
+    # NOTE: ignoring .bsp_lump, maps load fine in Northstar without them
+    # switch metadata to r2
+    print("Metadata")
     r1_bsp.bsp_version = r2.BSP_VERSION
-    r1_bsp.branch = r2  # need r2 script to look up LumpClasses for .lump_as_bytes
+    r1_bsp.branch = r2
     r1_bsp.headers = {r2.LUMP(getattr(r1.LUMP, L).value).name: h for L, h in r1_bsp.headers.items()}
-    # ^ lump names need to match branch script for .save_as to collect lumps
     # LIGHTMAP_DATA_*
+    print("Lightmaps")
     new_RTL = b""
     rtl_start, rtl_end = 0, 0
     for header in r1_bsp.LIGHTMAP_HEADERS:
@@ -23,9 +24,11 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
         rtl_start = rtl_end
     r1_bsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS = new_RTL
     # LightProbeRefs
+    print("LightProbeRefs")
     new_lprs = [r2.LightProbeRef(**{a: getattr(r, a) for a in r.__slots__}) for r in r1_bsp.LIGHTPROBE_REFERENCES]
     r1_bsp.LIGHTPROBE_REFERENCES = new_lprs
     # ShadowEnvironment
+    print("ShadowEnvironments")
     light_env = [e for e in r1_bsp.ENTITIES if e["classname"] == "light_environment"][0]
     pitch, yaw, roll = map(float, light_env.get("angles", "0 0 0").split())
     pitch = float(light_env.get("pitch", pitch))
@@ -37,13 +40,25 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     r1_bsp.SHADOW_ENVIRONMENTS = [shadow_env]
     light_env["lightEnvironmentIndex"] = "*0"
     # Entities
+    print("Entities")
+    # TODO: remove Models of deleted entities
     trigger_ents = [e for e in r1_bsp.ENTITIES if e["classname"].startswith("trigger_")]
-    # TODO: update trigger flags instead
-    # TODO: replace trigger models w/ entity brush definitions
-    for e in trigger_ents:
+    # glass causes crashes
+    breakable_ents = [e for e in r1_bsp.ENTITIES if e["classname"] in ("func_breakable", "func_breakable_surf")]
+    for e in (*trigger_ents, *breakable_ents):
+        # TODO: update triggers instead of deleting them
+        # TODO: replace models w/ brush definition in entity ("brush_X_plane_y" "A B C D" etc.)
         r1_bsp.ENTITIES.remove(e)
-    del trigger_ents
-    # game lump
+    del trigger_ents, breakable_ents
+    # gut .ain ents to until we can generate .ain without crashing
+    ain_entclasses = ("info_hint", "info_node", "info_node_safe_hint",
+                      *["info_node_cover_{x}" for x in ("crouch", "left", "right", "stand")])
+    ain_ents = [e for e in r1_bsp.ENTITIES_script if e["classname"] in ain_entclasses]
+    for e in ain_ents:
+        r1_bsp.ENTITIES_script.remove(e)
+    del ain_ents
+    # GameLump
+    print("GameLump (sprp)")
     r1_bsp.GAME_LUMP.headers["sprp"].version = 13
     old_sprp = r1_bsp.GAME_LUMP.sprp
     new_sprp = r2.GameLump_SPRPv13()
@@ -60,5 +75,6 @@ def titanfall_to_titanfall2(r1_bsp, outdir="./"):
     new_sprp.props = list(map(upgrade_prop, old_sprp.props))
     r1_bsp.GAME_LUMP.sprp = new_sprp
     # save changes
-    # NOTE: will copy any .bsp_lump & .ent files attached to r1_bsp
-    r1_bsp.save_as(os.path.join(outdir, r1_bsp.filename))
+    print("Saving changes...")
+    # NOTE: will copy any .ent files attached to r1_bsp; .bsp_lump is optional
+    r1_bsp.save_as(os.path.join(outdir, r1_bsp.filename), no_bsp_lump=True)
