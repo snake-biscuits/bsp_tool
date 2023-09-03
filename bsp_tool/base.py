@@ -111,16 +111,16 @@ class Bsp:
         # outfile.write(self.version.to_bytes(4, "little"))  # .bsp format version
         # for LUMP in self.branch.LUMP:
         #     pass  # calculate and write each header
-        #     # adapting each header to bytes could be hard
         # # write the contents of each lump
         # outfile.write(b"0001") # map revision
         # # write contents of lumps
 
     def save(self):
         # NOTE: save_as must copy all lumps into memory (w/ lump_as_bytes) and close self.file
-        # -- otherwise a write conflict will occur; backups are recommended anyway
+        # -- otherwise a write conflict will occur
+        # NOTE: you should really be making backups anyway
         self.save_as(os.path.join(self.folder, self.filename))
-        self._preload()  # reload file
+        self._preload()  # reload self.file
 
     def set_branch(self, branch: ModuleType):
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
