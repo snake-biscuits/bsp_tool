@@ -192,10 +192,12 @@ class Model(base.Struct):  # LUMP 13
 
 
 class Node(base.Struct):  # LUMP 4
-    plane: int  # index of Plane that splits this Node
+    plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
-    # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
-    bounds: List[List[int]]  # mins & maxs
+    # NOTE: -1 (leaf 1) terminates tree searches
+    bounds: List[vector.vec3]  # mins & maxs (uint16_t)
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int  # index of the first Face in this Node
     num_faces: int  # number of Faces in this Node after first_face
@@ -318,4 +320,4 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": Visibility}
 
 
-methods = [shared.worldspawn_volume, quake.vertices_of_face, quake.lightmap_of_face]
+methods = [shared.worldspawn_volume, quake.leaves_of_node, quake.lightmap_of_face, quake.vertices_of_face]

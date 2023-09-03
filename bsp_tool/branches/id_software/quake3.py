@@ -241,17 +241,18 @@ class GridLight(base.Struct):  # LUMP 15
 class Leaf(base.Struct):  # LUMP 4
     cluster: int  # index into Visibility
     area: int  # Areaportal Area index; used for server entity segregation?
-    mins: vector.vec3  # Bounding box
-    maxs: vector.vec3
+    bounds: List[vector.vec3]  # mins & maxs (int32_t)
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_leaf_face: int  # index into LeafFace lump
     num_leaf_faces: int  # number of LeafFaces in this Leaf
     first_leaf_brush: int  # index into LeafBrush lump
     num_leaf_brushes: int  # number of LeafBrushes in this Leaf
-    __slots__ = ["cluster", "area", "mins", "maxs", "first_leaf_face",
+    __slots__ = ["cluster", "area", "bounds", "first_leaf_face",
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes"]
     _format = "12i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
 class Lightmap(list):  # LUMP 14
@@ -279,23 +280,32 @@ class Lightmap(list):  # LUMP 14
 
 
 class Model(base.Struct):  # LUMP 7
-    mins: List[float]  # Bounding box
-    maxs: List[float]
+    bounds: List[vector.vec3]
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_face: int  # index into Face lump
     num_faces: int  # number of Faces after first_face included in this Model
     first_brush: int  # index into Brush lump
     num_brushes: int  # number of Brushes after first_brush included in this Model
-    __slots__ = ["mins", "maxs", "first_face", "num_faces", "first_brush", "num_brushes"]
+    __slots__ = ["bounds", "first_face", "num_faces", "first_brush", "num_brushes"]
     _format = "6f4i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Node(base.Struct):  # LUMP 3
-    plane: int  # index into Plane lump; the plane this node was split from the bsp tree with
-    child: List[int]  # two indices; into the Node lump if positive, the Leaf lump if negative
-    __slots__ = ["plane", "child", "mins", "maxs"]
+    plane: int  # Plane that splits this Node (hence front-child, back-child)
+    children: List[int]  # +ve Node, -ve Leaf
+    # NOTE: -1 (leaf 1) terminates tree searches
+    bounds: List[vector.vec3]  # mins & maxs (uint16_t)
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
+    # NOTE: bounds are generous, rounding up to the nearest 16 units
+    __slots__ = ["plane", "children", "bounds"]
     _format = "9i"
-    _arrays = {"child": [*"ab"], "mins": [*"xyz"], "maxs": [*"xyz"]}
+    _arrays = {"children": ["front", "back"],
+               "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
 class Plane(base.Struct):  # LUMP 2
@@ -304,6 +314,7 @@ class Plane(base.Struct):  # LUMP 2
     __slots__ = ["normal", "distance"]
     _format = "4f"
     _arrays = {"normal": [*"xyz"]}
+    _classes = {"normal": vector.vec3}
 
 
 class Texture(base.Struct):  # LUMP 1
@@ -401,4 +412,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
     raise NotImplementedError()
 
 
-methods = [shared.worldspawn_volume]
+methods = [quake.leaves_of_node, shared.worldspawn_volume]

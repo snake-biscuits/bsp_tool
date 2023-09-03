@@ -177,17 +177,6 @@ class Model(base.Struct):  # LUMP 27
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
 
 
-class Node(base.Struct):  # LUMP 20
-    plane: int  # index of Plane that splits this Node
-    children: List[int]  # likely -ve for Leaves
-    # bounds
-    mins: List[int]
-    maxs: List[int]
-    __slots__ = ["plane", "children", "mins", "maxs"]
-    _format = "9i"
-    _arrays = {"children": 2, "mins": [*"xyz"], "maxs": [*"xyz"]}
-
-
 class Occluder(base.Struct):  # LUMP 12
     first_occluder_plane: int  # index into the OccluderPlane lump
     num_occluder_planes: int   # number of OccluderPlanes after first_occluder_plane in this Occluder
@@ -263,7 +252,7 @@ LUMP_CLASSES = {
                 "LIGHTS":             Light,
                 "LIGHTMAPS":          Lightmap,
                 # "MODELS":             Model,
-                "NODES":              Node,
+                "NODES":              quake3.Node,
                 # "OCCLUDERS":          Occluder,
                 "OCCLUDER_EDGES":     quake.Edge,
                 # "PATCH_COLLISION":    PatchCollision,
@@ -275,4 +264,4 @@ LUMP_CLASSES = {
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
-methods = [shared.worldspawn_volume]
+methods = [quake.leaves_of_node, shared.worldspawn_volume]

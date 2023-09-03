@@ -7,7 +7,7 @@ import itertools
 import json
 import math
 import struct
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 from .. import base
 from .. import shared  # special lumps
@@ -197,8 +197,8 @@ class Model(base.Struct):  # LUMP 14
     # bounds.maxs: vector.vec3
     origin: vector.vec3
     # headnode[MAX_MAP_HULLS]:
-    first_node: int  # first node in NODES lumps
-    clip_nodes: List[int]  # 1st & second CLIP_NODES indices
+    first_node: int  # top Node of this Model
+    clip_nodes: List[int]  # indices into ClipNodes
     unused_node: int  # always 0
     num_leaves: int  # "not counting the solid leaf 0"
     first_face: int  # index to the first Face in this Model
@@ -214,17 +214,18 @@ class Model(base.Struct):  # LUMP 14
 class Node(base.Struct):  # LUMP 5
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
-    # NOTE: -1 (leaf 0) is a dummy leaf & terminates tree searches
-    bounds: List[vector.vec3]  # uint16_t; very chunky
+    # NOTE: -1 (leaf 1) terminates tree searches
+    bounds: List[vector.vec3]  # mins & maxs (uint16_t)
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
+    # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int
     num_faces: int
     __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I8h2H"
     _arrays = {"children": ["front", "back"],
                "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
 class Plane(base.Struct):  # LUMP 1
@@ -398,6 +399,17 @@ def as_lightmapped_obj(bsp):
     # -- should use & remap <bsp filename>.lightmap_uvs.json to work with exported lightmap page
 
 
+def leaves_of_node(bsp, node_index: int) -> Set[int]:
+    node = bsp.NODES[node_index]
+    out = set()
+    for child in node.children:
+        if child < 0:
+            out.add(-child)
+        else:
+            out.update(bsp.leaves_of_node(child))
+    return out
+
+
 def lightmap_of_face(bsp, face_index: int, lightmap_scale: float = 16) -> Dict[Any]:
     # NOTE: if mapping onto a lightmap page you'll need to calculate a X&Y offset to fit this face into
     # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions/lightmaps.py
@@ -488,4 +500,5 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
 # -- probably split the brush tools of vmf_tool into it's own repo & utilise other repos for parsing?
 
 
-methods = [vertices_of_face, lightmap_of_face, as_lightmapped_obj, parse_vis, vertices_of_model]
+methods = [as_lightmapped_obj, leaves_of_node, lightmap_of_face,
+           parse_vis, vertices_of_face, vertices_of_model]

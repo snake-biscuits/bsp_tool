@@ -621,12 +621,13 @@ class Model(base.Struct):  # LUMP 14
 
 
 class Node(base.Struct):  # LUMP 5
-    plane: int  # Plane that splits this Node
-    children: List[int]  # 2 indices; Node if positive, Leaf if negative
-    # TODO: match children to sides of Plane
-    bounds: List[vector.vec3]  # uint16_t, very blocky
+    plane: int  # Plane that splits this Node (hence front-child, back-child)
+    children: List[int]  # +ve Node, -ve Leaf
+    # NOTE: -1 (leaf 1) terminates tree searches
+    bounds: List[vector.vec3]  # mins & maxs (uint16_t)
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
+    # NOTE: bounds are generous, rounding up to the nearest 16 units
     first_face: int  # index into Face lump
     num_faces: int  # number of Faces after first_face in this Node
     area: int  # index into Area lump, if all children are in the same area, else -1
@@ -1210,4 +1211,4 @@ def textures_of_brush(bsp, brush_index: int) -> List[str]:
     return sorted(out)
 
 
-methods = [vertices_of_face, vertices_of_displacement, textures_of_brush, shared.worldspawn_volume]
+methods = [quake.leaves_of_node, textures_of_brush, vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]

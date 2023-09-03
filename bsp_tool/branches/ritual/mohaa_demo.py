@@ -105,8 +105,9 @@ class BrushSide(base.MappedArray):
 class Leaf(base.Struct):  # LUMP 4
     cluster: int  # index into VisData
     area: int
-    mins: vector.vec3  # Bounding box
-    maxs: vector.vec3
+    bounds: List[vector.vec3]  # mins & maxs (int32_t)
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_leaf_face: int  # index into LeafFace lump
     num_leaf_faces: int  # number of LeafFaces in this Leaf
     first_leaf_brush: int  # index into LeafBrush lump
@@ -114,12 +115,12 @@ class Leaf(base.Struct):  # LUMP 4
     padding: List[int]
     first_static_model: int  # index into StaticModel lump
     num_static_models: int  # number of StaticModels in this Leaf
-    __slots__ = ["cluster", "area", "mins", "maxs", "first_leaf_face",
+    __slots__ = ["cluster", "area", "bounds", "first_leaf_face",
                  "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes",
                  "padding", "first_static_model", "num_static_models"]  # new
     _format = "16i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "padding": 2}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "padding": 2}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Texture(base.Struct):  # LUMP 0
@@ -135,17 +136,18 @@ class Texture(base.Struct):  # LUMP 0
 
 class Unknown14(base.Struct):  # LUMP 14
     """reminds me of respawn.titanfall2.ShadowEnvironment"""
-    mins: vector.vec3
-    maxs: vector.vec3
+    bounds: List[vector.vec3]  # mins & maxs (int32_t)
+    # bounds.mins: vector.vec3
+    # bounds.maxs: vector.vec3
     first_unknown_1: int
     num_unknown_1: int
     first_unknown_2: int
     num_unknown_2: int
-    __slots__ = ["mins", "maxs", "first_unknown_1", "num_unknown_1",
+    __slots__ = ["bounds", "first_unknown_1", "num_unknown_1",
                  "first_unknown_2", "num_unknown_2"]
     _format = "6f4i"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 # {"LUMP_NAME": LumpClass}

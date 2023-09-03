@@ -121,7 +121,6 @@ SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 
 
 # branch exclusive methods, in alphabetical order:
-# ...
 
 
-methods = [shared.worldspawn_volume]
+methods = [quake.leaves_of_node, shared.worldspawn_volume]
