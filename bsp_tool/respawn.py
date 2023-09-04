@@ -53,9 +53,9 @@ class ExternalLumpManager:
             lump_header = ExternalLumpHeader(*bsp.headers[LUMP.name], lump_filename, lump_filesize)
             self.headers[LUMP.name] = lump_header
         # attach methods
-        for method in getattr(self.branch, "methods", list()):
+        for method_name, method in getattr(self.branch, "methods", dict()).items():
             method = MethodType(method, self)
-            setattr(self, method.__name__, method)
+            setattr(self, method_name, method)
 
     __repr__ = base.Bsp.__repr__
 
