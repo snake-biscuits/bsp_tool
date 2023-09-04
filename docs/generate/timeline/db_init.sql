@@ -47,10 +47,11 @@ CREATE TABLE IF NOT EXISTS Release (
     FOREIGN KEY (platform) REFERENCES Platform (id)
 );
 
-CREATE TABLE IF NOT EXISTS Delisting (
-    id      INTEGER PRIMARY KEY,
-    release INTEGER NOT NULL,
-    day     DATE    NOT NULL,
+-- link to records of release & delisting dates
+CREATE TABLE IF NOT EXISTS ReleaseCitation (
+    id        INTEGER       PRIMARY KEY,
+    release   INTEGER       NOT NULL,
+    citation  VARCHAR(4096) NOT NULL,
     FOREIGN KEY (release) REFERENCES Release (id)
 );
 
