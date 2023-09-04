@@ -107,4 +107,4 @@ GAME_LUMP_HEADER = vindictus69.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {6: GameLump_SPRPv6}}
 
 
-methods = [*vindictus69.methods]
+methods = vindictus69.methods.copy()

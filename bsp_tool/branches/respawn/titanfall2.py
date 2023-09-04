@@ -390,4 +390,4 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {13: GameLump_SPRPv13}}
 
 
-methods = [*titanfall.methods]
+methods = titanfall.methods.copy()

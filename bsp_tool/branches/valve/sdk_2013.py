@@ -178,4 +178,4 @@ GAME_LUMP_CLASSES = {"sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({10: GameLump_SPRPv10,
                                   11: GameLump_SPRPv11})
 
-methods = [*alien_swarm.methods]
+methods = alien_swarm.methods.copy()

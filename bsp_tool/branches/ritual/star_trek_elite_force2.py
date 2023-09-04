@@ -83,4 +83,4 @@ LUMP_CLASSES = star_trek_elite_force2_demo.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = star_trek_elite_force2_demo.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*star_trek_elite_force2_demo.methods]
+methods = star_trek_elite_force2_demo.methods.copy()

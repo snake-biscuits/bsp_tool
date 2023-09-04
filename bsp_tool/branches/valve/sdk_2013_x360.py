@@ -71,4 +71,4 @@ GAME_LUMP_CLASSES["sprp"].update({8:  GameLump_SPRPv8_x360,
                                   11: GameLump_SPRPv11_x360})
 
 
-methods = [*orange_box_x360.methods]
+methods = orange_box_x360.methods.copy()

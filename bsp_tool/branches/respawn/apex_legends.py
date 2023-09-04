@@ -622,3 +622,4 @@ methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
            titanfall.shadow_meshes_as_obj,
            get_TextureData_SurfaceName, get_Mesh_SurfaceName,
            debug_TextureData, debug_unused_SurfaceNames, debug_Mesh_stats]
+methods = {m.__name__: m for m in methods}

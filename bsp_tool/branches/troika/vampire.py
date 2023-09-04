@@ -66,4 +66,4 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
 
 
-methods = [*source.methods]
+methods = source.methods.copy()

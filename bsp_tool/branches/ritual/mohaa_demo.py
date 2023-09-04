@@ -161,4 +161,4 @@ LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()
 
-methods = [shared.worldspawn_volume]
+methods = fakk2.methods.copy()

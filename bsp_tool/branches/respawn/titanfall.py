@@ -1287,3 +1287,4 @@ methods = [shared.worldspawn_volume, search_all_entities,  # entities
            shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,  # more geo
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,  # debug
            portals_as_prt]  # vis
+methods = {m.__name__: m for m in methods}

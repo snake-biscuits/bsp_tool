@@ -84,4 +84,4 @@ LUMP_CLASSES.pop("UNKNOWN_14")
 
 SPECIAL_LUMP_CLASSES = mohaa_demo.SPECIAL_LUMP_CLASSES.copy()
 
-methods = [*mohaa_demo.methods]
+methods = mohaa_demo.methods.copy()

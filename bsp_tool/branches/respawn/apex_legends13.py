@@ -181,4 +181,4 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {51: titanfall2.GameLump_SPRPv13}}
 
 
-methods = [*apex_legends.methods]
+methods = apex_legends.methods.copy()

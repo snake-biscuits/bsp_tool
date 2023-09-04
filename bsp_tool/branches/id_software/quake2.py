@@ -321,3 +321,4 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
 
 
 methods = [shared.worldspawn_volume, quake.leaves_of_node, quake.lightmap_of_face, quake.vertices_of_face]
+methods = {m.__name__: m for m in methods}

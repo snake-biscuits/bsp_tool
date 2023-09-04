@@ -211,4 +211,4 @@ LUMP_CLASSES.update({"LIGHT_GRID_HASH": quake3.GridLight,
 SPECIAL_LUMP_CLASSES = call_of_duty1.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*call_of_duty1.methods]
+methods = call_of_duty1.methods.copy()

@@ -48,4 +48,4 @@ LUMP_CLASSES = goldsrc.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*goldsrc.methods]
+methods = goldsrc.methods.copy()

@@ -145,4 +145,4 @@ LUMP_CLASSES.update({"BRUSH_SIDES":  BrushSide,
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*goldsrc.methods]
+methods = goldsrc.methods.copy()

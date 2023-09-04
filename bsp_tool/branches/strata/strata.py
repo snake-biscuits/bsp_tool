@@ -374,4 +374,4 @@ GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = {"sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
 
-methods = [*sdk_2013.methods]
+methods = sdk_2013.methods.copy()

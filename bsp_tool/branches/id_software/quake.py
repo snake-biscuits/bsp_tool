@@ -445,7 +445,7 @@ def lightmap_of_face(bsp, face_index: int, lightmap_scale: float = 16) -> Dict[A
     return out
 
 
-def parse_vis(bsp, leaf_index: int):
+def parse_vis(bsp, leaf_index: int) -> bytes:
     """grabs the vistree bytes for this leaf"""
     # NOTE: likely maps against the leaf list generated below
     # -- -1 .vis_offset leaves may only occur at the tail? unknown, further testing required
@@ -502,3 +502,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
 
 methods = [as_lightmapped_obj, leaves_of_node, lightmap_of_face,
            parse_vis, vertices_of_face, vertices_of_model]
+methods = {m.__name__: m for m in methods}

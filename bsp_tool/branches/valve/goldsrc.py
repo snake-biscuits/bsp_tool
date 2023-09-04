@@ -144,4 +144,4 @@ LUMP_CLASSES.update({"CLIP_NODES": ClipNode,
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*quake.methods]
+methods = quake.methods.copy()

@@ -109,4 +109,4 @@ GAME_LUMP_CLASSES = {"sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].pop(10)
 
 
-methods = [*sdk_2013.methods]
+methods = sdk_2013.methods.copy()

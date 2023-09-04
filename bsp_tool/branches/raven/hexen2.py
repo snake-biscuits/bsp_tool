@@ -3,6 +3,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import vector
 from ..id_software import quake
 
 
@@ -78,6 +79,7 @@ class Model(base.Struct):  # LUMP 14
     _format = "9f11i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"],
                "head_nodes": 8}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
@@ -88,4 +90,4 @@ LUMP_CLASSES.update({"MODELS": Model})
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*quake.methods]
+methods = quake.methods.copy()

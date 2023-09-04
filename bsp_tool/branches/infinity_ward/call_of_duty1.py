@@ -63,4 +63,4 @@ LUMP_CLASSES = call_of_duty1_demo.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = call_of_duty1_demo.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*call_of_duty1_demo.methods]
+methods = call_of_duty1_demo.methods.copy()

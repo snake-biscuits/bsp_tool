@@ -127,11 +127,10 @@ class Bsp:
         # branch is a "branch script" that has been imported into python
         # if writing your own "branch script", see branches/README.md for a guide
         if hasattr(self, "branch"):
-            for method in getattr(branch, "methods", list()):
-                delattr(self, method.__name__)
+            for method_name in getattr(branch, "methods", dict()):
+                delattr(self, method_name)
         self.branch = branch
         # attach methods
-        for method in getattr(branch, "methods", list()):
+        for method_name, method in getattr(branch, "methods", dict()).items():
             method = MethodType(method, self)
-            setattr(self, method.__name__, method)
-        # could we also attach static methods? class methods?
+            setattr(self, method_name, method)

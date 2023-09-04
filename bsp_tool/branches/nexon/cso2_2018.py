@@ -42,4 +42,4 @@ SPECIAL_LUMP_CLASSES = cso2.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_CLASSES = cso2.GAME_LUMP_CLASSES.copy()
 
 
-methods = [*cso2.methods]
+methods = cso2.methods.copy()

@@ -75,4 +75,4 @@ LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
 SPECIAL_LUMP_CLASSES = quake2.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*quake2.methods]
+methods = quake2.methods.copy()

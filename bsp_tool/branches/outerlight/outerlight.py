@@ -110,4 +110,4 @@ GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 GAME_LUMP_CLASSES = dict()
 
 
-methods = [*orange_box.methods]
+methods = orange_box.methods.copy()

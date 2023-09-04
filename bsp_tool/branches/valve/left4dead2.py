@@ -160,4 +160,4 @@ GAME_LUMP_CLASSES = {"sprp": left4dead.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({9: GameLump_SPRPv9})
 
 
-methods = [*left4dead.methods]
+methods = left4dead.methods.copy()

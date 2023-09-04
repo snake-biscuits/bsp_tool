@@ -36,4 +36,4 @@ LUMP_CLASSES = mohaa.LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES = mohaa.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*mohaa.methods]
+methods = mohaa.methods.copy()

@@ -67,4 +67,4 @@ GAME_LUMP_HEADER = x360.make_big_endian(titanfall.GAME_LUMP_HEADER)
 GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12_x360}}
 
 
-methods = [*titanfall.methods]
+methods = titanfall.methods.copy()

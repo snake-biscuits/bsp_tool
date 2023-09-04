@@ -128,4 +128,4 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = dict()
 
 
-methods = [*vindictus.methods]
+methods = vindictus.methods.copy()

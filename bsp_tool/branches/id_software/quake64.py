@@ -67,4 +67,4 @@ SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.update({"MIP_TEXTURES": MipTextureLump})
 
 
-methods = [*quake.methods]
+methods = quake.methods.copy()

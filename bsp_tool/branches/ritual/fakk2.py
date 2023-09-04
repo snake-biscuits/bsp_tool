@@ -124,3 +124,4 @@ SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 
 
 methods = [quake.leaves_of_node, shared.worldspawn_volume]
+methods = {m.__name__: m for m in methods}

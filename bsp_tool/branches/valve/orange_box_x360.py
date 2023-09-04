@@ -149,4 +149,4 @@ GAME_LUMP_CLASSES = {"sprp": {4:  GameLump_SPRPv4_x360,
                               10: GameLump_SPRPv10_x360}}
 
 
-methods = [*orange_box.methods]
+methods = orange_box.methods.copy()

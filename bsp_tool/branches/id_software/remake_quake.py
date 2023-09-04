@@ -64,4 +64,4 @@ LUMP_CLASSES.update({"LEAVES": Leaf,
 SPECIAL_LUMP_CLASSES = remake_quake_old.SPECIAL_LUMP_CLASSES.copy()
 
 
-methods = [*remake_quake_old.methods]
+methods = remake_quake_old.methods.copy()

@@ -147,4 +147,4 @@ GAME_LUMP_CLASSES["sprp"].update({8: GameLump_SPRPv8})
 # branch exclusive methods, in alphabetical order:
 
 
-methods = [*orange_box.methods]
+methods = orange_box.methods.copy()

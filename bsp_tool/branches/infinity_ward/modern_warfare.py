@@ -120,4 +120,4 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
 # NOTE: no mins & maxs in worldspawn?
-methods = []
+methods = dict()

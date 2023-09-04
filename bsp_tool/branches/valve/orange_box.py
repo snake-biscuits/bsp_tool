@@ -176,4 +176,4 @@ GAME_LUMP_CLASSES["sprp"].update({7:  GameLump_SPRPv10,  # 7*
                                   10: GameLump_SPRPv10})
 
 
-methods = [*source.methods]
+methods = source.methods.copy()

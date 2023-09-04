@@ -89,4 +89,4 @@ GAME_LUMP_HEADER = GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {6: source.GameLump_SPRPv6}}
 
 
-methods = [*orange_box.methods]
+methods = orange_box.methods.copy()

@@ -1212,3 +1212,4 @@ def textures_of_brush(bsp, brush_index: int) -> List[str]:
 
 
 methods = [quake.leaves_of_node, textures_of_brush, vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]
+methods = {m.__name__: m for m in methods}

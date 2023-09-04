@@ -413,3 +413,4 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
 
 
 methods = [quake.leaves_of_node, shared.worldspawn_volume]
+methods = {m.__name__: m for m in methods}

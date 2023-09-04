@@ -86,4 +86,5 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": quake3.Visibility}
 
 
-methods = [shared.worldspawn_volume]
+methods = [quake.leaves_of_node, shared.worldspawn_volume]
+methods = {m.__name__: m for m in methods}
