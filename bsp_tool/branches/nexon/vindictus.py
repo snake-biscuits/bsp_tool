@@ -1,7 +1,10 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
 """Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
 import enum
+from typing import List
 
+from .. import base
+from .. import vector
 from ..valve import source
 from . import vindictus69
 
@@ -91,7 +94,32 @@ class GameLump_SPRPv6(vindictus69.GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [
     StaticPropClass = source.StaticPropv6
 
 
-# TODO: GameLump_SPRPv7
+class StaticPropv7(base.Struct):
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    solid_mode: source.StaticPropCollision
+    flags: source.StaticPropFlags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    unknown: bytes  # seems to build on previous entry's unknown; could be indices
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    dx_level: List[int]  # unsure; might be unused
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "unknown",
+                 "forced_fade_scale", "dx_level"]
+    _format = "6f3H2Bi2f12sf2H"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "dx_level": ["min", "max"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+                "flags": source.StaticPropFlags}
+    # TODO: angles QAngle
+
+
+class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [version 7]
+    StaticPropClass = StaticPropv7
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -104,7 +132,8 @@ SPECIAL_LUMP_CLASSES = vindictus69.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = vindictus69.GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {6: GameLump_SPRPv6}}
+GAME_LUMP_CLASSES = {"sprp": {6: GameLump_SPRPv6,
+                              7: GameLump_SPRPv7}}
 
 
 methods = vindictus69.methods.copy()

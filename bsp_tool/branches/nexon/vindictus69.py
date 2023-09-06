@@ -363,7 +363,8 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {6: GameLump_SPRPv6}}
+GAME_LUMP_CLASSES = {"sprp": {5: source.GameLump_SPRPv5,
+                              6: GameLump_SPRPv6}}
 
 
 methods = orange_box.methods.copy()
