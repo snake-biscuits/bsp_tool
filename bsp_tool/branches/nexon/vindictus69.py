@@ -330,7 +330,7 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
     def as_bytes(self) -> bytes:
         assert all([isinstance(p, self.StaticPropClass) for p in self.props])
         return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n) for n in self.model_names],
+                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
                          int.to_bytes(len(self.leaves), 4, "little"),
                          *[struct.pack("H", L) for L in self.leaves],
                          int.to_bytes(len(self.scales), 4, "little"),
