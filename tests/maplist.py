@@ -21,7 +21,7 @@ installed_games: Dict[Tuple[str], List[str]]
 
 # TODO: generate by searching for gameinfo.txt files
 goldsrc_dirs = {
-        "Cry of Fear": ["cryoffear/maps"],  # 235 maps | 1.9 GB | Cry of Fear
+        "Cry of Fear/cryoffear": ["maps"],  # 235 maps | 1.9 GB | Cry of Fear
         **{f"Half-Life/{mod}": ["maps"] for mod in [
                         "blue_shift",    # 37 maps | 54 MB | Half-Life: Blue Shift
                         "cstrike",   # 25 maps | 81 MB | Counter-Strike
@@ -35,7 +35,7 @@ goldsrc_dirs = {
                         "ricochet",  # 3 maps | 2 MB | Ricochet
                         "tfc",       # 15 maps | 41 MB | Team Fortress: Classic
                         "valve"]},   # 115 maps | 188 MB | Half-Life
-        "Halfquake Trilogy": ["valve/maps"],  # 152 maps | 207 MB
+        "Halfquake Trilogy/valve": ["maps"],  # 152 maps | 207 MB
         "Sven Co-op": ["svencoop/maps",  # 107 maps | 521 MB
                        # "svencoop_addon/maps",  # 0 maps | 0 MB
                        # "svencoop_downloads/maps",  # 0 maps | 0 MB
@@ -44,32 +44,30 @@ goldsrc_dirs = {
 
 # TODO: generate by searching for gameinfo.txt files
 source_dirs = {
-         "Alien Swarm": ["swarm/maps"],  # 9 maps | 299 MB
-         "Alien Swarm Reactive Drop": ["reactivedrop/maps"],  # 53 maps | 1.3 GB
-         "Blade Symphony": ["berimbau/maps"],  # 21 maps | 1.0 GB
+         "Alien Swarm/swarm": ["maps"],  # 9 maps | 299 MB
+         "Alien Swarm Reactive Drop/reactivedrop": ["maps"],  # 53 maps | 1.3 GB
+         "Blade Symphony/berimbau": ["maps"],  # 21 maps | 1.0 GB
          "Contagion": ["contagion_sdk/losmuertos_tutorial/maps"],  # 1 map | 30 MB
-         "Counter-Strike Global Offensive": ["csgo/maps"],  # 38 maps | 5.9 GB
-         "counter-strike source": ["cstrike/maps",  # 20 maps | 237 MB
-                                   # "cstrike/download/maps"
-                                   ],
-         "day of defeat source": ["dod/maps"],  # 9 maps | 299 MB
+         "Counter-Strike Global Offensive/csgo": ["maps"],  # 38 maps | 5.9 GB
+         "counter-strike source/cstrike": ["maps"],  # 20 maps | 237 MB
+         "day of defeat source/dod": ["maps"],  # 9 maps | 299 MB
          "dayofinfamy": ["doi/maps"],  # 16 maps | 1.09 GB
          "Dino D-Day": ["dinodday/maps"],  # 14 maps | 434 MB
          "Double Action": ["dab/maps"],  # 10 maps | 255 MB
-         "EntropyZero2": ["entropyzero2/maps"],  # 72 maps | 1.58 GB
-         "EYE Divine Cybermancy Demo": ["EYE/maps"],  # 6 maps | 176 MB
+         "EntropyZero2/entropyzero2": ["maps"],  # 72 maps | 1.58 GB
+         "EYE Divine Cybermancy Demo/EYE": ["maps"],  # 6 maps | 176 MB
          "Fistful of Frags": ["fof/maps"],  # 39 maps | 1.68 GB
          "Fortress Forever": ["FortressForever/maps"],  # 22 maps | 618 MB
-         "G String": ["gstringv2/maps"],  # 76 maps | 2.49 GB | Seriously Impressive
-         "GarrysMod": ["garrysmod/maps"],  # 2 maps | 84 MB
-         "Half-Life 1 Source Deathmatch": ["hl1mp/maps"],  # 11 maps | 53 MB
+         "G String/gstringv2": ["maps"],  # 76 maps | 2.49 GB | Seriously Impressive
+         "GarrysMod/garrysmod": ["maps"],  # 2 maps | 84 MB
+         "Half-Life 1 Source Deathmatch/hl1mp": ["maps"],  # 11 maps | 53 MB
          **{f"half-life 2/{mod}": ["maps"] for mod in [
                          "ep2",          # HL2:EP2 |  22 maps | 703 MB
                          "episodic",     # HL2:EP1 |  20 maps | 554 MB
                          "hl1",          # HL:S    | 110 maps | 339 MB
                          "hl2",          # HL2     |  80 maps | 815 MB
                          "lostcoast"]},  # HL2:LC  |   4 maps | 101 MB
-         "half-life 2 deathmatch": ["hl2mp/maps"],  # 8 maps | 72 MB
+         "half-life 2 deathmatch/hl2mp": ["maps"],  # 8 maps | 72 MB
          "Half-Life 2 Update": ["hl2/maps"],  # 76 maps | 2.9 GB
          "Half-Life 2 VR": ["hl2/maps",  # 79 maps | 777 MB
                             "hlvr/maps"],  # 1 map | 7 MB
@@ -83,22 +81,22 @@ source_dirs = {
                            "left4dead2_dlc3/maps"],  # 21 maps | 481 MB
          "MINERVA": ["metastasis/maps"],  # 6 maps | 201 MB
          "Momentum Mod Playtest": ["momentum/maps"],  # 4 maps | 39 MB
-         "NEOTOKYO": ["neotokyosource/maps"],  # 24 maps | 303 MB
+         "NEOTOKYO/neotokyosource": ["maps"],  # 24 maps | 303 MB
          "nmrih": ["nmrih/maps"],  # 31 maps | 1.1 GB
-         "Portal": ["portal/maps"],  # 26 maps | 426 MB
+         "Portal/portal": ["maps"],  # 26 maps | 426 MB
          "Portal 2": ["portal2/maps",  # 106 maps | 2.7 GB
                       "portal2_dlc1/maps",  # 10 maps | 313 MB
                       "portal2_dlc2/maps"],  # 1 map | 687 KB
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
-         "SourceFilmmaker": ["game/tf/maps"],  # 71 maps | 3.3 GB
+         "SourceFilmmaker/game/tf": ["maps"],  # 71 maps | 3.3 GB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          # TODO: compile Tactical Intervention sample .vmfs
          "TacticalIntervention": ["maps"],  # 20 maps | 1.3 GB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 187 maps | 2.6 GB
          "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
-         "Vampire The Masquerade - Bloodlines": ["Vampire/maps"],  # 101 maps | 430 MB
-         "Zeno Clash Demo": ["zenozoik/maps"]}  # 20 maps | 16 MB
+         "Vampire The Masquerade - Bloodlines/Vampire": ["maps"],  # 101 maps | 430 MB
+         "Zeno Clash Demo/zenozoik": ["maps"]}  # 20 maps | 16 MB
 # ^ {"game_dir": ["map_dir"]}
 
 # TODO: steam_workshop_dirs
@@ -139,8 +137,8 @@ extracted_dirs = {
         "DDayNormandy": ["D-Day_ Normandy/dday/maps",  # 61 maps | 135 MB | .zip
                          "DDaynormandymaps-mappack/dday/maps"],  # 658 maps | 1.08 GB | .zip
         "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
-        "Hexen2": ["pak0/maps",  # 4 maps | 6 MB | .pak
-                   "pak1/maps"],  # 38 maps | 47 MB | .pak
+        "HexenII": ["pak0/maps",  # 4 maps | 6 MB | .pak
+                    "pak1/maps"],  # 38 maps | 47 MB | .pak
         "Nexuiz": ["maps"],  # 39 maps | 146 MB | .pk3
         "RTCW": ["mp_pak0.pk3/maps",  # 8 maps | 89 MB | .pk3
                  "mp_pakmaps0.pk3/maps",  # 1 map | 8 MB | .pk3
@@ -161,7 +159,6 @@ extracted_dirs = {
                 "pak0/maps/dm",  # 20 maps | 37 MB | .pak
                 "pak2/maps/dm",  # 19 maps | 35 MB | .pak
                 "pak3/maps/dm"],  # 5 maps | 8 MB | .pak
-        "Dreamcast/SoF": ["maps"],  # 117 maps | 171 MB | .gdi
         "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
                  "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
                  "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
@@ -188,7 +185,6 @@ extracted_dirs = {
                      "missionpack/pak0.pk3/maps",  # 21 maps | 150 MB | .pk3
                      # https://web.archive.org/web/20030207191220/http://www.interscope.com/quake/
                      "chronic/maps"],  # 1 map | 2.9 MB | .pk3
-        "Dreamcast/QuakeIII": ["maps"],  # 38 maps | 64 MB | .zip
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
@@ -204,8 +200,8 @@ extracted_dirs = {
                     "warfork-testing/basewf/maps"],  # 43 maps | 558 MB | awful dir tree
         "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # InfinityWardBsp
-        "CoD1Demo": ["burnville/maps",  # 1 map | 13 MB | .pk3
-                     "dawnville/maps"],  # 1 map | 16 MB | .pk3
+        "CoD1Demo/burnville": ["maps"],  # 1 map | 13 MB | .pk3
+        "CoD1Demo/dawnville": ["maps"],  # 1 map | 16 MB | .pk3
         "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
                  "maps/MP"],  # 16 maps | 229 MB | .pk3
         "CoD2": ["maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
@@ -222,7 +218,6 @@ extracted_dirs = {
         # GoldSrcBsp
         # https://www.moddb.com/games/james-bond-007-nightfire/downloads/alura-zoe
         "Nightfire": ["ROOT/maps"],  # 53 maps | 405 MB | .007
-        "Dreamcast/Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
         # ValveBsp
         "BlackMesa": ["maps"],  # 109 maps | 5.5 GB | .vpk
         "BloodyGoodTime": ["maps"],  # 3 maps | 124 MB | .vpk
@@ -242,7 +237,7 @@ extracted_dirs = {
         # https://gamebanana.com/members/submissions/sublog/1762428
         "HL2DM/patbytes": ["maps"],  # 46 maps | 895 MB | .7z
         "Infra": ["maps"],  # 49 maps | 5.5 GB | .vpk
-        "MeruBasu": ["shadowland/maps"],  # 29 maps | 315 MB | .apk
+        "Merubasu/shadowland": ["maps"],  # 29 maps | 315 MB | .apk
         # https://github.com/momentum-mod/BSPConversionLib
         "MomentumMod": ["chronic/maps",  # 1 map | 10 MB | .pk3 -> v25 VBSP
                         # http://nnsurf.site.nfoservers.com/Momentum/
@@ -270,7 +265,6 @@ extracted_dirs = {
         "Vindictus": ["hfs/2022/maps",  # 474 maps | 8.08 GB | .hfs
                       "Colhen_Mod_BSP (Private Server Version)"],  # 1 map | 23 MB | .zip
         "Vindictus/Client v1.69 EU": ["hfs/maps"],  # 279 maps | 4.30 GB | .hfs
-        "Xbox/Half-Life2": ["GameMedia/maps"],  # 90 maps | 415 MB | .iso
         # RespawnBsp
         "Titanfall": ["maps",  # 26 maps | 6.6 GB | .vpk
                       "depot/r1dev/game/r1/maps",  # 16 maps | 6.4 GB | .vpk
@@ -333,10 +327,10 @@ extracted_dirs = {
                                 "3dec19/depot/r5launch/game/r2/maps",  # 8 maps | 4.58 GB | .vpk
                                 "3dec19/depot/r5staging/game/r2/maps"],  # 6 maps | 3.00 GB | .vpk
         # season4:  Assimilation [4th Feb 2020]
-        "ApexLegends/season4": ["4feb20/maps"  # 9 maps | 5.44 GB | .vpk
+        "ApexLegends/season4": ["4feb20/maps",  # 9 maps | 5.44 GB | .vpk
                                 "4feb20/depot/r5launch/game/r2/maps",  # 9 maps | 5.38 GB | .vpk
                                 "4feb20/depot/r5staging/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
-                                "3mar20/maps"  # 4 maps | 977 MB | .vpk
+                                "3mar20/maps",  # 4 maps | 977 MB | .vpk
                                 "3mar20/depot/r5launch/game/r2/maps"],  # 5 maps | 1.46 GB | .vpk
         # TODO: season4.2:  The Old Ways [7th Apr 2020]
         # season5:  Fortune's Favour  [12th May 2020]
@@ -400,9 +394,9 @@ extracted_dirs = {
                                  "20sep22/maps",  # 12 maps | 1.97 GB | .vpk
                                  "20sep22/depot/r5-140/game/r2/maps",  # 9 maps | 1.38 GB | .vpk
                                  "20sep22/depot/r5-141/game/r2/maps",  # 12 maps | 1.92 GB | .vpk
-                                 "29sep22/maps",  # 2 maps | 400 MB | .vpk
-                                 "29sep22/depot/r5-140/game/r2/maps",  # 1 map | 5.62 MB | .vpk
-                                 "29sep22/depot/r5-141/game/r2/maps"],  # 2 maps | 387 MB | .vpk
+                                 "14oct22/maps",  # 2 maps | 400 MB | .vpk
+                                 "14oct22/depot/r5-140/game/r2/maps",  # 1 map | 5.62 MB | .vpk
+                                 "14oct22/depot/r5-141/game/r2/maps"],  # 2 maps | 387 MB | .vpk
         # season15:  Eclipse [1st Nov 2022]
         "ApexLegends/season15": ["1nov22/maps",  # 12 maps | 2.24 GB | .vpk
                                  "1nov22/depot/r5-150/game/r2/maps",  # 12 maps | 2.17 GB | .vpk
@@ -427,12 +421,6 @@ extracted_dirs = {
         "ApexLegends/season18": ["8aug23/maps"],  # 9 maps | 1.91 GB | .rpak
         # NOTE: some .bsp_lump.client aren't able to be exported yet
         # NOTE: mid-season .rpak patches can't be exported yet
-        # Nintendo Switch Release
-        # TODO: season8 [9mar21] (8.1 Chaos Theory)
-        # TODO: season9 [4may21, 29jun21] (9.0 Legacy, 9.1 Genesis)
-        "ApexLegends/switch/season9": ["maps",  # 7 maps | 2.4 GB | .vpk
-                                       "depot/r5-90/game/r2/maps"],  # 7 maps | 2.3 GB | .vpk
-        # TODO: season10-present
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3
@@ -447,7 +435,7 @@ extracted_dirs = {
                        "Pak5.pk3/maps/obj"],  # 4 maps | 36 MB | .pk3
         # DLC 1: Spearhead
         "MoHAA/mainta": ["pak1.pk3/maps",  # 19 maps | 255 MB | .pk3
-                         "pak1.pk3/maps/breifing",  # 5 maps | 276 MB | .pk3
+                         "pak1.pk3/maps/briefing",  # 5 maps | 276 MB | .pk3
                          "pak1.pk3/maps/DM",  # 8 maps | 64 MB | .pk3
                          "pak1.pk3/maps/obj",  # 4 maps | 63 MB | .pk3
                          "pak3.pk3/maps",  # 9 maps | 136 MB | .pk3
@@ -458,9 +446,9 @@ extracted_dirs = {
                          "pak1.pk3/maps/briefing",  # 5 maps | 276 MB | .pk3
                          "pak1.pk3/maps/DM",  # 8 maps | 64 MB | .pk3
                          "pak1.pk3/maps/obj",  # 4 maps | 63 MB | .pk3
-                         "pak3.pk3/maps",  # 9 maps | 136 MB | .pk3
-                         "pak3.pk3/maps/DM",  # 4 maps | 39 MB | .pk3
-                         "pak3.pk3/maps/obj"],  # 3 maps | 48 MB | .pk3
+                         "pak3.pk3/maps",  # 2 maps | 28 MB | .pk3
+                         "pak3.pk3/maps/lib",  # 2 maps | 21 MB | .pk3
+                         "pak3.pk3/maps/obj"],  # 3 maps | 32 MB | .pk3
         "StarTrekEliteForceIIDemo": ["maps"],  # 2 maps | 32 MB | .pk3
         "StarTrekEliteForceII": ["maps",  # 88 maps | 607 MB | .pk3
                                  "download/maps"],  # 188 maps | 886 MB | .pk3
@@ -495,20 +483,9 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
                       "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
 
-# extracted from xisos; a very painful process
-# TODO: CS:GO, DarkMessiah: Elements, Titanfall
-# -- DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
-# -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
-# -- Titanfall maps are in .bpk files, decrypter (TitanfallVPKTool) has a buffer limit so files are incomplete
-x360_dirs = {"Left4Dead": ["left4dead/maps"],  # 44 maps | 295 MB
-             "Left4Dead2": ["left4dead2/maps"],  # 23 maps | 196 MB
-             "OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
-                           "episodic/maps",  # 18 maps | 121 MB
-                           "hl2/maps",  # 76 maps | 376 MB
-                           "portal/maps",  # 26 maps | 99 MB
-                           "tf/maps"],  # 7 maps | 88 MB
-             "Portal2": ["portal2/maps"]}  # 105 maps | 532 MB
-
+dreamcast_dirs = {"Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
+                  "SoF": ["maps"],  # 117 maps | 171 MB | .gdi
+                  "QuakeIII": ["maps"]}  # 38 maps | 64 MB | .zip
 # extracted with the help of Taskinoz
 ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
                            "depot/r2dlc3/game/r2/maps",  # 1 map | 764 MB | .vpk
@@ -526,12 +503,32 @@ ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
             # CUSA05988 R2PS4_TechTest_24 (v2.0.0.24)
             "Titanfall2_tech_test": ["maps",  # 5 maps | 1.14 GB | .vpk
                                      "depot/r2tt/game/r2/maps"]}  # 5 maps | 1.14 GB | .vpk
+# TODO: ApexLegends/season8-present
+switch_dirs = {"ApexLegends/season9": ["maps",  # 7 maps | 2.4 GB | .vpk
+                                       "depot/r5-90/game/r2/maps"]}  # 7 maps | 2.3 GB | .vpk
+xbox_dirs = {"Half-Life2": ["GameMedia/maps"]}  # 90 maps | 415 MB | .iso
+# extracted from xisos; a very painful process
+# TODO: CS:GO, DarkMessiah: Elements, Titanfall
+# -- DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
+# -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
+# -- Titanfall maps are in .bpk files, decrypter (TitanfallVPKTool) has a buffer limit so files are incomplete
+x360_dirs = {"Left4Dead": ["left4dead/maps"],  # 44 maps | 295 MB
+             "Left4Dead2": ["left4dead2/maps"],  # 23 maps | 196 MB
+             "OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
+                           "episodic/maps",  # 18 maps | 121 MB
+                           "hl2/maps",  # 76 maps | 376 MB
+                           "portal/maps",  # 26 maps | 99 MB
+                           "tf/maps"],  # 7 maps | 88 MB
+             "Portal2": ["portal2/maps"]}  # 105 maps | 532 MB
 
 # NOTE: ls $group_dir+$game_dir+$maps_dir
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
               "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
               "E:/Mod": extracted_dirs,
+              "E:/Mod/Dreamcast": dreamcast_dirs,
               "E:/Mod/PS4": ps4_dirs,
+              "E:/Mod/Switch": switch_dirs,
+              "E:/Mod/Xbox": xbox_dirs,
               "E:/Mod/X360": x360_dirs,
               # NOTE: the following are copies made of the above dirs; created with backup_bsps.py
               # "F:/bsps": every_bsp_dir,

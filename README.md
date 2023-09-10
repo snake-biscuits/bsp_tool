@@ -218,6 +218,8 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
    - Super handy `.vpk` (Valve format) browser; VTFLib / VTFEdit is also from Nem's Tools
  * [JJL772](https://github.com/JJL772)
    - Published public documentation for the otherwise closed-source VBSP v25
+ * [John Romero](https://rome.ro)
+   - Supplying `.map` level source files for Quake
  * [Maxime Dupuis](https://github.com/maxdup)
    - Helping me identify multiple lumps in Source Engine .bsps
  * [MobyGames](https://www.mobygames.com/)

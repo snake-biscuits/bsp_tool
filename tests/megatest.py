@@ -11,9 +11,8 @@ from bsp_tool.branches import (ace_team, arkane, gearbox, id_software,
                                infinity_ward, nexon, outerlight, raven,
                                respawn, ritual, strata, utoplanet, valve)
 from bsp_tool.infinity_ward import D3DBsp, InfinityWardBsp
-from bsp_tool.id_software import QuakeBsp, ReMakeQuakeBsp
-from bsp_tool.respawn import RespawnBsp
-from bsp_tool.valve import GoldSrcBsp, ValveBsp
+from bsp_tool.id_software import QuakeBsp
+from bsp_tool.valve import GoldSrcBsp
 
 import pytest
 
@@ -21,47 +20,178 @@ import pytest
 # TEST MAP DATABASE
 all_branches = {*branches.quake_based, *branches.source_based}
 
+# "It's OK to have garbage data if you never read it" - Earl Hammon Jr.
+spec_of = {path: (branch, branch.GAME_VERSIONS[game])
+           for branch in all_branches for game, path in branch.GAME_PATHS.items()
+           if game in branch.GAME_VERSIONS}
+# sourcemods
+spec_of.update({mod: (valve.orange_box, 20) for mod in maplist.sourcemod_dirs})
+# apex archive
+apex_seasons = ["Preseason", "Wild Frontier", "Battle Charge", "Meltdown", "Assimilation", "Fortune's Favour", "Boosted",
+                "Ascension", "Fight Night", "Mayhem", "Legacy", "Emergence", "Evolution", "Escape", "Defiance", "Saviours",
+                "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection"]
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 47) for i in range(7)})
+spec_of.update({"ApexLegends/season7": (respawn.apex_legends, 48)})
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 49) for i in (8, 9)})
+spec_of.update({"ApexLegends/season10": (respawn.apex_legends, 50)})
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, (50, 1)) for i in (11, 12)})
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, (51, 1)) for i in range(13, 19)})
+# local test maps (./tests/maps/game/, not .../game/mod/maps/)
+spec_of.update({"Momentum Mod": (strata.strata, 25),
+                "ReMakeQuake": (id_software.remake_quake, None),
+                "Team Fortress 2": (valve.orange_box, 20),
+                "Titanfall 2": (respawn.titanfall2, 37)})
+# steam dirs (demos, multiple mods per-game & not listed in branches)
+spec_of.update({"Contagion": spec_of["Contagion/contagion"],
+                "dayofinfamy": (valve.orange_box, 20),
+                "Dino D-Day": (valve.sdk_2013, 21),
+                "Double Action": (valve.orange_box, 20),
+                "EYE Divine Cybermancy Demo/EYE": spec_of["EYE Divine Cybermancy/EYE"],
+                "Fistful of Frags": (valve.orange_box, 20),
+                "Fortress Forever": (valve.orange_box, 20),
+                "Half-Life 2 Update": (valve.orange_box, 20),
+                "Half-Life 2 VR": (valve.orange_box, 20),
+                "insurgency2": (valve.sdk_2013, 21),
+                "Jabroni Brawl Episode 3": (valve.sdk_2013, 21),
+                "left 4 dead": spec_of["left 4 dead/left4dead"],
+                "Left 4 Dead 2": spec_of["Left 4 Dead 2/left4dead2"],
+                "MINERVA": (valve.orange_box, 20),
+                "Momentum Mod Playtest": spec_of["Momentum Mod/momentum"],
+                "nmrih": (valve.orange_box, 20),
+                "Portal 2": spec_of["Portal 2/portal2"],
+                "Portal Reloaded": spec_of["Portal 2/portal2"],
+                "Sven Co-op": spec_of["Sven Co-op/svencoop"],
+                "Synergy": (valve.orange_box, 20),
+                "Transmissions Element 120": (valve.orange_box, 20)})
+# extracted dirs
+spec_of.update({"Alkaline": spec_of["Quake"],
+                "ApexLegends": (respawn.apex_legends, 47),  # mixed?
+                "BlackMesa": (valve.sdk_2013, 21),
+                "BloodyGoodTime": (outerlight.outerlight, 20),
+                "CSMalvinas": (valve.orange_box, 20),
+                "CSS/Bocuma747_SurfMaps": (valve.source, 19),
+                "CSS/OiuSURF_SurfMaps": (valve.source, 19),
+                "CoD1": (infinity_ward.call_of_duty1, 59),
+                "CoD1Demo/burnville": (infinity_ward.call_of_duty1_demo, 58),
+                "CoD1Demo/dawnville": (infinity_ward.call_of_duty1_demo, 58),
+                "CoD2": (infinity_ward.call_of_duty2, 4),
+                "CoD4": (infinity_ward.modern_warfare, 22),
+                "DarkMessiah/multiplayer": (arkane.dark_messiah_mp, (20, 4)),
+                "DarkMessiah/singleplayer": (arkane.dark_messiah_sp, (20, 4)),
+                "DDayNormandy": spec_of["Quake 2"],
+                "HL2DM/patbytes": spec_of["half-life 2 deathmatch/hl2mp"],
+                "HereticII": spec_of["Quake 2"],
+                "HexenII": spec_of["Hexen 2"],
+                "Infra": spec_of["infra/infra"],
+                "MomentumMod": spec_of["Momentum Mod/momentum"],
+                "Nexuiz": spec_of["Quake 3 Arena"],
+                "Nightfire": (gearbox.nightfire, 42),
+                "Quake/2psb": (id_software.remake_quake_old, None),
+                "Quake/rerelease": (id_software.quake, 29),
+                "Quake/rerelease/dopa": (id_software.remake_quake, None),
+                "Quake64": (id_software.quake64, None),
+                "QuakeII": spec_of["Quake 2"],
+                "QuakeII/rerelease": spec_of["Quake 2"],  # mixed
+                "QuakeIII": spec_of["Quake 3 Arena"],
+                "QuakeLive": (id_software.quake3, 46),
+                "RTCW": (id_software.quake3, 47),
+                "SiNEpisodes": (valve.source, 19),
+                "StarTrekEliteForce": (id_software.quake3, 46),
+                "TacticalIntervention": (valve.orange_box, 20),
+                "TeamFortressQuake": spec_of["Quake"],
+                "TheHiddenSource": (valve.orange_box, 20),
+                "TheShip": (outerlight.outerlight, 20),
+                "Titanfall/beta": spec_of["Titanfall"],
+                "Vindictus": (nexon.vindictus, 20),
+                "Vindictus/Client v1.69 EU": (nexon.vindictus69, 20),
+                "Warfork": (id_software.qfusion, 1),
+                "WolfET": (id_software.quake3, 47),
+                "Xonotic": (id_software.quake3, 46)})
+# console dirs
+spec_of.update({"Half-Life2": (valve.source, 19),
+                "Left4Dead": (valve.orange_box_x360, 20),
+                "Left4Dead2": (valve.orange_box_x360, 20),
+                "OrangeBox": (valve.orange_box_x360, 20),
+                "Paranoia": (valve.goldsrc, 30),
+                "Portal2": (valve.sdk_2013_x360, 21)})
+
+id_of = {path: game for branch in all_branches for game, path in branch.GAME_PATHS.items()}
+id_of.update({f"ApexLegends/season{i}": f"Apex Legends - Season {i} - {name}" for i, name in enumerate(apex_seasons)})
+# multi-mod-dir games
+id_of.update({"Contagion": id_of["Contagion/contagion"],
+              "left 4 dead": id_of["left 4 dead/left4dead"],
+              "Left 4 Dead 2": id_of["Left 4 Dead 2/left4dead2"],
+              "Sven Co-op": id_of["Sven Co-op/svencoop"]})
+# sourcemods
+id_of.update({"gesource": "GoldenEye: Source",
+              "half-life 2 riot act": "HL2: Riot Act",
+              "TFTS": "Run Think Shoot Live - Tales from the Source",
+              "episodeone": "Map Labs (Episode 1 maps)",
+              "RunThinkShootLiveVille2": "Map Labs #3 - RunThinkShootLiveVille 2",
+              "cromulentville2": "Test Tube #7 - CromulentVille 2",
+              "companionpiece2": "Map Labs #8 - Companion Piece 2: Companion Harder",
+              "eyecandy": "Test Tube #8 - Eye Candy",
+              "backontrack": "Map Labs #9 - Back on Track",
+              "tworooms": "Test Tube #9 - Two Rooms",
+              "fusionville2": "Map Labs #10 - FusionVille 2",
+              "tunetwo": "Test Tube #13 - TUNE TWO: Crossfade",
+              "lvl2": "Map Labs #15 - LVL2",
+              "thewrapuptwo": "Test Tube #15 - The Wrap-Up Two!",
+              "halloweenhorror4": "Map Labs #16 - Halloween Horror 4: Nightmare on Reboot Street!",
+              "halflifeeternal": "Test Tube #16 - Half-Life: Eternal",
+              "thelayout": "Map Labs #17 - The Layout"})
+# general
+id_of.update({"ApexLegends": "Apex Legends (Mystery Box)",
+              "BlackMesa": "Black Mesa",
+              "BloodyGoodTime": "Bloody Good Time",
+              "CoD1": "Call of Duty (2003)",
+              "CoD1Demo/burnville": "Call of Duty (Demo) - Burnville",
+              "CoD1Demo/dawnville": "Call of Duty (Demo) - Dawnville",
+              "CoD2": "Call of Duty 2",
+              "CoD4": "Call of Duty: Modern Warfare (2007)",
+              "CSS/Bocuma747_SurfMaps": "CS:S Surf Archive - Bocuma747",
+              "CSS/OiuSURF_SurfMaps": "CS:S Surf Archive - OiuSURF",
+              "DarkMessiah/multiplayer": "Dark Messiah of Might & Magic Multi-Player",
+              "DarkMessiah/singleplayer": "Dark Messiah of Might & Magic Single Player",
+              "dayofinfamy": "Day of Infamy",
+              "DDayNormandy": "D-Day: Normandy",
+              "Double Action": "Double Action: Boogaloo",
+              "EYE Divine Cybermancy Demo/EYE": "E.Y.E. Divine Cybermancy (Demo)",
+              "HereticII": "Heretic: Shadow of the Serpent Riders",
+              "HexenII": "HeXen II",
+              "HL2DM/patbytes": "patbytes HL2:DM Archive",
+              "insurgency2": "Insurgency",
+              "MINERVA": "MINERVA: Metastasis",
+              "MomentumMod": "Momentum Mod",
+              "Nightfire": "James Bond 007: Nightfire",
+              "nmrih": "No More Room in Hell",
+              "Quake/2psb": "Quake (2PSB)",
+              "Quake/rerelease": "Quake (2021)",
+              "Quake/rerelease/dopa": "Quake (2021) - Dimension of the Past",
+              "QuakeII": "Quake II",
+              "QuakeII/rerelease": "Quake II (2023)",
+              "QuakeIII": "Quake III Arena",
+              "QuakeLive": "Quake Live",
+              "Quake64": "Quake 64 (PC)",
+              "RTCW": "Return to Castle Wolfenstein",
+              "SiNEpisodes": "SiN Episodes: Emergence",
+              "StarTrekEliteForce": "Star Trek: Voyager - Elite Force",
+              "TacticalIntervention": "Tactical Intervention",
+              "TeamFortressQuake": "Team Fortress (Quake Mod)",
+              "TheHiddenSource": "The Hidden",
+              "TheShip": "The Ship",
+              "Titanfall/beta": "Titanfall (Beta)",
+              "TitanfallOnline": "Titanfall: Online",
+              "Transmissions Element 120": "Transmissions: Element 120",
+              "WolfET": "Wolfenstein: Enemy Territory",
+              "Vindictus/Client v1.69 EU": "Vindictus v1.69"})
+
 BspClass_for = {branch: BspVariant_for_magic.get(branch.FILE_MAGIC, None) for branch in all_branches}
 BspClass_for.update({branch: QuakeBsp for branch in branches.of_engine["Quake"]})
 BspClass_for.update({branch: GoldSrcBsp for branch in branches.of_engine["GoldSrc"]})
 BspClass_for.update({branch: InfinityWardBsp for branch in infinity_ward.scripts})
 BspClass_for.update({infinity_ward.modern_warfare: D3DBsp})
 # ^ {valve.orange_box: ValveBsp}
-
-# "It's OK to have garbage data if you never read it" - Earl Hammon Jr.
-spec_of = {path: (BspClass_for[branch], branch, branch.GAME_VERSIONS[game])
-           for branch in all_branches for game, path in branch.GAME_PATHS.items()
-           if game in branch.GAME_VERSIONS}
-# sourcemods
-spec_of.update({mod: (ValveBsp, valve.orange_box, 20) for mod in maplist.sourcemod_dirs})
-# apex archive
-apex_seasons = ["Preseason", "Wild Frontier", "Battle Charge", "Meltdown", "Assimilation", "Fortune's Favour", "Boosted",
-                "Ascension", "Fight Night", "Mayhem", "Legacy", "Emergence", "Evolution", "Escape", "Defiance", "Saviours",
-                "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection"]
-spec_of.update({f"ApexLegends/season{i}": (RespawnBsp, respawn.apex_legends, 47) for i in range(7)})
-spec_of.update({"ApexLegends/season7": (RespawnBsp, respawn.apex_legends, 48)})
-spec_of.update({f"ApexLegends/season{i}": (RespawnBsp, respawn.apex_legends, 49) for i in (8, 9)})
-spec_of.update({"ApexLegends/season10": (RespawnBsp, respawn.apex_legends, 50)})
-spec_of.update({f"ApexLegends/season{i}": (RespawnBsp, respawn.apex_legends, (50, 1)) for i in (11, 12)})
-spec_of.update({f"ApexLegends/season{i}": (RespawnBsp, respawn.apex_legends, (51, 1)) for i in range(13, 19)})
-# local test maps (./tests/maps/game/, not .../game/mod/maps/)
-spec_of.update({"Momentum Mod": (ValveBsp, strata.strata, 25),
-                "ReMakeQuake": (ReMakeQuakeBsp, id_software.remake_quake, None),
-                "Team Fortress 2": (ValveBsp, valve.orange_box, 20),
-                "Titanfall 2": (RespawnBsp, respawn.titanfall2, 37)})
-# games & mods not listed in branches
-spec_of.update({"CSMalvinas": (ValveBsp, valve.orange_box, 20),
-                "Dreamcast/Paranoia": (GoldSrcBsp, valve.goldsrc, valve.goldsrc.BSP_VERSION),
-                "Vindictus/Client v1.69 EU": (ValveBsp, nexon.vindictus69, 20),
-                "Xbox/Half-Life2": (ValveBsp, valve.source, 19)})
-
-id_of = {path: game for branch in all_branches for game, path in branch.GAME_PATHS.items()}
-id_of.update({f"ApexLegends/season{i}": f"Apex Legends - Season {i} - {name}" for i, name in enumerate(apex_seasons)})
-id_of.update({"Quake/rerelease": "2021 Quake Re-Release",
-              "Quake/rerelease/dopa": "Dimension of the Past",
-              "Titanfall/beta": "Titanfall (Beta)",
-              "TitanfallOnline": "Titanfall: Online",
-              "Vindictus/Client v1.69 EU": "Vindictus v1.69"})
 
 megatest_dirs = [(*dg, tuple(mds)) for dg, mds in maplist.installed_games.items()]
 # ^ [("D:/Steam...", "Team Fortress 2", ("tf/maps", ...))]
@@ -86,6 +216,7 @@ drive_id = {"./tests/maps": "Local",
             "E:/Mod": "Extracted",
             "E:/Mod/Dreamcast": "Dreamcast",
             "E:/Mod/PS4": "PS4",
+            "E:/Mod/Switch": "Switch",
             "E:/Mod/Xbox": "Xbox",
             "E:/Mod/X360": "Xbox360"}
 
@@ -93,8 +224,12 @@ test_args = list()
 # ^ [(ValveBsp, orange_box, 20, [(".../tf/maps/pl_upward.bsp", "tf/maps/pl_upward.bsp")])]
 test_ids = list()
 # ^ ["Team Fortress 2"]
-for drive, game, map_dirs in sorted(megatest_dirs, key=lambda x: x[1].lower()):
-    BspClass, branch, version = spec_of[game]
+for drive, game, map_dirs in megatest_dirs:
+    try:
+        branch, version = spec_of[game]
+    except KeyError:
+        print("FAIL:", drive_id[drive], "|", game)
+        continue
     maps = list()
     for map_dir in map_dirs:
         path = os.path.join(drive, game, map_dir)
@@ -105,14 +240,25 @@ for drive, game, map_dirs in sorted(megatest_dirs, key=lambda x: x[1].lower()):
         # TODO: split dirs w/ mixed formats
         # -- Apex Legends (Season 11 depots; some seasons keep old maps)
         # -- CS:O2 (TODO: autodetect/cso2.json)
+        # -- CS:S (valve.source 19 & valve.orange_box 20)
         # -- Half-Life: Source (v17 & v18)
         # -- Quake 2 Rerelease (TODO: autodetect/quake2_rerelease.json)
         # -- SiN (1 map)
         # -- Vindictus (TODO: autodetect/vindictus.json)
         ...
         maps.extend((os.path.join(path, m), os.path.join(map_dir, m)) for m in dir_maps)
-    test_args.append([BspClass, branch, version, maps])
+    test_args.append([BspClass_for[branch], branch, version, maps])
     test_ids.append(f"{drive_id[drive]} | {id_of.get(game, game)}")
+
+
+def sort_func(test_id):
+    drive_name, game_id = test_id.split(" | ")
+    return list(drive_id.values()).index(drive_name), game_id
+
+
+test_order = [test_ids.index(x) for x in sorted(test_ids, key=sort_func)]
+test_args = [test_args[i] for i in test_order]
+test_ids = [test_ids[i] for i in test_order]
 
 
 subtle = (ace_team.zeno_clash, arkane.dark_messiah_mp,
