@@ -4,14 +4,15 @@
 newsheet "Sheet1"
 movetosheet "Sheet1"
 offscr_sc_cols 0
-offscr_sc_rows 3
-nb_frozen_rows 0
+offscr_sc_rows 0
+nb_frozen_rows 1
 nb_frozen_cols 0
-nb_frozen_screenrows 0
+nb_frozen_screenrows 1
 nb_frozen_screencols 0
 format A 14 2 0
 format B 28 2 0
 format C 8 2 0
+freeze 0
 leftstring A0 = "Developer"
 leftstring B0 = "Branch"
 leftstring C0 = "Coverage"
@@ -24,27 +25,27 @@ let C2 = 97.67
 leftstring A3 = "respawn"
 leftstring B3 = "titanfall"
 let C3 = 92.92
-leftstring A4 = "respawn"
-leftstring B4 = "titanfall2"
-let C4 = 87.27
-leftstring A5 = "gearbox"
-leftstring B5 = "blue_shift"
-let C5 = 86
-leftstring A6 = "id_software"
-leftstring B6 = "remake_quake"
+leftstring A4 = "id_software"
+leftstring B4 = "qfusion"
+let C4 = 88.89
+leftstring A5 = "respawn"
+leftstring B5 = "titanfall2"
+let C5 = 87.27
+leftstring A6 = "gearbox"
+leftstring B6 = "blue_shift"
 let C6 = 86
 leftstring A7 = "id_software"
-leftstring B7 = "remake_quake_old"
+leftstring B7 = "remake_quake"
 let C7 = 86
-leftstring A8 = "raven"
-leftstring B8 = "hexen2"
+leftstring A8 = "id_software"
+leftstring B8 = "remake_quake_old"
 let C8 = 86
-leftstring A9 = "valve"
-leftstring B9 = "goldsrc"
+leftstring A9 = "raven"
+leftstring B9 = "hexen2"
 let C9 = 86
-leftstring A10 = "id_software"
-leftstring B10 = "qfusion"
-let C10 = 77.78
+leftstring A10 = "valve"
+leftstring B10 = "goldsrc"
+let C10 = 86
 leftstring A11 = "utoplanet"
 leftstring B11 = "merubasu"
 let C11 = 75.34
@@ -146,14 +147,14 @@ leftstring B43 = "mohaa_demo"
 let C43 = 46.43
 leftstring A44 = "ritual"
 leftstring B44 = "star_trek_elite_force2"
-let C44 = 40
+let C44 = 43.33
 leftstring A45 = "ritual"
 leftstring B45 = "star_trek_elite_force2_demo"
-let C45 = 40
+let C45 = 43.33
 leftstring A46 = "infinity_ward"
 leftstring B46 = "call_of_duty2"
 let C46 = 38.33
 leftstring A47 = "infinity_ward"
 leftstring B47 = "modern_warfare"
 let C47 = 23.56
-goto C24
+goto A0
