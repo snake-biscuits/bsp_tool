@@ -223,8 +223,11 @@ LumpHeader = source.LumpHeader
 
 # engine limits:
 class MAX(enum.Enum):
+    ENTITY_PARTITIONS = 16  # 32 chars per partition name
     MODELS = 1024
+    STATIC_PROPS = 57343
     TEXTURES = 2048
+    WORLD_LIGHTS = 16352
 
 
 # flags enums
