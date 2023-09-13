@@ -35,7 +35,7 @@ spec_of.update({"ApexLegends/season7": (respawn.apex_legends, 48)})
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 49) for i in (8, 9)})
 spec_of.update({"ApexLegends/season10": (respawn.apex_legends, 50)})
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, (50, 1)) for i in (11, 12)})
-spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, (51, 1)) for i in range(13, 19)})
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends13, (51, 1)) for i in range(13, 19)})
 # local test maps (./tests/maps/game/, not .../game/mod/maps/)
 spec_of.update({"Momentum Mod": (strata.strata, 25),
                 "ReMakeQuake": (id_software.remake_quake, None),
@@ -43,7 +43,7 @@ spec_of.update({"Momentum Mod": (strata.strata, 25),
                 "Titanfall 2": (respawn.titanfall2, 37)})
 # steam dirs (demos, multiple mods per-game & not listed in branches)
 spec_of.update({"Contagion": spec_of["Contagion/contagion"],
-                "dayofinfamy": (valve.orange_box, 20),
+                "dayofinfamy": (valve.sdk_2013, 21),
                 "Dino D-Day": (valve.sdk_2013, 21),
                 "Double Action": (valve.orange_box, 20),
                 "EYE Divine Cybermancy Demo/EYE": spec_of["EYE Divine Cybermancy/EYE"],
@@ -225,11 +225,7 @@ test_args = list()
 test_ids = list()
 # ^ ["Team Fortress 2"]
 for drive, game, map_dirs in megatest_dirs:
-    try:
-        branch, version = spec_of[game]
-    except KeyError:
-        print("FAIL:", drive_id[drive], "|", game)
-        continue
+    branch, version = spec_of[game]
     maps = list()
     for map_dir in map_dirs:
         path = os.path.join(drive, game, map_dir)
@@ -237,11 +233,12 @@ for drive, game, map_dirs in megatest_dirs:
         ext = "*.[bB][sS][pP]" if branch not in d3d_branches else "*.d3dbsp"
         dir_maps = fnmatch.filter(os.listdir(path), ext)
         # TODO: filter out breaking maps (0 bytes, secret .mdl etc.)
-        # TODO: split dirs w/ mixed formats
+        # TODO: handle dirs w/ mixed formats
         # -- Apex Legends (Season 11 depots; some seasons keep old maps)
         # -- CS:O2 (TODO: autodetect/cso2.json)
         # -- CS:S (valve.source 19 & valve.orange_box 20)
         # -- Half-Life: Source (v17 & v18)
+        # -- Half-Life 2: Episode 1 (valve.source 19 & orange_box 20)
         # -- Quake 2 Rerelease (TODO: autodetect/quake2_rerelease.json)
         # -- SiN (1 map)
         # -- Vindictus (TODO: autodetect/vindictus.json)
@@ -295,7 +292,7 @@ def loading_errors_of(bsp):
     if bsp.branch in branches.source_based:
         out = {f"{L} v{bsp.headers[L].version}": err
                for L, err in bsp.loading_errors.items()}
-        if not isinstance(bsp.GAME_LUMP, lumps.RawBspLump):
+        if not isinstance(getattr(bsp, "GAME_LUMP", lumps.RawBspLump()), lumps.RawBspLump):
             out.update({f"{L} v{bsp.GAME_LUMP.headers[L].version}": err
                         for L, err in bsp.GAME_LUMP.loading_errors.items()})
         return out
