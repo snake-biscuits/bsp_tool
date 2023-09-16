@@ -26,9 +26,7 @@ GAME_PATHS = {"Counter-Strike: Source": "counter-strike source/cstrike",
               "Half-Life Deathmatch: Source": "Half-Life 1 Source Deathmatch/hl1mp",
               "Half-Life: Source": "half-life 2/hl1",
               "Half-Life 2": "half-life 2/hl2",
-              "Half-Life 2: Deathmatch": "half-life 2 deathmatch/hl2mp",
-              "Half-Life 2: Episode 1": "half-life 2/episodic",
-              "Half-Life 2: Lost Coast": "half-life 2/lostcoast"}
+              "Half-Life 2: Deathmatch": "half-life 2 deathmatch/hl2mp"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 

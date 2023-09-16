@@ -1,6 +1,7 @@
 """The MegaTest"""
 import fnmatch
 import os
+import re
 
 from . import maplist
 from bsp_tool import BspVariant_for_magic
@@ -93,7 +94,7 @@ spec_of.update({"Alkaline": spec_of["Quake"],
                 "QuakeII": spec_of["Quake 2"],
                 "QuakeII/rerelease": spec_of["Quake 2"],  # mixed
                 "QuakeIII": spec_of["Quake 3 Arena"],
-                "QuakeLive": (id_software.quake3, 46),
+                "QuakeLive": (id_software.quake3, 47),
                 "RTCW": (id_software.quake3, 47),
                 "SiNEpisodes": (valve.source, 19),
                 "StarTrekEliteForce": (id_software.quake3, 46),
@@ -123,23 +124,23 @@ id_of.update({"Contagion": id_of["Contagion/contagion"],
               "Left 4 Dead 2": id_of["Left 4 Dead 2/left4dead2"],
               "Sven Co-op": id_of["Sven Co-op/svencoop"]})
 # sourcemods
-id_of.update({"gesource": "GoldenEye: Source",
-              "half-life 2 riot act": "HL2: Riot Act",
-              "TFTS": "Run Think Shoot Live - Tales from the Source",
+id_of.update({"backontrack": "Map Labs 9 - Back on Track",
+              "companionpiece2": "Map Labs 8 - Companion Piece 2: Companion Harder",
+              "cromulentville2": "Test Tube 7 - CromulentVille 2",
               "episodeone": "Map Labs (Episode 1 maps)",
-              "RunThinkShootLiveVille2": "Map Labs #3 - RunThinkShootLiveVille 2",
-              "cromulentville2": "Test Tube #7 - CromulentVille 2",
-              "companionpiece2": "Map Labs #8 - Companion Piece 2: Companion Harder",
-              "eyecandy": "Test Tube #8 - Eye Candy",
-              "backontrack": "Map Labs #9 - Back on Track",
-              "tworooms": "Test Tube #9 - Two Rooms",
-              "fusionville2": "Map Labs #10 - FusionVille 2",
-              "tunetwo": "Test Tube #13 - TUNE TWO: Crossfade",
-              "lvl2": "Map Labs #15 - LVL2",
-              "thewrapuptwo": "Test Tube #15 - The Wrap-Up Two!",
-              "halloweenhorror4": "Map Labs #16 - Halloween Horror 4: Nightmare on Reboot Street!",
-              "halflifeeternal": "Test Tube #16 - Half-Life: Eternal",
-              "thelayout": "Map Labs #17 - The Layout"})
+              "eyecandy": "Test Tube 8 - Eye Candy",
+              "fusionville2": "Map Labs 10 - FusionVille 2",
+              "gesource": "GoldenEye: Source",
+              "half-life 2 riot act": "HL2: Riot Act",
+              "halflifeeternal": "Test Tube 16 - Half-Life: Eternal",
+              "halloweenhorror4": "Map Labs 16 - Halloween Horror 4: Nightmare on Reboot Street!",
+              "lvl2": "Map Labs 15 - LVL2",
+              "RunThinkShootLiveVille2": "Map Labs 3 - RunThinkShootLiveVille 2",
+              "TFTS": "Run Think Shoot Live - Tales from the Source",
+              "thelayout": "Map Labs 17 - The Layout",
+              "thewrapuptwo": "Test Tube 15 - The Wrap-Up Two!",
+              "tunetwo": "Test Tube 13 - TUNE TWO: Crossfade",
+              "tworooms": "Test Tube 9 - Two Rooms"})
 # general
 id_of.update({"ApexLegends": "Apex Legends (Mystery Box)",
               "BlackMesa": "Black Mesa",
@@ -187,7 +188,7 @@ id_of.update({"ApexLegends": "Apex Legends (Mystery Box)",
               "Vindictus/Client v1.69 EU": "Vindictus v1.69"})
 
 BspClass_for = {branch: BspVariant_for_magic.get(branch.FILE_MAGIC, None) for branch in all_branches}
-BspClass_for.update({branch: QuakeBsp for branch in branches.of_engine["Quake"]})
+BspClass_for.update({branch: QuakeBsp for branch in branches.of_engine["Quake"] if branch != id_software.quake64})
 BspClass_for.update({branch: GoldSrcBsp for branch in branches.of_engine["GoldSrc"]})
 BspClass_for.update({branch: InfinityWardBsp for branch in infinity_ward.scripts})
 BspClass_for.update({infinity_ward.modern_warfare: D3DBsp})
@@ -250,7 +251,15 @@ for drive, game, map_dirs in megatest_dirs:
 
 def sort_func(test_id):
     drive_name, game_id = test_id.split(" | ")
-    return list(drive_id.values()).index(drive_name), game_id
+    # NOTE: roman numerals don't exceed "III" so they sort just fine
+    patterns = {r"Apex Legends - Season ([0-9]{1,2}) - .*": "Apex Legends - Season {:02d}",
+                r"Map Labs ([0-9]{1,2}) - .*": "Map Labs {:02d}",
+                r"Test Tube ([0-9]{1,2}) - .*": "Test Tube {:02d}"}
+    for pattern, substitution in patterns.items():
+        m = re.match(pattern, game_id)
+        if m is not None:
+            game_id = substitution.format(int(m.groups()[0]))
+    return (list(drive_id.values()).index(drive_name), game_id)
 
 
 test_order = [test_ids.index(x) for x in sorted(test_ids, key=sort_func)]
@@ -264,9 +273,6 @@ subtle = (ace_team.zeno_clash, arkane.dark_messiah_mp,
           raven.soldier_of_fortune, raven.soldier_of_fortune2,
           ritual.sin, utoplanet.merubasu, valve.alien_swarm,
           valve.left4dead, valve.left4dead2, valve.source_filmmaker)
-# TODO: add breaking maps to xfails
-# -- 0 byte .bsp
-# -- DDay-Normandy exclude list
 
 easy_ids, easy_args = list(), list()
 subtle_ids, subtle_args = list(), list()
@@ -329,3 +335,9 @@ def test_hinting(spec, maps):
             errors[short_map_path] = error
     no_fails = (len(errors) == 0)
     assert no_fails, f"{len(errors)} / {len(maps)} maps encountered loading errors"
+
+
+# TODO: more xfails
+# -- 0 byte .bsp
+# -- DDay-Normandy exclude list
+# -- Xbox360 | Left 4 Dead / Portal 2
