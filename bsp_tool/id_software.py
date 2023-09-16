@@ -7,8 +7,8 @@ from . import lumps
 
 class QuakeBsp(base.Bsp):
     file_magic = None
-    # struct LumpHeader { int offset, version; };
-    # struct BspHeader { int version; LumpHeader headers[]; };
+    # struct LumpHeader { int offset, length; };
+    # struct BspHeader { int version; LumpHeader lumps[]; };
 
     def __repr__(self):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
@@ -57,8 +57,8 @@ class ReMakeQuakeBsp(QuakeBsp):
     bsp_version = None
     # https://quakewiki.org/wiki/BSP2
     # https://github.com/xonotic/darkplaces/blob/master/model_brush.c
-    # struct LumpHeader { int offset, version; };
-    # struct BspHeader { char[4] file_magic; LumpHeader headers[]; };
+    # struct LumpHeader { uint32_t offset, length; };
+    # struct BspHeader { uint32_t file_magic; LumpHeader lumps[]; };
 
     def __repr__(self):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
