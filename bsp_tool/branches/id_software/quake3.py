@@ -269,7 +269,7 @@ class Lightmap(list):  # LUMP 14
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} 128x128px RGB_888>"
 
-    def flat(self) -> bytes:
+    def as_bytes(self) -> bytes:
         return b"".join(self._pixels)
 
     @classmethod
