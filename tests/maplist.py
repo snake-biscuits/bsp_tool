@@ -231,6 +231,8 @@ extracted_dirs = {
         "CSO2": ["maps"],  # 97 maps | 902 MB | Counter-Strike: Online 2 | .pkg
         "DarkMessiah/singleplayer": ["maps"],  # 35 maps | 1.4 GB | .vpk
         "DarkMessiah/multiplayer": ["maps"],  # 11 maps | 564 MB | .vpk
+        # https://archive.org/details/dear_esther_linux
+        "DearEsther/dearesther": ["maps"],  # 4 maps | 85 MB | .deb
         # https://www.hidden-source.com/downloads.htm
         # https://www.moddb.com/mods/hidden-source
         "TheHiddenSource": ["hidden/maps"],  # 15 maps | 112 MB | .exe (extracted from Beta4b installer)
