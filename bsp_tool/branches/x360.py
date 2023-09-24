@@ -7,7 +7,7 @@ from typing import Any, Dict
 def make_big_endian(cls) -> object:
     """forces cls._format to big endian"""
     # NOTE: using exec is silly, but it renames the class, other approaches do not
-    # altertives tried:
+    # alternatives tried:
     # -- subclass w/ __name__: only applied on creation
     # -- copying class in locals() to a new name: original name persisted
     if issubclass(cls, enum.Enum):  # class BasicBspClass(FormatBase, enum.IntFlag): pass
