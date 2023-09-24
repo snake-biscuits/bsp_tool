@@ -1,0 +1,44 @@
+{
+  "Call of Duty": {
+    "Demo": [
+      "Call of Duty: Burnville Demo",
+      "Call of Duty: Dawnville Demo"],
+    "Sequel": ["Call of Duty 2"]
+  },
+  "Call of Duty 2": {
+    "Sequel": ["Call of Duty 4: Modern Warfare"]
+  },
+  "Half-Life": {
+    "Expansion": [
+      "Half-Life: Blue Shift",
+      "Half-Life: Opposing Force"],
+    "Sequel": ["Half-Life 2"]
+  },
+  "Half-Life 2": {
+    "Sequel": ["Half-Life 2: Episode 1"]
+  },
+  "Half-Life 2: Episode 1": {
+    "Sequel": ["Half-Life 2: Episode 2"]
+  },
+  "Portal": {
+    "Sequel": ["Portal 2"]
+  },
+  "Quake 4": {
+    "Bundle": ["Quake 2"]
+  },
+  "The Orange Box": {
+    "Bundle": [
+      "Half-Life 2",
+      "Half-Life 2: Episode 1",
+      "Half-Life 2: Episode 2",
+      "Portal",
+      "Team Fortress 2"]
+  },
+  "Titanfall": {
+    "Beta": ["Titanfall (Beta)"],
+    "Sequel": ["Titanfall 2"]
+  },
+  "Titanfall 2": {
+    "Beta": ["Titanfall 2 (Tech Test)"]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "apex_legends": [
+    "apex_legends13"
+  ],
+  "call_of_duty1_demo": [
+    "call_of_duty1"
+  ],
+  "call_of_duty1": [
+    "call_of_duty2"
+  ],
+  "call_of_duty2": [
+    "modern_warfare"
+  ],
+  "cso2": [
+    "cso2_2018"
+  ],
+  "dark_messiah_mp": [
+    "dark_messiah_sp"
+  ],
+  "fakk2": [
+    "mohaa_demo",
+    "star_trek_elite_force2_demo"
+  ],
+  "goldsrc": [
+    "blue_shift",
+    "nightfire",
+    "source"
+  ],
+  "left4dead": [
+    "left4dead2"
+  ],
+  "mohaa": [
+    "mohaa_bt"
+  ],
+  "mohaa_demo": [
+    "mohaa"
+  ],
+  "orange_box": [
+    "alien_swarm",
+    "dark_messiah_mp",
+    "left4dead",
+    "merubasu",
+    "orange_box_x360",
+    "outerlight",
+    "sdk_2013",
+    "source_filmmaker",
+    "vindictus69"
+  ],
+  "quake": [
+    "goldsrc",
+    "hexen2",
+    "quake2",
+    "quake64",
+    "remake_quake_old"
+  ],
+  "quake2": [
+    "daikatana",
+    "sin",
+    "soldier_of_fortune",
+    "source",
+    "qbism",
+    "quake3"
+  ],
+  "quake3": [
+    "call_of_duty1_demo",
+    "fakk2",
+    "qfusion",
+    "soldier_of_fortune2"
+  ],
+  "remake_quake_old": [
+    "remake_quake"
+  ],
+  "sdk_2013": [
+    "infra",
+    "sdk_2013_x360",
+    "strata",
+    "titanfall"
+  ],
+  "source": [
+    "orange_box",
+    "vampire"
+  ],
+  "star_trek_elite_force2_demo": [
+    "star_trek_elite_force2"
+  ],
+  "titanfall": [
+    "titanfall2"
+  ],
+  "titanfall2": [
+    "apex_legends"
+  ],
+  "vindictus69": [
+    "vindictus"
+  ]
+}

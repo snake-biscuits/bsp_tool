@@ -1,0 +1,37 @@
+{
+  "Apple": [
+    "Mac OS"],
+  "Commodore": [
+    "Amiga"],
+  "GNU": [
+    "Linux"],
+  "PC": [
+    "MS-DOS",
+    "PC",
+    "PC (GOG)",
+    "PC (Nexon)",
+    "PC (Origin)",
+    "PC (PlayGra)",
+    "PC (Steam)"],
+  "Microsoft": [
+    "Xbox",
+    "Xbox 360",
+    "Xbox One",
+    "Xbox Series S",
+    "Xbox Series X"],
+  "Namco": [
+    "Arcade"],
+  "Nintendo": [
+    "64",
+    "Switch",
+    "Wii"],
+  "Sega": [
+    "Dreamcast",
+    "Saturn"],
+  "Sony": [
+    "Play Station",
+    "Play Station 2",
+    "Play Station 3",
+    "Play Station 4",
+    "Play Station 5"]
+}
