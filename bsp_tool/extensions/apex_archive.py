@@ -100,7 +100,8 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
                      "20jun23": (17, 1, "Dressed to Kill"),
                      "19jul23": (17, 1, "Thief's Bane")},
         # NOTE: maps moved to .rpak in season 18
-        "season18": {"8aug23": (18, 0, "Resurrection")}}
+        "season18": {"8aug23": (18, 0, "Resurrection"),
+                     "19sep23": (18, 1, "Harbingers")}}
 
 # TODO: python-mode
 
