@@ -121,12 +121,12 @@ def save_vbsp(vbsp, image_dir="./", ext="png"):
         if face.light_offset == -1 or face.styles == -1:
             continue  # face is not lightmapped
         # NOTE: If face.styles is >1, there are multiple lightmaps of the same size immediately after the first
-        width, height = [s + 1 for s in face.lightmap.size]
+        width, height = map(int, [s + 1 for s in face.lightmap.size])
         texels = bytes(lightmap_texels[face.light_offset:face.light_offset + (width * height * 4)])
         face_lightmap = Image.frombytes("RGBA", (width, height), texels, "raw")  # Alpha is HDR exponent
         # TODO: bleed each lightmap by an extra pixel in each dimension
         lightmaps.append(face_lightmap)
-    sorted_lightmaps = sorted(lightmaps, key=lambda i: -(i.size[0] * i.size[1]))
+    sorted_lightmaps = sorted(lightmaps, key=lambda i: (-i.size[0], -i.size[1]))
     page = sum(sorted_lightmaps, start=LightmapPage())
     os.makedirs(image_dir, exist_ok=True)
     # TODO: seperate .ldr.ext & .hdr.ext
