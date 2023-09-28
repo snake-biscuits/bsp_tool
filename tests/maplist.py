@@ -288,17 +288,17 @@ extracted_dirs = {
                             "v2905-dated-2017-04-08/maps",  # 13 maps | 1.3 GB | .7z
                             "v4050-datarevision-17228-dated-2017-08-17/maps"],  # 13 maps | 1.3 GB | .7z
         "Titanfall2": ["maps",  # 37 maps | 12.7 GB | .vpk
-                       "depot/r2dlc3/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc4/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc5/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc6/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc7/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc8/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc9/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc10/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2dlc11/game/r2/maps",  # 6 maps | 1.4 GB | .vpk
-                       "depot/r2pcprecert/game/r2/maps",  # 5 maps | 1.4 GB | .vpk
-                       "depot/r2staging/game/r2/maps"],  # 6 maps | 1.4 GB | .vpk
+                       "depot/r2dlc3/game/r2/maps",       # 29 maps | 11.1 GB | .vpk
+                       "depot/r2dlc4/game/r2/maps",       # 31 maps | 11.5 GB | .vpk
+                       "depot/r2dlc5/game/r2/maps",       # 32 maps | 11.8 GB | .vpk
+                       "depot/r2dlc6/game/r2/maps",       # 34 maps | 12.0 GB | .vpk
+                       "depot/r2dlc7/game/r2/maps",       # 36 maps | 12.4 GB | .vpk
+                       "depot/r2dlc8/game/r2/maps",       # 37 maps | 12.5 GB | .vpk
+                       "depot/r2dlc9/game/r2/maps",       # 37 maps | 12.5 GB | .vpk
+                       "depot/r2dlc10/game/r2/maps",      # 37 maps | 12.5 GB | .vpk
+                       "depot/r2dlc11/game/r2/maps",      # 37 maps | 12.5 GB | .vpk
+                       "depot/r2pcprecert/game/r2/maps",  # 25 maps | 10.9 GB | .vpk
+                       "depot/r2staging/game/r2/maps"],   # 28 maps | 11.0 GB | .vpk
         # TODO: remove loose maps once the archive covers season4-6 (2020)
         "ApexLegends": ["maps"],  # 9 maps | 3.3 GB | .vpk (season unknown, most likely s5)
         # Thanks to https://antifandom.com/apexlegends/wiki/Version_History
