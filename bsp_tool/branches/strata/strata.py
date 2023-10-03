@@ -229,7 +229,7 @@ class Face(base.Struct):  # LUMPS 7, 27 * 58
                  "area", "lightmap", "original_face", "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2b5I4bif5i3I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
-    _bitfields = {"primitives": {"count": 15, "allow_dynamic_shadows": 1}}
+    _bitfields = {"primitives": {"count": 31, "allow_dynamic_shadows": 1}}
     # TODO: ivec2 for lightmap vectors
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
                 "primitives.allow_dynamic_shadows": bool}
