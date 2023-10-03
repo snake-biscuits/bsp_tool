@@ -519,13 +519,13 @@ class DisplacementVertex(base.Struct):  # LUMP 33
 class Face(base.Struct):  # LUMPS 7, 27 & 58
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     plane: int  # index into Plane lump
-    side: int  # "faces opposite to the node's plane direction"
-    on_node: bool  # if False, face is in a leaf
+    side: int  # "faces opposite to the Node's Plane direction"
+    on_node: bool  # if False: Face is in a Leaf
     first_edge: int  # index into the SurfEdge lump
     num_edges: int  # number of SurfEdges after first_edge in this Face
     texture_info: int  # index into the TextureInfo lump
     displacement_info: int  # index into the DisplacementInfo lump (None if -1)
-    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    surface_fog_volume_id: int  # related to QuakeIII vertex-lit fog?
     styles: List[int]  # 4 different lighting states? "switchable lighting info"
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
@@ -533,20 +533,21 @@ class Face(base.Struct):  # LUMPS 7, 27 & 58
     # lightmap.mins: vector.vec2  # dimensions of lightmap segment
     # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
-    bitfield: int
-    # bitfield.num_primitives: int  # limit of 32768
-    # bitfield.allow_shadows: bool  # allow (dynamic?) shadows on this Face's Primitives
-    first_primitive_id: int  # index of Primitive
+    primitives: int
+    # primitives.count: int  # limit of 2^15 - 1
+    # primitives.allow_dynamic_shadows: bool
+    first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges",
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
                  "light_offset", "area", "lightmap", "original_face",
-                 "num_primitives", "first_primitive_id", "smoothing_groups"]
+                 "primitives", "first_primitive", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
-    _bitfields = {"num_primitives": {"count": 15, "allow_dynamic_shadows": 1}}
+    _bitfields = {"primitives": {"count": 15, "allow_dynamic_shadows": 1}}
+    # TODO: ivec2 for lightmap vectors
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
-                "num_primitives.allow_dynamic_shadows": bool}
+                "primitives.allow_dynamic_shadows": bool}
 
 
 class Leaf(base.Struct):  # LUMP 10

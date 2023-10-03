@@ -23,21 +23,21 @@ LumpHeader = source.LumpHeader
 class Face(base.Struct):  # LUMP 7
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     light_colours: List[List[int]]  # 8x RGBExp32
-    plane: int       # index into Plane lump
-    side: int        # "faces opposite to the node's plane direction"
-    on_node: bool    # if False, face is in a leaf
+    plane: int  # index into Plane lump
+    side: int  # "faces opposite to the Node's Plane direction"
+    on_node: bool  # if False: face is in a leaf
     first_edge: int  # index into the SurfEdge lump
     num_edges: int   # number of SurfEdges after first_edge in this Face
     texture_info: int    # index into the TextureInfo lump
     displacement_info: int   # index into the DisplacementInfo lump (None if -1)
-    surface_fog_volume_id: int  # t-junctions? QuakeIII vertex-lit fog?
+    surface_fog_volume_id: int  # related to QuakeIII vertex-lit fog?
     styles: List[List[int]]  # "switchable lighting info"; selects an additional lightmap
     light_offset: int  # index of first pixel in LIGHTING / LIGHTING_HDR
     area: float  # surface area of this face
     lightmap: List[float]
     # lightmap.mins  # dimensions of lightmap segment
     # lightmap.size  # scalars for lightmap segment
-    original_face: int  # ORIGINAL_FACES index, -1 if this is an original face
+    original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
     smoothing_groups: int    # lightmap smoothing group
     __slots__ = ["light_colours", "plane", "side", "on_node", "first_edge", "num_edges",
                  "texture_info", "displacement_info", "surface_fog_volume_id", "styles",
@@ -45,6 +45,7 @@ class Face(base.Struct):  # LUMP 7
     _format = "32BHb?i4h8b8b8bif5iI"  # 104 bytes
     # NOTE: integer keys in _arrays / MappedArray._mapping is not yet supported
     # -- intended result: light_colour = [MappedArray(_mapping=[*"rgbe"])] * 8
+    # TODO: ivec2 for lightmap vectors
     _arrays = {"light_colours": {x: [*"rgbe"] for x in "ABCDEFGH"},
                "styles": {"base": 8, "day": 8, "night": 8},
                "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
