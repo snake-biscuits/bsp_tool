@@ -1035,23 +1035,14 @@ GAME_LUMP_CLASSES = {"sprp": {4: GameLump_SPRPv4,
 # branch exclusive methods, in alphabetical order:
 def vertices_of_face(bsp, face_index: int) -> List[float]:
     """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
-    # TODO: primitives
     face = bsp.FACES[face_index]
-    uvs, uv2s = [], []
     first_edge = face.first_edge
-    edges = []
-    positions = []
+    positions = list()
     for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
-        if surfedge >= 0:  # index is positive
-            edge = bsp.EDGES[surfedge]
+        if surfedge >= 0:  # +ve index
             positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
-            # ^ utils/vrad/trace.cpp:637
-        else:  # index is negative
-            edge = bsp.EDGES[-surfedge][::-1]  # reverse
+        else:  # -ve index
             positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
-            # ^ utils/vrad/trace.cpp:635
-        edges.append(edge)
-    positions = t_junction_fixer(bsp, face, positions, edges)
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
     texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
     texture = texture_info.texture
@@ -1060,71 +1051,29 @@ def vertices_of_face(bsp, face_index: int) -> List[float]:
     # texture vector -> uv calculation discovered in:
     # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
     # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
+    texture_uvs = list()
+    lightmap_uvs = list()
     for P in positions:
         # texture UV
         uv = [vector.dot(P, texture.s.vector) + texture.s.offset,
               vector.dot(P, texture.t.vector) + texture.t.offset]
         uv[0] /= texture_data.view.width if texture_data.view.width != 0 else 1
         uv[1] /= texture_data.view.height if texture_data.view.height != 0 else 1
-        uvs.append(vector.vec2(*uv))
+        texture_uvs.append(vector.vec2(*uv))
         # lightmap UV
-        uv2 = [vector.dot(P, lightmap.s.vector) + lightmap.s.offset,
-               vector.dot(P, lightmap.t.vector) + lightmap.t.offset]
+        uv = [vector.dot(P, lightmap.s.vector) + lightmap.s.offset,
+              vector.dot(P, lightmap.t.vector) + lightmap.t.offset]
         if any([(face.lightmap.mins.x == 0), (face.lightmap.mins.y == 0)]):
-            uv2 = [0, 0]  # invalid / no lighting
+            uv = [0, 0]  # invalid / no lighting
         else:
-            uv2[0] -= face.lightmap.mins.x
-            uv2[1] -= face.lightmap.mins.y
-            uv2[0] /= face.lightmap.size.x
-            uv2[1] /= face.lightmap.size.y
-        uv2s.append(uv2)
-    normal = [bsp.PLANES[face.plane].normal] * len(positions)  # X Y Z
-    colour = [texture_data.reflectivity] * len(positions)  # R G B
-    return list(zip(positions, normal, uvs, uv2s, colour))
-
-
-def t_junction_fixer(bsp, face: int, positions: List[List[float]], edges: List[List[float]]) -> List[List[float]]:
-    # TODO: look at primitives system
-    # https://github.com/magcius/noclip.website/blob/master/src/SourceEngine/BSPFile.ts#L1052
-    # https://github.com/magcius/noclip.website/blob/master/src/SourceEngine/BSPFile.ts#L1537
-    # report to bsp.log rather than printing
-    # bsp may need a method wrapper to give a warning to check the logs
-    # face_index = bsp.FACES.index(face)
-    # first_edge = face.first_edge
-    if {positions.count(P) for P in positions} != {1}:
-        # print(f"Face #{face_index} has interesting edges (t-junction?):")
-        # print("\tAREA:", f"{face.area:.3f}")
-        # center = sum(map(vector.vec3, positions), start=vector.vec3()) / len(positions)
-        # print("\tCENTER:", f"({center:.3f})")
-        # print("\tSURFEDGES:", bsp.SURFEDGES[first_edge:first_edge + face.num_edges])
-        # print("\tEDGES:", edges)
-        # loops = [(e[0] == edges[i-1][1]) for i, e in enumerate(edges)]
-        # if not all(loops):
-        #     print("\tWARINNG! EDGES do not loop!")
-        #     print("\tLOOPS:", loops)
-        # print("\tPOSITIONS:", [bsp.VERTICES.index(P) for P in positions])
-
-        # PATCH
-        # -- if you see 1 index between 2 indentical indicies:
-        # -- compress the 3 indices down to just the first
-        repeats = [i for i, P in enumerate(positions) if positions.count(P) != 1]
-        # if len(repeats) > 0:
-        #     print("\tREPEATS:", repeats)
-        #     print([bsp.VERTICES.index(P) for P in positions], "-->")
-        if len(repeats) == 2:
-            index_a, index_b = repeats
-            if index_b - index_a == 2:
-                # edge goes out to one point and doubles back; delete it
-                positions.pop(index_a + 1)
-                positions.pop(index_a + 1)
-            # what about Ts around the ends?
-            print([bsp.VERTICES.index(P) for P in positions])
-        else:
-            if repeats[1] == repeats[0] + 1 and repeats[1] == repeats[2] - 1:
-                positions.pop(repeats[1])
-                positions.pop(repeats[1])
-            print([bsp.VERTICES.index(P) for P in positions])
-    return positions
+            uv[0] -= face.lightmap.mins.x
+            uv[1] -= face.lightmap.mins.y
+            uv[0] /= face.lightmap.size.x
+            uv[1] /= face.lightmap.size.y
+        lightmap_uvs.append(vector.vec2(*uv))
+    normal = bsp.PLANES[face.plane].normal
+    colour = texture_data.reflectivity
+    return [(p, normal, uv0, uv1, colour) for p, uv0, uv1 in zip(positions, texture_uvs, lightmap_uvs)]
 
 
 def displacement_indices(power: int) -> List[List[int]]:  # not directly a method
