@@ -12,7 +12,7 @@
 
   "TrenchBroom": [".map", "Valve220 .map"],
   "Stock Quake": [".map"],
-  "ericw-tools": [".map", "Valve220 .map"],
+  "ericw-tools": ["Valve220 .map", "Quake .map", "Quake2 .map"],
   "q2tools-220": ["Valve220 .map"],
   "qbism/q2tools-220": ["Valve220 .map"],
 
