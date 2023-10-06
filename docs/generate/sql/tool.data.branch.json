@@ -1,0 +1,163 @@
+{
+  "arkane.dark_messiah_mp": {
+    "Editors": ["Hammer"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "arkane.dark_messiah_sp": {
+    "Editors": ["Hammer"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "gearbox.blue_shift": {
+    "Editors": [
+      "GtkRadiant",
+      "Hammer 3.x",
+      "TrenchBroom",
+      "Worldcraft"
+    ],
+    "Compilers": ["Stock Worldcraft"],
+    "Post-Compilers": ["BspFix"]
+  },
+  "gearbox.nightfire": {
+    "Editors": ["Gearcraft"],
+    "Compilers": ["Stock Gearcraft"]
+  },
+  "id_software.qbism": {
+    "Editors": ["Trenchbroom"],
+    "Compilers": ["qbism/q2tools-220"]
+  },
+  "id_software.qfusion": {
+    "Editors": [
+      "GtkRadiant",
+      "Trenchbroom"
+    ],
+    "Compilers": ["Stock Radiant"]
+  },
+  "id_software.quake": {
+    "Editors": ["Trenchbroom"],
+    "Compilers": ["ericw-tools"]
+  },
+  "id_software.quake2": {
+    "Editors": ["Trenchbroom"],
+    "Compilers": ["q2tools-220"]
+  },
+  "id_software.quake3": {
+    "Editors": [
+      "GtkRadiant",
+      "Trenchbroom"
+    ],
+    "Compilers": [
+      "Stock Radiant",
+      "q3map3"
+    ]
+  },
+  "id_software.remake_quake_old": {
+    "Editors": ["Trenchbroom"],
+    "Compilers": ["ericw-tools"]
+  },
+  "infinity_ward.call_of_duty1": {
+    "Editors": ["CoDRadiant"],
+    "Compilers": ["Stock CoD"]
+  },
+  "infinity_ward.call_of_duty2": {
+    "Editors": ["CoD2Radiant"],
+    "Compilers": ["Stock CoD 2"]
+  },
+  "infinity_ward.modern_warfare": {
+    "Editors": ["CoD4Radiant"],
+    "Compilers": ["Stock CoD 4"]
+  },
+  "ion_storm.daikatana": {
+    "Editors": ["IONRadiant"],
+    "Compilers": ["dktools"]
+  },
+  "nexon.cso2": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"],
+    "Post-Compilers": ["cso2-bsp-converter"]
+  },
+  "nexon.cso2_2018": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"],
+    "Post-Compilers": ["cso2-bsp-converter"]
+  },
+  "loiste.infra": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "raven.hexen2": {
+    "Editors": ["TrenchBroom"],
+    "Compilers": ["ericw-tools"]
+  },
+  "raven.soldier_of_fortune2": {
+    "Editors": ["GtkRadiant"],
+    "Compilers": ["Stock Radiant"]
+  },
+  "respawn.apex_legends": {
+    "Editors": ["MRVN-Radiant"],
+    "Compilers": ["remap"]
+  },
+  "respawn.titanfall": {
+    "Editors": ["MRVN-Radiant"],
+    "Compilers": ["remap"]
+  },
+  "respawn.titanfall2": {
+    "Editors": ["MRVN-Radiant"],
+    "Compilers": ["remap"]
+  },
+  "ritual.fakk2": {
+    "Editors": ["UberRadiant"],
+    "Compilers": ["Stock Radiant"]
+  },
+  "ritual.mohaa": {
+    "Editors": ["MoHRadiant"],
+    "Compilers": ["Stock Radiant"]
+  },
+  "ritual.star_trek_elite_force2": {
+    "Editors": [
+      "GtkRadiant",
+      "UberRadiant"
+    ],
+    "Compilers": ["Stock Radiant"]
+  },
+  "strata.strata": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "troika.vampire": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "valve.alien_swarm": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "valve.goldsrc": {
+    "Editors": [
+      "GtkRadiant",
+      "Hammer 3.x",
+      "TrenchBroom",
+      "Worldcraft"
+    ],
+    "Compilers": ["Stock Worldcraft"]
+  },
+  "valve.left4dead": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "valve.left4dead2": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "valve.sdk_2013": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer", "Slammin' Tools"]
+  },
+  "valve.source": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  },
+  "valve.source_filmmaker": {
+    "Editors": ["Hammer", "Hammer++"],
+    "Compilers": ["Stock Hammer"]
+  }
+}

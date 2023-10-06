@@ -1,0 +1,16 @@
+CoDRadiant
+CoD2Radiant
+CoD4Radiant
+Dark Radiant
+Gearcraft
+GtkRadiant
+Hammer
+Hammer++
+IONRadiant
+MoHRadiant
+MRVN-Radiant
+Netradiant
+netradiant-custom
+TrenchBroom
+UberRadiant
+Worldcraft

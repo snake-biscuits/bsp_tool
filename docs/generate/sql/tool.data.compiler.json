@@ -1,0 +1,23 @@
+{
+  "Slammin' Tools": ["vbsp", "vvis", "vrad", "vbspinfo"],
+  "Stock CoD 2": ["cod2map", "cod2rad", "cod2rad64"],
+  "Stock CoD 4": ["cod4map", "cod4rad", "cod4rad64"],
+  "Stock CoD": ["q3map", "flare"],
+  "Stock Gearcraft": ["bbsp", "bvis", "brad"],
+  "Stock Hammer": ["vbsp", "vvis", "vrad", "vbspinfo", "bspzip"],
+  "Stock Quake": ["QCSG", "QBSP2", "VIS", "QRAD"],
+  "Stock Radiant": ["q3map", "q3map2"],
+  "Stock Worldcraft": ["HLCSG", "HLBSP", "HLVIS", "HLRAD"],
+  "VHLT": [
+    "hlcsg", "hlcsg_x64",
+    "hlbsp", "hlbsp_x64",
+    "hlvis", "hlvis_x64",
+    "hlrad", "hlrad_x64"
+  ],
+  "dktools": ["qbsp3", "qvis3", "qrad3"],
+  "ericw-tools": ["qbsp", "vis", "light", "bspinfo", "bsputil"],
+  "remap": ["remap"],
+  "q3map3": ["q3map3"],
+  "q2tools-220": ["q2tool"],
+  "qbism/q2tools-220": ["q2tool"]
+}

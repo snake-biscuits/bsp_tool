@@ -1,0 +1,30 @@
+{
+  "Hammer 3.x": [".rmf", ."vmf"],
+  "J.A.C.K.": [".jmf", ".rmf", ".vmf", "Valve220 .map"],
+  "VHLT": ["Valve220 .map"],
+  "Worldcraft": [".rmf", ."vmf"],
+  "Stock Worldcraft": [".rmf"],
+
+  "Hammer 4.x": [".vmf"],
+  "Hammer++": ["Valve220 .map", ".vmf"],
+  "Slammin' Tools": [".vmf"],
+  "Stock Hammer": [".vmf"],
+
+  "TrenchBroom": [".map", "Valve220 .map"],
+  "Stock Quake": [".map"],
+  "ericw-tools": [".map", "Valve220 .map"],
+  "q2tools-220": ["Valve220 .map"],
+  "qbism/q2tools-220": ["Valve220 .map"],
+
+  "CoDRadiant": [".map"],
+  "Stock CoD": [".map"],
+
+  "CoD2Radiant": [".map"],
+  "Stock CoD 2": [".map"],
+
+  "CoD4Radiant": [".map"],
+  "Stock CoD 4": [".map"],
+
+  "MRVN-Radiant": [".map", "Valve220 .map"],
+  "remap": [".map"]
+}
