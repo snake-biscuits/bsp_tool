@@ -1,3 +1,6 @@
+-- relies on release.tables.sql
+
+
 CREATE TABLE Company (
     name  VARCHAR  NOT NULL
 );
@@ -28,7 +31,7 @@ CREATE TABLE CompanyMerge (
 CREATE TABLE ReleaseDeveloper (
     release    INTEGER  NOT NULL,
     developer  INTEGER  NOT NULL,
-    FOREIGN KEY (release)   REFERENCES Release(rowid),  -- table_release.sql
+    FOREIGN KEY (release)   REFERENCES Release(rowid),  -- release.tables.sql
     FOREIGN KEY (developer) REFERENCES Company(rowid)
 );
 
@@ -36,7 +39,7 @@ CREATE TABLE ReleaseDeveloper (
 CREATE TABLE ReleasePublisher (
     release    INTEGER  NOT NULL,
     publisher  INTEGER  NOT NULL,
-    FOREIGN KEY (release)   REFERENCES Release(rowid),  -- table_release.sql
+    FOREIGN KEY (release)   REFERENCES Release(rowid),  -- release.tables.sql
     FOREIGN KEY (publisher) REFERENCES Company(rowid)
 );
 
@@ -52,6 +55,6 @@ CREATE TABLE ParentCompany (
 CREATE TABLE PlatformCompany (
     platform  INTEGER  NOT NULL,
     company   INTEGER  NOT NULL,
-    FOREIGN KEY (platform) REFERENCES Platform(rowid),  -- table_release.sql
+    FOREIGN KEY (platform) REFERENCES Platform(rowid),  -- release.tables.sql
     FOREIGN KEY (company)  REFERENCES Company(rowid)
 );

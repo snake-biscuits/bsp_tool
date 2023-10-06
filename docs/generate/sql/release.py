@@ -5,25 +5,37 @@ import common
 
 def generate():
     db = sqlite3.connect(":memory:")
-    common.run_script(db, "table_game.sql")    # Release FK
-    common.run_script(db, "table_branch.sql")  # Release FK
-    common.run_script(db, "table_release.sql")
+    common.run_script(db, "game.tables.sql")
+    common.run_script(db, "branch.tables.sql")
+    common.run_script(db, "release.tables.sql")
 
-    # Platform
+    raise NotImplementedError()
+    tables = list()
+
+    tables.append("Platform")
     # "data_release.platform.json"
+    ...
 
-    # Region
+    tables.append("Region")
     # "data_release.region.json"
+    ...
 
-    # Release
+    tables.append("Release")
     # "releases.sc"
+    ...
 
-    # ReleaseBranch
+    tables.append("ReleaseBranch")
     # tests/megatest.py
+    ...
 
-    common.tables_to_file(db, "data_release.sql", (...))
+    common.tables_to_file(db, "release.data.sql", tables)
 
 
 def load_into(database: sqlite3.Connection):
-    common.run_script("table_release.sql")
-    common.run_script("data_release.sql")
+    """load after game & branch"""
+    common.run_script(database, "release.tables.sql")
+    common.run_script(database, "release.data.sql")
+
+
+if __name__ == "__main__":
+    generate()  # writes to release.data.sql
