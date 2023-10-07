@@ -1,4 +1,7 @@
 -- example queries
+
+
+-- list all branches of a given engine
 SELECT D.name, B.name  -- ("Developer", "Branch")
 FROM Branch AS B
 INNER JOIN Developer as D
