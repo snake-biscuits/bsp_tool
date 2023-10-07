@@ -1,4 +1,4 @@
-CREATE TABLE Reference (
+CREATE TABLE Reference IF NOT EXISTS (
     label         VARCHAR,
     published     DATE,
     main_link     VARCHAR,
@@ -10,7 +10,7 @@ CREATE TABLE Reference (
 -- TODO: ReferenceAuthor, Author, Publication/Site
 
 
-CREATE Table Citation (
+CREATE Table Citation IF NOT EXISTS (
     cited_table   VARCHAR  NOT NULL,  -- SELECT name FROM sqlite_master WHERE type='table'
     cited_column  VARCHAR  NOT NULL,  -- pragma_table_data(cited_table)
     reference     INTEGER  NOT NULL,

@@ -1,15 +1,14 @@
--- bsp_tool.branches.developer.branch
-CREATE TABLE Engine (
+CREATE TABLE Engine IF NOT EXISTS (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Developer (
+CREATE TABLE Developer IF NOT EXISTS (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Branch (
+CREATE TABLE Branch IF NOT EXISTS (
     name       VARCHAR  NOT NULL,
     engine     INTEGER  NOT NULL,
     developer  INTEGER  NOT NULL,
@@ -18,7 +17,7 @@ CREATE TABLE Branch (
 );
 
 
-CREATE TABLE BranchFork (
+CREATE TABLE BranchFork IF NOT EXISTS (
     base  INTEGER  NOT NULL,
     fork  INTEGER  NOT NULL,
     FOREIGN KEY (base) REFERENCES Branch(rowid),

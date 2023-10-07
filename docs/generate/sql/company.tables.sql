@@ -1,12 +1,12 @@
 -- relies on release.tables.sql
 
 
-CREATE TABLE Company (
+CREATE TABLE Company IF NOT EXISTS (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE CompanyFork (
+CREATE TABLE CompanyFork IF NOT EXISTS (
     company      INTEGER  NOT NULL,  -- forked from
     new_company  INTEGER  NOT NULL,
     started      DATE     NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE CompanyFork (
 );
 
 
-CREATE TABLE CompanyMerge (
+CREATE TABLE CompanyMerge IF NOT EXISTS (
     -- "I'm into murders & executions" - Patrick Bateman
     companies  INTEGER  NOT NULL,
     started    DATE     NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE CompanyMerge (
 -- TODO: other Company events: rebrands, bancruptcies etc.
 
 
-CREATE TABLE ReleaseDeveloper (
+CREATE TABLE ReleaseDeveloper IF NOT EXISTS (
     release    INTEGER  NOT NULL,
     developer  INTEGER  NOT NULL,
     FOREIGN KEY (release)   REFERENCES Release(rowid),  -- release.tables.sql
@@ -36,7 +36,7 @@ CREATE TABLE ReleaseDeveloper (
 );
 
 
-CREATE TABLE ReleasePublisher (
+CREATE TABLE ReleasePublisher IF NOT EXISTS (
     release    INTEGER  NOT NULL,
     publisher  INTEGER  NOT NULL,
     FOREIGN KEY (release)   REFERENCES Release(rowid),  -- release.tables.sql
@@ -44,7 +44,7 @@ CREATE TABLE ReleasePublisher (
 );
 
 
-CREATE TABLE ParentCompany (
+CREATE TABLE ParentCompany IF NOT EXISTS (
     parent    INTEGER  NOT NULL,  -- owns the other company
     company   INTEGER  NOT NULL,
     FOREIGN KEY (parent)  REFERENCES Company(rowid),
@@ -52,7 +52,7 @@ CREATE TABLE ParentCompany (
 );
 
 
-CREATE TABLE PlatformCompany (
+CREATE TABLE PlatformCompany IF NOT EXISTS (
     platform  INTEGER  NOT NULL,
     company   INTEGER  NOT NULL,
     FOREIGN KEY (platform) REFERENCES Platform(rowid),  -- release.tables.sql

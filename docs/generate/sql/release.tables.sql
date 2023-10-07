@@ -2,17 +2,17 @@
 -- relies on game.tables.sql
 
 
-CREATE TABLE Platform (
+CREATE TABLE Platform IF NOT EXISTS (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Region (
+CREATE TABLE Region IF NOT EXISTS (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Release (
+CREATE TABLE Release IF NOT EXISTS (
     game      INTEGER  NOT NULL,
     platform  INTEGER  NOT NULL,
     region    INTEGER  NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE Release (
 );
 
 
-CREATE TABLE ReleaseBranch (
+CREATE TABLE ReleaseBranch IF NOT EXISTS (
     release  INTEGER  NOT NULL,
     branch   INTEGER  NOT NULL,
     FOREIGN KEY (release) REFERENCES Release(rowid),

@@ -1,7 +1,7 @@
 -- relies on table_branch.sql
 
 
-CREATE TABLE BranchCoverage (
+CREATE TABLE BranchCoverage IF NOT EXISTS (
     branch    INTEGER  NOT NULL,
     coverage  FLOAT    NOT NULL,  -- bsp_tool coverage
     FOREIGN KEY branch REFERENCES Branch(rowid)
