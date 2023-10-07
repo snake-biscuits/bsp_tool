@@ -1,0 +1,42 @@
+{
+  "LevelEditor": {
+    "CoDRadiant":        "www.moddb.com/games/call-of-duty/downloads/cod-radiant",
+    "CoD2Radiant":       "gamefront.com/games/call-of-duty-2/file/cod2-updated-map-mod-tool",
+    "CoD4Radiant":       "github.com/promod/CoD4-Mod-Tools",
+    "DarkRadiant":       "www.darkradiant.net/download.html",
+    "Gearcraft":         "moddb.com/games/half-life/downloads/gearcraft",
+    "GtkRadiant":        "github.com/TTimo/GtkRadiant",
+    "Hammer++":          "ficool2.github.io/HammerPlusPlus-Website/index.html",
+    "IONRadiant":        "bitbucket.org/daikatana13/daikatana/downloads/dktools_11f_test2.7z",
+    "MoHRadiant":        "https://www.moddb.com/downloads/moh-radiant",
+    "MRVN-Radiant":      "github.com/MRVN-Radiant/MRVN-Radiant",
+    "NetRadiant":        "netradiant.gitlab.io/page/download/",
+    "netradiant-custom": "github.com/Garux/netradiant-custom",
+    "QuakeEd":           "github.com/id-Software/Quake-Tools",
+    "QERadiant":         "github.com/id-Software/Quake-2-Tools",
+    "TrenchBroom":       "trenchbroom.github.io/",
+    "UberRadiant":       "moddb.com/downloads/stef2-bertools-game-devolopment-kit"
+  },
+  "Compiler": {
+    "ericw-tools":    "github.com/ericwa/ericw-tools",
+    "q2tools":        "github.com/qbism/q2tools-220",
+    "q3map3":         "github.com/siliconemilk/q3map3",
+    "Slammin' Tools": "knockout.chat/thread/992"
+  },
+  "PostCompiler": {
+    "BSPFix":                 "valvedev.info/tools/bspfix",
+    "BSP2OBJ":                "github.com/measuredweighed/BSP2OBJ",
+    "CSO2 Converter":         "git.sr.ht/~leite/cso2-bsp-converter",
+    "Corvid":                 "github.com/KILLTUBE/corvid",
+    "D3DBSP Converter":       "github.com/SE2Dev/D3DBSP_Converter",
+    "OBJ to CoDRadiant .map": "github.com/ModdingForDummies/OBJ-to-CoD-Radiant-Map-File",
+    "The Orange Toolbox":     "github.com/The-Orange-Toolbox?type=source",
+    "VRADFix":                "github.com/maxdup/VRADFix"
+  },
+  "SDK": {
+    "Dark Messiah": "moddb.com/games/dark-messiah-of-might-magic/downloads/dark-messiah-might-and-magic-sdk",
+    "GtkRadiant":   "svn.icculus.org/gtkradiant-gamepacks",
+    "MapBase":      "moddb.com/mods/mapbase/downloads/mapbase-release-build",
+    "Vampire":      "moddb.com/mods/vtmb-unofficial-patch/downloads/bloodlines-sdk"
+  }
+}

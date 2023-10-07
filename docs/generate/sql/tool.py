@@ -3,6 +3,14 @@ import sqlite3
 import common
 
 
+# TODO: Source SDK branches
+# -- per-branch install guides for Hammer
+
+# NOTE: using this DB chunk to generate basic setup guides
+# -- download Editor X, configure Compiler Y, [use PostCompiler Z]
+# -- these guides could be inserted into a page for each branch
+
+
 def generate():
     db = sqlite3.connect(":memory:")
     common.run_script(db, "tool.tables.sql")

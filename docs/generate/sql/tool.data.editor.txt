@@ -1,7 +1,7 @@
-CoDRadiant
 CoD2Radiant
 CoD4Radiant
-Dark Radiant
+CoDRadiant
+DarkRadiant
 Gearcraft
 GtkRadiant
 Hammer
@@ -11,6 +11,8 @@ MoHRadiant
 MRVN-Radiant
 Netradiant
 netradiant-custom
+QERadiant
+QuakeEd
 TrenchBroom
 UberRadiant
 Worldcraft
