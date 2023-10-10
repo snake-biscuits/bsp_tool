@@ -2,6 +2,7 @@
 import json
 import sqlite3
 import sys
+from types import ModuleType
 
 import common
 
@@ -50,6 +51,15 @@ def generate():
 def load_into(database: sqlite3.Connection):
     common.run_script(database, "branch.tables.sql")
     common.run_script(database, "branch.data.sql")
+
+
+# queries
+def module_index(db: sqlite3.Connection, branch: ModuleType) -> int:
+    developer_name, branch_name = branch.__name__.split(".")[-2:]
+    query = ["SELECT B.rowid FROM Branch as B",
+             "JOIN Developer as D ON B.developer = D.rowid",
+             "WHERE B.name = ? AND D.name = ?"]
+    db.execute("\n".join(query), [branch_name, developer_name])
 
 
 if __name__ == "__main__":

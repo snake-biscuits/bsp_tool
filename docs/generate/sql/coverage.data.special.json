@@ -1,0 +1,23 @@
+{
+  "shared": {
+    "Entities": 100
+  },
+  "id_software.quake3": {
+    "Visibility": 100
+  },
+  "nexon.cso2": {
+    "PakFile": 0
+  },
+  "respawn.apex_legends": {
+    "LevelInfo": 75
+  },
+  "respawn.titanfall": {
+    "EntityPartitions": 100,
+    "Grid": 100,
+    "LevelInfo": 100
+  },
+  "valve.source": {
+    "PakFile": 100,
+    "TextureDataStringData": 100
+  }
+}
