@@ -311,7 +311,7 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
     model_names: List[str]
     leaves: List[int]
     scales: List[StaticPropScale]
-    props: List[source.StaticPropv6]
+    props: List[source.StaticPropv5]
 
     def __init__(self):
         self.model_names = list()
