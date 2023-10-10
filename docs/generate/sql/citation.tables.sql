@@ -1,7 +1,7 @@
 CREATE TABLE Reference IF NOT EXISTS (
-    label         VARCHAR,
+    label         VARCHAR  UNIQUE,
     published     DATE,
-    main_link     VARCHAR,
+    main_link     VARCHAR  UNIQUE,
     archive_link  VARCHAR,  -- internet archive link
     archived      DATE
 );
