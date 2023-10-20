@@ -543,6 +543,7 @@ group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dir
 # registering tests/maps first
 installed_games = {("./tests/maps", game): [""] for game in os.listdir("./tests/maps/")}
 installed_games.update({("./tests/maps", "Call of Duty 4"): ["", "mp"]})
+installed_games.update({("./tests/maps", "Xbox360"): [game for game in os.listdir("./tests/maps/Xbox360")]})
 # add only the installed games from each group to tests
 for group, games in group_dirs.items():
     if os.path.exists(group):
