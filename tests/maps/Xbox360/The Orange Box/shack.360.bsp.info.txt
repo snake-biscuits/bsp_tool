@@ -1,0 +1,58 @@
+.../half-life 2/bin> ./vbspinfo.exe .../shack.bsp
+Command line: ".../half-life 2/bin/vbspinfo.exe" ".../shack.bsp"
+
+---------------------
+reading .../shack.bsp (1122360)
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness
+------------       ---------------  ---------------  --------
+models                   1/1024           48/49152    ( 0.1%)
+brushes                196/8192         2352/98304    ( 2.4%)
+brushsides            1247/65536        9976/524288   ( 1.9%)
+planes                 442/65536        8840/1310720  ( 0.7%)
+vertexes              1507/65536       18084/786432   ( 2.3%)
+nodes                  287/65536        9184/2097152  ( 0.4%)
+texinfos               114/12288        8208/884736   ( 0.9%)
+texdata                 28/2048          896/65536    ( 1.4%)
+dispinfos                4/0             704/0        ( 0.0%)
+disp_verts             100/0            2000/0        ( 0.0%)
+disp_tris              128/0             256/0        ( 0.0%)
+disp_lmsamples        3072/0            3072/0        ( 0.0%)
+faces                  757/65536       42392/3670016  ( 1.2%)
+hdr faces              757/65536       42392/3670016  ( 1.2%)
+origfaces              508/65536       28448/3670016  ( 0.8%)
+leaves                 289/65536        9248/2097152  ( 0.4%)
+leaffaces              965/65536        1930/131072   ( 1.5%)
+leafbrushes            329/65536         658/131072   ( 0.5%)
+areas                    2/256            16/2048     ( 0.8%)
+surfedges             6169/512000      24676/2048000  ( 1.2%)
+edges                 4256/256000      17024/1024000  ( 1.7%)
+LDR worldlights          3/8192          264/720896   ( 0.0%)
+HDR worldlights          3/8192          264/720896   ( 0.0%)
+leafwaterdata            0/32768           0/393216   ( 0.0%)
+waterstrips            125/32768        1250/327680   ( 0.4%)
+waterverts               0/65536           0/786432   ( 0.0%)
+waterindices          3279/65536        6558/131072   ( 5.0%)
+cubemapsamples           0/1024            0/16384    ( 0.0%)
+overlays                 0/512             0/180224   ( 0.0%)
+LDR lightdata         [variable]      245736/0        ( 0.0%)
+HDR lightdata         [variable]      245736/0        ( 0.0%)
+visdata               [variable]        6932/16777216 ( 0.0%)
+entdata               [variable]        1002/393216   ( 0.3%)
+LDR ambient table      289/65536        1156/262144   ( 0.4%)
+HDR ambient table      289/65536        1156/262144   ( 0.4%)
+LDR leaf ambient      1497/65536       41916/1835008  ( 2.3%)
+HDR leaf ambient      1497/65536       41916/1835008  ( 2.3%)
+occluders                0/0               0/0        ( 0.0%)
+occluder polygons        0/0               0/0        ( 0.0%)
+occluder vert ind        0/0               0/0        ( 0.0%)
+detail props          [variable]           1/12       ( 8.3%)
+static props          [variable]           1/404      ( 0.2%)
+pakfile               [variable]      211825/0        ( 0.0%)
+physics               [variable]       70919/4194304  ( 1.7%)
+physics terrain       [variable]         788/1048576  ( 0.1%)
+
+Level flags = 0
+
+Total triangle count: 2625
+---------------------
