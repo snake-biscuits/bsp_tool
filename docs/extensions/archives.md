@@ -1,3 +1,4 @@
+# `extensions.archives`
 ## Dependencies
 `extensions.archives` requires no dependencies
 
