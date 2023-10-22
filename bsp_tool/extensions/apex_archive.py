@@ -3,6 +3,7 @@ from collections import defaultdict
 import fnmatch
 import os
 import readline  # noqa F401  (extends input())
+import socket
 import subprocess
 import sys
 import time
@@ -135,6 +136,7 @@ def term_print(*args, **kwargs):
 # path ops
 
 def cd(season: str, patch: str):
+    """change directory"""
     term_print(f"cd {season/patch}")
     os.chdir(os.path.join(seasons_folder, season, patch))
     if __name__ != "__main__":
@@ -171,14 +173,20 @@ def map_path(filepath: str) -> str:
 
 aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
 
-user = os.getenv("USERNAME", "")
-host = os.getenv("HOSTNAME", os.getenv("COMPUTERNAME"))
+user = os.getenv("USERNAME", os.getenv("USER"))
+host = os.getenv("HOSTNAME", os.getenv("COMPUTERNAME", socket.gethostname()))
 user = aliases.get(f"{user}@{host}", user)
 
-print_c(f"? GETTING CREDENTIALS FOR USER \x1b[34m{user}@{host}\x1b[35m ...", "mag")
-archivists = {("bikkie", "ITANI_WAYSOUND"): "E:/Mod/ApexLegends",
-              ("bikkie", "copland-bentokom-9876"): "media/bikkie/3964-39351/Mod/ApexLegends"}
+if None not in (user, host):
+    print_c(f"? GETTING CREDENTIALS FOR USER \x1b[34m{user}@{host}\x1b[35m ...", "mag")
+else:
+    print_c("! COULD NOT IDENTIFY USER", "ylw")
+    print_c("-XXX- ACTIVATING SECURITY MEASURES -XXX-", "red")
+    raise SystemExit
 
+archivists = {
+    ("bikkie", "ITANI_WAYSOUND"): "E:/Mod/ApexLegends",
+    ("bikkie", "coplandbentokom-9876"): "/media/bikkie/3964-39352/Mod/ApexLegends"}
 if (user, host) not in archivists:
     print_c(f"! WARNING ! \x1b[34m{user}@{host}\x1b[33m is not registered as an archivist", "ylw")
     print_c("-XXX- ACTIVATING SECURITY MEASURES -XXX-", "red")
@@ -217,6 +225,7 @@ def patches_after(season: str, patch: str) -> List[str]:
 
 
 def maps(season: str, patch: str = None) -> List[str]:
+    """list available maps"""
     if patch is not None:
         patch_dir = os.path.join(seasons_folder, season, patch)
         patch_files = os.listdir(os.path.join(patch_dir, "maps"))
@@ -313,11 +322,11 @@ if __name__ == "__main__":
     def term_help(tool=None):
         if tool is None:
             for tool_args, (desc, func) in tools.items():
-                print(f"{tool_args:<16} {desc}")
+                print(f"{tool_args:<32} {desc}")
         else:
             for tool_args, (desc, func) in tools.items():
                 if tool_args.split()[0] == tool:
-                    print(f"{tool_args:<16} {desc}")
+                    print(f"{tool_args:<32} {desc}")
 
     def term_wrap(func):
         """<func(*args: str) -> None | str | List[str]> -> terminal function"""
@@ -350,6 +359,8 @@ if __name__ == "__main__":
              "history filepath": term_wrap(hash_history),
              "regen": term_wrap(regen_archive_hashfiles)}
     # ^ {"tool *args": ("description", function)}
+    # TODO: replace seasons & patches season w/ functions
+    # -- filter available archive segments
 
     def tool_signature(tool_args: str):
         tool, *args = tool_args.split()

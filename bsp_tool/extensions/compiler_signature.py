@@ -17,7 +17,7 @@ class MRVNRadiant:
 
     def __repr__(self) -> str:
         time = self.time.strftime(self._time_format)
-        return f"<MRVN-Radiant compiler signature (version: {self.version}, time: {time})>"
+        return f"<MRVNRadiant (version: {self.version}, time: {time})>"
 
     def __str__(self) -> str:
         lines = [self.motd,
