@@ -1,4 +1,3 @@
-# https://github.com/barnabwhy/TFVPKTool
 from __future__ import annotations
 from collections import namedtuple
 import os
@@ -18,9 +17,13 @@ def read_str(binary_stream, encoding="utf-8", errors="strict") -> str:
     return out.decode(encoding, errors)
 
 
-# TODO: Rpak
-# -- Apex Season 18 "wrap" .bsp files (oodle compression)
-# -- shadersets, materials, textures & models for io_import_rbsp
+class Rpak(base.Archive):
+    # Apex Season 18 "wrap" .bsp files (oodle compression)
+    # shadersets, materials, textures & models for io_import_rbsp
+    ext = "*.rpak"  # + "*.starpak"
+
+    def __init__(self):
+        raise NotImplementedError()
 
 
 VpkHeader = namedtuple("VpkHeader", ["magic", "version_major", "version_minor", "tree_length", "data_length"])
@@ -28,6 +31,7 @@ VpkHeader = namedtuple("VpkHeader", ["magic", "version_major", "version_minor", 
 
 class Vpk(base.Archive):
     """Titanfall .vpk only!"""
+    ext = "*_dir.vpk"
     header: VpkHeader
     files: Dict[str, VpkEntry]
     filename: str

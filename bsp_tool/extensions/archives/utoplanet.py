@@ -12,6 +12,7 @@ ApkHeader = namedtuple("ApkHeader", ["id", "files_offset", "file_count", "dir_of
 
 
 class Apk(base.Archive):
+    ext = "*.apk"
     _file: io.BufferedReader  # keep file open for extraction
     files: Dict[str, ApkEntry]
 

@@ -3,37 +3,39 @@ __all__ = ["base", "bluepoint", "gearbox", "id_software", "infinity_ward",
            "nexon", "respawn", "utoplanet", "valve"]
 import fnmatch
 import os
+from typing import Dict, List
 
 from . import base
-# zipfile.ZipFile-like archive interfaces, grouped by developer
-from . import bluepoint  # Bpk
-from . import gearbox  # Nightfire007
-from . import id_software  # Pak Pk3
-from . import infinity_ward  # Iwd FastFile
-from . import nexon  # Pkg Hfs
-from . import respawn  # Vpk
-from . import utoplanet  # Apk
-from . import valve  # Vpk
+from . import bluepoint
+from . import gearbox
+from . import id_software
+from . import infinity_ward
+from . import nexon
+from . import respawn
+from . import utoplanet
+from . import valve
 
-
-# TODO: Bluepoint .bpk loader (Titanfall for the Xbox360)
 
 # NOTE: you could access raw .bsp files with Zipfile.read("filename.bsp"), but bsp_tool doesn't accept open files
 # -- e1m1 = IdTechBsp(quake, "maps/e1m1.bsp", autoload=False)
 # -- e1m1.file = pak0.read("maps/e1m1.bsp")
 # -- e1m1._preload()
+# NOTE: would need to develop a new method of checking related files
 
 
 # batch operations
-# TODO: pass in archive classes, not just filename filters
-def search_folder(folder, pattern="*.bsp", archive="*.pk3"):
-    for pk3_filename in fnmatch.filter(os.listdir(folder), archive):
-        print(pk3_filename)
-        pk3 = id_software.Pk3(os.path.join(folder, pk3_filename))
-        print(*["\t" + bsp for bsp in pk3.search(pattern)], sep="\n", end="\n\n")
+# TODO: ignore r".*_[0-9]+\.vpk"
+def search_folder(archive_class, path, pattern="*.bsp") -> Dict[str, List[str]]:
+    findings = dict()
+    for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
+        archive_file = archive_class(os.path.join(path, archive_filename))
+        matching_files = [f for f in archive_file.search(pattern)]
+        if len(matching_files) != 0:
+            findings[archive_filename] = matching_files
+    return findings
 
 
-def extract_folder(folder, pattern="*.bsp", path=None, archive="*.pk3"):
-    for archive_filename in fnmatch.filter(os.listdir(folder), archive):
-        archive_file = id_software.Pk3(os.path.join(folder, archive_filename))  # works on any zip-like format
-        archive_file.extract_match(pattern=pattern, path=path)
+def extract_folder(archive_class, path, pattern="*.bsp", to_path=None):
+    for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
+        archive_file = archive_class(os.path.join(path, archive_filename))
+        archive_file.extract_match(pattern=pattern, to_path=to_path)

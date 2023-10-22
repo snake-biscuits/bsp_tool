@@ -5,9 +5,8 @@ import zlib
 from . import id_software
 
 
-# NOTE: Call of Duty 1 uses id_software.Pk3
-class Iwd(id_software.Pk3):  # identical implmentation, different extension (so far)
-    """Call of Duty 2 .bsps are stored in .iwd files, which are basically .zip archives"""
+class Iwd(id_software.Pk3):
+    ext = "*.iwd"
 
 
 class FastFile:
