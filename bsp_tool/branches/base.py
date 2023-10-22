@@ -225,8 +225,10 @@ class Struct:
 
     @classmethod
     def as_cpp(cls, one_liner_limit: int = 80) -> str:
-        kwargs = dict(_mapping={s: cls._arrays.get(s, None) for s in cls.__slots__}, _format=cls._format,
-                      _bitfields=cls._bitfields, _classes=cls._classes)
+        # MappedArray.as_cpp wrapper
+        kwargs = {
+            "_mapping": {s: cls._arrays.get(s, None) for s in cls.__slots__},
+            "_format": cls._format, "_bitfields": cls._bitfields, "_classes": cls._classes}
         exec(f"class {cls.__name__}(MappedArray): pass")  # set class name
         instance = locals()[cls.__name__](**kwargs)
         return instance.as_cpp(one_liner_limit=one_liner_limit)
