@@ -1,0 +1,30 @@
+{
+  "orange_box.SPRPv5": [
+    "cs_militia",
+    "de_nuke",
+    "de_train"
+  ],
+  "orange_box.SPRPv6": [
+    "de_dust",
+    "de_dust2",
+    "de_inferno"
+  ],
+  "source.SPRPv4": [
+    "test_hardware",
+    "test_speakers"
+  ],
+  "source.SPRPv5": [
+    "cs_assault",
+    "cs_compound",
+    "cs_havana",
+    "cs_italy",
+    "cs_office",
+    "de_aztec",
+    "de_cbble",
+    "de_chateau",
+    "de_piranesi",
+    "de_port",
+    "de_prodigy",
+    "de_tides"
+  ]
+}

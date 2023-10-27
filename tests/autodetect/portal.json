@@ -1,0 +1,32 @@
+{
+  "orange_box.SPRPv5": [
+    "background1",
+    "background2",
+    "escape_00",
+    "testchmb_a_00",
+    "testchmb_a_01",
+    "testchmb_a_02",
+    "testchmb_a_03",
+    "testchmb_a_04",
+    "testchmb_a_05",
+    "testchmb_a_06",
+    "testchmb_a_08",
+    "testchmb_a_08_advanced",
+    "testchmb_a_09",
+    "testchmb_a_09_advanced",
+    "testchmb_a_10",
+    "testchmb_a_10_advanced",
+    "testchmb_a_11",
+    "testchmb_a_11_advanced",
+    "testchmb_a_13",
+    "testchmb_a_13_advanced",
+    "testchmb_a_14",
+    "testchmb_a_14_advanced",
+    "testchmb_a_15"
+  ],
+  "orange_box.SPRPv6": [
+    "escape_01",
+    "escape_02",
+    "testchmb_a_07"
+  ]
+}
