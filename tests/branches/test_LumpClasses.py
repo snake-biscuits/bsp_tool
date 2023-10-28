@@ -9,6 +9,8 @@ from bsp_tool.branches import base
 from bsp_tool.branches import vector
 
 
+# NOTE: we indirectly test all _classes here, but they should have their own tests
+
 # TODO: no skipped padding due to struct alignment; sizeof(_format) == sum(map(sizeof, _format))
 # -- gets complicated with Displacement Neighbours
 
@@ -40,6 +42,10 @@ for branch_script in sorted({*branches.quake_based, *branches.source_based}, key
             MappedArray_LumpClasses[f"{script_name}.{class_name}"] = LumpClass
         if issubclass(LumpClass, base.BitField):
             BitField_LumpClasses[f"{script_name}.{class_name}"] = LumpClass
+
+# NOTE: empty __init__ is invalid, thanks to time.SystemTime.__init__
+Struct_LumpClasses.pop("wild_tangent.genesis3d.Header")
+# TODO: establish alternate tests
 
 
 # TODO: test "other" LumpClasses (e.g. quake.Edge)

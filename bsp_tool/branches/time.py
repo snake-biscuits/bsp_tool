@@ -1,3 +1,4 @@
+from __future__ import annotations
 import datetime
 import enum
 
@@ -56,4 +57,14 @@ class SystemTime(base.MappedArray):
 
     def as_datetime(self) -> datetime.datetime:
         return datetime.datetime(self.year, self.month.value, self.day,
-                                 self.hour, self.minute, self.second, self.millisecond * 100)
+                                 self.hour, self.minute, self.second, self.millisecond * 1000)
+
+    @classmethod
+    def from_datetime(cls, dt: datetime.datetime) -> SystemTime:
+        tuple_ = (dt.year, dt.month, dt.weekday() + 1, dt.day,
+                  dt.hour, dt.minute, dt.second, dt.microsecond // 1000)
+        return cls(*tuple_)
+
+    @classmethod
+    def now(cls) -> SystemTime:
+        return cls.from_datetime(datetime.datetime.now())
