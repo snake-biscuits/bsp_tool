@@ -1,8 +1,8 @@
 """A library for .bsp file analysis & modification"""
 __all__ = ["base", "branches", "load_bsp", "lumps",
-           "D3DBsp", "FusionBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
-           "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp", "ReMakeQuakeBsp",
-           "RespawnBsp", "RitualBsp", "ValveBsp"]
+           "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
+           "InfinityWardBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp",
+           "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
@@ -16,6 +16,7 @@ from .raven import RavenBsp
 from .respawn import RespawnBsp
 from .ritual import RitualBsp
 from .valve import GoldSrcBsp, ValveBsp
+from .wild_tangent import Genesis3DBsp
 
 
 BspVariant_for_magic = {b" 46Q": Quake64Bsp,
@@ -26,6 +27,7 @@ BspVariant_for_magic = {b" 46Q": Quake64Bsp,
                         b"EF2!": RitualBsp,
                         b"FAKK": RitualBsp,
                         b"FBSP": FusionBsp,
+                        b"GBSP": Genesis3DBsp,
                         b"IBSP": IdTechBsp,  # OR InfinityWardBsp OR D3DBsp
                         b"PSBr": RespawnBsp,  # Xbox360
                         b"PSBV": ValveBsp,  # Xbox360
@@ -61,6 +63,14 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         file_magic = bsp_file.read(4)
         if file_magic in (b" 46Q", b"2PSB", b"BSP2"):
             version = None
+        elif file_magic == b"\0" * 4:  # might be Genesis3DBsp
+            try:  # GBSP_CHUNK_HEADER
+                assert int.from_bytes(bsp_file.read(4), "little") == 0x1C
+                assert int.from_bytes(bsp_file.read(4), "little") == 0x01
+                file_magic = bsp_file.read(4)
+                bsp_file.seek(4, 1)  # skip 4 trailing null bytes
+            except AssertionError:
+                raise RuntimeError("bsp file begins with null bytes")
         # endianness
         elif file_magic in (b"PSBr", b"PSBV"):  # big endian
             version = int.from_bytes(bsp_file.read(4), "big")

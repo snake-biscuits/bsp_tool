@@ -1,6 +1,6 @@
 """Index of all known .bsp format variants"""
-__all__ = ["ace_team", "arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste",
-           "nexon", "outerlight", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve",
+__all__ = ["ace_team", "arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste", "nexon",
+           "outerlight", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve", "wild_tangent",
            "developers", "with_magic", "identify", "game_branch", "quake_based", "source_based", "of_engine"]
 
 from . import ace_team
@@ -19,6 +19,7 @@ from . import strata
 from . import troika
 from . import utoplanet
 from . import valve
+from . import wild_tangent
 # TODO: xatrix.kingpin
 # ^ https://github.com/QuakeTools/Kingpin-SDK-v1.21
 # -- (Kingpin allegedly has it's own KRadiant "on the CD")
@@ -38,6 +39,7 @@ with_magic = {None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.go
               b"EALA": [ritual.mohaa_bt],
               b"FAKK": [ritual.fakk2, ritual.star_trek_elite_force2_demo],
               b"FBSP": [id_software.qfusion],
+              b"GBSP": [wild_tangent.genesis3d],
               b"IBSP": [id_software.quake2, id_software.quake3,
                         *infinity_ward.scripts,
                         ion_storm.daikatana,
@@ -104,7 +106,8 @@ source_based = {bs for magic, bss in with_magic.items() for bs in bss if magic i
 quake_based = {bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics}
 # NOTE: all quake_based lumps are unversioned
 
-of_engine = {"GoldSrc": {valve.goldsrc, *gearbox.scripts},
+of_engine = {"Genesis3D": {wild_tangent.genesis3d},
+             "GoldSrc": {valve.goldsrc, *gearbox.scripts},
              "Id Tech 2": {id_software.quake, id_software.quake2, id_software.quake64,
                            ion_storm.daikatana, raven.hexen2, ritual.sin},
              "Id Tech 3": {id_software.quake3, id_software.qfusion,

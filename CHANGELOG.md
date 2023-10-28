@@ -45,6 +45,7 @@
    - `.as_bytes()` correctly includes "end record", without calling `.close()`
 
 ### Newly Supported Branches
+ * Genesis3D
  * Id Tech 2
    - Qbism
    - Quake 64

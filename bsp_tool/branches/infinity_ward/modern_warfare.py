@@ -70,6 +70,7 @@ class LumpHeader(base.MappedArray):
     name: str  # LUMP(id).name
     _mapping = ["id", "length"]
     _format = "2I"
+    _classes = {"id": LUMP}
 
 
 # Known lump changes from Call of Duty 2 -> Call of Duty 4:
