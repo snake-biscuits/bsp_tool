@@ -20,7 +20,7 @@ class Genesis3DBsp(id_software.IdTechBsp):
         lump_header = self.branch.LumpHeader()
         while self.branch.LUMP(lump_header.id) != self.branch.LUMP.END:
             lump_header = self.branch.LumpHeader.from_stream(self.file)
-            lump_name = self.branch.LUMP(lump_header.id)
+            lump_name = self.branch.LUMP(lump_header.id).name
             lump_header.offset = self.file.tell()
             lump_header.length = lump_header.size * lump_header.count
             self._preload_lump(lump_name, lump_header)
