@@ -1,6 +1,6 @@
 # https://github.com/RealityFactory/Genesis3D/blob/master/World/Gbspfile.h
 import enum
-from typing import List
+from typing import List, Union
 
 from .. import base
 from .. import shared
@@ -208,7 +208,7 @@ class Texture(base.Struct):  # LUMP 18
 
 
 class TextureInfo(base.Struct):  # LUMP 17
-    projection: List[List[vector.vec3 | float]]
+    projection: List[List[Union[vector.vec3, float]]]
     # projections.vectors: List[vector.vec3]
     # projections.offsets: List[float]
     # projections.sizes: List[float]
