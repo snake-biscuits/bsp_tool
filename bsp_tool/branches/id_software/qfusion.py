@@ -4,6 +4,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import colour
 from .. import shared
 from .. import vector
 from . import quake
@@ -132,8 +133,8 @@ class Face(base.Struct):  # LUMP 13
 
 
 class GridLight(base.Struct):  # LUMP 15
-    ambient: List[List[int]]  # 4x ambient colour
-    diffuse: List[List[int]]  # 4x diffuse colour; scaled by dot(mesh.Normal, gridlight.direction)
+    ambient: List[List[colour.RGB24]]
+    diffuse: List[List[colour.RGB24]]  # scaled by dot(mesh.Normal, gridlight.direction)
     # NOTE: 4x each colour, 1 for each style
     styles: List[int]  # which style to use?
     direction: List[int]  # 2x 0-255 angles defining a 3D vector / angle (no roll)
@@ -144,7 +145,7 @@ class GridLight(base.Struct):  # LUMP 15
                "diffuse": {s: [*"rgb"] for s in "ABCD"},
                "styles": 4,
                "direction": ["phi", "theta"]}
-    # TODO: RGB24 colour _classes
+    _classes = {f"{t}.{s}": colour.RGB24 for t in ("ambient", "diffuse") for s in "ABCD"}
 
 
 class Lightmap(list):  # LUMP 14

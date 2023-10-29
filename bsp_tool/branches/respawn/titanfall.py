@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Union
 
 from ... import lumps
 from .. import base
+from .. import colour
 from .. import shared
 from .. import vector
 from ..id_software import quake
@@ -831,20 +832,24 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     """Not used in any official map"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    colour: List[int]
-    uv: List[float]
+    colour: colour.RGBA32  # typically white
+    albedo_uv: List[float]
+    lightmap: List[float]
+    # lightmap.uv: List[float]  # lightmap uv coords
     tangent: List[float]  # 4 x 4 matrix? list of 4 quaternions?
-    __slots__ = ["position_index", "normal_index", "colour", "uv", "lightmap", "tangent"]
+    __slots__ = ["position_index", "normal_index", "colour", "albedo_uv", "lightmap", "tangent"]
     _format = "2I4B20f"  # 92 bytes
-    _arrays = {"colour": [*"rgba"], "uv": [*"uv"], "lightmap": {"uv": [*"uv"]}, "tangent": 16}
+    _arrays = {"colour": [*"rgba"], "albedo_uv": [*"uv"], "lightmap": {"uv": [*"uv"]}, "tangent": 16}
+    _classes = {"colour": colour.RGBA32}
+    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv: List[float]  # albedo uv coords
-    colour: List[int]
+    albedo_uv: List[float]  # albedo uv coords
+    colour: colour.RGBA32  # typically white
     lightmap: List[float]
     # lightmap.uv: List[float]  # lightmap uv coords
     # lightmap.step: List[float]  # lightmap offset?
@@ -854,8 +859,8 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
                "lightmap": {"uv": [*"uv"], "step": [*"xy"]},
                "tangent": [*"st"]}
-    _classes = {"lightmap.step": vector.vec2}
-    # TODO: albedo_uv vec2
+    _classes = {"lightmap.step": vector.vec2, "colour": colour.RGBA32}
+    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
@@ -863,7 +868,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: List[float]  # albedo uv coords
-    colour: List[int]
+    colour: colour.RGBA32  # typically white
     lightmap: List[float]
     # lightmap.uv: List[float]  # lightmap uv coords
     # lightmap.step: List[float]  # lightmap offset?
@@ -871,8 +876,8 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     _format = "2I2f4B4f"
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
                "lightmap": {"uv": [*"uv"], "step": [*"xy"]}}
-    _classes = {"lightmap.step": vector.vec2}
-    # TODO: albedo_uv vec2
+    _classes = {"lightmap.step": vector.vec2, "colour": colour.RGBA32}
+    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
@@ -880,11 +885,12 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: List[float]  # albedo uv coords
-    colour: List[int]  # usually white (0xFFFFFFFF)
+    colour: colour.RGBA32  # typically white
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour"]
     _format = "2I2f4B"  # 20 bytes
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"]}
-    # TODO: _classes = {"uv": vec2, "colour": PixelRGBA32}
+    _classes = {"colour": colour.RGBA32}
+    # TODO: _classes = {"albedo_uv": vec2.uv}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
@@ -892,12 +898,13 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: List[float]  # uv coords
-    colour: List[int]
+    colour: colour.RGBA32  # typically white
     tangent: List[int]  # indices to some vectors, but which lump are they stored in?
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "tangent"]
     _format = "2I2f4B2i"  # 28 bytes
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"], "tangent": [*"st"]}
-    # TODO: uv vec2
+    _classes = {"colour": colour.RGBA32}
+    # TODO: _classes = {"albedo_uv": vec2.uv}
 
 
 VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
@@ -935,9 +942,9 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     forced_fade_scale: float
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    diffuse_modulation: colour.RGBExponent
     scale: float
-    disable_x360: int  # 4 byte bool
+    disable_x360: bool
     collision_flags: List[int]  # add, remove
     __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
                  "solid_mode", "flags", "skin", "cubemap", "fade_distance",
@@ -948,8 +955,8 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "disable_x360": bool}  # TODO: assert valid bool values (0 & 1 only)
-    # TODO: angles QAngle, diffuse_modulation RBGExponent, collision_flags CollisionFlag(enum.IntEnum)
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
+    # TODO: "angles": QAngle, "collision_flags": CollisionFlag
 
 
 class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [version 12]

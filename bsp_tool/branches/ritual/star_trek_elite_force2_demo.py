@@ -5,7 +5,7 @@ import enum
 from typing import List
 
 from .. import base
-from .. import shared
+from .. import colour
 from .. import vector
 from ..id_software import quake
 from ..id_software import quake3
@@ -137,15 +137,15 @@ class Vertex(base.Struct):  # LUMP 10
     position: vector.vec3
     uv: List[float]  # texture UV
     normal: vector.vec3
-    colour: List[int]  # 1 RGBA32 pixel / texel
+    colour: colour.RGBA32
     lod_extra: float  # ???
     lightmap: List[float]  # union { float lightmap[2]; int collapse_map;}
     __slots__ = ["position", "uv", "normal", "colour", "lod_extra", "lightmap"]
     _format = "8f4B3f"
     _arrays = {"position": [*"xyz"], "uv": [*"uv"], "normal": [*"xyz"],
                "colour": [*"rgba"], "lightmap": [*"uv"]}
-    _classes = {"position": vector.vec3, "normal": vector.vec3}
-    # TODO: uv vec2, color RGBA32 & lightmap_uv vec2
+    _classes = {"position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32}
+    # TODO: "uv": vec2.uv, "lightmap": vec2.uv
 
 
 # {"LUMP": LumpClass}

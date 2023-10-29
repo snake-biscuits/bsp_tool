@@ -4,6 +4,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import colour
 from .. import vector
 from ..id_software import quake
 from . import left4dead
@@ -127,8 +128,8 @@ class StaticPropv9(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
-    disable_x360: int  # 4 byte bool
+    diffuse_modulation: colour.RGBExponent
+    disable_x360: bool
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
@@ -138,7 +139,8 @@ class StaticPropv9(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv9(left4dead.GameLump_SPRPv8):  # sprp GAME LUMP (LUMP 35) [version 9]

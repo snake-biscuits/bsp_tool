@@ -9,6 +9,7 @@ from typing import List
 import struct
 
 from .. import base
+from .. import colour
 from .. import shared
 from .. import vector
 from .. id_software import quake
@@ -229,13 +230,13 @@ class GridLight(base.Struct):  # LUMP 15
     # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
     # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
     # z = floor(MODELS[0].maxs.z / 128) - ceil(MODELS[0].mins.z / 128) + 1
-    ambient: List[int]  # ambient colour
-    diffuse: List[int]  # diffuse colour; scaled by dot(mesh.Normal, gridlight.direction)
+    ambient: colour.RGB24
+    diffuse: colour.RGB24  # scaled by dot(mesh.Normal, gridlight.direction)
     direction: List[int]  # 2x 0-255 angles defining a 3D vector / angle (no roll)
     _format = "8B"
     __slots__ = ["ambient", "directional", "direction"]
     _arrays = {"ambient": [*"rgb"], "directional": [*"rgb"], "direction": ["phi", "theta"]}
-    # TODO: _classes: ambient & directional RGB24 colour
+    _classes = {"ambient": colour.RGB24, "directional": colour.RGB24}
 
 
 class Leaf(base.Struct):  # LUMP 4
@@ -337,8 +338,8 @@ class Vertex(base.Struct):  # LUMP 10
     _format = "10f4B"
     _arrays = {"position": [*"xyz"], "uv": {"texture": [*"uv"], "lightmap": [*"uv"]},
                "normal": [*"xyz"], "colour": [*"rgba"]}
-    _classes = {"position": vector.vec3, "normal": vector.vec3}
-    # TODO: uv vec2s & colour RGBA32
+    _classes = {"position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32}
+    # TODO: "uv.texture.uv": vec2.uv, "uv.lightmap.uv": vec2.uv
 
 
 # special lump classes, in alphabetical order:

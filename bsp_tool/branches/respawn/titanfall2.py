@@ -6,6 +6,7 @@ from typing import List
 
 from ... import lumps
 from .. import base
+from .. import colour
 from .. import vector
 from ..valve import source
 from . import titanfall
@@ -311,7 +312,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     lighting_origin: List[float]  # x, y, z
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    diffuse_modulation: colour.RGBExponent
     collision_flags: List[int]  # add, remove
     # NOTE: no skin or cubemap
     __slots__ = ["origin", "angles", "scale", "model_name", "solid_mode", "flags",
@@ -323,7 +324,8 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
                "collision_flags": ["add", "remove"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [version 13]

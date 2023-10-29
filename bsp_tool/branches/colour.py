@@ -3,7 +3,10 @@ from typing import List
 from . import base
 
 
-class Rgb24(base.MappedArray):
+# TODO: colorsys HSV translation
+
+
+class RGB24(base.MappedArray):
     _mapping = [*"rgb"]
     _format = "3B"
 
@@ -11,14 +14,14 @@ class Rgb24(base.MappedArray):
         return [getattr(self, x) / 255 for x in self._mapping]
 
 
-class Rgb32(Rgb24):
+class RGBA32(RGB24):
     _mapping = [*"rgba"]
     _format = "4B"
 
 
-class RgbExponent(Rgb32):
+class RGBExponent(RGB24):
     _mapping = [*"rgb", "exponent"]
 
     def as_floats(self) -> List[float]:
         """HDR scaled values"""
-        return [getattr(self, x) / 255 * self.exponent for x in (*"rgb")]
+        return [getattr(self, x) / 255 * self.exponent for x in "rgb"]

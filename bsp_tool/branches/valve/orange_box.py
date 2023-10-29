@@ -152,7 +152,8 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
                "lightmap": ["width", "height"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv10(source.GameLump_SPRPv7):  # sprp GAME LUMP (LUMP 35) [version 7*/10]

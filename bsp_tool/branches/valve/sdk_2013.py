@@ -3,6 +3,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import colour
 from .. import vector
 from . import alien_swarm
 from . import left4dead2
@@ -111,7 +112,7 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    diffuse_modulation: colour.RGBExponent
     disable_x360: int  # 4 byte bool
     flags_2: int  # values unknown
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
@@ -123,7 +124,8 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv10(orange_box.GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35) [version 10]
@@ -145,7 +147,7 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    diffuse_modulation: colour.RGBExponent
     flags_2: int  # values unknown
     scale: float
     unknown: int
@@ -158,7 +160,8 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv11(GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35) [version 11]

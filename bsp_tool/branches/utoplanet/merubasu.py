@@ -2,6 +2,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import colour
 from .. import vector
 from ..valve import orange_box
 from ..valve import sdk_2013
@@ -127,7 +128,8 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv11(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 35) [version 11]

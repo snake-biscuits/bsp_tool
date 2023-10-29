@@ -11,6 +11,7 @@ import zipfile
 
 from ... import lumps
 from .. import base
+from .. import colour
 from .. import shared
 from .. import vector
 from ..id_software import quake
@@ -572,11 +573,12 @@ class Leaf(base.Struct):  # LUMP 10
                  "num_leaf_brushes", "leaf_water_data", "padding", "cube"]
     _format = "ihH6h4H2h24B"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
-               "cube": {x: [*"rgbe"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
+               "cube": {x: [*"rgb", "exponent"] for x in "ABCDEF"}}  # integer keys in _mapping would be nicer
     # TODO: map cube face names to UP, DOWN etc.
     _bitfields = {"bitfield": {"area": 9, "flags": 7}}
-    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
-    # TODO: CompressedLightCube (8x RGBExponent / RGBA32), "bitfield.flags": LeafFlags
+    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3,
+                **{f"cube.{s}": colour.RGBExponent for s in "ABCDEF"}}
+    # TODO: "cube": CompressedLightCube, "bitfield.flags": LeafFlags
 
 
 class LeafAmbientIndex(base.MappedArray):  # LUMP 52
@@ -593,10 +595,10 @@ class LeafAmbientSample(base.Struct):  # LUMP 56
     padding: int  # should be 0
     __slots__ = ["cube", "origin", "padding"]
     _format = "28B"
-    _arrays = {"cube": {x: [*"rgbe"] for x in "ABCDEF"},  # integer keys in _mapping would be nicer
+    _arrays = {"cube": {s: [*"rgb", "exponent"] for s in "ABCDEF"},  # integer keys in _mapping would be nicer
                "origin": [*"xyz"]}
-    _classes = {"origin": vector.vec3}
-    # TODO: CompressedLightCube (8x RGBExponent / RGBA32)
+    _classes = {**{f"cube.{s}": colour.RGBExponent for s in "ABCDEF"}, "origin": vector.vec3}
+    # TODO: "cube": CompressedLightCube
 
 
 class LeafWaterData(base.MappedArray):  # LUMP 36
@@ -680,7 +682,7 @@ class Primitive(base.MappedArray):  # LUMP 37
 
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
-    reflectivity: List[float]  # colour average of view rect?
+    reflectivity: colour.RGB24  # from .vtf or average colour of view rect?
     name_index: int  # index of texture name in TEXTURE_DATA_STRING_TABLE / TABLE
     size: vector.vec2  # dimensions of full texture
     view: vector.vec2  # dimensions of visible section of texture
@@ -688,8 +690,8 @@ class TextureData(base.Struct):  # LUMP 2
     __slots__ = ["reflectivity", "name_index", "size", "view"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
-    _classes = {"size": vector.renamed_vec2("width", "height"), "view": vector.renamed_vec2("width", "height")}
-    # TODO: RGB24 reflectivity
+    _classes = {"reflectivity": colour.RGB24, "size": vector.renamed_vec2("width", "height"),
+                "view": vector.renamed_vec2("width", "height")}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -907,7 +909,7 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
-    diffuse_modulation: List[int]  # RGBA 32-bit colour
+    diffuse_modulation: colour.RGBExponent
     __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
                  "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
                  "forced_fade_scale", "dx_level", "diffuse_modulation"]
@@ -915,7 +917,8 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "dx_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
     _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle, diffuse_modulation RBGExponent
+                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    # TODO: "angles": QAngle
 
 
 class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35)

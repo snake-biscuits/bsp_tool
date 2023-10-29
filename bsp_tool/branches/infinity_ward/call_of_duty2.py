@@ -5,6 +5,7 @@ import enum
 from typing import List
 
 from .. import base
+from .. import colour
 from .. import vector
 from ..id_software import quake
 from ..id_software import quake3
@@ -184,7 +185,7 @@ class TriangleSoup(base.MappedArray):  # LUMP 7
 class Vertex(base.Struct):  # LUMP 8
     position: List[float]
     normal: List[float]
-    colour: List[int]  # RGBA32
+    colour: colour.RGBA32
     uv0: List[float]  # albedo / normal ?
     uv1: List[float]  # lightmap ?
     unknown: List[float]  # texture vectors? too short... additional uvs?
@@ -192,8 +193,8 @@ class Vertex(base.Struct):  # LUMP 8
     _format = "6f4B10f"
     _arrays = {"position": [*"xyz"], "normal": [*"xyz"], "colour": [*"rgba"],
                "uv0": [*"uv"], "uv1": [*"uv"], "unknown": 6}
-    _classes = {"position": vector.vec3, "normal": vector.vec3}
-    # TODO: Colour32 & vec2_uv
+    _classes = {"position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32}
+    # TODO: "uv0": vec2.uv, "uv1": vec2.uv
 
 
 # {"LUMP_NAME": LumpClass}
