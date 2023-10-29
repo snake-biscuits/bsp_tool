@@ -74,6 +74,9 @@ LumpHeader = quake.LumpHeader
 #    \--> TextureInfo
 #     \-> Lightmap
 
+# Area -> AreaPortal -> Area
+#                   \-> Portal
+
 # POP appears to only be used in Deathmatch maps & is always 256 bytes, cannot find use in source code
 # POP seems to be the last lump written and is always null bytes in every map which has this lump
 
@@ -148,6 +151,20 @@ class Surface(enum.IntFlag):  # qcommon/qfiles.h
 
 
 # classes for lumps, in alphabetical order:
+class Area(base.Struct):  # LUMP 17
+    num_area_portals: int
+    first_area_portal: int
+    __slots__ = ["num_area_portals", "first_area_portal"]
+    _format = "2i"
+
+
+class AreaPortal(base.Struct):  # LUMP 18
+    portal: int
+    area: int  # Area this AreaPortal connects to
+    __slots__ = ["portal", "area"]
+    _format = "2i"
+
+
 class Brush(base.MappedArray):  # LUMP 14
     first_brush_side: int  # first BrushSide of this Brush
     num_brush_sides: int  # number of BrushSides after first_brush_side on this Brush
@@ -305,7 +322,9 @@ class Visibility:
 BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
                       "SURFEDGES":  shared.Ints}
 
-LUMP_CLASSES = {"BRUSHES":      Brush,
+LUMP_CLASSES = {"AREAS":        Area,
+                "AREA_PORTALS": AreaPortal,
+                "BRUSHES":      Brush,
                 "BRUSH_SIDES":  BrushSide,
                 "EDGES":        quake.Edge,
                 "FACES":        quake.Face,

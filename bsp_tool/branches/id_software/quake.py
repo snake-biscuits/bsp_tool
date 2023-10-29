@@ -118,6 +118,11 @@ class Contents(enum.IntFlag):
         return str(int(self))
 
 
+class PlaneSide(enum.Enum):
+    FRONT = 0
+    BACK = 1
+
+
 class PlaneType(enum.Enum):
     # Axial, perfectly aligned
     X = 0
@@ -157,7 +162,7 @@ class Edge(list):  # LUMP 12
 
 class Face(base.Struct):  # LUMP 7
     plane: int  # signed for quake, unsigned for quake 2
-    side: int  # 0 or 1 for side of plane
+    side: PlaneSide
     first_edge: int
     num_edges: int
     texture_info: int  # index of this face's TextureInfo
@@ -170,6 +175,7 @@ class Face(base.Struct):  # LUMP 7
                  "lighting_type", "base_light", "light", "lighting_offset"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
+    _classes = {"side": PlaneSide}
     # TODO: FaceLightingType(enum.IntFlag)
 
 

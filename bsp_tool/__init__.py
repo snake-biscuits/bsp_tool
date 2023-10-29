@@ -69,6 +69,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
                 assert int.from_bytes(bsp_file.read(4), "little") == 0x01
                 file_magic = bsp_file.read(4)
                 bsp_file.seek(4, 1)  # skip 4 trailing null bytes
+                version = int.from_bytes(bsp_file.read(4), "little")
             except AssertionError:
                 raise RuntimeError("bsp file begins with null bytes")
         # endianness
