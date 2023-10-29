@@ -178,6 +178,7 @@ class Portal(base.Struct):  # LUMP 9
     origin: vector.vec3
     leaf: int  # Leaf this Portal "looks into"
     __slots__ = ["origin", "leaf"]
+    _format = "3fi"
     _arrays = {"origin": [*"xyz"]}
     _classes = {"origin": vector.vec3}
 
