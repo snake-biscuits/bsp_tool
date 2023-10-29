@@ -488,6 +488,9 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
                       "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
 
+genesis3d_dirs = {"Amsterdoom": ["Levels"]}  # 23 maps | 76.2 MB
+
+# consoles
 dreamcast_dirs = {"Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
                   "SoF": ["maps"],  # 117 maps | 171 MB | .gdi
                   "QuakeIII": ["maps"]}  # 38 maps | 64 MB | .zip
@@ -530,12 +533,15 @@ x360_dirs = {"Left4Dead": ["left4dead/maps"],  # 44 maps | 295 MB
 group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
               "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
               "E:/Mod": extracted_dirs,
+              # console groups
               "E:/Mod/Dreamcast": dreamcast_dirs,
               "E:/Mod/PS4": ps4_dirs,
               "E:/Mod/Switch": switch_dirs,
               "E:/Mod/Xbox": xbox_dirs,
               "E:/Mod/X360": x360_dirs,
-              # NOTE: the following are copies made of the above dirs; created with backup_bsps.py
+              # other groups
+              "E:/Mod/Genesis3D": genesis3d_dirs,
+              # backup dirs; created with backup_bsps.py
               # "F:/bsps": every_bsp_dir,
               # "/media/bikkie/GAMES/bsps": every_bsp_dir
               }

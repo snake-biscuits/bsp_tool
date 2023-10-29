@@ -219,11 +219,14 @@ drive_id = {"./tests/maps": "Local",
             "C:/Program Files (x86)/Steam/steamapps/sourcemods": "Sourcemods",
             "D:/SteamLibrary/steamapps/common": "Steam",
             "E:/Mod": "Extracted",
+            # consoles
             "E:/Mod/Dreamcast": "Dreamcast",
             "E:/Mod/PS4": "PS4",
             "E:/Mod/Switch": "Switch",
             "E:/Mod/Xbox": "Xbox",
-            "E:/Mod/X360": "Xbox360"}
+            "E:/Mod/X360": "Xbox360",
+            # other
+            "E:/Mod/Genesis3D": "Genesis3D"}
 
 test_args = list()
 # ^ [(ValveBsp, orange_box, 20, [(".../tf/maps/pl_upward.bsp", "tf/maps/pl_upward.bsp")])]
