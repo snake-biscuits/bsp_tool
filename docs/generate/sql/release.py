@@ -1,24 +1,29 @@
+import json
 import sqlite3
 
+import branch
 import common
+import game
 
 
 def generate():
     db = sqlite3.connect(":memory:")
-    common.run_script(db, "game.tables.sql")
-    common.run_script(db, "branch.tables.sql")
+    game.load_into(db)
+    branch.load_into(db)
     common.run_script(db, "release.tables.sql")
 
     raise NotImplementedError()
     tables = list()
 
     tables.append("Platform")
-    # "data_release.platform.json"
-    ...
+    with open("release.data.platform.json") as json_file:
+        json_data = json.load(json_file)  # {"Company": ["Platform"]}
+        db.executemany("INSERT INTO Platform(name) VALUES(?)", [v for vs in json_data.values() for v in vs])
+    # NOTE: PlatformCompany comes later in CompanyDB
 
     tables.append("Region")
-    # "data_release.region.json"
-    ...
+    with open("release.data.region.json") as json_file:
+        db.executemany("INSERT INTO Region(short, name) VALUES(?, ?)", json.load(json_file).items())
 
     tables.append("Release")
     # "releases.sc"

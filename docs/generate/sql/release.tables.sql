@@ -8,7 +8,8 @@ CREATE TABLE Platform IF NOT EXISTS (
 
 
 CREATE TABLE Region IF NOT EXISTS (
-    name  VARCHAR  NOT NULL
+    name   VARCHAR  NOT NULL,
+    short  VARCHAR  NOT NULL
 );
 
 
