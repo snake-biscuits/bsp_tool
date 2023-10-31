@@ -1,16 +1,16 @@
 -- TODO: how do we catalogue "The Orange Box"? (3 games on 1 disc)
 -- Quake 2 (Xbox 360) is a Disc 2 Bonus w/ Quake 4
-CREATE TABLE Game IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS Game (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Relation IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS Relation (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE GameRelation IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS GameRelation (
     parent    INTEGER  NOT NULL,
     child     INTEGER  NOT NULL,
     relation  INTEGER  NOT NULL,
@@ -20,12 +20,12 @@ CREATE TABLE GameRelation IF NOT EXISTS (
 );
 
 
-CREATE TABLE Series IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS Series (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE GameSeries IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS GameSeries (
     game    INTEGER  NOT NULL,
     series  INTEGER  NOT NULL,
     FOREIGN KEY game REFERENCES Game(rowid),

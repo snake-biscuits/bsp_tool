@@ -8,24 +8,24 @@
 
 
 -- TOOLS
-CREATE TABLE LevelEditor IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS LevelEditor (
     name      VARCHAR  NOT NULL,
     version   VARCHAR  NOT NULL,
     released  DATE
 );
 
 
-CREATE TABLE Compiler IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS Compiler (
     name  VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE Utility IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS Utility (
     name   VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE CompilerUtility IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS CompilerUtility (
     compiler  INTEGER  NOT NULL,
     utility   INTEGER  NOT NULL,
     FOREIGN KEY compiler REFERENCES Compiler(rowid),
@@ -33,19 +33,19 @@ CREATE TABLE CompilerUtility IF NOT EXISTS (
 );
 
 
-CREATE TABLE PostCompiler IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS PostCompiler (
     name  VARCHAR  NOT NULL
 );
 
 
 -- FORMATS
-CREATE TABLE ToolFileFormat IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS ToolFileFormat (
     name  VARCHAR  NOT NULL,
     ext   VARCHAR  NOT NULL
 );
 
 
-CREATE TABLE LevelEditorFormat IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS LevelEditorFormat (
     editor  INTEGER  NOT NULL,
     format  INTEGER  NOT NULL,
     FOREIGN KEY editor REFERENCES LevelEditor(rowid),
@@ -53,7 +53,7 @@ CREATE TABLE LevelEditorFormat IF NOT EXISTS (
 );
 
 
-CREATE TABLE CompilerFormat IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS CompilerFormat (
     compiler  INTEGER  NOT NULL,
     format    INTEGER  NOT NULL,
     FOREIGN KEY compiler REFERENCES Compiler(rowid),
@@ -65,7 +65,7 @@ CREATE TABLE CompilerFormat IF NOT EXISTS (
 
 
 -- BRANCHES
-CREATE TABLE BranchLevelEditor IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS BranchLevelEditor (
     branch  INTEGER  NOT NULL,  -- branch.tables.sql
     tool    INTEGER  NOT NULL,
     FOREIGN KEY branch REFERENCES Branch(rowid),
@@ -73,7 +73,7 @@ CREATE TABLE BranchLevelEditor IF NOT EXISTS (
 );
 
 
-CREATE TABLE BranchCompiler IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS BranchCompiler (
     branch  INTEGER  NOT NULL,  -- branch.tables.sql
     tool    INTEGER  NOT NULL,
     FOREIGN KEY branch REFERENCES Branch(rowid),
@@ -81,7 +81,7 @@ CREATE TABLE BranchCompiler IF NOT EXISTS (
 );
 
 
-CREATE TABLE BranchPostCompiler IF NOT EXISTS (
+CREATE TABLE IF NOT EXISTS BranchPostCompiler (
     branch  INTEGER  NOT NULL,  -- branch.tables.sql
     tool    INTEGER  NOT NULL,
     FOREIGN KEY branch REFERENCES Branch(rowid),
