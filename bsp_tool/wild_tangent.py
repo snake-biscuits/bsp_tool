@@ -1,3 +1,4 @@
+# NOTE: Genesis3D engine originally by Eclipse Entertainment
 import os
 
 from . import id_software

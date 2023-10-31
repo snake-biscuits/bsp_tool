@@ -460,7 +460,9 @@ extracted_dirs = {
         "StarWarsJediKnight": ["assets0.pk3/maps",  # 34 maps | 348 MB | .pk3
                                "assets0.pk3/maps/mp",  # 23 maps | 154 MB | .pk3
                                "assets3.pk3/maps/mp"],  # 4 maps | 32 MB | .pk3
-        "StarWarsJediKnightII": ["maps"]}  # 45 maps | 361 MB | .pk3
+        "StarWarsJediKnightII": ["maps"],  # 45 maps | 361 MB | .pk3
+        # Genesis3DBsp
+        "Amsterdoom": ["Levels"]}  # 23 maps | 76.2 MB | .iso
 # ^ {"game_dir": ["map_dir"]}
 
 # https://geshl2.com
@@ -487,8 +489,6 @@ sourcemod_dirs = {mod: ["maps"] for mod in [
                       "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
                       "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
                       "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
-
-genesis3d_dirs = {"Amsterdoom": ["Levels"]}  # 23 maps | 76.2 MB
 
 # consoles
 dreamcast_dirs = {"Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
@@ -539,8 +539,6 @@ group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dir
               "E:/Mod/Switch": switch_dirs,
               "E:/Mod/Xbox": xbox_dirs,
               "E:/Mod/X360": x360_dirs,
-              # other groups
-              "E:/Mod/Genesis3D": genesis3d_dirs,
               # backup dirs; created with backup_bsps.py
               # "F:/bsps": every_bsp_dir,
               # "/media/bikkie/GAMES/bsps": every_bsp_dir

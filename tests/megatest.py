@@ -224,9 +224,7 @@ drive_id = {"./tests/maps": "Local",
             "E:/Mod/PS4": "PS4",
             "E:/Mod/Switch": "Switch",
             "E:/Mod/Xbox": "Xbox",
-            "E:/Mod/X360": "Xbox360",
-            # other
-            "E:/Mod/Genesis3D": "Genesis3D"}
+            "E:/Mod/X360": "Xbox360"}
 
 test_args = list()
 # ^ [(ValveBsp, orange_box, 20, [(".../tf/maps/pl_upward.bsp", "tf/maps/pl_upward.bsp")])]
