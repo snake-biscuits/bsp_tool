@@ -260,7 +260,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     QUAD_REGULAR = 0x06
     QUAD_PACKED = 0x07
     STAR_COLL = 0x08  # same as in ents, according to rexx
-    UNKNOWN_9 = 0x09  # common
+    STATIC_PROP = 0x09
     # UNUSED_10-15
     # NOTE: packed types are most accurate for "on-grid" coords close to world origin
 
