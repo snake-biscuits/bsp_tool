@@ -323,7 +323,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
                "collision_flags": ["add", "remove"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+    _classes = {"origin": vector.vec3, "solid_mode": titanfall.StaticPropCollision, "flags": source.StaticPropFlags,
                 "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 

@@ -2,12 +2,16 @@
 from collections import defaultdict
 import fnmatch
 import os
-import readline  # noqa F401  (extends input())
 import socket
 import subprocess
 import sys
 import time
 from typing import Dict, List
+
+try:
+    import readline  # noqa F401  (extends input())
+except ModuleNotFoundError:
+    ...  # we're on Windows, will have to go without
 
 
 # TODO: calculate season / patch / map dir sizes

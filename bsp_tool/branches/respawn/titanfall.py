@@ -349,6 +349,15 @@ class TraceMask(enum.IntEnum):  # taken from squirrel (vscript) by BobTheBob
     NPC_FLUID = Contents.SOLID | Contents.MOVEABLE | Contents.WINDOW | Contents.MONSTER | Contents.MONSTER_CLIP  # new
 
 
+class StaticPropCollision(enum.Enum):
+    # extends valve.source.StaticPropCollision
+    NON_SOLID = 0
+    UNKNOWN_1 = 1  # rare, low impact?
+    BOUNDING_BOX = 2
+    VPHYSICS = 6
+    UNKNOWN_7 = 7  # often on large / hero props; more polished than 6?
+
+
 class PrimitiveType(enum.IntFlag):
     """Used by CMGeoSet & CMPrimitive to identify collidable children"""
     BRUSH = 0
@@ -954,7 +963,7 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
                "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": source.StaticPropFlags,
                 "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
     # TODO: "angles": QAngle, "collision_flags": CollisionFlag
 
