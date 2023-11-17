@@ -1,16 +1,17 @@
-from . import utils
-from bsp_tool import D3DBsp
-from bsp_tool.branches.infinity_ward import modern_warfare
+from .. import utils
+from bsp_tool import RespawnBsp
+from bsp_tool.branches.respawn import titanfall2
 
 import pytest
 
 
-bsps = utils.get_test_maps(D3DBsp, {modern_warfare: ["Call of Duty 4", "Call of Duty 4/mp"]}, pattern="*.d3dbsp")
+bsps = utils.get_test_maps(RespawnBsp, {titanfall2: ["Titanfall 2"]})
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_no_errors(bsp):
     assert len(bsp.loading_errors) == 0
+    assert len(bsp.GAME_LUMP.loading_errors) == 0
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())

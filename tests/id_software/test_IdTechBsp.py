@@ -1,4 +1,4 @@
-from . import utils
+from .. import utils
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake2
 from bsp_tool.branches.id_software import quake3

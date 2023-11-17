@@ -1,4 +1,4 @@
-from . import utils
+from .. import utils
 from bsp_tool import ReMakeQuakeBsp
 from bsp_tool.branches.id_software import remake_quake
 
