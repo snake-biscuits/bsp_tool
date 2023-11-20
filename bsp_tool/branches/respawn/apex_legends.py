@@ -432,12 +432,13 @@ class Model(base.Struct):  # LUMP 14 (000E)
     bvh_leaf: int
     first_vertex: int
     vertex_flags: int  # use PACKED_VERTICES or other?
-    unknown_1: List[float]
-    unknown_2: int
+    packed_vertex_offset: List[float]  # center point to orient packed verts around
+    node_scale: float  # this * 0xFFFF = scale applied to BVH_NODES
     __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "bvh_node", "bvh_leaf",
-                 "first_vertex", "vertex_flags", "unknown_1", "unknown_2"]
-    _format = "6f2I4i3fi"
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown_1": 3}
+                 "first_vertex", "vertex_flags", "packed_vertex_offset", "node_scale"]
+    _format = "6f2I4i4f"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "packed_vertex_offset": [*"xyz"]}
+    _classes = {v: vector.vec3 for v in ("mins", "maxs", "packed_vertex_offset")}
 
 
 class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
