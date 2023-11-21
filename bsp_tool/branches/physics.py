@@ -1,7 +1,7 @@
 from __future__ import annotations
 from collections.abc import Iterable
 import math
-from typing import Union
+from typing import List, Union
 
 from . import vector
 
@@ -9,6 +9,7 @@ from . import vector
 # TODO: ivec variants (not yet implemented)
 
 class AABB:
+    """Axis-Aligned Bounding Box"""
     # NOTE: no internal validity checks (mins <= maxs; extents >= 0)
     mins: vector.vec3 = property(lambda s: s._mins)
     maxs: vector.vec3 = property(lambda s: s._maxs)
@@ -35,7 +36,7 @@ class AABB:
             out.mins = vector.vec3(*[min(s, o) for s, o in zip(self.mins, other.mins)])
             out.maxs = vector.vec3(*[max(s, o) for s, o in zip(self.maxs, other.maxs)])
         else:
-            raise TypeError(f"Cannot add type '{type(other)}' to {self.__class__.__name__}")
+            raise TypeError(f"{self.__class__.__name__} cannot contain '{type(other).__name__}'")
         return out
 
     def __eq__(self, other: AABB) -> bool:
@@ -48,16 +49,18 @@ class AABB:
         if isinstance(other, Iterable) and len(other) == 3:
             other = vector.vec3(*other)
         if isinstance(other, vector.vec3):
-            for min_, axis, max_ in zip(self.mins, other, self.maxs):
-                if not min_ <= axis <= max_:  # include edges
-                    return False
-            else:
-                return True
-        # elif isinstance(other, AABB):
+            return all([m <= a <= M for m, a, M in zip(self.mins, other, self.maxs)])
+        elif isinstance(other, AABB):
+            mins_inside = all([s <= o for s, o in zip(self.mins, other.mins)])
+            maxs_inside = all([s >= o for s, o in zip(self.maxs, other.maxs)])
+            return mins_inside and maxs_inside
         else:
-            raise NotImplementedError()
+            raise TypeError(f"{self.__class__.__name__} cannot contain '{type(other).__name__}'")
 
-    # TODO: partial intersection; the "any" to __contains__' "all"
+    def intersects(self, other: AABB) -> bool:
+        return all([sm <= oM and sM >= om for sm, oM, sM, om in zip(self.mins, other.maxs, self.maxs, other.mins)])
+
+    # INITIALISERS
 
     @classmethod
     def from_mins_maxs(cls, mins: vector.vec3, maxs: vector.vec3) -> AABB:
@@ -78,6 +81,12 @@ class AABB:
         out.origin = vector.vec3(*origin)
         out.extents = vector.vec3(*extents)
         return out
+
+    @classmethod
+    def from_points(cls, points: List[vector.vec3]) -> AABB:
+        return sum({vector.vec3(*p) for p in points}, start=cls())
+
+    # SETTERS
 
     @mins.setter
     def mins(self, new_mins: vector.vec3):
