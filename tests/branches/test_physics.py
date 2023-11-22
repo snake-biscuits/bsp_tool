@@ -1,49 +1,90 @@
 from bsp_tool.branches import physics
+from bsp_tool.branches import vector
 
 import pytest
 
 
+mmoes = {"centered": [[x] * 3 for x in (-1, 1, 0, 1)],
+         "mixup": [(-1, -5, -3), (4, 2, 6), (1.5, -1.5, 1.5), (2.5, 3.5, 4.5)]}
+# ^ {"test_name": [mins, maxs, origin, extents]}
+
+
+# 8 AABBs for each +- axes quadrant possible in 3D space
+def sign(point, pattern):
+    return [[a, -a][p] for a, p in zip(point, pattern)]
+
+
+def sign2(mins, maxs, pattern):
+    return zip(*[([m, -M][p], [M, -m][p]) for m, M, p in zip(mins, maxs, pattern)])
+
+
+mins = [1] * 3
+maxs = [2] * 3
+origin = [1.5] * 3
+extents = [0.5] * 3
+
+signs = [[i >> j & 1 for j in range(3)] for i in range(8)]
+mmoes.update({f"quadrant{i}": (*sign2(mins, maxs, s), sign(origin, s), extents) for i, s in enumerate(signs)})
+
+
 class TestAABB:
-    def test_init_origin_extents(self):
-        x = physics.AABB.from_origin_extents([-1.5] * 3, [0.5] * 3)
-        assert x.mins == [-2] * 3
-        assert x.maxs == [-1] * 3
-        assert x.origin == [-1.5] * 3
-        assert x.extents == [0.5] * 3
+    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+    def test_init_mins_maxs(self, mins, maxs, origin, extents):
+        aabb = physics.AABB.from_mins_maxs(mins, maxs)
+        assert aabb.mins == mins
+        assert aabb.maxs == maxs
+        assert aabb.origin == origin
+        assert aabb.extents == extents
 
-    def test_init_mins_maxs(self):
-        x = physics.AABB.from_mins_maxs([-2] * 3, [-1] * 3)
-        assert x.mins == [-2] * 3
-        assert x.maxs == [-1] * 3
-        assert x.origin == [-1.5] * 3
-        assert x.extents == [0.5] * 3
+    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+    def test_init_origin_extents(self, mins, maxs, origin, extents):
+        aabb = physics.AABB.from_origin_extents(origin, extents)
+        assert aabb.mins == mins
+        assert aabb.maxs == maxs
+        assert aabb.origin == origin
+        assert aabb.extents == extents
 
-    def test_init_from_points(self):
-        x = physics.AABB.from_points([[-1] * 3, [1] * 3])
-        assert x.mins == [-1] * 3
-        assert x.maxs == [1] * 3
-        assert x.origin == [0] * 3
-        assert x.extents == [1] * 3
+    # NOTE: from_points automatically determines mins & maxs; can't test that w/ mmoes
+    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+    def test_init_from_points(self, mins, maxs, origin, extents):
+        aabb = physics.AABB.from_points([mins, origin, maxs])
+        assert aabb.mins == mins
+        assert aabb.maxs == maxs
+        assert aabb.origin == origin
+        assert aabb.extents == extents
 
-    def test_add_points(self):
-        x = physics.AABB() + (-1, 2, -3) + (4, -5, 6)
-        assert x.mins == (-1, -5, -3)
-        assert x.maxs == (4, 2, 6)
-        assert x.origin == (1.5, -1.5, 1.5)
-        assert x.extents == (2.5, 3.5, 4.5)
+    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+    def test_add_points(self, mins, maxs, origin, extents):
+        # single point
+        aabb = physics.AABB() + mins
+        assert aabb.mins == mins
+        assert aabb.maxs == mins
+        assert aabb.origin == mins
+        assert aabb.extents == [0] * 3
+        # full bounds
+        aabb += maxs
+        assert aabb.mins == mins
+        assert aabb.maxs == maxs
+        assert aabb.origin == origin
+        assert aabb.extents == extents
+        # no change
+        aabb += origin
+        assert aabb.mins == mins
+        assert aabb.maxs == maxs
+        assert aabb.origin == origin
+        assert aabb.extents == extents
 
-    # NOTE: y = physics.AABB.from_origin_extents(x.origin, x.extents + float_delta)  # test w/ delta
-
-    def test_contains_point(self):
-        x = physics.AABB.from_mins_maxs([-1] * 3, [1] * 3)
-        assert [2] * 3 not in x
-        assert [-2] * 3 not in x
-        assert [0] * 3 in x
-        # edge cases
-        assert [1] * 3 in x
-        assert [-1] * 3 in x
+    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+    def test_contains_point(self, mins, maxs, origin, extents):
+        mins, maxs, extents = [vector.vec3(*v) for v in (mins, maxs, extents)]
+        aabb = physics.AABB.from_mins_maxs(mins, maxs)
+        assert mins - extents not in aabb
+        assert maxs + extents not in aabb
+        assert origin in aabb
+        assert mins in aabb
+        assert maxs in aabb
         with pytest.raises(TypeError):
-            "a string" in x
+            "a string" in aabb
 
     def test_contains_AABB(self):
         outer = physics.AABB.from_mins_maxs([-2] * 3, [2] * 3)
@@ -65,7 +106,6 @@ class TestAABB:
         assert inner not in intersecting
 
     def test_intersects_AABB(self):
-        # NOTE: contained AABBS are a subset of intersections
         basic = physics.AABB.from_mins_maxs([-1] * 3, [1] * 3)
         assert basic.intersects(basic)  # perfect overlap
         left = physics.AABB.from_mins_maxs([-1] * 3, [0] * 3)

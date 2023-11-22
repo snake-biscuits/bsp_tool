@@ -15,6 +15,7 @@ class AABB:
     maxs: vector.vec3 = property(lambda s: s._maxs)
     origin: vector.vec3 = property(lambda s: s._origin)
     extents: vector.vec3 = property(lambda s: s._extents)  # should be positive
+    # NOTE: you can add a delta to extents before testing for collision
 
     def __init__(self):
         self._origin = vector.vec3(*[0] * 3)
