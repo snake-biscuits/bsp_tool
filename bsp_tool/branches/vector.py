@@ -67,12 +67,10 @@ class vec2:
 
     def __setitem__(self, key: Union[int, slice], value: float):
         if isinstance(key, slice):
-            for k, v in zip(["x", "y", "z"][key], value[key]):
-                self.__setattr__(k, v)
-        elif key == 0:
-            self.x = value
-        elif key == 1:
-            self.y = value
+            for k, v in zip("xy"[key], value[key]):
+                setattr(self, k, v)
+        else:
+            setattr(self, "xy"[key], value)
 
     def __sub__(self, other: Iterable) -> vec2:
         return vec2(*map(math.fsum, itertools.zip_longest(self, -other, fillvalue=0)))
@@ -178,14 +176,10 @@ class vec3:
 
     def __setitem__(self, key: Union[int, slice], value: float):
         if isinstance(key, slice):
-            for k, v in zip(["x", "y", "z"][key], value[key]):
-                self.__setattr__(k, v)
-        elif key == 0:
-            self.x = value
-        elif key == 1:
-            self.y = value
-        elif key == 2:
-            self.z = value
+            for k, v in zip("xyz"[key], value[key]):
+                setattr(self, k, v)
+        else:
+            setattr(self, "xyz"[key], value)
 
     def __sub__(self, other: Iterable) -> vec3:
         return vec3(*map(math.fsum, zip(self, -other)))
