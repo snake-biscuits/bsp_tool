@@ -48,11 +48,13 @@ class TestStruct:
         raw_tuple = struct.unpack(Example._format, raw_struct)
         test_Struct = Example.from_tuple(raw_tuple)
         assert test_Struct.id == 0
-        assert test_Struct.position == base.MappedArray.from_bytes(b"\xDE\xAD\xBE\xEF" * 3,
-                                                                   _mapping=[*"xyz"],
-                                                                   _format="3f")
+        assert isinstance(test_Struct.position, vector.vec3)
+        position = base.MappedArray.from_bytes(b"\xDE\xAD\xBE\xEF" * 3, _mapping=[*"xyz"], _format="3f")
+        assert test_Struct.position == vector.vec3(*position)
         assert test_Struct.data == (4, 5)
+        assert isinstance(test_Struct.flags, ExampleFlags)
         assert test_Struct.flags == 6
+        assert isinstance(test_Struct.bitfield, base.BitField)
         assert test_Struct.bitfield.as_int() == 7
 
     def test_pack(self):
