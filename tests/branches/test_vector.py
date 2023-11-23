@@ -22,3 +22,11 @@ class TestVec3:
         assert v.magnitude() == 1
         v = vector.vec3(x=1, y=1)
         assert v.magnitude() == math.sqrt(2)
+
+    def test_add(self):
+        A = vector.vec3(0.1, 0.2, 0.3)
+        B = vector.vec3(0.9, 0.8, 0.7)
+        C = A + B
+        assert (C.x, C.y, C.z) == (1.0, 1.0, 1.0)
+        D = vector.vec3.__add__([1, 2, 3], [6, 5, 4])
+        assert (D.x, D.y, D.z) == (7, 7, 7)

@@ -21,18 +21,14 @@ class vec2:
         return self.magnitude()
 
     def __add__(self, other: Iterable) -> vec2:
-        return vec2(*map(math.fsum, itertools.zip_longest(self, other, fillvalue=0)))
+        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) == 2):
+            return vec2(*map(math.fsum, zip(self, other)))
+        else:
+            raise TypeError(f"cannot add '{type(other).__name__}' to '{type(self).__name__}'")
 
     def __eq__(self, other: Union[float, Iterable]) -> bool:
-        if isinstance(other, (vec2, Iterable)):
-            if [*self] == [*other]:
-                return True
-        elif isinstance(other, vec3):
-            if [*self, 0] == [*other]:
-                return True
-        elif isinstance(other, (int, float)):
-            if self.magnitude() == other:
-                return True
+        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) == 2):
+            return all([math.isclose(s, o) for s, o in itertools.zip_longest(self, other, fillvalue=0)])
         return False
 
     def __format__(self, format_spec: str = "") -> str:
@@ -73,7 +69,7 @@ class vec2:
             setattr(self, "xy"[key], value)
 
     def __sub__(self, other: Iterable) -> vec2:
-        return vec2(*map(math.fsum, itertools.zip_longest(self, -other, fillvalue=0)))
+        return vec2(*[math.fsum((s, -o)) for s, o in zip(self, other)])
 
     def __truediv__(self, other: float) -> vec2:
         return vec2(self.x / other, self.y / other)
@@ -85,16 +81,12 @@ class vec2:
     def normalise(self):
         """scale this vector into a unit vector"""
         new = self.normalised()
-        self.x = new.x
-        self.y = new.y
+        self.x, self.y = new.x, new.y
 
     def normalised(self) -> vec2:
         """returns this vector if length was 1 (unless length is 0), does not mutate"""
         m = self.sqrmagnitude()
-        if m != 0:
-            return vec2(self.x/m, self.y/m)
-        else:
-            return self
+        return vec2(self.x/m, self.y/m) if m != 0 else self
 
     def rotated(self, degrees: float) -> vec2:
         """returns this vector rotated clockwise on Z-axis"""
@@ -106,9 +98,8 @@ class vec2:
         return vec2(x, y)
 
     def sqrmagnitude(self) -> float:
-        """vec2.magnitude but without math.sqrt
-        handy for comparing length quickly"""
-        return math.fsum([i ** 2 for i in self])
+        """for quick comparisions"""
+        return math.fsum([a ** 2 for a in self])
 
 
 class vec3:
@@ -125,22 +116,18 @@ class vec3:
         return self.magnitude()
 
     def __add__(self, other: Iterable) -> vec3:
-        return vec3(*map(math.fsum, itertools.zip_longest(self, other, fillvalue=0)))
+        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) in (2, 3)):
+            return vec3(*map(math.fsum, itertools.zip_longest(self, other, fillvalue=0)))
+        else:
+            raise TypeError(f"cannot add '{type(other).__name__}' to '{type(self).__name__}'")
 
     def __eq__(self, other: Union[float, Iterable]) -> bool:
-        if isinstance(other, vec2):
-            if [*self] == [*other, 0]:
-                return True
-        elif isinstance(other, (vec3, Iterable)):
-            if [*self] == [*other]:
-                return True
-        elif isinstance(other, (int, float)):
-            if self.magnitude() == other:
-                return True
+        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) in (2, 3)):
+            return all([math.isclose(s, o) for s, o in itertools.zip_longest(self, other, fillvalue=0)])
         return False
 
     def __format__(self, format_spec: str = "") -> str:
-        return " ".join([format(i, format_spec) for i in self])
+        return " ".join([format(a, format_spec) for a in self])
 
     def __floordiv__(self, other: Union[float, Iterable]) -> vec3:
         return vec3(self.x // other, self.y // other, self.z // other)
@@ -194,17 +181,12 @@ class vec3:
     def normalise(self):
         """scale this vector into a unit vector"""
         new = self.normalised()
-        self.x = new.x
-        self.y = new.y
-        self.z = new.z
+        self.x, self.y, self.z = new.x, new.y, new.z
 
     def normalised(self) -> vec3:
         """returns vec3 as a unit vector"""
         m = self.magnitude()
-        if m != 0:
-            return vec3(self.x/m, self.y/m, self.z/m)
-        else:
-            return self
+        return vec3(self.x/m, self.y/m, self.z/m) if m != 0 else self
 
     def rotate(self, x: float = 0, y: float = 0, z: float = 0) -> vec3:
         """This method can be used on any iterable, inputs are degrees rotated around axis"""
