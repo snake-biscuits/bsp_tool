@@ -133,6 +133,9 @@ class Struct:
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self.__slots__])
 
+    def __len__(self) -> int:
+        return len(self.__slots__)
+
     def __repr__(self) -> str:
         attrs = [f"{a}={getattr(self, a)!r}" for a in self.__slots__]
         return f"{self.__class__.__name__}({', '.join(attrs)})"
@@ -316,6 +319,9 @@ class MappedArray:
 
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self._mapping])
+
+    def __len__(self) -> int:
+        return len(self._mapping)
 
     def __repr__(self) -> str:
         attrs = [f"{attr}: {value!r}" for attr, value in zip(self._mapping, self)]
@@ -522,6 +528,9 @@ class BitField:
 
     def __iter__(self) -> Iterable:
         return iter([getattr(self, attr) for attr in self._fields])
+
+    def __len__(self) -> int:
+        return len(self._fields)
 
     def __repr__(self) -> str:
         attrs = [f"{a}: {getattr(self, a)!r}" for a in self._fields.keys()]

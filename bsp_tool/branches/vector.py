@@ -7,6 +7,9 @@ from typing import Iterable, Union
 
 
 # TODO: swizzle __getattr__ methods
+# TODO: move silent type casting out of individual methods
+# -- so we can keep it consistent
+# -- _compatible_type(other) -> bool
 
 class vec2:
     """2D vector class"""
@@ -21,13 +24,14 @@ class vec2:
         return self.magnitude()
 
     def __add__(self, other: Iterable) -> vec2:
-        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) == 2):
+        if isinstance(other, (vec2, vec3, Iterable)):
             return vec2(*map(math.fsum, zip(self, other)))
         else:
             raise TypeError(f"cannot add '{type(other).__name__}' to '{type(self).__name__}'")
 
-    def __eq__(self, other: Union[float, Iterable]) -> bool:
-        if isinstance(other, (vec2, vec3)) or (isinstance(other, Iterable) and len(other) == 2):
+    def __eq__(self, other: Union[vec2, vec3, Iterable]) -> bool:
+        # TODO: Sequences
+        if isinstance(other, (vec2, vec3, Iterable)):
             return all([math.isclose(s, o) for s, o in itertools.zip_longest(self, other, fillvalue=0)])
         return False
 
@@ -38,7 +42,7 @@ class vec2:
         return vec2(self.x // other, self.y // other)
 
     def __getitem__(self, key: int) -> float:
-        return [self.x, self.y][key]
+        return (self.x, self.y)[key]
 
     def __hash__(self) -> int:
         return hash(tuple(self))
@@ -80,8 +84,7 @@ class vec2:
 
     def normalise(self):
         """scale this vector into a unit vector"""
-        new = self.normalised()
-        self.x, self.y = new.x, new.y
+        self.x, self.y = self.normalised()
 
     def normalised(self) -> vec2:
         """returns this vector if length was 1 (unless length is 0), does not mutate"""
