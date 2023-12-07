@@ -11,7 +11,7 @@ class RGB24(base.MappedArray):
     _format = "3B"
 
     def as_floats(self) -> List[float]:
-        return [getattr(self, x) / 255 for x in self._mapping]
+        return [getattr(self, c) / 255 for c in self._mapping]
 
 
 class RGBA32(RGB24):
@@ -24,4 +24,4 @@ class RGBExponent(RGB24):
 
     def as_floats(self) -> List[float]:
         """HDR scaled values"""
-        return [getattr(self, x) / 255 * self.exponent for x in "rgb"]
+        return [(getattr(self, c) / 255) * self.exponent for c in "rgb"]
