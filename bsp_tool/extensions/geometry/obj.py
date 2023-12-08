@@ -1,0 +1,3 @@
+class Obj:
+    # option: use rexx' magic negative indices
+    ...
