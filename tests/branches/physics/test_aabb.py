@@ -27,9 +27,9 @@ signs = [[i >> j & 1 for j in range(3)] for i in range(8)]
 mmoes.update({f"quadrant{i}": (*sign2(mins, maxs, s), sign(origin, s), extents) for i, s in enumerate(signs)})
 
 
-class TestAABB:
+class TestInit:
     @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
-    def test_init_mins_maxs(self, mins, maxs, origin, extents):
+    def test_mins_maxs(self, mins, maxs, origin, extents):
         aabb = physics.AABB.from_mins_maxs(mins, maxs)
         assert aabb.mins == mins
         assert aabb.maxs == maxs
@@ -37,7 +37,7 @@ class TestAABB:
         assert aabb.extents == extents
 
     @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
-    def test_init_origin_extents(self, mins, maxs, origin, extents):
+    def test_origin_extents(self, mins, maxs, origin, extents):
         aabb = physics.AABB.from_origin_extents(origin, extents)
         assert aabb.mins == mins
         assert aabb.maxs == maxs
@@ -46,34 +46,37 @@ class TestAABB:
 
     # NOTE: from_points automatically determines mins & maxs; can't test that w/ mmoes
     @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
-    def test_init_from_points(self, mins, maxs, origin, extents):
+    def test_from_points(self, mins, maxs, origin, extents):
         aabb = physics.AABB.from_points([mins, origin, maxs])
         assert aabb.mins == mins
         assert aabb.maxs == maxs
         assert aabb.origin == origin
         assert aabb.extents == extents
 
-    @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
-    def test_add_points(self, mins, maxs, origin, extents):
-        # single point
-        aabb = physics.AABB() + mins
-        assert aabb.mins == mins
-        assert aabb.maxs == mins
-        assert aabb.origin == mins
-        assert aabb.extents == [0] * 3
-        # full bounds
-        aabb += maxs
-        assert aabb.mins == mins
-        assert aabb.maxs == maxs
-        assert aabb.origin == origin
-        assert aabb.extents == extents
-        # no change
-        aabb += origin
-        assert aabb.mins == mins
-        assert aabb.maxs == maxs
-        assert aabb.origin == origin
-        assert aabb.extents == extents
 
+@pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
+def test_add_points(mins, maxs, origin, extents):
+    # single point
+    aabb = physics.AABB() + mins
+    assert aabb.mins == mins
+    assert aabb.maxs == mins
+    assert aabb.origin == mins
+    assert aabb.extents == [0] * 3
+    # full bounds
+    aabb += maxs
+    assert aabb.mins == mins
+    assert aabb.maxs == maxs
+    assert aabb.origin == origin
+    assert aabb.extents == extents
+    # no change
+    aabb += origin
+    assert aabb.mins == mins
+    assert aabb.maxs == maxs
+    assert aabb.origin == origin
+    assert aabb.extents == extents
+
+
+class TestCollision:
     @pytest.mark.parametrize("mins,maxs,origin,extents", mmoes.values(), ids=mmoes.keys())
     def test_contains_point(self, mins, maxs, origin, extents):
         mins, maxs, extents = [vector.vec3(*v) for v in (mins, maxs, extents)]
