@@ -182,16 +182,15 @@ class Plane:
     @classmethod
     def from_triangle(cls, A: vector.vec3, B: vector.vec3, C: vector.vec3) -> Plane:
         """normal faces clockwise direction"""
-        # TODO: verify orientation
-        normal = ((A - B) * (A - C)).normalised()
+        normal = -((A - B) * (A - C)).normalised()
         return cls(normal, vector.dot(A, normal))
 
     def as_triangle(self, radius: float = 64) -> List[vector.vec3]:
         # TODO: verify orientation
-        axis = "z" if math.isclose(abs(self.normal.z), 1) else "y"
+        axis = "y" if math.isclose(abs(self.normal.z), 1) else "z"
         non_parallel = vector.vec3(**{axis: -1})
-        local_y = (non_parallel * self.normal).normalise() * radius
-        local_x = (local_y * self.normal).normalise() * radius
+        local_y = (non_parallel * self.normal).normalised() * radius
+        local_x = (local_y * self.normal).normalised() * radius
         A = self.normal * self.distance
         return A, A + local_y, A + local_x
 
