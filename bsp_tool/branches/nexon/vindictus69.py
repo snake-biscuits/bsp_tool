@@ -7,9 +7,9 @@ import struct
 from typing import List
 
 from ... import lumps
+from ...utils import vector
 from .. import base
 from .. import shared
-from .. import vector
 from ..id_software import remake_quake_old
 from ..valve import orange_box
 from ..valve import source

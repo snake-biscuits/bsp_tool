@@ -6,7 +6,7 @@ import pytest
 
 from bsp_tool import branches
 from bsp_tool.branches import base
-from bsp_tool.branches import vector
+from bsp_tool.utils import vector
 
 
 # NOTE: we indirectly test all _classes here, but they should have their own tests

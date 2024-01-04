@@ -3,8 +3,8 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
-from .. import vector
 from ..valve import source
 from . import vindictus69
 

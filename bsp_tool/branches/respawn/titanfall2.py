@@ -5,9 +5,9 @@ import struct
 from typing import List
 
 from ... import lumps
+from ...utils import vector
 from .. import base
 from .. import colour
-from .. import vector
 from ..valve import source
 from . import titanfall
 

@@ -1,7 +1,7 @@
 import math
 
 from bsp_tool.branches import base
-from bsp_tool.branches import vector
+from bsp_tool.utils import vector
 
 import pytest
 

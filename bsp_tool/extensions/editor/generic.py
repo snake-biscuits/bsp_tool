@@ -2,8 +2,8 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Dict, List
 
-from ...branches import physics
-from ...branches import texture
+from ...utils import physics
+from ...utils import texture
 
 
 # TODO: Curve (CoDRadiant)

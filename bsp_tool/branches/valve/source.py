@@ -10,10 +10,10 @@ from typing import Any, List
 import zipfile
 
 from ... import lumps
+from ...utils import vector
 from .. import base
 from .. import colour
 from .. import shared
-from .. import vector
 from ..id_software import quake
 from ..id_software import quake2
 from . import physics

@@ -7,10 +7,10 @@ import math
 import struct
 from typing import List
 
-from . import quake
+from ...utils import vector
 from .. import base
 from .. import shared
-from .. import vector
+from . import quake
 
 
 FILE_MAGIC = b"IBSP"

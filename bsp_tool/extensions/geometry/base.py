@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List
 
-from ..branches import vector
+from ..utils import vector
 
 
 # TODO: Mesh, Material, Model

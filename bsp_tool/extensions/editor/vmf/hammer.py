@@ -2,7 +2,7 @@ from __future__ import annotations
 import re
 from typing import Dict, List
 
-from ....branches import texture
+from ....utils import texture
 from .. import base
 from .. import common
 from .. import generic

@@ -2,9 +2,9 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import colour
-from .. import vector
 from . import alien_swarm
 from . import left4dead2
 from . import orange_box

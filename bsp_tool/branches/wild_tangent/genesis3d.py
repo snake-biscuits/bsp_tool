@@ -2,10 +2,10 @@
 import enum
 from typing import List, Union
 
+from ...utils import vector
 from .. import base
 from .. import shared
 from .. import time
-from .. import vector
 from ..id_software import quake
 from ..id_software import quake2
 from ..id_software import remake_quake

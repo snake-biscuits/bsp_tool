@@ -1,9 +1,9 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import shared
-from .. import vector
 from ..valve import source
 from . import titanfall
 from . import titanfall2

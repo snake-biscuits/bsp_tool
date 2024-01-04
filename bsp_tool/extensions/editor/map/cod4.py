@@ -2,7 +2,7 @@
 # NOTE: might need to use Wayback Machine (web.archive.org)
 import re
 
-from ....branches import texture
+from ....utils import texture
 from .. import base
 from .. import common
 from .. import generic

@@ -5,9 +5,9 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import shared
-from .. import vector
 from ..id_software import remake_quake_old
 from ..nexon import vindictus69
 from ..valve import physics

@@ -3,10 +3,10 @@ from __future__ import annotations
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import colour
 from .. import shared
-from .. import vector
 from . import quake
 from . import quake3
 

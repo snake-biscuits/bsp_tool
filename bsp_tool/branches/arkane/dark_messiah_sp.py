@@ -1,8 +1,8 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
 from typing import List
 
+from ...utils import vector
 from .. import base
-from .. import vector
 from ..valve import orange_box
 from ..valve import source
 

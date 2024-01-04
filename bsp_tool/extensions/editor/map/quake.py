@@ -1,7 +1,7 @@
 # https://quakewiki.org/wiki/Quake_Map_Format
 import re
 
-from ....branches import texture
+from ....utils import texture
 from .. import base
 from .. import common
 from .. import generic

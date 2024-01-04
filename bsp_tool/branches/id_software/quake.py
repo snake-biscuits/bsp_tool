@@ -9,9 +9,9 @@ import math
 import struct
 from typing import Any, Dict, List, Set
 
+from ...utils import vector
 from .. import base
 from .. import shared  # special lumps
-from .. import vector
 
 
 FILE_MAGIC = None

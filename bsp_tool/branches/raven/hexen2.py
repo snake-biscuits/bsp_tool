@@ -2,8 +2,8 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
-from .. import vector
 from ..id_software import quake
 
 

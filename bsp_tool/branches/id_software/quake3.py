@@ -8,11 +8,11 @@ import enum
 from typing import List
 import struct
 
+from ...utils import vector
 from .. import base
 from .. import colour
 from .. import shared
-from .. import vector
-from .. id_software import quake
+from . import quake
 
 
 FILE_MAGIC = b"IBSP"

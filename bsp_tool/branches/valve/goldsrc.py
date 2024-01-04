@@ -3,8 +3,8 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
-from .. import vector
 from ..id_software import quake
 # NOTE: GoldSrc was forked from IdTech 2 during Quake II development
 # -- so some elements of both quake & quake2 formats are present

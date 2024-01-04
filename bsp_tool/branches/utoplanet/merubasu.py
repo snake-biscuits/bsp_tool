@@ -1,9 +1,9 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import colour
-from .. import vector
 from ..valve import orange_box
 from ..valve import sdk_2013
 from ..valve import source

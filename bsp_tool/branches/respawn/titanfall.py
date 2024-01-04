@@ -7,10 +7,10 @@ import struct
 from typing import Any, Dict, List, Union
 
 from ... import lumps
+from ...utils import vector
 from .. import base
 from .. import colour
 from .. import shared
-from .. import vector
 from ..id_software import quake
 # from ..valve import physics
 from ..valve import sdk_2013

@@ -3,9 +3,9 @@
 import enum
 from typing import List
 
+from ...utils import vector
 from .. import base
 from .. import colour
-from .. import vector
 from ..id_software import quake
 from . import left4dead
 from . import source

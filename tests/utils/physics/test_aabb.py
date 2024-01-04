@@ -1,5 +1,5 @@
-from bsp_tool.branches import physics
-from bsp_tool.branches import vector
+from bsp_tool.utils import physics
+from bsp_tool.utils import vector
 
 import pytest
 

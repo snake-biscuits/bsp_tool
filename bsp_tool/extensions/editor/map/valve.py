@@ -1,5 +1,5 @@
 # https://quakewiki.org/wiki/Quake_Map_Format#Valve_variation_of_the_format
-from ....branches import texture
+from ....utils import texture
 from .. import base
 from .. import common
 from .. import generic

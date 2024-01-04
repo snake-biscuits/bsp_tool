@@ -1,7 +1,7 @@
 from typing import Dict
 
-from ...branches import physics
-from ...branches import vector
+from ...utils import physics
+from ...utils import vector
 from . import base
 
 

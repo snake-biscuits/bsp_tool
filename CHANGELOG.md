@@ -4,9 +4,13 @@
 
 ### New
  * `__init__` methods for all SpecialLumpClasses
+ * `branches.colour`
  * `extensions.editor`
    - parse `.map` & `.vmf`
    - compare uncompiled maps to `.bsp`
+ * `utils`
+  - `physics`
+  - `texture`
 
 ### Changed
  * SpecialLumpClasses & GameLumpClasses refactor
@@ -39,6 +43,7 @@
  * `respawn.ExternalLumpManager` now handles `.bsp_lump` saving
  * added `leaves_of_node` method to most branch scripts
  * `methods` of branch scripts are now stored in `dict`
+ * Moved `branches.vector` to `utils.vector`
 
 ### Fixed
  * `shared.Entities` the following silent failures are now caught by the parser

@@ -5,7 +5,7 @@ from typing import List
 import pytest
 
 from bsp_tool.branches import base
-from bsp_tool.branches import vector
+from bsp_tool.utils import vector
 
 
 # TODO: test everything fails correctly when fed invalid inputs
