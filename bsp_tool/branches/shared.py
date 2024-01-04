@@ -37,16 +37,26 @@ class Entities(list):
     def __init__(self, iterable: List[Dict[str, str]] = tuple()):
         super().__init__(iterable)
 
+    # TODO: make searches stackable (bsp.search(...).search_any(...))
+    # -- search(...) -> Entities
     def search(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
         """Search for entities by key-values; e.g. .search(key=value) -> [{"key": value, ...}, ...]"""
         # NOTE: all conditions must be satisfied
         return [e for e in self if all([e.get(k, "") == v for k, v in search.items()])]
 
-    # TODO: search_regex
+    def search_any(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
+        """Search for entities by key-values; e.g. .search(key=value) -> [{"key": value, ...}, ...]"""
+        return [e for e in self if any([e.get(k, "") == v for k, v in search.items()])]
 
-    # TODO: search_any  (any k == v, not all)
+    def search_regex(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
+        return [e for e in self
+                if all([re.match(p, e.get(k, "")) is not None
+                        for k, p in search.items()])]
 
-    # TODO: search_any_regex
+    def search_regex_any(self, **search: Dict[str, str]) -> List[Dict[str, str]]:
+        return [e for e in self
+                if any([re.match(p, e.get(k, "")) is not None
+                        for k, p in search.items()])]
 
     def as_bytes(self) -> bytes:
         entities = list()

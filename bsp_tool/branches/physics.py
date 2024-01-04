@@ -145,7 +145,7 @@ class Plane:
         return self.__class__(-self.normal, -self.distance)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.normal!r}, {self.distance})"
+        return f"Plane({self.normal!r}, {self.distance})"
 
     # COLLISION
 

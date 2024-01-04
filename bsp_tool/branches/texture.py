@@ -15,6 +15,9 @@ class ProjectionAxis:
         self.offset = 0 if offset is None else offset
         self.scale = 1 if scale is None else scale
 
+    def __repr__(self) -> str:
+        return f"ProjectionAxis({self.axis!r}, {self.offset}, {self.scale})"
+
     def project(self, point: vector.vec3) -> float:
         return (vector.dot(point, self.axis) + self.offset) / self.scale
 
@@ -22,10 +25,17 @@ class ProjectionAxis:
 class TextureVector:
     s: ProjectionAxis
     t: ProjectionAxis
+    # TODO: rotation (extensions.editor only)
 
     def __init__(self, s: ProjectionAxis = None, t: ProjectionAxis = None):
         self.s = ProjectionAxis([1, 0]) if s is None else s
         self.t = ProjectionAxis([0, 1]) if t is None else t
+
+    def __iter__(self):
+        return iter((self.s, self.t))
+
+    def __repr__(self) -> str:
+        return f"TextureAxis({self.s}, {self.t})"
 
     def uv_at(self, point: vector.vec3) -> vector.vec2:
         u = self.s.project(point)
@@ -40,4 +50,4 @@ class TextureVector:
         # defaults to floor / ceiling if equally on each axis
         best_axis = 2 if len(set(normal)) == 0 else list(normal).index(max(normal))
         s, t = axes[best_axis]
-        return cls(s, t)
+        return cls(*map(ProjectionAxis, [s, t]))
