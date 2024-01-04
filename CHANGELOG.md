@@ -4,6 +4,9 @@
 
 ### New
  * `__init__` methods for all SpecialLumpClasses
+ * `extensions.editor`
+   - parse `.map` & `.vmf`
+   - compare uncompiled maps to `.bsp`
 
 ### Changed
  * SpecialLumpClasses & GameLumpClasses refactor
