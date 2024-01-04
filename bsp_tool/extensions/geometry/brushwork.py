@@ -1,14 +1,15 @@
 from typing import List
 
-from ..utils import physics
+# from ...utils import physics
+from ..editor import generic
 from . import base
 
 
-def polygons_of(brush: physics.Brush) -> List[base.Polygon]:
+def polygons_of(brush: generic.Brush) -> List[base.Polygon]:
     # generate a Polygon for each Plane, such that they can be zipped
-    # extensions.editor should have a Brush class w/ BrushSides
     raise NotImplementedError()
-    # aabb quads
+    # generic.Brush(...).as_physics()  # calculate AABB
+    # AABB quads
     # slice edges w/ each non-axial plane
     # only respect in-bounds intersections
     # slice edge by replacing A-B w/ A-S;S-B if A & B on opposite sides
