@@ -1,11 +1,11 @@
 from typing import List
 
+from ...utils import geometry
 # from ...utils import physics
 from ..editor import generic
-from . import base
 
 
-def polygons_of(brush: generic.Brush) -> List[base.Polygon]:
+def polygons_of(brush: generic.Brush) -> List[geometry.Polygon]:
     # generate a Polygon for each Plane, such that they can be zipped
     raise NotImplementedError()
     # generic.Brush(...).as_physics()  # calculate AABB

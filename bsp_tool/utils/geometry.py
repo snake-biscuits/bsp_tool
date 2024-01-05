@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List
 
-from ...utils import vector
+from . import vector
 
 
 # TODO: Mesh, Material, Model
@@ -15,6 +15,15 @@ class Vertex:
     # uv[0] = albedo
     # uv[1] = lightmap
 
+    def __init__(self, position, normal, *uvs):
+        self.position = position
+        self.normal = normal
+        self.uv = uvs
+
+    def __repr__(self) -> str:
+        args = ", ".join([self.position, self.normal, *self.uv])
+        return f"{self.__class__.__name__}({args})"
+
 
 class Polygon:
     vertices: List[Vertex]
@@ -26,6 +35,9 @@ class Polygon:
 
     def __iter__(self):
         return iter(self.vertices)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.vertices!r})"
 
     @property
     def normal(self) -> vector.vec3:
