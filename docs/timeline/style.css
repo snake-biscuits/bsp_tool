@@ -32,7 +32,10 @@
 
 .month {
   display: grid;
+  gap: 1.5rem;
   grid-template-columns: repeat(3, 1fr);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .jan { grid-row:  1; } .feb { grid-row:  2; } .mar { grid-row:  3; }
@@ -43,17 +46,34 @@
 
 /* release card headers */
 .game {
-  background-color: #F0F;
+  border: 1px solid #EEE;
   border-radius: 0.5rem;
   color: #EEE;
   display: grid;
   grid-row-end: 1;
   grid-template-columns: 1.25rem 1fr 5rem 4rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
-.icon     { grid-column: 1; background-color: yellow; }  /* square image */
-.name     { grid-column: 2; background-color: blue;   }
-.platform { grid-column: 3; background-color: green;  }
-.region   { grid-column: 4; background-color: red;    }
+.game > * {
+  align-items: center;
+  display: flex;
+  padding-left: 0.5rem;
+}
+.icon { grid-column: 1; } .name { grid-column: 2; } .platform { grid-column: 3; } .region { grid-column: 4; }
+
+.icon {
+  width:  16px;
+  height: 16px;
+}
+
+/* TODO: put icons in a font
+.game > .name::before { font: "icon_font.ext"; }
+.branch-X > .name::before { content: "X "; }
+*/
+
+/* game branches */
+/* id_software */
+.branch-quake  { background-color: #D84; }
+.branch-quake2 { background-color: #4A6; }
