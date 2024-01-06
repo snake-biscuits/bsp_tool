@@ -1,29 +1,59 @@
-table {
-  border:none;
-  border-collapse: collapse;
+/* timeline blocks */
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-table td {
-  padding-left: 24px;
+.year {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 }
 
-
-table td:first-child {  /* year column */
-  border-right: 2px solid #999;
-  padding-right: 12px;
-  padding-left: 0px;
-  
-  /* TODO: month markers */
+.year-label {
+  align-items: center;
+  background-color: #DDD;
+  border-right: 2px solid #99A;
+  border-top: 1px solid #99A;
+  border-bottom: 1px solid #99A;
+  color: #446;
+  display: flex;
+  font-size: x-large;
+  font-weight: bold;
+  justify-content: center;
+  padding-left; 1.5rem;
 }
 
-.node {
-  border: 1px solid #222;
-  border-radius: 8px;
-  padding: 4px;
-
-  position: relative;
-  top: 0;
-  left: 512;
-
-  text-align: center;
+.year-months {
+  background-color: #CCC;
+  color: #335;
+  display: grid;
+  grid-template-rows: repeat(12, 1.25rem);
 }
+
+.month {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.jan { grid-row:  1; } .feb { grid-row:  2; } .mar { grid-row:  3; }
+.apr { grid-row:  4; } .may { grid-row:  5; } .jun { grid-row:  6; }
+.jul { grid-row:  7; } .aug { grid-row:  8; } .sep { grid-row:  9; }
+.oct { grid-row: 10; } .nov { grid-row: 11; } .dec { grid-row: 12; }
+
+
+/* release card headers */
+.game {
+  background-color: #F0F;
+  border-radius: 0.5rem;
+  color: #EEE;
+  display: grid;
+  grid-row-end: 1;
+  grid-template-columns: 1.25rem 1fr 5rem 4rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.icon     { grid-column: 1; background-color: yellow; }  /* square image */
+.name     { grid-column: 2; background-color: blue;   }
+.platform { grid-column: 3; background-color: green;  }
+.region   { grid-column: 4; background-color: red;    }
