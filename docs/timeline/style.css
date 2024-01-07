@@ -6,7 +6,7 @@
 
 .year {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
 }
 
 .year-label {
@@ -30,10 +30,10 @@
   grid-template-rows: repeat(12, 1.25rem);
 }
 
-.month {
+.year-months > div {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
@@ -43,9 +43,13 @@
 .jul { grid-row:  7; } .aug { grid-row:  8; } .sep { grid-row:  9; }
 .oct { grid-row: 10; } .nov { grid-row: 11; } .dec { grid-row: 12; }
 
+/* month columns */
+.col1 { grid-column: 1; } .col2 { grid-column: 2; } .col3 { grid-column: 3; } .col4 { grid-column: 4; }
+
 
 /* release card headers */
 .game {
+  background-color: #222;  /* mystery branch */
   border: 1px solid #EEE;
   border-radius: 0.5rem;
   color: #EEE;
@@ -77,3 +81,15 @@
 /* id_software */
 .branch-quake  { background-color: #D84; }
 .branch-quake2 { background-color: #4A6; }
+.branch-quake64  { background-color: #E71; }
+.branch-remake-quake  { background-color: #940; }
+/* raven */
+.branch-hexen2 { background-color: #A00; }
+/* ritual */
+.branch-sin { background-color: #165; }
+/* valve */
+.branch-goldsrc { background-color: #F91; }
+
+/* composite branch */
+.branch-multi-q-rmq { background: linear-gradient(135deg, #D84 40%, #940 60%); }
+.branch-multi-q-rmq-q64 { background: linear-gradient(135deg, #D84 23%, #940 43% 56%, #E71 76%); }
