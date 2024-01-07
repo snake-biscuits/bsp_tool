@@ -22,3 +22,19 @@ http://www.callofdutyview.net/downloads/cod-single-player-demo-dawnville/
 ## Call of Duty (Burnville Demo)
 ### PC
 http://www.callofdutyview.net/downloads/cod-single-player-demo-burnville/
+
+
+## Counter-Strike Nexon: Studio
+### PC (Steam)
+https://antifandom.com/counterstrike/wiki/Counter-Strike_Nexon:_Studio
+
+
+## Star Trek: Elite Force II (Demo)
+### PC
+https://megagames.com/demos/star-trek-elite-force-2-single-player-demo
+
+
+## Deathmatch Classic
+### PC
+https://www.shacknews.com/article/14405/half-life-dmc-released
+https://web.archive.org/web/20060712063318/http://www.shacknews.com/extras/e_dmc/
