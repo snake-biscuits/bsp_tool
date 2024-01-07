@@ -7,133 +7,94 @@
   </head>
   <body>
     <h1>Timeline</h1>
+    <!-- TODO: platform.svg; pick icon w/ style (see vndb.org .icon-plat-*) -->
+    <!-- TODO: region emoji -->
     <div class="timeline" id="timeline">
       <div class="year" id="1996">
         <div class="year-label">1996</div>
-        <div class="year-months">
-          <div class="jun">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg" />
-              <div class="name">Quake</div>
-              <div class="platform">PC</div>  <!-- TODO: platform.svg w/ style selector (see vndb.org icon-plat- classes) -->
-              <div class="region">NA</div>  <!-- TODO: region emoji (flags + globe) -->
+        <div class="year-columns">
+          <div class="months col1">
+            <div class="jun">
+              <div class="game branch-quake"><img class="icon" src="q1.svg" /><div class="name">Quake</div><div class="platform">PC</div><div class="region">NA</div></div>
             </div>
-          </div>
-          <div class="jul">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">Linux</div>
-              <div class="region">WW</div>
+            <div class="jul">
+              <div class="game branch-quake"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">Linux</div><div class="region">WW</div></div>
             </div>
-          </div>
-          <div class="aug">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">PC</div>
-              <div class="region">EU</div>
+            <div class="aug">
+              <div class="game branch-quake"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">PC</div><div class="region">EU</div></div>
             </div>
+            <div class="sep-jan"><div class="trail branch-quake"></div></div>
           </div>
         </div>
       </div>
       <div class="year" id="1997">
         <div class="year-label">1997</div>
-        <div class="year-months">
-          <div class="aug">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">MacOS</div>
-              <div class="region">NA</div>
+        <div class="year-columns">
+          <div class="months col1">
+            <div class="jan-aug"><div class="trail branch-quake"></div></div>
+            <div class="aug">
+              <div class="game branch-quake"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">MacOS</div><div class="region">NA</div></div>
+            </div>
+            <div class="sep"><div class="trail branch-quake"></div></div>
+            <div class="oct">
+              <div class="game branch-quake"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">Saturn</div><div class="region">EU</div></div>
+            </div>
+            <div class="nov"><div class="trail branch-quake"></div></div>
+            <div class="dec">
+              <div class="game branch-quake"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">Saturn</div><div class="region">NA</div></div>
             </div>
           </div>
-          <div class="sep">
-            <div class="col2 game branch-hexen2">
-              <div class="name">Hexen II</div>
-              <div class="platform">PC</div>
-              <div class="region">NA</div>
+          <div class="months col2">
+            <div class="dec">
+              <div class="game branch-quake2"><img class="icon" src="q2.svg"/><div class="name">Quake II</div><div class="platform">PC</div><div class="region">NA</div></div>
             </div>
-          </div>
-          <div class="oct">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">Saturn</div>
-              <div class="region">EU</div>
-            </div>
-          </div>
-          <div class="dec">
-            <div class="game branch-quake">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">Saturn</div>
-              <div class="region">NA</div>
-            </div>
-            <div class="game branch-quake2">
-              <img class="icon" src="q2.svg"/>
-              <div class="name">Quake II</div>
-              <div class="platform">PC</div>
-              <div class="region">NA</div>
+            <div class="sep">
+              <div class="game branch-hexen2"><div class="name">Hexen II</div><div class="platform">PC</div><div class="region">NA</div></div>
             </div>
           </div>
         </div>
       </div>
       <div class="year" id="1998">
         <div class="year-label">1998</div>
-        <div class="year-months">
-          <div class="mar">
-            <div class="game branch-quake64">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">N64</div>
-              <div class="region">NA</div>
+        <div class="year-columns">
+          <div class="months col1">
+            <div class="jan-mar"><div class="trail branch-blend-q-q64"></div></div>
+            <div class="mar">
+              <div class="game branch-quake64"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">N64</div><div class="region">NA</div></div>
+            </div>
+            <div class="apr"><div class="trail branch-quake64"></div></div>
+            <div class="may">
+              <div class="game branch-quake64"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">N64</div><div class="region">EU</div></div>
+            </div>
+            <div class="jun-jan"><div class="trail branch-blend-q64-q"></div></div>
+          </div>
+          <div class="months col2">
+            <div class="jan-nov"><div class="trail branch-quake2"></div></div>
+            <div class="nov">
+              <div class="game branch-quake2"><div class="name">Heretic II</div><div class="platform">PC</div><div class="region">NA</div></div>
             </div>
           </div>
-          <div class="may">
-            <div class="game branch-quake64">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">N64</div>
-              <div class="region">EU</div>
+          <div class="months col3">
+            <div class="nov">
+              <div class="game branch-goldsrc"><div class="name">Half-Life</div><div class="platform">PC</div><div class="region">WW</div></div>
             </div>
           </div>
-          <div class="nov">
-            <div class="col2 game branch-quake2">
-              <div class="name">Heretic II</div>
-              <div class="platform">PC</div>
-              <div class="region">NA</div>
-            </div>
-            <div class="col3 game branch-goldsrc">
-              <div class="name">Half-Life</div>
-              <div class="platform">PC</div>
-              <div class="region">WW</div>
-            </div>
-            <div class="col4 game branch-sin">
-              <div class="name">SiN</div>
-              <div class="platform">PC</div>
-              <div class="region">NA</div>
+          <div class="months col4">
+            <div class="nov">
+              <div class="game branch-sin"><div class="name">SiN</div><div class="platform">PC</div><div class="region">NA</div></div>
             </div>
           </div>
         </div>
       </div>
       <div class="year" id="2021">
         <div class="year-label">2021</div>
-        <div class="year-months">
-          <div class="aug">
-            <div class="game branch-multi-q-rmq">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">PS4</div>
-              <div class="region">WW</div>
+        <div class="year-columns">
+          <div class="months col1">
+            <div class="aug">
+              <div class="game branch-mix-q-rmq"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">PS4</div><div class="region">WW</div></div>
             </div>
-          </div>
-          <div class="oct">
-            <div class="game branch-multi-q-rmq-q64">
-              <img class="icon" src="q1.svg"/>
-              <div class="name">Quake</div>
-              <div class="platform">PS5</div>
-              <div class="region">WW</div>
+            <div class="oct">
+              <div class="game branch-mix-q-rmq-q64"><img class="icon" src="q1.svg"/><div class="name">Quake</div><div class="platform">PS5</div><div class="region">WW</div></div>
             </div>
           </div>
         </div>
