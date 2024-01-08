@@ -40,5 +40,18 @@
   },
   "Titanfall 2": {
     "Beta": ["Titanfall 2 (Tech Test)"]
+  },
+  "WarSow": {
+    "Fork": ["WarFork"]
+  },
+  "WarFork": {
+    "Fork": ["Cocaine Diesel"]
+  },
+  "DarkPlaces": {
+    "Engine": ["Classic"]
+  },
+  "Nexuiz Classic": {
+    "Fork": ["Xonotic"],
+    "Non-GPL Rebuild": ["Nexuiz"]
   }
 }
