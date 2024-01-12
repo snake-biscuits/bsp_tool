@@ -43,15 +43,21 @@ class ExternalLumpManager:
         self.headers = dict()
         self.loading_errors = dict()
         for LUMP in bsp.branch.LUMP:
-            lump_filename = f"{bsp.filename}.{LUMP.value:04x}.bsp_lump"
-            if lump_filename not in bsp.associated_files:
-                lump_filename += ".client"  # Apex Legends Season 18
-                if lump_filename not in bsp.associated_files:
-                    continue
-            lump_filename = os.path.join(bsp.folder, lump_filename)
-            lump_filesize = os.path.getsize(lump_filename)
-            lump_header = ExternalLumpHeader(*bsp.headers[LUMP.name], lump_filename, lump_filesize)
-            self.headers[LUMP.name] = lump_header
+            lump_filenames = {
+                f"{bsp.filename}.{LUMP.value:04x}.bsp_lump",
+                f"{bsp.filename}.{LUMP.value:04X}.bsp_lump"}
+            lump_filenames.update({f"{fn}.client" for fn in lump_filenames})
+            matches = set(bsp.associated_files).intersection(lump_filenames)
+            if len(matches) == 0:
+                continue
+            elif len(matches) == 1:
+                lump_filename = list(matches)[0]
+                lump_filename = os.path.join(bsp.folder, lump_filename)
+                lump_filesize = os.path.getsize(lump_filename)
+                lump_header = ExternalLumpHeader(*bsp.headers[LUMP.name], lump_filename, lump_filesize)
+                self.headers[LUMP.name] = lump_header
+            else:
+                raise RuntimeError("cannot select from multiple .bsp_lump")
         # attach methods
         for method_name, method in getattr(self.branch, "methods", dict()).items():
             method = MethodType(method, self)
