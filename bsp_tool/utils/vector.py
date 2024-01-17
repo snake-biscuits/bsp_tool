@@ -191,7 +191,7 @@ class vec3:
         m = self.magnitude()
         return vec3(self.x/m, self.y/m, self.z/m) if m != 0 else self
 
-    def rotate(self, x: float = 0, y: float = 0, z: float = 0) -> vec3:
+    def rotated(self, x: float = 0, y: float = 0, z: float = 0) -> vec3:
         """This method can be used on any iterable, inputs are degrees rotated around axis"""
         angles = [math.radians(i) for i in (x, y, z)]
         cos_x, sin_x = math.cos(angles[0]), math.sin(angles[0])
