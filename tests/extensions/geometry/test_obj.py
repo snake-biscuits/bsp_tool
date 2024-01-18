@@ -48,7 +48,7 @@ def test_dummy():
     faces = lines[17:23]
     assert all(line.startswith("f ") for line in faces)
     for i, line, (indices, normal) in zip(itertools.count(), faces, quads):
-        vs, vns = zip(*[[int(y) - 1 for y in x.split("/")] for x in line.split()[1:]])
+        vs, vns = zip(*[[int(y) - 1 for y in x.split("//")] for x in line.split()[1:]])
         assert len(set(vns)) == 1
         assert vns[0] == i
         assert [ordered_vertices[v] for v in vs] == [vertices[i] for i in indices]

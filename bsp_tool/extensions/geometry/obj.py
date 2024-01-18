@@ -30,10 +30,10 @@ class Obj:
             v = get_index(vs, vertex.position) + 1
             vn = get_index(vns, vertex.normal) + 1
             if len(vertex.uv) == 0:
-                return f"{v}/{vn}"
+                return f"{v}//{vn}"
             else:
                 vt = get_index(vts, vertex.uv[0]) + 1
-                return f"{v}/{vn}/{vt}"
+                return f"{v}/{vt}/{vn}"
 
         faces = list()
         for model_number, model in enumerate(self.models):
