@@ -7,6 +7,8 @@ import math
 import struct
 from typing import List
 
+from ...utils import geometry
+from ...utils import texture
 from ...utils import vector
 from .. import base
 from .. import shared
@@ -236,6 +238,7 @@ class TextureInfo(base.Struct):  # LUMP 5
     _format = "8f2I32sI"
     _arrays = {"s": {"vector": [*"xyz"], "offset": None},
                "t": {"vector": [*"xyz"], "offset": None}}
+    _classes = {"s.vector": vector.vec3, "t.vector": vector.vec3}
 
 
 # special lump classes, in alphabetical order:
@@ -339,5 +342,28 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
                         "VISIBILITY": Visibility}
 
 
-methods = [shared.worldspawn_volume, quake.leaves_of_node, quake.lightmap_of_face, quake.vertices_of_face]
+# TODO: model(model_index: int) -> geometry.Model
+def face_mesh(bsp, face_index: int, lightmap_scale: float = 16) -> geometry.Mesh:
+    # TODO: lightmap_scale from worldspawn keyvalues
+    face = bsp.FACES[face_index]
+    texture_info = bsp.TEXTURE_INFO[face.texture_info]
+    texvec = texture.TextureVector(texture.ProjectionAxis(*texture_info.s), texture.ProjectionAxis(*texture_info.t))
+    # TODO: double check texvec.s/t.scale
+    normal = bsp.PLANES[face.plane].normal
+    # NOTE: normal might be inverted depending on face.side, haven't tested
+    vertices = list()
+    for surfedge in bsp.SURFEDGES[face.first_edge:face.first_edge + face.num_edges]:
+        if surfedge < 0:
+            position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
+        else:
+            position = bsp.VERTICES[bsp.EDGES[surfedge][0]]
+        texture_uv = texvec.uv_at(position)
+        lightmap_uv = texture_uv / lightmap_scale
+        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv))
+    material_name = texture_info.name.partition(b"\0")[0].decode("ascii")
+    material = geometry.Material(material_name)
+    return geometry.Mesh(material, [geometry.Polygon(vertices)])
+
+
+methods = [face_mesh, quake.leaves_of_node, quake.lightmap_of_face, quake.model, shared.worldspawn_volume]
 methods = {m.__name__: m for m in methods}

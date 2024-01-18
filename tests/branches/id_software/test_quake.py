@@ -16,29 +16,23 @@ bsps = utils.get_test_maps(QuakeBsp, {quake: ["Quake"]})
 
 class TestMethods:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
-    def test_vertices_of_face(self, bsp: QuakeBsp):
+    def test_face_mesh(self, bsp: QuakeBsp):
         for i, face in enumerate(bsp.FACES):
-            vertices = bsp.vertices_of_face(i)
-            # ^ [(pos.xyz, uv.xy)]
-            # TODO: verify vertices
-            assert len(vertices) >= 3  # the compiler would never
-            # positions are on plane (or close enough)
-            # uvs match texture vec projections (or close enough)
-            # consistent winding order
+            mesh = bsp.face_mesh(i)
+            assert len(mesh.polygons) == 1
+            polygon = mesh.polygons[0]
+            assert len(polygon.vertices) >= 3
+            # TODO: vertex positions are on plane (or close enough)
+            assert polygon.normal == bsp.PLANES[face.plane].normal
+            # TODO: uvs match texture vec projections (or close enough)
+            # TODO: consistent winding order
 
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_lightmap_of_face(self, bsp: QuakeBsp):
         for i, face in enumerate(bsp.FACES):
             data = bsp.lightmap_of_face(i)
-            # ^ {"uvs": [uv.xy], "width": 0, "height": 0}
-            # uvs are from vertices_of_face, used to derive width & height
-            if (data["width"], data["height"]) == (0, 0):
-                assert data["lighting_offset"] == -1
-                continue
-            assert 0 <= data["lighting_offset"] < len(bsp.LIGHTING)
-            assert len(data["lightmap_bytes"]) != b""
-        # TODO: assert whole LIGHTING lump is used (correct width & height)
+            assert set(data.keys()) == {"width", "height", "lightmap_bytes"}
+            # FAILING: assert len(data["lightmap_bytes"]) == data["width"] * data["height"]
 
-    # TODO: test_as_lightmapped_obj
+    # TODO: test_model
     # TODO: test_parse_vis
-    # TODO: test_vertices_of_model

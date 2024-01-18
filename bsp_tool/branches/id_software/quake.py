@@ -3,12 +3,12 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
-import json
-import math
 import struct
-from typing import Any, Dict, List, Set
+from typing import Dict, List, Set, Union
 
+from ...utils import geometry
+from ...utils import physics
+from ...utils import texture
 from ...utils import vector
 from .. import base
 from .. import shared  # special lumps
@@ -245,7 +245,6 @@ class Plane(base.Struct):  # LUMP 1
 
 
 class TextureInfo(base.Struct):  # LUMP 6
-    # TODO: TextureVector base class (see vmf_tool)
     s: List[float]  # S (U-Axis) texture vector
     t: List[float]  # T (V-Axis) texure vector
     mip_texture: int  # index to this TextureInfo's target MipTexture
@@ -318,7 +317,7 @@ class MipTextureLump(list):  # LUMP 2
 
     @classmethod
     def from_bytes(cls, raw_lump: bytes):
-        out = list()
+        out = cls()
         _buffer = io.BytesIO(raw_lump)
         length = int.from_bytes(_buffer.read(4), "little")
         offsets = struct.unpack(f"{length}i", _buffer.read(4 * length))
@@ -374,37 +373,6 @@ SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
 
 
 # branch exclusive methods, in alphabetical order:
-def as_lightmapped_obj(bsp):
-    obj_file = open(f"{bsp.filename}.lightmapped.obj", "w")
-    obj_file.write(f"# generated with bsp_tool from {bsp.filename}\n")
-    obj_file.write("\n".join(f"v {v.x} {v.y} {v.z}" for v in bsp.VERTICES))
-    obj_file.write("\n".join(f"vn {p.normal.x} {p.normal.y} {p.normal.z}" for p in bsp.PLANES))
-    # TODO: unique plane normals for smoothing groups; need to blend neighbouring edges
-    faces = list()
-    # ^ [[(v, vt, vn)]]
-    lightmap_dicts = list()
-    for i, face in enumerate(bsp.FACES):
-        lightmap_dicts.append(bsp.lightmap_of_face(i))
-        face_vertices = bsp.vertices_of_face(i)
-        # TODO: triangle fan vertices
-        # TODO: remap vertex_position & vertex_normal to indices into bsp.VERTICES & [p.normal for p in bsp.PLANES]
-        faces.append(face_vertices)
-        # TODO: write & index lightmap uvs; f"vt {uv.x} {uv.y}"
-        # TODO: write face; "f " + " ".join([f"{vi}/{vti}/{vni}" for vi, vti, vni in face_indices])
-    obj_file.close()
-    print(f"Wrote {bsp.filename}.lightmapped.obj")
-    # store lightmap data in json
-    json_file = open(f"{bsp.filename}.lightmap_uvs.json")
-    json_file.write(json.dumps(lightmap_dicts))
-    # NOTE: contains raw bytes of each lightmapped face, this .json will need a second pass
-    # -- lightmap_bytes -> extentions.lightmaps.LightmapPage
-    # -- map uvs onto faces
-    json_file.close()
-    print(f"Wrote {bsp.filename}.lightmap_uvs.json")
-    # TODO: write a QuakeBsp / GoldSrcBsp function in extensions/lightmaps.py
-    # -- should use & remap <bsp filename>.lightmap_uvs.json to work with exported lightmap page
-
-
 def leaves_of_node(bsp, node_index: int) -> Set[int]:
     node = bsp.NODES[node_index]
     out = set()
@@ -416,35 +384,20 @@ def leaves_of_node(bsp, node_index: int) -> Set[int]:
     return out
 
 
-def lightmap_of_face(bsp, face_index: int, lightmap_scale: float = 16) -> Dict[Any]:
+def lightmap_of_face(bsp, face_index: int) -> Dict[str, Union[int, bytes]]:
     # NOTE: if mapping onto a lightmap page you'll need to calculate a X&Y offset to fit this face into
-    # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions/lightmaps.py
+    # TODO: probably compose a .json with lightmap uv offsets & bounding boxes in extensions.lightmaps
     out = dict()
-    # ^ {"uvs": List[vector.vec2],
-    #    "lightmap_offset": int,
-    #    "width": int, "height": int,
-    #    "lightmap_bytes": bytes}
+    # ^ {"width": int, "height": int, "lightmap_bytes": bytes}
     face = bsp.FACES[face_index]
-    out["uvs"] = [uv / lightmap_scale for position, uv in bsp.vertices_of_face(face_index)]
-    # calculate uv bounds
-    minU, minV = math.inf, math.inf
-    maxU, maxV = -math.inf, -math.inf
-    for uv in out["uvs"]:
-        minU = min(uv.x, minU)
-        minV = min(uv.y, minV)
-        maxU = max(uv.x, maxU)
-        maxV = max(uv.y, maxV)
-    out["uvs"] = [vector.vec2(uv.x - maxU, uv.y - maxV) for uv in out["uvs"]]
-    # NOTE: to utilise a lightmap page you'll need to remap uvs
-    out["lighting_offset"] = face.lighting_offset
     if face.lighting_offset == -1:
-        out["width"], out["height"] = 0, 0
-        out["lightmap_bytes"] = b""
-        return out
-    # get lightmap (if this face has one)
-    out["width"] = int(maxU - minU) + 1
-    out["height"] = int(maxV - minV) + 1
-    start = out["lighting_offset"]
+        return dict(width=0, height=0, lightmap_bytes=b"")
+    # get lightmap
+    polygon = bsp.face_mesh(face_index).polygons[0]
+    uv_bounds = sum([v.uv[1] for v in polygon.vertices], start=physics.AABB())
+    out["width"] = int(uv_bounds.maxs.x - uv_bounds.mins.x) + 1
+    out["height"] = int(uv_bounds.maxs.y - uv_bounds.mins.y) + 1
+    start = face.lighting_offset
     length = out["width"] * out["height"]
     out["lightmap_bytes"] = bsp.LIGHTING[start:start + length]
     # TODO: handle multiple light styles
@@ -474,30 +427,43 @@ def parse_vis(bsp, leaf_index: int) -> bytes:
     return bytes(out)
 
 
-def vertices_of_face(bsp, face_index: int) -> List[(vector.vec3, vector.vec2)]:
-    """output is [(position.xyz, uv.xy, normal.xyz, colour.rgba)] """
-    out = list()
+def face_mesh(bsp, face_index: int, lightmap_scale: float = 16) -> geometry.Mesh:
+    # TODO: lightmap_scale from worldspawn keyvalues
     face = bsp.FACES[face_index]
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
+    mip_texture = bsp.MIP_TEXTURES[texture_info.mip_texture][0]
+    texvec = texture.TextureVector(texture.ProjectionAxis(*texture_info.s), texture.ProjectionAxis(*texture_info.t))
+    texvec.s.scale = 1 / mip_texture.size.width
+    texvec.t.scale = 1 / mip_texture.size.height
+    normal = bsp.PLANES[face.plane].normal
+    # NOTE: normal might be inverted depending on face.side, haven't tested
+    vertices = list()
     for surfedge in bsp.SURFEDGES[face.first_edge:face.first_edge + face.num_edges]:
         if surfedge < 0:
-            P = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
+            position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
         else:
-            P = bsp.VERTICES[bsp.EDGES[surfedge][0]]
-        # TODO: scale uv against MipTexture width & height
-        uv = [vector.dot(P, texture_info.s.vector) + texture_info.s.offset,
-              vector.dot(P, texture_info.t.vector) + texture_info.t.offset]
-        out.append((P, vector.vec2(*uv)))
-    # NOTE: vertex normal can be found via bsp.PLANES[face.planes].normal
-    # -- however, the normal may be inverted, depending on face.side, haven't tested
-    return out
+            position = bsp.VERTICES[bsp.EDGES[surfedge][0]]
+        texture_uv = texvec.uv_at(position)
+        lightmap_uv = texture_uv / lightmap_scale
+        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv))
+    material_name = mip_texture.name.partition(b"\0")[0].decode("ascii")
+    material = geometry.Material(material_name)
+    return geometry.Mesh(material, [geometry.Polygon(vertices)])
 
 
-def vertices_of_model(bsp, model_index: int) -> List[float]:
+def model(bsp, model_index: int) -> geometry.Model:
+    # entity
+    entities = bsp.ENTITIES.search(model=f"*{model_index}")
+    model_entity = entities[0] if len(entities) != 0 else dict()
+    origin = model_entity.get("origin", "0 0 0")
+    pitch, yaw, roll = model_entity.get("angles", "0 0 0").split()
+    yaw = model_entity.get("angle", "0")
+    origin = vector.vec3(*origin.split())
+    angles = vector.vec3(roll, pitch, yaw)
+    # geometry
     model = bsp.MODELS[model_index]
-    # TODO: do we need to walk the leaf/node tree?
-    leaf_faces = bsp.LEAF_FACES[model.first_leaf_face:model.first_leaf_face + model.num_leaf_faces]
-    return list(itertools.chain(*[bsp.vertices_of_face(i) for i in leaf_faces]))
+    face_indices = range(model.first_face, model.first_face + model.num_faces)
+    return geometry.Model([bsp.face_mesh(i) for i in face_indices], origin, angles)
 
 
 # TODO: reverse brush planes from ClipNodes
@@ -506,6 +472,5 @@ def vertices_of_model(bsp, model_index: int) -> List[float]:
 # -- probably split the brush tools of vmf_tool into it's own repo & utilise other repos for parsing?
 
 
-methods = [as_lightmapped_obj, leaves_of_node, lightmap_of_face,
-           parse_vis, vertices_of_face, vertices_of_model]
+methods = [leaves_of_node, lightmap_of_face, parse_vis, face_mesh, model]
 methods = {m.__name__: m for m in methods}
