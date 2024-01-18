@@ -32,7 +32,7 @@ class AABB:
 
     def __add__(self, other: Union[vector.vec3, AABB]) -> AABB:
         out = self.__class__()
-        if isinstance(other, Iterable) and len(other) == 3:
+        if (isinstance(other, Iterable) and len(other) == 3) or isinstance(other, vector.vec2):
             other = vector.vec3(*other)
         if isinstance(other, vector.vec3):  # expand bounds to contain point
             out.mins = vector.vec3(*[min(s, o) for s, o in zip(self.mins, other)])

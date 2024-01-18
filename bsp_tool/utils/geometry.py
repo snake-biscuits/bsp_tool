@@ -1,4 +1,5 @@
 from __future__ import annotations
+import collections
 import itertools
 from typing import Any, List, Union
 
@@ -38,7 +39,7 @@ class Vertex:
         return hash((self.position, self.normal, *self.uv))
 
     def __repr__(self) -> str:
-        args = ", ".join([self.position, self.normal, *self.uv])
+        args = ", ".join(map(str, [self.position, self.normal, *self.uv]))
         return f"{self.__class__.__name__}({args})"
 
 
@@ -108,7 +109,7 @@ class Model:
     scale: Union[float, vector.vec3]  # uniform or per-axis
 
     def __init__(self, meshes=list(), origin=vector.vec3(), angles=vector.vec3(), scale=1):
-        self.meshes = meshes
+        self.meshes = self.merge_meshes(meshes)
         self.translation = origin
         self.rotation = angles
         if isinstance(scale, (float, int)):
@@ -120,6 +121,13 @@ class Model:
         angles = self.rotation
         scale = self.scale
         return f"<{self.__class__.__name__} {len(self.meshes)} meshes, {origin=!r}, {angles=!r}, {scale=!r}>"
+
+    @staticmethod
+    def merge_meshes(meshes: List[Mesh]) -> List[Mesh]:
+        sort = collections.defaultdict(list)
+        for mesh in meshes:
+            sort[mesh.material].extend(mesh.polygons)
+        return [Mesh(material, polygons) for material, polygons in sort.items()]
 
     def apply_transforms(self, vertex: Vertex) -> Vertex:
         # scale
