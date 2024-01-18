@@ -61,7 +61,7 @@ class Polygon:
 
     @property
     def normal(self) -> vector.vec3:
-        return sum([v.normal for v in self.vertices]) / len(self.vertices)
+        return sum([v.normal for v in self.vertices], start=vector.vec3()) / len(self.vertices)
 
     @normal.setter
     def normal(self, new_normal: vector.vec3):
