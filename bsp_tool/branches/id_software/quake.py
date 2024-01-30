@@ -456,9 +456,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     entities = bsp.ENTITIES.search(model=f"*{model_index}")
     model_entity = entities[0] if len(entities) != 0 else dict()
     origin = model_entity.get("origin", "0 0 0")
-    pitch, yaw, roll = model_entity.get("angles", "0 0 0").split()
-    yaw = model_entity.get("angle", "0")
     origin = vector.vec3(*origin.split())
+    pitch, yaw, roll = model_entity.get("angles", "0 0 0").split()
+    yaw = model_entity.get("angle", yaw)
     angles = vector.vec3(roll, pitch, yaw)
     # geometry
     model = bsp.MODELS[model_index]

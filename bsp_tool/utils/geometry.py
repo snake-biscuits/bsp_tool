@@ -17,11 +17,23 @@ class Vertex:
     uv: List[vector.vec2]
     # uv0: vector.vec2  # albedo
     # uv1: vector.vec2  # lightmap
+    colour: List[float]  # rgba [0.0 -> 1.0]
 
-    def __init__(self, position, normal, *uvs):
+    def __init__(self, position, normal, *uvs, colour=(0.0,) * 4):
         self.position = position
         self.normal = normal
         self.uv = uvs
+        self.colour = colour
+
+    def __add__(self, other: Vertex) -> Vertex:
+        if not isinstance(other, Vertex):
+            raise TypeError(f"TypeError: unsupported operand type(s) for +: 'Vertex' and '{other.__class__.__name__}'")
+        assert len(self.uv) == len(other.uv)
+        return Vertex(
+            self.position + other.position,
+            self.normal + other.normal,
+            *[s + o for s, o in zip(self.uv, other.uv)],
+            colour=[s + o for s, o in zip(self.colour, other.colour)])
 
     def __eq__(self, other: Vertex) -> bool:
         if isinstance(other, Vertex):
@@ -36,11 +48,36 @@ class Vertex:
             raise AttributeError(f"'{self.__class__.__name__}' has no attribute '{attr}'")
 
     def __hash__(self) -> int:
-        return hash((self.position, self.normal, *self.uv))
+        return hash((self.position, self.normal, *self.uv, self.colour))
+
+    def __mul__(self, other: float) -> Vertex:
+        if not isinstance(other, float):
+            raise TypeError(f"TypeError: unsupported operand type(s) for *: 'Vertex' and '{other.__class__.__name__}'")
+        return Vertex(
+            self.position * other,
+            self.normal * other,
+            *[uv * other for uv in self.uv],
+            colour=[x * other for x in self.colour])
 
     def __repr__(self) -> str:
         args = ", ".join(map(str, [self.position, self.normal, *self.uv]))
-        return f"{self.__class__.__name__}({args})"
+        return f"{self.__class__.__name__}({args}, colour={self.colour})"
+
+    def __sub__(self, other: Vertex) -> Vertex:
+        if not isinstance(other, Vertex):
+            raise TypeError(f"TypeError: unsupported operand type(s) for -: 'Vertex' and '{other.__class__.__name__}'")
+        assert len(self.uv) == len(other.uv)
+        return Vertex(
+            self.position - other.position,
+            self.normal - other.normal,
+            *[s - o for s, o in zip(self.uv, other.uv)],
+            colour=[s - o for s, o in zip(self.colour, other.colour)])
+
+    def lerp(self, other: Vertex, t: float) -> Vertex:
+        """t should be in range 0.0 -> 1.0"""
+        assert isinstance(other, Vertex)
+        assert len(self.uv) == len(other.uv)
+        return self + ((other - self) * t)
 
 
 class Polygon:

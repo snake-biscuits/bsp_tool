@@ -10,6 +10,8 @@ from typing import Any, List
 import zipfile
 
 from ... import lumps
+from ...utils import geometry
+from ...utils import texture
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -477,7 +479,7 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     # neighbours.edge: List[SubNeighbour]  # x8 edge connections
     # neighbours.corner: List[CornerNeighbour]  # x4 corner connections
     allowed_vertices: List[int]
-    __slots__ = ["start_position", "displacement_vert_start", "displacement_tri_start", "power",
+    __slots__ = ["start_position", "first_displacement_vertex", "first_displacement_triangle", "power",
                  "flags", "min_tesselation", "smoothing_angle", "contents", "face", "lightmap_alpha_start",
                  "lightmap_sample_position_start", "neighbours", "allowed_vertices"]
     _format = "3f3iHhfiH2i" + SubNeighbour._format * 8 + CornerNeighbour._format * 4 + "10i"
@@ -682,7 +684,7 @@ class Primitive(base.MappedArray):  # LUMP 37
 
 class TextureData(base.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
-    reflectivity: colour.RGB24  # from .vtf or average colour of view rect?
+    reflectivity: List[float]  # from .vtf or average colour of view rect?
     name_index: int  # index of texture name in TEXTURE_DATA_STRING_TABLE / TABLE
     size: vector.vec2  # dimensions of full texture
     view: vector.vec2  # dimensions of visible section of texture
@@ -690,8 +692,7 @@ class TextureData(base.Struct):  # LUMP 2
     __slots__ = ["reflectivity", "name_index", "size", "view"]
     _format = "3f5i"
     _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
-    _classes = {"reflectivity": colour.RGB24, "size": vector.renamed_vec2("width", "height"),
-                "view": vector.renamed_vec2("width", "height")}
+    _classes = {"size": vector.renamed_vec2("width", "height"), "view": vector.renamed_vec2("width", "height")}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -706,9 +707,8 @@ class TextureInfo(base.Struct):  # LUMP 6
                            "t": {"vector": [*"xyz"], "offset": None}},
                "lightmap": {"s": {"vector": [*"xyz"], "offset": None},
                             "t": {"vector": [*"xyz"], "offset": None}}}
-    _classes = {"flags": Surface, "texture.s.vector": vector.vec3, "texture.t.vector": vector.vec3,
-                "lightmap.s.vector": vector.vec3, "lightmap.t.vector": vector.vec3}
-    # TODO: vmf_tool TextureVector (singular) class -> TextureVectors w/ .pos_to_uv(vec3) method
+    _classes = {"flags": Surface,
+                **{"{t}.{a}.vector": vector.vec3 for t in ("texture", "lightmap") for a in "st"}}
 
 
 class WaterOverlay(base.Struct):  # LUMP 50
@@ -1036,50 +1036,52 @@ GAME_LUMP_CLASSES = {"sprp": {4: GameLump_SPRPv4,
 
 
 # branch exclusive methods, in alphabetical order:
-def vertices_of_face(bsp, face_index: int) -> List[float]:
-    """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
+def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
     face = bsp.FACES[face_index]
-    first_edge = face.first_edge
-    positions = list()
-    for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
-        if surfedge >= 0:  # +ve index
-            positions.append(bsp.VERTICES[bsp.EDGES[surfedge][0]])
-        else:  # -ve index
-            positions.append(bsp.VERTICES[bsp.EDGES[-surfedge][1]])
+    normal = bsp.PLANES[face.plane].normal
+    # texture
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
     texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
-    texture = texture_info.texture
-    lightmap = texture_info.lightmap
+    colour = (*texture_data.reflectivity, 0)  # vertex colour
+    texture_vector = texture.TextureVector(
+        texture.ProjectionAxis(*texture_info.texture.s), texture.ProjectionAxis(*texture_info.texture.t))
+    texture_vector.s.scale = (1 / texture_data.view.width) if texture_data.view.width != 0 else 1
+    texture_vector.t.scale = (1 / texture_data.view.height) if texture_data.view.height != 0 else 1
+    lightmap_vector = texture.TextureVector(
+        texture.ProjectionAxis(*texture_info.lightmap.s), texture.ProjectionAxis(*texture_info.lightmap.t))
+    lightmap_vector.s.scale = (1 / face.lightmap.size.x) if face.lightmap.size.x != 0 else 1
+    lightmap_vector.t.scale = (1 / face.lightmap.size.y) if face.lightmap.size.y != 0 else 1
+    vertices = list()
+    first_edge = face.first_edge
+    for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
+        if surfedge >= 0:  # +ve index
+            position = bsp.VERTICES[bsp.EDGES[surfedge][0]]
+        else:  # -ve index
+            position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
+        position = vector.vec3(*position)
+        texture_uv = texture_vector.uv_at(position)
+        lightmap_uv = lightmap_vector.uv_at(position) - face.lightmap.mins
+        # NOTE: not checking if face.lightmap.size is 0x0
+        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour=colour))
+    if face.primitives.count == 0:
+        polygons = [geometry.Polygon(vertices)]
+    else:  # T-junction
+        polygons = list()
+        offset, length = face.first_primitive, face.primitives.count
+        for primitive in bsp.PRIMITIVES[offset:offset+length]:
+            offset, length = primitive.first_index, primitive.num_indices
+            indices = bsp.PRIMITIVE_INDICES[offset:offset+length]
+            if primitive.type == PrimitiveType.TRIANGLE_LIST:
+                assert len(indices) % 3 == 0
+                for i in range(0, len(indices), 3):
+                    polygons.append(geometry.Polygon([vertices[indices[i + j]] for j in range(3)]))
+            else:  # TRIANGLE_STRIP
+                raise NotImplementedError()
+    texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+    return geometry.Mesh(geometry.Material(texture_name), polygons)
 
-    # texture vector -> uv calculation discovered in:
-    # github.com/VSES/SourceEngine2007/blob/master/src_main/engine/matsys_interface.cpp
-    # SurfComputeTextureCoordinate & SurfComputeLightmapCoordinate
-    texture_uvs = list()
-    lightmap_uvs = list()
-    for P in positions:
-        # texture UV
-        uv = [vector.dot(P, texture.s.vector) + texture.s.offset,
-              vector.dot(P, texture.t.vector) + texture.t.offset]
-        uv[0] /= texture_data.view.width if texture_data.view.width != 0 else 1
-        uv[1] /= texture_data.view.height if texture_data.view.height != 0 else 1
-        texture_uvs.append(vector.vec2(*uv))
-        # lightmap UV
-        uv = [vector.dot(P, lightmap.s.vector) + lightmap.s.offset,
-              vector.dot(P, lightmap.t.vector) + lightmap.t.offset]
-        if any([(face.lightmap.mins.x == 0), (face.lightmap.mins.y == 0)]):
-            uv = [0, 0]  # invalid / no lighting
-        else:
-            uv[0] -= face.lightmap.mins.x
-            uv[1] -= face.lightmap.mins.y
-            uv[0] /= face.lightmap.size.x
-            uv[1] /= face.lightmap.size.y
-        lightmap_uvs.append(vector.vec2(*uv))
-    normal = bsp.PLANES[face.plane].normal
-    colour = texture_data.reflectivity
-    return [(p, normal, uv0, uv1, colour) for p, uv0, uv1 in zip(positions, texture_uvs, lightmap_uvs)]
 
-
-def displacement_indices(power: int) -> List[List[int]]:  # not directly a method
+def displacement_indices(power: int) -> List[List[int]]:  # for displacement_mesh
     """returns an array of indices ((2 ** power) + 1) ** 2 long"""
     power2 = 2 ** power
     power2A = power2 + 1
@@ -1091,68 +1093,71 @@ def displacement_indices(power: int) -> List[List[int]]:  # not directly a metho
         for block in range(2 ** (power - 1)):
             offset = line_offset + 2 * block
             if line % 2 == 0:  # |\|/|
-                tris.extend([offset + 0, offset + power2A, offset + 1])
-                tris.extend([offset + power2A, offset + power2B, offset + 1])
-                tris.extend([offset + power2B, offset + power2C, offset + 1])
-                tris.extend([offset + power2C, offset + 2, offset + 1])
+                tris.append([offset + 0, offset + power2A, offset + 1])
+                tris.append([offset + power2A, offset + power2B, offset + 1])
+                tris.append([offset + power2B, offset + power2C, offset + 1])
+                tris.append([offset + power2C, offset + 2, offset + 1])
             else:  # |/|\|
-                tris.extend([offset + 0, offset + power2A, offset + power2B])
-                tris.extend([offset + 1, offset + 0, offset + power2B])
-                tris.extend([offset + 2, offset + 1, offset + power2B])
-                tris.extend([offset + power2C, offset + 2, offset + power2B])
+                tris.append([offset + 0, offset + power2A, offset + power2B])
+                tris.append([offset + 1, offset + 0, offset + power2B])
+                tris.append([offset + 2, offset + 1, offset + power2B])
+                tris.append([offset + power2C, offset + 2, offset + power2B])
     return tris
 
 
-def vertices_of_displacement(bsp, face_index: int) -> List[List[float]]:
-    """Format: [Position, Normal, TexCoord, LightCoord, Colour]"""
+def displacement_mesh(bsp, face_index: int) -> geometry.Mesh:
+    # TODO: lightmap uvs (DISPLACEMENT_LIGHTMAP_* lumps)
     face = bsp.FACES[face_index]
-    if face.displacement_info == -1:
-        raise RuntimeError(f"Face #{face_index} is not a displacement!")
-    base_vertices = bsp.vertices_of_face(face_index)
-    if len(base_vertices) != 4:
-        raise RuntimeError(f"Face #{face_index} does not have 4 corners (probably t-junctions)")
+    assert face.displacement_info != -1, "not a displacement"
     disp_info = bsp.DISPLACEMENT_INFO[face.displacement_info]
-    start = vector.vec3(*disp_info.start_position)
-    base_quad = [vector.vec3(*P) for P, N, uv, uv2, rgb in base_vertices]
-    # rotate so the point closest to start on the quad is index 0
-    if start not in base_quad:
-        start = sorted(base_quad, key=lambda P: (start - P).magnitude())[0]
-    starting_index = base_quad.index(start)
-
-    def rotated(q):
-        return q[starting_index:] + q[:starting_index]
-
-    A, B, C, D = rotated(base_quad)
-    AD = D - A
-    BC = C - B
-    quad = rotated(base_vertices)
-    uvA, uvB, uvC, uvD = [vector.vec2(*uv) for P, N, uv, uv2, rgb in quad]
-    uvAD = uvD - uvA
-    uvBC = uvC - uvB
-    uv2A, uv2B, uv2C, uv2D = [vector.vec2(*uv2) for P, N, uv, uv2, rgb in quad]
-    uv2AD = uv2D - uv2A
-    uv2BC = uv2C - uv2B
-    power2 = 2 ** disp_info.power
-    disp_verts = bsp.DISPLACEMENT_VERTICES[disp_info.displacement_vert_start:]
-    disp_verts = disp_verts[:(power2 + 1) ** 2]
-    vertices = []
-    for index, disp_vertex in enumerate(disp_verts):
-        t1 = index % (power2 + 1) / power2
-        t2 = index // (power2 + 1) / power2
-        bary_vert = vector.lerp(A + (AD * t1), B + (BC * t1), t2)
-        # ^ interpolates across the base_quad to find the barymetric point
-        displacement_vert = [n * disp_vertex.distance for n in disp_vertex.normal]
-        true_vertex = [a + b for a, b in zip(bary_vert, displacement_vert)]
-        texture_uv = vector.lerp(uvA + (uvAD * t1), uvB + (uvBC * t1), t2)
-        lightmap_uv = vector.lerp(uv2A + (uv2AD * t1), uv2B + (uv2BC * t1), t2)
-        normal = base_vertices[0][1]
-        colour = base_vertices[0][4]
-        vertices.append((true_vertex, normal, texture_uv, lightmap_uv, colour))
-    return vertices
+    base_mesh = bsp.face_mesh(face_index)
+    assert len(base_mesh.polygons) == 1
+    assert len(base_mesh.polygons[0].vertices) == 4
+    # rotate quad indices; point closest to start should be index 0
+    base_quad = {v.position: v for v in base_mesh.polygons[0].vertices}
+    quad = list(base_quad.keys())
+    if disp_info.start_position not in base_quad:
+        A = disp_info.start_position
+    else:
+        A = sorted(base_quad, key=lambda P: (disp_info.start_position - P).magnitude())[0]
+    A_index = quad.index(A)
+    quad = [*quad[A_index:], *quad[:A_index]]
+    A, B, C, D = [base_quad[P] for P in quad]
+    # displacement vertices
+    offset, length = disp_info.first_displacement_vertex, disp_info.num_displacement_vertices
+    disp_verts = bsp.DISPLACEMENT_VERTICES[offset:offset+length]
+    power2 = 1 << disp_info.power
+    vertices = list()
+    for i, disp_vertex in enumerate(disp_verts):
+        t1 = i % (power2 + 1) / power2  # y position
+        t2 = i // (power2 + 1) / power2  # x position
+        bary = A.lerp(D, t1).lerp(B.lerp(C, t1), t2)
+        position = bary.position + (disp_vertex.normal * disp_vertex.distance)
+        normal = disp_vertex.normal if vector.dot(disp_vertex.normal, A.normal) < 0 else -disp_vertex.normal
+        texture_uv = bary.uv0
+        lightmap_uv = bary.uv1
+        colour = (*A.colour[:3], disp_vertex.alpha)
+        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour))
+    polygons = [geometry.Polygon([vertices[i] for i in tri]) for tri in displacement_indices(disp_info.power)]
+    return geometry.Mesh(base_mesh.material, polygons)
 
 
-# TODO: vertices_of_model (walk the node tree)
-# TODO: vertices_of_node
+def model(bsp, model_index: int) -> geometry.Model:
+    # entity
+    entities = bsp.ENTITIES.search(model=f"*{model_index}")
+    model_entity = entities[0] if len(entities) != 0 else dict()
+    origin = model_entity.get("origin", "0 0 0")
+    origin = vector.vec3(*origin.split())
+    pitch, yaw, roll = model_entity.get("angles", "0 0 0").split()
+    angles = vector.vec3(roll, pitch, yaw)
+    # geometry
+    model = bsp.MODELS[model_index]
+    face_indices = range(model.first_face, model.first_face + model.num_faces)
+    meshes = [
+        bsp.face_mesh(i) if bsp.FACES[i].displacement_info == -1 else bsp.displacement_mesh(i)
+        for i in face_indices]
+    return geometry.Model(meshes, origin, angles)
+
 
 def textures_of_brush(bsp, brush_index: int) -> List[str]:
     out = set()
@@ -1165,5 +1170,5 @@ def textures_of_brush(bsp, brush_index: int) -> List[str]:
     return sorted(out)
 
 
-methods = [quake.leaves_of_node, textures_of_brush, vertices_of_face, vertices_of_displacement, shared.worldspawn_volume]
+methods = [quake.leaves_of_node, textures_of_brush, face_mesh, displacement_mesh, model, shared.worldspawn_volume]
 methods = {m.__name__: m for m in methods}
