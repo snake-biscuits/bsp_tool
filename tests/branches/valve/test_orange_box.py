@@ -11,13 +11,13 @@ bsps = utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]})
 class TestMethods:
     displacement_bsps = {m: b for m, b in bsps.items() if b.headers["DISPLACEMENT_INFO"].length != 0}
 
-    # TODO: def test_vertices_of_face(bsp: ValveBsp):
+    # TODO: def test_face_mesh(bsp: ValveBsp):
+    # TODO: def test_model(bsp: ValveBsp):
+    # TODO: def test_textures_of_brush(bsp: ValveBsp):
 
     @pytest.mark.parametrize("bsp", displacement_bsps.values(), ids=displacement_bsps.keys())
-    def test_vertices_of_displacement(self, bsp: ValveBsp):
+    def test_displacement_mesh(self, bsp: ValveBsp):
         for disp_info in getattr(bsp, "DISPLACEMENT_INFO", list()):
             face_index = disp_info.face
-            bsp.vertices_of_displacement(face_index)  # failing when the function can't be called is good enough for now
+            bsp.displacement_mesh(face_index)  # failing when the function can't be called is good enough for now
             # TODO: interrogate results
-
-    # TODO: def test_textures_of_brush(bsp: ValveBsp):
