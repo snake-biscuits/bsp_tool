@@ -61,6 +61,7 @@ spec_of.update({"Contagion": spec_of["Contagion/contagion"],
                 "nmrih": (valve.orange_box, 20),
                 "Portal 2": spec_of["Portal 2/portal2"],
                 "Portal Reloaded": spec_of["Portal 2/portal2"],
+                "Portal Revolution": (strata.strata, 25),
                 "Sven Co-op": spec_of["Sven Co-op/svencoop"],
                 "Synergy": (valve.orange_box, 20),
                 "Transmissions Element 120": (valve.orange_box, 20)})

@@ -87,6 +87,7 @@ source_dirs = {
                       "portal2_dlc1/maps",  # 10 maps | 313 MB
                       "portal2_dlc2/maps"],  # 1 map | 687 KB
          "Portal Reloaded": ["portalreloaded/maps"],  # 12 maps | 448 MB
+         "Portal Revolution": ["revolution/maps"],  # 46 maps | 1.93 GB
          "SourceFilmmaker/game/tf": ["maps"],  # 71 maps | 3.3 GB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          # TODO: compile Tactical Intervention sample .vmfs
