@@ -208,6 +208,7 @@ class Model(base.Struct):  # LUMP 13
     __slots__ = ["bounds", "origin", "first_node", "first_face", "num_faces"]
     _format = "9f3i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"]}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
 class Node(base.Struct):  # LUMP 4
