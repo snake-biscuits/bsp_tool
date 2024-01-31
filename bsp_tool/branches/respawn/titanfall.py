@@ -743,14 +743,14 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 
 class TextureVector(base.Struct):  # LUMP 95 (005F)
+    # NOTE: texture.TextureVector(texture.ProjectionAxis(*s), texture.ProjectionAxis(*t))
     s: List[float]  # S vector
     t: List[float]  # T vector
     __slots__ = ["s", "t"]
     _format = "8f"
-    _arrays = {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}
-    # TODO: vec3 for texvec components
-    # TODO: def uv_at(point: vector.vec3) -> vector.vec2:
-    # --  """calculate uv coords from these texture vectors"""
+    _arrays = {"s": {"axis": [*"xyz"], "offset": None},
+               "t": {"axis": [*"xyz"], "offset": None}}
+    _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
 class TricollHeader(base.Struct):  # LUMP 69 (0045)

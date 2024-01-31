@@ -4,7 +4,7 @@ from __future__ import annotations
 import enum
 import io
 import struct
-from typing import Dict, List, Set, Union
+from typing import Dict, List, Set, Tuple, Union
 
 from ...utils import geometry
 from ...utils import physics
@@ -245,15 +245,17 @@ class Plane(base.Struct):  # LUMP 1
 
 
 class TextureInfo(base.Struct):  # LUMP 6
-    s: List[float]  # S (U-Axis) texture vector
-    t: List[float]  # T (V-Axis) texure vector
+    # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
+    s: Tuple[vector.vec3, float]  # S (U-Axis) projection axis
+    t: Tuple[vector.vec3, float]  # T (V-Axis) projection axis
     mip_texture: int  # index to this TextureInfo's target MipTexture
     animated: int  # 0 or 1
     __slots__ = ["s", "t", "mip_texture", "animated"]
     _format = "8f2I"
-    _arrays = {"s": {"vector": [*"xyz"], "offset": None},
-               "t": {"vector": [*"xyz"], "offset": None}}
-    _classes = {"s.vector": vector.vec3, "t.vector": vector.vec3}
+    _arrays = {
+        "s": {"axis": [*"xyz"], "offset": None},
+        "t": {"axis": [*"xyz"], "offset": None}}
+    _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
 class Vertex(base.MappedArray, vector.vec3):  # LUMP 3

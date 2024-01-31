@@ -5,7 +5,7 @@ import io
 import itertools
 import math
 import struct
-from typing import List
+from typing import List, Tuple
 
 from ...utils import geometry
 from ...utils import texture
@@ -228,17 +228,19 @@ class Node(base.Struct):  # LUMP 4
 
 
 class TextureInfo(base.Struct):  # LUMP 5
-    s: List[float]  # S (U-Axis) texture vector
-    t: List[float]  # T (V-Axis) texure vector
+    # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
+    s: Tuple[vector.vec3, float]  # S (U-Axis) projection axis
+    t: Tuple[vector.vec3, float]  # T (V-Axis) projection axis
     flags: int  # "miptex flags & overrides"
     value: int  # "light emission etc."
     name: bytes  # texture name
     next_frame: int  # index into TextureInfo lump for animations (-1 = last frame)
     __slots__ = ["s", "t", "flags", "value", "name", "next_frame"]
     _format = "8f2I32sI"
-    _arrays = {"s": {"vector": [*"xyz"], "offset": None},
-               "t": {"vector": [*"xyz"], "offset": None}}
-    _classes = {"s.vector": vector.vec3, "t.vector": vector.vec3}
+    _arrays = {
+        "s": {"axis": [*"xyz"], "offset": None},
+        "t": {"axis": [*"xyz"], "offset": None}}
+    _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
 # special lump classes, in alphabetical order:

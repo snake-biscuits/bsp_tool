@@ -6,7 +6,7 @@ from __future__ import annotations
 import enum
 import io
 import struct
-from typing import Any, List
+from typing import Any, List, Tuple
 import zipfile
 
 from ... import lumps
@@ -697,18 +697,23 @@ class TextureData(base.Struct):  # LUMP 2
 
 class TextureInfo(base.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
-    texture: List[List[float]]  # 2 texture projection vectors
-    lightmap: List[List[float]]  # 2 lightmap projection vectors
+    # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
+    texture: List[Tuple[vector.vec3, float]]  # 2 projection axes
+    lightmap: List[Tuple[vector.vec3, float]]  # 2 projection axes
     flags: Surface
     texture_data: int  # index of TextureData
     __slots__ = ["texture", "lightmap", "flags", "texture_data"]
     _format = "16f2i"
-    _arrays = {"texture": {"s": {"vector": [*"xyz"], "offset": None},
-                           "t": {"vector": [*"xyz"], "offset": None}},
-               "lightmap": {"s": {"vector": [*"xyz"], "offset": None},
-                            "t": {"vector": [*"xyz"], "offset": None}}}
-    _classes = {"flags": Surface,
-                **{"{t}.{a}.vector": vector.vec3 for t in ("texture", "lightmap") for a in "st"}}
+    _arrays = {
+        "texture": {
+            "s": {"axis": [*"xyz"], "offset": None},
+            "t": {"axis": [*"xyz"], "offset": None}},
+        "lightmap": {
+            "s": {"axis": [*"xyz"], "offset": None},
+            "t": {"axis": [*"xyz"], "offset": None}}}
+    _classes = {
+        **{f"{t}.{a}.axis": vector.vec3 for t in ("texture", "lightmap") for a in "st"},
+        "flags": Surface}
 
 
 class WaterOverlay(base.Struct):  # LUMP 50

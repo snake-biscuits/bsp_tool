@@ -208,8 +208,9 @@ class Texture(base.Struct):  # LUMP 18
 
 
 class TextureInfo(base.Struct):  # LUMP 17
+    # NOTE: TextureVector(ProjectionAxis(projection.axes.s, projection.offsets.s, projection.sizes.s), ...)
     projection: List[List[Union[vector.vec3, float]]]
-    # projections.vectors: List[vector.vec3]
+    # projections.axes: List[vector.vec3]
     # projections.offsets: List[float]
     # projections.sizes: List[float]
     flags: int
@@ -221,8 +222,9 @@ class TextureInfo(base.Struct):  # LUMP 17
     __slots__ = ["projection", "flags", "face_light", "reflectiveness",
                  "alpha", "mip_map_bias", "texture"]
     _format = "10fi4fi"
-    _arrays = {"projection": {"vectors": {"s": [*"xyz"], "t": [*"xyz"]},
+    _arrays = {"projection": {"axes": {"s": [*"xyz"], "t": [*"xyz"]},
                               "offsets": [*"st"], "sizes": [*"st"]}}
+    _classes = {f"projection.axes.{a}": vector.vec3 for a in "st"}
     # TODO: _classes = {"flags": TextureInfoFlags}
 
 

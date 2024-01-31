@@ -1,7 +1,8 @@
 # https://code.google.com/archive/p/jbn-bsp-lump-tools
 import enum
-from typing import List
+from typing import List, Tuple
 
+from ...utils import vector
 from .. import base
 from .. import shared
 from ..id_software import quake
@@ -124,11 +125,18 @@ class Node(base.Struct):  # LUMP 8
 
 
 class TextureInfo(base.Struct):  # LUMP 17
-    u: List[float]
-    v: List[float]
-    __slots__ = ["u", "v"]
+    s: Tuple[vector.vec3, float]
+    # s.axis: vector.vec3
+    # s.offset: float
+    t: Tuple[vector.vec3, float]
+    # t.axis: vector.vec3
+    # t.offset: float
+    __slots__ = ["s", "t"]
     _format = "8f"
-    _arrays = {"u": [*"xyzw"], "v": [*"xyzw"]}
+    _arrays = {
+        "s": {"axis": [*"xyz"], "offset": None},
+        "t": {"axis": [*"xyz"], "offset": None}}
+    _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
 BASIC_LUMP_CLASSES = goldsrc.BASIC_LUMP_CLASSES.copy()

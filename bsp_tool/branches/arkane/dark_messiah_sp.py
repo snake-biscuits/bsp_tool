@@ -1,5 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
-from typing import List
+from typing import List, Tuple
 
 from ...utils import vector
 from .. import base
@@ -40,19 +40,24 @@ class Model(base.Struct):  # LUMP 14
 
 class TextureInfo(base.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
-    texture: List[List[float]]  # 2 texture projection vectors
-    lightmap: List[List[float]]  # 2 lightmap projection vectors
+    # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
+    texture: List[Tuple[vector.vec3, float]]  # 2 projection axes
+    lightmap: List[Tuple[vector.vec3, float]]  # 2 projection axes
     unknown: bytes
     flags: int  # Surface flags
     texture_data: int  # index of TextureData
     __slots__ = ["texture", "lightmap", "unknown", "flags", "texture_data"]
     _format = "16f24s2i"
-    _arrays = {"texture": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]},
-               "lightmap": {"s": [*"xyz", "offset"], "t": [*"xyz", "offset"]}}
-    _classes = {**{"{g}.{v}.xyz": vector.vec3 for g in ("texture", "lightmap") for v in "st"},
-                "flags": source.Surface}
-    # TODO: TextureVector class from vmf_tool
-    # TODO: .uv_at(position: vector.vec3) TextureVector projection
+    _arrays = {
+        "texture": {
+            "s": {"axis": [*"xyz"], "offset": None},
+            "t": {"axis": [*"xyz"], "offset": None}},
+        "lightmap": {
+            "s": {"axis": [*"xyz"], "offset": None},
+            "t": {"axis": [*"xyz"], "offset": None}}}
+    _classes = {
+        **{f"{t}.{a}.axis": vector.vec3 for t in ("texture", "lightmap") for a in "st"},
+        "flags": source.Surface}
 
 
 # classes for special lumps, in alphabetical order:
