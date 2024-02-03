@@ -30,7 +30,7 @@ spec_of.update({mod: (valve.orange_box, 20) for mod in maplist.sourcemod_dirs})
 # apex archive
 apex_seasons = ["Preseason", "Wild Frontier", "Battle Charge", "Meltdown", "Assimilation", "Fortune's Favour", "Boosted",
                 "Ascension", "Fight Night", "Mayhem", "Legacy", "Emergence", "Evolution", "Escape", "Defiance", "Saviours",
-                "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection"]
+                "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection", "Ignite"]
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 47) for i in range(7)})
 spec_of.update({"ApexLegends/season7": (respawn.apex_legends, 48)})
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 49) for i in (8, 9)})

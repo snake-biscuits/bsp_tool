@@ -105,8 +105,12 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
                      "20jun23": (17, 1, "Dressed to Kill"),
                      "19jul23": (17, 1, "Thief's Bane")},
         # NOTE: maps moved to .rpak in season 18
+        # -- confirm midseason numbers in build.txt (e.g. "R5pc_r5-191")
         "season18": {"8aug23": (18, 0, "Resurrection"),
-                     "19sep23": (18, 1, "Harbingers")}}
+                     "19sep23": (18, 1, "Harbingers")},
+        # TODO: fill in the gaps
+        # "season19": {"31oct23": (18, 0, "Ignite"),
+        "season19": {"1feb24": (19, 1, "")}}
 
 # TODO: python-mode
 
