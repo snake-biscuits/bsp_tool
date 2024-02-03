@@ -591,36 +591,8 @@ def get_Mesh_SurfaceName(bsp, mesh_index: int) -> str:
     return bsp.get_TextureData_SurfaceName(material_sort.texture_data)
 
 
-# "debug" methods for investigating the compile process
-def debug_TextureData(bsp):
-    print("# TextureData_index  TextureData.name_index  SURFACE_NAMES[name_index]  TextureData.flags")
-    for i, td in enumerate(bsp.TEXTURE_DATA):
-        texture_name = bsp.get_TextureData_SurfaceName(i)
-        print(f"{i:02d} {td.name_index:03d} {texture_name:<48s} {source.Surface(td.flags)!r}")
-
-
-def debug_unused_SurfaceNames(bsp):
-    return set(bsp.SURFACE_NAMES).difference({bsp.get_TextureData_SurfaceName(i) for i in range(len(bsp.TEXTURE_DATA))})
-
-
-def debug_Mesh_stats(bsp):
-    print("# index  VERTEX_LUMP  texture_data_index  texture  mesh_indices_range")
-    for i, model in enumerate(bsp.MODELS):
-        print(f"# MODELS[{i}]")
-        for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
-            mesh = bsp.MESHES[j]
-            material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-            texture_name = bsp.get_TextureData_SurfaceName(material_sort.texture_data)
-            vertex_lump = (titanfall.MeshFlags(mesh.flags) & titanfall.MeshFlags.MASK_VERTEX).name
-            indices = set(bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3])
-            _min, _max = min(indices), max(indices)
-            _range = f"({_min}->{_max})" if indices == {*range(_min, _max + 1)} else indices
-            print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
-
-
-methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,
-           titanfall.search_all_entities, shared.worldspawn_volume,
-           titanfall.shadow_mesh,
-           get_TextureData_SurfaceName, get_Mesh_SurfaceName,
-           debug_TextureData, debug_unused_SurfaceNames, debug_Mesh_stats]
+methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,  # geo
+           titanfall.search_all_entities, shared.worldspawn_volume,  # entities
+           titanfall.shadow_mesh,  # other geo
+           get_TextureData_SurfaceName, get_Mesh_SurfaceName]  # materials
 methods = {m.__name__: m for m in methods}

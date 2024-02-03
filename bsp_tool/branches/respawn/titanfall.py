@@ -2,7 +2,6 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
 import struct
 from typing import Any, Dict, List, Union
 
@@ -1128,44 +1127,6 @@ def vertices_of_tricoll_header(bsp, tricoll_header_index: int) -> List[int]:
     return out
 
 
-def replace_texture(bsp, texture: str, replacement: str):
-    """Substitutes a texture name in the .bsp (if it is present)"""
-    texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
-    bsp.TEXTURE_DATA_STRING_DATA.insert(texture_index, replacement)
-    bsp.TEXTURE_DATA_STRING_DATA.pop(texture_index + 1)
-    bsp.TEXTURE_DATA_STRING_TABLE = list()
-    offset = 0  # starting index of texture name in raw TEXTURE_DATA_STRING_DATA
-    for texture_name in bsp.TEXTURE_DATA_STRING_DATA:
-        bsp.TEXTURE_DATA_STRING_TABLE.append(offset)
-        offset += len(texture_name) + 1  # +1 for null byte
-
-
-def find_mesh_by_texture(bsp, texture: str) -> Mesh:
-    """This is a generator, will yeild one Mesh at a time.  Very innefficient!"""
-    texture_index = bsp.TEXTURE_DATA_STRING_DATA.index(texture)  # fails if texture is not in bsp
-    for texture_data_index, texture_data in enumerate(bsp.TEXTURE_DATA):
-        if texture_data.name_index != texture_index:
-            continue
-        for material_sort_index, material_sort in enumerate(bsp.MATERIAL_SORTS):
-            if material_sort.texture_data != texture_data_index:
-                continue
-            for mesh in bsp.MESHES:
-                if mesh.material_sort == material_sort_index:
-                    yield mesh
-
-
-def name_of_texture_data(bsp, texture_data_index: int) -> str:
-    texture_data = bsp.TEXTURE_DATA[texture_data_index]
-    return bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
-
-
-def texture_of_mesh(bsp, mesh_index: int) -> str:
-    """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
-    mesh = bsp.MESHES[mesh_index]
-    material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-    return bsp.name_of_texture_data(material_sort.texture_data)
-
-
 def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[str, str]]]:
     """search_all_entities(key="value") -> {"LUMP": [{"key": "value", ...}]}"""
     out = dict()
@@ -1264,44 +1225,9 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
     return out
 
 
-# "debug" methods for investigating the compile process
-def debug_TextureData(bsp):
-    print("# TD_index  TD.name  TextureData.flags")
-    for i, td in enumerate(bsp.TEXTURE_DATA):
-        print(f"{i:02d} {bsp.TEXTURE_DATA_STRING_DATA[td.name_index]:<48s} {td.flags!r}")
-
-
-def debug_unused_TextureData(bsp):
-    used_texture_datas = {bsp.MATERIAL_SORTS[m.material_sort].texture_data for m in bsp.MESHES}
-    return used_texture_datas.difference({*range(len(bsp.TEXTURE_DATA))})
-
-
-def debug_Mesh_stats(bsp):
-    print("# index  vertex_lump  texture_data_index  texture  mesh_indices_range")
-    for i, model in enumerate(bsp.MODELS):
-        print(f"# MODELS[{i}]")
-        for j in range(model.first_mesh, model.first_mesh + model.num_meshes):
-            mesh = bsp.MESHES[j]
-            material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-            texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-            texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
-            vertex_lump = (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name
-            indices = bsp.MESH_INDICES[mesh.first_mesh_index:mesh.first_mesh_index + mesh.num_triangles * 3]
-
-            def reduce_to_ranges(numbers: List[int]) -> (int, int):  # generator
-                sorted_numbers = sorted(set(numbers))
-                for a, b in itertools.groupby(enumerate(sorted_numbers), lambda ix: ix[0] - ix[1]):
-                    b = list(b)
-                    yield b[0][1], b[-1][1]
-
-            _range = ", ".join([f"({s}->{e})" for s, e in reduce_to_ranges(sorted(indices))])
-            print(f"{j:02d} {vertex_lump:<15s} {material_sort.texture_data:02d} {texture_name:<48s} {_range}")
-
-
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,  # geo
-           replace_texture, find_mesh_by_texture, name_of_texture_data, texture_of_mesh,  # textures
-           shadow_mesh, occlusion_mesh, get_brush_sides,  # more geo
-           debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,  # debug
+           shadow_mesh, occlusion_mesh,  # other geo
+           get_brush_sides,  # brushes
            portals_as_prt]  # vis
 methods = {m.__name__: m for m in methods}
