@@ -7,6 +7,7 @@ import struct
 from typing import Any, Dict, List, Union
 
 from ... import lumps
+from ...utils import geometry
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -1176,44 +1177,44 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
     return out
 
 
-def shadow_meshes_as_obj(bsp) -> str:
-    """almost working"""
-    # TODO: figure out how SHADOW_MESH_ALPHA_VERTICES are indexed
-    # TODO: what does ShadowMesh.unknown relate to? alpha indexing?
-    out = [f"# generated with bsp_tool from {bsp.filename}",
-           "# SHADOW_MESH_OPAQUE_VERTICES"]
-    for v in bsp.SHADOW_MESH_OPAQUE_VERTICES:
-        out.append(f"v {v.x} {v.y} {v.z}")
-    if hasattr(bsp, "SHADOW_MESH_ALPHA_VERTICES"):
-        out.append("# SHADOW_MESH_ALPHA_VERTICES")
-        for v in bsp.SHADOW_MESH_ALPHA_VERTICES:
-            out.append(f"v {v.x} {v.y} {v.z}\nvt {v.unknown[0]} {v.unknown[1]}")
-    # TODO: group by ShadowEnvironment if titanfall2
-    end = 0
-    for i, mesh in enumerate(bsp.SHADOW_MESHES):
-        out.append(f"o mesh_{i}")
-        for j in range(mesh.num_triangles):
-            start = end + j * 3
-            tri = bsp.SHADOW_MESH_INDICES[start:start + 3]
-            v_tri = [x + 1 + mesh.vertex_offset for x in tri]
-            if not mesh.is_opaque:  # AlphaVertices
-                # TODO: figure out what to do with material sort
-                # -- usemtl material_sort.texture_data.name?
-                v_tri = [f"{i + len(bsp.SHADOW_MESH_OPAQUE_VERTICES)}/{i}" for i in v_tri]  # v/vt
-            out.append(f"f {' '.join(map(str, v_tri))}")
-        end = start + 3
-    return "\n".join(out)
+def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
+    no_normal = vector.vec3()
+    mesh = bsp.SHADOW_MESHES[shadow_mesh_index]
+    # material
+    if mesh.material_sort == -1:
+        material = geometry.Material("shadow")  # placeholder, might have a special material in-engine
+    else:
+        material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
+        texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+        material = geometry.Material(bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index])
+    # indices
+    triangles = list()
+    first_index = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESHES[:shadow_mesh_index])
+    for i in range(mesh.num_triangles):
+        offset = first_index + i * 3
+        triangles.append([
+            mesh.vertex_offset + j
+            for j in bsp.SHADOW_MESH_INDICES[offset:offset + 3]])
+    # vertices
+    if mesh.is_opaque:
+        triangles = [
+            [geometry.Vertex(vector.vec3(*bsp.SHADOW_MESH_OPAQUE_VERTICES[i]), no_normal) for i in tri]
+            for tri in triangles]
+    else:
+        triangles = [[bsp.SHADOW_MESH_ALPHA_VERTICES[i] for i in tri] for tri in triangles]
+        triangles = [[geometry.Vertex(v.position, no_normal, v.uv) for v in tri] for tri in triangles]
+    return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 
-def occlusion_mesh_as_obj(bsp) -> str:
-    out = [f"# generated with bsp_tool from {bsp.filename}",
-           "# OCCLUSION MESH"]
-    for v in bsp.OCCLUSION_MESH_VERTICES:
-        out.append(f"v {v.x} {v.y} {v.z}")
+def occlusion_mesh(bsp) -> geometry.Mesh:
+    material = geometry.Material("tools/toolsoccluder")
+    no_normal = vector.vec3()
+    triangles = list()
     for i in range(0, len(bsp.OCCLUSION_MESH_INDICES), 3):
-        tri = [str(x + 1) for x in bsp.OCCLUSION_MESH_INDICES[i:i + 3]]
-        out.append(f"f {' '.join(tri)}")
-    return "\n".join(out)
+        triangles.append([
+            geometry.Vertex(vector.vec3(*bsp.OCCLUSION_MESH_VERTICES[j]), no_normal)
+            for j in bsp.OCCLUSION_MESH_INDICES[i:i + 3]])
+    return geometry.Mesh(material, polygons=[*map(geometry.Polygon, triangles)])
 
 
 def portals_as_prt(bsp) -> str:
@@ -1300,7 +1301,7 @@ def debug_Mesh_stats(bsp):
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,  # geo
            replace_texture, find_mesh_by_texture, name_of_texture_data, texture_of_mesh,  # textures
-           shadow_meshes_as_obj, occlusion_mesh_as_obj, get_brush_sides,  # more geo
+           shadow_mesh, occlusion_mesh, get_brush_sides,  # more geo
            debug_TextureData, debug_unused_TextureData, debug_Mesh_stats,  # debug
            portals_as_prt]  # vis
 methods = {m.__name__: m for m in methods}
