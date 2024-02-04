@@ -1096,35 +1096,75 @@ GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12}}
 
 
 # methods for interfacing with lumps from this branch:
-def vertices_of_mesh(bsp, mesh_index: int) -> List[VertexReservedX]:
-    """gets the VertexReservedX linked to bsp.MESHES[mesh_index]"""
-    # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py (McSimp)
+def lit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
+    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
+    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
+    uv0 = vector.vec2(*vertex.albedo_uv)
+    uv1 = vector.vec2(*vertex.lightmap.uv)
+    # uv2 = vector.vec2(*vertex.lightmap.step)  # always (0, 0)
+    colour = tuple(vertex.colour)
+    return geometry.Vertex(position, normal, uv0, uv1, colour=colour)
+
+
+def unlit_vertex(bsp, vertex: Union[VertexUnlit, VertexUnlitTS]) -> geometry.Vertex:
+    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
+    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
+    uv0 = vector.vec2(*vertex.albedo_uv)
+    colour = tuple(vertex.colour)
+    return geometry.Vertex(position, normal, uv0, colour=colour)
+
+
+def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     mesh = bsp.MESHES[mesh_index]
+    # material
     material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-    start = mesh.first_mesh_index
-    finish = start + mesh.num_triangles * 3
-    indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:finish]]
-    VERTEX_LUMP = getattr(bsp, (MeshFlags(mesh.flags) & MeshFlags.MASK_VERTEX).name)
-    return [VERTEX_LUMP[i] for i in indices]
+    texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
+    material = geometry.Material(bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index])
+    # geometry
+    triangles = list()
+    for i in range(mesh.num_triangles):
+        index = mesh.first_mesh_index + i * 3
+        triangles.append([
+            material_sort.vertex_offset + j
+            for j in bsp.MESH_INDICES[index:index + 3]])
+    vertex_lump = (mesh.flags & MeshFlags.MASK_VERTEX).name
+    converter = bsp.lit_vertex if vertex_lump.split("_")[1] == "LIT" else bsp.unlit_vertex
+    VERTEX_LUMP = getattr(bsp, vertex_lump)
+    triangles = [[converter(VERTEX_LUMP[i]) for i in tri] for tri in triangles]
+    return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 
-def vertices_of_model(bsp, model_index: int) -> List[VertexReservedX]:
-    """gets the VertexReservedX linked to every Mesh in bsp.MODELS[model_index]"""
-    # NOTE: model 0 is worldspawn, other models are referenced by entities
-    out = list()
+def model(bsp, model_index: int) -> geometry.Model:
+    # entity
+    entities = bsp.ENTITIES.search(model=f"*{model_index}")
+    model_entity = entities[0] if len(entities) != 0 else dict()
+    origin = model_entity.get("origin", "0 0 0")
+    origin = vector.vec3(*origin.split())
+    pitch, yaw, roll = model_entity.get("angles", "0 0 0").split()
+    angles = vector.vec3(roll, pitch, yaw)
+    # geometry
     model = bsp.MODELS[model_index]
-    for i in range(model.first_mesh, model.num_meshes):
-        out.extend(bsp.vertices_of_mesh(i))
-    return out
+    start, length = model.first_mesh, model.num_meshes
+    return geometry.Model([bsp.mesh(i) for i in range(start, start + length)], origin, angles)
 
 
-def vertices_of_tricoll_header(bsp, tricoll_header_index: int) -> List[int]:
-    """returns indices into VERTICES, can be used to match w/ Meshes->VertexReservedX.position_index"""
-    out = list()
+def tricoll_model(bsp, tricoll_header_index: int) -> geometry.Model:
     header = bsp.TRICOLL_HEADERS[tricoll_header_index]
-    for tri in bsp.TRICOLL_TRIANGLES[header.first_triangle:header.first_triangle + header.num_triangles]:
-        out.extend([header.first_vertex + i for i in (tri.A, tri.A + tri.B, tri.A + tri.C)])
-    return out
+    origin = -header.origin / header.scale  # seems most accurate for observed misc_models
+    # NOTE: afaik angles cannot be recovered, good luck identifying misc_models
+    # material
+    texture_data = bsp.TEXTURE_DATA[header.texture_data]
+    material = geometry.Material(bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index])
+    # geometry
+    triangles = list()
+    no_normal = vector.vec3(0, 0, 0)
+    start, length = header.first_triangle, header.num_triangles
+    for tri in bsp.TRICOLL_TRIANGLES[start:start + length]:
+        triangles.append([
+            geometry.Vertex(bsp.VERTICES[header.first_vertex + i] - origin, no_normal)
+            for i in (tri.A, tri.A + tri.B, tri.A + tri.C)])
+    mesh = geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
+    return geometry.Model([mesh], origin)
 
 
 def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[str, str]]]:
@@ -1139,7 +1179,7 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
 
 
 def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
-    no_normal = vector.vec3()
+    no_normal = vector.vec3(0, 0, 0)
     mesh = bsp.SHADOW_MESHES[shadow_mesh_index]
     # material
     if mesh.material_sort == -1:
@@ -1169,7 +1209,7 @@ def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
 
 def occlusion_mesh(bsp) -> geometry.Mesh:
     material = geometry.Material("tools/toolsoccluder")
-    no_normal = vector.vec3()
+    no_normal = vector.vec3(0, 0, 0)
     triangles = list()
     for i in range(0, len(bsp.OCCLUSION_MESH_INDICES), 3):
         triangles.append([
@@ -1195,8 +1235,6 @@ def portals_as_prt(bsp) -> str:
 
 
 def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
-    if brush_index > len(bsp.CM_BRUSHES):
-        raise IndexError("brush index out of range")
     out = dict()
     brush = bsp.CM_BRUSHES[brush_index]
     first = 6 * brush.index + brush.brush_side_offset
@@ -1226,7 +1264,7 @@ def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
 
 
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
-           vertices_of_mesh, vertices_of_model, vertices_of_tricoll_header,  # geo
+           lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
            shadow_mesh, occlusion_mesh,  # other geo
            get_brush_sides,  # brushes
            portals_as_prt]  # vis

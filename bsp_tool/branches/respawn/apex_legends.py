@@ -1,6 +1,7 @@
 import enum
-from typing import List
+from typing import List, Tuple
 
+from ...utils import geometry
 from ...utils import vector
 from .. import base
 from .. import shared
@@ -579,20 +580,32 @@ GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_v
 
 
 # branch exclusive methods, in alphabetical order:
-def get_TextureData_SurfaceName(bsp, texture_data_index: int) -> str:
+def texture_data_surface_name(bsp, texture_data_index: int) -> str:
     texture_data = bsp.TEXTURE_DATA[texture_data_index]
     return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].lstrip(b"\0").partition(b"\0")[0].decode()
 
 
-def get_Mesh_SurfaceName(bsp, mesh_index: int) -> str:
-    """Returns the name of the .vmt applied to bsp.MESHES[mesh_index]"""
+def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     mesh = bsp.MESHES[mesh_index]
+    # material
     material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
-    return bsp.get_TextureData_SurfaceName(material_sort.texture_data)
+    material = geometry.Material(bsp.texture_data_surface_name(material_sort.texture_data))
+    # geometry
+    triangles = list()
+    for i in mesh.num_triangles:
+        index = material_sort.first_mesh_index + i * 3
+        triangles.append([
+            material_sort.vertex_offset + j
+            for j in bsp.MESH_INDICES[index:index + 3]])
+    vertex_lump = (mesh.flags & titanfall.MeshFlags.MASK_VERTEX).name
+    converter = bsp.lit_vertex if vertex_lump.split("_")[1] == "LIT" else bsp.unlit_vertex
+    VERTEX_LUMP = getattr(bsp, vertex_lump)
+    triangles = [[converter(VERTEX_LUMP[i]) for i in tri] for tri in triangles]
+    return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 
-methods = [titanfall.vertices_of_mesh, titanfall.vertices_of_model,  # geo
+methods = [titanfall.lit_vertex, mesh, titanfall.model, titanfall.unlit_vertex,  # geo
            titanfall.search_all_entities, shared.worldspawn_volume,  # entities
-           titanfall.shadow_mesh,  # other geo
-           get_TextureData_SurfaceName, get_Mesh_SurfaceName]  # materials
+           titanfall.occlusion_mesh, titanfall.shadow_mesh,  # other geo
+           texture_data_surface_name]  # materials
 methods = {m.__name__: m for m in methods}
