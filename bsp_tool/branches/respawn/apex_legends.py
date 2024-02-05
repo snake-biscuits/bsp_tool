@@ -545,9 +545,9 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
     first_unknown_1: int
     num_unknown_1: int
     first_unknown_2: int
-    first_unknown_3: int
+    first_index: int  # index into WaterBodyIndices
     num_unknown_2: int
-    num_unknown_3: int
+    num_indices: int
     unknown_2: List[int]  # high entropy; doesn't seem like useful floats
     uv_tile_scale: float  # dimension of WaveData tile (in uv 0..1 space)
     grid_scale: float  # always 1024.0
