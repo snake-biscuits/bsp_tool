@@ -542,18 +542,18 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
     wave_height: List[float]  # top & bottom Z limits
     bounds: List[vector.vec3]
     # indexing other lumps:
-    first_unknown_1: int
+    first_unknown_1: int  # WaterBodyVertices2?
     num_unknown_1: int
-    first_unknown_2: int
+    first_vertex: int  # index into WaterBodyVertices
     first_index: int  # index into WaterBodyIndices
-    num_unknown_2: int
+    num_vertices: int
     num_indices: int
     unknown_2: List[int]  # high entropy; doesn't seem like useful floats
     uv_tile_scale: float  # dimension of WaveData tile (in uv 0..1 space)
     grid_scale: float  # always 1024.0
     __slots__ = [
-        "unknown_1", "wave_height", "bounds", "first_unknown_1", "num_unknown_1", "first_unknown_2",
-        "first_unknown_3", "num_unknown_2", "num_unknown_3", "unknown_2", "step_size", "grid_scale"]
+        "unknown_1", "wave_height", "bounds", "first_unknown_1", "num_unknown_1", "first_vertex",
+        "first_index", "num_vertices", "num_indices", "unknown_2", "step_size", "grid_scale"]
     _format = "10f6I2i2f"
     _arrays = {
         "unknown_1": 2,
@@ -670,8 +670,22 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 
+def water_body_model(bsp, water_body_index: int) -> geometry.Model:
+    water_body = bsp.WATER_BODIES[water_body_index]
+    no_normal = vector.vec3(0, 0, 0)
+    triangles = list()
+    for i in range(0, water_body.num_indices, 3):
+        offset = water_body.first_index + i
+        triangles.append([
+            bsp.WATER_BODY_VERTICES[j + water_body.first_vertex]
+            for j in bsp.WATER_BODY_INDICES[offset:offset + 3]])
+    triangles = [[geometry.Vertex(v.position, no_normal, v.uv) for v in tri] for tri in triangles]
+    mesh = geometry.Mesh(polygons=[*map(geometry.Polygon, triangles)])
+    return geometry.Model([mesh], origin=water_body.bounds.mins)
+
+
 methods = [titanfall.lit_vertex, mesh, titanfall.model, titanfall.unlit_vertex,  # geo
            titanfall.search_all_entities, shared.worldspawn_volume,  # entities
-           titanfall.occlusion_mesh, titanfall.shadow_mesh,  # other geo
+           titanfall.occlusion_mesh, titanfall.shadow_mesh, water_body_model,  # other geo
            texture_data_surface_name]  # materials
 methods = {m.__name__: m for m in methods}
