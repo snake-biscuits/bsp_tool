@@ -1,5 +1,5 @@
 import enum
-from typing import List, Tuple
+from typing import List
 
 from ...utils import geometry
 from ...utils import vector
@@ -47,8 +47,8 @@ class LUMP(enum.Enum):
     BVH_NODES = 0x0012
     BVH_LEAF_DATA = 0x0013
     PACKED_VERTICES = 0x0014
-    UNUSED_21 = 0x0015
-    UNUSED_22 = 0x0016
+    HEIGHTFIELDS = 0x0015
+    HEIGHTFIELD_SAMPLES = 0x0016
     UNUSED_23 = 0x0017
     ENTITY_PARTITIONS = 0x0018
     UNUSED_25 = 0x0019
@@ -69,12 +69,12 @@ class LUMP(enum.Enum):
     PAKFILE = 0x0028  # zip file, contains cubemaps
     UNUSED_41 = 0x0029
     CUBEMAPS = 0x002A
-    UNKNOWN_43 = 0x002B
-    UNKNOWN_44 = 0x002C  # Storm Point & Habitat
-    UNKNOWN_45 = 0x002D  # Storm Point & Habitat
-    UNKNOWN_46 = 0x002E  # Storm Point & Habitat
-    UNKNOWN_47 = 0x002F  # Storm Point & Habitat
-    UNKNOWN_48 = 0x0030  # Storm Point & Habitat; sometimes unused
+    CUBEMAPS_AMBIENT_RCP = 0x002B  # page for txtx .rpak asset
+    WATER_BODIES = 0x002C
+    WATER_BODY_VERTICES_2 = 0x002D  # unnamed in engine
+    WATER_BODY_VERTICES = 0x002E
+    WATER_BODY_INDICES = 0x002F
+    WAVE_DATA = 0x0030  # 1024x1024 RGBA texture (green & blue channels only)
     UNUSED_49 = 0x0031
     UNUSED_50 = 0x0032
     UNUSED_51 = 0x0033
@@ -245,6 +245,9 @@ LumpHeader = source.LumpHeader
 
 # PACKED_VERTICES is parallel with VERTICES?
 
+# WaterBody -?> WaterIndex -?> WaterVertex
+#          \-?> WaveData
+
 
 # flag enums
 class BVHNodeType(enum.Enum):  # used by BVHNode
@@ -388,6 +391,12 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}  # TODO: "children.flags": CellAABBNodeFlags
 
 
+class HeightField(base.Struct):  # LUMP 21 (0015)
+    __slots__ = ["unknown"]
+    _format = "10I"
+    _arrays = {"unknown": 10}
+
+
 # NOTE: only one 36 byte entry per file
 class LevelInfo(base.Struct):  # LUMP 123 (007B)
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
@@ -528,50 +537,107 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _arrays = {"uv0": [*"uv"], "unknown": 2}
 
 
+class WaterBody(base.Struct):  # LUMP 44 (002C)
+    unknown_1: List[float]  # 2 poorly rounded floats; not related to bounds?
+    wave_height: List[float]  # top & bottom Z limits
+    bounds: List[vector.vec3]
+    # indexing other lumps:
+    first_unknown_1: int
+    num_unknown_1: int
+    first_unknown_2: int
+    first_unknown_3: int
+    num_unknown_2: int
+    num_unknown_3: int
+    unknown_2: List[int]  # high entropy; doesn't seem like useful floats
+    uv_tile_scale: float  # dimension of WaveData tile (in uv 0..1 space)
+    grid_scale: float  # always 1024.0
+    __slots__ = [
+        "unknown_1", "wave_height", "bounds", "first_unknown_1", "num_unknown_1", "first_unknown_2",
+        "first_unknown_3", "num_unknown_2", "num_unknown_3", "unknown_2", "step_size", "grid_scale"]
+    _format = "10f6I2i2f"
+    _arrays = {
+        "unknown_1": 2,
+        "wave_height": ["top", "bottom"],
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "unknown_2": 2}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+
+
+class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
+    position: vector.vec3
+    uv: vector.vec2
+    unknown_index_1: int  # 0 or -1, just like MaterialSort.cubemap
+    unknown_index_2: int  # always -1, indexes some unused lump?
+    __slots__ = ["position", "uv", "unknown_index_1", "unknown_index_2"]
+    _format = "5f2h"
+    _arrays = {"position": [*"xyz"], "uv": [*"uv"]}
+    _classes = {"position": vector.vec3, "uv": vector.vec2}
+
+
 # special lump classes, in alphabetical order:
 # TODO: BVHLeafData
+# TODO: UNKNOWN_37
+# TODO: UNKNOWN_38
+# TODO: UNKNOWN_39
 
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = titanfall2.BASIC_LUMP_CLASSES.copy()
+
 pops = ("CM_BRUSH_SIDE_PLANE_OFFSETS", "CM_BRUSH_SIDE_PROPERTIES", "CM_PRIMITIVES", "CM_UNIQUE_CONTENTS",
         "TEXTURE_DATA_STRING_TABLE", "TRICOLL_BEVEL_STARTS", "TRICOLL_BEVEL_INDICES", "TRICOLL_TRIANGLES")
 for LUMP_NAME in pops:
     BASIC_LUMP_CLASSES.pop(LUMP_NAME)
 del LUMP_NAME, pops
-BASIC_LUMP_CLASSES.update({"CONTENTS_MASKS": {0: shared.UnsignedInts}})
+
+BASIC_LUMP_CLASSES.update({
+    "CONTENTS_MASKS":      {0: shared.UnsignedInts},
+    "HEIGHTFIELD_SAMPLES": {0: shared.UnsignedShorts},
+    "WATER_BODY_INDICES":  {0: shared.UnsignedShorts}})
+
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
+
 pops = ("CM_BRUSHES", "CM_BRUSH_SIDE_TEXTURE_VECTORS", "CM_GEO_SETS", "CM_GEO_SET_BOUNDS",
         "CM_GRID_CELLS", "CM_PRIMITIVE_BOUNDS", "LEAF_WATER_DATA",
         "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE", "TRICOLL_HEADERS", "TRICOLL_NODES")
 for LUMP_NAME in pops:
     LUMP_CLASSES.pop(LUMP_NAME)
 del LUMP_NAME, pops
-LUMP_CLASSES.update({"BVH_NODES":          {0: BVHNode},
-                     "CELL_AABB_NODES":    {0: CellAABBNode},
-                     "LIGHTMAP_HEADERS":   {0: titanfall.LightmapHeader},
-                     "MATERIAL_SORTS":     {0: MaterialSort},
-                     "MESHES":             {0: Mesh},
-                     "MODELS":             {0: Model},
-                     "PACKED_VERTICES":    {0: PackedVertex},
-                     "PLANES":             {0: titanfall.Plane},
-                     "SHADOW_MESHES":      {0: ShadowMesh},
-                     "SURFACE_PROPERTIES": {0: SurfaceProperty},
-                     "TEXTURE_DATA":       {0: TextureData},
-                     "VERTEX_BLINN_PHONG": {0: VertexBlinnPhong},
-                     "VERTEX_LIT_BUMP":    {0: VertexLitBump},
-                     "VERTEX_LIT_FLAT":    {0: VertexLitFlat},
-                     "VERTEX_UNLIT":       {0: VertexUnlit},
-                     "VERTEX_UNLIT_TS":    {0: VertexUnlitTS}})
+
+LUMP_CLASSES.update({
+    "BVH_NODES":              {0: BVHNode},
+    "CELL_AABB_NODES":        {0: CellAABBNode},
+    "HEIGHTFIELDS":           {0: HeightField},
+    "LIGHTMAP_HEADERS":       {0: titanfall.LightmapHeader},
+    "MATERIAL_SORTS":         {0: MaterialSort},
+    "MESHES":                 {0: Mesh},
+    "MODELS":                 {0: Model},
+    "PACKED_VERTICES":        {0: PackedVertex},
+    "PLANES":                 {0: titanfall.Plane},
+    "SHADOW_MESHES":          {0: ShadowMesh},
+    "SURFACE_PROPERTIES":     {0: SurfaceProperty},
+    "TEXTURE_DATA":           {0: TextureData},
+    "WATER_BODY_VERTICES_2":  {0: WaterBodyVertex},
+    "VERTEX_BLINN_PHONG":     {0: VertexBlinnPhong},
+    "VERTEX_LIT_BUMP":        {0: VertexLitBump},
+    "VERTEX_LIT_FLAT":        {0: VertexLitFlat},
+    "VERTEX_UNLIT":           {0: VertexUnlit},
+    "VERTEX_UNLIT_TS":        {0: VertexUnlitTS},
+    "WATER_BODIES":           {0: WaterBody},
+    "WATER_BODY_VERTICES":    {0: WaterBodyVertex}})
+
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
+
 SPECIAL_LUMP_CLASSES.pop("CM_GRID")
 # SPECIAL_LUMP_CLASSES.pop("PHYSICS_COLLIDE")  # currently disabled in titanfall.py
 SPECIAL_LUMP_CLASSES.pop("TEXTURE_DATA_STRING_DATA")
-SPECIAL_LUMP_CLASSES.update({"LEVEL_INFO":    {0: LevelInfo},
-                             "SURFACE_NAMES": {0: source.TextureDataStringData}})
+
+SPECIAL_LUMP_CLASSES.update({
+    "LEVEL_INFO":    {0: LevelInfo},
+    "SURFACE_NAMES": {0: source.TextureDataStringData}})
 
 
 GAME_LUMP_HEADER = source.GameLumpHeader
