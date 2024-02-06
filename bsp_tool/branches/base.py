@@ -509,7 +509,7 @@ class BitField:
         self._fields = collections.OrderedDict(self._fields if _fields is None else _fields)
         self._classes = self._classes if _classes is None else _classes
         # valid specification
-        if not (self._format in "BHI" and len(self._format) == 1):  # pls no
+        if not (self._format in [*"BHIQ"] and len(self._format) == 1):  # pls no
             raise NotImplementedError("Only unsigned single integer BitFields are supported")
         if sum(self._fields.values()) != struct.calcsize(self._format) * 8:
             raise RuntimeError("fields do not fill format! add an 'unused' field!")
@@ -646,6 +646,7 @@ type_LUT = {"c": "char",    "?": "bool",
             "b": "int8_t",  "B": "uint8_t",
             "h": "int16_t", "H": "uint16_t",
             "i": "int32_t", "I": "uint32_t",
+            "q": "int64_t", "Q": "uint64_t",
             "f": "float",   "g": "double"}
 # NOTE: can't detect strings with a dict
 # -- to catch strings: type_defaults[t] if not t.endswith("s") else ...
@@ -656,5 +657,6 @@ type_defaults = {"c": b"", "?": False,
                  "b": 0, "B": 0,
                  "h": 0, "H": 0,
                  "i": 0, "I": 0,
+                 "q": 0, "Q": 0,
                  "f": 0.0, "g": 0.0,
                  "s": ""}

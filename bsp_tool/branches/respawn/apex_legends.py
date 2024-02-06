@@ -538,29 +538,26 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 class WaterBody(base.Struct):  # LUMP 44 (002C)
-    unknown_1: List[float]  # 2 poorly rounded floats; not related to bounds?
+    center: List[float]  # ALMOST center of mesh
     wave_height: List[float]  # top & bottom Z limits
     bounds: List[vector.vec3]
-    # indexing other lumps:
     first_vertices_2: int  # index into WaterBodyVertices2
     num_vertices_2: int
     first_vertex: int  # index into WaterBodyVertices
     first_index: int  # index into WaterBodyIndices
     num_vertices: int
     num_indices: int
-    unknown_2: List[int]  # high entropy; doesn't seem like useful floats
-    uv_tile_scale: float  # dimension of WaveData tile (in uv 0..1 space)
-    grid_scale: float  # always 1024.0
+    rpak_hash: List[float]  # indexes some .rpak assets (materials/ocean_water/)
+    uv_scale: float  # dimension of WaveData tile uv (in uv 0..1 space)
+    tile_scale: float  # dimension of WaveData tile xyz (always 1024.0)
     __slots__ = [
-        "unknown_1", "wave_height", "bounds", "first_vertex_2", "num_vertices_2", "first_vertex",
-        "first_index", "num_vertices", "num_indices", "unknown_2", "step_size", "grid_scale"]
-    _format = "10f6I2i2f"
+        "center", "wave_height", "bounds", "first_vertex_2", "num_vertices_2", "first_vertex",
+        "first_index", "num_vertices", "num_indices", "rpak_hash", "uv_scale", "tile_scale"]
+    _format = "10f6IQ2f"
     _arrays = {
-        "unknown_1": 2,
-        "wave_height": ["top", "bottom"],
-        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
-        "unknown_2": 2}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+        "center": [*"xy"], "wave_height": ["top", "bottom"],
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"center": vector.vec2, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
