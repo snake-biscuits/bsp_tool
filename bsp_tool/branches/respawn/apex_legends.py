@@ -539,26 +539,25 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 class WaterBody(base.Struct):  # LUMP 44 (002C)
-    center: List[float]  # ALMOST center of mesh
-    wave_height: List[float]  # top & bottom Z limits
+    origin: List[float]
+    height: float  # sea level
     bounds: List[vector.vec3]
     first_center: int  # index into WaterBodyCenters
-    num_tiles: int  # number of WaterBodyCenters
+    num_centers: int  # also num_nodes
     first_vertex: int  # index into WaterBodyVertices
     first_index: int  # index into WaterBodyIndices
     num_vertices: int
     num_indices: int
-    rpak_hash: List[float]  # indexes some .rpak assets (materials/ocean_water/)
-    uv_scale: float  # dimension of WaveData tile uv (in uv 0..1 space)
-    tile_scale: float  # dimension of WaveData tile xyz (always 1024.0)
+    targetname_hash: int  # indexes targetname of linked entity
+    uv_scale: float  # dimension of WaveData uv tiles (in uv 0..1 space)
+    node_size: float
     __slots__ = [
-        "center", "wave_height", "bounds", "first_center", "num_tiles", "first_vertex",
-        "first_index", "num_vertices", "num_indices", "rpak_hash", "uv_scale", "tile_scale"]
+        "origin", "height", "bounds",
+        "first_center", "num_centers", "first_vertex", "first_index", "num_vertices", "num_indices",
+        "targetname_hash", "uv_scale", "node_size"]
     _format = "10f6IQ2f"
-    _arrays = {
-        "center": [*"xy"], "wave_height": ["top", "bottom"],
-        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
-    _classes = {"center": vector.vec2, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    _arrays = {"origin": [*"xyz"], "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"origin": vector.vec3, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
@@ -667,9 +666,14 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 
-def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
+def water_body_model(bsp, water_body_index: int) -> geometry.Model:
     water_body = bsp.WATER_BODIES[water_body_index]
-    material = geometry.Material("water_body")
+    origin = water_body.origin
+    # material
+    material_names = {e["material"] for e in bsp.ENTITIES.search(classname="water_body")}
+    assert len(material_names) == 1, "need to use targetname_hash to get material"
+    material = geometry.Material(list(material_names)[0])
+    # geometry
     normal = vector.vec3(0, 0, 1)
     triangles = list()
     for i in range(0, water_body.num_indices, 3):
@@ -677,14 +681,15 @@ def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
         triangles.append([
             bsp.WATER_BODY_VERTICES[j + water_body.first_vertex]
             for j in bsp.WATER_BODY_INDICES[offset:offset + 3]])
-    triangles = [[geometry.Vertex(v.position, normal, v.uv, colour=v.colour) for v in tri] for tri in triangles]
-    return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
+    triangles = [[geometry.Vertex(v.position - origin, normal, v.uv, colour=v.colour) for v in tri] for tri in triangles]
+    return geometry.Model([geometry.Mesh(material, [*map(geometry.Polygon, triangles)])], origin)
 
-# TODO: wave_mesh(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
+
+# TODO: wave_model(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
 
 
 methods = [titanfall.lit_vertex, mesh, titanfall.model, titanfall.unlit_vertex,  # geo
            titanfall.search_all_entities, shared.worldspawn_volume,  # entities
-           titanfall.occlusion_mesh, titanfall.shadow_mesh, water_body_mesh,  # other geo
+           titanfall.occlusion_mesh, titanfall.shadow_mesh, water_body_model,  # other geo
            texture_data_surface_name]  # materials
 methods = {m.__name__: m for m in methods}
