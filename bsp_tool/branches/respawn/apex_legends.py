@@ -71,7 +71,7 @@ class LUMP(enum.Enum):
     CUBEMAPS = 0x002A
     CUBEMAPS_AMBIENT_RCP = 0x002B  # page for txtx .rpak asset
     WATER_BODIES = 0x002C
-    WATER_BODY_VERTICES_2 = 0x002D  # unnamed in engine
+    WATER_BODY_CENTERS = 0x002D
     WATER_BODY_VERTICES = 0x002E
     WATER_BODY_INDICES = 0x002F
     WAVE_DATA = 0x0030  # 1024x1024 RGBA texture (green & blue channels only)
@@ -245,8 +245,8 @@ LumpHeader = source.LumpHeader
 
 # PACKED_VERTICES is parallel with VERTICES?
 
-# WaterBody -?> WaterIndex -?> WaterVertex
-#          \-?> WaveData
+# WaterBody -> WaterBodyIndex -> WaterBodyVertex -> WaveData
+#          \-> WaveBodyCenter
 
 
 # flag enums
@@ -541,8 +541,8 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
     center: List[float]  # ALMOST center of mesh
     wave_height: List[float]  # top & bottom Z limits
     bounds: List[vector.vec3]
-    first_vertices_2: int  # index into WaterBodyVertices2
-    num_vertices_2: int
+    first_center: int  # index into WaterBodyCenters
+    num_tiles: int  # number of WaterBodyCenters
     first_vertex: int  # index into WaterBodyVertices
     first_index: int  # index into WaterBodyIndices
     num_vertices: int
@@ -551,7 +551,7 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
     uv_scale: float  # dimension of WaveData tile uv (in uv 0..1 space)
     tile_scale: float  # dimension of WaveData tile xyz (always 1024.0)
     __slots__ = [
-        "center", "wave_height", "bounds", "first_vertex_2", "num_vertices_2", "first_vertex",
+        "center", "wave_height", "bounds", "first_center", "num_tiles", "first_vertex",
         "first_index", "num_vertices", "num_indices", "rpak_hash", "uv_scale", "tile_scale"]
     _format = "10f6IQ2f"
     _arrays = {
@@ -604,26 +604,26 @@ for LUMP_NAME in pops:
 del LUMP_NAME, pops
 
 LUMP_CLASSES.update({
-    "BVH_NODES":              {0: BVHNode},
-    "CELL_AABB_NODES":        {0: CellAABBNode},
-    "HEIGHTFIELDS":           {0: HeightField},
-    "LIGHTMAP_HEADERS":       {0: titanfall.LightmapHeader},
-    "MATERIAL_SORTS":         {0: MaterialSort},
-    "MESHES":                 {0: Mesh},
-    "MODELS":                 {0: Model},
-    "PACKED_VERTICES":        {0: PackedVertex},
-    "PLANES":                 {0: titanfall.Plane},
-    "SHADOW_MESHES":          {0: ShadowMesh},
-    "SURFACE_PROPERTIES":     {0: SurfaceProperty},
-    "TEXTURE_DATA":           {0: TextureData},
-    "WATER_BODY_VERTICES_2":  {0: WaterBodyVertex},
-    "VERTEX_BLINN_PHONG":     {0: VertexBlinnPhong},
-    "VERTEX_LIT_BUMP":        {0: VertexLitBump},
-    "VERTEX_LIT_FLAT":        {0: VertexLitFlat},
-    "VERTEX_UNLIT":           {0: VertexUnlit},
-    "VERTEX_UNLIT_TS":        {0: VertexUnlitTS},
-    "WATER_BODIES":           {0: WaterBody},
-    "WATER_BODY_VERTICES":    {0: WaterBodyVertex}})
+    "BVH_NODES":           {0: BVHNode},
+    "CELL_AABB_NODES":     {0: CellAABBNode},
+    "HEIGHTFIELDS":        {0: HeightField},
+    "LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
+    "MATERIAL_SORTS":      {0: MaterialSort},
+    "MESHES":              {0: Mesh},
+    "MODELS":              {0: Model},
+    "PACKED_VERTICES":     {0: PackedVertex},
+    "PLANES":              {0: titanfall.Plane},
+    "SHADOW_MESHES":       {0: ShadowMesh},
+    "SURFACE_PROPERTIES":  {0: SurfaceProperty},
+    "TEXTURE_DATA":        {0: TextureData},
+    "WATER_BODY_CENTERS":  {0: WaterBodyVertex},
+    "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
+    "VERTEX_LIT_BUMP":     {0: VertexLitBump},
+    "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
+    "VERTEX_UNLIT":        {0: VertexUnlit},
+    "VERTEX_UNLIT_TS":     {0: VertexUnlitTS},
+    "WATER_BODIES":        {0: WaterBody},
+    "WATER_BODY_VERTICES": {0: WaterBodyVertex}})
 
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()
@@ -668,7 +668,6 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
 
 
 def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
-    # TODO: WaterBodyVertices2
     water_body = bsp.WATER_BODIES[water_body_index]
     material = geometry.Material("water_body")
     no_normal = vector.vec3(0, 0, 0)
@@ -680,6 +679,8 @@ def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
             for j in bsp.WATER_BODY_INDICES[offset:offset + 3]])
     triangles = [[geometry.Vertex(v.position, no_normal, v.uv) for v in tri] for tri in triangles]
     return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
+
+# TODO: wave_mesh(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
 
 
 methods = [titanfall.lit_vertex, mesh, titanfall.model, titanfall.unlit_vertex,  # geo
