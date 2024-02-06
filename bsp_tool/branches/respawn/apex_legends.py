@@ -670,14 +670,14 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
 def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
     water_body = bsp.WATER_BODIES[water_body_index]
     material = geometry.Material("water_body")
-    no_normal = vector.vec3(0, 0, 0)
+    normal = vector.vec3(0, 0, 1)
     triangles = list()
     for i in range(0, water_body.num_indices, 3):
         offset = water_body.first_index + i
         triangles.append([
             bsp.WATER_BODY_VERTICES[j + water_body.first_vertex]
             for j in bsp.WATER_BODY_INDICES[offset:offset + 3]])
-    triangles = [[geometry.Vertex(v.position, no_normal, v.uv, colour=v.colour) for v in tri] for tri in triangles]
+    triangles = [[geometry.Vertex(v.position, normal, v.uv, colour=v.colour) for v in tri] for tri in triangles]
     return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 # TODO: wave_mesh(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
