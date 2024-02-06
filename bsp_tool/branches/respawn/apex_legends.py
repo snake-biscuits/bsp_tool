@@ -4,6 +4,7 @@ from typing import List
 from ...utils import geometry
 from ...utils import vector
 from .. import base
+from .. import colour
 from .. import shared
 from ..valve import source
 from . import titanfall
@@ -563,12 +564,11 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
 class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
     position: vector.vec3
     uv: vector.vec2
-    unknown_index_1: int  # 0 or -1, just like MaterialSort.cubemap
-    unknown_index_2: int  # always -1, indexes some unused lump?
-    __slots__ = ["position", "uv", "unknown_index_1", "unknown_index_2"]
-    _format = "5f2h"
-    _arrays = {"position": [*"xyz"], "uv": [*"uv"]}
-    _classes = {"position": vector.vec3, "uv": vector.vec2}
+    colour: colour.RGBA32  # white or blue
+    __slots__ = ["position", "uv", "colour"]
+    _format = "5f4B"
+    _arrays = {"position": [*"xyz"], "uv": [*"uv"], "colour": [*"rgba"]}
+    _classes = {"position": vector.vec3, "uv": vector.vec2, "colour": colour.RGBA32}
 
 
 # special lump classes, in alphabetical order:
@@ -677,7 +677,7 @@ def water_body_mesh(bsp, water_body_index: int) -> geometry.Mesh:
         triangles.append([
             bsp.WATER_BODY_VERTICES[j + water_body.first_vertex]
             for j in bsp.WATER_BODY_INDICES[offset:offset + 3]])
-    triangles = [[geometry.Vertex(v.position, no_normal, v.uv) for v in tri] for tri in triangles]
+    triangles = [[geometry.Vertex(v.position, no_normal, v.uv, colour=v.colour) for v in tri] for tri in triangles]
     return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
 
 # TODO: wave_mesh(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
