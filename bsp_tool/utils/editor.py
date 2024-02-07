@@ -2,8 +2,8 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Dict, List
 
-from ...utils import physics
-from ...utils import texture
+from . import physics
+from . import texture
 
 
 # TODO: Curve (CoDRadiant)
@@ -119,3 +119,6 @@ class MapFile:
         for entity in self.entities:
             out[entity.classname].append(entity)
         return dict(out)
+
+    def save_as(self, filename: str):
+        raise NotImplementedError()

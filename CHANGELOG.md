@@ -9,6 +9,7 @@
    - parse `.map` & `.vmf`
    - compare uncompiled maps to `.bsp`
  * `utils`
+  - `editor`
   - `physics`
   - `texture`
 

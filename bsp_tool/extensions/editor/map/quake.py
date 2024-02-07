@@ -1,10 +1,10 @@
 # https://quakewiki.org/wiki/Quake_Map_Format
 import re
 
+from ....utils import editor as generic
 from ....utils import texture
 from .. import base
 from .. import common
-from .. import generic
 
 
 class BrushSide(base.MetaPattern):

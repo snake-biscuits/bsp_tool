@@ -2,10 +2,10 @@
 # NOTE: might need to use Wayback Machine (web.archive.org)
 import re
 
+from ....utils import editor as generic
 from ....utils import texture
 from .. import base
 from .. import common
-from .. import generic
 
 
 # TODO: Curves & other non-brush geo

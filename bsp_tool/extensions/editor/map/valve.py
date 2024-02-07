@@ -1,8 +1,8 @@
 # https://quakewiki.org/wiki/Quake_Map_Format#Valve_variation_of_the_format
+from ....utils import editor as generic
 from ....utils import texture
 from .. import base
 from .. import common
-from .. import generic
 from . import quake
 
 
