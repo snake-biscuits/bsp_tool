@@ -2,7 +2,6 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
 import struct
 from typing import Dict, List, Union
 
@@ -246,6 +245,12 @@ class MAX:
 
 
 # flag enums
+class BrushSideFlag(enum.IntFlag):  # use by BrushSideProperty
+    NONE = 0x00
+    REPLACES = 0x20  # axial: replaced by non-axial; non-axial: replaces axial
+    ABUTTING = 0x40  # no gap between this and the neighbouring brush
+
+
 class CellSkyFlags(enum.IntFlag):  # used by Cell
     # NOTE: only ever 0, 1, 3 or 5
     UNKNOWN_1 = 0b000
@@ -400,15 +405,13 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
-# TODO: use a BitField instead
-class BrushSideProperty(shared.UnsignedShort, enum.IntFlag):  # LUMP 94 (005E)
-    UNKNOWN = 0x8000  # ABUTTING?
-    DISCARD = 0x4000  # axial: replaced by non-axial; non-axial: replaces axial
-    # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
-    # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
-
-    MASK_TEXTURE_DATA = 0x01FF  # R1 / R1:O / R2 never exceed 512 (0x1FF + 1) TextureData per-map
-    # TODO: use a BitField instead
+class BrushSideProperty(base.BitField):  # LUMP 94 (005E)
+    texture_data: int  # TextureData of this BrushSide
+    flags: BrushSideFlag
+    # NOTE: unsure of exact split, assuming MAX.TEXTURE_DATA == 512
+    _fields = {"texture_data": 9, "flags": 7}
+    _format = "H"
+    _classes = {"flags": BrushSideFlag}
 
 
 class Cell(base.Struct):  # LUMP 107 (006B)
@@ -1251,21 +1254,14 @@ def brush(bsp, brush_index: int) -> editor.Brush:
     start = 6 * brush.index + brush.brush_side_offset
     length = 6 + brush.num_plane_offsets
     properties = bsp.CM_BRUSH_SIDE_PROPERTIES[start:start + length]
-    shaders = [
-        bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index]
-        for tdi in [prop & BrushSideProperty.MASK_TEXTURE_DATA for prop in properties]]
+    shaders = [bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[p.texture_data].name_index] for p in properties]
     texture_vectors = [
         texture.TextureVector(texture.ProjectionAxis(*tv.s), texture.ProjectionAxis(*tv.t))
         for tv in bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[start:start + length]]
-    brush_sides = [
-        editor.BrushSide(plane, shader, texture_vector)
-        for plane, shader, texture_vector in zip(planes, shaders, texture_vectors)]
-    # TODO: filter by property
-    # NOTE: DISCARD flag on non-axial sides might indicate sides replacing discards
-    # NOTE: UNKNOWN flag might indicate sides abutting other brushes (and totally occluded by them)
-    # -- mp_box.brush(22) has 2x each +/-X 45 degree plane, 1 with each flag; +/-Z has UNKNOWN
-    for i, side, prop in zip(itertools.count(), brush_sides, properties):
-        brush_sides[i].flag = prop ^ (prop & BrushSideProperty.MASK_TEXTURE_DATA)
+    brush_sides = list()
+    for plane, shader, texture_vector, property_ in zip(planes, shaders, texture_vectors, properties):
+        brush_sides.append(editor.BrushSide(plane, shader, texture_vector))
+        brush_sides[-1].flags = property_.flags
     return editor.Brush(brush_sides)
 
 
