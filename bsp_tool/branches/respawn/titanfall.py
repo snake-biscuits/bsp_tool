@@ -2,11 +2,15 @@
 from __future__ import annotations
 import enum
 import io
+import itertools
 import struct
-from typing import Any, Dict, List, Union
+from typing import Dict, List, Union
 
 from ... import lumps
+from ...utils import editor
+from ...utils import physics
 from ...utils import geometry
+from ...utils import texture
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -398,8 +402,8 @@ class Brush(base.Struct):  # LUMP 92 (005C)
 
 # TODO: use a BitField instead
 class BrushSideProperty(shared.UnsignedShort, enum.IntFlag):  # LUMP 94 (005E)
-    UNKNOWN_FLAG = 0x8000
-    DISCARD = 0x4000  # this side helps define bounds (axial or bevel), but has no polygon
+    UNKNOWN = 0x8000  # ABUTTING?
+    DISCARD = 0x4000  # axial: replaced by non-axial; non-axial: replaces axial
     # NO OTHER FLAGS APPEAR TO BE USED IN R1 / R1:O / R2
     # R5 DEPRECATED CM_BRUSH_SIDE_PROPERTIES
 
@@ -1234,38 +1238,40 @@ def portals_as_prt(bsp) -> str:
     return "\n".join(out)
 
 
-def get_brush_sides(bsp, brush_index: int) -> Dict[str, Any]:
-    out = dict()
+def brush(bsp, brush_index: int) -> editor.Brush:
     brush = bsp.CM_BRUSHES[brush_index]
-    first = 6 * brush.index + brush.brush_side_offset
-    last = first + 6 + brush.num_plane_offsets
-    out["properties"] = bsp.CM_BRUSH_SIDE_PROPERTIES[first:last]
-    out["texture_vectors"] = bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[first:last]
-    out["textures"] = [p & BrushSideProperty.MASK_TEXTURE_DATA for p in out["properties"]]
-    out["textures"] = [bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index] for tdi in out["textures"]]
-    # brush bounds -> geo
-    origin = vector.vec3(*brush.origin)
-    extents = vector.vec3(*brush.extents)
-    mins, maxs = origin - extents, origin + extents
-    brush_planes = list()  # [(normal: vec3, distance: float)]
-    # axial planes
-    for axis, min_dist, max_dist in zip("xyz", mins, maxs):
-        brush_planes.append((vector.vec3(**{axis: 1}), max_dist))
-        brush_planes.append((vector.vec3(**{axis: -1}), -min_dist))
-    # non-axial planes
+    aabb = physics.AABB.from_origin_extents(brush.origin, brush.extents)
+    planes = physics.Brush.from_bounds(aabb).axial_planes  # +XYZ -XYZ
+    planes = [planes[0], planes[3], planes[1], planes[4], planes[2], planes[5]]  # +X -X +Y -Y +Z -Z
     for i in range(brush.num_plane_offsets):
         offset = brush.brush_side_offset + i
         brush_plane_offset = offset - bsp.CM_BRUSH_SIDE_PLANE_OFFSETS[offset]
         normal, distance = bsp.PLANES[bsp.CM_GRID.first_brush_plane + brush_plane_offset]
-        brush_planes.append((-normal, -distance))
-    out["planes"] = brush_planes
-    # NOTE: BrushSideProperties likely eliminate some planes
-    return out
+        planes.append(physics.Plane(normal, distance))
+    start = 6 * brush.index + brush.brush_side_offset
+    length = 6 + brush.num_plane_offsets
+    properties = bsp.CM_BRUSH_SIDE_PROPERTIES[start:start + length]
+    shaders = [
+        bsp.TEXTURE_DATA_STRING_DATA[bsp.TEXTURE_DATA[tdi].name_index]
+        for tdi in [prop & BrushSideProperty.MASK_TEXTURE_DATA for prop in properties]]
+    texture_vectors = [
+        texture.TextureVector(texture.ProjectionAxis(*tv.s), texture.ProjectionAxis(*tv.t))
+        for tv in bsp.CM_BRUSH_SIDE_TEXTURE_VECTORS[start:start + length]]
+    brush_sides = [
+        editor.BrushSide(plane, shader, texture_vector)
+        for plane, shader, texture_vector in zip(planes, shaders, texture_vectors)]
+    # TODO: filter by property
+    # NOTE: DISCARD flag on non-axial sides might indicate sides replacing discards
+    # NOTE: UNKNOWN flag might indicate sides abutting other brushes (and totally occluded by them)
+    # -- mp_box.brush(22) has 2x each +/-X 45 degree plane, 1 with each flag; +/-Z has UNKNOWN
+    for i, side, prop in zip(itertools.count(), brush_sides, properties):
+        brush_sides[i].flag = prop ^ (prop & BrushSideProperty.MASK_TEXTURE_DATA)
+    return editor.Brush(brush_sides)
 
 
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
            shadow_mesh, occlusion_mesh,  # other geo
-           get_brush_sides,  # brushes
+           brush,  # brushes
            portals_as_prt]  # vis
 methods = {m.__name__: m for m in methods}

@@ -132,7 +132,7 @@ class Plane:
 
     def __init__(self, normal: vector.vec3, distance: float):
         self.normal = vector.vec3(*normal)
-        assert math.isclose(self.normal.magnitude(), 1), "normal must be a unit vector"
+        assert math.isclose(self.normal.magnitude(), 1, rel_tol=1e-6), "normal must be a unit vector"
         self.distance = distance
 
     def __eq__(self, other: Plane) -> bool:
