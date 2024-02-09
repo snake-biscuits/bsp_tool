@@ -335,9 +335,11 @@ extracted_dirs = {
         "ApexLegends/season4": ["4feb20/maps",  # 9 maps | 5.44 GB | .vpk
                                 "4feb20/depot/r5launch/game/r2/maps",  # 9 maps | 5.38 GB | .vpk
                                 "4feb20/depot/r5staging/game/r2/maps",  # 6 maps | 3.00 GB | .vpk
-                                "3mar20/maps",  # 4 maps | 977 MB | .vpk
-                                "3mar20/depot/r5launch/game/r2/maps"],  # 5 maps | 1.46 GB | .vpk
-        # TODO: season4.2:  The Old Ways [7th Apr 2020]
+                                "3mar20/maps",  # 7 maps | 1.91 GB | .vpk
+                                "3mar20/depot/r5launch/game/r2/maps",  # 7 maps | 1.91 GB | .vpk
+                                "7apr20/maps",  # 7 maps | 1.91 GB | .vpk
+                                "7apr20/depot/r5launch/game/r2/maps",  # 7 maps | 1.91 GB | .vpk
+                                "7apr20/depot/r5staging/game/r2/maps"],  # 7 maps | 1.91 GB | .vpk
         # season5:  Fortune's Favour  [12th May 2020]
         "ApexLegends/season5": ["maps"],  # 3 maps | 1.2 GB | .vpk
         # TODO: season5.1:  Lost Treasures [23rd Jun 2020]

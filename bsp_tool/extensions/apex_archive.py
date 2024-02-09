@@ -69,8 +69,8 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
                     "5nov19": (3, 1, ""),
                     "3dec19": (3, 2, "Holo-Day Bash")},
         "season4": {"4feb20": (4, 0, "Assimilation"),
-                    "3mar20": (4, 1, "System Override")},
-        # TODO:             "7apr20": (4, 2, "The Old Ways")},
+                    "3mar20": (4, 1, "System Override"),
+                    "7apr20": (4, 2, "The Old Ways")},
         # TODO: "season5": {"12may20": (5, 0, "Fortune's Favour"),
         # TODO:             "23jun20": (5, 1, "Lost Treasures")},
         # TODO: "season6": {"18aug20": (6, 0, "Boosted"),
@@ -109,7 +109,7 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
         "season18": {"8aug23": (18, 0, "Resurrection"),
                      "19sep23": (18, 1, "Harbingers")},
         # TODO: fill in the gaps
-        # "season19": {"31oct23": (18, 0, "Ignite"),
+        # "season19": {"31oct23": (19, 0, "Ignite"),
         "season19": {"1feb24": (19, 1, "")}}
 
 # TODO: python-mode
@@ -127,9 +127,11 @@ def PS1():
         split_cwd = cwd.split("/")
         if split_cwd[2] == "e":  # ITANI_WAYSOUND
             cwd = os.path.join("E:/", *split_cwd[3:])
-    rel_dir = os.path.relpath(seasons_folder, cwd)
+    rel_dir = os.path.relpath(cwd, seasons_folder)
     if cwd == seasons_folder:
         rel_dir = ""
+    else:
+        rel_dir += "/"
     return f"\x1b[35m{time_} \x1b[34m{user} \x1b[33mApexArchive/{rel_dir} \x1b[35m$\x1b[0m "
 
 
@@ -138,14 +140,14 @@ def term_input(*args, **kwargs):
 
 
 def term_print(*args, **kwargs):
-    print(PS1(), *args, **kwargs)
+    print(PS1()[:-1], *args, **kwargs)
 
 
 # path ops
 
 def cd(season: str, patch: str):
     """change directory"""
-    term_print(f"cd {season/patch}")
+    term_print(f"cd {season}/{patch}")
     os.chdir(os.path.join(seasons_folder, season, patch))
     if __name__ != "__main__":
         # telegraph working dir change
@@ -237,11 +239,14 @@ def maps(season: str, patch: str = None) -> List[str]:
     if patch is not None:
         patch_dir = os.path.join(seasons_folder, season, patch)
         patch_files = os.listdir(os.path.join(patch_dir, "maps"))
-        depots = os.listdir(os.path.join(patch_dir, "depot"))
-        depot_dirs = [f"depot/{d}/game/r2/maps" for d in depots]
-        # abridged depot dir out
-        depot_files = [f"depot/{d}/{f}" for d, dd in zip(depots, depot_dirs)
-                       for f in os.listdir(os.path.join(patch_dir, dd))]
+        if os.path.exists(os.path.join(patch_dir, "depot")):  # season18+ removes depots
+            depots = os.listdir(os.path.join(patch_dir, "depot"))
+            depot_dirs = [f"depot/{d}/game/r2/maps" for d in depots]
+            # abridged depot dir out
+            depot_files = [f"depot/{d}/{f}" for d, dd in zip(depots, depot_dirs)
+                           for f in os.listdir(os.path.join(patch_dir, dd))]
+        else:
+            depot_files = list()
         files = [*patch_files, *depot_files]
         return [m[:-4] for m in fnmatch.filter(files, "*.bsp")]
     else:
@@ -301,15 +306,16 @@ def generate_hashfile_linux():
 
 
 def generate_hashfile(season: str, patch: str):
-    """VERY DANGEROUS; changes working directoy & runs a bash command; BE CAREFUL"""
+    """VERY DANGEROUS; changes working directory & runs a bash command; BE CAREFUL"""
     cd(season, patch)
     if sys.platform in ("cygwin", "linux"):
         generate_hashfile_linux()
+        term_print("cd", "../../")
+        os.chdir(seasons_folder)
     # TODO: elif sys.platform in ("win32",): generate_hashfile_windows()
     else:
         os.chdir(seasons_folder)
         raise NotImplementedError(f"Cannot generate hashfile: platform='{sys.platform}'")
-    os.chdir(seasons_folder)
 
 
 def regen_archive_hashfiles():
@@ -321,6 +327,8 @@ def regen_archive_hashfiles():
             cd(season, patch)
             if sys.platform in ("cygwin", "linux"):
                 generate_hashfile_linux()
+                term_print("cd", "../../")
+                os.chdir(seasons_folder)
             else:
                 raise NotImplementedError(f"Cannot generate hashfile: platform='{sys.platform}'")
     os.chdir(seasons_folder)
