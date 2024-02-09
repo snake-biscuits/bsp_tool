@@ -1,13 +1,14 @@
 from __future__ import annotations
 from collections import namedtuple
 import os
+import io
 import struct
 from typing import Dict, List
 
 from . import base
 
 
-def read_str(binary_stream, encoding="utf-8", errors="strict") -> str:
+def read_str(binary_stream: io.BytesIO, encoding="utf-8", errors="strict") -> str:
     """for tree parsing"""
     out = b""
     c = binary_stream.read(1)
@@ -37,40 +38,57 @@ class Vpk(base.Archive):
     filename: str
     # TODO: file extraction, need to process LZHAM compression
 
-    def __init__(self, dir_vpk_filename: str) -> Vpk:
-        assert os.path.isfile(dir_vpk_filename)
-        assert os.path.splitext(dir_vpk_filename)[1] == ".vpk"
+    def __init__(self, dir_vpk_filename: str, input_stream: io.BytesIO = None) -> Vpk:
+        """
+        Arguments:
+        
+        - dir_vpk_filename -- name of the vpk directory file to parse
+        
+        - input_stream     -- IO stream for vpk directory file data (optional)
+        """
         self.filename = dir_vpk_filename
-        with open(dir_vpk_filename, "rb") as vpk_file:
-            # HEADER
-            self.header = VpkHeader(*struct.unpack("I2H2I", vpk_file.read(16)))
-            assert self.header.magic == 0x55AA1234, "invalid file magic"
-            assert self.header.version_major == 2, "unsupported major version"
-            assert self.header.version_minor == 3, "unsupported minor version"
-            assert self.header.tree_length != 0, "no files?"
-            assert self.header.data_length == 0, "not a _dir.vpk"
-            # TREE
-            self.files = dict()
+
+        # if no provided input stream, check provided filename for sanity before reading
+        if input_stream == None:
+            assert os.path.isfile(dir_vpk_filename)
+            assert os.path.splitext(dir_vpk_filename)[1] == ".vpk"
+
+            with open(dir_vpk_filename, "rb") as vpk_file:
+                self._from_stream(vpk_file)
+        else:
+            assert not input_stream.closed
+            self._from_stream(input_stream)
+
+    def _from_stream(self, vpk_stream: io.BytesIO) -> Vpk:
+        # HEADER
+        self.header = VpkHeader(*struct.unpack("I2H2I", vpk_stream.read(16)))
+        assert self.header.magic == 0x55AA1234, "invalid file magic"
+        assert self.header.version_major == 2, "unsupported major version"
+        assert self.header.version_minor == 3, "unsupported minor version"
+        assert self.header.tree_length != 0, "no files?"
+        assert self.header.data_length == 0, "not a _dir.vpk"
+        # TREE
+        self.files = dict()
+        while True:
+            extension = read_str(vpk_stream)
+            if extension == "":
+                break  # end of tree
             while True:
-                extension = read_str(vpk_file)
-                if extension == "":
-                    break  # end of tree
+                folder = read_str(vpk_stream)
+                if folder == "":
+                    break  # end of extension
                 while True:
-                    folder = read_str(vpk_file)
-                    if folder == "":
-                        break  # end of extension
-                    while True:
-                        filename = read_str(vpk_file)
-                        if filename == "":
-                            break  # end of folder
-                        full_filename = f"{folder}/{filename}.{extension}"
-                        # ENTRY
-                        entry = VpkEntry.from_stream(vpk_file)
-                        self.files[full_filename] = entry
-            assert vpk_file.tell() == 16 + self.header.tree_length, "parser overshot tree"
-            # DATA
-            # either locally stored, or in external numbered vpks
-            # NOTE: we don't care about mapping OR extracting data, just here for the filelist
+                    filename = read_str(vpk_stream)
+                    if filename == "":
+                        break  # end of folder
+                    full_filename = f"{folder}/{filename}.{extension}"
+                    # ENTRY
+                    entry = VpkEntry.from_stream(vpk_stream)
+                    self.files[full_filename] = entry
+        assert vpk_stream.tell() == 16 + self.header.tree_length, "parser overshot tree"
+        # DATA
+        # either locally stored, or in external numbered vpks
+        # NOTE: we don't care about mapping OR extracting data, just here for the filelist
 
     def __repr__(self):
         return f'{self.__class__.__name__}.from_file("{self.filename}")'
@@ -106,7 +124,7 @@ class VpkEntry:
         return f"<{self.__class__.__name__} ({len(self.file_parts)} parts; crc: {self.crc:08X})>"
 
     @classmethod
-    def from_stream(cls, vpk_file) -> VpkEntry:
+    def from_stream(cls, vpk_file: io.BytesIO) -> VpkEntry:
         out = cls()
         out.crc, out.preload_length = struct.unpack("IH", vpk_file.read(6))
         # file parts
@@ -130,7 +148,7 @@ class VpkFilePart:
     is_compressed: bool = False
 
     @classmethod
-    def from_stream(cls, vpk_file) -> VpkFilePart:
+    def from_stream(cls, vpk_file: io.BytesIO) -> VpkFilePart:
         out = cls()
         out.archive_index = int.from_bytes(vpk_file.read(2), "little")
         if out.archive_index == 0xFFFF:
