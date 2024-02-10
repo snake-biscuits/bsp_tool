@@ -589,6 +589,7 @@ del LUMP_NAME, pops
 
 BASIC_LUMP_CLASSES.update({
     "CONTENTS_MASKS":      {0: shared.UnsignedInts},
+    "CSM_OBJ_REFERENCES":  {0: shared.UnsignedInts},
     "HEIGHTFIELD_SAMPLES": {0: shared.UnsignedShorts},
     "UNKNOWN_38":          {0: shared.UnsignedInts},
     "UNKNOWN_39":          {0: shared.Shorts},
