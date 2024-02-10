@@ -341,8 +341,7 @@ extracted_dirs = {
                                 "7apr20/depot/r5launch/game/r2/maps",  # 7 maps | 1.91 GB | .vpk
                                 "7apr20/depot/r5staging/game/r2/maps"],  # 7 maps | 1.91 GB | .vpk
         # season5:  Fortune's Favour  [12th May 2020]
-        "ApexLegends/season5": ["maps",  # 3 maps | 1.2 GB | .vpk
-                                "12may20/maps",  # 8 maps | 2.26 GB | .vpk
+        "ApexLegends/season5": ["12may20/maps",  # 8 maps | 2.26 GB | .vpk
                                 "12may20/depot/r5launch/game/r2/maps",  # 8 maps | 2.26 GB | .vpk
                                 "23jun20/maps",  # 9 maps | 2.63 GB | .vpk
                                 "23jun20/depot/r5launch/game/r2/maps",  # 9 maps | 2.63 GB | .vpk
