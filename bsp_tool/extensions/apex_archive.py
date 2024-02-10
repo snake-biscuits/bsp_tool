@@ -71,8 +71,8 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
         "season4": {"4feb20": (4, 0, "Assimilation"),
                     "3mar20": (4, 1, "System Override"),
                     "7apr20": (4, 2, "The Old Ways")},
-        # TODO: "season5": {"12may20": (5, 0, "Fortune's Favour"),
-        # TODO:             "23jun20": (5, 1, "Lost Treasures")},
+        "season5": {"12may20": (5, 0, "Fortune's Favour"),
+                    "23jun20": (5, 1, "Lost Treasures")},
         # TODO: "season6": {"18aug20": (6, 0, "Boosted"),
         # TODO:             "6oct20": (6, 1, "Aftermarket")},
         "season7": {"3nov20": (7, 0, "Ascension"),
@@ -300,7 +300,7 @@ def generate_hashfile_linux():
     fn_filter = " -o ".join([f"-name '{f}'" for f in fn_patterns])
     bash_command = " ".join([r"find -type f \(", fn_filter, r"\) -exec sha256sum -b {} \;"])
     # NOTE: "find" & "sha256sum" are common linux utilities
-    print("$", bash_command)
+    print("$", bash_command, ">", "hashes.sha256")
     with open("hashes.sha256", "w") as hashfile:
         subprocess.run(bash_command, shell=True, stdout=hashfile)
 
