@@ -249,6 +249,8 @@ LumpHeader = source.LumpHeader
 # WaterBody -> WaterBodyIndex -> WaterBodyVertex -> WaveData
 #          \-> WaveBodyCenter
 
+# UNKNOWN_39 is paralell w/ CellAABBNodes; defaults to -1s
+
 
 # flag enums
 class BVHNodeType(enum.Enum):  # used by BVHNode
@@ -573,7 +575,6 @@ class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
 # special lump classes, in alphabetical order:
 # TODO: BVHLeafData
 # TODO: UNKNOWN_37
-# TODO: UNKNOWN_39
 
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
@@ -590,6 +591,7 @@ BASIC_LUMP_CLASSES.update({
     "CONTENTS_MASKS":      {0: shared.UnsignedInts},
     "HEIGHTFIELD_SAMPLES": {0: shared.UnsignedShorts},
     "UNKNOWN_38":          {0: shared.UnsignedInts},
+    "UNKNOWN_39":          {0: shared.Shorts},
     "WATER_BODY_INDICES":  {0: shared.UnsignedShorts}})
 
 
