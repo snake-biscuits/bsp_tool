@@ -573,7 +573,6 @@ class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
 # special lump classes, in alphabetical order:
 # TODO: BVHLeafData
 # TODO: UNKNOWN_37
-# TODO: UNKNOWN_38
 # TODO: UNKNOWN_39
 
 
@@ -590,6 +589,7 @@ del LUMP_NAME, pops
 BASIC_LUMP_CLASSES.update({
     "CONTENTS_MASKS":      {0: shared.UnsignedInts},
     "HEIGHTFIELD_SAMPLES": {0: shared.UnsignedShorts},
+    "UNKNOWN_38":          {0: shared.UnsignedInts},
     "WATER_BODY_INDICES":  {0: shared.UnsignedShorts}})
 
 
