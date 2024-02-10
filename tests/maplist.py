@@ -345,8 +345,12 @@ extracted_dirs = {
                                 "23jun20/maps",  # 9 maps | 2.63 GB | .vpk
                                 "23jun20/depot/r5launch/game/r2/maps",  # 9 maps | 2.63 GB | .vpk
                                 "23jun20/depot/r5staging/game/r2/maps"],  # 8 maps | 2.26 GB | .vpk
-        # TODO: season6.0:  Boosted  [18th Aug 2020]
-        # TODO: season6.1:  Aftermarket [6th Oct 2020]
+        # season6:  Boosted  [18th Aug 2020]
+        "ApexLegends/season6": ["18aug20/maps",  # 9 maps | 2.66 GB | .vpk
+                                "18aug20/depot/r5-60/game/r2/maps",  # 9 maps | 2.66 GB | .vpk
+                                "6oct20/maps",  # 9 maps | 2.71 GB | .vpk
+                                "6oct20/depot/r5-60/game/r2/maps",  # 9 maps | 2.66 GB | .vpk
+                                "6oct20/depot/r5-61/game/r2/maps"],  # 9 maps | 2.71 GB | .vpk
         # season7:  Ascension  [4th Nov 2020]
         "ApexLegends/season7": ["3nov20/depot/r5-70/game/r2/maps",  # 6 maps | 3.75 GB | .vpk
                                 "3nov20/maps",  # 6 maps | 3.81 GB | .vpk
