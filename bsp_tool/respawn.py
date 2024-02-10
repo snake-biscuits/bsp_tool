@@ -163,7 +163,7 @@ class ExternalLumpManager:
 
 
 class RespawnBsp(valve.ValveBsp):
-    """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 50.1)"""
+    """Respawn Entertainment's Titanfall Engine .bsp (rBSP v29 -> 51.1)"""
     # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Titanfall
     # https://raw.githubusercontent.com/Wanty5883/Titanfall2/master/tools/TitanfallMapExporter.py
     endianness: str = "little"
