@@ -300,10 +300,9 @@ extracted_dirs = {
                        "depot/r2dlc11/game/r2/maps",      # 37 maps | 12.5 GB | .vpk
                        "depot/r2pcprecert/game/r2/maps",  # 25 maps | 10.9 GB | .vpk
                        "depot/r2staging/game/r2/maps"],   # 28 maps | 11.0 GB | .vpk
-        # TODO: remove loose maps once the archive covers season4-6 (2020)
-        "ApexLegends": ["maps"],  # 9 maps | 3.3 GB | .vpk (season unknown, most likely s5)
+        # APEX ARCHIVE
         # Thanks to https://antifandom.com/apexlegends/wiki/Version_History
-        # season0-3 archives from r-ex
+        # season0-6 archives from r-ex
         # season7-present from SteamDB Manifests + DepotDownloader
         # season0:  Preseason [4th February 2019]
         "ApexLegends/season0": ["4feb19/maps",  # 2 maps | 782 MB | .vpk
