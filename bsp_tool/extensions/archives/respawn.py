@@ -1,9 +1,8 @@
 from __future__ import annotations
-from collections import namedtuple
 import os
 import io
 import struct
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from . import base
 
@@ -27,11 +26,8 @@ class Rpak(base.Archive):
         raise NotImplementedError()
 
 
-VpkHeader = namedtuple("VpkHeader", ["magic", "version_major", "version_minor", "tree_length", "data_length"])
-
-
 class Vpk(base.Archive):
-    """Titanfall .vpk only!"""
+    """Titanfall _dir.vpk only!"""
     ext = "*_dir.vpk"
     header: VpkHeader
     files: Dict[str, VpkEntry]
@@ -41,15 +37,15 @@ class Vpk(base.Archive):
     def __init__(self, dir_vpk_filename: str, input_stream: io.BytesIO = None) -> Vpk:
         """
         Arguments:
-        
+
         - dir_vpk_filename -- name of the vpk directory file to parse
-        
+
         - input_stream     -- IO stream for vpk directory file data (optional)
         """
         self.filename = dir_vpk_filename
 
         # if no provided input stream, check provided filename for sanity before reading
-        if input_stream == None:
+        if input_stream is None:
             assert os.path.isfile(dir_vpk_filename)
             assert os.path.splitext(dir_vpk_filename)[1] == ".vpk"
 
@@ -61,10 +57,7 @@ class Vpk(base.Archive):
 
     def _from_stream(self, vpk_stream: io.BytesIO) -> Vpk:
         # HEADER
-        self.header = VpkHeader(*struct.unpack("I2H2I", vpk_stream.read(16)))
-        assert self.header.magic == 0x55AA1234, "invalid file magic"
-        assert self.header.version_major == 2, "unsupported major version"
-        assert self.header.version_minor == 3, "unsupported minor version"
+        self.header = VpkHeader().from_stream(vpk_stream)
         assert self.header.tree_length != 0, "no files?"
         assert self.header.data_length == 0, "not a _dir.vpk"
         # TREE
@@ -112,6 +105,31 @@ class Vpk(base.Archive):
 
     def namelist(self) -> List[str]:
         return sorted(self.files)
+
+
+class VpkHeader:
+    magic: int = 0x55AA1234
+    version: Tuple[int, int] = (2, 3)  # major, minor
+    tree_length: int
+    data_length: int
+
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        major, minor = self.version
+        version = f"v{major}.{minor}"
+        return f"<{class_name} (version: {version}, tree_length: {self.tree_length}, data_length: {self.data_length})>"
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> VpkHeader:
+        magic, major, minor, tree_length, data_length = struct.unpack("I2H2I", stream.read(16))
+        assert magic == cls.magic, "invalid file magic"
+        assert major == cls.version[0], "unsupported major version"
+        assert minor == cls.version[1], "unsupported minor version"
+        out = cls()
+        out.version = (major, minor)
+        out.tree_length = tree_length
+        out.data_length = data_length
+        return out
 
 
 class VpkEntry:
