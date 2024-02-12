@@ -4,7 +4,7 @@ from typing import List
 
 from .. import base
 from ..valve import source
-from . import apex_legends
+from . import apex_legends50
 from . import titanfall2
 
 
@@ -169,16 +169,16 @@ class LightProbe(base.Struct):  # LUMP 102 (0066)
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = apex_legends.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = apex_legends50.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = apex_legends.LUMP_CLASSES.copy()
+LUMP_CLASSES = apex_legends50.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({"LIGHT_PROBES": {0: LightProbe}})
 
-SPECIAL_LUMP_CLASSES = apex_legends.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = apex_legends50.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
 GAME_LUMP_CLASSES = {"sprp": {51: titanfall2.GameLump_SPRPv13}}
 
 
-methods = apex_legends.methods.copy()
+methods = apex_legends50.methods.copy()

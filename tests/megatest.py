@@ -34,9 +34,10 @@ apex_seasons = ["Preseason", "Wild Frontier", "Battle Charge", "Meltdown", "Assi
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 47) for i in range(7)})
 spec_of.update({"ApexLegends/season7": (respawn.apex_legends, 48)})
 spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, 49) for i in (8, 9)})
-spec_of.update({"ApexLegends/season10": (respawn.apex_legends, 50)})
-spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends, (50, 1)) for i in (11, 12)})
-spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends13, (51, 1)) for i in range(13, 19)})
+spec_of.update({"ApexLegends/season10": (respawn.apex_legends50, 50)})
+# NOTE: season10 is v49 until season10.1 (depot/r5-101 | 14sep21/maps)
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends50, (50, 1)) for i in (11, 12)})
+spec_of.update({f"ApexLegends/season{i}": (respawn.apex_legends51, (51, 1)) for i in range(13, 19)})
 # local test maps (./tests/maps/game/, not .../game/mod/maps/)
 spec_of.update({"Momentum Mod": (strata.strata, 25),
                 "ReMakeQuake": (id_software.remake_quake, None),

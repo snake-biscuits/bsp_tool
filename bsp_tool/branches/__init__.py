@@ -48,7 +48,7 @@ with_magic = {None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.go
               b"PSBr": [respawn.titanfall_x360],
               b"PSBV": [valve.orange_box_x360, valve.sdk_2013_x360],
               b"QBSP": [id_software.qbism],
-              b"rBSP": [respawn.apex_legends, respawn.apex_legends13,
+              b"rBSP": [respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51,
                         respawn.titanfall, respawn.titanfall2],
               b"RBSP": [raven.soldier_of_fortune2,
                         ritual.sin],

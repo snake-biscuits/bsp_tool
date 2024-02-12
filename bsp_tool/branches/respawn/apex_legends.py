@@ -20,10 +20,8 @@ GAME_PATHS = {"Apex Legends": "ApexLegends/maps"}
 GAME_VERSIONS = {"Apex Legends": 47,
                  "Apex Legends: Season 7 - Ascension": 48,  # Olympus
                  "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
-                 "Apex Legends: Season 10 - Emergence": 50,  # Arenas: Encore / SkyGarden
                  "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,  # depots/
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1),
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1)}  # maps/
+                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1)}
 
 
 class LUMP(enum.Enum):
@@ -386,7 +384,8 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {"children": {"flags": 8, "first": 16, "count": 8}}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}  # TODO: "children.flags": CellAABBNodeFlags
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    # TODO: "children.flags": NodeFlags
 
 
 class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
@@ -398,9 +397,10 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {
-        "children": {"count": 8, "first": 24},
+        "children": {"count": 8, "first": 16, "flags": 8},
         "unknown": {"count": 8, "first": 24}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    # TODO: "children.flags": NodeFlags
 
 
 class HeightField(base.Struct):  # LUMP 21 (0015)
@@ -651,7 +651,7 @@ SPECIAL_LUMP_CLASSES.update({
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_version in (47, 48, 49, 50)}}
+GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_version in (47, 48, 49)}}
 
 
 # branch exclusive methods, in alphabetical order:
