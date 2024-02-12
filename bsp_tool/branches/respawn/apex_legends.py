@@ -379,16 +379,11 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
     mins: vector.vec3
-    children: base.BitField
-    # if children.count == 0, children.flags == 64
+    children: base.BitField  # if children.count == 0, children.flags == 64
     maxs: vector.vec3
     unknown: int  # likely flags / metadata; might index ObjReferences?
-    __slots__ = ["mins", "child_data",
-                 "maxs", "unknown"]
+    __slots__ = ["mins", "children", "maxs", "unknown"]
     _format = "3fI3fI"
-    # 3fI3fI is a common pattern for Respawn AABB based objects
-    # since you can pipe XYZ into SIMD registers quickly
-    # .w ints contain metadata & flags (see Extreme SIMD GDC Talk / Notes)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {"children": {"flags": 8, "first": 16, "count": 8}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}  # TODO: "children.flags": CellAABBNodeFlags
