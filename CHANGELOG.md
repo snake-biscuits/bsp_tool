@@ -5,11 +5,14 @@
 ### New
  * `__init__` methods for all SpecialLumpClasses
  * `branches.colour`
+ * `branches.ieee754`
+   - `Float32` `BitField` reversing helper
  * `extensions.editor`
    - parse `.map` & `.vmf`
    - compare uncompiled maps to `.bsp`
  * `utils`
   - `editor`
+  - `geometry`
   - `physics`
   - `texture`
 
@@ -75,6 +78,8 @@
  * Source Engine
    - More dynamic reading of Static Props
    - Split into more branches for Static Prop variants
+ * Titanfall Engine
+   - Split v50 into it's own branch
 
 
 ## v0.4.0 (28 March 2023)
