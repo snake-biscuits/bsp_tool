@@ -378,20 +378,34 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
 class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
-    mins: List[float]
-    children: int  # bitfield
+    mins: vector.vec3
+    children: base.BitField
     # if children.count == 0, children.flags == 64
-    maxs: List[float]
+    maxs: vector.vec3
     unknown: int  # likely flags / metadata; might index ObjReferences?
     __slots__ = ["mins", "child_data",
                  "maxs", "unknown"]
     _format = "3fI3fI"
-    # 3FI3fI is a common pattern for Respawn AABB based objects
+    # 3fI3fI is a common pattern for Respawn AABB based objects
     # since you can pipe XYZ into SIMD registers quickly
     # .w ints contain metadata & flags (see Extreme SIMD GDC Talk / Notes)
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {"children": {"flags": 8, "first": 16, "count": 8}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}  # TODO: "children.flags": CellAABBNodeFlags
+
+
+class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
+    mins: vector.vec3
+    children: base.BitField  # indices into CSMAABBNodes
+    maxs: vector.vec3
+    unknown: base.BitField  # indices into Unknown38?
+    __slots__ = ["mins", "children", "maxs", "unknown"]
+    _format = "3fI3fI"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _bitfields = {
+        "children": {"count": 8, "first": 24},
+        "unknown": {"count": 8, "first": 24}}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class HeightField(base.Struct):  # LUMP 21 (0015)
@@ -608,6 +622,7 @@ del LUMP_NAME, pops
 LUMP_CLASSES.update({
     "BVH_NODES":           {0: BVHNode},
     "CELL_AABB_NODES":     {0: CellAABBNode},
+    "CSM_AABB_NODES":      {0: CSMAABBNode},
     "HEIGHTFIELDS":        {0: HeightField},
     "LIGHTMAP_HEADERS":    {0: titanfall.LightmapHeader},
     "MATERIAL_SORTS":      {0: MaterialSort},
