@@ -555,7 +555,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     unknown: List[int]  # 8 bytes
     __slots__ = ["position_index", "normal_index", "albedo_uv", "unknown"]
     _format = "2I2f2i"  # 24 bytes
-    _arrays = {"albedo_uv": [*"uv"]}
+    _arrays = {"albedo_uv": [*"uv"], "unknown": 2}
     _classes = {"albedo_uv": vector.vec2}
 
 
