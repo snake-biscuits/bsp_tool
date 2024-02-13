@@ -1142,7 +1142,7 @@ def displacement_mesh(bsp, face_index: int) -> geometry.Mesh:
         texture_uv = bary.uv0
         lightmap_uv = bary.uv1
         colour = (*A.colour[:3], disp_vertex.alpha)
-        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour))
+        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour=colour))
     polygons = [geometry.Polygon([vertices[i] for i in tri]) for tri in displacement_indices(disp_info.power)]
     return geometry.Mesh(base_mesh.material, polygons)
 
