@@ -9,14 +9,14 @@ class Bsp:
     """Bsp base class"""
     associated_files: List[str]  # files in the folder of loaded file with similar names
     # TODO: include subfolder files (e.g. graphs/<mapname>.ain)
-    bsp_version: int | (int, int) = 0  # .bsp format version
     branch: ModuleType  # soft copy of "branch script"
-    bsp_file_size: int = 0  # size of .bsp in bytes
     endianness: str = "little"
     file_magic: bytes = b"XBSP"
     # NOTE: XBSP is not a real bsp variant! this is just a placeholder
+    filesize: int = 0  # size of .bsp in bytes
     filename: str
     folder: str
+    version: int | (int, int) = 0  # .bsp format version
     headers: Dict[str, Any]
     # ^ {"LUMP.name": LumpHeader}
     # NOTE: header type is self.branch.LumpHeader
@@ -46,11 +46,11 @@ class Bsp:
 
     def __repr__(self):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
-        if isinstance(self.bsp_version, tuple):
-            major, minor = self.bsp_version
+        if isinstance(self.version, tuple):
+            major, minor = self.version
             version_number = f"{major}.{minor}"
         else:
-            version_number = self.bsp_version
+            version_number = self.version
         version = f"({self.file_magic.decode('ascii', 'ignore')} version {version_number})"
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 

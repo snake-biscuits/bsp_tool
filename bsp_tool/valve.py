@@ -72,14 +72,14 @@ class ValveBsp(base.Bsp):
             self.file_magic = file_magic  # b"PSBV"
         else:
             raise RuntimeError(f"{self.file} is not a ValveBsp! file_magic is incorrect")
-        self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
-        if self.bsp_version > 0xFFFF:  # major.minor bsp_version
-            self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
+        self.version = int.from_bytes(self.file.read(4), self.endianness)
+        if self.version > 0xFFFF:  # major.minor version
+            self.version = (self.version & 0xFFFF, self.version >> 16)  # major, minor
         lump_count = max([e.value for e in self.branch.LUMP]) + 1
         self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * (lump_count))
         self.revision = int.from_bytes(self.file.read(4), self.endianness)
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
@@ -143,19 +143,16 @@ class ValveBsp(base.Bsp):
         for LUMP in lump_order:
             # NOTE: fourCC should default to zero, we don't repack
             if LUMP.name not in raw_lumps:  # lump is not present
-                headers[LUMP.name] = self.branch.LumpHeader(offset=current_offset,
-                                                            length=0,
-                                                            version=self.headers[LUMP.name].version)
+                headers[LUMP.name] = self.branch.LumpHeader(
+                    offset=current_offset, length=0, version=self.headers[LUMP.name].version)
                 continue
             # wierd hack to align unused lump offsets correctly
-            if current_offset == 0:
-                # shift to end of header section
+            if current_offset == 0:  # shift to end of header section
                 # struct SourceBspHeader { char file_magic[4]; int version; LumpHeader headers[64]; int revision; };
                 current_offset = 8 + (struct.calcsize(self.branch.LumpHeader._format) * len(self.branch.LUMP)) + 4
             length = len(raw_lumps[LUMP.name])
-            headers[LUMP.name] = self.branch.LumpHeader(offset=current_offset,
-                                                        length=length,
-                                                        version=self.headers[LUMP.name].version)
+            headers[LUMP.name] = self.branch.LumpHeader(
+                offset=current_offset, length=length, version=self.headers[LUMP.name].version)
             current_offset += length
             if current_offset % 4 != 0:
                 current_offset += 4 - current_offset % 4
@@ -166,10 +163,10 @@ class ValveBsp(base.Bsp):
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         outfile = open(filename, "wb")
         outfile.write(self.file_magic)
-        bsp_version = self.bsp_version
-        if isinstance(self.bsp_version, tuple):
-            bsp_version = bsp_version[0] + bsp_version[1] << 16
-        outfile.write(bsp_version.to_bytes(4, self.endianness))
+        version = self.version
+        if isinstance(self.version, tuple):
+            version = version[0] + version[1] << 16
+        outfile.write(version.to_bytes(4, self.endianness))
         # write headers
         for LUMP in self.branch.LUMP:
             outfile.write(headers[LUMP.name].as_bytes())

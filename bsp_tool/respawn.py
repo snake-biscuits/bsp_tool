@@ -19,11 +19,11 @@ class ExternalLumpManager:
     """Looks mostly like a .bsp, but only uses external lumps"""
     # copied from bsp on __init__
     branch: ModuleType
-    bsp_version: int | (int, int)
     endianness: str = "little"
     file_magic: bytes
     filename: str
     folder: str
+    version: int | (int, int)
     # unique to external lumps
     headers: Dict[str, ExternalLumpHeader]
     # ^ {"LUMP_NAME": ExternalLumpHeader}
@@ -32,13 +32,13 @@ class ExternalLumpManager:
 
     def __init__(self, bsp: RespawnBsp):
         self.branch = bsp.branch
-        self.bsp_version = bsp.bsp_version
         self.endianness = bsp.endianness
         self.file_magic = bsp.file_magic
         self.filename = bsp.filename
         self.folder = bsp.folder
         self.lump_count = bsp.lump_count
         self.revision = bsp.revision
+        self.version = bsp.version
         # generate headers
         self.headers = dict()
         self.loading_errors = dict()
@@ -197,9 +197,9 @@ class RespawnBsp(valve.ValveBsp):
             self.file_magic = file_magic  # b"PSBr"
         else:
             raise RuntimeError(f"{self.file} is not a RespawnBsp! file_magic is incorrect")
-        self.bsp_version = int.from_bytes(self.file.read(4), self.endianness)
-        if self.bsp_version > 0xFFFF:  # Apex Legends Season 11+
-            self.bsp_version = (self.bsp_version & 0xFFFF, self.bsp_version >> 16)  # major, minor
+        self.version = int.from_bytes(self.file.read(4), self.endianness)
+        if self.version > 0xFFFF:  # Apex Legends Season 11+
+            self.version = (self.version & 0xFFFF, self.version >> 16)  # major, minor
         # NOTE: Legion considers the second half to be a flag for streaming
         # -- Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
         # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
@@ -207,12 +207,12 @@ class RespawnBsp(valve.ValveBsp):
         self.lump_count = int.from_bytes(self.file.read(4), self.endianness)
         assert self.lump_count == 127, "irregular RespawnBsp lump_count"
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
         for lump_name, lump_header in self._header_generator(offset=16):
-            if lump_header.offset >= self.bsp_file_size:
+            if lump_header.offset >= self.filesize:
                 continue  # or version has flag (e.g. (50, 1))
             self._preload_lump(lump_name, lump_header)
         # compiler signature
@@ -278,11 +278,11 @@ class RespawnBsp(valve.ValveBsp):
         os.makedirs(os.path.dirname(os.path.realpath(filename)), exist_ok=True)
         # TODO: close self.file if overwriting
         outfile = open(filename, "wb")
-        bsp_version = self.bsp_version
-        if isinstance(self.bsp_version, tuple):  # Apex Legends Season 10+
-            bsp_version = bsp_version[0] + bsp_version[1] << 16
+        version = self.version
+        if isinstance(self.version, tuple):  # Apex Legends Season 10+
+            version = version[0] + version[1] << 16
         _format = "4s3I" if self.endianness == "little" else ">4s3I"
-        outfile.write(struct.pack(_format, self.file_magic, bsp_version, self.revision, 127))
+        outfile.write(struct.pack(_format, self.file_magic, version, self.revision, 127))
         for LUMP in self.branch.LUMP:
             outfile.write(headers[LUMP.name].as_bytes())
         outfile.write(self.signature)
@@ -292,7 +292,7 @@ class RespawnBsp(valve.ValveBsp):
         # write lump contents (cannot be done until headers allocate padding)
         for LUMP in [L for L in lump_order if L.name in raw_lumps]:
             # write INTERNAL .bsp lump
-            if not isinstance(self.bsp_version, tuple):  # pre Apex Season 10+
+            if not isinstance(self.version, tuple):  # pre Apex Season 10+
                 padding_length = headers[LUMP.name].offset - outfile.tell()
                 if padding_length > 0:  # pad previous lump
                     outfile.write(b"\0" * padding_length)

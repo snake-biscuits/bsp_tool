@@ -8,7 +8,7 @@ class RitualBsp(id_software.IdTechBsp):
     _file_magics = (b"RBSP", b"FAKK", b"2015", b"EF2!", b"EALA")
     checksum: int  # TODO: calculate / verify (CRC?)
     # struct LumpHeader { int offset, length; };
-    # struct { int file_magic, bsp_version, checksum; LumpHeader headers[]; };
+    # struct { int file_magic, version, checksum; LumpHeader headers[]; };
 
     def _preload(self):
         """Loads filename using the format outlined in this .bsp's branch defintion script"""
@@ -21,10 +21,10 @@ class RitualBsp(id_software.IdTechBsp):
         self.file_magic = self.file.read(4)
         assert self.file_magic in self._file_magics, f"{self.file} is not a valid .bsp!"
         assert self.file_magic == self.branch.FILE_MAGIC, f"{self.file} is not from {[*self.branch.GAME_PATHS][0]}!"
-        self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        self.version = int.from_bytes(self.file.read(4), "little")
         self.checksum = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect headers
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()

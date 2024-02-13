@@ -12,7 +12,7 @@ class QuakeBsp(base.Bsp):
 
     def __repr__(self):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
-        version = f"(version {self.bsp_version})"  # no file_magic
+        version = f"(version {self.version})"  # no file_magic
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
     def _preload_lump(self, lump_name: str, lump_header: Any):
@@ -40,9 +40,9 @@ class QuakeBsp(base.Bsp):
         # collect files
         self.file = open(os.path.join(self.folder, self.filename), "rb")
         # collect metadata
-        self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        self.version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
@@ -54,7 +54,7 @@ class QuakeBsp(base.Bsp):
 class ReMakeQuakeBsp(QuakeBsp):
     """ReMakeQuake BSP2 Format"""
     file_magic = b"BSP2"
-    bsp_version = None
+    version = None
     # https://quakewiki.org/wiki/BSP2
     # https://github.com/xonotic/darkplaces/blob/master/model_brush.c
     # struct LumpHeader { uint32_t offset, length; };
@@ -73,7 +73,7 @@ class ReMakeQuakeBsp(QuakeBsp):
             raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
         self.file_magic = file_magic
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
@@ -109,9 +109,9 @@ class IdTechBsp(base.Bsp):
         file_magic = self.file.read(4)
         if file_magic != self.file_magic:
             raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
-        self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        self.version = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()

@@ -297,7 +297,7 @@ for args, id_ in zip(test_args, test_ids):
 def spec_str_of(bsp) -> str:
     BspClass = bsp.__class__
     branch = bsp.branch
-    version = bsp.bsp_version
+    version = bsp.version
     return spec_str(BspClass, branch, version)
 
 

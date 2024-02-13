@@ -17,7 +17,7 @@ bsps = utils.get_test_maps(ValveBsp, {strata: ["Momentum Mod"]})
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_spec(bsp: ValveBsp):
     assert bsp.file_magic == strata.FILE_MAGIC
-    assert bsp.bsp_version == strata.BSP_VERSION
+    assert bsp.version == strata.BSP_VERSION
 
 
 class TestDisplacements:

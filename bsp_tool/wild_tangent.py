@@ -32,8 +32,8 @@ class Genesis3DBsp(id_software.IdTechBsp):
         assert self.headers["HEADER"].count == 1
         assert self.HEADER.magic == self.file_magic
         assert self.HEADER.version == self.branch.BSP_VERSION
-        self.bsp_version = self.HEADER.version
+        self.version = self.HEADER.version
         # collect metadata
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # TODO: any trailing data after END header?

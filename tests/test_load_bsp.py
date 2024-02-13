@@ -78,7 +78,7 @@ def test_load_bsp(group_path, game_name, map_dirs):
                         continue  # maps probably tweaked in a text editor, all null bytes are spaces
                     bsp = load_bsp(bsp_filename, branch_script)
                     bsp.file.close()  # avoid OSError "Too many open files"
-                    bsp_id = (bsp.__class__.__name__, bsp.branch.__name__, bsp.bsp_version)  # debug info
+                    bsp_id = (bsp.__class__.__name__, bsp.branch.__name__, bsp.version)  # debug info
                     loading_errors = dict()
                     for lump_name, error in bsp.loading_errors.items():
                         lump_version = getattr(bsp.headers[lump_name], "version", None)
@@ -113,5 +113,5 @@ def test_load_bsp(group_path, game_name, map_dirs):
                     errors[f"{map_dir}/{m}"] = ae
                     types.add(bsp_id)
     assert errors == dict(), "\n".join([f"{len(errors)} out of {total} .bsps failed",
-                                        *map(str, types),  # BspClass, branch_script, bsp_version
+                                        *map(str, types),  # BspClass, branch_script, version
                                         *{ln for ae in errors.values() for ln in ae.args[0].split("\n")[0].split(", ")}])

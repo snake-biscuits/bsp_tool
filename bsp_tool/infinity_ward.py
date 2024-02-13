@@ -52,10 +52,10 @@ class D3DBsp(InfinityWardBsp):
         # collect metadata
         file_magic = self.file.read(4)
         assert file_magic == self.file_magic, f"{self.file} is not a valid D3DBsp!"
-        self.bsp_version = int.from_bytes(self.file.read(4), "little")
+        self.version = int.from_bytes(self.file.read(4), "little")
         self.lump_count = int.from_bytes(self.file.read(4), "little")
         self.file.seek(0, 2)  # move cursor to end of file
-        self.bsp_file_size = self.file.tell()
+        self.filesize = self.file.tell()
         # collect lumps
         self.headers = dict()
         self.loading_errors: Dict[str, Exception] = dict()
