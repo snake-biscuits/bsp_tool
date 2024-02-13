@@ -1101,21 +1101,16 @@ GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12}}
 
 # methods for interfacing with lumps from this branch:
 def lit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
-    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
-    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
-    uv0 = vector.vec2(*vertex.albedo_uv)
-    uv1 = vector.vec2(*vertex.lightmap.uv)
-    # uv2 = vector.vec2(*vertex.lightmap.step)  # always (0, 0)
-    colour = tuple(vertex.colour)
-    return geometry.Vertex(position, normal, uv0, uv1, colour=colour)
+    position = bsp.VERTICES[vertex.position_index]
+    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+    # uv2 = vertex.lightmap.step  # always (0, 0)
+    return geometry.Vertex(position, normal, vertex.albedo_uv, vertex.lightmap.uv, colour=vertex.colour.as_floats())
 
 
 def unlit_vertex(bsp, vertex: Union[VertexUnlit, VertexUnlitTS]) -> geometry.Vertex:
-    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
-    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
-    uv0 = vector.vec2(*vertex.albedo_uv)
-    colour = tuple(vertex.colour)
-    return geometry.Vertex(position, normal, uv0, colour=colour)
+    position = bsp.VERTICES[vertex.position_index]
+    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+    return geometry.Vertex(position, normal, vertex.albedo_uv, colour=vertex.colour.as_floats())
 
 
 def mesh(bsp, mesh_index: int) -> geometry.Mesh:
@@ -1203,7 +1198,7 @@ def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
     # vertices
     if mesh.is_opaque:
         triangles = [
-            [geometry.Vertex(vector.vec3(*bsp.SHADOW_MESH_OPAQUE_VERTICES[i]), no_normal) for i in tri]
+            [geometry.Vertex(bsp.SHADOW_MESH_OPAQUE_VERTICES[i], no_normal) for i in tri]
             for tri in triangles]
     else:
         triangles = [[bsp.SHADOW_MESH_ALPHA_VERTICES[i] for i in tri] for tri in triangles]
@@ -1217,7 +1212,7 @@ def occlusion_mesh(bsp) -> geometry.Mesh:
     triangles = list()
     for i in range(0, len(bsp.OCCLUSION_MESH_INDICES), 3):
         triangles.append([
-            geometry.Vertex(vector.vec3(*bsp.OCCLUSION_MESH_VERTICES[j]), no_normal)
+            geometry.Vertex(bsp.OCCLUSION_MESH_VERTICES[j], no_normal)
             for j in bsp.OCCLUSION_MESH_INDICES[i:i + 3]])
     return geometry.Mesh(material, polygons=[*map(geometry.Polygon, triangles)])
 

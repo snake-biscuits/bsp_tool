@@ -666,24 +666,18 @@ GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_v
 
 # branch exclusive methods, in alphabetical order:
 def lit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
-    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
-    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
-    uv0 = vector.vec2(*vertex.albedo_uv)
-    if isinstance(vertex, VertexLitBump):
-        uv1 = vector.vec2(*vertex.lightmap_uv)
-    else:  # VertexLitFlat
-        uv1 = vector.vec2(0, 0)  # lightmap_uv is unknown
-    # uv2 = vector.vec2(*vertex.lightmap.step)  # always (0, 0)
-    colour = tuple(vertex.colour) if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
-    return geometry.Vertex(position, normal, uv0, uv1, colour=colour)
+    position = bsp.VERTICES[vertex.position_index]
+    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+    uv1 = vertex.lightmap_uv if isinstance(vertex, VertexLitBump) else vector.vec2(0, 0)
+    colour = vertex.colour if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
+    return geometry.Vertex(position, normal, vertex.albedo_uv, uv1, colour=colour)
 
 
 def unlit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
-    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
-    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
-    uv0 = vector.vec2(*vertex.albedo_uv)
-    colour = tuple(vertex.colour) if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
-    return geometry.Vertex(position, normal, uv0, colour=colour)
+    position = bsp.VERTICES[vertex.position_index]
+    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+    colour = vertex.colour if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
+    return geometry.Vertex(position, normal, vertex.albedo_uv, colour=colour)
 
 
 def texture_data_surface_name(bsp, texture_data_index: int) -> str:

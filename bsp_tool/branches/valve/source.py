@@ -1063,7 +1063,6 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
             position = bsp.VERTICES[bsp.EDGES[surfedge][0]]
         else:  # -ve index
             position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
-        position = vector.vec3(*position)
         texture_uv = texture_vector.uv_at(position)
         lightmap_uv = lightmap_vector.uv_at(position) - face.lightmap.mins
         # NOTE: not checking if face.lightmap.size is 0x0
