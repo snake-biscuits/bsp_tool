@@ -1,7 +1,7 @@
 from __future__ import annotations
 import collections
 import itertools
-from typing import Any, List, Union
+from typing import Any, List, Tuple, Union
 
 from . import vector
 
@@ -17,13 +17,13 @@ class Vertex:
     uv: List[vector.vec2]
     # uv0: vector.vec2  # albedo
     # uv1: vector.vec2  # lightmap
-    colour: List[float]  # rgba [0.0 -> 1.0]
+    colour: Tuple[float, float, float, float]  # rgba [0.0 -> 1.0]
 
     def __init__(self, position, normal, *uvs, colour=(0.0,) * 4):
-        self.position = position
-        self.normal = normal
-        self.uv = uvs
-        self.colour = colour
+        self.position = vector.vec3(*position)
+        self.normal = vector.vec3(*normal)
+        self.uv = [vector.vec2(*uv) for uv in uvs]
+        self.colour = tuple(colour)
 
     def __add__(self, other: Vertex) -> Vertex:
         if not isinstance(other, Vertex):
