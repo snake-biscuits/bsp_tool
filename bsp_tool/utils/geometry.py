@@ -1,7 +1,7 @@
 from __future__ import annotations
 import collections
 import itertools
-from typing import Any, List, Tuple, Union
+from typing import Any, List, Tuple
 
 from . import vector
 
@@ -143,12 +143,13 @@ class Model:
     translation: vector.vec3
     rotation: vector.vec3  # degrees for each axis
     # TODO: alternate rotations (e.g. Quaternion)
-    scale: Union[float, vector.vec3]  # uniform or per-axis
+    scale: vector.vec3
 
     def __init__(self, meshes=list(), origin=vector.vec3(), angles=vector.vec3(), scale=1):
         self.meshes = self.merge_meshes(meshes)
-        self.translation = origin
-        self.rotation = angles
+        self.translation = vector.vec3(*origin)
+        self.rotation = vector.vec3(*angles)
+        # NOTE: uniform scale is valid when passed to __init__
         if isinstance(scale, (float, int)):
             scale = vector.vec3(scale, scale, scale)
         self.scale = scale
