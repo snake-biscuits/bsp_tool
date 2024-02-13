@@ -436,6 +436,8 @@ extracted_dirs = {
                                  "19sep23/maps"],  # 13 maps | 2.96 GB | .rpak
         # season19:  Ignite [31st October 2023]
         "ApexLegends/season19": ["1feb24/maps"],  # 11 maps | 2.26 GB | .rpak
+        # season20:  Breakout [13th February 2024]
+        "ApexLegends/season20": ["13feb24/maps"],  # 7 maps | 1.30 GB | .rpak
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3

@@ -110,7 +110,8 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
                      "19sep23": (18, 1, "Harbingers")},
         # TODO: fill in the gaps
         # "season19": {"31oct23": (19, 0, "Ignite"),
-        "season19": {"1feb24": (19, 1, "")}}
+        "season19": {"1feb24": (19, 1, "")},
+        "season20": {"13feb24": (20, 0, "Breakout")}}
 
 # TODO: python-mode
 
