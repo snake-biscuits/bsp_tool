@@ -1,5 +1,5 @@
 import enum
-from typing import List
+from typing import List, Union
 
 from ...utils import geometry
 from ...utils import vector
@@ -503,50 +503,60 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 # special vertices
 class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
-    __slots__ = ["position_index", "normal_index", "uv0", "uv1"]
+    position_index: int  # index into Vertex lump
+    normal_index: int  # index into VertexNormal lump
+    albedo_uv: vector.vec2
+    lightmap_uv: vector.vec2
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "lightmap_uv"]
     _format = "2I4f"  # 24 bytes
-    _arrays = {"uv0": [*"uv"], "uv1": [*"uv"]}
+    _arrays = {"albedo_uv": [*"uv"], "lightmap_uv": [*"uv"]}
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # texture coordindates
+    albedo_uv: vector.vec2
     negative_one: int  # always -1
-    uv1: List[float]  # lightmap coords
-    colour: List[int]
-    __slots__ = ["position_index", "normal_index", "uv0", "negative_one", "uv1", "colour"]
+    lightmap_uv: vector.vec2
+    colour: colour.RGBA32
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "negative_one", "lightmap_uv", "colour"]
     _format = "2I2fi2f4B"  # 32 bytes
-    _arrays = {"uv0": [*"uv"], "uv1": [*"uv"], "colour": [*"rgba"]}
+    _arrays = {"albedo_uv": [*"uv"], "lightmap_uv": [*"uv"], "colour": [*"rgba"]}
+    _classes = {"albedo_uv": vector.vec2, "lightmap_uv": vector.vec2, "colour": colour.RGBA32}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # texture coordindates
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
+    albedo_uv: vector.vec2
+    unknown: int
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "unknown"]
     _format = "2I2fi"  # 20 bytes
-    _arrays = {"uv0": [*"uv"]}
+    _arrays = {"albedo_uv": [*"uv"]}
+    _classes = {"albedo_uv": vector.vec2}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     # NOTE: identical to VertexLitFlat?
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    uv0: List[float]  # texture coordindates
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
+    albedo_uv: vector.vec2
+    unknown: int
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "unknown"]
     _format = "2i2fi"  # 20 bytes
-    _arrays = {"uv0": [*"uv"]}
+    _arrays = {"albedo_uv": [*"uv"]}
+    _classes = {"albedo_uv": vector.vec2}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     position_index: int  # index into VERTICES
     normal_index: int  # index into VERTEX_NORMALS
-    uv0: List[float]  # texture coordinates
+    albedo_uv: vector.vec2
     unknown: List[int]  # 8 bytes
-    __slots__ = ["position_index", "normal_index", "uv0", "unknown"]
+    __slots__ = ["position_index", "normal_index", "albedo_uv", "unknown"]
     _format = "2I2f2i"  # 24 bytes
-    _arrays = {"uv0": [*"uv"], "unknown": 2}
+    _arrays = {"albedo_uv": [*"uv"]}
+    _classes = {"albedo_uv": vector.vec2}
 
 
 class WaterBody(base.Struct):  # LUMP 44 (002C)
@@ -655,6 +665,27 @@ GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_v
 
 
 # branch exclusive methods, in alphabetical order:
+def lit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
+    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
+    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
+    uv0 = vector.vec2(*vertex.albedo_uv)
+    if isinstance(vertex, VertexLitBump):
+        uv1 = vector.vec2(*vertex.lightmap_uv)
+    else:  # VertexLitFlat
+        uv1 = vector.vec2(0, 0)  # lightmap_uv is unknown
+    # uv2 = vector.vec2(*vertex.lightmap.step)  # always (0, 0)
+    colour = tuple(vertex.colour) if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
+    return geometry.Vertex(position, normal, uv0, uv1, colour=colour)
+
+
+def unlit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
+    position = vector.vec3(*bsp.VERTICES[vertex.position_index])
+    normal = vector.vec3(*bsp.VERTEX_NORMALS[vertex.normal_index])
+    uv0 = vector.vec2(*vertex.albedo_uv)
+    colour = tuple(vertex.colour) if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
+    return geometry.Vertex(position, normal, uv0, colour=colour)
+
+
 def texture_data_surface_name(bsp, texture_data_index: int) -> str:
     texture_data = bsp.TEXTURE_DATA[texture_data_index]
     return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].lstrip(b"\0").partition(b"\0")[0].decode()
@@ -701,7 +732,7 @@ def water_body_model(bsp, water_body_index: int) -> geometry.Model:
 # TODO: wave_model(bsp, water_body_index: int) -> geometry.Mesh:  # WaterBodyVertices & WaterBodyCenters
 
 
-methods = [titanfall.lit_vertex, mesh, titanfall.model, titanfall.unlit_vertex,  # geo
+methods = [lit_vertex, mesh, titanfall.model, unlit_vertex,  # geo
            titanfall.search_all_entities, shared.worldspawn_volume,  # entities
            titanfall.occlusion_mesh, titanfall.shadow_mesh, water_body_model,  # other geo
            texture_data_surface_name]  # materials

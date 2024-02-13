@@ -849,78 +849,75 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     colour: colour.RGBA32  # typically white
-    albedo_uv: List[float]
-    lightmap: List[float]
-    # lightmap.uv: List[float]  # lightmap uv coords
+    albedo_uv: vector.vec2
+    lightmap: List[vector.vec2]
+    # lightmap.uv: vector.vec2
     tangent: List[float]  # 4 x 4 matrix? list of 4 quaternions?
     __slots__ = ["position_index", "normal_index", "colour", "albedo_uv", "lightmap", "tangent"]
     _format = "2I4B20f"  # 92 bytes
     _arrays = {"colour": [*"rgba"], "albedo_uv": [*"uv"], "lightmap": {"uv": [*"uv"]}, "tangent": 16}
-    _classes = {"colour": colour.RGBA32}
-    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
+    _classes = {"albedo_uv": vector.vec2, "lightmap.uv": vector.vec2, "colour": colour.RGBA32}
 
 
 class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    albedo_uv: List[float]  # albedo uv coords
+    albedo_uv: vector.vec2
     colour: colour.RGBA32  # typically white
-    lightmap: List[float]
-    # lightmap.uv: List[float]  # lightmap uv coords
-    # lightmap.step: List[float]  # lightmap offset?
+    lightmap: List[vector.vec2]
+    # lightmap.uv: vector.vec2
+    # lightmap.step: vector.vec2  # always (0, 0)
     tangent: List[int]  # indices to some vectors, but which lump are they stored in?
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "lightmap", "tangent"]
     _format = "2I2f4B4f2i"  # 44 bytes
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
                "lightmap": {"uv": [*"uv"], "step": [*"xy"]},
                "tangent": [*"st"]}
-    _classes = {"lightmap.step": vector.vec2, "colour": colour.RGBA32}
-    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
+    _classes = {"albedo_uv": vector.vec2, "lightmap.uv": vector.vec2,
+                "lightmap.step": vector.vec2, "colour": colour.RGBA32}
 
 
 class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     """Uncommon Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    albedo_uv: List[float]  # albedo uv coords
+    albedo_uv: vector.vec2  # albedo uv coords
     colour: colour.RGBA32  # typically white
-    lightmap: List[float]
-    # lightmap.uv: List[float]  # lightmap uv coords
-    # lightmap.step: List[float]  # lightmap offset?
+    lightmap: List[vector.vec2]
+    # lightmap.uv: vector.vec2  # lightmap uv coords
+    # lightmap.step: vector.vec2  # lightmap offset?
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "lightmap"]
     _format = "2I2f4B4f"
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"],
                "lightmap": {"uv": [*"uv"], "step": [*"xy"]}}
-    _classes = {"lightmap.step": vector.vec2, "colour": colour.RGBA32}
-    # TODO: _classes = {"albedo_uv": vec2.uv, "lightmap.uv": vec2.uv}
+    _classes = {"albedo_uv": vector.vec2, "lightmap.uv": vector.vec2,
+                "lightmap.step": vector.vec2, "colour": colour.RGBA32}
 
 
 class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     """Tool Brushes"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    albedo_uv: List[float]  # albedo uv coords
+    albedo_uv: vector.vec2
     colour: colour.RGBA32  # typically white
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour"]
     _format = "2I2f4B"  # 20 bytes
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"]}
-    _classes = {"colour": colour.RGBA32}
-    # TODO: _classes = {"albedo_uv": vec2.uv}
+    _classes = {"albedo_uv": vector.vec2, "colour": colour.RGBA32}
 
 
 class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     """Glass"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
-    albedo_uv: List[float]  # uv coords
+    albedo_uv: vector.vec2
     colour: colour.RGBA32  # typically white
     tangent: List[int]  # indices to some vectors, but which lump are they stored in?
     __slots__ = ["position_index", "normal_index", "albedo_uv", "colour", "tangent"]
     _format = "2I2f4B2i"  # 28 bytes
     _arrays = {"albedo_uv": [*"uv"], "colour": [*"rgba"], "tangent": [*"st"]}
-    _classes = {"colour": colour.RGBA32}
-    # TODO: _classes = {"albedo_uv": vec2.uv}
+    _classes = {"albedo_uv": vector.vec2, "colour": colour.RGBA32}
 
 
 VertexReservedX = Union[VertexBlinnPhong, VertexLitBump, VertexLitFlat, VertexUnlit, VertexUnlitTS]  # type hint
