@@ -179,8 +179,8 @@ LumpHeader = source.LumpHeader
 # NOTE: parallel means each entry is paired with an entry of the same index in the parallel lump
 # -- this means you can collect only the data you need, but increases the chance of storing redundant data
 
-# ShadowEnvironment -> ShadowMesh -> ShadowMeshIndices -> ShadowMeshOpaqueVertex
-#                                                    \-?> ShadowMeshAlphaVertex
+# ShadowEnvironment -> ShadowMesh
+#                  \-> CSMAABBNodes -> CSMObjReferences
 # ShadowEnvironments are indexed by entities (light_environment(_volume) w/ lightEnvironmentIndex key)
 
 # LightmapHeader -> LIGHTMAP_DATA_SKY
@@ -287,14 +287,18 @@ class WorldLightv3(base.Struct):  # LUMP 54 (0036)
 class ShadowEnvironment(base.Struct):
     """Identified w/ BobTheBob; appears linked to dynamic shadows and optimisation"""
     # making modifications caused severe framerate drops (2fps)
-    unknown_1: List[int]  # likely indices into other lumps (vistree? nodes?) [first_]
-    first_shadow_mesh: int  # first ShadowMesh in this ShadowEnvironment
-    unknown_2: List[int]  # likely indices into other lumps (vistree? nodes?) [num_]
-    num_shadow_meshes: int  # number of ShadowMeshes in this ShadowEnvironment after first_shadow_mesh
-    sun_normal: vector.vec3  # represents angle of last light_environment
-    __slots__ = ["unknown_1", "first_shadow_mesh", "unknown_2", "num_shadow_meshes", "sun_normal"]
+    first_csm_aabb_node: int  # index into CSMAABBNodes
+    first_csm_obj_ref: int  # index into CSMObjReferences
+    first_shadow_mesh: int  # index into ShadowMesh
+    num_csm_aabb_nodes: int
+    num_csm_obj_refs: int
+    num_shadow_meshes: int
+    sun_normal: vector.vec3  # represents angle of associated light_environment
+    __slots__ = [
+        "first_csm_aabb_node", "first_csm_obj_ref", "first_shadow_mesh",
+        "num_csm_aabb_nodes", "num_csm_obj_refs", "num_shadow_meshes", "sun_normal"]
     _format = "6i3f"
-    _arrays = {"unknown_1": 2, "unknown_2": 2, "sun_normal": [*"xyz"]}
+    _arrays = {"sun_normal": [*"xyz"]}
     _classes = {"sun_normal": vector.vec3}
 
 
