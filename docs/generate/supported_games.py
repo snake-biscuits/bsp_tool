@@ -70,7 +70,8 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ReMakeQuakeBsp  | id_software.remake_quake           |  Y  |
 # | ReMakeQuakeBsp  | id_software.remake_quake_old       |  Y  |
 # | RespawnBsp      | respawn.apex_legends               |  Y  |
-# | RespawnBsp      | respawn.apex_legends13             |  Y  |
+# | RespawnBsp      | respawn.apex_legends50             |  Y  |
+# | RespawnBsp      | respawn.apex_legends51             |  Y  |
 # | RespawnBsp      | respawn.titanfall                  |  Y  |
 # | RespawnBsp      | respawn.titanfall_x360             |  N  |
 # | RespawnBsp      | respawn.titanfall2                 |  Y  |
@@ -101,6 +102,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.sdk_2013_x360                |  N  |
 # | ValveBsp        | valve.source                       |  Y  |
 # | ValveBsp        | valve.source_filmmaker             |  Y  |
+# | Genesis3DBsp    | wild_tangent.genesis3d             |  N  |
 
 # TODO: more prefaces (insert .md)
 # NOTE: conflicts:
@@ -115,7 +117,8 @@ groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment
                                     branches.respawn.titanfall2]}),
           ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
                       {RespawnBsp: [branches.respawn.apex_legends,
-                                    branches.respawn.apex_legends13]}),
+                                    branches.respawn.apex_legends50,
+                                    branches.respawn.apex_legends51]}),
           ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
                       {GoldSrcBsp: [branches.valve.goldsrc,
                                     branches.gearbox.blue_shift,
@@ -178,15 +181,15 @@ inserts_path = "inserts"
 
 # NOTE: GAME_LUMP coverage is hardcoded later
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
-SpecialLumpClass_confidence.update({branches.id_software.quake3.Visibility: 100,
-                                    branches.nexon.cso2.PakFile: 0,
-                                    branches.respawn.apex_legends.LevelInfo: 75,
-                                    branches.respawn.titanfall.EntityPartitions: 100,
-                                    branches.respawn.titanfall.Grid: 100,
-                                    branches.respawn.titanfall.LevelInfo: 100,
-                                    branches.shared.Entities: 100,
-                                    branches.shared.PakFile: 100,
-                                    branches.shared.TextureDataStringData: 100})
+SpecialLumpClass_confidence.update({
+    branches.id_software.quake3.Visibility: 100,
+    branches.respawn.apex_legends.LevelInfo: 75,
+    branches.respawn.titanfall.EntityPartitions: 100,
+    branches.respawn.titanfall.Grid: 100,
+    branches.respawn.titanfall.LevelInfo: 100,
+    branches.shared.Entities: 100,
+    branches.valve.source.PakFile: 100,
+    branches.valve.source.TextureDataStringData: 100})
 
 
 def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
@@ -258,24 +261,26 @@ def url_of_LumpClass(LumpClass: object) -> str:
 
 
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
-vbsp_branch_scripts = [*[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
-                       *branches.arkane.scripts,
-                       *branches.nexon.scripts,
-                       branches.troika.vampire,
-                       branches.utoplanet.merubasu]
+vbsp_branch_scripts = [
+    *[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
+    *branches.arkane.scripts, *branches.nexon.scripts,
+    branches.troika.vampire, branches.utoplanet.merubasu]
+# TODO: outerlight, zeno_clash, infra, strata
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
-lightmap_mappings = {(branches.id_software.quake, "LIGHTING"): lightmaps.save_quakebsp_q1,
-                     (branches.id_software.quake2, "LIGHTING"): lightmaps.save_quakebsp_q1,  # ~90%; need scale
-                     **{(bs, L): lightmaps.save_vbsp for bs in vbsp_branch_scripts
-                        for L in ("LIGHTING", "LIGHTING_HDR")},
-                     **{(branches.respawn.titanfall, L): lightmaps.save_rbsp_r1
-                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
-                     **{(branches.respawn.titanfall2, L): lightmaps.save_rbsp_r2
-                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
-                     **{(bs, L): lightmaps.save_rbsp_r5
-                        for bs in (branches.respawn.apex_legends, branches.respawn.apex_legends13)
-                        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
+lightmap_mappings = {
+    (branches.id_software.quake, "LIGHTING"): lightmaps.quake.as_page,
+    (branches.id_software.quake2, "LIGHTING"): lightmaps.quake.as_page,  # ~90%; need scale
+    (branches.id_software.quake3, "LIGHTMAPS"): lightmaps.quake3.tiled,
+    **{(bs, L): lightmaps.source.as_page for bs in vbsp_branch_scripts
+       for L in ("LIGHTING", "LIGHTING_HDR")},
+    **{(branches.respawn.titanfall, L): lightmaps.titanfall.tiled_or_split
+       for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
+    **{(branches.respawn.titanfall2, L): lightmaps.titanfall2.tiled_or_split
+       for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
+    **{(bs, L): lightmaps.apex_legends.tiled
+       for bs in (branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51)
+       for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # ^ {(branch_script, "LUMP"): function}
 del vbsp_branch_scripts
 
@@ -299,7 +304,7 @@ bs = (branches.ace_team.zeno_clash,
       branches.loiste.infra,
       branches.nexon.cso2, branches.nexon.cso2_2018, branches.nexon.vindictus, branches.nexon.vindictus69,
       branches.outerlight.outerlight,
-      branches.respawn.apex_legends, branches.respawn.apex_legends13,
+      branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51,
       branches.respawn.titanfall, branches.respawn.titanfall2,
       branches.strata.strata,
       branches.troika.vampire,
@@ -328,7 +333,7 @@ for branch_script in bs:
         d["sprp.leaves"] = leaves
     if branch_script in (branches.nexon.vindictus69, branches.nexon.vindictus):
         d["sprp.scales"] = {6: branches.nexon.vindictus69.StaticPropScale}
-    if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends, branches.respawn.apex_legends13):
+    if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51):
         d["sprp.unknown_3"] = {v: None for v in branch_script.GAME_LUMP_CLASSES["sprp"].keys()}
     # TODO: "dprp": None etc.
     gamelump_mappings[branch_script] = d
