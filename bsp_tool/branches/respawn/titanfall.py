@@ -561,7 +561,7 @@ class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
     # TODO: _classes = {"type": LightmapTypeheader}
 
 
-class LightProbe(base.Struct):  # LUMP 102 (0066)
+class LightProbe(base.Struct):  # LUMP 101 (0065)
     """Identified by rexx"""  # untested
     cube: List[List[int]]  # rgb888 ambient light cube
     sky_dir_sun_vis: List[int]  # ???

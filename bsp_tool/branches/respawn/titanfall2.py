@@ -2,7 +2,7 @@ from __future__ import annotations
 import enum
 import io
 import struct
-from typing import List
+from typing import List, Tuple
 
 from ... import lumps
 from ...utils import vector
@@ -216,10 +216,13 @@ LumpHeader = source.LumpHeader
 # GeoSets is parallel w/ GeoSetBounds
 # PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
 
-# TODO: TRICOLL_* LUMPS
-# TODO: LIGHTPROBES
+# LIGHTPROBES
 # LightProbeTree -?> LightProbeRef -> LightProbe
 # -?> STATIC_PROP_LIGHTPROBE_INDICES
+# -?> LightProbeBSPNodes -> ???
+#                   \-> LightProbeBspNodes
+# -?> LightProbeBSPRefIds -?>
+# -?> LightProbeParentInfos -?>
 
 
 # engine limits:
@@ -241,7 +244,7 @@ class GeoSetFlags(enum.IntFlag):
 # classes for lumps, in alphabetical order::
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     unknown: List[int]  # uint16_t[2]
-    child: base.BitField  # struct { uint32_t type: 8, index: 16, unknown: 8; };
+    child: base.BitField
     # child.unknown: int  # may not be relevant to child
     # child.index: int  # index of Brush / TriCollHeader?
     # child.type: GeoSetFlags  # Brush or TriColl
@@ -254,34 +257,48 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
     data: bytes
-    _format = "128s"
     __slots__ = ["data"]
+    _format = "128s"
+
+
+class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
+    plane: Tuple[vector.vec3, float]
+    # plane.normal: vector.vec3
+    # plane.distance: float
+    children: List[int]  # +ve: LightProbeBspNode; -ve? some bitfield?
+    __slots__ = ["plane", "child"]
+    _format = "4f2I"
+    _arrays = {"plane": {"normal": [*"xyz"], "distance": None}, "child": ["front", "back"]}
+    _classes = {"plane.normal": vector.vec3}
 
 
 class LightProbeRef(base.Struct):  # LUMP 104 (0068)
-    origin: List[float]  # coords of LightProbe
+    origin: vector.vec3  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
     unknown: int
     __slots__ = ["origin", "lightprobe", "unknown"]
     _format = "3fIi"
     _arrays = {"origin": [*"xyz"]}
+    _classes = {"origin": vector.vec3}
 
 
 class WorldLightv2(base.Struct):  # LUMP 54 (0036)
-    origin: List[float]
+    origin: vector.vec3
     __slots__ = ["origin", "unknown"]
     _format = "3f24I"  # 108 bytes
     _arrays = {"origin": [*"xyz"], "unknown": 24}
+    _classes = {"origin": vector.vec3}
 
 
 class WorldLightv3(base.Struct):  # LUMP 54 (0036)
-    origin: List[float]
+    origin: vector.vec3
     unknown: List[int]
     # BobTheBob checked out the v1 -> v3 converter
     # -- it appends (0, 0x3BA3D70A, 0x3F800000) to the tail
     __slots__ = ["origin", "unknown"]
     _format = "3f25I"  # 112 bytes
     _arrays = {"origin": [*"xyz"], "unknown": 25}
+    _classes = {"origin": vector.vec3}
 
 
 class ShadowEnvironment(base.Struct):
@@ -305,7 +322,7 @@ class ShadowEnvironment(base.Struct):
 # classes for special lumps, in alphabetical order:
 class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13]
     """Identified w/ BobTheBob"""
-    origin: List[float]  # x, y, z
+    origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll (Y Z X)
     scale: float  # indentified by Legion dev DTZxPorter
     model_name: int  # index into GAME_LUMP.sprp.model_names
@@ -313,7 +330,7 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     flags: int
     unknown: List[int]
     forced_fade_scale: float
-    lighting_origin: List[float]  # x, y, z
+    lighting_origin: vector.vec3
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: colour.RGBExponent
@@ -383,13 +400,15 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CM_GEO_SETS":                         {0: GeoSet},
-                     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
-                     "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
-                     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
-                     "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
-                                                             2: WorldLightv2,
-                                                             3: WorldLightv3}})
+LUMP_CLASSES.update({
+    "CM_GEO_SETS":                         {0: GeoSet},
+    "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
+    "LIGHTPROBE_BSP_NODES":                {0: LightProbeBSPNode},
+    "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
+    "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
+    "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
+                                            2: WorldLightv2,
+                                            3: WorldLightv3}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
