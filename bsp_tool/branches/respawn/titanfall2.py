@@ -283,22 +283,72 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
 
 
 class WorldLightv2(base.Struct):  # LUMP 54 (0036)
-    origin: vector.vec3
-    __slots__ = ["origin", "unknown"]
-    _format = "3f24I"  # 108 bytes
-    _arrays = {"origin": [*"xyz"], "unknown": 24}
-    _classes = {"origin": vector.vec3}
+    origin: vector.vec3  # origin point of this light source
+    intensity: vector.vec3  # brightness scalar?
+    normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    shadow_offset: vector.vec3  # new in titanfall
+    viscluster: int  # unused
+    type: source.EmitType
+    style: int  # lighting style (Face style index?)
+    # see base.fgd:
+    stop_dot: float  # spotlight penumbra start
+    stop_dot2: float  # spotlight penumbra end
+    exponent: float
+    radius: float
+    # falloff for EmitType.SPOTLIGHT & EmitType.POINT:
+    # 1 / (constant_attn + linear_attn * dist + quadratic_attn * dist**2)
+    # attenuations:
+    constant: float
+    linear: float
+    quadratic: float
+    flags: source.WorldLightFlags
+    texture_data: int  # index of TextureData
+    parent: int  # parent entity ID
+    unknown_1: int  # default 0
+    unknown_2: float  # default 0.005
+    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
+                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+                 "constant", "linear", "quadratic",  # attenuation
+                 "flags", "texture_data", "parent", "unknown_1", "unknown_2"]
+    _format = "12f3i7f4if"  # 108 bytes
+    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
 
 
 class WorldLightv3(base.Struct):  # LUMP 54 (0036)
-    origin: vector.vec3
-    unknown: List[int]
-    # BobTheBob checked out the v1 -> v3 converter
-    # -- it appends (0, 0x3BA3D70A, 0x3F800000) to the tail
-    __slots__ = ["origin", "unknown"]
-    _format = "3f25I"  # 112 bytes
-    _arrays = {"origin": [*"xyz"], "unknown": 25}
-    _classes = {"origin": vector.vec3}
+    origin: vector.vec3  # origin point of this light source
+    intensity: vector.vec3  # brightness scalar?
+    normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    shadow_offset: vector.vec3  # new in titanfall
+    viscluster: int  # unused
+    type: source.EmitType
+    style: int  # lighting style (Face style index?)
+    # see base.fgd:
+    stop_dot: float  # spotlight penumbra start
+    stop_dot2: float  # spotlight penumbra end
+    exponent: float
+    radius: float
+    # falloff for EmitType.SPOTLIGHT & EmitType.POINT:
+    # 1 / (constant_attn + linear_attn * dist + quadratic_attn * dist**2)
+    # attenuations:
+    constant: float
+    linear: float
+    quadratic: float
+    flags: source.WorldLightFlags
+    texture_data: int  # index of TextureData
+    parent: int  # parent entity ID
+    unknown_1: int  # default 0
+    unknown_2: float  # default 0.005
+    unknown_3: float  # default 1.0
+    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
+                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+                 "constant", "linear", "quadratic",  # attenuation
+                 "flags", "texture_data", "parent", "unknown_1", "unknown_2", "unknown_3"]
+    _format = "12f3i7f4i2f"  # 112 bytes
+    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
+    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
 
 
 class ShadowEnvironment(base.Struct):

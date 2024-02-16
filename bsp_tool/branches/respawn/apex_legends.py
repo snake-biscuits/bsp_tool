@@ -638,14 +638,15 @@ LUMP_CLASSES.update({
     "SHADOW_MESHES":       {0: ShadowMesh},
     "SURFACE_PROPERTIES":  {0: SurfaceProperty},
     "TEXTURE_DATA":        {0: TextureData},
-    "WATER_BODY_CENTERS":  {0: WaterBodyVertex},
     "VERTEX_BLINN_PHONG":  {0: VertexBlinnPhong},
     "VERTEX_LIT_BUMP":     {0: VertexLitBump},
     "VERTEX_LIT_FLAT":     {0: VertexLitFlat},
     "VERTEX_UNLIT":        {0: VertexUnlit},
     "VERTEX_UNLIT_TS":     {0: VertexUnlitTS},
     "WATER_BODIES":        {0: WaterBody},
-    "WATER_BODY_VERTICES": {0: WaterBodyVertex}})
+    "WATER_BODY_CENTERS":  {0: WaterBodyVertex},
+    "WATER_BODY_VERTICES": {0: WaterBodyVertex},
+    "WORLD_LIGHTS":        {0: titanfall2.WorldLightv3}})
 
 
 SPECIAL_LUMP_CLASSES = titanfall2.SPECIAL_LUMP_CLASSES.copy()

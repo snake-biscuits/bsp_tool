@@ -831,8 +831,8 @@ class WorldLight(source.WorldLight):  # LUMP 54 (0036)
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
-    shadow_cast_offset: vector.vec3  # new in titanfall
-    unused: int  # formerly viscluster index?
+    shadow_offset: vector.vec3  # new in titanfall
+    viscluster: int  # unused
     type: source.EmitType
     style: int  # lighting style (Face style index?)
     # see base.fgd:
@@ -848,15 +848,15 @@ class WorldLight(source.WorldLight):  # LUMP 54 (0036)
     quadratic: float
     flags: source.WorldLightFlags
     texture_data: int  # index of TextureData
-    owner: int  # parent entity ID
-    __slots__ = ["origin", "intensity", "normal", "shadow_cast_offset", "unused",
+    parent: int  # parent entity ID
+    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
                  "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
-                 "flags", "texture_data", "owner"]
+                 "flags", "texture_data", "parent"]
     _format = "12f3i7f3i"  # 100 bytes
-    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_cast_offset": [*"xyz"]}
+    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
     _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
-                "shadow_cast_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
+                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
 
 
 # special vertices

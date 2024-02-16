@@ -738,8 +738,8 @@ class WorldLight(base.Struct):  # LUMP 15
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
-    cluster: int  # viscluster (leaf group)
-    emit_type: EmitType
+    viscluster: int  # index of Leaf / PVS group
+    type: EmitType
     style: int  # lighting style (Face style index?)
     # see base.fgd:
     stop_dot: float  # spotlight penumbra start
@@ -754,15 +754,15 @@ class WorldLight(base.Struct):  # LUMP 15
     quadratic: float
     flags: WorldLightFlags
     texture_info: int  # index of TextureInfo
-    owner: int  # parent entity ID
-    __slots__ = ["origin", "intensity", "normal", "cluster", "emit_type", "style",
+    parent: int  # parent entity ID
+    __slots__ = ["origin", "intensity", "normal", "viscluster", "type", "style",
                  "stop_dot", "stop_dot2", "exponent", "radius",
                  "constant", "linear", "quadratic",  # attenuation
-                 "flags", "texture_info", "owner"]
+                 "flags", "texture_info", "parent"]
     _format = "9f3i7f3i"
     _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"]}
     _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
-                "emit_type": EmitType, "flags": WorldLightFlags}
+                "type": EmitType, "flags": WorldLightFlags}
 
 
 # special lump classes, in alphabetical order:
