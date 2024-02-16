@@ -32,8 +32,8 @@
 | 0 | 19 | `TEXTURES` | [`ritual.fakk2.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L96) | 100% |
 | 0 | 21 | `TEXTURES` | [`ritual.mohaa_demo.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L125) | 100% |
 | 0 | 46 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
-| 1 | 1 | `TEXTURES` |  | 0% |
 | 1 | 1 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L321) | 100% |
+| 1 | 1 | `TEXTURES` |  | 0% |
 | 1 | 12 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L312) | 100% |
 | 1 | 46 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L321) | 100% |
 | 2 | 1 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L312) | 100% |
@@ -42,8 +42,6 @@
 | 3 | 1 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
 | 3 | 12 | `FACES` | [`ritual.fakk2.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L66) | 100% |
 | 3 | 19 | `BASE_LIGHTMAPS` |  | 0% |
-| 3 | 19 | `FACES` | [`ritual.fakk2.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L66) | 100% |
-| 3 | 20 | `BASE_LIGHTMAPS` |  | 0% |
 | 3 | 21 | `FACES` | [`ritual.fakk2.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/fakk2.py#L66) | 100% |
 | 3 | 46 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
 | 4 | 1 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L242) | 100% |
@@ -58,6 +56,8 @@
 | 5 | 21 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 6 | 1 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 6 | 19 | `VERTICES` | [`ritual.star_trek_elite_force2_demo.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2_demo.py#L136) | 100% |
+| 6 | 19 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
+| 6 | 20 | `VERTICES` | [`ritual.star_trek_elite_force2_demo.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/star_trek_elite_force2_demo.py#L136) | 100% |
 | 6 | 21 | `LEAF_BRUSHES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 7 | 1 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L283) | 100% |
 | 7 | 12 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
@@ -72,8 +72,6 @@
 | 9 | 1 | `BRUSH_SIDES` | [`id_software.qfusion.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L92) | 100% |
 | 9 | 12 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
 | 9 | 19 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
-| 9 | 19 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
-| 9 | 20 | `LEAF_FACES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 9 | 21 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
 | 9 | 46 | `BRUSH_SIDES` | [`id_software.quake3.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L186) | 100% |
 | 10 | 1 | `VERTICES` |  | 0% |
@@ -83,11 +81,13 @@
 | 10 | 19 | `LEAVES` | [`id_software.quake3.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L242) | 100% |
 | 10 | 21 | `SIDE_EQUATIONS` |  | 0% |
 | 10 | 46 | `VERTICES` | [`id_software.quake3.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L330) | 100% |
-| 11 | 1 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 11 | 1 | `INDICES` | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
+| 11 | 1 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 11 | 12 | `BRUSHES` |  | 0% |
 | 11 | 18 | `BRUSH_SIDES` | [`ritual.mohaa_demo.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L96) | 100% |
 | 11 | 19 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
+| 11 | 19 | `BRUSH_SIDES` | [`ritual.mohaa_demo.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L96) | 100% |
+| 11 | 20 | `NODES` | [`id_software.quake3.Node`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L297) | 100% |
 | 11 | 21 | `BRUSH_SIDES` | [`ritual.mohaa_demo.BrushSide`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L96) | 100% |
 | 11 | 46 | `INDICES` | [`shared.Ints`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L11) | 100% |
 | 12 | 1 | `EFFECTS` | [`id_software.quake3.Effect`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L193) | 100% |
@@ -99,21 +99,18 @@
 | 13 | 1 | `FACES` | [`id_software.qfusion.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L100) | 100% |
 | 13 | 12 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L283) | 100% |
 | 13 | 19 | `BRUSHES` |  | 0% |
-| 13 | 19 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L283) | 100% |
-| 13 | 20 | `BRUSHES` |  | 0% |
 | 13 | 21 | `MODELS` | [`id_software.quake3.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L283) | 100% |
 | 13 | 46 | `FACES` | [`id_software.quake3.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L201) | 100% |
 | 14 | 1 | `LIGHTMAPS` | [`id_software.quake3.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L259) | 100% |
 | 14 | 1 | `LIGHTMAPS` | [`id_software.qfusion.Lightmap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L151) | 100% |
 | 14 | 12 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
 | 14 | 18 | `UNKNOWN_14` | [`ritual.mohaa_demo.Unknown14`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ritual/mohaa_demo.py#L136) | 100% |
-| 14 | 19 | `EFFECTS` |  | 0% |
 | 14 | 19 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
-| 14 | 20 | `EFFECTS` |  | 0% |
+| 14 | 19 | `EFFECTS` |  | 0% |
 | 14 | 21 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
 | 14 | 46 | `LIGHTMAPS` | [`extensions.lightmaps.tiled`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/quake3.py#L11) | 100% |
-| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 1 | `LIGHT_GRID` | [`id_software.qfusion.GridLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/qfusion.py#L135) | 100% |
+| 15 | 1 | `LIGHT_GRID` |  | 0% |
 | 15 | 12 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L346) | 100% |
 | 15 | 18 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
 | 15 | 19 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L346) | 100% |
@@ -123,8 +120,6 @@
 | 16 | 1 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L346) | 100% |
 | 16 | 12 | `LIGHT_GRID` |  | 0% |
 | 16 | 19 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
-| 16 | 19 | `LIGHT_GRID_PALETTE` |  | 0% |
-| 16 | 20 | `ENTITIES` | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
 | 16 | 21 | `LIGHT_GRID_PALETTE` |  | 0% |
 | 16 | 46 | `VISIBILITY` | [`id_software.quake3.Visibility`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L346) | 100% |
 | 17 | 1 | `LIGHT_ARRAY` |  | 0% |

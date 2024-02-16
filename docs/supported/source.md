@@ -150,8 +150,8 @@
 | 35 | 21 | `GAME_LUMP.sprp` | 9 | [`valve.left4dead2.GameLump_SPRPv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L146) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 9 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 9 | [`valve.left4dead2.StaticPropv9`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/left4dead2.py#L116) | 100% |
-| 35 | 21 | `GAME_LUMP.sprp` | 10 |  | 0% |
 | 35 | 21 | `GAME_LUMP.sprp` | 10 | [`valve.sdk_2013.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L131) | 100% |
+| 35 | 21 | `GAME_LUMP.sprp` | 10 |  | 0% |
 | 35 | 21 | `GAME_LUMP.sprp.props` | 10 | [`valve.sdk_2013.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L100) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp` | 11 | [`valve.sdk_2013.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/sdk_2013.py#L167) | 100% |
 | 35 | 21 | `GAME_LUMP.sprp.leaves` | 11 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
@@ -182,7 +182,7 @@
 | 52 | 25 | `LEAF_AMBIENT_INDEX` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L269) | 100% |
 | 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 53 | 20 | `LIGHTING_HDR` | 0 |  | 0% |
-| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
+| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 53 | 22 | `LIGHTING_HDR` | 0 |  | 0% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L737) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
