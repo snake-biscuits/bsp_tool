@@ -5,8 +5,8 @@
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
 | [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 29 | Titanfall | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 67 / 72 | 56 | 92.36% |
 | [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 29 | Titanfall: Online | [`respawn.titanfall`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py) | 67 / 72 | 56 | 92.36% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 36 | Titanfall 2 Tech Test | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 68 / 76 | 52 | 87.27% |
-| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 68 / 76 | 52 | 87.27% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 36 | Titanfall 2 Tech Test | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 69 / 76 | 52 | 88.91% |
+| [`RespawnBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/respawn.py#L165) | 37 | Titanfall 2 | [`respawn.titanfall2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py) | 69 / 76 | 52 | 88.91% |
 
 
 ### References
@@ -55,9 +55,9 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 4 | 0004 | 29 | `UNUSED_4` | 0 |  | 0% |
 | 4 | 0004 | 37 | `LIGHTPROBE_PARENT_INFOS` | 0 |  | 0% |
 | 5 | 0005 | 29 | `UNUSED_5` | 0 |  | 0% |
-| 5 | 0005 | 37 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L287) | 100% |
+| 5 | 0005 | 37 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L354) | 100% |
 | 6 | 0006 | 29 | `UNUSED_6` | 0 |  | 0% |
-| 6 | 0006 | 37 | `LIGHTPROBE_BSP_NODES` | 0 |  | 0% |
+| 6 | 0006 | 37 | `LIGHTPROBE_BSP_NODES` | 0 | [`respawn.titanfall2.LightProbeBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L264) | 100% |
 | 7 | 0007 | 29 | `UNUSED_7` | 0 |  | 0% |
 | 7 | 0007 | 37 | `LIGHTPROBE_BSP_REF_IDS` | 0 |  | 0% |
 | 8 | 0008 | 29 | `UNUSED_8` | 0 |  | 0% |
@@ -91,8 +91,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 35 | 0023 | 29 | `GAME_LUMP.sprp` | 12 | [`respawn.titanfall.GameLump_SPRPv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L991) | 60% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.leaves` | 12 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.props` | 12 | [`respawn.titanfall.StaticPropv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L957) | 94% |
-| 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRPv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L335) | 40% |
-| 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L306) | 92% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRPv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L402) | 40% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L373) | 92% |
 | 35 | 0023 | 37 | `GAME_LUMP.sprp.unknown_3` | 13 |  | 0% |
 | 36 | 0024 | 29 | `LEAF_WATER_DATA` | 1 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L606) | 100% |
 | 37 | 0025 | 29 | `UNUSED_37` | 0 |  | 0% |
@@ -113,8 +113,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 52 | 0034 | 29 | `UNUSED_52` | 0 |  | 0% |
 | 53 | 0035 | 29 | `UNUSED_53` | 0 |  | 0% |
 | 54 | 0036 | 29 | `WORLD_LIGHTS` | 1 | [`respawn.titanfall.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L829) | 100% |
-| 54 | 0036 | 37 | `WORLD_LIGHTS` | 2 | [`respawn.titanfall2.WorldLightv2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L270) | 50% |
-| 54 | 0036 | 37 | `WORLD_LIGHTS` | 3 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L277) | 50% |
+| 54 | 0036 | 37 | `WORLD_LIGHTS` | 2 | [`respawn.titanfall2.WorldLightv2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L285) | 89% |
+| 54 | 0036 | 37 | `WORLD_LIGHTS` | 3 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L319) | 85% |
 | 55 | 0037 | 29 | `UNUSED_55` | 0 |  | 0% |
 | 55 | 0037 | 37 | `WORLD_LIGHT_PARENT_INFOS` | 0 |  | 0% |
 | 56 | 0038 | 29 | `UNUSED_56` | 0 |  | 0% |
@@ -149,7 +149,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 85 | 0055 | 29 | `CM_GRID` | 0 | [`respawn.titanfall.Grid`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L508) | 100% |
 | 86 | 0056 | 29 | `CM_GRID_CELLS` | 0 | [`respawn.titanfall.GridCell`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L526) | 100% |
 | 87 | 0057 | 29 | `CM_GEO_SETS` | 0 | [`respawn.titanfall.GeoSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L493) | 100% |
-| 87 | 0057 | 37 | `CM_GEO_SETS` | 0 | [`respawn.titanfall2.GeoSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L242) | 50% |
+| 87 | 0057 | 37 | `CM_GEO_SETS` | 0 | [`respawn.titanfall2.GeoSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L245) | 50% |
 | 88 | 0058 | 29 | `CM_GEO_SET_BOUNDS` | 0 | [`respawn.titanfall.Bounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L391) | 100% |
 | 89 | 0059 | 29 | `CM_PRIMITIVES` | 0 | [`respawn.titanfall.Primitive`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L720) | 100% |
 | 90 | 005A | 29 | `CM_PRIMITIVE_BOUNDS` | 0 | [`respawn.titanfall.Bounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L391) | 100% |
@@ -168,7 +168,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 102 | 0066 | 29 | `STATIC_PROP_LIGHTPROBE_INDICES` | 0 |  | 0% |
 | 103 | 0067 | 29 | `LIGHTPROBE_TREE` | 0 | [`respawn.titanfall.LightProbeTree`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L590) | 100% |
 | 104 | 0068 | 29 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L580) | 100% |
-| 104 | 0068 | 37 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall2.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L261) | 66% |
+| 104 | 0068 | 37 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall2.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L275) | 66% |
 | 105 | 0069 | 29 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.tiled_or_split`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/titanfall.py#L8) | 100% |
 | 105 | 0069 | 37 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.tiled_or_split`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/titanfall2.py#L12) | 100% |
 | 106 | 006A | 29 | `CELL_BSP_NODES` | 0 | [`respawn.titanfall.CellBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L460) | 100% |

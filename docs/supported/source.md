@@ -66,7 +66,7 @@
 | 7 | 25 | `FACES` | 2 | [`strata.strata.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L205) | 100% |
 | 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 8 | 20 | `LIGHTING` | 0 |  | 0% |
-| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
+| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 8 | 22 | `LIGHTING` | 0 |  | 0% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
@@ -139,8 +139,8 @@
 | 35 | 20 | `GAME_LUMP.sprp` | ? |  | 0% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`utoplanet.merubasu.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L135) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L159) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`utoplanet.merubasu.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L101) | 75% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L159) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 10 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 10 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
