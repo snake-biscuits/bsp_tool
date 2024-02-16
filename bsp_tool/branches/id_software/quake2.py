@@ -50,7 +50,7 @@ class LUMP(enum.Enum):
 LumpHeader = quake.LumpHeader
 
 
-# known lump changes from Quake 2 -> Quake 3:
+# known lump changes from Quake -> Quake 2:
 # new:
 #   LEAF_BRUSHES
 #   BRUSHES
@@ -237,7 +237,7 @@ class TextureInfo(base.Struct):  # LUMP 5
     name: bytes  # texture name
     next_frame: int  # index into TextureInfo lump for animations (-1 = last frame)
     __slots__ = ["s", "t", "flags", "value", "name", "next_frame"]
-    _format = "8f2I32sI"
+    _format = "8f2I32si"
     _arrays = {
         "s": {"axis": [*"xyz"], "offset": None},
         "t": {"axis": [*"xyz"], "offset": None}}
