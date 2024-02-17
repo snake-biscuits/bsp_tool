@@ -195,14 +195,6 @@ class PatchCollision(base.Struct):  # LUMP 24
     _arrays = {"unknown": 16}
 
 
-class Plane(base.Struct):  # LUMP 2
-    normal: List[float]
-    distance: float
-    __slots__ = ["normal", "distance"]
-    _format = "4f"
-    _arrays = {"normal": [*"xyz"]}
-
-
 class Portal(base.Struct):  # LUMP 18
     unknown: List[int]
     __slots__ = ["unknown"]
@@ -256,7 +248,7 @@ LUMP_CLASSES = {
                 # "OCCLUDERS":          Occluder,
                 "OCCLUDER_EDGES":     quake.Edge,
                 # "PATCH_COLLISION":    PatchCollision,
-                "PLANES":             Plane,
+                "PLANES":             quake3.Plane,
                 "PORTALS":            Portal,
                 "TEXTURES":           quake3.Texture,
                 "TRIANGLE_SOUPS":     TriangleSoup}

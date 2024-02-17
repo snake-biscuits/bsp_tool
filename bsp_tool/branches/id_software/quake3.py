@@ -310,7 +310,7 @@ class Node(base.Struct):  # LUMP 3
 
 
 class Plane(base.Struct):  # LUMP 2
-    normal: List[float]
+    normal: vector.vec3
     distance: float
     __slots__ = ["normal", "distance"]
     _format = "4f"

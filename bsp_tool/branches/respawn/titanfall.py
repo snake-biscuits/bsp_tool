@@ -15,6 +15,7 @@ from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import quake
+from ..id_software import quake3
 # from ..valve import physics
 from ..valve import sdk_2013
 from ..valve import source
@@ -674,15 +675,6 @@ class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Plane(base.Struct):  # LUMP 1 (0001)
-    normal: List[float]  # normal unit vector
-    distance: float
-    __slots__ = ["normal", "distance"]
-    _format = "4f"
-    _arrays = {"normal": [*"xyz"]}
-    _classes = {"normal": vector.vec3}
-
-
 class Portal(base.MappedArray):  # LUMP 108 (006C)
     """Identified by rexx#1287"""
     is_reversed: int  # bool?
@@ -1079,7 +1071,7 @@ LUMP_CLASSES = {
     "MODELS":                            {0: Model},
     "OBJ_REFERENCE_BOUNDS":              {0: ObjRefBounds},
     "OCCLUSION_MESH_VERTICES":           {0: quake.Vertex},
-    "PLANES":                            {1: Plane},
+    "PLANES":                            {1: quake3.Plane},
     "PORTALS":                           {0: Portal},
     "PORTAL_EDGES":                      {0: quake.Edge},
     "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalIndexSet},

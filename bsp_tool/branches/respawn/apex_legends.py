@@ -6,6 +6,7 @@ from ...utils import vector
 from .. import base
 from .. import colour
 from .. import shared
+from ..id_software import quake3
 from ..valve import source
 from . import titanfall
 from . import titanfall2
@@ -634,7 +635,7 @@ LUMP_CLASSES.update({
     "MESHES":              {0: Mesh},
     "MODELS":              {0: Model},
     "PACKED_VERTICES":     {0: PackedVertex},
-    "PLANES":              {0: titanfall.Plane},
+    "PLANES":              {0: quake3.Plane},
     "SHADOW_MESHES":       {0: ShadowMesh},
     "SURFACE_PROPERTIES":  {0: SurfaceProperty},
     "TEXTURE_DATA":        {0: TextureData},
