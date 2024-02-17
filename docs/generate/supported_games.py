@@ -8,10 +8,16 @@ from typing import Dict, List
 
 # HACK: load ../../bsp_tool from docs/generate/
 sys.path.insert(0, "../../")
+# BspClasses
+from bsp_tool import (  # noqa: E402
+    D3DBsp, FusionBsp, GoldSrcBsp, Genesis3DBsp, IdTechBsp, InfinityWardBsp,
+    RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp, Quake64Bsp)
+# branches
 from bsp_tool import branches  # noqa: E402
-from bsp_tool import D3DBsp, FusionBsp, GoldSrcBsp, IdTechBsp, InfinityWardBsp  # noqa: E402
-from bsp_tool import RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp  # noqa: E402
-from bsp_tool import QuakeBsp, Quake64Bsp  # noqa: E402
+from bsp_tool.branches import (  # noqa: E402
+    ace_team, arkane, gearbox, id_software, infinity_ward, ion_storm, loiste, nexon,
+    outerlight, raven, respawn, ritual, strata, troika, utoplanet, valve, wild_tangent)
+# other
 from bsp_tool.extensions import lightmaps  # noqa: E402
 from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 
@@ -29,11 +35,17 @@ from bsp_tool.lumps import DarkMessiahSPGameLump, GameLump  # noqa: E402
 repo_url = "https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool"
 branches_url = f"{repo_url}/branches/"
 
+# TODO: rethink inserts
+# -- order could be more dynamic
+# --- merging multiple .md files together
+# -- lump relationship maps from branch_script comments (requires much parsing & standardising)
+# --- html <svg/> Entity Relationship Diagrams w/ LumpClasses (mermaid graphs?)
+# listing new & deprecated lumps across version
+# -- currently manually generated, could be automated
+# timeline / engine map as a navigation pane through the documentation
+
 # Each group gets a .md; lots of formats pretty close, so sharing a table isn't a big deal
 ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "insert", "branch_scripts"])
-source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
-                  branches.valve.left4dead, branches.valve.left4dead2,
-                  *[bs for bs in branches.valve.scripts if bs.__name__.endswith("_x360")])
 # NOTE: table row sorting isn't 100% deterministic for some reason
 # TODO: table sorting doesn't remove duplicates when multiple lump versions are used
 # TODO: some groups list overlapping identifiers with different LumpClasses
@@ -102,7 +114,7 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # | ValveBsp        | valve.sdk_2013_x360                |  N  |
 # | ValveBsp        | valve.source                       |  Y  |
 # | ValveBsp        | valve.source_filmmaker             |  Y  |
-# | Genesis3DBsp    | wild_tangent.genesis3d             |  N  |
+# | Genesis3DBsp    | wild_tangent.genesis3d             |  Y  |
 
 # TODO: more prefaces (insert .md)
 # NOTE: conflicts:
@@ -112,84 +124,84 @@ source_exclude = (branches.valve.goldsrc, branches.valve.alien_swarm,
 # -- qfusion & soldier_of_fortune2
 # -- quake & hexen2
 # -- remake_quake & remake_quake_old
-groups = [ScriptGroup("Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
-                      {RespawnBsp: [branches.respawn.titanfall,
-                                    branches.respawn.titanfall2]}),
-          ScriptGroup("Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
-                      {RespawnBsp: [branches.respawn.apex_legends,
-                                    branches.respawn.apex_legends50,
-                                    branches.respawn.apex_legends51]}),
-          ScriptGroup("Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
-                      {GoldSrcBsp: [branches.valve.goldsrc,
-                                    branches.gearbox.blue_shift,
-                                    branches.gearbox.nightfire]}),
-          ScriptGroup("Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
-                      {ValveBsp: [*[bs for bs in branches.valve.scripts if (bs not in source_exclude)],
-                                  branches.ace_team.zeno_clash,
-                                  branches.loiste.infra,
-                                  branches.outerlight.outerlight,
-                                  branches.strata.strata,
-                                  branches.troika.vampire,
-                                  branches.utoplanet.merubasu]}),
-          ScriptGroup("Alien Swarm", "swarm.md", "Valve Software", "source.md",
-                      {ValveBsp: [branches.valve.alien_swarm]}),
-          ScriptGroup("Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
-                      {ValveBsp: [branches.arkane.dark_messiah_sp]}),
-          ScriptGroup("Dark Messiah MP", "dark_messiah_mp.md", "Arkane Studios", "source.md",
-                      {ValveBsp: [branches.arkane.dark_messiah_mp]}),
-          ScriptGroup("NEXON Source", "nexon.md", "NEXON", "source.md",
-                      {ValveBsp: branches.nexon.scripts}),
-          ScriptGroup("Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
-                      {ValveBsp: [branches.valve.left4dead,
-                                  branches.valve.left4dead2]}),
-          # TODO: present BSP2 / 2PSB / Q64 (FILE_MAGIC only; no BSP_VERSION) better
-          ScriptGroup("Quake Engine", "quake.md", "Id Software", None,
-                      {QuakeBsp: [branches.id_software.quake,
-                                  branches.raven.hexen2],
-                       Quake64Bsp: [branches.id_software.quake64],
-                       ReMakeQuakeBsp: [branches.id_software.remake_quake,
-                                        branches.id_software.remake_quake_old]}),
-          ScriptGroup("Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
-                      {IdTechBsp: [branches.id_software.quake2,
-                                   branches.ion_storm.daikatana,
-                                   branches.raven.soldier_of_fortune,
-                                   branches.ritual.sin]}),
-          ScriptGroup("Quake III Engine", "quake3.md", "Id Software", None,
-                      {FusionBsp: [branches.id_software.qfusion],
-                       IdTechBsp: [branches.id_software.quake3],
-                       RavenBsp: [branches.raven.soldier_of_fortune2],
-                       RitualBsp: [bs for bs in branches.ritual.scripts if (bs is not branches.ritual.sin)]}),
-          ScriptGroup("Call of Duty", "cod.md", "Infinity Ward", None,
-                      {IdTechBsp: [branches.infinity_ward.call_of_duty1_demo,
-                                   branches.infinity_ward.call_of_duty1],
-                       InfinityWardBsp: [branches.infinity_ward.call_of_duty2]}),
-          ScriptGroup("Call of Duty: Modern Warfare", "cod_mw.md", "Infinity Ward", None,
-                      {D3DBsp: [branches.infinity_ward.modern_warfare]})]
-del source_exclude
+valve_exclude = (
+    valve.goldsrc, valve.alien_swarm, valve.left4dead, valve.left4dead2,
+    *[bs for bs in valve.scripts if bs.__name__.endswith("_x360")])
+groups = [
+    ScriptGroup(
+        "Titanfall Series", "titanfall.md", "Respawn Entertainment & NEXON", "respawn.md",
+        {RespawnBsp: [respawn.titanfall, respawn.titanfall2]}),
+    ScriptGroup(
+        "Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
+        {RespawnBsp: [respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51]}),
+    ScriptGroup(
+        "Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
+        {GoldSrcBsp: [valve.goldsrc, gearbox.blue_shift, gearbox.nightfire]}),
+    ScriptGroup(
+        "Source Engine", "source.md", "Valve Software, Troika Games", "source.md",
+        {ValveBsp: [
+            *[bs for bs in valve.scripts if (bs not in valve_exclude)],
+            ace_team.zeno_clash, loiste.infra,
+            outerlight.outerlight, strata.strata,
+            troika.vampire, utoplanet.merubasu]}),
+    ScriptGroup(
+        "Alien Swarm", "swarm.md", "Valve Software", "source.md",
+        {ValveBsp: [valve.alien_swarm]}),
+    ScriptGroup(
+        "Dark Messiah SP", "dark_messiah_sp.md", "Arkane Studios", "darkmessiah_sp.md",
+        {ValveBsp: [arkane.dark_messiah_sp]}),
+    ScriptGroup(
+        "Dark Messiah MP", "dark_messiah_mp.md", "Arkane Studios", "source.md",
+        {ValveBsp: [arkane.dark_messiah_mp]}),
+    ScriptGroup(
+        "NEXON Source", "nexon.md", "NEXON", "source.md",
+        {ValveBsp: nexon.scripts}),
+    ScriptGroup(
+        "Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
+        {ValveBsp: [valve.left4dead, valve.left4dead2]}),
+    # TODO: present BSP2 / 2PSB / Q64 (FILE_MAGIC only; no BSP_VERSION) better
+    ScriptGroup(
+        "Quake Engine", "quake.md", "Id Software", None,
+        {QuakeBsp: [id_software.quake, raven.hexen2],
+         Quake64Bsp: [id_software.quake64],
+         ReMakeQuakeBsp: [id_software.remake_quake, id_software.remake_quake_old]}),
+    ScriptGroup(
+        "Quake II Engine", "quake2.md", "Id Software, Ion Storm", None,
+        {IdTechBsp: [
+            id_software.quake2, ion_storm.daikatana,
+            raven.soldier_of_fortune, ritual.sin]}),
+    ScriptGroup(
+        "Quake III Engine", "quake3.md", "Id Software", None,
+        {FusionBsp: [id_software.qfusion],
+         IdTechBsp: [id_software.quake3],
+         RavenBsp: [raven.soldier_of_fortune2],
+         RitualBsp: [bs for bs in ritual.scripts if (bs is not ritual.sin)]}),
+    ScriptGroup(
+        "Call of Duty", "cod.md", "Infinity Ward", None,
+        {IdTechBsp: [infinity_ward.call_of_duty1_demo, infinity_ward.call_of_duty1],
+         InfinityWardBsp: [infinity_ward.call_of_duty2]}),
+    ScriptGroup(
+        "Call of Duty: Modern Warfare", "cod_mw.md", "Infinity Ward", None,
+        {D3DBsp: [infinity_ward.modern_warfare]}),
+    ScriptGroup(
+        "Genesis 3D", "genesis3d.md", "Wild Tangent", None,
+        {Genesis3DBsp: [wild_tangent.genesis3d]})]
+del valve_exclude
 
 out_path = "../supported"
 inserts_path = "inserts"
-# TODO: rethink inserts
-# -- order could be more dynamic
-# --- merging multiple .md files together
-# -- lump relationship maps from branch_script comments (requires much parsing & standardising)
-# --- html <svg/> Entity Relationship Diagrams w/ LumpClasses (mermaid graphs?)
-# listing new & deprecated lumps across version
-# -- currently manually generated, could be automated
-# timeline / engine map as a navigation pane through the documentation
-
 
 # NOTE: GAME_LUMP coverage is hardcoded later
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
 SpecialLumpClass_confidence.update({
-    branches.id_software.quake3.Visibility: 100,
-    branches.respawn.apex_legends.LevelInfo: 75,
-    branches.respawn.titanfall.EntityPartitions: 100,
-    branches.respawn.titanfall.Grid: 100,
-    branches.respawn.titanfall.LevelInfo: 100,
+    id_software.quake3.Visibility: 100,
+    respawn.apex_legends.LevelInfo: 75,
+    respawn.titanfall.EntityPartitions: 100,
+    respawn.titanfall.Grid: 100,
+    respawn.titanfall.LevelInfo: 100,
     branches.shared.Entities: 100,
-    branches.valve.source.PakFile: 100,
-    branches.valve.source.TextureDataStringData: 100})
+    valve.source.PakFile: 100,
+    valve.source.TextureDataStringData: 100})
 
 
 def LumpClasses_of(branch_script: ModuleType) -> Dict[str, object]:
@@ -214,6 +226,7 @@ def url_of_BspClass(BspClass: object) -> str:
     return lumpclass_url
 
 
+# TODO: quake_based branches never have unused lumps
 def games_table(group: ScriptGroup, coverage: CoverageMap) -> List[str]:
     """branch_script.GAME_VERSIONS -> game_table"""
     lines = ["| BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |\n",
@@ -299,26 +312,14 @@ TableRow = namedtuple("TableRow", ["i", "bsp_version", "lump_name", "lump_versio
 gamelump_mappings = dict()
 # ^ {"sub_lump": SpecialLumpClass, "sub_lump.child": {version: LumpClass}}
 # NOTE: `None` mappings are used for structs that exist, but are not yet mapped
-bs = (branches.ace_team.zeno_clash,
-      branches.arkane.dark_messiah_mp, branches.arkane.dark_messiah_sp,
-      branches.loiste.infra,
-      branches.nexon.cso2, branches.nexon.cso2_2018, branches.nexon.vindictus, branches.nexon.vindictus69,
-      branches.outerlight.outerlight,
-      branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51,
-      branches.respawn.titanfall, branches.respawn.titanfall2,
-      branches.strata.strata,
-      branches.troika.vampire,
-      branches.utoplanet.merubasu,
-      branches.valve.alien_swarm, branches.valve.left4dead, branches.valve.left4dead2,
-      branches.valve.orange_box, branches.valve.sdk_2013, branches.valve.source, branches.valve.source_filmmaker)
-
 # TODO: cso2 & cso2_2018
-unmapped_sprp = {branches.ace_team.zeno_clash: {7},
-                 branches.nexon.vindictus: {7},
-                 branches.outerlight.outerlight: {5, 6},
-                 branches.valve.source_filmmaker: {10}}
+unmapped_sprp = {
+    branches.ace_team.zeno_clash: {7},
+    branches.nexon.vindictus: {7},
+    branches.outerlight.outerlight: {5, 6},
+    branches.valve.source_filmmaker: {10}}
 
-for branch_script in bs:
+for branch_script in branches.source_based:
     d = {"sprp": {v: None for v in unmapped_sprp.get(branch_script, set())}}
     if branch_script.GAME_LUMP_CLASSES == dict():
         if len(d["sprp"]) < 0:
@@ -327,13 +328,18 @@ for branch_script in bs:
             gamelump_mappings[branch_script] = {"sprp": {"?": None}}
         continue
     d["sprp"].update(branch_script.GAME_LUMP_CLASSES["sprp"])
-    d.update({"sprp.props": {v: glc.StaticPropClass for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}})
-    leaves = {v: branches.shared.UnsignedShorts for v, glc in d["sprp"].items() if glc is not None and hasattr(glc(), "leaves")}
+    d.update({"sprp.props": {
+        v: glc.StaticPropClass
+        for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}})
+    leaves = {
+        v: branches.shared.UnsignedShorts
+        for v, glc in d["sprp"].items()
+        if glc is not None and hasattr(glc(), "leaves")}
     if len(leaves) != 0:
         d["sprp.leaves"] = leaves
     if branch_script in (branches.nexon.vindictus69, branches.nexon.vindictus):
         d["sprp.scales"] = {6: branches.nexon.vindictus69.StaticPropScale}
-    if branch_script in (branches.respawn.titanfall2, branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51):
+    if branch_script in {*branches.of_engine["Titanfall"]} - {branches.respawn.titanfall, branches.respawn.titanfall_x360}:
         d["sprp.unknown_3"] = {v: None for v in branch_script.GAME_LUMP_CLASSES["sprp"].keys()}
     # TODO: "dprp": None etc.
     gamelump_mappings[branch_script] = d
@@ -352,20 +358,20 @@ gamelump_coverage = dict()
 # TODO: gather all the classes defined above and calculate their % unknown automatically
 # -- split supported_md's coverage calculator into a function we can use
 # TODO: include GameLump coverage in overall branch coverage
-for branch_script in bs:
+for branch_script in branches.source_based:
     if branch_script.GAME_LUMP_CLASSES == dict():
         continue
     for GameLumpClass in branch_script.GAME_LUMP_CLASSES["sprp"].values():
         # TODO: use coverage calculator for StaticPropClass
         gamelump_coverage.update({GameLumpClass: 100, GameLumpClass.StaticPropClass: 100})
 del branch_script, GameLumpClass
-del bs
 
-gamelump_coverage.update({branches.utoplanet.merubasu.StaticPropv11: 75,
-                          branches.nexon.vindictus69.StaticPropScale: 100,
-                          branches.respawn.titanfall.GameLump_SPRPv12: 60, branches.respawn.titanfall.StaticPropv12: 94,
-                          branches.respawn.titanfall2.GameLump_SPRPv13: 40, branches.respawn.titanfall2.StaticPropv13: 92,
-                          branches.shared.UnsignedShorts: 100})
+gamelump_coverage.update({
+    utoplanet.merubasu.StaticPropv11: 75,
+    nexon.vindictus69.StaticPropScale: 100,
+    respawn.titanfall.GameLump_SPRPv12: 60, respawn.titanfall.StaticPropv12: 94,
+    respawn.titanfall2.GameLump_SPRPv13: 40, respawn.titanfall2.StaticPropv13: 92,
+    branches.shared.UnsignedShorts: 100})
 
 
 # TODO: get functioning to level of hand crafted block
