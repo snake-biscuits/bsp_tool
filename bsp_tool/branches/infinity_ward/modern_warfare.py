@@ -1,14 +1,11 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
 import enum
-import struct
 
-from ...utils import editor
-from ...utils import physics
-from ...utils import vector
 from .. import base
 from .. import shared
 from ..id_software import quake
 from ..id_software import quake3
+from . import call_of_duty1_demo
 from . import call_of_duty2
 
 
@@ -110,18 +107,6 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for lumps, in alphabetical order:
-class Brush(base.Struct):  # LUMP 0x08
-    num_sides: int
-    unknown: int
-    __slots__ = ["num_sides", "unknown"]
-    _format = "2H"
-
-
-class BrushSide(base.Struct):  # LUMP 0x05
-    distance: int  # axial: Plane distance (float), non-axial: Plane index (uint32_t)
-    texture: int  # index into Textures
-    __slots__ = ["plane", "texture"]
-    _format = "2I"
 
 
 # {"LUMP_NAME": LumpClass}
@@ -132,8 +117,8 @@ BASIC_LUMP_CLASSES = {
     "SIMPLE_INDICES":    shared.UnsignedShorts}
 
 LUMP_CLASSES = {
-    "BRUSHES":             Brush,
-    "BRUSH_SIDES":         BrushSide,
+    "BRUSHES":             call_of_duty1_demo.Brush,
+    "BRUSH_SIDES":         call_of_duty1_demo.BrushSide,
     "COLLISION_TRIANGLES": call_of_duty2.Triangle,
     "COLLISION_VERTICES":  quake.Vertex,
     "LAYERED_VERTICES":    call_of_duty2.Vertex,
@@ -144,27 +129,6 @@ LUMP_CLASSES = {
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
-def brush(bsp, brush_index) -> editor.Brush:
-    # NOTE: generates a generic TextureVector
-    first_side = sum(b.num_sides for b in bsp.BRUSHES[:brush_index])
-    brush = bsp.BRUSHES[brush_index]
-    assert brush.num_sides >= 6
-    sides = bsp.BRUSH_SIDES[first_side:first_side + brush.num_sides]
-
-    def int_as_float(x: int) -> float:
-        return struct.unpack("f", x.to_bytes(4, "little"))[0]
-
-    def texture_name(side: BrushSide) -> str:
-        return bsp.TEXTURES[side.texture].name.decode().split("\x00")[0]
-
-    out = list()  # axial: -X +X -Y +Y -Z +Z; non-axial: w/e
-    for (axis, sign), side in zip([(a, s) for a in "xyz" for s in (-1, 1)], sides[:6]):
-        plane = physics.Plane(vector.vec3(**{axis: sign}), int_as_float(side.plane) * sign)
-        out.append(editor.BrushSide(plane, texture_name(side)))
-    out.extend([editor.BrushSide(bsp.PLANES[side.plane], texture_name(side)) for side in sides[6:]])
-    return editor.Brush(out)
-
-
 # NOTE: no mins & maxs in worldspawn?
-methods = [brush]
+methods = [call_of_duty1_demo.brush]
 methods = {m.__name__: m for m in methods}

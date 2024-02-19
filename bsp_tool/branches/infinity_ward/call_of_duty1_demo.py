@@ -1,7 +1,10 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
 import enum
+import struct
 from typing import List
 
+from ...utils import editor
+from ...utils import physics
 from ...utils import vector
 from .. import base
 from .. import shared
@@ -94,10 +97,8 @@ class Brush(base.MappedArray):  # LUMP 6
 
 
 class BrushSide(base.Struct):  # LUMP 3
-    plane: int   # Plane this BrushSide lies on
-    # NOTE: in some cases the plane index is a distance instead (float)
-    # "first 6 entries indicated by an entry in lump 6 [brushes] are distances (float), rest is plane ID's"
-    texture: int  # Texture of this BrushSide
+    plane: int  # axial: Plane distance (float), non-axial: Plane index (uint32_t)
+    texture: int  # index into Textures
     __slots__ = ["plane", "texture"]
     _format = "2I"
 
@@ -234,7 +235,7 @@ BASIC_LUMP_CLASSES = {"COLLISION_INDICES":  shared.UnsignedShorts,
 
 LUMP_CLASSES = {
                 # "AABB_TREES":         AxisAlignedBoundingBox,
-                # "BRUSHES":            Brush,
+                "BRUSHES":            Brush,
                 "BRUSH_SIDES":        BrushSide,
                 # "CELLS":              Cell,
                 # "COLLISION_VERTICES": quake.Vertex,
@@ -256,5 +257,26 @@ LUMP_CLASSES = {
 SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
 
 
-methods = [quake.leaves_of_node, shared.worldspawn_volume]
+def brush(bsp, brush_index) -> editor.Brush:
+    # NOTE: generates a generic TextureVector
+    first_side = sum(b.num_sides for b in bsp.BRUSHES[:brush_index])
+    brush = bsp.BRUSHES[brush_index]
+    assert brush.num_sides >= 6
+    sides = bsp.BRUSH_SIDES[first_side:first_side + brush.num_sides]
+
+    def int_as_float(x: int) -> float:
+        return struct.unpack("f", x.to_bytes(4, "little"))[0]
+
+    def texture_name(side: BrushSide) -> str:
+        return bsp.TEXTURES[side.texture].name.decode().split("\x00")[0]
+
+    out = list()  # axial: -X +X -Y +Y -Z +Z; non-axial: w/e
+    for (axis, sign), side in zip([(a, s) for a in "xyz" for s in (-1, 1)], sides[:6]):
+        plane = physics.Plane(vector.vec3(**{axis: sign}), int_as_float(side.plane) * sign)
+        out.append(editor.BrushSide(plane, texture_name(side)))
+    out.extend([editor.BrushSide(bsp.PLANES[side.plane], texture_name(side)) for side in sides[6:]])
+    return editor.Brush(out)
+
+
+methods = [quake.leaves_of_node, shared.worldspawn_volume, brush]
 methods = {m.__name__: m for m in methods}

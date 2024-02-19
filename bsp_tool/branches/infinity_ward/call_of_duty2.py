@@ -9,6 +9,7 @@ from .. import base
 from .. import colour
 from ..id_software import quake
 from ..id_software import quake3
+from . import call_of_duty1_demo
 from . import call_of_duty1
 
 
@@ -127,8 +128,8 @@ class Surface(enum.IntFlag):
 # classes for lumps, in alphabetical order:
 class CollisionEdge(base.Struct):  # LUMP 30
     unknown: int  # an index?
-    position: List[float]
-    normal: List[List[float]]  # x3?
+    position: vector.vec3
+    normal: List[vector.vec3]  # x3?
     distance: float
     __slots__ = ["unknown", "position", "normal", "distance"]
     _format = "I13f"
@@ -137,7 +138,7 @@ class CollisionEdge(base.Struct):  # LUMP 30
 
 
 class CollisionTriangle(base.Struct):  # LUMP 31
-    normal: List[float]
+    normal: vector.vec3
     distance: float
     unknown_1: List[float]
     unknown_2: List[int]  # ids?
@@ -148,8 +149,8 @@ class CollisionTriangle(base.Struct):  # LUMP 31
 
 
 class Model(base.Struct):  # LUMP 35
-    mins: List[float]
-    maxs: List[float]
+    mins: vector.vec3
+    maxs: vector.vec3
     first_triangle_soup: int
     num_triangle_soups: int
     first_mesh: int  # "Patches" (Quake3+ displacements / q3map2 geo)
@@ -183,8 +184,8 @@ class TriangleSoup(base.MappedArray):  # LUMP 7
 
 
 class Vertex(base.Struct):  # LUMP 8
-    position: List[float]
-    normal: List[float]
+    position: vector.vec3
+    normal: vector.vec3
     colour: colour.RGBA32
     uv0: List[float]  # albedo / normal ?
     uv1: List[float]  # lightmap ?
@@ -203,11 +204,12 @@ BASIC_LUMP_CLASSES = call_of_duty1.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = call_of_duty1.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LIGHTMAPS")  # 4 MB per lightmap?
 LUMP_CLASSES.pop("LIGHTS")
-LUMP_CLASSES.update({"LIGHT_GRID_HASH": quake3.GridLight,
-                     "PORTAL_VERTICES": quake.Vertex,
-                     "TRIANGLES":       Triangle,
-                     "TRIANGLE_SOUPS":  TriangleSoup,
-                     "VERTICES":        Vertex})
+LUMP_CLASSES.update({
+    "LIGHT_GRID_HASH": quake3.GridLight,
+    "PORTAL_VERTICES": quake.Vertex,
+    "TRIANGLES":       Triangle,
+    "TRIANGLE_SOUPS":  TriangleSoup,
+    "VERTICES":        Vertex})
 
 SPECIAL_LUMP_CLASSES = call_of_duty1.SPECIAL_LUMP_CLASSES.copy()
 
