@@ -60,8 +60,8 @@
 | 24 | 20 | `UNUSED_24` | 0 |  | 0% |
 | 25 | 20 | `UNUSED_25` | 0 |  | 0% |
 | 26 | 20 | `DISPLACEMENT_INFO` | 0 | [`nexon.vindictus69.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L126) | 92% |
-| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L23) | 0% |
 | 26 | 100 | `DISPLACEMENT_INFO` | 0 |  | 0% |
+| 26 | 100 | `DISPLACEMENT_INFO` | 0 | [`nexon.cso2_2018.DisplacementInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2_2018.py#L23) | 0% |
 | 27 | 20 | `ORIGINAL_FACES` | 1 | [`nexon.vindictus69.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L158) | 94% |
 | 27 | 20 | `ORIGINAL_FACES` | 2 | [`nexon.vindictus69.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L193) | 88% |
 | 27 | 100 | `ORIGINAL_FACES` | 0 |  | 0% |

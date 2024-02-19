@@ -53,8 +53,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | Lump index | Hex index | Bsp version | Lump name | Lump version | LumpClass | Coverage |
 | ---------: | --------: | ----------: | --------- | -----------: | --------- | :------- |
 | 0 | 0000 | 47 | `ENTITIES` | 0 | [`shared.Entities`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L36) | 100% |
-| 1 | 0001 | 47 | `PLANES` | 0 | [`respawn.titanfall.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L677) | 100% |
-| 2 | 0002 | 47 | `TEXTURE_DATA` | 0 | [`respawn.apex_legends.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L493) | 100% |
+| 1 | 0001 | 47 | `PLANES` | 0 | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L312) | 100% |
+| 2 | 0002 | 47 | `TEXTURE_DATA` | 0 | [`respawn.apex_legends.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L494) | 100% |
 | 3 | 0003 | 47 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L261) | 100% |
 | 4 | 0004 | 47 | `LIGHTPROBE_PARENT_INFOS` | 0 |  | 0% |
 | 5 | 0005 | 47 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L354) | 100% |
@@ -66,17 +66,17 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 11 | 000B | 47 | `UNUSED_11` | 0 |  | 0% |
 | 12 | 000C | 47 | `UNUSED_12` | 0 |  | 0% |
 | 13 | 000D | 47 | `UNUSED_13` | 0 |  | 0% |
-| 14 | 000E | 47 | `MODELS` | 0 | [`respawn.apex_legends.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L448) | 100% |
+| 14 | 000E | 47 | `MODELS` | 0 | [`respawn.apex_legends.Model`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L449) | 100% |
 | 15 | 000F | 47 | `SURFACE_NAMES` | 0 | [`valve.source.TextureDataStringData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L969) | 100% |
 | 16 | 0010 | 47 | `CONTENTS_MASKS` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
-| 17 | 0011 | 47 | `SURFACE_PROPERTIES` | 0 | [`respawn.apex_legends.SurfaceProperty`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L484) | 50% |
-| 18 | 0012 | 47 | `BVH_NODES` | 0 | [`respawn.apex_legends.BVHNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L294) | 100% |
+| 17 | 0011 | 47 | `SURFACE_PROPERTIES` | 0 | [`respawn.apex_legends.SurfaceProperty`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L485) | 50% |
+| 18 | 0012 | 47 | `BVH_NODES` | 0 | [`respawn.apex_legends.BVHNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L295) | 100% |
 | 19 | 0013 | 47 | `BVH_LEAF_DATA` | 0 |  | 0% |
-| 20 | 0014 | 47 | `PACKED_VERTICES` | 0 | [`respawn.apex_legends.PackedVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L466) | 100% |
-| 21 | 0015 | 47 | `HEIGHTFIELDS` | 0 | [`respawn.apex_legends.HeightField`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L406) | 0% |
+| 20 | 0014 | 47 | `PACKED_VERTICES` | 0 | [`respawn.apex_legends.PackedVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L467) | 100% |
+| 21 | 0015 | 47 | `HEIGHTFIELDS` | 0 | [`respawn.apex_legends.HeightField`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L407) | 0% |
 | 22 | 0016 | 47 | `HEIGHTFIELD_SAMPLES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 23 | 0017 | 47 | `UNUSED_23` | 0 |  | 0% |
-| 24 | 0018 | 47 | `ENTITY_PARTITIONS` | 0 | [`respawn.titanfall.EntityPartitions`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L943) | 100% |
+| 24 | 0018 | 47 | `ENTITY_PARTITIONS` | 0 | [`respawn.titanfall.EntityPartitions`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L935) | 100% |
 | 25 | 0019 | 47 | `UNUSED_25` | 0 |  | 0% |
 | 26 | 001A | 47 | `UNUSED_26` | 0 |  | 0% |
 | 27 | 001B | 47 | `UNUSED_27` | 0 |  | 0% |
@@ -103,11 +103,11 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 39 | 0027 | 47 | `UNKNOWN_39` | 0 | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L15) | 100% |
 | 40 | 0028 | 47 | `PAKFILE` | 0 | [`valve.source.PakFile`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L933) | 100% |
 | 41 | 0029 | 47 | `UNUSED_41` | 0 |  | 0% |
-| 42 | 002A | 47 | `CUBEMAPS` | 0 | [`respawn.titanfall.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L484) | 50% |
+| 42 | 002A | 47 | `CUBEMAPS` | 0 | [`respawn.titanfall.Cubemap`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L485) | 50% |
 | 43 | 002B | 47 | `CUBEMAPS_AMBIENT_RCP` | 0 |  | 0% |
-| 44 | 002C | 47 | `WATER_BODIES` | 0 | [`respawn.apex_legends.WaterBody`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L562) | 100% |
-| 45 | 002D | 47 | `WATER_BODY_CENTERS` | 0 | [`respawn.apex_legends.WaterBodyVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L584) | 100% |
-| 46 | 002E | 47 | `WATER_BODY_VERTICES` | 0 | [`respawn.apex_legends.WaterBodyVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L584) | 100% |
+| 44 | 002C | 47 | `WATER_BODIES` | 0 | [`respawn.apex_legends.WaterBody`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L563) | 100% |
+| 45 | 002D | 47 | `WATER_BODY_CENTERS` | 0 | [`respawn.apex_legends.WaterBodyVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L585) | 100% |
+| 46 | 002E | 47 | `WATER_BODY_VERTICES` | 0 | [`respawn.apex_legends.WaterBodyVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L585) | 100% |
 | 47 | 002F | 47 | `WATER_BODY_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 48 | 0030 | 47 | `WAVE_DATA` | 0 |  | 0% |
 | 49 | 0031 | 47 | `UNUSED_49` | 0 |  | 0% |
@@ -132,19 +132,19 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 68 | 0044 | 47 | `UNUSED_68` | 0 |  | 0% |
 | 69 | 0045 | 47 | `UNUSED_69` | 0 |  | 0% |
 | 70 | 0046 | 47 | `UNUSED_70` | 0 |  | 0% |
-| 71 | 0047 | 47 | `VERTEX_UNLIT` | 0 | [`respawn.apex_legends.VertexUnlit`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L539) | 75% |
-| 72 | 0048 | 47 | `VERTEX_LIT_FLAT` | 0 | [`respawn.apex_legends.VertexLitFlat`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L528) | 75% |
-| 73 | 0049 | 47 | `VERTEX_LIT_BUMP` | 0 | [`respawn.apex_legends.VertexLitBump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L515) | 100% |
-| 74 | 004A | 47 | `VERTEX_UNLIT_TS` | 0 | [`respawn.apex_legends.VertexUnlitTS`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L551) | 75% |
-| 75 | 004B | 47 | `VERTEX_BLINN_PHONG` | 0 | [`respawn.apex_legends.VertexBlinnPhong`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L505) | 100% |
+| 71 | 0047 | 47 | `VERTEX_UNLIT` | 0 | [`respawn.apex_legends.VertexUnlit`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L540) | 75% |
+| 72 | 0048 | 47 | `VERTEX_LIT_FLAT` | 0 | [`respawn.apex_legends.VertexLitFlat`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L529) | 75% |
+| 73 | 0049 | 47 | `VERTEX_LIT_BUMP` | 0 | [`respawn.apex_legends.VertexLitBump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L516) | 100% |
+| 74 | 004A | 47 | `VERTEX_UNLIT_TS` | 0 | [`respawn.apex_legends.VertexUnlitTS`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L552) | 75% |
+| 75 | 004B | 47 | `VERTEX_BLINN_PHONG` | 0 | [`respawn.apex_legends.VertexBlinnPhong`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L506) | 100% |
 | 76 | 004C | 47 | `VERTEX_RESERVED_5` | 0 |  | 0% |
 | 77 | 004D | 47 | `VERTEX_RESERVED_6` | 0 |  | 0% |
 | 78 | 004E | 47 | `VERTEX_RESERVED_7` | 0 |  | 0% |
 | 79 | 004F | 47 | `MESH_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
-| 80 | 0050 | 47 | `MESHES` | 0 | [`respawn.apex_legends.Mesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L434) | 80% |
-| 81 | 0051 | 47 | `MESH_BOUNDS` | 0 | [`respawn.titanfall.MeshBounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L630) | 100% |
-| 82 | 0052 | 47 | `MATERIAL_SORTS` | 0 | [`respawn.apex_legends.MaterialSort`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L424) | 75% |
-| 83 | 0053 | 47 | `LIGHTMAP_HEADERS` | 0 | [`respawn.titanfall.LightmapHeader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L555) | 100% |
+| 80 | 0050 | 47 | `MESHES` | 0 | [`respawn.apex_legends.Mesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L435) | 80% |
+| 81 | 0051 | 47 | `MESH_BOUNDS` | 0 | [`respawn.titanfall.MeshBounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L631) | 100% |
+| 82 | 0052 | 47 | `MATERIAL_SORTS` | 0 | [`respawn.apex_legends.MaterialSort`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L425) | 75% |
+| 83 | 0053 | 47 | `LIGHTMAP_HEADERS` | 0 | [`respawn.titanfall.LightmapHeader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L556) | 100% |
 | 84 | 0054 | 47 | `UNUSED_84` | 0 |  | 0% |
 | 85 | 0055 | 47 | `TWEAK_LIGHTS` | 0 |  | 0% |
 | 86 | 0056 | 47 | `UNUSED_86` | 0 |  | 0% |
@@ -160,35 +160,35 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 96 | 0060 | 47 | `UNUSED_96` | 0 |  | 0% |
 | 97 | 0061 | 47 | `LIGHTMAP_DATA_UNKNOWN` | 0 |  | 0% |
 | 98 | 0062 | 47 | `LIGHTMAP_DATA_SKY` | 0 | [`extensions.lightmaps.tiled`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/apex_legends.py#L11) | 100% |
-| 99 | 0063 | 47 | `CSM_AABB_NODES` | 0 | [`respawn.apex_legends.CSMAABBNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L391) | 75% |
+| 99 | 0063 | 47 | `CSM_AABB_NODES` | 0 | [`respawn.apex_legends.CSMAABBNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L392) | 75% |
 | 99 | 0063 | 50 | `CSM_AABB_NODES` | 0 | [`respawn.apex_legends50.CSMAABBNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends50.py#L156) | 75% |
 | 100 | 0064 | 47 | `CSM_OBJ_REFERENCES` | 0 | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
-| 101 | 0065 | 47 | `LIGHTPROBES` | 0 | [`respawn.titanfall.LightProbe`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L564) | 100% |
+| 101 | 0065 | 47 | `LIGHTPROBES` | 0 | [`respawn.titanfall.LightProbe`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L565) | 100% |
 | 102 | 0066 | 47 | `STATIC_PROP_LIGHTPROBE_INDICES` | 0 |  | 0% |
-| 103 | 0067 | 47 | `LIGHTPROBE_TREE` | 0 | [`respawn.titanfall.LightProbeTree`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L590) | 100% |
+| 103 | 0067 | 47 | `LIGHTPROBE_TREE` | 0 | [`respawn.titanfall.LightProbeTree`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L591) | 100% |
 | 104 | 0068 | 47 | `LIGHTPROBE_REFERENCES` | 0 | [`respawn.titanfall2.LightProbeRef`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L275) | 66% |
 | 105 | 0069 | 47 | `LIGHTMAP_DATA_REAL_TIME_LIGHTS` | 0 | [`extensions.lightmaps.tiled`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/apex_legends.py#L11) | 100% |
-| 106 | 006A | 47 | `CELL_BSP_NODES` | 0 | [`respawn.titanfall.CellBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L460) | 100% |
-| 107 | 006B | 47 | `CELLS` | 0 | [`respawn.titanfall.Cell`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L431) | 100% |
-| 108 | 006C | 47 | `PORTALS` | 0 | [`respawn.titanfall.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L686) | 100% |
+| 106 | 006A | 47 | `CELL_BSP_NODES` | 0 | [`respawn.titanfall.CellBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L461) | 100% |
+| 107 | 006B | 47 | `CELLS` | 0 | [`respawn.titanfall.Cell`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L432) | 100% |
+| 108 | 006C | 47 | `PORTALS` | 0 | [`respawn.titanfall.Portal`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L678) | 100% |
 | 109 | 006D | 47 | `PORTAL_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L261) | 100% |
 | 110 | 006E | 47 | `PORTAL_EDGES` | 0 | [`id_software.quake.Edge`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L150) | 100% |
-| 111 | 006F | 47 | `PORTAL_VERTEX_EDGES` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L703) | 100% |
+| 111 | 006F | 47 | `PORTAL_VERTEX_EDGES` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L695) | 100% |
 | 112 | 0070 | 47 | `PORTAL_VERTEX_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 113 | 0071 | 47 | `PORTAL_EDGE_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
-| 114 | 0072 | 47 | `PORTAL_EDGE_INTERSECT_AT_EDGE` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L703) | 100% |
-| 115 | 0073 | 47 | `PORTAL_EDGE_INTERSECT_AT_VERTEX` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L703) | 100% |
-| 116 | 0074 | 47 | `PORTAL_EDGE_INTERSECT_HEADER` | 0 | [`respawn.titanfall.PortalEdgeIntersectHeader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L712) | 100% |
+| 114 | 0072 | 47 | `PORTAL_EDGE_INTERSECT_AT_EDGE` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L695) | 100% |
+| 115 | 0073 | 47 | `PORTAL_EDGE_INTERSECT_AT_VERTEX` | 0 | [`respawn.titanfall.PortalIndexSet`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L695) | 100% |
+| 116 | 0074 | 47 | `PORTAL_EDGE_INTERSECT_HEADER` | 0 | [`respawn.titanfall.PortalEdgeIntersectHeader`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L704) | 100% |
 | 117 | 0075 | 47 | `OCCLUSION_MESH_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L261) | 100% |
 | 118 | 0076 | 47 | `OCCLUSION_MESH_INDICES` | 0 | [`shared.Shorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L15) | 100% |
-| 119 | 0077 | 47 | `CELL_AABB_NODES` | 0 | [`respawn.apex_legends.CellAABBNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L376) | 75% |
+| 119 | 0077 | 47 | `CELL_AABB_NODES` | 0 | [`respawn.apex_legends.CellAABBNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L377) | 75% |
 | 120 | 0078 | 47 | `OBJ_REFERENCES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
-| 121 | 0079 | 47 | `OBJ_REFERENCE_BOUNDS` | 0 | [`respawn.titanfall.ObjRefBounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L665) | 100% |
+| 121 | 0079 | 47 | `OBJ_REFERENCE_BOUNDS` | 0 | [`respawn.titanfall.ObjRefBounds`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L666) | 100% |
 | 122 | 007A | 47 | `LIGHTMAP_DATA_RTL_PAGE` | 0 |  | 0% |
-| 123 | 007B | 47 | `LEVEL_INFO` | 0 | [`respawn.apex_legends.LevelInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L413) | 75% |
+| 123 | 007B | 47 | `LEVEL_INFO` | 0 | [`respawn.apex_legends.LevelInfo`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L414) | 75% |
 | 124 | 007C | 47 | `SHADOW_MESH_OPAQUE_VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L261) | 100% |
-| 125 | 007D | 47 | `SHADOW_MESH_ALPHA_VERTICES` | 0 | [`respawn.titanfall.ShadowMeshAlphaVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L742) | 100% |
+| 125 | 007D | 47 | `SHADOW_MESH_ALPHA_VERTICES` | 0 | [`respawn.titanfall.ShadowMeshAlphaVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L734) | 100% |
 | 126 | 007E | 47 | `SHADOW_MESH_INDICES` | 0 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
-| 127 | 007F | 47 | `SHADOW_MESHES` | 0 | [`respawn.apex_legends.ShadowMesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L475) | 66% |
+| 127 | 007F | 47 | `SHADOW_MESHES` | 0 | [`respawn.apex_legends.ShadowMesh`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L476) | 66% |
 
 
