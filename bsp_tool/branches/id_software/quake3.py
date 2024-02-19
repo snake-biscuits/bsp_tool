@@ -5,7 +5,7 @@
 # NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
 # NOTE: id-Software/Quake-III-Arena/common/qfiles.h uses BSPVERSION 46
 import enum
-from typing import List
+from typing import List, Tuple
 import struct
 
 from ...utils import vector
@@ -320,11 +320,11 @@ class Plane(base.Struct):  # LUMP 2
 
 class Texture(base.Struct):  # LUMP 1
     name: str  # 64 char texture name; stored in WAD (Where's All the Data)?
-    flags: List[int]
+    flags: Tuple[Surface, Contents]
     __slots__ = ["name", "flags"]
     _format = "64s2i"
     _arrays = {"flags": ["surface", "contents"]}
-    _classes = {"flags.surface": Surface, "flags.Contents": Contents}
+    _classes = {"flags.surface": Surface, "flags.contents": Contents}
 
 
 class Vertex(base.Struct):  # LUMP 10
