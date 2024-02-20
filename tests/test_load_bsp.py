@@ -9,42 +9,45 @@ from bsp_tool import load_bsp
 import pytest
 
 
+# NOTE: working on a whole new approach in tests/megatest.py
+
 # auto-detect helper for games with shared (file_magic, version)
 # TODO: automatically detect the differences between these branches
 # -- unique entities (not all maps will have these)
 # -- incorrect lump sizes (some maps may share a common denominator)
 # -- a 100% accurate approach may not be possible
-game_scripts = {**{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
-                **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
-                "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
-                "BloodyGoodTime": branches.outerlight.outerlight,
-                "DarkMessiah/multiplayer": branches.arkane.dark_messiah_mp,
-                "Half-Life/blue_shift": branches.gearbox.blue_shift,
-                "Hexen2": branches.raven.hexen2,
-                "left 4 dead": branches.valve.left4dead,
-                "Left 4 Dead 2": branches.valve.left4dead2,
-                "MeruBasu": branches.utoplanet.merubasu,
-                "SiN": branches.ritual.sin,
-                "SoF": branches.raven.soldier_of_fortune,
-                "Dreamcast/SoF": branches.raven.soldier_of_fortune,
-                "SoF2": branches.raven.soldier_of_fortune2,
-                "SourceFilmmaker": branches.valve.source_filmmaker,
-                "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,
-                "TheShip": branches.outerlight.outerlight,
-                "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
-                "Vindictus": branches.nexon.vindictus,
-                "Vindictus/Client v1.69 EU": branches.nexon.vindictus69,
-                "Zeno Clash Demo": branches.ace_team.zeno_clash}
+game_scripts = {
+    **{gp: branches.valve.alien_swarm for gp in branches.valve.alien_swarm.GAME_PATHS},
+    **{gp: branches.valve.sdk_2013 for gp in branches.valve.sdk_2013.GAME_PATHS},
+    "BlackMesa": branches.valve.sdk_2013,  # for extracted_dirs
+    "BloodyGoodTime": branches.outerlight.outerlight,
+    "DarkMessiah/multiplayer": branches.arkane.dark_messiah_mp,
+    "Half-Life/blue_shift": branches.gearbox.blue_shift,
+    "Hexen2": branches.raven.hexen2,
+    "left 4 dead": branches.valve.left4dead,
+    "Left 4 Dead 2": branches.valve.left4dead2,
+    "Merubasu/shadowland": branches.utoplanet.merubasu,
+    "SiN": branches.ritual.sin,
+    "SoF": branches.raven.soldier_of_fortune,
+    "Dreamcast/SoF": branches.raven.soldier_of_fortune,
+    "SoF2": branches.raven.soldier_of_fortune2,
+    "SourceFilmmaker": branches.valve.source_filmmaker,
+    "StarWarsJediKnightII": branches.raven.soldier_of_fortune2,
+    "TheShip": branches.outerlight.outerlight,
+    "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
+    "Vindictus": branches.nexon.vindictus,
+    "Vindictus/Client v1.69 EU": branches.nexon.vindictus69,
+    "Zeno Clash Demo": branches.ace_team.zeno_clash}
 # ^ {"game_name": branch_script}
 
-dday_mappack_excludes = ("dday3bh.bsp", "dofdtownbhv3.bsp", "gb1stdaybh.bsp", "iraidbhv3.bsp",
-                         "LIDDUX.bsp", "schlitz1.bsp", "wiltzbh.bsp", "wiltzbhv3.bsp")
+dday_mappack_excludes = (
+    "dday3bh.bsp", "dofdtownbhv3.bsp", "gb1stdaybh.bsp", "iraidbhv3.bsp",
+    "LIDDUX.bsp", "schlitz1.bsp", "wiltzbh.bsp", "wiltzbhv3.bsp")
 # TODO: make a pull request to https://github.com/PowaBanga/DDaynormandymaps removing these maps
 
 
 # NOTE: due to the dynamic way LumpClasses are loaded, they are not tested by this function
 # -- only header.length % struct.calcsize(LumpClass._format) & SpecialLumpClasses are tested in-depth
-# TODO: this function is so general and has so many edge case handlers, you should really break if down smaller
 @pytest.mark.parametrize("group_path,game_name,map_dirs", [(*gps, ms) for gps, ms in maplist.installed_games.items()])
 def test_load_bsp(group_path, game_name, map_dirs):
     """MEGATEST: 69GB+ of .bsp files!"""
