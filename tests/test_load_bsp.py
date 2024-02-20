@@ -37,7 +37,7 @@ game_scripts = {
     "Vampire The Masquerade - Bloodlines": branches.troika.vampire,
     "Vindictus": branches.nexon.vindictus,
     "Vindictus/Client v1.69 EU": branches.nexon.vindictus69,
-    "Zeno Clash Demo": branches.ace_team.zeno_clash}
+    "Zeno Clash Demo/zenozoik": branches.ace_team.zeno_clash}
 # ^ {"game_name": branch_script}
 
 dday_mappack_excludes = (
