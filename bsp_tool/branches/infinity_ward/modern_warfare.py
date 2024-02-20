@@ -1,6 +1,7 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
 import enum
 
+from ...utils import vector
 from .. import base
 from .. import shared
 from ..id_software import quake
@@ -107,6 +108,14 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for lumps, in alphabetical order:
+class Cell(base.Struct):  # LUMP 0x19
+    mins: vector.vec3
+    maxs: vector.vec3
+    unknown: bytes
+    __slots__ = ["mins", "maxs", "unknown"]
+    _format = "6f88s"  # 112 bytes
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 # {"LUMP_NAME": LumpClass}
@@ -119,6 +128,7 @@ BASIC_LUMP_CLASSES = {
 LUMP_CLASSES = {
     "BRUSHES":             call_of_duty1_demo.Brush,
     "BRUSH_SIDES":         call_of_duty1_demo.BrushSide,
+    "CELLS":               Cell,
     "COLLISION_TRIANGLES": call_of_duty2.Triangle,
     "COLLISION_VERTICES":  quake.Vertex,
     "LAYERED_VERTICES":    call_of_duty2.Vertex,

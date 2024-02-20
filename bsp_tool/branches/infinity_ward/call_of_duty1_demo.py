@@ -166,8 +166,8 @@ class Lightmap(list):  # LUMP 1
 
 
 class Model(base.Struct):  # LUMP 27
-    mins: List[float]  # Bounding box
-    maxs: List[float]
+    mins: vector.vec3
+    maxs: vector.vec3
     first_face: int  # index into Face lump
     num_faces: int  # number of Faces after first_face included in this Model
     first_brush: int  # index into Brush lump
@@ -176,6 +176,7 @@ class Model(base.Struct):  # LUMP 27
     __slots__ = ["mins", "maxs", "first_face", "num_faces", "first_brush", "num_brushes", "unknown"]
     _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown": 2}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Occluder(base.Struct):  # LUMP 12
@@ -183,7 +184,6 @@ class Occluder(base.Struct):  # LUMP 12
     num_occluder_planes: int   # number of OccluderPlanes after first_occluder_plane in this Occluder
     first_occluder_edges: int  # index into the OccluderEdge lump
     num_occluder_edges: int    # number of OccluderEdges after first_occluder_edge in this Occluder
-    # first, num? isn't it usually the opposite? interesting
     __slots__ = ["first_occluder_plane", "num_occluder_planes", "first_occluder_edge", "num_occluder_edges"]
     _format = "4i"
 
@@ -197,10 +197,12 @@ class PatchCollision(base.Struct):  # LUMP 24
 
 
 class Portal(base.Struct):  # LUMP 18
-    unknown: List[int]
-    __slots__ = ["unknown"]
+    unknown: int
+    cell: int  # index into Cells
+    first_portal_vertex: int  # index into PortalVertices
+    num_portal_vertices: int
+    __slots__ = ["unknown", "cell", "first_portal_vertex", "num_portal_vertices"]
     _format = "4i"
-    _arrays = {"unknown": 4}
 
 
 class TriangleSoup(base.MappedArray):  # LUMP 5
@@ -278,5 +280,15 @@ def brush(bsp, brush_index) -> editor.Brush:
     return editor.Brush(out)
 
 
-methods = [quake.leaves_of_node, shared.worldspawn_volume, brush]
+def portal_file(bsp) -> str:
+    out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
+    for i, portal in enumerate(bsp.PORTALS):
+        start, length = portal.first_portal_vertex, portal.num_portal_vertices
+        winding = bsp.PORTAL_VERTICES[start:start + length]
+        from_cell = 0  # TODO: reverse Cell -> Portal indexing
+        out.append(" ".join([f"{len(winding)} {from_cell} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+    return "\n".join(out)
+
+
+methods = [quake.leaves_of_node, shared.worldspawn_volume, brush, portal_file]
 methods = {m.__name__: m for m in methods}

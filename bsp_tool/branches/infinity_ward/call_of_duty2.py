@@ -126,6 +126,16 @@ class Surface(enum.IntFlag):
 # TODO: Contents enum.IntFlag
 
 # classes for lumps, in alphabetical order:
+class Cell(base.Struct):  # LUMP 0x19
+    mins: vector.vec3
+    maxs: vector.vec3
+    unknown: bytes
+    __slots__ = ["mins", "maxs", "unknown"]
+    _format = "6f28s"  # 52 bytes
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+
+
 class CollisionEdge(base.Struct):  # LUMP 30
     unknown: int  # an index?
     position: vector.vec3
@@ -205,6 +215,7 @@ LUMP_CLASSES = call_of_duty1.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LIGHTMAPS")  # 4 MB per lightmap?
 LUMP_CLASSES.pop("LIGHTS")
 LUMP_CLASSES.update({
+    "CELLS":           Cell,
     "LIGHT_GRID_HASH": quake3.GridLight,
     "PORTAL_VERTICES": quake.Vertex,
     "TRIANGLES":       Triangle,
