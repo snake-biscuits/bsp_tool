@@ -197,11 +197,11 @@ class PatchCollision(base.Struct):  # LUMP 24
 
 
 class Portal(base.Struct):  # LUMP 18
-    unknown: int
+    plane: int  # index of Plane this portal lies on
     cell: int  # index into Cells
     first_portal_vertex: int  # index into PortalVertices
     num_portal_vertices: int
-    __slots__ = ["unknown", "cell", "first_portal_vertex", "num_portal_vertices"]
+    __slots__ = ["plane", "cell", "first_portal_vertex", "num_portal_vertices"]
     _format = "4i"
 
 

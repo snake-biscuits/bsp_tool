@@ -9,7 +9,6 @@ from .. import base
 from .. import colour
 from ..id_software import quake
 from ..id_software import quake3
-from . import call_of_duty1_demo
 from . import call_of_duty1
 
 
@@ -129,9 +128,12 @@ class Surface(enum.IntFlag):
 class Cell(base.Struct):  # LUMP 0x19
     mins: vector.vec3
     maxs: vector.vec3
-    unknown: bytes
-    __slots__ = ["mins", "maxs", "unknown"]
-    _format = "6f28s"  # 52 bytes
+    unknown_1: int  # increments w/ each cell
+    first_portal: int
+    num_portals: int
+    unknown_2: bytes
+    __slots__ = ["mins", "maxs", "unknown_1", "first_portal", "num_portals", "unknown_2"]
+    _format = "6f3I16s"  # 52 bytes
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
