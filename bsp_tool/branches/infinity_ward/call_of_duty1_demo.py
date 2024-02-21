@@ -104,11 +104,16 @@ class BrushSide(base.Struct):  # LUMP 3
 
 
 class Cell(base.Struct):  # LUMP 17
-    """No idea what this is / does"""
-    unknown: List[int]
-    __slots__ = ["unknown"]
-    _format = "13i"
-    _arrays = {"unknown": 13}
+    mins: vector.vec3
+    maxs: vector.vec3
+    unknown_1: int  # increments w/ each cell
+    first_portal: int
+    num_portals: int
+    unknown_2: bytes
+    __slots__ = ["mins", "maxs", "unknown_1", "first_portal", "num_portals", "unknown_2"]
+    _format = "6f3I16s"  # 52 bytes
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class CullGroup(base.Struct):  # LUMP 9
@@ -239,7 +244,7 @@ LUMP_CLASSES = {
                 # "AABB_TREES":         AxisAlignedBoundingBox,
                 "BRUSHES":            Brush,
                 "BRUSH_SIDES":        BrushSide,
-                # "CELLS":              Cell,
+                "CELLS":              Cell,
                 # "COLLISION_VERTICES": quake.Vertex,
                 # "CULL_GROUPS":        CullGroup,
                 # "VERTICES":           Vertex,
@@ -282,11 +287,13 @@ def brush(bsp, brush_index) -> editor.Brush:
 
 def portal_file(bsp) -> str:
     out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
-    for i, portal in enumerate(bsp.PORTALS):
-        start, length = portal.first_portal_vertex, portal.num_portal_vertices
-        winding = bsp.PORTAL_VERTICES[start:start + length]
-        from_cell = 0  # TODO: reverse Cell -> Portal indexing
-        out.append(" ".join([f"{len(winding)} {from_cell} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+    for ci, cell in enumerate(bsp.CELLS):
+        start, length = cell.first_portal, cell.num_portals
+        for pi in enumerate(start, start + length):
+            portal = bsp.PORTALS[pi]
+            start, length = portal.first_portal_vertex, portal.num_portal_vertices
+            winding = bsp.PORTAL_VERTICES[start:start + length]
+            out.append(" ".join([f"{len(winding)} {ci} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
     return "\n".join(out)
 
 
