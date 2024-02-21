@@ -85,6 +85,7 @@ LumpHeader = quake.LumpHeader
 #     \-> LeafBrushes -> Brushes -> BrushSides
 
 # PatchCollision -> CollisionVertices
+#               \-> CollisionIndices
 
 
 # flag enums:
@@ -231,10 +232,11 @@ class PatchCollision(base.Struct):  # LUMP 24
     """'Patches' are the CoD version of Source's Displacements (think of a fabric patch on torn clothes)"""
     unknown_1: int  # flags?
     num_vertices: int
-    unknown_2: int
+    num_indices: int
     first_vertex: int  # index into CollisionVertices
-    __slots__ = ["unknown_1", "num_vertices", "unknown_2", "first_vertex"]
-    _format = "I2h2I"  # 16 bytes
+    first_index: int  # index into CollisionIndices
+    __slots__ = ["unknown_1", "num_vertices", "num_indices", "first_vertex", "first_index"]
+    _format = "I2h2I"
 
 
 class Portal(base.Struct):  # LUMP 18
