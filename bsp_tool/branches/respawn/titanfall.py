@@ -382,7 +382,12 @@ class StaticPropCollision(enum.Enum):
     UNKNOWN_7 = 7  # often on large / hero props; more polished than 6?
 
 
-class PrimitiveType(enum.IntFlag):
+class PortalType(enum.Enum):
+    TO_CELL = 0  # Portal.cell is in bounds
+    UNKNOWN = 1  # Portal.cell is out of bounds (3D Skybox?)
+
+
+class PrimitiveType(enum.Enum):
     """Used by CMGeoSet & CMPrimitive to identify collidable children"""
     BRUSH = 0
     TRICOLL = 64
@@ -678,18 +683,16 @@ class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
 class Portal(base.MappedArray):  # LUMP 108 (006C)
     """Identified by rexx#1287"""
     is_reversed: int  # bool?
-    type: int  # TODO: see PortalType enum
+    type: PortalType
     num_edges: int  # number of PortalEdges in this Portal
     padding: int  # should be 0
     first_reference: int  # first ??? in this Portal
-    cell: int  # index of Cell this portal connects to?
-    # do portals link cells together?
-    # Cell -> Portal -> (different) Cell?
-    plane: int  # Plane this portal lies on?
-    # NOTE: valve.source.AreaPortal also indexes planes
+    cell: int  # index into Cells
+    # NOTE: if type == 1; cell index is too high
+    plane: int  # index of Plane this Portal lies on
     _mapping = ["is_reversed", "type", "num_edges", "padding", "first_reference", "cell", "plane"]
     _format = "4B2hi"
-    # TODO: _classes {"type": PortalType}
+    _classes = {"type": PortalType}
 
 
 class PortalIndexSet(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
