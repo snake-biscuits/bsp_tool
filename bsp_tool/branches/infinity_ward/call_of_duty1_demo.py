@@ -1,5 +1,6 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
 import enum
+import itertools
 import struct
 from typing import List
 
@@ -350,14 +351,16 @@ def model(bsp, model_index: int) -> geometry.Model:
 def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:
     # BUG: indices go out of bounds at a certain point (LeafFaces?)
     patch = bsp.PATCH_COLLISION[patch_collision_index]
+    # material
+    material = geometry.Material("patch_collision")
+    # geometry
     start, length = patch.first_vertex, patch.num_vertices
     positions = bsp.COLLISION_VERTICES[start:start + length]
     vertices = [geometry.Vertex(p, vector.vec3()) for p in positions]
     start, length = patch.first_index, patch.num_indices
     indices = bsp.COLLISION_INDICES[start:start + length]
-    triangles = [(indices[i], indices[i + 1], indices[i + 2]) for i in range(0, length, 3)]
-    polygons = [geometry.Polygon([vertices[a], vertices[b], vertices[c]]) for a, b, c in triangles]
-    return geometry.Mesh(polygons=polygons)
+    vertices = [vertices[i] for i in indices]
+    return geometry.Mesh(material, map(geometry.Polygon, itertools.batched(vertices, 3)))
 
 
 def portal_file(bsp) -> str:
@@ -385,9 +388,8 @@ def triangle_soup_mesh(bsp, triangle_soup_index: int) -> geometry.Mesh:
         for v in vertices]
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.INDICES[start:start + length]
-    triangles = [(indices[i], indices[i + 1], indices[i + 2]) for i in range(0, length, 3)]
-    polygons = [geometry.Polygon([vertices[a], vertices[b], vertices[c]]) for a, b, c in triangles]
-    return geometry.Mesh(material, polygons)
+    vertices = [vertices[i] for i in indices]
+    return geometry.Mesh(material, map(geometry.Polygon, itertools.batched(vertices, 3)))
 
 
 methods = [
