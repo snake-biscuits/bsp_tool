@@ -1,5 +1,6 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
 import enum
+from typing import List
 
 from ...utils import vector
 from .. import base
@@ -101,10 +102,13 @@ class LumpHeader(base.MappedArray):
 
 
 # a rough map of the relationships between lumps:
+# TriangleSoups -> Indices -> Vertices
 
-#      /-> Brush
-# Model -> Mesh        /-> Vertex
-#      \-> TriangleSoup -> Triangle -?> Vertex
+# LeafBrushes -> Brushes
+
+#       /-> LayeredTriangleSoups
+# Models -> Brushes
+#       \-> SimpleTriangleSoups
 
 
 # classes for lumps, in alphabetical order:
@@ -118,25 +122,69 @@ class Cell(base.Struct):  # LUMP 0x19
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
+class Model(base.Struct):  # LUMP 0x25
+    mins: vector.vec3
+    maxs: vector.vec3
+    first_triangle_soup: List[int]
+    # first_triangle_soup.layered: int
+    # first_triangle_soup.simple: int
+    num_triangle_soups: List[int]
+    # num_triangle_soups.layered: int
+    # num_triangle_soups.simple: int
+    # NOTE: can't determine order because lengths are the same
+    unknown: List[int]  # 0 in all test maps, need more .d3dbsp
+    first_brush: int
+    num_brushes: int
+    __slots__ = [
+        "mins", "maxs",
+        "first_triangle_soup", "num_triangle_soups",
+        "unknown", "first_brush", "num_brushes"]
+    _format = "6f4H4I"  # 48 bytes
+    _arrays = {
+        "mins": [*"xyz"], "maxs": [*"xyz"],
+        "first_triangle_soup": ["layered", "simple"],
+        "num_triangle_soups": ["layered", "simple"],
+        "unknown": 2}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+
+
+class TriangleSoup(base.Struct):  # LUMP 0x09 & 0x2F
+    # TODO: texture indices
+    unknown: bytes
+    first_vertex: int  # index into Layered / Simple Vertices
+    num_vertices: int
+    num_indices: int
+    first_index: int  # index into Layered / Simple Indices
+    __slots__ = [
+        "unknown",
+        "first_vertex", "num_vertices", "num_indices", "first_index"]
+    _format = "12sI2HI"
+
+
 # {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = {
     "LAYERED_INDICES":   shared.UnsignedShorts,
+    "LEAF_BRUSHES":      shared.UnsignedInts,
     "LIGHT_GRID_POINTS": shared.UnsignedInts,
     "LIGHT_REGIONS":     shared.UnsignedBytes,
     "SIMPLE_INDICES":    shared.UnsignedShorts}
 
 LUMP_CLASSES = {
-    "BRUSHES":             call_of_duty1_demo.Brush,
-    "BRUSH_SIDES":         call_of_duty1_demo.BrushSide,
-    "CELLS":               Cell,
-    "COLLISION_TRIANGLES": call_of_duty2.Triangle,
-    "COLLISION_VERTICES":  quake.Vertex,
-    "LAYERED_VERTICES":    call_of_duty2.Vertex,
-    "PLANES":              quake3.Plane,
-    "TEXTURES":            quake3.Texture,
-    "SIMPLE_VERTICES":     call_of_duty2.Vertex}
+    "BRUSHES":                call_of_duty1_demo.Brush,
+    "BRUSH_SIDES":            call_of_duty1_demo.BrushSide,
+    "CELLS":                  Cell,
+    "COLLISION_TRIANGLES":    call_of_duty2.Triangle,
+    "COLLISION_VERTICES":     quake.Vertex,
+    "LAYERED_TRIANGLE_SOUPS": TriangleSoup,
+    "LAYERED_VERTICES":       call_of_duty2.Vertex,
+    "MODELS":                 Model,
+    "PLANES":                 quake3.Plane,
+    "TEXTURES":               quake3.Texture,
+    "SIMPLE_TRIANGLE_SOUPS":  TriangleSoup,
+    "SIMPLE_VERTICES":        call_of_duty2.Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES": shared.Entities}
+SPECIAL_LUMP_CLASSES = {
+    "ENTITIES": shared.Entities}
 
 
 # NOTE: no mins & maxs in worldspawn?
