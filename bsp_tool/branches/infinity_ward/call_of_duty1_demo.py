@@ -213,7 +213,7 @@ class Model(base.Struct):  # LUMP 27
     num_brushes: int
     __slots__ = [
         "mins", "maxs", "first_triangle_soup", "num_triangle_soups",
-        "first_unknown", "num_unknowns", "first_brush", "num_brushes"]
+        "first_leaf_face", "num_leaf_faces", "first_brush", "num_brushes"]
     _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
@@ -229,12 +229,14 @@ class Occluder(base.Struct):  # LUMP 12
 
 
 class PatchCollision(base.Struct):  # LUMP 24
-    """'Patches' are the CoD version of Source's Displacements (think of a fabric patch on torn clothes)"""
+    """for Terrain, like Source Displacements"""
     unknown_1: int  # flags?
     num_vertices: int
     num_indices: int
     first_vertex: int  # index into CollisionVertices
     first_index: int  # index into CollisionIndices
+    # NOTE: indices go out of bounds sometimes, and don't account for the whole lump
+    # -- so could be incorrect, but PatchCollision early in the lump seem to work OK
     __slots__ = ["unknown_1", "num_vertices", "num_indices", "first_vertex", "first_index"]
     _format = "I2h2I"
 
@@ -345,6 +347,19 @@ def model(bsp, model_index: int) -> geometry.Model:
     return geometry.Model([bsp.triangle_soup_mesh(i) for i in range(start, start + length)], origin)
 
 
+def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:
+    # BUG: indices go out of bounds at a certain point (LeafFaces?)
+    patch = bsp.PATCH_COLLISION[patch_collision_index]
+    start, length = patch.first_vertex, patch.num_vertices
+    positions = bsp.COLLISION_VERTICES[start:start + length]
+    vertices = [geometry.Vertex(p, vector.vec3()) for p in positions]
+    start, length = patch.first_index, patch.num_indices
+    indices = bsp.COLLISION_INDICES[start:start + length]
+    triangles = [(indices[i], indices[i + 1], indices[i + 2]) for i in range(0, length, 3)]
+    polygons = [geometry.Polygon([vertices[a], vertices[b], vertices[c]]) for a, b, c in triangles]
+    return geometry.Mesh(polygons=polygons)
+
+
 def portal_file(bsp) -> str:
     out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
     for ci, cell in enumerate(bsp.CELLS):
@@ -375,5 +390,7 @@ def triangle_soup_mesh(bsp, triangle_soup_index: int) -> geometry.Mesh:
     return geometry.Mesh(material, polygons)
 
 
-methods = [quake.leaves_of_node, shared.worldspawn_volume, brush, model, portal_file, triangle_soup_mesh]
+methods = [
+    quake.leaves_of_node, shared.worldspawn_volume, brush,
+    model, patch_collision_mesh, portal_file, triangle_soup_mesh]
 methods = {m.__name__: m for m in methods}
