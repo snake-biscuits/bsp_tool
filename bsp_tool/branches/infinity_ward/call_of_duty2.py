@@ -201,6 +201,7 @@ class Vertex(base.Struct):  # LUMP 8
 BASIC_LUMP_CLASSES = call_of_duty1.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = call_of_duty1.LUMP_CLASSES.copy()
+LUMP_CLASSES.pop("COLLISION_VERTICES")
 LUMP_CLASSES.pop("LIGHTMAPS")  # 4 MB per lightmap?
 LUMP_CLASSES.pop("LIGHTS")
 LUMP_CLASSES.update({
@@ -214,3 +215,4 @@ SPECIAL_LUMP_CLASSES = call_of_duty1.SPECIAL_LUMP_CLASSES.copy()
 
 
 methods = call_of_duty1.methods.copy()
+methods.pop("patch_collision_mesh")
