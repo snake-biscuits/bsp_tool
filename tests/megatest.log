@@ -3,7 +3,7 @@ platform win32 -- Python 3.11.3, pytest-7.4.0, pluggy-1.2.0 -- C:\Users\Jared\Do
 cachedir: .pytest_cache
 rootdir: C:\Users\Jared\Documents\GitHub\bsp_tool
 plugins: cov-4.1.0
-[1mcollecting ... [0mcollected 861 items
+[1mcollecting ... [0mcollected 860 items
 
 tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  0%][0m
 tests/test_BspLump.py::TestRawBspLump::test_its_raw[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  0%][0m
@@ -47,7 +47,7 @@ tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Team Fortress 2/test_phy
 tests/test_BspLump.py::TestBasicBspLump::test_its_basic[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  4%][0m
 tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  4%][0m
 tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test2.bsp] [32mPASSED[0m[32m [  4%][0m
-tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  4%][0m
+tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test_displacement_decompile.bsp] [32mPASSED[0m[32m [  5%][0m
 tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[32m [  5%][0m
 tests/test_BspLump.py::TestBasicBspLump::test_list_conversion[Quake 3 Arena/mp_lobby.bsp] [32mPASSED[0m[32m [  5%][0m
 tests/test_BspLump.py::TestBasicBspLump::test_indexing[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[32m [  5%][0m
@@ -90,7 +90,7 @@ tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ns-map_dirs32] [32mPASSED[0m[32m [  9%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/ricochet-map_dirs33] [32mPASSED[0m[32m [  9%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/tfc-map_dirs34] [32mPASSED[0m[32m [  9%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs35] [32mPASSED[0m[32m [  9%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Half-Life/valve-map_dirs35] [32mPASSED[0m[32m [ 10%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Halfquake Trilogy/valve-map_dirs36] [32mPASSED[0m[32m [ 10%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Sven Co-op-map_dirs37] [32mPASSED[0m[32m [ 10%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Alien Swarm/swarm-map_dirs38] [32mPASSED[0m[32m [ 10%][0m
@@ -133,8 +133,8 @@ tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFil
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Synergy-map_dirs75] [32mPASSED[0m[31m [ 14%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs76] [32mPASSED[0m[31m [ 14%][0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Transmissions Element 120-map_dirs77] [32mPASSED[0m[31m [ 14%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines/Vampire-map_dirs78] [32mPASSED[0m[31m [ 14%][0m
-tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Zeno Clash Demo/zenozoik-map_dirs79] [31mFAILED[0m[31m [ 15%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Vampire The Masquerade - Bloodlines/Vampire-map_dirs78] [32mPASSED[0m[31m [ 15%][0m
+tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Zeno Clash Demo/zenozoik-map_dirs79] [32mPASSED[0m[31m [ 15%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkPlaces-map_dirs80] [32mPASSED[0m[31m [ 15%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake-map_dirs81] [32mPASSED[0m[31m    [ 15%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Quake/rerelease-map_dirs82] [32mPASSED[0m[31m [ 15%][0m
@@ -176,13 +176,13 @@ tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSMalvinas-map_dirs117] [32mPASSED
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/Bocuma747_SurfMaps-map_dirs118] [32mPASSED[0m[31m [ 19%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSS/OiuSURF_SurfMaps-map_dirs119] [32mPASSED[0m[31m [ 19%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-CSO2-map_dirs120] [32mPASSED[0m[31m    [ 19%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs121] [31mFAILED[0m[31m [ 19%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs121] [31mFAILED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs122] [31mFAILED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-DearEsther/dearesther-map_dirs123] [31mFAILED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TheHiddenSource-map_dirs124] [32mPASSED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-HL2DM/patbytes-map_dirs125] [32mPASSED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Infra-map_dirs126] [32mPASSED[0m[31m   [ 20%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-Merubasu/shadowland-map_dirs127] [31mFAILED[0m[31m [ 20%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-Merubasu/shadowland-map_dirs127] [32mPASSED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs128] [32mPASSED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-SiNEpisodes-map_dirs129] [32mPASSED[0m[31m [ 20%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-TacticalIntervention-map_dirs130] [32mPASSED[0m[31m [ 21%][0m
@@ -202,7 +202,7 @@ tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season4-map_dirs143] [
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season5-map_dirs144] [32mPASSED[0m[31m [ 22%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season6-map_dirs145] [32mPASSED[0m[31m [ 22%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season7-map_dirs146] [32mPASSED[0m[31m [ 22%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season8-map_dirs147] [32mPASSED[0m[31m [ 22%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season8-map_dirs147] [32mPASSED[0m[31m [ 23%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season9-map_dirs148] [32mPASSED[0m[31m [ 23%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season10-map_dirs149] [32mPASSED[0m[31m [ 23%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs150] [31mFAILED[0m[31m [ 23%][0m
@@ -219,7 +219,7 @@ tests/test_load_bsp.py::test_load_bsp[E:/Mod-FAKK2-map_dirs160] [32mPASSED[0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-Alice-map_dirs161] [32mPASSED[0m[31m   [ 24%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/demo-map_dirs162] [32mPASSED[0m[31m [ 24%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/main-map_dirs163] [32mPASSED[0m[31m [ 24%][0m
-tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs164] [32mPASSED[0m[31m [ 24%][0m
+tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/mainta-map_dirs164] [32mPASSED[0m[31m [ 25%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MoHAA/maintt-map_dirs165] [32mPASSED[0m[31m [ 25%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceIIDemo-map_dirs166] [32mPASSED[0m[31m [ 25%][0m
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-StarTrekEliteForceII-map_dirs167] [32mPASSED[0m[31m [ 25%][0m
@@ -245,7 +245,7 @@ tests/test_lumps.py::TestBspLump::test_implicit_change [32mPASSED[0m[31m     
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/test.d3dbsp] [33mXFAIL[0m[31m [ 27%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/test_traverses.d3dbsp] [33mXFAIL[0m[31m [ 27%][0m
 tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/mp/mp_lobby.d3dbsp] [33mXFAIL[0m[31m [ 27%][0m
-tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/mp/mp_test.d3dbsp] [33mXFAIL[0m[31m [ 27%][0m
+tests/test_save.py::test_D3DBsp_modern_warfare[Call of Duty 4/mp/mp_test.d3dbsp] [33mXFAIL[0m[31m [ 28%][0m
 tests/test_save.py::test_IdTechBsp_quake2[Quake 2/mp_lobby.bsp] [33mXFAIL[0m[31m    [ 28%][0m
 tests/test_save.py::test_IdTechBsp_quake3[Quake 3 Arena/mp_lobby.bsp] [33mXFAIL[0m[31m [ 28%][0m
 tests/test_save.py::test_ReMakeQuakeBsp_remake_quake[ReMakeQuake/mp_lobby.bsp] [33mXFAIL[0m[31m [ 28%][0m
@@ -263,7 +263,7 @@ tests/branches/test_LumpClasses.py::test_Struct[gearbox.nightfire.Leaf] [32mPAS
 tests/branches/test_LumpClasses.py::test_Struct[gearbox.nightfire.Model] [32mPASSED[0m[31m [ 29%][0m
 tests/branches/test_LumpClasses.py::test_Struct[gearbox.nightfire.Node] [32mPASSED[0m[31m [ 29%][0m
 tests/branches/test_LumpClasses.py::test_Struct[gearbox.nightfire.TextureInfo] [32mPASSED[0m[31m [ 29%][0m
-tests/branches/test_LumpClasses.py::test_Struct[id_software.qbism.Leaf] [32mPASSED[0m[31m [ 29%][0m
+tests/branches/test_LumpClasses.py::test_Struct[id_software.qbism.Leaf] [32mPASSED[0m[31m [ 30%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.qfusion.Face] [32mPASSED[0m[31m [ 30%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.qfusion.GridLight] [32mPASSED[0m[31m [ 30%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.qfusion.Vertex] [32mPASSED[0m[31m [ 30%][0m
@@ -289,7 +289,7 @@ tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.GridLight] [
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Leaf] [32mPASSED[0m[31m [ 32%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Model] [32mPASSED[0m[31m [ 32%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Node] [32mPASSED[0m[31m [ 32%][0m
-tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Plane] [32mPASSED[0m[31m [ 32%][0m
+tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Plane] [32mPASSED[0m[31m [ 33%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Texture] [32mPASSED[0m[31m [ 33%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake3.Vertex] [32mPASSED[0m[31m [ 33%][0m
 tests/branches/test_LumpClasses.py::test_Struct[id_software.quake64.MipTexture] [32mPASSED[0m[31m [ 33%][0m
@@ -306,11 +306,11 @@ tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Leaf] [32mPASSED[0m[31m [ 34%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Light] [32mPASSED[0m[31m [ 34%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Model] [32mPASSED[0m[31m [ 34%][0m
-tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Occluder] [32mPASSED[0m[31m [ 34%][0m
+tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Occluder] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.PatchCollision] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Portal] [32mPASSED[0m[31m [ 35%][0m
+tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.TriangleSoup] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty1_demo.Vertex] [32mPASSED[0m[31m [ 35%][0m
-tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty2.Cell] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty2.CollisionEdge] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty2.CollisionTriangle] [32mPASSED[0m[31m [ 35%][0m
 tests/branches/test_LumpClasses.py::test_Struct[infinity_ward.call_of_duty2.Model] [32mPASSED[0m[31m [ 35%][0m
@@ -332,7 +332,7 @@ tests/branches/test_LumpClasses.py::test_Struct[nexon.vindictus69.StaticPropScal
 tests/branches/test_LumpClasses.py::test_Struct[raven.hexen2.Model] [32mPASSED[0m[31m [ 37%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.BVHNode] [32mPASSED[0m[31m [ 37%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.CSMAABBNode] [32mPASSED[0m[31m [ 37%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.CellAABBNode] [32mPASSED[0m[31m [ 37%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.CellAABBNode] [32mPASSED[0m[31m [ 38%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.HeightField] [32mPASSED[0m[31m [ 38%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.LevelInfo] [32mPASSED[0m[31m [ 38%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.MaterialSort] [32mPASSED[0m[31m [ 38%][0m
@@ -349,7 +349,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.WaterBody] 
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends.WaterBodyVertex] [32mPASSED[0m[31m [ 39%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends50.CSMAABBNode] [32mPASSED[0m[31m [ 39%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.apex_legends51.LightProbe] [32mPASSED[0m[31m [ 39%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Bounds] [32mPASSED[0m[31m [ 39%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Bounds] [32mPASSED[0m[31m [ 40%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Brush] [32mPASSED[0m[31m [ 40%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.CSMAABBNode] [32mPASSED[0m[31m [ 40%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Cell] [32mPASSED[0m[31m [ 40%][0m
@@ -358,7 +358,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Cubemap] [32m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.GeoSet] [32mPASSED[0m[31m [ 40%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Grid] [32mPASSED[0m[31m [ 40%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.LevelInfo] [32mPASSED[0m[31m [ 40%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.LightProbe] [32mPASSED[0m[31m [ 40%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.LightProbe] [32mPASSED[0m[31m [ 41%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.LightProbeRef] [32mPASSED[0m[31m [ 41%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.Mesh] [32mPASSED[0m[31m [ 41%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.MeshBounds] [32mPASSED[0m[31m [ 41%][0m
@@ -375,7 +375,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.TricollNode] 
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexBlinnPhong] [32mPASSED[0m[31m [ 42%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexLitBump] [32mPASSED[0m[31m [ 42%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexLitFlat] [32mPASSED[0m[31m [ 42%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexUnlit] [32mPASSED[0m[31m [ 42%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexUnlit] [32mPASSED[0m[31m [ 43%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.VertexUnlitTS] [32mPASSED[0m[31m [ 43%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall.WorldLight] [32mPASSED[0m[31m [ 43%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall2.GeoSet] [32mPASSED[0m[31m [ 43%][0m
@@ -392,7 +392,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.CSMAABBNo
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.CellAABBNode_x360] [32mPASSED[0m[31m [ 44%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Cell_x360] [32mPASSED[0m[31m [ 44%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Cubemap_x360] [32mPASSED[0m[31m [ 44%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.GeoSet_x360] [32mPASSED[0m[31m [ 44%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.GeoSet_x360] [32mPASSED[0m[31m [ 45%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Grid_x360] [32mPASSED[0m[31m [ 45%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.LevelInfo_x360] [32mPASSED[0m[31m [ 45%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.LightProbeRef_x360] [32mPASSED[0m[31m [ 45%][0m
@@ -401,7 +401,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.MeshBound
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Mesh_x360] [32mPASSED[0m[31m [ 45%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Model_x360] [32mPASSED[0m[31m [ 45%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.ObjRefBounds_x360] [32mPASSED[0m[31m [ 45%][0m
-tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Plane_x360] [32mPASSED[0m[31m [ 45%][0m
+tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.Plane_x360] [32mPASSED[0m[31m [ 46%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.PortalIndexSet_x360] [32mPASSED[0m[31m [ 46%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.ShadowMeshAlphaVertex_x360] [32mPASSED[0m[31m [ 46%][0m
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.ShadowMesh_x360] [32mPASSED[0m[31m [ 46%][0m
@@ -418,7 +418,7 @@ tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.VertexUnl
 tests/branches/test_LumpClasses.py::test_Struct[respawn.titanfall_x360.WorldLight_x360] [32mPASSED[0m[31m [ 47%][0m
 tests/branches/test_LumpClasses.py::test_Struct[ritual.fakk2.Face] [32mPASSED[0m[31m [ 47%][0m
 tests/branches/test_LumpClasses.py::test_Struct[ritual.fakk2.Texture] [32mPASSED[0m[31m [ 47%][0m
-tests/branches/test_LumpClasses.py::test_Struct[ritual.mohaa_demo.Leaf] [32mPASSED[0m[31m [ 47%][0m
+tests/branches/test_LumpClasses.py::test_Struct[ritual.mohaa_demo.Leaf] [32mPASSED[0m[31m [ 48%][0m
 tests/branches/test_LumpClasses.py::test_Struct[ritual.mohaa_demo.Texture] [32mPASSED[0m[31m [ 48%][0m
 tests/branches/test_LumpClasses.py::test_Struct[ritual.mohaa_demo.Unknown14] [32mPASSED[0m[31m [ 48%][0m
 tests/branches/test_LumpClasses.py::test_Struct[ritual.star_trek_elite_force2_demo.Face] [32mPASSED[0m[31m [ 48%][0m
@@ -435,7 +435,7 @@ tests/branches/test_LumpClasses.py::test_Struct[valve.goldsrc.ClipNode] [32mPAS
 tests/branches/test_LumpClasses.py::test_Struct[valve.goldsrc.Model] [32mPASSED[0m[31m [ 49%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.left4dead.StaticPropv8] [32mPASSED[0m[31m [ 49%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.left4dead2.StaticPropv9] [32mPASSED[0m[31m [ 49%][0m
-tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box.Leaf] [32mPASSED[0m[31m [ 49%][0m
+tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box.Leaf] [32mPASSED[0m[31m [ 50%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box.StaticPropv10] [32mPASSED[0m[31m [ 50%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.BrushSide_x360] [32mPASSED[0m[31m [ 50%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Brush_x360] [32mPASSED[0m[31m [ 50%][0m
@@ -444,7 +444,7 @@ tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Displaceme
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Face_x360] [32mPASSED[0m[31m [ 50%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Leaf_x360] [32mPASSED[0m[31m [ 50%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Model_x360] [32mPASSED[0m[31m [ 50%][0m
-tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Node_x360] [32mPASSED[0m[31m [ 50%][0m
+tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Node_x360] [32mPASSED[0m[31m [ 51%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Overlay_x360] [32mPASSED[0m[31m [ 51%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.Plane_x360] [32mPASSED[0m[31m [ 51%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.orange_box_x360.StaticPropv10_x360] [32mPASSED[0m[31m [ 51%][0m
@@ -461,7 +461,7 @@ tests/branches/test_LumpClasses.py::test_Struct[valve.sdk_2013_x360.StaticPropv1
 tests/branches/test_LumpClasses.py::test_Struct[valve.sdk_2013_x360.StaticPropv11_x360] [32mPASSED[0m[31m [ 52%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.sdk_2013_x360.StaticPropv8_x360] [32mPASSED[0m[31m [ 52%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.sdk_2013_x360.StaticPropv9_x360] [32mPASSED[0m[31m [ 52%][0m
-tests/branches/test_LumpClasses.py::test_Struct[valve.source.Brush] [32mPASSED[0m[31m [ 52%][0m
+tests/branches/test_LumpClasses.py::test_Struct[valve.source.Brush] [32mPASSED[0m[31m [ 53%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.BrushSide] [32mPASSED[0m[31m [ 53%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.Cubemap] [32mPASSED[0m[31m [ 53%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.DisplacementInfo] [32mPASSED[0m[31m [ 53%][0m
@@ -478,7 +478,7 @@ tests/branches/test_LumpClasses.py::test_Struct[valve.source.StaticPropv6] [32m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.StaticPropv7] [32mPASSED[0m[31m [ 54%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.TextureData] [32mPASSED[0m[31m [ 54%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.TextureInfo] [32mPASSED[0m[31m [ 54%][0m
-tests/branches/test_LumpClasses.py::test_Struct[valve.source.WaterOverlay] [32mPASSED[0m[31m [ 54%][0m
+tests/branches/test_LumpClasses.py::test_Struct[valve.source.WaterOverlay] [32mPASSED[0m[31m [ 55%][0m
 tests/branches/test_LumpClasses.py::test_Struct[valve.source.WorldLight] [32mPASSED[0m[31m [ 55%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.AreaPortal] [32mPASSED[0m[31m [ 55%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.ClipNode] [32mPASSED[0m[31m [ 55%][0m
@@ -487,7 +487,7 @@ tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Leaf] [3
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.LeafSide] [32mPASSED[0m[31m [ 55%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Model] [32mPASSED[0m[31m [ 55%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Node] [32mPASSED[0m[31m [ 55%][0m
-tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Portal] [32mPASSED[0m[31m [ 55%][0m
+tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Portal] [32mPASSED[0m[31m [ 56%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Sky] [32mPASSED[0m[31m [ 56%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.Texture] [32mPASSED[0m[31m [ 56%][0m
 tests/branches/test_LumpClasses.py::test_Struct[wild_tangent.genesis3d.TextureInfo] [32mPASSED[0m[31m [ 56%][0m
@@ -504,7 +504,7 @@ tests/branches/test_LumpClasses.py::test_MappedArray[gearbox.nightfire.Face] [3
 tests/branches/test_LumpClasses.py::test_MappedArray[gearbox.nightfire.LumpHeader] [32mPASSED[0m[31m [ 57%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[id_software.qbism.BrushSide] [32mPASSED[0m[31m [ 57%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[id_software.qbism.LumpHeader] [32mPASSED[0m[31m [ 57%][0m
-tests/branches/test_LumpClasses.py::test_MappedArray[id_software.qfusion.BrushSide] [32mPASSED[0m[31m [ 57%][0m
+tests/branches/test_LumpClasses.py::test_MappedArray[id_software.qfusion.BrushSide] [32mPASSED[0m[31m [ 58%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[id_software.qfusion.LumpHeader] [32mPASSED[0m[31m [ 58%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[id_software.quake.LumpHeader] [32mPASSED[0m[31m [ 58%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[id_software.quake.Vertex] [32mPASSED[0m[31m [ 58%][0m
@@ -518,7 +518,6 @@ tests/branches/test_LumpClasses.py::test_MappedArray[id_software.remake_quake_ol
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty1.LumpHeader] [32mPASSED[0m[31m [ 59%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty1_demo.Brush] [32mPASSED[0m[31m [ 59%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty1_demo.LumpHeader] [32mPASSED[0m[31m [ 59%][0m
-tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty1_demo.TriangleSoup] [32mPASSED[0m[31m [ 59%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty2.LumpHeader] [32mPASSED[0m[31m [ 59%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.call_of_duty2.TriangleSoup] [32mPASSED[0m[31m [ 59%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[infinity_ward.modern_warfare.LumpHeader] [32mPASSED[0m[31m [ 59%][0m
@@ -539,7 +538,7 @@ tests/branches/test_LumpClasses.py::test_MappedArray[outerlight.outerlight.LumpH
 tests/branches/test_LumpClasses.py::test_MappedArray[raven.hexen2.LumpHeader] [32mPASSED[0m[31m [ 61%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[raven.soldier_of_fortune.LumpHeader] [32mPASSED[0m[31m [ 61%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[raven.soldier_of_fortune2.LumpHeader] [32mPASSED[0m[31m [ 61%][0m
-tests/branches/test_LumpClasses.py::test_MappedArray[respawn.apex_legends.GAME_LUMP_HEADER] [32mPASSED[0m[31m [ 62%][0m
+tests/branches/test_LumpClasses.py::test_MappedArray[respawn.apex_legends.GAME_LUMP_HEADER] [32mPASSED[0m[31m [ 61%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[respawn.apex_legends.LumpHeader] [32mPASSED[0m[31m [ 62%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[respawn.apex_legends.PackedVertex] [32mPASSED[0m[31m [ 62%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[respawn.apex_legends.SurfaceProperty] [32mPASSED[0m[31m [ 62%][0m
@@ -582,7 +581,7 @@ tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.FaceBrushList
 tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.GAME_LUMP_HEADER] [32mPASSED[0m[31m [ 66%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.LeafAmbientIndex] [32mPASSED[0m[31m [ 66%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.LumpHeader] [32mPASSED[0m[31m [ 66%][0m
-tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.Primitive] [32mPASSED[0m[31m [ 67%][0m
+tests/branches/test_LumpClasses.py::test_MappedArray[strata.strata.Primitive] [32mPASSED[0m[31m [ 66%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[troika.vampire.GAME_LUMP_HEADER] [32mPASSED[0m[31m [ 67%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[troika.vampire.LumpHeader] [32mPASSED[0m[31m [ 67%][0m
 tests/branches/test_LumpClasses.py::test_MappedArray[utoplanet.merubasu.GAME_LUMP_HEADER] [32mPASSED[0m[31m [ 67%][0m
@@ -625,7 +624,7 @@ tests/branches/test_LumpClasses.py::test_MappedArray[wild_tangent.genesis3d.Lump
 tests/branches/test_LumpClasses.py::test_BitField[respawn.apex_legends.BVHLeaf5Header] [32mPASSED[0m[31m [ 71%][0m
 tests/branches/test_LumpClasses.py::test_BitField[respawn.apex_legends.BVHLeaf5Triangle] [32mPASSED[0m[31m [ 71%][0m
 tests/branches/test_LumpClasses.py::test_BitField[respawn.titanfall.BrushSideProperty] [32mPASSED[0m[31m [ 71%][0m
-tests/branches/test_LumpClasses.py::test_BitField[respawn.titanfall.Primitive] [32mPASSED[0m[31m [ 72%][0m
+tests/branches/test_LumpClasses.py::test_BitField[respawn.titanfall.Primitive] [32mPASSED[0m[31m [ 71%][0m
 tests/branches/test_LumpClasses.py::test_BitField[respawn.titanfall.TricollTriangle] [32mPASSED[0m[31m [ 72%][0m
 tests/branches/test_base.py::TestStruct::test_init [32mPASSED[0m[31m                [ 72%][0m
 tests/branches/test_base.py::TestStruct::test_unpack [32mPASSED[0m[31m              [ 72%][0m
@@ -668,7 +667,7 @@ tests/branches/id_software/test_quake2.py::TestVisibility::test_parser[Team Fort
 tests/branches/id_software/test_quake2.py::TestVisibility::test_parser[Momentum Mod/mp_lobby.bsp] [32mPASSED[0m[31m [ 76%][0m
 tests/branches/id_software/test_quake2.py::TestVisibility::test_run_length_encode [32mPASSED[0m[31m [ 76%][0m
 tests/branches/id_software/test_quake2.py::TestVisibility::test_run_length_decode [32mPASSED[0m[31m [ 76%][0m
-tests/branches/id_software/test_quake2.py::TestVisibility::test_as_bytes[Quake 2/mp_lobby.bsp] [32mPASSED[0m[31m [ 77%][0m
+tests/branches/id_software/test_quake2.py::TestVisibility::test_as_bytes[Quake 2/mp_lobby.bsp] [32mPASSED[0m[31m [ 76%][0m
 tests/branches/id_software/test_quake2.py::TestVisibility::test_as_bytes[Team Fortress 2/mp_lobby.bsp] [32mPASSED[0m[31m [ 77%][0m
 tests/branches/id_software/test_quake2.py::TestVisibility::test_as_bytes[Team Fortress 2/test2.bsp] [32mPASSED[0m[31m [ 77%][0m
 tests/branches/id_software/test_quake2.py::TestVisibility::test_as_bytes[Team Fortress 2/test_physcollide.bsp] [32mPASSED[0m[31m [ 77%][0m
@@ -984,7 +983,7 @@ game_name = 'Jabroni Brawl Episode 3', map_dirs = ['jbep3/maps']
 [1m[31mE         +  'jbep3/maps/jb_two2forts.bsp': AssertionError("sprp v11\nassert 1 == 0\n +  where 1 = len({'sprp v11': UnicodeDecodeError('utf-8', b'models/gunman/cactus.mdl=\\xeb\\xab0\\x08\\xff\\xff\\xff\\x7fh\\xdcw:\\x11\\xac\\xe0\\xa0\\x9cxL\\xdcw~\\xb6\\x97x\\xc0\\xa1\\xd9\\rP\\x01|\\xda\\xf2d\\xdcw\\xb0l\\xa7P|\\xda\\xf2D{\\xa7\\xc0\\xa1\\xd9\\rP', 25, 27, 'invalid continuation byte')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker/game/tf-map_dirs74] _[0m
 
 group_path = 'D:/SteamLibrary/steamapps/common'
@@ -1084,133 +1083,7 @@ game_name = 'SourceFilmmaker/game/tf', map_dirs = ['maps']
 [1m[31mE         +  'maps/sd_doomsday_event.bsp': AssertionError("sprp v10\nassert 1 == 0\n +  where 1 = len({'sprp v10': RuntimeError('Early end of lump! possible_sizeof=72.0 (is 76)')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
-[31m[1m_ test_load_bsp[D:/SteamLibrary/steamapps/common-Zeno Clash Demo/zenozoik-map_dirs79] _[0m
-
-group_path = 'D:/SteamLibrary/steamapps/common'
-game_name = 'Zeno Clash Demo/zenozoik', map_dirs = ['maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])[90m[39;49;00m
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):[90m[39;49;00m
-    [90m    [39;49;00m[33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m[90m[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m[90m[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m[90m[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m[90m[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m[90m[39;49;00m
-        errors = [96mdict[39;49;00m()[90m[39;49;00m
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m[90m[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m[90m[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m[90m[39;49;00m
-        total = [94m0[39;49;00m[90m[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:[90m[39;49;00m
-            full_path = os.path.join(group_path, game_name, map_dir)[90m[39;49;00m
-            [94mif[39;49;00m os.path.exists(full_path):[90m[39;49;00m
-                files = os.listdir(full_path)[90m[39;49;00m
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m[90m[39;49;00m
-                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m[90m[39;49;00m
-                total += [96mlen[39;49;00m(maps)[90m[39;49;00m
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m[90m[39;49;00m
-                    [94mtry[39;49;00m:[90m[39;49;00m
-                        bsp_filename = os.path.join(full_path, m)[90m[39;49;00m
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m[90m[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m[90m[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m[90m[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m[90m[39;49;00m
-                        bsp = load_bsp(bsp_filename, branch_script)[90m[39;49;00m
-                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m[90m[39;49;00m
-                        bsp_id = (bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.version)  [90m# debug info[39;49;00m[90m[39;49;00m
-                        loading_errors = [96mdict[39;49;00m()[90m[39;49;00m
-                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():[90m[39;49;00m
-                            lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)[90m[39;49;00m
-                            [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                                loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error[90m[39;49;00m
-                            [94melse[39;49;00m:[90m[39;49;00m
-                                loading_errors[lump_name] = error[90m[39;49;00m
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m[90m[39;49;00m
-                                loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v[90m[39;49;00m
-                                                       [94mfor[39;49;00m k, v [95min[39;49;00m bsp.GAME_LUMP.loading_errors.items()})[90m[39;49;00m
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m[90m[39;49;00m
-                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m[90m[39;49;00m
-                            [90m# NOTE: if collecting external lumps for a BspClass w/o versions this will break[39;49;00m[90m[39;49;00m
-                            loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v[90m[39;49;00m
-                                                   [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})[90m[39;49;00m
-                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m[90m[39;49;00m
-                                    loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.GAME_LUMP.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v  [90m# noqa E501[39;49;00m[90m[39;49;00m
-                                                           [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.GAME_LUMP.loading_errors.items()})[90m[39;49;00m
-                        [94mdel[39;49;00m bsp  [90m# close all open files before pytest freezes locals() on assert[39;49;00m[90m[39;49;00m
-                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())  [90m# pass loading_errors out[39;49;00m[90m[39;49;00m
-                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:[90m[39;49;00m
-                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m[90m[39;49;00m
-                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m[90m[39;49;00m
-                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m[90m[39;49;00m
-                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m[90m[39;49;00m
-                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):[90m[39;49;00m
-                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie[90m[39;49;00m
-                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m[90m[39;49;00m
-                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae[90m[39;49;00m
-                        types.add(bsp_id)[90m[39;49;00m
->       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-                                            *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, version[39;49;00m[90m[39;49;00m
-                                            *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])[90m[39;49;00m
-[1m[31mE       AssertionError: 20 out of 20 .bsps failed[0m
-[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
-[1m[31mE         sprp v7[0m
-[1m[31mE       assert {'maps/alley.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/arena1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('Early end of lump! possible_sizeof=5.444969387140765e-06 (is 72)')})"), 'maps/city.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/coast.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/endworld.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/gate.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/gate_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/mainmenu1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/outdoors.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/plains.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/plains_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/plaza.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/plaza_intro.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/plaza_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/road.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/throne.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/woods1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/woods1_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/woods2.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"), 'maps/woods2_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})")} == {}[0m
-[1m[31mE         Left contains 20 more items:[0m
-[1m[31mE         {'maps/alley.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/arena1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('Early end of lump! possible_sizeof=5.444969387140765e-06 (is 72)')})"),[0m
-[1m[31mE          'maps/city.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/coast.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/endworld.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/gate.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/gate_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/mainmenu1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/outdoors.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/plains.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/plains_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/plaza.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/plaza_intro.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/plaza_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/road.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/throne.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/woods1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/woods1_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/woods2.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE          'maps/woods2_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})")}[0m
-[1m[31mE         Full diff:[0m
-[1m[31mE           {[0m
-[1m[31mE         -  ,[0m
-[1m[31mE         +  'maps/alley.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/arena1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('Early end of lump! possible_sizeof=5.444969387140765e-06 (is 72)')})"),[0m
-[1m[31mE         +  'maps/city.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/coast.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/endworld.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/gate.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/gate_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/mainmenu1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/outdoors.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/plains.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/plains_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/plaza.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/plaza_intro.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/plaza_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/road.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/throne.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/woods1.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/woods1_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/woods2.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE         +  'maps/woods2_return.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': ZeroDivisionError('division by zero')})"),[0m
-[1m[31mE           }[0m
-
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m________________ test_load_bsp[E:/Mod-DDayNormandy-map_dirs89] ________________[0m
 
 group_path = 'E:/Mod', game_name = 'DDayNormandy'
@@ -1300,7 +1173,7 @@ map_dirs = ['D-Day_ Normandy/dday/maps', 'DDaynormandymaps-mappack/dday/maps']
 [1m[31mE         +  'DDaynormandymaps-mappack/dday/maps/railyardbhv2.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError("Unexpected line in entities: L1: b\'; worldspawn\'")})'),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m__________________ test_load_bsp[E:/Mod-HexenII-map_dirs91] ___________________[0m
 
 group_path = 'E:/Mod', game_name = 'HexenII'
@@ -1444,7 +1317,7 @@ map_dirs = ['pak0/maps', 'pak1/maps']
 [1m[31mE         +  'pak1/maps/village5.bsp': AssertionError("MODELS\nassert 1 == 0\n +  where 1 = len({'MODELS': RuntimeError('LumpClass does not divide lump evenly! (2720 / 64)')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m_____________ test_load_bsp[E:/Mod-QuakeII/rerelease-map_dirs99] ______________[0m
 
 group_path = 'E:/Mod', game_name = 'QuakeII/rerelease'
@@ -1530,7 +1403,7 @@ map_dirs = ['pak0/maps', 'pak0/maps/e3', 'pak0/maps/ec', 'pak0/maps/old', 'pak0/
 [1m[31mE         - {}[0m
 [1m[31mE         + {'pak0/maps/tutorial.bsp': AssertionError('ENTITIES\nassert 1 == 0\n +  where 1 = len({\'ENTITIES\': RuntimeError(\'Unexpected line in entities: L1895: b\\\'"shadowlightradius"   "0"\\\'\')})')}[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m_________ test_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs121] __________[0m
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/singleplayer'
@@ -1682,7 +1555,7 @@ map_dirs = ['maps']
 [1m[31mE         +  'maps/l12_c.bsp': AssertionError("sprp v6\nassert 1 == 0\n +  where 1 = len({'sprp v6': RuntimeError('tail of 25632 bytes; possible_sizeof=136.0')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m__________ test_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs122] __________[0m
 
 group_path = 'E:/Mod', game_name = 'DarkMessiah/multiplayer'
@@ -1790,7 +1663,7 @@ map_dirs = ['maps']
 [1m[31mE         +  'maps/l_mp5.bsp': AssertionError("sprp v6\nassert 1 == 0\n +  where 1 = len({'sprp v6': RuntimeError('tail of 37440 bytes; possible_sizeof=136.0')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m___________ test_load_bsp[E:/Mod-DearEsther/dearesther-map_dirs123] ___________[0m
 
 group_path = 'E:/Mod', game_name = 'DearEsther/dearesther', map_dirs = ['maps']
@@ -1883,150 +1756,7 @@ group_path = 'E:/Mod', game_name = 'DearEsther/dearesther', map_dirs = ['maps']
 [1m[31mE         +  'maps/paul.bsp': AssertionError("sprp v9\nassert 1 == 0\n +  where 1 = len({'sprp v9': RuntimeError('tail of 1248 bytes; possible_sizeof=76.0')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
-[31m[1m____________ test_load_bsp[E:/Mod-Merubasu/shadowland-map_dirs127] ____________[0m
-
-group_path = 'E:/Mod', game_name = 'Merubasu/shadowland', map_dirs = ['maps']
-
-    [37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mgroup_path,game_name,map_dirs[39;49;00m[33m"[39;49;00m, [(*gps, ms) [94mfor[39;49;00m gps, ms [95min[39;49;00m maplist.installed_games.items()])[90m[39;49;00m
-    [94mdef[39;49;00m [92mtest_load_bsp[39;49;00m(group_path, game_name, map_dirs):[90m[39;49;00m
-    [90m    [39;49;00m[33m"""MEGATEST: 69GB+ of .bsp files!"""[39;49;00m[90m[39;49;00m
-        [90m# TODO: clean up all the edge case conditions elsewhere[39;49;00m[90m[39;49;00m
-        branch_script = game_scripts.get(game_name)  [90m# forcing branch to test each branch_script[39;49;00m[90m[39;49;00m
-        [90m# TODO: move branch_script tests to another test and test auto-detect here instead[39;49;00m[90m[39;49;00m
-        [90m# -- e.g. test_list = [(BspClass, branch_script, ["mapdir", ...]), ...][39;49;00m[90m[39;49;00m
-        errors = [96mdict[39;49;00m()[90m[39;49;00m
-        [90m# ^ {"map_dir/map_name.bsp": ["Error"]}[39;49;00m[90m[39;49;00m
-        types = [96mset[39;49;00m()  [90m# printed on failure to aid in debugging[39;49;00m[90m[39;49;00m
-        [90m# ^ {(BspClass, branch, version)}[39;49;00m[90m[39;49;00m
-        total = [94m0[39;49;00m[90m[39;49;00m
-        [94mfor[39;49;00m map_dir [95min[39;49;00m map_dirs:[90m[39;49;00m
-            full_path = os.path.join(group_path, game_name, map_dir)[90m[39;49;00m
-            [94mif[39;49;00m os.path.exists(full_path):[90m[39;49;00m
-                files = os.listdir(full_path)[90m[39;49;00m
-                maps = fnmatch.filter(files, [33m"[39;49;00m[33m*[Bb][Ss][Pp][39;49;00m[33m"[39;49;00m)  [90m# .bsp, .BSP & CoD2 .d3dbsp[39;49;00m[90m[39;49;00m
-                maps = [m [94mfor[39;49;00m m [95min[39;49;00m maps [94mif[39;49;00m [33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m [95min[39;49;00m m]  [90m# DDayNormandy bomba2bsp edge case[39;49;00m[90m[39;49;00m
-                total += [96mlen[39;49;00m(maps)[90m[39;49;00m
-                [94massert[39;49;00m [96mlen[39;49;00m(maps) != [94m0[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mcouldn[39;49;00m[33m'[39;49;00m[33mt find any maps for [39;49;00m[33m{[39;49;00mgame_name[33m}[39;49;00m[33m in [39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [94mfor[39;49;00m m [95min[39;49;00m maps:  [90m# load every .bsp[39;49;00m[90m[39;49;00m
-                    [94mtry[39;49;00m:[90m[39;49;00m
-                        bsp_filename = os.path.join(full_path, m)[90m[39;49;00m
-                        [94mif[39;49;00m os.path.getsize(bsp_filename) == [94m0[39;49;00m:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# hl2/maps/d2_coast_02 is 0 bytes, idk why it shipped[39;49;00m[90m[39;49;00m
-                        [94mif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/episodic[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m == [33m"[39;49;00m[33mep1_citadel_00_demo.bsp[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# broken HL2:EP1 map (game crashes on load)[39;49;00m[90m[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mhalf-life 2/hl1[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m ([33m"[39;49;00m[33mc4a1y.bsp[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mc4a1z.bsp[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# broken HL:Source maps (y is v18 and won't run, z is v19 and has broken IO)[39;49;00m[90m[39;49;00m
-                        [94melif[39;49;00m game_name == [33m"[39;49;00m[33mDDayNormandy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m m [95min[39;49;00m dday_mappack_excludes:[90m[39;49;00m
-                            [94mcontinue[39;49;00m  [90m# maps probably tweaked in a text editor, all null bytes are spaces[39;49;00m[90m[39;49;00m
-                        bsp = load_bsp(bsp_filename, branch_script)[90m[39;49;00m
-                        bsp.file.close()  [90m# avoid OSError "Too many open files"[39;49;00m[90m[39;49;00m
-                        bsp_id = (bsp.[91m__class__[39;49;00m.[91m__name__[39;49;00m, bsp.branch.[91m__name__[39;49;00m, bsp.version)  [90m# debug info[39;49;00m[90m[39;49;00m
-                        loading_errors = [96mdict[39;49;00m()[90m[39;49;00m
-                        [94mfor[39;49;00m lump_name, error [95min[39;49;00m bsp.loading_errors.items():[90m[39;49;00m
-                            lump_version = [96mgetattr[39;49;00m(bsp.headers[lump_name], [33m"[39;49;00m[33mversion[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m)[90m[39;49;00m
-                            [94mif[39;49;00m lump_version [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                                loading_errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mlump_name[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mlump_version[33m}[39;49;00m[33m"[39;49;00m] = error[90m[39;49;00m
-                            [94melse[39;49;00m:[90m[39;49;00m
-                                loading_errors[lump_name] = error[90m[39;49;00m
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m[90m[39;49;00m
-                                loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v[90m[39;49;00m
-                                                       [94mfor[39;49;00m k, v [95min[39;49;00m bsp.GAME_LUMP.loading_errors.items()})[90m[39;49;00m
-                        [94mif[39;49;00m [96mhasattr[39;49;00m(bsp, [33m"[39;49;00m[33mexternal[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                            [90m# TODO: actually read external SpecialLumpClasses lumps for a thorough check[39;49;00m[90m[39;49;00m
-                            [90m# TODO: close any external lump files this opens to avoid OSError[39;49;00m[90m[39;49;00m
-                            [90m# NOTE: if collecting external lumps for a BspClass w/o versions this will break[39;49;00m[90m[39;49;00m
-                            loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v[90m[39;49;00m
-                                                   [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})[90m[39;49;00m
-                            [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
-                                [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(bsp.external.GAME_LUMP, lumps.RawBspLump):  [90m# skip unmapped game lumps[39;49;00m[90m[39;49;00m
-                                    loading_errors.update({[33mf[39;49;00m[33m"[39;49;00m[33mexternal.GAME_LUMP.[39;49;00m[33m{[39;49;00mk[33m}[39;49;00m[33m v[39;49;00m[33m{[39;49;00mbsp.external.GAME_LUMP.headers[k].version[33m}[39;49;00m[33m"[39;49;00m: v  [90m# noqa E501[39;49;00m[90m[39;49;00m
-                                                           [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.GAME_LUMP.loading_errors.items()})[90m[39;49;00m
-                        [94mdel[39;49;00m bsp  [90m# close all open files before pytest freezes locals() on assert[39;49;00m[90m[39;49;00m
-                        [94massert[39;49;00m [96mlen[39;49;00m(loading_errors) == [94m0[39;49;00m, [33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m.join(loading_errors.keys())  [90m# pass loading_errors out[39;49;00m[90m[39;49;00m
-                    [94mexcept[39;49;00m [96mNotImplementedError[39;49;00m [94mas[39;49;00m nie:[90m[39;49;00m
-                        [90m# "DarkPlaces/maps/b_*.bsp" files are Quake .mdl with the .bsp extension[39;49;00m[90m[39;49;00m
-                        [90m# https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF[39;49;00m[90m[39;49;00m
-                        [90m# Quake stores pickup models as .bsp and renders them in a nested fashion[39;49;00m[90m[39;49;00m
-                        [90m# so this is probably fine in Quake, but they still aren't .bsp files[39;49;00m[90m[39;49;00m
-                        [94mif[39;49;00m [95mnot[39;49;00m (game_name == [33m"[39;49;00m[33mDarkPlaces[39;49;00m[33m"[39;49;00m [95mand[39;49;00m nie.args == ([33m"[39;49;00m[33mUnknown file_magic: b[39;49;00m[33m'[39;49;00m[33mIDPO[39;49;00m[33m'[39;49;00m[33m"[39;49;00m,)):[90m[39;49;00m
-                            errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = nie[90m[39;49;00m
-                    [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m ae:  [90m# should catch the `assert len(loading_errors) == ...` above[39;49;00m[90m[39;49;00m
-                        errors[[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mmap_dir[33m}[39;49;00m[33m/[39;49;00m[33m{[39;49;00mm[33m}[39;49;00m[33m"[39;49;00m] = ae[90m[39;49;00m
-                        types.add(bsp_id)[90m[39;49;00m
->       [94massert[39;49;00m errors == [96mdict[39;49;00m(), [33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m.join([[33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(errors)[33m}[39;49;00m[33m out of [39;49;00m[33m{[39;49;00mtotal[33m}[39;49;00m[33m .bsps failed[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-                                            *[96mmap[39;49;00m([96mstr[39;49;00m, types),  [90m# BspClass, branch_script, version[39;49;00m[90m[39;49;00m
-                                            *{ln [94mfor[39;49;00m ae [95min[39;49;00m errors.values() [94mfor[39;49;00m ln [95min[39;49;00m ae.args[[94m0[39;49;00m].split([33m"[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m)[[94m0[39;49;00m].split([33m"[39;49;00m[33m, [39;49;00m[33m"[39;49;00m)}])[90m[39;49;00m
-[1m[31mE       AssertionError: 29 out of 29 .bsps failed[0m
-[1m[31mE         ('ValveBsp', 'bsp_tool.branches.valve.orange_box', 20)[0m
-[1m[31mE         sprp v7[0m
-[1m[31mE       assert {'maps/00_town_punk.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4532 bytes; possible_sizeof=76.0')})"), 'maps/02_alice_garden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1728 bytes; possible_sizeof=76.0')})"), 'maps/02_battlechess.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5200 bytes; possible_sizeof=76.0')})"), 'maps/02_bootleg.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 7012 bytes; possible_sizeof=76.0')})"), 'maps/02_cliff_station.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5752 bytes; possible_sizeof=76.0')})"), 'maps/02_colosseum.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2204 bytes; possible_sizeof=76.0')})"), 'maps/02_factory.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1132 bytes; possible_sizeof=76.0')})"), 'maps/02_farm_sm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"), 'maps/02_farm_tdm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"), 'maps/02_fly_girls.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3720 bytes; possible_sizeof=76.0')})"), 'maps/02_hydros.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"), 'maps/02_japan_town.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"), 'maps/02_japan_town_small_melee.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"), 'maps/02_lockdown.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5920 bytes; possible_sizeof=76.0')})"), 'maps/02_ninja_night.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6468 bytes; possible_sizeof=76.0')})"), 'maps/02_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4484 bytes; possible_sizeof=76.0')})"), 'maps/02_sewerarena.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1036 bytes; possible_sizeof=76.0')})"), 'maps/02_war_supplies.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4900 bytes; possible_sizeof=76.0')})"), 'maps/07_alice_cardcastle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2876 bytes; possible_sizeof=76.0')})"), 'maps/07_alice_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4968 bytes; possible_sizeof=76.0')})"), 'maps/07_alice_chessgarden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3292 bytes; possible_sizeof=76.0')})"), 'maps/07_alice_frontyard.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4132 bytes; possible_sizeof=76.0')})"), 'maps/07_alice_teaparty.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1520 bytes; possible_sizeof=76.0')})"), 'maps/08_ninja_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2344 bytes; possible_sizeof=76.0')})"), 'maps/08_ninja_fortress.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5316 bytes; possible_sizeof=76.0')})"), 'maps/08_ninja_lavaregion.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4392 bytes; possible_sizeof=76.0')})"), 'maps/08_ninja_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4996 bytes; possible_sizeof=76.0')})"), 'maps/08_ninja_shrine.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"), 'maps/tutorial01.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1484 bytes; possible_sizeof=76.0')})")} == {}[0m
-[1m[31mE         Left contains 29 more items:[0m
-[1m[31mE         {'maps/00_town_punk.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4532 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_alice_garden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1728 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_battlechess.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5200 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_bootleg.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 7012 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_cliff_station.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5752 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_colosseum.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2204 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_factory.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1132 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_farm_sm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_farm_tdm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_fly_girls.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3720 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_hydros.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"),[0m
-[1m[31mE          'maps/02_japan_town.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_japan_town_small_melee.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_lockdown.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5920 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_ninja_night.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6468 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4484 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_sewerarena.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1036 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/02_war_supplies.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4900 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/07_alice_cardcastle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2876 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/07_alice_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4968 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/07_alice_chessgarden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3292 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/07_alice_frontyard.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4132 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/07_alice_teaparty.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1520 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/08_ninja_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2344 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/08_ninja_fortress.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5316 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/08_ninja_lavaregion.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4392 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/08_ninja_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4996 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE          'maps/08_ninja_shrine.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"),[0m
-[1m[31mE          'maps/tutorial01.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1484 bytes; possible_sizeof=76.0')})")}[0m
-[1m[31mE         Full diff:[0m
-[1m[31mE           {[0m
-[1m[31mE         -  ,[0m
-[1m[31mE         +  'maps/00_town_punk.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4532 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_alice_garden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1728 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_battlechess.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5200 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_bootleg.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 7012 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_cliff_station.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5752 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_colosseum.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2204 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_factory.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1132 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_farm_sm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_farm_tdm.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2788 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_fly_girls.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3720 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_hydros.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"),[0m
-[1m[31mE         +  'maps/02_japan_town.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_japan_town_small_melee.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6212 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_lockdown.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5920 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_ninja_night.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 6468 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4484 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_sewerarena.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1036 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/02_war_supplies.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4900 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/07_alice_cardcastle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2876 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/07_alice_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4968 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/07_alice_chessgarden.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 3292 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/07_alice_frontyard.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4132 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/07_alice_teaparty.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1520 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/08_ninja_castle.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 2344 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/08_ninja_fortress.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 5316 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/08_ninja_lavaregion.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4392 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/08_ninja_outpost.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 4996 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE         +  'maps/08_ninja_shrine.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': error('argument out of range')})"),[0m
-[1m[31mE         +  'maps/tutorial01.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('tail of 1484 bytes; possible_sizeof=76.0')})"),[0m
-[1m[31mE           }[0m
-
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m_________________ test_load_bsp[E:/Mod-Vindictus-map_dirs133] _________________[0m
 
 group_path = 'E:/Mod', game_name = 'Vindictus'
@@ -2714,7 +2444,7 @@ map_dirs = ['hfs/2022/maps', 'Colhen_Mod_BSP (Private Server Version)']
 [1m[31mE         +  'hfs/2022/maps/w_boss02.bsp': AssertionError("sprp v6\nassert 1 == 0\n +  where 1 = len({'sprp v6': RuntimeError('Early end of lump! possible_sizeof=60.0 (is 64)')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m___________ test_load_bsp[E:/Mod-ApexLegends/season11-map_dirs150] ____________[0m
 
 group_path = 'E:/Mod', game_name = 'ApexLegends/season11'
@@ -2806,7 +2536,7 @@ map_dirs = ['2nov21/maps', '2nov21/depot/r5-110/game/r2/maps', '5nov21/maps', '5
 [1m[31mE         +  '5nov21/maps/mp_rr_tropic_island.bsp': AssertionError("WATER_BODY_CENTERS v0\nassert 1 == 0\n +  where 1 = len({'WATER_BODY_CENTERS v0': RuntimeError('LumpClass does not divide lump evenly! (27008 / 24)')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m___________ test_load_bsp[E:/Mod-ApexLegends/season18-map_dirs157] ____________[0m
 
 group_path = 'E:/Mod', game_name = 'ApexLegends/season18'
@@ -2865,7 +2595,7 @@ map_dirs = ['8aug23/maps', '19sep23/maps']
                                                    [94mfor[39;49;00m k, v [95min[39;49;00m bsp.external.loading_errors.items()})[90m[39;49;00m
 >                           [94mif[39;49;00m [96mhasattr[39;49;00m(bsp.external, [33m"[39;49;00m[33mGAME_LUMP[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
 
-[1m[31mtests\test_load_bsp.py[0m:99: 
+[1m[31mtests\test_load_bsp.py[0m:102: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <ExternalLumpManager 'mp_lobby.bsp' respawn.apex_legends51 (rBSP version 51.1)>
@@ -2976,7 +2706,7 @@ map_dirs = ['1feb24/maps']
 [1m[31mE         - {}[0m
 [1m[31mE         + {'1feb24/maps/mp_rr_olympus_mu2.bsp': AssertionError("external.GAME_LUMP.sprp v51\nassert 1 == 0\n +  where 1 = len({'external.GAME_LUMP.sprp v51': UnicodeDecodeError('utf-8', b'TA\\x07g,\\x07\\xb4B\\x80?\\x06\\x04\\x02\\x80\\xbf\\xff\\xff\\xff\\xff \\x08D\\xf6\\x0b\\xc6;\\xf2\\xbdF\\xb25\\xc0\\xc5\\xf6(\\xb4B\\x80?\\x01\\x06\\x04\\x07\\x80\\xbf\\xff\\xff\\xff\\xff', 6, 7, 'invalid start byte')})")}[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m______________ test_load_bsp[E:/Mod/X360-Left4Dead-map_dirs178] _______________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Left4Dead'
@@ -3148,7 +2878,7 @@ map_dirs = ['left4dead/maps']
 [1m[31mE         +  'left4dead/maps/lighthouse.360.bsp': AssertionError("sprp v7\nassert 1 == 0\n +  where 1 = len({'sprp v7': RuntimeError('Early end of lump! possible_sizeof=68.0 (is 71)')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m______________ test_load_bsp[E:/Mod/X360-OrangeBox-map_dirs180] _______________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'OrangeBox'
@@ -3234,7 +2964,7 @@ map_dirs = ['ep2/maps', 'episodic/maps', 'hl2/maps', 'portal/maps', 'tf/maps']
 [1m[31mE         - {}[0m
 [1m[31mE         + {'hl2/maps/shack.360.bsp': AssertionError("sprp v6\nassert 1 == 0\n +  where 1 = len({'sprp v6': UnicodeDecodeError('utf-8', b'\\xea\\xa4\\x0c\\x11F\\xa4\\xe5\\xc8\\x04\\xb0\\x1b\\x14\\xfb@\\t|#\\xe0\\x01\\x04\\xbc\\x04, \\x10\\x01\\x01|\\x0c\\x0c\\x02\\x04\\x10\\x08\\xed\\x01$ ', 0, 2, 'invalid continuation byte')})")}[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [31m[1m_______________ test_load_bsp[E:/Mod/X360-Portal2-map_dirs181] ________________[0m
 
 group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
@@ -3529,7 +3259,7 @@ group_path = 'E:/Mod/X360', game_name = 'Portal2', map_dirs = ['portal2/maps']
 [1m[31mE         +  'portal2/maps/sp_a5_credits.360.bsp': AssertionError("sprp v9\nassert 1 == 0\n +  where 1 = len({'sprp v9': UnicodeDecodeError('utf-8', b'\\x0b\\xf4R', 1, 2, 'invalid continuation byte')})"),[0m
 [1m[31mE           }[0m
 
-[1m[31mtests\test_load_bsp.py[0m:115: AssertionError
+[1m[31mtests\test_load_bsp.py[0m:118: AssertionError
 [33m============================== warnings summary ===============================[0m
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Momentum Mod Playtest-map_dirs67]
 tests/test_load_bsp.py::test_load_bsp[D:/SteamLibrary/steamapps/common-Team Fortress 2-map_dirs76]
@@ -3540,7 +3270,7 @@ tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs128]
     warnings.warn(UserWarning(f"compressed empty {child_name} game lump"))
 
 tests/test_load_bsp.py::test_load_bsp[E:/Mod-MomentumMod-map_dirs128]
-  C:\Users\Jared\Documents\GitHub\bsp_tool\.env\Lib\site-packages\_pytest\unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored in: <function ZipFile.__del__ at 0x000001B50B3AA8E0>
+  C:\Users\Jared\Documents\GitHub\bsp_tool\.env\Lib\site-packages\_pytest\unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored in: <function ZipFile.__del__ at 0x000002C7676AA8E0>
   
   Traceback (most recent call last):
     File "C:\Users\Jared\AppData\Local\Programs\Python\Python311\Lib\zipfile.py", line 1872, in __del__
@@ -3581,8 +3311,8 @@ bsp_tool\branches\id_software\remake_quake_old.py            25      0   100%
 bsp_tool\branches\ieee754.py                                 18      1    94%
 bsp_tool\branches\infinity_ward\__init__.py                   5      0   100%
 bsp_tool\branches\infinity_ward\call_of_duty1.py             46      0   100%
-bsp_tool\branches\infinity_ward\call_of_duty1_demo.py       184     27    85%
-bsp_tool\branches\infinity_ward\call_of_duty2.py            151      1    99%
+bsp_tool\branches\infinity_ward\call_of_duty1_demo.py       241     55    77%
+bsp_tool\branches\infinity_ward\call_of_duty2.py            142      1    99%
 bsp_tool\branches\infinity_ward\modern_warfare.py            75      0   100%
 bsp_tool\branches\ion_storm\__init__.py                       2      0   100%
 bsp_tool\branches\ion_storm\daikatana.py                     98     10    90%
@@ -3604,7 +3334,7 @@ bsp_tool\branches\respawn\apex_legends50.py                 157      0   100%
 bsp_tool\branches\respawn\apex_legends51.py                 154      0   100%
 bsp_tool\branches\respawn\apex_legends.py                   444     68    85%
 bsp_tool\branches\respawn\titanfall2.py                     301      4    99%
-bsp_tool\branches\respawn\titanfall.py                      783    109    86%
+bsp_tool\branches\respawn\titanfall.py                      783    104    87%
 bsp_tool\branches\respawn\titanfall_x360.py                  32      0   100%
 bsp_tool\branches\ritual\__init__.py                          8      0   100%
 bsp_tool\branches\ritual\fakk2.py                            61      0   100%
@@ -3704,19 +3434,17 @@ bsp_tool\utils\vector.py                                    167     62    63%
 bsp_tool\valve.py                                           142     74    48%
 bsp_tool\wild_tangent.py                                     23      0   100%
 -----------------------------------------------------------------------------
-TOTAL                                                     11456   2322    80%
+TOTAL                                                     11504   2345    80%
 
 [36m[1m=========================== short test summary info ===========================[0m
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-Jabroni Brawl Episode 3-map_dirs63][0m - AssertionError: 14 out of 142 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-SourceFilmmaker/game/tf-map_dirs74][0m - AssertionError: 7 out of 71 .bsps failed
-[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[D:/SteamLibrary/steamapps/common-Zeno Clash Demo/zenozoik-map_dirs79][0m - AssertionError: 20 out of 20 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DDayNormandy-map_dirs89][0m - AssertionError: 2 out of 719 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-HexenII-map_dirs91][0m - AssertionError: 29 out of 42 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-QuakeII/rerelease-map_dirs99][0m - AssertionError: 1 out of 222 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DarkMessiah/singleplayer-map_dirs121][0m - AssertionError: 33 out of 35 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DarkMessiah/multiplayer-map_dirs122][0m - AssertionError: 11 out of 11 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-DearEsther/dearesther-map_dirs123][0m - AssertionError: 4 out of 4 .bsps failed
-[31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-Merubasu/shadowland-map_dirs127][0m - AssertionError: 29 out of 29 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-Vindictus-map_dirs133][0m - AssertionError: 301 out of 475 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-ApexLegends/season11-map_dirs150][0m - AssertionError: 3 out of 32 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod-ApexLegends/season18-map_dirs157][0m - RuntimeError: The .bsp_lump file for the GAME_LUMP lump is empty!
@@ -3724,4 +3452,4 @@ TOTAL                                                     11456   2322    80%
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Left4Dead-map_dirs178][0m - AssertionError: 43 out of 44 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-OrangeBox-map_dirs180][0m - AssertionError: 1 out of 150 .bsps failed
 [31mFAILED[0m tests/test_load_bsp.py::[1mtest_load_bsp[E:/Mod/X360-Portal2-map_dirs181][0m - AssertionError: 105 out of 105 .bsps failed
-[31m= [31m[1m17 failed[0m, [32m824 passed[0m, [33m19 xfailed[0m, [33m1 xpassed[0m, [33m6 warnings[0m[31m in 4948.75s (1:22:28)[0m[31m =[0m
+[31m= [31m[1m15 failed[0m, [32m825 passed[0m, [33m19 xfailed[0m, [33m1 xpassed[0m, [33m6 warnings[0m[31m in 4811.35s (1:20:11)[0m[31m =[0m
