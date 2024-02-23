@@ -162,5 +162,5 @@ leftstring B48 = "call_of_duty2"
 let C48 = 50.6
 leftstring A49 = "infinity_ward"
 leftstring B49 = "modern_warfare"
-let C49 = 32.49
+let C49 = 40.9
 goto A0
