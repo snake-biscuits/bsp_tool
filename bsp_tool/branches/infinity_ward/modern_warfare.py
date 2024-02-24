@@ -110,6 +110,9 @@ class LumpHeader(base.MappedArray):
 # Models -> Brushes
 #       \-> SimpleTriangleSoups
 
+# CollisionParts -> CollisionTriangles -> CollisionVertices
+#               \-> CollisionBorders
+
 
 # classes for lumps, in alphabetical order:
 class Cell(base.Struct):  # LUMP 0x19
@@ -120,6 +123,34 @@ class Cell(base.Struct):  # LUMP 0x19
     _format = "6f88s"  # 112 bytes
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+
+
+class CollisionAABB(base.Struct):  # LUMP 0x24
+    mins: vector.vec3
+    maxs: vector.vec3
+    unknown_1: List[int]  # (4, mostly 0)
+    unknown_2: int  # CollisionPart indices?
+    # TODO: test for CollisionPart triangles inside bounds
+    __slots__ = ["mins", "maxs", "unknown_1", "unknown_2"]
+    _format = "6f2HI"
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "unknown_1": 2}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+
+
+class CollisionBorder(base.Struct):  # LUMP 0x22
+    unknown: bytes  # compressed bits? BevelIndices?
+    __slots__ = ["unknown"]
+    _format = "28s"
+
+
+class CollisionPart(base.Struct):  # LUMP 0x23
+    unknown: int  # always 0 so far
+    num_triangles: int
+    num_borders: int
+    first_triangle: int  # index into CollisionTriangles
+    first_border: int  # index into CollisionBorders
+    __slots__ = ["unknown", "num_triangles", "num_borders", "first_triangle", "first_border"]
+    _format = "H2B2I"
 
 
 class Model(base.Struct):  # LUMP 0x25
@@ -173,6 +204,9 @@ LUMP_CLASSES = {
     "BRUSHES":                call_of_duty1_demo.Brush,
     "BRUSH_SIDES":            call_of_duty1_demo.BrushSide,
     "CELLS":                  Cell,
+    "COLLISION_AABBS":        CollisionAABB,
+    "COLLISION_BORDERS":      CollisionBorder,
+    "COLLISION_PARTS":        CollisionPart,
     "COLLISION_TRIANGLES":    call_of_duty2.Triangle,
     "COLLISION_VERTICES":     quake.Vertex,
     "LAYERED_TRIANGLE_SOUPS": TriangleSoup,

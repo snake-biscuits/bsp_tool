@@ -163,11 +163,9 @@ class Model(base.Struct):  # LUMP 35
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Triangle(list):  # LUMP 9
-    _format = "3H"  # List[int]
-
-    def flat(self):
-        return self  # HACK
+class Triangle(base.Struct):  # LUMP 9
+    __slots__ = ["A", "B", "C"]
+    _format = "3H"
 
 
 class TriangleSoup(base.MappedArray):  # LUMP 7
