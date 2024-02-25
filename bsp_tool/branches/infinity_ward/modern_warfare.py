@@ -102,7 +102,7 @@ class LumpHeader(base.MappedArray):
 
 
 # a rough map of the relationships between lumps:
-# TriangleSoups -> Indices -> Vertices
+# AABBTree -> TriangleSoups -> Indices -> Vertices
 
 # LeafBrushes -> Brushes
 
@@ -115,6 +115,14 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for lumps, in alphabetical order:
+class AABBTree(base.Struct):  # LUMP 0x18 & 0x24
+    unknown_1: int
+    num_triangle_soups: int
+    unknown_2: int
+    __slots__ = ["unknown_1", "num_triangle_soups", "unknown_2"]
+    _format = "3I"
+
+
 class Cell(base.Struct):  # LUMP 0x19
     mins: vector.vec3
     maxs: vector.vec3
@@ -153,6 +161,13 @@ class CollisionPart(base.Struct):  # LUMP 0x23
     _format = "H2B2I"
 
 
+class Leaf(base.Struct):  # LUMP 0x1C
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "6i"
+    _arrays = {"unknown": 6}
+
+
 class Model(base.Struct):  # LUMP 0x25
     mins: vector.vec3
     maxs: vector.vec3
@@ -179,6 +194,13 @@ class Model(base.Struct):  # LUMP 0x25
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
+class Node(base.Struct):  # LUMP 0x1B
+    unknown: List[int]
+    __slots__ = ["unknown"]
+    _format = "9i"
+    _arrays = {"unknown": 9}
+
+
 class TriangleSoup(base.Struct):  # LUMP 0x09 & 0x2F
     # TODO: texture indices
     unknown: bytes
@@ -196,6 +218,7 @@ class TriangleSoup(base.Struct):  # LUMP 0x09 & 0x2F
 BASIC_LUMP_CLASSES = {
     "LAYERED_INDICES":   shared.UnsignedShorts,
     "LEAF_BRUSHES":      shared.UnsignedInts,
+    "LIGHT_GRID_HEADER": shared.UnsignedShorts,
     "LIGHT_GRID_POINTS": shared.UnsignedInts,
     "LIGHT_REGIONS":     shared.UnsignedBytes,
     "SIMPLE_INDICES":    shared.UnsignedShorts}
@@ -209,11 +232,15 @@ LUMP_CLASSES = {
     "COLLISION_PARTS":        CollisionPart,
     "COLLISION_TRIANGLES":    call_of_duty2.Triangle,
     "COLLISION_VERTICES":     quake.Vertex,
+    "LAYERED_AABB_TREE":      AABBTree,
     "LAYERED_TRIANGLE_SOUPS": TriangleSoup,
     "LAYERED_VERTICES":       call_of_duty2.Vertex,
+    "LEAVES":                 Leaf,
     "MODELS":                 Model,
+    "NODES":                  Node,
     "PLANES":                 quake3.Plane,
     "TEXTURES":               quake3.Texture,
+    "SIMPLE_AABB_TREE":       AABBTree,
     "SIMPLE_TRIANGLE_SOUPS":  TriangleSoup,
     "SIMPLE_VERTICES":        call_of_duty2.Vertex}
 

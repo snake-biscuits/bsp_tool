@@ -1,8 +1,10 @@
-__all__ = ["apex_legends", "base", "for_branch", "quake", "quake2",
-           "quake3", "source", "titanfall", "titanfall2"]
+__all__ = [
+    "apex_legends", "base", "for_branch", "modern_warfare", "quake",
+    "quake2", "quake3", "source", "titanfall", "titanfall2"]
 
 from . import apex_legends
 from . import base
+from . import modern_warfare
 from . import quake
 from . import quake2
 from . import quake3
@@ -21,6 +23,7 @@ from . import titanfall2
 for_branch = {"id_software.quake": quake.as_page,
               "id_software.quake2": quake2.as_page,
               "id_software.quake3": quake3.tiled,
+              "infinity_ward.modern_warfare": modern_warfare.tiled,
               "respawn.apex_legends": apex_legends.tiled,
               "respawn.titanfall": titanfall.tiled_or_split,
               "respawn.titanfall2": titanfall2.tiled_or_split,
