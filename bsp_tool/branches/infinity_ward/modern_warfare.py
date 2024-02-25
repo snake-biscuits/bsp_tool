@@ -1,7 +1,9 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
 import enum
+import itertools
 from typing import List
 
+from ...utils import geometry
 from ...utils import vector
 from .. import base
 from .. import shared
@@ -248,6 +250,53 @@ SPECIAL_LUMP_CLASSES = {
     "ENTITIES": shared.Entities}
 
 
+# methods for interfacing with lumps from this branch:
+def collision_part_mesh(bsp, collision_part_index: int) -> geometry.Mesh:
+    collision_part = bsp.COLLISION_PARTS[collision_part_index]
+    start, length = collision_part.first_triangle, collision_part.num_triangles
+    no_normal = vector.vec3(0, 0, 0)
+    triangles = [
+        [geometry.Vertex(bsp.COLLISION_VERTICES[i], no_normal) for i in triangle]
+        for triangle in bsp.COLLISION_TRIANGLES[start:start + length]]
+    return geometry.Mesh(polygons=[*map(geometry.Polygon, triangles)])
+
+
+def layered_triangle_soup_mesh(bsp, layered_triangle_soup_index: int) -> geometry.Mesh:
+    triangle_soup = bsp.LAYERED_TRIANGLE_SOUPS[layered_triangle_soup_index]
+    # material
+    # texture = bsp.TEXTURES[triangle_soup.texture]  # not found yet
+    material = geometry.Material("unknown")  # texture.name.split(b"\0")[0].decode()
+    # geometry
+    start, length = triangle_soup.first_vertex, triangle_soup.num_vertices
+    vertices = bsp.LAYERED_VERTICES[start:start + length]
+    vertices = [
+        geometry.Vertex(v.position, v.normal, v.albedo_uv, v.lightmap_uv, colour=v.colour.as_floats())
+        for v in vertices]
+    start, length = triangle_soup.first_index, triangle_soup.num_indices
+    indices = bsp.LAYERED_INDICES[start:start + length]
+    vertices = [vertices[i] for i in indices]
+    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+
+
+def simple_triangle_soup_mesh(bsp, simple_triangle_soup_index: int) -> geometry.Mesh:
+    triangle_soup = bsp.LAYERED_TRIANGLE_SOUPS[simple_triangle_soup_index]
+    # material
+    # texture = bsp.TEXTURES[triangle_soup.texture]  # not found yet
+    material = geometry.Material("unknown")  # texture.name.split(b"\0")[0].decode()
+    # geometry
+    start, length = triangle_soup.first_vertex, triangle_soup.num_vertices
+    vertices = bsp.SIMPLE_VERTICES[start:start + length]
+    vertices = [
+        geometry.Vertex(v.position, v.normal, v.albedo_uv, v.lightmap_uv, colour=v.colour.as_floats())
+        for v in vertices]
+    start, length = triangle_soup.first_index, triangle_soup.num_indices
+    indices = bsp.SIMPLE_INDICES[start:start + length]
+    vertices = [vertices[i] for i in indices]
+    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+
+
 # NOTE: no mins & maxs in worldspawn?
-methods = [call_of_duty1_demo.brush]
+methods = [
+    call_of_duty1_demo.brush, collision_part_mesh,
+    layered_triangle_soup_mesh, simple_triangle_soup_mesh]
 methods = {m.__name__: m for m in methods}

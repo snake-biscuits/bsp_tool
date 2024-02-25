@@ -168,15 +168,14 @@ class Triangle(base.Struct):  # LUMP 9
     _format = "3H"
 
 
-class TriangleSoup(base.MappedArray):  # LUMP 7
-    material: int
+class TriangleSoup(base.Struct):  # LUMP 7
+    texture: int  # index into Textures
     draw_order: int  # ?
     first_vertex: int
     num_vertices: int
     first_triangle: int
     num_triangles: int
-    _mapping = ["material", "draw_order", "first_vertex", "num_vertices",
-                "first_triangle", "num_triangles"]
+    __slots__ = ["texture", "draw_order", "first_vertex", "num_vertices", "first_triangle", "num_triangles"]
     _format = "2HI2HI"
 
 
@@ -184,15 +183,17 @@ class Vertex(base.Struct):  # LUMP 8
     position: vector.vec3
     normal: vector.vec3
     colour: colour.RGBA32
-    uv0: List[float]  # albedo / normal ?
-    uv1: List[float]  # lightmap ?
+    albedo_uv: List[float]
+    lightmap_uv: List[float]
     unknown: List[float]  # texture vectors? too short... additional uvs?
-    __slots__ = ["position", "normal", "colour", "uv0", "uv1", "unknown"]
+    __slots__ = ["position", "normal", "colour", "albedo_uv", "lightmap_uv", "unknown"]
     _format = "6f4B10f"
-    _arrays = {"position": [*"xyz"], "normal": [*"xyz"], "colour": [*"rgba"],
-               "uv0": [*"uv"], "uv1": [*"uv"], "unknown": 6}
-    _classes = {"position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32}
-    # TODO: "uv0": vec2.uv, "uv1": vec2.uv
+    _arrays = {
+        "position": [*"xyz"], "normal": [*"xyz"], "colour": [*"rgba"],
+        "albedo_uv": [*"xy"], "lightmap_uv": [*"xy"], "unknown": 6}
+    _classes = {
+        "position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32,
+        "albedo_uv": vector.vec2, "lightmap_uv": vector.vec2}
 
 
 # {"LUMP_NAME": LumpClass}

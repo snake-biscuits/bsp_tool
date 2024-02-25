@@ -314,6 +314,7 @@ SPECIAL_LUMP_CLASSES = {
     "ENTITIES": shared.Entities}
 
 
+# methods for interfacing with lumps from this branch:
 def brush(bsp, brush_index) -> editor.Brush:
     # NOTE: generates a generic TextureVector
     first_side = sum(b.num_sides for b in bsp.BRUSHES[:brush_index])
@@ -360,7 +361,7 @@ def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:
     start, length = patch.first_index, patch.num_indices
     indices = bsp.COLLISION_INDICES[start:start + length]
     vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, map(geometry.Polygon, itertools.batched(vertices, 3)))
+    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
 
 
 def portal_file(bsp) -> str:
@@ -389,7 +390,7 @@ def triangle_soup_mesh(bsp, triangle_soup_index: int) -> geometry.Mesh:
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.INDICES[start:start + length]
     vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, map(geometry.Polygon, itertools.batched(vertices, 3)))
+    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
 
 
 methods = [
