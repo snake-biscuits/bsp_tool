@@ -1,6 +1,5 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_d3dbsp
 import enum
-import itertools
 from typing import List
 
 from ...utils import geometry
@@ -274,8 +273,7 @@ def layered_triangle_soup_mesh(bsp, layered_triangle_soup_index: int) -> geometr
         for v in vertices]
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.LAYERED_INDICES[start:start + length]
-    vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
 
 
 def simple_triangle_soup_mesh(bsp, simple_triangle_soup_index: int) -> geometry.Mesh:
@@ -291,8 +289,7 @@ def simple_triangle_soup_mesh(bsp, simple_triangle_soup_index: int) -> geometry.
         for v in vertices]
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.SIMPLE_INDICES[start:start + length]
-    vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
 
 
 # NOTE: no mins & maxs in worldspawn?

@@ -11,6 +11,12 @@ def triangle_fan(num_vertices: int) -> List[int]:
     return itertools.chain([(0, 1, 2), *[(0, i - 1, i) for i in range(3, num_vertices)]])
 
 
+def triangle_soup(vertices: List[Vertex]) -> List[Polygon]:
+    vertices = tuple(vertices)  # no generators
+    assert len(vertices) % 3 == 0
+    return [Polygon([vertices[i + j] for j in (0, 1, 2)]) for i in range(0, len(vertices), 3)]
+
+
 class Vertex:
     position: vector.vec3
     normal: vector.vec3  # should be normalised

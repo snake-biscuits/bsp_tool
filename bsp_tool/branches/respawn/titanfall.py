@@ -2,7 +2,6 @@
 from __future__ import annotations
 import enum
 import io
-import itertools
 import struct
 from typing import Dict, List, Union
 
@@ -1143,7 +1142,7 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     converter = bsp.lit_vertex if vertex_lump.split("_")[1] == "LIT" else bsp.unlit_vertex
     VERTEX_LUMP = getattr(bsp, vertex_lump)
     vertices = [converter(VERTEX_LUMP[i]) for i in indices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup(vertices))
 
 
 def model(bsp, model_index: int) -> geometry.Model:
@@ -1203,7 +1202,7 @@ def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
     # indices
     start = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESHES[:shadow_mesh_index])
     length = mesh.num_triangles * 3
-    indices = itertools.batched(bsp.SHADOW_MESH_INDICES[start:start + length], 3)
+    indices = bsp.SHADOW_MESH_INDICES[start:start + length]
     # vertices
     # TODO: convert each vertex once, then index
     if mesh.is_opaque:
@@ -1211,15 +1210,15 @@ def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
     else:
         vertices = [bsp.SHADOW_MESH_ALPHA_VERTICES[i] for i in indices]
         vertices = [geometry.Vertex(v.position, no_normal, v.uv) for v in vertices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup(vertices))
 
 
 def occlusion_mesh(bsp) -> geometry.Mesh:
     material = geometry.Material("tools/toolsoccluder")
+    indices = bsp.OCCLUSION_MESH_INDICES
     no_normal = vector.vec3(0, 0, 0)
-    indices = itertools.batched(bsp.OCCLUSION_MESH_INDICES, 3)
-    triangles = [[geometry.Vertex(bsp.OCCLUSION_MESH_VERTICES[i], no_normal) for i in tri] for tri in indices]
-    return geometry.Mesh(material, polygons=[*map(geometry.Polygon, triangles)])
+    vertices = [geometry.Vertex(v, no_normal) for v in bsp.OCCLUSION_MESH_VERTICES]
+    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
 
 
 def portals_as_prt(bsp) -> str:

@@ -1,6 +1,5 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
 import enum
-import itertools
 import struct
 from typing import List
 
@@ -360,8 +359,7 @@ def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:
     vertices = [geometry.Vertex(p, vector.vec3()) for p in positions]
     start, length = patch.first_index, patch.num_indices
     indices = bsp.COLLISION_INDICES[start:start + length]
-    vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
 
 
 def portal_file(bsp) -> str:
@@ -389,8 +387,7 @@ def triangle_soup_mesh(bsp, triangle_soup_index: int) -> geometry.Mesh:
         for v in vertices]
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.INDICES[start:start + length]
-    vertices = [vertices[i] for i in indices]
-    return geometry.Mesh(material, [*map(geometry.Polygon, itertools.batched(vertices, 3))])
+    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
 
 
 methods = [
