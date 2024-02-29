@@ -1161,7 +1161,10 @@ def model(bsp, model_index: int) -> geometry.Model:
 
 def tricoll_model(bsp, tricoll_header_index: int) -> geometry.Model:
     header = bsp.TRICOLL_HEADERS[tricoll_header_index]
-    origin = -header.origin / header.scale  # seems most accurate for observed misc_models
+    if header.scale != 0.0:
+        origin = -header.origin / header.scale  # seems most accurate for observed misc_models
+    else:
+        origin = header.origin
     # NOTE: afaik angles cannot be recovered, good luck identifying misc_models
     # material
     texture_data = bsp.TEXTURE_DATA[header.texture_data]
