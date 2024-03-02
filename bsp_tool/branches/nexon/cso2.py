@@ -4,6 +4,7 @@ import enum
 
 from .. import base
 from ..valve import source
+from . import pakfile
 from . import vindictus
 
 
@@ -97,13 +98,6 @@ class LumpHeader(base.MappedArray):
 # NOTE: dcubemap_t: 160 bytes
 
 
-# special lump classes, in alphabetical order:
-# TODO: PakFile
-# -- struct magics use b"CS" instead of b"PK"
-# -- changes may go deeper than his
-# -- hopefully just a reskin of PK/3/4 ZIP_STORE
-
-
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
 
@@ -120,7 +114,7 @@ LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.pop("PAKFILE")
+SPECIAL_LUMP_CLASSES["PAKFILE"] = {0: pakfile.PakFile}
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
