@@ -1,200 +1,188 @@
 # https://users.cs.jmu.edu/buchhofp/forensics/formats/pkzip-printable.html
 from __future__ import annotations
-from typing import Any, Dict, List
+from typing import Dict, List
 
-# import binascii  # crc32 for as_bytes
+import binascii
+import enum
 import io
 import os
 import struct
 
 from ... import lumps
+from .. import base
 
 
-# NOTE: can't use base.Struct much here, since structures are tight and unaligned
+class MAGIC(enum.Enum):
+    LocalFile = b"CS\x03\x04"
+    CentralDirectory = b"CS\x01\x02"
+    EOCD = b"CS\x05\x06"
 
 
-def read_struct(format_: str, stream: io.BytesIO) -> List[Any]:
-    return struct.unpack(format_, stream.read(struct.calcsize(format_)))
-
-
-class FileHeader:
-    """preceded by magic CS\x03\x04"""
-    unused: int  # always 0
-    crc32: int  # of compressed data
+class LocalFile:
+    # header
+    unused: int
+    crc32: int
     compressed_size: int
     uncompressed_size: int
     path_size: int
-
-    def __init__(self, unused, crc32, compressed_size, uncompressed_size, path_size):
-        self.unused = unused
-        self.crc32 = crc32
-        self.compressed_size = compressed_size
-        self.uncompressed_size = uncompressed_size
-        self.path_size = path_size
-
-    def __repr__(self) -> str:
-        args = [
-            str(self.unused), f"0x{self.crc32:08X}",
-            *map(str, [self.compressed_size, self.uncompressed_size, self.path_size])]
-        return f"{self.__class__.__name__}({', '.join(args)})"
-
-    @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> FileHeader:
-        return cls(*read_struct("H", stream), *read_struct("4I", stream))
-
-
-class File:
-    offset: int
-    header: FileHeader
+    # data
     path: str
     data: bytes
+    # TODO: defer decompression to 1st read
+
+    # TODO: __init__(self, path, data):
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} "{self.path}" @ 0x{id(self):016X}>'
 
+    def as_bytes(self) -> bytes:
+        # TODO: compress data (optional)
+        crc32 = binascii.crc32(self.data)
+        compressed_size = 0
+        uncompressed_size = len(self.data)
+        path_size = len(self.path)
+        return b"".join([
+            self.unused.to_bytes(2, "little"),
+            struct.pack("4I", crc32, compressed_size, uncompressed_size, path_size),
+            self.path.encode("ascii", "strict"),
+            self.data])
+
     @classmethod
-    def from_stream(cls, stream) -> File:
+    def from_stream(cls, stream) -> LocalFile:
         out = cls()
-        out.offset = stream.tell() - 4  # matches FileTailer
-        out.header = FileHeader.from_stream(stream)
-        out.path = stream.read(out.header.path_size).decode()
-        if out.header.compressed_size == 0:
-            out.data = stream.read(out.header.uncompressed_size)
+        # header
+        out.unused = int.from_bytes(stream.read(2), "little")
+        out.crc32, out.compressed_size, out.uncompressed_size, out.path_size = struct.unpack("4I", stream.read(16))
+        # data
+        out.path = stream.read(out.path_size).decode()
+        if out.compressed_size == 0:
+            out.data = stream.read(out.uncompressed_size)
         else:
-            compressed_data = stream.read(out.header.compressed_size)
+            # TODO: set a flag & decompress on 1st read
+            compressed_data = stream.read(out.compressed_size)
             out.data = lumps.decompress_valve_LZMA(compressed_data)
         return out
 
 
-class Tailer:  # complements header
+class CentralDirectory:
     """preceded by magic CS\x01\x02"""
+    # NOTE: byte alignment sucks, would try base.Struct otherwise
     # header
-    unknown_1: bytes
-    # unused: 2 bytes
-    # crc32: int
-    # uncompressed_size: int
-    # compressed_size: int
+    unused: int  # always 0
+    crc32: int
+    uncompressed_size: int
+    compressed_size: int
     path_size: int
-    unknown_2: bytes
+    unknown: int
     header_offset: int
     # data
     path: str
 
-    def __init__(self, unknown_1, path_size, unknown_2, header_offset, path):
-        self.unknown_1 = unknown_1
-        self.path_size = path_size
-        self.unknown_2 = unknown_2
-        self.header_offset = header_offset
-        self.path = path
+    # TODO: __init__(self, local_file: LocalFile, offset: int):
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} "{self.path}" @ 0x{id(self):016X}>'
 
     def as_bytes(self) -> bytes:
         return b"".join([
-            self.unknown_1,
+            self.unused.to_bytes(2, "little"),
+            self.crc32.to_bytes(4, "little"),
+            self.uncompressed_size.to_bytes(4, "little"),
+            self.compressed_size.to_bytes(4, "little"),
             self.path_size.to_bytes(4, "little"),
-            self.unknown_2.to_bytes(2, "little"),
+            self.unknown.to_bytes(2, "little"),
             self.header_offset.to_bytes(4, "little"),
             self.path.encode()])
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> FileHeader:
-        unknown_1 = stream.read(14)
-        path_size = int.from_bytes(stream.read(4), "little")
-        unknown_2 = int.from_bytes(stream.read(2), "little")
-        header_offset = int.from_bytes(stream.read(4), "little")
-        path = stream.read(path_size).decode()
-        return cls(unknown_1, path_size, unknown_2, header_offset, path)
+    def from_stream(cls, stream: io.BytesIO) -> CentralDirectory:
+        out = cls()
+        out.unused = int.from_bytes(stream.read(2), "little")
+        out.crc32 = int.from_bytes(stream.read(4), "little")
+        out.uncompressed_size = int.from_bytes(stream.read(4), "little")
+        out.compressed_size = int.from_bytes(stream.read(4), "little")
+        out.path_size = int.from_bytes(stream.read(4), "little")
+        out.unknown = int.from_bytes(stream.read(2), "little")
+        out.header_offset = int.from_bytes(stream.read(4), "little")
+        out.path = stream.read(out.path_size).decode()
+        return out
 
 
-class Terminator:
+class EOCD(base.Struct):  # End of Central Directory
     """preceded by magic CS\x05\x06"""
-    unknown_1: bytes  # always b"\0" * 4?
-    num_entries: int
-    num_tailers: int
-    unknown_2: bytes
-
-    def __init__(self, unknown_1, num_entries, num_tailers, unknown_2):
-        self.unknown_1 = unknown_1
-        self.num_entries = num_entries
-        self.num_tailers = num_tailers
-        self.unknown_2 = unknown_2
-
-    def as_bytes(self) -> bytes:
-        return b"".join([
-            self.unknown_1,
-            self.num_entries.to_bytes(2, "little"),
-            self.num_tailers.to_bytes(2, "little"),
-            self.unknown_2])
-
-    @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> Terminator:
-        unknown_1 = stream.read(4)
-        num_entries = int.from_bytes(stream.read(2), "little")
-        num_tailers = int.from_bytes(stream.read(2), "little")
-        unknown_2 = stream.read(13)
-        return cls(unknown_1, num_entries, num_tailers, unknown_2)
+    unused_1: int  # always 0
+    num_local_files: int
+    num_central_directories: int
+    sizeof_central_directories: int  # 28 * num_central_directories + sum(len(cd.path) for cd in central_directories)
+    sizeof_local_files: int  # 22 * num_local_files + sum(len(lf.path) + len(lf.data) for lf in local_files)
+    # sizeof_central_directories + sizeof_local_files + 25 == len(raw_lump)
+    one: int  # always 1
+    unused_2: int  # always 0
+    __slots__ = [
+        "unused_1", "num_local_files", "num_central_directories",
+        "sizeof_central_directories", "sizeof_local_files", "one",
+        "unused_2"]
+    _format = "I2H3IB"
 
 
 class PakFile:
-    # TODO: make extracted data private
-    # TODO: work out system for writing
-    entries: Dict[str, File]
-    tailers: Dict[str, Tailer]
-    terminator: Terminator
+    local_files: Dict[str, LocalFile]
+    # metadata
+    central_directories: Dict[str, CentralDirectory]  # zipfile.ZipInfo equivalent?
+    eocd: EOCD
 
     def __init__(self):
-        self.entries = dict()
-        self.tailers = dict()
+        self.local_files = dict()
+        self.central_directories = dict()
+        self.eocd = EOCD()  # placeholder; not nessecarily a valid 0 file PakFile
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} with {len(self.entries)} files @ 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__} with {len(self.local_files)} files @ 0x{id(self):016X}>"
 
     def extract(self, filename: str, dest_filename: str = None):
-        if filename not in self.entries:
+        if filename not in self.local_files:
             raise FileNotFoundError()
         dest = filename if dest_filename is None else dest_filename
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         with open(dest, "wb") as out_file:
-            out_file.write(self.entries[filename].data)
+            out_file.write(self.local_files[filename].data)
 
     def extractall(self, dest_folder: str = "./"):
-        for filename in self.entries:
+        for filename in self.local_files:
             self.extract(filename, os.path.join(dest_folder, filename))
 
     def namelist(self) -> List[str]:
-        return sorted(self.entries.keys())
+        return sorted(self.local_files.keys())
 
     def read(self, path: str) -> bytes:
-        return self.entries[path].data
+        return self.local_files[path].data
 
     @classmethod
     def from_bytes(cls, raw_lump: bytes) -> PakFile:
         raw_len = len(raw_lump)
         out = cls()
         stream = io.BytesIO(raw_lump)
-        magic = stream.read(4)
-        while magic == b"CS\x03\x04":
-            entry = File.from_stream(stream)
-            out.entries[entry.path] = entry
-            magic = stream.read(4)
-        while magic == b"CS\x01\x02":
-            entry = Tailer.from_stream(stream)
-            out.tailers[entry.path] = entry
-            magic = stream.read(4)
-        assert magic == b"CS\x05\x06"
-        out.terminator = Terminator.from_stream(stream)
-        assert len(out.entries) == out.terminator.num_entries
-        assert len(out.tailers) == out.terminator.num_tailers
+        magic = MAGIC(stream.read(4))
+        while magic == MAGIC.LocalFile:
+            local_file = LocalFile.from_stream(stream)
+            out.local_files[local_file.path] = local_file
+            magic = MAGIC(stream.read(4))
+        while magic == MAGIC.CentralDirectory:
+            cd = CentralDirectory.from_stream(stream)
+            out.central_directories[cd.path] = cd
+            magic = MAGIC(stream.read(4))
+        assert magic == MAGIC.EOCD
+        out.eocd = EOCD.from_stream(stream)
+        assert len(out.local_files) == out.eocd.num_local_files
+        assert len(out.central_directories) == out.eocd.num_central_directories
         assert stream.tell() == raw_len, "unexpected tail"
         return out
 
     def as_bytes(self):
-        # TODO: preserve entries & tailers orders
-        # TODO: generate new tailers
-        # TODO: generate new terminator
+        # TODO: preserve local_files order (if unedited)
+        # TODO: generate new CentralDirectories
+        # TODO: generate new EOCD
         return b"".join([
-            *[e.as_bytes() for e in self.entries.values()],
-            *[t.as_bytes() for t in self.tailers.values()],
-            self.terminator.as_bytes()])
+            *[lf.as_bytes() for lf in self.local_files.values()],
+            *[cd.as_bytes() for cd in self.central_directories.values()],
+            self.eocd.as_bytes()])
