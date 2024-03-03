@@ -536,7 +536,7 @@ class Face(base.Struct):  # LUMPS 7, 27 & 58
     # lightmap.mins: vector.vec2  # dimensions of lightmap segment
     # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
-    primitives: int
+    primitives: Tuple[int, bool]
     # primitives.count: int  # limit of 2^15 - 1
     # primitives.allow_dynamic_shadows: bool
     first_primitive: int  # index of Primitive (if primitives.count != 0)
@@ -546,10 +546,10 @@ class Face(base.Struct):  # LUMPS 7, 27 & 58
                  "light_offset", "area", "lightmap", "original_face",
                  "primitives", "first_primitive", "smoothing_groups"]
     _format = "Hb?i4h4bif5i2HI"
-    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": [*"xy"]}}
     _bitfields = {"primitives": {"count": 15, "allow_dynamic_shadows": 1}}
     # TODO: ivec2 for lightmap vectors
-    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2,
                 "primitives.allow_dynamic_shadows": bool}
 
 
@@ -678,7 +678,7 @@ class Primitive(base.MappedArray):  # LUMP 37
     first_vertex: int  # index into PrimitiveVertices lump
     num_vertices: int
     _mapping = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
-    _format = "B4H"
+    _format = "5H"
     _classes = {"type": PrimitiveType}
 
 

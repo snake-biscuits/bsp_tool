@@ -1,8 +1,11 @@
 """2013-2017 format"""
 # https://git.sr.ht/~leite/cso2-bsp-converter/tree/master/item/src/bsptypes.hpp
 import enum
+from typing import List, Tuple
 
+from ...utils import vector
 from .. import base
+from .. import shared
 from ..valve import source
 from . import pakfile
 from . import vindictus
@@ -65,7 +68,7 @@ class LUMP(enum.Enum):
     TEXTURE_DATA_STRING_TABLE = 44
     OVERLAYS = 45
     LEAF_MIN_DIST_TO_WATER = 46
-    FACE_MARCO_TEXTURE_INFO = 47
+    FACE_MACRO_TEXTURE_INFO = 47
     DISPLACEMENT_TRIS = 48
     PHYSICS_COLLIDE_SURFACE = 49
     WATER_OVERLAYS = 50
@@ -95,23 +98,81 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for each lump, in alphabetical order:
-# NOTE: dcubemap_t: 160 bytes
+class BrushSide(base.Struct):  # LUMP 19
+    plane: int  # index into Planes
+    texture_info: int  # index into TextureInfo
+    displacement_info: int  # index into DisplacementInfo; -1 if None
+    bevel: int  # bool? indicates if side is a bevel plane (BSPVERSION 7)
+    __slots__ = ["plane", "texture_info", "displacement_info", "bevel"]
+    _format = "Ii2h"
+
+
+class Face(base.Struct):  # LUMP 7, 27 & 58
+    plane: int  # index into Planes
+    side: int  # always 1 or 0? bool?
+    on_node: int  # always 0? bool?
+    padding: int  # alignment mistake?
+    first_edge: int  # index into the SurfEdges
+    num_edges: int
+    texture_info: int  # index into TextureInfo
+    displacement_info: int  # index into DisplacementInfo; -1 if None
+    surface_fog_volume_id: int  # for water surfaces?
+    unknown: int
+    styles: List[int]  # -1 for None
+    light_offset: int  # index into Lighting
+    area: float
+    lightmap: List[vector.vec2]
+    # lightmap.mins: vector.vec2  # dimensions of lightmap segment
+    # lightmap.size: vector.vec2  # scalars for lightmap segment
+    original_face: int  # index into OriginalFaces; -1 if OriginalFace
+    primitives: Tuple[int, bool]
+    # primitives.count: int  # limit of 2^31 - 1
+    # primitives.allow_dynamic_shadows: bool
+    first_primitive: int  # index of Primitive (if primitives.count != 0)
+    smoothing_groups: int  # lightmap smoothing group
+    __slots__ = [
+        "plane", "side", "on_node", "padding", "first_edge", "num_edges",
+        "texture_info", "displacement_info", "surface_fog_volume_id", "unknown",
+        "styles", "light_offset", "area", "lightmap", "original_face",
+        "primitives", "first_primitive", "smoothing_groups"]
+    _format = "I2BH3I2hi4bif5i3I"
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": [*"xy"]}}
+    _bitfields = {"primitives": {"count": 31, "allow_dynamic_shadows": 1}}
+    # TODO: ivec2 for lightmap vectors
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2}
+
+
+class Primitive(base.Struct):  # LUMP 37
+    type: source.PrimitiveType
+    first_index: int  # index into PrimitiveIndices
+    num_indices: int
+    first_vertex: int  # index into PrimitiveVertices
+    num_vertices: int
+    __slots__ = ["type", "first_index", "num_indices", "first_vertex", "num_vertices"]
+    _format = "5I"
+    _classes = {"type": source.PrimitiveType}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = vindictus.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES.update({
+    "PRIMITIVE_INDICES":         {0: shared.UnsignedInts},
+    "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("BRUSH_SIDES")
 LUMP_CLASSES.pop("CUBEMAPS")
-LUMP_CLASSES.pop("DISPLACEMENT_INFO")
-LUMP_CLASSES.pop("FACES")
 LUMP_CLASSES.pop("LEAVES")
-LUMP_CLASSES.pop("ORIGINAL_FACES")
 LUMP_CLASSES.pop("OVERLAYS")
-LUMP_CLASSES.pop("TEXTURE_INFO")
+# LUMP_CLASSES.pop("TEXTURE_INFO")  # organnerx converted maps use source.TextureInfo?
 LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+LUMP_CLASSES.update({
+    "BRUSH_SIDES":       {0: BrushSide},
+    "DISPLACEMENT_INFO": {0: source.DisplacementInfo},
+    "FACES":             {1: Face},
+    "FACES_HDR":         {1: Face},
+    "ORIGINAL_FACES":    {0: Face},
+    "PRIMITIVES":        {0: Primitive}})
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES["PAKFILE"] = {0: pakfile.PakFile}
