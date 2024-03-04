@@ -289,14 +289,14 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     first_vertex: int  # index to this Mesh's first VertexReservedX
     num_vertices: int  # lastVertexOffset? off by one
     vertex_type: int  # VERTEX_RESERVED_X index
-    unknown: int  # 0 or -1; lighting related?
+    cubemap: int  # index into Cubemaps; -1 if None (Unlit / UnlitTS)
     styles: List[int]  # from source; 4 different lighting states? "switchable lighting info"
     luxel_origin: List[int]  # same as source lightmap mins & size?
     luxel_offset_max: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
     flags: titanfall.MeshFlags  # (mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
     __slots__ = ["first_mesh_index", "num_triangles", "first_vertex", "num_vertices",
-                 "vertex_type", "unknown", "styles", "luxel_origin", "luxel_offset_max",
+                 "vertex_type", "cubemap", "styles", "luxel_origin", "luxel_offset_max",
                  "material_sort", "flags"]
     _format = "I3H6b2h2BHI"
     _arrays = {"styles": 4, "luxel_origin": 2, "luxel_offset_max": 2}
