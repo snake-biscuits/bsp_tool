@@ -282,6 +282,27 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     _classes = {"origin": vector.vec3}
 
 
+class Mesh(base.Struct):  # LUMP 80 (0050)
+    # built on valve.source.Face?
+    first_mesh_index: int  # index into MeshIndices
+    num_triangles: int  # number of triangles in MeshIndices after first_mesh_index
+    first_vertex: int  # index to this Mesh's first VertexReservedX
+    num_vertices: int  # lastVertexOffset? off by one
+    vertex_type: int  # VERTEX_RESERVED_X index
+    unknown: int  # 0 or -1; lighting related?
+    styles: List[int]  # from source; 4 different lighting states? "switchable lighting info"
+    luxel_origin: List[int]  # same as source lightmap mins & size?
+    luxel_offset_max: List[int]
+    material_sort: int  # index of this Mesh's MaterialSort
+    flags: titanfall.MeshFlags  # (mesh.flags & MeshFlags.MASK_VERTEX).name == "VERTEX_RESERVED_X"
+    __slots__ = ["first_mesh_index", "num_triangles", "first_vertex", "num_vertices",
+                 "vertex_type", "unknown", "styles", "luxel_origin", "luxel_offset_max",
+                 "material_sort", "flags"]
+    _format = "I3H6b2h2BHI"
+    _arrays = {"styles": 4, "luxel_origin": 2, "luxel_offset_max": 2}
+    _classes = {"flags": titanfall.MeshFlags}
+
+
 class WorldLightv2(base.Struct):  # LUMP 54 (0036)
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
@@ -455,6 +476,7 @@ LUMP_CLASSES.update({
     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
     "LIGHTPROBE_BSP_NODES":                {0: LightProbeBSPNode},
     "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
+    "MESHES":                              {0: Mesh},
     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
     "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
                                             2: WorldLightv2,
