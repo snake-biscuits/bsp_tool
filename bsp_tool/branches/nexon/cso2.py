@@ -79,7 +79,7 @@ class LUMP(enum.Enum):
     LEAF_AMBIENT_LIGHTING_HDR = 55  # version 1
     LEAF_AMBIENT_LIGHTING = 56  # version 1
     XZIP_PAKFILE = 57
-    FACES_HDR = 58
+    FACES_HDR = 58  # version 1
     MAP_FLAGS = 59
     OVERLAY_FADES = 60
     UNKNOWN_61 = 61  # version 1; related to cubemaps?
@@ -92,7 +92,7 @@ class LumpHeader(base.MappedArray):
     length: int
     version: int
     compressed: int  # 2 byte bool?
-    fourCC: int  # uncompressed size (big endian for some reason)
+    fourCC: int  # uncompressed size; big-endian for some reason
     _mapping = ["offset", "length", "version", "compressed", "fourCC"]
     _format = "2I2HI"
 
@@ -163,7 +163,7 @@ LUMP_CLASSES = vindictus.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("CUBEMAPS")
 LUMP_CLASSES.pop("LEAVES")
 LUMP_CLASSES.pop("OVERLAYS")
-# LUMP_CLASSES.pop("TEXTURE_INFO")  # organnerx converted maps use source.TextureInfo?
+# LUMP_CLASSES.pop("TEXTURE_INFO")  # organnerx maps: source.TextureInfo
 LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 LUMP_CLASSES.update({

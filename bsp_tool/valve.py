@@ -53,7 +53,12 @@ class ValveBsp(base.Bsp):
             BspLump = lumps.create_RawBspLump(self.file, lump_header)
         except Exception as exc:
             self.loading_errors[lump_name] = exc
-            BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            try:
+                BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            except AssertionError:  # LZMA decompression failed / already decompressed
+                assert lump_header.offset == 0  # maybe already decompressed
+                assert lump_header.length == lump_header.fourCC  # definitely already decompressed
+                BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
         setattr(self, lump_name, BspLump)
 
     def _preload(self):

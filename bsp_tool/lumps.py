@@ -36,6 +36,7 @@ def _remap_slice_to_range(_slice: slice, length: int) -> slice:
 def decompress_valve_LZMA(data: bytes) -> bytes:
     """valve LZMA header adapter"""
     magic, true_size, compressed_size, properties = struct.unpack("4s2I5s", data[:17])
+    assert magic == b"LZMA"
     _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
     decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
     decompressed_data = decompressor.decompress(data[17:17 + compressed_size])

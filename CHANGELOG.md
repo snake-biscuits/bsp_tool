@@ -15,6 +15,8 @@
   - `geometry`
   - `physics`
   - `texture`
+ * `NexonBsp`
+  - thanks `cso2` big-endian `fourCC`
 
 ### Changed
  * SpecialLumpClasses & GameLumpClasses refactor

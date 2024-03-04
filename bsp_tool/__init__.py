@@ -15,6 +15,7 @@ from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
 from .ritual import RitualBsp
+from .nexon import NexonBsp
 from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
 
@@ -34,18 +35,23 @@ BspVariant_for_magic = {b" 46Q": Quake64Bsp,
                         b"QBSP": QbismBsp,
                         b"rBSP": RespawnBsp,
                         b"RBSP": RavenBsp,
-                        b"VBSP": ValveBsp}
+                        b"VBSP": ValveBsp}  # OR NexonBsp
 # NOTE: if no file_magic is present:
 # - QuakeBsp
 # - GoldSrcBsp
 # - 256-bit XOR encoded Tactical Intervention .bsp
 
 # detect GoldSrcBsp
-GoldSrc_versions = {*branches.valve.goldsrc.GAME_VERSIONS.values(),
-                    *branches.gearbox.blue_shift.GAME_VERSIONS.values(),
-                    *branches.gearbox.nightfire.GAME_VERSIONS.values()}
+GoldSrc_versions = {
+    *branches.valve.goldsrc.GAME_VERSIONS.values(),
+    *branches.gearbox.blue_shift.GAME_VERSIONS.values(),
+    *branches.gearbox.nightfire.GAME_VERSIONS.values()}
 # detect InfinityWardBsp / D3DBsp
 InfinityWard_versions = {v for s in branches.infinity_ward.scripts for v in s.GAME_VERSIONS.values()}
+# detect NexonBsp
+Nexon_versions = {
+    *branches.nexon.cso2.GAME_VERSIONS.values(),
+    *branches.nexon.cso2_2018.GAME_VERSIONS.values()}
 # detect QuakeBsp
 Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 
@@ -99,9 +105,11 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
             else:
                 # TODO: check for encrypted Tactical Intervention .bsp
                 raise NotImplementedError(f"Unknown file_magic: {file_magic}")
-        else:  # Call of Duty
-            if file_magic == b"IBSP" and version in InfinityWard_versions:
+        else:
+            if file_magic == b"IBSP" and version in InfinityWard_versions:  # early CoD
                 BspVariant = InfinityWardBsp
+            elif version in Nexon_versions:  # CS:O2
+                BspVariant = NexonBsp
             else:
                 BspVariant = BspVariant_for_magic[file_magic]
     else:  # invalid extension
