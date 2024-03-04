@@ -10,8 +10,8 @@ from typing import Dict, List
 sys.path.insert(0, "../../")
 # BspClasses
 from bsp_tool import (  # noqa: E402
-    D3DBsp, FusionBsp, GoldSrcBsp, Genesis3DBsp, IdTechBsp, InfinityWardBsp,
-    RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp, QuakeBsp, Quake64Bsp)
+    D3DBsp, FusionBsp, GoldSrcBsp, Genesis3DBsp, IdTechBsp, InfinityWardBsp, NexonBsp,
+    QuakeBsp, Quake64Bsp, RavenBsp, ReMakeQuakeBsp, RespawnBsp, RitualBsp, ValveBsp)
 # branches
 from bsp_tool import branches  # noqa: E402
 from bsp_tool.branches import (  # noqa: E402
@@ -98,8 +98,8 @@ ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "
 # | ValveBsp        | arkane.dark_messiah_mp             |  Y  |
 # | ValveBsp        | strata.strata                      |  Y  |
 # | ValveBsp        | loiste.infra                       |  Y  |
-# | ValveBsp        | nexon.cso2                         |  Y  |
-# | ValveBsp        | nexon.cso2_2018                    |  Y  |
+# | NexonBsp        | nexon.cso2                         |  Y  |
+# | NexonBsp        | nexon.cso2_2018                    |  Y  |
 # | ValveBsp        | nexon.vindictus                    |  Y  |
 # | ValveBsp        | nexon.vindictus69                  |  Y  |
 # | ValveBsp        | outerlight.outerlight              |  Y  |
@@ -155,7 +155,8 @@ groups = [
         {ValveBsp: [arkane.dark_messiah_mp]}),
     ScriptGroup(
         "NEXON Source", "nexon.md", "NEXON", "source.md",
-        {ValveBsp: nexon.scripts}),
+        {NexonBsp: [nexon.cso2, nexon.cso2_2018],
+         ValveBsp: [nexon.vindictus69, nexon.vindictus]}),
     ScriptGroup(
         "Left 4 Dead Series", "left4dead.md", "Valve & Turtle Rock Studios", "left4dead.md",
         {ValveBsp: [valve.left4dead, valve.left4dead2]}),
@@ -194,12 +195,13 @@ inserts_path = "inserts"
 # NOTE: GAME_LUMP coverage is hardcoded later
 SpecialLumpClass_confidence = defaultdict(lambda: 90)
 SpecialLumpClass_confidence.update({
+    branches.shared.Entities: 100,
     id_software.quake3.Visibility: 100,
+    nexon.pakfile.PakFile: 75,  # 100% read, ~50% write
     respawn.apex_legends.LevelInfo: 75,
     respawn.titanfall.EntityPartitions: 100,
     respawn.titanfall.Grid: 100,
     respawn.titanfall.LevelInfo: 100,
-    branches.shared.Entities: 100,
     valve.source.PakFile: 100,
     valve.source.TextureDataStringData: 100})
 
@@ -279,6 +281,7 @@ vbsp_branch_scripts = [
     *branches.arkane.scripts, *branches.nexon.scripts,
     branches.troika.vampire, branches.utoplanet.merubasu]
 # TODO: outerlight, zeno_clash, infra, strata
+# -- need to test; need certain lumps & members to function (Face.light_offset etc.)
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
 lightmap_mappings = {
