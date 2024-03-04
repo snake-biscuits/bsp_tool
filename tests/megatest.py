@@ -11,8 +11,9 @@ from bsp_tool import lumps
 from bsp_tool.branches import (ace_team, arkane, gearbox, id_software,
                                infinity_ward, nexon, outerlight, raven,
                                respawn, ritual, strata, utoplanet, valve)
-from bsp_tool.infinity_ward import D3DBsp, InfinityWardBsp
 from bsp_tool.id_software import QuakeBsp
+from bsp_tool.infinity_ward import D3DBsp, InfinityWardBsp
+from bsp_tool.nexon import NexonBsp
 from bsp_tool.valve import GoldSrcBsp
 
 import pytest
@@ -198,7 +199,8 @@ BspClass_for.update({branch: QuakeBsp for branch in branches.of_engine["Quake"] 
 BspClass_for.update({branch: GoldSrcBsp for branch in branches.of_engine["GoldSrc"]})
 BspClass_for.update({branch: InfinityWardBsp for branch in infinity_ward.scripts})
 BspClass_for.update({infinity_ward.modern_warfare: D3DBsp})
-# ^ {valve.orange_box: ValveBsp}
+BspClass_for.update({nexon.cso2: NexonBsp, nexon.cso2_2018: NexonBsp})
+# ^ {valve.orange_box: ValveBsp, ...}
 
 megatest_dirs = [(*dg, tuple(mds)) for dg, mds in maplist.installed_games.items()]
 # ^ [("D:/Steam...", "Team Fortress 2", ("tf/maps", ...))]
