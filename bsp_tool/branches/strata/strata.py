@@ -3,10 +3,13 @@
 # https://blog.momentum-mod.org/posts/changelog/0.9.4/
 # https://github.com/momentum-mod/BSPConvert
 import enum
+import io
 from typing import List
 
+from ... import lumps
 from ...utils import vector
 from .. import base
+from .. import colour
 from .. import shared
 from ..id_software import remake_quake_old
 from ..nexon import vindictus69
@@ -19,7 +22,9 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 25
 
-GAME_PATHS = {"Momentum Mod": "Momentum Mod/momentum", "Portal Revolution": "Portal Revolution/revolution"}
+GAME_PATHS = {
+    "Momentum Mod": "Momentum Mod/momentum",
+    "Portal Revolution": "Portal Revolution/revolution"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -341,33 +346,93 @@ class WaterOverlay(base.Struct):  # LUMP 50
 
 
 # special lump classes, in alphabetical order:
+class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 35) [version 12]
+    """leaves uint16_t -> uint32_t"""
+    StaticPropClass = sdk_2013.StaticPropv11
+
+    @classmethod
+    def from_bytes(cls, raw_lump: bytes):
+        sprp_lump = io.BytesIO(raw_lump)
+        out = cls()
+        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
+        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.leaves = [int.from_bytes(sprp_lump.read(4), cls.endianness) for i in range(leaf_count)]
+        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
+        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
+        tail = sprp_lump.read()
+        if len(tail) > 0:
+            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
+            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
+        return out
+
+
+class StaticPropv13(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 13]
+    """for Portal: Revolution"""
+    origin: List[float]  # origin.xyz
+    angles: List[float]  # origin.yzx  QAngle; Z0 = East
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    solid_mode: int  # collision flags enum
+    flags: int  # other flags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    lighting_origin: List[float]  # xyz position to sample lighting from
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    cpu_level: List[int]  # min, max (-1 = any)
+    gpu_level: List[int]  # min, max (-1 = any)
+    diffuse_modulation: colour.RGBExponent
+    disable_x360: int  # 4 byte bool
+    flags_2: int  # values unknown
+    scale: vector.vec3
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs", "solid_mode",
+        "flags", "skin", "fade_distance", "lighting_origin", "forced_fade_scale",
+        "cpu_level", "gpu_level", "diffuse_modulation", "disable_x360", "flags_2", "scale"]
+    _format = "6f3H2Bi6f8B2I3f"
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+        "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"], "scale": [*"xyz"]}
+    _classes = {  # TODO: "angles": QAngle
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "scale": vector.vec3}
+
+
+class GameLump_SPRPv13(GameLump_SPRPv12):  # sprp GAME LUMP (LUMP 35) [version 13]
+    StaticPropClass = StaticPropv13
+
+
 class PhysicsDisplacement(physics.Displacement):  # LUMP 28
     _format = "I"
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = sdk_2013.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"FACE_IDS":              {1: shared.UnsignedInts},
-                           "LEAF_BRUSHES":          {1: shared.UnsignedInts},
-                           "LEAF_FACES":            {1: shared.UnsignedInts},
-                           "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
+BASIC_LUMP_CLASSES.update({
+    "FACE_IDS":              {1: shared.UnsignedInts},
+    "LEAF_BRUSHES":          {1: shared.UnsignedInts},
+    "LEAF_FACES":            {1: shared.UnsignedInts},
+    "VERTEX_NORMAL_INDICES": {1: shared.UnsignedInts}})
 
 LUMP_CLASSES = sdk_2013.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"AREA_PORTALS":           {1: vindictus69.AreaPortal},
-                     "BRUSH_SIDES":            {1: BrushSide},
-                     "DISPLACEMENT_INFO":      {1: DisplacementInfo},
-                     "EDGES":                  {1: remake_quake_old.Edge},
-                     "FACES":                  {2: Face},
-                     "FACES_HDR":              {2: Face},
-                     "LEAVES":                 {2: Leaf},
-                     "LEAF_AMBIENT_INDEX":     {1: LeafAmbientIndex},
-                     "LEAF_AMBIENT_INDEX_HDR": {1: LeafAmbientIndex},
-                     "LEAF_WATER_DATA":        {1: source.LeafWaterData},
-                     "NODES":                  {1: Node},
-                     "ORIGINAL_FACES":         {2: Face},
-                     "OVERLAYS":               {1: Overlay},
-                     "PRIMITIVE":              {1: Primitive},
-                     "WATER_OVERLAYS":         {1: WaterOverlay}})
+LUMP_CLASSES.update({
+    "AREA_PORTALS":           {1: vindictus69.AreaPortal},
+    "BRUSH_SIDES":            {1: BrushSide},
+    "DISPLACEMENT_INFO":      {1: DisplacementInfo},
+    "EDGES":                  {1: remake_quake_old.Edge},
+    "FACES":                  {2: Face},
+    "FACES_HDR":              {2: Face},
+    "LEAVES":                 {2: Leaf},
+    "LEAF_AMBIENT_INDEX":     {1: LeafAmbientIndex},
+    "LEAF_AMBIENT_INDEX_HDR": {1: LeafAmbientIndex},
+    "LEAF_WATER_DATA":        {1: source.LeafWaterData},
+    "NODES":                  {1: Node},
+    "ORIGINAL_FACES":         {2: Face},
+    "OVERLAYS":               {1: Overlay},
+    "PRIMITIVE":              {1: Primitive},
+    "WATER_OVERLAYS":         {1: WaterOverlay}})
 
 SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
 SPECIAL_LUMP_CLASSES.update({"PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
@@ -375,5 +440,8 @@ SPECIAL_LUMP_CLASSES.update({"PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
 GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
 GAME_LUMP_CLASSES = {"sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES["sprp"].update({
+    12: GameLump_SPRPv12,
+    13: GameLump_SPRPv13})
 
 methods = sdk_2013.methods.copy()
