@@ -692,18 +692,15 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     # material
     material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
     material = geometry.Material(bsp.texture_data_surface_name(material_sort.texture_data))
-    # geometry
-    triangles = list()
-    for i in mesh.num_triangles:
-        index = material_sort.first_mesh_index + i * 3
-        triangles.append([
-            material_sort.vertex_offset + j
-            for j in bsp.MESH_INDICES[index:index + 3]])
+    # indices
+    start, length = mesh.first_mesh_index, mesh.num_triangles * 3
+    indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:start + length]]
+    # vertices
     vertex_lump = (mesh.flags & titanfall.MeshFlags.MASK_VERTEX).name
     converter = bsp.lit_vertex if vertex_lump.split("_")[1] == "LIT" else bsp.unlit_vertex
     VERTEX_LUMP = getattr(bsp, vertex_lump)
-    triangles = [[converter(VERTEX_LUMP[i]) for i in tri] for tri in triangles]
-    return geometry.Mesh(material, [*map(geometry.Polygon, triangles)])
+    vertices = [converter(VERTEX_LUMP[i]) for i in indices]
+    return geometry.Mesh(material, geometry.triangle_soup(vertices))
 
 
 def water_body_model(bsp, water_body_index: int) -> geometry.Model:
