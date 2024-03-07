@@ -1,5 +1,5 @@
 class OrderedSet(list):
-    """treat as read-only, popping will break indices"""
+    """treat as append-only, popping will break indices"""
     def add(self, value) -> int:
         """returns index of value"""
         if value in self:
