@@ -423,8 +423,8 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
 
 
 class MaterialSort(base.Struct):  # LUMP 82 (0052)
-    texture_data: int  # index of this MaterialSort's TextureData
-    lightmap_index: int  # index of this MaterialSort's LightmapHeader (can be -1)
+    texture_data: int  # index into TextureData
+    lightmap_index: int  # index into LightmapHeaders; -1 if None
     unknown: List[int]  # ({0?}, {??..??})
     vertex_offset: int  # offset into appropriate VERTEX_RESERVED_X lump
     __slots__ = ["texture_data", "lightmap_index", "unknown", "vertex_offset"]
@@ -433,9 +433,9 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
 
 
 class Mesh(base.Struct):  # LUMP 80 (0050)
-    first_mesh_index: int  # index into this Mesh's VertexReservedX
-    num_triangles: int  # number of triangles in VertexReservedX after first_mesh_index
-    # start_vertices: int  # index to this Mesh's first VertexReservedX
+    first_mesh_index: int  # index into MeshIndices
+    num_triangles: int
+    # first_vertex: int  # index into VertexReservedX
     # num_vertices: int
     unknown: List[int]
     material_sort: int  # index of this Mesh's MaterialSort
@@ -447,15 +447,15 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 
 class Model(base.Struct):  # LUMP 14 (000E)
-    mins: List[float]  # AABB mins
-    maxs: List[float]  # AABB maxs
+    mins: vector.vec3  # AABB mins
+    maxs: vector.vec3  # AABB maxs
     first_mesh: int
     num_meshes: int
     bvh_node: int
     bvh_leaf: int
     first_vertex: int
     vertex_flags: int  # use PACKED_VERTICES or other?
-    packed_vertex_offset: List[float]  # center point to orient packed verts around
+    packed_vertex_offset: vector.vec3  # center point to orient packed verts around
     node_scale: float  # this * 0xFFFF = scale applied to BVH_NODES
     __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "bvh_node", "bvh_leaf",
                  "first_vertex", "vertex_flags", "packed_vertex_offset", "node_scale"]
@@ -466,6 +466,7 @@ class Model(base.Struct):  # LUMP 14 (000E)
 
 class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
     """a point in 3D space"""
+    # TODO: subclass vector.ivec3
     x: int
     y: int
     z: int
@@ -474,10 +475,10 @@ class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    start_index: int  # assumed
+    vertex_offset: int  # assumed
     num_triangles: int  # assumed
     unknown: List[int]  # usually (1, -1)
-    __slots__ = ["start_index", "num_triangles", "unknown"]
+    __slots__ = ["vertex_offset", "num_triangles", "unknown"]
     _format = "2I2h"  # assuming 12 bytes
     _arrays = {"unknown": 2}
 
@@ -485,8 +486,8 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
 class SurfaceProperty(base.MappedArray):  # LUMP 17 (0011)
     unknown_1: int
     unknown_2: int
-    contents_mask: int  # index of ContentsMask for this SurfaceProperty
-    surface_name: int  # index of SurfaceName for this SurfaceProperty
+    contents_mask: int  # index into ContentsMasks
+    surface_name: int  # index into SurfaceNames
     _mapping = ["unknown_1", "unknown_2", "content_mask", "surface_name"]
     _format = "h2bi"
 
@@ -495,8 +496,8 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     """Name indices get out of range errors?"""
     name_index: int  # index of this TextureData's SurfaceName
     # NOTE: indexes the starting char of the SurfaceName, skipping TextureDataStringTable
-    size: List[int]  # texture dimensions
-    flags: int
+    size: List[int]
+    flags: int  # TODO: TextureDataFlags
     __slots__ = ["name_index", "size", "flags"]
     _format = "4i"  # 16 bytes?
     _arrays = {"size": ["width", "height"]}
@@ -561,7 +562,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
 
 
 class WaterBody(base.Struct):  # LUMP 44 (002C)
-    origin: List[float]
+    origin: vector.vec3
     height: float  # sea level
     bounds: List[vector.vec3]
     first_center: int  # index into WaterBodyCenters
