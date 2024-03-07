@@ -475,12 +475,14 @@ class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
-    vertex_offset: int  # assumed
-    num_triangles: int  # assumed
-    unknown: List[int]  # usually (1, -1)
-    __slots__ = ["vertex_offset", "num_triangles", "unknown"]
+    vertex_offset: int  # index into ShadowMeshAlpha / OpaqueVertices
+    # first_index = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESH_INDICES[:index])
+    num_triangles: int  # number of triangles in ShadowMeshIndices
+    is_opaque: bool  # indexes ShadowMeshAlphaVertex if 0, ShadowMeshVertex if 1
+    material_sort: int  # index into MaterialSort; -1 for None
+    __slots__ = ["vertex_offset", "num_triangles", "is_opaque", "material_sort"]
     _format = "2I2h"  # assuming 12 bytes
-    _arrays = {"unknown": 2}
+    _classes = {"is_opaque": bool}
 
 
 class SurfaceProperty(base.MappedArray):  # LUMP 17 (0011)
@@ -676,18 +678,6 @@ def lit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Ver
     return geometry.Vertex(position, normal, vertex.albedo_uv, uv1, colour=colour)
 
 
-def unlit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
-    position = bsp.VERTICES[vertex.position_index]
-    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
-    colour = vertex.colour if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
-    return geometry.Vertex(position, normal, vertex.albedo_uv, colour=colour)
-
-
-def texture_data_surface_name(bsp, texture_data_index: int) -> str:
-    texture_data = bsp.TEXTURE_DATA[texture_data_index]
-    return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].lstrip(b"\0").partition(b"\0")[0].decode()
-
-
 def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     mesh = bsp.MESHES[mesh_index]
     # material
@@ -702,6 +692,41 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     VERTEX_LUMP = getattr(bsp, vertex_lump)
     vertices = [converter(VERTEX_LUMP[i]) for i in indices]
     return geometry.Mesh(material, geometry.triangle_soup(vertices))
+
+
+def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
+    no_normal = vector.vec3(0, 0, 0)
+    shadow_mesh = bsp.SHADOW_MESHES[shadow_mesh_index]
+    # material
+    if shadow_mesh.material_sort == -1:
+        material = geometry.Material("shadow")  # placeholder, might have a special material in-engine
+    else:
+        material_sort = bsp.MATERIAL_SORTS[shadow_mesh.material_sort]
+        material = geometry.Material(bsp.texture_data_surface_name(material_sort.texture_data))
+    # indices
+    start = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESHES[:shadow_mesh_index])
+    length = shadow_mesh.num_triangles * 3
+    indices = [shadow_mesh.vertex_offset + i for i in bsp.SHADOW_MESH_INDICES[start:start + length]]
+    # vertices
+    # TODO: convert each vertex once, then index
+    if shadow_mesh.is_opaque:
+        vertices = [geometry.Vertex(bsp.SHADOW_MESH_OPAQUE_VERTICES[i], no_normal) for i in indices]
+    else:
+        vertices = [bsp.SHADOW_MESH_ALPHA_VERTICES[i] for i in indices]
+        vertices = [geometry.Vertex(v.position, no_normal, v.uv) for v in vertices]
+    return geometry.Mesh(material, geometry.triangle_soup(vertices))
+
+
+def texture_data_surface_name(bsp, texture_data_index: int) -> str:
+    texture_data = bsp.TEXTURE_DATA[texture_data_index]
+    return bsp.SURFACE_NAMES.as_bytes()[texture_data.name_index:].lstrip(b"\0").partition(b"\0")[0].decode()
+
+
+def unlit_vertex(bsp, vertex: Union[VertexLitBump, VertexLitFlat]) -> geometry.Vertex:
+    position = bsp.VERTICES[vertex.position_index]
+    normal = bsp.VERTEX_NORMALS[vertex.normal_index]
+    colour = vertex.colour if hasattr(vertex, "colour") else (0xFF, 0x00, 0xFF, 0xFF)
+    return geometry.Vertex(position, normal, vertex.albedo_uv, colour=colour)
 
 
 def water_body_model(bsp, water_body_index: int) -> geometry.Model:
@@ -728,6 +753,6 @@ def water_body_model(bsp, water_body_index: int) -> geometry.Model:
 
 methods = [lit_vertex, mesh, titanfall.model, unlit_vertex,  # geo
            titanfall.search_all_entities, shared.worldspawn_volume,  # entities
-           titanfall.occlusion_mesh, titanfall.shadow_mesh, water_body_model,  # other geo
+           titanfall.occlusion_mesh, shadow_mesh, water_body_model,  # other geo
            texture_data_surface_name]  # materials
 methods = {m.__name__: m for m in methods}

@@ -725,9 +725,10 @@ class Primitive(base.BitField):  # LUMP 89 (0059)
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     """SHADOW_MESH_INDICES offset is end of previous ShadowMesh"""
-    vertex_offset: int  # add each index in SHADOW_MESH_INDICES[prev_end:prev_end + num_triangles * 3]
-    num_triangles: int  # number of triangles in SHADOW_MESH_INDICES
-    is_opaque: int  # indexes ShadowMeshAlphaVertex if 0, ShadowMeshVertex if 1
+    vertex_offset: int  # index into ShadowMeshAlpha / OpaqueVertices
+    # first_index = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESH_INDICES[:index])
+    num_triangles: int  # number of triangles in ShadowMeshIndices
+    is_opaque: bool  # indexes ShadowMeshAlphaVertex if 0, ShadowMeshVertex if 1
     material_sort: int  # index into MaterialSort; -1 for None
     __slots__ = ["vertex_offset", "num_triangles", "is_opaque", "material_sort"]
     _format = "2I2h"
@@ -1194,21 +1195,21 @@ def search_all_entities(bsp, **search: Dict[str, str]) -> Dict[str, List[Dict[st
 
 def shadow_mesh(bsp, shadow_mesh_index: int) -> geometry.Mesh:
     no_normal = vector.vec3(0, 0, 0)
-    mesh = bsp.SHADOW_MESHES[shadow_mesh_index]
+    shadow_mesh = bsp.SHADOW_MESHES[shadow_mesh_index]
     # material
-    if mesh.material_sort == -1:
+    if shadow_mesh.material_sort == -1:
         material = geometry.Material("shadow")  # placeholder, might have a special material in-engine
     else:
-        material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
+        material_sort = bsp.MATERIAL_SORTS[shadow_mesh.material_sort]
         texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
         material = geometry.Material(bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index])
     # indices
     start = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESHES[:shadow_mesh_index])
-    length = mesh.num_triangles * 3
-    indices = bsp.SHADOW_MESH_INDICES[start:start + length]
+    length = shadow_mesh.num_triangles * 3
+    indices = [shadow_mesh.vertex_offset + i for i in bsp.SHADOW_MESH_INDICES[start:start + length]]
     # vertices
     # TODO: convert each vertex once, then index
-    if mesh.is_opaque:
+    if shadow_mesh.is_opaque:
         vertices = [geometry.Vertex(bsp.SHADOW_MESH_OPAQUE_VERTICES[i], no_normal) for i in indices]
     else:
         vertices = [bsp.SHADOW_MESH_ALPHA_VERTICES[i] for i in indices]

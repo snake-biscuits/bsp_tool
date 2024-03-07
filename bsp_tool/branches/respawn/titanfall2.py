@@ -373,18 +373,18 @@ class WorldLightv3(base.Struct):  # LUMP 54 (0036)
 
 
 class ShadowEnvironment(base.Struct):
-    """Identified w/ BobTheBob; appears linked to dynamic shadows and optimisation"""
-    # making modifications caused severe framerate drops (2fps)
+    """Identified w/ BobTheBob; linked to dynamic shadows and optimisation"""
     first_csm_aabb_node: int  # index into CSMAABBNodes
-    first_csm_obj_ref: int  # index into CSMObjReferences
+    first_csm_obj_reference: int  # index into CSMObjReferences
     first_shadow_mesh: int  # index into ShadowMesh
-    num_csm_aabb_nodes: int
-    num_csm_obj_refs: int
-    num_shadow_meshes: int
+    # NOTE: not num_xs!
+    last_csm_aabb_node: int
+    last_csm_obj_reference: int
+    last_shadow_mesh: int
     sun_normal: vector.vec3  # represents angle of associated light_environment
     __slots__ = [
-        "first_csm_aabb_node", "first_csm_obj_ref", "first_shadow_mesh",
-        "num_csm_aabb_nodes", "num_csm_obj_refs", "num_shadow_meshes", "sun_normal"]
+        "first_csm_aabb_node", "first_csm_obj_reference", "first_shadow_mesh",
+        "last_csm_aabb_node", "last_csm_obj_reference", "last_shadow_mesh", "sun_normal"]
     _format = "6i3f"
     _arrays = {"sun_normal": [*"xyz"]}
     _classes = {"sun_normal": vector.vec3}
