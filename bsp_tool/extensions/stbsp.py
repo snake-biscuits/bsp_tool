@@ -16,9 +16,9 @@ BlockIndex = collections.namedtuple("BlockIndex", ["offset", "size"])
 class BlockType(enum.Enum):
     MATERIALS = 0  # zero-terminated strings
     # TODO: do other lumps index first byte of each material?
-    UNKNOWN_1 = 1  # 24 byte structs; size >= len(materials)
-    UNKNOWN_2 = 2  # 4 byte structs
-    UNKNOWN_3 = 3  # 2 byte structs
+    UNKNOWN_1 = 1  # 24 byte structs
+    VTFS = 2  # uint32_t
+    VMTS = 3  # uint16_t
     UNKNOWN_4 = 4  # 24 byte structs
     UNKNOWN_5 = 5  # mip pixels?
 # observed order: 1, 2, 3, 0, 4, 5
@@ -47,17 +47,20 @@ class FlatStruct:
 
 
 class Block1(FlatStruct):  # UNKNOWN_1
+    """rpak assets & vmts?"""
     material: int  # index into raw_materials (first byte of string)
     # stbsp.materials[stbsp.material_index[block_1.material]]
     unknown_1: int  # flags?
-    hash: int  # indexes rpak; 0 if .vmt
-    unknown_2: int  # = previous unknown_3
-    unknown_3: int  # += 1 if .vmt
-    __slots__ = ["material", "unknown_1", "hash", "unknown_2", "unknown_3"]
+    hash: int  # indexes rpak?
+    # NOTE: only index vmt / vtf if hash is 0
+    vmt: int  # index into vmts
+    vtf: int  # index into vtfs
+    __slots__ = ["material", "unknown_1", "hash", "vmt", "vtf"]
     _format = "2IQ2I"
 
 
 class Block4(FlatStruct):  # UNKNOWN_4
+    """grid tile data?"""
     offset: int  # index into UNKNOWN_5?
     length: int
     flags: int  # maybe asset type?
@@ -79,8 +82,8 @@ class StreamBsp:
     materials: Dict[int, str]
     # ^ {first_byte: material}
     block_1: List[Block1]
-    block_2: List[int]
-    block_3: List[int]
+    vtfs: List[int]  # indexes materials; vtf filenames
+    vmts: List[int]  # indexes vtfs; albedo for vmt
     block_4: List[Block4]
     block_5: bytes
 
@@ -116,10 +119,10 @@ class StreamBsp:
             out.block_1 = [Block1.from_stream(file) for i in range(out.block_indices[1].size)]
             # Block2
             file.seek(out.block_indices[2].offset)
-            out.block_2 = read_struct(file, f"{out.block_indices[2].size}I")
+            out.vtfs = read_struct(file, f"{out.block_indices[2].size}I")
             # Block3
             file.seek(out.block_indices[3].offset)
-            out.block_3 = read_struct(file, f"{out.block_indices[3].size}H")
+            out.vmts = read_struct(file, f"{out.block_indices[3].size}H")
             # Block4
             file.seek(out.block_indices[4].offset)
             out.block_4 = [Block4.from_stream(file) for i in range(out.block_indices[4].size)]
