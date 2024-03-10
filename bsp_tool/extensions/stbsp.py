@@ -1,9 +1,8 @@
 """Titanfall Engine .stbsp file parser"""
 from __future__ import annotations
-import collections
 import enum
 import struct
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 
 def read_struct(file, format_: str) -> List[Any]:
@@ -81,6 +80,7 @@ class Column(FlatStruct):
 
 class StreamBsp:
     # header
+    version: Tuple[int, int]  # r2 = (8, 0), r5 = (8, 1)
     mins_x: int
     mins_y: int
     maxs_x: int
@@ -98,17 +98,19 @@ class StreamBsp:
     column_data: bytes
 
     def __repr__(self) -> str:
-        return f"<StreamBsp {len(self.material_info)} materials @ 0x{id(self):016X}>"
+        major, minor = self.version
+        version = f"v{major}.{minor}"
+        return f"<StreamBsp {version} ({len(self.material_info)} materials) @ 0x{id(self):016X}>"
 
     @classmethod
     def from_file(cls, filename: str) -> StreamBsp:
+        out = cls()
         with open(filename, "rb") as file:
             magic = file.read(4)
             assert magic == b"\xB5\xCB\x00\xCB"  # float: -8440757.0?
-            version = read_struct(file, "2H")
-            assert version[0] == 8
-            assert version[1] in (0, 1)  # 0: r2, 1: r5
-            out = cls()
+            out.version = read_struct(file, "2H")
+            assert out.version[0] == 8
+            assert out.version[1] in (0, 1)  # 0: r2, 1: r5
             out.mins_x, out.mins_y, out.maxs_x, out.maxs_y, out.stride = read_struct(file, "4iI")
             out.scale = read_struct(file, "2f")
             assert read_struct(file, "33I") == (0,) * 33
