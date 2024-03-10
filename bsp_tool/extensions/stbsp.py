@@ -10,9 +10,6 @@ def read_struct(file, format_: str) -> List[Any]:
     return struct.unpack(format_, file.read(struct.calcsize(format_)))
 
 
-BlockIndex = collections.namedtuple("BlockIndex", ["offset", "size"])
-
-
 class Block(enum.Enum):
     # observed order: 1, 2, 3, 0, 4, 5
     MATERIALS = 0
@@ -33,7 +30,7 @@ class FlatStruct:
             setattr(self, attr, value)
 
     def __repr__(self) -> str:
-        args = ", ".join([str(getattr(self, a)) for a in self.__slots__])
+        args = ", ".join([f"{a}={getattr(self, a)}" for a in self.__slots__])
         return f"{self.__class__.__name__}({args})"
 
     @classmethod
@@ -43,6 +40,13 @@ class FlatStruct:
     @classmethod
     def from_stream(cls, stream) -> FlatStruct:
         return cls.from_bytes(stream.read(struct.calcsize(cls._format)))
+
+
+class BlockIndex(FlatStruct):
+    offset: int
+    size: int  # num structs / bytesize
+    __slots__ = ["offset", "size"]
+    _format = "2Q"
 
 
 class MaterialInfo(FlatStruct):
@@ -57,11 +61,9 @@ class MaterialInfo(FlatStruct):
     _format = "2IQ2I"
 
     def __repr__(self) -> str:
-        args = ", ".join([
-            str(self.material), str(self.unknown_1),
-            f"0x{self.guid:016X}",
-            str(self.vmt), str(self.vtf)])
-        return f"MaterialInfo({args})"
+        args = [f"{a}={getattr(self, a)}" for a in self.__slots__]
+        args[self.__slots__.index("guid")] = f"guid=0x{self.guid:016X}"
+        return f"MaterialInfo({', '.join(args)})"
 
 
 class Column(FlatStruct):
@@ -85,7 +87,7 @@ class StreamBsp:
     maxs_y: int
     stride: int  # width / height of each column
     scale: List[float]  # width, height
-    block_indices: List[BlockIndex]
+    block: List[BlockIndex]
     # data
     materials: Dict[int, str]
     # ^ {first_byte: material}
@@ -96,7 +98,7 @@ class StreamBsp:
     column_data: bytes
 
     def __repr__(self) -> str:
-        return f"<StreamBsp {len(self.materials)} materials @ 0x{id(self):016X}>"
+        return f"<StreamBsp {len(self.material_info)} materials @ 0x{id(self):016X}>"
 
     @classmethod
     def from_file(cls, filename: str) -> StreamBsp:
@@ -104,17 +106,18 @@ class StreamBsp:
             magic = file.read(4)
             assert magic == b"\xB5\xCB\x00\xCB"  # float: -8440757.0?
             version = read_struct(file, "2H")
-            assert version == (8, 0)  # r2 only; r5 s3 is (8, 1)
+            assert version[0] == 8
+            assert version[1] in (0, 1)  # 0: r2, 1: r5
             out = cls()
             out.mins_x, out.mins_y, out.maxs_x, out.maxs_y, out.stride = read_struct(file, "4iI")
             out.scale = read_struct(file, "2f")
             assert read_struct(file, "33I") == (0,) * 33
-            out.block_indices = [BlockIndex(*read_struct(file, "2Q")) for i in range(6)]
+            out.block = [BlockIndex.from_stream(file) for i in range(6)]
             assert read_struct(file, "16Q") == (0,) * 16
-            assert file.tell() == min(bi.offset for bi in out.block_indices)
+            assert file.tell() == min(bi.offset for bi in out.block)
             # Block 0: Materials
-            file.seek(out.block_indices[0].offset)
-            raw_materials = file.read(out.block_indices[0].size)
+            file.seek(out.block[0].offset)
+            raw_materials = file.read(out.block[0].size)
             assert raw_materials.endswith(b"\0")
             material_strings = [s.decode() for s in raw_materials[:-1].split(b"\0")]
             out.materials, i = {0: material_strings[0]}, 0
@@ -122,29 +125,29 @@ class StreamBsp:
                 i = raw_materials.find(b"\0", i) + 1
                 out.materials[i] = material_strings[len(out.materials)]
             # Block 1: Material Info
-            file.seek(out.block_indices[1].offset)
-            out.material_info = [MaterialInfo.from_stream(file) for i in range(out.block_indices[1].size)]
+            file.seek(out.block[1].offset)
+            out.material_info = [MaterialInfo.from_stream(file) for i in range(out.block[1].size)]
             # Block 2: VTFs
-            file.seek(out.block_indices[2].offset)
-            out.vtfs = read_struct(file, f"{out.block_indices[2].size}I")
+            file.seek(out.block[2].offset)
+            out.vtfs = read_struct(file, f"{out.block[2].size}I")
             # Block 3: VMTs
-            file.seek(out.block_indices[3].offset)
-            out.vmts = read_struct(file, f"{out.block_indices[3].size}H")
+            file.seek(out.block[3].offset)
+            out.vmts = read_struct(file, f"{out.block[3].size}H")
             # Block 4: Columns
-            file.seek(out.block_indices[4].offset)
-            out.columns = [Column.from_stream(file) for i in range(out.block_indices[4].size)]
+            file.seek(out.block[4].offset)
+            out.columns = [Column.from_stream(file) for i in range(out.block[4].size)]
             # Block 4: Column Data
-            file.seek(out.block_indices[5].offset)
-            out.column_data = file.read(out.block_indices[5].size)
+            file.seek(out.block[5].offset)
+            out.column_data = file.read(out.block[5].size)
             # TODO: assert EOF
         return out
 
-    def as_obj(self, filename: str):
+    def columns_as_obj(self, filename: str):
         x_scale, y_scale = self.scale
         with open(filename, "w") as obj_file:
             obj_file.write("# generated by bsp_tool.extensions.stbsp\n")
             for column in self.columns:
-                colour = int.from_bytes(struct.pack("f", column.coverage_scale)[0], "little")
+                colour = int.from_bytes(struct.pack("f", column.coverage_scale), "little")
                 obj_file.write(f"usemtl {colour:08X}\n")
                 obj_file.write(f"v {column.mins_x * x_scale} {column.mins_y * y_scale} 0\n")
                 obj_file.write(f"v {column.mins_x * x_scale} {column.maxs_y * y_scale} 0\n")
