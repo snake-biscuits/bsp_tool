@@ -1,9 +1,7 @@
-__all__ = [
-    "apex_legends", "base", "for_branch", "modern_warfare", "quake",
-    "quake2", "quake3", "source", "titanfall", "titanfall2"]
-
+__all__ = ["LightmapCollection", "LightmapPage", "extract_branch", "lightmaps_of"]
+from . base import LightmapCollection, LightmapPage
+# branches
 from . import apex_legends
-from . import base
 from . import modern_warfare
 from . import quake
 from . import quake2
@@ -13,21 +11,32 @@ from . import titanfall
 from . import titanfall2
 
 
+# USAGE:
+# -- LightmapPage.from_list(lightmaps_of(bsp))
+# -- LightmapCollection.from_list(bsp.filename, lightmaps_of(bsp))
+
 # TODO: DarkPlaces / .lit / BSP2 lightdata
 # TODO: Quake 64 556RGB (16-bit)
+# TODO: Source Engine displacement lightmaps
+# TODO: troika.vampire (multiple styles)
 
-# TODO: quake3.tiled
-# TODO: apex_legends.split
-# TODO: vampire.as_page
+# TODO: use bsp_tool.branches.of_engine to group lightmap functions for multiple branches
+extract_branch = {
+    "id_software.quake": quake.face_lightmaps,
+    "id_software.quake2": quake2.as_page,
+    "id_software.quake3": quake3.tiled,
+    "infinity_ward.modern_warfare": modern_warfare.tiled,
+    "respawn.apex_legends": apex_legends.tiled,
+    "respawn.titanfall": titanfall.tiled_or_split,
+    "respawn.titanfall2": titanfall2.tiled_or_split,
+    "valve.source": source.face_lightmaps}
 
-for_branch = {"id_software.quake": quake.as_page,
-              "id_software.quake2": quake2.as_page,
-              "id_software.quake3": quake3.tiled,
-              "infinity_ward.modern_warfare": modern_warfare.tiled,
-              "respawn.apex_legends": apex_legends.tiled,
-              "respawn.titanfall": titanfall.tiled_or_split,
-              "respawn.titanfall2": titanfall2.tiled_or_split,
-              "valve.source": source.as_page}
 
-# TODO: match "valve.as_page" to "branches.of_engine['Source']"
-# TODO: attach ".lightmap_as_image(filename: str)" methods to branches
+# TODO: automatically page lightmaps for Quake, Quake2 & Source Engine maps
+def lightmaps_of(bsp) -> LightmapCollection:
+    branch = ".".join(bsp.branch.__name__.split(".")[-2:])
+    collection = extract_branch[branch](bsp)
+    if not isinstance(collection, LightmapCollection):  # List[Image]
+        return LightmapCollection.from_list(collection)
+    else:
+        return collection

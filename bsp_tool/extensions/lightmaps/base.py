@@ -1,31 +1,91 @@
+from __future__ import annotations
 import collections
+import fnmatch
 import math
-from typing import Dict, List
+import os
+from typing import Dict, List, Tuple
 
-from PIL import Image  # requires: pip install Pillow
+from PIL import Image
 
 
-# TODO: pack w/ bleed margins
-# TODO: pack styles in series & use a `lightmap_step` UV
-# TODO: page children as .json
+class LightmapCollection:
+    """for organising named lightmaps (e.g. titanfall SKY & RTL)"""
+    name: str
+    _lightmaps: Dict[str, Image]
 
+    # TODO: int & slice indexing
+    # TODO: (str, int) tuple child names
+    # -- lock in padding for each "group"
+    # -- groups are names with the same length, strings & string order
+
+    def __init__(self, name: str, **kwargs: Dict[str, Image]):
+        self.name = name
+        self._lightmaps = kwargs.copy()
+
+    def __repr__(self) -> str:
+        num_lightmaps = f"{len(self)} lightmaps"
+        return f"<LightmapCollection {self.name!r} {num_lightmaps} @ 0x{id(self):016X}>"
+
+    def __len__(self) -> int:
+        return len(self._lightmaps)
+
+    def __getitem__(self, name: str) -> Image:
+        return self._lightmaps[name]
+
+    def __setitem__(self, name: str, image: Image):
+        self._lightmaps[name] = image
+
+    @classmethod
+    def from_list(cls, name: str, lightmaps: List[Image]) -> LightmapCollection:
+        assert isinstance(name, str), "LightmapCollection must have a name!"
+        pad_length = len(f"{len(lightmaps) - 1}")
+        return cls(name, **{f"{i:0{pad_length}}": lightmap for i, lightmap in enumerate(lightmaps)})
+
+    def matches(self, pattern: str) -> List[str]:
+        return fnmatch.filter(self.namelist(), pattern)
+
+    def namelist(self) -> List[str]:
+        return sorted(self._lightmaps.keys())
+
+    def save_all(self, folder: str = "./", extension: str = ".tga"):
+        os.makedirs(folder, exist_ok=True)
+        for filename, image in self._lightmaps.items():
+            image.save(os.path.join(folder, f"{self.name}.{filename}.{extension}"))
+
+
+# LightmapPage utils
 AllocatedSpace = collections.namedtuple("AllocatedSpace", ["x", "y", "width", "height"])
 Row = collections.namedtuple("Row", ["top", "height", "free_width"])
 
 
 class LightmapPage:
-    """Packs smaller images into a larger one"""
+    """for grouping small per-face lightmaps"""
     children: Dict[AllocatedSpace, Image.Image]
-    # NOTE: list(chilren.keys()) is a decent .json reference
     colour_mode: str
-    image: Image.Image
     rows: List[Row]
+    # properties
+    child_bounds: List[Dict[Tuple[int, int]]]
+    # ^ [{"mins": [x, y], "maxs": [x, y]}]
+    image: Image.Image
+
+    # TODO: pack w/ bleed margins
+    # -- pre-bleed each image before adding it?
+    # TODO: pack "styles" in series & use a `lightmap_step` UV
+    # -- would have to pre-group styles for a given face into one image (with another LightmapPage?)
 
     def __init__(self, max_width=1024, max_height=math.inf, colour_mode="RGBA"):
         self.max_width, self.max_height = max_width, max_height
         self.colour_mode = colour_mode
         self.rows = [Row(0, max_height, max_width)]
-        self.children = dict()  # create a new dict! must be clean!
+        self.children = dict()
+
+    def __repr__(self) -> str:
+        dimensions = f"{self.max_width}x{self.max_height}px"
+        num_lightmaps = f"{len(self)} lightmaps"
+        return f"<LightmapPage {self.colour_mode} {dimensions} {num_lightmaps} @ 0x{id(self):016X}>"
+
+    def __len__(self) -> int:
+        return len(self.children)
 
     def __add__(self, image: Image.Image):  # mutates self
         """Works best if images are sorted beforehand"""
@@ -58,10 +118,35 @@ class LightmapPage:
         self.children[AllocatedSpace(x, y, width, height)] = image
         return self
 
+    @classmethod
+    def from_list(cls, lightmaps: List[Image], max_width=1024) -> LightmapPage:
+        # TODO: sort lightmaps for more efficient pack, but retain child order
+        # -- we'll need this for remapping uvs
+        # size_order = sorted(
+        #     [i for i, lightmap in enumerate(lightmaps)],
+        #     key=lambda i: (-lightmaps[i].size[0], -lightmaps[i].size[1]))
+        # page = sum([images[i] for i in size_order], start=cls(max_width=max_width))
+        # # TODO: OrderedDict assemble new children in lightmaps order
+        # lut = [size_order.index(i) for i, _ in enumerate(lightmaps)]
+        # children = list(page.children.items())  # indexable copy
+        # page.children = {k: v for k, v in [children[i] for i in lut]}
+        return sum(lightmaps, start=cls(max_width=max_width))
+
+    @classmethod
+    def from_collection(cls, collection: LightmapCollection, pattern: str = "*") -> LightmapPage:
+        # TODO: retain a map of collection name -> AllocatedSpace
+        # -- saves us from doing the cursed mess in .from_list()
+        return cls.from_list([collection[name] for name in collection.matches(pattern)])
+
+    @property
+    def child_bounds(self):
+        """.json-friendly"""
+        return [{"mins": [c.x, c.y], "maxs": [c.x + c.width, c.y + c.height]} for c in self.children]
+
     @property
     def image(self):
         """Composite final image"""
-        if len(self.children) == 0:
+        if len(self) == 0:
             return None  # empty
         width = max([x + w for x, y, w, h in self.children])
         height = max([y + h for x, y, w, h in self.children])
@@ -71,6 +156,7 @@ class LightmapPage:
             page.paste(child, (x, y, x + width, y + height))
         return page
 
-
-def pack(images: List[Image], max_width=1024) -> Image:
-    return sum(images, start=LightmapPage(max_width=max_width)).image
+    def save_as(self, filename: str):
+        folder = os.path.split(filename)[0]
+        os.makedirs(folder, exist_ok=True)
+        self.image.save(filename)
