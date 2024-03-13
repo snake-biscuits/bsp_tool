@@ -111,13 +111,13 @@ class Face(base.Struct):  # LUMP 7, 27 & 58
     plane: int  # index into Planes
     side: int  # always 1 or 0? bool?
     on_node: int  # always 0? bool?
-    padding: int  # alignment mistake?
+    padding_1: int  # alignment mistake?
     first_edge: int  # index into the SurfEdges
     num_edges: int
     texture_info: int  # index into TextureInfo
     displacement_info: int  # index into DisplacementInfo; -1 if None
+    padding_2: int
     surface_fog_volume_id: int  # for water surfaces?
-    unknown: int
     styles: List[int]  # -1 for None
     light_offset: int  # index into Lighting
     area: float
@@ -131,8 +131,8 @@ class Face(base.Struct):  # LUMP 7, 27 & 58
     first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group
     __slots__ = [
-        "plane", "side", "on_node", "padding", "first_edge", "num_edges",
-        "texture_info", "displacement_info", "surface_fog_volume_id", "unknown",
+        "plane", "side", "on_node", "padding_1", "first_edge", "num_edges",
+        "texture_info", "displacement_info", "padding_2", "surface_fog_volume_id",
         "styles", "light_offset", "area", "lightmap", "original_face",
         "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2BH3I2hi4bif5i3I"
