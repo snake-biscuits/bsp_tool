@@ -7,7 +7,8 @@ from typing import Dict, List
 from .. import base
 
 
-class Header(base.Struct):
+class Header(base.Struct):  # Season14
+    # NOTE: Season0 header is shorter
     unknown_1: List[int]  # always (64, 56, 68)?
     unknown_2: bool  # always True?
     unknown_3: bool
@@ -21,7 +22,7 @@ class Header(base.Struct):
     unknown_4: List[int]  # always (1024, 0, 0xEB1280)
     __slots__ = ["unknown_1", "unknown_2", "unknown_3", "bitfield", "triplets", "zeroes", "scale", "unknown_4"]
     _format = "13If3I"
-    _arrays = {"unknown_1": 3, "triplets": 3, "zeroes": 4, "unknown_4": 4}
+    _arrays = {"unknown_1": 3, "triplets": 3, "zeroes": 4, "unknown_4": 3}
     _bitfields = {"bitfield": {"unknown": 8, "num_unknown": 24}}
     _classes = {"unknown_2": bool, "unknown_3": bool}
 
@@ -45,7 +46,8 @@ class StarColl:
     def from_stream(cls, stream: io.BytesIO) -> StarColl:
         out = cls()
         out.header = Header.from_stream(stream)
-        out.material = stream.read(out.header.triplets[0] - 68).rstrip(b"\0").decode()
+        end_string = out.header.triplets[0]
+        out.material = stream.read(end_string - stream.tell()).rstrip(b"\0").decode()
         out.unknown = stream.read()
         return out
 
