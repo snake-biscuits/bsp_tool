@@ -23,12 +23,12 @@ from . import titanfall2
 # TODO: use bsp_tool.branches.of_engine to group lightmap functions for multiple branches
 extract_branch = {
     "id_software.quake": quake.face_lightmaps,
-    "id_software.quake2": quake2.as_page,
-    "id_software.quake3": quake3.tiled,
-    "infinity_ward.modern_warfare": modern_warfare.tiled,
-    "respawn.apex_legends": apex_legends.tiled,
-    "respawn.titanfall": titanfall.tiled_or_split,
-    "respawn.titanfall2": titanfall2.tiled_or_split,
+    "id_software.quake2": quake2.face_lightmaps,
+    "id_software.quake3": quake3.extract,
+    "infinity_ward.modern_warfare": modern_warfare.extract,
+    "respawn.apex_legends": apex_legends.extract,
+    "respawn.titanfall": titanfall.extract,
+    "respawn.titanfall2": titanfall2.extract,
     "valve.source": source.face_lightmaps}
 
 

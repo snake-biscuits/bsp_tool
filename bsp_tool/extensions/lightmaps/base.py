@@ -3,7 +3,7 @@ import collections
 import fnmatch
 import math
 import os
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 from PIL import Image
 
@@ -11,10 +11,11 @@ from PIL import Image
 class LightmapCollection:
     """for organising named lightmaps (e.g. titanfall SKY & RTL)"""
     name: str
-    _lightmaps: Dict[str, Image]
+    _lightmaps: Dict[Any, Image]
+    # ^ {0: ..., ("LDR", 0): ..., "named": ...}
 
     # TODO: int & slice indexing
-    # TODO: (str, int) tuple child names
+    # TODO: (str, int) tuple keys
     # -- lock in padding for each "group"
     # -- groups are names with the same length, strings & string order
 
@@ -29,17 +30,16 @@ class LightmapCollection:
     def __len__(self) -> int:
         return len(self._lightmaps)
 
-    def __getitem__(self, name: str) -> Image:
-        return self._lightmaps[name]
+    def __getitem__(self, key: Any) -> Image:
+        return self._lightmaps[key]
 
-    def __setitem__(self, name: str, image: Image):
-        self._lightmaps[name] = image
+    def __setitem__(self, key: Any, image: Image):
+        self._lightmaps[key] = image
 
     @classmethod
     def from_list(cls, name: str, lightmaps: List[Image]) -> LightmapCollection:
         assert isinstance(name, str), "LightmapCollection must have a name!"
-        pad_length = len(f"{len(lightmaps) - 1}")
-        return cls(name, **{f"{i:0{pad_length}}": lightmap for i, lightmap in enumerate(lightmaps)})
+        return cls(name, **dict(enumerate(lightmaps)))
 
     def matches(self, pattern: str) -> List[str]:
         return fnmatch.filter(self.namelist(), pattern)
@@ -48,8 +48,36 @@ class LightmapCollection:
         return sorted(self._lightmaps.keys())
 
     def save_all(self, folder: str = "./", extension: str = ".tga"):
+        # TODO: tests
         os.makedirs(folder, exist_ok=True)
-        for filename, image in self._lightmaps.items():
+        # filename preprocessing
+        # TODO: include unique strings in spec
+        # TODO: only do spec classification on tuple keys
+        # specs_by_key = {
+        #     key: tuple([i for i, k in enumerate(key) if isinstance(k, int)])
+        #     for key in self._lightmaps.keys()}
+        # keys_by_spec = collections.defaultdict(set)
+        # for key, spec in specs_by_key.items():
+        #     keys_by_spec[spec].add(key)
+        # pad_lengths = {
+        #     spec: {i: max([key[i] for key in keys]) for i in spec}
+        #     for spec, keys in keys_by_spec.items()}
+        # filenames = {
+        #     key: ".".join([
+        #         f"{k:0{pad[i]}d}" if i in pad else str(k)
+        #         for i, k in enumerate(key)])
+        #     for spec, pad in pad_lengths.items()
+        #     for key in keys_by_spec[spec]}
+        for key, image in self._lightmaps.items():
+            # filename = filenames[key]
+            if isinstance(key, (str, int)):
+                filename = str(key)
+            elif isinstance(key, tuple):
+                assert all(isinstance(k, (str, int)) for k in key)
+                # TODO: padding by key spec
+                filename = ".".join(map(str, key))
+            else:
+                raise KeyError(f"couldn't convert key to filename: {key}")
             image.save(os.path.join(folder, f"{self.name}.{filename}.{extension}"))
 
 
