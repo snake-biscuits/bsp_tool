@@ -113,11 +113,17 @@ class Polygon:
 
 
 class Material:
-    """base class"""
+    # NOTE: name must be unique within a file
+    # -- will need variation if we have multiple materials per-path
+    # -- might want to include arbitrary metadata like cubemap indices
+    # NOTE: ApexLegends links cubemap indices to meshes, not MaterialSorts
     name: str
 
     def __init__(self, name=""):
-        self.name = name
+        self.name = name.lower().replace("\\", "/")
+        # TODO: shorten name
+        # TODO: path
+        # TODO: asset type (rpak.matl.wld, .vmt, .wad, .shader etc.)
 
     def __eq__(self, other: Material) -> bool:
         if isinstance(other, Material):
@@ -146,23 +152,23 @@ class Mesh:
 
 class Model:
     meshes: List[Mesh]
-    translation: vector.vec3
-    rotation: vector.vec3  # degrees for each axis
-    # TODO: alternate rotations (e.g. Quaternion)
+    origin: vector.vec3
+    angles: vector.vec3  # degrees for each axis
+    # TODO: angles from QAngle / Quaternion
     scale: vector.vec3
 
     def __init__(self, meshes=list(), origin=vector.vec3(), angles=vector.vec3(), scale=1):
         self.meshes = self.merge_meshes(meshes)
-        self.translation = vector.vec3(*origin)
-        self.rotation = vector.vec3(*angles)
-        # NOTE: uniform scale is valid when passed to __init__
+        self.origin = vector.vec3(*origin)
+        self.angles = vector.vec3(*angles)
+        # NOTE: scale must be vec3, but can be a float when passed into __init__
         if isinstance(scale, (float, int)):
             scale = vector.vec3(scale, scale, scale)
         self.scale = scale
 
     def __repr__(self) -> str:
-        origin = self.translation
-        angles = self.rotation
+        origin = self.origin
+        angles = self.angles
         scale = self.scale
         return f"<{self.__class__.__name__} {len(self.meshes)} meshes, {origin=!r}, {angles=!r}, {scale=!r}>"
 
@@ -179,17 +185,24 @@ class Model:
         vertex.position.y *= self.scale.y
         vertex.position.z *= self.scale.z
         # rotate
-        vertex.position = vertex.position.rotated(*self.rotation)
-        vertex.normal = vertex.normal.rotated(*self.rotation)
+        vertex.position = vertex.position.rotated(*self.angles)
+        vertex.normal = vertex.normal.rotated(*self.angles)
         # translate
-        vertex.position += self.translation
+        vertex.position += self.origin
         return vertex
 
     @property
     def transform_matrix(self) -> List[List[float]]:
-        """for .gltf"""
-        # | a b c d |
-        # | e f g h |
-        # | i j k l |
-        # | m n o p |
-        raise NotImplementedError()
+        """for .gtlf/.glb & .usd/.usda"""
+        # TODO: apply scale & rotation
+        translation = [
+            (1, 0, 0, self.origin.x),
+            (0, 1, 0, self.origin.y),
+            (0, 0, 1, self.origin.z),
+            (0, 0, 0, 1)]
+        # scale = [
+        #     (self.scale.x, 0, 0, 0),
+        #     (0, self.scale.y, 0, 0),
+        #     (0, 0, self.scale.z, 0),
+        #     (0, 0, 0, 1)]
+        return translation

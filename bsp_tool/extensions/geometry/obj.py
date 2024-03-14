@@ -7,6 +7,7 @@ from ...utils import geometry
 class Obj:
     """Y+ forward; Z+ up"""
     models: List[geometry.Model]
+    # TODO: named models
 
     def __init__(self, models=list()):
         self.models = models

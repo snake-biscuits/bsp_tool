@@ -7,7 +7,9 @@ from typing import Any, Dict, List, Tuple, Union
 from ...utils import geometry
 
 
-# TODO: Y-up
+# TODO: export Z-up geometry.Models as Y-up (add rotation to transform matrix?)
+# TODO: scrap complex vertex * index buffer construction for a big dump of raw vertices
+# -- super simple indexing; can revisit index buffers if we add those to geometry.Mesh
 
 class Data(enum.Enum):
     """accessor.componentType"""
@@ -168,7 +170,8 @@ class MaterialList:
 
 class GLTF:
     buffers: List[Tuple[VertexBuffer, IndexBuffer]]
-    model: List[geometry.Models]
+    models: List[geometry.Models]
+    # TODO: named models
     json: Json
 
     # TODO: @classmethod def from_models(cls, models: List[geometry.Model]) -> GLTF:
@@ -217,7 +220,10 @@ class GLTF:
             *[{"bufferView": 0, **a} for a in vertex_buffer.accessors],
             *[{"bufferView": 1, **a} for a in index_buffer.accessors]]
 
-    # TODO: @classmethod from_file(cls, filename) -> GLTF:
+    def __repr__(self) -> str:
+        return f"<GLTF {len(self.models)} models {len(self.json['buffers'])} buffers @ 0x{id(self):016X}>"
+
+    # TODO: @classmethod def from_file(cls, filename) -> GLTF:
 
     def save_as(self, filename):
         """.gltf only! no .glb (yet)"""
