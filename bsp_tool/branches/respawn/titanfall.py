@@ -1148,7 +1148,8 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
 
 def model(bsp, model_index: int) -> geometry.Model:
     # entity
-    entities = bsp.ENTITIES.search(model=f"*{model_index}")
+    # NOTE: not all brush entities are in the ENTITIES block
+    entities = [e for es in bsp.search_all_entities(model=f"*{model_index}").values() for e in es]
     model_entity = entities[0] if len(entities) != 0 else dict()
     origin = model_entity.get("origin", "0 0 0")
     origin = vector.vec3(*origin.split())
@@ -1157,7 +1158,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     # geometry
     model = bsp.MODELS[model_index]
     start, length = model.first_mesh, model.num_meshes
-    return geometry.Model([bsp.mesh(i) for i in range(start, start + length)], origin, angles)
+    out = geometry.Model([bsp.mesh(i) for i in range(start, start + length)], origin, angles)
+    out.entity = model_entity
+    return out
 
 
 def tricoll_model(bsp, tricoll_header_index: int) -> geometry.Model:
