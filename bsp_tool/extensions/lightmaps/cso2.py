@@ -16,10 +16,12 @@ def face_lightmaps(bsp) -> base.LightmapCollection:
         # TODO: if face.styles > 1: collect multiple lightmaps
         width, height = map(int, [s + 1 for s in face.lightmap.size])
         start, length = face.light_offset, width * height * 4
-        if has_ldr:
-            texels = bytes(bsp.LIGHTING[start:start + length])
-            lightmaps[("LDR", i)] = Image.frombytes("RGBA", (width, height), texels, "raw")
-        if has_hdr:
-            texels = bytes(bsp.LIGHTING_HDR[start:start + length])
-            lightmaps[("HDR", i)] = Image.frombytes("RGBA", (width, height), texels, "raw")
+        for sub in "ABCD":
+            if has_ldr:
+                texels = bytes(bsp.LIGHTING[start:start + length])
+                lightmaps[("LDR", sub, i)] = Image.frombytes("RGBA", (width, height), texels, "raw")
+            if has_hdr:
+                texels = bytes(bsp.LIGHTING_HDR[start:start + length])
+                lightmaps[("HDR", sub, i)] = Image.frombytes("RGBA", (width, height), texels, "raw")
+            start += length
     return lightmaps
