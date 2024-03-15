@@ -1160,7 +1160,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     meshes = [
         bsp.face_mesh(i) if bsp.FACES[i].displacement_info == -1 else bsp.displacement_mesh(i)
         for i in face_indices]
-    return geometry.Model(meshes, origin, angles)
+    out = geometry.Model(meshes, origin, angles)
+    out.entity = model_entity
+    return out
 
 
 def textures_of_brush(bsp, brush_index: int) -> List[str]:

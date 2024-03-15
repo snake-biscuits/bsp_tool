@@ -345,7 +345,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     # geometry
     model = bsp.MODELS[model_index]
     start, length = model.first_triangle_soup, model.num_triangle_soups
-    return geometry.Model([bsp.triangle_soup_mesh(i) for i in range(start, start + length)], origin)
+    out = geometry.Model([bsp.triangle_soup_mesh(i) for i in range(start, start + length)], origin)
+    out.entity = model_entity
+    return out
 
 
 def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:

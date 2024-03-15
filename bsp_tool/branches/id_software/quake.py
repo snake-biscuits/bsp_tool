@@ -465,7 +465,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     # geometry
     model = bsp.MODELS[model_index]
     face_indices = range(model.first_face, model.first_face + model.num_faces)
-    return geometry.Model([bsp.face_mesh(i) for i in face_indices], origin, angles)
+    out = geometry.Model([bsp.face_mesh(i) for i in face_indices], origin, angles)
+    out.entity = model_entity
+    return out
 
 
 # TODO: reverse brush planes from ClipNodes
