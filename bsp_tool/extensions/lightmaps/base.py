@@ -3,15 +3,20 @@ import collections
 import fnmatch
 import math
 import os
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Union
 
 from PIL import Image
+
+
+LightmapID = Union[str, Tuple[str, int]]
+# e.g. "SKY.A.0" or ("SKY", "A", 0)
+# use LightmapCollection.subset("SKY.A.*") to filter
 
 
 class LightmapCollection:
     """for organising named lightmaps (e.g. titanfall SKY & RTL)"""
     name: str
-    _lightmaps: Dict[Any, Image]
+    _lightmaps: Dict[LightmapID, Image]
     # ^ {0: ..., ("LDR", 0): ..., "named": ...}
 
     # TODO: int & slice indexing
@@ -21,7 +26,12 @@ class LightmapCollection:
 
     def __init__(self, name: str, **kwargs: Dict[str, Image]):
         self.name = name
-        self._lightmaps = kwargs.copy()
+        self._lightmaps = {
+            tuple((int(k) if k.isnumeric() else k) for k in key.split(".")): value
+            for key, value in kwargs.items()}
+
+    def __iter__(self):
+        return iter(self.namelist())
 
     def __repr__(self) -> str:
         num_lightmaps = f"{len(self)} lightmaps"
@@ -54,7 +64,6 @@ class LightmapCollection:
         return LightmapCollection(self.name, **{fn: self[fn] for fn in fnmatch.filter(self.namelist(), pattern)})
 
     def namelist(self) -> List[str]:
-        keys = sorted(self._lightmaps.keys())
         # TODO: zero-pad ints
         # TODO: include unique strings in spec
         # TODO: only do spec classification on tuple keys
@@ -73,13 +82,18 @@ class LightmapCollection:
         #         for i, k in enumerate(key)])
         #     for spec, pad in pad_lengths.items()
         #     for key in keys_by_spec[spec]}
-        keys = [".".join(map(str, k)) for k in keys]
+        keys = [
+            ".".join(map(str, k)) if isinstance(k, tuple) else k
+            for k in sorted(self._lightmaps.keys())]
         return keys
 
     def save(self, folder: str = "./", extension: str = ".tga"):
+        self.save_as(self.name, folder, extension)
+
+    def save_as(self, name: str, folder: str = "./", extension: str = ".tga"):
         os.makedirs(folder, exist_ok=True)
         for filename in self.namelist():
-            self[filename].save(os.path.join(folder, f"{self.name}.{filename}.{extension}"))
+            self[filename].save(os.path.join(folder, f"{name}.{filename}.{extension}"))
 
 
 # LightmapPage utils
@@ -89,13 +103,15 @@ Row = collections.namedtuple("Row", ["top", "height", "free_width"])
 
 class LightmapPage:
     """for grouping small per-face lightmaps"""
-    allocated_spaces: Dict[AllocatedSpace, Any]
+    allocated_spaces: Dict[LightmapID, AllocatedSpace]
+    # NOTE: mutating allocated_spaces does not update packing
+    # -- each lightmap is packed into rows (spaces assumed to be empty)
     colour_mode: str
     collection: LightmapCollection
     name: str
     rows: List[Row]
     # properties
-    child_bounds: List[Dict[Tuple[int, int]]]
+    child_bounds: List[Dict[str, Tuple[int, int]]]
     # ^ [{"mins": [x, y], "maxs": [x, y]}]
     image: Image.Image
 
@@ -151,7 +167,7 @@ class LightmapPage:
         if row.free_width == 0:
             self.rows.pop(i)
         # record image
-        self.allocated_spaces[AllocatedSpace(x, y, width, height)] = key
+        self.allocated_spaces[key] = AllocatedSpace(x, y, width, height)
         self.collection[key] = image
         return self
 
@@ -173,8 +189,10 @@ class LightmapPage:
     def child_bounds(self):
         """.json-friendly"""
         return {
-            ".".join(int(x) if x.isnumeric() else x for x in k): {"mins": [s.x, s.y], "maxs": [s.x + s.width, s.y + s.height]}
-            for s, k in self.allocated_spaces.items()}
+            ".".join(int(x) if x.isnumeric() else x for x in k): {
+                "mins": [s.x, s.y],
+                "maxs": [s.x + s.width, s.y + s.height]}
+            for k, s in self.allocated_spaces.items()}
 
     @property
     def image(self):
@@ -183,14 +201,17 @@ class LightmapPage:
             return None  # empty
         # crop to fit (can't have infinite width / height)
         # alternately, we could snap down to some power of two...
-        width = max([x + w for x, y, w, h in self.allocated_spaces])
-        height = max([y + h for x, y, w, h in self.allocated_spaces])
+        width = max([x + w for x, y, w, h in self.allocated_spaces.values()])
+        height = max([y + h for x, y, w, h in self.allocated_spaces.values()])
         image = Image.new(self.colour_mode, (width, height))
-        for space, key in self.allocated_spaces.items():
+        for key, space in self.allocated_spaces.items():
             x, y, width, height = space
             image.paste(self.collection[key], (x, y, x + width, y + height))
         return image
 
     def save(self, folder: str = "./", extension: str = "tga"):
+        self.save_as(self.name, folder, extension)
+
+    def save_as(self, name: str, folder: str = "./", extension: str = "tga"):
         os.makedirs(folder, exist_ok=True)
-        self.image.save(os.path.join(folder, f"{self.name}.{extension}"))
+        self.image.save(os.path.join(folder, f"{name}.{extension}"))
