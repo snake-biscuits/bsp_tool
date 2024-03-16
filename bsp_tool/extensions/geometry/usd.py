@@ -71,12 +71,16 @@ class USDA:
                 # NOTE: crazy inefficient, but splitting models sucks
                 num_uvs = max(len(v.uv) for v in vertices)
                 for i in range(num_uvs):
-                    uvs = [(*v.uv[i],) if len(v.uv) < i else (0, 0) for v in vertices]
-                    usda_file.write(" " * 8 + f"texCoord2f[] primvars:uv{i} = {uvs}\n")
+                    uvs = [(*v.uv[i],) if i < len(v.uv) else (0, 0) for v in vertices]
+                    usda_file.write(" " * 8 + f"texCoord2f[] primvars:uv{i} = {uvs} (\n")
+                    usda_file.write(" " * 12 + 'interpolation = "faceVarying"\n')
+                    usda_file.write(" " * 8 + ")\n")
                 usda_file.write(" " * 8 + f"color3f[] primvars:displayColor = {[(*v.colour[:3],) for v in vertices]} (\n")
-                usda_file.write(" " * 12 + 'interpolation = "vertex"\n' + " " * 8 + ")\n")
+                usda_file.write(" " * 12 + 'interpolation = "vertex"\n')
+                usda_file.write(" " * 8 + ")\n")
                 usda_file.write(" " * 8 + f"float[] primvars:displayOpacity = {[v.colour[3] for v in vertices]} (\n")
-                usda_file.write(" " * 12 + 'interpolation = "vertex"\n' + " " * 8 + ")\n")
+                usda_file.write(" " * 12 + 'interpolation = "vertex"\n')
+                usda_file.write(" " * 8 + ")\n")
                 start = 0
                 for material in polygons:
                     usda_file.write("\n")
