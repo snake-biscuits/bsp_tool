@@ -30,10 +30,19 @@ class LightmapCollection:
     def __len__(self) -> int:
         return len(self._lightmaps)
 
+    def __delitem__(self, key: Any) -> Image:
+        if isinstance(key, str):
+            key = tuple((int(k) if k.isnumeric() else k) for k in key.split("."))
+        del self._lightmaps[key]
+
     def __getitem__(self, key: Any) -> Image:
+        if isinstance(key, str):
+            key = tuple((int(k) if k.isnumeric() else k) for k in key.split("."))
         return self._lightmaps[key]
 
     def __setitem__(self, key: Any, image: Image):
+        if isinstance(key, str):
+            key = tuple((int(k) if k.isnumeric() else k) for k in key.split("."))
         self._lightmaps[key] = image
 
     @classmethod
@@ -41,16 +50,12 @@ class LightmapCollection:
         assert isinstance(name, str), "LightmapCollection must have a name!"
         return cls(name, **dict(enumerate(lightmaps)))
 
-    def matches(self, pattern: str) -> List[str]:
-        return fnmatch.filter(self.namelist(), pattern)
+    def subset(self, pattern: str) -> List[str]:
+        return LightmapCollection(self.name, **{fn: self[fn] for fn in fnmatch.filter(self.namelist(), pattern)})
 
     def namelist(self) -> List[str]:
-        return sorted(self._lightmaps.keys())
-
-    def save_all(self, folder: str = "./", extension: str = ".tga"):
-        # TODO: tests
-        os.makedirs(folder, exist_ok=True)
-        # filename preprocessing
+        keys = sorted(self._lightmaps.keys())
+        # TODO: zero-pad ints
         # TODO: include unique strings in spec
         # TODO: only do spec classification on tuple keys
         # specs_by_key = {
@@ -68,17 +73,13 @@ class LightmapCollection:
         #         for i, k in enumerate(key)])
         #     for spec, pad in pad_lengths.items()
         #     for key in keys_by_spec[spec]}
-        for key, image in self._lightmaps.items():
-            # filename = filenames[key]
-            if isinstance(key, (str, int)):
-                filename = str(key)
-            elif isinstance(key, tuple):
-                assert all(isinstance(k, (str, int)) for k in key)
-                # TODO: padding by key spec
-                filename = ".".join(map(str, key))
-            else:
-                raise KeyError(f"couldn't convert key to filename: {key}")
-            image.save(os.path.join(folder, f"{self.name}.{filename}.{extension}"))
+        keys = [".".join(map(str, k)) for k in keys]
+        return keys
+
+    def save(self, folder: str = "./", extension: str = ".tga"):
+        os.makedirs(folder, exist_ok=True)
+        for filename in self.namelist():
+            self[filename].save(os.path.join(folder, f"{self.name}.{filename}.{extension}"))
 
 
 # LightmapPage utils
@@ -88,8 +89,10 @@ Row = collections.namedtuple("Row", ["top", "height", "free_width"])
 
 class LightmapPage:
     """for grouping small per-face lightmaps"""
-    children: Dict[AllocatedSpace, Image.Image]
+    allocated_spaces: Dict[AllocatedSpace, Any]
     colour_mode: str
+    collection: LightmapCollection
+    name: str
     rows: List[Row]
     # properties
     child_bounds: List[Dict[Tuple[int, int]]]
@@ -101,11 +104,13 @@ class LightmapPage:
     # TODO: pack "styles" in series & use a `lightmap_step` UV
     # -- would have to pre-group styles for a given face into one image (with another LightmapPage?)
 
-    def __init__(self, max_width=1024, max_height=math.inf, colour_mode="RGBA"):
+    def __init__(self, name: str, max_width=1024, max_height=math.inf, colour_mode="RGBA"):
+        self.name = name
         self.max_width, self.max_height = max_width, max_height
         self.colour_mode = colour_mode
         self.rows = [Row(0, max_height, max_width)]
-        self.children = dict()
+        self.allocated_spaces = dict()
+        self.collection = LightmapCollection(name)
 
     def __repr__(self) -> str:
         dimensions = f"{self.max_width}x{self.max_height}px"
@@ -113,10 +118,11 @@ class LightmapPage:
         return f"<LightmapPage {self.colour_mode} {dimensions} {num_lightmaps} @ 0x{id(self):016X}>"
 
     def __len__(self) -> int:
-        return len(self.children)
+        return len(self.allocated_spaces)
 
-    def __add__(self, image: Image.Image):  # mutates self
-        """Works best if images are sorted beforehand"""
+    def add(self, key: Any, image: Image.Image):
+        """for most effecient packing, sort images first (by height)"""
+        assert key not in self.collection
         width, height = image.size
         if width > self.max_width:
             raise RuntimeError(f"{image!r} is too wide for {self!r}!")
@@ -141,50 +147,50 @@ class LightmapPage:
         # update the row allocated to
         new_row = Row(row.top, new_row_height, row.free_width - width)
         self.rows[i - 1] = new_row
+        # remove the row allocated to if it was filled
         if row.free_width == 0:
             self.rows.pop(i)
-        self.children[AllocatedSpace(x, y, width, height)] = image
+        # record image
+        self.allocated_spaces[AllocatedSpace(x, y, width, height)] = key
+        self.collection[key] = image
         return self
 
     @classmethod
-    def from_list(cls, lightmaps: List[Image], max_width=1024) -> LightmapPage:
-        # TODO: sort lightmaps for more efficient pack, but retain child order
-        # -- we'll need this for remapping uvs
-        # size_order = sorted(
-        #     [i for i, lightmap in enumerate(lightmaps)],
-        #     key=lambda i: (-lightmaps[i].size[0], -lightmaps[i].size[1]))
-        # page = sum([images[i] for i in size_order], start=cls(max_width=max_width))
-        # # TODO: OrderedDict assemble new children in lightmaps order
-        # lut = [size_order.index(i) for i, _ in enumerate(lightmaps)]
-        # children = list(page.children.items())  # indexable copy
-        # page.children = {k: v for k, v in [children[i] for i in lut]}
-        return sum(lightmaps, start=cls(max_width=max_width))
+    def from_list(cls, name: str, lightmaps: List[Image], **kwargs) -> LightmapPage:
+        return cls.from_collection(LightmapCollection.from_list(name, lightmaps), **kwargs)
 
     @classmethod
-    def from_collection(cls, collection: LightmapCollection, pattern: str = "*") -> LightmapPage:
-        # TODO: retain a map of collection name -> AllocatedSpace
-        # -- saves us from doing the cursed mess in .from_list()
-        return cls.from_list([collection[name] for name in collection.matches(pattern)])
+    def from_collection(cls, collection: LightmapCollection, **kwargs) -> LightmapPage:
+        page = cls(collection.name, **kwargs)
+        # sort by height, then width in ascending order:
+        # NOTE: might be more efficient to skip the width sort
+        sorted_keys = sorted(collection._lightmaps, key=lambda k: (-collection[k].size[1], -collection[k].size[0]))
+        for key in sorted_keys:
+            page.add(key, collection[key])
+        return page
 
     @property
     def child_bounds(self):
         """.json-friendly"""
-        return [{"mins": [c.x, c.y], "maxs": [c.x + c.width, c.y + c.height]} for c in self.children]
+        return {
+            ".".join(int(x) if x.isnumeric() else x for x in k): {"mins": [s.x, s.y], "maxs": [s.x + s.width, s.y + s.height]}
+            for s, k in self.allocated_spaces.items()}
 
     @property
     def image(self):
         """Composite final image"""
         if len(self) == 0:
             return None  # empty
-        width = max([x + w for x, y, w, h in self.children])
-        height = max([y + h for x, y, w, h in self.children])
-        page = Image.new(self.colour_mode, (width, height))
-        for space, child in self.children.items():
+        # crop to fit (can't have infinite width / height)
+        # alternately, we could snap down to some power of two...
+        width = max([x + w for x, y, w, h in self.allocated_spaces])
+        height = max([y + h for x, y, w, h in self.allocated_spaces])
+        image = Image.new(self.colour_mode, (width, height))
+        for space, key in self.allocated_spaces.items():
             x, y, width, height = space
-            page.paste(child, (x, y, x + width, y + height))
-        return page
+            image.paste(self.collection[key], (x, y, x + width, y + height))
+        return image
 
-    def save_as(self, filename: str):
-        folder = os.path.split(filename)[0]
+    def save(self, folder: str = "./", extension: str = "tga"):
         os.makedirs(folder, exist_ok=True)
-        self.image.save(filename)
+        self.image.save(os.path.join(folder, f"{self.name}.{extension}"))
