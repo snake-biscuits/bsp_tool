@@ -28,7 +28,7 @@ class LocalFile:
     # data
     path: str
     data: bytes
-    # TODO: defer decompression to 1st read
+    # TODO: use a property for data so we can decompress & keep track of edits
 
     # TODO: __init__(self, path, data):
 
@@ -37,15 +37,18 @@ class LocalFile:
 
     def as_bytes(self) -> bytes:
         # TODO: compress data (optional)
-        crc32 = binascii.crc32(self.data)
+        data = lumps.decompress_valve_LZMA(self.data) if self.compressed_size != 0 else self.data
+        # rebuild header
+        crc32 = binascii.crc32(data)
         compressed_size = 0
-        uncompressed_size = len(self.data)
+        uncompressed_size = len(data)
         path_size = len(self.path)
+        # assemble bytes
         return b"".join([
             self.unused.to_bytes(2, "little"),
             struct.pack("4I", crc32, compressed_size, uncompressed_size, path_size),
             self.path.encode("ascii", "strict"),
-            self.data])
+            data])
 
     @classmethod
     def from_stream(cls, stream) -> LocalFile:
@@ -57,10 +60,8 @@ class LocalFile:
         out.path = stream.read(out.path_size).decode()
         if out.compressed_size == 0:
             out.data = stream.read(out.uncompressed_size)
-        else:
-            # TODO: set a flag & decompress on 1st read
-            compressed_data = stream.read(out.compressed_size)
-            out.data = lumps.decompress_valve_LZMA(compressed_data)
+        else:  # grab compressed bytes
+            out.data = stream.read(out.compressed_size)  # decompress later
         return out
 
 
@@ -155,7 +156,11 @@ class PakFile:
         return sorted(self.local_files.keys())
 
     def read(self, path: str) -> bytes:
-        return self.local_files[path].data
+        local_file = self.local_files[path]
+        if local_file.compressed_size == 0:
+            return local_file.data
+        else:  # decompress
+            return lumps.decompress_valve_LZMA(local_file.data)
 
     @classmethod
     def from_bytes(cls, raw_lump: bytes) -> PakFile:
