@@ -397,21 +397,21 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     angles: List[float]  # pitch, yaw, roll (Y Z X)
     scale: float  # indentified by Legion dev DTZxPorter
     model_name: int  # index into GAME_LUMP.sprp.model_names
-    solid_mode: int  # bitflags
-    flags: int
-    unknown: List[int]
+    solid_mode: titanfall.StaticPropCollision
+    flags: source.StaticPropFlags
+    skin: int
+    cubemap: int
     forced_fade_scale: float
     lighting_origin: vector.vec3
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: colour.RGBExponent
     collision_flags: List[int]  # add, remove
-    # NOTE: no skin or cubemap
     __slots__ = ["origin", "angles", "scale", "model_name", "solid_mode", "flags",
-                 "unknown", "forced_fade_scale", "lighting_origin", "cpu_level",
+                 "skin", "cubemap", "forced_fade_scale", "lighting_origin", "cpu_level",
                  "gpu_level", "diffuse_modulation", "collision_flags"]
-    _format = "7fH2B4b4f4b4B2H"  # 64 bytes
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "unknown": 4,
+    _format = "7fH2B2H4f4b4B2H"  # 64 bytes
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
                "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
                "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
                "collision_flags": ["add", "remove"]}

@@ -952,18 +952,19 @@ class EntityPartitions(list):
 
 class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12]
     """appears to extend valve.left4dead.StaticPropv8"""
-    origin: List[float]  # x, y, z
+    origin: vector.vec3  # x, y, z
     angles: List[float]  # pitch, yaw, roll
     model_name: int  # index into GAME_LUMP.sprp.model_names
     first_leaf: int
     num_leaves: int  # NOTE: Titanfall doesn't have visleaves?
-    solid_mode: int  # bitflags
-    flags: int
+    solid_mode: StaticPropCollision
+    flags: source.StaticPropFlags
     skin: int
     # NOTE: BobTheBob's definition varies here:
     # int skin; float fade_min, fade_max; Vector lighting_origin;
     cubemap: int  # index of this StaticProp's Cubemap
-    unknown: int
+    fade_distance: List[float]  # min, max
+    lighting_origin: vector.vec3
     forced_fade_scale: float
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
