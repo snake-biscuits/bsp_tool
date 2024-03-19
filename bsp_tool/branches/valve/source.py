@@ -1120,7 +1120,7 @@ def displacement_mesh(bsp, face_index: int) -> geometry.Mesh:
     # rotate quad indices; point closest to start should be index 0
     base_quad = {v.position: v for v in base_mesh.polygons[0].vertices}
     quad = list(base_quad.keys())
-    if disp_info.start_position not in base_quad:
+    if disp_info.start_position in base_quad:
         A = disp_info.start_position
     else:
         A = sorted(base_quad, key=lambda P: (disp_info.start_position - P).magnitude())[0]
