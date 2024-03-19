@@ -9,7 +9,9 @@ from ...utils import geometry
 # -- could maybe do per-polygon attributes to encode this
 
 def sanitise(material_name: str) -> str:
-    material_name = material_name.replace("\\", "/").replace(".", "_")
+    material_name = material_name.replace("\\", "/")
+    for bad_char in ".{}":
+        material_name = material_name.replace(bad_char, "_")
     return material_name.rpartition("/")[-1] if "/" in material_name else material_name
 
 
@@ -78,7 +80,7 @@ class USDA:
                 usda_file.write(" " * 8 + f"color3f[] primvars:displayColor = {[(*v.colour[:3],) for v in vertices]} (\n")
                 usda_file.write(" " * 12 + 'interpolation = "vertex"\n')
                 usda_file.write(" " * 8 + ")\n")
-                usda_file.write(" " * 8 + f"float[] primvars:displayOpacity = {[v.colour[3] for v in vertices]} (\n")
+                usda_file.write(" " * 8 + f"float[] primvars:displayOpacity = {[v.colour[3] / 255 for v in vertices]} (\n")
                 usda_file.write(" " * 12 + 'interpolation = "vertex"\n')
                 usda_file.write(" " * 8 + ")\n")
                 start = 0
