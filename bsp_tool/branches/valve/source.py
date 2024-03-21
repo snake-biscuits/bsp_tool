@@ -1049,13 +1049,13 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
     texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
     colour = (*texture_data.reflectivity, 0)  # vertex colour
     texture_vector = texture.TextureVector(
-        texture.ProjectionAxis(*texture_info.texture.s), texture.ProjectionAxis(*texture_info.texture.t))
+        texture.ProjectionAxis(*texture_info.texture.s),
+        texture.ProjectionAxis(*texture_info.texture.t))
     texture_vector.s.scale = (1 / texture_data.view.width) if texture_data.view.width != 0 else 1
     texture_vector.t.scale = (1 / texture_data.view.height) if texture_data.view.height != 0 else 1
     lightmap_vector = texture.TextureVector(
-        texture.ProjectionAxis(*texture_info.lightmap.s), texture.ProjectionAxis(*texture_info.lightmap.t))
-    lightmap_vector.s.scale = (1 / face.lightmap.size.x) if face.lightmap.size.x != 0 else 1
-    lightmap_vector.t.scale = (1 / face.lightmap.size.y) if face.lightmap.size.y != 0 else 1
+        texture.ProjectionAxis(*texture_info.lightmap.s),
+        texture.ProjectionAxis(*texture_info.lightmap.t))
     vertices = list()
     first_edge = face.first_edge
     for surfedge in bsp.SURFEDGES[first_edge:(first_edge + face.num_edges)]:
@@ -1064,8 +1064,12 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
         else:  # -ve index
             position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
         texture_uv = texture_vector.uv_at(position)
-        lightmap_uv = lightmap_vector.uv_at(position) - face.lightmap.mins
         # NOTE: not checking if face.lightmap.size is 0x0
+        lightmap_uv = lightmap_vector.uv_at(position) - face.lightmap.mins + vector.vec2(0.5, 0.5)
+        lightmap_uv = vector.vec2(
+            lightmap_uv.x / (face.lightmap.size.x + 1),
+            lightmap_uv.y / (face.lightmap.size.y + 1))
+        lightmap_uv = vector.vec2(max(0, min(lightmap_uv.x, 1)), max(0, min(lightmap_uv.y, 1)))
         vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour=colour))
     if face.primitives.count == 0:
         polygons = [geometry.Polygon(vertices)]

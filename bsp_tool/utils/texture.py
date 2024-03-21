@@ -19,7 +19,7 @@ class ProjectionAxis:
         return f"ProjectionAxis({self.axis!r}, {self.offset}, {self.scale})"
 
     def project(self, point: vector.vec3) -> float:
-        return (vector.dot(point, self.axis) + self.offset) / self.scale
+        return (vector.dot(point, self.axis) + self.offset) * self.scale
 
 
 class TextureVector:
