@@ -3,14 +3,14 @@
 
 | BspClass | Bsp version | Game | Branch script | Supported lumps | Unused lumps | Coverage |
 | -------: | ----------: | ---- | ------------- | --------------: | -----------: | :------- |
-| [`D3DBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/infinity_ward.py#L35) | 22 | Call of Duty 4: Modern Warfare | [`infinity_ward.modern_warfare`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/modern_warfare.py) | 26 / 41 | 0 | 48.12% |
+| [`D3DBsp`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/infinity_ward.py#L35) | 22 | Call of Duty 4: Modern Warfare | [`infinity_ward.modern_warfare`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/infinity_ward/modern_warfare.py) | 27 / 41 | 0 | 50.56% |
 
 
 ## Supported Lumps
 | Lump index | Bsp version | Lump name | LumpClass | Coverage |
 | ---------: | ----------: | --------- | --------- | :------- |
 | 0 | 22 | `TEXTURES` | [`id_software.quake3.Texture`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L321) | 100% |
-| 1 | 22 | `LIGHTMAPS` |  | 0% |
+| 1 | 22 | `LIGHTMAPS` | [`extensions.lightmaps.extract`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/modern_warfare.py#L6) | 100% |
 | 2 | 22 | `LIGHT_GRID_POINTS` | [`shared.UnsignedInts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L23) | 100% |
 | 3 | 22 | `LIGHT_GRID_COLOURS` |  | 0% |
 | 4 | 22 | `PLANES` | [`id_software.quake3.Plane`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake3.py#L312) | 100% |

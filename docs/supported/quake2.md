@@ -28,7 +28,7 @@
 | 6 | 38 | `FACES` | [`id_software.quake.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L163) | 100% |
 | 6 | 46 | `FACES` |  | 0% |
 | 7 | 1 | `LIGHTING` |  | 0% |
-| 7 | 38 | `LIGHTING` | [`extensions.lightmaps.as_page`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/quake.py#L8) | 100% |
+| 7 | 38 | `LIGHTING` | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/quake.py#L6) | 100% |
 | 7 | 41 | `LIGHTING` |  | 0% |
 | 8 | 1 | `LEAVES` | [`id_software.quake2.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake2.py#L186) | 100% |
 | 8 | 41 | `LEAVES` | [`ion_storm.daikatana.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/ion_storm/daikatana.py#L100) | 100% |

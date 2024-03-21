@@ -278,23 +278,28 @@ def url_of_LumpClass(LumpClass: object) -> str:
 # TODO: branch_script -> LIGHTMAP_LUMP -> extensions.lightmaps.function
 vbsp_branch_scripts = [
     *[s for s in branches.valve.scripts if (s is not branches.valve.goldsrc)],
-    *branches.arkane.scripts, *branches.nexon.scripts,
+    *branches.arkane.scripts, branches.nexon.vindictus, branches.nexon.vindictus69,
     branches.troika.vampire, branches.utoplanet.merubasu]
 # TODO: outerlight, zeno_clash, infra, strata
 # -- need to test; need certain lumps & members to function (Face.light_offset etc.)
 # NOTE: coverage for each is currently hardcoded to 100%
 # TODO: IdTechBsp & InfinityWardBsp (lightmap scale varies)
+# TODO: use lightmaps.extract_branch to match functions
 lightmap_mappings = {
-    (branches.id_software.quake, "LIGHTING"): lightmaps.quake.as_page,
-    (branches.id_software.quake2, "LIGHTING"): lightmaps.quake.as_page,  # ~90%; need scale
-    (branches.id_software.quake3, "LIGHTMAPS"): lightmaps.quake3.tiled,
-    **{(bs, L): lightmaps.source.as_page for bs in vbsp_branch_scripts
+    (branches.id_software.quake, "LIGHTING"): lightmaps.quake.face_lightmaps,
+    (branches.id_software.quake2, "LIGHTING"): lightmaps.quake.face_lightmaps,  # ~90%; need scale
+    (branches.id_software.quake3, "LIGHTMAPS"): lightmaps.quake3.extract,
+    (branches.infinity_ward.modern_warfare, "LIGHTMAPS"): lightmaps.modern_warfare.extract,
+    **{(bs, L): lightmaps.cso2.face_lightmaps
+       for bs in (branches.nexon.cso2, branches.nexon.cso2_2018)
        for L in ("LIGHTING", "LIGHTING_HDR")},
-    **{(branches.respawn.titanfall, L): lightmaps.titanfall.tiled_or_split
+    **{(bs, L): lightmaps.source.face_lightmaps for bs in vbsp_branch_scripts
+       for L in ("LIGHTING", "LIGHTING_HDR")},
+    **{(branches.respawn.titanfall, L): lightmaps.titanfall.extract
        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
-    **{(branches.respawn.titanfall2, L): lightmaps.titanfall2.tiled_or_split
+    **{(branches.respawn.titanfall2, L): lightmaps.titanfall2.extract
        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
-    **{(bs, L): lightmaps.apex_legends.tiled
+    **{(bs, L): lightmaps.apex_legends.extract
        for bs in (branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51)
        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # ^ {(branch_script, "LUMP"): function}
