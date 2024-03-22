@@ -7,10 +7,11 @@ from ...utils import geometry
 
 # TODO: material variants based on lightmap & cubemap indices
 # -- could maybe do per-polygon attributes to encode this
+# TODO: catch duplicate material names ('Duplicate prim' will not load)
 
 def sanitise(material_name: str) -> str:
     material_name = material_name.replace("\\", "/")
-    for bad_char in ".{}":
+    for bad_char in ".{}-":
         material_name = material_name.replace(bad_char, "_")
     return material_name.rpartition("/")[-1] if "/" in material_name else material_name
 

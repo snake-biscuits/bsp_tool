@@ -2,7 +2,7 @@ __all__ = ["LightmapCollection", "LightmapPage", "extract_branch", "lightmaps_of
 from . base import LightmapCollection, LightmapPage
 # branches
 from . import apex_legends
-from . import cso2
+from . import cso2_2018
 from . import modern_warfare
 from . import quake
 from . import quake2
@@ -27,7 +27,7 @@ extract_branch = {
     "id_software.quake2": quake2.face_lightmaps,
     "id_software.quake3": quake3.extract,
     "infinity_ward.modern_warfare": modern_warfare.extract,
-    "nexon.cso2": cso2.face_lightmaps,
+    "nexon.cso2_2018": cso2_2018.face_lightmaps,
     "respawn.apex_legends": apex_legends.extract,
     "respawn.titanfall": titanfall.extract,
     "respawn.titanfall2": titanfall2.extract,

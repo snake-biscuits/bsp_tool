@@ -199,15 +199,22 @@ class LightmapPage:
         """Composite final image"""
         if len(self) == 0:
             return None  # empty
+        width, height = self.min_width, self.min_height
         # crop to fit (can't have infinite width / height)
         # alternately, we could snap down to some power of two...
-        width = max([x + w for x, y, w, h in self.allocated_spaces.values()])
-        height = max([y + h for x, y, w, h in self.allocated_spaces.values()])
         image = Image.new(self.colour_mode, (width, height))
         for key, space in self.allocated_spaces.items():
             x, y, width, height = space
             image.paste(self.collection[key], (x, y, x + width, y + height))
         return image
+
+    @property
+    def min_width(self):
+        return max([x + w for x, y, w, h in self.allocated_spaces.values()])
+
+    @property
+    def min_height(self):
+        return max([y + h for x, y, w, h in self.allocated_spaces.values()])
 
     def save(self, folder: str = "./", extension: str = "tga"):
         self.save_as(self.name, folder, extension)
