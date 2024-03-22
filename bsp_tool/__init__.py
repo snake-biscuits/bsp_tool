@@ -52,6 +52,8 @@ InfinityWard_versions = {v for s in branches.infinity_ward.scripts for v in s.GA
 Nexon_versions = {
     *branches.nexon.cso2.GAME_VERSIONS.values(),
     *branches.nexon.cso2_2018.GAME_VERSIONS.values()}
+# NOTE: cso2 & cso2_2018 are both v100, but cso2_2018 will not use the LIGHTING lump
+# -- cso2_2018 also uses around 4x as many bytes-per-texel for lightmaps
 # detect QuakeBsp
 Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 

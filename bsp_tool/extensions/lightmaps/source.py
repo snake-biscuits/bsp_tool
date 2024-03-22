@@ -3,6 +3,8 @@ from . import base
 from PIL import Image
 
 
+# TODO: use FACES_HDR for HDR (face_lightmaps_hdr?)
+# TODO: do ORIGINAL_FACES have different lightmaps?
 def face_lightmaps(bsp) -> base.LightmapCollection:
     # NOTE: each face has a single texel (4 bytes) before light_offset; we ignore it
     lightmaps = base.LightmapCollection(bsp.filename)
