@@ -38,7 +38,7 @@ CMGeoSet | CMGeoSetBounds
 ## Branching Subsystem
 
 Polycule
-`Agent  relationship  multliple Agents`
+`Agent  relationship  multiple Agents`
 ```
 CMGeoSet -> CMBrush
         \-> Tricoll

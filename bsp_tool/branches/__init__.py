@@ -26,43 +26,47 @@ from . import wild_tangent
 # -- https://steamdb.info/depot/38431/ lists radiant & compilers in files
 
 
-developers = (ace_team, arkane, gearbox, id_software, infinity_ward, ion_storm, loiste,
-              nexon, outerlight, raven, respawn, ritual, strata, troika, utoplanet, valve)
+developers = (
+    ace_team, arkane, gearbox, id_software, infinity_ward, ion_storm, loiste, nexon,
+    outerlight, raven, respawn, ritual, strata, troika, utoplanet, valve, wild_tangent)
 
 # NOTE: we could generate this list, but it makes for nice documentation
-with_magic = {None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.goldsrc],
-              b" 46Q": [id_software.quake64],
-              b"2015": [ritual.mohaa, ritual.mohaa_demo],
-              b"2PSB": [id_software.remake_quake_old],
-              b"BSP2": [id_software.remake_quake],
-              b"EF2!": [ritual.star_trek_elite_force2],
-              b"EALA": [ritual.mohaa_bt],
-              b"FAKK": [ritual.fakk2, ritual.star_trek_elite_force2_demo],
-              b"FBSP": [id_software.qfusion],
-              b"GBSP": [wild_tangent.genesis3d],
-              b"IBSP": [id_software.quake2, id_software.quake3,
-                        *infinity_ward.scripts,
-                        ion_storm.daikatana,
-                        raven.soldier_of_fortune,
-                        ritual.sin],
-              b"PSBr": [respawn.titanfall_x360],
-              b"PSBV": [valve.orange_box_x360, valve.sdk_2013_x360],
-              b"QBSP": [id_software.qbism],
-              b"rBSP": [respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51,
-                        respawn.titanfall, respawn.titanfall2],
-              b"RBSP": [raven.soldier_of_fortune2,
-                        ritual.sin],
-              b"VBSP": [ace_team.zeno_clash,
-                        *arkane.scripts,
-                        strata.strata,
-                        loiste.infra,
-                        *nexon.scripts,
-                        outerlight.outerlight,
-                        troika.vampire,
-                        utoplanet.merubasu,
-                        valve.alien_swarm, valve.left4dead, valve.left4dead2,
-                        valve.orange_box, valve.sdk_2013, valve.source,
-                        valve.source_filmmaker]}
+with_magic = {
+    None: [id_software.quake, *gearbox.scripts, raven.hexen2, valve.goldsrc],
+    b" 46Q": [id_software.quake64],
+    b"2015": [ritual.mohaa, ritual.mohaa_demo],
+    b"2PSB": [id_software.remake_quake_old],
+    b"BSP2": [id_software.remake_quake],
+    b"EF2!": [ritual.star_trek_elite_force2],
+    b"EALA": [ritual.mohaa_bt],
+    b"FAKK": [ritual.fakk2, ritual.star_trek_elite_force2_demo],
+    b"FBSP": [id_software.qfusion],
+    b"GBSP": [wild_tangent.genesis3d],
+    b"IBSP": [
+        id_software.quake2, id_software.quake3,
+        *infinity_ward.scripts,
+        ion_storm.daikatana,
+        raven.soldier_of_fortune,
+        ritual.sin],
+    b"PSBr": [respawn.titanfall_x360],
+    b"PSBV": [valve.orange_box_x360, valve.sdk_2013_x360],
+    b"QBSP": [id_software.qbism],
+    b"rBSP": [
+        respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51,
+        respawn.titanfall, respawn.titanfall2],
+    b"RBSP": [raven.soldier_of_fortune2, ritual.sin],
+    b"VBSP": [
+        ace_team.zeno_clash,
+        *arkane.scripts,
+        strata.strata,
+        loiste.infra,
+        *nexon.scripts,
+        outerlight.outerlight,
+        troika.vampire,
+        utoplanet.merubasu,
+        valve.alien_swarm, valve.left4dead, valve.left4dead2,
+        valve.orange_box, valve.sdk_2013, valve.source,
+        valve.source_filmmaker]}
 
 # TODO: with_magic_version defaultdict(set)
 # ^ {(file_magic, version): {branch_script}}
@@ -106,21 +110,24 @@ source_based = {bs for magic, bss in with_magic.items() for bs in bss if magic i
 quake_based = {bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics}
 # NOTE: all quake_based lumps are unversioned
 
-of_engine = {"Genesis3D": {wild_tangent.genesis3d},
-             "GoldSrc": {valve.goldsrc, *gearbox.scripts},
-             "Id Tech 2": {id_software.quake, id_software.quake2, id_software.quake64,
-                           ion_storm.daikatana, raven.hexen2, ritual.sin},
-             "Id Tech 3": {id_software.quake3, id_software.qfusion,
-                           *raven.scripts, *ritual.scripts},
-             "IW": {*infinity_ward.scripts},
-             "IW 1.0": {infinity_ward.call_of_duty1_demo, infinity_ward.call_of_duty1},
-             "IW 2.0": {infinity_ward.call_of_duty2},
-             "IW 3.0": {infinity_ward.modern_warfare},
-             "ReMakeQuake": {id_software.remake_quake, id_software.remake_quake_old},
-             "Source": {*source_based},
-             "Titanfall": {*respawn.scripts},
-             "Quake": {id_software.quake, id_software.quake64, raven.hexen2},
-             "Quake 2": {id_software.quake2, ion_storm.daikatana, id_software.qbism}}
+of_engine = {
+    "Genesis3D": {wild_tangent.genesis3d},
+    "GoldSrc": {valve.goldsrc, *gearbox.scripts},
+    "Id Tech 2": {
+        id_software.quake, id_software.quake2, id_software.quake64,
+        ion_storm.daikatana, raven.hexen2, ritual.sin},
+    "Id Tech 3": {
+        id_software.quake3, id_software.qfusion,
+        *raven.scripts, *ritual.scripts},
+    "IW": {*infinity_ward.scripts},
+    "IW 1.0": {infinity_ward.call_of_duty1_demo, infinity_ward.call_of_duty1},
+    "IW 2.0": {infinity_ward.call_of_duty2},
+    "IW 3.0": {infinity_ward.modern_warfare},
+    "ReMakeQuake": {id_software.remake_quake, id_software.remake_quake_old},
+    "Source": {*source_based},
+    "Titanfall": {*respawn.scripts},
+    "Quake": {id_software.quake, id_software.quake64, raven.hexen2},
+    "Quake 2": {id_software.quake2, ion_storm.daikatana, id_software.qbism}}
 
 of_engine["Id Tech 3"] -= {ritual.sin}  # Quake 2 / Id Tech 2
 of_engine["Source"] -= {*respawn.scripts}  # Titanfall

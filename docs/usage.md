@@ -22,16 +22,24 @@ bsp_tool.load_bsp("filename", bsp_tool.branches.developer.game)
 
 
 ### Blind Spots
-| Game               | Detected                    | Correct                    |
-| ------------------ | --------------------------- | -------------------------- |
-| Alien Swarm        | `valve.sdk_2013`            | `valve.alien_swarm`        |
-| CS:O 2 (2018+)     | `nexon.cso2`                | `nexon.cso2_2018`          |
-| Dark Messiah: MP   | `arkane.dark_messiah_sp`    | `arkane.dark_messiah_mp`   |
-| Left 4 Dead        | `valve.orange_box`          | `valve.left4dead`          |
-| Left 4 Dead 2      | `valve.sdk_2013`            | `valve.left4dead2`         |
-| SiN                | `raven.soldier_of_fortune2` | `ritual.sin`               |
-| Soldier of Fortune | `id_software.quake3`        | `raven.soldier_of_fortune` |
-| Vindictus          | `valve.orange_box`          | `nexon.vindictus`          |
+| Game                  | Detected                    | Correct                    |
+| --------------------- | --------------------------- | -------------------------- |
+| Alien Swarm           | `valve.sdk_2013`            | `valve.alien_swarm`        |
+| Bloody Good Time      | `valve.orange_box`          | `outerlight.outerlight`    |
+| CS:O 2 (2018+)        | `nexon.cso2`                | `nexon.cso2_2018`          |
+| Dark Messiah: MP      | `arkane.dark_messiah_sp`    | `arkane.dark_messiah_mp`   |
+| Half-Life: Blue Shift | `valve.goldsrc`             | `gearbox.blue_shift`       |
+| Hexen 2               | `id_software.quake`         | `raven.hexen2`             |
+| Left 4 Dead           | `valve.orange_box`          | `valve.left4dead`          |
+| Left 4 Dead 2         | `valve.sdk_2013`            | `valve.left4dead2`         |
+| Maerchen Busters      | `valve.orange_box`          | `utoplanet.merubasu`       |
+| SiN                   | `raven.soldier_of_fortune2` | `ritual.sin`               |
+| Soldier of Fortune    | `id_software.quake3`        | `raven.soldier_of_fortune` |
+| Source Filmmaker      | `valve.orange_box`          | `valve.source_filmmaker`   |
+| The Ship              | `valve.orange_box`          | `outerlight.outerlight`    |
+| Vindictus 1.69        | `valve.orange_box`          | `nexon.vindictus69`        |
+| Vindictus             | `valve.orange_box`          | `nexon.vindictus`          |
+| Zeno Clash            | `valve.orange_box`          | `ace_team.zeno_clash`      |
 
 Any suggestions on how to better detect these titles are welcome in [Issue #17](https://github.com/snake-biscuits/bsp_tool/issues/17)
 

@@ -547,11 +547,11 @@ leftstring B28 = "loiste.infra"
 leftstring C28 = "INFRA"
 let D28 = 42.95
 leftstring E28 = "Steam"
-leftstring A29 = "ValveBsp"
+leftstring A29 = "NexonBsp"
 leftstring B29 = "nexon.cso2"
 leftstring C29 = "Counter-Strike: Online 2"
 leftstring E29 = "csonline2.net"
-leftstring A30 = "ValveBsp"
+leftstring A30 = "NexonBsp"
 leftstring B30 = "nexon.cso2_2018"
 leftstring C30 = "Counter-Strike: Online 2"
 leftstring E30 = "csonline2.net"
@@ -598,4 +598,4 @@ leftstring E38 = "Steam"
 rightstring C40 = "TOTAL"
 leftstring D40 = "$"
 let D40 = @sum(D1:D35)
-goto D23
+goto D2
