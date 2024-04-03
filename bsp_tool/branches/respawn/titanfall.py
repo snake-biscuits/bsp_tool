@@ -16,7 +16,7 @@ from .. import colour
 from .. import shared
 from ..id_software import quake
 from ..id_software import quake3
-# from ..valve import physics
+# from ..valve import physics as vphysics
 from ..valve import sdk_2013
 from ..valve import source
 
@@ -1106,7 +1106,7 @@ SPECIAL_LUMP_CLASSES = {
     # NOTE: .ent files are handled directly by the RespawnBsp class
     "LEVEL_INFO":                {0: LevelInfo},
     "PAKFILE":                   {0: source.PakFile},
-    # "PHYSICS_COLLIDE":           {0: physics.CollideLump},  # BROKEN .as_bytes()
+    # "PHYSICS_COLLIDE":           {0: vphysics.CollideLump},  # BROKEN .as_bytes()
     "TEXTURE_DATA_STRING_DATA":  {0: source.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes & RefIds may all be Special
 

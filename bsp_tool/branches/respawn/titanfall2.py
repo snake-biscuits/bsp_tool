@@ -239,19 +239,20 @@ class GeoSetFlags(enum.IntFlag):
     """Identified by Fifty"""
     BRUSH = 0x00
     TRICOLL = 0x40
+    PROP = 0x60  # identified by RoyalBlue
 
 
 # classes for lumps, in alphabetical order::
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     unknown: List[int]  # uint16_t[2]
     child: base.BitField
-    # child.unknown: int  # may not be relevant to child
+    # child.count: int
     # child.index: int  # index of Brush / TriCollHeader?
     # child.type: GeoSetFlags  # Brush or TriColl
     __slots__ = ["unknown", "child"]
     _format = "2HI"
     _arrays = {"unknown": 2}
-    _bitfields = {"child": {"unknown": 8, "index": 16, "type": 8}}
+    _bitfields = {"child": {"count": 8, "index": 16, "type": 8}}
     _classes = {"child.type": GeoSetFlags}
 
 
