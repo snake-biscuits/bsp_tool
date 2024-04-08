@@ -383,8 +383,10 @@ class StaticPropCollision(enum.Enum):
 
 
 class PortalType(enum.Enum):
-    TO_CELL = 0  # Portal.cell is in bounds
-    UNKNOWN = 1  # Portal.cell is out of bounds (3D Skybox?)
+    CELL = 0  # portal connects to another cell
+    SKYBOX = 1  # lines up w/ "tools/toolsskybox" brushsides
+    # NOTE: if portal.type == PortalType.SKYBOX: portal.cell = len(bsp.CELLS) + 1
+    WATER = 2  # occurs on planes matching LeafWaterData surface_z
 
 
 class PrimitiveType(enum.Enum):

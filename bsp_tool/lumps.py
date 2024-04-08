@@ -182,6 +182,9 @@ class RawBspLump:
         for entry in entries:
             self.append(entry)
 
+    def index(self, *args, **kwargs) -> Any:
+        return self[::].index(*args, **kwargs)
+
     def insert(self, index: int, entry: Any):
         self._length += 1
         self[index + 1:] = self[index:]
