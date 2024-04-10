@@ -1046,6 +1046,7 @@ BASIC_LUMP_CLASSES = {
     "MESH_INDICES":                    {0: shared.UnsignedShorts},
     "OBJ_REFERENCES":                  {0: shared.UnsignedShorts},
     "OCCLUSION_MESH_INDICES":          {0: shared.Shorts},
+    "PORTAL_EDGES":                    {0: shared.UnsignedShorts},
     "PORTAL_EDGE_REFERENCES":          {0: shared.UnsignedShorts},
     "PORTAL_VERTEX_REFERENCES":        {0: shared.UnsignedShorts},
     "SHADOW_MESH_INDICES":             {0: shared.UnsignedShorts},
@@ -1080,7 +1081,6 @@ LUMP_CLASSES = {
     "OCCLUSION_MESH_VERTICES":           {0: quake.Vertex},
     "PLANES":                            {1: quake3.Plane},
     "PORTALS":                           {0: Portal},
-    "PORTAL_EDGES":                      {0: quake.Edge},
     "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalIndexSet},
     "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalIndexSet},
     "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
@@ -1232,18 +1232,19 @@ def occlusion_mesh(bsp) -> geometry.Mesh:
 
 
 def portals_as_prt(bsp) -> str:
-    """BROKEN, have yet to acquire correct portal windings"""
-    out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
-    for ci, cell in enumerate(bsp.CELLS):
-        for pi in range(cell.first_portal, cell.first_portal + cell.num_portals):
-            portal = bsp.PORTALS[pi]
-            refs = bsp.PORTAL_EDGE_REFERENCES[portal.first_reference:portal.first_reference + portal.num_edges]
-            winding = [bsp.PORTAL_VERTICES[bsp.PORTAL_EDGES[r // 2][r & 1]] for r in refs]
-            # windings are a mess in r1o/mp_box, but r2/mp_lobby looks ok
-            # checking vertices are on plane & sorting verts didn't do much
-            # normal = bsp.PLANES[portal.plane].normal
-            # winding = vector.sort_clockwise(winding, normal)
-            out.append(" ".join([f"{len(winding)} {ci} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+    out = [
+        "PRT1",
+        f"{len(bsp.CELLS)}",  # skip unindexed cells?
+        f"{len([p for p in bsp.PORTALS if p.type == PortalType.CELL])}"]
+    for i, cell in enumerate(bsp.CELLS):
+        start, length = cell.first_portal, cell.num_portals
+        for portal in bsp.PORTALS[start:start + length]:
+            if portal.type != PortalType.CELL:
+                continue  # ignore SKYBOX & WATER portals
+            start, length = portal.first_reference, portal.num_edges
+            refs = bsp.PORTAL_EDGE_REFERENCES[start:start + length]
+            winding = [bsp.PORTAL_VERTICES[bsp.PORTAL_EDGES[r]] for r in refs]
+            out.append(" ".join([f"{len(winding)} {i} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
     return "\n".join(out)
 
 
