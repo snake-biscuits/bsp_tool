@@ -93,7 +93,7 @@ class LightmapCollection:
     def save_as(self, name: str, folder: str = "./", extension: str = ".tga"):
         os.makedirs(folder, exist_ok=True)
         for filename in self.namelist():
-            self[filename].save(os.path.join(folder, f"{name}.{filename}.{extension}"))
+            self[filename].save(os.path.join(folder, f"{name}.{filename}{extension}"))
 
 
 # LightmapPage utils
