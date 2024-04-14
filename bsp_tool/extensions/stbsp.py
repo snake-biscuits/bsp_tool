@@ -78,6 +78,14 @@ class Column(FlatStruct):
     _format = "QIf4h"
 
 
+# TODO: ColumnData
+# -- some nulls, uint16_t count, 0xFFFF, short pairs
+# -- short pair is mip:material bitfield & coverage
+# NOTE: v8.0 & 8.1 have different bitfields for column_data
+# -- r2: 10 bits material (& 0x3FF), 6 bits mip (>> 10)
+# -- r5: 12 bits material (& 0xFFF), 4 bits mip (>> 12)
+
+
 class StreamBsp:
     # header
     version: Tuple[int, int]  # r2 = (8, 0), r5 = (8, 1)
