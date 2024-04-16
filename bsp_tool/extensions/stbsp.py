@@ -9,6 +9,10 @@ def read_struct(file, format_: str) -> List[Any]:
     return struct.unpack(format_, file.read(struct.calcsize(format_)))
 
 
+def write_struct(file, format_: str, *args):
+    file.write(struct.pack(format_, *args))
+
+
 class Block(enum.Enum):
     # observed order: 1, 2, 3, 0, 4, 5
     MATERIALS = 0
@@ -40,11 +44,14 @@ class FlatStruct:
     def from_stream(cls, stream) -> FlatStruct:
         return cls.from_bytes(stream.read(struct.calcsize(cls._format)))
 
+    def as_bytes(self) -> bytes:
+        return struct.pack(self._format, *[getattr(self, a) for a in self.__slots__])
+
 
 class BlockIndex(FlatStruct):
     offset: int
-    size: int  # num structs / bytesize
-    __slots__ = ["offset", "size"]
+    length: int  # num structs / bytesize
+    __slots__ = ["offset", "length"]
     _format = "2Q"
 
 
@@ -52,7 +59,7 @@ class MaterialInfo(FlatStruct):
     """rpak assets & vmts?"""
     material: int  # index materials
     unknown: int  # flags?
-    guid: int  # indexes rpak?
+    guid: int  # indexes rpak
     # NOTE: only index vmt & vtf if guid == 0
     vmt: int  # index into vmts
     vtf: int  # index into vtfs
@@ -61,6 +68,7 @@ class MaterialInfo(FlatStruct):
 
     def __repr__(self) -> str:
         args = [f"{a}={getattr(self, a)}" for a in self.__slots__]
+        args[self.__slots__.index("unknown")] = f"unknown=0x{self.unknown:08X}"
         args[self.__slots__.index("guid")] = f"guid=0x{self.guid:016X}"
         return f"MaterialInfo({', '.join(args)})"
 
@@ -74,7 +82,9 @@ class Column(FlatStruct):
     mins_y: int
     maxs_x: int
     maxs_y: int
-    __slots__ = ["offset", "length", "coverage_scale", "mins_x", "mins_y", "maxs_x", "maxs_y"]
+    __slots__ = [
+        "offset", "length", "coverage_scale",
+        "mins_x", "mins_y", "maxs_x", "maxs_y"]
     _format = "QIf4h"
 
 
@@ -95,11 +105,11 @@ class StreamBsp:
     maxs_y: int
     stride: int  # width / height of each column
     scale: List[float]  # width, height
-    block: List[BlockIndex]
+    blocks: List[BlockIndex]
     # data
     materials: Dict[int, str]
     # ^ {first_byte: material}
-    material_info: List[MaterialInfo]
+    material_infos: List[MaterialInfo]
     vtfs: List[int]  # indexes materials
     vmts: List[int]  # indexes vtfs
     columns: List[Column]
@@ -108,7 +118,7 @@ class StreamBsp:
     def __repr__(self) -> str:
         major, minor = self.version
         version = f"v{major}.{minor}"
-        return f"<StreamBsp {version} ({len(self.material_info)} materials) @ 0x{id(self):016X}>"
+        return f"<StreamBsp {version} ({len(self.material_infos)} materials) @ 0x{id(self):016X}>"
 
     @classmethod
     def from_file(cls, filename: str) -> StreamBsp:
@@ -122,12 +132,12 @@ class StreamBsp:
             out.mins_x, out.mins_y, out.maxs_x, out.maxs_y, out.stride = read_struct(file, "4iI")
             out.scale = read_struct(file, "2f")
             assert read_struct(file, "33I") == (0,) * 33
-            out.block = [BlockIndex.from_stream(file) for i in range(6)]
+            out.blocks = [BlockIndex.from_stream(file) for i in range(6)]
             assert read_struct(file, "16Q") == (0,) * 16
-            assert file.tell() == min(bi.offset for bi in out.block)
+            assert file.tell() == min(bi.offset for bi in out.blocks)
             # Block 0: Materials
-            file.seek(out.block[0].offset)
-            raw_materials = file.read(out.block[0].size)
+            file.seek(out.blocks[0].offset)
+            raw_materials = file.read(out.blocks[0].length)
             assert raw_materials.endswith(b"\0")
             material_strings = [s.decode() for s in raw_materials[:-1].split(b"\0")]
             out.materials, i = {0: material_strings[0]}, 0
@@ -135,22 +145,55 @@ class StreamBsp:
                 i = raw_materials.find(b"\0", i) + 1
                 out.materials[i] = material_strings[len(out.materials)]
             # Block 1: Material Info
-            file.seek(out.block[1].offset)
-            out.material_info = [MaterialInfo.from_stream(file) for i in range(out.block[1].size)]
+            file.seek(out.blocks[1].offset)
+            out.material_infos = [MaterialInfo.from_stream(file) for i in range(out.blocks[1].length)]
             # Block 2: VTFs
-            file.seek(out.block[2].offset)
-            out.vtfs = read_struct(file, f"{out.block[2].size}I")
+            file.seek(out.blocks[2].offset)
+            out.vtfs = read_struct(file, f"{out.blocks[2].length}I")
             # Block 3: VMTs
-            file.seek(out.block[3].offset)
-            out.vmts = read_struct(file, f"{out.block[3].size}H")
+            file.seek(out.blocks[3].offset)
+            out.vmts = read_struct(file, f"{out.blocks[3].length}H")
             # Block 4: Columns
-            file.seek(out.block[4].offset)
-            out.columns = [Column.from_stream(file) for i in range(out.block[4].size)]
+            file.seek(out.blocks[4].offset)
+            out.columns = [Column.from_stream(file) for i in range(out.blocks[4].length)]
             # Block 4: Column Data
-            file.seek(out.block[5].offset)
-            out.column_data = file.read(out.block[5].size)
+            file.seek(out.blocks[5].offset)
+            out.column_data = file.read(out.blocks[5].length)
             # TODO: assert EOF
         return out
+
+    # TODO: init
+    # -- list of materials
+    # -- generate material info (need rpak uuids)
+    # -- generate vmt & vtf tables
+    # -- columns (only need populated)
+    # --- {(*origin.xy,): [{(material, mip): coverage}, ...]
+    # ---- {column: [probe]}; probe = {(material, mip): coverage}
+    # --- generate empty columns, sort columns
+    # --- calculate self width & height from column bounds
+    # ---- (width, height) -> (mins.xy, maxs.xy)
+    # -- stride & scale
+    # -- calculate block lengths & offsets
+
+    def save_as(self, filename: str):
+        # NOTE: assumes offsets are valid
+        # -- doesn't verify / override anything
+        assert self.version[0] == 8
+        assert self.version[1] in (0, 1)  # 0: r2, 1: r5
+        with open(filename, "wb") as file:
+            file.write(b"\xB5\xCB\x00\xCB")  # magic / -8440757.0
+            write_struct(file, "2H", *self.version)
+            write_struct(file, "4iI", self.mins_x, self.mins_y, self.maxs_x, self.maxs_y, self.stride)
+            write_struct(file, "2f", *self.scale)
+            file.write(b"\0" * 132)
+            file.write(b"".join([b.as_bytes() for b in self.blocks]))
+            file.write(b"\0" * 96)
+            file.write(b"\0".join(m.encode("ascii") for m in self.materials.values()) + b"\0")
+            file.write(b"".join([mi.as_bytes() for mi in self.material_infos]))
+            write_struct(file, f"{len(self.vtfs)}I", *self.vtfs)
+            write_struct(file, f"{len(self.vmts)}H", *self.vmts)
+            file.write(b"".join([c.as_bytes() for c in self.columns]))
+            file.write(self.column_data)
 
     def columns_as_obj(self, filename: str):
         x_scale, y_scale = self.scale
