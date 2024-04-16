@@ -114,8 +114,8 @@ class StreamBsp:
     version: Tuple[int, int]  # r2 = (8, 0), r5 = (8, 1)
     mins_x: int
     mins_y: int
-    maxs_x: int
-    maxs_y: int
+    len_x: int
+    len_y: int
     stride: int  # width / height of each column
     scale: List[float]  # width, height
     blocks: Dict[Block, BlockIndex]
@@ -130,6 +130,10 @@ class StreamBsp:
 
     def __init__(self, filename: str = "./untitled.stbsp"):
         self.filename = filename
+        # defaults
+        self.version = (8, 0)  # r2
+        self.scale = (128.0, 128.0)
+        self.stride = 4
 
     # TODO: init from probes (folder of cubemaps / .json)
     # -- list of materials
@@ -165,7 +169,7 @@ class StreamBsp:
             out.version = read_struct(file, "2H")
             assert out.version[0] == 8
             assert out.version[1] in (0, 1)  # 0: r2, 1: r5
-            out.mins_x, out.mins_y, out.maxs_x, out.maxs_y, out.stride = read_struct(file, "4iI")
+            out.mins_x, out.mins_y, out.len_x, out.len_y, out.stride = read_struct(file, "4iI")
             out.scale = read_struct(file, "2f")
             assert read_struct(file, "33I") == (0,) * 33
             out.blocks = {
@@ -209,6 +213,18 @@ class StreamBsp:
         # -- doesn't verify / override anything
         assert self.version[0] == 8
         assert self.version[1] in (0, 1)  # 0: r2, 1: r5
+        # columns metadata
+        # NOTE: lowest mins should be at index 0
+        self.mins_x = min(c.mins_x for c in self.columns)
+        self.mins_y = min(c.mins_y for c in self.columns)
+        # NOTE: highest maxs should be at index -1
+        maxs_x = max(c.maxs_x for c in self.columns)
+        maxs_y = max(c.maxs_y for c in self.columns)
+        self.len_x = (maxs_x - self.mins_x)
+        self.len_y = (maxs_y - self.mins_y)
+        assert len(self.columns) == ((self.len_x + 1) // self.stride) * ((self.len_y + 1) // self.stride)
+        # TODO: assert column order is correct
+        # TODO: assert distance between mins & maxs is stride for all columns
         # recalculate block counts
         self.blocks[Block.MATERIALS].count = sum(len(m) for m in self.materials.values()) + len(self.materials)
         # USER: make sure ALL indices are correct before saving!
