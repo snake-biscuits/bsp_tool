@@ -1,6 +1,7 @@
 """Titanfall Engine .stbsp file parser"""
 from __future__ import annotations
 import enum
+import itertools
 import os
 import struct
 from typing import Any, Dict, List, Tuple
@@ -36,8 +37,12 @@ class FlatStruct:
     __slots__: List[str]
     _format: str
 
-    def __init__(self, *args):
-        assert len(args) == len(self.__slots__)
+    def __init__(self, *args, **kwargs):
+        if len(args) > len(self.__slots__):
+            raise RuntimeError()
+        args = [a for a, s in itertools.zip_longest(args, self.__slots__, fillvalue=0)]
+        for k, v in kwargs.items():
+            args[self.__slots__.index(k)] = v
         for attr, value in zip(self.__slots__, args):
             setattr(self, attr, value)
 
@@ -134,19 +139,16 @@ class StreamBsp:
         self.version = (8, 0)  # r2
         self.scale = (128.0, 128.0)
         self.stride = 4
-
-    # TODO: init from probes (folder of cubemaps / .json)
-    # -- list of materials
-    # -- generate material info (need rpak uuids)
-    # -- generate vmt & vtf tables
-    # -- columns (only need populated)
-    # --- {(*origin.xy,): [{(material, mip): coverage}, ...]
-    # ---- {column: [probe]}; probe = {(material, mip): coverage}
-    # --- generate empty columns, sort into correct grid order
-    # --- calculate self width & height from column bounds
-    # ---- (width, height) -> (mins.xy, maxs.xy)
-    # -- stride & scale
-    # -- calculate block lengths & offsets
+        # empty
+        self.mins_x, self.mins_y = 0, 0
+        self.len_x, self.len_y = 0, 0
+        self.blocks = {b: BlockIndex(0, 0) for b in Block}
+        # data
+        self.materials = dict()
+        self.vtfs = list()
+        self.vmts = list()
+        self.columns = list()
+        self.column_data = b""
 
     def __repr__(self) -> str:
         major, minor = self.version
@@ -214,17 +216,23 @@ class StreamBsp:
         assert self.version[0] == 8
         assert self.version[1] in (0, 1)  # 0: r2, 1: r5
         # columns metadata
-        # NOTE: lowest mins should be at index 0
-        self.mins_x = min(c.mins_x for c in self.columns)
-        self.mins_y = min(c.mins_y for c in self.columns)
-        # NOTE: highest maxs should be at index -1
-        maxs_x = max(c.maxs_x for c in self.columns)
-        maxs_y = max(c.maxs_y for c in self.columns)
-        self.len_x = (maxs_x - self.mins_x)
-        self.len_y = (maxs_y - self.mins_y)
-        assert len(self.columns) == ((self.len_x + 1) // self.stride) * ((self.len_y + 1) // self.stride)
-        # TODO: assert column order is correct
-        # TODO: assert distance between mins & maxs is stride for all columns
+        if len(self.columns) > 0:
+            # NOTE: lowest mins should be at index 0
+            self.mins_x = min(c.mins_x for c in self.columns)
+            self.mins_y = min(c.mins_y for c in self.columns)
+            # NOTE: highest maxs should be at index -1
+            maxs_x = max(c.maxs_x for c in self.columns)
+            maxs_y = max(c.maxs_y for c in self.columns)
+            self.len_x = (maxs_x - self.mins_x)
+            self.len_y = (maxs_y - self.mins_y)
+            target = ((self.len_x + 1) // self.stride) * ((self.len_y + 1) // self.stride)
+            actual = len(self.columns)
+            assert actual == target, f"{target} != {actual}"
+            # TODO: assert column order is correct
+            # TODO: assert distance between mins & maxs is stride for all columns
+        else:
+            self.mins_x, self.maxs_x = 0, 0
+            self.len_x, self.len_y = 0, 0
         # recalculate block counts
         self.blocks[Block.MATERIALS].count = sum(len(m) for m in self.materials.values()) + len(self.materials)
         # USER: make sure ALL indices are correct before saving!
@@ -247,7 +255,7 @@ class StreamBsp:
             # header
             file.write(b"\xB5\xCB\x00\xCB")  # magic / -8440757.0
             write_struct(file, "2H", *self.version)
-            write_struct(file, "4iI", self.mins_x, self.mins_y, self.maxs_x, self.maxs_y, self.stride)
+            write_struct(file, "4iI", self.mins_x, self.mins_y, self.len_x, self.len_y, self.stride)
             write_struct(file, "2f", *self.scale)
             file.write(b"\0" * 132)
             file.write(b"".join([self.blocks[b].as_bytes() for b in Block]))
