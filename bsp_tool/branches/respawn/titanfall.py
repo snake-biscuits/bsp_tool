@@ -717,12 +717,12 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 class Primitive(base.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
     # same as the BitField component of GeoSet?
-    unique_contents: int  # index into UniqueContents (Contents flags &ed together)
+    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
     index: int  # indexed lump depends on type
     type: PrimitiveType
     _fields = {"unique_contents": 8, "index": 16, "type": 8}
     _format = "I"
-    _classes = {"flags": PrimitiveType}
+    _classes = {"type": PrimitiveType}
 
 
 class ShadowMesh(base.Struct):  # LUMP 127 (007F)

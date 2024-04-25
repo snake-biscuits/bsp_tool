@@ -538,11 +538,16 @@ class BitField:
 
     def __setattr__(self, attr, value):  # NOTE: private variables must pass through untouched
         if attr in self._fields:
-            assert isinstance(value, int)
-            if value < 0:
+            if attr in self._classes and isinstance(value, self._classes[attr]):
+                assert isinstance(value, (enum.Enum, enum.IntFlag))
+                int_value = value.value
+            else:
+                assert isinstance(value, int)
+                int_value = value
+            if int_value < 0:
                 raise NotImplementedError("Negative values in bitfields not yet supported")
             limit = 2 ** self._fields[attr] - 1
-            if value > limit:
+            if int_value > limit:
                 raise OverflowError(f"{attr} is out of range! (max allowed value = {limit})")
             value = handle_child_class(self, attr, value)
         super().__setattr__(attr, value)

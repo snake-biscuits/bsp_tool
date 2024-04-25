@@ -235,7 +235,7 @@ class MAX(enum.Enum):
 
 
 # flags enums
-class GeoSetFlags(enum.IntFlag):
+class PrimitiveType(enum.IntFlag):
     """Identified by Fifty"""
     BRUSH = 0x00
     TRICOLL = 0x40
@@ -253,7 +253,7 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     _format = "2HI"
     _arrays = {"unknown": 2}
     _bitfields = {"child": {"count": 8, "index": 16, "type": 8}}
-    _classes = {"child.type": GeoSetFlags}
+    _classes = {"child.type": PrimitiveType}
 
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
@@ -302,6 +302,17 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _format = "I3H6b2h2BHI"
     _arrays = {"styles": 4, "luxel_origin": 2, "luxel_offset_max": 2}
     _classes = {"flags": titanfall.MeshFlags}
+
+
+class Primitive(base.BitField):  # LUMP 89 (0059)
+    """identified by Fifty"""
+    # same as the BitField component of GeoSet?
+    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
+    index: int  # indexed lump depends on type
+    type: PrimitiveType
+    _fields = {"unique_contents": 8, "index": 16, "type": 8}
+    _format = "I"
+    _classes = {"type": PrimitiveType}
 
 
 class WorldLightv2(base.Struct):  # LUMP 54 (0036)
