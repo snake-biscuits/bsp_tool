@@ -469,18 +469,21 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
     def as_bytes(self) -> bytes:
         assert all([isinstance(p, self.StaticPropClass) for p in self.props])
         assert all([len(u) == 64 for u in self.unknown_3])
-        return b"".join([len(self.model_names).to_bytes(4, "little"),
-                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-                         len(self.props).to_bytes(4, self.endianness),
-                         self.unknown_1.to_bytes(4, self.endianness),
-                         self.unknown_2.to_bytes(4, self.endianness),
-                         *[p.as_bytes() for p in self.props],
-                        len(self.unknown_3).to_bytes(4, "little"),
-                        *self.unknown_3])
+        return b"".join([
+            len(self.model_names).to_bytes(4, "little"),
+            *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
+            len(self.props).to_bytes(4, self.endianness),
+            self.unknown_1.to_bytes(4, self.endianness),
+            self.unknown_2.to_bytes(4, self.endianness),
+            *[p.as_bytes() for p in self.props],
+            len(self.unknown_3).to_bytes(4, "little"),
+            *self.unknown_3])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = titanfall.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES.update({
+    "CM_PRIMITIVES": {0: Primitive}})
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({
