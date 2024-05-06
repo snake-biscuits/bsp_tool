@@ -206,3 +206,19 @@ class Model:
         #     (0, 0, self.scale.z, 0),
         #     (0, 0, 0, 1)]
         return translation
+
+
+def generate_cube(mins: vector.vec3, maxs: vector.vec3) -> Model:
+    assert len(mins) == 3
+    assert len(maxs) == 3
+    x, y, z = zip(mins, maxs)
+    vertices = [vector.vec3(x[i >> 2], y[i >> 1 & 1], z[i & 1]) for i in range(8)]
+    quads = [
+        ((0b010, 0b011, 0b001, 0b000), vector.vec3(x=-1)),
+        ((0b000, 0b001, 0b101, 0b100), vector.vec3(y=-1)),
+        ((0b000, 0b100, 0b110, 0b010), vector.vec3(z=-1)),
+        ((0b100, 0b101, 0b111, 0b110), vector.vec3(x=1)),
+        ((0b110, 0b111, 0b011, 0b010), vector.vec3(y=1)),
+        ((0b011, 0b111, 0b101, 0b001), vector.vec3(z=1))]
+    polygons = [Polygon([Vertex(vertices[i], n) for i in idxs]) for idxs, n in quads]
+    return Model([Mesh(polygons=polygons)])
