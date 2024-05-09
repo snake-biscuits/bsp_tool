@@ -18,6 +18,7 @@ model_count appears to be the same across all .ent files for a given .bsp
 
 presumably all this file splitting has to do with streaming data into memory"""
 # NOTE: CoD 4 FastFiles (*.ff) also decimated .bsps
+# -- fastfiles were used for console releases before CoD4 brought them to PC
 # NOTE: .ent files for entities was introduced in Quake 3
 # NOTE: Level scripting was introduced with QuakeC scripts
 # NOTE: Respawn uses Valve's VScript + custom Squirrel .nut scripts in a VM
@@ -25,12 +26,15 @@ presumably all this file splitting has to do with streaming data into memory"""
 from . import apex_legends
 from . import apex_legends50
 from . import apex_legends51
+from . import apex_legends52
 from . import titanfall
 from . import titanfall_x360
 from . import titanfall2
 
 
-scripts = [apex_legends, apex_legends50, apex_legends51, titanfall, titanfall_x360, titanfall2]
+scripts = [
+    apex_legends, apex_legends50, apex_legends51, apex_legends52,
+    titanfall, titanfall_x360, titanfall2]
 
 # Trivia:
 # All Respawn's games give the error "Not an IBSP file" when FILE_MAGIC is incorrect

@@ -52,7 +52,8 @@ with_magic = {
     b"PSBV": [valve.orange_box_x360, valve.sdk_2013_x360],
     b"QBSP": [id_software.qbism],
     b"rBSP": [
-        respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51,
+        respawn.apex_legends, respawn.apex_legends50,
+        respawn.apex_legends51, respawn.apex_legends52,
         respawn.titanfall, respawn.titanfall2],
     b"RBSP": [raven.soldier_of_fortune2, ritual.sin],
     b"VBSP": [

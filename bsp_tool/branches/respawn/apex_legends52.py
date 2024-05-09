@@ -1,20 +1,18 @@
 """Map format from season 13 onwards"""
 import enum
-from typing import List
 
-from .. import base
 from ..valve import source
-from . import apex_legends50
+from . import apex_legends51
 from . import titanfall2
 
 
 FILE_MAGIC = b"rBSP"
 
-BSP_VERSION = (51, 1)
+BSP_VERSION = (52, 1)
 
 GAME_PATHS = {"Apex Legends": "ApexLegends/maps"}
 
-GAME_VERSIONS = {"Apex Legends: Season 13 - Saviors": (51, 1)}
+GAME_VERSIONS = {"Apex Legends: Season 21 - Upheaval": (52, 1)}
 
 
 class LUMP(enum.Enum):
@@ -75,7 +73,7 @@ class LUMP(enum.Enum):
     WORLD_LIGHTS = 0x0036
     WORLD_LIGHT_PARENT_INFOS = 0x0037
     UNUSED_56 = 0x0038
-    UNUSED_57 = 0x0039
+    UNKNOWN_57 = 0x0039  # new in season 21
     UNUSED_58 = 0x003A
     UNUSED_59 = 0x003B
     UNUSED_60 = 0x003C
@@ -152,33 +150,20 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class LightProbe(base.Struct):  # LUMP 102 (0066)
-    """Identified by rexx"""  # untested
-    cube: List[List[int]]  # rgb888 ambient light cube
-    sky_dir_sun_vis: List[int]  # ???
-    static_light: List[List[int]]  # connection to local static lights
-    # static_light.weights: List[int]  # up to 4 scalars; default 0
-    # static_light.indices: List[int]  # up to 4 indices; default -1
-    __slots__ = ["cube", "sky_dir_sun_vis", "static_light"]
-    _format = "24B4h4B4h"
-    _arrays = {"cube": {x: [*"rgba"] for x in "ABCDEF"}, "sky_dir_sun_vis": 4,
-               "static_light": {"weights": 4, "indices": 4}}
-    # TODO: map cube face names to UP, DOWN etc.
-    # TODO: ambient light cube childClass
+# TODO: Unknown57
 
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = apex_legends50.BASIC_LUMP_CLASSES.copy()
+BASIC_LUMP_CLASSES = apex_legends51.BASIC_LUMP_CLASSES.copy()
 
-LUMP_CLASSES = apex_legends50.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHT_PROBES": {0: LightProbe}})
+LUMP_CLASSES = apex_legends51.LUMP_CLASSES.copy()
 
-SPECIAL_LUMP_CLASSES = apex_legends50.SPECIAL_LUMP_CLASSES.copy()
+SPECIAL_LUMP_CLASSES = apex_legends51.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {51: titanfall2.GameLump_SPRPv13}}
+GAME_LUMP_CLASSES = {"sprp": {52: titanfall2.GameLump_SPRPv13}}
 
 
-methods = apex_legends50.methods.copy()
+methods = apex_legends51.methods.copy()

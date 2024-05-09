@@ -41,7 +41,7 @@ spec_of.update({
     "ApexLegends/season10": (respawn.apex_legends50, 50),
     **{f"ApexLegends/season{i}": (respawn.apex_legends50, (50, 1)) for i in (11, 12)},
     **{f"ApexLegends/season{i}": (respawn.apex_legends51, (51, 1)) for i in range(13, 21)},
-    "ApexLegends/season21": (respawn.apex_legends51, (52, 1))})
+    "ApexLegends/season21": (respawn.apex_legends52, (52, 1))})
 # local test maps (./tests/maps/game/, not .../game/mod/maps/)
 spec_of.update({
     "Momentum Mod": (strata.strata, 25),
