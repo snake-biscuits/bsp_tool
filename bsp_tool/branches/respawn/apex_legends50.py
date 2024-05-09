@@ -5,7 +5,6 @@ from ...utils import vector
 from .. import base
 from ..valve import source
 from . import apex_legends
-from . import titanfall2
 
 
 FILE_MAGIC = b"rBSP"
@@ -178,7 +177,7 @@ SPECIAL_LUMP_CLASSES = apex_legends.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {50: titanfall2.GameLump_SPRPv13}}
+GAME_LUMP_CLASSES = {"sprp": {50: apex_legends.GameLump_SPRP}}
 
 
 methods = apex_legends.methods.copy()

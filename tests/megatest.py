@@ -34,6 +34,7 @@ apex_seasons = [
     "Ascension", "Fight Night", "Mayhem", "Legacy", "Emergence", "Evolution", "Escape", "Defiance", "Saviours",
     "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection", "Ignite", "Breakout", "Upheaval"]
 # TODO: split season10; v49 until season10.1 (depot/r5-101 | 14sep21/maps)
+# TODO: split season21; v51.1 mp_canyonlands_staging_mu1 & mp_rr_freedm_skulltown
 spec_of.update({
     **{f"ApexLegends/season{i}": (respawn.apex_legends, 47) for i in range(7)},
     "ApexLegends/season7": (respawn.apex_legends, 48),

@@ -1,9 +1,9 @@
-"""Map format from season 13 onwards"""
+"""Map format from season 21 onwards"""
 import enum
 
 from ..valve import source
+from . import apex_legends
 from . import apex_legends51
-from . import titanfall2
 
 
 FILE_MAGIC = b"rBSP"
@@ -163,7 +163,7 @@ SPECIAL_LUMP_CLASSES = apex_legends51.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {52: titanfall2.GameLump_SPRPv13}}
+GAME_LUMP_CLASSES = {"sprp": {52: apex_legends.GameLump_SPRP}}
 
 
 methods = apex_legends51.methods.copy()

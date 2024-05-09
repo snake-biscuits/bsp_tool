@@ -432,14 +432,26 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     # TODO: "angles": QAngle
 
 
+class Unknown3(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
+    """all assumptions"""
+    # NOTE: doesn't appear in smaller maps
+    # -- could be to help with floating point precision
+    unknown_1: List[float]  # SIMD aligned?
+    unknown_2: List[int]
+    __slots__ = ["unknown_1", "unknown_2"]
+    _format = "12f4i"  # 64 bytes
+    _arrays = {"unknown_1": 12, "unknown_2": 4}
+
+
 class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [version 13]
     StaticPropClass: object = StaticPropv13
+    Unknown3Class: object = Unknown3
     # little endian only
     model_names: List[str]  # filenames of all .mdl / .rmdl used
     unknown_1: int  # first_transparent?
     unknown_2: int  # first_alpha_sort?
     props: List[StaticPropv13]
-    unknown_3: List[bytes]  # array of some unknown struct; sizeof() = 64
+    unknown_3: List[Unknown3]
 
     def __init__(self):
         self.model_names = list()
@@ -459,8 +471,7 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
         out.unknown_2 = int.from_bytes(sprp_lump.read(4), "little")
         out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
         unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.unknown_3 = [bytearray(sprp_lump.read(64)) for i in range(unknown_3_count)]
-        assert all([len(u) == 64 for u in out.unknown_3]), "hit end of lump early while getting unknown_3"
+        out.unknown_3 = lumps.BspLump.from_count(sprp_lump, unknown_3_count, cls.Unknown3Class)
         tail = sprp_lump.read()
         if len(tail) > 0:
             raise RuntimeError(f"sprp lump has a tail of {len(tail)} bytes")
@@ -468,7 +479,7 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
 
     def as_bytes(self) -> bytes:
         assert all([isinstance(p, self.StaticPropClass) for p in self.props])
-        assert all([len(u) == 64 for u in self.unknown_3])
+        assert all([isinstance(u, self.Unknown3Class) for u in self.unknown_3])
         return b"".join([
             len(self.model_names).to_bytes(4, "little"),
             *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
@@ -476,8 +487,8 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
             self.unknown_1.to_bytes(4, self.endianness),
             self.unknown_2.to_bytes(4, self.endianness),
             *[p.as_bytes() for p in self.props],
-            len(self.unknown_3).to_bytes(4, "little"),
-            *self.unknown_3])
+            len(self.unknown_3).to_bytes(4, self.endianness),
+            *[u.as_bytes() for u in self.unknown_3]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}

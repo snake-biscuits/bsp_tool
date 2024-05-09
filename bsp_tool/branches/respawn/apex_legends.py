@@ -599,6 +599,22 @@ class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
 # TODO: BVHLeafData
 # TODO: UNKNOWN_37
 
+class Unknown3(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
+    """all assumptions"""
+    # NOTE: doesn't appear in smaller maps
+    # -- could be to help with floating point precision
+    unknown_1: List[float]  # SIMD aligned?
+    flags: int  # TODO: IntFlags
+    prop: int  # index into sprp.props?
+    unknown_2: List[int]
+    __slots__ = ["unknown_1", "flags", "prop", "unknown_2"]
+    _format = "12f4i"  # 64 bytes
+    _arrays = {"unknown_1": 12, "unknown_2": 2}
+
+
+class GameLump_SPRP(titanfall2.GameLump_SPRPv13):  # sprp GameLump (LUMP 35)
+    Unknown3Class = Unknown3
+
 
 # NOTE: all Apex lumps are version 0, except GAME_LUMP
 # {"LUMP_NAME": {version: LumpClass}}
@@ -666,7 +682,7 @@ SPECIAL_LUMP_CLASSES.update({
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {bsp_version: titanfall2.GameLump_SPRPv13 for bsp_version in (47, 48, 49)}}
+GAME_LUMP_CLASSES = {"sprp": {bsp_version: GameLump_SPRP for bsp_version in (47, 48, 49)}}
 
 
 # branch exclusive methods, in alphabetical order:
