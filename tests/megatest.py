@@ -32,7 +32,7 @@ spec_of.update({mod: (valve.orange_box, 20) for mod in maplist.sourcemod_dirs})
 apex_seasons = [
     "Preseason", "Wild Frontier", "Battle Charge", "Meltdown", "Assimilation", "Fortune's Favour", "Boosted",
     "Ascension", "Fight Night", "Mayhem", "Legacy", "Emergence", "Evolution", "Escape", "Defiance", "Saviours",
-    "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection", "Ignite", "Breakout"]
+    "Hunted", "Eclipse", "Revelry", "Arsenal", "Resurrection", "Ignite", "Breakout", "Upheaval"]
 # TODO: split season10; v49 until season10.1 (depot/r5-101 | 14sep21/maps)
 spec_of.update({
     **{f"ApexLegends/season{i}": (respawn.apex_legends, 47) for i in range(7)},
@@ -40,7 +40,8 @@ spec_of.update({
     **{f"ApexLegends/season{i}": (respawn.apex_legends, 49) for i in (8, 9)},
     "ApexLegends/season10": (respawn.apex_legends50, 50),
     **{f"ApexLegends/season{i}": (respawn.apex_legends50, (50, 1)) for i in (11, 12)},
-    **{f"ApexLegends/season{i}": (respawn.apex_legends51, (51, 1)) for i in range(13, 21)}})
+    **{f"ApexLegends/season{i}": (respawn.apex_legends51, (51, 1)) for i in range(13, 21)},
+    "ApexLegends/season21": (respawn.apex_legends51, (52, 1))})
 # local test maps (./tests/maps/game/, not .../game/mod/maps/)
 spec_of.update({
     "Momentum Mod": (strata.strata, 25),

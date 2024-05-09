@@ -14,7 +14,9 @@ BSP_VERSION = (51, 1)
 
 GAME_PATHS = {"Apex Legends": "ApexLegends/maps"}
 
-GAME_VERSIONS = {"Apex Legends: Season 13 - Saviors": (51, 1)}
+GAME_VERSIONS = {
+    "Apex Legends: Season 13 - Saviors": (51, 1),
+    "Apex Legends: Season 21 - Upheaval": (52, 1)}
 
 
 class LUMP(enum.Enum):
@@ -178,7 +180,7 @@ SPECIAL_LUMP_CLASSES = apex_legends50.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {51: titanfall2.GameLump_SPRPv13}}
+GAME_LUMP_CLASSES = {"sprp": {i: titanfall2.GameLump_SPRPv13 for i in (51, 52)}}
 
 
 methods = apex_legends50.methods.copy()
