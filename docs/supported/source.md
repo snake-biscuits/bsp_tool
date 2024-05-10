@@ -64,9 +64,9 @@
 | 7 | 17 | `FACES` | 0 | [`troika.vampire.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/troika/vampire.py#L23) | 100% |
 | 7 | 19 | `FACES` | 1 | [`valve.source.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L522) | 100% |
 | 7 | 25 | `FACES` | 2 | [`strata.strata.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L210) | 100% |
-| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 8 | 17 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 8 | 20 | `LIGHTING` | 0 |  | 0% |
-| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 8 | 21 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 8 | 22 | `LIGHTING` | 0 |  | 0% |
 | 9 | 17 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 17 | `LEAVES` | 0 |  | 0% |
@@ -123,7 +123,7 @@
 | 32 | 17 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 17 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L511) | 100% |
 | 34 | 17 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 17 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L342) | 90% |
+| 35 | 17 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L345) | 90% |
 | 35 | 17 | `GAME_LUMP.sprp` | 4 | [`valve.source.GameLump_SPRPv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L806) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 4 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.props` | 4 | [`valve.source.StaticPropv4`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L785) | 100% |
@@ -137,8 +137,8 @@
 | 35 | 17 | `GAME_LUMP.sprp.leaves` | 7 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 17 | `GAME_LUMP.sprp.props` | 7 | [`valve.source.StaticPropv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L903) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | ? |  | 0% |
-| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L159) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`utoplanet.merubasu.GameLump_SPRPv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L135) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp` | 7 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L159) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`valve.orange_box.StaticPropv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L133) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 7 | [`utoplanet.merubasu.StaticPropv11`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/utoplanet/merubasu.py#L101) | 75% |
 | 35 | 20 | `GAME_LUMP.sprp` | 10 | [`valve.orange_box.GameLump_SPRPv10`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/orange_box.py#L159) | 100% |
@@ -185,9 +185,9 @@
 | 51 | 25 | `LEAF_AMBIENT_INDEX_HDR` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L274) | 100% |
 | 52 | 17 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L586) | 100% |
 | 52 | 25 | `LEAF_AMBIENT_INDEX` | 1 | [`strata.strata.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/strata/strata.py#L274) | 100% |
-| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 53 | 17 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 53 | 20 | `LIGHTING_HDR` | 0 |  | 0% |
-| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 53 | 21 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 53 | 22 | `LIGHTING_HDR` | 0 |  | 0% |
 | 54 | 17 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L737) | 100% |
 | 54 | 21 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |

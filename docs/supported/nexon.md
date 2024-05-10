@@ -37,9 +37,9 @@
 | 7 | 20 | `FACES` | 1 | [`nexon.vindictus69.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L158) | 94% |
 | 7 | 20 | `FACES` | 2 | [`nexon.vindictus69.Facev2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L193) | 88% |
 | 7 | 100 | `FACES` | 1 | [`nexon.cso2.Face`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/cso2.py#L110) | 100% |
-| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 8 | 20 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 8 | 100 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/cso2_2018.py#L6) | 100% |
-| 8 | 100 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 8 | 100 | `LIGHTING` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 9 | 20 | `OCCLUSION` | 0 |  | 0% |
 | 10 | 20 | `LEAVES` | 1 | [`nexon.vindictus69.Leaf`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L229) | 100% |
 | 10 | 100 | `LEAVES` | 0 |  | 0% |
@@ -73,15 +73,15 @@
 | 32 | 20 | `DISPLACEMENT_LIGHTMAP_ALPHAS` | 0 |  | 0% |
 | 33 | 20 | `DISPLACEMENT_VERTICES` | 0 | [`valve.source.DisplacementVertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L511) | 100% |
 | 34 | 20 | `DISPLACEMENT_LIGHTMAP_SAMPLE_POSITIONS` | 0 |  | 0% |
-| 35 | 20 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L342) | 90% |
+| 35 | 20 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L345) | 90% |
 | 35 | 20 | `GAME_LUMP.sprp` | 5 | [`valve.source.GameLump_SPRPv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L871) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 5 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 5 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L848) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L93) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 6 | [`nexon.vindictus69.GameLump_SPRPv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L309) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 6 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
-| 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L848) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv6`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L875) | 100% |
+| 35 | 20 | `GAME_LUMP.sprp.props` | 6 | [`valve.source.StaticPropv5`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L848) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.scales` | 6 | [`nexon.vindictus69.StaticPropScale`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus69.py#L300) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp` | 7 | [`nexon.vindictus.GameLump_SPRPv7`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/nexon/vindictus.py#L121) | 100% |
 | 35 | 20 | `GAME_LUMP.sprp.leaves` | 7 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
@@ -110,8 +110,9 @@
 | 50 | 20 | `WATER_OVERLAYS` | 0 | [`valve.source.WaterOverlay`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L719) | 100% |
 | 51 | 20 | `LEAF_AMBIENT_INDEX_HDR` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L586) | 100% |
 | 52 | 20 | `LEAF_AMBIENT_INDEX` | 0 | [`valve.source.LeafAmbientIndex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L586) | 100% |
-| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L6) | 100% |
+| 53 | 20 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 53 | 100 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/cso2_2018.py#L6) | 100% |
+| 53 | 100 | `LIGHTING_HDR` | 0 | [`extensions.lightmaps.face_lightmaps`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/extensions/lightmaps/source.py#L8) | 100% |
 | 54 | 20 | `WORLD_LIGHTS_HDR` | 0 | [`valve.source.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L737) | 100% |
 | 54 | 100 | `WORLD_LIGHTS_HDR` | 0 |  | 0% |
 | 55 | 20 | `LEAF_AMBIENT_LIGHTING_HDR` | 0 |  | 0% |

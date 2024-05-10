@@ -84,6 +84,7 @@ ScriptGroup = namedtuple("ScriptGroup", ["headline", "filename", "developers", "
 # | RespawnBsp      | respawn.apex_legends               |  Y  |
 # | RespawnBsp      | respawn.apex_legends50             |  Y  |
 # | RespawnBsp      | respawn.apex_legends51             |  Y  |
+# | RespawnBsp      | respawn.apex_legends52             |  Y  |
 # | RespawnBsp      | respawn.titanfall                  |  Y  |
 # | RespawnBsp      | respawn.titanfall_x360             |  N  |
 # | RespawnBsp      | respawn.titanfall2                 |  Y  |
@@ -133,7 +134,7 @@ groups = [
         {RespawnBsp: [respawn.titanfall, respawn.titanfall2]}),
     ScriptGroup(
         "Apex Legends", "apex_legends.md", "Respawn Entertainment", "respawn.md",
-        {RespawnBsp: [respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51]}),
+        {RespawnBsp: [respawn.apex_legends, respawn.apex_legends50, respawn.apex_legends51, respawn.apex_legends52]}),
     ScriptGroup(
         "Gold Source", "goldsrc.md", "Valve Software, Gearbox Software", "goldsrc.md",
         {GoldSrcBsp: [valve.goldsrc, gearbox.blue_shift, gearbox.nightfire]}),
@@ -303,7 +304,9 @@ lightmap_mappings = {
     **{(branches.respawn.titanfall2, L): lightmaps.titanfall2.extract
        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")},
     **{(bs, L): lightmaps.apex_legends.extract
-       for bs in (branches.respawn.apex_legends, branches.respawn.apex_legends50, branches.respawn.apex_legends51)
+       for bs in (
+           branches.respawn.apex_legends, branches.respawn.apex_legends50,
+           branches.respawn.apex_legends51, branches.respawn.apex_legends52)
        for L in ("LIGHTMAP_DATA_REAL_TIME_LIGHTS", "LIGHTMAP_DATA_SKY")}}
 # ^ {(branch_script, "LUMP"): function}
 del vbsp_branch_scripts
@@ -351,17 +354,22 @@ for branch_script in branches.source_based:
     if branch_script in (branches.nexon.vindictus69, branches.nexon.vindictus):
         d["sprp.scales"] = {6: branches.nexon.vindictus69.StaticPropScale}
     if branch_script in {*branches.of_engine["Titanfall"]} - {branches.respawn.titanfall, branches.respawn.titanfall_x360}:
-        d["sprp.unknown_3"] = {v: None for v in branch_script.GAME_LUMP_CLASSES["sprp"].keys()}
+        d["sprp.unknown_3"] = {
+            v: glc.Unknown3Class
+            for v, glc in branch_script.GAME_LUMP_CLASSES["sprp"].items()}
     # TODO: "dprp": None etc.
     gamelump_mappings[branch_script] = d
 del branch_script, d, leaves
 del unmapped_sprp
 
-# TODO: automatically catch changes in version number only
+# TODO: automatically skip changes in version number only
 # keep apex_legends.md to v47, structs stay the same
-gamelump_mappings[branches.respawn.apex_legends] = {k: {v: c for v, c in d.items() if v == 47}
-                                                    for k, d in gamelump_mappings[branches.respawn.apex_legends].items()}
-# TODO: ignore s13 apex gamelump (v51)
+gamelump_mappings[branches.respawn.apex_legends] = {
+        k: {v: c for v, c in d.items() if v == 47}
+        for k, d in gamelump_mappings[branches.respawn.apex_legends].items()}
+gamelump_mappings[branches.respawn.apex_legends50] = gamelump_mappings[branches.respawn.apex_legends]
+gamelump_mappings[branches.respawn.apex_legends51] = gamelump_mappings[branches.respawn.apex_legends]
+gamelump_mappings[branches.respawn.apex_legends52] = gamelump_mappings[branches.respawn.apex_legends]
 
 
 gamelump_coverage = dict()
@@ -381,7 +389,8 @@ gamelump_coverage.update({
     utoplanet.merubasu.StaticPropv11: 75,
     nexon.vindictus69.StaticPropScale: 100,
     respawn.titanfall.GameLump_SPRPv12: 60, respawn.titanfall.StaticPropv12: 94,
-    respawn.titanfall2.GameLump_SPRPv13: 40, respawn.titanfall2.StaticPropv13: 92,
+    respawn.titanfall2.GameLump_SPRPv13: 40, respawn.titanfall2.StaticPropv13: 92, respawn.titanfall2.Unknown3: 10,
+    respawn.apex_legends.GameLump_SPRP: 40, respawn.apex_legends.Unknown3: 20,
     branches.shared.UnsignedShorts: 100})
 
 
