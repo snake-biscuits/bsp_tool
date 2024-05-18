@@ -146,7 +146,7 @@ class PakFile:
         dest = filename if dest_filename is None else dest_filename
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         with open(dest, "wb") as out_file:
-            out_file.write(self.local_files[filename].data)
+            out_file.write(self.read(filename))  # decompress
 
     def extractall(self, dest_folder: str = "./"):
         for filename in self.local_files:
