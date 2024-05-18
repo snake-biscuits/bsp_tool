@@ -140,17 +140,19 @@ class PakFile:
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} with {len(self.local_files)} files @ 0x{id(self):016X}>"
 
-    def extract(self, filename: str, dest_filename: str = None):
+    def extract(self, filename: str, dest_folder: str = "./") -> str:
         if filename not in self.local_files:
             raise FileNotFoundError()
-        dest = filename if dest_filename is None else dest_filename
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        with open(dest, "wb") as out_file:
-            out_file.write(self.read(filename))  # decompress
+        if dest_folder != "./":
+            os.makedirs(dest_folder, exist_ok=True)
+        out_path = os.path.join(dest_folder, filename)
+        with open(out_path, "wb") as out_file:
+            out_file.write(self.read(filename))
+        return out_path
 
     def extractall(self, dest_folder: str = "./"):
         for filename in self.local_files:
-            self.extract(filename, os.path.join(dest_folder, filename))
+            self.extract(filename, dest_folder)
 
     def namelist(self) -> List[str]:
         return sorted(self.local_files.keys())
