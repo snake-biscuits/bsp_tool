@@ -143,9 +143,8 @@ class PakFile:
     def extract(self, filename: str, dest_folder: str = "./") -> str:
         if filename not in self.local_files:
             raise FileNotFoundError()
-        if dest_folder != "./":
-            os.makedirs(dest_folder, exist_ok=True)
         out_path = os.path.join(dest_folder, filename)
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
         with open(out_path, "wb") as out_file:
             out_file.write(self.read(filename))
         return out_path
