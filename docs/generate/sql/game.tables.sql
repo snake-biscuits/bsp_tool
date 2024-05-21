@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS GameRelation (
     parent    INTEGER  NOT NULL,
     child     INTEGER  NOT NULL,
     relation  INTEGER  NOT NULL,
-    FOREIGN KEY (game)     REFERENCES Game(rowid),
+    FOREIGN KEY (parent)   REFERENCES Game(rowid),
     FOREIGN KEY (child)    REFERENCES Game(rowid),
     FOREIGN KEY (relation) REFERENCES Relation(rowid)
 );
@@ -28,6 +28,6 @@ CREATE TABLE IF NOT EXISTS Series (
 CREATE TABLE IF NOT EXISTS GameSeries (
     game    INTEGER  NOT NULL,
     series  INTEGER  NOT NULL,
-    FOREIGN KEY game REFERENCES Game(rowid),
-    FOREIGN KEY series REFERENCES Series(rowid)
+    FOREIGN KEY (game)   REFERENCES Game(rowid),
+    FOREIGN KEY (series) REFERENCES Series(rowid)
 );

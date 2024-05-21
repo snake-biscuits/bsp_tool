@@ -2,6 +2,7 @@ Alien Swarm
 Alien Swarm: Reactive Drop
 Alkaline
 American McGee's Alice
+Amsterdoom
 Anachronox
 Apex Legends
 Apex Legends: Season 0 - Preseason
@@ -23,10 +24,15 @@ Apex Legends: Season 15 - Eclipse
 Apex Legends: Season 16 - Revelry
 Apex Legends: Season 17 - Arsenal
 Apex Legends: Season 18 - Resurrection
+Apex Legends: Season 19 - Ignite
+Apex Legends: Season 20 - Breakout
+Apex Legends: Season 21 - Upheaval
 Black Mesa
 Blade Symphony
 Bloody Good Time
 Call of Duty
+Call of Duty: Burnville Demo
+Call of Duty: Dawnville Demo
 Call of Duty 2
 Call of Duty 4: Modern Warfare
 Call of Duty: Black Ops III
@@ -85,11 +91,13 @@ Momentum Mod Playtest
 NEOTOKYO
 Natural Selection
 Nexuiz Classic
+Nexuiz
 No More Room in Hell
 Paranoia
 Portal
 Portal 2
 Quake
+Quake 4
 Quake 64
 Quake Champions
 Quake II

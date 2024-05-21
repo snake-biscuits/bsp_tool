@@ -1,4 +1,29 @@
 {
+  "Apex Legends": {
+    "Season": [
+      "Apex Legends: Season 0 - Preseason",
+      "Apex Legends: Season 1 - Wild Frontier",
+      "Apex Legends: Season 2 - Battle Charge",
+      "Apex Legends: Season 3 - Meltdown",
+      "Apex Legends: Season 4 - Assimilation",
+      "Apex Legends: Season 5 - Fortune's Favour",
+      "Apex Legends: Season 6 - Boosted",
+      "Apex Legends: Season 7 - Ascension",
+      "Apex Legends: Season 8 - Mayhem",
+      "Apex Legends: Season 9 - Legacy",
+      "Apex Legends: Season 10 - Emergence",
+      "Apex Legends: Season 11 - Escape",
+      "Apex Legends: Season 12 - Defiance",
+      "Apex Legends: Season 13 - Saviours",
+      "Apex Legends: Season 14 - Hunted",
+      "Apex Legends: Season 15 - Eclipse",
+      "Apex Legends: Season 16 - Revelry",
+      "Apex Legends: Season 17 - Arsenal",
+      "Apex Legends: Season 18 - Resurrection",
+      "Apex Legends: Season 19 - Ignite",
+      "Apex Legends: Season 20 - Breakout",
+      "Apex Legends: Season 21 - Upheaval"]
+  },
   "Call of Duty": {
     "Demo": [
       "Call of Duty: Burnville Demo",
@@ -24,7 +49,7 @@
     "Sequel": ["Portal 2"]
   },
   "Quake 4": {
-    "Bundle": ["Quake 2"]
+    "Bundle": ["Quake II"]
   },
   "The Orange Box": {
     "Bundle": [
@@ -41,14 +66,14 @@
   "Titanfall 2": {
     "Beta": ["Titanfall 2 (Tech Test)"]
   },
-  "WarSow": {
-    "Fork": ["WarFork"]
+  "Warsow": {
+    "Fork": ["Warfork"]
   },
-  "WarFork": {
+  "Warfork": {
     "Fork": ["Cocaine Diesel"]
   },
   "DarkPlaces": {
-    "Engine": ["Classic"]
+    "Engine": ["Nexuiz Classic"]
   },
   "Nexuiz Classic": {
     "Fork": ["Xonotic"],

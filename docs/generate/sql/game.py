@@ -21,25 +21,25 @@ def generate():
     game_relations = list()
     with open("game.data.relation.json") as json_file:
         for parent_game, groups in json.load(json_file).items():
-            for relation, games in groups.items():
+            for relation, related_games in groups.items():
                 relations.add(relation)
-                for game in games:
+                for child_game in related_games:
                     parent_game_index = games.index(parent_game) + 1
-                    game_index = games.index(game) + 1
-                    game_relations.append((parent_game_index, game_index, relation))
+                    child_game_index = games.index(child_game) + 1
+                    game_relations.append((parent_game_index, child_game_index, relation))
     relations = sorted(relations)
-    db.executemany("INSERT INTO Relations(name) VALUES(?)", [(r,) for r in relations])
+    db.executemany("INSERT INTO Relation(name) VALUES(?)", [(r,) for r in relations])
     game_relations = [(pgi, gi, relations.index(r) + 1) for pgi, gi, r in game_relations]
-    db.executemany("INSERT INTO GameRelations(parent, child, relation) VALUES(?, ?, ?)", game_relations)
+    db.executemany("INSERT INTO GameRelation(parent, child, relation) VALUES(?, ?, ?)", game_relations)
 
     tables.append("Series")
     series = list()
     tables.append("GameSeries")
     game_series = list()
     with open("game.data.series.json") as json_file:
-        for series, games in json.load(json_file).items():
-            series.append(series)
-            for game in games:
+        for series_name, series_games in json.load(json_file).items():
+            series.append(series_name)
+            for game in series_games:
                 game_series.append((len(series), games.index(game) + 1))
     db.executemany("INSERT INTO Series(name) VALUES(?)", [(s,) for s in series])
     db.executemany("INSERT INTO GameSeries(game, series) VALUES(?, ?)", game_series)
