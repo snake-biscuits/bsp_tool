@@ -38,7 +38,9 @@
     "soldier_of_fortune2": "445577"},
   "respawn": {
     "apex_legends": "BBBBBB",
-    "apex_legends13": "BB88BB",
+    "apex_legends50": "8888BB",
+    "apex_legends51": "BB88BB",
+    "apex_legends52": "88BB88",
     "titanfall_x360": "449988",
     "titanfall": "448899",
     "titanfall2": "77BBCC"},
@@ -53,9 +55,9 @@
   "strata": {
     "strata": "CC1111"},
   "troika": {
-    "vampire": "FF9900",
+    "vampire": "FF9900"},
   "utoplanet": {
-    "merubasu": "CC22AA",
+    "merubasu": "CC22AA"},
   "valve": {
     "alien_swarm": "55DDFF",
     "goldsrc": "FF9911",
@@ -66,7 +68,7 @@
     "sdk_2013_x360": "4466AA",
     "sdk_2013": "4477BB",
     "source_filmmaker": "BB7722",
-    "source": "FFAA00",
+    "source": "FFAA00"},
   "wild_tangent": {
     "genesis3d": "446677"}
 }

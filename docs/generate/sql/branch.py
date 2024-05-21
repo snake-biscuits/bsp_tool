@@ -27,22 +27,28 @@ def generate():
 
     tables.append("Branch")
     branches = list()
-    engine_of = {b: e for e, bs in bsp_tool.branches.of_engine.items() for b in bs}
+    engine_of = {
+        branch: engine
+        for engine, branches in bsp_tool.branches.of_engine.items()
+        for branch in branches}
+    with open("branch.data.colour.json") as json_file:
+        colours = json.load(json_file)
     for developer_index, developer in enumerate(bsp_tool.branches.developers):
         for branch in developer.scripts:
-            name = branch.__name__.split(".")[-1]
+            developer_name, branch_name = branch.__name__.split(".")[-2:]
             engine_index = engines.index(engine_of[branch])
-            branches.append((name, developer_index + 1, engine_index + 1))
-    db.executemany("INSERT INTO Branch(name, developer, engine) VALUES(?, ?, ?)", branches)
-    branches = [b for b, d, e in branches]
+            colour = colours[developer_name][branch_name]
+            branches.append((branch_name, developer_index + 1, engine_index + 1, colour))
+    db.executemany("INSERT INTO Branch(name, developer, engine, colour) VALUES(?, ?, ?, ?)", branches)
+    branch_names = [name for name, developer, engine, colour in branches]
 
     tables.append("BranchFork")
     forks = list()
     with open("branch.data.fork.json") as json_file:
         for base_branch, fork_branches in json.load(json_file).items():
-            base_branch_index = branches.index(base_branch)
+            base_branch_index = branch_names.index(base_branch)
             for fork_branch in fork_branches:
-                forks.append((base_branch_index + 1, branches.index(fork_branch) + 1))
+                forks.append((base_branch_index + 1, branch_names.index(fork_branch) + 1))
     db.executemany("INSERT INTO BranchFork(base, fork) VALUES(?, ?)", forks)
 
     common.tables_to_file(db, "branch.data.sql", tables)

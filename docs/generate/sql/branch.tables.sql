@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Branch (
     name       VARCHAR  NOT NULL,
     engine     INTEGER  NOT NULL,
     developer  INTEGER  NOT NULL,
+    colour     VARCHAR  NOT NULL,
     FOREIGN KEY (engine)    REFERENCES Engine(rowid),
     FOREIGN KEY (developer) REFERENCES Developer(rowid)
 );
