@@ -60,6 +60,7 @@ def generate():
         rows = csv.reader(csv_file)
         next(rows)  # skip column names
         for row in rows:
+            row = [x if x != "" else None for x in row]
             if len(row) < 7:  # pad tail
                 row.extend((None,) * (7 - len(row)))
             developer, game_name, day, regions_, platforms_, delisted, branches_ = row
