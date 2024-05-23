@@ -1,3 +1,4 @@
+import csv
 import json
 import sqlite3
 
@@ -12,26 +13,66 @@ def generate():
     branch.load_into(db)
     common.run_script(db, "release.tables.sql")
 
-    raise NotImplementedError()
     tables = list()
 
     tables.append("Platform")
+    platforms = list()
     with open("release.data.platform.json") as json_file:
-        json_data = json.load(json_file)  # {"Company": ["Platform"]}
-        db.executemany("INSERT INTO Platform(name) VALUES(?)", [v for vs in json_data.values() for v in vs])
-    # NOTE: PlatformCompany comes later in CompanyDB
+        json_data = json.load(json_file)  # {"Company": {"P": "Platform"}}
+    platforms = [
+        (name, short)
+        for platforms in json_data.values()
+        for short, name in platforms.items()]
+    db.executemany("INSERT INTO Platform(name, short) VALUES(?, ?)", platforms)
+    # NOTE: same data used for PlatformCompany in CompanyDB
 
     tables.append("Region")
     with open("release.data.region.json") as json_file:
-        db.executemany("INSERT INTO Region(short, name) VALUES(?, ?)", json.load(json_file).items())
+        regions = json.load(json_file)  # {"WW": "Worldwide"}
+    db.executemany("INSERT INTO Region(short, name) VALUES(?, ?)", regions.items())
+    regions = list(regions.keys())
+
+    # BranchDB
+    branches = {
+        f"{developer}.{branch}": i
+        for i, (developer, branch) in enumerate(db.execute("""
+            SELECT D.name, B.name
+            FROM Branch AS B
+            INNER JOIN Developer as D
+            ON D.rowid=B.developer""").fetchall())}
+
+    # GameDB
+    games = {
+        name: i + 1
+        for i, (name,) in enumerate(db.execute(
+            "SELECT name FROM Game").fetchall())}
+
+    platforms = {
+        **{name: i + 1 for i, (name, short) in enumerate(platforms)},
+        **{short: i + 1 for i, (name, short) in enumerate(platforms)}}
 
     tables.append("Release")
-    # "releases.sc"
-    ...
-
+    releases = list()
     tables.append("ReleaseBranch")
-    # tests/megatest.py
-    ...
+    release_branches = list()
+    # NOTE: dates may be fuzzy ranges / text (e.g. Cancelled, TBA)
+    with open("release.data.release.csv") as csv_file:  # from .sc sc-im file
+        rows = csv.reader(csv_file)
+        next(rows)  # skip column names
+        for row in rows:
+            if len(row) < 7:  # pad tail
+                row.extend((None,) * (7 - len(row)))
+            developer, game_name, day, regions_, platforms_, delisted, branches_ = row
+            # NOTE: developer is for ReleaseDeveloper in CompanyDB
+            for region in regions_.split(";"):
+                region_index = regions.index(region) + 1
+                for platform in platforms_.split(";"):
+                    releases.append((games[game_name], platforms[platform], region_index, day, delisted))
+                    if branches_ is not None:
+                        for branch_ in branches_.split(";"):
+                            release_branches.append((len(releases), branches[branch_]))
+    db.executemany("INSERT INTO Release(game, platform, region, day, delisted) VALUES(?, ?, ?, ?, ?)", releases)
+    db.executemany("INSERT INTO ReleaseBranch(release, branch) VALUES(?, ?)", release_branches)
 
     common.tables_to_file(db, "release.data.sql", tables)
 

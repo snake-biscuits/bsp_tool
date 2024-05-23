@@ -1,28 +1,28 @@
 {
   "Apex Legends": {
     "Season": [
-      "Apex Legends: Season 0 - Preseason",
-      "Apex Legends: Season 1 - Wild Frontier",
-      "Apex Legends: Season 2 - Battle Charge",
-      "Apex Legends: Season 3 - Meltdown",
-      "Apex Legends: Season 4 - Assimilation",
-      "Apex Legends: Season 5 - Fortune's Favour",
-      "Apex Legends: Season 6 - Boosted",
-      "Apex Legends: Season 7 - Ascension",
-      "Apex Legends: Season 8 - Mayhem",
-      "Apex Legends: Season 9 - Legacy",
-      "Apex Legends: Season 10 - Emergence",
-      "Apex Legends: Season 11 - Escape",
-      "Apex Legends: Season 12 - Defiance",
-      "Apex Legends: Season 13 - Saviours",
-      "Apex Legends: Season 14 - Hunted",
-      "Apex Legends: Season 15 - Eclipse",
-      "Apex Legends: Season 16 - Revelry",
-      "Apex Legends: Season 17 - Arsenal",
-      "Apex Legends: Season 18 - Resurrection",
-      "Apex Legends: Season 19 - Ignite",
-      "Apex Legends: Season 20 - Breakout",
-      "Apex Legends: Season 21 - Upheaval"]
+      "Apex Legends: Season 0 [Preseason]",
+      "Apex Legends: Season 1 [Wild Frontier]",
+      "Apex Legends: Season 2 [Battle Charge]",
+      "Apex Legends: Season 3 [Meltdown]",
+      "Apex Legends: Season 4 [Assimilation]",
+      "Apex Legends: Season 5 [Fortune's Favour]",
+      "Apex Legends: Season 6 [Boosted]",
+      "Apex Legends: Season 7 [Ascension]",
+      "Apex Legends: Season 8 [Mayhem]",
+      "Apex Legends: Season 9 [Legacy]",
+      "Apex Legends: Season 10 [Emergence]",
+      "Apex Legends: Season 11 [Escape]",
+      "Apex Legends: Season 12 [Defiance]",
+      "Apex Legends: Season 13 [Saviours]",
+      "Apex Legends: Season 14 [Hunted]",
+      "Apex Legends: Season 15 [Eclipse]",
+      "Apex Legends: Season 16 [Revelry]",
+      "Apex Legends: Season 17 [Arsenal]",
+      "Apex Legends: Season 18 [Resurrection]",
+      "Apex Legends: Season 19 [Ignite]",
+      "Apex Legends: Season 20 [Breakout]",
+      "Apex Legends: Season 21 [Upheaval]"]
   },
   "Call of Duty": {
     "Demo": [
@@ -33,6 +33,12 @@
   "Call of Duty 2": {
     "Sequel": ["Call of Duty 4: Modern Warfare"]
   },
+  "Dark Messiah of Might & Magic Multi-Player": {
+    "Port": ["Dark Messiah: Might & Magic - Elements"]
+  },
+  "Dark Messiah of Might & Magic Singleplayer": {
+    "Port": ["Dark Messiah: Might & Magic - Elements"]
+  },
   "Half-Life": {
     "Expansion": [
       "Half-Life: Blue Shift",
@@ -40,16 +46,82 @@
     "Sequel": ["Half-Life 2"]
   },
   "Half-Life 2": {
+    "Mod": [
+      "Half-Life 2: VR Mod"],
     "Sequel": ["Half-Life 2: Episode 1"]
   },
   "Half-Life 2: Episode 1": {
     "Sequel": ["Half-Life 2: Episode 2"]
   },
+  "Halfquake": {
+    "Sequel": ["Halfquake Amen"]
+  },
+  "Halfquake Amen": {
+    "Sequel": ["Halfquake Sunrise"]
+  },
+  "Halfquake Trilogy": {
+    "Bundle": [
+      "Halfquake",
+      "Halfquake Amen",
+      "Halfquake Sunrise"]
+  },
+  "Medal of Honor: Allied Assault": {
+    "Demo": ["Medal of Honor: Allied Assault (Demo)"],
+    "Expansion": [
+      "Medal of Honor: Allied Assault - Breakthrough",
+      "Medal of Honor: Allied Assault - Spearhead"]
+  },
+  "Medal of Honor: Allied Assault - Deluxe Edition": {
+    "Bundle": [
+      "Medal of Honor: Allied Assault",
+      "Medal of Honor: Allied Assault - Breakthrough",
+      "Medal of Honor: Allied Assault - Spearhead"]
+  },
+  "Medal of Honor: Allied Assault - War Chest": {
+    "Bundle": [
+      "Medal of Honor: Allied Assault",
+      "Medal of Honor: Allied Assault - Breakthrough",
+      "Medal of Honor: Allied Assault - Spearhead"]
+  },
+  "Momentum Mod": {
+    "Playtest": ["Momentum Mod Playtest"]
+  },
+  "Momentum Mod Playtest": {
+    "Beta": ["Momentum Mod Playtest (Closed Beta)"]
+  },
   "Portal": {
     "Sequel": ["Portal 2"]
   },
+  "Portal 2": {
+    "Mod": ["Portal: Revolution"]
+  },
+  "Quake": {
+    "Expansion": ["Quake: Dimension of the Past"],
+    "Mod": ["Team Fortress Quake"],
+    "Port": ["Quake 64"],
+    "Sequel": ["Quake II"]
+  },
+  "Quake II": {
+    "Expansion": ["Quake II: Call of the Machine"],
+    "Port": ["Quake II 64"],
+    "Sequel": ["Quake III Arena"]
+  },
+  "Quake III Arena": {
+    "Mod": ["Warsow"],
+    "Port": ["Quake Arena Arcade"],
+    "Sequel": ["Quake 4"]
+  },
   "Quake 4": {
     "Bundle": ["Quake II"]
+  },
+  "Return to Castle Wolfenstein": {
+    "Mod": ["RealRTCW"]
+  },
+  "Soldier of Fortune": {
+    "Sequel": ["Soldier of Fortune II: Double Helix"]
+  },
+  "Tactical Intervention": {
+    "Beta": ["Tactical Intervention (Beta)"]
   },
   "The Orange Box": {
     "Bundle": [
@@ -61,10 +133,12 @@
   },
   "Titanfall": {
     "Beta": ["Titanfall (Beta)"],
-    "Sequel": ["Titanfall 2"]
+    "Sequel": ["Titanfall 2"],
+    "Spin-off": ["Titanfall: Online"]
   },
   "Titanfall 2": {
-    "Beta": ["Titanfall 2 (Tech Test)"]
+    "Beta": ["Titanfall 2 (Tech Test)"],
+    "Spin-off": ["Apex Legends"]
   },
   "Warsow": {
     "Fork": ["Warfork"]
@@ -78,5 +152,9 @@
   "Nexuiz Classic": {
     "Fork": ["Xonotic"],
     "Non-GPL Rebuild": ["Nexuiz"]
+  },
+  "Zeno Clash": {
+    "Demo": ["Zeno Clash (Demo)"],
+    "Port": ["Zeno Clash: Ultimate Edition"]
   }
 }

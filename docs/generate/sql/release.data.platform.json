@@ -1,37 +1,41 @@
 {
-  "Apple": [
-    "Mac OS"],
-  "Commodore": [
-    "Amiga"],
-  "GNU": [
-    "Linux"],
-  "PC": [
-    "MS-DOS",
-    "PC",
-    "PC (GOG)",
-    "PC (Nexon)",
-    "PC (Origin)",
-    "PC (PlayGra)",
-    "PC (Steam)"],
-  "Microsoft": [
-    "Xbox",
-    "Xbox 360",
-    "Xbox One",
-    "Xbox Series S",
-    "Xbox Series X"],
-  "Namco": [
-    "Arcade"],
-  "Nintendo": [
-    "64",
-    "Switch",
-    "Wii"],
-  "Sega": [
-    "Dreamcast",
-    "Saturn"],
-  "Sony": [
-    "Play Station",
-    "Play Station 2",
-    "Play Station 3",
-    "Play Station 4",
-    "Play Station 5"]
+  "Apple": {
+    "OSX": "Mac OS"},
+  "Commodore": {
+    "Amiga": "Amiga"},
+  "GNU": {
+    "Linux": "Linux"},
+  "PC": {
+    "MS-DOS": "MS-DOS",
+    "PC": "PC",
+    "GOG": "PC (GOG)",
+    "Nexon": "PC (Nexon)",
+    "Origin": "PC (Origin)",
+    "PlayGra": "PC (PlayGra)",
+    "Steam": "PC (Steam)"},
+  "Microsoft": {
+    "Xbox": "Xbox",
+    "X360": "Xbox 360",
+    "XBLA": "Xbox Live Arcade",
+    "XBOne": "Xbox One",
+    "XBOneS": "Xbox Series S",
+    "XBOneX": "Xbox Series X"},
+  "Namco": {
+    "Arcade": "Arcade"},
+  "Nintendo": {
+    "GC": "GameCube",
+    "N64": "64",
+    "Switch": "Switch",
+    "Wii": "Wii"},
+  "Sega": {
+    "DC": "Dreamcast",
+    "SS": "Saturn"},
+  "Sony": {
+    "PSX": "Play Station",
+    "PS2": "Play Station 2",
+    "PS3": "Play Station 3",
+    "PS4": "Play Station 4",
+    "PS5": "Play Station 5"},
+  "Valve": {
+    "Steam OS": "Steam OS"}
 }

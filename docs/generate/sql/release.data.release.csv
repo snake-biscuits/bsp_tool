@@ -1,33 +1,32 @@
 Developer,Game,Released,Region,Platform,Delisted,Branch Script
-Arkane Studios,Dark Messiah: Might and Magic - Elements,2008-02-12,NA,Xbox 360
-Arkane Studios,Dark Messiah of Might and Magic - Multi-player,2006-10-24,NA,PC,,arkane.dark_messiah_mp
-Arkane Studios,Dark Messiah of Might and Magic - Singleplayer,2006-10-24,NA,PC,,arkane.dark_messiah_sp
+Arkane Studios,Dark Messiah: Might & Magic - Elements,2008-02-12,NA,Xbox 360
+Arkane Studios,Dark Messiah of Might & Magic Multi-Player,2006-10-24,NA,PC,,arkane.dark_messiah_mp
+Arkane Studios,Dark Messiah of Might & Magic Singleplayer,2006-10-24,NA,PC,,arkane.dark_messiah_sp
 Gearbox Software,Half-Life: Blue Shift,2001-06-12,NA,PC,,gearbox.blue_shift
-Gearbox Software,Half-Life: Blue Shift,2005-08-29,WW,PC (Steam),,gearbox.blue_shift
+Gearbox Software,Half-Life: Blue Shift,2005-08-29,WW,Steam,,gearbox.blue_shift
 Gearbox Software,Half-Life: Opposing Force,1999-11-19,WW,PC,,valve.goldsrc
-Gearbox Software,Half-Life: Opposing Force,2003-09-12,WW,PC (Steam),,valve.goldsrc
+Gearbox Software,Half-Life: Opposing Force,2003-09-12,WW,Steam,,valve.goldsrc
 Gearbox Software,James Bond 007: Nightfire,2002-11-28,NA,PC,,gearbox.nightfire
 Id Software,Quake,1996-06-22,NA,PC;MS-DOS,,id_software.quake
 Id Software,Quake,1996-07-05,WW,Linux,,id_software.quake
 Id Software,Quake,1996-08-25,EU,PC;MS-DOS,,id_software.quake
-Id Software,Quake,1997-08-28,NA,MacOS,,id_software.quake
+Id Software,Quake,1997-08-28,NA,Mac OS,,id_software.quake
 Id Software,Quake,1997-10-28,EU,Saturn,,id_software.quake
 Id Software,Quake,1997-12-02,NA,Saturn,,id_software.quake
 Id Software,Quake,1998-03-24,NA,N64,,id_software.quake64
 Id Software,Quake,1998-05-24,EU,N64,,id_software.quake64
 Id Software,Quake,2007-05-31,WW,PC (Steam),,id_software.quake
 Id Software,Quake,2021-08-19,WW,PS4;XBOne;Switch,,id_software.quake;id_software.remake_quake
-Id Software,Quake,2021-10-12,WW,PS5;Series X/S,,id_software.quake;id_software.remake_quake;id_software.quake64
-Id Software,Quake 2,1997-12-09,NA,PC,,id_software.quake2
-Id Software,Quake 2,1999-07-07,NA,N64
-Id Software,Quake 2,1999-10-05,NA,PSX
-Id Software,Quake 2,2005-11-18,NA,Xbox 360
-Id Software,Quake 2,2023-08-10,WW,PC (Steam);Switch;PS4;PS5;Xbox;Series X/S,,id_software.quake2;id_software.qbism
-Id Software,Quake 3 Arena,1999-12-02,NA,PC,,id_software.quake3
+Id Software,Quake,2021-10-12,WW,PS5;XBOneX;XBOneS,,id_software.quake;id_software.remake_quake;id_software.quake64
+Id Software,Quake II,1997-12-09,NA,PC,,id_software.quake2
+Id Software,Quake II,1999-07-07,NA,N64
+Id Software,Quake II,1999-10-05,NA,PSX
+Id Software,Quake II,2005-11-18,NA,Xbox 360
+Id Software,Quake II,2023-08-10,WW,Steam;Switch;PS4;PS5;XBOneX;XBOneS,,id_software.quake2;id_software.qbism
 Id Software,Quake III Arena,1999-12-02,NA,PC,,id_software.quake3
 Id Software,Quake III Arena,2000-10-19,NA,Dreamcast,,id_software.quake3
 Id Software,Quake III Arena,2007-08-03,WW,PC,,id_software.quake3
-Id Software,Quake III Arena Arcade,2010-12-15,WW,Xbox 360
+Id Software,Quake Arena Arcade,2010-12-15,WW,XBLA
 Id Software,Quake III Revolution,2001-03-26,NA,PS2,,id_software.quake3
 Id Software,Quake III: Team Arena,2000-12-18,NA,PC,,id_software.quake3
 Id Software,Quake III: Team Arena,2007-08-03,WW,PC,,id_software.quake3
@@ -35,18 +34,18 @@ Id Software,Quake Live,2010-08-06,WW,PC,,id_software.quake3
 Infinity Ward,Call of Duty,2003-10-29,NA,PC,,infinity_ward.call_of_duty1
 Infinity Ward,Call of Duty 2,2005-10-25,NA,PC,,infinity_ward.call_of_duty2
 Infinity Ward,Call of Duty 4: Modern Warfare,2007-11-05,NA,PC,,infinity_ward.modern_warfare
-Infinity Ward,Call of Duty 4: Modern Warfare,2007-11-05,NA,PS3;Xbox 360
+Infinity Ward,Call of Duty 4: Modern Warfare,2007-11-05,NA,PS3;X360
 Infinity Ward,Call of Duty 4: Modern Warfare,2009-11-10,WW,Wii
 Infinity Ward,Call of Duty: Burnville Demo,2003-08-29,WW,PC,,infinity_ward.call_of_duty1_demo
 Infinity Ward,Call of Duty: Dawnville Demo,2003-06-06,WW,PC,,infinity_ward.call_of_duty1_demo
 Namco,Counter-Strike: Neo,2005-10-27,JP,Arcade
-Nexon,Counter-Strike Nexon: Zombies,2014-10-07,KOR,PC (Steam),2019-10-30
-Nexon,Counter-Strike Nexon: Studio,2019-10-30,KOR,PC (Steam)
+Nexon,Counter-Strike Nexon: Zombies,2014-10-07,KOR,Steam,2019-10-30
+Nexon,Counter-Strike Nexon: Studio,2019-10-30,KOR,Steam
 Nexon,Counter-Strike: Online,2008-07-24,KOR,PC
 Nexon,Counter-Strike: Online 2,2013-11-28,KOR,PC,,nexon.cso2;nexon.cso2_2018
 Nexon,Titanfall: Online,2016-12-15,KOR,PC,2015-12-21,respawn.titanfall
 Nexon,Vindictus,2012-01-21,KOR,PC,,nexon.vindictus69
-Nexon,Vindictus,2012-06-23,WW,PC (Steam),,nexon.vindictus
+Nexon,Vindictus,2012-06-23,WW,Steam,,nexon.vindictus
 Paranoia Team,Half-Life: Paranoia,2007-12-03,RU,PC,,valve.goldsrc
 Paranoia Team,Half-Life: Paranoia,2010-10-27,RU,Dreamcast,,valve.goldsrc
 Pipe Dream Interactive,Soldier of Fortune,2001-11-13,NA,PS2,,id_software.quake2
@@ -55,174 +54,175 @@ Raven Software,Heretic II,1998-11-24,NA,PC,,id_software.quake2
 Raven Software,Heretic II,2000-05-08,NA,Amiga,,raven.soldier_of_fortune
 Raven Software,Hexen II,1997-09-11,NA,PC,,raven.hexen2
 Raven Software,Soldier of Fortune,2000-03-31,EU,PC,,raven.soldier_of_fortune
-Raven Software,Soldier of Fortune 2,2002-05-31,NA,PC,,raven.soldier_of_fortune2
-Raven Software,Soldier of Fortune 2,2003-06-20,EU,Xbox,,raven.soldier_of_fortune2
+Raven Software,Soldier of Fortune II: Double Helix,2002-05-31,NA,PC,,raven.soldier_of_fortune2
+Raven Software,Soldier of Fortune II: Double Helix,2003-06-20,EU,Xbox,,raven.soldier_of_fortune2
 Raven Software,Star Trek: Voyager - Elite Force,2000-09-15,EU,PC,,raven.soldier_of_fortune2
 Raven Software,Star Wars: Jedi Knight - Jedi Academy,2003-09-16,NA,PC,,raven.soldier_of_fortune2
-Raven Software,Star Wars: Jedi Knight - Jedi Academy,2003-09-17,NA,Mac OS X,,raven.soldier_of_fortune2
+Raven Software,Star Wars: Jedi Knight - Jedi Academy,2003-09-17,NA,Mac OS,,raven.soldier_of_fortune2
 Raven Software,Star Wars: Jedi Knight - Jedi Academy,2003-11-18,NA,Xbox,,raven.soldier_of_fortune2
 Raven Software,Star Wars: Jedi Knight - Jedi Academy,2020-03-26,WW,Switch;PS4,,raven.soldier_of_fortune2
 Raven Software,Star Wars: Jedi Knight II - Jedi Outcast,2002-03-28,NA,PC,,raven.soldier_of_fortune2
-Raven Software,Star Wars: Jedi Knight II - Jedi Outcast,2002-11-19,NA,Gamecube;Xbox,,raven.soldier_of_fortune2
+Raven Software,Star Wars: Jedi Knight II - Jedi Outcast,2002-11-19,NA,GC;Xbox,,raven.soldier_of_fortune2
 Raven Software,Star Wars: Jedi Knight II - Jedi Outcast,2019-09-24,WW,Switch;PS4,,raven.soldier_of_fortune2
-Respawn Entertainment,Apex Legends,2019-02-04,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 1 [Wild Frontier],2019-03-19,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 2 [Battle Charge],2019-07-02,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 3 [Meltdown],2019-10-01,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 4 [Meltdown],2020-02-04,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 5 [Fortune's Favour],2020-05-12,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 6 [Boosted],2020-08-18,WW,PC (Origin),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 7 [Ascension],2020-11-04,WW,PC (Origin);PC (Steam),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 8 [Mayhem],2021-02-02,WW,PC (Origin);PC (Steam),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 9 [Legacy],2021-05-04,WW,PC (Origin);PC (Steam),,respawn.apex_legends
-Respawn Entertainment,Apex Legends: Season 10 [Emergence],2021-08-03,WW,PC (Origin);PC (Steam),,respawn.apex_legends50
-Respawn Entertainment,Apex Legends: Season 11 [Escape],2021-11-02,WW,PC (Origin);PC (Steam),,respawn.apex_legends50
-Respawn Entertainment,Apex Legends: Season 12 [Defiance],2022-02-08,WW,PC (Origin);PC (Steam),,respawn.apex_legends50
-Respawn Entertainment,Apex Legends: Season 13 [Saviours],2022-05-10,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 14 [Hunted],2022-08-09,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 15 [Eclipse],2022-11-01,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 16 [Revelry],2023-02-14,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 17 [Arsenal],2023-05-09,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 18 [Resurrection],2023-08-08,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 19 [Ignite],2023-10-31,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 20 [Breakout],2024-02-13,WW,PC (Origin);PC (Steam),,respawn.apex_legends51
-Respawn Entertainment,Apex Legends: Season 21 [Upheaval],2024-05-07,WW,PC (Origin);PC (Steam),,respawn.apex_legends52
-Respawn Entertainment,Titanfall,2014-03-11,NA,PC (Origin);XBone,2021-03-01,respawn.titanfall
+Respawn Entertainment,Apex Legends,2019-02-04,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 1 [Wild Frontier],2019-03-19,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 2 [Battle Charge],2019-07-02,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 3 [Meltdown],2019-10-01,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 4 [Assimilation],2020-02-04,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 5 [Fortune's Favour],2020-05-12,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 6 [Boosted],2020-08-18,WW,Origin,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 7 [Ascension],2020-11-04,WW,Origin;Steam,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 8 [Mayhem],2021-02-02,WW,Origin;Steam,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 9 [Legacy],2021-05-04,WW,Origin;Steam,,respawn.apex_legends
+Respawn Entertainment,Apex Legends: Season 10 [Emergence],2021-08-03,WW,Origin;Steam,,respawn.apex_legends50
+Respawn Entertainment,Apex Legends: Season 11 [Escape],2021-11-02,WW,Origin;Steam,,respawn.apex_legends50
+Respawn Entertainment,Apex Legends: Season 12 [Defiance],2022-02-08,WW,Origin;Steam,,respawn.apex_legends50
+Respawn Entertainment,Apex Legends: Season 13 [Saviours],2022-05-10,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 14 [Hunted],2022-08-09,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 15 [Eclipse],2022-11-01,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 16 [Revelry],2023-02-14,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 17 [Arsenal],2023-05-09,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 18 [Resurrection],2023-08-08,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 19 [Ignite],2023-10-31,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 20 [Breakout],2024-02-13,WW,Origin;Steam,,respawn.apex_legends51
+Respawn Entertainment,Apex Legends: Season 21 [Upheaval],2024-05-07,WW,Origin;Steam,,respawn.apex_legends52
+Respawn Entertainment,Titanfall,2014-03-11,NA,Origin;XBOne,2021-03-01,respawn.titanfall
 Respawn Entertainment,Titanfall,2014-03-11,NA,Xbox 360,2021-03-01,respawn.titanfall_x360
-Respawn Entertainment,Titanfall,2020-11-21,WW,PC (Steam),2021-03-01,respawn.titanfall
+Respawn Entertainment,Titanfall,2020-11-21,WW,Steam,2021-03-01,respawn.titanfall
 Respawn Entertainment,Titanfall (Beta),2014-02-15,WW,XBOne,2014-02-19,respawn.titanfall
-Respawn Entertainment,Titanfall (Beta),2014-02-17,WW,PC (Origin),2014-02-19,respawn.titanfall
-Respawn Entertainment,Titanfall 2,2016-10-28,WW,PC (Origin);PS4;XBOne,,respawn.titanfall2
-Respawn Entertainment,Titanfall 2,2020-06-19,WW,PC (Steam),,respawn.titanfall2
-Respawn Entertainment,Titanfall 2 (Tech Test),2016-08-19,WW,PC (Origin);PS4;XBOne,2016-08-22,respawn.titanfall2
-Respawn Entertainment,Titanfall 2 (Tech Test),2016-08-26,WW,PC (Origin);PS4;XBOne,2016-08-28,respawn.titanfall2
+Respawn Entertainment,Titanfall (Beta),2014-02-17,WW,Origin,2014-02-19,respawn.titanfall
+Respawn Entertainment,Titanfall 2,2016-10-28,WW,Origin;PS4;XBOne,,respawn.titanfall2
+Respawn Entertainment,Titanfall 2,2020-06-19,WW,Steam,,respawn.titanfall2
+Respawn Entertainment,Titanfall 2 (Tech Test),2016-08-19,WW,Origin;PS4;XBOne,2016-08-22,respawn.titanfall2
+Respawn Entertainment,Titanfall 2 (Tech Test),2016-08-26,WW,Origin;PS4;XBOne,2016-08-28,respawn.titanfall2
 Rewolf Software,Gunman Chronicles,2000-11-20,NA,PC,,valve.goldsrc
 Ritual Entertainment,American McGee's Alice,2000-12-06,NA,PC,,ritual.fakk2
-Ritual Entertainment,Counter-Strike: Condition Zero,2004-03-23,WW,PC (Steam),,valve.goldsrc
-Ritual Entertainment,Counter-Strike: Condition Zero - Deleted Scenes,2004-03-23,WW,PC (Steam),,valve.goldsrc
+Ritual Entertainment,Counter-Strike: Condition Zero,2004-03-23,WW,Steam,,valve.goldsrc
+Ritual Entertainment,Counter-Strike: Condition Zero - Deleted Scenes,2004-03-23,WW,Steam,,valve.goldsrc
 Ritual Entertainment,Heavy Metal F.A.K.K. 2,2000-08-04,NA,PC,,ritual.fakk2
 Ritual Entertainment,SiN,1998-11-12,NA,PC,,ritual.sin
-Ritual Entertainment,SiN Episodes: Emergence,2006-05-10,WW,PC (Steam),,valve.source
+Ritual Entertainment,SiN Episodes: Emergence,2006-05-10,WW,Steam,,valve.source
 Ritual Entertainment,SiN: Gold,1999-10-20,EU,PC,,ritual.sin
-Ritual Entertainment,SiN: Gold,2014-01-30,WW,PC (GOG),,ritual.sin
-Ritual Entertainment,SiN: Gold,2020-03-18,WW,PC (Steam);PC (GOG),,ritual.sin
+Ritual Entertainment,SiN: Gold,2014-01-30,WW,GOG,,ritual.sin
+Ritual Entertainment,SiN: Gold,2020-03-18,WW,Steam;GOG,,ritual.sin
 Ritual Entertainment,Star Trek: Elite Force II,2003-06-20,EU,PC,,ritual.star_trek_elite_force2
 Ritual Entertainment,Star Trek: Elite Force II,2003-06-23,NA,PC,,ritual.star_trek_elite_force2
 Ritual Entertainment,Star Trek: Elite Force II (Demo),2003-06-01,WW,PC,,ritual.star_trek_elite_force2_demo
 Runecraft,Soldier of Fortune,2001-07-06,NA,Dreamcast,,raven.soldier_of_fortune
-Valve Software,Alien Swarm,2010-07-19,WW,PC (Steam),,valve.alien_swarm
-Valve Software,Alien Swarm: Reactive Drop,2017-04-20,WW,PC (Steam),,valve.alien_swarm
+Valve Software,Alien Swarm,2010-07-19,WW,Steam,,valve.alien_swarm
+Valve Software,Alien Swarm: Reactive Drop,2017-04-20,WW,Steam,,valve.alien_swarm
 Valve Software,Counter-Strike,2000-11-08,NA,PC,,valve.goldsrc
-Valve Software,Counter-Strike: Global Offensive,2012-08-21,WW,PC (Steam),2023-09-27,valve.sdk_2013
+Valve Software,Counter-Strike: Global Offensive,2012-08-21,WW,Steam,2023-09-27,valve.sdk_2013
 Valve Software,Counter-Strike: Global Offensive,2012-08-21,WW,Xbox 360,2023-09-27,valve.sdk_2013_x360
 Valve Software,Counter-Strike: Global Offensive,2016-01-26,WW,XBOne,2023-09-27,valve.sdk_2013
-Valve Software,Counter-Strike 2,2023-09-27,WW,PC (Steam)
-Valve Software,Counter-Strike: Source,2004-11-01,WW,PC (Steam),,valve.source
+Valve Software,Counter-Strike 2,2023-09-27,WW,Steam
+Valve Software,Counter-Strike: Source,2004-11-01,WW,Steam,,valve.source
 Valve Software,Day of Defeat,2003-05-06,NA,PC,,valve.goldsrc
-Valve Software,Day of Defeat,2003-09-12,WW,PC (Steam),,valve.goldsrc
-Valve Software,Day of Defeat: Source,2005-09-26,WW,PC (Steam),,valve.source
+Valve Software,Day of Defeat,2003-09-12,WW,Steam,,valve.goldsrc
+Valve Software,Day of Defeat: Source,2005-09-26,WW,Steam,,valve.source
 Valve Software,Deathmatch Classic,2001-07-01,WW,PC,,valve.goldsrc
-Valve Software,Deathmatch Classic,2003-09-12,WW,PC (Steam),,valve.goldsrc
+Valve Software,Deathmatch Classic,2003-09-12,WW,Steam,,valve.goldsrc
 Valve Software,Half-Life,1998-11-19,WW,PC,,valve.goldsrc
-Valve Software,Half-Life 2,2004-11-16,WW,PC (Steam),,valve.source
-Valve Software,Half-Life 2: Deathmatch,2004-11-30,WW,PC (Steam),,valve.source
-Valve Software,Half-Life 2: Episode 1,2006-06-01,WW,PC (Steam),,valve.source
-Valve Software,Half-Life 2: Episode 2,2007-10-10,WW,PC (Steam),,valve.source
-Valve Software,Half-Life 2: Lost Coast,2005-10-27,WW,PC (Steam),,valve.source
-Valve Software,Half-Life Deathmatch: Source,2006-05-01,WW,PC (Steam),,valve.source
-Valve Software,Half-Life: Source,2004-06-01,WW,PC (Steam),,valve.source
-Valve Software,Left 4 Dead,2008-11-17,WW,PC (Steam),,valve.left4dead
+Valve Software,Half-Life 2,2004-11-16,WW,Steam,,valve.source
+Valve Software,Half-Life 2: Deathmatch,2004-11-30,WW,Steam,,valve.source
+Valve Software,Half-Life 2: Episode 1,2006-06-01,WW,Steam,,valve.source
+Valve Software,Half-Life 2: Episode 2,2007-10-10,WW,Steam,,valve.source
+Valve Software,Half-Life 2: Lost Coast,2005-10-27,WW,Steam,,valve.source
+Valve Software,Half-Life Deathmatch: Source,2006-05-01,WW,Steam,,valve.source
+Valve Software,Half-Life: Source,2004-06-01,WW,Steam,,valve.source
+Valve Software,Left 4 Dead,2008-11-17,WW,Steam,,valve.left4dead
 Valve Software,Left 4 Dead,2008-11-18,NA,Xbox 360,,valve.orange_box_x360
-Valve Software,Left 4 Dead 2,2009-11-17,WW,PC (Steam),,valve.left4dead2
+Valve Software,Left 4 Dead 2,2009-11-17,WW,Steam,,valve.left4dead2
 Valve Software,Left 4 Dead 2,2009-11-17,NA,Xbox 360,,valve.orange_box_x360
-Valve Software,Portal,2007-10-10,WW,PC (Steam),,valve.source
-Valve Software,Portal 2,2011-04-18,WW,PC (Steam),,valve.sdk_2013
+Valve Software,Portal,2007-10-10,WW,Steam,,valve.source
+Valve Software,Portal 2,2011-04-18,WW,Steam,,valve.sdk_2013
 Valve Software,Portal 2,2011-04-19,NA,PS3
 Valve Software,Portal 2,2011-04-19,NA,Xbox 360,,valve.sdk_2013_x360
 Valve Software,Ricochet,2000-11-01,NA,PC,,valve.goldsrc
-Valve Software,Ricochet,2003-09-12,WW,PC (Steam),,valve.goldsrc
-Valve Software,Source Filmmaker,2012-07-11,WW,PC (Steam),,valve.source_filmmaker
-Valve Software,Team Fortress 2,2007-10-10,WW,PC (Steam),,valve.orange_box
+Valve Software,Ricochet,2003-09-12,WW,Steam,,valve.goldsrc
+Valve Software,Source Filmmaker,2012-07-11,WW,Steam,,valve.source_filmmaker
+Valve Software,Team Fortress 2,2007-10-10,WW,Steam,,valve.orange_box
 Valve Software,Team Fortress Classic,1999-04-07,NA,PC,,valve.goldsrc
-Valve Software,The Orange Box,2007-10-10,WW,PC (Steam),,valve.orange_box
+Valve Software,The Orange Box,2007-10-10,WW,Steam,,valve.orange_box
 Valve Software,The Orange Box,2007-10-10,NA,Xbox 360,,valve.orange_box_x360
 Valve Software,The Orange Box,2007-12-11,NA,PS3
 Xatrix Entertainment,Kingpin: Life of Crime,1999-07-02,NA,PC
-Xatrix Entertainment,Kingpin: Life of Crime,2009-08-19,WW,PC (Steam)
+Xatrix Entertainment,Kingpin: Life of Crime,2009-08-19,WW,Steam
 ,Alkaline,2021-06-13,WW,PC,,id_software.remake_quake
 Crowbar Collective,Black Mesa,2012-09-14,WW,PC,,valve.sdk_2013
-Crowbar Collective,Black Mesa,2015-05-06,WW,PC (Steam),,valve.sdk_2013
-Puny Human,Blade Symphony,2014-05-07,WW,PC (Steam),,valve.sdk_2013
-Outerlight Limited,Bloody Good Time,2010-10-29,WW,PC (Steam),,outerlight.outerlight
-Outerlight Limited,Bloody Good Time,2010-10-29,WW,Xbox360
+Crowbar Collective,Black Mesa,2015-05-06,WW,Steam,,valve.sdk_2013
+Puny Human,Blade Symphony,2014-05-07,WW,Steam,,valve.sdk_2013
+Outerlight Limited,Bloody Good Time,2010-10-29,WW,Steam,,outerlight.outerlight
+Outerlight Limited,Bloody Good Time,2010-10-29,WW,Xbox 360
 "Gray Matter Interactive Studios, Inc.",Call of Duty: United Offensive,2004-09-14,NA,PC,,infinity_ward.call_of_duty1
 ,Cocaine Diesel,2018-11-08,WW,Linux,,id_software.qfusion
-Monochrome Inc,Contagion,2014-04-11,WW,PC (Steam),,valve.left4dead2
-Team Psykskallar,Cry of Fear,2013-04-26,WW,PC (Steam),,valve.goldsrc
+Monochrome Inc,Contagion,2014-04-11,WW,Steam,,valve.left4dead2
+Team Psykskallar,Cry of Fear,2013-04-26,WW,Steam,,valve.goldsrc
 LadyHavoc,DarkPlaces,2000-11-04,WW,PC,,id_software.quake
-,D-Day Normandy,2000-??-??,,PC,,id_software.quake2
-800 North;Digital Ranch,Dino D-Day,2011-04-09,WW,PC (Steam),,valve.sdk_2013
-Double Action Factory,Double Action: Boogaloo,2014-10-23,WW,PC (Steam);Linux (Steam),,valve.orange_box
-Breadmen,Entropy : Zero 2,2022-08-21,WW,PC (Steam),,valve.orange_box
-Streum On Studio,E.Y.E.: Divine Cybermancy,2011-07-11,WW,PC (Steam),,valve.orange_box
-Fistful of Frags Team,Fistful of Frags,2014-05-09,WW,PC (Steam),,valve.orange_box
-Trepid Studios,Fortress Forever,2015-03-27,WW,PC (Steam),,valve.orange_box
+,D-Day Normandy,2000-??-??,??,PC,,id_software.quake2
+800 North;Digital Ranch,Dino D-Day,2011-04-09,WW,Steam,,valve.sdk_2013
+Double Action Factory,Double Action: Boogaloo,2014-10-23,WW,Steam;Steam OS,,valve.orange_box
+Breadmen,Entropy : Zero 2,2022-08-21,WW,Steam,,valve.orange_box
+Streum On Studio,E.Y.E.: Divine Cybermancy,2011-07-11,WW,Steam,,valve.orange_box
+Fistful of Frags Team,Fistful of Frags,2014-05-09,WW,Steam,,valve.orange_box
+Trepid Studios,Fortress Forever,2015-03-27,WW,Steam,,valve.orange_box
 Eyaura,G-String (Beta),2011-12-19,WW,PC,,valve.orange_box
 Eyaura,G-String: Day One,2013-??-??,WW,PC,,valve.orange_box
-Eyaura,G-String,2020-10-16,WW,PC (Steam),,valve.orange_box
-Eyaura,G-String: Ultimate Edition,Not Yet,WW,PC (Steam)
-LunchHouse Software,PUNT,Not Yet,WW,PC (Steam)
-Facepunch Studios Ltd.,Garry's Mod,2006-11-29,WW,PC (Steam),,valve.orange_box
-Source VR Mod Team,Half-Life 2: VR Mod,2022-09-17,WW,PC (Steam),,valve.source
+Eyaura,G-String,2020-10-16,WW,Steam,,valve.orange_box
+Eyaura,G-String: Ultimate Edition,Not Yet,WW,Steam
+LunchHouse Software,PUNT,Not Yet,WW,Steam
+Facepunch Studios Ltd.,Garry's Mod,2006-11-29,WW,Steam,,valve.orange_box
+Source VR Mod Team,Half-Life 2: VR Mod,2022-09-17,WW,Steam,,valve.source
 muddasheep,Halfquake,2001-04-19,WW,PC,,valve.goldsrc
 muddasheep,Halfquake Amen,2002-09-01,WW,PC,,valve.goldsrc
 muddasheep,Halfquake Sunrise,2010-07-03,WW,PC,,valve.goldsrc
-Philipp Lehner,Halfquake Trilogy,2018-10-06,WW,PC (Steam),,valve.goldsrc
-Loiste Interactive,INFRA,2016-01-16,WW,PC (Steam),,loiste.infra
-2015 Inc.,Medal of Honor: Allied Assault (Demo),,,PC,,ritual.mohaa_demo
+Philipp Lehner,Halfquake Trilogy,2018-10-06,WW,Steam,,valve.goldsrc
+Loiste Interactive,INFRA,2016-01-16,WW,Steam,,loiste.infra
+2015 Inc.,Medal of Honor: Allied Assault (Demo),,??,PC,,ritual.mohaa_demo
 2015 Inc.,Medal of Honor: Allied Assault,2002-01-20,NA,PC,,ritual.mohaa
 EA Los Angeles,Medal of Honor: Allied Assault - Spearhead,2002-11-12,NA;JP,PC,,ritual.mohaa
 EA Los Angeles,Medal of Honor: Allied Assault - Breakthrough,2003-09-22,NA,PC,,ritual.mohaa_bt
 EA Los Angeles,Medal of Honor: Allied Assault - Breakthrough,2003-09-25,JP,PC,,ritual.mohaa_bt
 2015 Inc.,Medal of Honor: Allied Assault - Deluxe Edition,2003-09-05,NA,PC,,ritual.mohaa
 2015 Inc.,Medal of Honor: Allied Assault - War Chest,2004-03-02,NA,PC,,ritual.mohaa
-2015 Inc.,Medal of Honor: Allied Assault - War Chest,2012-10-23,WW,PC (GOG),,ritual.mohaa
+2015 Inc.,Medal of Honor: Allied Assault - War Chest,2012-10-23,WW,GOG,,ritual.mohaa
 Utoplanet,MeruBasu,2017-02-14,WW,PC,2017-07-18,utoplanet.merubasu
-Momentum Team,Momentum Mod Playtest (Closed Beta),,WW,PC (Steam),,strata.strata
-Momentum Team,Momentum Mod,Not Yet,WW,PC (Steam),,strata.strata
-P2:CE Team,Portal 2: Community Edition,Not Yet,WW,PC (Steam),,strata.strata
+Momentum Team,Momentum Mod Playtest (Closed Beta),,WW,Steam,,strata.strata
+Momentum Team,Momentum Mod,Not Yet,WW,Steam,,strata.strata
+P2:CE Team,Portal 2: Community Edition,Not Yet,WW,Steam,,strata.strata
 Unknown Worlds,Natural Selection,2002-10-31,WW,PC,,valve.goldsrc
-Studio Radi-8,NEOTOKYO,2014-07-04,WW,PC (Steam),,valve.orange_box
+Studio Radi-8,NEOTOKYO,2014-07-04,WW,Steam,,valve.orange_box
 ,Nexuiz Classic,2005-05-31,WW,PC,,id_software.quake3
 ,Nexuiz,2012-02-29,WW,Xbox 360
-No More Room in Hell Team,No More Room in Hell,2013-10-31,WW,PC (Steam),,valve.orange_box
-,Nosferatu,Never,,,,id_software.qfusion
-,Qbism,Never,,PC,,id_software.qbism
-,TFORevive,Not Yet,,PC,,respawn.titanfall
+No More Room in Hell Team,No More Room in Hell,2013-10-31,WW,Steam,,valve.orange_box
+,Nosferatu,Never,??,PC,,id_software.qfusion
+,Qbism,Never,??,PC,,id_software.qbism
+,TFORevive,Not Yet,WW,PC,,respawn.titanfall
 Machine Games,Quake: Dimension of the Past,2016-06-24,WW,PC,,id_software.remake_quake
-Machine Games,Quake II: Call of the Machine,2023-08-10,WW,PC (Steam);Switch;PS4;PS5;Xbox;Series X/S,,id_software.qbism
+Machine Games,Quake II: Call of the Machine,2023-08-10,WW,Steam;Switch;PS4;PS5;XBOne;XBOneX;XBOneS,,id_software.qbism
 Nightdive,Quake 64,2021-08-20,WW,PC,,id_software.quake64
-Nightdive,Quake II 64,2023-08-10,WW,PC (Steam);Switch;PS4;PS5;Xbox;Series X/S,,id_software.quake2
+Nightdive,Quake II 64,2023-08-10,WW,Steam;Switch;PS4;PS5;XBOne;XBOneX;XBOneS,,id_software.quake2
 Gray Matter Studios,Return to Castle Wolfenstein,2001-11-19,WW,PC,,id_software.quake3
-Gray Matter Studios,Return to Castle Wolfenstein,2007-08-03,WW,PC (Steam),,id_software.quake3
-WolfETPlayer,RealRTCW,2020-10-16,WW,PC (Steam),,id_software.quake3
-Outerlight Limited,The Ship,2006-07-11,WW,PC (Steam),,outerlight.outerlight
-Sven Co-op Team,Sven Co-op,2016-01-22,WW,PC (Steam),,valve.goldsrc
-Synergy Team,Synergy,2005-09-01,WW,PC (Steam),,valve.source
+Gray Matter Studios,Return to Castle Wolfenstein,2007-08-03,WW,Steam,,id_software.quake3
+WolfETPlayer,RealRTCW,2020-10-16,WW,Steam,,id_software.quake3
+Outerlight Limited,The Ship,2006-07-11,WW,Steam,,outerlight.outerlight
+Sven Co-op Team,Sven Co-op,2016-01-22,WW,Steam,,valve.goldsrc
+Synergy Team,Synergy,2005-09-01,WW,Steam,,valve.source
 FIX Games Co. Ltd.,Tactical Intervention (Beta),2013-03-??,WW,PC,2013-06-10,valve.orange_box
-FIX Games Co. Ltd.,Tactical Intervention,2013-10-08,WW,PC (Steam),2017-12-05,valve.orange_box
+FIX Games Co. Ltd.,Tactical Intervention,2013-10-08,WW,Steam,2017-12-05,valve.orange_box
 TF Software,Team Fortress Quake,1996-08-24,WW,PC,,id_software.quake
-Everything Unlimited Ltd.,The Beginner's Guide,2015-10-01,WW,PC (Steam),,valve.sdk_2013
-Galactic Cafe,The Stanley Parable,2013-10-17,WW,PC (Steam),,valve.sdk_2013
-Troika Games L.L.C.,Vampire: The Masquerade - Bloodlines,2004-11-16,WW,PC (Steam),,troika.vampire
-Team Forbidden,Warfork,2019-08-16,WW,PC (Steam),,id_software.qfusion
+Everything Unlimited Ltd.,The Beginner's Guide,2015-10-01,WW,Steam,,valve.sdk_2013
+Galactic Cafe,The Stanley Parable,2013-10-17,WW,Steam,,valve.sdk_2013
+Troika Games L.L.C.,Vampire: The Masquerade - Bloodlines,2004-11-16,WW,Steam,,troika.vampire
+Team Forbidden,Warfork,2019-08-16,WW,Steam,,id_software.qfusion
 Warsow Team,Warsow,2006-05-26,WW,Linux,,id_software.qfusion
 Splash Damage Ltd,Wolfenstein: Enemy Territory,2003-05-28,WW,PC,,id_software.quake3
-KillPixel Games,WRATH: Aeon of Ruin,2019-11-22,WW,PC (Steam),,id_software.quake3
-,Xonotic,2011-09-08,WW,PC;Linux;MacOS,,id_software.quake3
-ACE Team,Zeno Clash (Demo),,,PC (Steam),,ace_team.zeno_clash
-ACE Team,Zeno Clash,2009-04-21,WW,PC (Steam),,ace_team.zeno_clash
+KillPixel Games,WRATH: Aeon of Ruin,2019-11-22,WW,Steam,,id_software.quake3
+,Xonotic,2011-09-08,WW,PC;Linux;Mac OS,,id_software.quake3
+ACE Team,Zeno Clash (Demo),,WW,Steam,,ace_team.zeno_clash
+ACE Team,Zeno Clash,2009-04-21,WW,Steam,,ace_team.zeno_clash
 ACE Team,Zeno Clash: Ultimate Edition,2010-05-05,WW,Xbox 360
 Ion Storm,Daikatana,2000-05-23,NA,PC,,ion_storm.daikatana
 Ion Storm,Anachronox,2001-06-27,NA,PC,,id_software.quake2
-Second Face Software,Portal: Revolution,2024-01-07,WW,PC (Steam),,strata.strata
+Second Face Software,Portal: Revolution,2024-01-07,WW,Steam,,strata.strata
+Davilex Games B.V.,AmsterDoom,2000-??-??,NL,PC,,wild_tangent.genesis3d

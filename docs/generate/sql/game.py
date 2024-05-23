@@ -11,6 +11,7 @@ def generate():
     tables = list()
 
     tables.append("Game")
+    # TODO: gather from release.data.release.csv instead
     with open("game.data.game.txt") as txt_file:
         games = [x.rstrip("\n") for x in txt_file.readlines()]
     db.executemany("INSERT INTO Game(name) VALUES(?)", [(g,) for g in games])
@@ -31,6 +32,8 @@ def generate():
     db.executemany("INSERT INTO Relation(name) VALUES(?)", [(r,) for r in relations])
     game_relations = [(pgi, gi, relations.index(r) + 1) for pgi, gi, r in game_relations]
     db.executemany("INSERT INTO GameRelation(parent, child, relation) VALUES(?, ?, ?)", game_relations)
+    # NOTE: the Quake 4 + Quake II bundle is just the Xbox360 2nd Disc
+    # -- however we're only looking at how games are related, not releases
 
     tables.append("Series")
     series = list()
