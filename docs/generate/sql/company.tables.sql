@@ -7,12 +7,12 @@ CREATE TABLE IF NOT EXISTS Company (
 
 
 CREATE TABLE IF NOT EXISTS CompanyFork (
-    company      INTEGER  NOT NULL,  -- forked from
-    new_company  INTEGER  NOT NULL,
-    started      DATE     NOT NULL,
-    finished     DATE,   -- if NULL: hasn't happened yet
-    FOREIGN KEY (company)     REFERENCES Company(rowid),
-    FOREIGN KEY (new_company) REFERENCES Company(rowid)
+    base      INTEGER  NOT NULL,
+    fork      INTEGER  NOT NULL,
+    started   DATE     NOT NULL,
+    finished  DATE,   -- if NULL: hasn't happened yet
+    FOREIGN KEY (base) REFERENCES Company(rowid),
+    FOREIGN KEY (fork) REFERENCES Company(rowid)
 );
 
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS CompanyMerge (
 );
 
 
--- TODO: other Company events: rebrands, bancruptcies etc.
+-- TODO: other Company events: rebrands, layoffs, bancruptcies etc.
 
 
 CREATE TABLE IF NOT EXISTS ReleaseDeveloper (

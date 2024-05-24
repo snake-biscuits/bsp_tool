@@ -14,7 +14,8 @@ def generate():
     tables = list()
 
     # tables.append("Company")
-    ...
+    companies = []
+    db.executemany("INSERT INTO Company(name) VALUES (?)", [(c,) for c in companies])
 
     # tables.append("CompanyMerge")
     ...
