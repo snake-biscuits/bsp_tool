@@ -144,6 +144,7 @@ INSERT INTO BranchFork(base, fork) VALUES
 	(41,40),
 	(32,34),
 	(34,28),
-	(23,22);
+	(23,22),
+	(22,20);
 
 
