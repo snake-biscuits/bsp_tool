@@ -71,9 +71,9 @@ class CentralHeader:
 
 class LocalHeader:
     unknown: List[int]
-    # 0..4: ?
-    # 5: data_size (len uncompressed ascii / CentralHeader.data_size)
-    # 6-15: ?
+    # 0: data_size (len uncompressed ascii / CentralHeader.data_size)
+    # 1: 0
+    # 2-10: ?
 
     def __init__(self, *unknown):
         self.unknown = unknown
@@ -85,7 +85,8 @@ class LocalHeader:
     def from_bytes(cls, raw: bytes) -> LocalHeader:
         assert len(raw) == 0x48
         assert raw[:0x08] == b"\x0F\xF5\x12\xEE\x01\x03\x00\x00"
-        out = cls(*struct.unpack(">16I", raw[0x08:]))
+        assert struct.unpack(">5I", raw[0x08:0x1C]) == (0, 0, 0x8000, 0x8000, 0)
+        out = cls(*struct.unpack(">11I", raw[0x1C:]))
         return out
 
     @classmethod
