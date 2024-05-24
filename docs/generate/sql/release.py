@@ -34,18 +34,18 @@ def generate():
 
     # BranchDB
     branches = {
-        f"{developer}.{branch}": i
-        for i, (developer, branch) in enumerate(db.execute("""
-            SELECT D.name, B.name
+        f"{developer}.{branch}": rowid
+        for rowid, developer, branch in db.execute("""
+            SELECT B.rowid, D.name, B.name
             FROM Branch AS B
             INNER JOIN Developer as D
-            ON D.rowid=B.developer""").fetchall())}
+            ON B.developer == D.rowid""").fetchall()}
 
     # GameDB
     games = {
-        name: i + 1
-        for i, (name,) in enumerate(db.execute(
-            "SELECT name FROM Game").fetchall())}
+        name: rowid
+        for name, rowid in db.execute(
+            "SELECT name, rowid FROM Game").fetchall()}
 
     platforms = {
         **{name: i + 1 for i, (name, short) in enumerate(platforms)},
