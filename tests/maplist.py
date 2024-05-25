@@ -91,7 +91,8 @@ source_dirs = {
          "SourceFilmmaker/game/tf": ["maps"],  # 71 maps | 3.3 GB
          "Synergy": ["synergy/maps"],  # 21 maps | 407 MB
          # TODO: compile Tactical Intervention sample .vmfs
-         "TacticalIntervention": ["maps"],  # 20 maps | 1.3 GB
+         "TacticalIntervention": ["maps",  # 5 maps | 533 MB
+                                  "maps/b3174"],  # 27 maps | 1.58 GB
          "Team Fortress 2": ["tf/maps",  # 194 maps | 5.2 GB
                              "tf/download/maps"],  # 187 maps | 2.6 GB
          "Transmissions Element 120": ["te120/maps"],  # 5 maps | 281 MB
