@@ -1,9 +1,18 @@
 """Pi Studios Quake Arena Arcade .bpk format"""
 from __future__ import annotations
+import io
 import struct
-from typing import List
+from typing import Any, List
 
 from . import base
+
+
+def read_struct(file, format_: str) -> List[Any]:
+    out = struct.unpack(format_, file.read(struct.calcsize(format_)))
+    if len(out) == 1:
+        return out[0]
+    else:
+        return out
 
 
 class Bpk(base.Archive):
@@ -46,7 +55,6 @@ class CentralHeader:
     key: int  # filename hash?
     offset: int
     data_size: int  # matches text length if uncompressed ascii
-    # -- also matches len(data) for some binary files
     size: int
 
     def __init__(self, key, offset, data_size, size):
@@ -70,25 +78,32 @@ class CentralHeader:
 
 
 class LocalHeader:
+    uncompressed_size: int
     unknown: List[int]
-    # 0: data_size (len uncompressed ascii / CentralHeader.data_size)
-    # 1: 0
-    # 2-10: ?
+    # 0, 1 & 2 usually all match
+    # 3 always FF ?? ?? ??
 
-    def __init__(self, *unknown):
+    def __init__(self, uncompressed_size, *unknown):
+        self.uncompressed_size = uncompressed_size
         self.unknown = unknown
 
     def __repr__(self) -> str:
-        return f"LocalHeader({', '.join(map(str, self.unknown))})"
+        plain_args = ", ".join(map(str, [self.uncompressed_size, *self.unknown[:3]]))
+        hex_args = ", ".join(f"0x{a:08X}" for a in self.unknown[3:])
+        return f"LocalHeader({plain_args}, {hex_args})"
 
     @classmethod
     def from_bytes(cls, raw: bytes) -> LocalHeader:
         assert len(raw) == 0x48
-        assert raw[:0x08] == b"\x0F\xF5\x12\xEE\x01\x03\x00\x00"
-        assert struct.unpack(">5I", raw[0x08:0x1C]) == (0, 0, 0x8000, 0x8000, 0)
-        out = cls(*struct.unpack(">11I", raw[0x1C:]))
-        return out
+        return cls.from_stream(io.BytesIO(raw))
 
     @classmethod
     def from_stream(cls, stream) -> LocalHeader:
-        return cls.from_bytes(stream.read(0x48))
+        assert stream.read(8) == b"\x0F\xF5\x12\xEE\x01\x03\x00\x00"
+        assert read_struct(stream, ">5I") == (0, 0, 0x8000, 0x8000, 0)
+        uncompressed_size = read_struct(stream, ">I")
+        assert read_struct(stream, ">I") == 0
+        unknown_1 = read_struct(stream, ">I")
+        assert read_struct(stream, ">I") == 0x8000
+        unknown_2 = read_struct(stream, ">7I")
+        return cls(uncompressed_size, unknown_1, *unknown_2)
