@@ -66,6 +66,9 @@ class CentralHeader:
     def __repr__(self) -> str:
         return f"EntryHeader(0x{self.key:016X}, 0x{self.offset:08X}, 0x{self.data_size:06X}, 0x{self.size:06X})"
 
+    def as_bytes(self) -> bytes:
+        return struct.pack(">Q4I", self.key, self.offset, self.data_size, 1, self.size)
+
     @classmethod
     def from_bytes(cls, raw: bytes) -> CentralHeader:
         key, offset, data_size, one, size = struct.unpack(">Q4I", raw)
@@ -91,6 +94,16 @@ class LocalHeader:
         plain_args = ", ".join(map(str, [self.uncompressed_size, *self.unknown[:3]]))
         hex_args = ", ".join(f"0x{a:08X}" for a in self.unknown[3:])
         return f"LocalHeader({plain_args}, {hex_args})"
+
+    def as_bytes(self) -> bytes:
+        return b"".join([
+            b"\x0F\xF5\x12\xEE\x01\x03\x00\x00",
+            struct.pack(">5I", 0, 0, 0x8000, 0x8000, 0),
+            struct.pack(">I", self.uncompressed_size),
+            struct.pack(">I", 0),
+            struct.pack(">I", self.unknown[0]),
+            struct.pack(">I", 0x8000),
+            struct.pack(">7I", *self.unknown[1:])])
 
     @classmethod
     def from_bytes(cls, raw: bytes) -> LocalHeader:
