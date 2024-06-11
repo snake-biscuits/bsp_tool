@@ -110,6 +110,9 @@ source_based = {bs for magic, bss in with_magic.items() for bs in bss if magic i
 # NOTE: all source_based branches have "version" in LumpHeader
 quake_based = {bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics}
 # NOTE: all quake_based lumps are unversioned
+x360_magics = (b"PSBV", b"PSBr")
+big_endian = {bs for magic, bss in with_magic.items() for bs in bss if magic in x360_magics}
+little_endian = {bs for magic, bss in with_magic.items() for bs in bss if magic not in x360_magics}
 
 of_engine = {
     "Genesis3D": {wild_tangent.genesis3d},
