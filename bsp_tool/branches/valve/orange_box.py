@@ -110,7 +110,7 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: int  # see Contents flags
     cluster: int   # index of this Leaf's viscluster (leaf group in VISIBILITY lump); -1 for None
-    area_flags: int  # area & flags bitfield (short area:9; short flags:7;)
+    bitfield: int  # area & flags bitfield (short area:9; short flags:7;)
     # why was this done when the struct is padded by one short anyway?
     mins: List[float]  # bounding box minimums along XYZ axes
     maxs: List[float]  # bounding box maximums along XYZ axes
@@ -120,12 +120,12 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
     num_leaf_brushes: int  # number of LeafBrushes
     leaf_water_data_id: int  # -1 if this leaf isn't submerged
     padding: int  # should be empty
-    __slots__ = ["contents", "cluster", "area_flags", "mins", "maxs",
+    __slots__ = ["contents", "cluster", "bitfield", "mins", "maxs",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data_id", "padding"]
     _format = "ihH6h4H2h"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _bitfields = {"area_flags": {"area": 9, "flags": 7}}
+    _bitfields = {"bitfield": {"area": 9, "flags": 7}}
     _classes = {"contents": source.Contents}
 
 

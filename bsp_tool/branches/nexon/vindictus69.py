@@ -173,8 +173,8 @@ class Face(base.Struct):  # LUMP 7
     # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
     primitives: int
-    # primitives.count: int  # limit of 2^15 - 1
     # primitives.allow_dynamic_shadows: bool
+    # primitives.count: int  # limit of 2^15 - 1
     first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group; select multiple by using bits?
     __slots__ = ["plane", "side", "on_node", "unknown", "first_edge",
@@ -184,7 +184,7 @@ class Face(base.Struct):  # LUMP 7
                  "first_primitive", "smoothing_groups"]
     _format = "I2bh5i4bif4i4I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
-    _bitfields = {"primitives": {"count": 31, "allow_dynamic_shadows": 1}}
+    _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
                 "primitives.allow_dynamic_shadows": bool}
@@ -209,8 +209,8 @@ class Facev2(base.Struct):  # LUMP 7 (v2)
     # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
     primitives: int
-    # primitives.count: int  # limit of 2^15 - 1
     # primitives.allow_dynamic_shadows: bool
+    # primitives.count: int  # limit of 2^15 - 1
     first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group; select multiple by using bits?
     __slots__ = ["plane", "side", "on_node", "unknown_1", "first_edge",
@@ -220,7 +220,7 @@ class Facev2(base.Struct):  # LUMP 7 (v2)
                  "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2bh6i4bif4i4I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
-    _bitfields = {"primitives": {"count": 31, "allow_dynamic_shadows": 1}}
+    _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
                 "primitives.allow_dynamic_shadows": bool}
@@ -266,9 +266,9 @@ class Overlay(base.Struct):  # LUMP 45
     id: int
     texture_info: int  # index to this Overlay's TextureInfo
     face_count_and_render_order: int  # render order uses the top 2 bits
-    bitfield: int  # num_faces + render_order
-    # bitfield.num_faces  # number of faces this Overlay touches?
+    bitfield: int  # render_order & num_faces
     # bitfield.render_order
+    # bitfield.num_faces  # number of faces this Overlay touches?
     faces: List[int]  # face indices this overlay is tied to (need bitfield.num_faces to read accurately)
     u: List[float]  # mins & maxs?
     v: List[float]  # mins & maxs?
@@ -282,7 +282,7 @@ class Overlay(base.Struct):  # LUMP 45
                "u": 2, "v": 2,
                "uv_points": {P: [*"xyz"] for P in "ABCD"},
                "origin": [*"xyz"], "normal": [*"xyz"]}
-    _bitfields = {"bitfield": {"num_faces": 30, "render_order": 2}}
+    _bitfields = {"bitfield": {"render_order": 2, "num_faces": 30}}
     _classes = {"origin": vector.vec3, "normal": vector.vec3}
 
 

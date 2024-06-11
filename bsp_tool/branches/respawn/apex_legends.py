@@ -313,10 +313,10 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
     _format = "24h4I"
     _arrays = {axis: {f"child{i}": ["min", "max"] for i in range(4)} for axis in [*"xyz"]}
     _arrays.update({"index": [f"child{i}" for i in range(4)]})
-    _bitfields = {"index.child0": {"contents_mask": 8, "index": 24},
-                  "index.child1": {"padding": 8, "index": 24},
-                  "index.child2": {"child0_type": 4, "child1_type": 4, "index": 24},
-                  "index.child3": {"child2_type": 4, "child3_type": 4, "index": 24}}
+    _bitfields = {"index.child0": {"index": 24, "contents_mask": 8},
+                  "index.child1": {"index": 24, "padding": 8},
+                  "index.child2": {"index": 24, "child0_type": 4, "child1_type": 4},
+                  "index.child3": {"index": 24, "child2_type": 4, "child3_type": 4}}
     _classes = {"index.child2.child0_type": BVHNodeType, "index.child2.child1_type": BVHNodeType,
                 "index.child3.child2_type": BVHNodeType, "index.child3.child3_type": BVHNodeType}
 
@@ -384,7 +384,7 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     __slots__ = ["mins", "children", "maxs", "unknown"]
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _bitfields = {"children": {"flags": 8, "first": 16, "count": 8}}
+    _bitfields = {"children": {"count": 8, "first": 16, "flags": 8}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
     # TODO: "children.flags": NodeFlags
 
@@ -398,8 +398,8 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {
-        "children": {"count": 8, "first": 16, "flags": 8},
-        "unknown": {"count": 8, "first": 24}}
+        "children": {"flags": 8, "first": 16, "count": 8},
+        "unknown": {"first": 24, "count": 8}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
     # TODO: "children.flags": NodeFlags
 

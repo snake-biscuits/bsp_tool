@@ -246,13 +246,13 @@ class PrimitiveType(enum.IntFlag):
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     unknown: List[int]  # uint16_t[2]
     child: base.BitField
-    # child.count: int
-    # child.index: int  # index of Brush / TriCollHeader?
     # child.type: GeoSetFlags  # Brush or TriColl
+    # child.index: int  # index of Brush / TriCollHeader?
+    # child.count: int
     __slots__ = ["unknown", "child"]
     _format = "2HI"
     _arrays = {"unknown": 2}
-    _bitfields = {"child": {"count": 8, "index": 16, "type": 8}}
+    _bitfields = {"child": {"type": 8, "index": 16, "count": 8}}
     _classes = {"child.type": PrimitiveType}
 
 
@@ -306,11 +306,10 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
 
 class Primitive(base.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
-    # same as the BitField component of GeoSet?
-    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
-    index: int  # indexed lump depends on type
     type: PrimitiveType
-    _fields = {"unique_contents": 8, "index": 16, "type": 8}
+    index: int  # indexed lump depends on type
+    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
+    _fields = {"type": 8, "index": 16, "unique_contents": 8}
     _format = "I"
     _classes = {"type": PrimitiveType}
 

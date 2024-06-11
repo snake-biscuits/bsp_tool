@@ -161,8 +161,8 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {
-        "children": {"count": 8, "first": 24},  # no flags; increased limit?
-        "unknown": {"count": 8, "first": 24}}
+        "children": {"first": 24, "count": 8},  # no flags; increased limit?
+        "unknown": {"first": 24, "count": 8}}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 

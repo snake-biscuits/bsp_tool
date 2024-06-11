@@ -428,10 +428,10 @@ class Brush(base.Struct):  # LUMP 92 (005C)
 
 
 class BrushSideProperty(base.BitField):  # LUMP 94 (005E)
-    texture_data: int  # TextureData of this BrushSide
     flags: BrushSideFlag
+    texture_data: int  # TextureData of this BrushSide
     # NOTE: unsure of exact split, assuming MAX.TEXTURE_DATA == 512
-    _fields = {"texture_data": 9, "flags": 7}
+    _fields = {"flags": 7, "texture_data": 9}
     _format = "H"
     _classes = {"flags": BrushSideFlag}
 
@@ -503,12 +503,12 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     straddle_group: int  # CMGrid counts straddle groups
     num_primitives: int  # start from primitive.index?
     primitive: List[int]  # embedded Primitive?
-    # primitive.unique_contents: int  # index into UniqueContents
-    # primitive.index: int  # index into Brushes / TricollHeaders
     # primitive.type: PrimitiveType  # Brush / Tricoll
+    # primitive.index: int  # index into Brushes / TricollHeaders
+    # primitive.unique_contents: int  # index into UniqueContents
     __slots__ = ["straddle_group", "num_primitives", "primitive"]
     _format = "2HI"
-    _bitfields = {"primitive": {"unique_contents": 8, "index": 16, "type": 8}}
+    _bitfields = {"primitive": {"type": 8, "index": 16, "unique_contents": 8}}
     _classes = {"primitive.type": PrimitiveType}
 
 
@@ -717,10 +717,10 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
 class Primitive(base.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
     # same as the BitField component of GeoSet?
-    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
-    index: int  # indexed lump depends on type
     type: PrimitiveType
-    _fields = {"unique_contents": 8, "index": 16, "type": 8}
+    index: int  # indexed lump depends on type
+    unique_contents: int  # index into UniqueContents (Contents flags OR-ed together)
+    _fields = {"type": 8, "index": 16, "unique_contents": 8}
     _format = "I"
     _classes = {"type": PrimitiveType}
 
@@ -806,7 +806,7 @@ class TricollTriangle(base.BitField):  # LUMP 66 (0042)
     B: int  # indexes VERTICES[header.first_vertex + A + B]
     C: int  # indexes VERTICES[header.first_vertex + A + C]
     flags: int  # seems related to shape & orientation
-    _fields = {"A": 10, "B": 7, "C": 7, "flags": 8}
+    _fields = {"flags": 8, "C": 7, "B": 7, "A": 10}
     _format = "I"
     # TODO: _classes = {"flags": TricollTriangleFlags}
 

@@ -225,8 +225,8 @@ class Face(base.Struct):  # LUMPS 7, 27 * 58
     # lightmap.size: vector.vec2  # scalars for lightmap segment
     original_face: int  # OriginalFace this Face came from; -1 if this is an OriginalFace
     primitives: int
-    # primitives.count: int  # limit of 2^15 - 1
     # primitives.allow_dynamic_shadows: bool
+    # primitives.count: int  # limit of 2^15 - 1
     first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group
     __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges", "texture_info",
@@ -234,7 +234,7 @@ class Face(base.Struct):  # LUMPS 7, 27 * 58
                  "area", "lightmap", "original_face", "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2b5I4bif5i3I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
-    _bitfields = {"primitives": {"count": 31, "allow_dynamic_shadows": 1}}
+    _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
                 "primitives.allow_dynamic_shadows": bool}
