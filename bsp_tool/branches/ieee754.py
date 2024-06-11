@@ -6,7 +6,7 @@ from . import base
 
 
 class Float32(base.BitField):
-    _fields = {"mantissa": 23, "exponent": 8, "sign": 1}
+    _fields = {"sign": 1, "exponent": 8, "mantissa": 23}
     _format = "I"
 
     @classmethod
