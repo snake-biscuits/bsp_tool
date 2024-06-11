@@ -559,22 +559,22 @@ class BitField:
         out_format = cls._format if _format is None else _format
         out_classes = cls._classes if _classes is None else _classes
         out_args = list()
-        offset = 0
+        offset = struct.calcsize(out_format) * 8
         for size in out_fields.values():
-            mask = 2 ** size - 1 << offset
+            offset -= size
+            mask = (2 ** size - 1) << offset
             out_args.append((value & mask) >> offset)
-            offset += size
         return cls(*out_args, _format=out_format, _fields=out_fields, _classes=out_classes)
 
     def as_int(self) -> int:
         out = 0
-        offset = 0
+        offset = struct.calcsize(self._format) * 8
         for attr, size in self._fields.items():
             value = getattr(self, attr)
             if isinstance(value, (enum.Enum, enum.IntFlag)):
                 value = int(value.value)
+            offset -= size
             out += value << offset  # __setattr__ prevents overflow
-            offset += size
         return out
 
     def as_bytes(self, endianness: str = "little") -> bytes:
