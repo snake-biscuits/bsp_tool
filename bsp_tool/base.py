@@ -57,10 +57,17 @@ class Bsp:
     def _get_signature(self, header_length: int):
         """check for a signature between header & data"""
         # TODO: check for other conspicuous gaps between lumps (> 4 byte padding)
-        lumps_start = min([h.offset for h in self.headers.values() if h.length != 0])
+        lumps_start = min(h.offset for h in self.headers.values() if h.length != 0)
         if lumps_start > header_length:
             self.file.seek(header_length)
             self.signature = self.file.read(lumps_start - header_length)
+
+    def _tail(self) -> bytes:
+        # NOTE: lumps_end can be greater than self.filesize
+        # -- specifically for RespawnBsp vXX.1 (Apex Legends season 10+)
+        lumps_end = max(h.offset + h.length for h in self.headers.values())
+        self.file.seek(lumps_end)
+        return self.file.read()
 
     def _header_generator(self, offset: int = 4) -> (str, Any):
         """iterator for reading headers from self.file"""

@@ -17,6 +17,7 @@
   - `texture`
  * `NexonBsp`
   - thanks `cso2` big-endian `fourCC`
+ * `BSPX` lumps can be parsed with `bspx.BspX`
 
 ### Changed
  * SpecialLumpClasses & GameLumpClasses refactor
