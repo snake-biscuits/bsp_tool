@@ -2,7 +2,6 @@
 # https://github.com/fte-team/fteqw/blob/master/specs/bspx.txt
 from __future__ import annotations
 import io
-import struct
 from typing import List, Tuple
 
 from .. import lumps
