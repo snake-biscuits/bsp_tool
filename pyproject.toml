@@ -3,16 +3,16 @@ name = "bsp_tool"
 version = "0.5.0"
 description = "Python library for analysing .bsp files"
 readme = "README.md"
-requires-python=">=3.7"
+requires-python=">=3.8"
 license = {file = "LICENSE"}
 keywords = ["bsp", "quake", "source", "cod", "titanfall", "idtech"]
 authors = [
-    {name="Jared Ketterer", email="haveanotherbiscuit@gmail.com"},
+    {name="snake-biscuits", email="haveanotherbiscuit@gmail.com"},
     {name="BobTheBob"},
     {name="rexx"}
 ]
 maintainers = [
-    {name="Jared Ketterer", email="haveanotherbiscuit@gmail.com"}
+    {name="snake-biscuits", email="haveanotherbiscuit@gmail.com"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -20,10 +20,10 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Games/Entertainment :: First Person Shooters",
     "Topic :: Multimedia :: Graphics :: 3D Modeling",
