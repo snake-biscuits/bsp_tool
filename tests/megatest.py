@@ -8,9 +8,9 @@ from bsp_tool import BspVariant_for_magic
 from bsp_tool import branches
 from bsp_tool import load_bsp
 from bsp_tool import lumps
-from bsp_tool.branches import (ace_team, arkane, gearbox, id_software,
-                               infinity_ward, nexon, outerlight, raven,
-                               respawn, ritual, strata, utoplanet, valve)
+from bsp_tool.branches import (
+    ace_team, arkane, gearbox, id_software, infinity_ward,
+    nexon, outerlight, raven, respawn, ritual, strata, utoplanet, valve)
 from bsp_tool.id_software import QuakeBsp
 from bsp_tool.infinity_ward import D3DBsp, InfinityWardBsp
 from bsp_tool.nexon import NexonBsp
@@ -24,7 +24,8 @@ all_branches = {*branches.quake_based, *branches.source_based}
 
 # "It's OK to have garbage data if you never read it" - Earl Hammon Jr.
 spec_of = {path: (branch, branch.GAME_VERSIONS[game])
-           for branch in all_branches for game, path in branch.GAME_PATHS.items()
+           for branch in all_branches
+           for game, path in branch.GAME_PATHS.items()
            if game in branch.GAME_VERSIONS}
 # sourcemods
 spec_of.update({mod: (valve.orange_box, 20) for mod in maplist.sourcemod_dirs})
@@ -129,9 +130,14 @@ spec_of.update({
     "Paranoia": (valve.goldsrc, 30),
     "Portal2": (valve.sdk_2013_x360, 21)})
 
-id_of = {path: game for branch in all_branches for game, path in branch.GAME_PATHS.items()}
+id_of = {
+    path: game
+    for branch in all_branches
+    for game, path in branch.GAME_PATHS.items()}
 # apex archive
-id_of.update({f"ApexLegends/season{i}": f"Apex Legends - Season {i} - {name}" for i, name in enumerate(apex_seasons)})
+id_of.update({
+    f"ApexLegends/season{i}": f"Apex Legends - Season {i} - {name}"
+    for i, name in enumerate(apex_seasons)})
 # multi-mod-dir games
 id_of.update({
     "Contagion": id_of["Contagion/contagion"],
@@ -218,6 +224,7 @@ megatest_dirs = [(*dg, tuple(mds)) for dg, mds in maplist.installed_games.items(
 
 
 def spec_str(BspClass, branch, version) -> str:
+    # TODO: sprp_version
     BspClass = BspClass.__name__
     branch = ".".join(branch.__name__.split(".")[-2:])
     if version is None:
@@ -311,6 +318,7 @@ for args, id_ in zip(test_args, test_ids):
 
 
 def spec_str_of(bsp) -> str:
+    # TODO: sprp_version
     BspClass = bsp.__class__
     branch = bsp.branch
     version = bsp.version
@@ -364,5 +372,8 @@ def test_hinting(spec, maps):
 
 # TODO: more xfails
 # -- 0 byte .bsp
-# -- DDay-Normandy exclude list
+# -- DDay-Normandy exclude list:
+# --- dday_mappack_excludes = (
+# ---     "dday3bh.bsp", "dofdtownbhv3.bsp", "gb1stdaybh.bsp", "iraidbhv3.bsp",
+# ---     "LIDDUX.bsp", "schlitz1.bsp", "wiltzbh.bsp", "wiltzbhv3.bsp")
 # -- Xbox360 | Left 4 Dead / Portal 2
