@@ -47,7 +47,6 @@ source_dirs = {
          "Alien Swarm/swarm": ["maps"],  # 9 maps | 299 MB
          "Alien Swarm Reactive Drop/reactivedrop": ["maps"],  # 53 maps | 1.3 GB
          "Blade Symphony/berimbau": ["maps"],  # 21 maps | 1.0 GB
-         "Contagion": ["contagion_sdk/losmuertos_tutorial/maps"],  # 1 map | 30 MB
          "counter-strike source/cstrike": ["maps"],  # 20 maps | 237 MB
          "day of defeat source/dod": ["maps"],  # 9 maps | 299 MB
          "dayofinfamy": ["doi/maps"],  # 16 maps | 1.09 GB
