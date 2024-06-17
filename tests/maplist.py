@@ -71,7 +71,7 @@ source_dirs = {
                             "hlvr/maps"],  # 1 map | 7 MB
          "insurgency2": ["insurgency/maps"],  # 49 maps | 2.54 GB
          "Jabroni Brawl Episode 3": ["jbep3/maps"],  # 133 maps | 2.64 GB
-         "left 4 dead": ["left4dead/maps",   # 45 maps | 975 maps
+         "left 4 dead": ["left4dead/maps",   # 45 maps | 975 MB
                          "left4dead_dlc3/maps"],  # 3 maps | 67 MB
          "Left 4 Dead 2": ["left4dead2/maps",  # 8 maps | 186 MB
                            "left4dead2_dlc1/maps",  # 3 maps | 60 MB
