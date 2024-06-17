@@ -58,7 +58,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 2 | 0002 | 47 | `TEXTURE_DATA` | 0 | [`respawn.apex_legends.TextureData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L497) | 100% |
 | 3 | 0003 | 47 | `VERTICES` | 0 | [`id_software.quake.Vertex`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/id_software/quake.py#L261) | 100% |
 | 4 | 0004 | 47 | `LIGHTPROBE_PARENT_INFOS` | 0 |  | 0% |
-| 5 | 0005 | 47 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L387) | 100% |
+| 5 | 0005 | 47 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L386) | 100% |
 | 6 | 0006 | 47 | `UNUSED_6` | 0 |  | 0% |
 | 7 | 0007 | 47 | `UNUSED_7` | 0 |  | 0% |
 | 8 | 0008 | 47 | `UNUSED_8` | 0 |  | 0% |
@@ -90,7 +90,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 34 | 0022 | 47 | `UNUSED_34` | 0 |  | 0% |
 | 35 | 0023 | 47 | `GAME_LUMP` | - | [`lumps.GameLump`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/lumps/__init__.py#L345) | 90% |
 | 35 | 0023 | 47 | `GAME_LUMP.sprp` | 47 | [`respawn.apex_legends.GameLump_SPRP`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L615) | 40% |
-| 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 47 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L406) | 92% |
+| 35 | 0023 | 47 | `GAME_LUMP.sprp.props` | 47 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L405) | 92% |
 | 35 | 0023 | 47 | `GAME_LUMP.sprp.unknown_3` | 47 | [`respawn.apex_legends.Unknown3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/apex_legends.py#L602) | 20% |
 | 36 | 0024 | 47 | `UNUSED_36` | 0 |  | 0% |
 | 37 | 0025 | 47 | `UNKNOWN_37` | 0 |  | 0% |
@@ -110,7 +110,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 51 | 0033 | 47 | `UNUSED_51` | 0 |  | 0% |
 | 52 | 0034 | 47 | `UNUSED_52` | 0 |  | 0% |
 | 53 | 0035 | 47 | `UNUSED_53` | 0 |  | 0% |
-| 54 | 0036 | 47 | `WORLD_LIGHTS` | 0 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L352) | 85% |
+| 54 | 0036 | 47 | `WORLD_LIGHTS` | 0 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L351) | 85% |
 | 55 | 0037 | 47 | `WORLD_LIGHT_PARENT_INFOS` | 0 |  | 0% |
 | 56 | 0038 | 47 | `UNUSED_56` | 0 |  | 0% |
 | 57 | 0039 | 47 | `UNUSED_57` | 0 |  | 0% |

@@ -55,7 +55,7 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 4 | 0004 | 29 | `UNUSED_4` | 0 |  | 0% |
 | 4 | 0004 | 37 | `LIGHTPROBE_PARENT_INFOS` | 0 |  | 0% |
 | 5 | 0005 | 29 | `UNUSED_5` | 0 |  | 0% |
-| 5 | 0005 | 37 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L387) | 100% |
+| 5 | 0005 | 37 | `SHADOW_ENVIRONMENTS` | 0 | [`respawn.titanfall2.ShadowEnvironment`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L386) | 100% |
 | 6 | 0006 | 29 | `UNUSED_6` | 0 |  | 0% |
 | 6 | 0006 | 37 | `LIGHTPROBE_BSP_NODES` | 0 | [`respawn.titanfall2.LightProbeBSPNode`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L265) | 100% |
 | 7 | 0007 | 29 | `UNUSED_7` | 0 |  | 0% |
@@ -91,9 +91,9 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 35 | 0023 | 29 | `GAME_LUMP.sprp` | 12 | [`respawn.titanfall.GameLump_SPRPv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L990) | 60% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.leaves` | 12 | [`shared.UnsignedShorts`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/shared.py#L31) | 100% |
 | 35 | 0023 | 29 | `GAME_LUMP.sprp.props` | 12 | [`respawn.titanfall.StaticPropv12`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L955) | 94% |
-| 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRPv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L446) | 40% |
-| 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L406) | 92% |
-| 35 | 0023 | 37 | `GAME_LUMP.sprp.unknown_3` | 13 | [`respawn.titanfall2.Unknown3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L435) | 10% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp` | 13 | [`respawn.titanfall2.GameLump_SPRPv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L445) | 40% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp.props` | 13 | [`respawn.titanfall2.StaticPropv13`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L405) | 92% |
+| 35 | 0023 | 37 | `GAME_LUMP.sprp.unknown_3` | 13 | [`respawn.titanfall2.Unknown3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L434) | 10% |
 | 36 | 0024 | 29 | `LEAF_WATER_DATA` | 1 | [`valve.source.LeafWaterData`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/valve/source.py#L606) | 100% |
 | 37 | 0025 | 29 | `UNUSED_37` | 0 |  | 0% |
 | 38 | 0026 | 29 | `UNUSED_38` | 0 |  | 0% |
@@ -113,8 +113,8 @@ Once you have chosen your [extraction tool](Extraction-tools):
 | 52 | 0034 | 29 | `UNUSED_52` | 0 |  | 0% |
 | 53 | 0035 | 29 | `UNUSED_53` | 0 |  | 0% |
 | 54 | 0036 | 29 | `WORLD_LIGHTS` | 1 | [`respawn.titanfall.WorldLight`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall.py#L827) | 100% |
-| 54 | 0036 | 37 | `WORLD_LIGHTS` | 2 | [`respawn.titanfall2.WorldLightv2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L318) | 89% |
-| 54 | 0036 | 37 | `WORLD_LIGHTS` | 3 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L352) | 85% |
+| 54 | 0036 | 37 | `WORLD_LIGHTS` | 2 | [`respawn.titanfall2.WorldLightv2`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L317) | 89% |
+| 54 | 0036 | 37 | `WORLD_LIGHTS` | 3 | [`respawn.titanfall2.WorldLightv3`](https://github.com/snake-biscuits/bsp_tool/blob/master/bsp_tool/branches/respawn/titanfall2.py#L351) | 85% |
 | 55 | 0037 | 29 | `UNUSED_55` | 0 |  | 0% |
 | 55 | 0037 | 37 | `WORLD_LIGHT_PARENT_INFOS` | 0 |  | 0% |
 | 56 | 0038 | 29 | `UNUSED_56` | 0 |  | 0% |
