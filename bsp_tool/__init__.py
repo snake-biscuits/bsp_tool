@@ -20,22 +20,23 @@ from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
 
 
-BspVariant_for_magic = {b" 46Q": Quake64Bsp,
-                        b"2015": RitualBsp,
-                        b"2PSB": ReMakeQuakeBsp,
-                        b"BSP2": ReMakeQuakeBsp,
-                        b"EALA": RitualBsp,
-                        b"EF2!": RitualBsp,
-                        b"FAKK": RitualBsp,
-                        b"FBSP": FusionBsp,
-                        b"GBSP": Genesis3DBsp,
-                        b"IBSP": IdTechBsp,  # OR InfinityWardBsp OR D3DBsp
-                        b"PSBr": RespawnBsp,  # Xbox360
-                        b"PSBV": ValveBsp,  # Xbox360
-                        b"QBSP": QbismBsp,
-                        b"rBSP": RespawnBsp,
-                        b"RBSP": RavenBsp,
-                        b"VBSP": ValveBsp}  # OR NexonBsp
+BspVariant_for_magic = {
+    b" 46Q": Quake64Bsp,
+    b"2015": RitualBsp,
+    b"2PSB": ReMakeQuakeBsp,
+    b"BSP2": ReMakeQuakeBsp,
+    b"EALA": RitualBsp,
+    b"EF2!": RitualBsp,
+    b"FAKK": RitualBsp,
+    b"FBSP": FusionBsp,
+    b"GBSP": Genesis3DBsp,
+    b"IBSP": IdTechBsp,  # OR InfinityWardBsp OR D3DBsp
+    b"PSBr": RespawnBsp,  # Xbox360
+    b"PSBV": ValveBsp,  # Xbox360
+    b"QBSP": QbismBsp,
+    b"rBSP": RespawnBsp,
+    b"RBSP": RavenBsp,
+    b"VBSP": ValveBsp}  # OR NexonBsp
 # NOTE: if no file_magic is present:
 # - QuakeBsp
 # - GoldSrcBsp
