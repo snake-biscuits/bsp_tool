@@ -1,8 +1,7 @@
 -- list all Source Engine branches
 SELECT CONCAT(D.name, ".", B.name)
 FROM       Branch    AS B
-INNER JOIN Developer AS D
-ON B.developer == D.rowid
+INNER JOIN Developer AS D ON B.developer == D.rowid
 WHERE E.name == "Source"
 
 
