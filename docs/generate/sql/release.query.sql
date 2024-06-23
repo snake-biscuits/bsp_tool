@@ -26,3 +26,18 @@ FROM (
     GROUP BY branch_name
 ) AS X
 ORDER BY X.release_day ASC
+
+
+-- count number of releases each month
+SELECT SUBSTRING(R.day, 1, 7), COUNT(*)
+FROM Release AS R
+GROUP BY SUBSTRING(R.day, 1, 7)
+
+
+-- view selection of releases for a given month
+SELECT R.day, G.name, P.name
+FROM       Release  AS R
+INNER JOIN Game     AS G ON R.game     == G.rowid
+INNER JOIN Platform AS P ON R.platform == P.rowid
+WHERE SUBSTRING(R.day, 1, 7) == '2023-08'
+ORDER BY R.day ASC
