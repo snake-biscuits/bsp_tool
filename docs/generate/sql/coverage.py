@@ -11,6 +11,7 @@ import common
 
 sys.path.insert(0, "../" * 3)
 import bsp_tool  # noqa E402
+from bsp_tool.branches import base  # noqa E402
 
 
 def short_script_name(module: ModuleType) -> str:
@@ -21,19 +22,54 @@ def short_script_name(module: ModuleType) -> str:
         raise NotImplementedError()  # shouldn't happen but idk
 
 
-def calculate_coverage(LumpClass: object) -> float:
+def calculate_coverage(LumpClass: object) -> (int, int):  # %age is (2nd - 1st) / 2nd
+    """yields (num_unknown_bits, total_bits)"""
     raise NotImplementedError()
-    # Struct, MappedArray & BitField
+    # count number of BITS unknown & total bits
     # recurse down an instance to find unknown attrs
-    # calculate %age of bytes under unknown attrs
-    ...
-    # SpecialLumpClasses are tested against a table (import from .json)
+    # NOTE: SpecialLumpClasses are tested against a table (import from .json)
+    if not issubclass(LumpClass, (base.BitField, base.MappedArray, base.Struct)):
+        raise RuntimeError(f"cannot process '{LumpClass}'")
+    instance = LumpClass()
+    # NOTE: bits, not bytes; we care about bitfields
+    total_bits = len(instance.as_bytes()) * 8
+    num_unknown_bits = 0
+    if issubclass(LumpClass, base.Struct):
+        # TODO: zip attrs with _format substrings
+        for attr in instance.__slots__:
+            child = getattr(instance, attr)
+            if attr in instance._arrays or attr in instance._bitfields:
+                # recurse MappedArray / BitField
+                num_unknown_bits += calculate_coverage(child)[0]
+            else:
+                ...  # *8 for num_bits
+    elif issubclass(LumpClass, base.MappedArray):
+        # TODO: zip attrs with _format substrings
+        for attr in instance._mapping:
+            if isinstance(instance._mapping, dict):
+                child_mapping = instance._mapping[attr]
+                if child_mapping is not None:
+                    if isinstance(child_mapping, int):  # list
+                        ...
+                    elif isinstance(child_mapping, (list, dict)):  # MappedArray
+                        child = getattr(instance, attr)
+                        num_unknown_bits += calculate_coverage(child)[0]
+            if attr in instance._bitfields:  # recurse BitField
+                ...
+            else:
+                ...  # *8 for num_bits
+    elif issubclass(LumpClass, base.BitField):
+        num_unknown_bits = sum(
+            num_bits
+            for attr, num_bits in instance._fields.items()
+            if not attr.startswith("unknown"))
+    return (num_unknown_bits, total_bits)
 
 
 def register_classes(db: sqlite3.Connection, classes: List[object]) -> Dict[object, int]:
     indices = dict()
-    lump_classes = db.execute("SELECT (script, name, line, coverage) FROM LumpClass").fetchall()
-    scripts = db.execute("SELECT (name, short) FROM Script").fetchall()
+    lump_classes = db.execute("SELECT script, name, line, coverage FROM LumpClass").fetchall()
+    scripts = db.execute("SELECT name, short FROM Script").fetchall()
     quick_check = [(scripts[s][0], n) for s, n, l, c in lump_classes]
     new_lump_classes = list()
     new_scripts_start = len(scripts)
@@ -116,6 +152,9 @@ def process_source_branch(db: sqlite3.Connection, branch: ModuleType):
     db.executemany("INSERT INTO BranchLumpClass(branch, lump, class, version) VALUES(?, ?, ?, ?)", blcv)
 
 
+# TODO: branches.bspx
+
+
 def generate():
     db = sqlite3.connect(":memory:")
     branch_db.load_into(db)
@@ -131,7 +170,7 @@ def generate():
     for branch in bsp_tool.branches.quake_based:
         process_quake_branch(db, branch)
     for branch in bsp_tool.branches.source_based:
-        ...
+        process_source_branch(db, branch)
     ...
 
     # tables.append("BranchCoverage")  # VIEW
