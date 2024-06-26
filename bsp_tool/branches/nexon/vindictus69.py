@@ -259,7 +259,7 @@ class Node(base.Struct):  # LUMP 5
     __slots__ = ["plane", "children", "bounds", "first_face", "num_faces", "padding"]
     _format = "12i"
     _arrays = {"children": 2, "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
 class Overlay(base.Struct):  # LUMP 45
@@ -275,13 +275,13 @@ class Overlay(base.Struct):  # LUMP 45
     uv_points: List[List[float]]  # Vector[4]; 3D corners of the overlay?
     origin: List[float]
     normal: List[float]
-    __slots__ = ["id", "texture_info", "face_count_and_render_order",
-                 "faces", "u", "v", "uv_points", "origin", "normal"]
+    __slots__ = ["id", "texture_info", "bitfield", "faces", "u", "v", "uv_points", "origin", "normal"]
     _format = "2iI64i22f"
-    _arrays = {"faces": 64,  # OVERLAY_BSP_FACE_COUNT (src/public/bspfile.h:998)
-               "u": 2, "v": 2,
-               "uv_points": {P: [*"xyz"] for P in "ABCD"},
-               "origin": [*"xyz"], "normal": [*"xyz"]}
+    _arrays = {
+        "faces": 64,  # OVERLAY_BSP_FACE_COUNT (src/public/bspfile.h:998)
+        "u": 2, "v": 2,
+        "uv_points": {P: [*"xyz"] for P in "ABCD"},
+        "origin": [*"xyz"], "normal": [*"xyz"]}
     _bitfields = {"bitfield": {"render_order": 2, "num_faces": 30}}
     _classes = {"origin": vector.vec3, "normal": vector.vec3}
 

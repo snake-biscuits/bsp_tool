@@ -570,7 +570,7 @@ class Leaf(base.Struct):  # LUMP 10
     leaf_water_data: int  # index into LeafWaterData; -1 if not submerged
     padding: int  # should be 0; waste of a bitfield
     cube: List[List[int]]  # CompressedLightCube; unsure about orientation / face order
-    __slots__ = ["contents", "cluster", "area_flags", "bounds",
+    __slots__ = ["contents", "cluster", "bitfield", "bounds",
                  "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
                  "num_leaf_brushes", "leaf_water_data", "padding", "cube"]
     _format = "ihH6h4H2h24B"

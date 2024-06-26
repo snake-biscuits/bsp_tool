@@ -67,7 +67,10 @@ def test_Struct(LumpClass):
     assert not hasattr(LumpClass, "_fields"), "Struct doesn't use _fields"  # BitField only
     assert hasattr(LumpClass, "_arrays"), "use MappedArray for shallow Structs"
     assert all([a in LumpClass.__slots__ for a in LumpClass._arrays]), "typo / regression in _arrays"
-    # TODO: how does memory effeciency differ between Struct & MappedArray
+    assert all([a in LumpClass.__slots__ for a in LumpClass._bitfields if "." not in a]), "typo / regression in _bitfields"
+    assert all([a in LumpClass.__slots__ for a in LumpClass._classes if "." not in a]), "typo / regression in _classes"
+    # TODO: check nested _bitfields & _classes mappings (e.g. "attr.child")
+    # TODO: how does memory efficiency differ between Struct & MappedArray?
     # -- should we restrict use of MappedArray to _arrays definitions?
     LumpClass()  # must initialise once to generate struct_attr_formats entry
     _format_mapped = "".join(branches.base.struct_attr_formats[LumpClass].values())
@@ -87,6 +90,8 @@ def test_MappedArray(LumpClass):
         assert LumpClass.__slots__ == LumpClass._mapping  # __slots__ inherited from vector.vec3
     assert not hasattr(LumpClass, "_arrays"), "MappedArray doesn't use _arrays"  # Struct only
     assert not hasattr(LumpClass, "_fields"), "MappedArray doesn't use _fields"  # BitField only
+    assert all([a in LumpClass.__slots__ for a in LumpClass._bitfields if "." not in a]), "typo / regression in _bitfields"
+    # TODO: check nested _bitfields & _classes mappings (e.g. "attr.child")
     assert len(LumpClass._mapping) != 0, "forgot to create _mapping"
     _format_mapped = "".join(LumpClass()._attr_formats.values())  # <- __init__ called
     _format_expanded = "".join(branches.base.split_format(LumpClass._format))
@@ -104,6 +109,7 @@ def test_BitField(LumpClass):
     assert not hasattr(LumpClass, "__slots__"), "BitField doesn't use __slots__"  # Struct only
     assert not hasattr(LumpClass, "_arrays"), "BitField doesn't use _arrays"  # Struct only
     assert not hasattr(LumpClass, "_mapping"), "BitField doesn't use _mapping"  # MappedArray only
+    assert not hasattr(LumpClass, "_bitfields"), "BitField doesn't use _bitfields"  # Struct & MappedArray only
     assert len(LumpClass._fields) != 0, "forgot to create _fields"
     _format_bits = struct.calcsize(LumpClass._format) * 8
     _mapped_bits = sum(LumpClass._fields.values())
