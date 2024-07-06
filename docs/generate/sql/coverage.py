@@ -54,6 +54,8 @@ def calculate_coverage(LumpClass: object) -> (int, int):  # %age is (2nd - 1st) 
                     elif isinstance(child_mapping, (list, dict)):  # MappedArray
                         child = getattr(instance, attr)
                         num_unknown_bits += calculate_coverage(child)[0]
+                    elif child_mapping is None:
+                        ...  # *8 for num_bits
             if attr in instance._bitfields:  # recurse BitField
                 ...
             else:
