@@ -2,17 +2,10 @@
 from __future__ import annotations
 import io
 import struct
-from typing import Any, List
+from typing import List
 
+from ...utils.extensions.binary import read_struct
 from . import base
-
-
-def read_struct(file, format_: str) -> List[Any]:
-    out = struct.unpack(format_, file.read(struct.calcsize(format_)))
-    if len(out) == 1:
-        return out[0]
-    else:
-        return out
 
 
 class Bpk(base.Archive):

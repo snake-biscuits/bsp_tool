@@ -4,15 +4,9 @@ import enum
 import itertools
 import os
 import struct
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
-
-def read_struct(file, format_: str) -> List[Any]:
-    return struct.unpack(format_, file.read(struct.calcsize(format_)))
-
-
-def write_struct(file, format_: str, *args):
-    file.write(struct.pack(format_, *args))
+from ..utils.binary import read_struct, write_struct
 
 
 class Block(enum.Enum):
@@ -145,6 +139,7 @@ class StreamBsp:
         self.blocks = {b: BlockIndex(0, 0) for b in Block}
         # data
         self.materials = dict()
+        self.material_infos = list()
         self.vtfs = list()
         self.vmts = list()
         self.columns = list()

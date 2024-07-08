@@ -2,25 +2,10 @@ from __future__ import annotations
 import enum
 import io
 import os
-import struct
-from typing import Any, Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 
+from ...utils.binary import read_str, read_struct
 from . import base
-
-
-def read_str(binary_stream: io.BytesIO, encoding="utf-8", errors="strict") -> str:
-    """for tree parsing"""
-    out = b""
-    c = binary_stream.read(1)
-    while c != b"\0":
-        out += c
-        c = binary_stream.read(1)
-    return out.decode(encoding, errors)
-
-
-def read_struct(file, format_: str) -> Union[Any, List[Any]]:
-    out = struct.unpack(format_, file.read(struct.calcsize(format_)))
-    return out[0] if len(out) == 1 else out
 
 
 # TODO: determine actual partial flags (e.g. 0x01 == UI)
@@ -172,7 +157,7 @@ class VpkHeader:
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> VpkHeader:
-        magic, major, minor, tree_length, data_length = struct.unpack("I2H2I", stream.read(16))
+        magic, major, minor, tree_length, data_length = read_struct(stream, "I2H2I")
         assert magic == cls.magic, "invalid file magic"
         assert major == cls.version[0], "unsupported major version"
         assert minor == cls.version[1], "unsupported minor version"
@@ -195,7 +180,7 @@ class VpkEntry:
     @classmethod
     def from_stream(cls, vpk_file: io.BytesIO) -> VpkEntry:
         out = cls()
-        out.crc, out.preload_length = struct.unpack("IH", vpk_file.read(6))
+        out.crc, out.preload_length = read_struct(vpk_file, "IH")
         # file parts
         file_part = VpkFilePart.from_stream(vpk_file)
         while not file_part.is_terminator:
@@ -219,12 +204,12 @@ class VpkFilePart:
     @classmethod
     def from_stream(cls, vpk_file: io.BytesIO) -> VpkFilePart:
         out = cls()
-        out.archive_index = int.from_bytes(vpk_file.read(2), "little")
+        out.archive_index = read_struct(vpk_file, "H")
         if out.archive_index == 0xFFFF:
             out.is_terminator = True
             return out
-        out.load_flags = int.from_bytes(vpk_file.read(2), "little")  # uint16_t
-        out.texture_flags = int.from_bytes(vpk_file.read(4), "little")  # uint32_t
-        out.entry_offset, out.entry_length, out.entry_length_uncompressed = struct.unpack("3Q", vpk_file.read(24))
+        out.load_flags = read_struct(vpk_file, "H")
+        out.texture_flags = read_struct(vpk_file, "I")
+        out.entry_offset, out.entry_length, out.entry_length_uncompressed = read_struct(vpk_file, "3Q")
         out.is_compressed = (out.entry_length != out.entry_length_uncompressed)
         return out
