@@ -1,5 +1,6 @@
-__all__ = ["editor", "geometry", "physics", "texture", "vector"]
+__all__ = ["binary", "editor", "geometry", "physics", "texture", "vector"]
 
+from . import binary
 from . import editor
 from . import geometry
 from . import physics
