@@ -4,7 +4,7 @@ import io
 import struct
 from typing import List
 
-from ...utils.extensions.binary import read_struct
+from ...utils.binary import read_struct
 from . import base
 
 
