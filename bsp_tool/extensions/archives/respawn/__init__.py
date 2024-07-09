@@ -1,65 +1,14 @@
 from __future__ import annotations
-import enum
 import io
 import os
 from typing import Dict, List, Tuple
 
-from ...utils.binary import read_str, read_struct
-from . import base
+from ....utils.binary import read_str, read_struct
+from .. import base
+from .rpak import RPak
 
 
-# TODO: determine actual partial flags (e.g. 0x01 == UI)
-class RPakTypev7(enum.IntFlag):
-    """observed, could be wrong in some way"""
-    SKIN = 0x0000
-    UI = 0x0101
-    COMMON = 0x0100
-
-
-class RPakTypev8(enum.IntFlag):
-    """observed (8 July 2024), could be wrong in some way"""
-    SKIN = 0x0000  # haven't checked for exceptions
-    CLIENT_TEMP = 0x0024  # entities & rendered geo
-    STARTUP = 0x0224  # also some client_temp
-    UI = 0x0225
-    PRIORITY_MAP = 0x0228  # lobby & firing range materials
-    COMMON_MAP = 0x022C  # client_perm, startup, scripts etc.
-
-
-class RPak(base.Archive):
-    # Apex Season 18 & onwards store .bsp files in "wrap" (oodle compression)
-    # shadersets, materials, textures & models for io_import_rbsp
-    ext = "*.rpak"  # + "*.starpak"
-    version: int
-
-    _versions = {
-        7: "Titanfall 2",
-        8: "Apex Legends"}
-
-    def __init__(self, filename: str):
-        with open(filename, "rb") as rpak_file:
-            self._from_stream(rpak_file)
-
-    def __repr__(self) -> str:
-        return f"<RPak v{self.version} ({self.type.name}) ??? files @ 0x{id(self):016X}>"
-
-    def _from_stream(self, stream: io.BytesIO):
-        assert stream.read(4) == b"RPak"
-        self.version = read_struct(stream, "H")
-        assert self.version in self._versions, f"unknown version: {self.version}"
-        type_ = read_struct(stream, "H")
-        if self.version == 7:
-            self.type = RPakTypev7(type_)
-        elif self.version == 8:
-            self.type = RPakTypev8(type_)
-        else:
-            self.type = type_
-        # TODO: parse the rest of the header
-        # -- list all assets etc.
-
-    # TODO: extract()
-    # TODO: namelist()
-    # TODO: read()
+__all__ = ["RPak", "Vpk"]
 
 
 class Vpk(base.Archive):
@@ -130,7 +79,7 @@ class Vpk(base.Archive):
     def extract(self, filename: str, path=None):
         assert filename in self.files
         if path is not None:
-            raise NotImplementedError("Cannot target a out folder yet")
+            raise NotImplementedError("Cannot target an out folder yet")
         raise NotImplementedError()
         with open(os.path.join("" if path is None else path, filename), "w") as out_file:
             out_file.write(self.read(filename))
