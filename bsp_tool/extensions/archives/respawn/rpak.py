@@ -1,4 +1,5 @@
 # https://github.com/r-ex/LegionPlus/
+from __future__ import annotations
 import datetime
 import enum
 import io
@@ -96,9 +97,6 @@ class AssetEntryv6(MappedArray):  # also v7
         "subheader_size", "version", "magic"]
     _format = "2Q4IQ2H6I4s"
 
-    def __repr__(self) -> str:
-        return f"<AssetEntryv6 {self.magic.decode()}_{self.name_hash:016X} @ 0x{id(self):016X}>"
-
 
 class AssetEntryv8(MappedArray):
     _mapping = [
@@ -107,9 +105,6 @@ class AssetEntryv8(MappedArray):
         "first_relation", "uses_start_index", "num_relations", "uses_count",
         "subheader_size", "version", "magic"]
     _format = "2Q4i2q2h6I4s"
-
-    def __repr__(self) -> str:
-        return f"<AssetEntryv8 {self.magic.decode()}_{self.name_hash:016X} @ 0x{id(self):016X}>"
 
 
 class RPakHeaderv6(MappedArray):
@@ -230,11 +225,11 @@ class RPak(base.Archive):
         # StaRPak references
         self.starpaks = [
             fn.decode("utf-8", "strict")
-            for fn in stream.read(self.header.len_starpak_ref)[:-1].split(b"\0")]
+            for fn in stream.read(self.header.len_starpak_ref).split(b"\0")][:-1]
         if self.version == 8:
             self.optimal_starpaks = [
                 fn.decode("utf-8", "strict")
-                for fn in stream.read(self.header.len_opt_starpak_ref)[:-1].split(b"\0")]
+                for fn in stream.read(self.header.len_opt_starpak_ref).split(b"\0")][:-1]
         self.virtual_segments = [
             VirtualSegment.from_stream(stream)
             for i in range(self.header.num_virtual_segments)]
@@ -273,3 +268,27 @@ class RPak(base.Archive):
     def read(self, filepath: str) -> bytes:
         assert filepath in self.namelist()
         raise NotImplementedError("cannot parse StaRPak")
+
+
+# StaRPak
+class StreamEntry(MappedArray):
+    _mapping = ["offset", "size"]
+    _format = "2Q"
+
+
+class StaRPak:
+    # https://github.com/r-ex/LegionPlus/blob/main/Legion/src/RpakLib.cpp
+    # -- RpakLib::MountStarpak
+    entries: List[StreamEntry] = list()
+
+    @classmethod
+    def from_file(cls, filepath: str) -> StaRPak:
+        with open(filepath, "rb") as starpak_file:
+            assert read_struct(starpak_file, "4s") == b"SRPk"
+            assert read_struct(starpak_file, "I") == 1  # version?
+            out = cls()
+            starpak_file.seek(-8, 2)
+            num_entries = read_struct(starpak_file, "Q")
+            starpak_file.seek(-(8 + num_entries * 16), 2)
+            out.entries = [StreamEntry.from_stream(starpak_file) for i in range(num_entries)]
+            return out
