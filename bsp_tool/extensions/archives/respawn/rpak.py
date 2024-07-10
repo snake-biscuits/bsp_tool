@@ -11,10 +11,37 @@ from ....utils.binary import read_struct
 from .. import base
 
 
+# enums
 versions = {
     6: "Titanfall 2 Tech Test",
     7: "Titanfall 2",
     8: "Apex Legends"}
+# ^ {version: game}
+
+
+asset_type = {
+    b"arig": "Animation rig",
+    b"aseq": "Animation",
+    b"dtbl": "DataTable",
+    b"efct": "Effect",  # *.pcf ?
+    b"matl": "Material",
+    b"mdl_": "Model",
+    b"Ptch": "Patch",  # patches another asset
+    b"rmap": "Map",
+    b"rson": "RSON",  # Respawn JSON
+    b"shdr": "Shader",
+    b"shds": "Shader set",  # e.g. {vertex_X, fragment_Y}
+    b"stgs": "Settings",
+    b"stlt": "Settings layout",
+    b"subt": "Subtitles",
+    b"txan": "Animated texture",
+    b"txtr": "Texture",
+    b"ui":   "RUI",  # Respawn UI
+    b"uiia": "UIIA",
+    b"uimg": "UI image atlas",
+    b"wrap": "Wrap",  # plain text or binary file
+    b"vers": "Patch version"}  # assumed
+# {b"magic": "description"
 
 
 class Compression(enum.Enum):
@@ -23,6 +50,21 @@ class Compression(enum.Enum):
     OODLE = 0x02
 
 
+class HeaderFlags(enum.IntFlag):
+    """all guesses"""
+    # NOTE: R5 flags only use the bottom byte
+    # TODO: r2tt
+    # r2
+    SKIN = 0x0000  # haven't checked r5 for exceptions
+    UI = 0x0001
+    COMMON_R2 = 0x0100
+    # r5
+    UNKNOWN_1 = 0x04  # entities & rendered geo + startup.rpak
+    UNKNOWN_2 = 0x08  # lobby & firing range temp & materials
+    R5 = 0x20  # always present (for season 21 anyway)
+
+
+# utility classes
 class FileTime:
     # NOTE: FILETIME epoch is 1601-01-01
     epoch_offset = 0x019DB1DED53E8000  # 1970-01-01 as FILETIME
@@ -42,20 +84,6 @@ class FileTime:
         return datetime.datetime.utcfromtimestamp(timestamp)
 
     # TODO: .from_datetime / .now @classmethod(s)
-
-
-class HeaderFlags(enum.IntFlag):
-    """all guesses"""
-    # NOTE: R5 flags only use the bottom byte
-    # TODO: r2tt
-    # r2
-    SKIN = 0x0000  # haven't checked r5 for exceptions
-    UI = 0x0001
-    COMMON_R2 = 0x0100
-    # r5
-    UNKNOWN_1 = 0x04  # entities & rendered geo + startup.rpak
-    UNKNOWN_2 = 0x08  # lobby & firing range temp & materials
-    R5 = 0x20  # always present (for season 21 anyway)
 
 
 # other header data
