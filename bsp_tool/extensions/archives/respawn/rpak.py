@@ -72,6 +72,7 @@ class CompressPair(MappedArray):
 
 
 class VirtualSegment(MappedArray):
+    flags: int  # if 64 is set, this virtual segment is in another file
     _mapping = ["flags", "type", "size"]
     _format = "2IQ"
     # TODO: flags & type enums
@@ -173,7 +174,9 @@ class RPakHeaderv8(MappedArray):
 
 
 class RPak(base.Archive):
-    ext = "*.rpak"  # + "*.starpak"
+    ext = "*.rpak"
+    filepath: str
+    filename: str
     version: int
     header: Union[RPakHeaderv6, RPakHeaderv7, RPakHeaderv8]
     starpaks: List[str]
@@ -191,8 +194,10 @@ class RPak(base.Archive):
         8: AssetEntryv8}
     # ^ {version: AssetEntry}
 
-    def __init__(self, filename: str):
-        with open(filename, "rb") as rpak_file:
+    def __init__(self, filepath: str):
+        self.filepath = filepath
+        self.filename = os.path.basename(filepath)
+        with open(filepath, "rb") as rpak_file:
             self._from_stream(rpak_file)
 
     def __repr__(self) -> str:
@@ -248,6 +253,17 @@ class RPak(base.Archive):
             for i in range(self.header.num_guid_descriptors)]
         self.relations = read_struct(stream, f"{self.header.num_relations}I")
         # TODO: parse the rest of the file
+        # virtual_segment data (unless flags & 0x40) & some other unknown data
+        self.data = stream.read()
+
+    def virtual_segment_data(self, index: int) -> bytes:
+        assert index < len(self.virtual_segments)
+        start = sum(vs.size for vs in self.virtual_segments[:index] if not vs.flags & 64)
+        length = self.virtual_segments[index].size
+        return self.data[start:start + length]
+
+    # TODO: memory_page_data(self, index: int) -> bytes:
+    # -- should be inside a virtual_segment, need relative offset
 
     def extract(self, filepath: str, path=None):
         assert filepath in self.namelist()
@@ -259,9 +275,15 @@ class RPak(base.Archive):
 
     def namelist(self) -> List[str]:
         # we cannot reverse name hashes
-        # true filenames have to be derived from StarPak assets
         if self.header.compression is not Compression.NONE:
             raise NotImplementedError("cannot decompress asset_entries")
+        elif any(vs.flags == 1 and vs.type == 1 for vs in self.virtual_segments):
+            # TODO: catch in _from_stream & convert to Dict[str, AssetEntry]
+            names_segment_index = [i for i, vs in enumerate(self.virtual_segments) if vs.flags == 1 and vs.type == 1][0]
+            raw_names = self.virtual_segment_data(names_segment_index)
+            names = [fn.decode() for fn in raw_names.split(b"\0")[:-1]]
+            assert len(names) == len(self.asset_entries)
+            return sorted(names)
         else:
             return sorted(f"{ae.magic.decode()}_{ae.name_hash:016X}" for ae in self.asset_entries)
 
@@ -277,8 +299,10 @@ class StreamEntry(MappedArray):
 
 
 class StaRPak:
+    # NOTE: not an archive! just contains data for RPak
     # https://github.com/r-ex/LegionPlus/blob/main/Legion/src/RpakLib.cpp
     # -- RpakLib::MountStarpak
+    ext = "*.starpak"  # or "*.opt.starpak"
     entries: List[StreamEntry] = list()
 
     @classmethod
