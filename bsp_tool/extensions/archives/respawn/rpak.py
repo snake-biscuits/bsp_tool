@@ -20,15 +20,20 @@ versions = {
 
 
 asset_type = {
+    b"anir": "Unknown",  # in r2tt/r2 sp_training.rpak
     b"arig": "Animation rig",
     b"aseq": "Animation",
     b"dtbl": "DataTable",
     b"efct": "Effect",  # *.pcf ?
+    b"font": "Font",  # only in ui.rpak
+    b"hsys": "Highlight System?",  # only in highlight.rpak
     b"matl": "Material",
     b"mdl_": "Model",
     b"Ptch": "Patch",  # patches another asset
     b"rmap": "Map",
+    b"rpsk": "Unknown",  # only in particle_scripts.rpak
     b"rson": "RSON",  # Respawn JSON
+    b"rlcd": "Unknown",  # only in common.rpak
     b"shdr": "Shader",
     b"shds": "Shader set",  # e.g. {vertex_X, fragment_Y}
     b"stgs": "Settings",
@@ -36,7 +41,7 @@ asset_type = {
     b"subt": "Subtitles",
     b"txan": "Animated texture",
     b"txtr": "Texture",
-    b"ui":   "RUI",  # Respawn UI
+    b"ui\0\0": "RUI",  # Respawn UI
     b"uiia": "UIIA",
     b"uimg": "UI image atlas",
     b"wrap": "Wrap",  # plain text or binary file
@@ -145,7 +150,7 @@ class RPakHeaderv6(MappedArray):
     num_unknown_1: int  # length of penultimate uint32_t header block
     num_unknown_2: int  # bytesize of final header block
     # defaults
-    # TODO: compression
+    compression: Compression = Compression.NONE
     patch_index: int = 0
 
     _mapping = [
