@@ -1,4 +1,5 @@
 import io
+import itertools
 import struct
 from typing import Any, Generator, List, Union
 
@@ -21,16 +22,37 @@ def write_struct(stream: io.BytesIO, format_: str, *args):
     stream.write(struct.pack(format_, *args))
 
 
-def xxd(stream: io.BytesIO, limit, start=0, row=32, group=4) -> Generator[str, None, None]:
+def xxd_stream(stream: io.BytesIO, start=0, limit=None, row=32, group=4) -> Generator[str, None, None]:
     """inline hex view"""
     # NOTE: start is just to make offset nice and readable; NO SEEKING!
     # TODO: if limit is None: read until end of stream
     # TODO: test we catch tails if they don't divide evenly
     # -- pad tail hex_ with spaces to align txt_
-    for offset in range(0, limit, row):
+    for i in itertools.count():
+        offset = i * row
+        if limit is not None and offset >= limit:
+            return  # reached limit
         bytes_ = stream.read(row)
+        if len(bytes_) == 0:
+            return  # reached end of stream
         hex_ = bytes_.hex().upper()
         if group is not None:
             hex_ = " ".join(hex_[i:i + group * 2] for i in range(0, row * 2, group * 2))
         txt_ = "".join(chr(c) if chr(c).isprintable() else "." for c in bytes_)
         yield f"{start + offset:04X} | {hex_}  {txt_}"
+
+
+def xxd_bytes(bytes_: bytes, start=0, limit=None, row=32, group=4) -> Generator[str, None, None]:
+    if limit is None:
+        limit = len(bytes_)
+    for line in xxd_stream(io.BytesIO(bytes_[start:start + limit]), start, limit, row, group):
+        yield line
+
+
+def xxd(stream_or_bytes: Union[io.BytesIO, bytes], limit=None, start=0, row=32, group=4):
+    if isinstance(stream_or_bytes, bytes):
+        xxd_func = xxd_bytes
+    else:  # io.BytesIO or binary file
+        xxd_func = xxd_stream
+    for line in xxd_func(stream_or_bytes, start, limit, row, group):
+        print(line)
