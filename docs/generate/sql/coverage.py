@@ -2,6 +2,7 @@ from collections import defaultdict
 import inspect
 # import json
 import sqlite3
+import struct
 import sys
 from types import ModuleType
 from typing import Dict, List
@@ -24,47 +25,74 @@ def short_script_name(module: ModuleType) -> str:
 
 def calculate_coverage(LumpClass: object) -> (int, int):  # %age is (2nd - 1st) / 2nd
     """yields (num_unknown_bits, total_bits)"""
-    raise NotImplementedError()
-    # count number of BITS unknown & total bits
-    # recurse down an instance to find unknown attrs
     # NOTE: SpecialLumpClasses are tested against a table (import from .json)
     if not issubclass(LumpClass, (base.BitField, base.MappedArray, base.Struct)):
         raise RuntimeError(f"cannot process '{LumpClass}'")
-    instance = LumpClass()
-    # NOTE: bits, not bytes; we care about bitfields
-    total_bits = len(instance.as_bytes()) * 8
-    num_unknown_bits = 0
+    lump_class = LumpClass()
     if issubclass(LumpClass, base.Struct):
-        # TODO: zip attrs with _format substrings
-        for attr in instance.__slots__:
-            child = getattr(instance, attr)
-            if attr in instance._arrays or attr in instance._bitfields:
-                # recurse MappedArray / BitField
-                num_unknown_bits += calculate_coverage(child)[0]
-            else:
-                ...  # *8 for num_bits
+        return calculate_coverage_Struct(lump_class)
     elif issubclass(LumpClass, base.MappedArray):
-        # TODO: zip attrs with _format substrings
-        for attr in instance._mapping:
-            if isinstance(instance._mapping, dict):
-                child_mapping = instance._mapping[attr]
-                if child_mapping is not None:
-                    if isinstance(child_mapping, int):  # list
-                        ...
-                    elif isinstance(child_mapping, (list, dict)):  # MappedArray
-                        child = getattr(instance, attr)
-                        num_unknown_bits += calculate_coverage(child)[0]
-                    elif child_mapping is None:
-                        ...  # *8 for num_bits
-            if attr in instance._bitfields:  # recurse BitField
-                ...
-            else:
-                ...  # *8 for num_bits
+        return calculate_coverage_MappedArray(lump_class)
     elif issubclass(LumpClass, base.BitField):
-        num_unknown_bits = sum(
-            num_bits
-            for attr, num_bits in instance._fields.items()
-            if not attr.startswith("unknown"))
+        return calculate_coverage_BitField(lump_class)
+
+
+# TODO: catch _bitfields = {"attr.child": ...}
+def calculate_coverage_Struct(lump_class: base.Struct) -> (int, int):
+    total_bits = len(lump_class.as_bytes()) * 8
+    num_unknown_bits = 0
+    # NOTE: bits, not bytes; we care about bitfields
+    format_ = base.split_format(lump_class._format)
+    attr_start = 0
+    for attr in lump_class.__slots__:
+        child = getattr(lump_class, attr)
+        attr_length = 1
+        if attr in lump_class._arrays:
+            attr_length = base.mapping_length(lump_class._arrays[attr])
+            num_unknown_bits += calculate_coverage_MappedArray(child)[0]
+        elif attr in lump_class._bitfields:
+            num_unknown_bits += calculate_coverage_BitField(child)[0]
+        # NOTE: it's possible to have an "unknown" attr w/ non-unknown children
+        # -- that's confusing tho, so we'll count those children as unknown no matter what
+        if attr.startswith("unknown"):
+            attr_format = "".join(format_[attr_start:attr_start + attr_length])
+            num_unknown_bits += struct.calcsize(attr_format) * 8
+        attr_start += attr_length
+    return (num_unknown_bits, total_bits)
+
+
+def calculate_coverage_MappedArray(lump_class: base.MappedArray) -> (int, int):
+    # NOTE: we recieve an instance, so attrs should be correct
+    total_bits = len(lump_class.as_bytes()) * 8
+    num_unknown_bits = 0
+    # NOTE: bits, not bytes; we care about bitfields
+    format_ = base.split_format(lump_class._format)
+    attr_start = 0
+    for attr in lump_class._mapping:
+        attr_length = 1
+        if isinstance(lump_class._mapping, dict):  # nested mappings
+            child_mapping = lump_class._mapping[attr]
+            attr_length = base.mapping_length(child_mapping)
+            if child_mapping is not None and isinstance(child_mapping, (list, dict)):
+                child = getattr(lump_class, attr)
+                num_unknown_bits += calculate_coverage_MappedArray(child)[0]
+        elif attr in lump_class._bitfields:
+            num_unknown_bits += calculate_coverage_BitField(child)[0]
+        # NOTE: it's possible to have an "unknown" attr w/ non-unknown children
+        # -- that's confusing tho, so we'll count those children as unknown no matter what
+        if attr.startswith("unknown"):
+            attr_format = "".join(format_[attr_start:attr_start + attr_length])
+            num_unknown_bits += struct.calcsize(attr_format) * 8
+        attr_start += attr_length
+    return (num_unknown_bits, total_bits)
+
+
+def calculate_coverage_BitField(LumpClass: base.BitField) -> (int, int):
+    total_bits = len(LumpClass().as_bytes()) * 8
+    num_unknown_bits = sum(
+        num_bits
+        for attr, num_bits in LumpClass._fields.items()
+        if attr.startswith("unknown"))
     return (num_unknown_bits, total_bits)
 
 
