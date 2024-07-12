@@ -1,5 +1,5 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
-"""Vindictus. A MMO-RPG build in the Source Engine. Also known as Mabinogi Heroes"""
+"""Vindictus. A MMO-RPG built in the Source Engine. Also known as Mabinogi Heroes"""
 import enum
 from typing import List
 
