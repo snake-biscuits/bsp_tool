@@ -51,7 +51,7 @@ asset_type = {
 
 class Compression(enum.Enum):
     NONE = 0x00
-    RESPAWN = 0x01  # LZHAM?
+    RESPAWN = 0x01  # Proprietary "rtech"
     OODLE = 0x02
 
 
