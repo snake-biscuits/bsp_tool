@@ -20,14 +20,17 @@ class MRVNRadiant:
         return f"<MRVNRadiant (version: {self.version}, time: {time})>"
 
     def __str__(self) -> str:
-        lines = [self.motd,
-                 f"Version:        {self.version}",
-                 f"Time:           {self.time.strftime(self._time_format)}"]
+        lines = [
+            self.motd,
+            f"Version:        {self.version}",
+            f"Time:           {self.time.strftime(self._time_format)}"]
         return "\n".join(lines)
 
     @classmethod
     def from_bytes(cls, raw_signature) -> MRVNRadiant:
-        motd, version, time = (raw_signature[i * 64:(i + 1) * 64].rstrip(b"\0").decode() for i in range(3))
+        motd, version, time = (
+            raw_signature[i * 64:(i + 1) * 64].rstrip(b"\0").decode()
+            for i in range(3))
         assert re.match(r"Built with love using MRVN-[rR]adiant :\)", motd)
         assert version.startswith("Version:")
         version = re.match(r"Version:\s+(.*)", version).groups()[0]
@@ -40,7 +43,9 @@ class MRVNRadiant:
     def as_bytes(self) -> bytes:
         lines = str(self).split("\n")
         lines[-1] += "\n"
-        return b"".join([L.encode() + b"\0" * (64 - len(L)) for L in lines])
+        return b"".join([
+            L.encode() + b"\0" * (64 - len(L))
+            for L in lines])
 
 
 AnySignatureClass = Union[MRVNRadiant]
