@@ -4,7 +4,7 @@ version = "0.5.0"
 description = "Python library for analysing .bsp files"
 readme = "README.md"
 requires-python=">=3.8"
-license = {file = "LICENSE"}
+license = {file = "LICENSE.txt"}
 keywords = ["bsp", "quake", "source", "cod", "titanfall", "idtech"]
 authors = [
     {name="snake-biscuits", email="haveanotherbiscuit@gmail.com"},
