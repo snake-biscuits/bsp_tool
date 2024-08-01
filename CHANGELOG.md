@@ -11,12 +11,13 @@
    - parse `.map` & `.vmf`
    - compare uncompiled maps to `.bsp`
  * `utils`
-  - `editor`
-  - `geometry`
-  - `physics`
-  - `texture`
+   - `binary`
+   - `editor`
+   - `geometry`
+   - `physics`
+   - `texture`
  * `NexonBsp`
-  - thanks `cso2` big-endian `fourCC`
+   - thanks `cso2` big-endian `fourCC`
  * `BSPX` lumps can be parsed with `bspx.BspX`
 
 ### Changed
