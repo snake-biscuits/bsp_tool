@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.5.0 (??? 2024)
+## v0.5.0 (1 August 2024)
 
 ### New
  * `__init__` methods for all SpecialLumpClasses
