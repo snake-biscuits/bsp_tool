@@ -1,4 +1,5 @@
 from __future__ import annotations
+import io
 import os
 import struct
 from types import MethodType, ModuleType
@@ -24,19 +25,13 @@ class Bsp:
     # ^ {"LUMP.name": Error("details")}
     signature: bytes = b""  # compiler signature; sometimes found between header & data
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        if not filename.lower().endswith(".bsp"):
+    def __init__(self, branch: ModuleType, filepath: str = "untitled.bsp"):
+        if not filepath.lower().endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
-        filename = os.path.realpath(filename)
-        self.folder, self.filename = os.path.split(filename)
+        filepath = os.path.realpath(filepath)
+        self.folder, self.filename = os.path.split(filepath)
         self.set_branch(branch)
         self.headers = dict()
-        if autoload:
-            if os.path.exists(filename):
-                self._preload()
-            else:
-                print(f"{filename} not found, creating a new .bsp")
-                self.headers = {L.name: self.branch.LumpHeader() for L in self.branch.LUMP}
 
     def __enter__(self):
         return self
@@ -63,6 +58,7 @@ class Bsp:
             self.signature = self.file.read(lumps_start - header_length)
 
     def _tail(self) -> bytes:
+        """for catching appended XBSP data"""
         # NOTE: lumps_end can be greater than self.filesize
         # -- specifically for RespawnBsp vXX.1 (Apex Legends season 10+)
         lumps_end = max(h.offset + h.length for h in self.headers.values())
@@ -76,10 +72,6 @@ class Bsp:
             lump_header = self.branch.LumpHeader.from_stream(self.file)
             self.headers[LUMP.name] = lump_header
             yield (LUMP.name, lump_header)
-
-    def _preload(self):
-        """parse .bsp data & prepare dynamic readers"""
-        raise NotImplementedError()
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """convert the named lump back into bytes"""
@@ -127,7 +119,6 @@ class Bsp:
         # -- otherwise a write conflict will occur
         # NOTE: you should really be making backups anyway
         self.save_as(os.path.join(self.folder, self.filename))
-        self._preload()  # reload self.file
 
     def set_branch(self, branch: ModuleType):
         """Calling .set_branch(...) on a loaded .bsp will not convert it!"""
@@ -141,3 +132,15 @@ class Bsp:
         for method_name, method in getattr(branch, "methods", dict()).items():
             method = MethodType(method, self)
             setattr(self, method_name, method)
+
+    @classmethod
+    def from_bytes(cls, branch: ModuleType, filepath: str, raw_bsp: bytes) -> Bsp:
+        return cls.from_stream(branch, filepath, io.BytesIO(raw_bsp))
+
+    @classmethod
+    def from_file(cls, branch: ModuleType, filepath: str) -> Bsp:
+        return cls.from_stream(branch, filepath, open(filepath, "rb"))
+
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> Bsp:
+        raise NotImplementedError()

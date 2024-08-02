@@ -87,15 +87,15 @@ def map_dirs_to_test(*map_dirs: List[str], ext: str = "*.bsp"):
 
 def save_and_diff_backup(BspClass: object, branch_script: ModuleType, map_path: str) -> str:
     """quick & lazy test; more specific tests should also be performed"""
-    bsp = BspClass(branch_script, map_path)
+    bsp = BspClass.from_file(branch_script, map_path)
     bsp.save()
     filename_ext = os.path.join(bsp.folder, bsp.filename)
     del bsp  # close the file & free data
     # get filename of pre-save backup
     filename, ext = os.path.splitext(filename_ext)  # ext includes "."
     filename_bak_ext = f"{filename}.bak{ext}"
-    old_bsp = BspClass(branch_script, filename_bak_ext)  # original file
-    new_bsp = BspClass(branch_script, filename_ext)  # saved copy
+    old_bsp = BspClass.from_file(branch_script, filename_bak_ext)  # original file
+    new_bsp = BspClass.from_file(branch_script, filename_ext)  # saved copy
     return diff_bsps.BspDiff(old_bsp, new_bsp)
 
 

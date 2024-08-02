@@ -1,7 +1,8 @@
+from __future__ import annotations
+import io
 import os
 from types import ModuleType
 from typing import Dict
-import warnings
 
 from . import id_software
 
@@ -16,20 +17,14 @@ class InfinityWardBsp(id_software.IdTechBsp):
     # -- cod2map.exe creates .d3dbsp, but extracting these from fastfiles may prove difficult
     # -- lumps may be split across multiple files
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        if not (filename.lower().endswith(".bsp") or filename.lower().endswith(".d3dbsp")):
+    def __init__(self, branch: ModuleType, filepath: str = "untitled.bsp"):
+        if not (filepath.lower().endswith(".bsp") or filepath.lower().endswith(".d3dbsp")):
             # ^ slight alteration to allow .d3dbsp extension
             raise RuntimeError("Not a .bsp")
-        filename = os.path.realpath(filename)
-        self.folder, self.filename = os.path.split(filename)
+        filepath = os.path.realpath(filepath)
+        self.folder, self.filename = os.path.split(filepath)
         self.set_branch(branch)
         self.headers = dict()
-        if autoload:
-            if os.path.exists(filename):
-                self._preload()
-            else:
-                warnings.warn(UserWarning(f"{filename} not found, creating a new .bsp"))
-                self.headers = {L.name: self.branch.LumpHeader() for L in self.branch.LUMP}
 
 
 class D3DBsp(InfinityWardBsp):
@@ -42,36 +37,34 @@ class D3DBsp(InfinityWardBsp):
     # -- cod3map.exe creates .d3dbsp, but extracting these from fastfiles may prove difficult
     # -- lumps are possibly divided into multiple files throughout the fastfile (*.ff)
 
-    def _preload(self):
-        """Loads filename using the format outlined in this .bsp's branch defintion script"""
-        # collect files
-        local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
-        self.associated_files = [f for f in local_files if is_related(f)]
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> D3DBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
         # collect metadata
-        file_magic = self.file.read(4)
-        assert file_magic == self.file_magic, f"{self.file} is not a valid D3DBsp!"
-        self.version = int.from_bytes(self.file.read(4), "little")
-        self.lump_count = int.from_bytes(self.file.read(4), "little")
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        file_magic = bsp.file.read(4)
+        assert file_magic == bsp.file_magic, f"{bsp.file} is not a valid D3DBsp!"
+        bsp.version = int.from_bytes(bsp.file.read(4), "little")
+        bsp.lump_count = int.from_bytes(bsp.file.read(4), "little")
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        cursor = 12 + (self.lump_count * 8)  # end of headers; for "reading" lumps
-        for i in range(self.lump_count):
-            self.file.seek(12 + 8 * i)
-            lump_header = self.branch.LumpHeader.from_stream(self.file)
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        cursor = 12 + (bsp.lump_count * 8)  # end of headers; for "reading" lumps
+        for i in range(bsp.lump_count):
+            bsp.file.seek(12 + 8 * i)
+            lump_header = bsp.branch.LumpHeader.from_stream(bsp.file)
             if lump_header.id != 0x07:  # UNKNOWN_7 is padded to every 2nd byte?
                 cursor = cursor + (4 - cursor & 3)
             lump_header.offset = cursor
             cursor += lump_header.length
-            lump_header.name = self.branch.LUMP(lump_header.id).name
-            self.headers[lump_header.name] = lump_header
-            BspLump = self._preload_lump(lump_header.name, lump_header)
+            lump_header.name = bsp.branch.LUMP(lump_header.id).name
+            bsp.headers[lump_header.name] = lump_header
+            BspLump = bsp.mount_lump(lump_header.name, lump_header, bsp.file)
             if BspLump is not None:
-                setattr(self, lump_header.name, BspLump)
+                setattr(bsp, lump_header.name, BspLump)
+        return bsp
 
     def print_headers(self):
         print(f"{'LUMP.name':<24s} OFFSET LENGTH", "-" * 38, sep="\n")

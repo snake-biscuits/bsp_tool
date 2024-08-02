@@ -1,4 +1,7 @@
+from __future__ import annotations
+import io
 import os
+from types import ModuleType
 from typing import Any, Dict
 
 from . import base
@@ -15,40 +18,43 @@ class QuakeBsp(base.Bsp):
         version = f"(version {self.version})"  # no file_magic
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
 
-    def _preload_lump(self, lump_name: str, lump_header: Any):
+    def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
             return
         try:
             if lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name]
-                BspLump = lumps.BspLump.from_header(self.file, lump_header, LumpClass)
+                BspLump = lumps.BspLump.from_header(stream, lump_header, LumpClass)
             elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name]
-                self.file.seek(lump_header.offset)
-                BspLump = SpecialLumpClass.from_bytes(self.file.read(lump_header.length))
+                stream.seek(lump_header.offset)
+                BspLump = SpecialLumpClass.from_bytes(stream.read(lump_header.length))
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name]
-                BspLump = lumps.BasicBspLump.from_header(self.file, lump_header, LumpClass)
+                BspLump = lumps.BasicBspLump.from_header(stream, lump_header, LumpClass)
             else:
-                BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
+                BspLump = lumps.RawBspLump.from_header(stream, lump_header)
         except Exception as exc:
             self.loading_errors[lump_name] = exc
-            BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
+            BspLump = lumps.RawBspLump.from_header(stream, lump_header)
         setattr(self, lump_name, BspLump)
 
-    def _preload(self):
-        # collect files
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filename: str, stream: io.BytesIO) -> QuakeBsp:
+        bsp = cls(branch, filename)
+        bsp.file = stream
         # collect metadata
-        self.version = int.from_bytes(self.file.read(4), "little")
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        bsp.version = int.from_bytes(bsp.file.read(4), "little")
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=4):
-            self._preload_lump(lump_name, lump_header)
+        bsp.headers: Dict[str, object] = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=4):
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
         # TODO: detect additional BSPX data appended to end of file
+        # -- if b"BSPX" in self._tail(): ...
+        return bsp
 
 
 class ReMakeQuakeBsp(QuakeBsp):
@@ -64,22 +70,24 @@ class ReMakeQuakeBsp(QuakeBsp):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script}>"
 
-    def _preload(self):
-        # collect files
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> ReMakeQuakeBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
         # collect metadata
-        file_magic = self.file.read(4)
-        if file_magic != self.file_magic and file_magic != bytes(reversed(self.file_magic)):
-            raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
-        self.file_magic = file_magic
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        file_magic = bsp.file.read(4)
+        if file_magic != bsp.file_magic and file_magic != bytes(reversed(bsp.file_magic)):
+            raise RuntimeError(f"{bsp.file} is not a {bsp.__class__.__name__}! file_magic is incorrect")
+        bsp.file_magic = file_magic
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=4):
-            self._preload_lump(lump_name, lump_header)
-        self._get_signature(4 + (8 * len(self.branch.LUMP)))
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=4):
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
+        bsp._get_signature(4 + (8 * len(bsp.branch.LUMP)))
+        return bsp
 
 
 class Quake64Bsp(ReMakeQuakeBsp):
@@ -96,28 +104,34 @@ class IdTechBsp(base.Bsp):
     # struct LumpHeader { int offset, length; };
     # struct BspHeader { char file_magic[4]; int version; LumpHeader headers[]; };
 
-    _preload_lump = QuakeBsp._preload_lump
+    mount_lump = QuakeBsp.mount_lump
 
-    def _preload(self):
-        """Loads filename using the format outlined in this .bsp's branch defintion script"""
-        # collect files
-        local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
-        self.associated_files = [f for f in local_files if is_related(f)]
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+    @classmethod
+    def from_file(cls, branch: ModuleType, filepath: str) -> IdTechBsp:
+        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
+        local_files = os.listdir(bsp.folder)
+        def is_related(f): return f.startswith(os.path.splitext(bsp.filename)[0])
+        bsp.associated_files = [f for f in local_files if is_related(f)]
+        return bsp
+
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> IdTechBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
         # collect metadata
-        file_magic = self.file.read(4)
-        if file_magic != self.file_magic:
-            raise RuntimeError(f"{self.file} is not a {self.__class__.__name__}! file_magic is incorrect")
-        self.version = int.from_bytes(self.file.read(4), "little")
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        file_magic = bsp.file.read(4)
+        if file_magic != bsp.file_magic:
+            raise RuntimeError(f"{bsp.file} is not a {bsp.__class__.__name__}! file_magic is incorrect")
+        bsp.version = int.from_bytes(bsp.file.read(4), "little")
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=8):
-            self._preload_lump(lump_name, lump_header)
-        self._get_signature(8 + (8 * len(self.branch.LUMP)))
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=8):
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
+        bsp._get_signature(8 + (8 * len(bsp.branch.LUMP)))
+        return bsp
 
 
 class FusionBsp(IdTechBsp):

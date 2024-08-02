@@ -1,5 +1,6 @@
 from __future__ import annotations
 from collections import namedtuple
+import io
 import os
 import shutil
 import struct
@@ -84,7 +85,7 @@ class ExternalLumpManager:
             raise RuntimeError(f"The .bsp_lump file for the {lump_name} lump is empty!")
         if not os.path.exists(lump_header.filename):
             raise FileNotFoundError(f"Couldn't find .bsp_lump file for {lump_name} lump!")
-        # NOTE: near identical to ValveBsp._preload_lump, but uses ExternalRawBspLump subclasses
+        # NOTE: near identical to ValveBsp.mount_lump, but uses ExternalRawBspLump subclasses
         try:
             if lump_name == "GAME_LUMP":  # NOTE: lump_header.version is ignored in this case
                 GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
@@ -176,63 +177,68 @@ class RespawnBsp(valve.ValveBsp):
     # struct BspHeader { char file_magic[4]; int version, revision, lump_count;
     #                    LumpHeader headers[128]; };
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
+    def __init__(self, branch: ModuleType, filepath: str = "untitled.bsp"):
         self.entity_headers = dict()
-        super(RespawnBsp, self).__init__(branch, filename, autoload)
-        # NOTE: bsp revision appears before headers, not after (as in Valve's variant)
+        super(RespawnBsp, self).__init__(branch, filepath)
 
-    def _preload(self):
-        """Loads filename using the format outlined in this .bsp's branch defintion script"""
-        # collect files
-        local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(self.filename.partition(".")[0])
-        self.associated_files = [f for f in local_files if is_related(f)]
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
-        # collect metadata
-        file_magic = self.file.read(4)
-        if file_magic == self.file_magic:
-            self.endianness = "little"
-        elif file_magic == bytes(reversed(self.file_magic)):
-            self.endianness = "big"
-            self.file_magic = file_magic  # b"PSBr"
-        else:
-            raise RuntimeError(f"{self.file} is not a RespawnBsp! file_magic is incorrect")
-        self.version = int.from_bytes(self.file.read(4), self.endianness)
-        if self.version > 0xFFFF:  # Apex Legends Season 11+
-            self.version = (self.version & 0xFFFF, self.version >> 16)  # major, minor
-        # NOTE: Legion considers the second half to be a flag for streaming
-        # -- Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
-        # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
-        self.revision = int.from_bytes(self.file.read(4), self.endianness)
-        self.lump_count = int.from_bytes(self.file.read(4), self.endianness)
-        assert self.lump_count == 127, "irregular RespawnBsp lump_count"
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
-        # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=16):
-            if lump_header.offset >= self.filesize:
-                continue  # or version has flag (e.g. (50, 1))
-            self._preload_lump(lump_name, lump_header)
-        # compiler signature
-        self._get_signature(16 + (16 * 128))
-
-        self.external = ExternalLumpManager(self)
-
+    @classmethod
+    def from_file(cls, branch: ModuleType, filepath: str) -> RespawnBsp:
+        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
+        # find associated files
+        local_files = os.listdir(bsp.folder)
+        def is_related(f): return f.startswith(os.path.splitext(bsp.filename)[0])
+        bsp.associated_files = [f for f in local_files if is_related(f)]
+        # .bsp_lump files
+        bsp.external = ExternalLumpManager(bsp)
         # .ent files
         # TODO: give a warning if available .ent files do not match ENTITY_PARTITIONS
         # NOTE: ENTITY_PARTITIONS contains "01*" as the first entry, does this mean the entity lump?
         for ent_filetype in ("env", "fx", "script", "snd", "spawn"):
-            entity_file = f"{self.filename.partition('.')[0]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
-            if entity_file in self.associated_files:
-                with open(os.path.join(self.folder, entity_file), "rb") as ent_file:
+            entity_file = f"{bsp.filename.partition('.')[0]}_{ent_filetype}.ent"  # e.g. "mp_glitch_env.ent"
+            if entity_file in bsp.associated_files:
+                with open(os.path.join(bsp.folder, entity_file), "rb") as ent_file:
                     LUMP_name = f"ENTITIES_{ent_filetype}"
-                    self.entity_headers[LUMP_name] = ent_file.readline().decode().rstrip("\n")
+                    bsp.entity_headers[LUMP_name] = ent_file.readline().decode().rstrip("\n")
                     # Titanfall:  ENTITIES01
                     # Apex Legends:  ENTITIES02 num_models=0
-                    setattr(self, LUMP_name, shared.Entities.from_bytes(ent_file.read()))
+                    setattr(bsp, LUMP_name, shared.Entities.from_bytes(ent_file.read()))
                     # each .ent file also has a null byte at the very end
+        return bsp
+
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> RespawnBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
+        # collect metadata
+        file_magic = bsp.file.read(4)
+        if file_magic == bsp.file_magic:
+            bsp.endianness = "little"
+        elif file_magic == bytes(reversed(bsp.file_magic)):
+            bsp.endianness = "big"
+            bsp.file_magic = file_magic  # b"PSBr"
+        else:
+            raise RuntimeError(f"{bsp.file} is not a RespawnBsp! file_magic is incorrect")
+        bsp.version = int.from_bytes(bsp.file.read(4), bsp.endianness)
+        if bsp.version > 0xFFFF:  # Apex Legends Season 11+
+            bsp.version = (bsp.version & 0xFFFF, bsp.version >> 16)  # major, minor
+        # NOTE: Legion considers the second half to be a flag for streaming
+        # -- Likely because 49.1 & 50.1 b"rBSP" moved all lumps to .bsp_lump
+        # NOTE: various mixed bsp versions exist in depot/ for Apex S11+
+        bsp.revision = int.from_bytes(bsp.file.read(4), bsp.endianness)
+        bsp.lump_count = int.from_bytes(bsp.file.read(4), bsp.endianness)
+        assert bsp.lump_count == 127, "irregular RespawnBsp lump_count"
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
+        # collect lumps
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=16):
+            if lump_header.offset >= bsp.filesize:
+                continue  # or version has flag (e.g. (50, 1))
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
+        # compiler signature
+        bsp._get_signature(16 + (16 * 128))
+        return bsp
 
     def save_as(self, filename: str, no_bsp_lump: bool = False):
         # lumps -> bytes

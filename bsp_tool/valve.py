@@ -1,3 +1,5 @@
+from __future__ import annotations
+import io
 import os
 import struct
 from types import ModuleType
@@ -20,10 +22,7 @@ class ValveBsp(base.Bsp):
     revision: int = 0
     # struct SourceBspHeader { char file_magic[4]; int version; LumpHeader headers[64]; int revision; };
 
-    def __init__(self, branch: ModuleType, filename: str = "untitled.bsp", autoload: bool = True):
-        super(ValveBsp, self).__init__(branch, filename, autoload)
-
-    def _preload_lump(self, lump_name: str, lump_header: Any):
+    def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
             return
         try:
@@ -61,35 +60,42 @@ class ValveBsp(base.Bsp):
                 BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
         setattr(self, lump_name, BspLump)
 
-    def _preload(self):
-        """Loads filename using the format outlined in this .bsp's branch defintion script"""
+    @classmethod
+    def from_file(cls, branch: ModuleType, filepath: str) -> ValveBsp:
+        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
         # collect files
-        local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(self.filename.partition(".")[0])
-        self.associated_files = [f for f in local_files if is_related(f)]
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+        local_files = os.listdir(bsp.folder)
+        def is_related(f): return f.startswith(bsp.filename.partition(".")[0])
+        bsp.associated_files = [f for f in local_files if is_related(f)]
+        return bsp
+
+    @classmethod
+    def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> ValveBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
         # collect metadata
-        file_magic = self.file.read(4)
-        if file_magic == self.file_magic:
-            self.endianness = "little"
-        elif file_magic == bytes(reversed(self.file_magic)):
-            self.endianness = "big"
-            self.file_magic = file_magic  # b"PSBV"
+        file_magic = bsp.file.read(4)
+        if file_magic == bsp.file_magic:
+            bsp.endianness = "little"
+        elif file_magic == bytes(reversed(bsp.file_magic)):
+            bsp.endianness = "big"
+            bsp.file_magic = file_magic  # b"PSBV"
         else:
-            raise RuntimeError(f"{self.file} is not a ValveBsp! file_magic is incorrect")
-        self.version = int.from_bytes(self.file.read(4), self.endianness)
-        if self.version > 0xFFFF:  # major.minor version
-            self.version = (self.version & 0xFFFF, self.version >> 16)  # major, minor
-        lump_count = max([e.value for e in self.branch.LUMP]) + 1
-        self.file.seek(8 + struct.calcsize(self.branch.LumpHeader._format) * (lump_count))
-        self.revision = int.from_bytes(self.file.read(4), self.endianness)
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+            raise RuntimeError(f"{bsp.file} is not a ValveBsp! file_magic is incorrect")
+        bsp.version = int.from_bytes(bsp.file.read(4), bsp.endianness)
+        if bsp.version > 0xFFFF:  # major.minor version
+            bsp.version = (bsp.version & 0xFFFF, bsp.version >> 16)  # major, minor
+        lump_count = max([e.value for e in bsp.branch.LUMP]) + 1
+        bsp.file.seek(8 + struct.calcsize(bsp.branch.LumpHeader._format) * (lump_count))
+        bsp.revision = int.from_bytes(bsp.file.read(4), bsp.endianness)
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect lumps
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=8):
-            self._preload_lump(lump_name, lump_header)
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=8):
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
+        return bsp
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """Converts the named (versioned) lump back into bytes"""

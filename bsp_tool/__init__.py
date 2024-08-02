@@ -122,7 +122,7 @@ def load_bsp(filename: str, branch_script: ModuleType = None) -> base.Bsp:
         branch_script = branches.identify[(file_magic, version)]
     # TODO: ata4's bspsrc uses unique entity classnames to identify branches
     # -- need this for identifying variants with overlapping identifiers
-    return BspVariant(branch_script, filename, autoload=True)  # might raise errors
+    return BspVariant.from_file(branch_script, filename)  # might raise errors
 
 
 # TODO: write a generator that walks a path for .bsps, including inside .pk3, .bz2, .iwd & .zip

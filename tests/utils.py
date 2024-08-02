@@ -20,5 +20,5 @@ def get_test_maps(BspClass: Bsp, branch_dirs: BranchDirs, pattern: str = "*.bsp"
             full_map_dir = os.path.join(test_maps_dir, map_dir)
             for map_name in fnmatch.filter(os.listdir(full_map_dir), pattern):
                 map_path = os.path.join(map_dir, map_name).replace("\\", "/")
-                bsps[map_path] = BspClass(branch, os.path.join(test_maps_dir, map_path))
+                bsps[map_path] = BspClass.from_file(branch, os.path.join(test_maps_dir, map_path))
     return bsps

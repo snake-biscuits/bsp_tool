@@ -5,8 +5,8 @@ from bsp_tool.extensions import diff
 import pytest
 
 
-old_bsp = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test_displacement_decompile.bsp")
-new_bsp = ValveBsp(orange_box, "tests/maps/Team Fortress 2/test_physcollide.bsp")
+old_bsp = ValveBsp.from_file(orange_box, "tests/maps/Team Fortress 2/test_displacement_decompile.bsp")
+new_bsp = ValveBsp.from_file(orange_box, "tests/maps/Team Fortress 2/test_physcollide.bsp")
 # >>> old_lumps = {L for L, h in old_bsp.headers.items() if h.length > 0}
 # >>> new_lumps = {L for L, h in new_bsp.headers.items() if h.length > 0}
 # >>> old_lumps.difference(new_lumps)

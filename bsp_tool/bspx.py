@@ -28,8 +28,8 @@ class BspX:
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} {len(self.headers)} lumps @ 0x{id(self):016X}>"
 
-    def _preload_lump(self, lump_name: str, lump_header: bspx.LumpHeader, stream: io.BytesIO):
-        # NOTE: adapted from id_software.QuakeBsp._preload_lump()
+    def mount_lump(self, lump_name: str, lump_header: bspx.LumpHeader, stream: io.BytesIO):
+        # NOTE: adapted from id_software.QuakeBsp.mount_lump()
         assert lump_header.length != 0, "why?"
         try:
             if lump_name in self.branch.LUMP_CLASSES:
@@ -81,5 +81,5 @@ class BspX:
             out.headers[header_name] = header
         # lumps
         for lump_name, lump_header in out.headers.items():
-            out._preload_lump(lump_name, lump_header, stream)
+            out.mount_lump(lump_name, lump_header, stream)
         return out

@@ -1,4 +1,6 @@
-import os
+from __future__ import annotations
+import io
+from types import ModuleType
 from typing import Dict
 
 from . import id_software
@@ -10,23 +12,21 @@ class RitualBsp(id_software.IdTechBsp):
     # struct LumpHeader { int offset, length; };
     # struct { int file_magic, version, checksum; LumpHeader headers[]; };
 
-    def _preload(self):
-        """Loads filename using the format outlined in this .bsp's branch defintion script"""
-        # collect files
-        local_files = os.listdir(self.folder)
-        def is_related(f): return f.startswith(os.path.splitext(self.filename)[0])
-        self.associated_files = [f for f in local_files if is_related(f)]
-        self.file = open(os.path.join(self.folder, self.filename), "rb")
+    @classmethod
+    def from_file(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> RitualBsp:
+        bsp = cls(branch, filepath)
+        bsp.file = stream
         # collect metadata
-        self.file_magic = self.file.read(4)
-        assert self.file_magic in self._file_magics, f"{self.file} is not a valid .bsp!"
-        assert self.file_magic == self.branch.FILE_MAGIC, f"{self.file} is not from {[*self.branch.GAME_PATHS][0]}!"
-        self.version = int.from_bytes(self.file.read(4), "little")
-        self.checksum = int.from_bytes(self.file.read(4), "little")
-        self.file.seek(0, 2)  # move cursor to end of file
-        self.filesize = self.file.tell()
+        bsp.file_magic = bsp.file.read(4)
+        assert bsp.file_magic in bsp._file_magics, f"{bsp.file} is not a valid .bsp!"
+        assert bsp.file_magic == bsp.branch.FILE_MAGIC, f"{bsp.file} is not from {[*bsp.branch.GAME_PATHS][0]}!"
+        bsp.version = int.from_bytes(bsp.file.read(4), "little")
+        bsp.checksum = int.from_bytes(bsp.file.read(4), "little")
+        bsp.file.seek(0, 2)  # move cursor to end of file
+        bsp.filesize = bsp.file.tell()
         # collect headers
-        self.headers = dict()
-        self.loading_errors: Dict[str, Exception] = dict()
-        for lump_name, lump_header in self._header_generator(offset=12):
-            self._preload_lump(lump_name, lump_header)
+        bsp.headers = dict()
+        bsp.loading_errors: Dict[str, Exception] = dict()
+        for lump_name, lump_header in bsp._header_generator(offset=12):
+            bsp.mount_lump(lump_name, lump_header, bsp.file)
+        return bsp

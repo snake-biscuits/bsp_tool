@@ -719,7 +719,7 @@ tests/valve/test_ValveBsp.py::test_x360_failing[Xbox360/The Orange Box/shack.360
 Name                                                      Stmts   Miss  Cover
 -----------------------------------------------------------------------------
 bsp_tool\__init__.py                                         67     20    70%
-bsp_tool\base.py                                             89     33    63%
+bsp_tool\base.py                                             91     31    66%
 bsp_tool\branches\__init__.py                                47      0   100%
 bsp_tool\branches\ace_team\__init__.py                        2      0   100%
 bsp_tool\branches\ace_team\zeno_clash.py                     79      0   100%
@@ -810,11 +810,12 @@ bsp_tool\extensions\archives\__init__.py                     26     26     0%
 bsp_tool\extensions\archives\base.py                          8      8     0%
 bsp_tool\extensions\archives\bluepoint.py                     5      5     0%
 bsp_tool\extensions\archives\gearbox.py                       5      5     0%
-bsp_tool\extensions\archives\id_software.py                   8      8     0%
+bsp_tool\extensions\archives\id_software.py                  45     45     0%
 bsp_tool\extensions\archives\infinity_ward.py                53     53     0%
 bsp_tool\extensions\archives\nexon.py                         9      9     0%
-bsp_tool\extensions\archives\pi_studios.py                   82     82     0%
-bsp_tool\extensions\archives\respawn.py                     127    127     0%
+bsp_tool\extensions\archives\pi_studios.py                   78     78     0%
+bsp_tool\extensions\archives\respawn\__init__.py            118    118     0%
+bsp_tool\extensions\archives\respawn\rpak.py                172    172     0%
 bsp_tool\extensions\archives\utoplanet.py                    59     59     0%
 bsp_tool\extensions\archives\valve.py                         5      5     0%
 bsp_tool\extensions\compiler_signature.py                    41      5    88%
@@ -859,25 +860,26 @@ bsp_tool\extensions\lightmaps\source.py                      20     20     0%
 bsp_tool\extensions\lightmaps\titanfall2.py                  25     25     0%
 bsp_tool\extensions\lightmaps\titanfall.py                   19     19     0%
 bsp_tool\extensions\mprt.py                                  15     15     0%
-bsp_tool\extensions\stbsp.py                                206    206     0%
+bsp_tool\extensions\stbsp.py                                204    204     0%
 bsp_tool\extensions\to_cpp.py                                24     24     0%
-bsp_tool\id_software.py                                      82     10    88%
-bsp_tool\infinity_ward.py                                    52      7    87%
+bsp_tool\id_software.py                                      98     10    90%
+bsp_tool\infinity_ward.py                                    48      5    90%
 bsp_tool\lumps.py                                           364    114    69%
-bsp_tool\nexon.py                                            10      3    70%
+bsp_tool\nexon.py                                            11      3    73%
 bsp_tool\raven.py                                             3      0   100%
-bsp_tool\respawn.py                                         230    140    39%
-bsp_tool\ritual.py                                           22     15    32%
-bsp_tool\utils\__init__.py                                    6      0   100%
+bsp_tool\respawn.py                                         238    140    41%
+bsp_tool\ritual.py                                           24     14    42%
+bsp_tool\utils\__init__.py                                    7      0   100%
+bsp_tool\utils\binary.py                                     40     30    25%
 bsp_tool\utils\editor.py                                     72     19    74%
 bsp_tool\utils\geometry.py                                  135     33    76%
 bsp_tool\utils\physics.py                                   165     39    76%
 bsp_tool\utils\texture.py                                    34      3    91%
 bsp_tool\utils\vector.py                                    167     62    63%
-bsp_tool\valve.py                                           147     84    43%
-bsp_tool\wild_tangent.py                                     23     18    22%
+bsp_tool\valve.py                                           154     84    45%
+bsp_tool\wild_tangent.py                                     28     20    29%
 -----------------------------------------------------------------------------
-TOTAL                                                     12589   3064    76%
+TOTAL                                                     12861   3285    74%
 
 
-[33m=========== [32m685 passed[0m, [33m[1m19 xfailed[0m, [33m[1m1 xpassed[0m[33m in 978.55s (0:16:18)[0m[33m ============[0m
+[33m=========== [32m685 passed[0m, [33m[1m19 xfailed[0m, [33m[1m1 xpassed[0m[33m in 983.85s (0:16:23)[0m[33m ============[0m
