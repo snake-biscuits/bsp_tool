@@ -1,23 +1,31 @@
 # bsp_tool
- A library for .bsp file analysis & modification
+Python library for analysing .bsp files  
 
- `bsp_tool` provides a Command Line Interface for analysing .bsp files  
- Current development is focused on bringing new maps to Counter-Strike: Online 2 & the Titanfall Engine
+`bsp_tool` provides a Command Line Interface for analysing .bsp files  
+
 
 ## Installation
-To use / contribute to the latest version, clone this package
+To use the latest **unstable** version, clone with `git`:
 ```
-git clone git@github.com:snake-biscuits/bsp_tool.git
-```
-
-Or to use the latest stable release, install via [pip](https://pypi.org/project/bsp-tool/) (Python 3.7+)
-```
-pip install bsp_tool
+$ git clone git@github.com:snake-biscuits/bsp_tool.git
 ```
 
-## Fair Use & Commercial Works
+You can also clone with `pip`:
+
+```
+$ pip install git+https://github.com/snake-biscuits/bsp_tool.git
+```
+
+Or, use the latest stable release (August 2024 | 0.5.0 | Python 3.8-11):
+```
+$ pip install bsp_tool
+```
+
+
+## Fair Use
 **Please do not use `bsp_tool` to copy or steal another creator's work**  
 The primary goal of `bsp_tool` is to extend community mapping tools  
+
 
 ### Always
   - **Ask** the creator's permission before touching their work  
@@ -33,7 +41,7 @@ The primary goal of `bsp_tool` is to extend community mapping tools
   - **Support** the official release
 
 **DO NOT** use this tool to steal another creator's work  
-**DO** use this tool to understand the .bsp format(s) and create more specific tools
+**DO** use this tool to understand the `.bsp` format(s) and create more specific tools
 
 > Be aware that this gets even more complicated with commercial projects
 
