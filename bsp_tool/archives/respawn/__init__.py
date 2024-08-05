@@ -3,7 +3,7 @@ import io
 import os
 from typing import Dict, List, Tuple
 
-from ....utils.binary import read_str, read_struct
+from ...utils.binary import read_str, read_struct
 from .. import base
 from .rpak import RPak
 

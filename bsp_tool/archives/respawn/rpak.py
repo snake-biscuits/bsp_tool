@@ -6,8 +6,8 @@ import io
 import os
 from typing import List, Tuple, Union
 
-from ....branches.base import MappedArray
-from ....utils.binary import read_struct
+from ...branches.base import MappedArray
+from ...utils.binary import read_struct
 from .. import base
 
 

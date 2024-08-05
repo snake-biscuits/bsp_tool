@@ -1,12 +1,14 @@
 """A library for .bsp file analysis & modification"""
-__all__ = ["base", "branches", "load_bsp", "lumps",
-           "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
-           "InfinityWardBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp",
-           "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+__all__ = [
+    "archives", "base", "branches", "load_bsp", "lumps",
+    "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
+    "InfinityWardBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp",
+    "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
 
 import os
 from types import ModuleType
 
+from . import archives
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from . import lumps
