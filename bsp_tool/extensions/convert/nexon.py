@@ -1,6 +1,6 @@
 import os
 
-from ... import ValveBsp
+from ...valve import ValveBsp
 from ...branches import nexon
 from ...branches import valve
 

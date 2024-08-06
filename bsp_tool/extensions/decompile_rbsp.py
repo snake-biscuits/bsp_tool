@@ -2,7 +2,7 @@ import functools
 from typing import List
 
 from ..branches.respawn import titanfall
-from ..branches.vector import dot, vec3
+from ..utils.vector import dot, vec3
 
 
 def triangle_for(plane: (vec3, float), scale: float = 64) -> List[vec3]:

@@ -2,7 +2,7 @@ import os
 
 from ...branches.respawn import titanfall as r1
 from ...branches.respawn import titanfall2 as r2
-from ...branches.vector import vec3
+from ...utils.vector import vec3
 
 
 def titanfall_to_titanfall2(r1_bsp, outdir: str = "./"):
