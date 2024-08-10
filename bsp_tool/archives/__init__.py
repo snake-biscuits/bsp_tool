@@ -1,7 +1,7 @@
 """Tools for opening and searching archives containing game assets (specifically .bsp)"""
 __all__ = [
     "base", "bluepoint", "gearbox", "id_software", "infinity_ward", "nexon",
-    "pi_studios", "respawn", "utoplanet", "valve"]
+    "padus", "pi_studios", "respawn", "utoplanet", "valve"]
 import fnmatch
 import os
 from typing import Dict, List
@@ -12,17 +12,11 @@ from . import gearbox
 from . import id_software
 from . import infinity_ward
 from . import nexon
+from . import padus
 from . import pi_studios
 from . import respawn
 from . import utoplanet
 from . import valve
-
-
-# NOTE: you could access raw .bsp files with ZipFile.read("filename.bsp"), but bsp_tool doesn't accept open files
-# -- e1m1 = IdTechBsp(quake, "maps/e1m1.bsp", autoload=False)
-# -- e1m1.file = pak0.read("maps/e1m1.bsp")
-# -- e1m1._preload()
-# NOTE: would need to develop a new method of checking related files
 
 
 # batch operations
