@@ -3,6 +3,8 @@
 ## v0.6.0 (??? 2024)
 
 ### Changed
+ * `archives` no longer in `extensions`
+ * `lightmaps` no longer in `extensions`
  * `.bsp` files are now loaded with `@classmethod`s
    - `.from_bytes(branch, "filepath", b"bytes")`
    - `.from_file(branch, "filepath")`
