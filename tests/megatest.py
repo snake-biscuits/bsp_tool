@@ -4,10 +4,10 @@ import os
 import re
 
 from . import maplist
-from bsp_tool import BspVariant_for_magic
 from bsp_tool import branches
 from bsp_tool import load_bsp
 from bsp_tool import lumps
+from bsp_tool.autodetect import BspVariant_for_magic
 from bsp_tool.branches import (
     ace_team, arkane, gearbox, id_software, infinity_ward,
     nexon, outerlight, raven, respawn, ritual, strata, utoplanet, valve)

@@ -718,7 +718,20 @@ tests/valve/test_ValveBsp.py::test_x360_failing[Xbox360/The Orange Box/shack.360
 ---------- coverage: platform win32, python 3.11.3-final-0 -----------
 Name                                                      Stmts   Miss  Cover
 -----------------------------------------------------------------------------
-bsp_tool\__init__.py                                         67     20    70%
+bsp_tool\__init__.py                                         19      0   100%
+bsp_tool\archives\__init__.py                                26     10    62%
+bsp_tool\archives\base.py                                     8      3    62%
+bsp_tool\archives\bluepoint.py                                5      1    80%
+bsp_tool\archives\gearbox.py                                  5      1    80%
+bsp_tool\archives\id_software.py                             45     22    51%
+bsp_tool\archives\infinity_ward.py                           53     11    79%
+bsp_tool\archives\nexon.py                                    9      2    78%
+bsp_tool\archives\pi_studios.py                              78     41    47%
+bsp_tool\archives\respawn\__init__.py                       118     71    40%
+bsp_tool\archives\respawn\rpak.py                           172     64    63%
+bsp_tool\archives\utoplanet.py                               59     36    39%
+bsp_tool\archives\valve.py                                    5      1    80%
+bsp_tool\autodetect.py                                       70     21    70%
 bsp_tool\base.py                                             91     31    66%
 bsp_tool\branches\__init__.py                                47      0   100%
 bsp_tool\branches\ace_team\__init__.py                        2      0   100%
@@ -804,26 +817,14 @@ bsp_tool\branches\wild_tangent\__init__.py                    2      0   100%
 bsp_tool\branches\wild_tangent\genesis3d.py                 164      3    98%
 bsp_tool\branches\x360.py                                    21      0   100%
 bsp_tool\bspx.py                                             67     67     0%
-bsp_tool\extensions\__init__.py                               0      0   100%
+bsp_tool\extensions\__init__.py                              10      0   100%
 bsp_tool\extensions\apex_archive.py                         204    204     0%
-bsp_tool\extensions\archives\__init__.py                     26     26     0%
-bsp_tool\extensions\archives\base.py                          8      8     0%
-bsp_tool\extensions\archives\bluepoint.py                     5      5     0%
-bsp_tool\extensions\archives\gearbox.py                       5      5     0%
-bsp_tool\extensions\archives\id_software.py                  45     45     0%
-bsp_tool\extensions\archives\infinity_ward.py                53     53     0%
-bsp_tool\extensions\archives\nexon.py                         9      9     0%
-bsp_tool\extensions\archives\pi_studios.py                   78     78     0%
-bsp_tool\extensions\archives\respawn\__init__.py            118    118     0%
-bsp_tool\extensions\archives\respawn\rpak.py                172    172     0%
-bsp_tool\extensions\archives\utoplanet.py                    59     59     0%
-bsp_tool\extensions\archives\valve.py                         5      5     0%
 bsp_tool\extensions\compiler_signature.py                    41      5    88%
-bsp_tool\extensions\convert\__init__.py                       3      3     0%
-bsp_tool\extensions\convert\nexon.py                         23     23     0%
-bsp_tool\extensions\convert\respawn.py                       55     55     0%
-bsp_tool\extensions\decompile_rbsp.py                       103    103     0%
-bsp_tool\extensions\decrypt_xor.py                           11     11     0%
+bsp_tool\extensions\convert\__init__.py                       3      0   100%
+bsp_tool\extensions\convert\nexon.py                         23     18    22%
+bsp_tool\extensions\convert\respawn.py                       55     50     9%
+bsp_tool\extensions\decompile_rbsp.py                       103     90    13%
+bsp_tool\extensions\decrypt_xor.py                           15     15     0%
 bsp_tool\extensions\diff\__init__.py                          8      0   100%
 bsp_tool\extensions\diff\base.py                             33      0   100%
 bsp_tool\extensions\diff\bsps.py                             70     35    50%
@@ -848,22 +849,22 @@ bsp_tool\extensions\geometry\brushwork.py                     5      5     0%
 bsp_tool\extensions\geometry\gltf.py                        153    153     0%
 bsp_tool\extensions\geometry\obj.py                          29      3    90%
 bsp_tool\extensions\geometry\usd.py                          76      2    97%
-bsp_tool\extensions\lightmaps\__init__.py                    18     18     0%
-bsp_tool\extensions\lightmaps\apex_legends.py                23     23     0%
-bsp_tool\extensions\lightmaps\base.py                       134    134     0%
-bsp_tool\extensions\lightmaps\cso2_2018.py                   22     22     0%
-bsp_tool\extensions\lightmaps\modern_warfare.py              10     10     0%
-bsp_tool\extensions\lightmaps\quake2.py                      11     11     0%
-bsp_tool\extensions\lightmaps\quake3.py                       8      8     0%
-bsp_tool\extensions\lightmaps\quake.py                       11     11     0%
-bsp_tool\extensions\lightmaps\source.py                      20     20     0%
-bsp_tool\extensions\lightmaps\titanfall2.py                  25     25     0%
-bsp_tool\extensions\lightmaps\titanfall.py                   19     19     0%
-bsp_tool\extensions\mprt.py                                  15     15     0%
-bsp_tool\extensions\stbsp.py                                204    204     0%
-bsp_tool\extensions\to_cpp.py                                24     24     0%
+bsp_tool\extensions\mprt.py                                  15     13    13%
+bsp_tool\extensions\stbsp.py                                204    130    36%
+bsp_tool\extensions\to_cpp.py                                24     19    21%
 bsp_tool\id_software.py                                      98     10    90%
 bsp_tool\infinity_ward.py                                    48      5    90%
+bsp_tool\lightmaps\__init__.py                               18      5    72%
+bsp_tool\lightmaps\apex_legends.py                           23     20    13%
+bsp_tool\lightmaps\base.py                                  134     82    39%
+bsp_tool\lightmaps\cso2_2018.py                              22     19    14%
+bsp_tool\lightmaps\modern_warfare.py                         10      7    30%
+bsp_tool\lightmaps\quake2.py                                 11      8    27%
+bsp_tool\lightmaps\quake3.py                                  8      5    38%
+bsp_tool\lightmaps\quake.py                                  11      8    27%
+bsp_tool\lightmaps\source.py                                 20     17    15%
+bsp_tool\lightmaps\titanfall2.py                             25     22    12%
+bsp_tool\lightmaps\titanfall.py                              19     16    16%
 bsp_tool\lumps.py                                           364    114    69%
 bsp_tool\nexon.py                                            11      3    73%
 bsp_tool\raven.py                                             3      0   100%
@@ -879,7 +880,7 @@ bsp_tool\utils\vector.py                                    167     62    63%
 bsp_tool\valve.py                                           154     84    45%
 bsp_tool\wild_tangent.py                                     28     20    29%
 -----------------------------------------------------------------------------
-TOTAL                                                     12861   3285    74%
+TOTAL                                                     12897   2771    79%
 
 
-[33m=========== [32m685 passed[0m, [33m[1m19 xfailed[0m, [33m[1m1 xpassed[0m[33m in 983.85s (0:16:23)[0m[33m ============[0m
+[33m=========== [32m685 passed[0m, [33m[1m19 xfailed[0m, [33m[1m1 xpassed[0m[33m in 1022.43s (0:17:02)[0m[33m ===========[0m
