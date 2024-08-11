@@ -99,7 +99,7 @@ class Track:
         return out
 
 
-class CDI(base.Archive):
+class Cdi(base.Archive):
     file: io.BytesIO
     filename: str
     version: int
