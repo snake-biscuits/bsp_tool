@@ -7,16 +7,16 @@ import os
 from typing import Dict, List
 
 from . import base
-from . import bluepoint
-from . import gearbox
-from . import id_software
-from . import infinity_ward
-from . import nexon
-from . import padus
-from . import pi_studios
-from . import respawn
-from . import utoplanet
-from . import valve
+from . import bluepoint  # Bpk
+from . import gearbox  # Nightfire007
+from . import id_software  # Pak & Pk3
+from . import infinity_ward  # Iwd & FastFile
+from . import nexon  # Hfs & Pkg
+from . import padus  # Cdi
+from . import pi_studios  # Bpk
+from . import respawn  # RPak & Vpk
+from . import utoplanet  # Apk
+from . import valve  # Vpk
 
 
 # batch operations
