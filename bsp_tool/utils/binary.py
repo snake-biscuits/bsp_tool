@@ -4,6 +4,16 @@ import struct
 from typing import Any, Generator, List, Union
 
 
+def find_all(data: bytes, substring: bytes):
+    """extending bytes.find to be useful"""
+    out = list()
+    start = 0
+    while data.find(substring, start) != -1:
+        out.append(data.find(substring, start))
+        start = out[-1] + len(substring)
+    return out
+
+
 def read_str(stream: io.BytesIO, encoding="utf-8", errors="strict") -> str:
     out = b""
     c = stream.read(1)
