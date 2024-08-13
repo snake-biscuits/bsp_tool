@@ -135,6 +135,8 @@ class FileFlag(enum.IntFlag):
 
 
 class Directory:
+    length: int
+    ear_length: int
     data_lba: int  # LBA of data extent
     data_size: int  # size of data extent (in bytes)
     recorded: TimeStamp
@@ -142,17 +144,19 @@ class Directory:
     interleaved_unit_size: int  # "file unit size"; 0 if not interleaved
     interleaved_gap_size: int  # 0 if not interleaved
     volume_sequence_index: int  # volume this extent is recorded on
-    name: str  # "" for ".", "\\1" for ".."
-    index: int
+    name: str
+    is_file: bool
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} "{self.name}" (self.index) @ 0x{id(self):016X}>'
+        return f'<{self.__class__.__name__} "{self.name}" @ 0x{id(self):016X}>'
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Directory:
         out = cls()
-        length, ear_length = binary.read_struct(stream, "2B")
-        # "Extended Attribute Record"
+        out.length, out.ear_length = binary.read_struct(stream, "2B")
+        if out.length == 0:
+            return None  # for if we're at the end of a directory list
+        # NOTE: ear is short for "Extended Attribute Record"
         out.data_lba = read_both_endian(stream, "I")
         out.data_size = read_both_endian(stream, "I")
         out.recorded = TimeStamp.from_stream_bytes(stream)
@@ -160,21 +164,71 @@ class Directory:
         out.interleaved_unit_size = binary.read_struct(stream, "B")
         out.interleaved_gap_size = binary.read_struct(stream, "B")
         out.volume_sequence_index = read_both_endian(stream, "H")
-        file_id_length = binary.read_struct(stream, "B")
-        file_id = binary.read_struct(stream, f"{file_id_length}s")
-        # NOTE: technically strD w/ a ";" split, but ";" isn't a valid strD char
-        if b";" in file_id:
-            out.name, out.index = file_id.decode().split(";")
-            out.index = int(out.index)
-        else:  # HACK: sweep it under the rug for now
-            print("!!! SPECIAL DIRECTORY !!!")
-            print(f"{file_id_length=}, {file_id=}")
-            out.name, out.index = "", 0
+        # name & file / directory identification
+        filename_length = binary.read_struct(stream, "B")
+        filename = binary.read_struct(stream, f"{filename_length}s")
+        if filename_length == 1:  # special directory
+            out.is_file = False
+            if filename == b"\x00":  # PVD.root_directory / 1st in sequence
+                out.name = "."  # local root
+            elif filename == b"\x01":  # 2nd in sequence
+                out.name = ".."  # parent
+            else:
+                raise RuntimeError(f"Unexpected File ID: {filename!r}")
+        elif filename.endswith(b";1"):  # named file
+            out.is_file = True
+            out.name = filename.decode()[:-2]
+            # verify name is valid strD ("." is also allowed)
+            assert len(set(out.name).difference({*strD, "."})) == 0, "invalid strD"
+        else:  # named directory
+            # NOTE: haven't encountered any of these yet
+            out.is_file = False  # directory
+            out.name = filename.decode()
         # optional 1 byte pad (next Directory will start on an even address)
-        if file_id_length % 2 == 0:
+        if filename_length % 2 == 0:
             assert stream.read(1) == b"\x00"
+        assert out.length == 33 + filename_length + (filename_length + 1) % 2
         # TODO: ISO extensions if we haven't reached length
-        assert length == 33 + file_id_length + (file_id_length + 1) % 2
+        assert out.ear_length == 0, "idk where EAR data is stored"
+        return out
+
+
+class PathTableEntry:
+    length: int  # preserved for asserts
+    ear_length: int  # preserved for asserts
+    extent_lba: int  # LBA of extent containing directory data
+    parent_index: int  # path table index of parent dir (65536 limit)
+    # NOTE: parent index starts from 1, not 0
+    # -- root is first, and indexes itself (1)
+    name: str
+
+    def __repr__(self) -> str:
+        path_name = "/" if self.name is None else f"{self.name}/"
+        return f"<PathTableEntry {path_name} @ 0x{id(self):016X}>"
+
+    @classmethod
+    def from_bytes(cls, raw_entry: bytes) -> PathTableEntry:
+        return cls.from_stream(io.BytesIO(raw_entry))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> PathTableEntry:
+        # NOTE: little-endian only
+        out = cls()
+        out.length, out.ear_length = binary.read_struct(stream, "2B")
+        # NOTE: ear is short for "Extended Attribute Record"
+        out.extent_lba = binary.read_struct(stream, "I")
+        out.parent_index = binary.read_struct(stream, "H")
+        name = binary.read_struct(stream, f"{out.length}s")
+        if name != b"\x00":  # verify strD
+            name = name.decode()
+            assert len(set(name).difference(strD)) == 0, "invalid strD"
+            out.name = name
+        else:
+            out.name = None
+        # optional 1 byte pad (next entry will start on an even address)
+        if out.length % 2 != 0:
+            assert stream.read(1) == b"\x00"
+        assert out.ear_length == 0, "idk where EAR data is stored"
         return out
 
 
