@@ -27,7 +27,7 @@ strD = {
     *{chr(x) for x in range(ord("a"), ord("z") + 1)},
     *{chr(x) for x in range(ord("A"), ord("Z") + 1)},
     *{chr(x) for x in range(ord("0"), ord("9") + 1)},
-    *"_ "}
+    *"._ "}
 
 strA = {
     *strD,
@@ -35,16 +35,18 @@ strA = {
 
 
 def read_strA(stream: io.BytesIO, length: int) -> str:
+    """ASCII A-Z 0-9 & underscore"""
     raw_str = binary.read_struct(stream, f"{length}s")
     out = raw_str.decode().rstrip(" ")
-    assert len(set(out).difference(strA)) == 0
+    assert len(set(out).difference(strA)) == 0, f"{out!r} is not a valid strA"
     return out
 
 
 def read_strD(stream: io.BytesIO, length: int) -> str:
+    """ASCII A-Z 0-9 & common symbols"""
     raw_str = binary.read_struct(stream, f"{length}s")
     out = raw_str.decode().rstrip(" ")
-    assert len(set(out).difference(strD)) == 0
+    assert len(set(out).difference(strD)) == 0, f"{out!r} is not a valid strD"
     return out
 
 
@@ -56,7 +58,10 @@ class TimeStamp:
     minute: int  # 0..59
     second: int  # 0..59
     centisecond: int  # 0..99 (100ths of a second)
-    timezone: int
+    # NOTE: all timezones parsed so far seem incorrect
+    timezone: int  # 15 min increments from GMT
+    # -48 (West) -> 52 (East)
+    # GMT-12 -> GMT+13
 
     def __init__(self, year, month, day, hour, minute, second, centisecond, timezone):
         assert 1 <= year <= 9999, year
@@ -75,12 +80,9 @@ class TimeStamp:
         self.centisecond = centisecond
         # assert 0 <= timezone <= 100, timezone  # !!! BREAKING !!!
         self.timezone = timezone
-        # NOTE: timezone is 15 min increments from GMT
-        # -- -48 (West) -> 52 (East)
-        # -- GMT-12 -> GMT+13
 
     def __repr__(self) -> str:
-        try:
+        try:  # some valid TimeStamps fall outside the range of valid DateTimes
             time_string = self.as_datetime().strftime("%Y/%m/%d (%a) %H:%M:%S.%f")
             return f"<{self.__class__.__name__} {time_string}>"
         except Exception:  # TODO: be more specific
@@ -146,6 +148,7 @@ class Directory:
     volume_sequence_index: int  # volume this extent is recorded on
     name: str
     is_file: bool
+    extras: bytes  # unsupported bonus data; None if not present
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} "{self.name}" @ 0x{id(self):016X}>'
@@ -179,7 +182,7 @@ class Directory:
             out.is_file = True
             out.name = filename.decode()[:-2]
             # verify name is valid strD ("." is also allowed)
-            assert len(set(out.name).difference({*strD, "."})) == 0, "invalid strD"
+            assert len(set(out.name).difference(strD)) == 0, "invalid strD"
         else:  # named directory
             # NOTE: haven't encountered any of these yet
             out.is_file = False  # directory
@@ -187,8 +190,12 @@ class Directory:
         # optional 1 byte pad (next Directory will start on an even address)
         if filename_length % 2 == 0:
             assert stream.read(1) == b"\x00"
-        assert out.length == 33 + filename_length + (filename_length + 1) % 2
-        # TODO: ISO extensions if we haven't reached length
+        expected_length = 33 + filename_length + (filename_length + 1) % 2
+        # TODO: got some ISO extensions, not interested in supporting those rn
+        if out.length != expected_length:
+            out.extras = stream.read(out.length - expected_length)
+        else:
+            out.extras = None
         assert out.ear_length == 0, "idk where EAR data is stored"
         return out
 
@@ -319,34 +326,109 @@ class PrimaryVolumeDescriptor:
         return out
 
 
-# TODO: class PathTable(endian="little")
-
-
 class Iso(base.Archive):
-    def __init__(self, filename: str):
-        self._from_file(filename)
+    lba_offset: int  # add this offset to all LBA address lookups
+    # GD-ROM Filesystems need a -ve lba_offset because we isolate the GD Area
+    # So LBAs start in the thousands, rather than the low teens
+    # Other PVDs might have the opposite problem, for those we need a +ve offset
+    disc: io.BytesIO  # kept open for reads
+    pvd: PrimaryVolumeDescriptor
+    path_table: List[PathTableEntry]
+
+    def __init__(self):
+        self.lba_offset = 0
+        # TODO: blank disc image
+        # TODO: default PVD
+        self.path_table = list()
 
     def __repr__(self) -> str:
         # TODO: give some data from the PVD + a filecount
         return f'<Iso ... @ 0x{id(self):016X}>'
 
-    def read(self, filename: str) -> bytes:
-        raise NotImplementedError()
+    def full_path(self, path_table_index: int) -> str:
+        if path_table_index == 0:
+            return "/"
+        path = self.path_table[path_table_index]
+        names = [path.name]
+        while path.parent_index != 1:
+            path = self.path_table[path.parent_index - 1]
+            names.append(path.name)
+        return "/" + "/".join(reversed(names)) + "/"
+
+    def path_records(self, path_index: int) -> List[Directory]:
+        path = self.path_table[path_index]
+        lba = path.extent_lba + self.lba_offset
+        self.disc.seek(lba * self.pvd.block_size)
+        # grab Directory records at top of the path extent
+        # NOTE: it might be possible to get the number or files
+        # -- instead of depending on hitting null bytes
+        directory = Directory.from_stream(self.disc)
+        records = list()
+        while directory is not None:
+            records.append(directory)
+            directory = Directory.from_stream(self.disc)
+        return records
+
+    def listdir(self, search_folder: str) -> List[str]:
+        # NOTE: search_folder is case sensitive
+        search_folder.replace("\\", "/")
+        search_folder = f"/{search_folder}/"
+        search_folder = search_folder.replace("//", "/")  # eliminate doubles
+        folders = [self.full_path(i) for i, path in enumerate(self.path_table)]
+        assert search_folder in folders, "path not found"
+        path_index = folders.index(search_folder)
+        records = self.path_records(path_index)
+        assert records[0].name == "."
+        assert records[1].name == ".."
+        # NOTE: we could add a "/" to the end of a name if it's not a file
+        return [f.name for f in records[2:]]
 
     def namelist(self) -> List[str]:
-        raise NotImplementedError()
+        filenames = set()
+        for i, path in enumerate(self.path_table):
+            path_name = self.full_path(i).lstrip("/")
+            for record in self.path_records(i):
+                if record.is_file:
+                    filenames.add(path_name + record.name)
+        return sorted(filenames)
 
-    def _from_bytes(self, raw_iso: bytes):
-        assert b"\x01CD001" in raw_iso, "Primary Volume Descriptor not found"
-        raise NotImplementedError()
-        # load pvd
-        # hook filesystem
-        # we might want to target a specific PVD in future
-        # -- should give an option to specify it's address / index
+    def tree(self, head=1, depth=0):
+        # NOTE: folders only
+        for path in self.path_table[1:]:
+            if path.parent_index == head:
+                print(f"{'  ' * depth}{path.name}/")
+                self.tree(self.path_table.index(path) + 1, depth + 1)
 
-    def _from_file(self, filename: str):
-        with open(filename, "rb") as iso_file:
-            self._from_stream(iso_file)
+    @classmethod
+    def from_bytes(cls, raw_iso: bytes, pvd_address: int = None, lba_offset: int = 0) -> Iso:
+        # NOTE: only from_bytes will search for PVDs
+        if pvd_address is None:  # default to the first PVD
+            pvd_addresses = binary.find_all(raw_iso, b"\x01CD001")  # !!! INCREDIBLY SLOW !!!
+            assert len(pvd_addresses) > 0, "Iso has no PrimaryVolumeDescriptor"
+            pvd_address = pvd_addresses[0]  # default to first PVD (typically 0x8000)
+        return cls.from_stream(io.BytesIO(raw_iso), pvd_address, lba_offset)
 
-    def _from_stream(self, stream: io.BytesIO):
-        self._from_bytes(stream.read())
+    @classmethod
+    def from_file(cls, filename: str, pvd_address: int = 0x8000, lba_offset: int = 0) -> Iso:
+        return cls.from_stream(open(filename, "rb"), pvd_address, lba_offset)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, pvd_address: int = 0x8000, lba_offset: int = 0) -> Iso:
+        out = cls()
+        out.disc = stream
+        out.lba_offset = lba_offset
+        # PVD
+        stream.seek(pvd_address)
+        out.pvd = PrimaryVolumeDescriptor.from_stream(out.disc)
+        # PathTable
+        path_table_lba = out.pvd.path_table_le_lba + lba_offset
+        stream.seek(path_table_lba * out.pvd.block_size)
+        # TODO: get the path table without creating a separate stream
+        raw_path_table = out.disc.read(out.pvd.path_table_size)
+        path_table_stream = io.BytesIO(raw_path_table)
+        while path_table_stream.tell() < out.pvd.path_table_size:
+            entry = PathTableEntry.from_stream(path_table_stream)
+            out.path_table.append(entry)
+        assert path_table_stream.tell() == out.pvd.path_table_size
+        # NOTE: we're ignoring the optional path table & all the big-endian stuff
+        return out
