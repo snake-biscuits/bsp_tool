@@ -139,7 +139,7 @@ class Directory:
     ear_length: int
     data_lba: int  # LBA of data extent
     data_size: int  # size of data extent (in bytes)
-    recorded: TimeStamp
+    timestamp: TimeStamp
     flags: FileFlag
     interleaved_unit_size: int  # "file unit size"; 0 if not interleaved
     interleaved_gap_size: int  # 0 if not interleaved
@@ -159,7 +159,7 @@ class Directory:
         # NOTE: ear is short for "Extended Attribute Record"
         out.data_lba = read_both_endian(stream, "I")
         out.data_size = read_both_endian(stream, "I")
-        out.recorded = TimeStamp.from_stream_bytes(stream)
+        out.timestamp = TimeStamp.from_stream_bytes(stream)
         out.flags = FileFlag(binary.read_struct(stream, "B"))
         out.interleaved_unit_size = binary.read_struct(stream, "B")
         out.interleaved_gap_size = binary.read_struct(stream, "B")

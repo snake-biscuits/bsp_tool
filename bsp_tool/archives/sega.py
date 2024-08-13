@@ -86,7 +86,7 @@ class GDRom:
             names.append(path.name)
         return "/" + "/".join(reversed(names)) + "/"
 
-    def folder_contents(self, path_index: int) -> List[cdrom.Directory]:
+    def path_records(self, path_index: int) -> List[cdrom.Directory]:
         path = self.path_table[path_index]
         lba = path.extent_lba - self.data_area_lba
         self.data_area.seek(lba * self.pvd.block_size)
@@ -108,7 +108,7 @@ class GDRom:
         folders = [self.full_path(i) for i, path in enumerate(self.path_table)]
         assert search_folder in folders, "path not found"
         path_index = folders.index(search_folder)
-        records = self.folder_contents(path_index)
+        records = self.path_records(path_index)
         assert records[0].name == "."
         assert records[1].name == ".."
         # NOTE: we could add a "/" to the end of a name if it's not a file
