@@ -132,10 +132,13 @@ class GDRom:
 
     @classmethod
     def from_cdi(cls, cdi: padus.Cdi) -> GDRom:
-        # NOTE: hardcoding the data area iso filename could come back to bite us
-        # -- we should be trying this on more than just quakeiii.cdi
-        data_area_bytes = cdi.read("1.0.iso")  # session 2; track 1
-        data_area_lba = cdi.sessions[1][0].start_lba  # GD Area PVD correction
+        # validate our assumptions
+        assert len(cdi.sessions) == 2  # CD area (soundtrack), GD area (game)
+        assert len(cdi.sessions[1]) == 1  # 1 Track
+        assert cdi.sessions[1][0].mode == padus.TrackMode.Mode2  # binary data (.iso)
+        # Session 2 - Track 1 is the GD Area
+        data_area_bytes = cdi.read("1.0.iso")
+        data_area_lba = cdi.sessions[1][0].start_lba
         out = cls.from_data_area(data_area_bytes, data_area_lba)
         out.cdi = cdi  # DEBUG
         # TODO: we shouldn't have to keep the CDI
@@ -189,6 +192,6 @@ class GDRom:
     @classmethod
     def from_file(cls, filename: str) -> GDRom:
         # TODO: support multiple source file formats:
-        # -- .cdi .gdi .bin+.cue
+        # -- .cdi .gdi+.bin/.raw .cue+.bin/.raw
         assert filename.lower().endswith(".cdi")
         return cls.from_cdi(padus.Cdi(filename))
