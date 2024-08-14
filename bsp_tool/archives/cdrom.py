@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime
 import enum
 import io
+import os
 from typing import List
 
 from . import base
@@ -282,7 +283,7 @@ class PrimaryVolumeDescriptor:
     def from_stream(cls, stream: io.BytesIO) -> PrimaryVolumeDescriptor:
         out = cls()
         type_code = binary.read_struct(stream, "B")
-        assert type_code == 0x01
+        assert type_code == 0x01, type_code  # 0x01: Primary, 0x02: Supplementary, 0x03: Partition
         magic = binary.read_struct(stream, "5s")
         assert magic == b"CD001"
         version = binary.read_struct(stream, "H")  # technically uint8 + 1 char pad
@@ -320,9 +321,15 @@ class PrimaryVolumeDescriptor:
         out.application_bytes = stream.read(512)  # empty ASCII whitespace
         reserved = stream.read(653)  # ISO reserved bytes (typically all NULL)
         assert reserved == b"\x00" * 653, "unexpected data in RESERVED section"
-        # NOTE: start of next logical block
+        # make sure we're terminated
         terminator = stream.read(7)
-        assert terminator == b"\xFFCD001\x01"
+        while terminator != b"\xFFCD001\x01":
+            assert terminator[1:] == b"CD001\x01", "Couldn't find next VolumeDescriptor"
+            assert terminator[0] in (0x02, 0x03), f"0x{terminator[0]:02X} is not a valid VolumeDescriptor type"
+            # NOTE: 0x02: Supplementary, 0x03: Partition, 0x04..0xFE: Reserved
+            print("skipping", {0x02: "Supplementary", 0x03: "Partition"}[terminator[0]], "Volume Descriptor")
+            stream.seek(2048 - 7, 1)  # try the next Logical Block
+            terminator = stream.read(7)
         return out
 
 
@@ -344,6 +351,21 @@ class Iso(base.Archive):
     def __repr__(self) -> str:
         # TODO: give some data from the PVD + a filecount
         return f'<Iso ... @ 0x{id(self):016X}>'
+
+    def folder_records(self, search_folder: str) -> List[Directory]:
+        # NOTE: search_folder is case sensitive
+        # TEST: "" & "/" should both index root
+        # -- maybe also "." & "./"
+        # TODO: is it easier to walk the directory tree?
+        search_folder.replace("\\", "/")
+        search_folder = f"/{search_folder}/"
+        while "//" in search_folder:  # eliminate double slashes
+            # NOTE: have to replace twice for root ("/")
+            search_folder = search_folder.replace("//", "/")
+        folders = [self.full_path(i) for i, path in enumerate(self.path_table)]
+        assert search_folder in folders, f"couldn't find {search_folder!r}"
+        path_index = folders.index(search_folder)
+        return self.path_records(path_index)
 
     def full_path(self, path_table_index: int) -> str:
         if path_table_index == 0:
@@ -371,13 +393,7 @@ class Iso(base.Archive):
 
     def listdir(self, search_folder: str) -> List[str]:
         # NOTE: search_folder is case sensitive
-        search_folder.replace("\\", "/")
-        search_folder = f"/{search_folder}/"
-        search_folder = search_folder.replace("//", "/")  # eliminate doubles
-        folders = [self.full_path(i) for i, path in enumerate(self.path_table)]
-        assert search_folder in folders, "path not found"
-        path_index = folders.index(search_folder)
-        records = self.path_records(path_index)
+        records = self.folder_records(search_folder)
         assert records[0].name == "."
         assert records[1].name == ".."
         # NOTE: we could add a "/" to the end of a name if it's not a file
@@ -391,6 +407,20 @@ class Iso(base.Archive):
                 if record.is_file:
                     filenames.add(path_name + record.name)
         return sorted(filenames)
+
+    def read(self, filename: str) -> bytes:
+        # NOTE: case sensitive
+        folder, filename = os.path.split(filename)
+        records = {r.name: r for r in self.folder_records(folder)}
+        assert filename in records, "file not found"
+        record = records[filename]
+        assert record.is_file, "f{filename!r} is not a file"
+        self.seek(record.data_lba)
+        return self.disc.read(record.data_size)
+
+    def seek(self, lba: int) -> int:
+        true_lba = lba + self.lba_offset
+        return self.disc.seek(true_lba * self.pvd.block_size)
 
     def tree(self, head=1, depth=0):
         # NOTE: folders only

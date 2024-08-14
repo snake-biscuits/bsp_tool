@@ -60,9 +60,7 @@ class GDRom:
     header: Header
     data_area: cdrom.Iso  # GD-ROM Data Area
 
-    def __init__(self):
-        self.pvd = list()
-        self.path_table = list()
+    # TODO: __init__ w/ defaults (equivalent to a blank GD-ROM)
 
     def __repr__(self):
         id_ = " ".join(
