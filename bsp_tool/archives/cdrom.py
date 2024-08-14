@@ -27,7 +27,7 @@ strD = {
     *{chr(x) for x in range(ord("a"), ord("z") + 1)},
     *{chr(x) for x in range(ord("A"), ord("Z") + 1)},
     *{chr(x) for x in range(ord("0"), ord("9") + 1)},
-    *"._ "}
+    *"._ []"}
 
 strA = {
     *strD,
