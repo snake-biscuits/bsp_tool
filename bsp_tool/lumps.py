@@ -244,7 +244,7 @@ class BasicBspLump(RawBspLump):
         return out
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}({len(self)} {self.LumpClass.__name__}) at 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__} ({len(self)} {self.LumpClass.__name__}) at 0x{id(self):016X}>"
 
     def get_unchanged(self, index: int) -> int:
         """no index remapping, be sure to respect stream data bounds!"""
