@@ -334,6 +334,7 @@ class PrimaryVolumeDescriptor:
 
 
 class Iso(base.Archive):
+    ext = "*.iso"  # sometimes "*.bin"
     lba_offset: int  # add this offset to all LBA address lookups
     # GD-ROM Filesystems need a -ve lba_offset because we isolate the GD Area
     # So LBAs start in the thousands, rather than the low teens
@@ -349,8 +350,7 @@ class Iso(base.Archive):
         self.path_table = list()
 
     def __repr__(self) -> str:
-        # TODO: give some data from the PVD + a filecount
-        return f'<Iso ... @ 0x{id(self):016X}>'
+        return f'<Iso {self.pvd.name!r} {len(self.namelist())} files @ 0x{id(self):016X}>'
 
     def folder_records(self, search_folder: str) -> List[Directory]:
         # NOTE: search_folder is case sensitive
