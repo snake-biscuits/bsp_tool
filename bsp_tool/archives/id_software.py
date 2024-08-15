@@ -2,9 +2,9 @@ from __future__ import annotations
 import io
 import struct
 from typing import Dict, List
-import zipfile
 
 from . import base
+from . import pkware
 
 
 class PakFileEntry:
@@ -14,7 +14,7 @@ class PakFileEntry:
         self.size = size
 
     def __repr__(self) -> str:
-        return f"PakFileEntry(filepath={self.filepath}, offset={self.offset}, size={self.size})"
+        return f"PakFileEntry(filepath={self.filepath!r}, offset={self.offset}, size={self.size})"
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakFileEntry:
@@ -63,6 +63,6 @@ class Pak(base.Archive):
         return sorted(self.files.keys())
 
 
-class Pk3(zipfile.ZipFile, base.Archive):
+class Pk3(pkware.Zip):
     """IdTech .bsps are stored in .pk3 files, which are basically .zip archives"""
     ext = "*.pk3"

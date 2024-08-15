@@ -5,11 +5,11 @@ import io
 from typing import List, Tuple
 
 from .. import lumps
+from .. import archives
 from ..utils import vector
 from . import base
 from . import shared
 from .id_software import quake
-from .valve import source
 
 
 LUMPS = {
@@ -108,7 +108,7 @@ LUMP_CLASSES = {
 
 SPECIAL_LUMP_CLASSES = {
     "FACENORMALS": FaceNormal,
-    "ZIP_PAKFILE": source.PakFile}
+    "ZIP_PAKFILE": archives.pkware.Zip}
 
 
 # branch exclusive methods, in alphabetical order:

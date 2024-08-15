@@ -1,7 +1,7 @@
 """Tools for opening and searching archives containing game assets (specifically .bsp)"""
 __all__ = [
     "base", "bluepoint", "cdrom", "gearbox", "id_software", "infinity_ward",
-    "nexon", "padus", "pi_studios", "respawn", "sega", "utoplanet", "valve"]
+    "nexon", "padus", "pi_studios", "pkware", "respawn", "sega", "utoplanet", "valve"]
 import fnmatch
 import os
 from typing import Dict, List
@@ -15,6 +15,7 @@ from . import infinity_ward  # Iwd & FastFile
 from . import nexon  # Hfs & Pkg
 from . import padus  # Cdi
 from . import pi_studios  # Bpk
+from . import pkware  # Zip
 from . import respawn  # RPak & Vpk
 from . import sega  # GDRom
 from . import utoplanet  # Apk
@@ -22,8 +23,10 @@ from . import valve  # Vpk
 
 
 # batch operations
-# TODO: ignore r".*_[0-9]+\.vpk"
-def search_folder(archive_class, path, pattern="*.bsp") -> Dict[str, List[str]]:
+# TODO: ignore r".*_[0-9]+\.vpk" when looking for respawn.Vpk
+# -- this also applies for some valve.Vpk
+def search_folder(archive_class: base.Archive, path: str, pattern: str = "*.bsp") -> Dict[str, List[str]]:
+    """check all archives in this folder for files matching pattern"""
     findings = dict()
     for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
         archive_file = archive_class(os.path.join(path, archive_filename))
@@ -33,7 +36,8 @@ def search_folder(archive_class, path, pattern="*.bsp") -> Dict[str, List[str]]:
     return findings
 
 
-def extract_folder(archive_class, path, pattern="*.bsp", to_path=None):
+def extract_folder(archive_class: base.Archive, path: str, pattern: str = "*.bsp", to_path: str = None):
+    """extract all files in archives in this folder which match pattern"""
     for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
         archive_file = archive_class(os.path.join(path, archive_filename))
         archive_file.extract_match(pattern=pattern, to_path=to_path)

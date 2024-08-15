@@ -4,9 +4,10 @@ from . import base
 from . import shared
 # TODO: name overlap w/ bsp_tool could be useful, but rn it sucks
 # -- I'd like to lookup DiffClasses based on LumpClass __name__ & __module__
+from .archives import pkware
 from .id_software import quake2
-from .valve import source
 
+from bsp_tool import archives
 from bsp_tool import branches
 from bsp_tool.lumps import BasicBspLump, RawBspLump, ExternalRawBspLump
 
@@ -29,8 +30,8 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
         DiffClass = shared.EntitiesDiff
     elif LumpClasses == {branches.id_software.quake2.Visibility}:
         DiffClass = quake2.VisibilityDiff
-    elif LumpClasses == {branches.valve.source.PakFile}:
-        DiffClass = source.PakFileDiff
+    elif LumpClasses == {archives.pkware.Zip}:
+        DiffClass = pkware.ZipDiff
     elif RawBspLump in LumpClasses or ExternalRawBspLump in LumpClasses:
         # TODO: core.xxd diff
         raise NotImplementedError("Cannot diff raw lumps")

@@ -6,10 +6,10 @@ from __future__ import annotations
 import enum
 import io
 import struct
-from typing import Any, List, Tuple
-import zipfile
+from typing import List, Tuple
 
 from ... import lumps
+from ... import archives
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
@@ -930,42 +930,6 @@ class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35)
     StaticPropClass = StaticPropv7
 
 
-class PakFile(zipfile.ZipFile):  # LUMP 40
-    _buffer: io.BytesIO
-
-    def __init__(self, file_: Any = None, mode: str = "a", **kwargs):
-        """always a read-only copy of the lump"""
-        if file_ is None:
-            empty_zip = [b"PK\x05\x06", b"\x00" * 16, b"\x20\x00XZP1 0", b"\x00" * 26]
-            self._buffer = io.BytesIO(b"".join(empty_zip))
-        elif isinstance(file_, io.BytesIO):  # BspClass will take this route via .from_bytes()
-            self._buffer = file_
-        elif isinstance(file_, str):
-            self._buffer = io.BytesIO(open(file_, "rb").read())
-        else:
-            raise TypeError(f"Cannot create {self.__class__.__name__} from type '{type(file_)}'")
-        super().__init__(self._buffer, mode=mode, **kwargs)
-
-    def __repr__(self) -> str:
-        dev_branch_class = ".".join([*self.__module__.split(".")[-2:], self.__class__.__name__])
-        return f"<{dev_branch_class} {len(self.namelist())} files mode='{self.mode}' @ 0x{id(self):016X}>"
-
-    def as_bytes(self) -> bytes:
-        # write ending records if edits were made (adapted from ZipFile.close)
-        if self.mode in "wxa" and self._didModify and self.fp is not None:
-            with self._lock:
-                if self._seekable:
-                    self.fp.seek(self.start_dir)
-                self._write_end_record()
-        self._didModify = False  # don't double up when .close() is called
-        # NOTE: .close() can get funky but it's OK because ._buffer isn't a real file
-        return self._buffer.getvalue()
-
-    @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        return cls(io.BytesIO(raw_lump))
-
-
 class TextureDataStringData(list):  # LUMP 43
     def __init__(self, iterable: List[str] = tuple()):
         super().__init__(iterable)
@@ -1022,7 +986,7 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
                 "WORLD_LIGHTS_HDR":          {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "PAKFILE":                  {0: PakFile},
+                        "PAKFILE":                  {0: archives.id_software.Pk3},
                         # "PHYSICS_COLLIDE":          {0: physics.CollideLump},  # BROKEN .as_bytes()
                         "PHYSICS_DISPLACEMENT":     {0: physics.Displacement},
                         "TEXTURE_DATA_STRING_DATA": {0: TextureDataStringData},

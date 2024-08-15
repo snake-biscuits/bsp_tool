@@ -6,6 +6,7 @@ import struct
 from typing import Dict, List, Union
 
 from ... import lumps
+from ... import archives
 from ...utils import editor
 from ...utils import physics
 from ...utils import geometry
@@ -1107,7 +1108,7 @@ SPECIAL_LUMP_CLASSES = {
     "ENTITIES":                  {0: shared.Entities},
     # NOTE: .ent files are handled directly by the RespawnBsp class
     "LEVEL_INFO":                {0: LevelInfo},
-    "PAKFILE":                   {0: source.PakFile},
+    "PAKFILE":                   {0: archives.pkware.Zip},
     # "PHYSICS_COLLIDE":           {0: vphysics.CollideLump},  # BROKEN .as_bytes()
     "TEXTURE_DATA_STRING_DATA":  {0: source.TextureDataStringData}}
 # TODO: LightProbeParentInfos/BspNodes & RefIds may all be Special
