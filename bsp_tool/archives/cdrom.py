@@ -415,6 +415,8 @@ class Iso(base.Archive):
         assert filename in records, "file not found"
         record = records[filename]
         assert record.is_file, "f{filename!r} is not a file"
+        if record.data_interleaved_unit_size != 0 or record.data.interleaved_gap_size != 0:
+            raise NotImplementedError("cannot read interleaved file")
         self.seek(record.data_lba)
         return self.disc.read(record.data_size)
 
