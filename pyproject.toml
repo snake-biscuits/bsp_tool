@@ -29,11 +29,13 @@ classifiers = [
     "Topic :: Multimedia :: Graphics :: 3D Modeling",
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
+dependencies = [
+    "Pillow"
+]
 
 
 [project.optional-dependencies]
-# install with pip extras sytax; for example: `$ pip install bsp_tool[extended]`
-extended = ["Pillow"]  # bsp_tool.extensions.lightmaps
+# install with pip extras sytax; for example: `$ pip install bsp_tool[test]`
 test = ["pytest", "pytest_cov"]
 
 
