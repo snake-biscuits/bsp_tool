@@ -102,6 +102,13 @@ https://delistedgames.com/tactical-intervention/
 https://web.archive.org/web/20180111220051/http://steamcommunity.com/games/51100/announcements/detail/1488861563241217935
 https://steamdb.info/changelist/3779228/
 
+
 ## Team Fortress Quake
 ### PC
 https://www.quaddicted.com/webarchive/www.planetfortress.com/tf/gameinfo/about.shtml
+
+
+## Quake
+### Dreamcast
+https://www.dreamcast-talk.com/forum/viewtopic.php?t=12735
+> Also confirmed in GD-ROM header
