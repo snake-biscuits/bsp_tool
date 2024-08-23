@@ -89,19 +89,20 @@ class Metadata:
         return out
 
 
-class CompressedMapv5:
+class CompressedMapHeaderv5:
+    length: int  # size of compressed map data
+
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> CompressedMapv5:
-        raise NotImplementedError()
+    def from_stream(cls, stream: io.BytesIO) -> CompressedMapHeaderv5:
         out = cls()
-        # [  0] uint32_t  length;          // length of compressed map
-        # [  4] UINT48    datastart;       // offset of first block
-        # [ 10] uint16_t  crc;             // crc-16 of the map
-        # [ 12] uint8_t   lengthbits;      // bits used to encode complength
-        # [ 13] uint8_t   hunkbits;        // bits used to encode self-refs
-        # [ 14] uint8_t   parentunitbits;  // bits used to encode parent unit refs
-        # [ 15] uint8_t   reserved;        // future use
-        # Huffman Decompress Map Entries
+        out.length, offset_crc = binary.read_struct(stream, ">IQ")
+        out.first_block_offset = offset_crc >> 16
+        out.crc = offset_crc & (2 ** 16 - 1)
+        bits = binary.read_struct(stream, ">4B")
+        out.length_bits = bits[0]
+        out.hunk_bits = bits[1]
+        out.parent_unit_bits = bits[2]
+        assert bits[3] == 0  # reserved
         return out
 
 
@@ -148,13 +149,17 @@ class Chd(base.Archive):
         while metadata.next != 0:
             out.metadata.append(metadata)
             metadata = Metadata.from_stream(stream)
-        # TODO: if out.header.compressors[0] != b"\x00" * 4:  # data is compressed
         # NOTE: https://github.com/mamedev/mame/blob/master/src/lib/util/chd.cpp#L2489
         # -- get map (m_rawmap)
         # NOTE: https://github.com/mamedev/mame/blob/master/src/lib/util/chd.cpp#L2168
         # -- decompress_v5_map
         # --- seek to map offset
-        ...
+        stream.seek(out.header.map_offset)
+        if out.header.compressors[0] != b"\x00" * 4:  # data is compressed
+            out.map_header = CompressedMapHeaderv5.from_stream(stream)
+            out.raw_map = stream.read(out.map_header.length)
+            assert len(out.raw_map) == out.map_header.length  # should hit EOF exactly
+            # TODO: decompress Huffman encoded CompressedMapEntryv5 etc.
         # INITIALISE DECOMPRESSORS
         # NOTE: https://github.com/mamedev/mame/blob/master/src/lib/util/chdcodec.cpp#L406
         # -- cdrom_file::MAX_SECTOR_DATA = 2352
@@ -164,7 +169,9 @@ class Chd(base.Archive):
         # -- chd_lzma_decompressor::decompress | lzma/C/LzmaDec.h | import lzma
         # -- chd_zlib_decompressor::decompress | <zlib.h> | import zlib
         # -- chd_zstd_decompressor::decompress | <zstd.h>  | pip install zstandard (+ cffi) => import zstandard
-        ...
+        else:
+            # TODO: need an uncompressed .chd to test
+            raise NotImplementedError("Cannot parse uncompressed Map")
         return out
 
     @property
