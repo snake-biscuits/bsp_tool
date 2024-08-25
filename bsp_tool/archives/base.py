@@ -19,7 +19,7 @@ class Archive:
         for filename in self.namelist():
             self.extract(filename, to_path)
 
-    def extract_match(self, pattern="*.bsp", to_path=None, case_sensitive=False):
+    def extract_all_matching(self, pattern="*.bsp", to_path=None, case_sensitive=False):
         for filename in self.search(pattern, case_sensitive):
             self.extract(filename, to_path)
 
