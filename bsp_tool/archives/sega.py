@@ -7,6 +7,7 @@ import io
 import os
 from typing import List
 
+from . import base
 from . import cdrom
 from . import padus
 
@@ -48,7 +49,8 @@ class GdiTrack:
         return cls(track_number, start_lba, type_, sector_size, filename)
 
 
-class Gdi:
+class Gdi(base.Archive):
+    ext = "*.gdi"
     folder: str
     filename: str
     tracks: List[GdiTrack]
@@ -158,7 +160,9 @@ class Header:
 
 
 # Universal GDRom wrapper
-class GDRom:
+class GDRom(base.Archive):
+    ext = "*.gdi"
+    exts = ["*.cdi", "*.chd", "*.cue", "*.gdi"]
     header: Header
     data_area: cdrom.Iso  # GD-ROM Data Area
 
