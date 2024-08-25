@@ -29,10 +29,8 @@ class Archive:
         if folder.replace("\\", "/") in "./":
             return self.namelist()
         folder_tuple = path_tuple(folder)
-        return [
-            filename
-            for filename in self.namelist()
-            if path_tuple(filename)[:-1] == folder_tuple]
+        namelist_tuples = map(path_tuple, self.namelist())
+        return [tuple_[-1] for tuple_ in namelist_tuples if tuple_[:-1] == folder_tuple]
 
     def search(self, pattern="*.bsp", case_sensitive=False):
         pattern = pattern if case_sensitive else pattern.lower()
