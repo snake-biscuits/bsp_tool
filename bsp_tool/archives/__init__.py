@@ -1,17 +1,20 @@
 """Tools for opening and searching archives containing game assets (specifically .bsp)"""
 __all__ = [
-    "base", "bluepoint", "cdrom", "gearbox", "id_software", "infinity_ward", "mame",
-    "nexon", "padus", "pi_studios", "pkware", "respawn", "sega", "utoplanet", "valve"]
+    "base", "bluepoint", "cdrom", "gearbox", "id_software", "infinity_ward",
+    "ion_storm", "mame", "nexon", "padus", "pi_studios", "pkware", "respawn",
+    "sega", "utoplanet", "valve"]
+
 import fnmatch
 import os
 from typing import Dict, List
 
 from . import base
 from . import bluepoint  # Bpk
-from . import cdrom  # Iso, but indirectly
+from . import cdrom  # Iso
 from . import gearbox  # Nightfire007
 from . import id_software  # Pak & Pk3
 from . import infinity_ward  # Iwd & FastFile
+from . import ion_storm  # Dat
 from . import mame  # Chd
 from . import nexon  # Hfs & Pkg
 from . import padus  # Cdi

@@ -86,15 +86,6 @@ class FastFile(base.Archive):
         self.asset_types = list()
 
     @classmethod
-    def from_bytes(cls, raw_fastfile: bytes) -> FastFile:
-        return cls.from_stream(io.BytesIO(raw_fastfile))
-
-    @classmethod
-    def from_file(cls, filename: str) -> FastFile:
-        with open(filename, "rb") as ff_file:
-            return cls.from_stream(ff_file)
-
-    @classmethod
     def from_stream(cls, stream: io.BytesIO) -> FastFile:
         out = cls()
         magic, version = binary.read_struct(stream, "8sI")

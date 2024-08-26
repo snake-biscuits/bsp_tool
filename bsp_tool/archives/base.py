@@ -1,4 +1,6 @@
+from __future__ import annotations
 import fnmatch
+import io
 import os
 from typing import List, Tuple
 
@@ -32,7 +34,27 @@ class Archive:
         namelist_tuples = map(path_tuple, self.namelist())
         return [tuple_[-1] for tuple_ in namelist_tuples if tuple_[:-1] == folder_tuple]
 
+    def namelist(self) -> List[str]:
+        raise NotImplementedError("ArchiveClass has not defined .namelist()")
+
+    def read(self) -> bytes:
+        raise NotImplementedError("ArchiveClass has not defined .read()")
+
     def search(self, pattern="*.bsp", case_sensitive=False):
         pattern = pattern if case_sensitive else pattern.lower()
         namelist = self.namelist() if case_sensitive else [fn.lower() for fn in self.namelist()]
         return fnmatch.filter(namelist, pattern)
+
+    @classmethod
+    def from_bytes(cls, raw_archive: bytes) -> Archive:
+        return cls.from_stream(io.BytesIO(raw_archive))
+
+    @classmethod
+    def from_file(cls, filename: str) -> Archive:
+        # NOTE: don't use "with" if you want to keep the stream open
+        archive_file = open(filename, "rb")
+        return cls.from_stream(archive_file)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Archive:
+        raise NotImplementedError("ArchiveClass has not defined .from_stream()")

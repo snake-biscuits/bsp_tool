@@ -6,6 +6,7 @@ from bsp_tool.archives import cdrom
 from bsp_tool.archives import gearbox
 from bsp_tool.archives import id_software
 from bsp_tool.archives import infinity_ward
+from bsp_tool.archives import ion_storm
 from bsp_tool.archives import mame
 from bsp_tool.archives import nexon
 from bsp_tool.archives import padus
@@ -25,6 +26,7 @@ archive_classes = [
     id_software.Pk3,
     infinity_ward.FastFile,
     infinity_ward.Iwd,
+    ion_storm.Dat,
     mame.Chd,
     nexon.Hfs,
     nexon.Pkg,

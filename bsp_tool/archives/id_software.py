@@ -26,32 +26,11 @@ class Pak(base.Archive):
     ext = "*.pak"
     files: Dict[str, PakFileEntry]
 
-    def __init__(self, filepath: str = None):
+    def __init__(self):
         self.files = dict()
-        if filepath is not None:
-            self._from_file(filepath)
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} {len(self.files)} files @ 0x{id(self):016X}>"
-
-    def __del__(self):
-        self.file.close()
-
-    def __exit__(self):
-        self.file.close()
-
-    def _from_file(self, filepath: str):
-        self.file = open(filepath, "rb")
-        assert self.file.read(4) == b"PACK", "not a .pak file"
-        # file table
-        offset, size = struct.unpack("2I", self.file.read(8))
-        assert size % 64 == 0, "unexpected file table size"
-        self.file.seek(offset)
-        self.files = {
-            e.filepath.split(b"\0")[0].decode(): e
-            for e in [
-                PakFileEntry.from_stream(self.file)
-                for i in range(size // 64)]}
 
     def read(self, filepath: str) -> bytes:
         assert filepath in self.files
@@ -61,6 +40,22 @@ class Pak(base.Archive):
 
     def namelist(self) -> List[str]:
         return sorted(self.files.keys())
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Pak:
+        out = cls()
+        out.file = stream
+        assert out.file.read(4) == b"PACK", "not a .pak file"
+        # file table
+        offset, size = struct.unpack("2I", out.file.read(8))
+        assert size % 64 == 0, "unexpected file table size"
+        out.file.seek(offset)
+        out.files = {
+            entry.filepath.split(b"\0")[0].decode(): entry
+            for entry in [
+                PakFileEntry.from_stream(out.file)
+                for i in range(size // 64)]}
+        return out
 
 
 class Pk3(pkware.Zip):

@@ -12,27 +12,25 @@ ApkHeader = namedtuple("ApkHeader", ["id", "files_offset", "file_count", "dir_of
 
 class Apk(base.Archive):
     ext = "*.apk"
-    _file: io.BufferedReader  # keep file open for extraction
-    files: Dict[str, ApkEntry]
+    _file: io.BytesIO
+    header: ApkHeader
+    entries: Dict[str, ApkEntry]
 
-    def __init__(self, apk_filename: str):
-        self.files = dict()
-
-    def __del__(self):
-        self._file.close()
+    def __init__(self):
+        self.entries = dict()
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} {self._file.name}>"
+        return f"<{self.__class__.__name__} @ 0x{id(self):016X}>"
 
     def namelist(self) -> List[str]:
-        return sorted(self.files.keys())
+        return sorted(self.entries.keys())
 
     def read(self, filename: str) -> bytes:
-        if filename not in self.files:
+        if filename not in self.namelist():
             raise FileNotFoundError()
-        entry = self.files[filename]
-        self._file.seek(entry.data_offset)
-        return self._file.read(entry.data_size)
+        entry = self.entries[filename]
+        self._file.seek(entry.offset)
+        return self._file.read(entry.length)
 
     @classmethod
     def from_file(cls, filename: str) -> Apk:
@@ -43,22 +41,29 @@ class Apk(base.Archive):
         out._file.seek(out.header.dir_offset)
         for i in range(out.header.file_count):
             entry = ApkEntry.from_stream(out._file)
-            out.files[entry.path] = entry
+            out.entries[entry.filename] = entry
             out._file.seek(entry.next_entry_offset)
         return out
 
 
 class ApkEntry:
+    filename: str
+    offset: int
+    length: int
+    next_entry_offset: int
+    unknown: int  # checksum?
+
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} {self.path} @ 0x{self.data_offset:016X}>"
+        descriptor = f"{self.filename!r} 0x{self.offset:08X}"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> int:
         out = cls()
-        path_len = binary.read_struct(stream, "I")
-        path = stream.read(path_len + 1).decode()
-        assert len(path) == path_len + 1, "path string ends prematurely"
-        assert path[-1] == "\0", "path string is not zero terminated"
-        out.path = path[:-1].replace("\\", "/")
-        out.data_offset, out.data_size, out.next_entry_offset, out.unknown = binary.read_struct(stream, "4I")
+        filename_length = binary.read_struct(stream, "I")
+        filename = stream.read(filename_length + 1).decode()
+        assert len(filename) == filename_length + 1, "filename ends prematurely"
+        assert filename[-1] == "\0", "filename is not zero terminated"
+        out.filename = filename[:-1].replace("\\", "/")
+        out.offset, out.length, out.next_entry_offset, out.unknown = binary.read_struct(stream, "4I")
         return out

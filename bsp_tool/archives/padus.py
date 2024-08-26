@@ -100,6 +100,7 @@ class Track:
 
 
 class Cdi(base.Archive):
+    ext = "*.cdi"
     file: io.BytesIO
     filename: str
     version: int
