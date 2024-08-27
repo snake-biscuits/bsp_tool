@@ -1,12 +1,12 @@
 import fnmatch
 import os
+import socket  # gethostname
 
 import pytest
 
 from bsp_tool.archives import respawn
 
 
-steam_common = "D:/SteamLibrary/steamapps/common/"
 steam_games = ["Titanfall", "Titanfall2"]
 apex_archive = [
     ["4feb19"],
@@ -32,28 +32,37 @@ apex_archive = [
 # -- ["9may23", "19jun23", "20jul23"]]
 # NOTE: season18 onwards ships with no `.vpk`s
 
-for i, season in enumerate(apex_archive):
-    print(f"{i=} {season=!r}")
 
-vpk_dirs = {
-    **{game: os.path.join(steam_common, game, "vpk/") for game in steam_games},
-    "Titanfall (Beta)": "E:/Mod/Titanfall/beta/vpk/",
-    **{
-        f"Apex Legends | Season {i} | {patch}": f"E:/Mod/ApexLegends/season{i}/{patch}/vpk/"
-        for i, season in enumerate(apex_archive)
-        for patch in season}}
-{print(f"{k:<64} {v}") for k, v in vpk_dirs.items()}
+# APEX ARCHIVE ARCHIVIST LOGIN
+aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
 
+user = os.getenv("USERNAME", os.getenv("USER"))
+host = os.getenv("HOSTNAME", os.getenv("COMPUTERNAME", socket.gethostname()))
+user = aliases.get(f"{user}@{host}", user)
 
-# TODO: lock this test down to just my PC
-if os.path.exists(steam_common):
-    vpks = dict()
+archivists = {
+    ("bikkie", "ITANI_WAYSOUND"): "E:/Mod/",
+    ("bikkie", "coplandbentokom-9876"): "/media/bikkie/3964-39352/Mod/"}
+
+vpks = dict()
+if (user, host) in archivists:
+    mod_dir = archivists[(user, host)]
+    steam_common = "D:/SteamLibrary/steamapps/common/"
+    # NOTE: steam_common only appears on ITANI_WAYSOUND
+
+    vpk_dirs = {
+        **{game: os.path.join(steam_common, game, "vpk/") for game in steam_games},
+        "Titanfall (Beta)": os.path.join(mod_dir, "Titanfall/beta/vpk/"),
+        **{f"Apex Legends | Season {i} | {patch}": os.path.join(mod_dir, f"ApexLegends/season{i}/{patch}/vpk/")
+           for i, season in enumerate(apex_archive)
+           for patch in season}}
+
     for game, vpk_dir in vpk_dirs.items():
+        if not os.path.exists(vpk_dir):
+            continue  # coplandbentokom-9876 only has a small subset of the archive
         for vpk_filename in fnmatch.filter(os.listdir(vpk_dir), "*_dir.vpk"):
             full_path = os.path.join(vpk_dir, vpk_filename)
             vpks[f"{game} | {vpk_filename}"] = full_path
-else:
-    vpks = dict()
 
 
 @pytest.mark.parametrize("filename", vpks.values(), ids=vpks.keys())

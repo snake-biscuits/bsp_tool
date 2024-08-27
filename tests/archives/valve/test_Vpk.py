@@ -1,5 +1,6 @@
 import fnmatch
 import os
+import socket  # gethostname
 
 import pytest
 
@@ -22,16 +23,24 @@ vpk_dirs = {
 # NOTE: The Ship | depot_2402_dir.vpk contains "umlaut e" b"\xEB" (latin_1)
 # -- https://steamdb.info/depot/2402/ (The Ship Common)
 
-# TODO: lock this test down to just my PC
-if os.path.exists(steam_common):
-    vpks = dict()
+# APEX ARCHIVE ARCHIVIST LOGIN
+aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
+
+user = os.getenv("USERNAME", os.getenv("USER"))
+host = os.getenv("HOSTNAME", os.getenv("COMPUTERNAME", socket.gethostname()))
+user = aliases.get(f"{user}@{host}", user)
+
+archivists = {
+    ("bikkie", "ITANI_WAYSOUND"): "D:/SteamLibrary/steamapps/common/"}
+
+vpks = dict()
+if (user, host) in archivists:
+    steam_common = archivists[(user, host)]
     for game, vpk_dir in vpk_dirs.items():
         vpk_dir = os.path.join(steam_common, game, vpk_dir)
         for vpk_filename in fnmatch.filter(os.listdir(vpk_dir), "*_dir.vpk"):
             full_path = os.path.join(vpk_dir, vpk_filename)
             vpks[f"{game} | {vpk_filename}"] = full_path
-else:
-    vpks = dict()
 
 
 @pytest.mark.parametrize("filename", vpks.values(), ids=vpks.keys())
