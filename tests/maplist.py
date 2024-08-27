@@ -164,9 +164,9 @@ extracted_dirs = {
                  "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
                  "update102.pk3/maps",  # 5 maps | 51 MB | .pk3
                  "update103.pk3/maps"],  # 4 maps | 31 MB | .pk3
-        "StarTrekEliteForce": ["pak0/maps",  # 67 maps | 334 MB | .pak
-                               "pak1/maps",  # 4 maps | 20 MB | .pak
-                               "pak3/maps"],  # 22 maps | 107 MB | .pak
+        "StarTrekEliteForce": ["pak0/maps",  # 67 maps | 334 MB | .pk3
+                               "pak1/maps",  # 4 maps | 20 MB | .pk3
+                               "pak3/maps"],  # 22 maps | 107 MB | .pk3
         "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
                     "pak1/maps",  # 8 maps | 10 MB | .pak
                     "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak

@@ -15,27 +15,31 @@ test_maps_dir = os.path.join(os.getcwd(), "tests/maps")
 # TODO: we can't safely assume cwd() is tests/../
 # -- use __file__ to get the test maps dir instead
 
-ArchiveDirs = collections.namedtuple("ArchiveDirs", ["steam_dir", "mod_dir"])
+ArchivistStash = collections.namedtuple(
+    "ArchivistStash", [
+        "steam_dir", "mod_dir", "gog_dir"])
 
 archivist_aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
 
 archivists = {
     # Windows Desktop
-    ("bikkie", "ITANI_WAYSOUND"): ArchiveDirs(
+    ("bikkie", "ITANI_WAYSOUND"): ArchivistStash(
         "D:/SteamLibrary/steamapps/common/",
-        "E:/Mod/"),
+        "E:/Mod/",
+        "D:/GoG Galaxy/Games"),
     # Linux Laptop
-    ("bikkie", "coplandbentokom-9876"): ArchiveDirs(
+    ("bikkie", "coplandbentokom-9876"): ArchivistStash(
         None,
-        "/media/bikkie/3964-39352/Mod/")}
+        "/media/bikkie/3964-39352/Mod/",
+        None)}
 
 
 def archive_available() -> bool:
     return archivist_login() in archivists
 
 
-def archive_dirs() -> ArchiveDirs:
-    return archivists.get(archivist_login(), ArchiveDirs(*[None] * 2))
+def archive_dirs() -> ArchivistStash:
+    return archivists.get(archivist_login(), ArchivistStash(*[None] * 3))
 
 
 def archivist_login() -> (str, str):

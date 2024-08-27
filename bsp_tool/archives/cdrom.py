@@ -8,8 +8,8 @@ import io
 import os
 from typing import List
 
-from . import base
 from ..utils import binary
+from . import base
 
 
 # NOTE: Logical Block Address -> Byte Address:

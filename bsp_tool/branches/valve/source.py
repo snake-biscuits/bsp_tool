@@ -986,7 +986,7 @@ LUMP_CLASSES = {"AREAS":                     {0: Area},
                 "WORLD_LIGHTS_HDR":          {0: WorldLight}}
 
 SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "PAKFILE":                  {0: archives.id_software.Pk3},
+                        "PAKFILE":                  {0: archives.pkware.Zip},
                         # "PHYSICS_COLLIDE":          {0: physics.CollideLump},  # BROKEN .as_bytes()
                         "PHYSICS_DISPLACEMENT":     {0: physics.Displacement},
                         "TEXTURE_DATA_STRING_DATA": {0: TextureDataStringData},

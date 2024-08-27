@@ -3,18 +3,29 @@ import io
 import struct
 from typing import Dict, List
 
+from ..utils import binary
 from . import base
 from . import pkware
 
 
+# NOTE: can't use branches.base.Struct without making a circular import
 class PakFileEntry:
-    def __init__(self, filepath: str, offset: int, size: int):
-        self.filepath = filepath
+    filename: bytes  # paintext
+    offset: int
+    length: int
+    __slots__ = ["filename", "offset", "length"]
+    _format = "56s2I"
+
+    def __init__(self, filename: str, offset: int, length: int):
+        self.filename = filename
         self.offset = offset
-        self.size = size
+        self.length = length
 
     def __repr__(self) -> str:
-        return f"PakFileEntry(filepath={self.filepath!r}, offset={self.offset}, size={self.size})"
+        attrs = ", ".join(
+            f"{attr}={getattr(self, attr)!r}"
+            for attr in ("filename, offset, length"))
+        return f"PakFileEntry({attrs})"
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakFileEntry:
@@ -24,40 +35,42 @@ class PakFileEntry:
 class Pak(base.Archive):
     # https://quakewiki.org/wiki/.pak
     ext = "*.pak"
-    files: Dict[str, PakFileEntry]
+    _file: io.BytesIO
+    entries: Dict[str, PakFileEntry]
 
     def __init__(self):
-        self.files = dict()
+        self.entries = dict()
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} {len(self.files)} files @ 0x{id(self):016X}>"
+        descriptor = f"{len(self.entries)} files"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     def read(self, filepath: str) -> bytes:
-        assert filepath in self.files
-        entry = self.files[filepath]
-        self.file.seek(entry.offset)
-        return self.file.read(entry.size)
+        assert filepath in self.entries
+        entry = self.entries[filepath]
+        self._file.seek(entry.offset)
+        return self._file.read(entry.length)
 
     def namelist(self) -> List[str]:
-        return sorted(self.files.keys())
+        return sorted(self.entries.keys())
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Pak:
         out = cls()
-        out.file = stream
-        assert out.file.read(4) == b"PACK", "not a .pak file"
+        out._file = stream
+        assert out._file.read(4) == b"PACK", "not a .pak file"
         # file table
-        offset, size = struct.unpack("2I", out.file.read(8))
-        assert size % 64 == 0, "unexpected file table size"
-        out.file.seek(offset)
-        out.files = {
-            entry.filepath.split(b"\0")[0].decode(): entry
+        offset, length = binary.read_struct(out._file, "2I")
+        sizeof_entry = 64
+        assert length % sizeof_entry == 0, "unexpected file table size"
+        out._file.seek(offset)
+        out.entries = {
+            entry.filename.partition(b"\0")[0].decode("ascii"): entry
             for entry in [
-                PakFileEntry.from_stream(out.file)
-                for i in range(size // 64)]}
+                PakFileEntry.from_stream(out._file)
+                for i in range(length // sizeof_entry)]}
         return out
 
 
 class Pk3(pkware.Zip):
-    """IdTech .bsps are stored in .pk3 files, which are basically .zip archives"""
     ext = "*.pk3"
