@@ -46,15 +46,17 @@ def class_name(cls: object) -> str:
     return ".".join([short_module, cls.__name__])
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize("archive_class", archive_classes, ids=map(class_name, archive_classes))
 def test_in_spec(archive_class: object):
     assert issubclass(archive_class, base.Archive), "not a base.Archive subclass"
     assert hasattr(archive_class, "ext"), "ext not specified"
     assert isinstance(archive_class.ext, str), "ext must be of type str"
     assert archive_class.ext.startswith("*"), "ext must start with wildcard"
-    # NOTE: expected formats are "*_dir.vpk" & "*.ext"
-    # NOTE: if a subclass has namelist & read base.Archive can do the rest
+    # NOTE: mostly "*.ext", but "*_dir.vpk" breaks the pattern
     assert hasattr(archive_class, "namelist"), "no namelist method"
     assert hasattr(archive_class, "read"), "no read method"
-    # TODO: .from_stream / .from_bytes / .from_file classmethods
+    # NOTE: base.Archive provides defaults for all essential methods
+    # -- but most raise NotImplementedError
+    # -- .from_stream(), .namelist() & .read() must all be implemented by the subclass
+    # -- each subclass will need it's own tests for those methods
+    # -- as well as confirming __init__ creates an empty ArchiveClass
