@@ -327,6 +327,7 @@ class PrimaryVolumeDescriptor:
             assert terminator[1:] == b"CD001\x01", "Couldn't find next VolumeDescriptor"
             assert terminator[0] in (0x02, 0x03), f"0x{terminator[0]:02X} is not a valid VolumeDescriptor type"
             # NOTE: 0x02: Supplementary, 0x03: Partition, 0x04..0xFE: Reserved
+            # TODO: userwarning / add to Iso.import_log somehow
             print("skipping", {0x02: "Supplementary", 0x03: "Partition"}[terminator[0]], "Volume Descriptor")
             stream.seek(2048 - 7, 1)  # try the next Logical Block
             terminator = stream.read(7)
@@ -434,10 +435,9 @@ class Iso(base.Archive):
     @classmethod
     def from_bytes(cls, raw_iso: bytes, pvd_address: int = None, lba_offset: int = 0) -> Iso:
         # NOTE: only from_bytes will search for PVDs
-        if pvd_address is None:  # default to the first PVD
-            pvd_addresses = binary.find_all(raw_iso, b"\x01CD001")  # !!! INCREDIBLY SLOW !!!
-            assert len(pvd_addresses) > 0, "Iso has no PrimaryVolumeDescriptor"
-            pvd_address = pvd_addresses[0]  # default to first PVD (typically 0x8000)
+        if pvd_address is None:  # default to the first PVD (typically 0x8000)
+            pvd_address = raw_iso.find(b"\x01CD001")
+            assert pvd_address != -1, "Iso has no PrimaryVolumeDescriptor"
         return cls.from_stream(io.BytesIO(raw_iso), pvd_address, lba_offset)
 
     @classmethod
