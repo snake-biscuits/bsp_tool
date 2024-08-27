@@ -42,3 +42,11 @@ class Zip(zipfile.ZipFile, base.Archive):
     @classmethod
     def from_bytes(cls, raw_lump: bytes) -> Zip:
         return cls(io.BytesIO(raw_lump))
+
+    @classmethod
+    def from_file(cls, filename: str) -> Zip:
+        return cls(filename)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Zip:
+        return cls(stream)
