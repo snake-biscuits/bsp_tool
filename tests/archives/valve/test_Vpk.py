@@ -19,8 +19,7 @@ vpk_dirs = {
     "The Ship Tutorial": "vpks/"}
 # NOTE: Dark Messiah Singleplayer | depot_2109_dir.vpk is empty
 # -- https://steamdb.info/depot/2109/ (mm_media)
-# NOTE: The Ship | depot_2402_dir.vpk is failing
-# -- and it's the one with the maps
+# NOTE: The Ship | depot_2402_dir.vpk contains "umlaut e" b"\xEB" (latin_1)
 # -- https://steamdb.info/depot/2402/ (The Ship Common)
 
 # TODO: lock this test down to just my PC

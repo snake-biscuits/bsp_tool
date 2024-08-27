@@ -73,11 +73,12 @@ class Vpk(base.Archive):
 
     def read(self, filename: str) -> bytes:
         assert filename in self.namelist()
-        if self.is_dir:
-            raise NotImplementedError("cannot read files inside *_dir.vpk yet")
-            # TODO: need access to f"{filename}_000.vpk" etc.
-        else:
-            raise NotImplementedError("cannot read files inside *.vpk yet")
+        raise NotImplementedError("Need to know if this .vpk is a _dir.vpk")
+        # if self.is_dir:
+        #     raise NotImplementedError("cannot read files inside *_dir.vpk yet")
+        #     # TODO: need access to f"{filename}_000.vpk" etc.
+        # else:
+        #     raise NotImplementedError("cannot read files inside *.vpk yet")
 
     # TODO: failing to parse "The Ship | depot_2402_dir.vpk"
     # -- which contains maps & loads just fine in GCFScape
@@ -101,15 +102,15 @@ class Vpk(base.Archive):
         # tree
         assert out.header.tree_length != 0, "no files?"
         while True:
-            extension = binary.read_str(out._file)
+            extension = binary.read_str(out._file, encoding="latin_1")
             if extension == "":
                 break  # end of tree
             while True:
-                folder = binary.read_str(out._file)
+                folder = binary.read_str(out._file, encoding="latin_1")
                 if folder == "":
                     break  # end of extension
                 while True:
-                    filename = binary.read_str(out._file)
+                    filename = binary.read_str(out._file, encoding="latin_1")
                     if filename == "":
                         break  # end of folder
                     # entry

@@ -106,15 +106,15 @@ class Vpk(valve.Vpk):
         # tree
         assert out.header.tree_length != 0, "no files?"
         while True:
-            extension = binary.read_str(out._file)
+            extension = binary.read_str(out._file, encoding="latin_1")
             if extension == "":
                 break  # end of tree
             while True:
-                folder = binary.read_str(out._file)
+                folder = binary.read_str(out._file, encoding="latin_1")
                 if folder == "":
                     break  # end of extension
                 while True:
-                    filename = binary.read_str(out._file)
+                    filename = binary.read_str(out._file, encoding="latin_1")
                     if filename == "":
                         break  # end of folder
                     entry_path = f"{folder}/{filename}.{extension}"
