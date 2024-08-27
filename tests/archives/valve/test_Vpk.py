@@ -1,10 +1,11 @@
 import fnmatch
 import os
-import socket  # gethostname
 
 import pytest
 
 from bsp_tool.archives import valve
+
+from ... import utils
 
 
 steam_common = "D:/SteamLibrary/steamapps/common/"
@@ -23,21 +24,12 @@ vpk_dirs = {
 # NOTE: The Ship | depot_2402_dir.vpk contains "umlaut e" b"\xEB" (latin_1)
 # -- https://steamdb.info/depot/2402/ (The Ship Common)
 
-# APEX ARCHIVE ARCHIVIST LOGIN
-aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
-
-user = os.getenv("USERNAME", os.getenv("USER"))
-host = os.getenv("HOSTNAME", os.getenv("COMPUTERNAME", socket.gethostname()))
-user = aliases.get(f"{user}@{host}", user)
-
-archivists = {
-    ("bikkie", "ITANI_WAYSOUND"): "D:/SteamLibrary/steamapps/common/"}
 
 vpks = dict()
-if (user, host) in archivists:
-    steam_common = archivists[(user, host)]
+archive = utils.archive_dirs()
+if archive.steam_dir is not None:
     for game, vpk_dir in vpk_dirs.items():
-        vpk_dir = os.path.join(steam_common, game, vpk_dir)
+        vpk_dir = os.path.join(archive.steam_dir, game, vpk_dir)
         for vpk_filename in fnmatch.filter(os.listdir(vpk_dir), "*_dir.vpk"):
             full_path = os.path.join(vpk_dir, vpk_filename)
             vpks[f"{game} | {vpk_filename}"] = full_path
