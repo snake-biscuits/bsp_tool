@@ -10,7 +10,7 @@ from ... import utils
 
 paks = dict()
 archive = utils.archive_dirs()
-if archive.steam_dir is not None:
+if archive.steam_dir is not None or archive.gog_dir is not None:
     # {"top_dir", {"game": {"mod": ["pak_dirs"]}}}
     pak_dirs = {
         archive.steam_dir: {
