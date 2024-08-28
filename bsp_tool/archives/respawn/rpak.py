@@ -7,7 +7,7 @@ import os
 from typing import List, Tuple, Union
 
 from ...branches.base import MappedArray
-from ...utils.binary import read_struct
+from ...utils import binary
 from .. import base
 
 
@@ -227,67 +227,11 @@ class RPak(base.Archive):
         8: AssetEntryv8}
     # ^ {version: AssetEntry}
 
-    def __init__(self, filepath: str):
-        self.filepath = filepath
-        self.filename = os.path.basename(filepath)
-        with open(filepath, "rb") as rpak_file:
-            self._from_stream(rpak_file)
-
     def __repr__(self) -> str:
-        hash = f"{self.header.hash:016X}"
+        hash_ = f"{self.header.hash:016X}"
         num_assets = self.header.num_asset_entries
-        # num_assets = len(self.asset_entries)  # can't use until we have decompression
-        return f"<RPak v{self.version} ({hash}) {num_assets} assets @ 0x{id(self):016X}>"
-
-    def _from_stream(self, stream: io.BytesIO):
-        assert read_struct(stream, "4s") == b"RPak", "not a RPak file!"
-        self.version = read_struct(stream, "H")
-        assert self.version in versions, f"unknown version: {self.version}"
-        stream.seek(-6, 1)  # back to the start
-        HeaderClass = self.HeaderClasses[self.version]
-        self.header = HeaderClass.from_stream(stream)
-        assert self.header.patch_index < 16
-        if self.header.patch_index > 0:
-            self.patch = (
-                PatchHeader.from_stream(stream),
-                [CompressPair.from_stream(stream) for i in range(self.header.patch_index)],
-                [read_struct(stream, "H") for i in range(self.header.patch_index)])  # "IndicesToFile"
-        # TODO: decompress everything after the main header
-        if self.header.compression is not Compression.NONE:
-            # uncompressed_rpak = b"".join([
-            #     self.header.as_bytes(),
-            #     decompress(self.header, stream)])  # TODO
-            # stream = io.BytesIO(uncompressed_rpak)
-            # stream.seek(len(self.header.as_bytes()))
-            return  # NotImplemented
-        # StaRPak references
-        self.starpaks = [
-            fn.decode("utf-8", "strict")
-            for fn in stream.read(self.header.len_starpak_ref).split(b"\0")][:-1]
-        if self.version == 8:
-            self.optimal_starpaks = [
-                fn.decode("utf-8", "strict")
-                for fn in stream.read(self.header.len_opt_starpak_ref).split(b"\0")][:-1]
-        self.virtual_segments = [
-            VirtualSegment.from_stream(stream)
-            for i in range(self.header.num_virtual_segments)]
-        self.memory_pages = [
-            MemoryPage.from_stream(stream)
-            for i in range(self.header.num_memory_pages)]
-        self.descriptors = [
-            Descriptor.from_stream(stream)
-            for i in range(self.header.num_descriptors)]
-        AssetEntryClass = self.AssetEntryClasses[self.version]
-        self.asset_entries = [
-            AssetEntryClass.from_stream(stream)
-            for i in range(self.header.num_asset_entries)]
-        self.guid_descriptors = [
-            Descriptor.from_stream(stream)
-            for i in range(self.header.num_guid_descriptors)]
-        self.relations = read_struct(stream, f"{self.header.num_relations}I")
-        # TODO: parse the rest of the file
-        # virtual_segment data (unless flags & 0x40) & some other unknown data
-        self.data = stream.read()
+        descriptor = f"v{self.version} ({hash_}) {num_assets} assets"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     def virtual_segment_data(self, index: int) -> bytes:
         assert index < len(self.virtual_segments)
@@ -298,20 +242,12 @@ class RPak(base.Archive):
     # TODO: memory_page_data(self, index: int) -> bytes:
     # -- should be inside a virtual_segment, need relative offset
 
-    def extract(self, filepath: str, path=None):
-        assert filepath in self.namelist()
-        if path is not None:
-            raise NotImplementedError("Cannot target an out folder yet")
-        raise NotImplementedError()
-        with open(os.path.join("" if path is None else path, filepath), "w") as out_file:
-            out_file.write(self.read(filepath))
-
     def namelist(self) -> List[str]:
         # we cannot reverse name hashes
         if self.header.compression is not Compression.NONE:
             raise NotImplementedError("cannot decompress asset_entries")
         elif any(vs.flags == 1 and vs.type == 1 for vs in self.virtual_segments):
-            # TODO: catch in _from_stream & convert to Dict[str, AssetEntry]
+            # TODO: catch in .from_stream() & convert to Dict[str, AssetEntry]
             names_segment_index = [i for i, vs in enumerate(self.virtual_segments) if vs.flags == 1 and vs.type == 1][0]
             raw_names = self.virtual_segment_data(names_segment_index)
             names = [fn.decode() for fn in raw_names.split(b"\0")[:-1]]
@@ -323,6 +259,60 @@ class RPak(base.Archive):
     def read(self, filepath: str) -> bytes:
         assert filepath in self.namelist()
         raise NotImplementedError("cannot parse StaRPak")
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> RPak:
+        out = cls()
+        assert binary.read_struct(stream, "4s") == b"RPak", "not a RPak file!"
+        out.version = binary.read_struct(stream, "H")
+        assert out.version in versions, f"unknown version: {out.version}"
+        stream.seek(-6, 1)  # back to the start
+        HeaderClass = cls.HeaderClasses[out.version]
+        out.header = HeaderClass.from_stream(stream)
+        assert out.header.patch_index < 16
+        if out.header.patch_index > 0:
+            out.patch = (
+                PatchHeader.from_stream(stream),
+                [CompressPair.from_stream(stream) for i in range(out.header.patch_index)],
+                [binary.read_struct(stream, "H") for i in range(out.header.patch_index)])  # "IndicesToFile"
+        if out.header.compression is not Compression.NONE:
+            return out
+            # TODO: decompress everything after the main header
+            # uncompressed_rpak = b"".join([
+            #     out.header.as_bytes(),
+            #     decompress(out.header, stream)])
+            # stream = io.BytesIO(uncompressed_rpak)
+            # stream.seek(len(out.header.as_bytes()))
+        # StaRPak references
+        out.starpaks = [
+            fn.decode("utf-8", "strict")
+            for fn in stream.read(out.header.len_starpak_ref).split(b"\0")][:-1]
+        if out.version == 8:
+            out.optimal_starpaks = [
+                fn.decode("utf-8", "strict")
+                for fn in stream.read(out.header.len_opt_starpak_ref).split(b"\0")][:-1]
+        out.virtual_segments = [
+            VirtualSegment.from_stream(stream)
+            for i in range(out.header.num_virtual_segments)]
+        out.memory_pages = [
+            MemoryPage.from_stream(stream)
+            for i in range(out.header.num_memory_pages)]
+        out.descriptors = [
+            Descriptor.from_stream(stream)
+            for i in range(out.header.num_descriptors)]
+        AssetEntryClass = out.AssetEntryClasses[out.version]
+        out.asset_entries = [
+            AssetEntryClass.from_stream(stream)
+            for i in range(out.header.num_asset_entries)]
+        out.guid_descriptors = [
+            Descriptor.from_stream(stream)
+            for i in range(out.header.num_guid_descriptors)]
+        out.relations = binary.read_struct(stream, f"{out.header.num_relations}I")
+        # TODO: parse the rest of the file
+        # virtual_segment data (unless flags & 0x40) & some other unknown data
+        out.data = stream.read()
+        out._file = stream
+        return out
 
 
 # StaRPak
