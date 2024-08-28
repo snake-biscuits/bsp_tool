@@ -1,13 +1,10 @@
 from __future__ import annotations
-from collections import namedtuple
 import io
 from typing import Dict, List
 
-from . import base
+from ..branches.base import Struct
 from ..utils import binary
-
-
-ApkHeader = namedtuple("ApkHeader", ["id", "files_offset", "file_count", "dir_offset"])
+from . import base
 
 
 class Apk(base.Archive):
@@ -20,7 +17,8 @@ class Apk(base.Archive):
         self.entries = dict()
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} @ 0x{id(self):016X}>"
+        descriptor = f"{len(self.entries)} files"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     def namelist(self) -> List[str]:
         return sorted(self.entries.keys())
@@ -33,16 +31,16 @@ class Apk(base.Archive):
         return self._file.read(entry.length)
 
     @classmethod
-    def from_file(cls, filename: str) -> Apk:
+    def from_stream(cls, stream: io.BytesIO) -> Apk:
         out = cls()
-        out._file = open(filename, "rb")
-        out.header = ApkHeader(*binary.read_struct(out._file, "4s3I"))
-        assert out.header.id == b"\x57\x23\x00\x00", "not a valid .apk file"
-        out._file.seek(out.header.dir_offset)
-        for i in range(out.header.file_count):
-            entry = ApkEntry.from_stream(out._file)
+        out.header = ApkHeader.from_stream(stream)
+        assert out.header.magic == b"\x57\x23\x00\x00", "not a valid .apk file"
+        stream.seek(out.header.dir_offset)
+        for i in range(out.header.num_files):
+            entry = ApkEntry.from_stream(stream)
             out.entries[entry.filename] = entry
-            out._file.seek(entry.next_entry_offset)
+            stream.seek(entry.next_entry_offset)
+        out._file = stream
         return out
 
 
@@ -67,3 +65,12 @@ class ApkEntry:
         out.filename = filename[:-1].replace("\\", "/")
         out.offset, out.length, out.next_entry_offset, out.unknown = binary.read_struct(stream, "4I")
         return out
+
+
+class ApkHeader(Struct):
+    magic: bytes
+    files_offset: int
+    num_files: int
+    dir_offset: int
+    __slots__ = ["magic", "files_offset", "num_files", "dir_offset"]
+    _format = "4s3I"
