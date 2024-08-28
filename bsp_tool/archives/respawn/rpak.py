@@ -3,7 +3,6 @@ from __future__ import annotations
 import datetime
 import enum
 import io
-import os
 from typing import List, Tuple, Union
 
 from ...branches.base import MappedArray
@@ -331,11 +330,11 @@ class StaRPak:
     @classmethod
     def from_file(cls, filepath: str) -> StaRPak:
         with open(filepath, "rb") as starpak_file:
-            assert read_struct(starpak_file, "4s") == b"SRPk"
-            assert read_struct(starpak_file, "I") == 1  # version?
+            assert binary.read_struct(starpak_file, "4s") == b"SRPk"
+            assert binary.read_struct(starpak_file, "I") == 1  # version?
             out = cls()
             starpak_file.seek(-8, 2)
-            num_entries = read_struct(starpak_file, "Q")
+            num_entries = binary.read_struct(starpak_file, "Q")
             starpak_file.seek(-(8 + num_entries * 16), 2)
             out.entries = [StreamEntry.from_stream(starpak_file) for i in range(num_entries)]
             return out
