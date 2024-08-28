@@ -19,32 +19,36 @@ versions = {
 
 
 asset_type = {
-    b"anir": "Unknown",  # in r2tt/r2 sp_training.rpak
-    b"arig": "Animation rig",
-    b"aseq": "Animation",
-    b"dtbl": "DataTable",
-    b"efct": "Effect",  # *.pcf ?
-    b"font": "Font",  # only in ui.rpak
-    b"hsys": "Highlight System?",  # only in highlight.rpak
+    b"anir": "Animation Recording",  # in r2tt/r2 sp_training.rpak
+    b"arig": "Animation Rig",  # similar to include models, for sharing animations between multiple models
+    b"aseq": "Animation Sequence",  # contains animation data
+    b"dtbl": "DataTable", # compiled csv file
+    b"efct": "Effect",  # compiled .pcf file
+    b"font": "Font",  # RUI font face
+    b"hcxt": "Highlight Context",
+    b"hsys": "Highlight System",  # only in highlight.rpak
+    b"impa": "Impact Definition",
     b"matl": "Material",
     b"mdl_": "Model",
-    b"Ptch": "Patch",  # patches another asset
-    b"rmap": "Map",
-    b"rpsk": "Unknown",  # only in particle_scripts.rpak
+    b"Ptch": "Pak Patch",  # describes the highest patch number of each included rpak file for the game to load
+    b"rlcd": "LCD screen effect",  # only in common.rpak
+    b"rmap": "Map",  # currently unused/nulled data
+    b"rpsk": "Particle Script",  # only in particle_scripts.rpak
     b"rson": "RSON",  # Respawn JSON
-    b"rlcd": "Unknown",  # only in common.rpak
+    b"rtk\0": "RTK File", # RTK UI script
     b"shdr": "Shader",
-    b"shds": "Shader set",  # e.g. {vertex_X, fragment_Y}
+    b"shds": "Shader Set",  # references a pixel shader and a vertex shader
     b"stgs": "Settings",
-    b"stlt": "Settings layout",
-    b"subt": "Subtitles",
-    b"txan": "Animated texture",
+    b"stlt": "Settings Layout",
+    b"subt": "Subtitles",  # rpak version of source's "closedcaption_%language%.dat" files - https://developer.valvesoftware.com/wiki/Closed_Captions
+    b"txan": "Texture Animation",
     b"txtr": "Texture",
     b"ui\0\0": "RUI",  # Respawn UI
-    b"uiia": "UIIA",
-    b"uimg": "UI image atlas",
-    b"wrap": "Wrap",  # plain text or binary file
-    b"vers": "Patch version"}  # assumed
+    b"uiia": "UI image",  # streamable ui image asset type added in season 11 apex
+    b"uimg": "UI image atlas",  # describes locations of ui images in an associated atlas texture asset
+    b"wepn": "Weapon Definition", # rpak version of .txt weapon scripts
+    b"wrap": "Wrapped File",  # text or binary file
+    b"vers": "Patch Version"}
 # {b"magic": "description"
 
 
