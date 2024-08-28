@@ -27,6 +27,7 @@ archive_classes = [
     infinity_ward.FastFile,
     infinity_ward.Iwd,
     ion_storm.Dat,
+    ion_storm.Pak,
     mame.Chd,
     nexon.Hfs,
     nexon.Pkg,
@@ -35,8 +36,8 @@ archive_classes = [
     pkware.Zip,
     respawn.RPak,
     respawn.Vpk,
-    sega.GDRom,
     sega.Gdi,
+    sega.GDRom,
     utoplanet.Apk,
     valve.Vpk]
 
