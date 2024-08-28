@@ -58,7 +58,7 @@ for game, vpk_dir in vpk_dirs.items():
 
 
 @pytest.mark.parametrize("filename", vpks.values(), ids=vpks.keys())
-def test_Vpk_from_file(filename: str):
+def test_from_file(filename: str):
     vpk = respawn.Vpk.from_file(filename)
     assert isinstance(vpk.namelist(), list)
     # TODO: try a read
