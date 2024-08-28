@@ -6,8 +6,8 @@ import enum
 import io
 from typing import List
 
-from . import base
 from ..utils import binary
+from . import base
 
 
 version_code = {
@@ -101,18 +101,17 @@ class Track:
 
 class Cdi(base.Archive):
     ext = "*.cdi"
-    file: io.BytesIO
-    filename: str
+    _file: io.BytesIO
     version: int
     sessions: List[List[Track]]
 
-    def __init__(self, filename: str):
-        self.filename = filename
-        self._from_stream(open(filename, "rb"))
+    def __init__(self):
+        self.sessions = list()
 
     def __repr__(self) -> str:
-        version = version_code[self.version]
-        return f"<CDI v{version} '{self.filename}' @ 0x{id(self):016X}>"
+        num_tracks = sum([len(tracks) for tracks in self.sessions])
+        descriptor = f"v{version_code[self.version]} {num_tracks} tracks"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     def namelist(self) -> List[str]:
         return [
@@ -130,8 +129,8 @@ class Cdi(base.Archive):
         track_index = int(track_index)
         # collect our target track
         track = self.sessions[session_index][track_index]
-        self.file.seek(track.offset)  # calculated in CDI._from_stream
-        self.file.seek(track.pregap_length * track.sector_size, 1)  # skip pregap
+        self._file.seek(track.offset)  # calculated in CDI._from_stream
+        self._file.seek(track.pregap_length * track.sector_size, 1)  # skip
         # conversion checks
         if track.mode == TrackMode.Audio and ext != "raw":
             raise NotImplementedError()
@@ -139,41 +138,43 @@ class Cdi(base.Archive):
         header_length = sector_header_length.get((track.mode, track.sector_size), 0)
         sectors = list()
         for i in range(track.length):
-            raw_sector = self.file.read(track.sector_size)
+            raw_sector = self._file.read(track.sector_size)
             raw_sector = raw_sector[header_length:]
             raw_sector = raw_sector[:2048]
             sectors.append(raw_sector)
         return b"".join(sectors)
 
-    def _from_stream(self, stream):
-        self.file = stream
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Cdi:
+        out = cls()
+        out._file = stream
         # version identifier
-        stream.seek(0, 2)  # "header" is on the tail
-        length = stream.tell()
+        out._file.seek(0, 2)  # "header" is on the tail
+        length = out._file.tell()
         assert length > 8
-        stream.seek(-8, 2)
+        out._file.seek(-8, 2)
         version, header_offset = binary.read_struct(stream, "2I")
         assert version in version_code, "unknown .cdi format version"
         assert header_offset != 0, "invalid .cdi file"
-        self.version = version
-        if version_code[self.version] != "3.5":
-            stream.seek(header_offset)
+        out.version = version
+        if version_code[out.version] != "3.5":
+            out._file.seek(header_offset)
         else:  # v3.0 header_offset is negative
-            stream.seek(length - header_offset)
+            out._file.seek(length - header_offset)
         # the "header"
         needle = 0  # track offsets
-        self.sessions = list()
         num_sessions = binary.read_struct(stream, "H")
         for session in range(num_sessions):
-            self.sessions.append(list())
+            out.sessions.append(list())
             num_tracks = binary.read_struct(stream, "H")
             # NOTE: some sessions have 0 tracks
             for track in range(num_tracks):
-                track = Track.from_stream(stream, self.version)
+                track = Track.from_stream(stream, out.version)
                 track.offset = needle
                 needle += track.total_length * track.sector_size
-                self.sessions[session].append(track)
+                out.sessions[session].append(track)
             # cdi.c:CDI_skip_next_session
-            stream.seek(12, 1)  # 4 + 8
-            if version_code[self.version] != "2.0":
-                stream.seek(1, 1)
+            out._file.seek(12, 1)  # 4 + 8
+            if version_code[out.version] != "2.0":
+                out._file.seek(1, 1)
+        return out

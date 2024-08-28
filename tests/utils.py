@@ -17,7 +17,8 @@ test_maps_dir = os.path.join(os.getcwd(), "tests/maps")
 
 ArchivistStash = collections.namedtuple(
     "ArchivistStash", [
-        "steam_dir", "mod_dir", "gog_dir"])
+        "steam_dir", "mod_dir", "gog_dir",  # PC Games
+        "dreamcast_dir"])  # Console Games
 
 archivist_aliases = {"Jared@ITANI_WAYSOUND": "bikkie"}
 
@@ -26,11 +27,13 @@ archivists = {
     ("bikkie", "ITANI_WAYSOUND"): ArchivistStash(
         "D:/SteamLibrary/steamapps/common/",
         "E:/Mod/",
-        "D:/GoG Galaxy/Games"),
+        "D:/GoG Galaxy/Games/",
+        "D:/Emulators/Sega/Dreamcast/"),
     # Linux Laptop
     ("bikkie", "coplandbentokom-9876"): ArchivistStash(
         None,
         "/media/bikkie/3964-39352/Mod/",
+        None,
         None)}
 
 
@@ -39,7 +42,7 @@ def archive_available() -> bool:
 
 
 def archive_dirs() -> ArchivistStash:
-    return archivists.get(archivist_login(), ArchivistStash(*[None] * 3))
+    return archivists.get(archivist_login(), ArchivistStash(*[None] * 4))
 
 
 def archivist_login() -> (str, str):
