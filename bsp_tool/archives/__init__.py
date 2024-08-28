@@ -14,7 +14,7 @@ from . import cdrom  # Iso
 from . import gearbox  # Nightfire007
 from . import id_software  # Pak & Pk3
 from . import infinity_ward  # Iwd & FastFile
-from . import ion_storm  # Dat
+from . import ion_storm  # Dat & Pak
 from . import mame  # Chd
 from . import nexon  # Hfs & Pkg
 from . import padus  # Cdi
