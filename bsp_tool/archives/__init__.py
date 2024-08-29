@@ -16,7 +16,7 @@ from . import id_software  # Pak & Pk3
 from . import infinity_ward  # FastFile & Iwd
 from . import ion_storm  # Dat & Pak
 from . import mame  # Chd
-from . import nexon  # Hfs & Pkg
+from . import nexon  # Hfs, PakFile & Pkg
 from . import padus  # Cdi
 from . import pi_studios  # Bpk
 from . import pkware  # Zip

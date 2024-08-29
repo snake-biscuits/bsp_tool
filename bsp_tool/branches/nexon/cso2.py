@@ -3,11 +3,11 @@
 import enum
 from typing import List, Tuple
 
+from ...archives import nexon
 from ...utils import vector
 from .. import base
 from .. import shared
 from ..valve import source
-from . import pakfile
 from . import vindictus
 
 
@@ -175,7 +175,7 @@ LUMP_CLASSES.update({
     "PRIMITIVES":        {0: Primitive}})
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES["PAKFILE"] = {0: pakfile.PakFile}
+SPECIAL_LUMP_CLASSES["PAKFILE"] = {0: nexon.PakFile}
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
