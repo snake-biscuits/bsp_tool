@@ -1,11 +1,15 @@
-from ... import utils
 from bsp_tool import ValveBsp
 from bsp_tool.branches.valve import orange_box
 
 import pytest
 
+from ... import files
 
-bsps = utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]})
+
+bsps = files.get_test_maps(
+    ValveBsp, {
+        orange_box: [
+            "Team Fortress 2"]})
 
 
 class TestMethods:

@@ -1,11 +1,15 @@
-from ... import utils
 from bsp_tool import ReMakeQuakeBsp
 from bsp_tool.branches.id_software import remake_quake
 
 import pytest
 
+from ... import files
 
-bsps = utils.get_test_maps(ReMakeQuakeBsp, {remake_quake: ["ReMakeQuake"]})
+
+bsps = files.get_test_maps(
+    ReMakeQuakeBsp, {
+        remake_quake: [
+            "ReMakeQuake"]})
 
 
 # TODO: test LumpClasses are valid

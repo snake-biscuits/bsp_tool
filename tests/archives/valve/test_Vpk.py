@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import valve
 
-from ... import utils
+from ... import files
 
 
 vpks = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.steam_dir is not None:
     vpk_dirs = {
         "Black Mesa": "bms/",

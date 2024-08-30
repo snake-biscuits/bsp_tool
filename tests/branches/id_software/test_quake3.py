@@ -1,13 +1,17 @@
 import struct
 
-from ... import utils
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake3
 
 import pytest
 
+from ... import files
 
-bsps = utils.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})
+
+bsps = files.get_test_maps(
+    IdTechBsp, {
+        quake3: [
+            "Quake 3 Arena"]})
 
 
 # TODO: test LumpClasses are valid

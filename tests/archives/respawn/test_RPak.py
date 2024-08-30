@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import respawn
 
-from ... import utils
+from ... import files
 
 
 rpak_dirs = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.steam_dir is not None:
     steam_games = {
         "Apex Legends": "paks/Win64/",

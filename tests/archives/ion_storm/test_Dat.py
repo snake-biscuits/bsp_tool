@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import ion_storm
 
-from ... import utils
+from ... import files
 
 
 dats = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.steam_dir is not None:
     ax_dir = os.path.join(archive.steam_dir, "Anachronox/anoxdata")
     dats = {

@@ -1,12 +1,18 @@
-from .. import utils
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake2
 from bsp_tool.branches.id_software import quake3
 
 import pytest
 
+from .. import files
 
-bsps = utils.get_test_maps(IdTechBsp, {quake2: ["Quake 2"], quake3: ["Quake 3 Arena"]})
+
+bsps = files.get_test_maps(
+    IdTechBsp, {
+        quake2: [
+            "Quake 2"],
+        quake3: [
+            "Quake 3 Arena"]})
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())

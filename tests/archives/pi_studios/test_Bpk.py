@@ -4,11 +4,11 @@ import pytest
 
 from bsp_tool.archives import pi_studios
 
-from ... import utils
+from ... import files
 
 
 bpks = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.mod_dir is not None:
     # NOTE: this may be the only publically existing Pi Studios .bpk
     qaa_dir = "X360/QuakeArenaArcade/"

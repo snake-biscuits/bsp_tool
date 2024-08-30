@@ -1,5 +1,3 @@
-from . import utils
-
 from bsp_tool import lumps
 from bsp_tool import ValveBsp, IdTechBsp
 from bsp_tool.branches.id_software import quake, quake3
@@ -7,10 +5,11 @@ from bsp_tool.branches.valve import orange_box
 
 import pytest
 
-# TODO: collect valid lumps of desired type for each test, rather than hardcoded lump names
+from . import files
 
-bsps = {**utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
-        **utils.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})}
+bsps = {
+    **files.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
+    **files.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})}
 
 
 def raw_lump_of(bsp) -> lumps.RawBspLump:
@@ -43,6 +42,8 @@ class TestRawBspLump:
             assert raw_lump["one"]
 
 
+# TODO: collect valid lumps of desired type for each test
+# -- rather than hardcoded lump names
 class TestBspLump:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_list_conversion(self, bsp):
@@ -85,8 +86,10 @@ class TestBspLump:
         # -- e.g. bsp.LUMP[index].attr = val (uses soft copies)
 
 
-class TestExternalBspLump:  # TODO: ship bespoke RespawnBsp .bsp_lump files with tests
-    pass  # ensure data is being loaded from the .bsp_lump, not the .bsp
+class TestExternalBspLump:
+    # TODO: ship bespoke RespawnBsp .bsp_lump files with tests
+    # -- ensure data is being loaded from the .bsp_lump, not the .bsp
+    ...
 
 
 class TestBasicBspLump:
@@ -105,7 +108,8 @@ class TestBasicBspLump:
         for map_name in bsps:
             lump = bsp.LEAF_FACES
             LumpClass = bsp.branch.BASIC_LUMP_CLASSES["LEAF_FACES"]
-            if isinstance(LumpClass, dict):  # ValveBsp branches use dicts for multiple lump versions
+            # NOTE: ValveBsp branches use dicts to allow multiple lump versions
+            if isinstance(LumpClass, dict):
                 LumpClass = LumpClass[bsp.headers["LEAF_FACES"].version]
             assert isinstance(lump[0], LumpClass)
             assert isinstance(lump[:1], list)

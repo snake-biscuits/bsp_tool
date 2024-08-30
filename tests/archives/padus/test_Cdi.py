@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import padus
 
-from ... import utils
+from ... import files
 
 
 cdis = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.dreamcast_dir is not None:
     dc_dir = archive.dreamcast_dir
     cdis = {

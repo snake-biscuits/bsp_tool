@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import utoplanet
 
-from ... import utils
+from ... import files
 
 
 apks = dict()
-archivist = utils.archivist_login()
+archivist = files.archivist_login()
 if archivist == ("bikkie", "ITANI_WAYSOUND"):
     apk_dir = "C:/PlayGra/Merubasu/shadowland/"
     apks = {

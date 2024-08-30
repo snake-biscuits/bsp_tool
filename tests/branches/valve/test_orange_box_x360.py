@@ -1,10 +1,13 @@
-from ... import utils
 from bsp_tool import ValveBsp
 from bsp_tool.branches.valve import orange_box_x360
 
+from ... import files
 
-bsps = utils.get_test_maps(ValveBsp, {
-    orange_box_x360: ["Xbox360/The Orange Box"]})
+
+bsps = files.get_test_maps(
+    ValveBsp, {
+        orange_box_x360: [
+            "Xbox360/The Orange Box"]})
 
 
 class TestMethods:

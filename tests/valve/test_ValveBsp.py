@@ -1,18 +1,20 @@
-from .. import utils
-from bsp_tool import ValveBsp
+from bsp_tool.valve import ValveBsp
 from bsp_tool.branches.strata import strata
 from bsp_tool.branches.valve import orange_box
 from bsp_tool.branches.valve import orange_box_x360
 
 import pytest
 
+from .. import files
 
-bsps = utils.get_test_maps(ValveBsp, {
-    orange_box: ["Team Fortress 2"],
-    strata: ["Momentum Mod"]})
 
-x360_bsps = utils.get_test_maps(ValveBsp, {
-    orange_box_x360: ["Xbox360/The Orange Box"]})
+# PC
+bsps = files.get_test_maps(
+    ValveBsp, {
+        orange_box: [
+            "Team Fortress 2"],
+        strata: [
+            "Momentum Mod"]})
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
@@ -24,6 +26,13 @@ def test_no_errors(bsp):
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
 def test_entities_loaded(bsp):
     assert bsp.ENTITIES[0]["classname"] == "worldspawn"
+
+
+# XBOX 360
+x360_bsps = files.get_test_maps(
+    ValveBsp, {
+        orange_box_x360: [
+            "Xbox360/The Orange Box"]})
 
 
 @pytest.mark.parametrize("bsp", x360_bsps.values(), ids=x360_bsps.keys())

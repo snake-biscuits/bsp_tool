@@ -1,11 +1,15 @@
-from .. import utils
 from bsp_tool import QuakeBsp
 from bsp_tool.branches.id_software import quake
 
 import pytest
 
+from .. import files
 
-bsps = utils.get_test_maps(QuakeBsp, {quake: ["Quake"]})
+
+bsps = files.get_test_maps(
+    QuakeBsp, {
+        quake: [
+            "Quake"]})
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())

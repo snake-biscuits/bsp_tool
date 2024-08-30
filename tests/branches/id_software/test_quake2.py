@@ -3,7 +3,7 @@ import math
 import struct
 from typing import List
 
-from ... import utils
+from ... import files
 from bsp_tool import IdTechBsp
 from bsp_tool.branches.id_software import quake2
 # Quake 2 Visibility test maps
@@ -35,9 +35,22 @@ from bsp_tool.branches.valve import orange_box
 import pytest
 
 
-bsps = utils.get_test_maps(IdTechBsp, {quake2: ["Quake 2"]})
-vis_bsps = utils.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"], strata: ["Momentum Mod"]})
-vis_bsps = {**bsps, **{m: b for m, b in vis_bsps.items() if hasattr(b, "VISIBILITY")}}
+bsps = files.get_test_maps(
+    IdTechBsp, {
+        quake2: [
+            "Quake 2"]})
+
+vis_bsps = files.get_test_maps(
+    ValveBsp, {
+        orange_box: [
+            "Team Fortress 2"],
+        strata: [
+            "Momentum Mod"]})
+
+vis_bsps = {**bsps, **{
+    m: b
+    for m, b in vis_bsps.items()
+    if hasattr(b, "VISIBILITY")}}
 
 # TODO: verify:
 # -- assumptions about the format (MAXS, derived lump lengths etc.)

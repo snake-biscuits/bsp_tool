@@ -5,11 +5,11 @@ import pytest
 
 from bsp_tool.archives import id_software
 
-from ... import utils
+from ... import files
 
 
 paks = dict()
-archive = utils.archive_dirs()
+archive = files.archive_dirs()
 if archive.steam_dir is not None or archive.gog_dir is not None:
     # {"top_dir", {"game": {"mod": ["pak_dirs"]}}}
     pak_dirs = {

@@ -1,11 +1,14 @@
-from ... import utils
+from ... import files
 from bsp_tool import QuakeBsp
 from bsp_tool.branches.id_software import quake
 
 import pytest
 
 
-bsps = utils.get_test_maps(QuakeBsp, {quake: ["Quake"]})
+bsps = files.get_test_maps(
+    QuakeBsp, {
+        quake: [
+            "Quake"]})
 
 
 # TODO: test LumpClasses are valid

@@ -1,11 +1,15 @@
-from .. import utils
 from bsp_tool import RespawnBsp
 from bsp_tool.branches.respawn import titanfall2
 
 import pytest
 
+from .. import files
 
-bsps = utils.get_test_maps(RespawnBsp, {titanfall2: ["Titanfall 2"]})
+
+bsps = files.get_test_maps(
+    RespawnBsp, {
+        titanfall2: [
+            "Titanfall 2"]})
 
 
 @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())

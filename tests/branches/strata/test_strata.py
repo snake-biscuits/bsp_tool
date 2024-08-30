@@ -1,11 +1,15 @@
-from ... import utils
 from bsp_tool import ValveBsp
 from bsp_tool.branches.strata import strata
 
 import pytest
 
+from ... import files
 
-bsps = utils.get_test_maps(ValveBsp, {strata: ["Momentum Mod"]})
+
+bsps = files.get_test_maps(
+    ValveBsp, {
+        strata: [
+            "Momentum Mod"]})
 
 
 # TODO: test LumpClasses are valid
