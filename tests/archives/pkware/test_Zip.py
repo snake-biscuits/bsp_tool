@@ -1,4 +1,7 @@
+from itertools import zip_longest
+
 from bsp_tool.archives import pkware
+from bsp_tool.utils import binary
 
 import pytest
 
@@ -50,7 +53,12 @@ def test_new():
 @pytest.mark.parametrize("raw_zip", zips.values(), ids=zips.keys())
 def test_bytes(raw_zip: bytes):
     zip_ = pkware.Zip.from_bytes(raw_zip)
-    assert zip_.as_bytes() == raw_zip
+    zip_bytes = zip_.as_bytes()
+    # compare
+    original = binary.xxd_bytes(raw_zip)
+    remake = binary.xxd_bytes(zip_bytes)
+    for expected, actual in zip_longest(original, remake, fillvalue=""):
+        assert expected == actual
 
 
 def test_save_changes():
