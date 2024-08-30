@@ -54,7 +54,10 @@ class PakLocalFile:
 
     def as_bytes(self) -> bytes:
         # TODO: compress data (optional)
-        data = lumps.decompress_valve_LZMA(self.data) if self.compressed_size != 0 else self.data
+        if self.compressed_size != 0:
+            data = lumps.decompress_valve_LZMA(self.data)
+        else:
+            data = self.data
         # rebuild header
         crc32 = binascii.crc32(data)
         compressed_size = 0
@@ -135,6 +138,11 @@ class PakEOCD:  # End of Central Directory
             setattr(out, attr, val)
         return out
 
+    def as_bytes(self) -> bytes:
+        return struct.pack(self._format, *[
+            getattr(self, attr)
+            for attr in self.__slots__])
+
 
 class PakFile(base.Archive):
     """Nexon's cursed custom pkware.Zip implementation"""
@@ -184,13 +192,20 @@ class PakFile(base.Archive):
         return out
 
     def as_bytes(self):
+        out = list()
         # TODO: preserve local_files order (if unedited)
+        for local_file in self.local_files.values():
+            out.append(PakMagic.LocalFile.value)
+            out.append(local_file.as_bytes)
         # TODO: generate new CentralDirectories
+        for central_directory in self.central_directories.values():
+            out.append(PakMagic.CentralDirectory.value)
+            out.append(central_directory.as_bytes)
         # TODO: generate new EOCD
-        return b"".join([
-            *[lf.as_bytes() for lf in self.local_files.values()],
-            *[cd.as_bytes() for cd in self.central_directories.values()],
-            self.eocd.as_bytes()])
+        out.append(PakMagic.EOCD.value)
+        out.append(self.eocd.as_bytes())
+        # NOTE: no comment, unlike pkware.Zip
+        return b"".join(out)
 
 
 class Pkg(base.Archive):

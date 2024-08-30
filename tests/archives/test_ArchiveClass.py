@@ -30,6 +30,7 @@ archive_classes = [
     ion_storm.Pak,
     mame.Chd,
     nexon.Hfs,
+    nexon.PakFile,
     nexon.Pkg,
     padus.Cdi,
     pi_studios.Bpk,

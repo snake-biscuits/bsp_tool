@@ -27,7 +27,7 @@ expected = {
 
 
 def test_new():
-    """create & populate a PakFile from nothing"""
+    """create & populate a Zip from nothing"""
     zip_ = pkware.Zip()
     zip_.writestr("test.txt", "hello~\n")
     assert zip_.namelist() == ["test.txt"]
