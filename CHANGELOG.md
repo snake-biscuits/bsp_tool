@@ -2,6 +2,19 @@
 
 ## v0.6.0 (??? 2024)
 
+### New
+ * `archives`
+   - `cdrom.Iso`
+   - `ion_storm.Dat`
+   - `ion_storm.Pak`
+   - `mame.Chd`
+   - `nexon.PakFile` (formerly `branches.nexon.pakfile.PakFile`)
+   - `padus.Cdi`
+   - `pkware.Zip` (formerly `branches.valve.source.PakFile`)
+   - `sega.GDRom`
+   - `sega.Gdi`
+
+
 ### Changed
  * `archives` no longer in `extensions`
  * `lightmaps` no longer in `extensions`
