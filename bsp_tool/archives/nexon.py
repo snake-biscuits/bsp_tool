@@ -88,7 +88,7 @@ class PakCentralDirectory:
     # TODO: __init__(self, local_file: LocalFile, offset: int):
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} "{self.path}" @ 0x{id(self):016X}>'
+        return f'<{self.__class__.__name__} {self.path!r} @ 0x{id(self):016X}>'
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakCentralDirectory:
@@ -130,6 +130,12 @@ class PakEOCD:  # End of Central Directory
         "sizeof_central_directories", "sizeof_local_files", "one",
         "unused_2"]
     _format = "I2H3IB"
+
+    def __repr__(self) -> str:
+        attrs = ", ".join([
+            f"{attr}={getattr(self, attr)!r}"
+            for attr in self.__slots__])
+        return f"{self.__class__.__name__}({attrs})"
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakEOCD:
