@@ -202,11 +202,11 @@ class PakFile(base.Archive):
         # TODO: preserve local_files order (if unedited)
         for local_file in self.local_files.values():
             out.append(PakMagic.LocalFile.value)
-            out.append(local_file.as_bytes)
+            out.append(local_file.as_bytes())
         # TODO: generate new CentralDirectories
         for central_directory in self.central_directories.values():
             out.append(PakMagic.CentralDirectory.value)
-            out.append(central_directory.as_bytes)
+            out.append(central_directory.as_bytes())
         # TODO: generate new EOCD
         out.append(PakMagic.EOCD.value)
         out.append(self.eocd.as_bytes())
