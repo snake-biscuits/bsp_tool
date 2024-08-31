@@ -6,7 +6,7 @@ import pytest
 from .. import files
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     ReMakeQuakeBsp, {
         remake_quake: [
             "ReMakeQuake"]})

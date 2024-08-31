@@ -9,7 +9,7 @@ from .. import files
 
 
 # PC
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     ValveBsp, {
         orange_box: [
             "Team Fortress 2"],
@@ -29,7 +29,7 @@ def test_entities_loaded(bsp):
 
 
 # XBOX 360
-x360_bsps = files.get_test_maps(
+x360_bsps = files.local_bsps(
     ValveBsp, {
         orange_box_x360: [
             "Xbox360/The Orange Box"]})

@@ -6,7 +6,7 @@ import pytest
 from .. import files
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     D3DBsp, {
         modern_warfare: [
             "Call of Duty 4",

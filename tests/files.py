@@ -109,7 +109,7 @@ def game_library() -> GameLibrary:
 # Gathering Files
 def local_bsps(BspClass: Bsp, branch_dirs: LocalBranches, pattern: str = "*.bsp") -> PrettyFiles:
     out = dict()
-    local_maps_dir = os.path.join(os.dirname(__file__), "tests/maps")
+    local_maps_dir = os.path.join(os.path.dirname(__file__), "maps/")
     for branch in branch_dirs:
         for map_dir in branch_dirs[branch]:
             full_map_dir = os.path.join(local_maps_dir, map_dir)

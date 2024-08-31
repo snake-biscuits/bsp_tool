@@ -4,7 +4,7 @@ from bsp_tool.branches.valve import orange_box_x360
 from ... import files
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     ValveBsp, {
         orange_box_x360: [
             "Xbox360/The Orange Box"]})

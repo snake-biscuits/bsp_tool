@@ -8,8 +8,8 @@ import pytest
 from . import files
 
 bsps = {
-    **files.get_test_maps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
-    **files.get_test_maps(IdTechBsp, {quake3: ["Quake 3 Arena"]})}
+    **files.local_bsps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
+    **files.local_bsps(IdTechBsp, {quake3: ["Quake 3 Arena"]})}
 
 
 def raw_lump_of(bsp) -> lumps.RawBspLump:
