@@ -1,6 +1,3 @@
-import fnmatch
-import os
-
 import pytest
 
 from bsp_tool.archives import padus
@@ -8,13 +5,17 @@ from bsp_tool.archives import padus
 from ... import files
 
 
-cdis = dict()
-archive = files.archive_dirs()
-if archive.dreamcast_dir is not None:
-    dc_dir = archive.dreamcast_dir
-    cdis = {
-        f"{cdi_filename}": os.path.join(dc_dir, cdi_filename)
-        for cdi_filename in fnmatch.filter(os.listdir(dc_dir), "*.cdi")}
+cdi_dirs: files.LibraryGames
+cdi_dirs = {
+    "Dreamcast": {
+        "Disc Images": [""]}}  # not looking in subdirs
+
+
+library = files.game_library()
+cdis = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(cdi_dirs, "*.cdi")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", cdis.values(), ids=cdis.keys())

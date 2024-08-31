@@ -1,6 +1,3 @@
-import fnmatch
-import os
-
 import pytest
 
 from bsp_tool.archives import id_software
@@ -8,55 +5,42 @@ from bsp_tool.archives import id_software
 from ... import files
 
 
-paks = dict()
-archive = files.archive_dirs()
-if archive.steam_dir is not None or archive.gog_dir is not None:
-    # {"top_dir", {"game": {"mod": ["pak_dirs"]}}}
-    pak_dirs = {
-        archive.steam_dir: {
-            "Hexen 2": {
-                "Core Game": ["data1"]},
-            "Quake": {
-                "Alkaline": ["alk1.1", "alkaline", "alkaline_dk"],
-                "Arcane Dimensions": ["ad"],
-                "Copper": ["copper"],  # Underdark Overbright
-                "Core Game": ["hipnotic", "Id1", "rogue"],
-                "Prototype Jam #3": ["sm220"]},
-            "Quake/rerelease": {
-                "Core Game": ["hipnotic", "id1", "rogue"],
-                "Dimension of the Past": ["dopa"],
-                "New": ["ctf", "mg1"]},
-            "Quake 2": {
-                "Core Game": ["baseq2", "ctf", "rogue", "xatrix", "zaero"]},
-            "Quake 2/rerelease": {
-                "Core Game": ["baseq2"]}},
-        archive.gog_dir: {
-            "Soldier of Fortune": {
-                "Core Game": ["base"]}}}
-    if None in pak_dirs:  # skip top_dirs not in this ArchivistStash
-        pak_dirs.pop(None)
-    # NOTE: "mod" is to give clear names to each group of mod folders
-    # -- not part of the path
-    # NOTE: Daikatana uses a different .pak format
-    # TODO: Heretic II
-    # TODO: Quake64 in %USERPROFILE%
+# TODO: Heretic II
+# TODO: Quake64 in %USERPROFILE%
+pak_dirs: files.LibraryGames
+pak_dirs = {
+    "Steam": {
+        "Hexen 2": ["Hexen 2/data1"],
+        "Quake": ["Quake/Id1"],
+        "Quake (hipnotic)": ["Quake/hipnotic"],
+        "Quake (rogue)": ["Quake/rogue"],
+        "Alkaline": ["Quake/alkaline"],
+        "Alkaline (alk1.1)": ["Quake/alk1.1"],
+        "Alkaline (alkaline_dk)": ["Quake/alkaline_dk"],
+        "Arcane Dimensions": ["Quake/ad"],
+        "Underdark Overbright": ["Quake/copper"],
+        "Prototype Jam #3": ["Quake/sm220"],
+        "Quake Re-Release": ["Quake/rerelease/id1"],
+        "Quake Re-Release (ctf)": ["Quake/rerelease/ctf"],
+        "Quake Re-Release (hipnotic)": ["Quake/rerelease/hipnotic"],
+        "Quake Re-Release (Machine Games)": ["Quake/rerelease/mg1"],
+        "Quake Re-Release (rogie)": ["Quake/rerelease/rogue"],
+        "Quake: Dimension of the Past": ["Quake/Rerelease/dopa"],
+        "Quake 2": ["Quake 2/baseq2"],
+        "Quake 2 (ctf)": ["Quake 2/ctf"],
+        "Quake 2 (rogue)": ["Quake 2/rogue"],
+        "Quake 2 (xatrix)": ["Quake 2/xatrix"],
+        "Quake 2 (zaero)": ["Quake 2/zaero"],
+        "Quake 2 Re-Release": ["Quake 2/rerelease/baseq2"]},
+    "GoG": {
+        "Soldier of Fortune": ["Soldier of Fortune/base"]}}
 
-    def paks_of(top_dir: str, game: str, pak_dir: str):
-        full_dir = os.path.join(top_dir, game, pak_dir)
-        pak_filenames = fnmatch.filter(os.listdir(full_dir), "*.pak")
-        pak_full_paths = [
-            os.path.join(full_dir, pak_filename)
-            for pak_filename in pak_filenames]
-        return list(zip(pak_filenames, pak_full_paths))
 
-    paks = {
-        f"{game} | {mod} ({pak_dir}) | {pak_filename}": pak_full_path
-        for top_dir, games in pak_dirs.items()
-        for game, mods in games.items()
-        for mod, pak_dirs in mods.items()
-        for pak_dir in pak_dirs
-        for pak_filename, pak_full_path in paks_of(top_dir, game, pak_dir)}
-    # TODO: if a game is not installed on this device, skip it
+library = files.game_library()
+paks = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(pak_dirs, "*.pak")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", paks.values(), ids=paks.keys())

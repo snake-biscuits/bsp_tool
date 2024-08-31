@@ -5,7 +5,7 @@ from bsp_tool.branches.id_software import quake
 import pytest
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     QuakeBsp, {
         quake: [
             "Quake"]})

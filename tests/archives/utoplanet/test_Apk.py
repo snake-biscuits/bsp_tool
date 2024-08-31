@@ -9,8 +9,8 @@ from ... import files
 
 
 apks = dict()
-archivist = files.archivist_login()
-if archivist == ("bikkie", "ITANI_WAYSOUND"):
+librarian = files.library_card()
+if librarian == ("bikkie", "ITANI_WAYSOUND"):
     apk_dir = "C:/PlayGra/Merubasu/shadowland/"
     apks = {
         f"Merubasu | {apk_filename}": os.path.join(apk_dir, apk_filename)

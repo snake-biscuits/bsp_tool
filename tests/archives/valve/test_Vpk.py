@@ -8,28 +8,32 @@ from bsp_tool.archives import valve
 from ... import files
 
 
-vpks = dict()
-archive = files.archive_dirs()
-if archive.steam_dir is not None:
-    vpk_dirs = {
-        "Black Mesa": "bms/",
-        "Bloody Good Time": "vpks/",
-        "Contagion": "vpks/",
-        "Dark Messiah Might and Magic Single Player": "vpks/",
-        "Dark Messiah Might and Magic Multi-Player": "vpks/",
-        "SiN Episodes Emergence": "vpks/",
-        "The Ship": "vpks/",
-        "The Ship Single Player": "vpks/",
-        "The Ship Tutorial": "vpks/"}
-    # NOTE: Dark Messiah Singleplayer | depot_2109_dir.vpk is empty
-    # -- https://steamdb.info/depot/2109/ (mm_media)
-    # NOTE: The Ship | depot_2402_dir.vpk contains "umlaut e" b"\xEB" (latin_1)
-    # -- https://steamdb.info/depot/2402/ (The Ship Common)
-    for game, vpk_dir in vpk_dirs.items():
-        vpk_dir = os.path.join(archive.steam_dir, game, vpk_dir)
-        for vpk_filename in fnmatch.filter(os.listdir(vpk_dir), "*_dir.vpk"):
-            full_path = os.path.join(vpk_dir, vpk_filename)
-            vpks[f"{game} | {vpk_filename}"] = full_path
+vpk_dirs: files.LibraryGames
+vpk_dirs = {
+    "Steam": {
+        "Black Mesa": ["Black Mesa/bms/"],
+        "Bloody Good Time": ["Bloody Good Time/vpks/"],
+        "Contagion": ["Contagion/vpks/"],
+        "Dark Messiah of Might and Magic": [
+            "Dark Messiah Might and Magic Single Player/vpks/",
+            "Dark Messiah Might and Magic Multi-Player/vpks/"],
+        "SiN Episodes: Emergence": ["SiN Episodes Emergence/vpks/"],
+        "The Ship": ["The Ship/vpks/"],
+        "The Ship Singleplayer": ["The Ship Single Player/vpks/"],
+        "The Ship Tutorial": ["The Ship Tutorial/vpks/"]}}
+# NOTE: Dark Messiah Singleplayer | depot_2109_dir.vpk is empty
+# -- https://steamdb.info/depot/2109/ (mm_media)
+# NOTE: The Ship | depot_2402_dir.vpk contains "umlaut e" b"\xEB" (latin_1)
+# -- https://steamdb.info/depot/2402/ (The Ship Common)
+# NOTE: The Ship's shares it's vpks between "games"
+# -- by downloading it once for each folder...
+
+
+library = files.game_library()
+vpks = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(vpk_dirs, "*_dir.vpk")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", vpks.values(), ids=vpks.keys())

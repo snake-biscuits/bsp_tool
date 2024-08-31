@@ -1,6 +1,3 @@
-import fnmatch
-import os
-
 import pytest
 
 from bsp_tool.archives import ion_storm
@@ -8,13 +5,17 @@ from bsp_tool.archives import ion_storm
 from ... import files
 
 
-dats = dict()
-archive = files.archive_dirs()
-if archive.steam_dir is not None:
-    ax_dir = os.path.join(archive.steam_dir, "Anachronox/anoxdata")
-    dats = {
-        f"Anachronox | {dat_filename}": os.path.join(ax_dir, dat_filename)
-        for dat_filename in fnmatch.filter(os.listdir(ax_dir), "*.dat")}
+dat_dirs: files.LibraryGames
+dat_dirs = {
+    "Steam": {
+        "Anachronox": ["Anachronox/anoxdata"]}}
+
+
+library = files.game_library()
+dats = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(dat_dirs, "*.dat")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", dats.values(), ids=dats.keys())

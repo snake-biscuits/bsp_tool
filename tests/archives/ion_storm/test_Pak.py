@@ -1,6 +1,3 @@
-import fnmatch
-import os
-
 import pytest
 
 from bsp_tool.archives import ion_storm
@@ -8,13 +5,17 @@ from bsp_tool.archives import ion_storm
 from ... import files
 
 
-paks = dict()
-archive = files.archive_dirs()
-if archive.steam_dir is not None:
-    dk_dir = os.path.join(archive.steam_dir, "Daikatana/data")
-    paks = {
-        f"Daikatana | {pak_filename}": os.path.join(dk_dir, pak_filename)
-        for pak_filename in fnmatch.filter(os.listdir(dk_dir), "*.pak")}
+pak_dirs: files.LibraryGames
+pak_dirs = {
+    "Steam": {
+        "Daikatana": ["Daikatana/data"]}}
+
+
+library = files.game_library()
+paks = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(pak_dirs, "*.pak")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", paks.values(), ids=paks.keys())

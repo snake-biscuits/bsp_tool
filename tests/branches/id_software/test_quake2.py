@@ -35,12 +35,12 @@ from bsp_tool.branches.valve import orange_box
 import pytest
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     IdTechBsp, {
         quake2: [
             "Quake 2"]})
 
-vis_bsps = files.get_test_maps(
+vis_bsps = files.local_bsps(
     ValveBsp, {
         orange_box: [
             "Team Fortress 2"],

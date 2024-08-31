@@ -8,7 +8,7 @@ import pytest
 from ... import files
 
 
-bsps = files.get_test_maps(
+bsps = files.local_bsps(
     IdTechBsp, {
         quake3: [
             "Quake 3 Arena"]})

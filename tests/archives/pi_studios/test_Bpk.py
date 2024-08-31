@@ -1,5 +1,3 @@
-import os
-
 import pytest
 
 from bsp_tool.archives import pi_studios
@@ -7,12 +5,18 @@ from bsp_tool.archives import pi_studios
 from ... import files
 
 
-bpks = dict()
-archive = files.archive_dirs()
-if archive.mod_dir is not None:
-    # NOTE: this may be the only publically existing Pi Studios .bpk
-    qaa_dir = "X360/QuakeArenaArcade/"
-    bpks["Quake Arcade Arena | pak0.bpk"] = os.path.join(archive.mod_dir, qaa_dir, "baseq3/pak0.bpk")
+# NOTE: this may be the only publically existing Pi Studios .bpk
+bpk_dirs: files.LibraryGames
+bpk_dirs = {
+    "Xbox360": {
+        "Quake Arena Arcade": ["QuakeArenaArcade/baseq3/"]}}
+
+
+library = files.game_library()
+bpks = {
+    f"{section} | {game} | {short_path}": full_path
+    for section, game, paths in library.scan(bpk_dirs, "*.bpk")
+    for short_path, full_path in paths}
 
 
 @pytest.mark.parametrize("filename", bpks.values(), ids=bpks.keys())
