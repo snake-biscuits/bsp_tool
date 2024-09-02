@@ -9,8 +9,7 @@ import pytest
 pakfiles = {
     "empty": b"".join([  # just an EOCD
         b"CS\x05\x06", b"\x00" * 16, b"\x01", b"\x00" * 4]),
-    # TODO: with a file
-    "deflate": b"".join([
+    "deflate": b"".join([  # 1 file, uncompressed
         # LocalFile
         b"CS\x03\x04",
         b"\x00\x00",  # unused
@@ -38,11 +37,13 @@ pakfiles = {
         b"\x01\x00\x00\x00",  # one
         b"\x00"])  # unused
     # TODO: with an LZMA compressed file
+    # NOTE: .as_bytes() cannot recompress yet, test will fail
     }
 
 
 @pytest.mark.parametrize("raw_pakfile", pakfiles.values(), ids=pakfiles.keys())
 def test_from_bytes(raw_pakfile: bytes):
+    # NOTE: also tests as_bytes
     pakfile = nexon.PakFile.from_bytes(raw_pakfile)
     pakfile_bytes = pakfile.as_bytes()
     # TODO: validate LocalFile.crc32

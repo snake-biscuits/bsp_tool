@@ -197,6 +197,7 @@ class PakFile(base.Archive):
         return out
 
     def as_bytes(self):
+        # NOTE: decompresses all data
         out = list()
         # TODO: preserve local_files order (if unedited)
         for local_file in self.local_files.values():
