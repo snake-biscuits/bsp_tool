@@ -73,7 +73,6 @@ class PakLocalFile:
 
 class PakCentralDirectory:
     """preceded by magic CS\x01\x02"""
-    # NOTE: byte alignment sucks, would try Struct otherwise
     # header
     unused: int  # always 0
     crc32: int
@@ -81,7 +80,7 @@ class PakCentralDirectory:
     compressed_size: int
     path_size: int
     unknown: int
-    header_offset: int
+    header_offset: int  # file offset of LocalFile
     # data
     path: str
 
@@ -93,14 +92,14 @@ class PakCentralDirectory:
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakCentralDirectory:
         out = cls()
-        out.unused = int.from_bytes(stream.read(2), "little")
-        out.crc32 = int.from_bytes(stream.read(4), "little")
-        out.uncompressed_size = int.from_bytes(stream.read(4), "little")
-        out.compressed_size = int.from_bytes(stream.read(4), "little")
-        out.path_size = int.from_bytes(stream.read(4), "little")
-        out.unknown = int.from_bytes(stream.read(2), "little")
-        out.header_offset = int.from_bytes(stream.read(4), "little")
-        out.path = stream.read(out.path_size).decode()
+        out.unused = binary.read_struct(stream, "H")
+        out.crc32 = binary.read_struct(stream, "I")
+        out.uncompressed_size = binary.read_struct(stream, "I")
+        out.compressed_size = binary.read_struct(stream, "I")
+        out.path_size = binary.read_struct(stream, "I")
+        out.unknown = binary.read_struct(stream, "H")
+        out.header_offset = binary.read_struct(stream, "I")
+        out.path = stream.read(out.path_size).decode("latin_1")
         return out
 
     def as_bytes(self) -> bytes:
@@ -112,7 +111,7 @@ class PakCentralDirectory:
             self.path_size.to_bytes(4, "little"),
             self.unknown.to_bytes(2, "little"),
             self.header_offset.to_bytes(4, "little"),
-            self.path.encode()])
+            self.path.encode("latin_1")])
 
 
 class PakEOCD:  # End of Central Directory
