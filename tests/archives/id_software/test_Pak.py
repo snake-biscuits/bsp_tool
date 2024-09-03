@@ -24,14 +24,15 @@ pak_dirs = {
         "Quake Re-Release (ctf)": ["Quake/rerelease/ctf"],
         "Quake Re-Release (hipnotic)": ["Quake/rerelease/hipnotic"],
         "Quake Re-Release (Machine Games)": ["Quake/rerelease/mg1"],
-        "Quake Re-Release (rogie)": ["Quake/rerelease/rogue"],
+        "Quake Re-Release (rogue)": ["Quake/rerelease/rogue"],
         "Quake: Dimension of the Past": ["Quake/Rerelease/dopa"],
         "Quake 2": ["Quake 2/baseq2"],
         "Quake 2 (ctf)": ["Quake 2/ctf"],
         "Quake 2 (rogue)": ["Quake 2/rogue"],
         "Quake 2 (xatrix)": ["Quake 2/xatrix"],
         "Quake 2 (zaero)": ["Quake 2/zaero"],
-        "Quake 2 Re-Release": ["Quake 2/rerelease/baseq2"]},
+        "Quake 2 Re-Release": ["Quake 2/rerelease/baseq2"],
+        "Warfork": ["fvi/fvi-launcher/applications/netradiant-custom/windows/q1pack/"]},
     "GoG": {
         "Soldier of Fortune": ["Soldier of Fortune/base"]}}
 
