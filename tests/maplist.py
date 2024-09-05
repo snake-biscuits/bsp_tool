@@ -440,6 +440,9 @@ extracted_dirs = {
         "ApexLegends/season20": ["13feb24/maps"],  # 7 maps | 1.30 GB | .rpak
         # season21:  Upheaval [7th May 2024]
         "ApexLegends/season21": ["7may24/maps"],  # 8 maps | 1.61 GB | .rpak
+        # season22:  Shockwave [6th August 2024]
+        # TODO: season22/6aug24
+        "ApexLegends/season22": ["30aug24/maps"],  # 9 maps | 1.63 GB | .rpak
         # RitualBsp
         "FAKK2": ["maps",  # 30 maps | 150 MB | .pk3
                   "download/maps"],  # 6 maps | 25 MB | .pk3

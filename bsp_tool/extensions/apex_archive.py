@@ -112,7 +112,9 @@ dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
         # "season19": {"31oct23": (19, 0, "Ignite"),
         "season19": {"1feb24": (19, 1, "")},
         "season20": {"13feb24": (20, 0, "Breakout")},
-        "season21": {"7may24": (21, 0, "Upheaval")}}
+        "season21": {"7may24": (21, 0, "Upheaval")},
+        # "season22": {"6aug24": (22, 0, "Shockwave"),
+        "season22": {"30aug24": (22, 0, "")}}
 
 # TODO: python-mode
 
