@@ -221,15 +221,14 @@ LumpHeader = source.LumpHeader
 # CM_* (presumed: Clip Model)
 # GM_GRID holds world bounds & other metadata
 
-# Grid -> GridCell -> GeoSet
-#                 \-?> Primitive
+# Grid -> GridCell -> GeoSet -> Primitive
 
-#                   /-> UniqueContents
-# GeoSet & Primitive -> .primitive.type / .type -> Brush OR Tricoll
+#          /-> UniqueContents
+# Primitive -> .primitive.type / .type -> Brush OR Tricoll
 
-# GeoSet appears to wrap Primitive w/ a count & stradle group (fusing primitives?)
-
-# Primitives is parallel w/ PrimitiveBounds & GeoSets is parallel w/ GeoSetBounds
+# GeoSets can contain duplicates (use same .straddle_group)
+# GeoSets is parallel w/ GeoSet Bounds
+# Primitives is parallel w/ PrimitiveBounds
 # PrimitiveBounds & GeoSetBounds use the same "Bounds" type
 
 # CM_BRUSH: brushwork geo
@@ -241,7 +240,7 @@ LumpHeader = source.LumpHeader
 # len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
 # Brush.num_brush_sides (derived) is 6 + Brush.num_plane_offsets
 
-# TRICOLL_* (presumed: Triangle Collision for patches / displacements)
+# TRICOLL_* (Triangle Collision for patches / displacements)
 #              /-> TextureData
 #             /--> Vertices
 # TricollHeader -> TricollTriangle -> Vertices
@@ -503,14 +502,14 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
     straddle_group: int  # CMGrid counts straddle groups
     num_primitives: int  # start from primitive.index?
-    primitive: List[int]  # embedded Primitive?
-    # primitive.type: PrimitiveType  # Brush / Tricoll
-    # primitive.index: int  # index into Brushes / TricollHeaders
-    # primitive.unique_contents: int  # index into UniqueContents
-    __slots__ = ["straddle_group", "num_primitives", "primitive"]
+    bitfield: List[int]
+    # bitfield.type: PrimitiveType  # doesn't match children?
+    # bitfield.first_primitive: int  # index into Primitives
+    # bitfield.unique_contents: int  # index into UniqueContents
+    __slots__ = ["straddle_group", "num_primitives", "bitfield"]
     _format = "2HI"
-    _bitfields = {"primitive": {"type": 8, "index": 16, "unique_contents": 8}}
-    _classes = {"primitive.type": PrimitiveType}
+    _bitfields = {"bitfield": {"type": 8, "first_primitive": 16, "unique_contents": 8}}
+    _classes = {"bitfield.type": PrimitiveType}
 
 
 # NOTE: only one 28 byte entry per file

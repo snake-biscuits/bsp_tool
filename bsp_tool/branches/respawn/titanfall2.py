@@ -205,16 +205,33 @@ LumpHeader = source.LumpHeader
 # CM_* LUMPS
 # GM_GRID holds world bounds & other metadata
 
-# Cell -?> Primitive | PrimitiveBounds
-#     \-?> GeoSet | GeoSetBounds
+# Grid -> GridCell -> GeoSet -> Primitive
 
-# Brush -> BrushSidePlane -> Plane
-#      \-> BrushSideProperties | BrushSideTextureVector
+#          /-> UniqueContents
+# Primitive -> .primitive.type / .type -> Brush OR Tricoll OR StaticProp
 
-# BrushSideProps is parallel w/ BrushTexVecs
+# GeoSets can contain duplicates (use same .straddle_group)
+# GeoSets is parallel w/ GeoSet Bounds
 # Primitives is parallel w/ PrimitiveBounds
-# GeoSets is parallel w/ GeoSetBounds
-# PrimitiveBounds & GeoSetBounds use the same type (loaded w/ the same function in engine.dll)
+# PrimitiveBounds & GeoSetBounds use the same "Bounds" type
+
+# CM_BRUSH: brushwork geo
+#      /-> BrushSidePlaneOffset -> Plane
+# Brush -> BrushSideProperties -> TextureData
+#      \-> BrushSideTextureVector
+
+# BrushSideProperties is parallel w/ BrushSideTextureVector (one per brushside)
+# len(BrushSideProperties/TextureVectors) = len(Brushes) * 6 + len(BrushSidePlaneOffsets)
+# Brush.num_brush_sides (derived) is 6 + Brush.num_plane_offsets
+
+# TRICOLL_* (Triangle Collision for patches / displacements)
+#              /-> TextureData
+#             /--> Vertices
+# TricollHeader -> TricollTriangle -> Vertices
+#             \--> TricollNode -?> TricollNode / ???
+#              \-> TricollBevelIndices? -?> ?
+
+# TricollBevelStarts is parallel w/ TricollTriangles
 
 # LIGHTPROBES
 # LightProbeTree -?> LightProbeRef -> LightProbe
@@ -245,16 +262,18 @@ class PrimitiveType(enum.IntFlag):
 # classes for lumps, in alphabetical order::
 class GeoSet(base.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
-    straddle_group: int  # CMGrid counts straddle groups
-    num_primitives: int  # start from primitive.index?
-    primitive: List[int]  # embedded Primitive?
-    # primitive.type: PrimitiveType  # Brush / Tricoll
-    # primitive.index: int  # index into Brushes / TricollHeaders
-    # primitive.unique_contents: int  # index into UniqueContents
-    __slots__ = ["straddle_group", "num_primitives", "primitive"]
+    straddle_group: int
+    # if == 0: only touches parent GridCell
+    # if != 0: touches multiple GridCells & might be cached already
+    num_primitives: int
+    bitfield: List[int]
+    # bitfield.type: PrimitiveType  # doesn't match children?
+    # bitfield.index: int  # index into Primitives
+    # bitfield.unique_contents: int  # index into UniqueContents
+    __slots__ = ["straddle_group", "num_primitives", "bitfield"]
     _format = "2HI"
-    _bitfields = {"primitive": {"type": 8, "index": 16, "unique_contents": 8}}
-    _classes = {"primitive.type": PrimitiveType}
+    _bitfields = {"bitfield": {"type": 8, "first_primitive": 16, "unique_contents": 8}}
+    _classes = {"bitfield.type": PrimitiveType}
 
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
