@@ -244,16 +244,17 @@ class PrimitiveType(enum.IntFlag):
 
 # classes for lumps, in alphabetical order::
 class GeoSet(base.Struct):  # LUMP 87 (0057)
-    unknown: List[int]  # uint16_t[2]
-    child: base.BitField
-    # child.type: GeoSetFlags  # Brush or TriColl
-    # child.index: int  # index of Brush / TriCollHeader?
-    # child.count: int
-    __slots__ = ["unknown", "child"]
+    # Parallel w/ GeoSetBounds
+    straddle_group: int  # CMGrid counts straddle groups
+    num_primitives: int  # start from primitive.index?
+    primitive: List[int]  # embedded Primitive?
+    # primitive.type: PrimitiveType  # Brush / Tricoll
+    # primitive.index: int  # index into Brushes / TricollHeaders
+    # primitive.unique_contents: int  # index into UniqueContents
+    __slots__ = ["straddle_group", "num_primitives", "primitive"]
     _format = "2HI"
-    _arrays = {"unknown": 2}
-    _bitfields = {"child": {"type": 8, "index": 16, "count": 8}}
-    _classes = {"child.type": PrimitiveType}
+    _bitfields = {"primitive": {"type": 8, "index": 16, "unique_contents": 8}}
+    _classes = {"primitive.type": PrimitiveType}
 
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
