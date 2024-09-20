@@ -265,15 +265,15 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     straddle_group: int
     # if == 0: only touches parent GridCell
     # if != 0: touches multiple GridCells & might be cached already
-    num_primitives: int
-    bitfield: List[int]
-    # bitfield.type: PrimitiveType  # doesn't match children?
-    # bitfield.index: int  # index into Primitives
-    # bitfield.unique_contents: int  # index into UniqueContents
-    __slots__ = ["straddle_group", "num_primitives", "bitfield"]
+    num_primitives: int  # special case if 1 (see below)
+    primitive: List[int]
+    # primitive.type: PrimitiveType  # 0 if num_primitives > 1
+    # primitive.index: int  # index into Primitives if num_primitives > 1
+    # primitive.unique_contents: int  # index into UniqueContents
+    __slots__ = ["straddle_group", "num_primitives", "primitive"]
     _format = "2HI"
-    _bitfields = {"bitfield": {"type": 8, "first_primitive": 16, "unique_contents": 8}}
-    _classes = {"bitfield.type": PrimitiveType}
+    _bitfields = {"primitive": {"type": 8, "index": 16, "unique_contents": 8}}
+    _classes = {"primitive.type": PrimitiveType}
 
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
