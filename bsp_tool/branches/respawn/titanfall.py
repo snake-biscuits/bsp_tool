@@ -1273,9 +1273,25 @@ def brush(bsp, brush_index: int) -> editor.Brush:
     return editor.Brush(brush_sides)
 
 
+def grid_cell_bounds(bsp, grid_cell_index: int) -> physics.AABB:
+    grid = bsp.CM_GRID
+    num_worldspawn_grid_cells = grid.count.x * grid.count.y
+    assert 0 <= grid_cell_index < num_worldspawn_grid_cells
+    x = grid_cell_index % grid.count.x
+    y = grid_cell_index // grid.count.x
+    mins = vector.vec3(
+        (x + grid.offset.x) * grid.scale,
+        (y + grid.offset.y) * grid.scale)
+    mins.z = -32768
+    maxs = mins + vector.vec3(grid.scale, grid.scale)
+    maxs.z = +32768
+    return physics.AABB.from_mins_maxs(mins, maxs)
+
+
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
            shadow_mesh, occlusion_mesh,  # other geo
            brush,  # brushes
+           grid_cell_bounds,  # physics
            portals_as_prt]  # vis
 methods = {m.__name__: m for m in methods}
