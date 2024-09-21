@@ -3,6 +3,7 @@ from collections.abc import Iterable
 import math
 from typing import Dict, List, Union
 
+from . import geometry
 from . import vector
 
 
@@ -68,6 +69,33 @@ class AABB:
 
     def intersects(self, other: AABB) -> bool:
         return all([sm <= oM and sM >= om for sm, oM, sM, om in zip(self.mins, other.maxs, self.maxs, other.mins)])
+
+    def as_model(self) -> geometry.Model:
+        signs = [
+            vector.vec3(
+                (-1, 1)[i >> 2],
+                (-1, 1)[i >> 1 & 1],
+                (-1, 1)[i & 1])
+            for i in range(8)]
+        vertices = [
+            vector.vec3(
+                sign.x * self.extents.x,
+                sign.y * self.extents.y,
+                sign.z * self.extents.z)
+            for sign in signs]
+        quads = [
+            ((0b000, 0b010, 0b011, 0b001), vector.vec3(x=-1)),
+            ((0b000, 0b001, 0b101, 0b100), vector.vec3(y=-1)),
+            ((0b000, 0b100, 0b110, 0b010), vector.vec3(z=-1)),
+            ((0b100, 0b101, 0b111, 0b110), vector.vec3(x=1)),
+            ((0b010, 0b110, 0b111, 0b011), vector.vec3(y=1)),
+            ((0b001, 0b011, 0b111, 0b101), vector.vec3(z=1))]
+        polygons = [
+            geometry.Polygon([
+                geometry.Vertex(vertices[i], normal)
+                for i in indices])
+            for indices, normal in quads]
+        return geometry.Model(meshes=[geometry.Mesh(polygons=polygons)], origin=self.origin)
 
     # INITIALISERS
 
