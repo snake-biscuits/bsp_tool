@@ -227,7 +227,7 @@ class GDRom(base.Archive):
     def from_file(cls, filename: str) -> GDRom:
         ext = os.path.splitext(filename.lower())[-1]
         if ext == ".cdi":
-            return cls.from_cdi(padus.Cdi(filename))
+            return cls.from_cdi(padus.Cdi.from_file(filename))
         elif ext == ".chd":
             # TODO: mame.Chd
             raise NotImplementedError()
