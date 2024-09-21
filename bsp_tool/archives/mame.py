@@ -168,7 +168,7 @@ class Chd(base.Archive):
         # --- cdlz: (LZMA, Deflate), cdzl: (Deflate,) * 2, cdzs: (Zstandard,) * 2
         # -- chd_lzma_decompressor::decompress | lzma/C/LzmaDec.h | import lzma
         # -- chd_zlib_decompressor::decompress | <zlib.h> | import zlib
-        # -- chd_zstd_decompressor::decompress | <zstd.h>  | pip install zstandard (+ cffi) => import zstandard
+        # -- chd_zstd_decompressor::decompress | <zstd.h> | pip install zstandard (+ cffi) => import zstandard
         else:
             # TODO: need an uncompressed .chd to test
             raise NotImplementedError("Cannot parse uncompressed Map")
