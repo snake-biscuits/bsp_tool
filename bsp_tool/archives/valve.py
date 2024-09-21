@@ -80,8 +80,6 @@ class Vpk(base.Archive):
         # else:
         #     raise NotImplementedError("cannot read files inside *.vpk yet")
 
-    # TODO: failing to parse "The Ship | depot_2402_dir.vpk"
-    # -- which contains maps & loads just fine in GCFScape
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Vpk:
         out = cls()
