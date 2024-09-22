@@ -2,6 +2,7 @@
 from __future__ import annotations
 import enum
 import io
+import math
 import struct
 from typing import Dict, List, Union
 
@@ -407,6 +408,19 @@ class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
     _format = "8h"
     _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
+
+    @property
+    def yaw(self) -> float:
+        # NOTE: could be backwards
+        # -- rotation in Blender is inverted from top orthographic view if I specify Z-axis
+        return math.degrees(math.atan2(self.positive_sin / 0x8000, -self.negative_cos / 0x8000))
+
+    def as_model(self) -> geometry.Model:
+        aabb = physics.AABB.from_origin_extents(self.origin, self.extents)
+        return geometry.Model(
+            meshes=aabb.as_model().meshes,
+            origin=self.origin,
+            angles=vector.vec3(z=self.yaw))
 
 
 class Brush(base.Struct):  # LUMP 92 (005C)
