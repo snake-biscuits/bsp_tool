@@ -397,7 +397,7 @@ class PrimitiveType(enum.Enum):
 
 
 # classes for lumps, in alphabetical order:
-class Bounds(base.Struct):  # LUMP 88 & 90 (0058 & 005A)
+class Bounds(base.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
     """Identified by warmist & rexx#1287"""
     # dcollyawbox_t
     origin: vector.vec3  # uint16_t
@@ -815,6 +815,10 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
     _classes = {"texture_flags": TextureDataFlags, "origin": vector.vec3}
     # TODO: "flags": TricollHeaderFlags
 
+    @property
+    def num_nodes(self) -> int:
+        return 2 * (self.num_triangles - (self.num_triangles + 3) % 6 + 3) // 3
+
 
 class TricollTriangle(base.BitField):  # LUMP 66 (0042)
     """Identified by Fifty & RoyalBlue"""
@@ -825,19 +829,6 @@ class TricollTriangle(base.BitField):  # LUMP 66 (0042)
     _fields = {"flags": 8, "C": 7, "B": 7, "A": 10}
     _format = "I"
     # TODO: _classes = {"flags": TricollTriangleFlags}
-
-
-class TricollNode(base.Struct):  # LUMP 68 (0044)
-    """Identified by rexx#1287 & RoyalBlue"""
-    # dcollyawbox_t: a Z-rotated AABB w/ precaculated sin & cos
-    origin: vector.vec3
-    cos: int  # precalculated cos(yaw)
-    extents: vector.vec3
-    sin: int  # precalculated sin(yaw)
-    __slots__ = ["origin", "cos", "extents", "sin"]
-    _format = "8h"
-    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "extents": vector.vec3}  # TODO: ivec3
 
 
 class WorldLight(source.WorldLight):  # LUMP 54 (0036)
@@ -1107,7 +1098,7 @@ LUMP_CLASSES = {
     "SHADOW_MESH_OPAQUE_VERTICES":       {0: quake.Vertex},
     "TEXTURE_DATA":                      {1: TextureData},
     "TRICOLL_HEADERS":                   {1: TricollHeader},
-    "TRICOLL_NODES":                     {1: TricollNode},
+    "TRICOLL_NODES":                     {1: Bounds},
     "VERTEX_BLINN_PHONG":                {0: VertexBlinnPhong},
     "VERTEX_LIT_BUMP":                   {1: VertexLitBump},
     "VERTEX_LIT_FLAT":                   {1: VertexLitFlat},
