@@ -4,7 +4,7 @@ import enum
 import io
 import math
 import struct
-from typing import Dict, List, Union
+from typing import Dict, List, Tuple, Union
 
 from ... import lumps
 from ... import archives
@@ -1294,10 +1294,37 @@ def grid_cell_bounds(bsp, grid_cell_index: int) -> physics.AABB:
     return physics.AABB.from_mins_maxs(mins, maxs)
 
 
+def geo_set_primitives(bsp, geo_set_index: int) -> List[Tuple[Primitive, Bounds]]:
+    out = list()
+    geo_set = bsp.CM_GEO_SETS[geo_set_index]
+    if geo_set.num_primitives == 1:
+        primitive = Primitive.from_int(geo_set.primitive.as_int())
+        bounds = bsp.CM_GEO_SET_BOUNDS[geo_set_index]
+        out = [(primitive, bounds)]
+    else:
+        start = geo_set.primitive.index
+        end = start + geo_set.num_primitives
+        for i in range(start, end):
+            primitive = bsp.CM_PRIMITIVES[i]
+            bounds = bsp.CM_PRIMITIVE_BOUNDS[i]
+            out.append((primitive, bounds))
+    return out
+
+
+def grid_cell_primitives(bsp, grid_cell_index: int) -> List[Tuple[Primitive, Bounds]]:
+    out = list()
+    grid_cell = bsp.CM_GRID_CELLS[grid_cell_index]
+    start = grid_cell.first_geo_set
+    end = start + grid_cell.num_geo_sets
+    for i in range(start, end):
+        out.extend(bsp.geo_set_primitives(i))
+    return out
+
+
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
            shadow_mesh, occlusion_mesh,  # other geo
            brush,  # brushes
-           grid_cell_bounds,  # physics
+           geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
            portals_as_prt]  # vis
 methods = {m.__name__: m for m in methods}

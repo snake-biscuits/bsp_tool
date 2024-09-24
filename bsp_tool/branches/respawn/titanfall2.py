@@ -535,4 +535,24 @@ GAME_LUMP_HEADER = source.GameLumpHeader
 GAME_LUMP_CLASSES = {"sprp": {13: GameLump_SPRPv13}}
 
 
+def geo_set_primitives(bsp, geo_set_index: int) -> List[Tuple[Primitive, titanfall.Bounds]]:
+    # copied from respawn.titanfall to use correct Primitive class
+    out = list()
+    geo_set = bsp.CM_GEO_SETS[geo_set_index]
+    if geo_set.num_primitives == 1:
+        primitive = Primitive.from_int(geo_set.primitive.as_int())
+        bounds = bsp.CM_GEO_SET_BOUNDS[geo_set_index]
+        out = [(primitive, bounds)]
+    else:
+        start = geo_set.primitive.index
+        end = start + geo_set.num_primitives
+        for i in range(start, end):
+            primitive = bsp.CM_PRIMITIVES[i]
+            bounds = bsp.CM_PRIMITIVE_BOUNDS[i]
+            out.append((primitive, bounds))
+    return out
+
+
 methods = titanfall.methods.copy()
+methods.update({
+    "geo_set_primitives": geo_set_primitives})
