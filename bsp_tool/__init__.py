@@ -27,4 +27,4 @@ from .wild_tangent import Genesis3DBsp
 
 def load_bsp(filename: str, force_branch: ModuleType = None) -> base.Bsp:
     """Calculate and return the correct base.Bsp sub-class for the given .bsp"""
-    return autodetect.guess_from_filename(filename)
+    return autodetect.guess_from_filename(filename, force_branch)
