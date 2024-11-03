@@ -3,7 +3,7 @@ import fnmatch
 import io
 import os
 from types import ModuleType
-from typing import Dict
+from typing import Dict, Tuple
 
 from . import archives  # base.Archive & with_extension
 from . import base  # base.Bsp base class
@@ -66,38 +66,46 @@ def guess_with_hints(filename: str, hints: Hints) -> object:
 ################
 
 
-# TODO: use BspClass.from_archive to link associated files
-def load_archive_bsp(filename: str, force_branch: ModuleType = None) -> base.Bsp:
-    # TODO: user-defined hints for ArchiveClass, BspClass & bsp_branch
-    raise NotImplementedError("incomplete prototype")
-    archive_hints = sorted_hints(archives.with_extension)
-    # nested archive walker
-    split_path = filename.replace("\\", "/").split("/")
-    filename = split_path[0] if not filename.startswith("/") else "/"
-    split_path.pop(0)
-    archive = None
-    archive_files = list()
-    while len(split_path) > 0:
-        filename = "/".join([filename, split_path.pop(0)])
-        if archive is None:  # os filesystem
-            assert os.path.exists()
+# TODO: test:
+#  - [x] .bsp not inside archive
+#  - [ ] .bsp inside archive
+#  - [ ] .bsp inside nested archives
+def naps(full_path: str, hints: Hints = dict(), parent_archive=None) -> Tuple[str]:
+    """Nested Archive Path Splitter"""
+    archive_hints = sorted_hints({**archives.with_extension, **hints})
+    split_path = full_path.replace("\\", "/").split("/")
+    filename = ""
+    if parent_archive is None:  # os filesystem
+        print("! scanning OS files")
+        while len(split_path) > 0:
+            filename = "/".join([filename, split_path.pop(0)]) if filename != "" else split_path.pop(0)
+            print(filename)  # DEBUG
+            assert os.path.exists(filename), f"{filename!r} does not exist"
             if os.path.isfile(filename) and len(split_path) > 0:
                 archive_class = guess_with_hints(filename, archive_hints)
-                assert archive_class is not None, "couldn't guess archive"
+                assert archive_class is not None, f"couldn't find ArchiveClass for {filename!r}"
                 archive = archive_class.from_file(filename)
-                archive_files = archive.namelist()
-                filename = ""
-        else:  # archive filesystem
+                print(f"* recursing into {archive}")
+                return (filename, *naps("/".join(split_path), hints, archive))
+        return (filename,)
+    else:  # archive filesystem
+        print("! scanning archive files")
+        while len(split_path) > 0:
+            filename = "/".join([filename, split_path.pop(0)]) if filename != "" else split_path.pop(0)
+            print(filename)  # DEBUG
             # TODO: verify path exists inside archive (catch bad paths early)
             # assert archive.path_exists(filename)
-            if filename in archive_files:
+            if filename in archive.namelist():
                 if len(split_path) > 0:
                     archive_class = guess_with_hints(filename, archive_hints)
-                    assert archive_class is not None, "couldn't guess archive"
+                    assert archive_class is not None, f"couldn't find ArchiveClass for {filename!r}"
                     archive = archive_class.from_archive(archive, filename)
-                    filename = ""
-                else:
-                    return guess_from_bytes(archive.read(filename), force_branch)
+                    print(f"* recursing into {archive}")
+                    return (filename, *naps("/".join(split_path), hints, archive))
+        return (filename,)
+
+
+# TODO: step down through the NAP to get the file
 
 
 ############
@@ -154,8 +162,14 @@ Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 
 
 # TODO: use Hints to help guess BspClass branch
+def guess_from_archive_file(filename: str, archive, force_branch: ModuleType = None) -> base.Bsp:
+    # TODO: use BspClass.from_archive to link associated files
+    if filename not in archive.namelist():
+        raise FileNotFoundError(f"couldn't find {filename!r} in archive: {archive!r}'")
+    return guess_from_bytes(filename, archive.read(filename), force_branch)
+
+
 def guess_from_filename(filename: str, force_branch: ModuleType = None) -> base.Bsp:
-    # TODO: access files inside archives
     # verify path
     if not os.path.exists(filename):
         raise FileNotFoundError(f".bsp file '{filename}' does not exist.")
