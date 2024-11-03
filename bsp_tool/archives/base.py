@@ -34,6 +34,8 @@ class Archive:
         namelist_tuples = map(path_tuple, self.namelist())
         return [tuple_[-1] for tuple_ in namelist_tuples if tuple_[:-1] == folder_tuple]
 
+    # TODO: isdir, isfile & tree methods for exploring files
+
     def namelist(self) -> List[str]:
         raise NotImplementedError("ArchiveClass has not defined .namelist()")
 
@@ -44,6 +46,14 @@ class Archive:
         pattern = pattern if case_sensitive else pattern.lower()
         namelist = self.namelist() if case_sensitive else [fn.lower() for fn in self.namelist()]
         return fnmatch.filter(namelist, pattern)
+
+    # TODO: mount & unmount methods for attaching "external files" to ArchiveClass
+
+    @classmethod
+    def from_archive(cls, parent_archive: Archive, filename: str) -> Archive:
+        """for ArchiveClasses composed of multiple files"""
+        # e.g. sega.Gdi tracks or respawn.Vpk data vpks
+        return cls.from_bytes(parent_archive.read(filename))
 
     @classmethod
     def from_bytes(cls, raw_archive: bytes) -> Archive:

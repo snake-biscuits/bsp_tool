@@ -1,8 +1,11 @@
+import collections
+import fnmatch
 import io
 import os
 from types import ModuleType
+from typing import Dict
 
-
+from . import archives  # base.Archive & with_extension
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
@@ -13,6 +16,102 @@ from .ritual import RitualBsp
 from .nexon import NexonBsp
 from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
+
+
+#########
+# Hints #
+#########
+
+
+Hints = Dict[str, object]
+# ^ {"*.zip": archives.pkware.Zip, "*.d3dbsp": infinity_ward.D3DBsp}
+
+
+# NOTE: you should only need to sort your hints once
+def sorted_hints(hints: Hints) -> collections.OrderedDict:
+    """'sophisticated' fnmatch pattern sorter"""
+    # NOTE: overlap isn't relevant, just make sure the most specific patterns are first
+    filenames = dict()
+    folders = dict()
+    complex_hints = dict()
+    broad_hints = dict()
+
+    for pattern in hints:
+        if "*" not in pattern:  # folder/filename.ext
+            filenames[pattern] = hints[pattern]
+        elif pattern.endswith("*"):  # folder/*
+            folders[pattern] = hints[pattern]
+        elif pattern.startswith("*"):  # *.ext
+            broad_hints[pattern] = hints[pattern]
+        else:  # folder/*.ext
+            complex_hints[pattern] = hints[pattern]
+
+    return collections.OrderedDict({
+        **filenames,
+        **folders,
+        **complex_hints,
+        **broad_hints})
+
+
+def guess_with_hints(filename: str, hints: Hints) -> object:
+    for pattern in hints:
+        if fnmatch.fnmatch(filename, pattern):
+            return hints[pattern]
+    else:  # if nothing matches it's the caller's problem
+        return None
+
+
+################
+# ArchiveClass #
+################
+
+
+# TODO: use BspClass.from_archive to link associated files
+def load_archive_bsp(filename: str, force_branch: ModuleType = None) -> base.Bsp:
+    # TODO: user-defined hints for ArchiveClass, BspClass & bsp_branch
+    raise NotImplementedError("incomplete prototype")
+    archive_hints = sorted_hints(archives.with_extension)
+    # nested archive walker
+    split_path = filename.replace("\\", "/").split("/")
+    filename = split_path[0] if not filename.startswith("/") else "/"
+    split_path.pop(0)
+    archive = None
+    archive_files = list()
+    while len(split_path) > 0:
+        filename = "/".join([filename, split_path.pop(0)])
+        if archive is None:  # os filesystem
+            assert os.path.exists()
+            if os.path.isfile(filename) and len(split_path) > 0:
+                archive_class = guess_with_hints(filename, archive_hints)
+                assert archive_class is not None, "couldn't guess archive"
+                archive = archive_class.from_file(filename)
+                archive_files = archive.namelist()
+                filename = ""
+        else:  # archive filesystem
+            # TODO: verify path exists inside archive (catch bad paths early)
+            # assert archive.path_exists(filename)
+            if filename in archive_files:
+                if len(split_path) > 0:
+                    archive_class = guess_with_hints(filename, archive_hints)
+                    assert archive_class is not None, "couldn't guess archive"
+                    archive = archive_class.from_archive(archive, filename)
+                    filename = ""
+                else:
+                    return guess_from_bytes(archive.read(filename), force_branch)
+
+
+############
+# BspClass #
+############
+
+
+# TODO: clues based on parent archive / folders in path (e.g. "baseq3")
+BspClass_for_pattern = {
+    "*.d3dbsp": D3DBsp,
+    "*.i3d/*.bsp": InfinityWardBsp,
+    "*.pk3/*.bsp": IdTechBsp,
+    "*_dir.vpk/*.bsp": ValveBsp}  # OR RespawnBsp
+# TODO: bzip decompression for "*.bsp.bz2" ValveBsps
 
 
 BspClass_for_magic = {
