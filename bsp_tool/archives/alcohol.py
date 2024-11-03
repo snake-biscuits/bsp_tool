@@ -66,6 +66,7 @@ class TrackMode(enum.Enum):
 
 class Mds(base.Archive):
     """Media Descriptor Sidecar"""
+    ext = "*.mds"
     # NOTE: needs linked .mdf (Media Descriptor File) data files
     _file: io.BytesIO  # DEBUG
     # header: MdsHeader

@@ -28,6 +28,31 @@ from . import utoplanet  # Apk
 from . import valve  # Vpk
 
 
+with_extension = {
+    "*.007": gearbox.Nightfire007,
+    "*.apk": utoplanet.Apk,
+    "*.bpk": bluepoint.Bpk,  # OR pi_studios.Bpk
+    "*.cdi": padus.Cdi,
+    "*.chd": mame.Chd,
+    "*.cue": golden_hawk.Cue,
+    "*.dat": ion_storm.Dat,
+    "*.ff": infinity_ward.FastFile,
+    "*.gdi": sega.Gdi,
+    "*.hfs": nexon.Hfs,
+    "*.iso": cdrom.Iso,
+    "*.iwd": infinity_ward.Iwd,
+    "*.mds": alcohol.Mds,
+    "*.pak": id_software.Pak,  # OR ion_storm.Pak
+    "*.pk3": id_software.Pk3,
+    "*.pkg": nexon.Pkg,
+    "*.rpak": respawn.rpak.RPak,
+    "*.vpk": valve.Vpk,
+    "*.zip": pkware.Zip,
+    "*_dir.vpk": respawn.Vpk}  # OR valve.Vpk
+# NOTE: sega.GDRom extends other disc-images (mame.Chd, padus.Cdi & sega.Gdi)
+# NOTE: nexon.PakFile only exists as the PAKFILE lump of NexonBsp
+
+
 # batch operations
 # TODO: ignore r".*_[0-9]+\.vpk" when looking for respawn.Vpk
 # -- this also applies for some valve.Vpk
