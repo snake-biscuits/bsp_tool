@@ -7,7 +7,7 @@ from . import maplist
 from bsp_tool import branches
 from bsp_tool import load_bsp
 from bsp_tool import lumps
-from bsp_tool.autodetect import BspVariant_for_magic
+from bsp_tool.autodetect import BspClass_for_magic
 from bsp_tool.branches import (
     ace_team, arkane, gearbox, id_software, infinity_ward,
     nexon, outerlight, raven, respawn, ritual, strata, utoplanet, valve)
@@ -211,7 +211,7 @@ id_of.update({
     "WolfET": "Wolfenstein: Enemy Territory",
     "Vindictus/Client v1.69 EU": "Vindictus v1.69"})
 
-BspClass_for = {branch: BspVariant_for_magic.get(branch.FILE_MAGIC, None) for branch in all_branches}
+BspClass_for = {branch: BspClass_for_magic.get(branch.FILE_MAGIC, None) for branch in all_branches}
 BspClass_for.update({
     **{branch: QuakeBsp for branch in branches.of_engine["Quake"] if branch != id_software.quake64},
     **{branch: GoldSrcBsp for branch in branches.of_engine["GoldSrc"]},
