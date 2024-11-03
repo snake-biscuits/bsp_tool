@@ -2,6 +2,7 @@ import io
 import os
 from types import ModuleType
 
+
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
 from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
@@ -14,7 +15,7 @@ from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
 
 
-BspVariant_for_magic = {
+BspClass_for_magic = {
     b" 46Q": Quake64Bsp,
     b"2015": RitualBsp,
     b"2PSB": ReMakeQuakeBsp,
@@ -53,11 +54,7 @@ Nexon_versions = {
 Quake_versions = {*branches.id_software.quake.GAME_VERSIONS.values()}
 
 
-# TODO: write a generator that walks a path for .bsps, including inside .pk3, .bz2, .iwd & .zip
-# -- this should greatly simplify testing theories / support against whole games
-
-
-# TODO: OPTION: use filepath to guess game / branch
+# TODO: use Hints to help guess BspClass branch
 def guess_from_filename(filename: str, force_branch: ModuleType = None) -> base.Bsp:
     # TODO: access files inside archives
     # verify path
@@ -91,33 +88,33 @@ def guess_from_stream(filename: str, bsp_file: io.BytesIO, force_branch: ModuleT
         version = int.from_bytes(bsp_file.read(4), "little")
     if version is not None and version > 0xFFFF:  # 2 part version
         version = (version & 0xFFFF, version >> 16)  # major, minor
-    # identify BspVariant
+    # identify BspClass
     if filename.lower().endswith(".d3dbsp"):  # CoD2 & CoD4
         assert file_magic == b"IBSP", "Mystery .d3dbsp!"
         assert version in InfinityWard_versions, "Unexpected .d3dbsp format version!"
         if version >= branches.infinity_ward.modern_warfare.BSP_VERSION:
-            BspVariant = D3DBsp
+            BspClass = D3DBsp
         else:
-            BspVariant = InfinityWardBsp
+            BspClass = InfinityWardBsp
     elif filename.lower().endswith(".bsp"):
-        if file_magic not in BspVariant_for_magic:  # Quake / GoldSrc
+        if file_magic not in BspClass_for_magic:  # Quake / GoldSrc
             version = int.from_bytes(file_magic, "little")
             if version in Quake_versions:
-                BspVariant = QuakeBsp
+                BspClass = QuakeBsp
                 file_magic = None
             elif version in GoldSrc_versions:
-                BspVariant = GoldSrcBsp
+                BspClass = GoldSrcBsp
                 file_magic = None
             else:
                 # TODO: check for encrypted Tactical Intervention .bsp
                 raise NotImplementedError(f"Unknown file_magic: {file_magic}")
         else:
             if file_magic == b"IBSP" and version in InfinityWard_versions:  # early CoD
-                BspVariant = InfinityWardBsp
+                BspClass = InfinityWardBsp
             elif version in Nexon_versions:  # CS:O2
-                BspVariant = NexonBsp
+                BspClass = NexonBsp
             else:
-                BspVariant = BspVariant_for_magic[file_magic]
+                BspClass = BspClass_for_magic[file_magic]
     else:  # invalid extension
         raise RuntimeError(f"{filename} is not a .bsp file!")
     # identify branch script
@@ -127,7 +124,7 @@ def guess_from_stream(filename: str, bsp_file: io.BytesIO, force_branch: ModuleT
     # -- could try to resolve w/ sprp version
     # TODO: ata4's bspsrc uses unique entity classnames to identify branches
     # -- need this for identifying variants with overlapping identifiers
-    return BspVariant.from_file(branch_script, filename)  # might raise errors
+    return BspClass.from_file(branch_script, filename)  # might raise errors
 
 
 def guess_from_bytes(filename: str, raw_bsp: bytes, force_branch: ModuleType = None) -> base.Bsp:
