@@ -134,6 +134,12 @@ class Bsp:
             setattr(self, method_name, method)
 
     @classmethod
+    def from_archive(cls, branch: ModuleType, filepath: str, archive) -> Bsp:
+        # TODO: scan for associated files
+        # -- maybe keep the archive open for mounting?
+        return cls.from_bytes(branch, filepath, archive.read(filepath))
+
+    @classmethod
     def from_bytes(cls, branch: ModuleType, filepath: str, raw_bsp: bytes) -> Bsp:
         return cls.from_stream(branch, filepath, io.BytesIO(raw_bsp))
 

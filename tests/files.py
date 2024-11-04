@@ -87,7 +87,10 @@ librarians = {
         Xbox360="E:/Mod/X360/"),
     # Linux Laptop
     ("bikkie", "coplandbentokom-9876"): GameLibrary(
-        Mod="/media/bikkie/3964-39352/Mod/")}
+        Mod="/media/bikkie/3964-39352/Mod/"),
+    # Linux Desktop
+    ("bikkie", "megalodon"): GameLibrary(
+        Steam="/home/bikkie/.steam/steam/steamapps/common/")}
 
 librarian_aliases = {
     "Jared@ITANI_WAYSOUND": "bikkie"}
