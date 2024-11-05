@@ -13,12 +13,20 @@
    - `pkware.Zip` (formerly `branches.valve.source.PakFile`)
    - `sega.GDRom`
    - `sega.Gdi`
+ * `ArchiveClass` filesystem utility methods
+   - `.is_dir("folder")`
+   - `.is_file("filename")`
+   - `.list_dir("folder")`
+   - `.path_exists("filename")`
+   - `.tree(folder="./")`
+ * `ArchiveClass` can be initialised with `.from_archive`
 
 
 ### Changed
  * `archives` no longer in `extensions`
  * `lightmaps` no longer in `extensions`
  * `.bsp` files are now loaded with `@classmethod`s
+   - `.from_archive(branch, "filepath", archive)`
    - `.from_bytes(branch, "filepath", b"bytes")`
    - `.from_file(branch, "filepath")`
    - `.from_stream(branch, "filepath", open(stream))`
