@@ -52,3 +52,16 @@ def test_from_file(filename: str):
     if len(namelist) != 0:
         first_file = pak.read(namelist[0])
         assert isinstance(first_file, bytes), ".read() failed"
+
+
+# TODO: filesystem utility tests on "Steam | Quake | PAK0.PAK"
+# -- pak.is_dir("sound/")
+# -- pak.is_dir("sound/ambience/")
+
+# -- pak.is_dir(".")
+# -- pak.is_dir("./")
+# -- pak.is_dir("./sound/")
+# -- pak.is_dir("./sound/ambience/")
+# TODO: is_file
+# TODO: path_exists
+# TODO: tree

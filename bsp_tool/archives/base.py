@@ -5,8 +5,17 @@ import os
 from typing import List, Tuple
 
 
+def path_tuple(path: str) -> Tuple[str]:
+    out = tuple(path.replace("\\", "/").strip("/").split("/"))
+    if len(out) > 1 and out[0] == ".":
+        return out[1:]
+    else:
+        return out
+
+
 class Archive:
     ext = None
+    # NOTE: we assume namelist only contains filenames, no folders
 
     def extract(self, filename, to_path=None):
         if filename not in self.namelist():
@@ -25,21 +34,39 @@ class Archive:
         for filename in self.search(pattern, case_sensitive):
             self.extract(filename, to_path)
 
-    def listdir(self, folder: str) -> List[str]:
-        def path_tuple(path: str) -> Tuple[str]:
-            return tuple(path.replace("\\", "/").strip("/").split("/"))
-        if folder.replace("\\", "/") in "./":
-            return self.namelist()
-        folder_tuple = path_tuple(folder)
-        namelist_tuples = map(path_tuple, self.namelist())
-        return [tuple_[-1] for tuple_ in namelist_tuples if tuple_[:-1] == folder_tuple]
+    def is_dir(self, filename: str) -> bool:
+        all_dirs = {path_tuple(fn)[:-1] for fn in self.namelist()}
+        all_dirs.update({tuple_[:i] for tuple_ in all_dirs for i in range(1, len(tuple_))})
+        all_dirs.update({path_tuple(root) for root in (".", "./", "/")})
+        return path_tuple(filename) in all_dirs
 
-    # TODO: isdir, isfile & tree methods for exploring files
+    def is_file(self, filename: str) -> bool:
+        return filename in self.namelist()
+
+    def listdir(self, folder: str) -> List[str]:
+        if not self.is_dir(folder):
+            raise FileNotFoundError(f"no such directory: {folder}")
+        folder_tuple = path_tuple(folder)
+        if folder_tuple in {path_tuple(root) for root in (".", "./", "/")}:
+            folder_tuple = tuple()  # empty
+        namelist_tuples = map(path_tuple, self.namelist())
+        folder_contents = list()
+        for tuple_ in namelist_tuples:
+            if tuple_[:-1] == folder_tuple:
+                folder_contents.append(tuple_[-1])  # file
+            elif tuple_[:len(folder_tuple)] == folder_tuple:
+                subfolder = tuple_[len(folder_tuple)] + "/"
+                if subfolder not in folder_contents:
+                    folder_contents.append(subfolder)
+        return folder_contents
 
     def namelist(self) -> List[str]:
         raise NotImplementedError("ArchiveClass has not defined .namelist()")
 
-    def read(self) -> bytes:
+    def path_exists(self, filename: str) -> bool:
+        return self.is_file(filename) or self.is_dir(filename)
+
+    def read(self, filename: str) -> bytes:
         raise NotImplementedError("ArchiveClass has not defined .read()")
 
     def search(self, pattern="*.bsp", case_sensitive=False):
@@ -47,7 +74,16 @@ class Archive:
         namelist = self.namelist() if case_sensitive else [fn.lower() for fn in self.namelist()]
         return fnmatch.filter(namelist, pattern)
 
-    # TODO: mount & unmount methods for attaching "external files" to ArchiveClass
+    def tree(self, folder: str = ".", depth: int = 0):
+        """namelist pretty printer"""
+        for filename in self.listdir(folder):
+            print(f"{'  ' * depth}{filename}")
+            full_filename = os.path.join(folder, filename)
+            if self.is_dir(full_filename):
+                self.tree(full_filename, depth + 1)
+
+    # TODO: mount_file & unmount_file for external files
+    # -- .gdi tracks, pak_000.vpk etc.
 
     @classmethod
     def from_archive(cls, parent_archive: Archive, filename: str) -> Archive:

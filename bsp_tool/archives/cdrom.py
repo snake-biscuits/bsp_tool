@@ -425,13 +425,6 @@ class Iso(base.Archive):
         true_lba = lba + self.lba_offset
         return self.disc.seek(true_lba * self.pvd.block_size)
 
-    def tree(self, head=1, depth=0):
-        # NOTE: folders only
-        for path in self.path_table[1:]:
-            if path.parent_index == head:
-                print(f"{'  ' * depth}{path.name}/")
-                self.tree(self.path_table.index(path) + 1, depth + 1)
-
     @classmethod
     def from_bytes(cls, raw_iso: bytes, pvd_address: int = None, lba_offset: int = 0) -> Iso:
         # NOTE: only from_bytes will search for PVDs
