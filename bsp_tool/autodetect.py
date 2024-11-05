@@ -67,9 +67,14 @@ def guess_with_hints(filename: str, hints: Hints) -> object:
 
 
 # TODO: test:
-#  - [x] .bsp not inside archive
-#  - [ ] .bsp inside archive
+#  - [x] .bsp not inside archive (local)
+#  - [x] .bsp inside archive (Quake/PAK0.PAK/maps/e1m1.bsp) (relative dir)
 #  - [ ] .bsp inside nested archives
+# BROKEN:
+#  - [ ] linux path starting at root ("/")
+#  - [ ] windows path starting with a drive ("C://")
+# NOTE: could try archives.base.path_tuple, but it conflates "./" with "/"
+# -- "../" is also likely to break, we should make that explicit
 def naps(full_path: str, hints: Hints = dict(), parent_archive=None) -> Tuple[str]:
     """Nested Archive Path Splitter"""
     archive_hints = sorted_hints({**archives.with_extension, **hints})
@@ -93,13 +98,12 @@ def naps(full_path: str, hints: Hints = dict(), parent_archive=None) -> Tuple[st
         while len(split_path) > 0:
             filename = "/".join([filename, split_path.pop(0)]) if filename != "" else split_path.pop(0)
             print(filename)  # DEBUG
-            # TODO: verify path exists inside archive (catch bad paths early)
-            # assert archive.path_exists(filename)
-            if filename in archive.namelist():
+            assert parent_archive.path_exists(filename)
+            if parent_archive.is_file(filename):
                 if len(split_path) > 0:
                     archive_class = guess_with_hints(filename, archive_hints)
                     assert archive_class is not None, f"couldn't find ArchiveClass for {filename!r}"
-                    archive = archive_class.from_archive(archive, filename)
+                    archive = archive_class.from_archive(parent_archive, filename)
                     print(f"* recursing into {archive}")
                     return (filename, *naps("/".join(split_path), hints, archive))
         return (filename,)
