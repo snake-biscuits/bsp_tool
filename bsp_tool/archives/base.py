@@ -20,6 +20,10 @@ class Archive:
     def __init__(self):
         self.extras = dict()
 
+    def extra_patterns(self) -> List[str]:
+        """filename patterns for files to mount (e.g. '*.bin')"""
+        return list()
+
     def extract(self, filename, to_path=None):
         if filename not in self.namelist():
             raise FileNotFoundError(f"Couldn't find {filename!r} to extract")
@@ -98,9 +102,16 @@ class Archive:
     @classmethod
     def from_archive(cls, parent_archive: Archive, filename: str) -> Archive:
         """for ArchiveClasses composed of multiple files"""
-        # TODO: mount extra files
-        # e.g. sega.Gdi tracks or respawn.Vpk data vpks
-        return cls.from_bytes(parent_archive.read(filename))
+        archive = cls.from_bytes(parent_archive.read(filename))
+        folder = os.path.dirname(filename)
+        extras = [
+            filename
+            for filename in parent_archive.listdir(folder)
+            for pattern in archive.extra_patterns()
+            if fnmatch.fnmatch(filename, pattern)]
+        for filename in extras:
+            archive.mount_file(filename)
+        return archive
 
     @classmethod
     def from_bytes(cls, raw_archive: bytes) -> Archive:
@@ -108,9 +119,16 @@ class Archive:
 
     @classmethod
     def from_file(cls, filename: str) -> Archive:
-        # NOTE: don't use "with" if you want to keep the stream open
-        archive_file = open(filename, "rb")
-        return cls.from_stream(archive_file)
+        archive = cls.from_stream(open(filename, "rb"))
+        folder = os.path.dirname(filename)
+        extras = [
+            filename
+            for filename in os.listdir(folder)
+            for pattern in archive.extra_patterns()
+            if fnmatch.fnmatch(filename, pattern)]
+        for filename in extras:
+            archive.mount_file(filename)
+        return archive
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Archive:
