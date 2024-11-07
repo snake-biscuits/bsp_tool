@@ -1,8 +1,7 @@
 from __future__ import annotations
 import io
-import os
 from types import ModuleType
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from . import base
 from . import lumps
@@ -17,6 +16,15 @@ class QuakeBsp(base.Bsp):
         branch_script = ".".join(self.branch.__name__.split(".")[-2:])
         version = f"(version {self.version})"  # no file_magic
         return f"<{self.__class__.__name__} '{self.filename}' {branch_script} {version}>"
+
+    def extra_patterns(self) -> List[str]:
+        # https://quakewiki.org/wiki/Quake_file_formats
+        return [
+            f"{self.filename}.dlit",
+            f"{self.filename}.ent",
+            f"{self.filename}.lit",
+            f"{self.filename}.lux",
+            f"{self.filename}.vis"]
 
     def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
@@ -105,14 +113,6 @@ class IdTechBsp(base.Bsp):
     # struct BspHeader { char file_magic[4]; int version; LumpHeader headers[]; };
 
     mount_lump = QuakeBsp.mount_lump
-
-    @classmethod
-    def from_file(cls, branch: ModuleType, filepath: str) -> IdTechBsp:
-        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
-        local_files = os.listdir(bsp.folder)
-        def is_related(f): return f.startswith(os.path.splitext(bsp.filename)[0])
-        bsp.associated_files = [f for f in local_files if is_related(f)]
-        return bsp
 
     @classmethod
     def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> IdTechBsp:

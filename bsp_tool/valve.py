@@ -3,7 +3,7 @@ import io
 import os
 import struct
 from types import ModuleType
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from . import base
 from . import id_software
@@ -21,6 +21,13 @@ class ValveBsp(base.Bsp):
     file_magic = b"VBSP"
     revision: int = 0
     # struct SourceBspHeader { char file_magic[4]; int version; LumpHeader headers[64]; int revision; };
+
+    def extra_patterns(self) -> List[str]:
+        # https://developer.valvesoftware.com/wiki/Patching_levels_with_lump_files
+        # NOTE: Left 4 Dead (2) might include "_h_" & "_s_" lumps
+        # NOTE: ignoring *.nav & graphs/*.ain
+        # -- bsp_tool doesn't do anything with navmeshes
+        return [f"{self.filename}_l_*.lmp"]
 
     def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
@@ -59,15 +66,6 @@ class ValveBsp(base.Bsp):
                 assert lump_header.length == lump_header.fourCC  # definitely already decompressed
                 BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
         setattr(self, lump_name, BspLump)
-
-    @classmethod
-    def from_file(cls, branch: ModuleType, filepath: str) -> ValveBsp:
-        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
-        # collect files
-        local_files = os.listdir(bsp.folder)
-        def is_related(f): return f.startswith(bsp.filename.partition(".")[0])
-        bsp.associated_files = [f for f in local_files if is_related(f)]
-        return bsp
 
     @classmethod
     def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> ValveBsp:
