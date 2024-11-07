@@ -148,12 +148,12 @@ class Bsp:
         self.extras.pop(filename)
 
     @classmethod
-    def from_archive(cls, branch: ModuleType, filepath: str, archive, mount_extras=False) -> Bsp:
-        bsp = cls.from_bytes(branch, filepath, archive.read(filepath))
+    def from_archive(cls, branch: ModuleType, filepath: str, parent_archive, mount_extras=False) -> Bsp:
+        bsp = cls.from_bytes(branch, filepath, parent_archive.read(filepath))
         if mount_extras:
             extras = [
                 filename
-                for filename in archive.listdir(bsp.folder)
+                for filename in parent_archive.listdir(bsp.folder)
                 for pattern in bsp.extra_patterns()
                 if fnmatch.fnmatch(filename, pattern)]
             for filename in extras:
