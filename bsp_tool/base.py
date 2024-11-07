@@ -11,7 +11,7 @@ class Bsp:
     """Bsp base class"""
     branch: ModuleType  # soft copy of "branch script"
     endianness: str = "little"
-    external_files: Dict[str, io.BytesIO]  # file handles
+    extras: Dict[str, io.BytesIO]  # file handles
     file_magic: bytes = b"XBSP"
     # NOTE: XBSP is not a real bsp variant! this is just a placeholder
     filesize: int = 0  # size of .bsp in bytes
@@ -32,7 +32,7 @@ class Bsp:
         self.folder, self.filename = os.path.split(filepath)
         self.set_branch(branch)
         self.headers = dict()
-        self.external_files = dict()
+        self.extras = dict()
 
     def __enter__(self):
         return self
@@ -107,12 +107,9 @@ class Bsp:
 
     def mount_file(self, filename: str, archive=None):
         if archive is None:
-            self.external_files[filename] = open(filename, "rb")
+            self.extras[filename] = open(filename, "rb")
         else:
-            self.external_files[filename] = io.BytesIO(archive.read(filename))
-
-    def unmount_file(self, filename: str):
-        self.external_files.pop(filename)
+            self.extras[filename] = io.BytesIO(archive.read(filename))
 
     def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
@@ -146,6 +143,9 @@ class Bsp:
         for method_name, method in getattr(branch, "methods", dict()).items():
             method = MethodType(method, self)
             setattr(self, method_name, method)
+
+    def unmount_file(self, filename: str):
+        self.extras.pop(filename)
 
     @classmethod
     def from_archive(cls, branch: ModuleType, filepath: str, archive, mount_extras=False) -> Bsp:
