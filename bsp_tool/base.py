@@ -12,6 +12,7 @@ class Bsp:
     # TODO: include subfolder files (e.g. graphs/<mapname>.ain)
     branch: ModuleType  # soft copy of "branch script"
     endianness: str = "little"
+    external_files: Dict[str, io.BytesIO]  # file handles
     file_magic: bytes = b"XBSP"
     # NOTE: XBSP is not a real bsp variant! this is just a placeholder
     filesize: int = 0  # size of .bsp in bytes
@@ -32,6 +33,7 @@ class Bsp:
         self.folder, self.filename = os.path.split(filepath)
         self.set_branch(branch)
         self.headers = dict()
+        self.external_files = dict()
 
     def __enter__(self):
         return self
@@ -99,6 +101,15 @@ class Bsp:
         elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
             raw_lump = lump_entries.as_bytes()
         return raw_lump
+
+    def mount_file(self, filename: str, archive=None):
+        if archive is None:
+            self.external_files[filename] = open(filename, "rb")
+        else:
+            self.external_files[filename] = io.BytesIO(archive.read(filename))
+
+    def unmount_file(self, filename: str):
+        self.external_files.pop(filename)
 
     def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
