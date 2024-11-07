@@ -2,7 +2,7 @@ from __future__ import annotations
 import fnmatch
 import io
 import os
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 
 def path_tuple(path: str) -> Tuple[str]:
@@ -15,7 +15,10 @@ def path_tuple(path: str) -> Tuple[str]:
 
 class Archive:
     ext = None
-    # NOTE: we assume namelist only contains filenames, no folders
+    external_filenames: Dict[str, io.BytesIO]
+
+    def __init__(self):
+        self.external_filenames = dict()
 
     def extract(self, filename, to_path=None):
         if filename not in self.namelist():
@@ -60,7 +63,14 @@ class Archive:
                     folder_contents.append(subfolder)
         return folder_contents
 
+    def mount_file(self, filename: str, archive=None):
+        if archive is None:
+            self.external_files[filename] = open(filename, "rb")
+        else:
+            self.external_files[filename] = io.BytesIO(archive.read(filename))
+
     def namelist(self) -> List[str]:
+        # NOTE: we assume namelist only contains filenames, no folders
         raise NotImplementedError("ArchiveClass has not defined .namelist()")
 
     def path_exists(self, filename: str) -> bool:
@@ -82,12 +92,13 @@ class Archive:
             if self.is_dir(full_filename):
                 self.tree(full_filename, depth + 1)
 
-    # TODO: mount_file & unmount_file for external files
-    # -- .gdi tracks, pak_000.vpk etc.
+    def unmount_file(self, filename: str):
+        self.external_files.pop(filename)
 
     @classmethod
     def from_archive(cls, parent_archive: Archive, filename: str) -> Archive:
         """for ArchiveClasses composed of multiple files"""
+        # TODO: mount extra files
         # e.g. sega.Gdi tracks or respawn.Vpk data vpks
         return cls.from_bytes(parent_archive.read(filename))
 
