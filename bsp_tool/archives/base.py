@@ -15,10 +15,10 @@ def path_tuple(path: str) -> Tuple[str]:
 
 class Archive:
     ext = None
-    external_filenames: Dict[str, io.BytesIO]
+    extras: Dict[str, io.BytesIO]
 
     def __init__(self):
-        self.external_filenames = dict()
+        self.extras = dict()
 
     def extract(self, filename, to_path=None):
         if filename not in self.namelist():
@@ -65,9 +65,9 @@ class Archive:
 
     def mount_file(self, filename: str, archive=None):
         if archive is None:
-            self.external_files[filename] = open(filename, "rb")
+            self.extras[filename] = open(filename, "rb")
         else:
-            self.external_files[filename] = io.BytesIO(archive.read(filename))
+            self.extras[filename] = io.BytesIO(archive.read(filename))
 
     def namelist(self) -> List[str]:
         # NOTE: we assume namelist only contains filenames, no folders
@@ -93,7 +93,7 @@ class Archive:
                 self.tree(full_filename, depth + 1)
 
     def unmount_file(self, filename: str):
-        self.external_files.pop(filename)
+        self.extras.pop(filename)
 
     @classmethod
     def from_archive(cls, parent_archive: Archive, filename: str) -> Archive:
