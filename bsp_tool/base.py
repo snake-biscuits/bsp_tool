@@ -1,4 +1,5 @@
 from __future__ import annotations
+import fnmatch
 import io
 import os
 import struct
@@ -8,8 +9,6 @@ from typing import Any, Dict, List
 
 class Bsp:
     """Bsp base class"""
-    associated_files: List[str]  # files in the folder of loaded file with similar names
-    # TODO: include subfolder files (e.g. graphs/<mapname>.ain)
     branch: ModuleType  # soft copy of "branch script"
     endianness: str = "little"
     external_files: Dict[str, io.BytesIO]  # file handles
@@ -74,6 +73,10 @@ class Bsp:
             lump_header = self.branch.LumpHeader.from_stream(self.file)
             self.headers[LUMP.name] = lump_header
             yield (LUMP.name, lump_header)
+
+    def extra_patterns(self) -> List[str]:
+        """filename patterns for files to mount (e.g. 'mp_thaw.*.bsp_lump')"""
+        return list()
 
     def lump_as_bytes(self, lump_name: str) -> bytes:
         """convert the named lump back into bytes"""
@@ -145,18 +148,34 @@ class Bsp:
             setattr(self, method_name, method)
 
     @classmethod
-    def from_archive(cls, branch: ModuleType, filepath: str, archive) -> Bsp:
-        # TODO: scan for associated files
-        # -- maybe keep the archive open for mounting?
-        return cls.from_bytes(branch, filepath, archive.read(filepath))
+    def from_archive(cls, branch: ModuleType, filepath: str, archive, mount_extras=False) -> Bsp:
+        bsp = cls.from_bytes(branch, filepath, archive.read(filepath))
+        if mount_extras:
+            extras = [
+                filename
+                for filename in archive.listdir(bsp.folder)
+                for pattern in bsp.extra_patterns()
+                if fnmatch.fnmatch(filename, pattern)]
+            for filename in extras:
+                bsp.mount_file(filename)
+        return bsp
 
     @classmethod
     def from_bytes(cls, branch: ModuleType, filepath: str, raw_bsp: bytes) -> Bsp:
         return cls.from_stream(branch, filepath, io.BytesIO(raw_bsp))
 
     @classmethod
-    def from_file(cls, branch: ModuleType, filepath: str) -> Bsp:
-        return cls.from_stream(branch, filepath, open(filepath, "rb"))
+    def from_file(cls, branch: ModuleType, filepath: str, mount_extras=False) -> Bsp:
+        bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
+        if mount_extras:
+            extras = [
+                filename
+                for filename in os.listdir(bsp.folder)
+                for pattern in bsp.extra_patterns()
+                if fnmatch.fnmatch(filename, pattern)]
+            for filename in extras:
+                bsp.mount_file(filename)
+        return bsp
 
     @classmethod
     def from_stream(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> Bsp:
