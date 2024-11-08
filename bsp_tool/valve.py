@@ -27,7 +27,8 @@ class ValveBsp(base.Bsp):
         # NOTE: Left 4 Dead (2) might include "_h_" & "_s_" lumps
         # NOTE: ignoring *.nav & graphs/*.ain
         # -- bsp_tool doesn't do anything with navmeshes
-        return [f"{self.filename}_l_*.lmp"]
+        base_filename = self.filename.rpartition(".")[0]
+        return [f"{base_filename}_l_*.lmp"]
 
     def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:

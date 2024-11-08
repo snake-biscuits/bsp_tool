@@ -19,12 +19,13 @@ class QuakeBsp(base.Bsp):
 
     def extra_patterns(self) -> List[str]:
         # https://quakewiki.org/wiki/Quake_file_formats
+        base_filename = self.filename.rpartition(".")[0]
         return [
-            f"{self.filename}.dlit",
-            f"{self.filename}.ent",
-            f"{self.filename}.lit",
-            f"{self.filename}.lux",
-            f"{self.filename}.vis"]
+            f"{base_filename}.dlit",
+            f"{base_filename}.ent",
+            f"{base_filename}.lit",
+            f"{base_filename}.lux",
+            f"{base_filename}.vis"]
 
     def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
