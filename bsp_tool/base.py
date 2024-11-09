@@ -157,7 +157,7 @@ class Bsp:
                 for pattern in bsp.extra_patterns()
                 if fnmatch.fnmatch(filename.lower(), pattern.lower())]
             for filename in extras:
-                bsp.mount_file(filename)
+                bsp.mount_file(os.path.join(bsp.folder, filename))
         return bsp
 
     @classmethod
@@ -174,7 +174,7 @@ class Bsp:
                 for pattern in bsp.extra_patterns()
                 if fnmatch.fnmatch(filename.lower(), pattern.lower())]
             for filename in extras:
-                bsp.mount_file(filename)
+                bsp.mount_file(os.path.join(bsp.folder, filename))
         return bsp
 
     @classmethod

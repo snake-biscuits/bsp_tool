@@ -110,7 +110,7 @@ class Archive:
             for pattern in archive.extra_patterns()
             if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
-            archive.mount_file(filename)
+            archive.mount_file(os.path.join(folder, filename))
         return archive
 
     @classmethod
@@ -127,7 +127,7 @@ class Archive:
             for pattern in archive.extra_patterns()
             if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
-            archive.mount_file(filename)
+            archive.mount_file(os.path.join(folder, filename))
         return archive
 
     @classmethod
