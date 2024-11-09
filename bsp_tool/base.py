@@ -155,7 +155,7 @@ class Bsp:
                 filename
                 for filename in parent_archive.listdir(bsp.folder)
                 for pattern in bsp.extra_patterns()
-                if fnmatch.fnmatch(filename, pattern)]
+                if fnmatch.fnmatch(filename.lower(), pattern.lower())]
             for filename in extras:
                 bsp.mount_file(filename)
         return bsp
@@ -172,7 +172,7 @@ class Bsp:
                 filename
                 for filename in os.listdir(bsp.folder)
                 for pattern in bsp.extra_patterns()
-                if fnmatch.fnmatch(filename, pattern)]
+                if fnmatch.fnmatch(filename.lower(), pattern.lower())]
             for filename in extras:
                 bsp.mount_file(filename)
         return bsp

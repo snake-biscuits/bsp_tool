@@ -108,7 +108,7 @@ class Archive:
             filename
             for filename in parent_archive.listdir(folder)
             for pattern in archive.extra_patterns()
-            if fnmatch.fnmatch(filename, pattern)]
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
             archive.mount_file(filename)
         return archive
@@ -125,7 +125,7 @@ class Archive:
             filename
             for filename in os.listdir(folder)
             for pattern in archive.extra_patterns()
-            if fnmatch.fnmatch(filename, pattern)]
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
             archive.mount_file(filename)
         return archive
