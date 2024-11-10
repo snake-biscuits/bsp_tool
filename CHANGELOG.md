@@ -20,12 +20,18 @@
    - `.path_exists("filename")`
    - `.tree(folder="./")`
  * `ArchiveClass` can be initialised with `.from_archive`
+ * added `physics.AABB.as_model()`
 
 
 ### Changed
- * `archives` no longer in `extensions`
- * `lightmaps` no longer in `extensions`
- * `.bsp` files are now loaded with `@classmethod`s
+ * moved `archives` out of `extensions`
+ * moved `lightmaps` out of `extensions`
+ * `ArchiveClass`es are now initialised with `@classmethod`s
+   - `.from_archive("filename", archive)`
+   - `.from_bytes(b"bytes")`
+   - `.from_file("filename")`
+   - `.from_stream(open(stream))`
+ * `BspClass`es are now initialised with `@classmethod`s
    - `.from_archive(branch, "filepath", archive)`
    - `.from_bytes(branch, "filepath", b"bytes")`
    - `.from_file(branch, "filepath")`
