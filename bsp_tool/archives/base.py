@@ -4,6 +4,8 @@ import io
 import os
 from typing import Dict, List, Tuple
 
+from .. import external
+
 
 def path_tuple(path: str) -> Tuple[str]:
     out = tuple(path.replace("\\", "/").strip("/").split("/"))
@@ -15,7 +17,7 @@ def path_tuple(path: str) -> Tuple[str]:
 
 class Archive:
     ext = None
-    extras: Dict[str, io.BytesIO]
+    extras: Dict[str, external.File]
 
     def __init__(self):
         self.extras = dict()
@@ -67,11 +69,8 @@ class Archive:
                     folder_contents.append(subfolder)
         return folder_contents
 
-    def mount_file(self, filename: str, archive=None):
-        if archive is None:
-            self.extras[filename] = open(filename, "rb")
-        else:
-            self.extras[filename] = io.BytesIO(archive.read(filename))
+    def mount_file(self, filename: str, external_file: external.File):
+        self.extras[filename] = external_file
 
     def namelist(self) -> List[str]:
         # NOTE: we assume namelist only contains filenames, no folders
@@ -110,7 +109,9 @@ class Archive:
             for pattern in archive.extra_patterns()
             if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
-            archive.mount_file(os.path.join(folder, filename))
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_archive(full_filename, parent_archive)
+            archive.mount_file(filename, external_file)
         return archive
 
     @classmethod
@@ -127,7 +128,9 @@ class Archive:
             for pattern in archive.extra_patterns()
             if fnmatch.fnmatch(filename.lower(), pattern.lower())]
         for filename in extras:
-            archive.mount_file(os.path.join(folder, filename))
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_file(full_filename)
+            archive.mount_file(filename, external_file)
         return archive
 
     @classmethod

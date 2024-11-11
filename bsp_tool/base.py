@@ -6,12 +6,14 @@ import struct
 from types import MethodType, ModuleType
 from typing import Any, Dict, List
 
+from . import external
+
 
 class Bsp:
     """Bsp base class"""
     branch: ModuleType  # soft copy of "branch script"
     endianness: str = "little"
-    extras: Dict[str, io.BytesIO]  # file handles
+    extras: Dict[str, external.File]
     file_magic: bytes = b"XBSP"
     # NOTE: XBSP is not a real bsp variant! this is just a placeholder
     filesize: int = 0  # size of .bsp in bytes
@@ -28,7 +30,6 @@ class Bsp:
     def __init__(self, branch: ModuleType, filepath: str = "untitled.bsp"):
         if not filepath.lower().endswith(".bsp"):
             raise RuntimeError("Not a .bsp")
-        filepath = os.path.realpath(filepath)
         self.folder, self.filename = os.path.split(filepath)
         self.set_branch(branch)
         self.headers = dict()
@@ -105,11 +106,8 @@ class Bsp:
             raw_lump = lump_entries.as_bytes()
         return raw_lump
 
-    def mount_file(self, filename: str, archive=None):
-        if archive is None:
-            self.extras[filename] = open(filename, "rb")
-        else:
-            self.extras[filename] = io.BytesIO(archive.read(filename))
+    def mount_file(self, filename: str, external_file: external.File):
+        self.extras[filename] = external_file
 
     def save_as(self, filename: str):
         """Expects outfile to be a file with write bytes capability"""
@@ -148,16 +146,17 @@ class Bsp:
         self.extras.pop(filename)
 
     @classmethod
-    def from_archive(cls, branch: ModuleType, filepath: str, parent_archive, mount_extras=False) -> Bsp:
+    def from_archive(cls, branch: ModuleType, filepath: str, parent_archive) -> Bsp:
         bsp = cls.from_bytes(branch, filepath, parent_archive.read(filepath))
-        if mount_extras:
-            extras = [
-                filename
-                for filename in parent_archive.listdir(bsp.folder)
-                for pattern in bsp.extra_patterns()
-                if fnmatch.fnmatch(filename.lower(), pattern.lower())]
-            for filename in extras:
-                bsp.mount_file(os.path.join(bsp.folder, filename))
+        extras = [
+            filename
+            for filename in parent_archive.listdir(bsp.folder)
+            for pattern in bsp.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(bsp.folder, filename)
+            external_file = external.File.from_archive(full_filename, parent_archive)
+            bsp.mount_file(filename, external_file)
         return bsp
 
     @classmethod
@@ -165,16 +164,17 @@ class Bsp:
         return cls.from_stream(branch, filepath, io.BytesIO(raw_bsp))
 
     @classmethod
-    def from_file(cls, branch: ModuleType, filepath: str, mount_extras=False) -> Bsp:
+    def from_file(cls, branch: ModuleType, filepath: str) -> Bsp:
         bsp = cls.from_stream(branch, filepath, open(filepath, "rb"))
-        if mount_extras:
-            extras = [
-                filename
-                for filename in os.listdir(bsp.folder)
-                for pattern in bsp.extra_patterns()
-                if fnmatch.fnmatch(filename.lower(), pattern.lower())]
-            for filename in extras:
-                bsp.mount_file(os.path.join(bsp.folder, filename))
+        extras = [
+            filename
+            for filename in os.listdir(bsp.folder)
+            for pattern in bsp.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(bsp.folder, filename)
+            external_file = external.File.from_file(full_filename)
+            bsp.mount_file(filename, external_file)
         return bsp
 
     @classmethod
