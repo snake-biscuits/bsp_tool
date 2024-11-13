@@ -36,6 +36,9 @@ class File:
     def read(self, length: int = -1) -> bytes:
         return self.stream.read(length)
 
+    def readline(self, length: int = -1) -> bytes:
+        return self.stream.readline(length)
+
     def seek(self, offset: int, whence: int = 0) -> int:
         return self.stream.seek(offset, whence)
 
