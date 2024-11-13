@@ -1,11 +1,13 @@
 from __future__ import annotations
 import io
+import os
 
 
 class File:
     """read-only streamed binary file wrapper"""
     filename: str
     archive: object  # ArchiveClass
+    size: int  # filesize in bytes
     _stream: io.BytesIO  # cached file handle
 
     def __init__(self, filename: str, archive=None):
@@ -42,18 +44,26 @@ class File:
 
     @classmethod
     def from_archive(cls, filename: str, archive) -> File:
-        return cls(filename, archive)
+        out = cls(filename, archive)
+        out.size = archive.sizeof(filename)
+        return out
 
     @classmethod
     def from_bytes(cls, filename: str, raw_data: bytes) -> File:
-        return cls.from_stream(io.BytesIO(raw_data))
+        out = cls.from_stream(io.BytesIO(raw_data))
+        out.size = len(raw_data)
+        return out
 
     @classmethod
     def from_file(cls, filename: str) -> File:
-        return cls(filename)
+        out = cls(filename)
+        out.size = os.path.getsize(filename)
+        return out
 
     @classmethod
     def from_stream(cls, filename: str, stream: io.BytesIO) -> File:
         out = cls(filename)
         out._stream = stream
+        out.size = out._stream.seek(0, 2)
+        out._stream.seek(0)
         return out

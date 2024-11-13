@@ -87,6 +87,9 @@ class Archive:
         namelist = self.namelist() if case_sensitive else [fn.lower() for fn in self.namelist()]
         return fnmatch.filter(namelist, pattern)
 
+    def sizeof(self, filename: str) -> int:
+        return len(self.read(filename))
+
     def tree(self, folder: str = ".", depth: int = 0):
         """namelist pretty printer"""
         for filename in self.listdir(folder):
