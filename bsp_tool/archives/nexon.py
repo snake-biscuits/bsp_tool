@@ -6,7 +6,7 @@ import io
 import struct
 from typing import Dict, List
 
-from .. import lumps
+from .. import valve
 from ..utils import binary
 from . import base
 
@@ -55,7 +55,7 @@ class PakLocalFile:
     def as_bytes(self) -> bytes:
         # TODO: compress data (optional)
         if self.compressed_size != 0:
-            data = lumps.decompress_valve_LZMA(self.data)
+            data = valve.decompress(self.data)
         else:
             data = self.data
         # rebuild header
@@ -176,7 +176,7 @@ class PakFile(base.Archive):
         if local_file.compressed_size == 0:
             return local_file.data
         else:  # decompress
-            return lumps.decompress_valve_LZMA(local_file.data)
+            return valve.decompress(local_file.data)
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PakFile:

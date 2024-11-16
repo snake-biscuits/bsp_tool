@@ -2,7 +2,7 @@ from bsp_tool import lumps
 from bsp_tool import ValveBsp, IdTechBsp
 from bsp_tool.branches.id_software import quake, quake3
 from bsp_tool.branches.valve import orange_box
-from bsp_tool.valve import decompress_lump
+from bsp_tool.valve import decompress
 
 import io
 import pytest
@@ -23,7 +23,7 @@ def raw_lump_of(bsp) -> lumps.RawBspLump:
     if getattr(header, "fourCC", 0) != 0:
         bsp.file.seek(header.offset)
         compressed_lump = bsp.file.read(header.length)
-        stream = io.BytesIO(decompress_lump(compressed_lump))
+        stream = io.BytesIO(decompress(compressed_lump))
         offset, length = 0, header.fourCC
     else:
         stream = bsp.file

@@ -11,7 +11,7 @@ from . import id_software
 from . import lumps
 
 
-def decompress_lump(data: bytes) -> bytes:
+def decompress(data: bytes) -> bytes:
     """valve LZMA header adapter"""
     magic, true_size, compressed_size, properties = struct.unpack("4s2I5s", data[:17])
     assert magic == b"LZMA"
@@ -75,9 +75,9 @@ class GameLump:
             assert header.flags & 0x01 == 0x01, "compression flag unset"
             assert length > 17, "incomplete compressed lump"
             stream.seek(1, -4)
-            decompressed = decompress_lump(stream.read(length))
-            offset, length = 0, len(decompressed)
-            stream = io.BytesIO(decompressed)
+            decompressed_lump = decompress(stream.read(length))
+            offset, length = 0, len(decompressed_lump)
+            stream = io.BytesIO(decompressed_lump)
         # convert to LumpClass
         try:
             LumpClass = self.LumpClasses[name][header.version]
@@ -216,7 +216,7 @@ class ValveBsp(base.Bsp):
         if lump_header.fourCC != 0:
             self.file.seek(lump_header.offset)
             compressed_lump = self.file.read(lump_header.length)
-            stream = io.BytesIO(decompress_lump(compressed_lump))
+            stream = io.BytesIO(decompress(compressed_lump))
             offset, length = 0, lump_header.fourCC
         else:
             stream = self.file
