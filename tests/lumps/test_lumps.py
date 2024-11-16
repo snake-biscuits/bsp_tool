@@ -35,11 +35,6 @@ class TestRemapSliceToRange:
         assert lumps._remap_slice_to_range(slice(0, 69, 1), 50) == range(0, 50, 1)
 
 
-class TestDecompress:
-    # TODO: test decompression on a repacked ValveBsp
-    ...
-
-
 LumpHeader_basic = collections.namedtuple("basic", ["offset", "length"])
 
 

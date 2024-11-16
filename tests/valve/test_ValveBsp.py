@@ -44,4 +44,5 @@ def test_x360(bsp):
 @pytest.mark.xfail(raises=AssertionError, reason="invalid GAME_LUMP.sprp")
 @pytest.mark.parametrize("bsp", x360_bsps.values(), ids=x360_bsps.keys())
 def test_x360_failing(bsp):
+    assert "GAME_LUMP" not in bsp.loading_errors
     assert len(bsp.GAME_LUMP.loading_errors) == 0

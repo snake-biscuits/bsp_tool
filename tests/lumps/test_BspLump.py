@@ -2,10 +2,12 @@ from bsp_tool import lumps
 from bsp_tool import ValveBsp, IdTechBsp
 from bsp_tool.branches.id_software import quake, quake3
 from bsp_tool.branches.valve import orange_box
+from bsp_tool.valve import decompress_lump
 
+import io
 import pytest
 
-from . import files
+from .. import files
 
 bsps = {
     **files.local_bsps(ValveBsp, {orange_box: ["Team Fortress 2"]}),
@@ -18,7 +20,15 @@ def raw_lump_of(bsp) -> lumps.RawBspLump:
             break
     else:
         raise RuntimeError(f"test .bsp {bsp.filename} has no lumps!")
-    return lumps.create_RawBspLump(bsp.file, header)
+    if getattr(header, "fourCC", 0) != 0:
+        bsp.file.seek(header.offset)
+        compressed_lump = bsp.file.read(header.length)
+        stream = io.BytesIO(decompress_lump(compressed_lump))
+        offset, length = 0, header.fourCC
+    else:
+        stream = bsp.file
+        offset, length = header.offset, header.length
+    return lumps.RawBspLump.from_stream(stream, offset, length)
 
 
 class TestRawBspLump:
@@ -84,12 +94,6 @@ class TestBspLump:
         # TODO: allow for insert via slice & test for this
         # TODO: test changes to object attrs for Issue #23
         # -- e.g. bsp.LUMP[index].attr = val (uses soft copies)
-
-
-class TestExternalBspLump:
-    # TODO: ship bespoke RespawnBsp .bsp_lump files with tests
-    # -- ensure data is being loaded from the .bsp_lump, not the .bsp
-    ...
 
 
 class TestBasicBspLump:

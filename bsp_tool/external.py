@@ -1,6 +1,10 @@
 from __future__ import annotations
 import io
 import os
+from types import ModuleType
+from typing import Dict
+
+from . import base
 
 
 class File:
@@ -69,4 +73,50 @@ class File:
         out._stream = stream
         out.size = out._stream.seek(0, 2)
         out._stream.seek(0)
+        return out
+
+
+class LumpOverrides:
+    """Like a BspClass, but just for external lump data"""
+    # TODO: a system to run bsp methods with specific external lumps mounted
+    branch: ModuleType
+    endianness: str = "little"
+    loading_errors: Dict[str, Exception]
+    # ^ {"LUMP_NAME": Error}
+    lump_files: Dict[str, File]
+    # ^ {"LUMP_NAME": File}  # bsp.extras copy
+
+    def __init__(self):
+        self.loading_errors = dict()
+        self.lump_files = dict()
+
+    def __repr__(self) -> str:
+        descriptor = f"{self.branch.__name__} {len(self.lump_files)} lumps"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
+    def file_lump(self, filename: str, file: File) -> str:
+        """matches lump to LUMP.name in self.branch"""
+        raise NotImplementedError("subclass has not defined .file_lump()")
+
+    def mount_lump(self, name: str, header: object, file: File):
+        """attach lumps with setattr"""
+        raise NotImplementedError("subclass has not defined .mount_lump()")
+
+    # TODO: lump_as_bytes
+    # TODO: saving to external.File(s)
+
+    @classmethod
+    def from_bsp(cls, bsp: base.Bsp) -> LumpOverrides:
+        out = cls()
+        out.branch = bsp.branch
+        out.endianness = bsp.endianness
+        # match files to lumps
+        out.lump_files = {
+            out.file_lump(filename, file): file
+            for filename, file in bsp.extras.items()}
+        out.lump_files.pop(None)  # RespawnBsp .ent etc.
+        # mount lumps
+        for lump_name, file in out.lump_files.items():
+            header = bsp.headers[lump_name]
+            out.mount_lump(lump_name, header, file)
         return out

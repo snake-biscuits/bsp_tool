@@ -1,5 +1,6 @@
 from __future__ import annotations
 import io
+import lzma
 import os
 import struct
 from types import ModuleType
@@ -8,6 +9,185 @@ from typing import Any, Dict, List
 from . import base
 from . import id_software
 from . import lumps
+
+
+def decompress_lump(data: bytes) -> bytes:
+    """valve LZMA header adapter"""
+    magic, true_size, compressed_size, properties = struct.unpack("4s2I5s", data[:17])
+    assert magic == b"LZMA"
+    _filter = lzma._decode_filter_properties(lzma.FILTER_LZMA1, properties)
+    decompressor = lzma.LZMADecompressor(lzma.FORMAT_RAW, None, [_filter])
+    decompressed_data = decompressor.decompress(data[17:17 + compressed_size])
+    return decompressed_data[:true_size]  # trim any excess bytes
+
+
+class GameLump:
+    endianness: str = "little"
+    GameLumpHeaderClass: Any  # used for reads / writes
+    headers: Dict[str, Any]
+    # ^ {"child_lump": GameLumpHeader}
+    loading_errors: Dict[str, Any]
+    # ^ {"child_lump": Error}
+    LumpClasses: Dict[str, Dict[int, object]]
+    # ^ {"child_lump": {version: LumpClass}}
+    stream: lumps.Stream
+
+    # NOTE: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
+    # -- ^ lists a few possible child lumps:
+    # -- dplh: Detail Prop Lighting HDR
+    # -- dplt: Detail Prop Lighting
+    # -- dprp: Detail Props (procedural grass on displacements)
+    # -- sprp: Static Props
+
+    def __init__(self, endianness: str, GameLumpHeaderClass: object):
+        self.endianness = endianness
+        self.GameLumpHeaderClass = GameLumpHeaderClass
+        self.headers = dict()
+        self.loading_errors = dict()
+
+    @classmethod
+    def from_stream(cls, stream: lumps.Stream, endianness: str, LumpClasses: Dict[str, object],
+                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1) -> GameLump:
+        out = cls(endianness, GameLumpHeaderClass)
+        out.LumpClasses = LumpClasses
+        out.stream = stream
+        stream.seek(offset)
+        # parse header
+        # TODO: check for skipped bytes / padding
+        game_lumps_count = int.from_bytes(stream.read(4), endianness)
+        for i in range(game_lumps_count):
+            header = GameLumpHeaderClass.from_stream(stream)
+            name = header.id.decode("ascii")
+            if endianness == "little":
+                name = name[::-1]  # "prps" -> "sprp"
+            out.headers[name] = header
+        # load child lumps (SpecialLumpClasses)
+        for name, header in out.headers.items():
+            out.mount_lump(name, header)
+        return out
+
+    def mount_lump(self, name: str, header: object):
+        stream = self.stream
+        offset, length = header.offset, header.length
+        # decompress lump if compressed
+        stream.seek(offset)
+        if stream.read(4) == b"LZMA":
+            assert header.flags & 0x01 == 0x01, "compression flag unset"
+            assert length > 17, "incomplete compressed lump"
+            stream.seek(1, -4)
+            decompressed = decompress_lump(stream.read(length))
+            offset, length = 0, len(decompressed)
+            stream = io.BytesIO(decompressed)
+        # convert to LumpClass
+        try:
+            LumpClass = self.LumpClasses[name][header.version]
+        except KeyError:  # no LumpClass for this name & version
+            setattr(self, name, lumps.RawBspLump.from_stream(stream, offset, length))
+            return
+        try:
+            stream.seek(offset)
+            lump = LumpClass.from_bytes(stream.read(length))
+        except Exception as exc:
+            self.loading_errors[name] = exc
+            lump = lumps.RawBspLump.from_stream(stream, offset, length)
+        setattr(self, name, lump)
+
+    def as_bytes(self, lump_offset=0):
+        """lump_offset makes headers relative to the stream"""
+        # NOTE: ValveBsp .lmp external lumps have a 16 byte header
+        # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
+        # NOTE: Xbox360 child lumps will not be recompressed
+        out = [len(self.headers).to_bytes(4, self.endianness)]
+        headers = list()
+        # skip the headers (for now)
+        cursor_offset = sum([
+            lump_offset,
+            4,
+            len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)])
+        # write lumps
+        # TODO: generate absent headers from lump names
+        # -- this will require an endianness check for header.id
+        for name, header in self.headers.items():
+            lump = getattr(self, name)
+            if isinstance(lump, lumps.RawBspLump):
+                lump_bytes = lump[::]
+            else:
+                lump_bytes = lump.as_bytes()  # SpecialLumpClass method
+            out.append(lump_bytes)
+            # recalculate header
+            header.offset = cursor_offset
+            header.length = len(lump_bytes)
+            cursor_offset += header.length
+            headers.append(header)
+        # inject header bytes in before writing
+        headers = [h.as_bytes() for h in headers]
+        out[1:1] = headers
+        return b"".join(out)
+
+
+class DarkMessiahSPGameLump(GameLump):
+    endianness: str = "little"
+    GameLumpHeaderClass: Any  # used for reads / writes
+    headers: Dict[str, Any]
+    # ^ {"child_lump": GameLumpHeader}
+    loading_errors: Dict[str, Any]
+    # ^ {"child_lump": Error}
+    stream: lumps.Stream
+    unknown: int = 0
+
+    @classmethod
+    def from_stream(cls, stream: lumps.Stream, endianness: str, LumpClasses: Dict[str, object],
+                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1) -> GameLump:
+        out = cls(endianness, GameLumpHeaderClass)
+        out.LumpClasses = LumpClasses
+        out.stream = stream
+        stream.seek(offset)
+        # parse header
+        # TODO: check for skipped bytes / padding
+        game_lumps_count = int.from_bytes(stream.read(4), endianness)
+        out.unknown = int.from_bytes(stream.read(4), endianness)
+        for i in range(game_lumps_count):
+            header = GameLumpHeaderClass.from_stream(stream)
+            name = header.id.decode("ascii")
+            if endianness == "little":
+                name = name[::-1]  # "prps" -> "sprp"
+            out.headers[name] = header
+        for name, header in out.headers.items():
+            out.mount_lump(name, header)
+        return out
+
+    def as_bytes(self, lump_offset=0) -> bytes:
+        """lump_offset makes headers relative to the stream"""
+        # NOTE: ValveBsp .lmp external lumps have a 16 byte header
+        # NOTE: RespawnBsp .bsp_lump offsets are relative to the internal .bsp GAME_LUMP.offset
+        # NOTE: Xbox360 child lumps will not be recompressed
+        out = [
+            len(self.headers).to_bytes(4, self.endianness),
+            self.unknown]
+        headers = list()
+        cursor_offset = sum([
+            lump_offset,
+            8,
+            len(self.headers) * struct.calcsize(self.GameLumpHeaderClass._format)])
+        # write child lumps
+        # TODO: generate absent headers from lump names
+        # -- this will require an endianness check for header.id
+        for name, header in self.headers.items():
+            lump = getattr(self, name)
+            if isinstance(lump, lumps.RawBspLump):
+                lump_bytes = lump[::]
+            else:
+                lump_bytes = lump.as_bytes()  # SpecialLumpClass method
+            out.append(lump_bytes)
+            # recalculate header
+            header.offset = cursor_offset
+            header.length = len(lump_bytes)
+            cursor_offset += header.length
+            headers.append(header)
+        # inject header bytes in before writing
+        headers = [h.as_bytes() for h in headers]
+        out[1:1] = headers
+        return b"".join(out)
 
 
 class GoldSrcBsp(id_software.QuakeBsp):
@@ -33,39 +213,41 @@ class ValveBsp(base.Bsp):
     def mount_lump(self, lump_name: str, lump_header: Any, stream: io.BytesIO):
         if lump_header.length == 0:
             return
+        if lump_header.fourCC != 0:
+            self.file.seek(lump_header.offset)
+            compressed_lump = self.file.read(lump_header.length)
+            stream = io.BytesIO(decompress_lump(compressed_lump))
+            offset, length = 0, lump_header.fourCC
+        else:
+            stream = self.file
+            offset, length = lump_header.offset, lump_header.length
         try:
             if lump_name == "GAME_LUMP":
-                # NOTE: lump_header.version is ignored in this case!
-                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                GameLump = lumps.GameLump
+                GameLumpClass = GameLump
                 if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
-                    GameLump = lumps.DarkMessiahSPGameLump
-                BspLump = GameLump(self.file, lump_header, self.endianness,
-                                   GameLumpClasses, self.branch.GAME_LUMP_HEADER)
+                    GameLumpClass = DarkMessiahSPGameLump
+                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
+                # NOTE: if GameLump was compressed, offset may be deeply broken
+                BspLump = GameLumpClass.from_stream(
+                    self.file, self.endianness, GameLumpClasses, self.branch.GAME_LUMP_HEADER,
+                    offset, length)
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
-                BspLump = lumps.create_BspLump(self.file, lump_header, LumpClass)
+                BspLump = lumps.BspLump.from_stream(stream, LumpClass, offset, length)
             elif lump_name in self.branch.SPECIAL_LUMP_CLASSES:
                 SpecialLumpClass = self.branch.SPECIAL_LUMP_CLASSES[lump_name][lump_header.version]
-                decompressed_file, decompressed_header = lumps.decompressed(self.file, lump_header)
-                decompressed_file.seek(decompressed_header.offset)
-                lump_data = decompressed_file.read(decompressed_header.length)
-                BspLump = SpecialLumpClass.from_bytes(lump_data)
+                stream.seek(offset)
+                BspLump = SpecialLumpClass.from_bytes(stream.read(length))
             elif lump_name in self.branch.BASIC_LUMP_CLASSES:
                 LumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_header.version]
-                BspLump = lumps.create_BasicBspLump(self.file, lump_header, LumpClass)
+                BspLump = lumps.BasicBspLump.from_stream(stream, LumpClass, offset, length)
             else:
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
+                BspLump = lumps.RawBspLump.from_stream(stream, offset, length)
         except KeyError:  # lump VERSION not supported
-            BspLump = lumps.create_RawBspLump(self.file, lump_header)
+            BspLump = lumps.RawBspLump.from_stream(stream, offset, length)
         except Exception as exc:
             self.loading_errors[lump_name] = exc
-            try:
-                BspLump = lumps.create_RawBspLump(self.file, lump_header)
-            except AssertionError:  # LZMA decompression failed / already decompressed
-                assert lump_header.offset == 0  # maybe already decompressed
-                assert lump_header.length == lump_header.fourCC  # definitely already decompressed
-                BspLump = lumps.RawBspLump.from_header(self.file, lump_header)
+            BspLump = lumps.RawBspLump.from_stream(stream, offset, length)
         setattr(self, lump_name, BspLump)
 
     @classmethod

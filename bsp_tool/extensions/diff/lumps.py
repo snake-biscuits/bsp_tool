@@ -9,7 +9,7 @@ from .id_software import quake2
 
 from bsp_tool import archives
 from bsp_tool import branches
-from bsp_tool.lumps import BasicBspLump, RawBspLump, ExternalRawBspLump
+from bsp_tool.lumps import BasicBspLump, RawBspLump
 
 
 def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
@@ -32,7 +32,7 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
         DiffClass = quake2.VisibilityDiff
     elif LumpClasses == {archives.pkware.Zip}:
         DiffClass = pkware.ZipDiff
-    elif RawBspLump in LumpClasses or ExternalRawBspLump in LumpClasses:
+    elif RawBspLump in LumpClasses:
         # TODO: core.xxd diff
         raise NotImplementedError("Cannot diff raw lumps")
     # if all([issubclass(lc, branches.base.BitField) for lc in LumpClasses]):
