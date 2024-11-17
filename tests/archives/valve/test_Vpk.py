@@ -1,6 +1,3 @@
-import fnmatch
-import os
-
 import pytest
 
 from bsp_tool.archives import valve
