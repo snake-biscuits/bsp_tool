@@ -3,7 +3,7 @@ import io
 import os
 import re
 import struct
-from types import ModuleType
+from types import MethodType, ModuleType
 from typing import Dict, List
 
 from . import external
@@ -46,6 +46,15 @@ class LumpOverrides(external.LumpOverrides):
             self.loading_errors[name] = exc
             lump = lumps.RawBspLump.from_stream(file)
         setattr(self, name, lump)
+
+    @classmethod
+    def from_bsp(cls, bsp) -> LumpOverrides:
+        out = super().from_bsp(bsp)
+        # attach methods
+        for method_name, method in getattr(bsp.branch, "methods", dict()).items():
+            method = MethodType(method, out)
+            setattr(out, method_name, method)
+        return out
 
 
 class RespawnBsp(valve.ValveBsp):
