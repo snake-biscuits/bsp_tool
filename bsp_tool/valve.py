@@ -47,7 +47,7 @@ class GameLump:
 
     @classmethod
     def from_stream(cls, stream: lumps.Stream, endianness: str, LumpClasses: Dict[str, object],
-                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1) -> GameLump:
+                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1, sub_offset: int = 0) -> GameLump:
         out = cls(endianness, GameLumpHeaderClass)
         out.LumpClasses = LumpClasses
         out.stream = stream
@@ -63,12 +63,13 @@ class GameLump:
             out.headers[name] = header
         # load child lumps (SpecialLumpClasses)
         for name, header in out.headers.items():
-            out.mount_lump(name, header)
+            out.mount_lump(name, header, sub_offset)
         return out
 
-    def mount_lump(self, name: str, header: object):
+    def mount_lump(self, name: str, header: object, sub_offset: int = 0):
         stream = self.stream
         offset, length = header.offset, header.length
+        offset -= sub_offset
         # decompress lump if compressed
         stream.seek(offset)
         if stream.read(4) == b"LZMA":
@@ -76,17 +77,20 @@ class GameLump:
             assert length > 17, "incomplete compressed lump"
             stream.seek(1, -4)
             decompressed_lump = decompress(stream.read(length))
-            offset, length = 0, len(decompressed_lump)
             stream = io.BytesIO(decompressed_lump)
-        # convert to LumpClass
+            offset, length = 0, len(decompressed_lump)
+        # get LumpClass
         try:
             LumpClass = self.LumpClasses[name][header.version]
         except KeyError:  # no LumpClass for this name & version
             setattr(self, name, lumps.RawBspLump.from_stream(stream, offset, length))
             return
+        # bytes -> LumpClass
         try:
             stream.seek(offset)
-            lump = LumpClass.from_bytes(stream.read(length))
+            raw_lump = stream.read(length)
+            assert len(raw_lump) == length, "unexpected EOF; bad offset?"
+            lump = LumpClass.from_bytes(raw_lump)
         except Exception as exc:
             self.loading_errors[name] = exc
             lump = lumps.RawBspLump.from_stream(stream, offset, length)
