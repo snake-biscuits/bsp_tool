@@ -226,17 +226,15 @@ class ValveBsp(base.Bsp):
             compressed_lump = self.file.read(lump_header.length)
             stream = io.BytesIO(decompress(compressed_lump))
             offset, length = 0, lump_header.fourCC
-            # sub_offset = lump_header.offset?
         else:
             stream = self.file
             offset, length = lump_header.offset, lump_header.length
-            # sub_offset = 0
         try:
             if lump_name == "GAME_LUMP":
+                assert lump_header.fourCC == 0  # shouldn't be compressed
                 GameLumpClass = GameLump
                 if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
                     GameLumpClass = DarkMessiahSPGameLump
-                # NOTE: if GameLump was compressed, offset may be deeply broken
                 BspLump = GameLumpClass.from_stream(self.file, self, offset, length)
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
