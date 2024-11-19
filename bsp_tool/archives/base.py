@@ -18,9 +18,12 @@ def path_tuple(path: str) -> Tuple[str]:
 class Archive:
     ext = None
     extras: Dict[str, external.File]
+    folder: str
+    filename: str
 
-    def __init__(self):
+    def __init__(self, filepath: str = "untitled.ext"):
         self.extras = dict()
+        self.folder, self.filename = os.path.split(filepath)
 
     def extra_patterns(self) -> List[str]:
         """filename patterns for files to mount (e.g. '*.bin')"""
