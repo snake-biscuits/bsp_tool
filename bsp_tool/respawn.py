@@ -26,10 +26,7 @@ class LumpOverrides(external.LumpOverrides):
             raise RuntimeError(f"The .bsp_lump file for {name} is empty!")
         try:
             if name == "GAME_LUMP":
-                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
-                lump = valve.GameLump.from_stream(
-                    file, self.endianness, GameLumpClasses, self.branch.GAME_LUMP_HEADER,
-                    sub_offset=header.offset)
+                lump = valve.GameLump.from_stream(file, self, sub_offset=header.offset)
             elif name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[name][header.version]
                 lump = lumps.BspLump.from_stream(file, LumpClass)

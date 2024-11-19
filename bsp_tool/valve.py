@@ -46,8 +46,10 @@ class GameLump:
         self.loading_errors = dict()
 
     @classmethod
-    def from_stream(cls, stream: lumps.Stream, endianness: str, LumpClasses: Dict[str, object],
-                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1, sub_offset: int = 0) -> GameLump:
+    def from_stream(cls, stream: lumps.Stream, bsp, offset=0, length=-1, sub_offset=0) -> GameLump:
+        endianness = bsp.endianness
+        GameLumpHeaderClass = bsp.branch.GAME_LUMP_HEADER
+        LumpClasses = bsp.branch.GAME_LUMP_CLASSES
         out = cls(endianness, GameLumpHeaderClass)
         out.LumpClasses = LumpClasses
         out.stream = stream
@@ -140,8 +142,10 @@ class DarkMessiahSPGameLump(GameLump):
     unknown: int = 0
 
     @classmethod
-    def from_stream(cls, stream: lumps.Stream, endianness: str, LumpClasses: Dict[str, object],
-                    GameLumpHeaderClass: object, offset: int = 0, length: int = -1) -> GameLump:
+    def from_stream(cls, stream: lumps.Stream, bsp, offset=0, length=-1, sub_offset=0) -> GameLump:
+        endianness = bsp.endianness
+        GameLumpHeaderClass = bsp.branch.GAME_LUMP_HEADER
+        LumpClasses = bsp.branch.GAME_LUMP_CLASSES
         out = cls(endianness, GameLumpHeaderClass)
         out.LumpClasses = LumpClasses
         out.stream = stream
@@ -157,7 +161,7 @@ class DarkMessiahSPGameLump(GameLump):
                 name = name[::-1]  # "prps" -> "sprp"
             out.headers[name] = header
         for name, header in out.headers.items():
-            out.mount_lump(name, header)
+            out.mount_lump(name, header, sub_offset)
         return out
 
     def as_bytes(self, lump_offset=0) -> bytes:
@@ -222,19 +226,18 @@ class ValveBsp(base.Bsp):
             compressed_lump = self.file.read(lump_header.length)
             stream = io.BytesIO(decompress(compressed_lump))
             offset, length = 0, lump_header.fourCC
+            # sub_offset = lump_header.offset?
         else:
             stream = self.file
             offset, length = lump_header.offset, lump_header.length
+            # sub_offset = 0
         try:
             if lump_name == "GAME_LUMP":
                 GameLumpClass = GameLump
                 if self.branch.__name__.split(".")[-1] == "dark_messiah_sp":
                     GameLumpClass = DarkMessiahSPGameLump
-                GameLumpClasses = getattr(self.branch, "GAME_LUMP_CLASSES", dict())
                 # NOTE: if GameLump was compressed, offset may be deeply broken
-                BspLump = GameLumpClass.from_stream(
-                    self.file, self.endianness, GameLumpClasses, self.branch.GAME_LUMP_HEADER,
-                    offset, length)
+                BspLump = GameLumpClass.from_stream(self.file, self, offset, length)
             elif lump_name in self.branch.LUMP_CLASSES:
                 LumpClass = self.branch.LUMP_CLASSES[lump_name][lump_header.version]
                 BspLump = lumps.BspLump.from_stream(stream, LumpClass, offset, length)
