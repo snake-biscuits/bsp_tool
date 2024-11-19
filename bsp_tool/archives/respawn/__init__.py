@@ -117,7 +117,10 @@ class Vpk(valve.Vpk):
                     filename = binary.read_str(out._file, encoding="latin_1")
                     if filename == "":
                         break  # end of folder
-                    entry_path = f"{folder}/{filename}.{extension}"
+                    if folder != " ":  # not in root folder
+                        entry_path = f"{folder}/{filename}.{extension}"
+                    else:
+                        entry_path = f"{filename}.{extension}"
                     out.entries[entry_path] = VpkEntry.from_stream(out._file)
                     # NOTE: we don't save preload, unlike valve.Vpk
         assert out._file.tell() == 16 + out.header.tree_length, "overshot tree"

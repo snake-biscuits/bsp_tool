@@ -112,7 +112,10 @@ class Vpk(base.Archive):
                     if filename == "":
                         break  # end of folder
                     # entry
-                    entry_path = f"{folder}/{filename}.{extension}"
+                    if folder != " ":  # not in root folder
+                        entry_path = f"{folder}/{filename}.{extension}"
+                    else:
+                        entry_path = f"{filename}.{extension}"
                     entry = VpkEntry.from_stream(out._file)
                     assert binary.read_struct(out._file, "H") == 0xFFFF
                     if entry.archive_index == 0x7FFF:
