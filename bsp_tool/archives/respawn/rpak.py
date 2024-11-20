@@ -3,8 +3,9 @@ from __future__ import annotations
 import datetime
 import enum
 import io
-from typing import List, Tuple, Union
+from typing import Dict, List, Tuple, Union
 
+from ... import external
 from ...branches.base import MappedArray
 from ...utils import binary
 from .. import base
@@ -22,7 +23,7 @@ asset_type = {
     b"anir": "Animation Recording",  # in r2tt/r2 sp_training.rpak
     b"arig": "Animation Rig",  # similar to include models, for sharing animations between multiple models
     b"aseq": "Animation Sequence",  # contains animation data
-    b"dtbl": "DataTable", # compiled csv file
+    b"dtbl": "DataTable",  # compiled csv file
     b"efct": "Effect",  # compiled .pcf file
     b"font": "Font",  # RUI font face
     b"hcxt": "Highlight Context",
@@ -35,21 +36,22 @@ asset_type = {
     b"rmap": "Map",  # currently unused/nulled data
     b"rpsk": "Particle Script",  # only in particle_scripts.rpak
     b"rson": "RSON",  # Respawn JSON
-    b"rtk\0": "RTK File", # RTK UI script
+    b"rtk\0": "RTK File",  # RTK UI script
     b"shdr": "Shader",
     b"shds": "Shader Set",  # references a pixel shader and a vertex shader
     b"stgs": "Settings",
     b"stlt": "Settings Layout",
-    b"subt": "Subtitles",  # rpak version of source's "closedcaption_%language%.dat" files - https://developer.valvesoftware.com/wiki/Closed_Captions
+    b"subt": "Subtitles",  # rpak version of source's "closedcaption_%language%.dat" files
+    # https://developer.valvesoftware.com/wiki/Closed_Captions
     b"txan": "Texture Animation",
     b"txtr": "Texture",
     b"ui\0\0": "RUI",  # Respawn UI
     b"uiia": "UI image",  # streamable ui image asset type added in season 11 apex
     b"uimg": "UI image atlas",  # describes locations of ui images in an associated atlas texture asset
-    b"wepn": "Weapon Definition", # rpak version of .txt weapon scripts
+    b"wepn": "Weapon Definition",  # rpak version of .txt weapon scripts
     b"wrap": "Wrapped File",  # text or binary file
     b"vers": "Patch Version"}
-# {b"magic": "description"
+# ^ {b"magic": "description"}
 
 
 class Compression(enum.Enum):
@@ -91,7 +93,7 @@ class FileTime:
         timestamp = (self.value - self.epoch_offset) / (10 ** 7)  # 100s of ns -> seconds
         return datetime.datetime.utcfromtimestamp(timestamp)
 
-    # TODO: .from_datetime / .now @classmethod(s)
+    # TODO: .from_datetime & .now @classmethod(s)
 
 
 # other header data
@@ -211,13 +213,12 @@ class RPakHeaderv8(MappedArray):
 
 class RPak(base.Archive):
     ext = "*.rpak"
-    filepath: str
-    filename: str
-    version: int
+    extras: Dict[str, external.File]
     header: Union[RPakHeaderv6, RPakHeaderv7, RPakHeaderv8]
     starpaks: List[str]
-    optimal_starpaks: List[str] = list()
-    patch: Tuple[PatchHeader, List[CompressPair], List[int]] = None
+    optimal_starpaks: List[str]
+    patch: Tuple[PatchHeader, List[CompressPair], List[int]]
+    version: int
     # versioned struct lookups
     HeaderClasses = {
         6: RPakHeaderv6,
@@ -230,11 +231,24 @@ class RPak(base.Archive):
         8: AssetEntryv8}
     # ^ {version: AssetEntry}
 
+    def __init__(self):
+        self.extras = dict()
+        self.optimal_starpaks = list()
+        self.patch = None
+        self.starpaks = list()
+
     def __repr__(self) -> str:
         hash_ = f"{self.header.hash:016X}"
         num_assets = self.header.num_asset_entries
         descriptor = f"v{self.version} ({hash_}) {num_assets} assets"
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
+    def extra_patterns(self) -> List[str]:
+        # NOTE: assuming all starpaks are in the same folder
+        # "paks\\Win64\\example.starpak" -> "example.starpak"
+        return [
+            filename.replace("\\", "/").split("/")[-1]
+            for filename in (*self.optimal_starpaks, *self.starpaks)]
 
     def virtual_segment_data(self, index: int) -> bytes:
         assert index < len(self.virtual_segments)
@@ -329,16 +343,27 @@ class StaRPak:
     # https://github.com/r-ex/LegionPlus/blob/main/Legion/src/RpakLib.cpp
     # -- RpakLib::MountStarpak
     ext = "*.starpak"  # or "*.opt.starpak"
-    entries: List[StreamEntry] = list()
+    entries: List[StreamEntry]
+    _file: io.BytesIO
+
+    def __init__(self):
+        self.entries = list()
 
     @classmethod
-    def from_file(cls, filepath: str) -> StaRPak:
-        with open(filepath, "rb") as starpak_file:
-            assert binary.read_struct(starpak_file, "4s") == b"SRPk"
-            assert binary.read_struct(starpak_file, "I") == 1  # version?
-            out = cls()
-            starpak_file.seek(-8, 2)
-            num_entries = binary.read_struct(starpak_file, "Q")
-            starpak_file.seek(-(8 + num_entries * 16), 2)
-            out.entries = [StreamEntry.from_stream(starpak_file) for i in range(num_entries)]
-            return out
+    def from_bytes(cls, data: bytes) -> StaRPak:
+        return cls.from_stream(io.BytesIO(data))
+
+    @classmethod
+    def from_file(cls, filename: str) -> StaRPak:
+        return cls.from_stream(open(filename, "rb"))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> StaRPak:
+        assert binary.read_struct(stream, "4s") == b"SRPk"
+        assert binary.read_struct(stream, "I") == 1  # version?
+        out = cls()
+        stream.seek(-8, 2)
+        num_entries = binary.read_struct(stream, "Q")
+        stream.seek(-(8 + num_entries * 16), 2)
+        out.entries = [StreamEntry.from_stream(stream) for i in range(num_entries)]
+        return out
