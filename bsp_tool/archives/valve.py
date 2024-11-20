@@ -1,8 +1,11 @@
 # https://github.com/ValvePython/vpk
 from __future__ import annotations
+import fnmatch
 import io
+import os
 from typing import Dict, List, Union
 
+from .. import external
 from ..branches.base import Struct
 from ..utils import binary
 from . import base
@@ -51,38 +54,101 @@ class VpkEntry(Struct):
 
 class Vpk(base.Archive):
     ext = "*.vpk"
-    versions = {
-        (1, 0): VpkHeader,
-        (2, 0): VpkHeaderv2}
     _file: io.BytesIO
     header: Union[VpkHeader, VpkHeaderv2]
     entries: Dict[str, VpkEntry]
+    extras: Dict[str, external.File]
+    filename: str
     preload_offset: Dict[str, int]
-    # TODO: is_dir property
+    versions = {
+        (1, 0): VpkHeader,
+        (2, 0): VpkHeaderv2}
 
-    def __init__(self):
+    def __init__(self, filename: str = "untitiled.vpk"):
         self.entries = dict()
+        self.extras = dict()
+        self.filename = filename
         self.preload_offset = dict()
+        # "*_dir.vpk" -> "*"
+        if self.filename.endswith("_dir.vpk"):
+            self.base_filename = self.filename[:-len("_dir.vpk")]
+        else:
+            self.base_filename = None
 
     def __repr__(self) -> str:
         descriptor = f"{len(self.entries)} files"
-        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+        return f"<{self.__class__.__name__} '{self.filename}' {descriptor} @ 0x{id(self):016X}>"
+
+    def extra_patterns(self) -> str:
+        if self.filename.endswith("_dir.vpk"):
+            return [
+                f"{self.base_filename}_{index:03d}.vpk"
+                for index in {
+                    e.archive_index
+                    for e in self.entries.values()
+                    if e.archive_index != 0x7FFF}]
+        else:
+            return list()
 
     def namelist(self) -> List[str]:
         return sorted(self.entries)
 
     def read(self, filename: str) -> bytes:
         assert filename in self.namelist()
-        raise NotImplementedError("Need to know if this .vpk is a _dir.vpk")
-        # if self.is_dir:
-        #     raise NotImplementedError("cannot read files inside *_dir.vpk yet")
-        #     # TODO: need access to f"{filename}_000.vpk" etc.
-        # else:
-        #     raise NotImplementedError("cannot read files inside *.vpk yet")
+        # raise NotImplementedError("Need to know if this .vpk is a _dir.vpk")
+        entry = self.entries[filename]
+        if entry.archive_index != 0x7FFF:
+            assert self.filename.endswith("_dir.vpk")
+            stream = self.archive_vpk(entry.archive_index)
+        else:
+            stream = self._file
+        stream.seek(entry.archive_offset)
+        data = stream.read(entry.file_length)
+        assert len(data) == entry.file_length, "unexpected EOF"
+        return data
+
+    def archive_vpk(self, index: int) -> external.File:
+        assert self.filename.endswith("_dir.vpk"), "not a _dir.vpk"
+        return self.extras[f"{self.base_filename}_{index:03d}.vpk"]
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> Vpk:
-        out = cls()
+    def from_archive(cls, parent_archive: base.Archive, filename: str) -> Vpk:
+        """for ArchiveClasses composed of multiple files"""
+        folder, short_filename = os.path.split(filename)
+        archive = cls.from_bytes(parent_archive.read(filename), short_filename)
+        extras = [
+            filename
+            for filename in parent_archive.listdir(folder)
+            for pattern in archive.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_archive(full_filename, parent_archive)
+            archive.mount_file(filename, external_file)
+        return archive
+
+    @classmethod
+    def from_bytes(cls, raw_archive: bytes, filename: str = "untitled.vpk") -> Vpk:
+        return cls.from_stream(io.BytesIO(raw_archive), filename)
+
+    @classmethod
+    def from_file(cls, filename: str) -> Vpk:
+        folder, short_filename = os.path.split(filename)
+        archive = cls.from_stream(open(filename, "rb"), short_filename)
+        extras = [
+            filename
+            for filename in os.listdir(folder)
+            for pattern in archive.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_file(full_filename)
+            archive.mount_file(filename, external_file)
+        return archive
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, filename: str = "untitled.vpk") -> Vpk:
+        out = cls(filename)
         out._file = stream
         # verify magic
         magic = binary.read_struct(out._file, "I")

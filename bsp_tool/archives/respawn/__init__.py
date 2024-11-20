@@ -26,6 +26,8 @@ class VpkEntry:
     preload_offset: int
     preload_length: int
     file_parts: List[VpkFilePart]
+    # properties
+    is_compressed: bool = property(lambda s: any(fp.is_compressed for fp in s.file_parts))
 
     def __init__(self):
         self.file_parts = list()
@@ -76,25 +78,49 @@ class VpkFilePart:
 class Vpk(valve.Vpk):
     """*_dir.vpk only!"""
     ext = "*_dir.vpk"
-    # NOTE: versions is unused
+    base_filename: str
     _file: io.BytesIO
+    filename: str
     header: VpkHeader
     entries: Dict[str, VpkEntry]
-    # properties
-    is_dir: bool = property(lambda s: s.header.data_length == 0)
+    # NOTE: 'versions' is unused; only v2.3 is supported
+
+    def __init__(self, filename: str = "untitled_dir.vpk"):
+        super().__init__(filename)
+        # "<language>client_*_dir.vpk" -> "client_*"
+        assert self.filename.endswith("_dir.vpk")
+        language_length = filename.find("client_")
+        assert language_length != -1
+        self.base_filename = self.filename[language_length:-len("_dir.vpk")]
+
+    def extra_patterns(self) -> str:
+        return [f"{self.base_filename}_*.vpk"]
+        # NOTE: accurate, but very slow
+        # return [
+        #     f"{self.base_filename}_{index:03d}.vpk"
+        #     for index in {
+        #         file_part.archive_index
+        #         for entry in self.entries.values()
+        #         for file_part in entry.file_parts}]
 
     def read(self, filename: str) -> bytes:
         assert filename in self.namelist()
-        if self.is_dir:
-            raise NotImplementedError("cannot read files inside *_dir.vpk yet")
-            # TODO: need access to f"{filename}_000.vpk" etc.
-        else:
-            raise NotImplementedError("cannot read files inside *.vpk yet")
-            # TODO: collect fileparts inside self._file & combine them
+        entry = self.entries[filename]
+        if entry.is_compressed:
+            raise NotImplementedError("cannot decompress, yet.")
+            # TODO: lzham decompress the compressed file_parts
+        parts = list()
+        for file_part in entry.file_parts:
+            stream = self.archive_vpk(file_part.archive_index)
+            stream.seek(file_part.offset)
+            data = stream.read(file_part.length)
+            assert len(data) == file_part.length, "unexpected EOF"
+            parts.append(data)
+        return b"".join(parts)
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> Vpk:
-        out = cls()
+    def from_stream(cls, stream: io.BytesIO, filename: str = "untitled_dir.vpk") -> Vpk:
+        out = cls(filename)
         out._file = stream
         # header
         out.header = VpkHeader.from_stream(out._file)
