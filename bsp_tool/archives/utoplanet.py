@@ -56,7 +56,7 @@ class ApkEntry:
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> int:
+    def from_stream(cls, stream: io.BytesIO) -> ApkEntry:
         out = cls()
         filename_length = binary.read_struct(stream, "I")
         filename = stream.read(filename_length + 1).decode()
