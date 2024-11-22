@@ -283,9 +283,9 @@ class PrimaryVolumeDescriptor:
     def from_stream(cls, stream: io.BytesIO) -> PrimaryVolumeDescriptor:
         out = cls()
         type_code = binary.read_struct(stream, "B")
-        assert type_code == 0x01, type_code  # 0x01: Primary, 0x02: Supplementary, 0x03: Partition
+        # 0x01: Primary, 0x02: Supplementary, 0x03: Partition
         magic = binary.read_struct(stream, "5s")
-        assert magic == b"CD001"
+        assert (type_code, magic) == (0x01, b"CD001"), "not a PVD: 0x{type_code:02X} {magic}"
         version = binary.read_struct(stream, "H")  # technically uint8 + 1 char pad
         assert version == 0x0001
         out.system = read_strA(stream, 32)
@@ -393,6 +393,8 @@ class Iso(base.Archive):
         return records
 
     def listdir(self, search_folder: str) -> List[str]:
+        if search_folder in (".", "./"):
+            search_folder = "/"  # valid root
         # NOTE: search_folder is case sensitive
         records = self.folder_records(search_folder)
         assert records[0].name == "."
@@ -416,10 +418,12 @@ class Iso(base.Archive):
         assert filename in records, "file not found"
         record = records[filename]
         assert record.is_file, "f{filename!r} is not a file"
-        if record.data_interleaved_unit_size != 0 or record.data.interleaved_gap_size != 0:
+        if record.interleaved_unit_size != 0 or record.interleaved_gap_size != 0:
             raise NotImplementedError("cannot read interleaved file")
         self.seek(record.data_lba)
-        return self.disc.read(record.data_size)
+        data = self.disc.read(record.data_size)
+        assert len(data) == record.data_size, "unexpected EOF"
+        return data
 
     def seek(self, lba: int) -> int:
         true_lba = lba + self.lba_offset

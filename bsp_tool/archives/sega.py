@@ -5,10 +5,13 @@ from __future__ import annotations
 import enum
 import io
 import os
-from typing import List
+from typing import Dict, List
 
+from .. import external
 from . import base
 from . import cdrom
+from . import golden_hawk
+from . import mame
 from . import padus
 
 
@@ -51,52 +54,54 @@ class GdiTrack:
 
 class Gdi(base.Archive):
     ext = "*.gdi"
-    folder: str
-    filename: str
+    extras: Dict[str, external.File]
     tracks: List[GdiTrack]
 
     def __init__(self, filename: str = None):
+        self.extras = dict()
         self.tracks = list()
-        if filename is not None:
-            self.folder, self.filename = os.path.split(filename)
 
     def __repr__(self) -> str:
-        descriptor = f"{self.filename!r} {len(self.tracks)} tracks"
+        descriptor = f"{len(self.tracks)} tracks"
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
+    def extra_patterns(self) -> List[str]:
+        return self.namelist()
 
     def namelist(self) -> List[str]:
         return [track.filename for track in self.tracks]
 
     def read(self, filename: str) -> bytes:
-        assert filename in self.namelist()
+        assert filename in self.namelist(), "unrelated file"
+        assert filename in self.extras, "couldn't find file"
         track = {track.filename: track for track in self.tracks}[filename]
-        with open(os.path.join(self.folder, filename), "rb") as track_file:
-            if track.type == GdiTrackType.BINARY:
-                # based on sector conversion code from padus.Cdi.read
-                sectors = list()
-                # NOTE: Mode1 2352, not Mode2 like in .cdi?
-                header_length_for_size = {2048: 0, 2352: 16}
-                header_length = header_length_for_size[track.sector_size]
+        track_file = self.extras[filename]
+        track_file.seek(0)
+        if track.type == GdiTrackType.BINARY:
+            # based on sector conversion code from padus.Cdi.read
+            sectors = list()
+            # NOTE: Mode1 2352, not Mode2 like in .cdi?
+            header_length_for_size = {2048: 0, 2352: 16}
+            header_length = header_length_for_size[track.sector_size]
+            raw_sector = track_file.read(track.sector_size)
+            while len(raw_sector) != 0:
+                assert len(raw_sector) == track.sector_size
+                sector = raw_sector[header_length:]
+                sector = sector[:2048]
+                sectors.append(sector)
                 raw_sector = track_file.read(track.sector_size)
-                while len(raw_sector) != 0:
-                    assert len(raw_sector) == track.sector_size
-                    sector = raw_sector[header_length:]
-                    sector = sector[:2048]
-                    sectors.append(sector)
-                    raw_sector = track_file.read(track.sector_size)
-                return b"".join(sectors)
-            else:
-                return track_file.read()
+            return b"".join(sectors)
+        else:
+            return track_file.read()
 
     @classmethod
-    def from_file(cls, filename: str) -> Gdi:
-        out = cls(filename)
-        with open(filename, "r") as gdi_file:
-            num_tracks = int(gdi_file.readline())
-            for line in gdi_file:
-                track = GdiTrack.from_line(line)
-                out.tracks.append(track)
-            assert len(out.tracks) == num_tracks
+    def from_stream(cls, stream: io.BytesIO) -> Gdi:
+        out = cls()
+        num_tracks = int(stream.readline().decode())
+        for line in stream:
+            track = GdiTrack.from_line(line.decode())
+            out.tracks.append(track)
+        assert len(out.tracks) == num_tracks
         return out
 
 
@@ -184,6 +189,24 @@ class GDRom(base.Archive):
         return self.data_area.read(filename)
 
     @classmethod
+    def from_archive(cls, parent_archive: base.Archive, filename: str) -> GDRom:
+        ext = os.path.splitext(filename.lower())[-1]
+        if ext == ".cdi":
+            return cls.from_cdi(padus.Cdi.from_archive(parent_archive, filename))
+        elif ext == ".chd":
+            return cls.from_chd(mame.Chd.from_archive(parent_archive, filename))
+        elif ext == ".cue":
+            return cls.from_cue(golden_hawk.Cue.from_archive(parent_archive, filename))
+        elif ext == ".gdi":
+            return cls.from_gdi(Gdi.from_archive(parent_archive, filename))
+        else:
+            raise RuntimeError(f"Unsupported file extension: {ext}")
+
+    @classmethod
+    def from_bytes(cls, raw_gdrom: bytes) -> GDRom:
+        raise NotImplementedError("cannot identify disc image format")
+
+    @classmethod
     def from_cdi(cls, cdi: padus.Cdi) -> GDRom:
         # validate our assumptions
         assert len(cdi.sessions) == 2  # CD area (soundtrack), GD area (game)
@@ -204,18 +227,45 @@ class GDRom(base.Archive):
         return out
 
     @classmethod
+    def from_chd(cls, chd: mame.Chd) -> GDRom:
+        raise NotImplementedError("mame.Chd is incomplete")
+
+    @classmethod
+    def from_cue(cls, cue: golden_hawk.Cue) -> GDRom:
+        raise NotImplementedError("golden_hawk.Cue is incomplete")
+
+    @classmethod
+    def from_file(cls, filename: str) -> GDRom:
+        ext = os.path.splitext(filename.lower())[-1]
+        if ext == ".cdi":
+            return cls.from_cdi(padus.Cdi.from_file(filename))
+        elif ext == ".chd":
+            return cls.from_chd(mame.Chd.from_file(filename))
+        elif ext == ".cue":
+            return cls.from_cue(golden_hawk.Cue.from_file(filename))
+        elif ext == ".gdi":
+            return cls.from_gdi(Gdi.from_file(filename))
+        else:
+            raise RuntimeError(f"Unsupported file extension: {ext}")
+
+    @classmethod
     def from_gdi(cls, gdi: Gdi) -> GDRom:
-        data_track = gdi.tracks[-1]
-        # validate our assumptions
-        assert data_track.type == GdiTrackType.BINARY
+        data_tracks = [
+            track
+            for track in gdi.tracks
+            if track.start_lba == 45000
+            and track.type == GdiTrackType.BINARY]
+        data_track = data_tracks[0]
+        # NOTE: if data_track isn't the last track we might not have access to files
+        # -- it might help if cdrom.Iso read sectors from the Gdi directly
+        # -- would simplify the math a lot too, and potential save on memory
+        # -- because the alternative is converting the whole GD-ROM area to bytes
+        # -- potentially wasting multiple empty sectors worth of space
+        # NOTE: data_track should at least map the filesystem
         out = cls()
-        # NOTE: .gdi files might break up the data area into multiple tracks
-        # -- maybe we can add controls for merging tracks in that case?
         out.data_area = cdrom.Iso.from_bytes(gdi.read(data_track.filename), 0x8000, -data_track.start_lba)
         # NOTE: we assuming there's a PVD at the default address (seaching for a PVD is slow)
         # -- other PVDs might be present
-        # -- quakeiii.cdi has a 2nd PVD (thinks it starts at LBA 16 like a normal CD)
-        # -- iso_2 = cdrom.Iso.from_bytes(cdi.read("1.0.iso"), 0x9B000, (0x9B000 // 0x800) - 16)
         out.data_area.disc.seek(0)  # boot header
         out.header = Header.from_stream(out.data_area.disc)
         out.gdi = gdi  # DEBUG
@@ -224,16 +274,5 @@ class GDRom(base.Archive):
         return out
 
     @classmethod
-    def from_file(cls, filename: str) -> GDRom:
-        ext = os.path.splitext(filename.lower())[-1]
-        if ext == ".cdi":
-            return cls.from_cdi(padus.Cdi.from_file(filename))
-        elif ext == ".chd":
-            # TODO: mame.Chd
-            raise NotImplementedError()
-        elif ext == ".cue":
-            raise NotImplementedError()
-        elif ext == ".gdi":
-            return cls.from_gdi(Gdi.from_file(filename))
-        else:
-            raise RuntimeError(f"Unsupported file extension: {ext}")
+    def from_stream(cls, stream: io.BytesIO) -> GDRom:
+        raise NotImplementedError("cannot identify disc image format")
