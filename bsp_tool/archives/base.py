@@ -1,4 +1,5 @@
 from __future__ import annotations
+import enum
 import fnmatch
 import io
 import os
@@ -139,3 +140,100 @@ class Archive:
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Archive:
         raise NotImplementedError("ArchiveClass has not defined .from_stream()")
+
+
+class TrackMode(enum.Enum):
+    AUDIO = 0
+    BINARY_1 = 1
+    BINARY_2 = 2
+
+
+class Track:
+    mode: TrackMode
+    sector_size: int  # 2048, 2336 or 2352
+    start_lba: int
+    length: int  # in sectors, not bytes
+
+    def __init__(self, mode, sector_size, start_lba, length):
+        self.mode = mode
+        assert sector_size in (2048, 2336, 2352)
+        self.sector_size = sector_size
+        self.start_lba = start_lba
+        self.length = length
+
+    def __repr__(self) -> str:
+        args = ", ".join([
+            str(getattr(self, a))
+            for a in ("mode", "sector_size", "start_lba", "length")])
+        return f"Track({args})"
+
+    def data_slice(self) -> slice:
+        """index raw sector with this slice to get just the data"""
+        if self.mode == TrackMode.AUDIO or self.sector_size == 2048:
+            return slice(0, self.sector_size)
+        elif self.mode == TrackMode.BINARY_1:
+            raise NotImplementedError("don't know how to slice Binary Mode 1")
+        elif self.mode == TrackMode.BINARY_2:
+            header_size = {2336: 8, 2352: 24}[self.sector_size]
+            return slice(header_size, 2048 + header_size)
+
+
+class DiscImage:
+    tracks: Dict[Track, io.BytesIO]
+    _cursor: Tuple[Track, int]
+    # ^ (track, lba)
+    # NOTE: cursor lba is relative to track
+
+    def __init__(self):
+        self.tracks = dict()
+        self._cursor = (Track(TrackMode.AUDIO, 2048, 0, 0), 0)
+
+    def read_sector(self, length: int = -1) -> bytes:
+        """expects length in sectors"""
+        track, sub_lba = self._cursor
+        if length == -1:
+            last_lba = max(t.start_lba + t.length for t in self.tracks)
+            if track.start_lba + track.length == last_lba:
+                length = track.length - sub_lba
+            else:
+                raise NotImplementedError("cannot past end of current track")
+        if sub_lba + length > track.length:
+            raise NotImplementedError("cannot past end of current track")
+        track_stream = self.tracks[track]
+        track_stream.seek(sub_lba * track.sector_size)
+        data_slice = track.data_slice()
+        sector_data = [
+            track_stream.read(track.sector_size)[data_slice]
+            for i in range(length)]
+        self._cursor = (track, sub_lba + length)
+        return b"".join(sector_data)
+
+    def seek_sector(self, lba: int, whence: int = 0) -> int:
+        assert whence in (0, 1, 2)
+        current_track, sub_lba = self._cursor
+        current_lba = current_track.start_lba + sub_lba
+        if whence == 1:
+            lba = current_lba + lba
+        elif whence == 2:
+            last_lba = max(t.start_lba + t.length for t in self.tracks)
+            lba = last_lba + lba
+        for track in self.tracks:
+            if track.start_lba <= lba <= track.start_lba + track.length:
+                self._cursor = (track, lba)
+                return lba
+        raise RuntimeError(f"couldn't find a track containing sector: {lba}")
+
+    def tell_sector(self) -> int:
+        track, sub_lba = self._cursor
+        return track.start_lba + sub_lba
+
+    @classmethod
+    def from_bytes(cls, raw_data: bytes) -> DiscImage:
+        out = cls()
+        tail_length = len(raw_data) % 2048
+        if tail_length != 0:
+            raw_data = b"".join([raw_data, b"\x00" * (2048 - tail_length)])
+        track = Track(TrackMode.BINARY_2, 2048, 0, len(raw_data) // 2048)
+        out.tracks = {track: io.BytesIO(raw_data)}
+        out._cursor = (track, 0)
+        return out
