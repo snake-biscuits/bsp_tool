@@ -280,6 +280,10 @@ class PrimaryVolumeDescriptor:
         raise NotImplementedError()
 
     @classmethod
+    def from_bytes(cls, raw_pvd: bytes) -> PrimaryVolumeDescriptor:
+        return cls.from_stream(io.BytesIO(raw_pvd))
+
+    @classmethod
     def from_stream(cls, stream: io.BytesIO) -> PrimaryVolumeDescriptor:
         out = cls()
         type_code = binary.read_struct(stream, "B")
@@ -380,20 +384,6 @@ class Iso(base.Archive):
             names.append(path.name)
         return "/" + "/".join(reversed(names)) + "/"
 
-    def path_records(self, path_index: int) -> List[Directory]:
-        path = self.path_table[path_index]
-        lba = path.extent_lba + self.lba_offset
-        self.disc.seek(lba * self.pvd.block_size)
-        # grab Directory records at top of the path extent
-        # NOTE: it might be possible to get the number or files
-        # -- instead of depending on hitting null bytes
-        directory = Directory.from_stream(self.disc)
-        records = list()
-        while directory is not None:
-            records.append(directory)
-            directory = Directory.from_stream(self.disc)
-        return records
-
     def listdir(self, search_folder: str) -> List[str]:
         if search_folder in (".", "./"):
             search_folder = "/"  # valid root
@@ -413,6 +403,20 @@ class Iso(base.Archive):
                 if record.is_file:
                     filenames.add(path_name + record.name)
         return sorted(filenames)
+
+    def path_records(self, path_index: int) -> List[Directory]:
+        path = self.path_table[path_index]
+        lba = path.extent_lba + self.lba_offset
+        self.disc.seek(lba * self.pvd.block_size)
+        # grab Directory records at top of the path extent
+        # NOTE: it might be possible to get the number or files
+        # -- instead of depending on hitting null bytes
+        directory = Directory.from_stream(self.disc)
+        records = list()
+        while directory is not None:
+            records.append(directory)
+            directory = Directory.from_stream(self.disc)
+        return records
 
     def read(self, filename: str) -> bytes:
         # NOTE: case sensitive
