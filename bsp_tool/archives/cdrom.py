@@ -351,7 +351,7 @@ class Iso(base.Archive):
         self.path_table = list()
 
     def __repr__(self) -> str:
-        return f'<Iso {self.pvd.name!r} {len(self.namelist())} files @ 0x{id(self):016X}>'
+        return f"<Iso {self.pvd.name!r} {len(self.namelist())} files @ 0x{id(self):016X}>"
 
     def folder_records(self, search_folder: str) -> List[Directory]:
         # NOTE: search_folder is case sensitive
@@ -359,6 +359,8 @@ class Iso(base.Archive):
         # -- maybe also "." & "./"
         # TODO: is it easier to walk the directory tree?
         search_folder.replace("\\", "/")
+        if search_folder.startswith("./"):
+            search_folder = search_folder[2:]
         search_folder = f"/{search_folder}/"
         while "//" in search_folder:  # eliminate double slashes
             # NOTE: have to replace twice for root ("/")
@@ -399,8 +401,9 @@ class Iso(base.Archive):
         records = self.folder_records(search_folder)
         assert records[0].name == "."
         assert records[1].name == ".."
-        # NOTE: we could add a "/" to the end of a name if it's not a file
-        return [f.name for f in records[2:]]
+        return [
+            f.name if f.is_file else f"{f.name}/"
+            for f in records[2:]]
 
     def namelist(self) -> List[str]:
         filenames = set()
