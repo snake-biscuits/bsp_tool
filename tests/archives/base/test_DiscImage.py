@@ -14,7 +14,7 @@ def test_basic():
     assert track.length == 1
     assert di._cursor == (track, 0)
     # test read behaviour
-    out_bytes = di.read_sector()
+    out_bytes = di.sector_read()
     assert in_bytes == out_bytes
     assert di._cursor == (track, 1)
-    assert di.tell_sector() == 1
+    assert di.sector_tell() == 1

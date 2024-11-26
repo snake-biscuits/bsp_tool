@@ -191,13 +191,13 @@ class DiscImage:
     def read(self, length: int = -1) -> bytes:
         """moves cursor to end of sector, use with caution"""
         if length == -1:
-            return self.read_sector()
+            return self.sector_read()
         sector_length = length // 2048
         if length % 2048 != 0:
             sector_length += 1
-        return self.read_sector(sector_length)[:length]
+        return self.sector_read(sector_length)[:length]
 
-    def read_sector(self, length: int = -1) -> bytes:
+    def sector_read(self, length: int = -1) -> bytes:
         """expects length in sectors"""
         track, sub_lba = self._cursor
         if length == -1:
@@ -217,7 +217,7 @@ class DiscImage:
         self._cursor = (track, sub_lba + length)
         return b"".join(sector_data)
 
-    def seek_sector(self, lba: int, whence: int = 0) -> int:
+    def sector_seek(self, lba: int, whence: int = 0) -> int:
         assert whence in (0, 1, 2)
         current_track, sub_lba = self._cursor
         current_lba = current_track.start_lba + sub_lba
@@ -232,7 +232,7 @@ class DiscImage:
                 return lba
         raise RuntimeError(f"couldn't find a track containing sector: {lba}")
 
-    def tell_sector(self) -> int:
+    def sector_tell(self) -> int:
         track, sub_lba = self._cursor
         return track.start_lba + sub_lba
 
