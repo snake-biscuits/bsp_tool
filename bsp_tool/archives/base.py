@@ -188,6 +188,15 @@ class DiscImage:
         self.tracks = dict()
         self._cursor = (Track(TrackMode.AUDIO, 2048, 0, 0), 0)
 
+    def read(self, length: int = -1) -> bytes:
+        """moves cursor to end of sector, use with caution"""
+        if length == -1:
+            return self.read_sector()
+        sector_length = length // 2048
+        if length % 2048 != 0:
+            sector_length += 1
+        return self.read_sector(sector_length)[:length]
+
     def read_sector(self, length: int = -1) -> bytes:
         """expects length in sectors"""
         track, sub_lba = self._cursor
@@ -196,9 +205,9 @@ class DiscImage:
             if track.start_lba + track.length == last_lba:
                 length = track.length - sub_lba
             else:
-                raise NotImplementedError("cannot past end of current track")
+                raise NotImplementedError("cannot read past end of current track")
         if sub_lba + length > track.length:
-            raise NotImplementedError("cannot past end of current track")
+            raise NotImplementedError("cannot read past end of current track")
         track_stream = self.tracks[track]
         track_stream.seek(sub_lba * track.sector_size)
         data_slice = track.data_slice()
@@ -237,3 +246,7 @@ class DiscImage:
         out.tracks = {track: io.BytesIO(raw_data)}
         out._cursor = (track, 0)
         return out
+
+    @classmethod
+    def from_file(cls, filename: str) -> DiscImage:
+        return cls.from_bytes(open(filename, "rb").read())
