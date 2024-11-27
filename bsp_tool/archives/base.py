@@ -188,6 +188,31 @@ class DiscImage:
         self.tracks = dict()
         self._cursor = (Track(TrackMode.AUDIO, 2048, 0, 0), 0)
 
+    def __repr__(self):
+        last_lba = max(t.start_lba + t.length for t in self.tracks)
+        descriptor = f"{last_lba} sectors ({len(self.tracks)} tracks)"
+        # TODO: length in MB / seconds
+        # Red Book CD-DA: 44.1 KHz 16-bit PCM Stereo -> 176400 bytes / second
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
+    def export_wav(self, track: Track, filename: str):
+        # https://docs.fileformat.com/audio/wav/
+        assert track in self.tracks, "specific track not on disc"
+        assert track.mode == TrackMode.AUDIO, "track is not audio"
+        data_size = track.length * track.sector_size
+        wav_header = [
+            b"RIFF", (data_size + 36).to_bytes(4, "little"), b"WAVEfmt ",
+            b"\x10\x00\x00\x00", b"\x01\x00", b"\x02\x00",
+            (44100).to_bytes(4, "little"), (176400).to_bytes(4, "little"),
+            b"\x04\x00", b"\x10\x00", b"data", data_size.to_bytes(4, "little")]
+        data_stream = self.tracks[track]
+        ret_addr = data_stream.tell()
+        data_stream.seek(0)
+        with open(filename, "wb") as wav_file:
+            wav_file.write(b"".join(wav_header))
+            wav_file.write(data_stream.read())
+        data_stream.seek(ret_addr)
+
     def read(self, length: int = -1) -> bytes:
         """moves cursor to end of sector, use with caution"""
         if length == -1:
@@ -249,4 +274,5 @@ class DiscImage:
 
     @classmethod
     def from_file(cls, filename: str) -> DiscImage:
+        # NOTE: I don't expect "/dev/sr0" or "/dev/cdrom" to work
         return cls.from_bytes(open(filename, "rb").read())
