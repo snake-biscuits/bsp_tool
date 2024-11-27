@@ -189,11 +189,13 @@ class DiscImage:
         self._cursor = (Track(TrackMode.AUDIO, 2048, 0, 0), 0)
 
     def __repr__(self):
-        last_lba = max(t.start_lba + t.length for t in self.tracks)
-        descriptor = f"{last_lba} sectors ({len(self.tracks)} tracks)"
+        descriptor = f"{len(self)} sectors ({len(self.tracks)} tracks)"
         # TODO: length in MB / seconds
         # Red Book CD-DA: 44.1 KHz 16-bit PCM Stereo -> 176400 bytes / second
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
+    def __len__(self):
+        return max(t.start_lba + t.length for t in self.tracks)
 
     def export_wav(self, track: Track, filename: str):
         # https://docs.fileformat.com/audio/wav/
@@ -226,8 +228,7 @@ class DiscImage:
         """expects length in sectors"""
         track, sub_lba = self._cursor
         if length == -1:
-            last_lba = max(t.start_lba + t.length for t in self.tracks)
-            if track.start_lba + track.length == last_lba:
+            if track.start_lba + track.length == len(self):
                 length = track.length - sub_lba
             else:
                 raise NotImplementedError("cannot read past end of current track")
@@ -249,8 +250,7 @@ class DiscImage:
         if whence == 1:
             lba = current_lba + lba
         elif whence == 2:
-            last_lba = max(t.start_lba + t.length for t in self.tracks)
-            lba = last_lba + lba
+            lba = len(self) + lba
         for track in self.tracks:
             if track.start_lba <= lba <= track.start_lba + track.length:
                 self._cursor = (track, lba)
