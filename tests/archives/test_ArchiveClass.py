@@ -37,7 +37,6 @@ archive_classes = [
     pkware.Zip,
     respawn.RPak,
     respawn.Vpk,
-    sega.Gdi,
     sega.GDRom,
     utoplanet.Apk,
     valve.Vpk]
