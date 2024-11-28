@@ -57,7 +57,7 @@ class File:
 
     @classmethod
     def from_bytes(cls, filename: str, raw_data: bytes) -> File:
-        out = cls.from_stream(io.BytesIO(raw_data))
+        out = cls.from_stream(filename, io.BytesIO(raw_data))
         out.size = len(raw_data)
         return out
 

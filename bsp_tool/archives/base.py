@@ -153,40 +153,46 @@ class Track:
     sector_size: int  # 2048, 2336 or 2352
     start_lba: int
     length: int  # in sectors, not bytes
+    name: str
 
-    def __init__(self, mode, sector_size, start_lba, length):
+    def __init__(self, mode, sector_size, start_lba, length, name):
         self.mode = mode
         assert sector_size in (2048, 2336, 2352)
         self.sector_size = sector_size
         self.start_lba = start_lba
         self.length = length
+        self.name = name
 
     def __repr__(self) -> str:
         args = ", ".join([
             str(getattr(self, a))
-            for a in ("mode", "sector_size", "start_lba", "length")])
+            for a in ("mode", "sector_size", "start_lba", "length", "name")])
         return f"Track({args})"
 
     def data_slice(self) -> slice:
         """index raw sector with this slice to get just the data"""
+        # TODO: add sector sizes I forgot
         if self.mode == TrackMode.AUDIO or self.sector_size == 2048:
             return slice(0, self.sector_size)
         elif self.mode == TrackMode.BINARY_1:
-            raise NotImplementedError("don't know how to slice Binary Mode 1")
+            header_size = {2352: 16}[self.sector_size]
         elif self.mode == TrackMode.BINARY_2:
             header_size = {2336: 8, 2352: 24}[self.sector_size]
-            return slice(header_size, 2048 + header_size)
+        return slice(header_size, 2048 + header_size)
 
 
 class DiscImage:
-    tracks: Dict[Track, io.BytesIO]
-    _cursor: Tuple[Track, int]
-    # ^ (track, lba)
-    # NOTE: cursor lba is relative to track
+    ext = None
+    extras: Dict[str, external.File]
+    tracks: List[Track]  # indexes extras with filename
+    _cursor: Tuple[int, int]
+    # ^ (track_index, sub_lba)
+    # NOTE: true_lba = track.start_lba + sub_lba
 
     def __init__(self):
-        self.tracks = dict()
-        self._cursor = (Track(TrackMode.AUDIO, 2048, 0, 0), 0)
+        self.extras = dict()
+        self.tracks = list()
+        self._cursor = (0, 0)
 
     def __repr__(self):
         descriptor = f"{len(self)} sectors ({len(self.tracks)} tracks)"
@@ -197,23 +203,33 @@ class DiscImage:
     def __len__(self):
         return max(t.start_lba + t.length for t in self.tracks)
 
-    def export_wav(self, track: Track, filename: str):
+    def export_wav(self, track_index: int, filename: str = None):
         # https://docs.fileformat.com/audio/wav/
-        assert track in self.tracks, "specific track not on disc"
+        track = self.tracks[track_index]
         assert track.mode == TrackMode.AUDIO, "track is not audio"
+        if filename is None:
+            if track.name.endswith(".raw"):
+                filename = track.name.replace(".raw", ".wav")
+            else:
+                filename = f"track_{track_index:02d}.wav"
+        # generate header
         data_size = track.length * track.sector_size
         wav_header = [
             b"RIFF", (data_size + 36).to_bytes(4, "little"), b"WAVEfmt ",
             b"\x10\x00\x00\x00", b"\x01\x00", b"\x02\x00",
             (44100).to_bytes(4, "little"), (176400).to_bytes(4, "little"),
             b"\x04\x00", b"\x10\x00", b"data", data_size.to_bytes(4, "little")]
-        data_stream = self.tracks[track]
-        ret_addr = data_stream.tell()
-        data_stream.seek(0)
+        data_stream = self.extras[track.name]
+        data_stream.seek(0)  # just in case
         with open(filename, "wb") as wav_file:
             wav_file.write(b"".join(wav_header))
             wav_file.write(data_stream.read())
-        data_stream.seek(ret_addr)
+
+    def extra_patterns(self) -> List[str]:
+        return [track.name for track in self.tracks]
+
+    def mount_file(self, filename: str, external_file: external.File):
+        self.extras[filename] = external_file
 
     def read(self, length: int = -1) -> bytes:
         """moves cursor to end of sector, use with caution"""
@@ -226,53 +242,94 @@ class DiscImage:
 
     def sector_read(self, length: int = -1) -> bytes:
         """expects length in sectors"""
-        track, sub_lba = self._cursor
+        track_index, sub_lba = self._cursor
+        track = self.tracks[track_index]
         if length == -1:
-            if track.start_lba + track.length == len(self):
+            if track.start_lba + track.length == len(self):  # last track
                 length = track.length - sub_lba
             else:
                 raise NotImplementedError("cannot read past end of current track")
         if sub_lba + length > track.length:
             raise NotImplementedError("cannot read past end of current track")
-        track_stream = self.tracks[track]
-        track_stream.seek(sub_lba * track.sector_size)
         data_slice = track.data_slice()
+        track_stream = self.extras[track.name]
+        track_stream.seek(sub_lba * track.sector_size)
         sector_data = [
             track_stream.read(track.sector_size)[data_slice]
             for i in range(length)]
-        self._cursor = (track, sub_lba + length)
+        # NOTE: we're assuming that all tracks have gaps between them
+        # -- so we don't need to worry about changing tracks here
+        self._cursor = (track_index, sub_lba + length)
         return b"".join(sector_data)
 
     def sector_seek(self, lba: int, whence: int = 0) -> int:
         assert whence in (0, 1, 2)
-        current_track, sub_lba = self._cursor
-        current_lba = current_track.start_lba + sub_lba
+        current_lba = self.sector_tell()
         if whence == 1:
             lba = current_lba + lba
         elif whence == 2:
             lba = len(self) + lba
-        for track in self.tracks:
+        for track_index, track in enumerate(self.tracks):
             if track.start_lba <= lba <= track.start_lba + track.length:
-                self._cursor = (track, lba)
+                self._cursor = (track_index, lba - track.start_lba)
                 return lba
         raise RuntimeError(f"couldn't find a track containing sector: {lba}")
 
     def sector_tell(self) -> int:
-        track, sub_lba = self._cursor
+        track_index, sub_lba = self._cursor
+        track = self.tracks[track_index]
         return track.start_lba + sub_lba
+
+    def unmount_file(self, filename: str):
+        self.extras.pop(filename)
+
+    @classmethod
+    def from_archive(cls, parent_archive: Archive, filename: str) -> DiscImage:
+        disc = cls.from_bytes(parent_archive.read(filename))
+        folder = os.path.dirname(filename)
+        extras = [
+            filename
+            for filename in parent_archive.listdir(folder)
+            for pattern in disc.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_archive(full_filename, parent_archive)
+            disc.mount_file(filename, external_file)
+        # get track lengths from filesizes (if nessecary)
+        for track_index, track in enumerate(disc.tracks):
+            if track.length == -1:
+                assert disc.extras[track.name].size % track.sector_size == 0
+                track.length = disc.extras[track.name].size // track.sector_size
+                disc.tracks[track_index] = track
+        return disc
 
     @classmethod
     def from_bytes(cls, raw_data: bytes) -> DiscImage:
-        out = cls()
-        tail_length = len(raw_data) % 2048
-        if tail_length != 0:
-            raw_data = b"".join([raw_data, b"\x00" * (2048 - tail_length)])
-        track = Track(TrackMode.BINARY_2, 2048, 0, len(raw_data) // 2048)
-        out.tracks = {track: io.BytesIO(raw_data)}
-        out._cursor = (track, 0)
-        return out
+        return cls.from_stream(io.BytesIO(raw_data))
 
     @classmethod
     def from_file(cls, filename: str) -> DiscImage:
         # NOTE: I don't expect "/dev/sr0" or "/dev/cdrom" to work
-        return cls.from_bytes(open(filename, "rb").read())
+        disc = cls.from_stream(open(filename, "rb"))
+        folder = os.path.dirname(filename)
+        extras = [
+            filename
+            for filename in os.listdir(folder)
+            for pattern in disc.extra_patterns()
+            if fnmatch.fnmatch(filename.lower(), pattern.lower())]
+        for filename in extras:
+            full_filename = os.path.join(folder, filename)
+            external_file = external.File.from_file(full_filename)
+            disc.mount_file(filename, external_file)
+        # get track lengths from filesizes (if nessecary)
+        for track_index, track in enumerate(disc.tracks):
+            if track.length == -1:
+                assert disc.extras[track.name].size % track.sector_size == 0
+                track.length = disc.extras[track.name].size // track.sector_size
+                disc.tracks[track_index] = track
+        return disc
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> DiscImage:
+        raise NotImplementedError("DiscClass has not defined .from_stream()")
