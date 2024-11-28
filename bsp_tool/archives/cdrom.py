@@ -8,6 +8,7 @@ import io
 import os
 from typing import List
 
+from .. import external
 from ..utils import binary
 from . import base
 
@@ -325,37 +326,27 @@ class PrimaryVolumeDescriptor:
         out.application_bytes = stream.read(512)  # empty ASCII whitespace
         reserved = stream.read(653)  # ISO reserved bytes (typically all NULL)
         assert reserved == b"\x00" * 653, "unexpected data in RESERVED section"
-        # make sure we're terminated
-        terminator = stream.read(7)
-        while terminator != b"\xFFCD001\x01":
-            assert terminator[1:] == b"CD001\x01", "Couldn't find next VolumeDescriptor"
-            assert terminator[0] in (0x02, 0x03), f"0x{terminator[0]:02X} is not a valid VolumeDescriptor type"
-            # NOTE: 0x02: Supplementary, 0x03: Partition, 0x04..0xFE: Reserved
-            # TODO: userwarning / add to Iso.import_log somehow
-            print("skipping", {0x02: "Supplementary", 0x03: "Partition"}[terminator[0]], "Volume Descriptor")
-            stream.seek(2048 - 7, 1)  # try the next Logical Block
-            terminator = stream.read(7)
+        # NOTE: caller must check for terminator (b"\xFFCD001") / other Volume Descriptors
         return out
 
 
 class Iso(base.Archive):
     ext = "*.iso"  # sometimes "*.bin"
-    lba_offset: int  # add this offset to all LBA address lookups
-    # GD-ROM Filesystems need a -ve lba_offset because we isolate the GD Area
-    # So LBAs start in the thousands, rather than the low teens
-    # Other PVDs might have the opposite problem, for those we need a +ve offset
-    disc: io.BytesIO  # kept open for reads
+    lba_offset: int  # added to LBA when seeking disc
+    disc: base.DiscImage
     pvd: PrimaryVolumeDescriptor
     path_table: List[PathTableEntry]
 
     def __init__(self):
         self.lba_offset = 0
-        # TODO: blank disc image
+        # TODO: default disc image data (an empty formatted disc)
+        self.disc = base.DiscImage()
         # TODO: default PVD
         self.path_table = list()
 
     def __repr__(self) -> str:
-        return f"<Iso {self.pvd.name!r} {len(self.namelist())} files @ 0x{id(self):016X}>"
+        descriptor = f"{self.pvd.name!r} {len(self.namelist())} files"
+        return f"<Iso {descriptor} @ 0x{id(self):016X}>"
 
     def folder_records(self, search_folder: str) -> List[Directory]:
         # NOTE: search_folder is case sensitive
@@ -406,16 +397,17 @@ class Iso(base.Archive):
 
     def path_records(self, path_index: int) -> List[Directory]:
         path = self.path_table[path_index]
-        lba = path.extent_lba + self.lba_offset
-        self.disc.seek(lba * self.pvd.block_size)
-        # grab Directory records at top of the path extent
-        # NOTE: it might be possible to get the number or files
-        # -- instead of depending on hitting null bytes
-        directory = Directory.from_stream(self.disc)
+        self.disc.sector_seek(path.extent_lba + self.lba_offset)
+        # TODO: confirm path records are limited to a single block
+        block = self.disc.sector_read(1)
+        stream = io.BytesIO(block)
+        directory = Directory.from_stream(stream)
         records = list()
         while directory is not None:
             records.append(directory)
-            directory = Directory.from_stream(self.disc)
+            directory = Directory.from_stream(stream)
+        # TODO: how does Directory.from_stream handle EOF?
+        assert stream.tell() != 2048
         return records
 
     def read(self, filename: str) -> bytes:
@@ -427,39 +419,53 @@ class Iso(base.Archive):
         assert record.is_file, "f{filename!r} is not a file"
         if record.interleaved_unit_size != 0 or record.interleaved_gap_size != 0:
             raise NotImplementedError("cannot read interleaved file")
-        self.seek(record.data_lba)
+        # NOTE: record.data_lba might not be an lba?
+        self.sector_seek(record.data_lba + self.lba_offset)
         data = self.disc.read(record.data_size)
         assert len(data) == record.data_size, "unexpected EOF"
         return data
 
-    def seek(self, lba: int) -> int:
-        true_lba = lba + self.lba_offset
-        return self.disc.seek(true_lba * self.pvd.block_size)
+    def sector_seek(self, lba: int) -> int:
+        return self.disc.sector_seek(lba + self.lba_offset)
 
     @classmethod
-    def from_bytes(cls, raw_iso: bytes, pvd_address: int = None, lba_offset: int = 0) -> Iso:
-        # NOTE: only from_bytes will search for PVDs
-        if pvd_address is None:  # default to the first PVD (typically 0x8000)
-            pvd_address = raw_iso.find(b"\x01CD001")
-            assert pvd_address != -1, "Iso has no PrimaryVolumeDescriptor"
-        return cls.from_stream(io.BytesIO(raw_iso), pvd_address, lba_offset)
+    def from_archive(cls, parent_archive, filename, pvd_sector=16, lba_offset=0) -> Iso:
+        disc = base.DiscImage()
+        disc.extras = {filename: external.File.from_archive(filename, parent_archive)}
+        assert disc.extras[filename].size % 2048 == 0, "unexpected EOF"
+        length = disc.extras[filename].size // 2048
+        disc.tracks = [base.Track(base.TrackMode.BINARY_1, 2048, 0, length, filename)]
+        return cls.from_disc(disc, pvd_sector, lba_offset)
 
     @classmethod
-    def from_file(cls, filename: str, pvd_address: int = 0x8000, lba_offset: int = 0) -> Iso:
-        return cls.from_stream(open(filename, "rb"), pvd_address, lba_offset)
+    def from_bytes(cls, raw_iso: bytes, pvd_sector=16, lba_offset=0) -> Iso:
+        disc = base.DiscImage()
+        disc.extras = {":memory:": external.File.from_bytes(":memory:", raw_iso)}
+        assert disc.extras[":memory:"].size % 2048 == 0, "unexpected EOF"
+        length = disc.extras[":memory:"].size // 2048
+        disc.tracks = [base.Track(base.TrackMode.BINARY_1, 2048, 0, length, ":memory:")]
+        return cls.from_disc(disc, pvd_sector, lba_offset)
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO, pvd_address: int = 0x8000, lba_offset: int = 0) -> Iso:
+    def from_disc(cls, disc: base.DiscImage, pvd_sector=16, lba_offset=0) -> Iso:
         out = cls()
-        out.disc = stream
+        out.disc = disc
         out.lba_offset = lba_offset
-        # PVD
-        stream.seek(pvd_address)
-        out.pvd = PrimaryVolumeDescriptor.from_stream(out.disc)
-        # PathTable
-        path_table_lba = out.pvd.path_table_le_lba + lba_offset
-        stream.seek(path_table_lba * out.pvd.block_size)
-        # TODO: get the path table without creating a separate stream
+        out.disc.sector_seek(pvd_sector)
+        # pvd
+        out.pvd = PrimaryVolumeDescriptor.from_bytes(out.disc.sector_read(1))
+        assert out.pvd.block_size == 2048, "unexpected pvd block size"
+        # verify other VolumeDescriptors / terminator
+        terminator = out.disc.sector_read(1)[:7]
+        while terminator != b"\xFFCD001\x01":
+            assert terminator[1:] == b"CD001\x01", "Couldn't find next VolumeDescriptor"
+            assert terminator[0] in (0x02, 0x03), f"0x{terminator[0]:02X} is not a valid VolumeDescriptor type"
+            # NOTE: 0x02: Supplementary, 0x03: Partition, 0x04..0xFE: Reserved
+            # TODO: userwarning / add to Iso.import_log somehow
+            print("skipping", {0x02: "Supplementary", 0x03: "Partition"}[terminator[0]], "Volume Descriptor")
+            terminator = out.disc.sector_read(1)[:7]
+        # path table
+        out.disc.sector_seek(out.pvd.path_table_le_lba + lba_offset)
         raw_path_table = out.disc.read(out.pvd.path_table_size)
         path_table_stream = io.BytesIO(raw_path_table)
         while path_table_stream.tell() < out.pvd.path_table_size:
@@ -468,3 +474,21 @@ class Iso(base.Archive):
         assert path_table_stream.tell() == out.pvd.path_table_size
         # NOTE: we're ignoring the optional path table & all the big-endian stuff
         return out
+
+    @classmethod
+    def from_file(cls, filename: str, pvd_sector=16, lba_offset=0) -> Iso:
+        disc = base.DiscImage()
+        disc.extras = {filename: external.File.from_file(filename)}
+        assert disc.extras[filename].size % 2048 == 0, "unexpected EOF"
+        length = disc.extras[filename].size // 2048
+        disc.tracks = [base.Track(base.TrackMode.BINARY_1, 2048, 0, length, filename)]
+        return cls.from_disc(disc, pvd_sector, lba_offset)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, pvd_sector=16, lba_offset=0) -> Iso:
+        disc = base.DiscImage()
+        disc.extras = {":memory:": external.File.from_stream(":memory:", stream)}
+        assert disc.extras[":memory:"].size % 2048 == 0, "unexpected EOF"
+        length = disc.extras[":memory:"].size // 2048
+        disc.tracks = [base.Track(base.TrackMode.BINARY_1, 2048, 0, length, ":memory:")]
+        return cls.from_disc(disc, pvd_sector, lba_offset)
