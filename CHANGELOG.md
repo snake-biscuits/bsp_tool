@@ -7,19 +7,21 @@
    - `cdrom.Iso`
    - `ion_storm.Dat`
    - `ion_storm.Pak`
-   - `mame.Chd`
    - `nexon.PakFile` (formerly `branches.nexon.pakfile.PakFile`)
-   - `padus.Cdi`
    - `pkware.Zip` (formerly `branches.valve.source.PakFile`)
    - `sega.GDRom`
-   - `sega.Gdi`
  * `ArchiveClass` filesystem utility methods
    - `.is_dir("folder")`
    - `.is_file("filename")`
    - `.list_dir("folder")`
    - `.path_exists("filename")`
    - `.tree(folder="./")`
- * `ArchiveClass` can be initialised with `.from_archive`
+ * `DiscClass` spec for disc images which *may* contain filesystems
+   - `alcohol.Mds`
+   - `golden_hawk.Cue`
+   - `mame.Chd`
+   - `padus.Cdi`
+   - `sega.Gdi`
  * added `physics.AABB.as_model()`
 
 
