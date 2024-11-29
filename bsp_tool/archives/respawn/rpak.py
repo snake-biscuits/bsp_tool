@@ -267,7 +267,15 @@ class RPak(base.Archive):
             # TODO: catch in .from_stream() & convert to Dict[str, AssetEntry]
             names_segment_index = [i for i, vs in enumerate(self.virtual_segments) if vs.flags == 1 and vs.type == 1][0]
             raw_names = self.virtual_segment_data(names_segment_index)
-            names = [fn.decode() for fn in raw_names.split(b"\0")[:-1]]
+            try:
+                names = [fn.decode() for fn in raw_names.split(b"\0")[:-1]]
+            except UnicodeDecodeError:
+                assert names_segment_index + 1 < len(self.virtual_segments)
+                start = self.virtual_segment_data(names_segment_index).find(b"r2")
+                raw_names = b"".join([
+                    self.virtual_segment_data(names_segment_index + 0)[start:],
+                    self.virtual_segment_data(names_segment_index + 1)[:start]])
+                names = [fn.decode() for fn in raw_names.split(b"\0")[:-1]]
             assert len(names) == len(self.asset_entries)
             return sorted(names)
         else:
@@ -327,6 +335,7 @@ class RPak(base.Archive):
         out.relations = binary.read_struct(stream, f"{out.header.num_relations}I")
         # TODO: parse the rest of the file
         # virtual_segment data (unless flags & 0x40) & some other unknown data
+        # TODO: around 200 bytes of non-virtual_segment data in some client_temp.rpak
         out.data = stream.read()
         out._file = stream
         return out
