@@ -6,6 +6,8 @@ import io
 import os
 from typing import List
 
+from .. import external
+from . import alcohol
 from . import base
 from . import cdrom
 from . import golden_hawk
@@ -79,6 +81,10 @@ class Header:
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     @classmethod
+    def from_bytes(cls, raw_header: bytes) -> Header:
+        return cls.from_stream(io.BytesIO(raw_header))
+
+    @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Header:
         out = cls()
         assert stream.read(16) == b"SEGA SEGAKATANA "  # Hardware ID
@@ -97,12 +103,25 @@ class Header:
         return out
 
 
-# Universal GDRom wrapper
+disc_classes = {
+    ".cdi": padus.Cdi,
+    ".chd": mame.Chd,
+    ".cue": golden_hawk.Cue,
+    ".gdi": Gdi,
+    ".mds": alcohol.Mds}
+# NOTE: currently using GDRom
+
+
 class GDRom(base.Archive):
+    """DiscImage wrapper for GD-ROM filesystems"""
     ext = "*.gdi"
-    exts = ["*.cdi", "*.chd", "*.cue", "*.gdi"]
+    exts = ["*.cdi", "*.chd", "*.cue", "*.gdi", "*.mds"]
+    # NOTE: also raw *.iso disc images
+    disc: base.DiscImage
+    cd_rom: cdrom.Iso  # CD-ROM filesystem @ lba 0
+    gd_rom: cdrom.Iso  # GD-ROM filesystem @ lba 45000
+    # TODO: filesystems: List[cdrom.Iso]  # sometimes you get 3
     header: Header
-    data_area: cdrom.Iso  # GD-ROM Data Area
 
     # TODO: __init__ w/ defaults (equivalent to a blank GD-ROM)
 
@@ -113,65 +132,61 @@ class GDRom(base.Archive):
         return f"<GDRom {descriptor} @ 0x{id(self):016X}>"
 
     def listdir(self, search_folder: str) -> List[str]:
-        return self.data_area.listdir(search_folder)
+        return self.gd_rom.listdir(search_folder)
 
     def namelist(self) -> List[str]:
-        return self.data_area.namelist()
+        return self.gd_rom.namelist()
 
     def read(self, filename: str) -> bytes:
-        return self.data_area.read(filename)
+        return self.gd_rom.read(filename)
 
     @classmethod
     def from_archive(cls, parent_archive: base.Archive, filename: str) -> GDRom:
         ext = os.path.splitext(filename.lower())[-1]
         if ext == ".cdi":
-            return cls.from_cdi(padus.Cdi.from_archive(parent_archive, filename))
-        elif ext == ".chd":
-            return cls.from_chd(mame.Chd.from_archive(parent_archive, filename))
-        elif ext == ".cue":
-            return cls.from_cue(golden_hawk.Cue.from_archive(parent_archive, filename))
-        elif ext == ".gdi":
-            return cls.from_disc(Gdi.from_archive(parent_archive, filename))
+            cdi = padus.Cdi.from_archive(parent_archive, filename)
+            return cls.from_cdi(cdi)
+        elif ext in disc_classes:
+            disc = disc_classes[ext].from_archive(parent_archive, filename)
+            return cls.from_disc(disc)
         else:
             raise RuntimeError(f"Unsupported file extension: {ext}")
 
     @classmethod
     def from_bytes(cls, raw_gdrom: bytes) -> GDRom:
-        raise NotImplementedError("cannot identify disc image format")
+        disc = base.DiscImage()
+        disc.extras = {":memory:": external.File.from_bytes(":memory:", raw_gdrom)}
+        assert disc.extras[":memory:"].size % 2048 == 0, "unexpected EOF"
+        length = disc.extras[":memory:"].size // 2048
+        disc.tracks = [base.Track(base.TrackMode.BINARY_1, 2048, 0, length, ":memory:")]
+        return cls.from_disc(disc)
 
     @classmethod
     def from_cdi(cls, cdi: padus.Cdi) -> GDRom:
-        # validate our assumptions
-        assert len(cdi.sessions) == 2  # CD area (soundtrack), GD area (game)
-        assert len(cdi.sessions[1]) == 1  # 1 Track
-        data_track = cdi.sessions[1][0]
-        assert data_track.mode == padus.TrackMode.Mode2  # binary data (.iso)
-        # Session 2 - Track 1 is the GD Area
+        # DEBUG: the 1 .cdi I'm testing doesn't start the GD-ROM area @ 45000
+        assert "Session 02 Track 01" in cdi.extras
+        # NOTE: should be 2 sessions (cd_rom & gd_rom)
+        data_track = {track.name: track for track in cdi.tracks}["Session 02 Track 01"]
+        assert data_track.mode != base.TrackMode.AUDIO
+        # build the GD-ROM
         out = cls()
-        out.data_area = cdrom.Iso.from_bytes(cdi.read("1.0.iso"), 0x8000, -data_track.start_lba)
-        # NOTE: we assuming there's a PVD at the default address (seaching for a PVD is slow)
-        # -- other PVDs might be present
-        # -- quakeiii.cdi has a 2nd PVD (thinks it starts at LBA 16 like a normal CD)
-        # -- iso_2 = cdrom.Iso.from_bytes(cdi.read("1.0.iso"), 0x9B000, (0x9B000 // 0x800) - 16)
-        out.data_area.disc.seek(0)  # boot header
-        out.header = Header.from_stream(out.data_area.disc)
-        out.cdi = cdi  # DEBUG
-        # TODO: save session[0]'s tracks to self.soundtrack or something & discard the Cdi
+        out.disc = cdi
+        # TODO: check for a binary track at the start of the cd_rom sectors
+        out.cd_rom = None
+        out.gd_rom = cdrom.Iso.from_disc(out.disc, data_track.start_lba + 16)
+        out.disc.sector_seek(data_track.start_lba)  # boot header
+        out.header = Header.from_bytes(out.disc.read(0x90))
         return out
-
-    @classmethod
-    def from_chd(cls, chd: mame.Chd) -> GDRom:
-        raise NotImplementedError("mame.Chd is incomplete")
-
-    @classmethod
-    def from_cue(cls, cue: golden_hawk.Cue) -> GDRom:
-        raise NotImplementedError("golden_hawk.Cue is incomplete")
 
     @classmethod
     def from_disc(cls, disc: base.DiscImage) -> GDRom:
         out = cls()
         out.disc = disc
-        out.data_area = cdrom.Iso.from_disc(out.disc, 45016)
+        # NOTE: cd_rom filesystem may not be present
+        out.cd_rom = cdrom.Iso.from_disc(out.disc, 16)
+        # NOTE: gd_rom filesystem & header might not start at 45000
+        out.gd_rom = cdrom.Iso.from_disc(out.disc, 45016)
+        # NOTE: might also have a header @ lba 0
         out.disc.sector_seek(45000)  # boot header
         out.header = Header.from_bytes(out.disc.read(0x90))
         return out
@@ -180,16 +195,14 @@ class GDRom(base.Archive):
     def from_file(cls, filename: str) -> GDRom:
         ext = os.path.splitext(filename.lower())[-1]
         if ext == ".cdi":
-            return cls.from_cdi(padus.Cdi.from_file(filename))
-        elif ext == ".chd":
-            return cls.from_chd(mame.Chd.from_file(filename))
-        elif ext == ".cue":
-            return cls.from_cue(golden_hawk.Cue.from_file(filename))
-        elif ext == ".gdi":
-            return cls.from_disc(Gdi.from_file(filename))
+            cdi = padus.Cdi.from_file(filename)
+            return cls.from_cdi(cdi)
+        elif ext in disc_classes:
+            disc = disc_classes[ext].from_file(filename)
+            return cls.from_disc(disc)
         else:
             raise RuntimeError(f"Unsupported file extension: {ext}")
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> GDRom:
-        raise NotImplementedError("cannot identify disc image format")
+        return cls.from_bytes(stream.read())

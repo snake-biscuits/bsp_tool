@@ -64,7 +64,7 @@ class TrackMode(enum.Enum):
 #         "mode": TrackMode}
 
 
-class Mds(base.Archive):
+class Mds(base.DiscImage):
     """Media Descriptor Sidecar"""
     ext = "*.mds"
     # NOTE: needs linked .mdf (Media Descriptor File) data files
@@ -81,18 +81,18 @@ class Mds(base.Archive):
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Mds:
         raise NotImplementedError()
-        out = cls()
-        # out.header = MdsHeader.from_stream(stream)
-        # assert out.header.magic == b"MEDIA DESCRIPTOR"
-        # assert out.header.version.major == 1
-        # assert out.header.version.minor == 3
+        disc = cls()
+        # disc.header = MdsHeader.from_stream(stream)
+        # assert disc.header.magic == b"MEDIA DESCRIPTOR"
+        # assert disc.header.version.major == 1
+        # assert disc.header.version.minor == 3
         # # sessions
-        # stream.seek(out.header.sessions_offset, 1)
-        # out.session_header = MdsSessionHeader.from_stream(stream)  # incorrect?
-        # # stream.seek(out.session_header.tracks_offset, 1)
-        # # out.tracks = [
+        # stream.seek(disc.header.sessions_offset, 1)
+        # disc.session_header = MdsSessionHeader.from_stream(stream)  # incorrect?
+        # # stream.seek(disc.session_header.tracks_offset, 1)
+        # # disc.tracks = [
         # #     MdsTrack.from_stream(stream)
-        # #     for i in range(out.session_header.num_tracks)]
+        # #     for i in range(disc.session_header.num_tracks)]
         # # TODO: filenames
-        out._file = stream  # DEBUG
-        return out
+        disc._file = stream  # DEBUG
+        return disc

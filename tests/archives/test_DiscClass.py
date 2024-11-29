@@ -1,10 +1,16 @@
 import pytest
 
 from bsp_tool.archives import base
+from bsp_tool.archives import alcohol
+from bsp_tool.archives import golden_hawk
+from bsp_tool.archives import padus
 from bsp_tool.archives import sega
 
 
 disc_classes = [
+    alcohol.Mds,
+    golden_hawk.Cue,
+    padus.Cdi,
     sega.Gdi]
 
 

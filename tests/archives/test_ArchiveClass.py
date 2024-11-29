@@ -7,9 +7,7 @@ from bsp_tool.archives import gearbox
 from bsp_tool.archives import id_software
 from bsp_tool.archives import infinity_ward
 from bsp_tool.archives import ion_storm
-from bsp_tool.archives import mame
 from bsp_tool.archives import nexon
-from bsp_tool.archives import padus
 from bsp_tool.archives import pi_studios
 from bsp_tool.archives import pkware
 from bsp_tool.archives import respawn
@@ -28,11 +26,9 @@ archive_classes = [
     infinity_ward.Iwd,
     ion_storm.Dat,
     ion_storm.Pak,
-    mame.Chd,
     nexon.Hfs,
     nexon.PakFile,
     nexon.Pkg,
-    padus.Cdi,
     pi_studios.Bpk,
     pkware.Zip,
     respawn.RPak,

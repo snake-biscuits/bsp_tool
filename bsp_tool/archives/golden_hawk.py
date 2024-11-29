@@ -7,23 +7,22 @@ from typing import List
 from . import base
 
 
-class Cue(base.Archive):
+class Cue(base.DiscImage):
     """plaintext CUE sheet"""
     ext = "*.cue"
 
     @classmethod
-    def from_bytes(cls, raw_cue: bytes, encoding: str = "latin_1", errors: str = "strict") -> Cue:
+    def from_bytes(cls, raw_cue: bytes, encoding="latin_1", errors="strict") -> Cue:
         txt_file = io.StringIO(raw_cue.decode(encoding, errors))
         return cls.from_lines(txt_file.readlines())
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO, encoding: str = "latin_1", errors: str = "strict") -> Cue:
+    def from_stream(cls, stream: io.BytesIO, encoding="latin_1", errors="strict") -> Cue:
         return cls.from_bytes(stream.read(), encoding, errors)
 
     @classmethod
     def from_lines(cls, lines: List[str]) -> Cue:
-        out = cls()
         raise NotImplementedError()
-        # match lines and append to internal objects
-        ...
+        out = cls()
+        # TODO: line -> base.Track
         return out

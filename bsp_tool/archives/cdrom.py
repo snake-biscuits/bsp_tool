@@ -397,7 +397,7 @@ class Iso(base.Archive):
 
     def path_records(self, path_index: int) -> List[Directory]:
         path = self.path_table[path_index]
-        self.disc.sector_seek(path.extent_lba + self.lba_offset)
+        self.sector_seek(path.extent_lba)
         # TODO: confirm path records are limited to a single block
         block = self.disc.sector_read(1)
         stream = io.BytesIO(block)
@@ -419,8 +419,7 @@ class Iso(base.Archive):
         assert record.is_file, "f{filename!r} is not a file"
         if record.interleaved_unit_size != 0 or record.interleaved_gap_size != 0:
             raise NotImplementedError("cannot read interleaved file")
-        # NOTE: record.data_lba might not be an lba?
-        self.sector_seek(record.data_lba + self.lba_offset)
+        self.sector_seek(record.data_lba)
         data = self.disc.read(record.data_size)
         assert len(data) == record.data_size, "unexpected EOF"
         return data
@@ -465,7 +464,7 @@ class Iso(base.Archive):
             print("skipping", {0x02: "Supplementary", 0x03: "Partition"}[terminator[0]], "Volume Descriptor")
             terminator = out.disc.sector_read(1)[:7]
         # path table
-        out.disc.sector_seek(out.pvd.path_table_le_lba + lba_offset)
+        out.sector_seek(out.pvd.path_table_le_lba)
         raw_path_table = out.disc.read(out.pvd.path_table_size)
         path_table_stream = io.BytesIO(raw_path_table)
         while path_table_stream.tell() < out.pvd.path_table_size:

@@ -32,16 +32,16 @@ with_extension = {
     "*.007": gearbox.Nightfire007,
     "*.apk": utoplanet.Apk,
     "*.bpk": bluepoint.Bpk,  # OR pi_studios.Bpk
-    "*.cdi": padus.Cdi,
-    "*.chd": mame.Chd,
-    "*.cue": golden_hawk.Cue,
+    "*.cdi": sega.GDRom,  # OR padus.Cdi
+    "*.chd": sega.GDRom,  # OR mame.Chd
+    "*.cue": sega.GDRom,  # OR golden_hawk.Cue
     "*.dat": ion_storm.Dat,
     "*.ff": infinity_ward.FastFile,
-    "*.gdi": sega.Gdi,
+    "*.gdi": sega.GDRom,  # OR sega.Gdi
     "*.hfs": nexon.Hfs,
     "*.iso": cdrom.Iso,
     "*.iwd": infinity_ward.Iwd,
-    "*.mds": alcohol.Mds,
+    "*.mds": sega.GDRom,  # OR alcohol.Mds
     "*.pak": id_software.Pak,  # OR ion_storm.Pak
     "*.pk3": id_software.Pk3,
     "*.pkg": nexon.Pkg,
@@ -49,7 +49,6 @@ with_extension = {
     "*.vpk": valve.Vpk,
     "*.zip": pkware.Zip,
     "*_dir.vpk": respawn.Vpk}  # OR valve.Vpk
-# NOTE: sega.GDRom extends other disc-images (mame.Chd, padus.Cdi & sega.Gdi)
 # NOTE: nexon.PakFile only exists as the PAKFILE lump of NexonBsp
 
 
@@ -60,8 +59,8 @@ def search_folder(archive_class: base.Archive, path: str, pattern: str = "*.bsp"
     """check all archives in this folder for files matching pattern"""
     findings = dict()
     for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
-        archive_file = archive_class(os.path.join(path, archive_filename))
-        matching_files = [f for f in archive_file.search(pattern)]
+        archive = archive_class(os.path.join(path, archive_filename))
+        matching_files = [f for f in archive.search(pattern)]
         if len(matching_files) != 0:
             findings[archive_filename] = matching_files
     return findings
@@ -70,5 +69,5 @@ def search_folder(archive_class: base.Archive, path: str, pattern: str = "*.bsp"
 def extract_folder(archive_class: base.Archive, path: str, pattern: str = "*.bsp", to_path: str = None):
     """extract all files in archives in this folder which match pattern"""
     for archive_filename in fnmatch.filter(os.listdir(path), archive_class.ext):
-        archive_file = archive_class(os.path.join(path, archive_filename))
-        archive_file.extract_match(pattern=pattern, to_path=to_path)
+        archive = archive_class(os.path.join(path, archive_filename))
+        archive.extract_match(pattern=pattern, to_path=to_path)

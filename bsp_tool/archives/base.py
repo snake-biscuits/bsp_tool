@@ -166,8 +166,8 @@ class Track:
     def __repr__(self) -> str:
         args = ", ".join([
             str(getattr(self, a))
-            for a in ("mode", "sector_size", "start_lba", "length", "name")])
-        return f"Track({args})"
+            for a in ("mode", "sector_size", "start_lba", "length")])
+        return f'Track({args}, "{self.name}")'
 
     def data_slice(self) -> slice:
         """index raw sector with this slice to get just the data"""

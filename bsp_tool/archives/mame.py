@@ -118,22 +118,20 @@ class CompressedMapEntryv5:
         return out
 
 
-class Chd(base.Archive):
+class Chd(base.DiscImage):
     """Compressed Hunks of Data"""
     ext = "*.chd"
     header: ChdHeaderv5
     metadata: List[Metadata]
 
     def __init__(self):
+        self.extras = dict()
         self.metadata = list()
+        self.tracks = list()
+        self._cursor = (0, 0)
 
-    # TODO: __repr__
-    # TODO: namelist
-    # TODO: read
-
-    @classmethod
-    def from_file(cls, filename: str) -> Chd:
-        return cls.from_stream(open(filename, "rb"))
+    def extra_patterns(self) -> List[str]:
+        return list()
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Chd:
@@ -149,6 +147,8 @@ class Chd(base.Archive):
         while metadata.next != 0:
             out.metadata.append(metadata)
             metadata = Metadata.from_stream(stream)
+        # TODO: CHGD & CHTR -> Track
+        # TODO: track data -> extras
         # NOTE: https://github.com/mamedev/mame/blob/master/src/lib/util/chd.cpp#L2489
         # -- get map (m_rawmap)
         # NOTE: https://github.com/mamedev/mame/blob/master/src/lib/util/chd.cpp#L2168

@@ -39,6 +39,9 @@ class Zip(zipfile.ZipFile, base.Archive):
         # NOTE: .close() can get funky but it's OK because ._buffer isn't a real file
         return self._buffer.getvalue()
 
+    def sizeof(self, filename: str) -> int:
+        return self.getinfo(filename).file_size
+
     @classmethod
     def from_bytes(cls, raw_lump: bytes) -> Zip:
         return cls(io.BytesIO(raw_lump))
