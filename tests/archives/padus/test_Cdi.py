@@ -21,8 +21,7 @@ cdis = {
 @pytest.mark.parametrize("filename", cdis.values(), ids=cdis.keys())
 def test_from_file(filename: str):
     cdi = padus.Cdi.from_file(filename)
-    namelist = cdi.namelist()
-    assert isinstance(namelist, list), ".namelist() failed"
-    if len(namelist) != 0:
-        first_file = cdi.read(namelist[0])
-        assert isinstance(first_file, bytes), ".read() failed"
+    assert len(cdi.tracks) != 0
+    assert len(cdi.extras) == len(cdi.tracks)
+    for track in cdi.tracks:
+        assert track.name in cdi.extras
