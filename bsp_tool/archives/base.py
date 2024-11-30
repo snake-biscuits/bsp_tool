@@ -200,6 +200,11 @@ class DiscImage:
         # Red Book CD-DA: 44.1 KHz 16-bit PCM Stereo -> 176400 bytes / second
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
+    def __contains__(self, lba: int) -> bool:
+        return any([
+            track.start_lba <= lba <= track.start_lba + track.length
+            for track in self.tracks])
+
     def __len__(self):
         return max(t.start_lba + t.length for t in self.tracks)
 
