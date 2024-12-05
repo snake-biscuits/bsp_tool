@@ -9,6 +9,7 @@
    - `ion_storm.Pak`
    - `nexon.PakFile` (formerly `branches.nexon.pakfile.PakFile`)
    - `pkware.Zip` (formerly `branches.valve.source.PakFile`)
+   - `ritual.Sin`
    - `sega.GDRom`
  * `ArchiveClass` filesystem utility methods
    - `.is_dir("folder")`

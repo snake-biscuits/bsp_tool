@@ -1,8 +1,8 @@
 """Tools for opening and searching archives containing game assets (specifically .bsp)"""
 __all__ = [
-    "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk",
-    "id_software", "infinity_ward", "ion_storm", "mame", "nexon", "padus",
-    "pi_studios", "pkware", "respawn", "sega", "troika", "utoplanet", "valve"]
+    "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk", "id_software",
+    "infinity_ward", "ion_storm", "mame", "nexon", "padus", "pi_studios", "pkware",
+    "respawn", "ritual", "sega", "troika", "utoplanet", "valve"]
 
 import fnmatch
 import os
@@ -23,6 +23,7 @@ from . import padus  # Cdi
 from . import pi_studios  # Bpk
 from . import pkware  # Zip
 from . import respawn  # RPak & Vpk
+from . import ritual  # Sin
 from . import sega  # Gdi & GDRom
 from . import troika  # Vpk
 from . import utoplanet  # Apk
@@ -47,6 +48,7 @@ with_extension = {
     "*.pk3": id_software.Pk3,
     "*.pkg": nexon.Pkg,
     "*.rpak": respawn.rpak.RPak,
+    "*.sin": ritual.Sin,
     "*.vpk": valve.Vpk,
     "*client_*.bsp.pak000_dir.vpk": respawn.Vpk,
     "pack*.vpk": troika.Vpk,

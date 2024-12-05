@@ -5,16 +5,15 @@ from typing import Dict, List
 
 from ..utils import binary
 from . import base
-from . import pkware
 
 
 # NOTE: can't use branches.base.Struct without making a circular import
-class PakFileEntry:
+class SPakEntry:
     filename: bytes  # plaintext
     offset: int
     length: int
     __slots__ = ["filename", "offset", "length"]
-    _format = "56s2I"
+    _format = "120s2I"
 
     def __init__(self, filename: str, offset: int, length: int):
         self.filename = filename
@@ -28,26 +27,21 @@ class PakFileEntry:
         return f"PakFileEntry({attrs})"
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> PakFileEntry:
-        return cls(*struct.unpack("56s2I", stream.read(64)))
+    def from_stream(cls, stream: io.BytesIO) -> SPakEntry:
+        return cls(*struct.unpack(cls._format, stream.read(0x80)))
 
 
-class Pak(base.Archive):
-    # https://quakewiki.org/wiki/.pak
-    ext = "*.pak"
+class Sin(base.Archive):
+    ext = "*.sin"
     _file: io.BytesIO
-    entries: Dict[str, PakFileEntry]
+    entries: Dict[str, SPakEntry]
 
     def __init__(self):
         self.entries = dict()
 
-    def __repr__(self) -> str:
-        descriptor = f"{len(self.entries)} files"
-        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
-
-    def read(self, filepath: str) -> bytes:
-        assert filepath in self.entries
-        entry = self.entries[filepath]
+    def read(self, filename: str) -> bytes:
+        assert filename in self.entries
+        entry = self.entries[filename]
         self._file.seek(entry.offset)
         return self._file.read(entry.length)
 
@@ -55,22 +49,18 @@ class Pak(base.Archive):
         return sorted(self.entries.keys())
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> Pak:
+    def from_stream(cls, stream: io.BytesIO) -> Sin:
         out = cls()
         out._file = stream
-        assert out._file.read(4) == b"PACK", "not a .pak file"
+        assert out._file.read(4) == b"SPAK", "not a .pak file"
         # file table
         offset, length = binary.read_struct(out._file, "2I")
-        sizeof_entry = 64
+        sizeof_entry = 0x80
         assert length % sizeof_entry == 0, "unexpected file table size"
         out._file.seek(offset)
         out.entries = {
             entry.filename.partition(b"\0")[0].decode("ascii"): entry
             for entry in [
-                PakFileEntry.from_stream(out._file)
+                SPakEntry.from_stream(out._file)
                 for i in range(length // sizeof_entry)]}
         return out
-
-
-class Pk3(pkware.Zip):
-    ext = "*.pk3"
