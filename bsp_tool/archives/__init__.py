@@ -2,7 +2,7 @@
 __all__ = [
     "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk",
     "id_software", "infinity_ward", "ion_storm", "mame", "nexon", "padus",
-    "pi_studios", "pkware", "respawn", "sega", "utoplanet", "valve"]
+    "pi_studios", "pkware", "respawn", "sega", "troika", "utoplanet", "valve"]
 
 import fnmatch
 import os
@@ -24,6 +24,7 @@ from . import pi_studios  # Bpk
 from . import pkware  # Zip
 from . import respawn  # RPak & Vpk
 from . import sega  # Gdi & GDRom
+from . import troika  # Vpk
 from . import utoplanet  # Apk
 from . import valve  # Vpk
 
@@ -47,8 +48,9 @@ with_extension = {
     "*.pkg": nexon.Pkg,
     "*.rpak": respawn.rpak.RPak,
     "*.vpk": valve.Vpk,
-    "*.zip": pkware.Zip,
-    "*_dir.vpk": respawn.Vpk}  # OR valve.Vpk
+    "*client_*.bsp.pak000_dir.vpk": respawn.Vpk,
+    "pack*.vpk": troika.Vpk,
+    "*.zip": pkware.Zip}
 # NOTE: nexon.PakFile only exists as the PAKFILE lump of NexonBsp
 
 

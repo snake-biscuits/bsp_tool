@@ -23,6 +23,10 @@ class Archive:
     def __init__(self):
         self.extras = dict()
 
+    def __repr__(self) -> str:
+        descriptor = f"{len(self.namelist())} files"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
     def extra_patterns(self) -> List[str]:
         """filename patterns for files to mount (e.g. '*.bin')"""
         return list()
