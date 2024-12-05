@@ -11,6 +11,7 @@
    - `pkware.Zip` (formerly `branches.valve.source.PakFile`)
    - `ritual.Sin`
    - `sega.GDRom`
+   - `troika.Vpk`
  * `ArchiveClass` filesystem utility methods
    - `.is_dir("folder")`
    - `.is_file("filename")`
