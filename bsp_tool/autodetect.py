@@ -237,6 +237,8 @@ def guess_from_stream(filename: str, bsp_file: io.BytesIO, force_branch: ModuleT
     # identify branch script
     if force_branch is None:
         branch_script = branches.identify[(file_magic, version)]
+    else:
+        branch_script = force_branch
     # TODO: warn on branches w/ overlapping (magic, version)
     # -- could try to resolve w/ sprp version
     # TODO: ata4's bspsrc uses unique entity classnames to identify branches
