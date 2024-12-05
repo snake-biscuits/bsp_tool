@@ -13,8 +13,8 @@ class RitualBsp(id_software.IdTechBsp):
     # struct { int file_magic, version, checksum; LumpHeader headers[]; };
 
     @classmethod
-    def from_file(cls, branch: ModuleType, filepath: str, stream: io.BytesIO) -> RitualBsp:
-        bsp = cls(branch, filepath)
+    def from_stream(cls, branch: ModuleType, filename: str, stream: io.BytesIO) -> RitualBsp:
+        bsp = cls(branch, filename)
         bsp.file = stream
         # collect metadata
         bsp.file_magic = bsp.file.read(4)
