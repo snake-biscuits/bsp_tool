@@ -1,3 +1,4 @@
+# https://github.com/Sporesirius/fakk2/blob/master/source/utils/common/qfiles.h
 # https://github.com/zturtleman/spearmint/blob/master/code/qcommon/bsp_fakk.c
 # https://github.com/zturtleman/bsp-sekai
 import enum

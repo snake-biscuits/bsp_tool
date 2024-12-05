@@ -7,10 +7,10 @@ from . import id_software
 
 
 class RitualBsp(id_software.IdTechBsp):
-    _file_magics = (b"RBSP", b"FAKK", b"2015", b"EF2!", b"EALA")
+    _file_magics = (b"FAKK", b"2015", b"EF2!", b"EALA")
     checksum: int  # TODO: calculate / verify (CRC?)
-    # struct LumpHeader { int offset, length; };
-    # struct { int file_magic, version, checksum; LumpHeader headers[]; };
+    # struct LumpHeader { uint32_t offset, length; };
+    # struct { uint32_t file_magic, version, checksum; LumpHeader headers[]; };
 
     @classmethod
     def from_stream(cls, branch: ModuleType, filename: str, stream: io.BytesIO) -> RitualBsp:
@@ -30,3 +30,11 @@ class RitualBsp(id_software.IdTechBsp):
         for lump_name, lump_header in bsp._header_generator(offset=12):
             bsp.mount_lump(lump_name, lump_header, bsp.file)
         return bsp
+
+
+class SinBsp(id_software.IdTechBsp):
+    file_magic = b"RBSP"
+    # struct LumpHeader { uint32_t offset, length; }
+    # struct { uint32_t file_magic, version; LumpHeader headers[]; };
+    # NOTE: basically identical to raven.RavenBsp
+    # -- and SiN released before SoF2 (also RBSP v1)

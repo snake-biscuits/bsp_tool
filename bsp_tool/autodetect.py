@@ -12,7 +12,7 @@ from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, R
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
-from .ritual import RitualBsp
+from .ritual import RitualBsp, SinBsp
 from .nexon import NexonBsp
 from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
@@ -141,7 +141,7 @@ BspClass_for_magic = {
     b"PSBV": ValveBsp,  # Xbox360
     b"QBSP": QbismBsp,
     b"rBSP": RespawnBsp,
-    b"RBSP": RavenBsp,
+    b"RBSP": RavenBsp,  # OR SinBsp
     b"VBSP": ValveBsp}  # OR NexonBsp
 # NOTE: if no file_magic is present:
 # - QuakeBsp
