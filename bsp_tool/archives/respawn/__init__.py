@@ -61,6 +61,12 @@ class VpkFilePart:
     is_terminator: bool = property(lambda s: s.archive_index == 0xFFFF)
     is_compressed: bool = property(lambda s: s.compressed_length != s.length)
 
+    def __repr__(self) -> str:
+        descriptor = f"{self.length} bytes"
+        if self.is_compressed:
+            descriptor += " (compressed)"
+        return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
+
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> VpkFilePart:
         out = cls()
@@ -117,6 +123,9 @@ class Vpk(valve.Vpk):
             assert len(data) == file_part.length, "unexpected EOF"
             parts.append(data)
         return b"".join(parts)
+
+    def sizeof(self, filename: str) -> int:
+        return sum(fp.length for fp in self.entries[filename].file_parts)
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO, filename: str = "untitled_dir.vpk") -> Vpk:
