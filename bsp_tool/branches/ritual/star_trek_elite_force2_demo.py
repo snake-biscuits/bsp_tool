@@ -115,22 +115,25 @@ class Face(base.Struct):  # LUMP 3
                  "first_index", "num_indices", "lightmap", "normal", "patch",
                  "subdivisions", "base_lighting_face", "terrain"]
     _format = "12i12f2if6i"
-    _arrays = {"lightmap": {"index": None,
-                            "top_left": [*"xy"],
-                            "size": ["width", "height"],
-                            "origin": [*"xyz"],
-                            "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
-               "normal": [*"xyz"],
-               "patch": ["width", "height"],
-               "terrain": {"inverted": None, "face_flags": 4}}
-    _classes = {"type": quake3.FaceType,
-                "lightmap.top_left": vector.vec2,
-                "lightmap.size": vector.renamed_vec2("width", "height"),
-                "lightmap.origin": vector.vec3,
-                "lightmap.vector.s": vector.vec3,
-                "lightmap.vector.t": vector.vec3,
-                "normal": vector.vec3,
-                "patch": vector.renamed_vec2("width", "height")}
+    _arrays = {
+        "lightmap": {
+            "index": None,
+            "top_left": [*"xy"],
+            "size": [*"xy"],
+            "origin": [*"xyz"],
+            "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
+        "normal": [*"xyz"],
+        "patch": [*"xy"],
+        "terrain": {"inverted": None, "face_flags": 4}}
+    _classes = {
+        "type": quake3.FaceType,
+        "lightmap.top_left": vector.vec2,
+        "lightmap.size": vector.vec2,
+        "lightmap.origin": vector.vec3,
+        "lightmap.vector.s": vector.vec3,
+        "lightmap.vector.t": vector.vec3,
+        "normal": vector.vec3,
+        "patch": vector.vec2}
 
 
 class Vertex(base.Struct):  # LUMP 10

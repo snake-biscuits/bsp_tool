@@ -44,7 +44,7 @@ ClassesDict = Dict[str, Any]
 # -- would go well with List[MappedArray] mappings
 # TODO: look into making _classes into MappedArray subclasses at runtime
 # -- would be nice to retain _attr_formats & as_bytes
-# -- edge cases: functions that return classes [renamed_vec2], enum.IntFlags
+# -- edge cases: functions that return classes (e.g. enum.IntFlags)
 
 
 struct_attr_formats: Dict[Struct, Dict[str, str]] = dict()

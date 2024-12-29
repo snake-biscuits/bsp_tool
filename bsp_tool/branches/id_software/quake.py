@@ -287,9 +287,9 @@ class MipTexture(base.Struct):  # LUMP 2
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "offsets"]
     _format = "16s6I"
-    _arrays = {"size": ["width", "height"],
+    _arrays = {"size": [*"xy"],
                "offsets": ["full", "half", "quarter", "eighth"]}
-    _classes = {"size": vector.renamed_vec2("width", "height")}
+    _classes = {"size": vector.vec2}
 
 
 class MipTextureLump(list):  # LUMP 2
@@ -435,8 +435,8 @@ def face_mesh(bsp, face_index: int, lightmap_scale: float = 16) -> geometry.Mesh
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
     mip_texture = bsp.MIP_TEXTURES[texture_info.mip_texture][0]
     texvec = texture.TextureVector(texture.ProjectionAxis(*texture_info.s), texture.ProjectionAxis(*texture_info.t))
-    texvec.s.scale = 1 / mip_texture.size.width
-    texvec.t.scale = 1 / mip_texture.size.height
+    texvec.s.scale = 1 / mip_texture.size.x
+    texvec.t.scale = 1 / mip_texture.size.y
     normal = bsp.PLANES[face.plane].normal
     # NOTE: normal might be inverted depending on face.side, haven't tested
     vertices = list()

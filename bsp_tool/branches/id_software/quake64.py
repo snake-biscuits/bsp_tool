@@ -49,9 +49,9 @@ class MipTexture(base.Struct):  # LUMP 2
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "shift", "offsets"]
     _format = "16s7I"
-    _arrays = {"size": ["width", "height"],
+    _arrays = {"size": [*"xy"],
                "offsets": ["full", "half", "quarter", "eighth"]}
-    _classes = {"size": vector.renamed_vec2("width", "height")}
+    _classes = {"size": vector.vec2}
 
 
 class MipTextureLump(quake.MipTextureLump):  # LUMP 2

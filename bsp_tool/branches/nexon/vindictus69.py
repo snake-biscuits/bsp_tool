@@ -183,10 +183,10 @@ class Face(base.Struct):  # LUMP 7
                  "lightmap", "original_face", "primitives",
                  "first_primitive", "smoothing_groups"]
     _format = "I2bh5i4bif4i4I"
-    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": [*"xy"]}}
     _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
-    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2,
                 "primitives.allow_dynamic_shadows": bool}
 
 
@@ -219,10 +219,10 @@ class Facev2(base.Struct):  # LUMP 7 (v2)
                  "light_offset", "area", "lightmap", "original_face",
                  "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2bh6i4bif4i4I"
-    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": ["width", "height"]}}
+    _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": [*"xy"]}}
     _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
-    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.renamed_vec2("width", "height"),
+    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2,
                 "primitives.allow_dynamic_shadows": bool}
 
 

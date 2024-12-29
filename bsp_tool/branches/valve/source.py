@@ -691,8 +691,8 @@ class TextureData(base.Struct):  # LUMP 2
     # NOTE: view rect top-left is determined with TextureInfo vectors & some math
     __slots__ = ["reflectivity", "name_index", "size", "view"]
     _format = "3f5i"
-    _arrays = {"reflectivity": [*"rgb"], "size": ["width", "height"], "view": ["width", "height"]}
-    _classes = {"size": vector.renamed_vec2("width", "height"), "view": vector.renamed_vec2("width", "height")}
+    _arrays = {"reflectivity": [*"rgb"], "size": [*"xy"], "view": [*"xy"]}
+    _classes = {"size": vector.vec2, "view": vector.vec2}
 
 
 class TextureInfo(base.Struct):  # LUMP 6
@@ -1015,8 +1015,8 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
     texture_vector = texture.TextureVector(
         texture.ProjectionAxis(*texture_info.texture.s),
         texture.ProjectionAxis(*texture_info.texture.t))
-    texture_vector.s.scale = (1 / texture_data.view.width) if texture_data.view.width != 0 else 1
-    texture_vector.t.scale = (1 / texture_data.view.height) if texture_data.view.height != 0 else 1
+    texture_vector.s.scale = (1 / texture_data.view.x) if texture_data.view.x != 0 else 1
+    texture_vector.t.scale = (1 / texture_data.view.y) if texture_data.view.y != 0 else 1
     lightmap_vector = texture.TextureVector(
         texture.ProjectionAxis(*texture_info.lightmap.s),
         texture.ProjectionAxis(*texture_info.lightmap.t))

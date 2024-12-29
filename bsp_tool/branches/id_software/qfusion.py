@@ -121,15 +121,19 @@ class Face(base.Struct):  # LUMP 13
                  "first_index", "num_indices", "style", "lightmap", "origin",
                  "mins", "maxs", "normal", "patch"]
     _format = "5iIi8B14i12f2i"
-    _arrays = {"style": {"lightmap": 4, "vertex": 4},
-               "lightmap": {"texture": 4, "offset": {s: [*"xy"] for s in "ABCD"},
-                            "size": ["width", "height"]},
-               "origin": [*"xyz"], "mins": [*"xyz"], "maxs": [*"xyz"],
-               "normal": [*"xyz"], "patch": ["width", "height"]}
-    _classes = {"type": quake3.FaceType, "lightmap.top_left": vector.vec2,
-                "lightmap.size": vector.renamed_vec2("width", "height"), "lightmap.origin": vector.vec3,
-                "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3, "normal": vector.vec3,
-                "patch": vector.renamed_vec2("width", "height")}
+    _arrays = {
+        "style": {"lightmap": 4, "vertex": 4},
+        "lightmap": {
+            "texture": 4,
+            "offset": {s: [*"xy"] for s in "ABCD"},
+            "size": [*"xy"]},
+        "origin": [*"xyz"], "mins": [*"xyz"], "maxs": [*"xyz"],
+        "normal": [*"xyz"], "patch": [*"xy"]}
+    _classes = {
+        "type": quake3.FaceType, "lightmap.top_left": vector.vec2,
+        "lightmap.size": vector.vec2, "lightmap.origin": vector.vec3,
+        "lightmap.vector.s": vector.vec3, "lightmap.vector.t": vector.vec3,
+        "normal": vector.vec3, "patch": vector.vec2}
 
 
 class GridLight(base.Struct):  # LUMP 15

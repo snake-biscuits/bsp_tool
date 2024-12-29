@@ -1,4 +1,3 @@
-from .. import x360
 from . import left4dead
 from . import left4dead2
 from . import orange_box_x360
@@ -24,31 +23,46 @@ LumpHeader = orange_box_x360.LumpHeader
 
 
 # special lump classes, in alphabetical order:
-StaticPropv8_x360 = x360.make_big_endian(left4dead.StaticPropv8)
-StaticPropv9_x360 = x360.make_big_endian(left4dead2.StaticPropv9)  # failing for Portal 2
-StaticPropv10_x360 = x360.make_big_endian(sdk_2013.StaticPropv10)
-StaticPropv11_x360 = x360.make_big_endian(sdk_2013.StaticPropv11)
+# sprp GAME LUMP (LUMP 35) [version 8]
+class StaticPropv8(left4dead.StaticPropv8):
+    _format = ">6f3H2Bi6f8B"
 
 
-class GameLump_SPRPv8_x360(left4dead.GameLump_SPRPv8):  # sprp GAME LUMP (LUMP 35) [version 8]
-    StaticPropClass = StaticPropv8_x360
+class GameLump_SPRPv8(left4dead.GameLump_SPRPv8):
+    StaticPropClass = StaticPropv8
     endianness = "big"
 
 
-class GameLump_SPRPv9_x360(left4dead2.GameLump_SPRPv9):  # sprp GAME LUMP (LUMP 35) [version 9]
-    StaticPropClass = StaticPropv9_x360
+# sprp GAME LUMP (LUMP 35) [version 9]
+# NOTE: failing for Portal 2
+class StaticPropv9(left4dead2.StaticPropv9):
+    _format =">6f3H2Bi6f8BI"
+
+
+class GameLump_SPRPv9(left4dead2.GameLump_SPRPv9):
+    StaticPropClass = StaticPropv9
     endianness = "big"
     # model_names appears to be absent?
     # "empty" lumps consist of 3 seemingly random integers?
 
 
-class GameLump_SPRPv10_x360(sdk_2013.GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35) [version 10]
-    StaticPropClass = StaticPropv10_x360
+# sprp GAME LUMP (LUMP 35) [version 10]
+class StaticPropv10(sdk_2013.StaticPropv10):
+    _format = ">6f3H2Bi6f8B2I"
+
+
+class GameLump_SPRPv10(sdk_2013.GameLump_SPRPv10):
+    StaticPropClass = StaticPropv10
     endianness = "big"
 
 
-class GameLump_SPRPv11_x360(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 35) [version 11]
-    StaticPropClass = StaticPropv11_x360
+# sprp GAME LUMP (LUMP 35) [version 11]
+class StaticPropv11(sdk_2013.StaticPropv11):
+    _format =">6f3H2Bi6f8BIfi"
+
+
+class GameLump_SPRPv11(sdk_2013.GameLump_SPRPv11):
+    StaticPropClass = StaticPropv11
     endianness = "big"
 
 
@@ -56,19 +70,24 @@ class GameLump_SPRPv11_x360(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 
 BASIC_LUMP_CLASSES = orange_box_x360.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = orange_box_x360.LUMP_CLASSES.copy()
-LUMP_CLASSES.pop("WORLD_LIGHTS")
-LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
+# LUMP_CLASSES.pop("WORLD_LIGHTS")
+# LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
 
 SPECIAL_LUMP_CLASSES = orange_box_x360.SPECIAL_LUMP_CLASSES.copy()
 
-GAME_LUMP_HEADER = orange_box_x360.GAME_LUMP_HEADER
+GAME_LUMP_HEADER = orange_box_x360.GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": orange_box_x360.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({8:  GameLump_SPRPv8_x360,
-                                  9:  GameLump_SPRPv9_x360,
-                                  10: GameLump_SPRPv10_x360,
-                                  11: GameLump_SPRPv11_x360})
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        4:  orange_box_x360.GameLump_SPRPv4,
+        5:  orange_box_x360.GameLump_SPRPv5,
+        6:  orange_box_x360.GameLump_SPRPv6,
+        7:  orange_box_x360.GameLump_SPRPv10,  # 7* / Left4Dead v7
+        8:  GameLump_SPRPv8,
+        9:  GameLump_SPRPv9,
+        10: GameLump_SPRPv10,
+        11: GameLump_SPRPv11}}
 
 
 methods = orange_box_x360.methods.copy()
