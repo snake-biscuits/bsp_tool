@@ -61,7 +61,7 @@ Full documentation: [snake-biscuits.github.io/bsp_tool/](https://snake-biscuits.
 
 ## Thanks
  * [BobTheBob](https://github.com/BobTheBob9)
-   - Identified loads of Titanfall lumps (90% of static props + more)
+   - Identified loads of Titanfall lumps (90% of static props & loads of other lumps)
  * [Call of Duty Promod Team](https://github.com/promod)
    - For distributing safe links to Call of Duty 4 Mod Tools
  * [Chris Strahl](https://github.com/Chrissstrahl)
