@@ -210,7 +210,10 @@ class DiscImage:
             for track in self.tracks])
 
     def __len__(self):
-        return max(t.start_lba + t.length for t in self.tracks)
+        if len(self.tracks) > 0:
+            return max(t.start_lba + t.length for t in self.tracks)
+        else:
+            return 0
 
     def export_wav(self, track_index: int, filename: str = None):
         # https://docs.fileformat.com/audio/wav/
