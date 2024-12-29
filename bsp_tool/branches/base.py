@@ -226,6 +226,7 @@ class Struct:
                 _tuple.append(value)
         return [int(x) if f in "bBhHiI" else x for x, f in zip(_tuple, split_format(self._format))]
 
+    # NOTE: will break in python 3.13
     @classmethod
     def as_cpp(cls, one_liner_limit: int = 80) -> str:
         # MappedArray.as_cpp wrapper
