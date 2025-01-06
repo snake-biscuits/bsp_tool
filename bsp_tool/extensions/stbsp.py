@@ -85,7 +85,7 @@ class MaterialInfo(FlatStruct):
 
 
 class Column(FlatStruct):
-    """grid tile data?"""
+    """grid tiles, combines a set of 16 sample stacks"""
     offset: int  # index into ColumnData
     length: int
     coverage_scale: int  # also works as average histogram colour (RGBA32)
@@ -99,12 +99,16 @@ class Column(FlatStruct):
     _format = "QIf4h"
 
 
-# TODO: ColumnData
-# -- some nulls, uint16_t count, 0xFFFF, short pairs
-# -- short pair is mip:material bitfield & coverage
-# NOTE: v8.0 & 8.1 have different bitfields for column_data
-# -- r2: 10 bits material (& 0x3FF), 6 bits mip (>> 10)
-# -- r5: 12 bits material (& 0xFFF), 4 bits mip (>> 12)
+class MaterialCoverage80(BitField):
+    """ColumnData v.80 (r2)"""
+    _fields = {"material": 10, "mip_level": 6, "coverage": 16}
+    _format = "I"
+
+
+class MaterialCoverage81(BitField):
+    """ColumnData v8.1 (r5)"""
+    _fields = {"material": 12, "mip_level": 4, "coverage": 16}
+    _format = "I"
 
 
 class StreamBsp:
