@@ -554,6 +554,12 @@ class BitField:
         super().__setattr__(attr, value)
 
     @classmethod
+    def from_bytes(cls, raw_bitfield: bytes) -> BitField:
+        # TODO: _fields, _format & _classes
+        int_ = struct.unpack(cls._format, raw_bitfield)[0]
+        return cls.from_int(int_)
+
+    @classmethod
     def from_int(cls, value: int, _fields: BitFieldMapping = None, _format: str = None,
                  _classes: ClassesDict = None) -> BitField:
         out_fields = cls._fields if _fields is None else _fields
@@ -566,6 +572,11 @@ class BitField:
             mask = (2 ** size - 1) << offset
             out_args.append((value & mask) >> offset)
         return cls(*out_args, _format=out_format, _fields=out_fields, _classes=out_classes)
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> BitField:
+        # TODO: _fields, _format & _classes
+        return cls.from_bytes(stream.read(struct.calcsize(cls._format)))
 
     def as_int(self) -> int:
         out = 0
