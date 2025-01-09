@@ -6,6 +6,7 @@ import os
 import struct
 from typing import Dict, List, Tuple
 
+from ..branches import base
 from ..utils.binary import read_struct, write_struct
 
 
@@ -27,46 +28,14 @@ block_sizes = {
     Block.COLUMN_DATA: 1}
 
 
-class FlatStruct:
-    __slots__: List[str]
-    _format: str
-
-    def __init__(self, *args, **kwargs):
-        if len(args) > len(self.__slots__):
-            raise RuntimeError()
-        args = [a for a, s in itertools.zip_longest(args, self.__slots__, fillvalue=0)]
-        for k, v in kwargs.items():
-            args[self.__slots__.index(k)] = v
-        for attr, value in zip(self.__slots__, args):
-            setattr(self, attr, value)
-
-    def __iter__(self):
-        return iter(getattr(self, a) for a in self.__slots__)
-
-    def __repr__(self) -> str:
-        args = ", ".join([f"{a}={getattr(self, a)}" for a in self.__slots__])
-        return f"{self.__class__.__name__}({args})"
-
-    @classmethod
-    def from_bytes(cls, raw_bytes: bytes) -> FlatStruct:
-        return cls(*struct.unpack(cls._format, raw_bytes))
-
-    @classmethod
-    def from_stream(cls, stream) -> FlatStruct:
-        return cls.from_bytes(stream.read(struct.calcsize(cls._format)))
-
-    def as_bytes(self) -> bytes:
-        return struct.pack(self._format, *self)
-
-
-class BlockIndex(FlatStruct):
+class BlockIndex(base.Struct):
     offset: int
     count: int  # num_structs / num_bytes
     __slots__ = ["offset", "count"]
     _format = "2Q"
 
 
-class MaterialInfo(FlatStruct):
+class MaterialInfo(base.Struct):
     """rpak assets & vmts?"""
     material: int  # index materials
     unknown: int  # flags?
@@ -84,7 +53,7 @@ class MaterialInfo(FlatStruct):
         return f"MaterialInfo({', '.join(args)})"
 
 
-class Column(FlatStruct):
+class Column(base.Struct):
     """grid tiles, combines a set of 16 sample stacks"""
     offset: int  # index into ColumnData
     length: int
@@ -99,19 +68,20 @@ class Column(FlatStruct):
     _format = "QIf4h"
 
 
-class MaterialCoverage80(BitField):
+class MaterialCoverage80(base.BitField):
     """ColumnData v.80 (r2)"""
     _fields = {"material": 10, "mip_level": 6, "coverage": 16}
     _format = "I"
 
 
-class MaterialCoverage81(BitField):
+class MaterialCoverage81(base.BitField):
     """ColumnData v8.1 (r5)"""
     _fields = {"material": 12, "mip_level": 4, "coverage": 16}
     _format = "I"
 
 
 class StreamBsp:
+    folder: str
     filename: str
     # header
     version: Tuple[int, int]  # r2 = (8, 0), r5 = (8, 1)
@@ -126,13 +96,13 @@ class StreamBsp:
     materials: Dict[int, str]
     # ^ {first_byte: material}
     material_infos: List[MaterialInfo]
-    vtfs: List[int]  # indexes materials
-    vmts: List[int]  # indexes vtfs
-    columns: List[Column]
+    vtfs: Tuple[int]  # indexes materials
+    vmts: Tuple[int]  # indexes vtfs
+    columns: Tuple[Column]
     column_data: bytes
 
     def __init__(self, filename: str = "./untitled.stbsp"):
-        self.filename = filename
+        self.folder, self.filename = os.path.split(filename)
         # defaults
         self.version = (8, 0)  # r2
         self.scale = (128.0, 128.0)
@@ -144,9 +114,9 @@ class StreamBsp:
         # data
         self.materials = dict()
         self.material_infos = list()
-        self.vtfs = list()
-        self.vmts = list()
-        self.columns = list()
+        self.vtfs = tuple()
+        self.vmts = tuple()
+        self.columns = tuple()
         self.column_data = b""
 
     def __repr__(self) -> str:
@@ -162,7 +132,7 @@ class StreamBsp:
 
     @classmethod
     def from_file(cls, filename: str) -> StreamBsp:
-        out = cls()
+        out = cls(filename)
         with open(filename, "rb") as file:
             # header
             magic = file.read(4)
@@ -194,9 +164,13 @@ class StreamBsp:
             offset, count = out.blocks[Block.VTFS]
             file.seek(offset)
             out.vtfs = read_struct(file, f"{count}I")
+            if count == 1:
+                out.vtfs = (out.vtfs,)
             offset, count = out.blocks[Block.VMTS]
             file.seek(offset)
             out.vmts = read_struct(file, f"{count}H")
+            if count == 1:
+                out.vmts = (out.vmts,)
             offset, count = out.blocks[Block.COLUMNS]
             file.seek(offset)
             out.columns = [Column.from_stream(file) for i in range(count)]
