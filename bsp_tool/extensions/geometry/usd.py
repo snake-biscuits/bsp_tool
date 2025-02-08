@@ -51,20 +51,26 @@ class USDA:
                 ")", "{"]))
             usda_file.write("\n")
 
-            # TODO: 1x Xform & 1x Mesh per model
-            # -- use GeomSubset & face indices to bind materials
             for model_name, model in self.models.items():
                 # presort
-                polygons = collections.defaultdict(list)
+                material_polygons = collections.defaultdict(list)
                 # ^ {Material: [Polygon]}
                 for mesh in model.meshes:
-                    polygons[mesh.material].extend(mesh.polygons)
-                face_lengths = [len(p.vertices) for ps in polygons.values() for p in ps]
-                vertices = [v for ps in polygons.values() for p in ps for v in p.vertices]
+                    material_polygons[mesh.material].extend(mesh.polygons)
+                face_lengths = [
+                    len(polygon.vertices)
+                    for polygons in material_polygons.values()
+                    for polygon in polygons]
+                vertices = [
+                    vertex
+                    for polygons in material_polygons.values()
+                    for polygon in polygons
+                    for vertex in reversed(polygon.vertices)]
                 # write
                 usda_file.write(" " * 4 + f'def Xform "{model_name}"\n')
                 usda_file.write(" " * 4 + "{\n")
                 # NOTE: columns, not rows; quite confusing
+                # TODO: rotation
                 matrix = [
                     (model.scale.x, 0, 0, 0),
                     (0, model.scale.y, 0, 0),
@@ -72,10 +78,6 @@ class USDA:
                     (*model.origin, 1)]
                 usda_file.write(" " * 8 + "matrix4d xformOp:transform = ( " + ", ".join(map(str, matrix)) + " )\n")
                 usda_file.write(" " * 8 + 'uniform token[] xformOpOrder = ["xformOp:transform"]\n')
-                # BUG: blender isn't applying the tranform matrix, why?
-                # usda_file.write(" " * 8 + f"double3 xformOp:translate = {(*model.origin,)}\n")
-                # usda_file.write(" " * 8 + 'uniform token[] xformOpOrder = ["xformOp:translate"]\n')
-                # TODO: rotation
                 usda_file.write("\n")
                 # mesh
                 usda_file.write(" " * 8 + f'def Mesh "{model_name}" (\n')
@@ -100,7 +102,7 @@ class USDA:
                 usda_file.write(" " * 16 + 'interpolation = "vertex"\n')
                 usda_file.write(" " * 12 + ")\n")
                 start = 0
-                for material in polygons:
+                for material, polygons in material_polygons.items():
                     usda_file.write("\n")
                     usda_file.write(" " * 12 + f'def GeomSubset "{sanitise(material.name)}" (\n')
                     usda_file.write(" " * 16 + 'prepend apiSchemas = ["MaterialBindingAPI"]\n')
@@ -108,10 +110,10 @@ class USDA:
                     usda_file.write(" " * 12 + "{\n")
                     usda_file.write(" " * 16 + 'uniform token elementType = "face"\n')
                     usda_file.write(" " * 16 + 'uniform token familyName = "materialBind"\n')
-                    usda_file.write(" " * 16 + f"int[] indices = {[*range(start, start + len(polygons[material]))]}\n")
+                    usda_file.write(" " * 16 + f"int[] indices = {[*range(start, start + len(polygons))]}\n")
                     usda_file.write(" " * 16 + f"rel material:binding = </_materials/{sanitise(material.name)}>\n")
                     usda_file.write(" " * 12 + "}\n")
-                    start += len(polygons[material])
+                    start += len(polygons)
                 usda_file.write(" " * 8 + "}\n")
                 usda_file.write(" " * 4 + "}\n\n")
             # materials
