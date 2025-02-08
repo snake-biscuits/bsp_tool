@@ -1241,7 +1241,7 @@ def occlusion_mesh(bsp) -> geometry.Mesh:
 def portals_as_prt(bsp) -> str:
     out = [
         "PRT1",
-        f"{len(bsp.CELLS)}",  # skip unindexed cells?
+        f"{len(bsp.CELLS)}",  # TODO: skip unindexed cells?
         f"{len([p for p in bsp.PORTALS if p.type == PortalType.CELL])}"]
     for i, cell in enumerate(bsp.CELLS):
         start, length = cell.first_portal, cell.num_portals
@@ -1249,9 +1249,16 @@ def portals_as_prt(bsp) -> str:
             if portal.type != PortalType.CELL:
                 continue  # ignore SKYBOX & WATER portals
             start, length = portal.first_reference, portal.num_edges
-            refs = bsp.PORTAL_EDGE_REFERENCES[start:start + length]
-            winding = [bsp.PORTAL_VERTICES[bsp.PORTAL_EDGES[r]] for r in refs]
-            out.append(" ".join([f"{len(winding)} {i} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+            start = portal.first_reference
+            end = start + portal.num_edges
+            polygon = [
+                bsp.PORTAL_VERTICES[i]
+                for i in bsp.PORTAL_VERTEX_REFERENCES[start:end]]
+            out.append(" ".join([
+                f"{len(polygon)} {i} {portal.cell}",
+                *[
+                    f"({vertex.x} {vertex.y} {vertex.z})"
+                    for vertex in polygon]]))
     return "\n".join(out)
 
 
