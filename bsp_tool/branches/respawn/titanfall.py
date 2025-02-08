@@ -1255,6 +1255,24 @@ def portals_as_prt(bsp) -> str:
     return "\n".join(out)
 
 
+def portal_mesh(bsp, portal_index: int) -> geometry.Mesh:
+    # NOTE: Portal -> PortalVertexRef -> PortalVertex
+    # -- ignoring PortalEdge for now
+    material = geometry.Material("portal")
+    portal = bsp.PORTALS[portal_index]
+    normal = bsp.PLANES[portal.plane].normal
+    start = portal.first_reference
+    end = start + portal.num_edges
+    vertices = [
+        bsp.PORTAL_VERTICES[i]
+        for i in bsp.PORTAL_VERTEX_REFERENCES[start:end]]
+    vertices = [
+        geometry.Vertex(position, normal)
+        for position in vertices]
+    polygon = geometry.Polygon(vertices)
+    return geometry.Mesh(material, polygons=[polygon])
+
+
 def brush(bsp, brush_index: int) -> editor.Brush:
     brush = bsp.CM_BRUSHES[brush_index]
     aabb = physics.AABB.from_origin_extents(brush.origin, brush.extents)
@@ -1326,5 +1344,5 @@ methods = [shared.worldspawn_volume, search_all_entities,  # entities
            shadow_mesh, occlusion_mesh,  # other geo
            brush,  # brushes
            geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
-           portals_as_prt]  # vis
+           portals_as_prt, portal_mesh]  # vis
 methods = {m.__name__: m for m in methods}
