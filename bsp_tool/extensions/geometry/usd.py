@@ -16,6 +16,10 @@ def sanitise(material_name: str) -> str:
     return material_name.rpartition("/")[-1] if "/" in material_name else material_name
 
 
+def vec3_repr(v) -> str:
+    return f"({v.x}, {v.y}, {v.z})"
+
+
 class USDA:
     models: Dict[str, geometry.Model]
     meters_per_unit: float = 0.0254  # inches
@@ -34,11 +38,12 @@ class USDA:
         folder, filename = os.path.split(filename)
         filename, ext = os.path.splitext(filename)
         assert ext == ".usda", f"cannot write to '{ext}' extension"
-        # no .usdc or .usdz; .usd is ok, but .usda is more explicit
+        # NOTE: no .usdc or .usdz; .usd is ok, but .usda is more explicit
         # TODO: check shortened material names are unique across all meshes
         with open(os.path.join(folder, f"{filename}.usda"), "w") as usda_file:
             usda_file.write("\n".join([
-                "#usda 1.0\n(",
+                "#usda 1.0",
+                "(",
                 '    defaultPrim = "root"',
                 f"    metersPerUnit = {self.meters_per_unit}",
                 '    upAxis = "Z"',
@@ -48,7 +53,8 @@ class USDA:
             usda_file.write("\n".join([
                 'def Xform "root" (',
                 # TODO: metadata
-                ")", "{"]))
+                ")",
+                "{"]))
             usda_file.write("\n")
 
             for model_name, model in self.models.items():
@@ -69,16 +75,13 @@ class USDA:
                 # write
                 usda_file.write(" " * 4 + f'def Xform "{model_name}"\n')
                 usda_file.write(" " * 4 + "{\n")
-                # NOTE: columns, not rows; quite confusing
-                # TODO: rotation
-                matrix = [
-                    (model.scale.x, 0, 0, 0),
-                    (0, model.scale.y, 0, 0),
-                    (0, 0, model.scale.z, 0),
-                    (*model.origin, 1)]
-                usda_file.write(" " * 8 + "matrix4d xformOp:transform = ( " + ", ".join(map(str, matrix)) + " )\n")
-                usda_file.write(" " * 8 + 'uniform token[] xformOpOrder = ["xformOp:transform"]\n')
-                usda_file.write("\n")
+
+                usda_file.write(" " * 8 + f"float3 xformOp:rotateXYZ = {vec3_repr(model.angles)}" + "\n")
+                usda_file.write(" " * 8 + f"float3 xformOp:scale = {vec3_repr(model.scale)}" + "\n")
+                usda_file.write(" " * 8 + f"double3 xformOp:translate = {vec3_repr(model.origin)}" + "\n")
+                usda_file.write(" " * 8 + "uniform token[] xformOpOrder = " + str([
+                    "xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]) + "\n")
+                usda_file.write("\n\n")
                 # mesh
                 usda_file.write(" " * 8 + f'def Mesh "{model_name}" (\n')
                 usda_file.write(" " * 12 + 'prepend apiSchemas = ["MaterialBindingAPI"]\n')
