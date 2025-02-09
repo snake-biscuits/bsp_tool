@@ -1,5 +1,3 @@
-import os
-
 from bsp_tool.extensions.geometry import obj
 from bsp_tool.utils import geometry
 from bsp_tool.utils import vector

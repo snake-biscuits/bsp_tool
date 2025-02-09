@@ -2,6 +2,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any, Dict, List
 
+from . import geometry
 from . import physics
 from . import texture
 
@@ -9,8 +10,9 @@ from . import texture
 # TODO: Curve (CoDRadiant)
 # TODO: Displacement (Source)
 # TODO: Patch (IdTech 3)
-# TODO: Tricoll (Titanfall) [for MRVN-Radiant]
-# -- misc_model (embeds a .mdl for lightmapping)
+# TODO: TriColl (Titanfall) [for MRVN-Radiant]
+# NOTE: some TriColls are Displacements
+# -- misc_model (embeds a model as bsp triangles) [lightmap & physics]
 # -- .gltf? iirc Respawn builds terrain in Autodesk Maya [citation needed]
 
 
@@ -23,10 +25,39 @@ class Brush:
     def __repr__(self) -> str:
         return f"<Brush {len(self.sides)} sides @ 0x{id(self):012X}>"
 
-    def as_physics(self) -> physics.Brush:
-        # need to calculate brush bounds from sides
-        # also need to confirm brush is valid (convex & closed)
+    def as_model(self) -> geometry.Model:
+        # take a maximum bounds and slice it down plane by plane
+        # BrushSide -> Polygon
+        # a rotated cube wouldn't have polygons for it's axial faces
+        # since those get sliced into nothing
+        # but we'll need some floating point rounding magic to detect nothingness
         raise NotImplementedError()
+        # AABB quads
+        # slice edges w/ each non-axial plane
+        # only respect in-bounds intersections
+        # slice edge by replacing A-B w/ A-S;S-B if A & B on opposite sides
+        # find the lerp(t) via plane.test(A) * -plane.normal
+        # keep the inside (back), discard the outside (front)
+
+    # TODO: catch bevel planes
+    # -- found in Titanfall Engine trigger brushes
+    # -- don't contribute to geometry, but helpful for physics calculations
+
+    def as_physics(self) -> physics.Brush:
+        # need to confirm brush is closed & convex
+        # having vertices would make determining bounds easy
+        raise NotImplementedError()
+        out = physics.Brush() 
+        out.bounds = physics.AABB()
+        planes = [side.plane for side in self.sides]
+        for plane in planes:
+            if plane.normal:  # is_axial()
+                # TODO: set bounds min/max on that axis
+                # axis = ...
+                out.axial_planes.append(plane)  # does order matter?
+            else:
+                out.other_planes.append(plane)
+        return out
 
 
 class BrushSide:

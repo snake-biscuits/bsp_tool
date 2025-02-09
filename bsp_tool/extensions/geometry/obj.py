@@ -3,40 +3,21 @@ import collections
 from typing import Dict, Generator, List
 
 from ...utils import geometry
+from . import base
 
 
-class Obj:
+class Obj(base.SceneDescription):
     """Y+ forward; Z+ up"""
     groups: Dict[str, Dict[str, geometry.Model]]
     # ^ {"group_name": {"model_name": model}}
+    exts_txt = [".obj"]
 
-    @classmethod
-    def from_groups(cls, *unnamed_groups, **groups) -> Obj:
-        index = 0
-        for group in unnamed_groups:
-            group_name = f"group_{index:03X}"
-            while group_name in unnamed_groups:
-                index += 1
-                group_name = f"group_{index:03X}"
-            groups[group_name] = group
-        out = cls()
-        out.groups = groups
-        return out
-
-    @classmethod
-    def from_models(cls, *unnamed_models, **models) -> Obj:
-        index = 0
-        for model in unnamed_models:
-            model_name = f"model_{index:03X}"
-            while model_name in unnamed_models:
-                index += 1
-                model_name = f"model_{index:03X}"
-            models[model_name] = model
-        return cls.from_groups(**{"group_000": models})
+    def __init__(self):
+        self.groups = dict()
 
     def __repr__(self) -> str:
         num_models = sum(len(ms) for ms in self.groups.values())
-        descriptor = f"{len(self.groups)} groups {num_models} model"
+        descriptor = f"{len(self.groups)} groups {num_models} models"
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
     def lines(self) -> Generator[str, None, None]:
@@ -76,9 +57,28 @@ class Obj:
                             yield "f " + " ".join([
                                 f"{i}//{i}" for i in indices(polygon)])
 
-    def save_as(self, filename: str):
-        # TODO: assert filename is a valid path
-        with open(filename, "w") as obj_file:
-            obj_file.write("\n".join(self.lines()))
+    @classmethod
+    def from_groups(cls, *unnamed_groups, **groups) -> Obj:
+        index = 0
+        for group in unnamed_groups:
+            group_name = f"group_{index:03X}"
+            while group_name in unnamed_groups:
+                index += 1
+                group_name = f"group_{index:03X}"
+            groups[group_name] = group
+        out = cls()
+        out.groups = groups
+        return out
 
-    # TODO: @classmethod from_file(cls, filename) -> Obj:
+    @classmethod
+    def from_models(cls, *unnamed_models, **models) -> Obj:
+        index = 0
+        for model in unnamed_models:
+            model_name = f"model_{index:03X}"
+            while model_name in unnamed_models:
+                index += 1
+                model_name = f"model_{index:03X}"
+            models[model_name] = model
+        return cls.from_groups(**{"group_000": models})
+
+    # TODO: @classmethod from_text(cls, raw_obj: str) -> Obj:
