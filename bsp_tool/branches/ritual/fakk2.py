@@ -86,8 +86,9 @@ class Face(base.Struct):  # LUMP 3
         "first_index", "num_indices", "lightmap", "normal", "patch", "subdivisions"]
     _format = "12i12f2if"
     _arrays = {
-        "lightmap": {"index": None, "top_left": [*"xy"], "size": [*"xy"],
-        "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
+        "lightmap": {
+            "index": None, "top_left": [*"xy"], "size": [*"xy"],
+            "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
         "normal": [*"xyz"], "patch": [*"xy"]}
     _classes = {
         "type": quake3.FaceType, "lightmap.top_left": vector.vec2,

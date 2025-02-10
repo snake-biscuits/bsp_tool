@@ -26,6 +26,7 @@ LumpHeader = orange_box_x360.LumpHeader
 class Grid(titanfall.Grid):  # LUMP 85 (0055)
     _format = ">f6i"
 
+
 # NOTE: only one 28 byte entry per file
 class LevelInfo(titanfall.LevelInfo):  # LUMP 123 (007B)
     _format = ">4I3f"

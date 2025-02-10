@@ -47,7 +47,7 @@ class Brush:
         # need to confirm brush is closed & convex
         # having vertices would make determining bounds easy
         raise NotImplementedError()
-        out = physics.Brush() 
+        out = physics.Brush()
         out.bounds = physics.AABB()
         planes = [side.plane for side in self.sides]
         for plane in planes:

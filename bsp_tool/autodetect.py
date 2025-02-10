@@ -12,7 +12,7 @@ from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, R
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
-from .ritual import RitualBsp, SinBsp
+from .ritual import RitualBsp  # TODO: SinBsp
 from .nexon import NexonBsp
 from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp

@@ -217,8 +217,9 @@ class Face(base.Struct):  # LUMP 13
                  "first_mesh_vertex", "num_mesh_vertices", "lightmap", "normal", "patch"]
     _format = "12i12f2i"
     _arrays = {
-        "lightmap": {"index": None, "top_left": [*"xy"], "size": [*"xy"],
-        "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
+        "lightmap": {
+            "index": None, "top_left": [*"xy"], "size": [*"xy"],
+            "origin": [*"xyz"], "vector": {"s": [*"xyz"], "t": [*"xyz"]}},
         "normal": [*"xyz"], "patch": [*"xy"]}
     _classes = {
         "type": FaceType, "lightmap.top_left": vector.vec2,

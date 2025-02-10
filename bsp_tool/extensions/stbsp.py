@@ -1,7 +1,6 @@
 """Titanfall Engine .stbsp file parser"""
 from __future__ import annotations
 import enum
-import itertools
 import os
 import struct
 from typing import Dict, List, Tuple

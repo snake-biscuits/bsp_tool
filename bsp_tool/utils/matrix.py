@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Union
+from typing import List
 
 
 # TODO: generic MxN matrix class
@@ -72,13 +72,13 @@ class Mat4x4:
 
     def is_valid(self) -> bool:
         return all([
-            len(array) == 4,
+            len(self.array) == 4,
             all(
                 len(row) == 4
-                for row in array),
+                for row in self.array),
             all(
                 isinstance(cell, (int, float))
-                for row in array
+                for row in self.array
                 for cell in row)])
 
     def transpose(self) -> Mat4x4:

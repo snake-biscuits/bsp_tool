@@ -1,5 +1,4 @@
 from __future__ import annotations
-import enum
 
 from .. import shared
 # from . import physics

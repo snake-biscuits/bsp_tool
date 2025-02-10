@@ -36,7 +36,7 @@ class GameLump_SPRPv8(left4dead.GameLump_SPRPv8):
 # sprp GAME LUMP (LUMP 35) [version 9]
 # NOTE: failing for Portal 2
 class StaticPropv9(left4dead2.StaticPropv9):
-    _format =">6f3H2Bi6f8BI"
+    _format = ">6f3H2Bi6f8BI"
 
 
 class GameLump_SPRPv9(left4dead2.GameLump_SPRPv9):
@@ -58,7 +58,7 @@ class GameLump_SPRPv10(sdk_2013.GameLump_SPRPv10):
 
 # sprp GAME LUMP (LUMP 35) [version 11]
 class StaticPropv11(sdk_2013.StaticPropv11):
-    _format =">6f3H2Bi6f8BIfi"
+    _format = ">6f3H2Bi6f8BIfi"
 
 
 class GameLump_SPRPv11(sdk_2013.GameLump_SPRPv11):

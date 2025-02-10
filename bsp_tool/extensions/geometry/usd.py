@@ -1,5 +1,4 @@
 import collections
-import os
 from typing import Dict, Generator
 
 from ...utils import geometry
@@ -81,7 +80,7 @@ class Usd(base.SceneDescription):
             num_uvs = max(len(vertex.uv) for vertex in vertices)
             for i in range(num_uvs):
                 uvs = [
-                    tuple(vertex.uv[i]) if i < len(v.uv) else (0, 0)
+                    tuple(vertex.uv[i]) if i < len(vertex.uv) else (0, 0)
                     for vertex in vertices]
                 yield base.indent(3) + f"texCoord2f[] primvars:uv{i} = {uvs} ("
                 yield base.indent(4) + 'interpolation = "faceVarying"'
