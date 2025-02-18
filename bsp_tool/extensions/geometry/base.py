@@ -18,7 +18,7 @@ def indent(count: int = 1) -> str:
 # -- .usd[acz] textures & subtrees
 # -- .obj materials (.mtl)
 # -- .glb binary files
-# TODO: do we use groups instead, like .obj?
+# TODO: do we use groups instead of models, like .obj?
 # -- what about node trees?
 # -- **better to expect a specific standard and document that standard well**
 # NOTE: txt definition flows: lines -> as_text -> save_as
