@@ -12,6 +12,8 @@ from . import base
 reference_pattern = re.compile(r"@.*@(<.*>)?|<.*>")
 
 
+# TODO: could we replicate material paths?
+# -- how would blender interpret them?
 def sanitise(material_name: str) -> str:
     material_name = material_name.replace("\\", "/")
     for bad_char in ".{}-":
@@ -59,7 +61,6 @@ class Prim:
         if len(self.metadata) > 0:
             yield f'def {self.type_} "{self.name}" ('
             for name, value in self.metadata.items():
-                # TODO: vec2 & vec3 -> tuple
                 yield f"    {name} = {usd_repr(value)}"
             yield ")"
         else:
@@ -202,9 +203,9 @@ class Usd(base.SceneDescription):
             model_prims.append(Prim(
                 "Xform", model_name,
                 properties=[
-                    Property("float3", "xformOp:rotateXYZ", tuple(model.angles)),
-                    Property("float3", "xformOp:scale", tuple(model.scale)),
-                    Property("double3", "xformOp:translate", tuple(model.origin)),
+                    Property("float3", "xformOp:rotateXYZ", model.angles),
+                    Property("float3", "xformOp:scale", model.scale),
+                    Property("double3", "xformOp:translate", model.origin),
                     Property("uniform token[]", "xformOpOrder", [
                         "xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"])],
                 children=[
@@ -228,13 +229,20 @@ class Usd(base.SceneDescription):
                                 for vertex in vertices],
                                 interpolation="vertex")],
                         children=material_bindings)]))
-        # root node
+        # material prims
+        materials = {
+                mesh.material
+                for model in self.models.values()
+                for mesh in model.meshes}
+        # TODO: try replicating the material folder structure
+        material_prims = [
+            Prim("Material", sanitise(material.name))
+            for material in sorted(materials, key=lambda m: m.name)]
+        # TODO: construct a material users can plug textures into
+        # -- will require parsing .vmt, .rpak & .vpk
+        # root prim
         root = Prim("Xform", "root", children=[
             *model_prims,
             Prim("Scope", "_materials", children=[
-                Prim("Material", sanitise(mesh.material.name))
-                # TODO: construct material nodes
-                # -- will require parsing .vmt, .rpak & .vpk
-                for model in self.models.values()
-                for mesh in model.meshes])])
+                *material_prims])])
         self.prims = [root]
