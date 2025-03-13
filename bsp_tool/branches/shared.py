@@ -12,6 +12,10 @@ class Ints(int):
     _format = "i"
 
 
+class Floats(float):
+    _format = "f"
+
+
 class Shorts(int):
     _format = "h"
 

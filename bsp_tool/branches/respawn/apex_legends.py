@@ -627,12 +627,13 @@ for LUMP_NAME in pops:
 del LUMP_NAME, pops
 
 BASIC_LUMP_CLASSES.update({
-    "CONTENTS_MASKS":      {0: shared.UnsignedInts},
-    "CSM_OBJ_REFERENCES":  {0: shared.UnsignedInts},
-    "HEIGHTFIELD_SAMPLES": {0: shared.UnsignedShorts},
-    "UNKNOWN_38":          {0: shared.UnsignedInts},
-    "UNKNOWN_39":          {0: shared.Shorts},
-    "WATER_BODY_INDICES":  {0: shared.UnsignedShorts}})
+    "CONTENTS_MASKS":       {0: shared.UnsignedInts},
+    "CSM_OBJ_REFERENCES":   {0: shared.UnsignedInts},
+    "CUBEMAPS_AMBIENT_RCP": {0: shared.Floats},
+    "HEIGHTFIELD_SAMPLES":  {0: shared.UnsignedShorts},
+    "UNKNOWN_38":           {0: shared.UnsignedInts},
+    "UNKNOWN_39":           {0: shared.Shorts},
+    "WATER_BODY_INDICES":   {0: shared.UnsignedShorts}})
 
 
 LUMP_CLASSES = titanfall2.LUMP_CLASSES.copy()
