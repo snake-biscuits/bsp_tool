@@ -127,6 +127,7 @@ class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [version 7]
 
 
 class StaticPropv8(base.Struct):
+    """New in March 2025"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
@@ -154,30 +155,6 @@ class StaticPropv8(base.Struct):
 class GameLump_SPRPv8(GameLump_SPRPv7):  # sprp GameLump (LUMP 35) [version 8]
     """New in March 2025"""
     StaticPropClass = StaticPropv8
-
-    # @classmethod
-    # def from_bytes(cls, raw_lump: bytes) -> GameLump_SPRPv8:
-    #     return cls.from_stream(io.BytesIO(raw_lump))
-
-    # @classmethod
-    # def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv8:
-    #     out = cls()
-    #     num_model_names = read_struct(stream, "I")
-    #     out.model_names = [
-    #         read_struct(stream, "128s").decode("latin_1")
-    #         for i in range(num_model_names)]
-    #     num_shorts = read_struct(stream, "I")
-    #     out.shorts = [
-    #         read_struct(stream, "H")
-    #         for i in range(num_shorts)]
-    #     num_scales = read_struct(stream, "I")
-    #     out.scales = [
-    #         vindictus69.StaticPropScale.from_stream(stream)
-    #         for i in range(num_scales)]
-    #     num_props = read_struct(stream, "I")
-    #     out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
-    #     # NOTE: should be at the end of the lump now
-    #     return out
 
 
 # {"LUMP_NAME": {version: LumpClass}}
