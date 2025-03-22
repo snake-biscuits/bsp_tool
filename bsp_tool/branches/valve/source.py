@@ -10,6 +10,7 @@ from typing import List, Tuple
 
 from ... import lumps
 from ... import archives
+from ...utils import binary
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
@@ -25,11 +26,12 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 19
 
-GAME_PATHS = {"Counter-Strike: Source": "counter-strike source/cstrike",
-              "Half-Life Deathmatch: Source": "Half-Life 1 Source Deathmatch/hl1mp",
-              "Half-Life: Source": "half-life 2/hl1",
-              "Half-Life 2": "half-life 2/hl2",
-              "Half-Life 2: Deathmatch": "half-life 2 deathmatch/hl2mp"}
+GAME_PATHS = {
+    "Counter-Strike: Source": "counter-strike source/cstrike",
+    "Half-Life Deathmatch: Source": "Half-Life 1 Source Deathmatch/hl1mp",
+    "Half-Life: Source": "half-life 2/hl1",
+    "Half-Life 2": "half-life 2/hl2",
+    "Half-Life 2: Deathmatch": "half-life 2 deathmatch/hl2mp"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -794,13 +796,17 @@ class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     skin: int  # index of this StaticProp's skin in the .mdl
     fade_distance: List[float]  # min & max distances to fade out
     lighting_origin: vector.vec3  # position to sample lighting from
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin"]
     _format = "6f3H2Bi5f"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": StaticPropCollision,
+        "flags": StaticPropFlags, "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
@@ -816,30 +822,44 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         self.props = list()
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        sprp_lump = io.BytesIO(raw_lump)
+    def from_bytes(cls, raw_lump: bytes) -> GameLump_SPRPv4:
+        return cls.from_stream(io.BytesIO(raw_lump))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO):
         out = cls()
-        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
-        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.leaves = [int.from_bytes(sprp_lump.read(2), cls.endianness) for i in range(leaf_count)]
-        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
-        tail = sprp_lump.read()
+        endian = {"little": "<", "big": ">"}[cls.endianness]
+        num_model_names = binary.read_struct(stream, f"{endian}I")
+        out.model_names = [
+            stream.read(128).replace(b"\0", b"").decode()
+            for i in range(num_model_names)]
+        num_leaves = binary.read_struct(stream, f"{endian}I")
+        out.leaves = binary.read_struct(stream, f"{endian}{num_leaves}H")
+        num_props = binary.read_struct(stream, f"{endian}I")
+        out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+        tail = stream.read()
         if len(tail) > 0:
-            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
-            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
+            props_bytes = b"".join([prop.as_bytes() for prop in out.props])
+            resized = (len(props_bytes) + len(tail)) / num_props
+            raise RuntimeError(f"tail of {len(tail)} bytes; StaticPropClass might be {resized} bytes long")
         return out
 
     def as_bytes(self) -> bytes:
-        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
-        leaves_format = {"little": "<H", "big": ">H"}[self.endianness]
-        return b"".join([int.to_bytes(len(self.model_names), 4, self.endianness),
-                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, self.endianness),
-                         *[struct.pack(leaves_format, L) for L in self.leaves],
-                         int.to_bytes(len(self.props), 4, self.endianness),
-                         *[p.as_bytes() for p in self.props]])
+        endian = {"little": "<", "big": ">"}[self.endianness]
+        assert all([
+            isinstance(prop, self.StaticPropClass)
+            for prop in self.props])
+        return b"".join([
+            struct.pack(f"{endian}I", len(self.model_names)),
+            *[
+                struct.pack("128s", model_name.encode("ascii"))
+                for model_name in self.model_names],
+            struct.pack(f"{endian}I", len(self.leaves)),
+            struct.pack(f"{endian}{len(self.leaves)}H", *self.leaves),
+            struct.pack(f"{endian}I", len(self.props)),
+            *[
+                prop.as_bytes()
+                for prop in self.props]])
 
     def get_prop_model_name(self, prop_index: int) -> str:
         return self.model_names[self.props[prop_index].model_name]
@@ -858,14 +878,18 @@ class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     fade_distance: List[float]  # min & max distances to fade out
     lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale"]
     _format = "6f3H2Bi6f"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": StaticPropCollision,
+        "flags": StaticPropFlags, "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class GameLump_SPRPv5(GameLump_SPRPv4):  # sprp GameLump (LUMP 35)
@@ -886,14 +910,18 @@ class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     lighting_origin: vector.vec3  # position to sample lighting from
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "dx_level"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "dx_level"]
     _format = "6f3H2Bi6f2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
-    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3}  # TODO: angles QAngle
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "dx_level": ["min", "max"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": StaticPropCollision,
+        "flags": StaticPropFlags, "lighting_origin": vector.vec3}
+    # TODO: angles QAngle
 
 
 class GameLump_SPRPv6(GameLump_SPRPv5):  # sprp GameLump (LUMP 35)
@@ -915,14 +943,19 @@ class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # supported directX level, will not render depending on settings
     diffuse_modulation: colour.RGBExponent
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "dx_level", "diffuse_modulation"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "dx_level", "diffuse_modulation"]
     _format = "6f3H2Bi6f2H4B"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
+        "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": StaticPropCollision,
+        "flags": StaticPropFlags, "lighting_origin": vector.vec3,
+        "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 
 
@@ -935,71 +968,80 @@ class TextureDataStringData(list):  # LUMP 43
         super().__init__(iterable)
 
     def as_bytes(self) -> bytes:
-        return b"\0".join([t.encode("ascii") for t in self]) + b"\0"
+        return b"\0".join([
+            t.encode("ascii")
+            for t in self]) + b"\0"
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        return cls([t.decode("ascii", errors="ignore") for t in raw_lump[:-1].split(b"\0")])
+    def from_bytes(cls, raw_lump: bytes) -> TextureDataStringData:
+        return cls([
+            t.decode("ascii", errors="ignore")
+            for t in raw_lump[:-1].split(b"\0")])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
-BASIC_LUMP_CLASSES = {"DISPLACEMENT_TRIANGLES":    {0: DisplacementTriangle},
-                      "FACE_IDS":                  {0: shared.UnsignedShorts},
-                      "FACE_MACRO_TEXTURE_INFO":   {0: shared.Shorts},
-                      "LEAF_BRUSHES":              {0: shared.UnsignedShorts},
-                      "LEAF_FACES":                {0: shared.UnsignedShorts},
-                      "PRIMITIVE_INDICES":         {0: shared.UnsignedShorts},
-                      "SURFEDGES":                 {0: shared.Ints},
-                      "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts},
-                      "VERTEX_NORMAL_INDICES":     {0: shared.UnsignedShorts}}
+BASIC_LUMP_CLASSES = {
+    "DISPLACEMENT_TRIANGLES":    {0: DisplacementTriangle},
+    "FACE_IDS":                  {0: shared.UnsignedShorts},
+    "FACE_MACRO_TEXTURE_INFO":   {0: shared.Shorts},
+    "LEAF_BRUSHES":              {0: shared.UnsignedShorts},
+    "LEAF_FACES":                {0: shared.UnsignedShorts},
+    "PRIMITIVE_INDICES":         {0: shared.UnsignedShorts},
+    "SURFEDGES":                 {0: shared.Ints},
+    "TEXTURE_DATA_STRING_TABLE": {0: shared.UnsignedShorts},
+    "VERTEX_NORMAL_INDICES":     {0: shared.UnsignedShorts}}
 
-LUMP_CLASSES = {"AREAS":                     {0: Area},
-                "AREA_PORTALS":              {0: AreaPortal},
-                "BRUSHES":                   {0: Brush},
-                "BRUSH_SIDES":               {0: BrushSide},
-                "CLIP_PORTAL_VERTICES":      {0: quake.Vertex},
-                "CUBEMAPS":                  {0: Cubemap},
-                "DISPLACEMENT_INFO":         {0: DisplacementInfo},
-                "DISPLACEMENT_VERTICES":     {0: DisplacementVertex},
-                "EDGES":                     {0: quake.Edge},
-                "FACES":                     {1: Face},
-                "LEAVES":                    {0: Leaf},
-                "LEAF_AMBIENT_INDEX":        {0: LeafAmbientIndex},
-                "LEAF_AMBIENT_INDEX_HDR":    {0: LeafAmbientIndex},
-                "LEAF_AMBIENT_LIGHTING":     {1: LeafAmbientSample},
-                "LEAF_AMBIENT_LIGHTING_HDR": {1: LeafAmbientSample},
-                "LEAF_WATER_DATA":           {0: LeafWaterData},
-                "MODELS":                    {0: Model},
-                "NODES":                     {0: Node},
-                "ORIGINAL_FACES":            {0: Face},
-                "OVERLAY":                   {0: Overlay},
-                "OVERLAY_FADES":             {0: OverlayFade},
-                "PLANES":                    {0: quake.Plane},
-                "PRIMITIVES":                {0: Primitive},
-                "PRIMITIVE_VERTICES":        {0: quake.Vertex},
-                "TEXTURE_DATA":              {0: TextureData},
-                "TEXTURE_INFO":              {0: TextureInfo},
-                "VERTEX_NORMALS":            {0: quake.Vertex},
-                "VERTICES":                  {0: quake.Vertex},
-                "WATER_OVERLAYS":            {0: WaterOverlay},
-                "WORLD_LIGHTS":              {0: WorldLight},
-                "WORLD_LIGHTS_HDR":          {0: WorldLight}}
+LUMP_CLASSES = {
+    "AREAS":                     {0: Area},
+    "AREA_PORTALS":              {0: AreaPortal},
+    "BRUSHES":                   {0: Brush},
+    "BRUSH_SIDES":               {0: BrushSide},
+    "CLIP_PORTAL_VERTICES":      {0: quake.Vertex},
+    "CUBEMAPS":                  {0: Cubemap},
+    "DISPLACEMENT_INFO":         {0: DisplacementInfo},
+    "DISPLACEMENT_VERTICES":     {0: DisplacementVertex},
+    "EDGES":                     {0: quake.Edge},
+    "FACES":                     {1: Face},
+    "LEAVES":                    {0: Leaf},
+    "LEAF_AMBIENT_INDEX":        {0: LeafAmbientIndex},
+    "LEAF_AMBIENT_INDEX_HDR":    {0: LeafAmbientIndex},
+    "LEAF_AMBIENT_LIGHTING":     {1: LeafAmbientSample},
+    "LEAF_AMBIENT_LIGHTING_HDR": {1: LeafAmbientSample},
+    "LEAF_WATER_DATA":           {0: LeafWaterData},
+    "MODELS":                    {0: Model},
+    "NODES":                     {0: Node},
+    "ORIGINAL_FACES":            {0: Face},
+    "OVERLAY":                   {0: Overlay},
+    "OVERLAY_FADES":             {0: OverlayFade},
+    "PLANES":                    {0: quake.Plane},
+    "PRIMITIVES":                {0: Primitive},
+    "PRIMITIVE_VERTICES":        {0: quake.Vertex},
+    "TEXTURE_DATA":              {0: TextureData},
+    "TEXTURE_INFO":              {0: TextureInfo},
+    "VERTEX_NORMALS":            {0: quake.Vertex},
+    "VERTICES":                  {0: quake.Vertex},
+    "WATER_OVERLAYS":            {0: WaterOverlay},
+    "WORLD_LIGHTS":              {0: WorldLight},
+    "WORLD_LIGHTS_HDR":          {0: WorldLight}}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":                 {0: shared.Entities},
-                        "PAKFILE":                  {0: archives.pkware.Zip},
-                        # "PHYSICS_COLLIDE":          {0: physics.CollideLump},  # BROKEN .as_bytes()
-                        "PHYSICS_DISPLACEMENT":     {0: physics.Displacement},
-                        "TEXTURE_DATA_STRING_DATA": {0: TextureDataStringData},
-                        "VISIBILITY":               {0: quake2.Visibility}}
+SPECIAL_LUMP_CLASSES = {
+    "ENTITIES":                 {0: shared.Entities},
+    "PAKFILE":                  {0: archives.pkware.Zip},
+    # "PHYSICS_COLLIDE":          {0: physics.CollideLump},  # BROKEN .as_bytes()
+    "PHYSICS_DISPLACEMENT":     {0: physics.Displacement},
+    "TEXTURE_DATA_STRING_DATA": {0: TextureDataStringData},
+    "VISIBILITY":               {0: quake2.Visibility}}
 
 
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {4: GameLump_SPRPv4,
-                              5: GameLump_SPRPv5,
-                              6: GameLump_SPRPv6,
-                              7: GameLump_SPRPv7}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        4: GameLump_SPRPv4,
+        5: GameLump_SPRPv5,
+        6: GameLump_SPRPv6,
+        7: GameLump_SPRPv7}}
 # TODO: more GameLump definitions:
 # -- https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
 
@@ -1011,12 +1053,14 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
     # texture
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
     texture_data = bsp.TEXTURE_DATA[texture_info.texture_data]
-    colour = (*texture_data.reflectivity, 0)  # vertex colour
+    colour = (*texture_data.reflectivity, 1)  # vertex colour
     texture_vector = texture.TextureVector(
         texture.ProjectionAxis(*texture_info.texture.s),
         texture.ProjectionAxis(*texture_info.texture.t))
-    texture_vector.s.scale = (1 / texture_data.view.x) if texture_data.view.x != 0 else 1
-    texture_vector.t.scale = (1 / texture_data.view.y) if texture_data.view.y != 0 else 1
+    if texture_data.view.x != 0:
+        texture_vector.s.scale = (1 / texture_data.view.x)
+    if texture_data.view.y != 0:
+        texture_vector.t.scale = (1 / texture_data.view.y)
     lightmap_vector = texture.TextureVector(
         texture.ProjectionAxis(*texture_info.lightmap.s),
         texture.ProjectionAxis(*texture_info.lightmap.t))
@@ -1029,12 +1073,18 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
             position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
         texture_uv = texture_vector.uv_at(position)
         # NOTE: not checking if face.lightmap.size is 0x0
-        lightmap_uv = lightmap_vector.uv_at(position) - face.lightmap.mins + vector.vec2(0.5, 0.5)
+        lightmap_uv = lightmap_vector.uv_at(position)
+        # TODO: somehow move this mess into .uv_at(position)
+        lightmap_uv -= face.lightmap.mins
+        lightmap_uv += vector.vec2(0.5, 0.5)
         lightmap_uv = vector.vec2(
             lightmap_uv.x / (face.lightmap.size.x + 1),
             lightmap_uv.y / (face.lightmap.size.y + 1))
-        lightmap_uv = vector.vec2(max(0, min(lightmap_uv.x, 1)), max(0, min(lightmap_uv.y, 1)))
-        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour=colour))
+        lightmap_uv = vector.vec2(
+            max(0, min(lightmap_uv.x, 1)),
+            max(0, min(lightmap_uv.y, 1)))
+        vertices.append(
+            geometry.Vertex(position, normal, texture_uv, lightmap_uv, colour=colour))
     if face.primitives.count == 0:
         polygons = [geometry.Polygon(vertices)]
     else:  # T-junction
@@ -1046,9 +1096,10 @@ def face_mesh(bsp, face_index: int) -> List[geometry.Mesh]:
             if primitive.type == PrimitiveType.TRIANGLE_LIST:
                 assert len(indices) % 3 == 0
                 for i in range(0, len(indices), 3):
-                    polygons.append(geometry.Polygon([vertices[indices[i + j]] for j in range(3)]))
+                    polygons.append(geometry.Polygon([
+                        vertices[indices[i + j]] for j in range(3)]))
             else:  # TRIANGLE_STRIP
-                raise NotImplementedError()
+                raise NotImplementedError("TRIANGLE_STRIP Primitive")
     texture_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
     return geometry.Mesh(geometry.Material(texture_name), polygons)
 
