@@ -60,9 +60,12 @@ def xxd_bytes(bytes_: bytes, start=0, limit=None, row=32, group=4) -> Generator[
 
 
 def xxd(stream_or_bytes: Union[io.BytesIO, bytes], limit=None, start=0, row=32, group=4):
-    if isinstance(stream_or_bytes, bytes):
+    if isinstance(stream_or_bytes, (bytes, bytearray)):
         xxd_func = xxd_bytes
-    else:  # io.BytesIO or binary file
+    elif hasattr(stream_or_bytes, "read"):  # io.BytesIO or binary file
         xxd_func = xxd_stream
+    else:  # hopefully RawBspLump
+        xxd_func = xxd_bytes
+        stream_or_bytes = stream_or_bytes[::]
     for line in xxd_func(stream_or_bytes, start, limit, row, group):
         print(line)
