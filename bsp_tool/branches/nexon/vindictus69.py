@@ -351,30 +351,44 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"LEAF_BRUSHES": {0: shared.UnsignedInts},
-                           "LEAF_FACES":   {0: shared.UnsignedInts}})
+BASIC_LUMP_CLASSES.update({
+    "LEAF_BRUSHES": {0: shared.UnsignedInts},
+    "LEAF_FACES": {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"AREAS":             {0: Area},
-                     "AREA_PORTALS":      {0: AreaPortal},
-                     "BRUSH_SIDES":       {0: BrushSide},
-                     "DISPLACEMENT_INFO": {0: DisplacementInfo},
-                     "EDGES":             {0: remake_quake_old.Edge},
-                     "FACES":             {1: Face,
-                                           2: Facev2},
-                     "LEAVES":            {1: Leaf},
-                     "NODES":             {0: Node},
-                     "ORIGINAL_FACES":    {1: Face,
-                                           2: Facev2},
-                     "OVERLAYS":          {0: Overlay}})
+LUMP_CLASSES.update({
+    "AREAS": {
+        0: Area},
+    "AREA_PORTALS": {
+        0: AreaPortal},
+    "BRUSH_SIDES": {
+        0: BrushSide},
+    "DISPLACEMENT_INFO": {
+        0: DisplacementInfo},
+    "EDGES": {
+        0: remake_quake_old.Edge},
+    "FACES": {
+        1: Face,
+        2: Facev2},
+    "LEAVES": {
+        1: Leaf},
+    "NODES": {
+        0: Node},
+    "ORIGINAL_FACES": {
+        1: Face,
+        2: Facev2},
+    "OVERLAYS": {
+        0: Overlay}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {5: source.GameLump_SPRPv5,
-                              6: GameLump_SPRPv6}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        5: source.GameLump_SPRPv5,
+        6: GameLump_SPRPv6}}
 
 
 methods = orange_box.methods.copy()

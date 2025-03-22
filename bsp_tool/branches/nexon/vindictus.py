@@ -1,9 +1,13 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Vindictus
 """Vindictus. A MMO-RPG built in the Source Engine. Also known as Mabinogi Heroes"""
+from __future__ import annotations
 import enum
+# import io
 from typing import List
 
+# from ... import lumps
 from ...utils import vector
+# from ...utils.binary import read_struct
 from .. import base
 from ..valve import source
 from . import vindictus69
@@ -122,6 +126,60 @@ class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [version 7]
     StaticPropClass = StaticPropv7
 
 
+class StaticPropv8(base.Struct):
+    origin: vector.vec3
+    angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
+    model_name: int  # index into GAME_LUMP.sprp.model_names
+    first_leaf: int  # index into Leaf lump
+    num_leafs: int  # number of Leafs after first_leaf this StaticProp is in
+    solid_mode: source.StaticPropCollision
+    flags: source.StaticPropFlags
+    skin: int  # index of this StaticProp's skin in the .mdl
+    fade_distance: List[float]  # min & max distances to fade out
+    unknown_1: bytes  # seems to build on previous entry's unknown; could be indices
+    forced_fade_scale: float  # relative to pixels used to render on-screen?
+    dx_level: List[int]  # unsure; might be unused
+    unknown_2: bytes  # 8 bytes; could be some kind of flag
+    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
+                 "solid_mode", "flags", "skin", "fade_distance", "unknown_1",
+                 "forced_fade_scale", "dx_level", "unknown_2"]
+    _format = "6f3H2Bi2f12sf2H8s"
+    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+               "dx_level": ["min", "max"]}
+    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+                "flags": source.StaticPropFlags}
+    # TODO: angles QAngle
+
+
+class GameLump_SPRPv8(GameLump_SPRPv7):  # sprp GameLump (LUMP 35) [version 8]
+    """New in March 2025"""
+    StaticPropClass = StaticPropv8
+
+    # @classmethod
+    # def from_bytes(cls, raw_lump: bytes) -> GameLump_SPRPv8:
+    #     return cls.from_stream(io.BytesIO(raw_lump))
+
+    # @classmethod
+    # def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv8:
+    #     out = cls()
+    #     num_model_names = read_struct(stream, "I")
+    #     out.model_names = [
+    #         read_struct(stream, "128s").decode("latin_1")
+    #         for i in range(num_model_names)]
+    #     num_shorts = read_struct(stream, "I")
+    #     out.shorts = [
+    #         read_struct(stream, "H")
+    #         for i in range(num_shorts)]
+    #     num_scales = read_struct(stream, "I")
+    #     out.scales = [
+    #         vindictus69.StaticPropScale.from_stream(stream)
+    #         for i in range(num_scales)]
+    #     num_props = read_struct(stream, "I")
+    #     out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+    #     # NOTE: should be at the end of the lump now
+    #     return out
+
+
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = vindictus69.BASIC_LUMP_CLASSES.copy()
 
@@ -132,8 +190,11 @@ SPECIAL_LUMP_CLASSES = vindictus69.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = vindictus69.GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {6: GameLump_SPRPv6,
-                              7: GameLump_SPRPv7}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        6: GameLump_SPRPv6,
+        7: GameLump_SPRPv7,
+        8: GameLump_SPRPv8}}
 
 
 methods = vindictus69.methods.copy()
