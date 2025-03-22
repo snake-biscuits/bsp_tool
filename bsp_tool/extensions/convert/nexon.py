@@ -8,13 +8,13 @@ from ...branches import valve
 def vindictus_steam_to_69(bsp: ValveBsp, outdir: str = "./"):
     assert isinstance(bsp, ValveBsp)
     assert bsp.branch == nexon.vindictus
-    assert bsp.GAME_LUMP.headers["sprp"].version in (6, 7)
+    assert bsp.GAME_LUMP.headers["sprp"].version in (6, 7, 8)
 
     def downgrade(prop):
         """copy all attrs except unknown & dx_level"""
         data = dict()
         for attr in nexon.vindictus.StaticPropv7.__slots__:
-            if attr not in ("unknown", "dx_level"):
+            if attr != "dx_level" and not attr.startswith("unknown"):
                 data[attr] = getattr(prop, attr)
         return valve.source.StaticPropv5(**data)
 
