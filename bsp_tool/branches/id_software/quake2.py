@@ -1,5 +1,6 @@
 # https://www.flipcode.com/archives/Quake_2_BSP_File_Format.shtml
 # https://github.com/id-Software/Quake-2/blob/master/qcommon/qfiles.h#L214
+from __future__ import annotations
 import enum
 import io
 import itertools
@@ -7,6 +8,7 @@ import math
 import struct
 from typing import List, Tuple
 
+from ...utils import binary
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
@@ -260,24 +262,27 @@ class Visibility:
     # TODO: bytes -> List[bool]
     # -- [b == "1" for b in f"{int.from_bytes(x, 'big'):b}"[::-1]]
 
-    def __init__(self, pvs_table: List[List[bool]] = tuple(), pas_table: List[List[bool]] = tuple()):
+    def __init__(self, pvs_table: List[bytes] = tuple(), pas_table: List[bytes] = tuple()):
         assert len(pvs_table) == len(pas_table)
         self.pvs = pvs_table
         self.pas = pas_table
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        _buffer = io.BytesIO(raw_lump)
-        num_clusters = int.from_bytes(_buffer.read(4), "little")
-        offsets = list(struct.iter_unpack("2I", _buffer.read(8 * num_clusters)))
+    def from_bytes(cls, raw_lump: bytes) -> Visibility:
+        return cls.from_stream(io.BytesIO(raw_lump))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO) -> Visibility:
+        num_clusters = binary.read_struct(stream, "I")
+        offsets = list(struct.iter_unpack("2I", stream.read(8 * num_clusters)))
         pvs, pas = list(), list()
         for pvs_offset, pas_offset in offsets:
             # get Potentially Visible Set
-            _buffer.seek(pvs_offset)
-            pvs.append(cls.run_length_decode(_buffer, num_clusters))
+            stream.seek(pvs_offset)
+            pvs.append(cls.run_length_decode(stream, num_clusters))
             # get Potentially Audible Set
-            _buffer.seek(pas_offset)
-            pas.append(cls.run_length_decode(_buffer, num_clusters))
+            stream.seek(pas_offset)
+            pas.append(cls.run_length_decode(stream, num_clusters))
         return cls(pvs, pas)
 
     @staticmethod
@@ -325,24 +330,27 @@ class Visibility:
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
-                      "SURFEDGES":  shared.Ints}
+BASIC_LUMP_CLASSES = {
+    "LEAF_FACES": shared.Shorts,
+    "SURFEDGES":  shared.Ints}
 
-LUMP_CLASSES = {"AREAS":        Area,
-                "AREA_PORTALS": AreaPortal,
-                "BRUSHES":      Brush,
-                "BRUSH_SIDES":  BrushSide,
-                "EDGES":        quake.Edge,
-                "FACES":        quake.Face,
-                "LEAVES":       Leaf,
-                "MODELS":       Model,
-                "NODES":        Node,
-                "PLANES":       quake.Plane,
-                "TEXTURE_INFO": TextureInfo,
-                "VERTICES":     quake.Vertex}
+LUMP_CLASSES = {
+    "AREAS":        Area,
+    "AREA_PORTALS": AreaPortal,
+    "BRUSHES":      Brush,
+    "BRUSH_SIDES":  BrushSide,
+    "EDGES":        quake.Edge,
+    "FACES":        quake.Face,
+    "LEAVES":       Leaf,
+    "MODELS":       Model,
+    "NODES":        Node,
+    "PLANES":       quake.Plane,
+    "TEXTURE_INFO": TextureInfo,
+    "VERTICES":     quake.Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
-                        "VISIBILITY": Visibility}
+SPECIAL_LUMP_CLASSES = {
+    "ENTITIES":   shared.Entities,
+    "VISIBILITY": Visibility}
 
 
 # TODO: model(model_index: int) -> geometry.Model

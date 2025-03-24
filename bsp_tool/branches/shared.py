@@ -1,3 +1,4 @@
+from __future__ import annotations
 import math
 import re
 from typing import Dict, List
@@ -77,7 +78,7 @@ class Entities(list):
         return b"\n".join(entities) + b"\n\x00"
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
+    def from_bytes(cls, raw_lump: bytes) -> Entities:
         entities: List[Dict[str, str]] = list()
         # ^ [{"key": "value"}]
         enumerated_lines = enumerate(raw_lump.decode(errors="ignore").splitlines())

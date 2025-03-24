@@ -8,6 +8,7 @@ from typing import Dict, List, Tuple, Union
 
 from ... import lumps
 from ... import archives
+from ...utils import binary
 from ...utils import editor
 from ...utils import physics
 from ...utils import geometry
@@ -955,7 +956,7 @@ class EntityPartitions(list):
         return " ".join(self).encode("ascii") + b"\0"
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
+    def from_bytes(cls, raw_lump: bytes) -> EntityPartitions:
         return cls(raw_lump.decode("ascii")[:-1].split(" "))
 
 
@@ -999,10 +1000,8 @@ class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [v
     endianness: str = "little"  # for x360
     model_names: List[str]
     leaves: List[int]
-    # NOTE: both unknown_1 & unknown_2 are new
-    # -- they might mark first_translucent_prop & first_alphatest_prop like LevelInfo
-    unknown_1: int
-    unknown_2: int
+    unknown_1: int  # first_transparent_prop?
+    unknown_2: int  # first_alphatest_prop?
     props: List[StaticPropv12]
 
     def __init__(self):
@@ -1013,34 +1012,45 @@ class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GameLump (LUMP 35) [v
         self.props = list()
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        sprp_lump = io.BytesIO(raw_lump)
+    def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv12:
         out = cls()
-        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
-        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.leaves = [int.from_bytes(sprp_lump.read(2), cls.endianness) for i in range(leaf_count)]
-        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.unknown_1 = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.unknown_2 = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
-        tail = sprp_lump.read()
+        endian = {"little": "<", "big": ">"}[cls.endianness]
+        num_model_names = binary.read_struct(stream, f"{endian}I")
+        out.model_names = [
+            stream.read(128).replace(b"\0", b"").decode()
+            for i in range(num_model_names)]
+        num_leaves = binary.read_struct(stream, f"{endian}I")
+        assert num_leaves != 1
+        out.leaves = binary.read_struct(stream, f"{endian}{num_leaves}H")
+        num_props = binary.read_struct(stream, f"{endian}I")
+        out.unknown_1 = binary.read_struct(stream, f"{endian}I")
+        out.unknown_2 = binary.read_struct(stream, f"{endian}I")
+        out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+        tail = stream.read()
         if len(tail) > 0:
-            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
-            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
+            props_bytes = b"".join([prop.as_bytes() for prop in out.props])
+            resized = (len(props_bytes) + len(tail)) / num_props
+            raise RuntimeError(f"tail of {len(tail)} bytes; StaticPropClass might be {resized} bytes long")
         return out
 
     def as_bytes(self) -> bytes:
-        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
-        leaves_format = {"little": "<H", "big": ">H"}[self.endianness]
-        return b"".join([len(self.model_names).to_bytes(4, self.endianness),
-                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-                         len(self.leaves).to_bytes(4, self.endianness),
-                         *[struct.pack(leaves_format, L) for L in self.leaves],
-                         len(self.props).to_bytes(4, self.endianness),
-                         self.unknown_1.to_bytes(4, self.endianness),
-                         self.unknown_2.to_bytes(4, self.endianness),
-                         *[p.as_bytes() for p in self.props]])
+        assert all([
+            isinstance(prop, self.StaticPropClass)
+            for prop in self.props])
+        endian = {"little": "<", "big": ">"}[self.endianness]
+        return b"".join([
+            struct.pack(f"{endian}I", len(self.model_names)),
+            *[
+                struct.pack("128s", model_name.encode("ascii"))
+                for model_name in self.model_names],
+            struct.pack(f"{endian}I", len(self.leaves)),
+            struct.pack(f"{endian}{len(self.leaves)}H", *self.leaves),
+            struct.pack(f"{endian}I", len(self.props)),
+            struct.pack(f"{endian}I", self.unknown_1),
+            struct.pack(f"{endian}I", self.unknown_2),
+            *[
+                prop.as_bytes()
+                for prop in self.props]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -1122,7 +1132,9 @@ SPECIAL_LUMP_CLASSES = {
 GAME_LUMP_HEADER = source.GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {12: GameLump_SPRPv12}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        12: GameLump_SPRPv12}}
 
 
 # methods for interfacing with lumps from this branch:

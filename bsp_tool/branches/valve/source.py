@@ -826,7 +826,7 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         return cls.from_stream(io.BytesIO(raw_lump))
 
     @classmethod
-    def from_stream(cls, stream: io.BytesIO):
+    def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv4:
         out = cls()
         endian = {"little": "<", "big": ">"}[cls.endianness]
         num_model_names = binary.read_struct(stream, f"{endian}I")
@@ -834,6 +834,7 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
             stream.read(128).replace(b"\0", b"").decode()
             for i in range(num_model_names)]
         num_leaves = binary.read_struct(stream, f"{endian}I")
+        assert num_leaves != 1
         out.leaves = binary.read_struct(stream, f"{endian}{num_leaves}H")
         num_props = binary.read_struct(stream, f"{endian}I")
         out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
@@ -845,10 +846,10 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         return out
 
     def as_bytes(self) -> bytes:
-        endian = {"little": "<", "big": ">"}[self.endianness]
         assert all([
             isinstance(prop, self.StaticPropClass)
             for prop in self.props])
+        endian = {"little": "<", "big": ">"}[self.endianness]
         return b"".join([
             struct.pack(f"{endian}I", len(self.model_names)),
             *[

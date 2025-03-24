@@ -2,11 +2,13 @@
 # https://stratasource.github.io/Wiki/docs/Reference/bsp-v25/
 # https://blog.momentum-mod.org/posts/changelog/0.9.4/
 # https://github.com/momentum-mod/BSPConvert
+from __future__ import annotations
 import enum
 import io
 from typing import List
 
 from ... import lumps
+from ...utils import binary
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -351,19 +353,22 @@ class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 35) [
     StaticPropClass = sdk_2013.StaticPropv11
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        sprp_lump = io.BytesIO(raw_lump)
+    def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv12:
         out = cls()
-        model_name_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
-        leaf_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.leaves = [int.from_bytes(sprp_lump.read(4), cls.endianness) for i in range(leaf_count)]
-        prop_count = int.from_bytes(sprp_lump.read(4), cls.endianness)
-        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
-        tail = sprp_lump.read()
+        endian = {"little": "<", "big": ">"}[cls.endianness]
+        num_model_names = binary.read_struct(stream, f"{endian}I")
+        out.model_names = [
+            stream.read(128).replace(b"\0", b"").decode()
+            for i in range(num_model_names)]
+        num_leaves = binary.read_struct(stream, f"{endian}I")
+        out.leaves = binary.read_struct(stream, f"{endian}{num_leaves}I")
+        num_props = binary.read_struct(stream, f"{endian}I")
+        out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+        tail = stream.read()
         if len(tail) > 0:
-            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
-            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
+            props_bytes = b"".join([prop.as_bytes() for prop in out.props])
+            resized = (len(props_bytes) + len(tail)) / num_props
+            raise RuntimeError(f"tail of {len(tail)} bytes; StaticPropClass might be {resized} bytes long")
         return out
 
 

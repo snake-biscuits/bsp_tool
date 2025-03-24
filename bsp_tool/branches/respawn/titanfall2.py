@@ -5,6 +5,7 @@ import struct
 from typing import List, Tuple
 
 from ... import lumps
+from ...utils import binary
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -16,11 +17,13 @@ FILE_MAGIC = b"rBSP"
 
 BSP_VERSION = 37
 
-GAME_PATHS = {"Titanfall 2 Tech Test": "Titanfall2_tech_test",
-              "Titanfall 2": "Titanfall2"}
+GAME_PATHS = {
+    "Titanfall 2 Tech Test": "Titanfall2_tech_test",
+    "Titanfall 2": "Titanfall2"}
 
-GAME_VERSIONS = {"Titanfall 2 Tech Test": 36,
-                 "Titanfall 2": 37}
+GAME_VERSIONS = {
+    "Titanfall 2 Tech Test": 36,
+    "Titanfall 2": 37}
 
 
 class LUMP(enum.Enum):
@@ -480,34 +483,50 @@ class GameLump_SPRPv13(titanfall.GameLump_SPRPv12):  # sprp GameLump (LUMP 35) [
         self.unknown_3 = list()
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        sprp_lump = io.BytesIO(raw_lump)
+    def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv13:
         out = cls()
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.unknown_1 = int.from_bytes(sprp_lump.read(4), "little")
-        out.unknown_2 = int.from_bytes(sprp_lump.read(4), "little")
-        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
-        unknown_3_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.unknown_3 = lumps.BspLump.from_count(sprp_lump, unknown_3_count, cls.Unknown3Class)
-        tail = sprp_lump.read()
+        endian = {"little": "<", "big": ">"}[cls.endianness]
+        num_model_names = binary.read_struct(stream, f"{endian}I")
+        out.model_names = [
+            stream.read(128).replace(b"\0", b"").decode()
+            for i in range(num_model_names)]
+        num_props = binary.read_struct(stream, f"{endian}I")
+        out.unknown_1 = binary.read_struct(stream, f"{endian}I")
+        out.unknown_2 = binary.read_struct(stream, f"{endian}I")
+        out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+        if (num_model_names, num_props, out.unknown_1, out.unknown_2) == (0,) * 4:
+            assert len(stream.read(4)) == 0  # should be end of stream
+            return out
+        num_unknown_3 = binary.read_struct(stream, f"{endian}I")
+        out.unknown_3 = lumps.BspLump.from_count(stream, num_unknown_3, cls.Unknown3Class)
+        tail = stream.read()
         if len(tail) > 0:
             raise RuntimeError(f"sprp lump has a tail of {len(tail)} bytes")
         return out
 
     def as_bytes(self) -> bytes:
-        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
-        assert all([isinstance(u, self.Unknown3Class) for u in self.unknown_3])
+        assert all([
+            isinstance(prop, self.StaticPropClass)
+            for prop in self.props])
+        assert all([
+            isinstance(unknown_3, self.Unknown3Class)
+            for unknown_3 in self.unknown_3])
+        endian = {"little": "<", "big": ">"}[self.endianness]
         return b"".join([
-            len(self.model_names).to_bytes(4, "little"),
-            *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-            len(self.props).to_bytes(4, self.endianness),
-            self.unknown_1.to_bytes(4, self.endianness),
-            self.unknown_2.to_bytes(4, self.endianness),
-            *[p.as_bytes() for p in self.props],
-            len(self.unknown_3).to_bytes(4, self.endianness),
-            *[u.as_bytes() for u in self.unknown_3]])
+            struct.pack(f"{endian}I", len(self.model_names)),
+            *[
+                struct.pack("128s", model_name.encode("ascii"))
+                for model_name in self.model_names],
+            struct.pack(f"{endian}I", len(self.props)),
+            struct.pack(f"{endian}I", self.unknown_1),
+            struct.pack(f"{endian}I", self.unknown_2),
+            *[
+                prop.as_bytes()
+                for prop in self.props],
+            struct.pack(f"{endian}I", len(self.unknown_3)),
+            *[
+                unknown_3.as_bytes()
+                for unknown_3 in self.unknown_3]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
@@ -523,16 +542,19 @@ LUMP_CLASSES.update({
     "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
     "MESHES":                              {0: Mesh},
     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
-    "WORLD_LIGHTS":                        {1: titanfall.WorldLight,
-                                            2: WorldLightv2,
-                                            3: WorldLightv3}})
+    "WORLD_LIGHTS": {
+        1: titanfall.WorldLight,
+        2: WorldLightv2,
+        3: WorldLightv3}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {13: GameLump_SPRPv13}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        13: GameLump_SPRPv13}}
 
 
 def geo_set_primitives(bsp, geo_set_index: int) -> List[Tuple[Primitive, titanfall.Bounds]]:

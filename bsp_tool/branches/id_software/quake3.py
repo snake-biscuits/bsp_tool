@@ -4,10 +4,13 @@
 # NOTE: id-Software/Quake-III-Arena/q3radiant/BSPFILE.H uses BSPVERSION 34  (early Quake 2?)
 # NOTE: id-Software/Quake-III-Arena/q3radiant/QFILES.H uses BSPVERSION 36
 # NOTE: id-Software/Quake-III-Arena/common/qfiles.h uses BSPVERSION 46
+from __future__ import annotations
 import enum
+import io
 from typing import List, Tuple
 import struct
 
+from ...utils import binary
 from ...utils import vector
 from .. import base
 from .. import colour
@@ -19,17 +22,25 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 46
 
-GAME_PATHS = {"Quake III Arena": "Quake 3 Arena",  # NOTE: includes "Quake III: Team Arena"
-              "Quake Live": "Quake Live",
-              "Return to Castle Wolfenstein": "realRTCW",  # Steam release (community made afaik)
-              "Wolfenstein: Enemy Territory": "Wolfenstein - Enemy Territory",
-              "WRATH: Aeon of Ruin": "WRATH",
-              "Dark Salvation": "Dark Salvation"}  # https://mangledeyestudios.itch.io/dark-salvation
+GAME_PATHS = {
+    "Quake III Arena": "Quake 3 Arena",
+    # ^ includes "Quake III: Team Arena"
+    "Quake Live": "Quake Live",
+    "Return to Castle Wolfenstein": "realRTCW",
+    # ^ Steam release (community made afaik)
+    "Wolfenstein: Enemy Territory": "Wolfenstein - Enemy Territory",
+    "WRATH: Aeon of Ruin": "WRATH",
+    # https://mangledeyestudios.itch.io/dark-salvation
+    "Dark Salvation": "Dark Salvation"}
 # TODO: see where Xonotic & Nexuiz Classic fit in
 
-GAME_VERSIONS = {"Quake III Arena": 46, "Quake Live": 46, "WRATH: Aeon of Ruin": 46,
-                 "Return to Castle Wolfenstein": 47, "Wolfenstein Enemy Territory": 47,
-                 "Dark Salvation": 666}
+GAME_VERSIONS = {
+    "Quake III Arena": 46,
+    "Quake Live": 46,
+    "WRATH: Aeon of Ruin": 46,
+    "Return to Castle Wolfenstein": 47,
+    "Wolfenstein Enemy Territory": 47,
+    "Dark Salvation": 666}
 
 
 class LUMP(enum.Enum):
@@ -357,54 +368,65 @@ class Visibility(list):
     def __init__(self, vectors: List[bytes] = tuple()):
         super().__init__(vectors)
 
-    def as_bytes(self, compress=False):
-        # default behaviour should be to match input bytes; hence compress=False
+    def as_bytes(self, compress=False) -> bytes:
+        # lazy method (compress=False)
+        # NOTE: should match .from_bytes() input exactly
+        num_vectors = len(self)
+        vector_size = len(self[0])  # assumption! verified later
+        best_vector_size = num_vectors // 8 + (1 if num_vectors % 8 else 0)
+        if vector_size >= best_vector_size and compress is False:
+            vector_sizes = {len(vector_) for vector_ in self}
+            assert len(vector_sizes) == 1, "inconsistently sized vectors"
+            return b"".join([
+                struct.pack("2i", num_vectors, vector_size),
+                *self])
+        # robust method (compress=True)
         # TODO: verify "compression" does not break maps
-        # lazy method
-        vec_n = len(self)
-        vec_sz = len(self[0])  # assumption! verified later
-        best_vec_sz = vec_n // 8 + (1 if vec_n % 8 else 0)
-        if vec_sz >= best_vec_sz and compress is False:
-            assert len({len(v) for v in self}) == 1, "not all vectors are the same size"
-            return struct.pack(f"2i{vec_n * vec_sz}s", vec_n, vec_sz, b"".join(self))
-        # robust method (compresses)
-        vecs = b""
-        for vec in self:
-            if len(vec) > best_vec_sz:
-                vec = vec[:best_vec_sz]  # unsure if safe
-            elif len(vec) < best_vec_sz:
-                vec += b"\0" * (best_vec_sz - len(vec))
-            vecs += vec
-        return struct.pack(f"2i{vec_n * best_vec_sz}s", vec_n, best_vec_sz, vecs)
+        vectors = list()
+        for vector_ in self:
+            if len(vector_) > best_vector_size:  # trim (scary)
+                vector_ = vector_[:best_vector_size]
+            elif len(vector) < best_vector_size:  # pad
+                vector_ += b"\0" * (best_vector_size - len(vector_))
+            vectors.append(vector_)
+        return b"".join([
+            struct.pack("2i", num_vectors, best_vector_size),
+            *vectors])
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes = None):
-        vec_n, vec_sz = struct.unpack("2i", raw_lump[:8])
-        assert len(raw_lump) - 8 == vec_n * vec_sz, "lump size does not match internal header"
-        # we could check if vec_sz is the smallest it could be here...
-        return cls([raw_lump[8:][i:i + vec_sz] for i in range(0, vec_n * vec_sz, vec_sz)])
+    def from_bytes(cls, raw_lump: bytes) -> Visibility:
+        return cls.from_stream(io.BytesIO(raw_lump), len(raw_lump))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, lump_length: int) -> Visibility:
+        num_vectors, vector_size = binary.read_struct(stream, "2i")
+        assert num_vectors * vector_size == lump_length - 8
+        return cls([stream.read(vector_size) for i in range(num_vectors)])
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = {"LEAF_BRUSHES":  shared.Ints,
-                      "LEAF_FACES":    shared.Ints,
-                      "INDICES":       shared.Ints}
+BASIC_LUMP_CLASSES = {
+    "LEAF_BRUSHES": shared.Ints,
+    "LEAF_FACES":   shared.Ints,
+    "INDICES":      shared.Ints}
 
-LUMP_CLASSES = {"BRUSHES":     Brush,
-                "BRUSH_SIDES": BrushSide,
-                "EFFECTS":     Effect,
-                "FACES":       Face,
-                "LEAVES":      Leaf,
-                "LIGHTMAPS":   Lightmap,
-                "LIGHT_GRID":  GridLight,
-                "MODELS":      Model,
-                "NODES":       Node,
-                "PLANES":      Plane,
-                "TEXTURES":    Texture,
-                "VERTICES":    Vertex}
+LUMP_CLASSES = {
+    "BRUSHES":     Brush,
+    "BRUSH_SIDES": BrushSide,
+    "EFFECTS":     Effect,
+    "FACES":       Face,
+    "LEAVES":      Leaf,
+    "LIGHTMAPS":   Lightmap,
+    "LIGHT_GRID":  GridLight,
+    "MODELS":      Model,
+    "NODES":       Node,
+    "PLANES":      Plane,
+    "TEXTURES":    Texture,
+    "VERTICES":    Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":   shared.Entities,
-                        "VISIBILITY": Visibility}
+SPECIAL_LUMP_CLASSES = {
+    "ENTITIES":   shared.Entities,
+    "VISIBILITY": Visibility}
 
 
 # branch exclusive methods, in alphabetical order:

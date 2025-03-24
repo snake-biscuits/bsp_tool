@@ -134,7 +134,7 @@ class RawBspLump:
         return out
 
     @classmethod
-    def from_header(cls, stream: Stream, lump_header: LumpHeader):
+    def from_header(cls, stream: Stream, lump_header: LumpHeader) -> RawBspLump:
         out = cls()
         out._length = lump_header.length
         out.offset = lump_header.offset
@@ -142,7 +142,7 @@ class RawBspLump:
         return out
 
     @classmethod
-    def from_stream(cls, stream: Stream, offset: int = 0, length: int = -1):
+    def from_stream(cls, stream: Stream, offset: int = 0, length: int = -1) -> RawBspLump:
         if length == -1:
             if hasattr(stream, "size"):
                 length = stream.size

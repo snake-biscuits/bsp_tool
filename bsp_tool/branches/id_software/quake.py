@@ -6,6 +6,7 @@ import io
 import struct
 from typing import Dict, List, Set, Tuple, Union
 
+from ...utils import binary
 from ...utils import geometry
 from ...utils import physics
 from ...utils import texture
@@ -301,7 +302,7 @@ class MipTextureLump(list):  # LUMP 2
     def __init__(self, iterable: List[(base.Struct, List[bytes])] = tuple()):
         super().__init__(iterable)
 
-    def as_bytes(self):
+    def as_bytes(self) -> bytes:
         out = [len(self).to_bytes(4, "little")]  # miptex count
         miptex_offsets = list()
         miptex_offset = 4 + len(self) * 4
@@ -318,35 +319,43 @@ class MipTextureLump(list):  # LUMP 2
         return b"".join(out)
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        out = cls()
-        _buffer = io.BytesIO(raw_lump)
-        length = int.from_bytes(_buffer.read(4), "little")
-        offsets = struct.unpack(f"{length}i", _buffer.read(4 * length))
+    def from_bytes(cls, raw_lump: bytes) -> MipTextureLump:
+        return cls.from_stream(io.BytesIO(raw_lump), len(raw_lump))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, lump_length: int) -> MipTextureLump:
+        out = list()
+        start = stream.tell()  # for confirming eof
+        num_offsets = binary.read_struct(stream, "I")
+        if num_offsets != 1:
+            offsets = binary.read_struct(stream, f"{num_offsets}i")
+        else:
+            offsets = struct.unpack("i", stream.read(4))
         for i, offset in enumerate(offsets):
             if offset == -1:
                 out.append((None, [b""] * 4))  # there is no mip
                 continue
-            _buffer.seek(offset)
-            miptex = cls.MipTextureClass.from_stream(_buffer)
+            stream.seek(offset)
+            miptex = cls.MipTextureClass.from_stream(stream)
             mips = list()
             for j, mip_offset in enumerate(miptex.offsets):
-                if mip_offset == 0:  # Half-Life/valve/maps/gasworks.bsp has no embedded mips
+                if mip_offset == 0:  # no embedded mips (e.g. gasworks.bsp)
                     mips.append(b"")
                     continue
-                _buffer.seek(offset + mip_offset)
-                # don't bother accurately calculating & confirming mip sizes, just grab all the bytes
+                stream.seek(offset + mip_offset)
+                # don't bother calculating & confirming mip sizes
+                # just grab all the bytes
                 if j < 3:  # len(miptex.offsets) - 1
                     end_offset = miptex.offsets[j + 1]
                 elif i < len(offsets) - 1:
                     end_offset = offsets[i + 1]
                 else:  # end of lump (j == 3 and offset == offsets[-1])
-                    end_offset = len(raw_lump)
+                    end_offset = lump_length
                 length = end_offset - mip_offset
-                mip = _buffer.read(length)
+                mip = stream.read(length)
                 mips.append(mip)
             out.append((miptex, mips))
-        assert len(raw_lump) == _buffer.tell()
+        assert stream.tell() == start + lump_length
         return cls(out)
 
 

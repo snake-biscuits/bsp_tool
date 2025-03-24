@@ -7,6 +7,7 @@ import io
 import struct
 from typing import List, Union
 
+from ...utils import binary
 from ...utils import vector
 from .. import base
 
@@ -115,24 +116,28 @@ class Block:
         return b"".join([header.as_bytes(), surface_header.as_bytes(), self.data])
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        lump = io.BytesIO(raw_lump)
-        header = CollideHeader.from_stream(lump)
+    def from_bytes(cls, raw_lump: bytes) -> Block:
+        return cls.from_stream(io.BytesIO(raw_lump), len(raw_lump))
+
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, lump_length: int) -> Block:
+        start = stream.tell()
+        header = CollideHeader.from_stream(stream)
         assert header.id == b"VPHY", "if 'YHPV' byte order is flipped"
         # version isn't checked by the byteswap, probably important for VPHYSICS
         if header.model_type == ModelType.SURFACE:
-            surface_header = SurfaceHeader.from_stream(lump)
-            # data_start = lump.tell()
+            surface_header = SurfaceHeader.from_stream(stream)
+            # data_start = stream.tell()
             # NOTE: the tree reads are breaking
-            # self.collision_model = CollisionModel.from_stream(lump)
+            # self.collision_model = CollisionModel.from_stream(stream)
             # lump.seek(data_start)
         elif header.model_type == ModelType.MOPP:
-            surface_header = MoppHeader.from_stream(lump)
+            surface_header = MoppHeader.from_stream(stream)
             # yeah, no idea what this does
         else:
             raise RuntimeError("Invalid model type")
-        out = cls((header, surface_header), lump.read(surface_header.size))
-        assert lump.tell() == len(raw_lump), "Invalid data size"
+        out = cls((header, surface_header), stream.read(surface_header.size))
+        assert stream.tell() - start == lump_length, "Invalid data size"
         return out
 
 
@@ -271,17 +276,18 @@ class Displacement(list):
         return b"".join(out)
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        lump_size = len(raw_lump)
-        blobs = list()
-        buffer = io.BytesIO(raw_lump)
-        int_size = struct.calcsize(cls._format)
+    def from_bytes(cls, raw_lump: bytes) -> Displacement:
+        return cls.from_stream(io.BytesIO(raw_lump), len(raw_lump))
 
-        def read_int() -> int:
-            return struct.unpack(cls._format, buffer.read(int_size))[0]
-
-        blob_count = read_int()
-        blob_sizes = [read_int() for i in range(blob_count)]
-        blobs = [buffer.read(s) for s in blob_sizes]
-        assert buffer.tell() == lump_size
+    @classmethod
+    def from_stream(cls, stream: io.BytesIO, lump_length: int) -> Displacement:
+        start = stream.tell()
+        num_blobs = binary.read_struct(stream, cls._format)
+        blob_sizes = [
+            binary.read_struct(stream, cls._format)
+            for i in range(num_blobs)]
+        blobs = [
+            stream.read(size)
+            for size in blob_sizes]
+        assert stream.tell() - start == lump_length
         return cls(blobs)

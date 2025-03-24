@@ -7,6 +7,7 @@ import struct
 from typing import List
 
 from ... import lumps
+from ...utils import binary
 from ...utils import vector
 from .. import base
 from .. import shared
@@ -320,65 +321,71 @@ class GameLump_SPRPv6(source.GameLump_SPRPv4):  # sprp GameLump (LUMP 35) [versi
         self.props = list()
 
     @classmethod
-    def from_bytes(cls, raw_lump: bytes):
-        sprp_lump = io.BytesIO(raw_lump)
+    def from_stream(cls, stream: io.BytesIO) -> GameLump_SPRPv6:
         out = cls()
-        model_name_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.model_names = [sprp_lump.read(128).replace(b"\0", b"").decode() for i in range(model_name_count)]
-        leaf_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.leaves = [int.from_bytes(sprp_lump.read(2), "little") for i in range(leaf_count)]
-        scale_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.scales = [StaticPropScale.from_stream(sprp_lump) for i in range(scale_count)]
-        prop_count = int.from_bytes(sprp_lump.read(4), "little")
-        out.props = lumps.BspLump.from_count(sprp_lump, prop_count, cls.StaticPropClass)
-        tail = sprp_lump.read()
+        endian = {"little": "<", "big": ">"}[cls.endianness]
+        num_model_names = binary.read_struct(stream, f"{endian}I")
+        out.model_names = [
+            stream.read(128).replace(b"\0", b"").decode()
+            for i in range(num_model_names)]
+        num_leaves = binary.read_struct(stream, f"{endian}I")
+        assert num_leaves != 1
+        out.leaves = binary.read_struct(stream, f"{endian}{num_leaves}H")
+        num_scales = binary.read_struct(stream, f"{endian}I")
+        out.scales = lumps.BspLump.from_count(stream, num_scales, StaticPropScale)
+        num_props = binary.read_struct(stream, f"{endian}I")
+        out.props = lumps.BspLump.from_count(stream, num_props, cls.StaticPropClass)
+        tail = stream.read()
         if len(tail) > 0:
-            possible_sizeof = (len(b"".join([p.as_bytes() for p in out.props])) + len(tail)) / prop_count
-            raise RuntimeError(f"tail of {len(tail)} bytes; possible_sizeof={possible_sizeof}")
+            props_bytes = b"".join([prop.as_bytes() for prop in out.props])
+            resized = (len(props_bytes) + len(tail)) / num_props
+            raise RuntimeError(f"tail of {len(tail)} bytes; StaticPropClass might be {resized} bytes long")
         return out
 
     def as_bytes(self) -> bytes:
-        assert all([isinstance(p, self.StaticPropClass) for p in self.props])
-        return b"".join([int.to_bytes(len(self.model_names), 4, "little"),
-                         *[struct.pack("128s", n.encode("ascii")) for n in self.model_names],
-                         int.to_bytes(len(self.leaves), 4, "little"),
-                         *[struct.pack("H", L) for L in self.leaves],
-                         int.to_bytes(len(self.scales), 4, "little"),
-                         *[s.as_bytes() for s in self.scales],
-                         int.to_bytes(len(self.props), 4, "little"),
-                         *[p.as_bytes() for p in self.props]])
+        assert all([
+            isinstance(prop, self.StaticPropClass)
+            for prop in self.props])
+        endian = {"little": "<", "big": ">"}[self.endianness]
+        return b"".join([
+            struct.pack(f"{endian}I", len(self.model_names)),
+            *[
+                struct.pack("128s", model_name.encode("ascii"))
+                for model_name in self.model_names],
+            struct.pack(f"{endian}I", len(self.leaves)),
+            struct.pack(f"{endian}{len(self.leaves)}H", *self.leaves),
+            struct.pack(f"{endian}I", len(self.scales)),
+            *[
+                scale.as_bytes()
+                for scale in self.scales],
+            struct.pack(f"{endian}I", len(self.props)),
+            *[
+                prop.as_bytes()
+                for prop in self.props]])
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = orange_box.BASIC_LUMP_CLASSES.copy()
 BASIC_LUMP_CLASSES.update({
     "LEAF_BRUSHES": {0: shared.UnsignedInts},
-    "LEAF_FACES": {0: shared.UnsignedInts}})
+    "LEAF_FACES":   {0: shared.UnsignedInts}})
 
 LUMP_CLASSES = orange_box.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({
-    "AREAS": {
-        0: Area},
-    "AREA_PORTALS": {
-        0: AreaPortal},
-    "BRUSH_SIDES": {
-        0: BrushSide},
-    "DISPLACEMENT_INFO": {
-        0: DisplacementInfo},
-    "EDGES": {
-        0: remake_quake_old.Edge},
+    "AREAS":             {0: Area},
+    "AREA_PORTALS":      {0: AreaPortal},
+    "BRUSH_SIDES":       {0: BrushSide},
+    "DISPLACEMENT_INFO": {0: DisplacementInfo},
+    "EDGES":             {0: remake_quake_old.Edge},
     "FACES": {
         1: Face,
         2: Facev2},
-    "LEAVES": {
-        1: Leaf},
-    "NODES": {
-        0: Node},
+    "LEAVES":            {1: Leaf},
+    "NODES":             {0: Node},
     "ORIGINAL_FACES": {
         1: Face,
         2: Facev2},
-    "OVERLAYS": {
-        0: Overlay}})
+    "OVERLAYS":          {0: Overlay}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
