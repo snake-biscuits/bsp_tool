@@ -1,9 +1,13 @@
 from __future__ import annotations
 import collections
-from typing import Dict, Generator, List
+from typing import Dict, Generator, List, Union
 
 from ...utils import geometry
 from . import base
+
+GroupList = Union[
+    List[geometry.Model],
+    Dict[str, base.ModelList]]
 
 
 class Obj(base.SceneDescription):
@@ -39,7 +43,8 @@ class Obj(base.SceneDescription):
                     polygons[mesh.material].extend(mesh.polygons)
                 for material in polygons:
                     yield f"usemtl {material.name}"
-                    # TODO: generate .mtl files & include w/ "mtllib {material.name}.mtl"
+                    # TODO: generate .mtl files
+                    # -- f"mtllib {material.name}.mtl"
                     for polygon in polygons[material]:
                         vertices = [*map(model.apply_transforms, polygon.vertices)]
                         # NOTE: only the first uv can be saved
@@ -58,27 +63,23 @@ class Obj(base.SceneDescription):
                                 f"{i}//{i}" for i in indices(polygon)])
 
     @classmethod
-    def from_groups(cls, *unnamed_groups, **groups) -> Obj:
-        index = 0
-        for group in unnamed_groups:
-            group_name = f"group_{index:03X}"
-            while group_name in unnamed_groups:
-                index += 1
-                group_name = f"group_{index:03X}"
-            groups[group_name] = group
+    def from_groups(cls, groups: GroupList) -> Obj:
         out = cls()
+        if isinstance(groups, (list, tuple, set)):
+            groups = {
+                f"group_{i:03d}": group
+                for i, group in enumerate(groups)}
+        assert isinstance(groups, dict), "'groups' must be a GroupList!"
         out.groups = groups
         return out
 
     @classmethod
-    def from_models(cls, *unnamed_models, **models) -> Obj:
-        index = 0
-        for model in unnamed_models:
-            model_name = f"model_{index:03X}"
-            while model_name in unnamed_models:
-                index += 1
-                model_name = f"model_{index:03X}"
-            models[model_name] = model
-        return cls.from_groups(**{"group_000": models})
+    def from_models(cls, models: base.ModelList) -> Obj:
+        if isinstance(models, (list, tuple, set)):
+            models = {
+                f"model_{i:03d}": model
+                for i, model in enumerate(models)}
+        assert isinstance(models, dict), "'models' must be a ModelList!"
+        return cls.from_groups(models)
 
     # TODO: @classmethod from_text(cls, raw_obj: str) -> Obj:
