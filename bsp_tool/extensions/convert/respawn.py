@@ -15,14 +15,7 @@ def titanfall_to_titanfall2(r1_bsp, outdir: str = "./"):
     r1_bsp.headers = {r2.LUMP(getattr(r1.LUMP, L).value).name: h for L, h in r1_bsp.headers.items()}
     # LIGHTMAP_DATA_*
     print("Lightmaps")
-    new_RTL = b""
-    rtl_start, rtl_end = 0, 0
-    for header in r1_bsp.LIGHTMAP_HEADERS:
-        rtl_end = rtl_start + (header.width * header.height * 4)
-        new_RTL += r1_bsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end] * 2
-        new_RTL += b"\xFF" * header.width * header.height  # mystery 9th byte-per-texel
-        rtl_start = rtl_end
-    r1_bsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS = new_RTL
+    r1_bsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS = r1_rtl_to_r2(r1_bsp)
     # LightProbeRefs
     print("LightProbeRefs")
     new_lprs = [r2.LightProbeRef(**{a: getattr(r, a) for a in r.__slots__}) for r in r1_bsp.LIGHTPROBE_REFERENCES]
@@ -34,9 +27,10 @@ def titanfall_to_titanfall2(r1_bsp, outdir: str = "./"):
     pitch = float(light_env.get("pitch", pitch))
     sun_vector = vec3(1, 0, 0).rotate(y=pitch)
     sun_vector = sun_vector.rotate(z=yaw)
-    shadow_env = r2.ShadowEnvironment(unknown_1=(0, 0), first_shadow_mesh=0,
-                                      unknown_2=(1, 0), num_shadow_meshes=len(r1_bsp.SHADOW_MESHES),
-                                      sun_normal=sun_vector)
+    shadow_env = r2.ShadowEnvironment(
+        unknown_1=(0, 0), first_shadow_mesh=0,
+        unknown_2=(1, 0), num_shadow_meshes=len(r1_bsp.SHADOW_MESHES),
+        sun_normal=sun_vector)
     r1_bsp.SHADOW_ENVIRONMENTS = [shadow_env]
     light_env["lightEnvironmentIndex"] = "*0"
     # Entities
@@ -78,3 +72,24 @@ def titanfall_to_titanfall2(r1_bsp, outdir: str = "./"):
     print("Saving changes...")
     # NOTE: will copy any .ent files attached to r1_bsp; .bsp_lump is optional
     r1_bsp.save_as(os.path.join(outdir, r1_bsp.filename), no_bsp_lump=True)
+
+
+def r1_rtl_to_r2(r1_bsp) -> bytes:
+    out = list()
+    rtl_start, rtl_end = 0, 0
+    for header in r1_bsp.LIGHTMAP_HEADERS:
+        rtl_end = rtl_start + (header.width * header.height * 4)
+        r1_rtl = r1_bsp.LIGHTMAP_DATA_REAL_TIME_LIGHTS[rtl_start:rtl_end]
+        rtl_start = rtl_end
+        r2_rtl_a, r2_rtl_b = list(), list()
+        for i in range(header.width * header.height):
+            texel = r1_rtl[i * 4:(i + 1) * 4]
+            rgb = texel[:3]
+            alpha = texel[3]
+            r2_rtl_a.append(bytes([255, 255, 255, alpha]))
+            r2_rtl_b.append(bytes([255 - x for x in (*rgb, alpha)]))
+        out.append(b"".join(r2_rtl_a))
+        out.append(b"".join(r2_rtl_b))
+        r2_rtl_c = b"\x00" * header.width * header.height
+        out.append(r2_rtl_c)
+    return b"".join(out)
