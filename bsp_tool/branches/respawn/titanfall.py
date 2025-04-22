@@ -397,6 +397,18 @@ class PrimitiveType(enum.Enum):
     TRICOLL = 64
 
 
+class WorldLightFlags(enum.IntFlag):
+    # NOTE: other flags are used
+    UNKNOWN_1 = 1 << 2  # 0x04
+    UNKNOWN_2 = 1 << 3  # 0x08
+    UNKNOWN_3 = 1 << 4  # 0x10
+    # NOTE: if 0x08 is set and 0x10 unset, use parent info matrix
+    # -- this is a rare combo and only seems to appear on spotlights
+    UNKNOWN_4 = 1 << 5  # 0x20
+    UNKNOWN_5 = 1 << 6  # 0x40
+    UNKNOWN_6 = 1 << 7  # 0x80
+
+
 # classes for lumps, in alphabetical order:
 class Bounds(base.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
     """Identified by warmist & rexx#1287"""
@@ -852,17 +864,21 @@ class WorldLight(source.WorldLight):  # LUMP 54 (0036)
     constant: float
     linear: float
     quadratic: float
-    flags: source.WorldLightFlags
+    flags: WorldLightFlags
     texture_data: int  # index of TextureData
     parent: int  # parent entity ID
-    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
-                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
-                 "constant", "linear", "quadratic",  # attenuation
-                 "flags", "texture_data", "parent"]
+    __slots__ = [
+        "origin", "intensity", "normal", "shadow_offset", "viscluster",
+        "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+        "constant", "linear", "quadratic",  # attenuation
+        "flags", "texture_data", "parent"]
     _format = "12f3i7f3i"  # 100 bytes
-    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
-                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
+    _arrays = {
+        "origin": [*"xyz"], "intensity": [*"xyz"],
+        "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+        "shadow_offset": vector.vec3, "type": source.EmitType, "flags": WorldLightFlags}
 
 
 # special vertices

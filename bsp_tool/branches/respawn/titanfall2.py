@@ -359,22 +359,29 @@ class WorldLightv2(base.Struct):  # LUMP 54 (0036)
     flags: source.WorldLightFlags
     texture_data: int  # index of TextureData
     parent: int  # parent entity ID
-    unknown_1: int  # default 0
+    unknown_1: float  # default 0
     unknown_2: float  # default 0.005
-    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
-                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
-                 "constant", "linear", "quadratic",  # attenuation
-                 "flags", "texture_data", "parent", "unknown_1", "unknown_2"]
-    _format = "12f3i7f4if"  # 108 bytes
-    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
-                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
+    __slots__ = [
+        "origin", "intensity", "normal", "shadow_offset", "viscluster",
+        "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+        "constant", "linear", "quadratic",  # attenuation
+        "flags", "texture_data", "parent",
+        "unknown_1", "unknown_2"]
+    _format = "12f3i7f3i2f"  # 108 bytes
+    _arrays = {
+        "origin": [*"xyz"], "intensity": [*"xyz"],
+        "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+        "shadow_offset": vector.vec3, "type": source.EmitType,
+        "flags": titanfall.WorldLightFlags}
 
 
 class WorldLightv3(base.Struct):  # LUMP 54 (0036)
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
-    normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
+    normal: vector.vec3  # light direction
+    # used by EmitType.SURFACE & EmitType.SPOTLIGHT
     shadow_offset: vector.vec3  # new in titanfall
     viscluster: int  # unused
     type: source.EmitType
@@ -393,20 +400,58 @@ class WorldLightv3(base.Struct):  # LUMP 54 (0036)
     flags: source.WorldLightFlags
     texture_data: int  # index of TextureData
     parent: int  # parent entity ID
-    unknown_1: int  # default 0
+    unknown_1: float  # default 0
     unknown_2: float  # default 0.005
     unknown_3: float  # default 1.0
-    __slots__ = ["origin", "intensity", "normal", "shadow_offset", "viscluster",
-                 "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
-                 "constant", "linear", "quadratic",  # attenuation
-                 "flags", "texture_data", "parent", "unknown_1", "unknown_2", "unknown_3"]
-    _format = "12f3i7f4i2f"  # 112 bytes
-    _arrays = {"origin": [*"xyz"], "intensity": [*"xyz"], "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
-                "shadow_offset": vector.vec3, "type": source.EmitType, "flags": source.WorldLightFlags}
+    __slots__ = [
+        "origin", "intensity", "normal", "shadow_offset", "viscluster",
+        "type", "style", "stop_dot", "stop_dot2", "exponent", "radius",
+        "constant", "linear", "quadratic",  # attenuation
+        "flags", "texture_data", "parent",
+        "unknown_1", "unknown_2", "unknown_3"]
+    _format = "12f3i7f3i3f"  # 112 bytes
+    _arrays = {
+        "origin": [*"xyz"], "intensity": [*"xyz"],
+        "normal": [*"xyz"], "shadow_offset": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "intensity": vector.vec3, "normal": vector.vec3,
+        "shadow_offset": vector.vec3, "type": source.EmitType,
+        "flags": titanfall.WorldLightFlags}
 
 
-class ShadowEnvironment(base.Struct):
+class WorldLightParentInfo(base.Struct):  # LUMP 55 (0037)
+    """Identified by RoyalBlue"""
+    matrix: List[List[float]]  # 3x Quaternions?
+    # could be read as 3 planes
+    # each .xyz is a unit vector
+    origin: vector.vec3
+    unknown_2: vector.vec3  # angles?
+    unknown_3: int
+    world_light: int  # index into WorldLights
+    __slots__ = [
+        "matrix", "origin", "unknown_2",
+        "unknown_3", "world_light"]
+    _format = "18f2h"
+    _arrays = {
+        "matrix": {a: [*"xyzw"] for a in "ABC"},
+        "origin": [*"xyz"], "unknown_2": [*"xyz"]}
+    _classes = {
+        "origin": vector.vec3, "unknown_2": vector.vec3}
+
+    def __repr__(self) -> str:
+        return "\n".join([
+            "WorldLightParentInfo(matrix=[",
+            *[
+                " " * 6 + ", ".join([f"{x:+.4f}" for x in quaternion]) + ","
+                for quaternion in self.matrix],
+            "    ],",
+            f"    origin={self.origin!r},",
+            f"    unknown_2={self.unknown_2!r},",
+            f"    unknown_3={self.unknown_3},",
+            f"    world_light={self.world_light})"])
+
+
+class ShadowEnvironment(base.Struct):  # LUMP 5 (0005)
     """Identified w/ BobTheBob; linked to dynamic shadows and optimisation"""
     first_csm_aabb_node: int  # index into CSMAABBNodes
     first_csm_obj_reference: int  # index into CSMObjReferences
@@ -415,10 +460,11 @@ class ShadowEnvironment(base.Struct):
     last_csm_aabb_node: int
     last_csm_obj_reference: int
     last_shadow_mesh: int
-    sun_normal: vector.vec3  # represents angle of associated light_environment
+    sun_normal: vector.vec3  # angle of linked light_environment
     __slots__ = [
         "first_csm_aabb_node", "first_csm_obj_reference", "first_shadow_mesh",
-        "last_csm_aabb_node", "last_csm_obj_reference", "last_shadow_mesh", "sun_normal"]
+        "last_csm_aabb_node", "last_csm_obj_reference", "last_shadow_mesh",
+        "sun_normal"]
     _format = "6i3f"
     _arrays = {"sun_normal": [*"xyz"]}
     _classes = {"sun_normal": vector.vec3}
@@ -545,7 +591,8 @@ LUMP_CLASSES.update({
     "WORLD_LIGHTS": {
         1: titanfall.WorldLight,
         2: WorldLightv2,
-        3: WorldLightv3}})
+        3: WorldLightv3},
+    "WORLD_LIGHT_PARENT_INFOS":            {3: WorldLightParentInfo}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
