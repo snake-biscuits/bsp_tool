@@ -80,6 +80,6 @@ class Obj(base.SceneDescription):
                 f"model_{i:03d}": model
                 for i, model in enumerate(models)}
         assert isinstance(models, dict), "'models' must be a ModelList!"
-        return cls.from_groups(models)
+        return cls.from_groups({"group_000": models})
 
     # TODO: @classmethod from_text(cls, raw_obj: str) -> Obj:
