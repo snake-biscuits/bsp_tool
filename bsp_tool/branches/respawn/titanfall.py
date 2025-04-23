@@ -626,11 +626,9 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
 
 class LightProbeTree(base.MappedArray):  # LUMP 103 (0067)
     """Identified by rexx"""
-    # seems wrong, no clue as to connections
-    tag: int  # could be flags but tends to increment (bitfield?)
-    num_entries: int  # often looks like a valid float
-    # num_entries switches between floats and small ints
-    _format = "2I"  # could be too small
+    tag: int  # bitfield?
+    num_entries: int  # float (node) or small int (leaf)
+    _format = "2I"
     _mapping = ["tag", "num_entries"]
 
 
