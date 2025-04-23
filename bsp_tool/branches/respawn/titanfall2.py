@@ -292,24 +292,26 @@ class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
     children: List[int]  # +ve: LightProbeBspNode; -ve? some bitfield?
     __slots__ = ["plane", "child"]
     _format = "4f2I"
-    _arrays = {"plane": {"normal": [*"xyz"], "distance": None}, "child": ["front", "back"]}
+    _arrays = {
+        "plane": {"normal": [*"xyz"], "distance": None},
+        "child": ["front", "back"]}
     _classes = {"plane.normal": vector.vec3}
 
 
 class LightProbeParentInfo(base.Struct):  # LUMP 4 (0004)
     """Identified by RoyalBlue; auto-generated if absent"""
-    unknown_1: int  # 0
-    num_probes_1: int  # 0
-    num_probes_2: int  # len(LightProbes)
-    # ^ added together to get len(LightProbes)
-    unknown_2: int  # 0
-    num_references: int  # len(LightProbeRefs)
-    unknown_3: int  # 0
-    num_tree_nodes: int  # LightProbeTreeSize >> 3 (/8)
-    # after the first entry it's usually (-1, 0, 0, 0, 0, 0, 0)
+    index: int  # index of self or -1
+    first_probe: int  # index into LightProbes
+    num_probes: int
+    first_reference: int  # index into LightProbeRefs
+    num_references: int
+    # NOTE: LightProbeTree lump mixes nodes and leaves
+    first_tree: int  # index into LightProbeTree
+    num_trees: int
     __slots__ = [
-        "unknown_1", "num_probes_1", "num_probes_2", "unknown_2",
-        "num_references", "unknown_3", "num_tree_nodes"]
+        "index", "first_probe", "num_probes",
+        "first_reference", "num_references",
+        "first_tree", "num_trees"]
     _format = "i6I"
 
 
