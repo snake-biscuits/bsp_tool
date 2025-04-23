@@ -296,6 +296,23 @@ class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
     _classes = {"plane.normal": vector.vec3}
 
 
+class LightProbeParentInfo(base.Struct):  # LUMP 4 (0004)
+    """Identified by RoyalBlue; auto-generated if absent"""
+    unknown_1: int  # 0
+    num_probes_1: int  # 0
+    num_probes_2: int  # len(LightProbes)
+    # ^ added together to get len(LightProbes)
+    unknown_2: int  # 0
+    num_references: int  # len(LightProbeRefs)
+    unknown_3: int  # 0
+    num_tree_nodes: int  # LightProbeTreeSize >> 3 (/8)
+    # after the first entry it's usually (-1, 0, 0, 0, 0, 0, 0)
+    __slots__ = [
+        "unknown_1", "num_probes_1", "num_probes_2", "unknown_2",
+        "num_references", "unknown_3", "num_tree_nodes"]
+    _format = "i6I"
+
+
 class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     origin: vector.vec3  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
@@ -585,6 +602,7 @@ LUMP_CLASSES.update({
     "CM_GEO_SETS":                         {0: GeoSet},
     "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
     "LIGHTPROBE_BSP_NODES":                {0: LightProbeBSPNode},
+    "LIGHTPROBE_PARENT_INFOS":             {0: LightProbeParentInfo},
     "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
     "MESHES":                              {0: Mesh},
     "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
