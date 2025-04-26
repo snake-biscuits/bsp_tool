@@ -149,7 +149,7 @@ class LUMP(enum.Enum):
     CELL_AABB_NODES = 0x0077
     OBJ_REFERENCES = 0x0078
     OBJ_REFERENCE_BOUNDS = 0x0079
-    LIGHTMAP_DATA_RTL_PAGE = 0x007A
+    LIGHTMAP_DATA_RTL_PAGES = 0x007A
     LEVEL_INFO = 0x007B
     SHADOW_MESH_OPAQUE_VERTICES = 0x007C
     SHADOW_MESH_ALPHA_VERTICES = 0x007D
@@ -167,7 +167,7 @@ LumpHeader = source.LumpHeader
 # UNUSED_6 -> LIGHTPROBE_BSP_NODES
 # UNUSED_7 -> LIGHTPROBE_BSP_REF_IDS
 # UNUSED_55 -> WORLD_LIGHT_PARENT_INFOS
-# UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGE
+# UNUSED_122 -> LIGHTMAP_DATA_RTL_PAGES
 # deprecated:
 # LEAF_WATER_DATA
 # PHYSICS_LEVEL
@@ -280,9 +280,11 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
 
 
 class LightmapPage(base.Struct):  # LUMP 122 (007A)
-    data: bytes
-    __slots__ = ["data"]
-    _format = "128s"
+    """identified by RoyalBlue"""
+    indices: List[int]  # indices into WorldLights
+    __slots__ = ["indices"]
+    _format = "63h"
+    _arrays = {"indices": 63}
 
 
 class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
@@ -601,18 +603,18 @@ BASIC_LUMP_CLASSES.update({
 
 LUMP_CLASSES = titanfall.LUMP_CLASSES.copy()
 LUMP_CLASSES.update({
-    "CM_GEO_SETS":                         {0: GeoSet},
-    "LIGHTMAP_DATA_REAL_TIME_LIGHTS_PAGE": {0: LightmapPage},
-    "LIGHTPROBE_BSP_NODES":                {0: LightProbeBSPNode},
-    "LIGHTPROBE_PARENT_INFOS":             {0: LightProbeParentInfo},
-    "LIGHTPROBE_REFERENCES":               {0: LightProbeRef},
-    "MESHES":                              {0: Mesh},
-    "SHADOW_ENVIRONMENTS":                 {0: ShadowEnvironment},
+    "CM_GEO_SETS":              {0: GeoSet},
+    "LIGHTMAP_DATA_RTL_PAGES":  {0: LightmapPage},
+    "LIGHTPROBE_BSP_NODES":     {2: LightProbeBSPNode},
+    "LIGHTPROBE_PARENT_INFOS":  {0: LightProbeParentInfo},
+    "LIGHTPROBE_REFERENCES":    {0: LightProbeRef},
+    "MESHES":                   {0: Mesh},
+    "SHADOW_ENVIRONMENTS":      {0: ShadowEnvironment},
     "WORLD_LIGHTS": {
         1: titanfall.WorldLight,
         2: WorldLightv2,
         3: WorldLightv3},
-    "WORLD_LIGHT_PARENT_INFOS":            {3: WorldLightParentInfo}})
+    "WORLD_LIGHT_PARENT_INFOS": {3: WorldLightParentInfo}})
 
 SPECIAL_LUMP_CLASSES = titanfall.SPECIAL_LUMP_CLASSES.copy()
 
