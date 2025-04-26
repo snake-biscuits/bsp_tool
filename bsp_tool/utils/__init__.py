@@ -1,4 +1,6 @@
-__all__ = ["binary", "editor", "geometry", "matrix", "physics", "texture", "vector"]
+__all__ = [
+    "binary", "editor", "geometry", "matrix", "physics",
+    "quaternion", "texture", "vector"]
 
 from . import binary
 from . import editor
@@ -7,3 +9,4 @@ from . import matrix
 from . import physics
 from . import texture
 from . import vector
+from . import quaternion

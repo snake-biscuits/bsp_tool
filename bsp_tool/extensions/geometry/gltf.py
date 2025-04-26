@@ -1,15 +1,22 @@
+from __future__ import annotations
 import enum
 import json
 import os
+import re
 import struct
 from typing import Any, Dict, List, Tuple, Union
 
 from ...utils import geometry
+from ...utils import quaternion
+from . import base
 
 
 # TODO: export Z-up geometry.Model as Y-up (add rotation to transform matrix?)
-# TODO: scrap complex vertex * index buffer construction for a big dump of raw vertices
-# -- super simple indexing; can revisit index buffers if we add those to geometry.Mesh
+# TODO: scrap complex vertex & index buffer construction
+# -- just dump the raw vertices, don't check for duplicates
+# -- keep it simple, just like in utils.geometry
+# TODO: custom JSONEncoder & Decoder classes
+# -- could handle converting enum.Enum
 
 class Data(enum.Enum):
     """accessor.componentType"""
@@ -30,11 +37,17 @@ class Buffer(enum.Enum):
 Json = Dict[str, Union[str, int]]  # and List[Json]
 
 
+def split_sub_format(sub_format: str):
+    count, type_ = re.match(r"([0-9]*)([fIhHbB])", sub_format).groups()
+    count = int(count) if count != "" else 1
+    return count, type_
+
+
 class VertexBuffer:
     """treat as write-only"""
     # ENCODING
     format_: Dict[str, str]
-    # ^ {"Vertex attr": "struct type"}
+    # ^ {"position": "3f"}
     format_string: str
     byteStride: int
     byteLength: int
@@ -48,18 +61,19 @@ class VertexBuffer:
         self.vertices = list()
         self.format_string = "".join(self.format_.values())
         self.byteStride = struct.calcsize(self.format_string)
-        # for indexing / mapping vertex member accessors: (might need to add an offset)
+        # for indexing / mapping vertex member accessors:
+        # -- (might need to add an offset)
         self.attributes = dict()
         num_texcoords = 0
-        # TODO: num_colors = 0
+        # NOTE: geometry.Vertex only allows one vertex colour
         for i, attr in enumerate(self.format_):
             if attr.startswith("uv") and attr[2:].isnumeric():
                 va = f"TEXCOORD_{num_texcoords}"
                 num_texcoords += 1
-            elif attr == "colour":  # NOTE: only one vertex colour
+            elif attr == "colour":
                 va = "COLOR_0"
-            else:
-                va = {a: a.upper() for a in ("position", "normal")}
+            else:  # POSITION / NORMAL
+                va = attr.upper()
             self.attributes[va] = i
 
     def add(self, vertex: geometry.Vertex) -> int:
@@ -77,11 +91,13 @@ class VertexBuffer:
             if isinstance(val, (float, int)):
                 out.append(val)
             else:
-                out.extend(val)  # position -> position.x, position.y, ...
+                out.extend(val)
         return tuple(out)
 
     def as_bytes(self) -> bytes:
-        return b"".join(struct.pack(self.format_string, v) for v in self.vertices)
+        return b"".join([
+            struct.pack(self.format_string, *self.tuplify(v))
+            for v in self.vertices])
 
     @property
     def accessors(self) -> List[Json]:
@@ -92,15 +108,22 @@ class VertexBuffer:
         out = list()
         offset = 0
         for attr, sub_format in self.format_.items():
-            type_ = {x: f"VEC{x}" for x in (2, 3, 4)}.get(sub_format[0], "SCALAR")
-            component = component_types[sub_format if len(sub_format) == 1 else sub_format[1]]
-            out.append({"type": type_, "componentType": component, "byteOffset": offset, "count": len(self.vertices)})
+            num_data, data_type = split_sub_format(sub_format)
+            type_ = {n: f"VEC{n}" for n in (2, 3, 4)}.get(num_data, "SCALAR")
+            out.append({
+                "type": type_,
+                "componentType": component_types[data_type].value,
+                "byteOffset": offset,
+                "count": len(self.vertices)})
             offset += struct.calcsize(sub_format)
         return out
 
     @property
     def bufferView(self) -> Json:
-        return {"byteLength": self.ByteLength, "target": Buffer.ARRAY, "byteStride": self.byteStride}
+        return {
+            "byteLength": self.byteLength,
+            "target": Buffer.ARRAY.value,
+            "byteStride": self.byteStride}
 
     @property
     def byteLength(self) -> int:
@@ -122,8 +145,12 @@ class IndexBuffer:
         byteOffset = len(self.indices) * 4
         new_indices = list()
         for polygon in mesh.polygons:
-            loop_indices = [vertex_buffer.add(vertex) for vertex in polygon.vertices]
-            fan_indices = [loop_indices[i] for i in geometry.triangle_fan(len(loop_indices))]
+            loop_indices = [
+                vertex_buffer.add(vertex)
+                for vertex in polygon.vertices]
+            fan_indices = [
+                loop_indices[i]
+                for i in geometry.triangle_fan(len(loop_indices))]
             new_indices.extend(fan_indices)
         self.indices.extend(new_indices)
         self.meshes.append((byteOffset, len(new_indices)))
@@ -133,15 +160,20 @@ class IndexBuffer:
 
     @property
     def accessors(self) -> List[Json]:
-        """bufferView is unset"""
+        """bufferView is unset"""  # ???
         return [
-            {"type": "SCALAR", "componentType": Data.UNSIGNED_INT, "byteOffset": m[0], "count": m[1]}
-            for m in self.meshes]
+            {"type": "SCALAR",
+             "componentType": Data.UNSIGNED_INT.value,
+             "byteOffset": mesh[0],
+             "count": mesh[1]}
+            for mesh in self.meshes]
 
     @property
     def bufferView(self) -> Json:
-        """buffer is unset"""
-        return {"byteLength": self.ByteLength, "target": Buffer.ELEMENT_ARRAY}
+        """buffer is unset"""  # ???
+        return {
+            "byteLength": self.byteLength,
+            "target": Buffer.ELEMENT_ARRAY.value}
 
     @property
     def byteLength(self) -> int:
@@ -165,81 +197,110 @@ class MaterialList:
     @property
     def json(self) -> List[Json]:
         # TODO: more material attributes (e.g. albedo, metalness map)
-        return [{"name": m.name} for m in self.materials]
+        return [
+            {"name": m.name}
+            for m in self.materials]
 
 
-class GLTF:
-    buffers: List[Tuple[VertexBuffer, IndexBuffer]]
-    models: List[geometry.Model]
+BufferPair = Tuple[VertexBuffer, IndexBuffer]
+
+
+class GLTF(base.SceneDescription):
+    buffers: List[BufferPair]
+    models: Dict[str, geometry.Model]
     # TODO: named models: Dict[str, geometry.Model]
     json: Json
 
-    # TODO: @classmethod def from_models(cls, models: List[geometry.Model]) -> GLTF:
-    # TODO: @classmethod def from_buffers(cls, buffers: List[Tuple[VertexBuffer, IndexBuffer]]) -> GLTF:
+    def __init__(self):
+        self.models = dict()
+        self.buffers = list()
+        self.json = dict()
 
-    def __init__(self, models=list()):
-        self.models = models
+    def __repr__(self) -> str:
+        descriptor = f"{len(self.models)} models {len(self.buffers)} buffers"
+        return f"<GLTF {descriptor} @ 0x{id(self):016X}>"
+
+    def save_as(self, filename):
+        """.gltf only! no .glb (yet)"""
+        # TODO: use relpath so we can split off "./" is no folder if given
+        folder, filename = os.path.split(filename)
+        filename, ext = os.path.splitext(filename)
+        assert ext == ".gltf", f"cannot write to '{ext}' extension"
+        # write .bin
+        for i, buffer_pair in enumerate(self.buffers):
+            buffer_names = ("vertex", "index")
+            for j, (name, buffer) in enumerate(zip(buffer_names, buffer_pair)):
+                bin_name = f"{filename}.{name}.{i}.bin"
+                self.json["buffers"][i * 2 + j]["uri"] = bin_name
+                with open(os.path.join(folder, bin_name), "wb") as bin_file:
+                    bin_file.write(buffer.as_bytes())
+        # write .gltf
+        with open(os.path.join(folder, f"{filename}.gltf"), "w") as json_file:
+            json.dump(self.json, json_file, indent=2)
+
+    @classmethod
+    def from_buffers(cls, buffers: List[BufferPair]) -> GLTF:
+        raise NotImplementedError()
+
+    @classmethod
+    def from_models(cls, models: base.ModelList) -> GLTF:
+        out = super().from_models(models)
+
         # base json
-        self.json = {
+        out.json = {
             "scene": 0, "scenes": [{"nodes": []}],
             "nodes": [], "meshes": [], "materials": [],
             "buffers": [], "bufferViews": [], "accessors": [],
             "asset": {"version": "2.0"}}
-        self.json["scenes"][0]["nodes"] = [*range(len(self.models))]
+        out.json["scenes"][0]["nodes"] = [*range(len(out.models))]
 
-        # MAKE BUFFERS
-        # TODO: move to another method for adding models / buffers
-        # TODO: check which vertex attributes are used (not all meshes will have uvs, colour could be unused etc.)
-        self.buffers = [(
-            VertexBuffer(position="3f", normal="3f", uv0="2f", uv1="2f", colour="4f"),
+        # buffers
+        # TODO: add a new BufferPair for each vertex format
+        # -- check uv count for mesh
+        # -- optimising for unused vertex colour would be nice
+        out.buffers = [(
+            VertexBuffer(
+                position="3f",
+                normal="3f",
+                # uv0="2f",
+                # uv1="2f",
+                colour="4f"),
             IndexBuffer())]
-        vertex_buffer, index_buffer = self.buffers[0]
+        vertex_buffer, index_buffer = out.buffers[0]
+
+        # mesh geometry
         materials = MaterialList()
         mesh_offset = 0
-        for i, model in enumerate(self.models):
-            self.json["nodes"].append({"mesh": i})
-            # TODO: model.transform_matrix
-            self.json["meshes"].append({"primitives": list()})
+        for i, (name, model) in enumerate(out.models.items()):
+            # metadata
+            angles_quaternion = quaternion.Quaternion.from_euler(model.angles)
+            out.json["nodes"].append({
+                "mesh": i,
+                "name": name,
+                "rotation": list(angles_quaternion),
+                "translation": list(model.origin)})
+            # triangles
+            out.json["meshes"].append({
+                "primitives": list()})
             for j, mesh in enumerate(model.meshes):
                 material_index = materials.add(mesh.material)
                 index_buffer.add(mesh, vertex_buffer)
-                self.json["meshes"][-1]["primitives"].append({
+                out.json["meshes"][-1]["primitives"].append({
                     "attributes": vertex_buffer.attributes,
                     "material": material_index,
                     "indices": mesh_offset + j})
             mesh_offset += len(model.meshes)
-        self.json["materials"] = materials.json
-        self.json["buffers"] = [
+
+        # finalise
+        out.json["materials"] = materials.json
+        out.json["buffers"] = [
             {"byteLength": vertex_buffer.byteLength},
             {"byteLength": index_buffer.byteLength}]
         # NOTE: uri will be added by .save_as(filename)
-        self.json["bufferViews"] = [
+        out.json["bufferViews"] = [
             {"buffer": 0, **vertex_buffer.bufferView},
             {"buffer": 1, **index_buffer.bufferView}]
-        self.json["accessors"] = [
+        out.json["accessors"] = [
             *[{"bufferView": 0, **a} for a in vertex_buffer.accessors],
             *[{"bufferView": 1, **a} for a in index_buffer.accessors]]
-
-    def __repr__(self) -> str:
-        return f"<GLTF {len(self.models)} models {len(self.json['buffers'])} buffers @ 0x{id(self):016X}>"
-
-    # TODO: @classmethod def from_file(cls, filename) -> GLTF:
-
-    def save_as(self, filename):
-        """.gltf only! no .glb (yet)"""
-        folder, filename = os.path.split(filename)
-        filename, ext = os.path.splitext(filename)
-        assert ext == ".gltf", f"cannot write to '{ext}' extension"
-        with open(os.path.join(folder, f"{filename}.gltf"), "wb") as json_file:
-            json.dump(json_file, self.json, indent=2)
-        for i, (vertex_buffer, index_buffer) in enumerate(self.buffers):
-            # vertex buffer
-            vertex_buffer_filename = f"{filename}.vertex.{i}.bin"
-            self.json["buffers"][i * 2 + 0]["uri"] = vertex_buffer_filename
-            with open(os.path.join(folder, vertex_buffer_filename), "wb") as vertex_buffer_file:
-                vertex_buffer_file.write(vertex_buffer.as_bytes())
-            # index buffer
-            index_buffer_filename = f"{filename}.index.{i}.bin"
-            self.json["buffers"][i * 2 + 1]["uri"] = index_buffer_filename
-            with open(os.path.join(folder, index_buffer_filename), "wb") as index_buffer_file:
-                index_buffer_file.write(index_buffer.as_bytes())
+        return out

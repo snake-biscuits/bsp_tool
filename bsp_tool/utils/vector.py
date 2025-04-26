@@ -32,7 +32,9 @@ class vec2:
     def __eq__(self, other: Union[vec2, vec3, Iterable]) -> bool:
         # TODO: Sequences
         if isinstance(other, (vec2, vec3, Iterable)):
-            return all([math.isclose(s, o) for s, o in itertools.zip_longest(self, other, fillvalue=0)])
+            return all([
+                math.isclose(s, o)
+                for s, o in itertools.zip_longest(self, other, fillvalue=0)])
         return False
 
     def __format__(self, format_spec: str = "") -> str:

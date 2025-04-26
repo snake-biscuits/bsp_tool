@@ -8,13 +8,21 @@ from . import vector
 
 def triangle_fan(num_vertices: int) -> List[int]:
     assert num_vertices >= 3
-    return itertools.chain([(0, 1, 2), *[(0, i - 1, i) for i in range(3, num_vertices)]])
+    return list(itertools.chain(*[
+        (0, 1, 2),
+        *[
+            (0, i - 1, i)
+            for i in range(3, num_vertices)]]))
 
 
 def triangle_soup(vertices: List[Vertex]) -> List[Polygon]:
-    vertices = tuple(vertices)  # no generators
+    vertices = tuple(vertices)  # no generators, we need len
     assert len(vertices) % 3 == 0
-    return [Polygon([vertices[i + j] for j in (0, 1, 2)]) for i in range(0, len(vertices), 3)]
+    return [
+        Polygon([
+            vertices[i + j]
+            for j in (0, 1, 2)])
+        for i in range(0, len(vertices), 3)]
 
 
 class Vertex:
@@ -30,6 +38,10 @@ class Vertex:
         self.normal = vector.vec3(*normal)
         self.uv = [vector.vec2(*uv) for uv in uvs]
         self.colour = tuple(colour)
+
+    def __repr__(self) -> str:
+        args = ", ".join(map(str, [self.position, self.normal, *self.uv]))
+        return f"{self.__class__.__name__}({args}, colour={self.colour})"
 
     def __add__(self, other: Vertex) -> Vertex:
         if not isinstance(other, Vertex):
@@ -49,9 +61,13 @@ class Vertex:
     def __getattr__(self, attr: str) -> Any:
         if attr.startswith("uv") and attr[2:].isnumeric():  # uv0 etc.
             index = int(attr[2:])
+            if index >= len(self.uv):
+                raise AttributeError(
+                    f"'{self.__class__.__name__}' has no attribute '{attr}'")
             return self.uv[index]
         else:
-            raise AttributeError(f"'{self.__class__.__name__}' has no attribute '{attr}'")
+            raise AttributeError(
+                f"'{self.__class__.__name__}' has no attribute '{attr}'")
 
     def __hash__(self) -> int:
         return hash((self.position, self.normal, *self.uv, self.colour))
@@ -64,10 +80,6 @@ class Vertex:
             self.normal * other,
             *[uv * other for uv in self.uv],
             colour=[x * other for x in self.colour])
-
-    def __repr__(self) -> str:
-        args = ", ".join(map(str, [self.position, self.normal, *self.uv]))
-        return f"{self.__class__.__name__}({args}, colour={self.colour})"
 
     def __sub__(self, other: Vertex) -> Vertex:
         if not isinstance(other, Vertex):
@@ -96,11 +108,14 @@ class Polygon:
         assert len(vertices) >= 3
         self.vertices = vertices
 
-    def __iter__(self):
-        return iter(self.vertices)
-
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.vertices!r})"
+
+    def __len__(self) -> int:
+        return len(self.vertices)
+
+    def __iter__(self):
+        return iter(self.vertices)
 
     @property
     def normal(self) -> vector.vec3:
