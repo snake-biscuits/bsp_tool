@@ -4,8 +4,8 @@ import collections
 import re
 from typing import Any, Dict, Generator, List
 
-from ...utils import geometry
-from ...utils import vector
+from ..utils import geometry
+from ..utils import vector
 from . import base
 
 

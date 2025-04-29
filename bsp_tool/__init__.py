@@ -1,12 +1,15 @@
 """A library for .bsp file analysis & modification"""
 __all__ = [
-    "archives", "autodetect", "base", "branches", "extensions", "load_bsp", "lightmaps", "lumps",
-    "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp", "InfinityWardBsp",
-    "NexonBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp", "RavenBsp", "ReMakeQuakeBsp",
-    "RespawnBsp", "RitualBsp", "ValveBsp"]
+    "archives", "autodetect", "base", "branches",
+    "extensions", "lightmaps", "lumps", "scene",
+    "load_bsp",
+    "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
+    "InfinityWardBsp", "NexonBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp",
+    "RavenBsp", "ReMakeQuakeBsp", "RespawnBsp", "RitualBsp", "ValveBsp"]
+
 
 from types import ModuleType
-
+# modules
 from . import archives
 from . import autodetect
 from . import base  # base.Bsp
@@ -14,8 +17,10 @@ from . import branches
 from . import extensions
 from . import lightmaps
 from . import lumps
+from . import scene
 # BspClasses
-from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
+from .id_software import FusionBsp, IdTechBsp, QbismBsp
+from .id_software import QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp

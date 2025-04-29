@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 from typing import Dict, Generator, List, Union
 
-from ...utils import geometry
+from ..utils import geometry
 
 
 ModelList = Union[
@@ -17,18 +17,18 @@ def indent(count: int = 1) -> str:
 # TODO: mount_file etc. for:
 # -- .usd[acz] textures & subtrees
 # -- .obj materials (.mtl)
-# -- .glb binary files
+# -- .glb binary files (.bin)
 # TODO: do we use groups instead of models, like .obj?
 # -- what about node trees?
 # -- **better to expect a specific standard and document that standard well**
-# NOTE: txt definition flows: lines -> as_text -> save_as
-# -- write a .lines() method to add .save_as() functionality
 class SceneDescription:
     """base class for file formats containing multiple models etc."""
     # NOTE: formats can be lossy, reloading a saved file could result in data loss
     # -- but some formats will also contain data which we totally ignore
     models: Dict[str, geometry.Model]
     exts_txt: List[str] = list()  # text format extension
+    # NOTE: txt formats are saved to file via: lines -> as_text -> save_as
+    # -- tl;dr: write a .lines() so you can .save_as("filename.txt_ext")
     exts_bin: List[str] = list()  # binary format extension
     exts: List[str] = property(lambda s: [*s.exts_txt, *s.exts_bin])
     # NOTE: all extensions should be lowercase

@@ -1,4 +1,4 @@
-from bsp_tool.extensions.geometry import usd
+from bsp_tool.scene import pixar
 from bsp_tool.utils import physics
 from bsp_tool.utils import vector
 
@@ -9,7 +9,7 @@ def test_cube():
         vector.vec3(+1, +1, +1))
     cube_model = aabb.as_model()
     cube_model.angles.z = 45
-    cube = usd.Usd.from_models({"cube": cube_model})
+    cube = pixar.Usd.from_models({"cube": cube_model})
 
     lines = list(cube.lines())
     assert len(lines) != 0

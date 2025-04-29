@@ -6,8 +6,8 @@ import re
 import struct
 from typing import Any, Dict, List, Tuple, Union
 
-from ...utils import geometry
-from ...utils import quaternion
+from ..utils import geometry
+from ..utils import quaternion
 from . import base
 
 
@@ -209,7 +209,8 @@ class MaterialList:
 BufferPair = Tuple[VertexBuffer, IndexBuffer]
 
 
-class GLTF(base.SceneDescription):
+class Gltf(base.SceneDescription):
+    """WebGL Transmission Format"""
     buffers: List[BufferPair]
     models: Dict[str, geometry.Model]
     # TODO: named models: Dict[str, geometry.Model]

@@ -2,7 +2,7 @@ from __future__ import annotations
 import collections
 from typing import Dict, Generator, List, Union
 
-from ...utils import geometry
+from ..utils import geometry
 from . import base
 
 GroupList = Union[
