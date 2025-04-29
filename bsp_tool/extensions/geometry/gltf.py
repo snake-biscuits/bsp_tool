@@ -76,6 +76,10 @@ class VertexBuffer:
                 va = attr.upper()
             self.attributes[va] = i
 
+    def __len__(self) -> int:
+        """number of attributes"""
+        return len(self.format_)
+
     def add(self, vertex: geometry.Vertex) -> int:
         # TODO: assert vertex format is valid
         if vertex in self.vertices:
@@ -270,7 +274,7 @@ class GLTF(base.SceneDescription):
 
         # mesh geometry
         materials = MaterialList()
-        mesh_offset = 0
+        mesh_offset = len(out.buffers[0][0])  # accessor index
         for i, (name, model) in enumerate(out.models.items()):
             # metadata
             angles_quaternion = quaternion.Quaternion.from_euler(model.angles)
