@@ -223,7 +223,7 @@ class Gltf(base.SceneDescription):
 
     def __repr__(self) -> str:
         descriptor = f"{len(self.models)} models {len(self.buffers)} buffers"
-        return f"<GLTF {descriptor} @ 0x{id(self):016X}>"
+        return f"<Gltf {descriptor} @ 0x{id(self):016X}>"
 
     def save_as(self, filename):
         """.gltf only! no .glb (yet)"""
@@ -244,11 +244,11 @@ class Gltf(base.SceneDescription):
             json.dump(self.json, json_file, indent=2)
 
     @classmethod
-    def from_buffers(cls, buffers: List[BufferPair]) -> GLTF:
+    def from_buffers(cls, buffers: List[BufferPair]) -> Gltf:
         raise NotImplementedError()
 
     @classmethod
-    def from_models(cls, models: base.ModelList) -> GLTF:
+    def from_models(cls, models: base.ModelList) -> Gltf:
         out = super().from_models(models)
 
         # base json
