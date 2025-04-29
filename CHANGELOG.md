@@ -30,6 +30,9 @@
 ### Changed
  * moved `archives` out of `extensions`
  * moved `lightmaps` out of `extensions`
+ * moved `geometry` out of `extensions` (renamed to `scene`)
+   - accessed via `developer.format` (e.g. `scene.pixar.Usd`)
+   - exposing all `SceneDescriptions` at top level (e.g. `scene.Obj`)
  * `ArchiveClass`es are now initialised with `@classmethod`s
    - `.from_archive("filename", archive)`
    - `.from_bytes(b"bytes")`
