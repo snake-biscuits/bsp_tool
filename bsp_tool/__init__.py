@@ -1,6 +1,6 @@
 """A library for .bsp file analysis & modification"""
 __all__ = [
-    "archives", "autodetect", "base", "branches",
+    "archives", "autodetect", "base", "branches", "core",
     "extensions", "lightmaps", "lumps", "scene",
     "load_bsp",
     "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
@@ -14,6 +14,7 @@ from . import archives
 from . import autodetect
 from . import base  # base.Bsp
 from . import branches
+from . import core
 from . import extensions
 from . import lightmaps
 from . import lumps
