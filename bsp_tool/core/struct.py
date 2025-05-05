@@ -227,18 +227,3 @@ class Struct:
         return [
             int(attr) if format_ in "bBhHiI" else attr
             for attr, format_ in zip(_tuple, common.split_format(self._format))]
-
-    @classmethod
-    def as_cpp(cls, one_liner_limit: int = 80) -> str:
-        # NOTE: will break in python 3.13
-        # MappedArray.as_cpp wrapper
-        kwargs = {
-            "_mapping": {
-                slot: cls._arrays.get(slot, None)
-                for slot in cls.__slots__},
-            "_format": cls._format,
-            "_bitfields": cls._bitfields,
-            "_classes": cls._classes}
-        exec(f"class {cls.__name__}(MappedArray): pass")  # set class name
-        instance = locals()[cls.__name__](**kwargs)
-        return instance.as_cpp(one_liner_limit=one_liner_limit)

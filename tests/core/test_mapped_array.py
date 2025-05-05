@@ -115,50 +115,6 @@ class TestMappedArray:
             _format="3b")
         assert x._attr_formats != y._attr_formats
 
-    # TODO: parametrise
-    # {"name": (expected, actual)}
-    def test_as_cpp(self):
-        # NOTE: covers BitField & Struct .as_cpp pretty well too
-        basic = "struct MappedArray { int32_t x, y, z; };"
-        multi_list = "\n".join([
-            "struct MappedArray {",
-            "\tint16_t a[2];",
-            "\tint8_t b;",
-            "};"])
-        multi_sub = "\n".join([
-            "struct MappedArray {",
-            "\tstruct { float x, y; } a;",
-            "\tbool b;",
-            "};"])
-        multi_classes = "\n".join([
-            "struct MappedArray {",
-            "\tstruct { float x, y; } a;",
-            "\tbool b;",
-            "};"])
-        multi_bitfield = "struct MappedArray {\n\tdouble a;\n\tuint8_t b;\n};"
-        c_structs = {
-            basic: dict(
-                _mapping=[*"xyz"],
-                _format="3i"),
-            multi_list: dict(
-                _mapping={"a": 2, "b": None},
-                _format="2hb"),
-            multi_sub: dict(
-                _mapping={"a": [*"xy"], "b": None},
-                _format="2f?"),
-            multi_classes: dict(
-                _mapping={"a": [*"xy"], "b": None},
-                _format="2f?",
-                _classes={"a": vector.vec2}),
-            multi_bitfield: dict(
-                _mapping=[*"ab"],
-                _format="gB",
-                _bitfields={"c": 2, "d": 6})}
-        # ^ {"output": {**MappedArray_kwargs}}
-
-        for answer, kwargs in c_structs.items():
-            assert mapped_array.MappedArray(**kwargs).as_cpp() == answer
-
     def test_as_bytes(self):
 
         class AllChildTypes(mapped_array.MappedArray):

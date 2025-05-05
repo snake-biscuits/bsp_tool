@@ -122,15 +122,3 @@ class BitField:
 
     def as_bytes(self, endianness: str = "little") -> bytes:
         return self.as_int().to_bytes(struct.calcsize(self._format), endianness)
-
-    # NOTE: cannot be a classmethod due to runtime type definition
-    def as_cpp(self, _fields: BitFieldMapping = None, _format: str = None, inline_as: str = None) -> str:
-        """returns BitField spec as a one line C/C++ struct definition"""
-        _fields = self._fields if _fields is None else _fields
-        _format = self._format if _format is None else _format
-        members = ", ".join([f"{member}: {size}" for member, size in _fields.items()])
-        inner = f"{common.type_LUT[_format]} {members};"
-        if inline_as is None:
-            return "".join([f"struct {self.__class__.__name__}", " { ", inner, " };"])
-        else:
-            return "".join(["struct { ", inner, " } ", f"{inline_as};"])
