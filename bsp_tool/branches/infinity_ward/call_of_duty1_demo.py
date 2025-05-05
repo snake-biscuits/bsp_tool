@@ -3,11 +3,11 @@ import enum
 import struct
 from typing import List
 
+from ... import core
 from ...utils import editor
 from ...utils import geometry
 from ...utils import physics
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import quake
@@ -18,8 +18,9 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 58
 
-GAME_PATHS = {"Call of Duty (Demo) Burnville": "Call of Duty Single Player Demo",
-              "Call of Duty (Demo) Dawnville": "Call of Duty Dawnville Demo"}
+GAME_PATHS = {
+    "Call of Duty (Demo) Burnville": "Call of Duty Single Player Demo",
+    "Call of Duty (Demo) Dawnville": "Call of Duty Dawnville Demo"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -101,7 +102,7 @@ class LightType(enum.Enum):  # Light.type
 
 # classes for lumps, in alphabetical order:
 # NOTE: haven't properly identified the formats for a lot of these yet
-class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
+class AxisAlignedBoundingBox(core.Struct):  # LUMP 16
     """AABB tree"""
     # not floats. some kind of node indices?
     unknown: List[int]
@@ -110,7 +111,7 @@ class AxisAlignedBoundingBox(base.Struct):  # LUMP 16
     _arrays = {"unknown": 3}
 
 
-class Brush(base.MappedArray):  # LUMP 6
+class Brush(core.MappedArray):  # LUMP 6
     # NOTE: first_side is calculated via: sum([b.num_sides for b in bsp.BRUSHES[-i]]) - 1
     num_sides: int  # number of BrushSides after first_side in this Brush
     texture: int  # index of Texture that sets this Brush's Contents flag
@@ -118,14 +119,14 @@ class Brush(base.MappedArray):  # LUMP 6
     _format = "2H"
 
 
-class BrushSide(base.Struct):  # LUMP 3
+class BrushSide(core.Struct):  # LUMP 3
     plane: int  # axial: Plane distance (float), non-axial: Plane index (uint32_t)
     texture: int  # index into Textures
     __slots__ = ["plane", "texture"]
     _format = "2I"
 
 
-class Cell(base.Struct):  # LUMP 17
+class Cell(core.Struct):  # LUMP 17
     mins: vector.vec3
     maxs: vector.vec3
     unknown_1: int  # increments w/ each cell
@@ -142,7 +143,7 @@ class Cell(base.Struct):  # LUMP 17
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class CullGroup(base.Struct):  # LUMP 9
+class CullGroup(core.Struct):  # LUMP 9
     mins: vector.vec3
     maxs: vector.vec3
     first_unknown: int  # index into ??? (renderables?)
@@ -153,7 +154,7 @@ class CullGroup(base.Struct):  # LUMP 9
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Leaf(base.Struct):  # LUMP 21
+class Leaf(core.Struct):  # LUMP 21
     unknown_1: List[int]
     first_leaf_face: int  # index into Leaf Brushes
     num_leaf_faces: int
@@ -167,7 +168,7 @@ class Leaf(base.Struct):  # LUMP 21
     _arrays = {"unknown_1": 2, "unknown_2": 3}
 
 
-class Light(base.Struct):  # LUMP 30
+class Light(core.Struct):  # LUMP 30
     type: LightType
     unknown_1: List[float]  # big floats
     origin: vector.vec3
@@ -202,7 +203,7 @@ class Lightmap(list):  # LUMP 1
         return out
 
 
-class Model(base.Struct):  # LUMP 27
+class Model(core.Struct):  # LUMP 27
     mins: vector.vec3
     maxs: vector.vec3
     first_triangle_soup: int  # index into TriangleSoups
@@ -219,7 +220,7 @@ class Model(base.Struct):  # LUMP 27
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Occluder(base.Struct):  # LUMP 12
+class Occluder(core.Struct):  # LUMP 12
     first_occluder_plane: int  # index into OccluderPlanes
     num_occluder_planes: int
     first_occluder_edges: int  # index into OccluderEdges
@@ -228,7 +229,7 @@ class Occluder(base.Struct):  # LUMP 12
     _format = "4i"
 
 
-class PatchCollision(base.Struct):  # LUMP 24
+class PatchCollision(core.Struct):  # LUMP 24
     """for Terrain, like Source Displacements"""
     unknown_1: int  # flags?
     num_vertices: int
@@ -241,7 +242,7 @@ class PatchCollision(base.Struct):  # LUMP 24
     _format = "I2h2I"
 
 
-class Portal(base.Struct):  # LUMP 18
+class Portal(core.Struct):  # LUMP 18
     plane: int  # index of Plane this portal lies on
     cell: int  # index into Cells
     first_portal_vertex: int  # index into PortalVertices
@@ -250,7 +251,7 @@ class Portal(base.Struct):  # LUMP 18
     _format = "4i"
 
 
-class TriangleSoup(base.Struct):  # LUMP 5
+class TriangleSoup(core.Struct):  # LUMP 5
     texture: int  # index into Textures
     draw_order: int  # priority?
     first_vertex: int  # index into Vertices
@@ -261,7 +262,7 @@ class TriangleSoup(base.Struct):  # LUMP 5
     _format = "2HI2HI"
 
 
-class Vertex(base.Struct):  # LUMP 7
+class Vertex(core.Struct):  # LUMP 7
     position: vector.vec3
     albedo_uv: vector.vec2
     lightmap_uv: vector.vec2
@@ -270,10 +271,12 @@ class Vertex(base.Struct):  # LUMP 7
     __slots__ = ["position", "albedo_uv", "lightmap_uv", "normal", "colour"]
     _format = "10f4b"
     _arrays = {
-        "position": [*"xyz"], "albedo_uv": [*"xy"], "lightmap_uv": [*"xy"],
+        "position": [*"xyz"],
+        "albedo_uv": [*"xy"], "lightmap_uv": [*"xy"],
         "normal": [*"xyz"], "colour": [*"rgba"]}
     _classes = {
-        "position": vector.vec3, "albedo_uv": vector.vec2, "lightmap_uv": vector.vec2,
+        "position": vector.vec3,
+        "albedo_uv": vector.vec2, "lightmap_uv": vector.vec2,
         "normal": vector.vec3, "colour": colour.RGBA32}
 
 
@@ -327,11 +330,21 @@ def brush(bsp, brush_index) -> editor.Brush:
     def texture_name(side: BrushSide) -> str:
         return bsp.TEXTURES[side.texture].name.decode().split("\x00")[0]
 
-    out = list()  # axial: -X +X -Y +Y -Z +Z; non-axial: w/e
-    for (axis, sign), side in zip([(a, s) for a in "xyz" for s in (-1, 1)], sides[:6]):
-        plane = physics.Plane(vector.vec3(**{axis: sign}), int_as_float(side.plane) * sign)
+    out = list()
+    # axial sides (-X +X -Y +Y -Z +Z order)
+    axis_signs = [
+        (axis, sign)
+        for axis in "xyz"
+        for sign in (-1, +1)]
+    for (axis, sign), side in zip(axis_signs, sides[:6]):
+        plane = physics.Plane(
+            vector.vec3(**{axis: sign}),
+            int_as_float(side.plane) * sign)
         out.append(editor.BrushSide(plane, texture_name(side)))
-    out.extend([editor.BrushSide(bsp.PLANES[side.plane], texture_name(side)) for side in sides[6:]])
+    # non-axial sides
+    out.extend([
+        editor.BrushSide(bsp.PLANES[side.plane], texture_name(side))
+        for side in sides[6:]])
     return editor.Brush(out)
 
 
@@ -345,7 +358,9 @@ def model(bsp, model_index: int) -> geometry.Model:
     # geometry
     model = bsp.MODELS[model_index]
     start, length = model.first_triangle_soup, model.num_triangle_soups
-    out = geometry.Model([bsp.triangle_soup_mesh(i) for i in range(start, start + length)], origin)
+    out = geometry.Model([
+        bsp.triangle_soup_mesh(i)
+        for i in range(start, start + length)], origin)
     out.entity = model_entity
     return out
 
@@ -358,21 +373,32 @@ def patch_collision_mesh(bsp, patch_collision_index: int) -> geometry.Mesh:
     # geometry
     start, length = patch.first_vertex, patch.num_vertices
     positions = bsp.COLLISION_VERTICES[start:start + length]
-    vertices = [geometry.Vertex(p, vector.vec3()) for p in positions]
+    no_normal = vector.vec3(0, 0, 0)
+    vertices = [
+        geometry.Vertex(position, no_normal)
+        for position in positions]
     start, length = patch.first_index, patch.num_indices
     indices = bsp.COLLISION_INDICES[start:start + length]
-    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
+    return geometry.Mesh(
+        material,
+        geometry.triangle_soup([
+            vertices[i]
+            for i in indices]))
 
 
 def portal_file(bsp) -> str:
     out = ["PRT1", str(len(bsp.CELLS)), str(len(bsp.PORTALS))]
     for ci, cell in enumerate(bsp.CELLS):
         start, length = cell.first_portal, cell.num_portals
-        for pi in enumerate(start, start + length):
-            portal = bsp.PORTALS[pi]
-            start, length = portal.first_portal_vertex, portal.num_portal_vertices
+        for pi, portal in enumerate(bsp.PORTALS[start:start + length]):
+            start = portal.first_portal_vertex
+            length = portal.num_portal_vertices
             winding = bsp.PORTAL_VERTICES[start:start + length]
-            out.append(" ".join([f"{len(winding)} {ci} {portal.cell}", *[f"({v.x} {v.y} {v.z})" for v in winding]]))
+            out.append(" ".join([
+                f"{len(winding)} {ci} {portal.cell}",
+                *[
+                    f"({vertex.x} {vertex.y} {vertex.z})"
+                    for vertex in winding]]))
     return "\n".join(out)
 
 
@@ -385,14 +411,23 @@ def triangle_soup_mesh(bsp, triangle_soup_index: int) -> geometry.Mesh:
     start, length = triangle_soup.first_vertex, triangle_soup.num_vertices
     vertices = bsp.VERTICES[start:start + length]
     vertices = [
-        geometry.Vertex(v.position, v.normal, v.albedo_uv, v.lightmap_uv, colour=v.colour.as_floats())
-        for v in vertices]
+        geometry.Vertex(
+            vertex.position,
+            vertex.normal,
+            vertex.albedo_uv,
+            vertex.lightmap_uv,
+            colour=vertex.colour.as_floats())
+        for vertex in vertices]
     start, length = triangle_soup.first_index, triangle_soup.num_indices
     indices = bsp.INDICES[start:start + length]
-    return geometry.Mesh(material, geometry.triangle_soup([vertices[i] for i in indices]))
+    return geometry.Mesh(
+        material,
+        geometry.triangle_soup([
+            vertices[i]
+            for i in indices]))
 
 
 methods = [
     quake.leaves_of_node, shared.worldspawn_volume, brush,
     model, patch_collision_mesh, portal_file, triangle_soup_mesh]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

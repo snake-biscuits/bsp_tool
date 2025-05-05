@@ -7,7 +7,8 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = (20, 4)
 
-GAME_PATHS = {"Dark Messiah of Might and Magic Multi-Player": "Dark Messiah of Might and Magic Multi-Player"}
+GAME_PATHS = {
+    "Dark Messiah of Might and Magic Multi-Player": "Dark Messiah of Might and Magic Multi-Player"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -34,7 +35,8 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {6: source.GameLump_SPRPv6}}
+GAME_LUMP_CLASSES = {
+    "sprp": {6: source.GameLump_SPRPv6}}
 
 
 methods = orange_box.methods.copy()

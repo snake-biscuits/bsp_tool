@@ -1,35 +1,19 @@
 from __future__ import annotations
 import io
-import struct
 from typing import Dict, List
 
+from .. import core
 from ..utils import binary
 from . import base
 from . import pkware
 
 
-# NOTE: can't use branches.base.Struct without making a circular import
-class PakFileEntry:
+class PakFileEntry(core.Struct):
     filename: bytes  # plaintext
     offset: int
     length: int
     __slots__ = ["filename", "offset", "length"]
     _format = "56s2I"
-
-    def __init__(self, filename: str, offset: int, length: int):
-        self.filename = filename
-        self.offset = offset
-        self.length = length
-
-    def __repr__(self) -> str:
-        attrs = ", ".join(
-            f"{attr}={getattr(self, attr)!r}"
-            for attr in ("filename", "offset", "length"))
-        return f"PakFileEntry({attrs})"
-
-    @classmethod
-    def from_stream(cls, stream: io.BytesIO) -> PakFileEntry:
-        return cls(*struct.unpack("56s2I", stream.read(64)))
 
 
 class Pak(base.Archive):

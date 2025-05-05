@@ -1,8 +1,8 @@
 """Map format from season 10.1 to season 13"""
 import enum
 
+from ... import core
 from ...utils import vector
-from .. import base
 from ..valve import source
 from . import apex_legends
 
@@ -13,8 +13,9 @@ BSP_VERSION = 50
 
 GAME_PATHS = {"Apex Legends": "ApexLegends/maps"}
 
-GAME_VERSIONS = {"Apex Legends: Season 10 - Emergence": 50,
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1)}
+GAME_VERSIONS = {
+    "Apex Legends: Season 10 - Emergence": 50,
+    "Apex Legends: Season 11 - Escape [19 Nov Patch]": (50, 1)}
 
 
 class LUMP(enum.Enum):
@@ -152,11 +153,11 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
+class CSMAABBNode(core.Struct):  # LUMP 99 (0063)
     mins: vector.vec3
-    children: base.BitField  # indices into CSMAABBNodes
+    children: core.BitField  # indices into CSMAABBNodes
     maxs: vector.vec3
-    unknown: base.BitField  # indices into Unknown38?
+    unknown: core.BitField  # indices into Unknown38?
     __slots__ = ["mins", "children", "maxs", "unknown"]
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
@@ -171,13 +172,16 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
 BASIC_LUMP_CLASSES = apex_legends.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = apex_legends.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CSM_AABB_NODES": {0: CSMAABBNode}})
+LUMP_CLASSES.update({
+    "CSM_AABB_NODES": {0: CSMAABBNode}})
 
 SPECIAL_LUMP_CLASSES = apex_legends.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {50: apex_legends.GameLump_SPRP}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        50: apex_legends.GameLump_SPRP}}
 
 
 methods = apex_legends.methods.copy()

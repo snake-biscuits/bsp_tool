@@ -5,10 +5,10 @@ import enum
 # import io
 from typing import List
 
+from ... import core
 # from ... import lumps
 from ...utils import vector
 # from ...utils.binary import read_struct
-from .. import base
 from ..valve import source
 from . import vindictus69
 
@@ -98,7 +98,7 @@ class GameLump_SPRPv6(vindictus69.GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [
     StaticPropClass = source.StaticPropv6
 
 
-class StaticPropv7(base.Struct):
+class StaticPropv7(core.Struct):
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
     model_name: int  # index into GAME_LUMP.sprp.model_names
@@ -126,7 +126,7 @@ class GameLump_SPRPv7(GameLump_SPRPv6):  # sprp GameLump (LUMP 35) [version 7]
     StaticPropClass = StaticPropv7
 
 
-class StaticPropv8(base.Struct):
+class StaticPropv8(core.Struct):
     """New in March 2025"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
@@ -141,14 +141,18 @@ class StaticPropv8(base.Struct):
     forced_fade_scale: float  # relative to pixels used to render on-screen?
     dx_level: List[int]  # unsure; might be unused
     unknown_2: bytes  # 8 bytes; could be some kind of flag
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "unknown_1",
-                 "forced_fade_scale", "dx_level", "unknown_2"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "unknown_1",
+        "forced_fade_scale", "dx_level", "unknown_2"]
     _format = "6f3H2Bi2f12sf2H8s"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "dx_level": ["min", "max"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision,
-                "flags": source.StaticPropFlags}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "fade_distance": ["min", "max"],
+        "dx_level": ["min", "max"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+        "flags": source.StaticPropFlags}
     # TODO: angles QAngle
 
 

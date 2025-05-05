@@ -1,6 +1,6 @@
 """2018-onwards format"""
 # https://git.sr.ht/~leite/cso2-bsp-converter/tree/master/item/src/bsptypes.hpp
-from .. import base
+from ... import core
 from . import cso2
 
 
@@ -20,7 +20,7 @@ LumpHeader = cso2.LumpHeader
 
 
 # classes for each lump, in alphabetical order:
-class DisplacementInfo(base.Struct):  # LUMP 26
+class DisplacementInfo(core.Struct):  # LUMP 26
     # NOTE: 10 bytes more than Vindictus
     __slots__ = ["unknown"]  # not yet used
     _format = "242B"
@@ -34,7 +34,8 @@ class DisplacementInfo(base.Struct):  # LUMP 26
 BASIC_LUMP_CLASSES = cso2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = cso2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"DISPLACEMENT_INFO": {0: DisplacementInfo}})
+LUMP_CLASSES.update({
+    "DISPLACEMENT_INFO": {0: DisplacementInfo}})
 
 SPECIAL_LUMP_CLASSES = cso2.SPECIAL_LUMP_CLASSES.copy()
 

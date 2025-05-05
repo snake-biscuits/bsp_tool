@@ -12,7 +12,8 @@ FILE_MAGIC = b"QBSP"
 
 BSP_VERSION = 38
 
-GAME_PATHS = {"Quake II Re-release": "Quake 2/rerelease"}
+GAME_PATHS = {
+    "Quake II Re-release": "Quake 2/rerelease"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -66,11 +67,12 @@ class Leaf(quake2.Leaf):
 BASIC_LUMP_CLASSES = quake2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
-                     "EDGES": remake_quake_old.Edge,
-                     "FACES": remake_quake_old.Face,
-                     "LEAVES": Leaf,
-                     "NODES": remake_quake.Node})
+LUMP_CLASSES.update({
+    "BRUSH_SIDES": BrushSide,
+    "EDGES": remake_quake_old.Edge,
+    "FACES": remake_quake_old.Face,
+    "LEAVES": Leaf,
+    "NODES": remake_quake.Node})
 
 SPECIAL_LUMP_CLASSES = quake2.SPECIAL_LUMP_CLASSES.copy()
 

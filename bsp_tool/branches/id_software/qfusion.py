@@ -3,8 +3,8 @@ from __future__ import annotations
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from . import quake
@@ -89,7 +89,7 @@ class MAX(enum.Enum):
 
 
 # classes for lumps, in alphabetical order:
-class BrushSide(base.MappedArray):  # LUMP 9
+class BrushSide(core.MappedArray):  # LUMP 9
     plane: int  # index of Plane this BrushSide lies on
     texture: int  # index of this BrushSide's Texture
     face: int  # index of the Face created from this BrushSide
@@ -97,7 +97,7 @@ class BrushSide(base.MappedArray):  # LUMP 9
     _format = "3i"
 
 
-class Face(base.Struct):  # LUMP 13
+class Face(core.Struct):  # LUMP 13
     texture: int  # index of this Face's Texture
     effect: int  # index of this Face's Effect; -1 for None?
     type: int  # see quake3.FaceType
@@ -117,9 +117,10 @@ class Face(base.Struct):  # LUMP 13
     maxs: vector.vec3  # FLARE / PATCH only
     normal: vector.vec3  # PLANAR only
     patch: vector.vec2  # control point dimensions; TODO: ivec2
-    __slots__ = ["texture", "effect", "type", "first_vertex", "num_vertices",
-                 "first_index", "num_indices", "style", "lightmap", "origin",
-                 "mins", "maxs", "normal", "patch"]
+    __slots__ = [
+        "texture", "effect", "type", "first_vertex", "num_vertices",
+        "first_index", "num_indices", "style", "lightmap", "origin",
+        "mins", "maxs", "normal", "patch"]
     _format = "5iIi8B14i12f2i"
     _arrays = {
         "style": {"lightmap": 4, "vertex": 4},
@@ -136,7 +137,7 @@ class Face(base.Struct):  # LUMP 13
         "normal": vector.vec3, "patch": vector.vec2}
 
 
-class GridLight(base.Struct):  # LUMP 15
+class GridLight(core.Struct):  # LUMP 15
     ambient: List[List[colour.RGB24]]
     diffuse: List[List[colour.RGB24]]  # scaled by dot(mesh.Normal, gridlight.direction)
     # NOTE: 4x each colour, 1 for each style
@@ -145,11 +146,15 @@ class GridLight(base.Struct):  # LUMP 15
     __slots__ = ["ambient", "diffuse", "styles", "direction"]
     _format = "30B"
     # TODO: int keys in _arrays
-    _arrays = {"ambient": {s: [*"rgb"] for s in "ABCD"},
-               "diffuse": {s: [*"rgb"] for s in "ABCD"},
-               "styles": 4,
-               "direction": ["phi", "theta"]}
-    _classes = {f"{t}.{s}": colour.RGB24 for t in ("ambient", "diffuse") for s in "ABCD"}
+    _arrays = {
+        "ambient": {s: [*"rgb"] for s in "ABCD"},
+        "diffuse": {s: [*"rgb"] for s in "ABCD"},
+        "styles": 4,
+        "direction": ["phi", "theta"]}
+    _classes = {
+        f"{type_}.{style}": colour.RGB24
+        for type_ in ("ambient", "diffuse")
+        for style in "ABCD"}
 
 
 class Lightmap(list):  # LUMP 14
@@ -173,7 +178,7 @@ class Lightmap(list):  # LUMP 14
         return out
 
 
-class Vertex(base.Struct):  # LUMP 10
+class Vertex(core.Struct):  # LUMP 10
     position: List[float]
     uv0: List[float]
     lightmap_uv: List[List[float]]  # 4 uvs for 4 styles
@@ -181,23 +186,26 @@ class Vertex(base.Struct):  # LUMP 10
     color: List[List[int]]  # 4 colours for 4 styles
     __slots__ = ["position", "uv0", "lightmap_uv", "normal", "colour"]
     _format = "16f16B"
-    _arrays = {"position": [*"xyz"],
-               "uv0": [*"uv"],
-               "lightmap_uv": {s: [*"uv"] for s in "ABCD"},
-               "normal": [*"xyz"],
-               "colour": {s: 4 for s in "ABCD"}}
+    _arrays = {
+        "position": [*"xyz"],
+        "uv0": [*"uv"],
+        "lightmap_uv": {s: [*"uv"] for s in "ABCD"},
+        "normal": [*"xyz"],
+        "colour": {s: 4 for s in "ABCD"}}
 
 
 # {"LUMP_NAME": LumpClass}
 BASIC_LUMP_CLASSES = quake3.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"INDICES": shared.UnsignedShorts})
+BASIC_LUMP_CLASSES.update({
+    "INDICES": shared.UnsignedShorts})
 
 LUMP_CLASSES = quake3.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
-                     "FACES":       Face,
-                     "LIGHT_GRID":  GridLight,
-                     "LIGHTMAPS":   Lightmap,
-                     "VERTICES":    Vertex})
+LUMP_CLASSES.update({
+    "BRUSH_SIDES": BrushSide,
+    "FACES":       Face,
+    "LIGHT_GRID":  GridLight,
+    "LIGHTMAPS":   Lightmap,
+    "VERTICES":    Vertex})
 
 SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 

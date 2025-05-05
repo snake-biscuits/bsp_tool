@@ -10,10 +10,11 @@ FILE_MAGIC = b"BSP2"
 
 BSP_VERSION = None
 
-GAME_PATHS = {"Alkaline": "Quake/alkaline",
-              "Alkaline DevKit": "Quake/alkaline_dk",
-              "Alkaline v1.1": "Quake/alk1.1",
-              "Dimension of the Past": "Quake/rerelease/dopa"}  # Dimension of the Past
+GAME_PATHS = {
+    "Alkaline": "Quake/alkaline",
+    "Alkaline DevKit": "Quake/alkaline_dk",
+    "Alkaline v1.1": "Quake/alk1.1",
+    "Dimension of the Past": "Quake/rerelease/dopa"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -58,8 +59,9 @@ class Node(remake_quake_old.Node):  # LUMP 5
 BASIC_LUMP_CLASSES = remake_quake_old.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = remake_quake_old.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LEAVES": Leaf,
-                     "NODES":  Node})
+LUMP_CLASSES.update({
+    "LEAVES": Leaf,
+    "NODES":  Node})
 
 SPECIAL_LUMP_CLASSES = remake_quake_old.SPECIAL_LUMP_CLASSES.copy()
 

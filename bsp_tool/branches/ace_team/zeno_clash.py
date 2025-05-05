@@ -8,8 +8,9 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20
 
-GAME_PATHS = {"Zeno Clash": "Zeno Clash/zenozoik",
-              "Zeno Clash (Demo)": "Zeno Clash Demo/zenozoik"}
+GAME_PATHS = {
+    "Zeno Clash": "Zeno Clash/zenozoik",
+    "Zeno Clash (Demo)": "Zeno Clash Demo/zenozoik"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 

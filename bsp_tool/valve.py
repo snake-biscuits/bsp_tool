@@ -304,7 +304,7 @@ class ValveBsp(base.Bsp):
         # BasicBspLump -> bytes
         if lump_name in self.branch.BASIC_LUMP_CLASSES:
             BasicLumpClass = self.branch.BASIC_LUMP_CLASSES[lump_name][lump_version]
-            if hasattr(BasicLumpClass, "as_int"):  # branches.base.BitField
+            if hasattr(BasicLumpClass, "as_int"):  # core.BitField
                 lump_entries = [x.as_int() for x in lump_entries]
             raw_lump = struct.pack(f"{len(lump_entries)}{BasicLumpClass._format}", *lump_entries)
         # BspLump -> bytes

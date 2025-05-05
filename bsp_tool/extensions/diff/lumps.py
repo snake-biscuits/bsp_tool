@@ -9,6 +9,7 @@ from .id_software import quake2
 
 from bsp_tool import archives
 from bsp_tool import branches
+# from bsp_tool import core
 from bsp_tool.lumps import BasicBspLump, RawBspLump
 
 
@@ -35,11 +36,11 @@ def diff_lumps(old_lump: Any, new_lump: Any) -> base.Diff:
     elif RawBspLump in LumpClasses:
         # TODO: core.xxd diff
         raise NotImplementedError("Cannot diff raw lumps")
-    # if all([issubclass(lc, branches.base.BitField) for lc in LumpClasses]):
+    # if all([issubclass(lc, core.BitField) for lc in LumpClasses]):
     #     DiffClass = base.BitFieldDiff
-    # if all([issubclass(lc, branches.base.MappedArray) for lc in LumpClasses]):
+    # if all([issubclass(lc, core.MappedArray) for lc in LumpClasses]):
     #     DiffClass = base.MappedArrayDiff
-    # if all([issubclass(lc, branches.base.Struct) for lc in LumpClasses]):
+    # if all([issubclass(lc, core.Struct) for lc in LumpClasses]):
     #     DiffClass = base.StructDiff
     else:  # default
         DiffClass = base.Diff

@@ -5,8 +5,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from ..id_software import quake
 from ..id_software import quake3
 from . import fakk2
@@ -93,7 +93,7 @@ LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class BrushSide(base.MappedArray):
+class BrushSide(core.MappedArray):
     plane: int  # index of the Plane this BrushSide lies on
     texture: int  # index into Texture lump
     equation: int  # index into SideEquation lump (patches?)
@@ -101,7 +101,7 @@ class BrushSide(base.MappedArray):
     _format = "3i"
 
 
-class Leaf(base.Struct):  # LUMP 4
+class Leaf(core.Struct):  # LUMP 4
     cluster: int  # index into VisData
     area: int
     bounds: List[vector.vec3]  # mins & maxs (int32_t)
@@ -114,15 +114,16 @@ class Leaf(base.Struct):  # LUMP 4
     padding: List[int]
     first_static_model: int  # index into StaticModel lump
     num_static_models: int  # number of StaticModels in this Leaf
-    __slots__ = ["cluster", "area", "bounds", "first_leaf_face",
-                 "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes",
-                 "padding", "first_static_model", "num_static_models"]  # new
+    __slots__ = [
+        "cluster", "area", "bounds", "first_leaf_face",
+        "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes",
+        "padding", "first_static_model", "num_static_models"]  # new
     _format = "16i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "padding": 2}
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
-class Texture(base.Struct):  # LUMP 0
+class Texture(core.Struct):  # LUMP 0
     name: str
     flags: List[int]
     subdivisions: int
@@ -133,7 +134,7 @@ class Texture(base.Struct):  # LUMP 0
     _classes = {"flags.surface": quake3.Surface, "flags.Contents": quake3.Contents}
 
 
-class Unknown14(base.Struct):  # LUMP 14
+class Unknown14(core.Struct):  # LUMP 14
     """reminds me of respawn.titanfall2.ShadowEnvironment"""
     bounds: List[vector.vec3]  # mins & maxs (int32_t)
     # bounds.mins: vector.vec3
@@ -142,8 +143,9 @@ class Unknown14(base.Struct):  # LUMP 14
     num_unknown_1: int
     first_unknown_2: int
     num_unknown_2: int
-    __slots__ = ["bounds", "first_unknown_1", "num_unknown_1",
-                 "first_unknown_2", "num_unknown_2"]
+    __slots__ = [
+        "bounds", "first_unknown_1", "num_unknown_1",
+        "first_unknown_2", "num_unknown_2"]
     _format = "6f4i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
@@ -153,10 +155,11 @@ class Unknown14(base.Struct):  # LUMP 14
 BASIC_LUMP_CLASSES = fakk2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = fakk2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"BRUSH_SIDES": BrushSide,
-                     "LEAVES":      Leaf,
-                     "TEXTURES":    Texture,
-                     "UNKNOWN_14":  Unknown14})
+LUMP_CLASSES.update({
+    "BRUSH_SIDES": BrushSide,
+    "LEAVES":      Leaf,
+    "TEXTURES":    Texture,
+    "UNKNOWN_14":  Unknown14})
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()
 

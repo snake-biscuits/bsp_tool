@@ -1,8 +1,8 @@
 # https://developer.valvesoftware.com/wiki/Source_BSP_File_Format/Game-Specific#Dark_Messiah_of_Might_and_Magic
 from typing import List, Tuple
 
+from ... import core
 from ...utils import vector
-from .. import base
 from ..valve import orange_box
 from ..valve import source
 
@@ -11,7 +11,8 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = (20, 4)
 
-GAME_PATHS = {"Dark Messiah of Might and Magic Single Player": "Dark Messiah of Might and Magic Single Player"}
+GAME_PATHS = {
+    "Dark Messiah of Might and Magic Single Player": "Dark Messiah of Might and Magic Single Player"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -23,7 +24,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     bounds: List[float]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
@@ -38,7 +39,7 @@ class Model(base.Struct):  # LUMP 14
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
-class TextureInfo(base.Struct):  # LUMP 6
+class TextureInfo(core.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
     # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
     texture: List[Tuple[vector.vec3, float]]  # 2 projection axes
@@ -56,12 +57,15 @@ class TextureInfo(base.Struct):  # LUMP 6
             "s": {"axis": [*"xyz"], "offset": None},
             "t": {"axis": [*"xyz"], "offset": None}}}
     _classes = {
-        **{f"{t}.{a}.axis": vector.vec3 for t in ("texture", "lightmap") for a in "st"},
+        **{
+            f"{type_}.{axis}.axis": vector.vec3
+            for type_ in ("texture", "lightmap")
+            for axis in "st"},
         "flags": source.Surface}
 
 
 # classes for special lumps, in alphabetical order:
-class GameLumpHeader(base.MappedArray):
+class GameLumpHeader(core.MappedArray):
     id: str
     flags: int
     version: int
@@ -83,15 +87,18 @@ LUMP_CLASSES.pop("MODELS")
 LUMP_CLASSES.pop("TEXTURE_INFO")
 LUMP_CLASSES.pop("WORLD_LIGHTS")
 LUMP_CLASSES.pop("WORLD_LIGHTS_HDR")
-# LUMP_CLASSES.update({"MODELS":       {0: Model},
-#                      "TEXTURE_INFO": {0: TextureInfo}})
+# LUMP_CLASSES.update({
+#     "MODELS":       {0: Model},
+#     "TEXTURE_INFO": {0: TextureInfo}})
 
 SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = GameLumpHeader
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {6: source.GameLump_SPRPv6}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        6: source.GameLump_SPRPv6}}
 
 
 methods = orange_box.methods.copy()

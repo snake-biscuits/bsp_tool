@@ -4,10 +4,10 @@ import base64
 import io
 from typing import Dict, List
 
-from .. import base
+from ... import core
 
 
-class Header(base.Struct):  # Season14
+class Header(core.Struct):  # Season14
     # NOTE: Season0 header is shorter
     unknown_1: List[int]  # always (64, 56, 68)?
     unknown_2: bool  # always True?

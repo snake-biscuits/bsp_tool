@@ -6,15 +6,15 @@ import math
 import struct
 from typing import Dict, List, Tuple, Union
 
-from ... import lumps
 from ... import archives
+from ... import core
+from ... import lumps
 from ...utils import binary
 from ...utils import editor
 from ...utils import physics
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import quake
@@ -410,7 +410,7 @@ class WorldLightFlags(enum.IntFlag):
 
 
 # classes for lumps, in alphabetical order:
-class Bounds(base.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
+class Bounds(core.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
     """Identified by warmist & rexx#1287"""
     # dcollyawbox_t
     origin: vector.vec3  # uint16_t
@@ -436,7 +436,7 @@ class Bounds(base.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
             angles=vector.vec3(z=self.yaw))
 
 
-class Brush(base.Struct):  # LUMP 92 (005C)
+class Brush(core.Struct):  # LUMP 92 (005C)
     """A bounding box sliced down into a convex hull by multiple planes"""
     origin: vector.vec3
     num_non_axial_no_discard: int  # number of BrushSideProperties after the axial 6 w/ no DISCARD flag set
@@ -454,7 +454,7 @@ class Brush(base.Struct):  # LUMP 92 (005C)
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
-class BrushSideProperty(base.BitField):  # LUMP 94 (005E)
+class BrushSideProperty(core.BitField):  # LUMP 94 (005E)
     flags: BrushSideFlag
     texture_data: int  # TextureData of this BrushSide
     # NOTE: unsure of exact split, assuming MAX.TEXTURE_DATA == 512
@@ -463,7 +463,7 @@ class BrushSideProperty(base.BitField):  # LUMP 94 (005E)
     _classes = {"flags": BrushSideFlag}
 
 
-class Cell(base.Struct):  # LUMP 107 (006B)
+class Cell(core.Struct):  # LUMP 107 (006B)
     """Identified by Fifty#8113 & rexx#1287"""
     # NOTE: inifinity_ward.call_of_duty1 also introduced a Cell lump
     num_portals: int  # index into Portal lump?
@@ -476,7 +476,7 @@ class Cell(base.Struct):  # LUMP 107 (006B)
     _classes = {"flags": CellSkyFlags}
 
 
-class CellAABBNode(base.Struct):  # 119 (0077)
+class CellAABBNode(core.Struct):  # 119 (0077)
     """Identified by Fifty#8113"""
     origin: vector.vec3
     num_children: int
@@ -492,7 +492,7 @@ class CellAABBNode(base.Struct):  # 119 (0077)
     _classes = {"origin": vector.vec3, "extents": vector.vec3}
 
 
-class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
+class CellBSPNode(core.MappedArray):  # LUMP 106 (006A)
     """Identified by rexx#1287"""
     plane: int  # index of Plane that splits this Node
     child: int  # indexes CellBspNodes if plane != -1 else Cells
@@ -500,7 +500,7 @@ class CellBSPNode(base.MappedArray):  # LUMP 106 (006A)
     _format = "2i"
 
 
-class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
+class CSMAABBNode(core.Struct):  # LUMP 99 (0063)
     """Identified by Fifty#8113"""
     mins: vector.vec3
     num_children: int
@@ -516,7 +516,7 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Cubemap(base.Struct):  # LUMP 42 (002A)
+class Cubemap(core.Struct):  # LUMP 42 (002A)
     origin: vector.vec3  # int32_t
     unknown: int  # index? flags?
     __slots__ = ["origin", "unknown"]
@@ -525,7 +525,7 @@ class Cubemap(base.Struct):  # LUMP 42 (002A)
     _classes = {"origin": vector.vec3}
 
 
-class GeoSet(base.Struct):  # LUMP 87 (0057)
+class GeoSet(core.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
     straddle_group: int
     # if == 0: only touches parent GridCell
@@ -542,7 +542,7 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
 
 
 # NOTE: only one 28 byte entry per file
-class Grid(base.Struct):  # LUMP 85 (0055)
+class Grid(core.Struct):  # LUMP 85 (0055)
     """splits the map into a grid on the XY-axes"""
     # grid pattern start at mins.xy, increments Y first, then X
     scale: float  # 256 for r1, 704 for r2
@@ -560,7 +560,7 @@ class Grid(base.Struct):  # LUMP 85 (0055)
     _arrays = {"offset": [*"xy"], "count": [*"xy"]}
 
 
-class GridCell(base.MappedArray):  # LUMP 86 (0056)
+class GridCell(core.MappedArray):  # LUMP 86 (0056)
     # GridCells[:Grid.count.x * Grid.count.y]     => Models[0]; broken into cells
     # GridCells[Grid.count.x * Grid.count.y + 1]  => Models[0]; num_geo_sets = 0
     # GridCells[Grid.count.x * Grid.count.y + 2:] => Models[1:]; 1 cell per model
@@ -575,7 +575,7 @@ class GridCell(base.MappedArray):  # LUMP 86 (0056)
 
 
 # NOTE: only one 28 byte entry per file
-class LevelInfo(base.Struct):  # LUMP 123 (007B)
+class LevelInfo(core.Struct):  # LUMP 123 (007B)
     """Identified by Fifty"""
     # implies worldspawn (model[0]) mesh order to be: opaque, decals, transparent, skybox
     first_decal_mesh: int
@@ -589,7 +589,7 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     _classes = {"sun_normal": vector.vec3}
 
 
-class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
+class LightmapHeader(core.MappedArray):  # LUMP 83 (0053)
     type: int  # TODO: LightmapHeaderType enum
     width: int
     height: int
@@ -598,7 +598,7 @@ class LightmapHeader(base.MappedArray):  # LUMP 83 (0053)
     # TODO: _classes = {"type": LightmapTypeheader}
 
 
-class LightProbe(base.Struct):  # LUMP 101 (0065)
+class LightProbe(core.Struct):  # LUMP 101 (0065)
     """Identified by rexx"""  # untested
     cube: List[List[int]]  # rgb888 ambient light cube
     sky_dir_sun_vis: List[int]  # ???
@@ -614,7 +614,7 @@ class LightProbe(base.Struct):  # LUMP 101 (0065)
     # TODO: ambient light cube childClass
 
 
-class LightProbeRef(base.Struct):  # LUMP 104 (0068)
+class LightProbeRef(core.Struct):  # LUMP 104 (0068)
     origin: List[float]  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
     # NOTE: not every lightprobe is indexed
@@ -624,7 +624,7 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     _classes = {"origin": vector.vec3}
 
 
-class LightProbeTree(base.MappedArray):  # LUMP 103 (0067)
+class LightProbeTree(core.MappedArray):  # LUMP 103 (0067)
     """Identified by rexx"""
     tag: int  # bitfield?
     num_entries: int  # float (node) or small int (leaf)
@@ -632,7 +632,7 @@ class LightProbeTree(base.MappedArray):  # LUMP 103 (0067)
     _mapping = ["tag", "num_entries"]
 
 
-class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
+class MaterialSort(core.MappedArray):  # LUMP 82 (0052)
     texture_data: int  # index of this MaterialSort's TextureData
     lightmap_header: int  # index of this MaterialSort's LightmapHeader
     cubemap: int  # index of this MaterialSort's Cubemap
@@ -642,7 +642,7 @@ class MaterialSort(base.MappedArray):  # LUMP 82 (0052)
     _format = "4hi"
 
 
-class Mesh(base.Struct):  # LUMP 80 (0050)
+class Mesh(core.Struct):  # LUMP 80 (0050)
     # built on valve.source.Face?
     first_mesh_index: int  # index into MeshIndices
     num_triangles: int  # number of triangles in MeshIndices after first_mesh_index
@@ -662,7 +662,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _classes = {"flags": MeshFlags}
 
 
-class MeshBounds(base.Struct):  # LUMP 81 (0051)
+class MeshBounds(core.Struct):  # LUMP 81 (0051)
     origin: List[float]
     radius: float  # approx. magnitude of extents
     extents: List[float]  # bounds extend symmetrically by this much along each axis
@@ -685,7 +685,7 @@ class MeshBounds(base.Struct):  # LUMP 81 (0051)
         return out
 
 
-class Model(base.Struct):  # LUMP 14 (000E)
+class Model(core.Struct):  # LUMP 14 (000E)
     """bsp.MODELS[0] is always worldspawn"""
     mins: vector.vec3  # bounding box mins
     maxs: vector.vec3  # bounding box maxs
@@ -697,7 +697,7 @@ class Model(base.Struct):  # LUMP 14 (000E)
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
+class ObjRefBounds(core.Struct):  # LUMP 121 (0079)
     # NOTE: introduced in v29, not present in v25
     mins: vector.vec3
     mins_zero: int  # basically unused
@@ -709,7 +709,7 @@ class ObjRefBounds(base.Struct):  # LUMP 121 (0079)
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Portal(base.MappedArray):  # LUMP 108 (006C)
+class Portal(core.MappedArray):  # LUMP 108 (006C)
     """Identified by rexx#1287"""
     is_reversed: int  # bool?
     type: PortalType
@@ -724,7 +724,7 @@ class Portal(base.MappedArray):  # LUMP 108 (006C)
     _classes = {"type": PortalType}
 
 
-class PortalIndexSet(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
+class PortalIndexSet(core.Struct):  # LUMP 114 & 115 (0072 & 0073)
     """Identified by rexx#1287"""
     # PortalVertexSet / PortalEdgeSet
     index: List[int]  # -1 for None; essentially variable length
@@ -733,7 +733,7 @@ class PortalIndexSet(base.Struct):  # LUMP 114 & 115 (0072 & 0073)
     _arrays = {"index": 8}
 
 
-class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
+class PortalEdgeIntersectHeader(core.MappedArray):  # LUMP 116 (0074)
     """Confirmed by rexx#1287"""
     start: int  # unsure what this indexes
     count: int
@@ -741,7 +741,7 @@ class PortalEdgeIntersectHeader(base.MappedArray):  # LUMP 116 (0074)
     _format = "2I"
 
 
-class Primitive(base.BitField):  # LUMP 89 (0059)
+class Primitive(core.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
     # same as the BitField component of GeoSet?
     type: PrimitiveType
@@ -752,7 +752,7 @@ class Primitive(base.BitField):  # LUMP 89 (0059)
     _classes = {"type": PrimitiveType}
 
 
-class ShadowMesh(base.Struct):  # LUMP 127 (007F)
+class ShadowMesh(core.Struct):  # LUMP 127 (007F)
     """SHADOW_MESH_INDICES offset is end of previous ShadowMesh"""
     vertex_offset: int  # index into ShadowMeshAlpha / OpaqueVertices
     # first_index = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESH_INDICES[:index])
@@ -764,7 +764,7 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     _classes = {"is_opaque": bool}
 
 
-class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
+class ShadowMeshAlphaVertex(core.Struct):  # LUMP 125 (007D)
     """"Identified by rexx#1287"""
     # seems to get paired w/ a material sort, might explain which material is used?
     position: List[float]
@@ -775,7 +775,7 @@ class ShadowMeshAlphaVertex(base.Struct):  # LUMP 125 (007D)
     _classes = {"position": vector.vec3, "uv": vector.vec2}
 
 
-class TextureData(base.Struct):  # LUMP 2 (0002)
+class TextureData(core.Struct):  # LUMP 2 (0002)
     """Hybrid of Source TextureData & TextureInfo"""
     reflectivity: List[float]  # matches .vtf reflectivity.rgb (always? black in r2)
     name_index: int  # index of material name in TEXTURE_DATA_STRING_DATA / TABLE
@@ -790,7 +790,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
     # TODO: rgb24 reflectivity & width-height vec2 for size & view
 
 
-class TextureVector(base.Struct):  # LUMP 95 (005F)
+class TextureVector(core.Struct):  # LUMP 95 (005F)
     # NOTE: texture.TextureVector(texture.ProjectionAxis(*s), texture.ProjectionAxis(*t))
     s: List[float]  # S vector
     t: List[float]  # T vector
@@ -801,7 +801,7 @@ class TextureVector(base.Struct):  # LUMP 95 (005F)
     _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
-class TricollHeader(base.Struct):  # LUMP 69 (0045)
+class TricollHeader(core.Struct):  # LUMP 69 (0045)
     """Identified by rexx#1287"""
     flags: int  # always 0?
     texture_flags: TextureDataFlags  # copy of texture_data.flags
@@ -831,7 +831,7 @@ class TricollHeader(base.Struct):  # LUMP 69 (0045)
         return 2 * (self.num_triangles - (self.num_triangles + 3) % 6 + 3) // 3
 
 
-class TricollTriangle(base.BitField):  # LUMP 66 (0042)
+class TricollTriangle(core.BitField):  # LUMP 66 (0042)
     """Identified by Fifty & RoyalBlue"""
     A: int  # indexes VERTICES[header.first_vertex + A]
     B: int  # indexes VERTICES[header.first_vertex + A + B]
@@ -880,7 +880,7 @@ class WorldLight(source.WorldLight):  # LUMP 54 (0036)
 
 
 # special vertices
-class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
+class VertexBlinnPhong(core.Struct):  # LUMP 75 (004B)
     """Not used in any official map"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -895,7 +895,7 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     _classes = {"albedo_uv": vector.vec2, "lightmap.uv": vector.vec2, "colour": colour.RGBA32}
 
 
-class VertexLitBump(base.Struct):  # LUMP 73 (0049)
+class VertexLitBump(core.Struct):  # LUMP 73 (0049)
     """Common Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -914,7 +914,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
                 "lightmap.step": vector.vec2, "colour": colour.RGBA32}
 
 
-class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+class VertexLitFlat(core.Struct):  # LUMP 72 (0048)
     """Uncommon Worldspawn Geometry"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -931,7 +931,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
                 "lightmap.step": vector.vec2, "colour": colour.RGBA32}
 
 
-class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+class VertexUnlit(core.Struct):  # LUMP 71 (0047)
     """Tool Brushes"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -943,7 +943,7 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     _classes = {"albedo_uv": vector.vec2, "colour": colour.RGBA32}
 
 
-class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
+class VertexUnlitTS(core.Struct):  # LUMP 74 (004A)
     """Glass"""
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -974,7 +974,7 @@ class EntityPartitions(list):
         return cls(raw_lump.decode("ascii")[:-1].split(" "))
 
 
-class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12]
+class StaticPropv12(core.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12]
     """appears to extend valve.left4dead.StaticPropv8"""
     origin: vector.vec3  # x, y, z
     angles: List[float]  # pitch, yaw, roll
@@ -996,16 +996,20 @@ class StaticPropv12(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 12
     disable_x360: bool
     scale: float
     collision_flags: List[int]  # add, remove
-    __slots__ = ["origin", "angles", "model_name", "first_leaf", "num_leaves",
-                 "solid_mode", "flags", "skin", "cubemap", "fade_distance",
-                 "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
-                 "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
+    __slots__ = [
+        "origin", "angles", "model_name", "first_leaf", "num_leaves",
+        "solid_mode", "flags", "skin", "cubemap", "fade_distance",
+        "lighting_origin", "forced_fade_scale", "cpu_level", "gpu_level",
+        "diffuse_modulation", "disable_x360", "scale", "collision_flags"]
     _format = "6f3H2B2h6f4b4Bif2I"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
-               "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
-    _classes = {"origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
+        "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+        "diffuse_modulation": [*"rgba"], "collision_flags": ["add", "remove"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
     # TODO: "angles": QAngle, "collision_flags": CollisionFlag
 
 
@@ -1378,4 +1382,4 @@ methods = [shared.worldspawn_volume, search_all_entities,  # entities
            brush,  # brushes
            geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
            portals_as_prt, portal_mesh]  # vis
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

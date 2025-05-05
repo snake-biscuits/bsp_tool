@@ -5,7 +5,7 @@ import os
 import struct
 from typing import Dict, List, Tuple
 
-from ..branches import base
+from .. import core
 from ..utils.binary import read_struct, write_struct
 
 
@@ -27,14 +27,14 @@ block_sizes = {
     Block.COLUMN_DATA: 1}
 
 
-class BlockIndex(base.Struct):
+class BlockIndex(core.Struct):
     offset: int
     count: int  # num_structs / num_bytes
     __slots__ = ["offset", "count"]
     _format = "2Q"
 
 
-class MaterialInfo(base.Struct):
+class MaterialInfo(core.Struct):
     """rpak assets & vmts?"""
     material: int  # index materials
     unknown: int  # flags?
@@ -52,7 +52,7 @@ class MaterialInfo(base.Struct):
         return f"MaterialInfo({', '.join(args)})"
 
 
-class Column(base.Struct):
+class Column(core.Struct):
     """grid tiles, combines a set of 16 sample stacks"""
     offset: int  # index into ColumnData
     length: int
@@ -67,13 +67,13 @@ class Column(base.Struct):
     _format = "QIf4h"
 
 
-class MaterialCoverage80(base.BitField):
+class MaterialCoverage80(core.BitField):
     """ColumnData v.80 (r2)"""
     _fields = {"material": 10, "mip_level": 6, "coverage": 16}
     _format = "I"
 
 
-class MaterialCoverage81(base.BitField):
+class MaterialCoverage81(core.BitField):
     """ColumnData v8.1 (r5)"""
     _fields = {"material": 12, "mip_level": 4, "coverage": 16}
     _format = "I"
@@ -122,7 +122,9 @@ class StreamBsp:
         major, minor = self.version
         version = f"v{major}.{minor}"
         filename = os.path.basename(self.filename)
-        return f"<StreamBsp {version} '{filename}' ({len(self.material_infos)} materials) @ 0x{id(self):016X}>"
+        num_materials = len(self.material_infos)
+        descriptor = f"{version} '{filename} ({num_materials} materials)'"
+        return f"<StreamBsp {descriptor} @ 0x{id(self):016X}>"
 
     def read(self, offset: int, length: int) -> bytes:
         with open(self.filename, "wb") as file:

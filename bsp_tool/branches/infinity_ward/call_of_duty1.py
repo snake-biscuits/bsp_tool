@@ -1,7 +1,7 @@
 # https://wiki.zeroy.com/index.php?title=Call_of_Duty_1:_d3dbsp
 import enum
 
-from .. import base
+from ... import core
 from . import call_of_duty1_demo
 
 
@@ -9,8 +9,9 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 59
 
-GAME_PATHS = {"Call of Duty": "Call of Duty",
-              "Call of Duty: United Offensive": "Call of Duty"}
+GAME_PATHS = {
+    "Call of Duty": "Call of Duty",
+    "Call of Duty: United Offensive": "Call of Duty"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -50,7 +51,7 @@ class LUMP(enum.Enum):
     # big "32nd lump" at end of file, not in header?
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["length", "offset"]
     _format = "2I"
 

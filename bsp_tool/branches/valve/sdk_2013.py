@@ -2,8 +2,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from . import alien_swarm
 from . import left4dead2
@@ -15,9 +15,10 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 21
 
-GAME_PATHS = {"Blade Symphony": "Blade Symphony/berimbau",
-              "Counter-Strike: Global Offensive": "Counter-Strike Global Offensive/csgo",
-              "Portal 2": "Portal 2/portal2"}
+GAME_PATHS = {
+    "Blade Symphony": "Blade Symphony/berimbau",
+    "Counter-Strike: Global Offensive": "Counter-Strike Global Offensive/csgo",
+    "Portal 2": "Portal 2/portal2"}
 # NOTE: also most sourcemods & mapbase
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
@@ -97,7 +98,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
+class StaticPropv10(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -115,16 +116,19 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 10]
     diffuse_modulation: colour.RGBExponent
     disable_x360: int  # 4 byte bool
     flags_2: int  # values unknown
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "disable_x360", "flags_2"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+        "disable_x360", "flags_2"]
     _format = "6f3H2Bi6f8B2I"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+        "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 
 
@@ -132,7 +136,7 @@ class GameLump_SPRPv10(orange_box.GameLump_SPRPv10):  # sprp GAME LUMP (LUMP 35)
     StaticPropClass = StaticPropv10
 
 
-class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
+class StaticPropv11(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -151,16 +155,19 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     flags_2: int  # values unknown
     scale: float
     unknown: int
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "flags_2", "scale", "unknown"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+        "flags_2", "scale", "unknown"]
     _format = "6f3H2Bi6f8BIfi"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+        "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 
 
@@ -177,8 +184,10 @@ SPECIAL_LUMP_CLASSES = alien_swarm.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = alien_swarm.GAME_LUMP_HEADER
 
-GAME_LUMP_CLASSES = {"sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({10: GameLump_SPRPv10,
-                                  11: GameLump_SPRPv11})
+GAME_LUMP_CLASSES = {
+    "sprp": left4dead2.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES["sprp"].update({
+        10: GameLump_SPRPv10,
+        11: GameLump_SPRPv11})
 
 methods = alien_swarm.methods.copy()

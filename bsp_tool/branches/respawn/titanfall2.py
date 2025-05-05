@@ -4,10 +4,10 @@ import io
 import struct
 from typing import List, Tuple
 
+from ... import core
 from ... import lumps
 from ...utils import binary
 from ...utils import vector
-from .. import base
 from .. import colour
 from ..valve import source
 from . import titanfall
@@ -263,7 +263,7 @@ class PrimitiveType(enum.IntFlag):
 
 
 # classes for lumps, in alphabetical order::
-class GeoSet(base.Struct):  # LUMP 87 (0057)
+class GeoSet(core.Struct):  # LUMP 87 (0057)
     # Parallel w/ GeoSetBounds
     straddle_group: int
     # if == 0: only touches parent GridCell
@@ -279,7 +279,7 @@ class GeoSet(base.Struct):  # LUMP 87 (0057)
     _classes = {"primitive.type": PrimitiveType}
 
 
-class LightmapPage(base.Struct):  # LUMP 122 (007A)
+class LightmapPage(core.Struct):  # LUMP 122 (007A)
     """identified by RoyalBlue"""
     indices: List[int]  # indices into WorldLights
     __slots__ = ["indices"]
@@ -287,7 +287,7 @@ class LightmapPage(base.Struct):  # LUMP 122 (007A)
     _arrays = {"indices": 63}
 
 
-class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
+class LightProbeBSPNode(core.Struct):  # LUMP 6 (0006)
     plane: Tuple[vector.vec3, float]
     # plane.normal: vector.vec3
     # plane.distance: float
@@ -300,7 +300,7 @@ class LightProbeBSPNode(base.Struct):  # LUMP 6 (0006)
     _classes = {"plane.normal": vector.vec3}
 
 
-class LightProbeParentInfo(base.Struct):  # LUMP 4 (0004)
+class LightProbeParentInfo(core.Struct):  # LUMP 4 (0004)
     """Identified by RoyalBlue; auto-generated if absent"""
     index: int  # index of self or -1
     first_probe: int  # index into LightProbes
@@ -317,7 +317,7 @@ class LightProbeParentInfo(base.Struct):  # LUMP 4 (0004)
     _format = "i6I"
 
 
-class LightProbeRef(base.Struct):  # LUMP 104 (0068)
+class LightProbeRef(core.Struct):  # LUMP 104 (0068)
     origin: vector.vec3  # coords of LightProbe
     lightprobe: int  # index of this LightProbeRef's LightProbe
     unknown: int
@@ -327,7 +327,7 @@ class LightProbeRef(base.Struct):  # LUMP 104 (0068)
     _classes = {"origin": vector.vec3}
 
 
-class Mesh(base.Struct):  # LUMP 80 (0050)
+class Mesh(core.Struct):  # LUMP 80 (0050)
     # built on valve.source.Face?
     first_mesh_index: int  # index into MeshIndices
     num_triangles: int  # number of triangles in MeshIndices after first_mesh_index
@@ -348,7 +348,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _classes = {"flags": titanfall.MeshFlags}
 
 
-class Primitive(base.BitField):  # LUMP 89 (0059)
+class Primitive(core.BitField):  # LUMP 89 (0059)
     """identified by Fifty"""
     type: PrimitiveType
     index: int  # indexed lump depends on type
@@ -358,7 +358,7 @@ class Primitive(base.BitField):  # LUMP 89 (0059)
     _classes = {"type": PrimitiveType}
 
 
-class WorldLightv2(base.Struct):  # LUMP 54 (0036)
+class WorldLightv2(core.Struct):  # LUMP 54 (0036)
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
@@ -398,7 +398,7 @@ class WorldLightv2(base.Struct):  # LUMP 54 (0036)
         "flags": titanfall.WorldLightFlags}
 
 
-class WorldLightv3(base.Struct):  # LUMP 54 (0036)
+class WorldLightv3(core.Struct):  # LUMP 54 (0036)
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction
@@ -440,7 +440,7 @@ class WorldLightv3(base.Struct):  # LUMP 54 (0036)
         "flags": titanfall.WorldLightFlags}
 
 
-class WorldLightParentInfo(base.Struct):  # LUMP 55 (0037)
+class WorldLightParentInfo(core.Struct):  # LUMP 55 (0037)
     """Identified by RoyalBlue"""
     matrix: List[List[float]]  # 3x Quaternions?
     # could be read as 3 planes
@@ -472,7 +472,7 @@ class WorldLightParentInfo(base.Struct):  # LUMP 55 (0037)
             f"    world_light={self.world_light})"])
 
 
-class ShadowEnvironment(base.Struct):  # LUMP 5 (0005)
+class ShadowEnvironment(core.Struct):  # LUMP 5 (0005)
     """Identified w/ BobTheBob; linked to dynamic shadows and optimisation"""
     first_csm_aabb_node: int  # index into CSMAABBNodes
     first_csm_obj_reference: int  # index into CSMObjReferences
@@ -492,7 +492,7 @@ class ShadowEnvironment(base.Struct):  # LUMP 5 (0005)
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13]
+class StaticPropv13(core.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13]
     """Identified w/ BobTheBob"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll (Y Z X)
@@ -508,20 +508,23 @@ class StaticPropv13(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023) [version 13
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: colour.RGBExponent
     collision_flags: List[int]  # add, remove
-    __slots__ = ["origin", "angles", "scale", "model_name", "solid_mode", "flags",
-                 "skin", "cubemap", "forced_fade_scale", "lighting_origin", "cpu_level",
-                 "gpu_level", "diffuse_modulation", "collision_flags"]
+    __slots__ = [
+        "origin", "angles", "scale", "model_name", "solid_mode", "flags",
+        "skin", "cubemap", "forced_fade_scale", "lighting_origin", "cpu_level",
+        "gpu_level", "diffuse_modulation", "collision_flags"]
     _format = "7fH2B2H4f4b4B2H"  # 64 bytes
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
-               "collision_flags": ["add", "remove"]}
-    _classes = {"origin": vector.vec3, "solid_mode": titanfall.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+        "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"],
+        "collision_flags": ["add", "remove"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": titanfall.StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 
 
-class Unknown3(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
+class Unknown3(core.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
     """all assumptions"""
     # NOTE: doesn't appear in smaller maps
     # -- could be to help with floating point precision

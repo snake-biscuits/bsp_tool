@@ -7,13 +7,13 @@ import io
 import struct
 from typing import List, Union
 
+from ... import core
 from ...utils import binary
 from ...utils import vector
-from .. import base
 
 
 # PhysicsCollide headers
-class ModelHeader(base.Struct):
+class ModelHeader(core.Struct):
     """dphysmodel_t"""
     __slots__ = ["model", "data_size", "script_size", "solid_count"]
     _format = "4i"
@@ -73,14 +73,14 @@ class ModelType(enum.Enum):
     MOPP = 1
 
 
-class CollideHeader(base.Struct):
+class CollideHeader(core.Struct):
     """swapcollideheader_t"""
     __slots__ = ["id", "version", "model_type"]
     _format = "4s2h"
     _classes = {"model_type": ModelType}
 
 
-class SurfaceHeader(base.Struct):
+class SurfaceHeader(core.Struct):
     """swapcompactsurfaceheader_t"""
     __slots__ = ["size", "drag_axis_areas", "axis_map_size"]
     _format = "i3fi"
@@ -88,7 +88,7 @@ class SurfaceHeader(base.Struct):
     _classes = {"drag_axis_areas": vector.vec3}
 
 
-class MoppHeader(base.Struct):
+class MoppHeader(core.Struct):
     """swapmoppsurfaceheader_t"""
     # NOTE: the "swap" in the names refers to the format differing across byte-orders
     # -- Source swaps byte order for selected fields when compiled for consoles
@@ -148,14 +148,14 @@ class Block:
 # -- a linear read might be possible
 
 # NOTE: the order of class definition matters here, since each contains the previous
-class Vertex(base.MappedArray):
+class Vertex(core.MappedArray):
     """struct Vertex { float x, y, z, w };"""
     _mapping = [*"xyzw"]
     _format = "4f"
     # appear to be 1/72 vs. expected size (roughly)
 
 
-class ConvexTriangle(base.MappedArray):
+class ConvexTriangle(core.MappedArray):
     """struct ConvexTriange { int padding; short edges[3][2]; };"""
     padding: int  # is it really padding? check for non-zeroes
     edges: List[int]  # 3 pairs of indices
@@ -163,7 +163,7 @@ class ConvexTriangle(base.MappedArray):
     _format = "i6h"
 
 
-class ConvexLeaf(base.MappedArray):
+class ConvexLeaf(core.MappedArray):
     """struct ConvexLeaf { int vertex_offset, padding[2]; short triangle_count, unused; };"""
     # preceded by b"IDST" (IDSTUDIOHEADER) ?
     # -- src/utils/motionmapper/motionmapper.h
@@ -192,7 +192,7 @@ class ConvexLeaf(base.MappedArray):
         return convex_leaf
 
 
-class TreeNode(base.MappedArray):
+class TreeNode(core.MappedArray):
     """struct TreeNode { int right_node_offset, convex_leaf_offset; float unknown[5]; };"""
     right_node_offset: int  # has no child nodes if 0
     convex_leaf_offset: int  # index to child ConvexLeaf
@@ -221,7 +221,7 @@ class TreeNode(base.MappedArray):
         return tree_node
 
 
-class CollisionModel(base.Struct):
+class CollisionModel(core.Struct):
     """struct CollisionModel { float unknown[7]; int surface, tree_offset, padding[2]; };"""
     unknown: List[float]
     surface: int  # surface type? matches script?

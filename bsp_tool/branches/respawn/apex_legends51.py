@@ -2,7 +2,7 @@
 import enum
 from typing import List
 
-from .. import base
+from ... import core
 from ..valve import source
 from . import apex_legends
 from . import apex_legends50
@@ -152,7 +152,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class LightProbe(base.Struct):  # LUMP 102 (0066)
+class LightProbe(core.Struct):  # LUMP 102 (0066)
     """Identified by rexx"""  # untested
     cube: List[List[int]]  # rgb888 ambient light cube
     sky_dir_sun_vis: List[int]  # ???
@@ -161,8 +161,10 @@ class LightProbe(base.Struct):  # LUMP 102 (0066)
     # static_light.indices: List[int]  # up to 4 indices; default -1
     __slots__ = ["cube", "sky_dir_sun_vis", "static_light"]
     _format = "24B4h4B4h"
-    _arrays = {"cube": {x: [*"rgba"] for x in "ABCDEF"}, "sky_dir_sun_vis": 4,
-               "static_light": {"weights": 4, "indices": 4}}
+    _arrays = {
+        "cube": {x: [*"rgba"] for x in "ABCDEF"},
+        "sky_dir_sun_vis": 4,
+        "static_light": {"weights": 4, "indices": 4}}
     # TODO: map cube face names to UP, DOWN etc.
     # TODO: ambient light cube childClass
 
@@ -172,13 +174,16 @@ class LightProbe(base.Struct):  # LUMP 102 (0066)
 BASIC_LUMP_CLASSES = apex_legends50.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = apex_legends50.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"LIGHT_PROBES": {0: LightProbe}})
+LUMP_CLASSES.update({
+    "LIGHT_PROBES": {0: LightProbe}})
 
 SPECIAL_LUMP_CLASSES = apex_legends50.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 
-GAME_LUMP_CLASSES = {"sprp": {51: apex_legends.GameLump_SPRP}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        51: apex_legends.GameLump_SPRP}}
 
 
 methods = apex_legends50.methods.copy()

@@ -7,10 +7,10 @@ import enum
 import io
 from typing import List
 
+from ... import core
 from ... import lumps
 from ...utils import binary
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import remake_quake_old
@@ -142,7 +142,7 @@ class MAX(enum.Enum):
 
 
 # classes for each lump, in alphabetical order:
-class BrushSide(base.MappedArray):  # LUMP 19
+class BrushSide(core.MappedArray):  # LUMP 19
     plane: int  # Plane this BrushSide lies on
     texture_info: int  # index into TextureInfo lump
     displacement_info: int  # index into DisplacementInfo lump
@@ -153,7 +153,7 @@ class BrushSide(base.MappedArray):  # LUMP 19
     _format = "I2i2bh"
 
 
-# class DisplacementCornerNeighbour(base.Struct):  # LUMP 26
+# class DisplacementCornerNeighbour(core.Struct):  # LUMP 26
 #     neighbours: List[int]  # 4x indices into DisplacementInfo?
 #     num_neighbours: int  # {0..4}?
 #     __slots__ = ["neighbours", "num_neighbours"]
@@ -161,7 +161,7 @@ class BrushSide(base.MappedArray):  # LUMP 19
 #     _arrays = {"neighbours": 4}
 
 
-# class DisplacementSubNeighbour(base.MappedArray):  # LUMP 26
+# class DisplacementSubNeighbour(core.MappedArray):  # LUMP 26
 #     # TODO: Source SDK displacement neighbour ascii diagram & comment block
 #     neighbour: int  # DisplacementInfo index?
 #     orientation: int  # neighbourOrient; enum?
@@ -176,7 +176,7 @@ class BrushSide(base.MappedArray):  # LUMP 19
 #     _format = DisplacementSubNeighbour._format * 2
 
 
-class DisplacementInfo(base.Struct):  # LUMP 26
+class DisplacementInfo(core.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: vector.vec3  # approx coords of first corner of face
     # nessecary to ensure order of displacement vertices
@@ -196,20 +196,22 @@ class DisplacementInfo(base.Struct):  # LUMP 26
     edge_neighbours: List[bytes]  # TODO: DisplacementNeighbour class
     corner_neighbours: List[bytes]  # TODO: DisplacementCornerNeighbour class
     allowed_vertices: List[int]
-    __slots__ = ["start_position", "first_displacement_vertex", "first_displacement_triangle",
-                 "power", "min_tesselation", "smoothing_angle", "contents", "face",
-                 "first_lightmap_alpha", "first_lightmap_sample_position",
-                 "edge_neighbours", "corner_neighbours", "allowed_vertices"]
+    __slots__ = [
+        "start_position", "first_displacement_vertex", "first_displacement_triangle",
+        "power", "min_tesselation", "smoothing_angle", "contents", "face",
+        "first_lightmap_alpha", "first_lightmap_sample_position",
+        "edge_neighbours", "corner_neighbours", "allowed_vertices"]
     _format = "3f4ifiI2i144B10I"
-    _arrays = {"start_position": [*"xyz"], "edge_neighbours": 72, "corner_neighbours": 72,
-               "allowed_vertices": 10}
+    _arrays = {
+        "start_position": [*"xyz"], "edge_neighbours": 72, "corner_neighbours": 72,
+        "allowed_vertices": 10}
     # 4x DisplacementNeighbour: edge_neighbours
     # 4x DisplacementCornerNeighbours: corner_neighbours
     _classes = {"start_position": vector.vec3, "contents": source.Contents}
     # TODO: neighbour classes
 
 
-class Face(base.Struct):  # LUMPS 7, 27 * 58
+class Face(core.Struct):  # LUMPS 7, 27 * 58
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     plane: int  # index into Plane lump
     side: int  # "faces opposite to the Node's Plane direction"
@@ -231,18 +233,20 @@ class Face(base.Struct):  # LUMPS 7, 27 * 58
     # primitives.count: int  # limit of 2^15 - 1
     first_primitive: int  # index of Primitive (if primitives.count != 0)
     smoothing_groups: int  # lightmap smoothing group
-    __slots__ = ["plane", "side", "on_node", "first_edge", "num_edges", "texture_info",
-                 "displacement_info", "surface_fog_volume_id", "styles", "light_offset",
-                 "area", "lightmap", "original_face", "primitives", "first_primitive", "smoothing_groups"]
+    __slots__ = [
+        "plane", "side", "on_node", "first_edge", "num_edges", "texture_info",
+        "displacement_info", "surface_fog_volume_id", "styles", "light_offset",
+        "area", "lightmap", "original_face", "primitives", "first_primitive", "smoothing_groups"]
     _format = "I2b5I4bif5i3I"
     _arrays = {"styles": 4, "lightmap": {"mins": [*"xy"], "size": [*"xy"]}}
     _bitfields = {"primitives": {"allow_dynamic_shadows": 1, "count": 31}}
     # TODO: ivec2 for lightmap vectors
-    _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2,
-                "primitives.allow_dynamic_shadows": bool}
+    _classes = {
+        "lightmap.mins": vector.vec2, "lightmap.size": vector.vec2,
+        "primitives.allow_dynamic_shadows": bool}
 
 
-class FaceBrushList(base.MappedArray):  # LUMP 23
+class FaceBrushList(core.MappedArray):  # LUMP 23
     num_face_brushes: int
     first_face_brush: int  # index into FaceBrushes
     _mapping = ["num_face_brushes", "first_face_brush"]
@@ -253,7 +257,7 @@ class Leaf(source.Face):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: source.Contents
     cluster: int  # index of viscluster in Visibility; -1 for None
-    bitfield: base.BitField
+    bitfield: core.BitField
     # bitfield.area: int  # index?
     # bitfield.flags: int  # LeafFlags enum?
     bounds: List[vector.vec3]
@@ -264,8 +268,9 @@ class Leaf(source.Face):  # LUMP 10
     first_leaf_brush: int  # index into LeafBrushes
     num_leaf_brushes: int
     leaf_water_data: int  # index into LeafWaterData
-    __slots__ = ["contents", "cluster", "bitfield", "bounds", "first_leaf_face",
-                 "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes", "leaf_water_id"]
+    __slots__ = [
+        "contents", "cluster", "bitfield", "bounds", "first_leaf_face",
+        "num_leaf_faces", "first_leaf_brush", "num_leaf_brushes", "leaf_water_id"]
     _format = "IiI6f4Ii"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
     _bitfields = {"bitfield": {"area": 17, "flags": 15}}
@@ -280,7 +285,7 @@ class LeafAmbientIndex(source.LeafAmbientIndex):  # LUMP 52
     _mapping = ["num_samples", "first_sample"]
 
 
-class Node(base.Struct):  # LUMP 5
+class Node(core.Struct):  # LUMP 5
     plane: int  # Plane that splits this Node
     children: List[int]  # 2 indices; Node if positive, Leaf if negative
     # TODO: match children to sides of Plane
@@ -298,7 +303,7 @@ class Node(base.Struct):  # LUMP 5
     # TODO: AABB bounds class
 
 
-class Overlay(base.Struct):  # LUMP 45
+class Overlay(core.Struct):  # LUMP 45
     id: int
     texture_info: int  # index into TextureInfo
     face_count: int  # render order in top 2 bits
@@ -308,13 +313,19 @@ class Overlay(base.Struct):  # LUMP 45
     points: List[vector.vec3]
     origin: vector.vec3
     normal: vector.vec3
-    __slots__ = ["id", "texture_info", "face_count", "faces",
-                 "u", "v", "points", "origin", "normal"]
+    __slots__ = [
+        "id", "texture_info", "face_count", "faces",
+        "u", "v", "points", "origin", "normal"]
     _format = "2iH64i22f"
-    _arrays = {"faces": 64, "u": ["min", "max"], "v": ["min", "max"],
-               "points": {P: [*"xyz"] for P in "ABCD"}, "origin": [*"xyz"], "normal": [*"xyz"]}
+    _arrays = {
+        "faces": 64,
+        "u": ["min", "max"], "v": ["min", "max"],
+        "points": {P: [*"xyz"] for P in "ABCD"},
+        "origin": [*"xyz"], "normal": [*"xyz"]}
     # TODO: index uv & points w/ {int: _mapping} _arrays
-    _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
+    _classes = {
+        **{f"points.{P}": vector.vec3 for P in "ABCD"},
+        "origin": vector.vec3, "normal": vector.vec3}
 
 
 class Primitive(source.Primitive):  # LUMP 37
@@ -328,7 +339,7 @@ class Primitive(source.Primitive):  # LUMP 37
     _classes = {"type": source.PrimitiveType}
 
 
-class WaterOverlay(base.Struct):  # LUMP 50
+class WaterOverlay(core.Struct):  # LUMP 50
     id: int
     texture_info: int  # index into TextureInfo
     face_count: int  # render order in top 2 bits
@@ -372,7 +383,7 @@ class GameLump_SPRPv12(sdk_2013.GameLump_SPRPv11):  # sprp GAME LUMP (LUMP 35) [
         return out
 
 
-class StaticPropv13(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 13]
+class StaticPropv13(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 13]
     """for Portal: Revolution"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -440,13 +451,15 @@ LUMP_CLASSES.update({
     "WATER_OVERLAYS":         {1: WaterOverlay}})
 
 SPECIAL_LUMP_CLASSES = sdk_2013.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.update({"PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
+SPECIAL_LUMP_CLASSES.update({
+    "PHYSICS_DISPLACEMENT": {2: PhysicsDisplacement}})
 
 GAME_LUMP_HEADER = sdk_2013.GAME_LUMP_HEADER
 
-GAME_LUMP_CLASSES = {"sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES = {
+    "sprp": sdk_2013.GAME_LUMP_CLASSES["sprp"].copy()}
 GAME_LUMP_CLASSES["sprp"].update({
-    12: GameLump_SPRPv12,
-    13: GameLump_SPRPv13})
+        12: GameLump_SPRPv12,
+        13: GameLump_SPRPv13})
 
 methods = sdk_2013.methods.copy()

@@ -2,8 +2,8 @@
 import enum
 from typing import List, Union
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import shared
 from .. import time
 from ..id_software import quake
@@ -51,7 +51,7 @@ class LUMP(enum.Enum):
     END = 0xFFFF
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     id: int
     size: int  # sizeof(LumpClass)
     count: int  # num_elements
@@ -79,7 +79,7 @@ class Contents(enum.IntFlag):
 
 
 # classes for lumps, in alphabetical order:
-class AreaPortal(base.Struct):  # LUMP 7
+class AreaPortal(core.Struct):  # LUMP 7
     model: int
     area: int
     __slots__ = ["model", "area"]
@@ -90,7 +90,7 @@ class ClipNode(remake_quake_old.ClipNode):  # LUMP 3
     __slots__ = ["children", "plane"]
 
 
-class Face(base.Struct):  # LUMP 11
+class Face(core.Struct):  # LUMP 11
     first_vertex: int
     num_vertices: int
     plane: int
@@ -106,19 +106,21 @@ class Face(base.Struct):  # LUMP 11
     _classes = {"side": quake.PlaneSide}
 
 
-class Header(base.Struct):  # LUMP 0
+class Header(core.Struct):  # LUMP 0
     magic: bytes
     padding: bytes  # 4 NULL bytes
     version: int
     timestamp: List[int]
     __slots__ = ["magic", "padding", "version", "time"]
     _format = "4s4si8H"
-    _arrays = {"time": ["year", "month", "day_of_week", "day",
-                        "hour", "minute", "second", "millisecond"]}
+    _arrays = {
+        "time": [
+            "year", "month", "day_of_week", "day",
+            "hour", "minute", "second", "millisecond"]}
     _classes = {"time": time.SystemTime}
 
 
-class Leaf(base.Struct):  # LUMP 4
+class Leaf(core.Struct):  # LUMP 4
     contents: int
     bounds: List[vector.vec3]
     # bounds.mins: vector.vec3
@@ -131,14 +133,18 @@ class Leaf(base.Struct):  # LUMP 4
     area: int  # -1: Area, 0: Solid, *: Area Index
     first_leaf_side: int
     num_leaf_sides: int
-    __slots__ = ["contents", "bounds", "first_leaf_face", "num_leaf_faces", "first_portal",
-                 "num_portals", "cluster", "area", "first_leaf_side", "num_leaf_sides"]
+    __slots__ = [
+        "contents", "bounds", "first_leaf_face", "num_leaf_faces",
+        "first_portal", "num_portals", "cluster", "area",
+        "first_leaf_side", "num_leaf_sides"]
     _format = "i6f8i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
-    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    _classes = {
+        "contents": Contents,
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
-class LeafSide(base.Struct):  # LUMP 8
+class LeafSide(core.Struct):  # LUMP 8
     """bevelled sides for BBox collisions"""
     plane: int  # index into Planes
     side: int  # 0/1 front/back?
@@ -146,7 +152,7 @@ class LeafSide(base.Struct):  # LUMP 8
     _format = "2i"
 
 
-class Model(base.Struct):  # LUMP 1
+class Model(core.Struct):  # LUMP 1
     node: int  # top level Node
     clip_node: int  # top level ClipNode
     bounds: List[vector.vec3]
@@ -159,11 +165,17 @@ class Model(base.Struct):  # LUMP 1
     num_clusters: int
     areas: List[int]
     motion: int
-    __slots__ = ["node", "clip_node", "bounds", "origin", "first_face", "num_faces",
-                 "first_leaf", "num_leaves", "first_cluster", "num_clusters", "areas", "motion"]
+    __slots__ = [
+        "node", "clip_node", "bounds", "origin", "first_face", "num_faces",
+        "first_leaf", "num_leaves", "first_cluster", "num_clusters",
+        "areas", "motion"]
     _format = "2i9f9i"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"], "areas": 2}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
+    _arrays = {
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "origin": [*"xyz"], "areas": 2}
+    _classes = {
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3,
+        "origin": vector.vec3}
 
 
 class Node(remake_quake.Node):  # LUMP 2
@@ -174,7 +186,7 @@ class Node(remake_quake.Node):  # LUMP 2
 # TODO: Palette (256x colour.Colour24)
 
 
-class Portal(base.Struct):  # LUMP 9
+class Portal(core.Struct):  # LUMP 9
     origin: vector.vec3
     leaf: int  # Leaf this Portal "looks into"
     __slots__ = ["origin", "leaf"]
@@ -183,7 +195,7 @@ class Portal(base.Struct):  # LUMP 9
     _classes = {"origin": vector.vec3}
 
 
-class Sky(base.Struct):  # LUMP 22
+class Sky(core.Struct):  # LUMP 22
     axis: vector.vec3  # axis of rotation
     degrees_per_minute: float
     textures: List[int]  # indices into Textures
@@ -194,7 +206,7 @@ class Sky(base.Struct):  # LUMP 22
     _classes = {"axis": vector.vec3}
 
 
-class Texture(base.Struct):  # LUMP 18
+class Texture(core.Struct):  # LUMP 18
     name: str
     flags: int
     size: List[int]
@@ -207,7 +219,7 @@ class Texture(base.Struct):  # LUMP 18
     # TODO: _classes = {"flags": TextureFlags, "size": ivec2}
 
 
-class TextureInfo(base.Struct):  # LUMP 17
+class TextureInfo(core.Struct):  # LUMP 17
     # NOTE: TextureVector(ProjectionAxis(projection.axes.s, projection.offsets.s, projection.sizes.s), ...)
     projection: List[List[Union[vector.vec3, float]]]
     # projections.axes: List[vector.vec3]
@@ -219,38 +231,44 @@ class TextureInfo(base.Struct):  # LUMP 17
     alpha: float
     mip_map_bias: float  # ???
     texture: int
-    __slots__ = ["projection", "flags", "face_light", "reflectiveness",
-                 "alpha", "mip_map_bias", "texture"]
+    __slots__ = [
+        "projection", "flags", "face_light", "reflectiveness",
+        "alpha", "mip_map_bias", "texture"]
     _format = "10fi4fi"
-    _arrays = {"projection": {"axes": {"s": [*"xyz"], "t": [*"xyz"]},
-                              "offsets": [*"st"], "sizes": [*"st"]}}
+    _arrays = {
+        "projection": {
+            "axes": {"s": [*"xyz"], "t": [*"xyz"]},
+            "offsets": [*"st"], "sizes": [*"st"]}}
     _classes = {f"projection.axes.{a}": vector.vec3 for a in "st"}
     # TODO: _classes = {"flags": TextureInfoFlags}
 
 
 # {"LUMP_NAME": LumpClass}
-BASIC_LUMP_CLASSES = {"CLUSTERS":   shared.Ints,
-                      "INDICES":    shared.Ints,
-                      "LEAF_FACES": shared.Ints,
-                      "TEXELS":     shared.Bytes}
+BASIC_LUMP_CLASSES = {
+    "CLUSTERS":   shared.Ints,
+    "INDICES":    shared.Ints,
+    "LEAF_FACES": shared.Ints,
+    "TEXELS":     shared.Bytes}
 
-LUMP_CLASSES = {"AREAS":        quake2.Area,
-                "AREA_PORTALS": AreaPortal,
-                "CLIP_NODES":   ClipNode,
-                "FACES":        Face,
-                "LEAVES":       Leaf,
-                "LEAF_SIDES":   LeafSide,
-                "MODELS":       Model,
-                "NODES":        Node,
-                "PLANES":       quake.Plane,
-                "PORTALS":      Portal,
-                "RGB_VERTICES": quake.Vertex,  # colour values parallel w/ indices?
-                "TEXTURES":     Texture,
-                "TEXTURE_INFO": TextureInfo,
-                "VERTICES":     quake.Vertex}
+LUMP_CLASSES = {
+    "AREAS":        quake2.Area,
+    "AREA_PORTALS": AreaPortal,
+    "CLIP_NODES":   ClipNode,
+    "FACES":        Face,
+    "LEAVES":       Leaf,
+    "LEAF_SIDES":   LeafSide,
+    "MODELS":       Model,
+    "NODES":        Node,
+    "PLANES":       quake.Plane,
+    "PORTALS":      Portal,
+    "RGB_VERTICES": quake.Vertex,  # colour values parallel w/ indices?
+    "TEXTURES":     Texture,
+    "TEXTURE_INFO": TextureInfo,
+    "VERTICES":     quake.Vertex}
 
-SPECIAL_LUMP_CLASSES = {"HEADER": Header,
-                        "SKY":    Sky}
+SPECIAL_LUMP_CLASSES = {
+    "HEADER": Header,
+    "SKY":    Sky}
 
 
 methods = dict()

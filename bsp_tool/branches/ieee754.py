@@ -2,10 +2,10 @@ from __future__ import annotations
 import math
 import struct
 
-from . import base
+from .. import core
 
 
-class Float32(base.BitField):
+class Float32(core.BitField):
     _fields = {"sign": 1, "exponent": 8, "mantissa": 23}
     _format = "I"
 
@@ -16,7 +16,10 @@ class Float32(base.BitField):
     def as_float(self) -> float:
         # NOTE: if NaN: data will be lost (returns generic math.nan)
         sign = -1 if self.sign else 1
-        mantissa = sum(2 ** -i for i, c in enumerate(reversed(f"{self.mantissa:023b}")) if c == "1")
+        mantissa = sum(
+            2 ** -i
+            for i, c in enumerate(reversed(f"{self.mantissa:023b}"))
+            if c == "1")
         if self.exponent == 0:  # subnormal
             return float(sign * 2 ** -126 * mantissa) if self.mantissa else sign * 0.0
         elif self.exponent == 0xFF:

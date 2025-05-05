@@ -4,8 +4,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from ..id_software import quake
 from ..id_software import quake3
@@ -16,7 +16,8 @@ FILE_MAGIC = b"FAKK"
 
 BSP_VERSION = 19
 
-GAME_PATHS = {"Star Trek Elite Force II Single Player Demo": "StarTrekEliteForceIIDemo"}
+GAME_PATHS = {
+    "Star Trek Elite Force II Single Player Demo": "StarTrekEliteForceIIDemo"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -92,7 +93,7 @@ LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class Face(base.Struct):  # LUMP 3
+class Face(core.Struct):  # LUMP 3
     texture: int  # index into Texture lump
     effect: int  # index into Effect lump; -1 for None?
     type: int  # see quake3.FaceType enum
@@ -136,7 +137,7 @@ class Face(base.Struct):  # LUMP 3
         "patch": vector.vec2}
 
 
-class Vertex(base.Struct):  # LUMP 10
+class Vertex(core.Struct):  # LUMP 10
     position: vector.vec3
     uv: List[float]  # texture UV
     normal: vector.vec3
@@ -155,8 +156,9 @@ class Vertex(base.Struct):  # LUMP 10
 BASIC_LUMP_CLASSES = fakk2.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = fakk2.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"VERTICES": Vertex,
-                     "FACES":    Face})
+LUMP_CLASSES.update({
+    "VERTICES": Vertex,
+    "FACES":    Face})
 
 SPECIAL_LUMP_CLASSES = fakk2.SPECIAL_LUMP_CLASSES.copy()
 

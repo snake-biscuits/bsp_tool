@@ -4,8 +4,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from ..id_software import quake
 from ..id_software import quake3
@@ -96,7 +96,8 @@ LumpHeader = call_of_duty1.LumpHeader
 # flag enums
 class Surface(enum.IntFlag):
     """wiki.zeroy.com/index.php?title=Call_of_Duty_2:_d3dbsp#Lump.5B0.5D_-_Materials"""
-    # NOTE: zeroy's detailing of Contents is confusing, but most of these are paired with: Contents = 0x01;
+    # NOTE: zeroy's detailing of Contents is confusing
+    # -- most of these are paired with: Contents = 0x01
     BARK = 0x001 << 20
     BRICK = 0x002 << 20
     CARPET = 0x003 << 20
@@ -125,18 +126,24 @@ class Surface(enum.IntFlag):
 # TODO: Contents enum.IntFlag
 
 # classes for lumps, in alphabetical order:
-class CollisionEdge(base.Struct):  # LUMP 30
+class CollisionEdge(core.Struct):  # LUMP 30
     unknown: int  # an index?
     position: vector.vec3
-    normal: List[vector.vec3]  # x3?
+    normal: List[vector.vec3]  # normal, binormal, tangent?
     distance: float
     __slots__ = ["unknown", "position", "normal", "distance"]
     _format = "I13f"
-    _arrays = {"position": [*"xyz"], "normal": {i: [*"xyz"] for i in "ABC"}}
-    _classes = {"position": vector.vec3, **{f"normal.{i}": vector.vec3 for i in "ABC"}}
+    _arrays = {
+        "position": [*"xyz"],
+        "normal": {i: [*"xyz"] for i in "ABC"}}
+    _classes = {
+        "position": vector.vec3,
+        **{
+            f"normal.{i}": vector.vec3
+            for i in "ABC"}}
 
 
-class CollisionTriangle(base.Struct):  # LUMP 31
+class CollisionTriangle(core.Struct):  # LUMP 31
     normal: vector.vec3
     distance: float
     unknown_1: List[float]
@@ -147,7 +154,7 @@ class CollisionTriangle(base.Struct):  # LUMP 31
     _classes = {"normal": vector.vec3}
 
 
-class Model(base.Struct):  # LUMP 35
+class Model(core.Struct):  # LUMP 35
     mins: vector.vec3
     maxs: vector.vec3
     first_triangle_soup: int
@@ -156,19 +163,20 @@ class Model(base.Struct):  # LUMP 35
     num_meshes: int  # indexes Collision* lumps? brush geo physics is brush based
     first_brush: int
     num_brushes: int
-    __slots__ = ["mins", "maxs", "first_triangle_soup", "num_triangle_soups",
-                 "first_mesh", "num_meshes", "first_brush", "num_brushes"]
+    __slots__ = [
+        "mins", "maxs", "first_triangle_soup", "num_triangle_soups",
+        "first_mesh", "num_meshes", "first_brush", "num_brushes"]
     _format = "6f6i"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
-class Triangle(base.Struct):  # LUMP 9
+class Triangle(core.Struct):  # LUMP 9
     __slots__ = ["A", "B", "C"]
     _format = "3H"
 
 
-class TriangleSoup(base.Struct):  # LUMP 7
+class TriangleSoup(core.Struct):  # LUMP 7
     texture: int  # index into Textures
     draw_order: int  # ?
     first_vertex: int
@@ -179,7 +187,7 @@ class TriangleSoup(base.Struct):  # LUMP 7
     _format = "2HI2HI"
 
 
-class Vertex(base.Struct):  # LUMP 8
+class Vertex(core.Struct):  # LUMP 8
     position: vector.vec3
     normal: vector.vec3
     colour: colour.RGBA32
@@ -192,7 +200,8 @@ class Vertex(base.Struct):  # LUMP 8
         "position": [*"xyz"], "normal": [*"xyz"], "colour": [*"rgba"],
         "albedo_uv": [*"xy"], "lightmap_uv": [*"xy"], "unknown": 6}
     _classes = {
-        "position": vector.vec3, "normal": vector.vec3, "colour": colour.RGBA32,
+        "position": vector.vec3, "normal": vector.vec3,
+        "colour": colour.RGBA32,
         "albedo_uv": vector.vec2, "lightmap_uv": vector.vec2}
 
 

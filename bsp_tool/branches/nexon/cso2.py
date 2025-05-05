@@ -3,9 +3,9 @@
 import enum
 from typing import List, Tuple
 
+from ... import core
 from ...archives import nexon
 from ...utils import vector
-from .. import base
 from .. import shared
 from ..valve import source
 from . import vindictus
@@ -15,7 +15,8 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 100
 
-GAME_PATHS = {"Counter-Strike: Online 2": "CSO2"}
+GAME_PATHS = {
+    "Counter-Strike: Online 2": "CSO2"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -87,7 +88,7 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     offset: int  # index in .bsp file where lump begins
     length: int
     version: int
@@ -98,7 +99,7 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for each lump, in alphabetical order:
-class BrushSide(base.Struct):  # LUMP 19
+class BrushSide(core.Struct):  # LUMP 19
     plane: int  # index into Planes
     texture_info: int  # index into TextureInfo
     displacement_info: int  # index into DisplacementInfo; -1 if None
@@ -107,7 +108,7 @@ class BrushSide(base.Struct):  # LUMP 19
     _format = "Ii2h"
 
 
-class Face(base.Struct):  # LUMP 7, 27 & 58
+class Face(core.Struct):  # LUMP 7, 27 & 58
     plane: int  # index into Planes
     side: int  # always 1 or 0? bool?
     on_node: int  # always 0? bool?
@@ -142,7 +143,7 @@ class Face(base.Struct):  # LUMP 7, 27 & 58
     _classes = {"lightmap.mins": vector.vec2, "lightmap.size": vector.vec2}
 
 
-class Primitive(base.Struct):  # LUMP 37
+class Primitive(core.Struct):  # LUMP 37
     type: source.PrimitiveType
     first_index: int  # index into PrimitiveIndices
     num_indices: int
@@ -175,7 +176,8 @@ LUMP_CLASSES.update({
     "PRIMITIVES":        {0: Primitive}})
 
 SPECIAL_LUMP_CLASSES = vindictus.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES["PAKFILE"] = {0: nexon.PakFile}
+SPECIAL_LUMP_CLASSES.update({
+    "PAKFILE": {0: nexon.PakFile}})
 
 GAME_LUMP_HEADER = source.GameLumpHeader
 

@@ -2,8 +2,8 @@
 import enum
 from typing import List, Tuple
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import shared
 from ..id_software import quake
 from ..valve import goldsrc
@@ -54,14 +54,14 @@ LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class BrushSide(base.MappedArray):  # LUMP 16
+class BrushSide(core.MappedArray):  # LUMP 16
     plane: int
     face: int  # changed from TextureInfo in Quake 2
     _mapping = ["plane", "face"]
     _format = "2i"
 
 
-class Face(base.MappedArray):  # LUMP 9
+class Face(core.MappedArray):  # LUMP 9
     plane: int
     first_vertex: int
     num_vertices: int
@@ -74,13 +74,14 @@ class Face(base.MappedArray):  # LUMP 9
     unknown: int
     light_styles: int
     lightmap: int
-    _mapping = ["plane", "first_vertex", "num_vertices", "first_index",
-                "num_indices", "flags", "texture", "material", "texture_scale",
-                "unknown", "light_styles", "lightmap"]
+    _mapping = [
+        "plane", "first_vertex", "num_vertices", "first_index",
+        "num_indices", "flags", "texture", "material", "texture_scale",
+        "unknown", "light_styles", "lightmap"]
     _format = "5iI6i"
 
 
-class Leaf(base.Struct):  # LUMP 11
+class Leaf(core.Struct):  # LUMP 11
     contents: int
     cluster: int
     bounds: List[List[float]]
@@ -90,13 +91,14 @@ class Leaf(base.Struct):  # LUMP 11
     num_leaf_brushes: int
     first_leaf_face: int
     num_leaf_faces: int
-    __slots__ = ["contents", "cluster", "bounds",
-                 "first_leaf_brush", "num_leaf_brushes", "first_leaf_face", "num_leaf_faces"]
+    __slots__ = [
+        "contents", "cluster", "bounds",
+        "first_leaf_brush", "num_leaf_brushes", "first_leaf_face", "num_leaf_faces"]
     _format = "2i6f4i"
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 
 
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     bounds: List[List[float]]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
@@ -110,7 +112,7 @@ class Model(base.Struct):  # LUMP 14
     _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "unknown": 4}
 
 
-class Node(base.Struct):  # LUMP 8
+class Node(core.Struct):  # LUMP 8
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
     # NOTE: bounded by associated model
     # basic convex solid stuff
@@ -121,10 +123,12 @@ class Node(base.Struct):  # LUMP 8
     # bounds.maxs: List[float]  # xyz
     __slots__ = ["plane", "children", "bounds"]
     _format = "3i6f"
-    _arrays = {"children": ["front", "back"], "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _arrays = {
+        "children": ["front", "back"],
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
 
 
-class TextureInfo(base.Struct):  # LUMP 17
+class TextureInfo(core.Struct):  # LUMP 17
     s: Tuple[vector.vec3, float]
     # s.axis: vector.vec3
     # s.offset: float
@@ -140,15 +144,17 @@ class TextureInfo(base.Struct):  # LUMP 17
 
 
 BASIC_LUMP_CLASSES = goldsrc.BASIC_LUMP_CLASSES.copy()
-BASIC_LUMP_CLASSES.update({"INDICES": shared.UnsignedInts})
+BASIC_LUMP_CLASSES.update({
+    "INDICES": shared.UnsignedInts})
 
 LUMP_CLASSES = goldsrc.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"BRUSH_SIDES":  BrushSide,
-                     "FACES":        Face,
-                     "LEAVES":       Leaf,
-                     "MODELS":       Model,
-                     "NODES":        Node,
-                     "TEXTURE_INFO": TextureInfo})
+LUMP_CLASSES.update({
+    "BRUSH_SIDES":  BrushSide,
+    "FACES":        Face,
+    "LEAVES":       Leaf,
+    "MODELS":       Model,
+    "NODES":        Node,
+    "TEXTURE_INFO": TextureInfo})
 
 SPECIAL_LUMP_CLASSES = goldsrc.SPECIAL_LUMP_CLASSES.copy()
 

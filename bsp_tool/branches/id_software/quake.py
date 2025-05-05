@@ -6,12 +6,12 @@ import io
 import struct
 from typing import Dict, List, Set, Tuple, Union
 
+from ... import core
 from ...utils import binary
 from ...utils import geometry
 from ...utils import physics
 from ...utils import texture
 from ...utils import vector
-from .. import base
 from .. import shared  # special lumps
 
 
@@ -19,8 +19,10 @@ FILE_MAGIC = None
 
 BSP_VERSION = 29
 
-GAME_PATHS = {"DarkPlaces": "DarkPlaces", "Quake": "Quake",
-              "Team Fortress Quake": "QUAKE/FORTRESS"}
+GAME_PATHS = {
+    "DarkPlaces": "DarkPlaces",
+    "Quake": "Quake",
+    "Team Fortress Quake": "QUAKE/FORTRESS"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -43,7 +45,7 @@ class LUMP(enum.Enum):
     MODELS = 14
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["offset", "length"]
     _format = "2I"
 
@@ -136,7 +138,7 @@ class PlaneType(enum.Enum):
 
 
 # classes for lumps, in alphabetical order:
-class ClipNode(base.Struct):  # LUMP 9
+class ClipNode(core.Struct):  # LUMP 9
     # https://en.wikipedia.org/wiki/Half-space_(geometry)
     # NOTE: bounded by associated model
     # basic convex solid stuff
@@ -161,26 +163,29 @@ class Edge(list):  # LUMP 12
         return cls(_tuple)
 
 
-class Face(base.Struct):  # LUMP 7
+class Face(core.Struct):  # LUMP 7
     plane: int  # signed for quake, unsigned for quake 2
     side: PlaneSide
     first_edge: int
     num_edges: int
     texture_info: int  # index of this face's TextureInfo
-    lighting_type: int  # 0x00=lightmap, 0xFF=no-lightmap, 0x01=fast-pulse, 0x02=slow-pulse, 0x03-0x10 other
+    lighting_type: int  # TODO: FaceLightingType(enum.IntFlag)
+    # 0x00=lightmap, 0xFF=no-lightmap
+    # 0x01=fast-pulse, 0x02=slow-pulse, 0x03-0x10 other
     base_light: int  # 0x00 bright - 0xFF dark (lowest possible light level)
     light: int  # "additional light models"
-    lighting_offset: int  # index to first byte in LIGHTING lump; -1 for no baked lighting
-    # NOTE: the number of texels used by the lightmap is determined by the uv bounds
-    __slots__ = ["plane", "side", "first_edge", "num_edges", "texture_info",
-                 "lighting_type", "base_light", "light", "lighting_offset"]
+    lighting_offset: int  # index to first byte in LIGHTING lump
+    # -1 for no baked lighting
+    # NOTE: num_texels is determined from uv bounds
+    __slots__ = [
+        "plane", "side", "first_edge", "num_edges", "texture_info",
+        "lighting_type", "base_light", "light", "lighting_offset"]
     _format = "2HI2H4Bi"
     _arrays = {"light": 2}
     _classes = {"side": PlaneSide}
-    # TODO: FaceLightingType(enum.IntFlag)
 
 
-class Leaf(base.Struct):  # LUMP 10
+class Leaf(core.Struct):  # LUMP 10
     contents: Contents
     vis_offset: int  # index into the VISIBILITY lump; -1 for none
     bounds: List[vector.vec3]  # uint16_t; very chunky
@@ -189,16 +194,20 @@ class Leaf(base.Struct):  # LUMP 10
     first_leaf_face: int  # first LeafFace in this Leaf
     num_leaf_faces: int  # number of LeafFaces after first_leaf_face in this Leaf
     sound: List[int]  # ambient master of all 4 elements (0x00 - 0xFF)
-    __slots__ = ["contents", "vis_offset", "bounds", "first_leaf_face",
-                 "num_leaf_faces", "sound"]
+    __slots__ = [
+        "contents", "vis_offset", "bounds", "first_leaf_face",
+        "num_leaf_faces", "sound"]
     _format = "2i6h2H4B"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
-               "sound": ["water", "sky", "slime", "lava"]}
-    _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
-    # TODO: ivec3
+    _arrays = {
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "sound": ["water", "sky", "slime", "lava"]}
+    _classes = {
+        "contents": Contents,
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: ivec3 bounds
 
 
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     bounds: List[vector.vec3]
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
@@ -210,15 +219,20 @@ class Model(base.Struct):  # LUMP 14
     num_leaves: int  # "not counting the solid leaf 0"
     first_face: int  # index to the first Face in this Model
     num_faces: int  # number of faces after first_face in this Model
-    __slots__ = ["bounds", "origin", "first_node", "clip_nodes", "unused_node",
-                 "num_leaves", "first_face", "num_faces"]
+    __slots__ = [
+        "bounds", "origin", "first_node", "clip_nodes", "unused_node",
+        "num_leaves", "first_face", "num_faces"]
     _format = "9f7i"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"],
-               "clip_nodes": 2}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
+    _arrays = {
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "origin": [*"xyz"],
+        "clip_nodes": 2}
+    _classes = {
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3,
+        "origin": vector.vec3}
 
 
-class Node(base.Struct):  # LUMP 5
+class Node(core.Struct):  # LUMP 5
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 1) terminates tree searches
@@ -230,12 +244,14 @@ class Node(base.Struct):  # LUMP 5
     num_faces: int
     __slots__ = ["plane", "children", "bounds", "first_face", "num_faces"]
     _format = "I8h2H"
-    _arrays = {"children": ["front", "back"],
-               "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
+    _arrays = {
+        "children": ["front", "back"],
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}}
+    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
+    # TODO: ivec3 bounds
 
 
-class Plane(base.Struct):  # LUMP 1
+class Plane(core.Struct):  # LUMP 1
     normal: vector.vec3
     distance: float
     type: PlaneType
@@ -245,7 +261,7 @@ class Plane(base.Struct):  # LUMP 1
     _classes = {"normal": vector.vec3, "type": PlaneType}
 
 
-class TextureInfo(base.Struct):  # LUMP 6
+class TextureInfo(core.Struct):  # LUMP 6
     # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
     s: Tuple[vector.vec3, float]  # S (U-Axis) projection axis
     t: Tuple[vector.vec3, float]  # T (V-Axis) projection axis
@@ -259,7 +275,7 @@ class TextureInfo(base.Struct):  # LUMP 6
     _classes = {f"{a}.axis": vector.vec3 for a in "st"}
 
 
-class Vertex(base.MappedArray, vector.vec3):  # LUMP 3
+class Vertex(core.MappedArray, vector.vec3):  # LUMP 3
     """a point in 3D space"""
     x: float
     y: float
@@ -269,7 +285,7 @@ class Vertex(base.MappedArray, vector.vec3):  # LUMP 3
 
 
 # special lump classes, in alphabetical order:
-class MipTexture(base.Struct):  # LUMP 2
+class MipTexture(core.Struct):  # LUMP 2
     # http://www.cs.hut.fi/~andy/T-126.101/2004/texture_prefix.html
     # http://www.slackiller.com/tommy14/hltexture.htm
     name: str  # texture name
@@ -288,18 +304,20 @@ class MipTexture(base.Struct):  # LUMP 2
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "offsets"]
     _format = "16s6I"
-    _arrays = {"size": [*"xy"],
-               "offsets": ["full", "half", "quarter", "eighth"]}
+    _arrays = {
+        "size": [*"xy"],
+        "offsets": ["full", "half", "quarter", "eighth"]}
     _classes = {"size": vector.vec2}
+    # TODO: ivec2 size
 
 
 class MipTextureLump(list):  # LUMP 2
     """see github.com/id-Software/Quake-2/blob/master/ref_soft/r_image.c"""
     # packed texture data, kind of like a WAD
     # goldsrc just uses this lump to list texture names & mounts an external WAD
-    MipTextureClass: base.Struct = MipTexture
+    MipTextureClass: core.Struct = MipTexture
 
-    def __init__(self, iterable: List[(base.Struct, List[bytes])] = tuple()):
+    def __init__(self, iterable: List[(core.Struct, List[bytes])] = tuple()):
         super().__init__(iterable)
 
     def as_bytes(self) -> bytes:
@@ -366,21 +384,24 @@ class MipTextureLump(list):  # LUMP 2
 
 
 # {"LUMP": LumpClass}
-BASIC_LUMP_CLASSES = {"LEAF_FACES": shared.Shorts,
-                      "SURFEDGES":  shared.Ints}
+BASIC_LUMP_CLASSES = {
+    "LEAF_FACES": shared.Shorts,
+    "SURFEDGES":  shared.Ints}
 
-LUMP_CLASSES = {"CLIP_NODES":   ClipNode,
-                "EDGES":        Edge,
-                "FACES":        Face,
-                "LEAVES":       Leaf,
-                "MODELS":       Model,
-                "NODES":        Node,
-                "PLANES":       Plane,
-                "TEXTURE_INFO": TextureInfo,
-                "VERTICES":     Vertex}
+LUMP_CLASSES = {
+    "CLIP_NODES":   ClipNode,
+    "EDGES":        Edge,
+    "FACES":        Face,
+    "LEAVES":       Leaf,
+    "MODELS":       Model,
+    "NODES":        Node,
+    "PLANES":       Plane,
+    "TEXTURE_INFO": TextureInfo,
+    "VERTICES":     Vertex}
 
-SPECIAL_LUMP_CLASSES = {"ENTITIES":     shared.Entities,
-                        "MIP_TEXTURES": MipTextureLump}
+SPECIAL_LUMP_CLASSES = {
+    "ENTITIES":     shared.Entities,
+    "MIP_TEXTURES": MipTextureLump}
 
 
 # branch exclusive methods, in alphabetical order:
@@ -486,4 +507,4 @@ def model(bsp, model_index: int) -> geometry.Model:
 
 
 methods = [leaves_of_node, lightmap_of_face, parse_vis, face_mesh, model]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

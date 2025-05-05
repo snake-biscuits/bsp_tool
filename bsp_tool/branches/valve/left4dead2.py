@@ -3,8 +3,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from ..id_software import quake
 from . import left4dead
@@ -15,11 +15,13 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 21
 
-GAME_PATHS = {"Left 4 Dead 2": "Left 4 Dead 2/left4dead2",
-              "Contagion": "Contagion/contagion"}
+GAME_PATHS = {
+    "Left 4 Dead 2": "Left 4 Dead 2/left4dead2",
+    "Contagion": "Contagion/contagion"}
 
-GAME_VERSIONS = {"Left 4 Dead 2": 21,
-                 "Contagion": 27}
+GAME_VERSIONS = {
+    "Left 4 Dead 2": 21,
+    "Contagion": 27}
 
 
 class LUMP(enum.Enum):
@@ -89,7 +91,7 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["version", "offset", "length", "fourCC"]
     _format = "4I"
 
@@ -113,7 +115,7 @@ class LumpHeader(base.MappedArray):
 # TODO: PropCollision
 # TODO: PropBlob
 
-class StaticPropv9(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
+class StaticPropv9(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -130,16 +132,21 @@ class StaticPropv9(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 9]
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: colour.RGBExponent
     disable_x360: bool
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "disable_x360"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+        "disable_x360"]
     _format = "6f3H2Bi6f8BI"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "fade_distance": ["min", "max"], "lighting_origin": [*"xyz"],
+        "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+        "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+        "flags": source.StaticPropFlags, "lighting_origin": vector.vec3,
+        "diffuse_modulation": colour.RGBExponent, "disable_x360": bool}
     # TODO: "angles": QAngle
 
 
@@ -151,15 +158,18 @@ class GameLump_SPRPv9(left4dead.GameLump_SPRPv8):  # sprp GAME LUMP (LUMP 35) [v
 BASIC_LUMP_CLASSES = left4dead.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = left4dead.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"PROP_HULL_VERTS": {0: quake.Vertex}})
+LUMP_CLASSES.update({
+    "PROP_HULL_VERTS": {0: quake.Vertex}})
 
 SPECIAL_LUMP_CLASSES = left4dead.SPECIAL_LUMP_CLASSES.copy()
 
 GAME_LUMP_HEADER = left4dead.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": left4dead.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({9: GameLump_SPRPv9})
+GAME_LUMP_CLASSES = {
+    "sprp": left4dead.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES["sprp"].update({
+        9: GameLump_SPRPv9})
 
 
 methods = left4dead.methods.copy()

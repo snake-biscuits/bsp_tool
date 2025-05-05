@@ -4,8 +4,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from . import quake
 
 
@@ -13,7 +13,8 @@ FILE_MAGIC = b" 46Q"
 
 BSP_VERSION = None
 
-GAME_PATHS = {"Quake 64": "C://Users/%USERPROFILE%/Saved Games/Nightdive Studios/q64"}
+GAME_PATHS = {
+    "Quake 64": "C://Users/%USERPROFILE%/Saved Games/Nightdive Studios/q64"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -36,21 +37,22 @@ class LUMP(enum.Enum):
     MODELS = 14
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["offset", "length"]
     _format = "2I"
 
 
 # special lump classes, in alphabetical order:
-class MipTexture(base.Struct):  # LUMP 2
+class MipTexture(core.Struct):  # LUMP 2
     name: str  # texture name
     size: vector.vec2  # width & height
-    shift: int  # ...
+    shift: int  # ?
     offsets: List[int]  # offset from entry start to texture
     __slots__ = ["name", "size", "shift", "offsets"]
     _format = "16s7I"
-    _arrays = {"size": [*"xy"],
-               "offsets": ["full", "half", "quarter", "eighth"]}
+    _arrays = {
+        "size": [*"xy"],
+        "offsets": ["full", "half", "quarter", "eighth"]}
     _classes = {"size": vector.vec2}
 
 
@@ -64,7 +66,8 @@ BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
-SPECIAL_LUMP_CLASSES.update({"MIP_TEXTURES": MipTextureLump})
+SPECIAL_LUMP_CLASSES.update({
+    "MIP_TEXTURES": MipTextureLump})
 
 
 methods = quake.methods.copy()

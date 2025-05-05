@@ -2,8 +2,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from ..id_software import quake
 
 
@@ -65,7 +65,7 @@ class MAX(enum.Enum):
 
 
 # classes for lumps, in alphabetical order:
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     bounds: List[List[float]]
     # bounds.mins: List[float]
     # bounds.maxs: List[float]
@@ -77,15 +77,19 @@ class Model(base.Struct):  # LUMP 14
     num_leaf_faces: int
     __slots__ = ["bounds", "origin", "head_nodes", "num_leaves", "first_face", "num_faces"]
     _format = "9f11i"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"],
-               "head_nodes": 8}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
+    _arrays = {
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "origin": [*"xyz"], "head_nodes": 8}
+    _classes = {
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3,
+        "origin": vector.vec3}
 
 
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"MODELS": Model})
+LUMP_CLASSES.update({
+    "MODELS": Model})
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 

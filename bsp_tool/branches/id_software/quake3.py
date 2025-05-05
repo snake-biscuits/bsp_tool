@@ -10,9 +10,10 @@ import io
 from typing import List, Tuple
 import struct
 
+from ... import core
 from ...utils import binary
+from ...utils import geometry
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from . import quake
@@ -186,7 +187,7 @@ class FaceType(enum.Enum):
 
 
 # classes for lumps, in alphabetical order:
-class Brush(base.Struct):  # LUMP 8
+class Brush(core.Struct):  # LUMP 8
     first_side: int  # index into BrushSide lump
     num_sides: int  # number of BrushSides after first_side in this Brush
     texture: int  # index into Texture lump (use the Contents flags of the selected Texture)
@@ -194,14 +195,14 @@ class Brush(base.Struct):  # LUMP 8
     _format = "3i"
 
 
-class BrushSide(base.Struct):  # LUMP 9
+class BrushSide(core.Struct):  # LUMP 9
     plane: int  # index into Plane lump
     texture: int  # index into Texture lump
     __slots__ = ["plane", "texture"]
     _format = "2i"
 
 
-class Effect(base.Struct):  # LUMP 12
+class Effect(core.Struct):  # LUMP 12
     shader_name: str
     brush: int  # index into Brush lump
     visible_side: int  # side of brush to clip ray tests against (-1 = None)
@@ -209,7 +210,7 @@ class Effect(base.Struct):  # LUMP 12
     _format = "64s2i"
 
 
-class Face(base.Struct):  # LUMP 13
+class Face(core.Struct):  # LUMP 13
     texture: int  # index into Texture lump
     effect: int  # index into Effect lump; -1 for no effect
     type: FaceType
@@ -239,7 +240,7 @@ class Face(base.Struct):  # LUMP 13
         "normal": vector.vec3, "patch": vector.vec2}
 
 
-class GridLight(base.Struct):  # LUMP 15
+class GridLight(core.Struct):  # LUMP 15
     # GridLights make up a 3D grid whose dimensions are:
     # x = floor(MODELS[0].maxs.x / 64) - ceil(MODELS[0].mins.x / 64) + 1
     # y = floor(MODELS[0].maxs.y / 64) - ceil(MODELS[0].mins.y / 64) + 1
@@ -253,7 +254,7 @@ class GridLight(base.Struct):  # LUMP 15
     _classes = {"ambient": colour.RGB24, "directional": colour.RGB24}
 
 
-class Leaf(base.Struct):  # LUMP 4
+class Leaf(core.Struct):  # LUMP 4
     cluster: int  # index into Visibility
     area: int  # Areaportal Area index; used for server entity segregation?
     bounds: List[vector.vec3]  # mins & maxs (int32_t)
@@ -294,7 +295,7 @@ class Lightmap(list):  # LUMP 14
         return out
 
 
-class Model(base.Struct):  # LUMP 7
+class Model(core.Struct):  # LUMP 7
     bounds: List[vector.vec3]
     # bounds.mins: vector.vec3
     # bounds.maxs: vector.vec3
@@ -308,7 +309,7 @@ class Model(base.Struct):  # LUMP 7
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
-class Node(base.Struct):  # LUMP 3
+class Node(core.Struct):  # LUMP 3
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 1) terminates tree searches
@@ -323,7 +324,7 @@ class Node(base.Struct):  # LUMP 3
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
-class Plane(base.Struct):  # LUMP 2
+class Plane(core.Struct):  # LUMP 2
     normal: vector.vec3
     distance: float
     __slots__ = ["normal", "distance"]
@@ -332,7 +333,7 @@ class Plane(base.Struct):  # LUMP 2
     _classes = {"normal": vector.vec3}
 
 
-class Texture(base.Struct):  # LUMP 1
+class Texture(core.Struct):  # LUMP 1
     name: str  # 64 char texture name; stored in WAD (Where's All the Data)?
     flags: Tuple[Surface, Contents]
     __slots__ = ["name", "flags"]
@@ -341,7 +342,7 @@ class Texture(base.Struct):  # LUMP 1
     _classes = {"flags.surface": Surface, "flags.contents": Contents}
 
 
-class Vertex(base.Struct):  # LUMP 10
+class Vertex(core.Struct):  # LUMP 10
     position: vector.vec3
     uv: List[List[float]]  # texture & lightmap uv coords
     # uv.texture: List[float]
@@ -430,13 +431,13 @@ SPECIAL_LUMP_CLASSES = {
 
 
 # branch exclusive methods, in alphabetical order:
-def vertices_of_face(bsp, face_index: int) -> List[float]:
+def face_mesh(bsp, face_index: int) -> geometry.Mesh:
     raise NotImplementedError()
 
 
-def vertices_of_model(bsp, model_index: int) -> List[float]:
+def model(bsp, model_index: int) -> geometry.Model:
     raise NotImplementedError()
 
 
 methods = [quake.leaves_of_node, shared.worldspawn_volume]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

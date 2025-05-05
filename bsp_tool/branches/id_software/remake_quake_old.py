@@ -66,11 +66,12 @@ class Node(quake.Node):  # LUMP 5
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CLIP_NODES": ClipNode,
-                     "EDGES":      Edge,
-                     "FACES":      Face,
-                     "LEAVES":     Leaf,
-                     "NODES":      Node})
+LUMP_CLASSES.update({
+    "CLIP_NODES": ClipNode,
+    "EDGES":      Edge,
+    "FACES":      Face,
+    "LEAVES":     Leaf,
+    "NODES":      Node})
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 

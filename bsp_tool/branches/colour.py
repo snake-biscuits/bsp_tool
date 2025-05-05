@@ -1,12 +1,12 @@
 from typing import List
 
-from . import base
+from .. import core
 
 
 # TODO: colorsys HSV translation
 
 
-class RGB24(base.MappedArray):
+class RGB24(core.MappedArray):
     _mapping = [*"rgb"]
     _format = "3B"
 

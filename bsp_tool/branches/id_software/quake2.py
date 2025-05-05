@@ -8,11 +8,11 @@ import math
 import struct
 from typing import List, Tuple
 
+from ... import core
 from ...utils import binary
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
-from .. import base
 from .. import shared
 from . import quake
 
@@ -21,8 +21,11 @@ FILE_MAGIC = b"IBSP"
 
 BSP_VERSION = 38
 
-GAME_PATHS = {"Anachronox": "Anachronox", "Quake II": "Quake 2", "Heretic II": "Heretic II",
-              "D-Day Normandy": "D-Day_ Normandy/dday"}
+GAME_PATHS = {
+    "Anachronox": "Anachronox",
+    "Quake II": "Quake 2",
+    "Heretic II": "Heretic II",
+    "D-Day Normandy": "D-Day_ Normandy/dday"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -155,21 +158,21 @@ class Surface(enum.IntFlag):  # qcommon/qfiles.h
 
 
 # classes for lumps, in alphabetical order:
-class Area(base.Struct):  # LUMP 17
+class Area(core.Struct):  # LUMP 17
     num_area_portals: int
     first_area_portal: int
     __slots__ = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class AreaPortal(base.Struct):  # LUMP 18
+class AreaPortal(core.Struct):  # LUMP 18
     portal: int
     area: int  # Area this AreaPortal connects to
     __slots__ = ["portal", "area"]
     _format = "2i"
 
 
-class Brush(base.MappedArray):  # LUMP 14
+class Brush(core.MappedArray):  # LUMP 14
     first_brush_side: int  # first BrushSide of this Brush
     num_brush_sides: int  # number of BrushSides after first_brush_side on this Brush
     contents: int
@@ -178,14 +181,14 @@ class Brush(base.MappedArray):  # LUMP 14
     _classes = {"contents": Contents}
 
 
-class BrushSide(base.MappedArray):  # LUMP 15
+class BrushSide(core.MappedArray):  # LUMP 15
     plane: int  # Plane this BrushSide lies on
     texture_info: int  # TextureInfo of this BrushSide
     _mapping = ["plane", "texture_info"]
     _format = "Hh"
 
 
-class Leaf(base.Struct):  # LUMP 10
+class Leaf(core.Struct):  # LUMP 10
     contents: int  # bitwise OR of all brushes (not needed?)
     cluster: int  # index into the VISIBILITY lump; -1 for always visible
     area: int
@@ -201,7 +204,7 @@ class Leaf(base.Struct):  # LUMP 10
     _classes = {"contents": Contents, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
-class Model(base.Struct):  # LUMP 13
+class Model(core.Struct):  # LUMP 13
     bounds: List[float]  # mins & maxs
     origin: List[float]  # starting position
     first_node: int  # first Node in this Model
@@ -213,7 +216,7 @@ class Model(base.Struct):  # LUMP 13
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
-class Node(base.Struct):  # LUMP 4
+class Node(core.Struct):  # LUMP 4
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 1) terminates tree searches
@@ -230,7 +233,7 @@ class Node(base.Struct):  # LUMP 4
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}  # TODO: ivec3
 
 
-class TextureInfo(base.Struct):  # LUMP 5
+class TextureInfo(core.Struct):  # LUMP 5
     # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
     s: Tuple[vector.vec3, float]  # S (U-Axis) projection axis
     t: Tuple[vector.vec3, float]  # T (V-Axis) projection axis
@@ -353,28 +356,37 @@ SPECIAL_LUMP_CLASSES = {
     "VISIBILITY": Visibility}
 
 
-# TODO: model(model_index: int) -> geometry.Model
 def face_mesh(bsp, face_index: int, lightmap_scale: float = 16) -> geometry.Mesh:
     # TODO: lightmap_scale from worldspawn keyvalues
     face = bsp.FACES[face_index]
     texture_info = bsp.TEXTURE_INFO[face.texture_info]
-    texvec = texture.TextureVector(texture.ProjectionAxis(*texture_info.s), texture.ProjectionAxis(*texture_info.t))
+    texvec = texture.TextureVector(
+        texture.ProjectionAxis(*texture_info.s),
+        texture.ProjectionAxis(*texture_info.t))
     # TODO: double check texvec.s/t.scale
     normal = bsp.PLANES[face.plane].normal
     # NOTE: normal might be inverted depending on face.side, haven't tested
     vertices = list()
-    for surfedge in bsp.SURFEDGES[face.first_edge:face.first_edge + face.num_edges]:
+    start, length = face.first_edge, face.num_edges
+    for surfedge in bsp.SURFEDGES[start:start + length]:
         if surfedge < 0:
             position = bsp.VERTICES[bsp.EDGES[-surfedge][1]]
         else:
             position = bsp.VERTICES[bsp.EDGES[surfedge][0]]
         texture_uv = texvec.uv_at(position)
         lightmap_uv = texture_uv / lightmap_scale
-        vertices.append(geometry.Vertex(position, normal, texture_uv, lightmap_uv))
+        vertices.append(geometry.Vertex(
+            position,
+            normal,
+            texture_uv,
+            lightmap_uv))
     material_name = texture_info.name.partition(b"\0")[0].decode("ascii")
     material = geometry.Material(material_name)
     return geometry.Mesh(material, [geometry.Polygon(vertices)])
 
 
-methods = [face_mesh, quake.leaves_of_node, quake.lightmap_of_face, quake.model, shared.worldspawn_volume]
-methods = {m.__name__: m for m in methods}
+methods = [
+    face_mesh,
+    quake.leaves_of_node, quake.lightmap_of_face, quake.model,
+    shared.worldspawn_volume]
+methods = {method.__name__: method for method in methods}

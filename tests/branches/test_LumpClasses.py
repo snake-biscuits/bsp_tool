@@ -43,10 +43,6 @@ for branch_script in sorted({*branches.quake_based, *branches.source_based}, key
         if issubclass(LumpClass, base.BitField):
             BitField_LumpClasses[f"{script_name}.{class_name}"] = LumpClass
 
-# NOTE: empty __init__ is invalid, thanks to time.SystemTime.__init__
-Struct_LumpClasses.pop("wild_tangent.genesis3d.Header")
-# TODO: establish alternate tests
-
 
 # TODO: test "other" LumpClasses (e.g. quake.Edge)
 # -- need to be compatible with BspClass._preload_lump() & .lump_as_bytes()

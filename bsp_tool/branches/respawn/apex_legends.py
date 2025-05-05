@@ -1,9 +1,9 @@
 import enum
 from typing import List, Union
 
+from ... import core
 from ...utils import geometry
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import quake3
@@ -18,11 +18,12 @@ BSP_VERSION = 47
 
 GAME_PATHS = {"Apex Legends": "ApexLegends/maps"}
 
-GAME_VERSIONS = {"Apex Legends": 47,
-                 "Apex Legends: Season 7 - Ascension": 48,  # Olympus
-                 "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,  # depots/
-                 "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1)}
+GAME_VERSIONS = {
+    "Apex Legends": 47,
+    "Apex Legends: Season 7 - Ascension": 48,  # Olympus
+    "Apex Legends: Season 8 - Mayhem": 49,  # King's Canyon map update 3
+    "Apex Legends: Season 11 - Escape [19 Nov Patch] (110)": 49,  # depots/
+    "Apex Legends: Season 11 - Escape [19 Nov Patch] (111)": (49, 1)}
 
 
 class LUMP(enum.Enum):
@@ -272,7 +273,7 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
 
 
 # classes for lumps, in alphabetical order:
-class BVHLeaf5Header(base.BitField):  # LUMP 19 (0013) [type 5]
+class BVHLeaf5Header(core.BitField):  # LUMP 19 (0013) [type 5]
     """TricollHeader with less diverse children"""
     unknown: int
     num_triangles: int  # number of BVHLeaf5Triangle after this header
@@ -281,7 +282,7 @@ class BVHLeaf5Header(base.BitField):  # LUMP 19 (0013) [type 5]
     _fields = {"unknown": 12, "num_triangles": 4, "first_vertex": 16}
 
 
-class BVHLeaf5Triangle(base.BitField):  # LUMP 19 (0013) [type 5]
+class BVHLeaf5Triangle(core.BitField):  # LUMP 19 (0013) [type 5]
     """TricollTriangle w/ more indices & less flags"""
     A: int  # index into PackedVertices
     B: int  # index into PackedVertices
@@ -292,7 +293,7 @@ class BVHLeaf5Triangle(base.BitField):  # LUMP 19 (0013) [type 5]
     _fields = {"A": 11, "B": 9, "C": 9, "edge_mask": 3}
 
 
-class BVHNode(base.Struct):  # LUMP 18 (0012)
+class BVHNode(core.Struct):  # LUMP 18 (0012)
     """BVH4 (GDC 2018 - Extreme SIMD: Optimized Collision Detection in Titanfall)
 https://www.youtube.com/watch?v=6BIfqfC1i7U
 https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
@@ -374,11 +375,11 @@ https://gdcvault.com/play/1025126/Extreme-SIMD-Optimized-Collision-Detection"""
         return "\n".join(out)
 
 
-class CellAABBNode(base.Struct):  # LUMP 119 (0077)
+class CellAABBNode(core.Struct):  # LUMP 119 (0077)
     """Identified by Fifty#8113"""
     # NOTE: the struct length & positions of mins & maxs take advantage of SIMD 128-bit registers
     mins: vector.vec3
-    children: base.BitField  # if children.count == 0, children.flags == 64
+    children: core.BitField  # if children.count == 0, children.flags == 64
     maxs: vector.vec3
     unknown: int  # likely flags / metadata; might index ObjReferences?
     __slots__ = ["mins", "children", "maxs", "unknown"]
@@ -389,11 +390,11 @@ class CellAABBNode(base.Struct):  # LUMP 119 (0077)
     # TODO: "children.flags": NodeFlags
 
 
-class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
+class CSMAABBNode(core.Struct):  # LUMP 99 (0063)
     mins: vector.vec3
-    children: base.BitField  # indices into CSMAABBNodes
+    children: core.BitField  # indices into CSMAABBNodes
     maxs: vector.vec3
-    unknown: base.BitField  # indices into Unknown38?
+    unknown: core.BitField  # indices into Unknown38?
     __slots__ = ["mins", "children", "maxs", "unknown"]
     _format = "3fI3fI"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
@@ -404,14 +405,14 @@ class CSMAABBNode(base.Struct):  # LUMP 99 (0063)
     # TODO: "children.flags": NodeFlags
 
 
-class HeightField(base.Struct):  # LUMP 21 (0015)
+class HeightField(core.Struct):  # LUMP 21 (0015)
     __slots__ = ["unknown"]
     _format = "10I"
     _arrays = {"unknown": 10}
 
 
 # NOTE: only one 36 byte entry per file
-class LevelInfo(base.Struct):  # LUMP 123 (007B)
+class LevelInfo(core.Struct):  # LUMP 123 (007B)
     unknown: List[int]  # possibly linked to mesh flags in worldspawn?
     num_static_props: int  # should match len(bsp.GAME_LUMP.sprp.props) [UNTESTED]
     sun_normal: vector.vec3  # vector matching angles of last indexed light_environment entity
@@ -422,7 +423,7 @@ class LevelInfo(base.Struct):  # LUMP 123 (007B)
     _classes = {"sun_normal": vector.vec3}
 
 
-class MaterialSort(base.Struct):  # LUMP 82 (0052)
+class MaterialSort(core.Struct):  # LUMP 82 (0052)
     texture_data: int  # index into TextureData
     lightmap_index: int  # index into LightmapHeaders; -1 if None
     unknown: List[int]  # ({0?}, {??..??})
@@ -432,7 +433,7 @@ class MaterialSort(base.Struct):  # LUMP 82 (0052)
     _arrays = {"unknown": 2}
 
 
-class Mesh(base.Struct):  # LUMP 80 (0050)
+class Mesh(core.Struct):  # LUMP 80 (0050)
     first_mesh_index: int  # index into MeshIndices
     num_triangles: int
     # first_vertex: int  # index into VertexReservedX
@@ -446,7 +447,7 @@ class Mesh(base.Struct):  # LUMP 80 (0050)
     _classes = {"flags": titanfall.MeshFlags}
 
 
-class Model(base.Struct):  # LUMP 14 (000E)
+class Model(core.Struct):  # LUMP 14 (000E)
     mins: vector.vec3  # AABB mins
     maxs: vector.vec3  # AABB maxs
     first_mesh: int
@@ -457,14 +458,15 @@ class Model(base.Struct):  # LUMP 14 (000E)
     vertex_flags: int  # use PACKED_VERTICES or other?
     packed_vertex_offset: vector.vec3  # center point to orient packed verts around
     node_scale: float  # this * 0xFFFF = scale applied to BVH_NODES
-    __slots__ = ["mins", "maxs", "first_mesh", "num_meshes", "bvh_node", "bvh_leaf",
-                 "first_vertex", "vertex_flags", "packed_vertex_offset", "node_scale"]
+    __slots__ = [
+        "mins", "maxs", "first_mesh", "num_meshes", "bvh_node", "bvh_leaf",
+        "first_vertex", "vertex_flags", "packed_vertex_offset", "node_scale"]
     _format = "6f2I4i4f"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"], "packed_vertex_offset": [*"xyz"]}
     _classes = {v: vector.vec3 for v in ("mins", "maxs", "packed_vertex_offset")}
 
 
-class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
+class PackedVertex(core.MappedArray):  # LUMP 20  (0014)
     """a point in 3D space"""
     # TODO: subclass vector.ivec3
     x: int
@@ -474,7 +476,7 @@ class PackedVertex(base.MappedArray):  # LUMP 20  (0014)
     _format = "3h"
 
 
-class ShadowMesh(base.Struct):  # LUMP 127 (007F)
+class ShadowMesh(core.Struct):  # LUMP 127 (007F)
     vertex_offset: int  # index into ShadowMeshAlpha / OpaqueVertices
     # first_index = sum(sm.num_triangles * 3 for sm in bsp.SHADOW_MESH_INDICES[:index])
     num_triangles: int  # number of triangles in ShadowMeshIndices
@@ -485,7 +487,7 @@ class ShadowMesh(base.Struct):  # LUMP 127 (007F)
     _classes = {"is_opaque": bool}
 
 
-class SurfaceProperty(base.MappedArray):  # LUMP 17 (0011)
+class SurfaceProperty(core.MappedArray):  # LUMP 17 (0011)
     unknown_1: int
     unknown_2: int
     contents_mask: int  # index into ContentsMasks
@@ -494,7 +496,7 @@ class SurfaceProperty(base.MappedArray):  # LUMP 17 (0011)
     _format = "h2bi"
 
 
-class TextureData(base.Struct):  # LUMP 2 (0002)
+class TextureData(core.Struct):  # LUMP 2 (0002)
     """Name indices get out of range errors?"""
     name_index: int  # index of this TextureData's SurfaceName
     # NOTE: indexes the starting char of the SurfaceName, skipping TextureDataStringTable
@@ -506,7 +508,7 @@ class TextureData(base.Struct):  # LUMP 2 (0002)
 
 
 # special vertices
-class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
+class VertexBlinnPhong(core.Struct):  # LUMP 75 (004B)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: vector.vec2
@@ -516,7 +518,7 @@ class VertexBlinnPhong(base.Struct):  # LUMP 75 (004B)
     _arrays = {"albedo_uv": [*"uv"], "lightmap_uv": [*"uv"]}
 
 
-class VertexLitBump(base.Struct):  # LUMP 73 (0049)
+class VertexLitBump(core.Struct):  # LUMP 73 (0049)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: vector.vec2
@@ -529,7 +531,7 @@ class VertexLitBump(base.Struct):  # LUMP 73 (0049)
     _classes = {"albedo_uv": vector.vec2, "lightmap_uv": vector.vec2, "colour": colour.RGBA32}
 
 
-class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
+class VertexLitFlat(core.Struct):  # LUMP 72 (0048)
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
     albedo_uv: vector.vec2
@@ -540,7 +542,7 @@ class VertexLitFlat(base.Struct):  # LUMP 72 (0048)
     _classes = {"albedo_uv": vector.vec2}
 
 
-class VertexUnlit(base.Struct):  # LUMP 71 (0047)
+class VertexUnlit(core.Struct):  # LUMP 71 (0047)
     # NOTE: identical to VertexLitFlat?
     position_index: int  # index into Vertex lump
     normal_index: int  # index into VertexNormal lump
@@ -552,7 +554,7 @@ class VertexUnlit(base.Struct):  # LUMP 71 (0047)
     _classes = {"albedo_uv": vector.vec2}
 
 
-class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
+class VertexUnlitTS(core.Struct):  # LUMP 74 (004A)
     position_index: int  # index into VERTICES
     normal_index: int  # index into VERTEX_NORMALS
     albedo_uv: vector.vec2
@@ -563,7 +565,7 @@ class VertexUnlitTS(base.Struct):  # LUMP 74 (004A)
     _classes = {"albedo_uv": vector.vec2}
 
 
-class WaterBody(base.Struct):  # LUMP 44 (002C)
+class WaterBody(core.Struct):  # LUMP 44 (002C)
     origin: vector.vec3
     height: float  # sea level
     bounds: List[vector.vec3]
@@ -585,7 +587,7 @@ class WaterBody(base.Struct):  # LUMP 44 (002C)
     _classes = {"origin": vector.vec3, "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3}
 
 
-class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
+class WaterBodyVertex(core.Struct):  # LUMP 46 (002E)
     position: vector.vec3
     uv: vector.vec2
     colour: colour.RGBA32  # white or blue
@@ -599,7 +601,7 @@ class WaterBodyVertex(base.Struct):  # LUMP 46 (002E)
 # TODO: BVHLeafData
 # TODO: UNKNOWN_37
 
-class Unknown3(base.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
+class Unknown3(core.Struct):  # sprp GAME_LUMP (LUMP 35 / 0023)
     """all assumptions"""
     # NOTE: doesn't appear in smaller maps
     # -- could be to help with floating point precision

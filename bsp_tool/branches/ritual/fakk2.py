@@ -4,8 +4,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import shared
 from ..id_software import quake
 from ..id_software import quake3
@@ -14,11 +14,13 @@ FILE_MAGIC = b"FAKK"
 
 BSP_VERSION = 12
 
-GAME_PATHS = {"Heavy Metal: F.A.K.K. 2": "FAKK2",
-              "American McGee's Alice": "Alice"}
+GAME_PATHS = {
+    "Heavy Metal: F.A.K.K. 2": "FAKK2",
+    "American McGee's Alice": "Alice"}
 
-GAME_VERSIONS = {"Heavy Metal: F.A.K.K. 2": 12,
-                 "American McGee's Alice": 42}
+GAME_VERSIONS = {
+    "Heavy Metal: F.A.K.K. 2": 12,
+    "American McGee's Alice": 42}
 
 
 class LUMP(enum.Enum):
@@ -64,7 +66,7 @@ LumpHeader = quake.LumpHeader
 
 
 # classes for lumps, in alphabetical order:
-class Face(base.Struct):  # LUMP 3
+class Face(core.Struct):  # LUMP 3
     texture: int  # index into Texture lump
     effect: int  # index into Effect lump
     type: quake3.FaceType
@@ -99,7 +101,7 @@ class Face(base.Struct):  # LUMP 3
     # TODO: vector.ivec2 where appropriate
 
 
-class Texture(base.Struct):  # LUMP 0
+class Texture(core.Struct):  # LUMP 0
     name: str
     flags: List[int]
     subdivisions: int  # new; for patches?
@@ -110,18 +112,20 @@ class Texture(base.Struct):  # LUMP 0
 
 
 # {"LUMP_NAME": LumpClass}
-BASIC_LUMP_CLASSES = {"LEAF_BRUSHES": shared.Ints,
-                      "LEAF_FACES":   shared.Ints,
-                      "INDICES":      shared.Ints}
+BASIC_LUMP_CLASSES = {
+    "LEAF_BRUSHES": shared.Ints,
+    "LEAF_FACES":   shared.Ints,
+    "INDICES":      shared.Ints}
 
-LUMP_CLASSES = {"BRUSH_SIDES": quake3.BrushSide,
-                "VERTICES":    quake3.Vertex,
-                "FACES":       Face,
-                "LEAVES":      quake3.Leaf,
-                "MODELS":      quake3.Model,
-                "NODES":       quake3.Node,
-                "PLANES":      quake3.Plane,
-                "TEXTURES":    Texture}
+LUMP_CLASSES = {
+    "BRUSH_SIDES": quake3.BrushSide,
+    "VERTICES":    quake3.Vertex,
+    "FACES":       Face,
+    "LEAVES":      quake3.Leaf,
+    "MODELS":      quake3.Model,
+    "NODES":       quake3.Node,
+    "PLANES":      quake3.Plane,
+    "TEXTURES":    Texture}
 
 SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 
@@ -130,4 +134,4 @@ SPECIAL_LUMP_CLASSES = quake3.SPECIAL_LUMP_CLASSES.copy()
 
 
 methods = [quake.leaves_of_node, shared.worldspawn_volume]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

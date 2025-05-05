@@ -4,8 +4,8 @@ import collections
 import enum
 from typing import Dict, List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import shared
 from ..id_software import quake
 from ..id_software import quake2
@@ -97,7 +97,7 @@ class Brush(quake2.Brush):  # LUMP 14
     _classes = {"contents": Contents}
 
 
-class Leaf(base.Struct):  # LUMP 10
+class Leaf(core.Struct):  # LUMP 10
     contents: Contents  # bitwise OR of all brushes contents (not needed?)
     cluster: int  # index into VISIBILITY; -1 for always visible
     area: int
@@ -143,4 +143,5 @@ def plane_faces(bsp) -> Dict[int, List[int]]:
 
 
 methods = quake2.methods.copy()
-methods.update({m.__name__: m for m in (plane_faces,)})
+methods.update({
+    "plane_faces": plane_faces})

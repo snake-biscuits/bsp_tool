@@ -1,8 +1,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from ..valve import orange_box
 from ..valve import sdk_2013
@@ -13,7 +13,8 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20
 
-GAME_PATHS = {"Fairy Tale Busters": "Merubasu/shadowland"}
+GAME_PATHS = {
+    "Fairy Tale Busters": "Merubasu/shadowland"}
 # NOTE: supported by Jabroni Brawl 3
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
@@ -98,7 +99,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
+class StaticPropv11(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     # older spec than sdk_2013's? might need to rethink the sdk_2013 script
     origin: List[float]  # origin.xyz
@@ -119,16 +120,22 @@ class StaticPropv11(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 11]
     flags_2: int  # values unknown
     # correct:
     scale: float
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
-                 "flags_2", "scale"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation",
+        "flags_2", "scale"]
     _format = "6f3H2Bi6f8BIf"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBExponent}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"],
+        "cpu_level": ["min", "max"], "gpu_level": ["min", "max"],
+        "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+        "flags": source.StaticPropFlags, "lighting_origin": vector.vec3,
+        "diffuse_modulation": colour.RGBExponent}
     # TODO: "angles": QAngle
 
 
@@ -146,7 +153,9 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": {7: GameLump_SPRPv11}}
+GAME_LUMP_CLASSES = {
+    "sprp": {
+        7: GameLump_SPRPv11}}
 
 
 methods = orange_box.methods.copy()

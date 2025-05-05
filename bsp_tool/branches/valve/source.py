@@ -8,13 +8,13 @@ import io
 import struct
 from typing import List, Tuple
 
-from ... import lumps
 from ... import archives
+from ... import core
+from ... import lumps
 from ...utils import binary
 from ...utils import geometry
 from ...utils import texture
 from ...utils import vector
-from .. import base
 from .. import colour
 from .. import shared
 from ..id_software import quake
@@ -103,7 +103,7 @@ class LUMP(enum.Enum):
     UNUSED_63 = 63
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["offset", "length", "version", "fourCC"]
     _format = "4I"
 
@@ -394,14 +394,14 @@ class WorldLightFlags(enum.IntFlag):  # DWL_FLAGS_* in src/public/bspfile.h
 
 
 # classes for each lump, in alphabetical order:
-class Area(base.MappedArray):  # LUMP 20
+class Area(core.MappedArray):  # LUMP 20
     num_area_portals: int   # number of AreaPortals after first_area_portal in this Area
     first_area_portal: int  # index of first AreaPortal
     _mapping = ["num_area_portals", "first_area_portal"]
     _format = "2i"
 
 
-class AreaPortal(base.MappedArray):  # LUMP 21
+class AreaPortal(core.MappedArray):  # LUMP 21
     # public/bspfile.h dareaportal_t &  utils/vbsp/portals.cpp EmitAreaPortals
     portal_key: int  # for tying to entities
     first_clip_portal_vert: int  # index into the ClipPortalVertex lump
@@ -412,7 +412,7 @@ class AreaPortal(base.MappedArray):  # LUMP 21
     _format = "4Hi"
 
 
-class Brush(base.Struct):  # LUMP 18
+class Brush(core.Struct):  # LUMP 18
     """Assumed to carry over from .vmf"""
     first_side: int  # first BrushSide of this Brush
     num_sides: int  # number of BrushSides after first_side in this Brush
@@ -422,7 +422,7 @@ class Brush(base.Struct):  # LUMP 18
     _classes = {"contents": Contents}
 
 
-class BrushSide(base.Struct):  # LUMP 19
+class BrushSide(core.Struct):  # LUMP 19
     plane: int  # Plane this BrushSide lies on
     texture_info: int  # TextureInfo this BrushSide uses
     displacement_info: int  # DisplacementInfo applied to the Face derived from this BrushSide; -1 for None
@@ -431,7 +431,7 @@ class BrushSide(base.Struct):  # LUMP 19
     _format = "H3h"
 
 
-class Cubemap(base.Struct):  # LUMP 42
+class Cubemap(core.Struct):  # LUMP 42
     """Location (origin) & resolution (size)"""
     origin: vector.vec3
     size: int  # texture dimension (each face of a cubemap is square)
@@ -441,7 +441,7 @@ class Cubemap(base.Struct):  # LUMP 42
     _classes = {"origin": vector.vec3}
 
 
-class CornerNeighbour(base.MappedArray):  # LUMP 26
+class CornerNeighbour(core.MappedArray):  # LUMP 26
     neighbours: List[int]  # indices of neighbouring DisplacementInfos
     num_neighbours: int  # number of DisplacementInfos indexed; {0..4}
     padding: int
@@ -449,7 +449,7 @@ class CornerNeighbour(base.MappedArray):  # LUMP 26
     _format = "4H2B"
 
 
-class SubNeighbour(base.MappedArray):  # LUMP 26
+class SubNeighbour(core.MappedArray):  # LUMP 26
     neighbour: int  # index of neighbouring DisplacementInfo; 0xFFFF for None
     neighbour_orientation: DisplacementOrientation  # orientation of neighbour relative to self
     span: DisplacementSpan  # where neighbour fits onto this side
@@ -461,7 +461,7 @@ class SubNeighbour(base.MappedArray):  # LUMP 26
                 "span": DisplacementSpan, "neighbour_span": DisplacementSpan}
 
 
-class DisplacementInfo(base.Struct):  # LUMP 26
+class DisplacementInfo(core.Struct):  # LUMP 26
     """Holds the information defining a displacement"""
     start_position: vector.vec3  # approx coords of first corner of face
     # nessecary to ensure order of displacement vertices
@@ -510,7 +510,7 @@ class DisplacementTriangle(shared.UnsignedShort, enum.IntFlag):  # LUMP 48
     SURFPROP2 = 0x10  # use surfaceprop of second material?
 
 
-class DisplacementVertex(base.Struct):  # LUMP 33
+class DisplacementVertex(core.Struct):  # LUMP 33
     """The positional deformation & blend value of a point in a displacement"""
     normal: vector.vec3  # direction of vertex offset from barymetric base
     distance: float      # length to scale deformation vector by
@@ -521,7 +521,7 @@ class DisplacementVertex(base.Struct):  # LUMP 33
     _classes = {"normal": vector.vec3}
 
 
-class Face(base.Struct):  # LUMPS 7, 27 & 58
+class Face(core.Struct):  # LUMPS 7, 27 & 58
     """makes up Models (including worldspawn), also referenced by LeafFaces"""
     plane: int  # index into Plane lump
     side: int  # "faces opposite to the Node's Plane direction"
@@ -555,11 +555,11 @@ class Face(base.Struct):  # LUMPS 7, 27 & 58
                 "primitives.allow_dynamic_shadows": bool}
 
 
-class Leaf(base.Struct):  # LUMP 10
+class Leaf(core.Struct):  # LUMP 10
     """Endpoint of a vis tree branch, a pocket of Faces"""
     contents: Contents
     cluster: int  # index of this Leaf's cluster (leaf group in VISIBILITY lump); -1 for None
-    bitfield: base.BitField  # area & flags bitfield
+    bitfield: core.BitField  # area & flags bitfield
     # bitfield.area  # index into Areas?
     # bitfield.flags  # TODO: LeafFlags enum
     bounds: List[vector.vec3]  # uint16_t, very blocky
@@ -585,14 +585,14 @@ class Leaf(base.Struct):  # LUMP 10
     # TODO: "cube": CompressedLightCube, "bitfield.flags": LeafFlags
 
 
-class LeafAmbientIndex(base.MappedArray):  # LUMP 52
+class LeafAmbientIndex(core.MappedArray):  # LUMP 52
     num_samples: int
     first_sample: int  # index into LeafAmbientSamples
     _format = "2h"
     _mapping = ["num_samples", "first_sample"]
 
 
-class LeafAmbientSample(base.Struct):  # LUMP 56
+class LeafAmbientSample(core.Struct):  # LUMP 56
     """cube of lighting samples"""
     cube: List[List[int]]  # unsure about orientation / face order
     origin: vector.vec3  # uint8_t; "fixed point fraction of Leaf bounds"
@@ -605,7 +605,7 @@ class LeafAmbientSample(base.Struct):  # LUMP 56
     # TODO: "cube": CompressedLightCube
 
 
-class LeafWaterData(base.MappedArray):  # LUMP 36
+class LeafWaterData(core.MappedArray):  # LUMP 36
     surface_z: float  # global Z height of the water's surface
     min_z: float  # bottom of the water volume?
     texture_info: int  # index to this LeafWaterData's TextureInfo
@@ -613,7 +613,7 @@ class LeafWaterData(base.MappedArray):  # LUMP 36
     _mapping = ["surface_z", "min_z", "texture_info"]
 
 
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     """Brush based entities; Index 0 is worldspawn"""
     bounds: List[vector.vec3]
     # bounds.mins: vector.vec3
@@ -628,7 +628,7 @@ class Model(base.Struct):  # LUMP 14
     _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
 
 
-class Node(base.Struct):  # LUMP 5
+class Node(core.Struct):  # LUMP 5
     plane: int  # Plane that splits this Node (hence front-child, back-child)
     children: List[int]  # +ve Node, -ve Leaf
     # NOTE: -1 (leaf 1) terminates tree searches
@@ -649,7 +649,7 @@ class Node(base.Struct):  # LUMP 5
     # TODO: ivec3 bounds & AABB bounds class
 
 
-class Overlay(base.Struct):  # LUMP 45
+class Overlay(core.Struct):  # LUMP 45
     id: int
     texture_info: int
     face_count: int  # render order in top 2 bits
@@ -667,13 +667,13 @@ class Overlay(base.Struct):  # LUMP 45
     _classes = {**{f"points.{P}": vector.vec3 for P in "ABCD"}, "origin": vector.vec3, "normal": vector.vec3}
 
 
-class OverlayFade(base.MappedArray):  # LUMP 60
+class OverlayFade(core.MappedArray):  # LUMP 60
     """Holds fade distances for the overlay of the same index"""
     _mapping = ["min", "max"]
     _format = "2f"
 
 
-class Primitive(base.MappedArray):  # LUMP 37
+class Primitive(core.MappedArray):  # LUMP 37
     type: PrimitiveType
     first_index: int  # index into PrimitiveIndex lump
     num_indices: int
@@ -684,7 +684,7 @@ class Primitive(base.MappedArray):  # LUMP 37
     _classes = {"type": PrimitiveType}
 
 
-class TextureData(base.Struct):  # LUMP 2
+class TextureData(core.Struct):  # LUMP 2
     """Data on this view of a texture (.vmt), indexed by TextureInfo"""
     reflectivity: List[float]  # from .vtf or average colour of view rect?
     name_index: int  # index of texture name in TEXTURE_DATA_STRING_TABLE / TABLE
@@ -697,7 +697,7 @@ class TextureData(base.Struct):  # LUMP 2
     _classes = {"size": vector.vec2, "view": vector.vec2}
 
 
-class TextureInfo(base.Struct):  # LUMP 6
+class TextureInfo(core.Struct):  # LUMP 6
     """Texture projection info & index into TEXTURE_DATA"""
     # NOTE: TextureVector(ProjectionAxis(*s), ProjectionAxis(*t))
     texture: List[Tuple[vector.vec3, float]]  # 2 projection axes
@@ -718,7 +718,7 @@ class TextureInfo(base.Struct):  # LUMP 6
         "flags": Surface}
 
 
-class WaterOverlay(base.Struct):  # LUMP 50
+class WaterOverlay(core.Struct):  # LUMP 50
     id: int
     texture_info: int
     face_count: int  # render order in top 2 bits
@@ -736,14 +736,14 @@ class WaterOverlay(base.Struct):  # LUMP 50
     _classes = {"origin": vector.vec3, "normal": vector.vec3}
 
 
-class WorldLight(base.Struct):  # LUMP 15
+class WorldLight(core.Struct):  # LUMP 15
     origin: vector.vec3  # origin point of this light source
     intensity: vector.vec3  # brightness scalar?
     normal: vector.vec3  # light direction (used by EmitType.SURFACE & EmitType.SPOTLIGHT)
     viscluster: int  # index of Leaf / PVS group
     type: EmitType
     style: int  # lighting style (Face style index?)
-    # see base.fgd:
+    # see core.fgd:
     stop_dot: float  # spotlight penumbra start
     stop_dot2: float  # spotlight penumbra end
     exponent: float
@@ -768,7 +768,7 @@ class WorldLight(base.Struct):  # LUMP 15
 
 
 # special lump classes, in alphabetical order:
-class GameLumpHeader(base.MappedArray):
+class GameLumpHeader(core.MappedArray):
     id: str
     # NOTE: https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L25
     # -- ^ lists a few possible child lumps:
@@ -784,7 +784,7 @@ class GameLumpHeader(base.MappedArray):
     _format = "4s2H2i"
 
 
-class StaticPropv4(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
+class StaticPropv4(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 4]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L151"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
@@ -866,7 +866,7 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
         return self.model_names[self.props[prop_index].model_name]
 
 
-class StaticPropv5(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
+class StaticPropv5(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L168"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
@@ -897,7 +897,7 @@ class GameLump_SPRPv5(GameLump_SPRPv4):  # sprp GameLump (LUMP 35)
     StaticPropClass = StaticPropv5
 
 
-class StaticPropv6(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
+class StaticPropv6(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 6]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
@@ -929,7 +929,7 @@ class GameLump_SPRPv6(GameLump_SPRPv5):  # sprp GameLump (LUMP 35)
     StaticPropClass = StaticPropv6
 
 
-class StaticPropv7(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
+class StaticPropv7(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 7]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: vector.vec3
     angles: List[float]  # pitch, yaw, roll; QAngle; 0, 0, 0 = Facing East (X+)
@@ -1197,4 +1197,4 @@ def textures_of_brush(bsp, brush_index: int) -> List[str]:
 
 
 methods = [quake.leaves_of_node, textures_of_brush, face_mesh, displacement_mesh, model, shared.worldspawn_volume]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

@@ -3,8 +3,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from ..id_software import quake
 # NOTE: GoldSrc was forked from IdTech 2 during Quake II development
 # -- so some elements of both quake & quake2 formats are present
@@ -14,19 +14,20 @@ FILE_MAGIC = None
 
 BSP_VERSION = 30
 
-GAME_PATHS = {"Counter Strike": "Half-Life/cstrike",
-              "Counter-Strike: Condition Zero": "Half-Life/czero",
-              "Counter-Strike: Condition Zero - Deleted Scenes": "Half-Life/czeror",
-              "Cry of Fear": "Cry of Fear/cryoffear",
-              "Day of Defeat": "Half-Life/dod",
-              "Deathmatch Classic": "Half-Life/dmc",
-              "Half-Life": "Half-Life/valve",
-              "Half-Life: Opposing Force": "Half-Life/gearbox",
-              "Halfquake Trilogy": "Halfquake Trilogy/valve",
-              "Natural Selection": "Half-Life/ns",
-              "Ricochet": "Half-Life/ricochet",
-              "Sven Co-op": "Sven Co-op/svencoop",
-              "Team Fortress Classic": "Half-Life/tfc"}
+GAME_PATHS = {
+    "Counter Strike": "Half-Life/cstrike",
+    "Counter-Strike: Condition Zero": "Half-Life/czero",
+    "Counter-Strike: Condition Zero - Deleted Scenes": "Half-Life/czeror",
+    "Cry of Fear": "Cry of Fear/cryoffear",
+    "Day of Defeat": "Half-Life/dod",
+    "Deathmatch Classic": "Half-Life/dmc",
+    "Half-Life": "Half-Life/valve",
+    "Half-Life: Opposing Force": "Half-Life/gearbox",
+    "Halfquake Trilogy": "Halfquake Trilogy/valve",
+    "Natural Selection": "Half-Life/ns",
+    "Ricochet": "Half-Life/ricochet",
+    "Sven Co-op": "Sven Co-op/svencoop",
+    "Team Fortress Classic": "Half-Life/tfc"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -119,7 +120,7 @@ class ClipNode(quake.ClipNode):  # LUMP 9
     _classes = {"children.front": Contents, "children.back": Contents}
 
 
-class Model(base.Struct):  # LUMP 14
+class Model(core.Struct):  # LUMP 14
     bounds: List[List[float]]
     # bounds.mins: List[float]  # xyz
     # bounds.maxs: List[float]  # xyz
@@ -130,16 +131,21 @@ class Model(base.Struct):  # LUMP 14
     num_faces: int  # number of faces after first_face in this Model
     __slots__ = ["bounds", "origin", "node", "visleaves", "first_face", "num_faces"]
     _format = "9f7i"
-    _arrays = {"bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]}, "origin": [*"xyz"], "node": 4}
-    _classes = {"bounds.mins": vector.vec3, "bounds.maxs": vector.vec3, "origin": vector.vec3}
+    _arrays = {
+        "bounds": {"mins": [*"xyz"], "maxs": [*"xyz"]},
+        "origin": [*"xyz"], "node": 4}
+    _classes = {
+        "bounds.mins": vector.vec3, "bounds.maxs": vector.vec3,
+        "origin": vector.vec3}
 
 
 # {"LUMP_NAME": {version: LumpClass}}
 BASIC_LUMP_CLASSES = quake.BASIC_LUMP_CLASSES.copy()
 
 LUMP_CLASSES = quake.LUMP_CLASSES.copy()
-LUMP_CLASSES.update({"CLIP_NODES": ClipNode,
-                     "MODELS":     Model})
+LUMP_CLASSES.update({
+    "CLIP_NODES": ClipNode,
+    "MODELS":     Model})
 
 SPECIAL_LUMP_CLASSES = quake.SPECIAL_LUMP_CLASSES.copy()
 

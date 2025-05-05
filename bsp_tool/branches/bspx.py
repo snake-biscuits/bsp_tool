@@ -4,10 +4,10 @@ from __future__ import annotations
 import io
 from typing import List, Tuple
 
-from .. import lumps
 from .. import archives
+from .. import core
+from .. import lumps
 from ..utils import vector
-from . import base
 from . import shared
 from .id_software import quake
 
@@ -30,7 +30,7 @@ LUMPS = {
     "ZIP_PAKFILE"}
 
 
-class LumpHeader(base.MappedArray):
+class LumpHeader(core.MappedArray):
     _mapping = ["name", "offset", "length"]
     _format = "24s2I"
 
@@ -41,7 +41,7 @@ class LumpHeader(base.MappedArray):
 
 
 # classes for each lump, in alphabetical order:
-class EnvMap(base.Struct):
+class EnvMap(core.Struct):
     # NOTE: cubemap images are stored at "textures/env/MAPNAME_X_Y_Z" (rounded to ints)
     origin: vector.vec3
     size: int  # texture dimension (each face of a cubemap is square)
@@ -55,7 +55,7 @@ class EnvMap(base.Struct):
 # TODO: BrushList
 
 
-class FaceNormalIndex(base.Struct):
+class FaceNormalIndex(core.Struct):
     normal: int
     tangent: int
     bitangent: int
@@ -122,4 +122,4 @@ def face_normals(bspx, face_index: int) -> List[Tuple[vector.vec3]]:
 
 
 methods = [face_normals]
-methods = {m.__name__: m for m in methods}
+methods = {method.__name__: method for method in methods}

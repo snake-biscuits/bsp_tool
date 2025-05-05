@@ -2,8 +2,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from . import source
 
 
@@ -11,18 +11,19 @@ FILE_MAGIC = b"VBSP"
 
 BSP_VERSION = 20
 
-GAME_PATHS = {"Day of Defeat: Source": "day of defeat source/dod",
-              "Entropy: Zero 2": "EntropyZero2/entropyzero2",
-              "E.Y.E: Divine Cybermancy": "EYE Divine Cybermancy/EYE",
-              "G-String": "G String/gstringv2",
-              "Garry's Mod": "GarrysMod/garrysmod",
-              "Half-Life 2: Episode 1": "half-life 2/episodic",
-              "Half-Life 2: Episode 2": "half-life 2/ep2",
-              "Half-Life 2: Lost Coast": "half-life 2/lostcoast",
-              "Half-Life 2 Update": "Half-Life 2 Update/hl2",
-              "NEOTOKYO": "NEOTOKYO/neotokyosource",
-              "Portal": "Portal/portal",
-              "Team Fortress 2": "Team Fortress 2/tf"}
+GAME_PATHS = {
+    "Day of Defeat: Source": "day of defeat source/dod",
+    "Entropy: Zero 2": "EntropyZero2/entropyzero2",
+    "E.Y.E: Divine Cybermancy": "EYE Divine Cybermancy/EYE",
+    "G-String": "G String/gstringv2",
+    "Garry's Mod": "GarrysMod/garrysmod",
+    "Half-Life 2: Episode 1": "half-life 2/episodic",
+    "Half-Life 2: Episode 2": "half-life 2/ep2",
+    "Half-Life 2: Lost Coast": "half-life 2/lostcoast",
+    "Half-Life 2 Update": "Half-Life 2 Update/hl2",
+    "NEOTOKYO": "NEOTOKYO/neotokyosource",
+    "Portal": "Portal/portal",
+    "Team Fortress 2": "Team Fortress 2/tf"}
 
 GAME_VERSIONS = {GAME_NAME: BSP_VERSION for GAME_NAME in GAME_PATHS}
 
@@ -120,9 +121,10 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
     num_leaf_brushes: int  # number of LeafBrushes
     leaf_water_data_id: int  # -1 if this leaf isn't submerged
     padding: int  # should be empty
-    __slots__ = ["contents", "cluster", "bitfield", "mins", "maxs",
-                 "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
-                 "num_leaf_brushes", "leaf_water_data_id", "padding"]
+    __slots__ = [
+        "contents", "cluster", "bitfield", "mins", "maxs",
+        "first_leaf_face", "num_leaf_faces", "first_leaf_brush",
+        "num_leaf_brushes", "leaf_water_data_id", "padding"]
     _format = "ihH6h4H2h"
     _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
     _bitfields = {"bitfield": {"area": 9, "flags": 7}}
@@ -130,7 +132,7 @@ class Leaf(source.Leaf):  # LUMP 10  (v1)
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
+class StaticPropv10(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
     model_name: int  # index into AME_LUMP.sprp.model_names
@@ -144,15 +146,19 @@ class StaticPropv10(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 7*/10]
     dx_level: List[int]  # supported directX level, will not render depending on settings
     flags: int  # other flags
     lightmap: List[int]  # dimensions of this StaticProp's lightmap (GAME_LUMP.static prop lighting?)
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "dx_level", "flags", "lightmap"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "dx_level", "flags", "lightmap"]
     _format = "6f3HBi6f2Hi2H"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
-               "lightmap": ["width", "height"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"],
+        "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "dx_level": ["min", "max"],
+        "lightmap": ["width", "height"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision,
+        "flags": source.StaticPropFlags, "lighting_origin": vector.vec3}
     # TODO: "angles": QAngle
 
 
@@ -166,7 +172,8 @@ BASIC_LUMP_CLASSES = source.BASIC_LUMP_CLASSES.copy()
 LUMP_CLASSES = source.LUMP_CLASSES.copy()
 LUMP_CLASSES.pop("LEAF_AMBIENT_LIGHTING")
 LUMP_CLASSES.pop("LEAF_AMBIENT_LIGHTING_HDR")
-LUMP_CLASSES["LEAVES"] = {**source.LUMP_CLASSES["LEAVES"], 1: Leaf}
+LUMP_CLASSES["LEAVES"].update({
+    1: Leaf})
 
 SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 
@@ -174,9 +181,11 @@ SPECIAL_LUMP_CLASSES = source.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = source.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({7:  GameLump_SPRPv10,  # 7*
-                                  10: GameLump_SPRPv10})
+GAME_LUMP_CLASSES = {
+    "sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES["sprp"].update({
+        7:  GameLump_SPRPv10,  # 7*
+        10: GameLump_SPRPv10})
 
 
 methods = source.methods.copy()

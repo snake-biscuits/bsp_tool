@@ -3,8 +3,8 @@
 import enum
 from typing import List
 
+from ... import core
 from ...utils import vector
-from .. import base
 from .. import colour
 from . import orange_box
 from . import source
@@ -98,7 +98,7 @@ LumpHeader = source.LumpHeader
 
 
 # classes for special lumps, in alphabetical order:
-class StaticPropv8(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
+class StaticPropv8(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L186"""
     origin: List[float]  # origin.xyz
     angles: List[float]  # origin.yzx  QAngle; Z0 = East
@@ -114,15 +114,18 @@ class StaticPropv8(base.Struct):  # sprp GAME LUMP (LUMP 35) [version 8]
     cpu_level: List[int]  # min, max (-1 = any)
     gpu_level: List[int]  # min, max (-1 = any)
     diffuse_modulation: colour.RGBA32
-    __slots__ = ["origin", "angles", "name_index", "first_leaf", "num_leafs",
-                 "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
-                 "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation"]
+    __slots__ = [
+        "origin", "angles", "name_index", "first_leaf", "num_leafs",
+        "solid_mode", "flags", "skin", "fade_distance", "lighting_origin",
+        "forced_fade_scale", "cpu_level", "gpu_level", "diffuse_modulation"]
     _format = "6f3H2Bi6f8B"
-    _arrays = {"origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
-               "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
-               "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
-    _classes = {"origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
-                "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBA32}
+    _arrays = {
+        "origin": [*"xyz"], "angles": [*"yzx"], "fade_distance": ["min", "max"],
+        "lighting_origin": [*"xyz"], "cpu_level": ["min", "max"],
+        "gpu_level": ["min", "max"], "diffuse_modulation": [*"rgba"]}
+    _classes = {
+        "origin": vector.vec3, "solid_mode": source.StaticPropCollision, "flags": source.StaticPropFlags,
+        "lighting_origin": vector.vec3, "diffuse_modulation": colour.RGBA32}
     # TODO: "angles": QAngle
 
 
@@ -142,8 +145,10 @@ SPECIAL_LUMP_CLASSES = orange_box.SPECIAL_LUMP_CLASSES.copy()
 GAME_LUMP_HEADER = orange_box.GAME_LUMP_HEADER
 
 # {"lump": {version: SpecialLumpClass}}
-GAME_LUMP_CLASSES = {"sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
-GAME_LUMP_CLASSES["sprp"].update({8: GameLump_SPRPv8})
+GAME_LUMP_CLASSES = {
+    "sprp": source.GAME_LUMP_CLASSES["sprp"].copy()}
+GAME_LUMP_CLASSES["sprp"].update({
+        8: GameLump_SPRPv8})
 
 
 # branch exclusive methods, in alphabetical order:
