@@ -2,7 +2,7 @@ from __future__ import annotations
 import io
 from typing import Dict, List
 
-from ...branches.base import Struct
+from ... import core
 from ...utils import binary
 from .. import valve
 from .rpak import RPak
@@ -11,7 +11,7 @@ from .rpak import RPak
 __all__ = ["RPak", "Vpk", "VpkHeader", "VpkEntry", "VpkFilePart"]
 
 
-class VpkHeader(Struct):
+class VpkHeader(core.Struct):
     magic: int  # should always be 0x55AA1234
     version: List[int]  # should always be (2, 3)
     tree_length: int

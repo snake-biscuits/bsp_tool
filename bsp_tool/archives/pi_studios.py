@@ -4,7 +4,7 @@ import io
 import struct
 from typing import List
 
-from ..branches.base import Struct
+from .. import core
 from ..utils import binary
 from . import base
 
@@ -48,7 +48,7 @@ class Bpk(base.Archive):
         return out
 
 
-class CentralHeader(Struct):
+class CentralHeader(core.Struct):
     key: int  # filename hash?
     offset: int
     data_size: int  # matches text length if uncompressed plaintext

@@ -4,9 +4,9 @@ import enum
 import io
 from typing import Dict, List
 
-from . import base
-from ..branches.base import Struct
+from .. import core
 from ..utils import binary
+from . import base
 
 
 # from src/lib/util/chdcodec.cpp (codec_entry f_codec_list[])
@@ -23,7 +23,7 @@ compressor_codecs = {
     b"zstd": "Zstandard"}
 
 
-class ChdHeaderv5(Struct):
+class ChdHeaderv5(core.Struct):
     compressors: List[bytes]
     logical_bytes: int
     map_offset: int
@@ -34,7 +34,6 @@ class ChdHeaderv5(Struct):
     # sha1.raw: bytes  # SHA1 of raw data
     # sha1.combined: bytes  # SHA1 of raw data + metadata
     # sha1.parent: bytes  # SHA1 of parent's raw data + metadata; 0 if no parent
-
     __slots__ = [
         "compressors", "logical_bytes", "map_offset", "meta_offset",
         "hunk_bytes", "unit_bytes", "sha1"]

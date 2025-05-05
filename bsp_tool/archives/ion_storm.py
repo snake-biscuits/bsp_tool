@@ -5,13 +5,13 @@ import io
 from typing import Dict, List
 import zlib
 
-from ..branches.base import Struct
+from .. import core
 from ..utils import binary
 from . import base
 from . import id_software
 
 
-class DatHeader(Struct):
+class DatHeader(core.Struct):
     magic: bytes  # always b"ADAT"
     fileinfo_offset: int  # offset to fileinfo list
     fileinfo_length: int  # length (in bytes) of fileinfo list
@@ -20,7 +20,7 @@ class DatHeader(Struct):
     _format = "4s3I"
 
 
-class DatFileInfo(Struct):
+class DatFileInfo(core.Struct):
     filename: bytes
     offset: int
     length: int  # length of uncompressed data
@@ -73,7 +73,7 @@ class Dat(base.Archive):
         return out
 
 
-class PakFileEntry(Struct):
+class PakFileEntry(core.Struct):
     filename: bytes  # can contain multiple filenames
     # for maps, looks to be attached scripts
     # use filename.strip(b"\0").split(b"\0") to get the list

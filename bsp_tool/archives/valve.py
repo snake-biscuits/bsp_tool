@@ -5,13 +5,13 @@ import io
 import os
 from typing import Dict, List, Union
 
+from .. import core
 from .. import external
-from ..branches.base import Struct
 from ..utils import binary
 from . import base
 
 
-class VpkHeader(Struct):
+class VpkHeader(core.Struct):
     magic: int  # should always be 0x55AA1234
     version: List[int]  # should always be (1, 0)
     tree_length: int
@@ -20,7 +20,7 @@ class VpkHeader(Struct):
     _arrays = {"version": ["major", "minor"]}
 
 
-class VpkHeaderv2(Struct):
+class VpkHeaderv2(core.Struct):
     # attributed to http://forum.xentax.com/viewtopic.php?f=10&t=11208
     magic: int  # should always be 0x55AA1234
     version: List[int]  # should always be (1, 0)
@@ -40,7 +40,7 @@ class VpkHeaderv2(Struct):
     # -- followed by MD5 char[16] checksums for tree, chunk_hashes & file
 
 
-class VpkEntry(Struct):
+class VpkEntry(core.Struct):
     crc: int  # CRC32 hash
     preload_length: int  # length of preload data
     archive_index: int

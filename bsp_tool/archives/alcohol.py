@@ -5,7 +5,7 @@ import enum
 import io
 from typing import List
 
-# from ..branches.base import Struct  # CIRCULAR IMPORT
+# from .. import core
 from . import base
 
 
@@ -17,7 +17,7 @@ class MediaType(enum.Enum):
     DVD_R = 18
 
 
-# class MdsHeader(Struct):
+# class MdsHeader(core.Struct):
 #     __slots__ = [
 #         "magic", "version", "media_type", "num_sessions",
 #         "unknown_1", "bca_length", "unknown_2", "bca_offset",
@@ -31,7 +31,7 @@ class MediaType(enum.Enum):
 #         "media_type": MediaType}
 
 
-# class MdsSessionHeader(Struct):
+# class MdsSessionHeader(core.Struct):
 #     __slots__ = [
 #         "first_sector", "last_sector", "num_sessions", "num_tracks",
 #         "num_tracks_2", "first_track", "last_track", "unknown",
@@ -50,7 +50,7 @@ class TrackMode(enum.Enum):
     MODE2_SUB = 0xEC  # Mode2 w/ subchannels
 
 
-# class MdsTrack(Struct):
+# class MdsTrack(core.Struct):
 #     index: int  # track_number
 #     __slots__ = [
 #         "mode", "num_subchannels", "adr", "index", "point_number",

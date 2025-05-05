@@ -5,8 +5,8 @@ import enum
 import io
 from typing import Dict, List, Tuple, Union
 
+from ... import core
 from ... import external
-from ...branches.base import MappedArray
 from ...utils import binary
 from .. import base
 
@@ -97,38 +97,38 @@ class FileTime:
 
 
 # other header data
-class PatchHeader(MappedArray):
+class PatchHeader(core.MappedArray):
     data_size: int  # "total size of the patch edit stream data"
     virtual_segment: int  # index into VirtualSegments
     _mapping = ["data_size", "virtual_segment"]
     _format = "2I"
 
 
-class CompressPair(MappedArray):
+class CompressPair(core.MappedArray):
     _mapping = ["compressed_size", "decompressed_size"]
     _format = "2Q"
 
 
-class VirtualSegment(MappedArray):
+class VirtualSegment(core.MappedArray):
     flags: int  # if 64 is set, this virtual segment is in another file
     _mapping = ["flags", "type", "size"]
     _format = "2IQ"
     # TODO: flags & type enums
 
 
-class MemoryPage(MappedArray):
+class MemoryPage(core.MappedArray):
     _mapping = ["virtual_segment", "flags", "size"]
     _format = "3I"
     # TODO: flags enum
 
 
-class Descriptor(MappedArray):
+class Descriptor(core.MappedArray):
     _mapping = ["index", "offset"]
     _format = "2I"
 
 
 # versioned headers
-class AssetEntryv6(MappedArray):  # also v7
+class AssetEntryv6(core.MappedArray):  # also v7
     _mapping = [
         "name_hash", "unknown_1", "head_index", "head_offset", "cpu_index", "cpu_offset",
         "starpak_offset", "last_page", "unknown_2",
@@ -137,7 +137,7 @@ class AssetEntryv6(MappedArray):  # also v7
     _format = "2Q4IQ2H6I4s"
 
 
-class AssetEntryv8(MappedArray):
+class AssetEntryv8(core.MappedArray):
     _mapping = [
         "name_hash", "unknown", "head_index", "head_offset", "cpu_index", "cpu_offset",
         "starpak_offset", "optimal_starpak_offset", "last_page", "unknown",
@@ -146,7 +146,7 @@ class AssetEntryv8(MappedArray):
     _format = "2Q4i2q2h6I4s"
 
 
-class RPakHeaderv6(MappedArray):
+class RPakHeaderv6(core.MappedArray):
     """Titanfall 2 Tech Test"""
     magic: bytes  # always b"RPak"
     version: int  # always 6
@@ -168,7 +168,7 @@ class RPakHeaderv6(MappedArray):
     _classes = {"flags": HeaderFlags, "created": FileTime}
 
 
-class RPakHeaderv7(MappedArray):
+class RPakHeaderv7(core.MappedArray):
     """Titanfall 2"""
     magic: bytes  # always b"RPak"
     version: int  # always 7
@@ -192,7 +192,7 @@ class RPakHeaderv7(MappedArray):
         return Compression.NONE if self.compressed_size == self.decompressed_size else Compression.RESPAWN
 
 
-class RPakHeaderv8(MappedArray):
+class RPakHeaderv8(core.MappedArray):
     """Apex Legends"""
     magic: bytes  # always b"RPak"
     version: int  # always 8
@@ -342,7 +342,7 @@ class RPak(base.Archive):
 
 
 # StaRPak
-class StreamEntry(MappedArray):
+class StreamEntry(core.MappedArray):
     _mapping = ["offset", "size"]
     _format = "2Q"
 

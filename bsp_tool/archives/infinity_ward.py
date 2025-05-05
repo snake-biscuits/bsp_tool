@@ -6,7 +6,7 @@ import io
 from typing import List
 import zlib
 
-from ..branches.base import Struct
+from .. import core
 from ..utils import binary
 from . import base
 from . import id_software
@@ -16,7 +16,7 @@ class Iwd(id_software.Pk3):
     ext = "*.iwd"
 
 
-class Header(Struct):
+class Header(core.Struct):
     decompressed_size: int  # size of decompressed data - header size
     total_size: int  # size of all indexed assets
     unknown: List[int]  # 8 streams + 1 other int?
@@ -25,7 +25,7 @@ class Header(Struct):
     _arrays = {"unknown": 9}
 
 
-class Header2(Struct):
+class Header2(core.Struct):
     num_pointers: int
     unknown: int  # -1 if num_pointers != 0, else 0
     num_assets: int

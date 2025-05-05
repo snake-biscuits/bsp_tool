@@ -2,7 +2,7 @@ from __future__ import annotations
 import io
 from typing import Dict, List
 
-from ..branches.base import Struct
+from .. import core
 from ..utils import binary
 from . import base
 
@@ -67,7 +67,7 @@ class ApkEntry:
         return out
 
 
-class ApkHeader(Struct):
+class ApkHeader(core.Struct):
     magic: bytes
     files_offset: int
     num_files: int
