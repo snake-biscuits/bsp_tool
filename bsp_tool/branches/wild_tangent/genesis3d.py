@@ -1,6 +1,6 @@
 # https://github.com/RealityFactory/Genesis3D/blob/master/World/Gbspfile.h
 import enum
-from typing import List, Union
+from typing import Any, Dict, List, Union
 
 from ... import core
 from ...utils import vector
@@ -110,7 +110,7 @@ class Header(core.Struct):  # LUMP 0
     magic: bytes
     padding: bytes  # 4 NULL bytes
     version: int
-    timestamp: List[int]
+    time: time.SystemTime
     __slots__ = ["magic", "padding", "version", "time"]
     _format = "4s4si8H"
     _arrays = {
@@ -118,6 +118,14 @@ class Header(core.Struct):  # LUMP 0
             "year", "month", "day_of_week", "day",
             "hour", "minute", "second", "millisecond"]}
     _classes = {"time": time.SystemTime}
+
+    @classmethod
+    def _defaults(cls) -> Dict[str, Any]:
+        return {
+            "magic": b"",
+            "padding": b"",
+            "version": 0,
+            "time": time.SystemTime()}
 
 
 class Leaf(core.Struct):  # LUMP 4
