@@ -28,6 +28,7 @@
 
 
 ### Changed
+ * **moved `branches.base` to `core`**
  * moved `archives` out of `extensions`
  * moved `lightmaps` out of `extensions`
  * moved `geometry` out of `extensions` (renamed to `scene`)
