@@ -2,7 +2,7 @@ import collections
 import io
 
 from bsp_tool import lumps
-from bsp_tool.branches import base
+from bsp_tool import core
 
 import pytest
 
@@ -38,7 +38,7 @@ class TestRemapSliceToRange:
 LumpHeader_basic = collections.namedtuple("basic", ["offset", "length"])
 
 
-class LumpClass_basic(base.MappedArray):
+class LumpClass_basic(core.MappedArray):
     _mapping = [*"xyz"]
     _format = "3H"
 

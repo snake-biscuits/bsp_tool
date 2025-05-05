@@ -1,6 +1,6 @@
 import math
 
-from bsp_tool.branches import base
+from bsp_tool import core
 from bsp_tool.utils import vector
 
 import pytest
@@ -9,9 +9,10 @@ import pytest
 
 
 class TestInit:
-    args = {"all three": [(1, 2, 3)] * 2,
-            "just two": [(4, 5), (4, 5, 0)],
-            "no args": [tuple(), (0, 0, 0)]}
+    args = {
+        "all three": [(1, 2, 3)] * 2,
+        "just two": [(4, 5), (4, 5, 0)],
+        "no args": [tuple(), (0, 0, 0)]}
 
     @pytest.mark.parametrize("args,expected", args.values(), ids=args.keys())
     def test_args(self, args, expected):
@@ -77,7 +78,10 @@ class TestEqual:
 
     def test_MappedArray(self):
         A = vector.vec3(0.1, 0.2, 0.3)
-        assert A == base.MappedArray(0.1, 0.2, 0.3, _mapping=[*"xyz"], _format="3f")
+        assert A == core.MappedArray(
+            0.1, 0.2, 0.3,
+            _mapping=[*"xyz"],
+            _format="3f")
 
 
 class TestSequence:
