@@ -8,7 +8,8 @@ from typing import Dict, Tuple
 from . import archives  # base.Archive & with_extension
 from . import base  # base.Bsp base class
 from . import branches  # all known .bsp variant definitions
-from .id_software import FusionBsp, IdTechBsp, QbismBsp, QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
+from .id_software import FusionBsp, IdTechBsp, QbismBsp
+from .id_software import QuakeBsp, Quake64Bsp, ReMakeQuakeBsp
 from .infinity_ward import D3DBsp, InfinityWardBsp
 from .raven import RavenBsp
 from .respawn import RespawnBsp
@@ -30,7 +31,8 @@ Hints = Dict[str, object]
 # NOTE: you should only need to sort your hints once
 def sorted_hints(hints: Hints) -> collections.OrderedDict:
     """'sophisticated' fnmatch pattern sorter"""
-    # NOTE: overlap isn't relevant, just make sure the most specific patterns are first
+    # NOTE: overlap isn't relevant
+    # -- just make sure the most specific patterns come first
     filenames = dict()
     folders = dict()
     complex_hints = dict()

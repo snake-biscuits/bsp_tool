@@ -1,8 +1,9 @@
-"""Tools for opening and searching archives containing game assets (specifically .bsp)"""
+"""Tools for opening and searching archives containing game assets"""
 __all__ = [
-    "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk", "id_software",
-    "infinity_ward", "ion_storm", "mame", "nexon", "padus", "pi_studios", "pkware",
-    "respawn", "ritual", "sega", "troika", "utoplanet", "valve"]
+    "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk",
+    "id_software", "infinity_ward", "ion_storm", "mame", "nexon", "padus",
+    "pi_studios", "pkware", "respawn", "ritual", "sega",
+    "troika", "utoplanet", "valve"]
 
 import fnmatch
 import os
