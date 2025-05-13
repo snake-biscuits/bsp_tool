@@ -28,10 +28,10 @@
 
 
 ### Changed
- * **moved `branches.base` to `core`**
- * moved `archives` out of `extensions`
- * moved `lightmaps` out of `extensions`
- * moved `geometry` out of `extensions` (renamed to `scene`)
+ * **Moved `branches.base` to `core`**
+ * Moved `archives` out of `extensions`
+ * Moved `lightmaps` out of `extensions`
+ * Moved `extensions.geometry` to `scene`
    - accessed via `developer.format` (e.g. `scene.pixar.Usd`)
    - exposing all `SceneDescriptions` at top level (e.g. `scene.Obj`)
  * `ArchiveClass`es are now initialised with `@classmethod`s
@@ -67,43 +67,41 @@
  * `BSPX` lumps can be parsed with `bspx.BspX`
 
 ### Changed
- * SpecialLumpClasses & GameLumpClasses refactor
+ * `SpecialLumpClasses` & `GameLumpClasses`
    - new basic `__init__` for making your own from scratch
    - loaded from files with `from_bytes`
- * BspLump refactor
+ * `RawBspLump`
+   - added `append`, `extend` & `insert` methods
+   - slices are now `bytearray`s
+ * `BspLump`
    - new barebones `__init__`
    - maps bsp lumps with `from_header`
    - pulled out of streams with `from_count`
-   - `lumps.create_RawBspLump` will decompress before mapping
-   - added `append`, `extend` & `insert` methods to `RawBspLump`
    - `BspLump.find(attr=val)` method is now `.search()`
    - removed `.find()` method from `BasicBspLump`
    - allowed implicit changes (e.g. `bsp.VERTICES[0].z += 1`)
    - `__iter__` doesn't update `_changes`, reducing unnessecary caching
    - TODO: `bsp.LUMP[::]` creates a copy & doesn't affect / share `_changes`
-   - `RawBspLump` slices are `bytearray`s
- * Fractured Source Engine into more branches ("solves" version conflicts of SPRP formats)
- * `extensions.archives` refactor
-   - One script per-developer
+ * `archives`
+   - `base.Archive` class to provide common methods
+   - One script per developer
    - Placeholders for not-yet-supported archives
-   - MeruBasu `utoplanet.Apk` can extract files
-   - Titanfall `respawn.Vpk` can list files (no extraction)
- * Capturing compiler signatures
+ * `extensions.compiler_signature`
    - `RespawnBsp` [MRVN-Radiant](https://github.com/MRVN-Radiant/MRVN-Radiant) signature
      + saved by `.save_as`
      + parser in `extensions.compiler_signature`
- * Moved `valve_physics` to `valve.physics`
  * RespawnBsp `.save_as()` can now skip `.bsp_lump`
  * `respawn.ExternalLumpManager` now handles `.bsp_lump` saving
- * added `leaves_of_node` method to most branch scripts
- * `methods` of branch scripts are now stored in `dict`
+ * Moved `methods` from a `list` to a `dict`
+   - Overriding methods from parents is easier
+ * Moved `valve_physics` to `valve.physics`
  * Moved `branches.vector` to `utils.vector`
 
 ### Fixed
- * `shared.Entities` the following silent failures are now caught by the parser
+ * `shared.Entities` no longer breaks on:
    - curly braces inside key values
    - multi-line keys
- * `shared.PakFile` can be edited
+ * `pkware.Zip` can be edited
    - `.as_bytes()` correctly includes "end record", without calling `.close()`
 
 ### Newly Supported Branches
@@ -126,10 +124,10 @@
 ### Updated Support
  * Quake
  * Source Engine
-   - More dynamic reading of Static Props
-   - Split into more branches for Static Prop variants
+   - Static prop parsing is deferred w/ `BspLump.from_count`
+   - Breaking out into more branches to handle static prop variants
  * Titanfall Engine
-   - Split v50 into it's own branch
+   - Split Apex Legends into multiple branch scripts
 
 
 ## v0.4.0 (28 March 2023)
