@@ -90,7 +90,8 @@ librarians = {
         Mod="/media/bikkie/3964-39352/Mod/"),
     # Linux Desktop
     ("bikkie", "megalodon"): GameLibrary(
-        Steam="/home/bikkie/.steam/steam/steamapps/common/")}
+        Steam="/home/bikkie/.steam/steam/steamapps/common/",
+        Mod="/home/bikkie/drives/ssd1/Mod/")}
 
 librarian_aliases = {
     "Jared@ITANI_WAYSOUND": "bikkie"}
