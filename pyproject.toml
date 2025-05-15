@@ -37,8 +37,9 @@ dependencies = [
 
 
 [project.optional-dependencies]
-# install with pip extras sytax; for example: `$ pip install bsp_tool[test]`
 test = ["pytest", "pytest_cov"]
+# install with pip extras syntax:
+# -- `$ pip install bsp_tool[test]`
 
 
 [project.urls]
@@ -51,5 +52,17 @@ test = ["pytest", "pytest_cov"]
 
 
 [build-system]
-requires = ["setuptools >= 40.8.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling >= 1.13"]
+build-backend = "hatchling.build"
+
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/bsp_tool/*",
+    "/tests",
+    "/CHANGELOG.md",
+]
+
+
+[tool.hatch.build.targets.wheel]
+only-packages = true
