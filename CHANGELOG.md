@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.6.0 (??? 2024)
+## v0.6.0 (15 May 2024)
 
 ### New
  * `archives`
