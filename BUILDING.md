@@ -57,9 +57,44 @@ $ unzip -l dist/*.whl
 $ python -m pip install --upgrade twine
 ```
 
-> TODO: using `twine` to upload to TestPyPI
-> TODO: using `twine` to upload to PyPI
+`~/.pypirc` can save API keys for the upload
+```ini
+[pypi]
+username = __token__
+password = pypi-SuperSecretAndVeryLongBase64PyPiAPIKey
 
+[testpypi]
+username = __token__
+password = pypi-SuperSecretAndVeryLongBase64TestPyPiAPIKey
+```
+
+> API keys can be limited to a single repository
+> you can add an entry into `~/.pypirc` for this, but it's more complex
+> not gonna explain that here
+
+### TestPyPI
+
+> add rc1 to `version` in `pyproject.toml` first!
+> helps us catch errors before the PyPI release
+
+```bash
+$ twine upload --repository testpypi dist/*
+```
+
+Then, in another folder / virtual environment
+
+```bash
+$ python3 -m pip install --index-url https://test.pypi.org/simple/ bsp_tool
+```
+
+> might have to wait a second for the latest version to upload
+
+
+### PyPI
+
+```bash
+$ twine upload dist/*
+```
 
 
 [^pf]: Python Packaging User Guide: [Package Formats](https://packaging.python.org/en/latest/discussions/package-formats/)
