@@ -1174,22 +1174,33 @@ def mesh(bsp, mesh_index: int) -> geometry.Mesh:
     # material
     material_sort = bsp.MATERIAL_SORTS[mesh.material_sort]
     texture_data = bsp.TEXTURE_DATA[material_sort.texture_data]
-    material = geometry.Material(bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index])
+    material_name = bsp.TEXTURE_DATA_STRING_DATA[texture_data.name_index]
+    material = geometry.Material(material_name)
     # indices
     start, length = mesh.first_mesh_index, mesh.num_triangles * 3
-    indices = [material_sort.vertex_offset + i for i in bsp.MESH_INDICES[start:start + length]]
+    indices = [
+        material_sort.vertex_offset + i
+        for i in bsp.MESH_INDICES[start:start + length]]
     # vertices
     vertex_lump = (mesh.flags & MeshFlags.MASK_VERTEX).name
-    converter = bsp.lit_vertex if vertex_lump.split("_")[1] == "LIT" else bsp.unlit_vertex
+    converters = {
+        "VERTEX_LIT_FLAT": bsp.lit_vertex,
+        "VERTEX_LIT_BUMP": bsp.lit_vertex,
+        "VERTEX_UNLIT": bsp.unlit_vertex,
+        "VERTEX_UNLIT_TS": bsp.unlit_vertex}
+    convert = converters[vertex_lump]
     VERTEX_LUMP = getattr(bsp, vertex_lump)
-    vertices = [converter(VERTEX_LUMP[i]) for i in indices]
+    vertices = [convert(VERTEX_LUMP[i]) for i in indices]
     return geometry.Mesh(material, geometry.triangle_soup(vertices))
 
 
 def model(bsp, model_index: int) -> geometry.Model:
     # entity
     # NOTE: not all brush entities are in the ENTITIES block
-    entities = [e for es in bsp.search_all_entities(model=f"*{model_index}").values() for e in es]
+    entities = [
+        entity
+        for entities in bsp.search_all_entities(model=f"*{model_index}").values()
+        for entity in entities]
     model_entity = entities[0] if len(entities) != 0 else dict()
     origin = model_entity.get("origin", "0 0 0")
     origin = vector.vec3(*origin.split())
@@ -1198,7 +1209,10 @@ def model(bsp, model_index: int) -> geometry.Model:
     # geometry
     model = bsp.MODELS[model_index]
     start, length = model.first_mesh, model.num_meshes
-    out = geometry.Model([bsp.mesh(i) for i in range(start, start + length)], origin, angles)
+    out = geometry.Model([
+            bsp.mesh(i)
+            for i in range(start, start + length)],
+        origin, angles)
     out.entity = model_entity
     return out
 
