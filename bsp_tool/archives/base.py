@@ -37,7 +37,7 @@ class Archive:
         to_path = "./" if to_path is None else to_path
         out_filename = os.path.join(to_path, filename)
         os.makedirs(os.path.dirname(out_filename), exist_ok=True)
-        with open(out_filename, "rb") as out_file:
+        with open(out_filename, "wb") as out_file:
             out_file.write(self.read(filename))
 
     def extract_all(self, to_path=None):
