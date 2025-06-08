@@ -121,9 +121,9 @@ class StreamBsp:
     def __repr__(self) -> str:
         major, minor = self.version
         version = f"v{major}.{minor}"
-        filename = os.path.basename(self.filename)
+        filename = self.filename
         num_materials = len(self.material_infos)
-        descriptor = f"{version} '{filename} ({num_materials} materials)'"
+        descriptor = f"{version} '{filename}' ({num_materials} materials)"
         return f"<StreamBsp {descriptor} @ 0x{id(self):016X}>"
 
     def read(self, offset: int, length: int) -> bytes:
