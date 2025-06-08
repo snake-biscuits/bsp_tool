@@ -7,12 +7,12 @@ requires-python=">=3.8"
 license = {file = "LICENSE.txt"}
 keywords = ["bsp", "quake", "source", "cod", "titanfall", "idtech"]
 authors = [
-    {name="snake-biscuits", email="haveanotherbiscuit@gmail.com"},
+    {name="snake-biscuits", email="bikkie.dev@gmx.com"},
     {name="BobTheBob"},
     {name="rexx"}
 ]
 maintainers = [
-    {name="snake-biscuits", email="haveanotherbiscuit@gmail.com"}
+    {name="snake-biscuits", email="bikkie.dev@gmx.com"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
