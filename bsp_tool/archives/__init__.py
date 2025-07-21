@@ -2,7 +2,7 @@
 __all__ = [
     "alcohol", "base", "bluepoint", "cdrom", "gearbox", "golden_hawk",
     "id_software", "infinity_ward", "ion_storm", "mame", "nexon", "padus",
-    "pi_studios", "pkware", "respawn", "ritual", "sega",
+    "pi_studios", "pkware", "respawn", "ritual", "runecraft", "sega",
     "troika", "utoplanet", "valve"]
 
 import fnmatch
@@ -25,6 +25,7 @@ from . import pi_studios  # Bpk
 from . import pkware  # Zip
 from . import respawn  # RPak & Vpk
 from . import ritual  # Sin
+from . import runecraft  # Pak
 from . import sega  # Gdi & GDRom
 from . import troika  # Vpk
 from . import utoplanet  # Apk
@@ -45,7 +46,7 @@ with_extension = {
     "*.iso": cdrom.Iso,
     "*.iwd": infinity_ward.Iwd,
     "*.mds": sega.GDRom,  # OR alcohol.Mds
-    "*.pak": id_software.Pak,  # OR ion_storm.Pak
+    "*.pak": id_software.Pak,  # OR ion_storm.Pak OR runecraft.Pak
     "*.pk3": id_software.Pk3,
     "*.pkg": nexon.Pkg,
     "*.rpak": respawn.rpak.RPak,
