@@ -4,7 +4,7 @@
 # -- partial winrar support?
 from __future__ import annotations
 import io
-from typing import List
+from typing import Dict, List
 
 from .. import core
 from ..utils import binary
@@ -17,20 +17,18 @@ from . import base
 
 # TODO: calculate values matching .pvr offsets
 class Entry(core.Struct):
-    # sum of unknown[2] is less than filesize
-    # -- 79 bytes short of the total filesize
-    # -- the last 79 bytes of FILES.PAK are NULL
-    # look like lengths, but idk
-    __slots__ = ["unknown"]
+    unknown: int  # name hash? unique for every entry
+    offset: int  # -8
+    length: int
+    __slots__ = ["unknown", "offset", "length"]
     _format = "3I"
-    _arrays = {"unknown": 3}
 
 
 class Pak(base.Archive):
     ext = "*.pak"
     _file: io.BytesIO
-    entries: List[Entry]
-    # entries: Dict[str, Entry]
+    entries: Dict[str, Entry]
+    # NOTE: names are currently placeholders
 
     def __init__(self):
         super().__init__()
@@ -40,8 +38,18 @@ class Pak(base.Archive):
         descriptor = f"{len(self.entries)} files"
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
-    # TODO: def read(self, filepath: str) -> bytes:
-    # TODO: def namelist(self) -> List[str]:
+    def read(self, filepath: str) -> bytes:
+        assert filepath in self.entries
+        entry = self.entries[filepath]
+        self._file.seek(entry.offset + 8)
+        return self._file.read(entry.length)
+
+    def namelist(self) -> List[str]:
+        return [
+            f"{entry.unknown:08X}"
+            for entry in sorted(
+                self.entries.values(),
+                key=lambda e: (e.offset, e.length))]
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Pak:
@@ -50,14 +58,13 @@ class Pak(base.Archive):
         assert stream.read(4) == b"NPCK", "not a .pak file"
         # guessing
         num_entries = binary.read_struct(stream, "I")
-        out.entries = [
-            Entry.from_stream(stream)
-            for i in range(num_entries)]
-        # vaild file data starts right after this
-        # unsure of length tho
-        # 6942 bytes of configs (likely multiple files)
-        # a few bytes of data (likely ints)
-        # sega copyright message (small text file?)
-        # not seeing any sort of filename table
-        # however plaintext files reference filenames
+        out.entries = {
+            f"{entry.unknown:08X}": entry
+            for entry in [
+                Entry.from_stream(stream)
+                for i in range(num_entries)]}
+        # NOTE: entries are listed in ascending `unknown` order
+        # -- not in offset order
+        # NOTE: some entries are 0 bytes in length
+        # NOTE: 80 blank bytes at end of file unaccounted for?
         return out
