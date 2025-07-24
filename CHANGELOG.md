@@ -2,6 +2,20 @@
 
 ## v0.7.0 (???)
 
+### New
+ * `archives`
+   - `runecraft.Pak`
+
+### Changed
+> Nothing Yet
+
+### Fixed
+ * `base.Archive.extract`
+ * `utils.binary.xxd`
+   - lines shorter than `row` are now padded
+   - `xxd_stream` no longer reads past `limit`
+
+
 ## v0.6.0 (15 May 2025)
 
 ### New
