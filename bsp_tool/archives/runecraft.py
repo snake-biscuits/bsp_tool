@@ -38,18 +38,21 @@ class Pak(base.Archive):
         descriptor = f"{len(self.entries)} files"
         return f"<{self.__class__.__name__} {descriptor} @ 0x{id(self):016X}>"
 
-    def read(self, filepath: str) -> bytes:
-        assert filepath in self.entries
-        entry = self.entries[filepath]
-        self._file.seek(entry.offset + 8)
-        return self._file.read(entry.length)
-
     def namelist(self) -> List[str]:
         return [
             f"{entry.unknown:08X}"
             for entry in sorted(
                 self.entries.values(),
                 key=lambda e: (e.offset, e.length))]
+
+    def read(self, filepath: str) -> bytes:
+        assert filepath in self.entries
+        entry = self.entries[filepath]
+        self._file.seek(entry.offset + 8)
+        return self._file.read(entry.length)
+
+    def sizeof(self, filepath: str) -> int:
+        return self.entries[filepath].length
 
     @classmethod
     def from_stream(cls, stream: io.BytesIO) -> Pak:
