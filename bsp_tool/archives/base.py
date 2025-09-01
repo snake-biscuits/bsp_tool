@@ -69,7 +69,7 @@ class Archive:
             if tuple_[:-1] == folder_tuple:
                 folder_contents.append(tuple_[-1])  # file
             elif tuple_[:len(folder_tuple)] == folder_tuple:
-                subfolder = tuple_[len(folder_tuple)] + "/"
+                subfolder = tuple_[len(folder_tuple) - 1] + "/"
                 if subfolder not in folder_contents:
                     folder_contents.append(subfolder)
         return folder_contents
@@ -311,8 +311,9 @@ class DiscImage:
         # get track lengths from filesizes (if nessecary)
         for track_index, track in enumerate(disc.tracks):
             if track.length == -1:
-                assert disc.extras[track.name].size % track.sector_size == 0
-                track.length = disc.extras[track.name].size // track.sector_size
+                file_size = disc.extras[track.name].size
+                assert file_size % track.sector_size == 0, f"{track=}, {file_size=}"
+                track.length = file_size // track.sector_size
                 disc.tracks[track_index] = track
         return disc
 
