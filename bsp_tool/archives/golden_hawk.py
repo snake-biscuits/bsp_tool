@@ -29,7 +29,6 @@ class Cue(base.DiscImage):
 
     @classmethod
     def from_lines(cls, lines: List[str]) -> Cue:
-        # NOTE: only tested on "Radirgy (JP).cue"
         out = cls()
         state = dict()
         # NOTE: we assume all metadata we need is declated before "TRACK"
