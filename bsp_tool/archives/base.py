@@ -63,16 +63,20 @@ class Archive:
         folder_tuple = path_tuple(folder)
         if folder_tuple in {path_tuple(root) for root in (".", "./", "/")}:
             folder_tuple = tuple()  # empty
-        namelist_tuples = map(path_tuple, self.namelist())
-        folder_contents = list()
-        for tuple_ in namelist_tuples:
-            if tuple_[:-1] == folder_tuple:
-                folder_contents.append(tuple_[-1])  # file
-            elif tuple_[:len(folder_tuple)] == folder_tuple:
-                subfolder = tuple_[len(folder_tuple) - 1] + "/"
-                if subfolder not in folder_contents:
-                    folder_contents.append(subfolder)
-        return folder_contents
+        folder_contents = set()
+        for fn in self.namelist():
+            path = path_tuple(fn)
+            if path[:-1] == folder_tuple:
+                base = path[-1]
+                if self.is_dir(fn):
+                    base += "/"
+                folder_contents.add(base)  # file
+            elif self.is_dir(fn):
+                continue
+            elif path[:len(folder_tuple)] == folder_tuple:  # descendant
+                subfolder = path[len(folder_tuple):][0] + "/"
+                folder_contents.add(subfolder)
+        return sorted(folder_contents)
 
     def mount_file(self, filename: str, external_file: external.File):
         self.extras[filename] = external_file
