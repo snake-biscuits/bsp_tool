@@ -92,9 +92,13 @@ class Archive:
         raise NotImplementedError("ArchiveClass has not defined .read()")
 
     def search(self, pattern="*.bsp", case_sensitive=False):
-        pattern = pattern if case_sensitive else pattern.lower()
-        namelist = self.namelist() if case_sensitive else [fn.lower() for fn in self.namelist()]
-        return fnmatch.filter(namelist, pattern)
+        if case_sensitive:
+            return [
+                path
+                for path in self.namelist()
+                if fnmatch.fnmatchcase(path, pattern)]
+        else:
+            return fnmatch.filter(self.namelist(), pattern)
 
     def sizeof(self, filename: str) -> int:
         return len(self.read(filename))
