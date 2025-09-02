@@ -290,7 +290,7 @@ class DiscImage:
         elif whence == 2:
             lba = len(self) + lba
         for track_index, track in enumerate(self.tracks):
-            if track.start_lba <= lba <= track.start_lba + track.length:
+            if track.start_lba <= lba < track.start_lba + track.length:
                 self._cursor = (track_index, lba - track.start_lba)
                 return lba
         raise RuntimeError(f"couldn't find a track containing sector: {lba}")
