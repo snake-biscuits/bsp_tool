@@ -107,105 +107,125 @@ extracted_dirs = {
         # NOTE: contains b"IDPO", quake .mdl with .bsp extension?
         # -- b_batt0.bsp? quake map sources say this is a game model?
         # -- https://www.gamers.org/dEngine/quake/spec/quake-spec32.html#CMDLF
-        "Quake": ["Id1/pak0/maps",  # 21 maps | 10 MB | .pak
-                  "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
-                  "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
-                  "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
-        "Quake/rerelease": ["id1/pak0/maps",  # 55 maps | 49 MB | .pak
-                            "id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
-                            "hipnotic/pak0/maps",  # 18 maps | 30 MB
-                            "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
-                            "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        "Quake": [
+            "Id1/pak0/maps",  # 21 maps | 10 MB | .pak
+            "Id1/pak1/maps",  # 30 maps | 31 MB | .pak
+            "hipnotic/pak0/maps",  # 18 maps | 30 MB | .pak
+            "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
+        "Quake/rerelease": [
+            "id1/pak0/maps",  # 55 maps | 49 MB | .pak
+            "id1/pak0/maps/test",  # 14 maps | 1 MB | .pak
+            "hipnotic/pak0/maps",  # 18 maps | 30 MB
+            "mg1/pak0/maps",  # 20 maps | 240 MB | .pak
+            "rogue/pak0/maps"],  # 23 maps | 28 MB | .pak
         # Quake64Bsp
         # QuakeCon 2021 PC re-release of Midway's Nintendo 64 port
-        # Download in-game (Quake Re-release) via addons; installs into %USERPROFILE%
+        # Download in-game (Quake Re-release) via addons
+        # -- installs into %USERPROFILE%
         "Quake64": ["q64/pak0/maps"],  # 32 maps | 21 MB | .pak
         # http://quake.great-site.net/
         # ReMakeQuakeBsp
-        "Alkaline": ["alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
-                     "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
-                     "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
+        "Alkaline": [
+            "alkaline/pak0/maps",  # 23 maps | 132 MB | .pak
+            "alk1.1/pak0/maps",  # 27 maps | 188 MB | .pak
+            "alkaline_dk/maps"],  # 13 maps | 792 KB | .zip
         # rome.ro Quake Map Source compiled with `ericw-tool/qbsp -2psb`
         "Quake/2psb": ["maps"],  # 62 maps | 45 MB | .zip (.map)
         # Dimension of the Past
         "Quake/rerelease/dopa": ["pak0/maps"],  # 13 maps | 25 MB | .pak
-        # TODO: Quake Arcane Dimensions (https://www.moddb.com/mods/arcane-dimensions/downloads)
+        # TODO: Quake Arcane Dimensions
+        # -- https://www.moddb.com/mods/arcane-dimensions/downloads
         # IdTechBsp
-        "Anachronox": ["maps",  # 98 maps | 377 MB | .dat
-                       "anox1.zip/maps"],  # 3 maps | 4 MB | .zip
+        "Anachronox": [
+            "maps",  # 98 maps | 377 MB | .dat
+            "anox1.zip/maps"],  # 3 maps | 4 MB | .zip
         "Daikatana": ["pak2/maps"],  # 83 maps | 291 MB | .pak
-        "DDayNormandy": ["D-Day_ Normandy/dday/maps",  # 61 maps | 135 MB | .zip
-                         "DDaynormandymaps-mappack/dday/maps"],  # 658 maps | 1.08 GB | .zip
+        "DDayNormandy": [
+            "D-Day_ Normandy/dday/maps",  # 61 maps | 135 MB | .zip
+            "DDaynormandymaps-mappack/dday/maps"],  # 658 maps | 1.08 GB | .zip
         "HereticII": ["Htic2-0.pak/maps"],  # 29 maps | 77 MB | .pak
-        "HexenII": ["pak0/maps",  # 4 maps | 6 MB | .pak
-                    "pak1/maps"],  # 38 maps | 47 MB | .pak
+        "HexenII": [
+            "pak0/maps",  # 4 maps | 6 MB | .pak
+            "pak1/maps"],  # 38 maps | 47 MB | .pak
         "Nexuiz": ["maps"],  # 39 maps | 146 MB | .pk3
-        "RTCW": ["mp_pak0.pk3/maps",  # 8 maps | 89 MB | .pk3
-                 "mp_pakmaps0.pk3/maps",  # 1 map | 8 MB | .pk3
-                 "mp_pakmaps1.pk3/maps",  # 1 map | 11 MB | .pk3
-                 "mp_pakmaps2.pk3/maps",  # 1 map | 10 MB | .pk3
-                 "mp_pakmaps3.pk3/maps",  # 1 map | 14 MB | .pk3
-                 "mp_pakmaps4.pk3/maps",  # 1 map | 16 MB | .pk3
-                 "mp_pakmaps5.pk3/maps",  # 1 map | 12 MB | .pk3
-                 "mp_pakmaps6.pk3/maps",  # 1 map | 11 MB | .pk3
-                 "pak0.pk3/maps",  # 32 maps | 234 MB | .pk3
-                 "sp_pak4.pk3/maps",  # 3 maps | 24 MB | .pk3
-                 # https://www.moddb.com/mods/realrtcw-realism-mod
-                 # https://store.steampowered.com/app/1379630/RealRTCW/
-                 "realRTCW/maps"],  # 11 maps | 85 MB
-        "SiN": ["maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
-                "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
-        "SoF": ["pak0/maps",  # 32 maps | 131 MB | .pak
-                "pak0/maps/dm",  # 20 maps | 37 MB | .pak
-                "pak2/maps/dm",  # 19 maps | 35 MB | .pak
-                "pak3/maps/dm"],  # 5 maps | 8 MB | .pak
-        "SoF2": ["maps.pk3/maps",  # 48 maps | 409 MB | .pk3
-                 "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
-                 "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
-                 "update102.pk3/maps",  # 5 maps | 51 MB | .pk3
-                 "update103.pk3/maps"],  # 4 maps | 31 MB | .pk3
-        "StarTrekEliteForce": ["pak0/maps",  # 67 maps | 334 MB | .pk3
-                               "pak1/maps",  # 4 maps | 20 MB | .pk3
-                               "pak3/maps"],  # 22 maps | 107 MB | .pk3
-        "QuakeII": ["pak0/maps",  # 39 maps | 89 MB | .pak
-                    "pak1/maps",  # 8 maps | 10 MB | .pak
-                    "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak
+        "RTCW": [
+            "mp_pak0.pk3/maps",  # 8 maps | 89 MB | .pk3
+            "mp_pakmaps0.pk3/maps",  # 1 map | 8 MB | .pk3
+            "mp_pakmaps1.pk3/maps",  # 1 map | 11 MB | .pk3
+            "mp_pakmaps2.pk3/maps",  # 1 map | 10 MB | .pk3
+            "mp_pakmaps3.pk3/maps",  # 1 map | 14 MB | .pk3
+            "mp_pakmaps4.pk3/maps",  # 1 map | 16 MB | .pk3
+            "mp_pakmaps5.pk3/maps",  # 1 map | 12 MB | .pk3
+            "mp_pakmaps6.pk3/maps",  # 1 map | 11 MB | .pk3
+            "pak0.pk3/maps",  # 32 maps | 234 MB | .pk3
+            "sp_pak4.pk3/maps",  # 3 maps | 24 MB | .pk3
+            # https://www.moddb.com/mods/realrtcw-realism-mod
+            # https://store.steampowered.com/app/1379630/RealRTCW/
+            "realRTCW/maps"],  # 11 maps | 85 MB
+        "SiN": [
+            "maps",  # 65 maps | 170 MB | .sin (.pak) | SiN: Gold
+            "download/maps"],  # 45 maps | 64 MB | .sin (.pak) | SiN mods
+        "SoF": [
+            "pak0/maps",  # 32 maps | 131 MB | .pak
+            "pak0/maps/dm",  # 20 maps | 37 MB | .pak
+            "pak2/maps/dm",  # 19 maps | 35 MB | .pak
+            "pak3/maps/dm"],  # 5 maps | 8 MB | .pak
+        "SoF2": [
+            "maps.pk3/maps",  # 48 maps | 409 MB | .pk3
+            "mp.pk3/maps",  # 10 maps | 63 MB | .pk3
+            "update101.pk3/maps",  # 4 maps | 22 MB | .pk3
+            "update102.pk3/maps",  # 5 maps | 51 MB | .pk3
+            "update103.pk3/maps"],  # 4 maps | 31 MB | .pk3
+        "StarTrekEliteForce": [
+            "pak0/maps",  # 67 maps | 334 MB | .pk3
+            "pak1/maps",  # 4 maps | 20 MB | .pk3
+            "pak3/maps"],  # 22 maps | 107 MB | .pk3
+        "QuakeII": [
+            "pak0/maps",  # 39 maps | 89 MB | .pak
+            "pak1/maps",  # 8 maps | 10 MB | .pak
+            "zaero/pak0/maps"],  # 14 maps | 36 MB | .pak
         # QuakeCon 2023 re-release
         # NOTE: pak0/maps contains a handful of QbismBsp
-        "QuakeII/rerelease": ["pak0/maps",  # 142 maps | 1.1 GB | .pak
-                              "pak0/maps/e3",  # 10 maps | 18 MB | .pak
-                              "pak0/maps/ec",  # 10 maps | 38 MB | .pak
-                              "pak0/maps/old",  # 11 maps | 62 MB | .pak
-                              "pak0/maps/q64",  # 30 maps | 23 MB | .pak
-                              "pak0/maps/test"],  # 19 maps | 5 MB | .pak
-        "QuakeIII": ["baseq3/pak0.pk3/maps",  # 31 maps | 110 MB | .pk3
-                     "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
-                     # "baseq3/pak4.pk3/maps",  # only .aas files
-                     "baseq3/pak6.pk3/maps",  # 4 maps | 14 MB | .pk3
-                     "missionpack/pak0.pk3/maps",  # 21 maps | 150 MB | .pk3
-                     # https://web.archive.org/web/20030207191220/http://www.interscope.com/quake/
-                     "chronic/maps"],  # 1 map | 2.9 MB | .pk3
+        "QuakeII/rerelease": [
+            "pak0/maps",  # 142 maps | 1.1 GB | .pak
+            "pak0/maps/e3",  # 10 maps | 18 MB | .pak
+            "pak0/maps/ec",  # 10 maps | 38 MB | .pak
+            "pak0/maps/old",  # 11 maps | 62 MB | .pak
+            "pak0/maps/q64",  # 30 maps | 23 MB | .pak
+            "pak0/maps/test"],  # 19 maps | 5 MB | .pak
+        "QuakeIII": [
+            "baseq3/pak0.pk3/maps",  # 31 maps | 110 MB | .pk3
+            "baseq3/pak2.pk3/maps",  # 2 maps | 7 MB | .pk3
+            # "baseq3/pak4.pk3/maps",  # only .aas files
+            "baseq3/pak6.pk3/maps",  # 4 maps | 14 MB | .pk3
+            "missionpack/pak0.pk3/maps",  # 21 maps | 150 MB | .pk3
+            # https://web.archive.org/web/20030207191220/http://www.interscope.com/quake/
+            "chronic/maps"],  # 1 map | 2.9 MB | .pk3
         # TODO: Quake Champions .pak (Saber3D)
         "QuakeLive": ["pak00/maps"],  # 149 maps | 764 MB | .pk3
         # https://www.splashdamage.com/games/wolfenstein-enemy-territory/
-        "WolfET": ["pak0.pk3/maps",  # 6 maps | 86 MB | .pk
-                   # https://www.moddb.com/mods/et/downloads/etsp
-                   "singleplayer/maps",  # 32 maps | 288 MB | .pk3
-                   # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
-                   "realRTCW_singleplayer/maps"],  # 2 maps | 31 MB | .pk3
+        "WolfET": [
+            "pak0.pk3/maps",  # 6 maps | 86 MB | .pk
+            # https://www.moddb.com/mods/et/downloads/etsp
+            "singleplayer/maps",  # 32 maps | 288 MB | .pk3
+            # steamapps\workshop\content\1379630\2600685791 (realRTCW workshop)
+            "realRTCW_singleplayer/maps"],  # 2 maps | 31 MB | .pk3
         "WRATH": ["pak002.pk3/maps"],  # 7 maps | 395 MB | .pk3
         "Xonotic": ["maps"],  # 28 maps | 188 MB | .pk3
         # FusionBSP
-        "Warfork": ["warfork/basewf/data1_21pure.pk3/maps",  # 43 maps | 558 MB | .pk3
-                    "warfork-testing/basewf/maps"],  # 43 maps | 558 MB | awful dir tree
+        "Warfork": [
+            "warfork/basewf/data1_21pure.pk3/maps",  # 43 maps | 558 MB | .pk3
+            "warfork-testing/basewf/maps"],  # 43 maps | 558 MB | awful dir tree
         "Warsow": ["maps"],  # 38 maps | 463 MB | .pk3
         # InfinityWardBsp
         "CoD1Demo/burnville": ["maps"],  # 1 map | 13 MB | .pk3
         "CoD1Demo/dawnville": ["maps"],  # 1 map | 16 MB | .pk3
-        "CoD1": ["maps",  # 33 maps | 488 MB | .pk3
-                 "maps/MP"],  # 16 maps | 229 MB | .pk3
-        "CoD2": ["maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
-                 "maps/mp"],  # 15 maps | 395 MB | .iwd  | .d3dbsp
+        "CoD1": [
+            "maps",  # 33 maps | 488 MB | .pk3
+            "maps/MP"],  # 16 maps | 229 MB | .pk3
+        "CoD2": [
+            "maps",  # 39 maps | 1.5 GB | .iwd | .d3dbsp
+            "maps/mp"],  # 15 maps | 395 MB | .iwd  | .d3dbsp
         # D3DBsp
         # TODO: Extract CoD4 maps from .ff archives
         # https://wiki.zeroy.com/index.php?title=Call_of_Duty_4:_FastFile_Format
@@ -482,90 +502,120 @@ extracted_dirs = {
         "Amsterdoom": ["Levels"]}  # 23 maps | 76.2 MB | .iso
 # ^ {"game_dir": ["map_dir"]}
 
+sourcemod_dirs = {
+    mod: ["maps"] for mod in [
+          "gesource",  # 26 maps | 775 MB | GoldenEye: Source
+          "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
+          # Run Think Shoot Live
+          "TFTS",  # 3 maps | 8 MB | Tales from the Source
+          # Map Labs
+          "episodeone",  # 15 maps | 268 MB | Map Labs 2 + Test Tube 15
+          "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs 3
+          "cromulentville2",  # 21 maps | 342 MB | Test Tube 7
+          "companionpiece2",  # 18 maps | 429 MB | Map Labs 8
+          "eyecandy",   # 41 maps | 652 MB | Test Tube 8
+          "backontrack",  # 32 maps | 787 MB | Map Labs 9
+          "tworooms",  # 39 maps | 496 MB | Test Tube 9
+          "fusionville2",  # 21 maps | 391 MB | Map Labs 10
+          "tunetwo",  # 12 maps | 114 MB | Test Tube 13
+          "lvl2",  # 14 maps | 461 MB | Map Labs 15
+          "thewrapuptwo",  # 27 maps | 226 MB | Test Tube 15
+          "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
+          "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
+          "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
 # https://geshl2.com
 # https://www.moddb.com/mods/riot-act
 # https://www.moddb.com/mods/map-labs
-# TODO: https://openfortress.fun, https://prefortress.ml & https://tf2classic.com  (all currently unavailable)
-sourcemod_dirs = {mod: ["maps"] for mod in [
-                      "gesource",  # 26 maps | 775 MB | GoldenEye: Source
-                      "half-life 2 riot act",  # 5 maps | 159 MB | HL2: Riot Act
-                      # Run Think Shoot Live
-                      "TFTS",  # 3 maps | 8 MB | Tales from the Source
-                      # Map Labs
-                      "episodeone",  # 15 maps | 268 MB | Map Labs 2 + Test Tube 15
-                      "RunThinkShootLiveVille2",  # 19 maps | 728 MB | Map Labs 3
-                      "cromulentville2",  # 21 maps | 342 MB | Test Tube 7
-                      "companionpiece2",  # 18 maps | 429 MB | Map Labs 8
-                      "eyecandy",   # 41 maps | 652 MB | Test Tube 8
-                      "backontrack",  # 32 maps | 787 MB | Map Labs 9
-                      "tworooms",  # 39 maps | 496 MB | Test Tube 9
-                      "fusionville2",  # 21 maps | 391 MB | Map Labs 10
-                      "tunetwo",  # 12 maps | 114 MB | Test Tube 13
-                      "lvl2",  # 14 maps | 461 MB | Map Labs 15
-                      "thewrapuptwo",  # 27 maps | 226 MB | Test Tube 15
-                      "halloweenhorror4",  # 25 maps | 274 MB | Map Labs 16
-                      "halflifeeternal",  # 13 maps | 123 MB | Test Tube 16
-                      "thelayout"]}  # 13 maps | 356 MB | Map Labs 17
+# TODO: (scared into hiding by valve)
+# -- https://openfortress.fun
+# -- https://prefortress.ml
+# -- https://tf2classic.com
 
 # consoles
-dreamcast_dirs = {"Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
-                  "SoF": ["maps"],  # 117 maps | 171 MB | .gdi
-                  "QuakeIII": ["maps"]}  # 38 maps | 64 MB | .zip
+dreamcast_dirs = {
+    "Paranoia": ["maps"],  # 54 maps | 77 MB | .cdi
+    "SoF": ["maps"],  # 117 maps | 171 MB | .gdi
+    "QuakeIII": ["maps"]}  # 38 maps | 64 MB | .zip
+
+ps4_dirs = {
+    "Titanfall2": [
+        "maps",  # 24 maps | 10.6 GB | .vpk
+        "depot/r2dlc3/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc4/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc5/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc6/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc7/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc8/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc9/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc10/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2dlc11/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2pcprecert/game/r2/maps",  # 1 map | 764 MB | .vpk
+        "depot/r2ps4precert/game/r2/maps",  # 24 maps | 10.5 GB | .vpk
+        "depot/r2staging/game/r2/maps"],  # 1 map | 764 MB | .vpk
+    # CUSA05988 R2PS4_TechTest_24 (v2.0.0.24)
+    "Titanfall2_tech_test": [
+        "maps",  # 5 maps | 1.14 GB | .vpk
+        "depot/r2tt/game/r2/maps"]}  # 5 maps | 1.14 GB | .vpk
 # extracted with the help of Taskinoz
-ps4_dirs = {"Titanfall2": ["maps",  # 24 maps | 10.6 GB | .vpk
-                           "depot/r2dlc3/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc4/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc5/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc6/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc7/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc8/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc9/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc10/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2dlc11/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2pcprecert/game/r2/maps",  # 1 map | 764 MB | .vpk
-                           "depot/r2ps4precert/game/r2/maps",  # 24 maps | 10.5 GB | .vpk
-                           "depot/r2staging/game/r2/maps"],  # 1 map | 764 MB | .vpk
-            # CUSA05988 R2PS4_TechTest_24 (v2.0.0.24)
-            "Titanfall2_tech_test": ["maps",  # 5 maps | 1.14 GB | .vpk
-                                     "depot/r2tt/game/r2/maps"]}  # 5 maps | 1.14 GB | .vpk
-# TODO: ApexLegends/season8-present
-switch_dirs = {"ApexLegends/season9": ["maps",  # 7 maps | 2.4 GB | .vpk
-                                       "depot/r5-90/game/r2/maps"]}  # 7 maps | 2.3 GB | .vpk
-xbox_dirs = {"Half-Life2": ["GameMedia/maps"]}  # 90 maps | 415 MB | .iso
+
+switch_dirs = {
+    # TODO: ApexLegends/season8-present
+    "ApexLegends/season9": [
+        "maps",  # 7 maps | 2.4 GB | .vpk
+        "depot/r5-90/game/r2/maps"]}  # 7 maps | 2.3 GB | .vpk
+
+xbox_dirs = {
+    "Half-Life2": [
+        "GameMedia/maps"]}  # 90 maps | 415 MB | .iso
+
+x360_dirs = {
+    "Left4Dead": [
+        "left4dead/maps"],  # 44 maps | 295 MB
+    "Left4Dead2": [
+        "left4dead2/maps"],  # 23 maps | 196 MB
+    "OrangeBox": [
+        "ep2/maps",  # 22 maps | 134 MB
+        "episodic/maps",  # 18 maps | 121 MB
+        "hl2/maps",  # 76 maps | 376 MB
+        "portal/maps",  # 26 maps | 99 MB
+        "tf/maps"],  # 7 maps | 88 MB
+    "Portal2": ["portal2/maps"]}  # 105 maps | 532 MB
 # extracted from xisos; a very painful process
 # TODO: CS:GO, DarkMessiah: Elements, Titanfall
-# -- DarkMessiah of Might & Magic Elements maps are in .bf / .bfm files / archives?
-# -- file data is unknown, might require significant reverse engineering to extract .bsps, if possible
-# -- Titanfall maps are in .bpk files, decrypter (TitanfallVPKTool) has a buffer limit so files are incomplete
-x360_dirs = {"Left4Dead": ["left4dead/maps"],  # 44 maps | 295 MB
-             "Left4Dead2": ["left4dead2/maps"],  # 23 maps | 196 MB
-             "OrangeBox": ["ep2/maps",  # 22 maps | 134 MB
-                           "episodic/maps",  # 18 maps | 121 MB
-                           "hl2/maps",  # 76 maps | 376 MB
-                           "portal/maps",  # 26 maps | 99 MB
-                           "tf/maps"],  # 7 maps | 88 MB
-             "Portal2": ["portal2/maps"]}  # 105 maps | 532 MB
+# -- DarkMessiah of Might & Magic Elements  (`*.bf[m]` archives?)
+# -- Titanfall maps are in .bpk files
+# -- TitanfallVPKTool extracts, but hits a buffer limit (trailing 0s)
 
 # NOTE: ls $group_dir+$game_dir+$maps_dir
-group_dirs = {"C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
-              "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
-              "E:/Mod": extracted_dirs,
-              # console groups
-              "E:/Mod/Dreamcast": dreamcast_dirs,
-              "E:/Mod/PS4": ps4_dirs,
-              "E:/Mod/Switch": switch_dirs,
-              "E:/Mod/Xbox": xbox_dirs,
-              "E:/Mod/X360": x360_dirs,
-              # backup dirs; created with backup_bsps.py
-              # "F:/bsps": every_bsp_dir,
-              # "/media/bikkie/GAMES/bsps": every_bsp_dir
-              }
+group_dirs = {
+    "C:/Program Files (x86)/Steam/steamapps/sourcemods": sourcemod_dirs,
+    "D:/SteamLibrary/steamapps/common": {**goldsrc_dirs, **source_dirs},
+    "E:/Mod": extracted_dirs,
+    # console groups
+    "E:/Mod/Dreamcast": dreamcast_dirs,
+    "E:/Mod/PS4": ps4_dirs,
+    "E:/Mod/Switch": switch_dirs,
+    "E:/Mod/Xbox": xbox_dirs,
+    "E:/Mod/X360": x360_dirs,
+    # backup dirs; created with backup_bsps.py
+    # "F:/bsps": every_bsp_dir,
+    # "/media/bikkie/GAMES/bsps": every_bsp_dir,
+}
 
 # registering tests/maps first
-installed_games = {("./tests/maps", game): [""] for game in os.listdir("./tests/maps/") if game != "Xbox360"}
-installed_games.update({("./tests/maps", "Call of Duty 4"): ["", "mp"]})
-installed_games.update({("./tests/maps", f"Xbox360/{game}"): [""] for game in os.listdir("./tests/maps/Xbox360")})
-installed_games.pop(("./tests/maps", "Xbox360/The Orange Box"))  # failing
+installed_games = {
+    ("./tests/maps", game): [""]
+    for game in os.listdir("./tests/maps/")
+    if game != "Xbox360"}
+installed_games.update({
+    ("./tests/maps", "Call of Duty 4"): ["", "mp"]})
+installed_games.update({
+    ("./tests/maps", f"Xbox360/{game}"): [""]
+    for game in os.listdir("./tests/maps/Xbox360")})
+# skip (bad SPRP):
+installed_games.pop(
+    ("./tests/maps", "Xbox360/The Orange Box"))
+
 # add only the installed games from each group to tests
 for group, games in group_dirs.items():
     if os.path.exists(group):

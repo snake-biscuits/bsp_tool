@@ -1,7 +1,10 @@
 """Index of all known .bsp format variants"""
-__all__ = ["ace_team", "arkane", "gearbox", "id_software", "infinity_ward", "ion_storm", "loiste", "nexon",
-           "outerlight", "raven", "respawn", "ritual", "strata", "troika", "utoplanet", "valve", "wild_tangent",
-           "developers", "with_magic", "identify", "game_branch", "quake_based", "source_based", "of_engine"]
+__all__ = [
+    "ace_team", "arkane", "gearbox", "id_software", "infinity_ward",
+    "ion_storm", "loiste", "nexon", "outerlight", "raven", "respawn",
+    "ritual", "strata", "troika", "utoplanet", "valve", "wild_tangent",
+    "developers", "with_magic", "identify", "game_branch",
+    "quake_based", "source_based", "of_engine"]
 
 from . import ace_team
 from . import arkane
@@ -27,8 +30,9 @@ from . import wild_tangent
 
 
 developers = (
-    ace_team, arkane, gearbox, id_software, infinity_ward, ion_storm, loiste, nexon,
-    outerlight, raven, respawn, ritual, strata, troika, utoplanet, valve, wild_tangent)
+    ace_team, arkane, gearbox, id_software, infinity_ward,
+    ion_storm, loiste, nexon, outerlight, raven, respawn,
+    ritual, strata, troika, utoplanet, valve, wild_tangent)
 
 # NOTE: we could generate this list, but it makes for nice documentation
 with_magic = {
@@ -67,7 +71,7 @@ with_magic = {
         utoplanet.merubasu,
         valve.alien_swarm, valve.left4dead, valve.left4dead2,
         valve.orange_box, valve.sdk_2013, valve.source,
-        valve.source_filmmaker]}
+        valve.source_filmmaker, valve.source_xbox]}
 
 # TODO: with_magic_version defaultdict(set)
 # ^ {(file_magic, version): {branch_script}}
@@ -87,6 +91,8 @@ identify[(b"IBSP", 41)] = ion_storm.daikatana
 # ^ NOT ritual.sin (though 1 such map exists in megatest)
 identify[(b"IBSP", 46)] = id_software.quake3
 # ^ NOT raven.soldier_of_fortune
+identify[(b"VBSP", 19)] = valve.source
+# ^ NOT valve.source_xbox
 identify[(b"VBSP", 20)] = valve.orange_box
 # ^ NOT nexon.vindictus OR nexon.vindictus69 OR outerlight.outerlight
 # -- OR utoplanet.merubasu OR valve.left4dead
@@ -106,36 +112,82 @@ for developer in developers:
 
 # branch groups
 source_magics = (b"PSBV", b"PSBr", b"VBSP", b"rBSP")
-source_based = {bs for magic, bss in with_magic.items() for bs in bss if magic in source_magics}
-# NOTE: all source_based branches have "version" in LumpHeader
-quake_based = {bs for magic, bss in with_magic.items() for bs in bss if magic not in source_magics}
-# NOTE: all quake_based lumps are unversioned
+
+source_based = {
+    branch_script
+    for magic, branch_scripts in with_magic.items()
+    for branch_script in branch_scripts
+    if magic in source_magics}
+# NOTE: source_based LumpHeader has "version"
+
+quake_based = {
+    branch_script
+    for magic, branch_scripts in with_magic.items()
+    for branch_script in branch_scripts
+    if magic not in source_magics}
+# NOTE: quake_based LumpHeader doesn't have "version"
+
 x360_magics = (b"PSBV", b"PSBr")
-big_endian = {bs for magic, bss in with_magic.items() for bs in bss if magic in x360_magics}
-little_endian = {bs for magic, bss in with_magic.items() for bs in bss if magic not in x360_magics}
+
+big_endian = {
+    branch_script
+    for magic, branch_scripts in with_magic.items()
+    for branch_script in branch_scripts
+    if magic in x360_magics}
+
+little_endian = {
+    branch_script
+    for magic, branch_scripts in with_magic.items()
+    for branch_script in branch_scripts
+    if magic not in x360_magics}
 
 of_engine = {
-    "Genesis3D": {wild_tangent.genesis3d},
-    "GoldSrc": {valve.goldsrc, *gearbox.scripts},
+    "Genesis3D": {
+        wild_tangent.genesis3d},
+    "GoldSrc": {
+        valve.goldsrc,
+        *gearbox.scripts},
     "Id Tech 2": {
-        id_software.quake, id_software.quake2, id_software.quake64,
-        ion_storm.daikatana, raven.hexen2, ritual.sin},
+        id_software.quake,
+        id_software.quake2,
+        id_software.quake64,
+        ion_storm.daikatana,
+        raven.hexen2,
+        ritual.sin},
     "Id Tech 3": {
-        id_software.quake3, id_software.qfusion,
-        *raven.scripts, *ritual.scripts},
-    "IW": {*infinity_ward.scripts},
-    "IW 1.0": {infinity_ward.call_of_duty1_demo, infinity_ward.call_of_duty1},
-    "IW 2.0": {infinity_ward.call_of_duty2},
-    "IW 3.0": {infinity_ward.modern_warfare},
-    "ReMakeQuake": {id_software.remake_quake, id_software.remake_quake_old},
-    "Source": {*source_based},
-    "Titanfall": {*respawn.scripts},
-    "Quake": {id_software.quake, id_software.quake64, raven.hexen2},
-    "Quake 2": {id_software.quake2, ion_storm.daikatana, id_software.qbism}}
+        id_software.quake3,
+        id_software.qfusion,
+        *raven.scripts,
+        *ritual.scripts},
+    "IW": {
+        *infinity_ward.scripts},
+    "IW 1.0": {
+        infinity_ward.call_of_duty1_demo,
+        infinity_ward.call_of_duty1},
+    "IW 2.0": {
+        infinity_ward.call_of_duty2},
+    "IW 3.0": {
+        infinity_ward.modern_warfare},
+    "ReMakeQuake": {
+        id_software.remake_quake,
+        id_software.remake_quake_old},
+    "Source": {
+        *source_based},
+    "Titanfall": {
+        *respawn.scripts},
+    "Quake": {
+        id_software.quake,
+        id_software.quake64,
+        raven.hexen2},
+    "Quake 2": {
+        id_software.quake2,
+        ion_storm.daikatana,
+        id_software.qbism}}
 
 of_engine["Id Tech 3"] -= {ritual.sin}  # Quake 2 / Id Tech 2
 of_engine["Source"] -= {*respawn.scripts}  # Titanfall
 
+# Genesis3D
 #      /-> ReMakeQuake
 # Quake -> GoldSrc
 #      \-> Quake 2 -> Id Tech 3 -> IW
