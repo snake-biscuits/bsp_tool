@@ -7,7 +7,8 @@
    - `runecraft.Pak`
 
 ### Changed
-> Nothing Yet
+ * `lightmaps`
+   - unloaded if `Pillow` isn't installed
 
 ### Fixed
  * `base.Archive.extract`
