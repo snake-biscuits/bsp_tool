@@ -1,7 +1,7 @@
 """A library for .bsp file analysis & modification"""
 __all__ = [
     "archives", "autodetect", "base", "branches", "core",
-    "extensions", "lightmaps", "lumps", "scene",
+    "extensions", "lumps", "scene",
     "load_bsp",
     "D3DBsp", "FusionBsp", "Genesis3DBsp", "GoldSrcBsp", "IdTechBsp",
     "InfinityWardBsp", "NexonBsp", "QbismBsp", "QuakeBsp", "Quake64Bsp",
@@ -16,7 +16,6 @@ from . import base  # base.Bsp
 from . import branches
 from . import core
 from . import extensions
-from . import lightmaps
 from . import lumps
 from . import scene
 # BspClasses
@@ -29,6 +28,13 @@ from .ritual import RitualBsp
 from .nexon import NexonBsp
 from .valve import GoldSrcBsp, ValveBsp
 from .wild_tangent import Genesis3DBsp
+
+# dependency check
+import importlib.util
+if importlib.util.find_spec("PIL") is not None:
+    from . import lightmaps  # noqa F401
+
+    __all__.extend(["lightmaps"])
 
 
 def load_bsp(filename: str, force_branch: ModuleType = None) -> base.Bsp:
