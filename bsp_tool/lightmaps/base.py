@@ -3,9 +3,14 @@ import collections
 import fnmatch
 import math
 import os
+import sys
+import subprocess
 from typing import Any, Dict, List, Tuple, Union
 
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:
+    python_exe = os.path.join(sys.prefix, "bin", "python.exe")
 
 
 LightmapID = Union[str, Tuple[str, int]]

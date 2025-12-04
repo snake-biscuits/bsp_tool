@@ -1,6 +1,12 @@
 from . import base
+import sys
+import os
+import subprocess
 
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:
+    python_exe = os.path.join(sys.prefix, "bin", "python.exe")
 
 
 # NOTE: Unsure why internal LIGHTMAP_DATA_REAL_TIME_LIGHTS needs 9 bytes per texel (RTL_C)

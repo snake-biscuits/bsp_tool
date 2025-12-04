@@ -1,7 +1,12 @@
 from . import base
+import sys
+import os
+import subprocess
 
-from PIL import Image
-
+try:
+    from PIL import Image
+except ImportError:
+    python_exe = os.path.join(sys.prefix, "bin", "python.exe")
 
 # TODO: different seasons use different lightmap formats
 # -- which seasons does this work for then?

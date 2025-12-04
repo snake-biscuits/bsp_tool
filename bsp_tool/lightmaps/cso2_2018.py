@@ -1,6 +1,12 @@
 from . import base
+import sys
+import os
+import subprocess
 
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:
+    python_exe = os.path.join(sys.prefix, "bin", "python.exe")
 
 
 def face_lightmaps(bsp) -> base.LightmapCollection:
