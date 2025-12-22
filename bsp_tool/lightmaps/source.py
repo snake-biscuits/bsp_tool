@@ -17,6 +17,10 @@ def face_lightmaps(bsp) -> base.LightmapCollection:
             continue  # face is not lightmapped
         # TODO: if face.styles > 1: collect multiple lightmaps
         width, height = map(int, [s + 1 for s in face.lightmap.size])
+        if face.displacement_info != -1:
+            # 2x2 grid of samples, sliced at different heights?
+            # NOTE: determined from gaps between light_offset values
+            width, height = width * 2, height * 2
         start, length = face.light_offset, width * height * 4
         if has_ldr:
             texels = bytes(bsp.LIGHTING[start:start + length])
