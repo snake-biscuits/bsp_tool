@@ -633,6 +633,7 @@ BASIC_LUMP_CLASSES.update({
     "CSM_OBJ_REFERENCES":   {0: shared.UnsignedInts},
     "CUBEMAPS_AMBIENT_RCP": {0: shared.Floats},
     "HEIGHTFIELD_SAMPLES":  {0: shared.UnsignedShorts},
+    "OBJ_REFERENCES":       {0: shared.UnsignedInts},
     "UNKNOWN_38":           {0: shared.UnsignedInts},
     "UNKNOWN_39":           {0: shared.Shorts},
     "WATER_BODY_INDICES":   {0: shared.UnsignedShorts}})
