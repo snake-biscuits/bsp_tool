@@ -114,7 +114,8 @@ class LumpOverrides:
         out.lump_files = {
             out.file_lump(filename, file): file
             for filename, file in bsp.extras.items()}
-        out.lump_files.pop(None)  # RespawnBsp .ent etc.
+        if None in out.lump_files:
+            out.lump_files.pop(None)  # RespawnBsp .ent etc.
         # mount lumps
         for lump_name, file in out.lump_files.items():
             header = bsp.headers[lump_name]
