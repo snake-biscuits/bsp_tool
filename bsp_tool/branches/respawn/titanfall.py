@@ -1307,10 +1307,8 @@ def portals_as_prt(bsp) -> str:
 
 
 def portal_mesh(bsp, portal_index: int) -> geometry.Mesh:
-    # NOTE: Portal -> PortalVertexRef -> PortalVertex
-    # -- ignoring PortalEdge for now
-    material = geometry.Material("portal")
     portal = bsp.PORTALS[portal_index]
+    material = geometry.Material(f"{portal.type.name}_portal")
     normal = bsp.PLANES[portal.plane].normal
     start = portal.first_reference
     end = start + portal.num_edges
