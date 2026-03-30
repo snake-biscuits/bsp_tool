@@ -7,17 +7,15 @@ from ... import files
 
 
 bsps = {
-    # **files.local_bsps(
-    #     RespawnBsp, {
-    #         titanfall: [
-    #             "Titanfall"]}),
     **files.library_bsps(
         RespawnBsp, {
             titanfall: {
                 "Mod": {
                     "Titanfall": [
-                        "Titanfall/maps/"]}}})}
-# TODO: test Titanfall: Online maps too
+                        # NOTE: skipping depots, they should be fine
+                        "Titanfall/maps/"],
+                    "Titanfall: Online": [
+                        "TitanfallOnline/maps/"]}}})}
 
 
 # TODO: test LumpClasses are valid
@@ -26,7 +24,7 @@ bsps = {
 
 class TestConstants:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
-    def test_PortalVertex_0(self, bsp: RespawnBsp):
+    def test_first_portal_vertex_is_origin_point(self, bsp: RespawnBsp):
         assert bsp.PORTAL_VERTICES[0] == (0, 0, 0)
 
 

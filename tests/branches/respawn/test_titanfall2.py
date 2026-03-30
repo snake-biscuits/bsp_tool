@@ -16,6 +16,7 @@ bsps = {
             titanfall2: {
                 "Mod": {
                     "Titanfall 2": [
+                        # NOTE: skipping depots, they should be fine
                         "Titanfall2/maps/"]}}})}
 
 
@@ -25,7 +26,7 @@ bsps = {
 
 class TestConstants:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
-    def test_PortalVertex_0(self, bsp: RespawnBsp):
+    def test_first_portal_vertex_is_origin_point(self, bsp: RespawnBsp):
         if not hasattr(bsp, "PORTAL_VERTICES"):
             pytest.skip("MRVN-Radiant bsp has no PortalVertices stub")
         assert bsp.PORTAL_VERTICES[0] == (0, 0, 0)
