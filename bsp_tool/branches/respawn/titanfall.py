@@ -205,20 +205,28 @@ LumpHeader = source.LumpHeader
 #               /-> Cell
 #              /--> Plane
 # Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertex
+#    \         \--> PortalVertexReferences -> PortalVertex
 #     \-> LeafWaterData -> TextureData (water material)
 
-# PortalEdgeIntersect -> PortalEdge?
-#                    \-> PortalVertex
-# PortalEdgeIntersectHeader -> ???
+# PortalVertexEdge is parallel with PortalVertex
+
+#                 /-> PortalEdge
+# PortalVertexEdge -> PortalEdgeIntersectHeader
+
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
+
+# PortalEdgeIntersectHeader -> PortalEdgeIntersectAtEdge -> PortalEdge
+#                          \-> PortalEdgeIntersectAtVertex -> PortalVertex
+
+# Edges are pairs of indices into PortalVertex
+# Either index in a pair can be indexed by PortalEdgeReferences
+# Zipping the VertexRefs loop with the EdgeRefs loop gives the inverse winding
+# You will get edges flowing the opposite way to the vertex loop
+# Some will overshoot the vertices of the loop
+# However, this shape will still outline the loop of the portal
 
 # NOTE: Titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
 # -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
-
-# PortalEdgeReference is parallel w/ PortalVertexReference (2x PortalEdges)
-
-# PortalVertexEdges -> PortalEdges (list up to 8 edges each PortalVertex is indexed by)
-# PortalVertexEdges is Parallel w/ PortalVertices
 
 # CM_* (presumed: Clip Model)
 # GM_GRID holds world bounds & other metadata
