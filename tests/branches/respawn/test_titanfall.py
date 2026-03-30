@@ -1,5 +1,5 @@
 from bsp_tool import RespawnBsp
-from bsp_tool.branches.respawn import titanfall2
+from bsp_tool.branches.respawn import titanfall
 
 import pytest
 
@@ -7,16 +7,17 @@ from ... import files
 
 
 bsps = {
-    **files.local_bsps(
-        RespawnBsp, {
-            titanfall2: [
-                "Titanfall 2"]}),
+    # **files.local_bsps(
+    #     RespawnBsp, {
+    #         titanfall: [
+    #             "Titanfall"]}),
     **files.library_bsps(
         RespawnBsp, {
-            titanfall2: {
+            titanfall: {
                 "Mod": {
-                    "Titanfall 2": [
-                        "Titanfall2/maps/"]}}})}
+                    "Titanfall": [
+                        "Titanfall/maps/"]}}})}
+# TODO: test Titanfall: Online maps too
 
 
 # TODO: test LumpClasses are valid
@@ -26,8 +27,6 @@ bsps = {
 class TestConstants:
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_PortalVertex_0(self, bsp: RespawnBsp):
-        if not hasattr(bsp, "PORTAL_VERTICES"):
-            pytest.skip("MRVN-Radiant bsp has no PortalVertices stub")
         assert bsp.PORTAL_VERTICES[0] == (0, 0, 0)
 
 
@@ -52,8 +51,6 @@ class TestLumpParallel:
 
     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
     def test_portal_vertices(self, bsp: RespawnBsp):
-        if not hasattr(bsp, "PORTAL_VERTICES"):
-            pytest.skip("MRVN-Radiant bsp has no PortalVertexEdges stub")
         assert len(bsp.PORTAL_VERTEX_EDGES) == len(bsp.PORTAL_VERTICES)
 
 
@@ -118,7 +115,6 @@ class TestLumpIndexing:
 # TODO:
 # -- use PortalVertexRefs -> PortalVerts + PortalVertexEdges to find a loop
 # -- test PortalVertex[1]'s edges reference both ways in PortalVertexEdges
-
 
 # class TestMethods:
 #     @pytest.mark.parametrize("bsp", bsps.values(), ids=bsps.keys())
