@@ -1291,15 +1291,16 @@ def occlusion_mesh(bsp) -> geometry.Mesh:
 
 
 def portals_as_prt(bsp) -> str:
+    # https://developer.valvesoftware.com/wiki/PRT
     out = [
         "PRT1",
-        f"{len(bsp.CELLS)}",  # TODO: skip unindexed cells?
-        f"{len([p for p in bsp.PORTALS if p.type == PortalType.CELL])}"]
+        f"{len(bsp.CELLS)}",
+        f"{len([p for p in bsp.PORTALS if p.type != PortalType.SKYBOX])}"]
     for i, cell in enumerate(bsp.CELLS):
         start, length = cell.first_portal, cell.num_portals
         for portal in bsp.PORTALS[start:start + length]:
-            if portal.type != PortalType.CELL:
-                continue  # ignore SKYBOX & WATER portals
+            if portal.type == PortalType.SKYBOX:
+                continue  # cell reference is out of bounds
             start, length = portal.first_reference, portal.num_edges
             start = portal.first_reference
             end = start + portal.num_edges
@@ -1307,6 +1308,7 @@ def portals_as_prt(bsp) -> str:
                 bsp.PORTAL_VERTICES[i]
                 for i in bsp.PORTAL_VERTEX_REFERENCES[start:end]]
             out.append(" ".join([
+                # num_vertices from_cell to_cell (x y z)
                 f"{len(polygon)} {i} {portal.cell}",
                 *[
                     f"({vertex.x} {vertex.y} {vertex.z})"
