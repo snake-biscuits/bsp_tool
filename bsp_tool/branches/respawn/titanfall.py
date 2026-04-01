@@ -149,8 +149,8 @@ class LUMP(enum.Enum):
     PORTAL_VERTEX_EDGES = 0x006F
     PORTAL_VERTEX_REFERENCES = 0x0070
     PORTAL_EDGE_REFERENCES = 0x0071
-    PORTAL_EDGE_INTERSECT_AT_EDGE = 0x0072
-    PORTAL_EDGE_INTERSECT_AT_VERTEX = 0x0073
+    PORTAL_EDGE_INTERSECT_EDGE = 0x0072
+    PORTAL_EDGE_INTERSECT_VERTEX = 0x0073
     PORTAL_EDGE_INTERSECT_HEADER = 0x0074
     OCCLUSION_MESH_VERTICES = 0x0075
     OCCLUSION_MESH_INDICES = 0x0076
@@ -582,6 +582,24 @@ class GridCell(core.MappedArray):  # LUMP 86 (0056)
     _format = "2H"
 
 
+class IntersectHeader(core.MappedArray):  # LUMP 116 (0074)
+    """Confirmed by rexx#1287"""
+    first_set: int  # index into PortalEdgeIntersectEdges/Vertices
+    num_sets: int
+    _mapping = ["first_set", "num_sets"]
+    _format = "2I"
+
+
+class IndexSet(core.Struct):  # LUMPS 111, 114 & 115 (006F, 0072 & 0073)
+    """Identified by rexx#1287"""
+    # variable length list
+    # grouped in lumps 114 & 115 for longer sets
+    indices: List[int]  # -1 for None
+    __slots__ = ["indices"]
+    _format = "8h"
+    _arrays = {"indices": 8}
+
+
 # NOTE: only one 28 byte entry per file
 class LevelInfo(core.Struct):  # LUMP 123 (007B)
     """Identified by Fifty"""
@@ -719,34 +737,16 @@ class ObjRefBounds(core.Struct):  # LUMP 121 (0079)
 
 class Portal(core.MappedArray):  # LUMP 108 (006C)
     """Identified by rexx#1287"""
-    is_reversed: int  # bool?
+    is_reversed: int  # boolean
     type: PortalType
-    num_edges: int  # number of PortalEdges in this Portal
+    num_refs: int  # number of edges / vertices in this portal
     padding: int  # should be 0
-    first_reference: int  # first ??? in this Portal
-    cell: int  # index into Cells
-    # NOTE: if type == 1; cell index is too high
+    first_ref: int  # index into PortalEdges / PortalVertices
+    cell: int  # index into Cells; len(Cells) + 1 if type == SKYBOX
     plane: int  # index of Plane this Portal lies on
-    _mapping = ["is_reversed", "type", "num_edges", "padding", "first_reference", "cell", "plane"]
+    _mapping = ["is_reversed", "type", "num_refs", "padding", "first_ref", "cell", "plane"]
     _format = "4B2hi"
     _classes = {"type": PortalType}
-
-
-class PortalIndexSet(core.Struct):  # LUMP 114 & 115 (0072 & 0073)
-    """Identified by rexx#1287"""
-    # PortalVertexSet / PortalEdgeSet
-    index: List[int]  # -1 for None; essentially variable length
-    __slots__ = ["index"]
-    _format = "8h"
-    _arrays = {"index": 8}
-
-
-class PortalEdgeIntersectHeader(core.MappedArray):  # LUMP 116 (0074)
-    """Confirmed by rexx#1287"""
-    start: int  # unsure what this indexes
-    count: int
-    _mapping = ["start", "count"]
-    _format = "2I"
 
 
 class Primitive(core.BitField):  # LUMP 89 (0059)
@@ -1124,10 +1124,10 @@ LUMP_CLASSES = {
     "OCCLUSION_MESH_VERTICES":           {0: quake.Vertex},
     "PLANES":                            {1: quake3.Plane},
     "PORTALS":                           {0: Portal},
-    "PORTAL_EDGE_INTERSECT_AT_EDGE":     {0: PortalIndexSet},
-    "PORTAL_EDGE_INTERSECT_AT_VERTEX":   {0: PortalIndexSet},
-    "PORTAL_EDGE_INTERSECT_HEADER":      {0: PortalEdgeIntersectHeader},
-    "PORTAL_VERTEX_EDGES":               {0: PortalIndexSet},  # unsure
+    "PORTAL_EDGE_INTERSECT_EDGE":        {0: IndexSet},
+    "PORTAL_EDGE_INTERSECT_VERTEX":      {0: IndexSet},
+    "PORTAL_EDGE_INTERSECT_HEADER":      {0: IntersectHeader},
+    "PORTAL_VERTEX_EDGES":               {0: IndexSet},  # unsure
     "PORTAL_VERTICES":                   {0: quake.Vertex},
     "SHADOW_MESHES":                     {0: ShadowMesh},
     "SHADOW_MESH_ALPHA_VERTICES":        {0: ShadowMeshAlphaVertex},
