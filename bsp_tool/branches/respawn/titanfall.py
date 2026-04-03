@@ -198,9 +198,10 @@ LumpHeader = source.LumpHeader
 # ObjReferences indices start w/ Model[0] (worldspawn) meshes, then GameLump.sprp.props
 # ObjReferences & ObjReferenceBounds are parallel
 
-#            /-> CellBspNode
-# CellBspNode -> Cell
+# CellBspNode -> CellBspNode / Cell
 #            \-> Plane
+
+# CellBspNodes is a BSP tree, Cells are the leaf nodes
 
 #               /-> Cell
 #              /--> Plane
@@ -210,23 +211,17 @@ LumpHeader = source.LumpHeader
 
 # PortalVertexEdge is parallel with PortalVertex
 
-#                 /-> PortalEdge
 # PortalVertexEdge -> PortalEdgeIntersectHeader
+#                 \-> PortalEdge
 
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
 
-# PortalEdgeIntersectHeader -> PortalEdgeIntersectAtEdge -> PortalEdge
-#                          \-> PortalEdgeIntersectAtVertex -> PortalVertex
+# PortalEdgeIntersectHeader -> PortalEdgeIntersectEdge -> PortalEdge
+#                          \-> PortalEdgeIntersectVertex -> PortalVertex
 
-# Edges are pairs of indices into PortalVertex
-# Either index in a pair can be indexed by PortalEdgeReferences
-# Zipping the VertexRefs loop with the EdgeRefs loop gives the inverse winding
-# You will get edges flowing the opposite way to the vertex loop
-# Some will overshoot the vertices of the loop
-# However, this shape will still outline the loop of the portal
-
-# NOTE: Titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
-# -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
+# PortalEdges are pairs of indices into PortalVertex (start / end points)
+# Many PortalVertices can fall along the same edge
+# PortalVertexEdge & PortalIntersect lumps document these relationships
 
 # CM_* (presumed: Clip Model)
 # GM_GRID holds world bounds & other metadata
