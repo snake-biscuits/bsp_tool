@@ -1280,9 +1280,8 @@ def portals_as_prt(bsp) -> str:
         for portal in bsp.PORTALS[start:start + length]:
             if portal.type == PortalType.SKYBOX:
                 continue  # cell reference is out of bounds
-            start, length = portal.first_reference, portal.num_edges
-            start = portal.first_reference
-            end = start + portal.num_edges
+            start = portal.first_ref
+            end = start + portal.num_refs
             polygon = [
                 bsp.PORTAL_VERTICES[i]
                 for i in bsp.PORTAL_VERTEX_REFERENCES[start:end]]
@@ -1299,8 +1298,8 @@ def portal_mesh(bsp, portal_index: int) -> geometry.Mesh:
     portal = bsp.PORTALS[portal_index]
     material = geometry.Material(f"{portal.type.name}_portal")
     normal = bsp.PLANES[portal.plane].normal
-    start = portal.first_reference
-    end = start + portal.num_edges
+    start = portal.first_ref
+    end = start + portal.num_refs
     vertices = [
         bsp.PORTAL_VERTICES[i]
         for i in bsp.PORTAL_VERTEX_REFERENCES[start:end]]
