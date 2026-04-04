@@ -413,6 +413,22 @@ class WorldLightFlags(enum.IntFlag):
 
 
 # classes for lumps, in alphabetical order:
+class AABBNode(core.Struct):  # LUMP 99 & 119 (0063 & 0077)
+    """Identified by Fifty#8113"""
+    mins: vector.vec3
+    num_children: int
+    num_obj_refs: int
+    total_obj_refs: int  # total ObjRefs across all children
+    maxs: vector.vec3
+    first_child: int  # index into CellAABBNodes / CSMAABBNodes
+    first_obj_ref: int  # index into ObjReferences / CSMObjRefs
+    __slots__ = ["mins", "num_children", "num_obj_refs", "total_obj_refs",
+                 "maxs", "first_child", "first_obj_ref"]
+    _format = "3f2BH3f2H"  # Extreme SIMD
+    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
+    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
+
+
 class Bounds(core.Struct):  # LUMP 68, 88 & 90 (0044, 0058 & 005A)
     """Identified by warmist & rexx#1287"""
     # dcollyawbox_t
@@ -479,44 +495,12 @@ class Cell(core.Struct):  # LUMP 107 (006B)
     _classes = {"flags": CellSkyFlags}
 
 
-class CellAABBNode(core.Struct):  # 119 (0077)
-    """Identified by Fifty#8113"""
-    origin: vector.vec3
-    num_children: int
-    num_obj_refs: int
-    total_obj_refs: int  # total ObjReferences across all children
-    extents: vector.vec3
-    first_child: int  # index into CellAABBNodes
-    first_obj_ref: int  # index into ObjReferences
-    __slots__ = ["origin", "num_children", "num_obj_refs", "total_obj_refs",
-                 "extents", "first_child", "first_obj_ref"]
-    _format = "3f2BH3f2H"  # Extreme SIMD
-    _arrays = {"origin": [*"xyz"], "extents": [*"xyz"]}
-    _classes = {"origin": vector.vec3, "extents": vector.vec3}
-
-
 class CellBSPNode(core.MappedArray):  # LUMP 106 (006A)
     """Identified by rexx#1287"""
     plane: int  # index of Plane that splits this Node
     child: int  # indexes CellBspNodes if plane != -1 else Cells
     _mapping = ["plane", "child"]
     _format = "2i"
-
-
-class CSMAABBNode(core.Struct):  # LUMP 99 (0063)
-    """Identified by Fifty#8113"""
-    mins: vector.vec3
-    num_children: int
-    num_obj_refs: int
-    total_obj_refs: int  # total CSMObjReferences across all children
-    maxs: vector.vec3
-    first_child: int  # index into CSMAABBNodes
-    first_obj_ref: int  # index into CSMObjReferences
-    __slots__ = ["mins", "num_children", "num_obj_refs", "total_obj_refs",
-                 "maxs", "first_child", "first_obj_ref"]
-    _format = "3f2BH3f2H"  # Extreme SIMD
-    _arrays = {"mins": [*"xyz"], "maxs": [*"xyz"]}
-    _classes = {"mins": vector.vec3, "maxs": vector.vec3}
 
 
 class Cubemap(core.Struct):  # LUMP 42 (002A)
@@ -1096,7 +1080,7 @@ BASIC_LUMP_CLASSES = {
 
 LUMP_CLASSES = {
     "CELLS":                             {0: Cell},
-    "CELL_AABB_NODES":                   {0: CellAABBNode},
+    "CELL_AABB_NODES":                   {0: AABBNode},
     "CELL_BSP_NODES":                    {0: CellBSPNode},
     "CM_BRUSHES":                        {0: Brush},
     "CM_BRUSH_SIDE_TEXTURE_VECTORS":     {0: TextureVector},
@@ -1104,7 +1088,7 @@ LUMP_CLASSES = {
     "CM_GEO_SET_BOUNDS":                 {0: Bounds},
     "CM_GRID_CELLS":                     {0: GridCell},
     "CM_PRIMITIVE_BOUNDS":               {0: Bounds},
-    "CSM_AABB_NODES":                    {0: CSMAABBNode},
+    "CSM_AABB_NODES":                    {0: AABBNode},
     "CUBEMAPS":                          {0: Cubemap},
     "LEAF_WATER_DATA":                   {1: source.LeafWaterData},
     "LIGHTMAP_HEADERS":                  {1: LightmapHeader},
