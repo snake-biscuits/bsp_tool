@@ -216,15 +216,37 @@ LumpHeader = source.LumpHeader
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
-# Portal -?> PortalEdge -> PortalVertex
-# PortalEdgeRef -> PortalEdge
-# PortalVertRef -> PortalVertex
-# PortalEdgeIntersect -> PortalEdge?
-#                    \-> PortalVertex
+# VIS LUMPS
+# CellAABBNodes -> ObjReferences -> Meshes / StaticProp
+#              \-> CellAABBNodes
 
-# PortalEdgeIntersectHeader -> ???
-# NOTE: there are always as many intersect headers as edges
-# NOTE: there are also always as many vert refs as edge refs
+# ObjReferences indices start w/ Model[0] (worldspawn) meshes, then GameLump.sprp.props
+# ObjReferences & ObjReferenceBounds are parallel
+
+# CellBspNode -> CellBspNode / Cell
+#            \-> Plane
+
+# CellBspNodes is a BSP tree, Cells are the leaf nodes
+
+#               /-> Cell
+#              /--> Plane
+# Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertex
+#    \         \--> PortalVertexReferences -> PortalVertex
+#     \-> LeafWaterData -> TextureData (water material)
+
+# PortalVertexEdge is parallel with PortalVertex
+
+# PortalVertexEdge -> PortalEdgeIntersectHeader
+#                 \-> PortalEdge
+
+# PortalEdgeIntersectHeader is parallel w/ PortalEdge
+
+# PortalEdgeIntersectHeader -> PortalEdgeIntersectEdge -> PortalEdge
+#                          \-> PortalEdgeIntersectVertex -> PortalVertex
+
+# PortalEdges are pairs of indices into PortalVertex (start / end points)
+# Many PortalVertices can fall along the same edge
+# PortalVertexEdge & PortalIntersect lumps document these relationships
 
 # collision: ???
 #   CONTENTS_MASKS  # Extreme SIMD?

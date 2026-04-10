@@ -189,19 +189,40 @@ LumpHeader = source.LumpHeader
 # LightmapHeader -> LIGHTMAP_DATA_SKY
 #               \-> LIGHTMAP_DATA_REAL_TIME_LIGHTS
 
-# PORTAL LUMPS
-# Portal -?> PortalEdge -> PortalVertex
-# PortalEdgeRef -> PortalEdge
-# PortalVertRef -> PortalVertex
-# PortalEdgeIntersect -> PortalEdge?
-#                    \-> PortalVertex
+# LIGHTPROBE*
+# LightProbeTree -?> LightProbeRef -> LightProbe
+# StaticPropLightProbeIndices & StaticProps are parallel
 
-# PortalEdgeIntersectHeader -> ???
+# VIS LUMPS
+# CellAABBNodes -> ObjReferences -> Meshes / StaticProp
+#              \-> CellAABBNodes
+
+# ObjReferences indices start w/ Model[0] (worldspawn) meshes, then GameLump.sprp.props
+# ObjReferences & ObjReferenceBounds are parallel
+
+# CellBspNode -> CellBspNode / Cell
+#            \-> Plane
+
+# CellBspNodes is a BSP tree, Cells are the leaf nodes
+
+#               /-> Cell
+#              /--> Plane
+# Cell -> Portal -> PortalEdgeReference -> PortalEdge -> PortalVertex
+#              \--> PortalVertexReferences -> PortalVertex
+
+# PortalVertexEdge is parallel with PortalVertex
+
+# PortalVertexEdge -> PortalEdgeIntersectHeader
+#                 \-> PortalEdge
+
 # PortalEdgeIntersectHeader is parallel w/ PortalEdge
-# NOTE: titanfall 2 only seems to care about PortalEdgeIntersectHeader & ignores all other lumps
-# -- though this is a code branch that seems to be triggered by something about r1 maps, maybe a flags lump?
-# NOTE: there are also always as many vert refs as edge refs
-# PortalEdgeRef is parallel w/ PortalVertRef (both 2 bytes per entry, so not 2 verts per edge?)
+
+# PortalEdgeIntersectHeader -> PortalEdgeIntersectEdge -> PortalEdge
+#                          \-> PortalEdgeIntersectVertex -> PortalVertex
+
+# PortalEdges are pairs of indices into PortalVertex (start / end points)
+# Many PortalVertices can fall along the same edge
+# PortalVertexEdge & PortalIntersect lumps document these relationships
 
 # ??? WorldLight <-?-> WorldLightParentInfo -?> Model / Entity?
 
