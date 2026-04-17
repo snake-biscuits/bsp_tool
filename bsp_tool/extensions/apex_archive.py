@@ -57,70 +57,93 @@ if __name__ != "__main__":
 patch_date_fmt = "%-d%b%y"  # e.g. 1Jan23 (note no leading 0)
 # NOTE: all paths are lowercase
 
-# TODO: ensure consistent order
-dirs = {"season0": {"4feb19": (0, 0, "Preseason")},
-        "season1": {"19mar19": (1, 0, "Wild Frontier"),
-                    "16apr19": (1, 1, ""),
-                    "4jun19": (1, 2, "Legendary Hunt")},
-        "season2": {"2jul19": (2, 0, "Battle Charge"),
-                    "13aug19": (2, 1, "Iron Crown"),
-                    "3sep19": (2, 2, "Voidwalker")},
-        "season3": {"1oct19": (3, 0, "Meltdown"),
-                    "5nov19": (3, 1, ""),
-                    "3dec19": (3, 2, "Holo-Day Bash")},
-        "season4": {"4feb20": (4, 0, "Assimilation"),
-                    "3mar20": (4, 1, "System Override"),
-                    "7apr20": (4, 2, "The Old Ways")},
-        "season5": {"12may20": (5, 0, "Fortune's Favour"),
-                    "23jun20": (5, 1, "Lost Treasures")},
-        "season6": {"18aug20": (6, 0, "Boosted"),
-                    "6oct20": (6, 1, "Aftermarket")},
-        "season7": {"3nov20": (7, 0, "Ascension"),
-                    "5jan21": (7, 1, "Fight Night")},
-        "season8": {"2feb21": (8, 0, "Mayhem"),
-                    "9mar21": (8, 1, "Chaos Theory")},
-        "season9": {"4may21": (9, 0, "Legacy"),
-                    "29jun21": (9, 1, "Genesis")},
-        # NOTE: map format changed to (49/50, 1) around season 10
-        "season10": {"3aug21": (10, 0, "Emergence"),
-                     "10aug21": (10, 0, ""),
-                     "14sep21": (10, 1, "Evolution"),
-                     "24sep21": (10, 1, "")},
-        "season11": {"2nov21": (11, 0, "Escape"),
-                     "5nov21": (11, 0, ""),
-                     "17nov21": (11, 0, "")},
-        # TODO:             "7dec21": (11, 1, "Raiders")},
-        "season12": {"8feb22": (12, 0, "Defiance"),
-                     "29mar22": (12, 1, "Warriors")},
-        "season13": {"10may22": (13, 0, "Saviours"),
-                     "21jun22": (13, 1, "Awakening")},
-        "season14": {"9aug22": (14, 0, "Hunted"),
-                     "20sep22": (14, 1, "Beast of Prey"),
-                     "14oct22": (14, 1, "Halloween 2022")},
-        "season15": {"1nov22": (15, 0, "Eclipse"),
-                     "10jan23": (15, 1, "Spellbound")},
-        "season16": {"14feb23": (16, 0, "Revelry"),
-                     "28mar23": (16, 1, "Sun Squad")},
-        "season17": {"9may23": (17, 0, "Arsenal"),
-                     "20jun23": (17, 1, "Dressed to Kill"),
-                     "19jul23": (17, 1, "Thief's Bane")},
-        # NOTE: maps moved to .rpak in season 18
-        # -- confirm midseason numbers in build.txt (e.g. "R5pc_r5-191")
-        "season18": {"8aug23": (18, 0, "Resurrection"),
-                     "19sep23": (18, 1, "Harbingers")},
-        # TODO: fill in the gaps
-        # "season19": {"31oct23": (19, 0, "Ignite"),
-        "season19": {"1feb24": (19, 1, "")},
-        "season20": {"13feb24": (20, 0, "Breakout")},
-        "season21": {"7may24": (21, 0, "Upheaval")},
-        # "season22": {"6aug24": (22, 0, "Shockwave"),
-        "season22": {"30aug24": (22, 0, "")}}
+# TODO: double check date order
+dirs = {
+    "season0": {
+        "4feb19": (0, 0, "Preseason")},
+    "season1": {
+        "19mar19": (1, 0, "Wild Frontier"),
+        "16apr19": (1, 1, ""),
+        "4jun19": (1, 2, "Legendary Hunt")},
+    "season2": {
+        "2jul19": (2, 0, "Battle Charge"),
+        "13aug19": (2, 1, "Iron Crown"),
+        "3sep19": (2, 2, "Voidwalker")},
+    "season3": {
+        "1oct19": (3, 0, "Meltdown"),
+        "5nov19": (3, 1, ""),
+        "3dec19": (3, 2, "Holo-Day Bash")},
+    "season4": {
+        "4feb20": (4, 0, "Assimilation"),
+        "3mar20": (4, 1, "System Override"),
+        "7apr20": (4, 2, "The Old Ways")},
+    "season5": {
+        "12may20": (5, 0, "Fortune's Favour"),
+        "23jun20": (5, 1, "Lost Treasures")},
+    "season6": {
+        "18aug20": (6, 0, "Boosted"),
+        "6oct20": (6, 1, "Aftermarket")},
+    "season7": {
+        "3nov20": (7, 0, "Ascension"),
+        "5jan21": (7, 1, "Fight Night")},
+    "season8": {
+        "2feb21": (8, 0, "Mayhem"),
+        "9mar21": (8, 1, "Chaos Theory")},
+    "season9": {
+        "4may21": (9, 0, "Legacy"),
+        "29jun21": (9, 1, "Genesis")},
+    # NOTE: map format changed to (49/50, 1) around season 10
+    "season10": {
+        "3aug21": (10, 0, "Emergence"),
+        "10aug21": (10, 0, ""),
+        "14sep21": (10, 1, "Evolution"),
+        "24sep21": (10, 1, "")},
+    "season11": {
+        "2nov21": (11, 0, "Escape"),
+        "5nov21": (11, 0, ""),
+        "17nov21": (11, 0, "")},
+    # "7dec21": (11, 1, "Raiders")},
+    "season12": {
+        "8feb22": (12, 0, "Defiance"),
+        "29mar22": (12, 1, "Warriors")},
+    "season13": {
+        "10may22": (13, 0, "Saviours"),
+        "21jun22": (13, 1, "Awakening")},
+    "season14": {
+        "9aug22": (14, 0, "Hunted"),
+        "20sep22": (14, 1, "Beast of Prey"),
+        "14oct22": (14, 1, "Halloween 2022")},
+    "season15": {
+        "1nov22": (15, 0, "Eclipse"),
+        "10jan23": (15, 1, "Spellbound")},
+    "season16": {
+        "14feb23": (16, 0, "Revelry"),
+        "28mar23": (16, 1, "Sun Squad")},
+    "season17": {
+        "9may23": (17, 0, "Arsenal"),
+        "20jun23": (17, 1, "Dressed to Kill"),
+        "19jul23": (17, 1, "Thief's Bane")},
+    # NOTE: maps moved to .rpak in season 18
+    # -- confirm midseason numbers in build.txt (e.g. "R5pc_r5-191")
+    "season18": {
+        "8aug23": (18, 0, "Resurrection"),
+        "19sep23": (18, 1, "Harbingers")},
+    "season19": {
+        # "31oct23": (19, 0, "Ignite"),
+        "1feb24": (19, 1, "")},
+    "season20": {
+        "13feb24": (20, 0, "Breakout")},
+    "season21": {
+        "7may24": (21, 0, "Upheaval")},
+    "season22": {
+        # "6aug24": (22, 0, "Shockwave"),
+        "30aug24": (22, 0, "")}}
 
 # TODO: python-mode
 
 
 #################
-# VIRUTAL SHELL #
+# VIRTUAL SHELL #
 #################
 # communicate working directory changes to the user
 
