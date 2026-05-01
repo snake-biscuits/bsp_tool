@@ -271,12 +271,11 @@ class BrushSideFlag(enum.IntFlag):  # use by BrushSideProperty
     ABUTTING = 0x40  # no gap between this and the neighbouring brush
 
 
-class CellSkyFlags(enum.IntFlag):  # used by Cell
-    # NOTE: only ever 0, 1, 3 or 5
-    UNKNOWN_1 = 0b000
-    UNKNOWN_2 = 0b001
-    UNKNOWN_3 = 0b010
-    UNKNOWN_4 = 0b100
+class CellFlags(enum.Enum):  # used by Cell
+    MAYBE_WET = 0x00  # child CELL / WATER portals
+    MAYBE_SKY = 0x01  # child CELL & SKYBOX portals
+    MAYBE_NAH = 0x03  # no child portals
+    SKY_ONLY = 0x05  # child SKYBOX portals
 
 
 class Contents(enum.IntFlag):
@@ -487,12 +486,11 @@ class Cell(core.Struct):  # LUMP 107 (006B)
     # NOTE: inifinity_ward.call_of_duty1 also introduced a Cell lump
     num_portals: int  # index into Portal lump?
     first_portal: int  # number of Portals in this Cell?
-    # TODO: confirm always 0xFFFF, 0XFFFF
-    flags: int  # skyFlags; visibility related?
+    flags: CellFlags  # based on Cell's Portals' flags?
     leaf_water_data: int  # index into LeafWaterData; -1 for None
     __slots__ = ["num_portals", "first_portal", "flags", "leaf_water_data"]
     _format = "4h"
-    _classes = {"flags": CellSkyFlags}
+    _classes = {"flags": CellFlags}
 
 
 class CellBSPNode(core.MappedArray):  # LUMP 106 (006A)
