@@ -223,7 +223,8 @@ else:
 
 archivists = {
     ("bikkie", "ITANI_WAYSOUND"): "E:/Mod/ApexLegends",
-    ("bikkie", "coplandbentokom-9876"): "/media/bikkie/3964-39352/Mod/ApexLegends"}
+    ("bikkie", "coplandbentokom-9876"): "/media/bikkie/3964-39352/Mod/ApexLegends",
+    ("bikkie", "megalodon"): "/data/ssd1/Mod/ApexLegends"}
 if (user, host) not in archivists:
     print_c(f"! WARNING ! \x1b[34m{user}@{host}\x1b[33m is not registered as an archivist", "ylw")
     print_c("-XXX- ACTIVATING SECURITY MEASURES -XXX-", "red")
@@ -263,6 +264,8 @@ def patches_after(season: str, patch: str) -> List[str]:
 
 def maps(season: str, patch: str = None) -> List[str]:
     """list available maps"""
+    # TODO: season aliases -> seasonX (number or case-insensitive name)
+    # TODO: patch indices (not just dates)
     if patch is not None:
         patch_dir = os.path.join(seasons_folder, season, patch)
         patch_files = os.listdir(os.path.join(patch_dir, "maps"))

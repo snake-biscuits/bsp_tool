@@ -271,6 +271,8 @@ LumpHeader = source.LumpHeader
 # WaterBody -> WaterBodyIndex -> WaterBodyVertex -> WaveData
 #          \-> WaveBodyCenter
 
+# WaterBodies were introduced in Season 11 with the map Storm Point
+
 # UNKNOWN_39 is paralell w/ CellAABBNodes; defaults to -1s
 
 
