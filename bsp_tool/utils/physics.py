@@ -222,6 +222,18 @@ class Plane:
         A = self.normal * self.distance
         return A, A + local_y, A + local_x
 
+    def as_quad(self, radius: float = 64) -> List[vector.vec3]:
+        # TODO: verify orientation
+        axis = "y" if math.isclose(abs(self.normal.z), 1) else "z"
+        non_parallel = vector.vec3(**{axis: -1})
+        local_y = (non_parallel * self.normal).normalised() * radius
+        local_x = (local_y * self.normal).normalised() * radius
+        A = self.normal * self.distance
+        B = A + local_y
+        C = A + local_x + local_y
+        D = A + local_x
+        return A, B, C, D
+
 
 class Brush:
     """AABB + Planes"""
