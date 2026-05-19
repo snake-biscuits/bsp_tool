@@ -489,7 +489,7 @@ class Cell(core.Struct):  # LUMP 107 (006B)
     flags: CellFlags  # based on Cell's Portals' flags?
     leaf_water_data: int  # index into LeafWaterData; -1 for None
     __slots__ = ["num_portals", "first_portal", "flags", "leaf_water_data"]
-    _format = "4h"
+    _format = "3Hh"
     _classes = {"flags": CellFlags}
 
 
@@ -498,7 +498,7 @@ class CellBSPNode(core.MappedArray):  # LUMP 106 (006A)
     plane: int  # index of Plane that splits this Node
     child: int  # indexes CellBspNodes if plane != -1 else Cells
     _mapping = ["plane", "child"]
-    _format = "2i"
+    _format = "Ii"
 
 
 class Cubemap(core.Struct):  # LUMP 42 (002A)
@@ -722,7 +722,7 @@ class Portal(core.MappedArray):  # LUMP 108 (006C)
     cell: int  # index into Cells; len(Cells) + 1 if type == SKYBOX
     plane: int  # index of Plane this Portal lies on
     _mapping = ["is_reversed", "type", "num_refs", "padding", "first_ref", "cell", "plane"]
-    _format = "4B2hi"
+    _format = "4B2HI"
     _classes = {"type": PortalType}
 
 
