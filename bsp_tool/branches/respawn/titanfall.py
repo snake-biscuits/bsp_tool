@@ -498,7 +498,7 @@ class CellBSPNode(core.MappedArray):  # LUMP 106 (006A)
     plane: int  # index of Plane that splits this Node
     child: int  # indexes CellBspNodes if plane != -1 else Cells
     _mapping = ["plane", "child"]
-    _format = "Ii"
+    _format = "iI"
 
 
 class Cubemap(core.Struct):  # LUMP 42 (002A)
