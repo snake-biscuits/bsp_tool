@@ -516,7 +516,7 @@ class SurfaceProperty(core.MappedArray):  # LUMP 17 (0011)
     unknown_2: int
     contents_mask: int  # index into ContentsMasks
     surface_name: int  # index into SurfaceNames
-    _mapping = ["unknown_1", "unknown_2", "content_mask", "surface_name"]
+    _mapping = ["unknown_1", "unknown_2", "contents_mask", "surface_name"]
     _format = "h2bi"
 
 
@@ -653,6 +653,7 @@ for LUMP_NAME in pops:
 del LUMP_NAME, pops
 
 BASIC_LUMP_CLASSES.update({
+    "BVH_LEAF_DATA":        {0: shared.UnsignedInts},  # various bitfields
     "CONTENTS_MASKS":       {0: shared.UnsignedInts},
     "CSM_OBJ_REFERENCES":   {0: shared.UnsignedInts},
     "CUBEMAPS_AMBIENT_RCP": {0: shared.Floats},
