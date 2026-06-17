@@ -35,7 +35,7 @@ format relationships
  and then there's .wad
  Garry's Mod / S&Box shall consume all
 
- quake3 used .ent for entities (as does the Titanfall Engine), does CoD?
+ quake3 used .ent for entities (as does the ReSource Engine), does CoD?
 
  IdTech
 

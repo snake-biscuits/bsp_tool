@@ -132,7 +132,7 @@
  * Source Engine
    - Fairy Tale Busters (メルヘソバスターズ)
    - Zeno Clash
- * Titanfall Engine
+ * ReSource Engine
    - Apex Legends Season 13-18
    - Apex Legends Season 18+
  * Ubertools
@@ -143,7 +143,7 @@
  * Source Engine
    - Static prop parsing is deferred w/ `BspLump.from_count`
    - Breaking out into more branches to handle static prop variants
- * Titanfall Engine
+ * ReSource Engine
    - Split Apex Legends into multiple branch scripts
 
 
@@ -209,7 +209,7 @@
  * Quake Engine
    - Hexen II
  * Source Engine
- * Titanfall Engine
+ * ReSource Engine
 
 
 ## v0.3.1 (4th October 2021)
@@ -220,14 +220,14 @@
 ### Changed
  * Fixed `.as_bytes()` method for `shared.PhysicsCollide`
    - byte perfect recreation of input
- * Re-implemented `PhysicsCollide` for Source & Titanfall Engines
+ * Re-implemented `PhysicsCollide` for Source & ReSource Engines
 
 ### Newly Supported
   * Half-Life: Blue Shift
 
 ### Updated Support
  * Source Engine
- * Titanfall Engine
+ * ReSource Engine
 
 
 ## v0.3.0 (29th September 2021)
@@ -285,7 +285,7 @@
 ### Updated Support
  * Source Engine
    - Orange Box
- * Titanfall Engine
+ * ReSource Engine
    - Titanfall
    - Titanfall 2
    - Apex Legends

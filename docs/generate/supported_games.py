@@ -436,7 +436,7 @@ def lump_table(group: ScriptGroup, coverage: CoverageMap, versioned_lumps=False,
     elif not titanfall_engine:  # Source
         lines = ["| Lump index | Bsp version | Lump name | Lump version | LumpClass | Coverage |\n",
                  "| ---------: | ----------: | --------- | -----------: | --------- | :------- |\n"]
-    else:  # Titanfall Engine
+    else:  # ReSource Engine
         lines = ["| Lump index | Hex index | Bsp version | Lump name | Lump version | LumpClass | Coverage |\n",
                  "| ---------: | --------: | ----------: | --------- | -----------: | --------- | :------- |\n"]
         row_head = lambda r: f"| {r.i} | {i:04X} | {r.bsp_version} | `{r.lump_name}` |"  # noqa E731

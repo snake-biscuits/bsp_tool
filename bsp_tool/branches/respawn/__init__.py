@@ -3,7 +3,7 @@ Their version of the Source Engine was forked around 2011 from Portal 2.
 While some remnants of the 2013 Source SDK remain, much is brand new
 (though similarities to CoD 2 & CoD 4's formats exist in Titanfall).
 
-The Titanfall Engine has b"rBSP" file-magic and 128 lumps
+The ReSource Engine has b"rBSP" file-magic and 128 lumps
 ~72 of the 128 lumps appear in .bsp_lump files
 the naming convention for .bsp_lump files is: "<bsp.filename>.<LUMP_HEX_ID>.bsp_lump"
 where <LUMP_HEX_ID> is a lowercase four digit hexadecimal string

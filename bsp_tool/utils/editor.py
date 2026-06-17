@@ -40,7 +40,7 @@ class Brush:
         # keep the inside (back), discard the outside (front)
 
     # TODO: catch bevel planes
-    # -- found in Titanfall Engine trigger brushes
+    # -- found in ReSource trigger brushes
     # -- don't contribute to geometry, but helpful for physics calculations
 
     def as_physics(self) -> physics.Brush:

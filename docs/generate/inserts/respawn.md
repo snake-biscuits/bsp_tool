@@ -6,8 +6,12 @@
 
 
 ### Extracting `.bsp`s
-Titanfall Engine `.bsp`, `.bsp_lump` & `.ent` are stored in `.vpk` files.
-Extracting these files to work on them requires Titanfall Engine specific tools:
+ReSource `.bsp`, `.bsp_lump` & `.ent` are stored in `.vpk` files.
+Extracting these files to work on them requires ReSource specific tools:
+
+> recent apex seasons have moved to `.rpak`
+
+> TODO: instructions for `.rpak` extraction (possibly for `apex_legends52` only)
 
 Once you have chosen your [extraction tool](Extraction-tools):
  * Locate the `.vpk`s for the game you want to work with (game must be installed)

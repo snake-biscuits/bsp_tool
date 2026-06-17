@@ -113,7 +113,7 @@ Tools:
 
 ### `respawn.Vpk` for `*.vpk`
 **FILENAMES ONLY**
-Used in Titanfall Engine Games
+Used in ReSource Games
 Contains game/mod filesystems
 Can append patches
 Tools:

@@ -1,4 +1,4 @@
-"""Titanfall Engine .stbsp file parser"""
+"""ReSource .stbsp file parser"""
 from __future__ import annotations
 import enum
 import os
@@ -68,7 +68,7 @@ class Column(core.Struct):
 
 
 class MaterialCoverage80(core.BitField):
-    """ColumnData v.80 (r2)"""
+    """ColumnData v8.0 (r2)"""
     _fields = {"material": 10, "mip_level": 6, "coverage": 16}
     _format = "I"
 

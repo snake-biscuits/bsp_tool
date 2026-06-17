@@ -173,7 +173,7 @@ of_engine = {
         id_software.remake_quake_old},
     "Source": {
         *source_based},
-    "Titanfall": {
+    "ReSource": {
         *respawn.scripts},
     "Quake": {
         id_software.quake,
@@ -185,10 +185,10 @@ of_engine = {
         id_software.qbism}}
 
 of_engine["Id Tech 3"] -= {ritual.sin}  # Quake 2 / Id Tech 2
-of_engine["Source"] -= {*respawn.scripts}  # Titanfall
+of_engine["Source"] -= {*respawn.scripts}  # ReSource
 
 # Genesis3D
 #      /-> ReMakeQuake
 # Quake -> GoldSrc
 #      \-> Quake 2 -> Id Tech 3 -> IW
-#                 \-> Source -> Titanfall
+#                 \-> Source -> ReSource
