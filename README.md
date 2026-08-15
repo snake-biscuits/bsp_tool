@@ -16,7 +16,7 @@ You can also clone with `pip`:
 $ pip install git+https://github.com/snake-biscuits/bsp_tool.git
 ```
 
-Or, use the latest stable release (May 2025 | 0.6.0 | Python 3.8-13):
+Or, use the latest **stable** release (August 2026 | 0.7.0 | Python 3.8-13):
 ```
 $ pip install bsp_tool
 ```
