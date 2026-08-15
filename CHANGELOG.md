@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.7.0 (???)
+## v0.7.0 (8 August 2026)
 
 ### New
  * `archives`
@@ -15,6 +15,10 @@
  * `utils.binary.xxd`
    - lines shorter than `row` are now padded
    - `xxd_stream` no longer reads past `limit`
+
+### Updated Support
+ * ReSource Engine
+   - Portal lumps
 
 
 ## v0.6.0 (15 May 2025)
