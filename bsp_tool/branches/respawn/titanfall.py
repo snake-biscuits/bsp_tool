@@ -1374,10 +1374,30 @@ def grid_cell_primitives(bsp, grid_cell_index: int) -> List[Tuple[Primitive, Bou
     return out
 
 
+def lightprobes_as_models(bsp) -> Dict[str, geometry.Model]:
+    out = dict()
+    # geometry
+    extents = vector.vec3(64, 64, 64)
+    for ref_index, ref in enumerate(bsp.LIGHTPROBE_REFERENCES):
+        lightprobe = bsp.LIGHTPROBES[ref.lightprobe]
+        cube = physics.AABB.from_origin_extents(ref.origin, extents)
+        model = cube.as_model()
+        # NOTE: default cube is -X -Y -Z +X +Y +Z
+        # -- D3D Cubemap is +X -X +Y -Y +Z -Z
+        for i, face in enumerate(lightprobe.cube):
+            colour = tuple(c / 255 for c in face)
+            model.meshes[0].polygons[i] = geometry.Polygon([
+                geometry.Vertex(v.position, v.normal, v.uv, colour=colour)
+                for v in model.meshes[0].polygons[i].vertices])
+        out[f"Lightprobe{ref.lightprobe:06d}-Ref{ref_index:06d}"] = model
+    return out
+
+
 methods = [shared.worldspawn_volume, search_all_entities,  # entities
            lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
            shadow_mesh, occlusion_mesh,  # other geo
            brush,  # brushes
+           lightprobes_as_models,  # lightprobes
            geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
            portals_as_prt, portal_mesh]  # vis
 methods = {method.__name__: method for method in methods}
