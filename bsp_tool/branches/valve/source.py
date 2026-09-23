@@ -865,6 +865,29 @@ class GameLump_SPRPv4:  # sprp GameLump (LUMP 35)
     def get_prop_model_name(self, prop_index: int) -> str:
         return self.model_names[self.props[prop_index].model_name]
 
+    SearchResult = Tuple[int, vector.vec3, str]  # index, origin, model_name
+
+    def search(self, keyword: str, point: vector.vec3, radius: float = 512) -> SearchResult:
+        if not isinstance(point, vector.vec3):
+            assert len(point) == 3
+            assert all(isinstance(a, (float, int)) for a in point)
+            point = vector.vec3(*point)
+        model_names = {
+            index: model_name
+            for index, model_name in enumerate(self.model_names)
+            if keyword.lower() in model_name.lower()}
+        name_matches = [
+            (index, prop.origin, model_names[prop.model_name])
+            for index, prop in enumerate(self.props)
+            if prop.model_name in model_names]
+        area_matches = [
+            (index, origin, model_name)
+            for index, origin, model_name in name_matches
+            if -radius < (origin.x - point.x) < radius
+            and -radius < (origin.y - point.y) < radius
+            and -radius < (origin.z - point.z) < radius]
+        return area_matches
+
 
 class StaticPropv5(core.Struct):  # sprp GAME LUMP (LUMP 35) [version 5]
     """https://github.com/ValveSoftware/source-sdk-2013/blob/master/sp/src/public/gamebspfile.h#L168"""
@@ -1196,5 +1219,9 @@ def textures_of_brush(bsp, brush_index: int) -> List[str]:
     return sorted(out)
 
 
-methods = [quake.leaves_of_node, textures_of_brush, face_mesh, displacement_mesh, model, shared.worldspawn_volume]
+methods = [
+    quake.leaves_of_node,
+    textures_of_brush, face_mesh, displacement_mesh, model,
+    shared.worldspawn_volume]
+
 methods = {method.__name__: method for method in methods}

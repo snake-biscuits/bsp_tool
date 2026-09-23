@@ -1393,11 +1393,13 @@ def lightprobes_as_models(bsp) -> Dict[str, geometry.Model]:
     return out
 
 
-methods = [shared.worldspawn_volume, search_all_entities,  # entities
-           lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
-           shadow_mesh, occlusion_mesh,  # other geo
-           brush,  # brushes
-           lightprobes_as_models,  # lightprobes
-           geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
-           portals_as_prt, portal_mesh]  # vis
+methods = [
+    shared.worldspawn_volume, search_all_entities,  # entities
+    lit_vertex, mesh, model, tricoll_model, unlit_vertex,  # geo
+    shadow_mesh, occlusion_mesh,  # other geo
+    brush,  # brushes
+    lightprobes_as_models,  # lightprobes
+    geo_set_primitives, grid_cell_bounds, grid_cell_primitives,  # physics
+    portals_as_prt, portal_mesh]  # vis
+
 methods = {method.__name__: method for method in methods}
